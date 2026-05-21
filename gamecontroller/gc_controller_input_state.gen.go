@@ -5,6 +5,7 @@ package gamecontroller
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -71,10 +72,6 @@ func GCControllerInputStateFromID(id objc.ID) GCControllerInputState {
 // See: https://developer.apple.com/documentation/GameController/GCControllerInputState
 type IGCControllerInputState interface {
 	objectivec.IObject
-
-	// The input profile for the controller.
-	Input() IGCControllerLiveInput
-	SetInput(value IGCControllerLiveInput)
 }
 
 // Init initializes the instance.
@@ -107,17 +104,17 @@ func (g GCControllerInputState) Device() GCDevice {
 // The time in seconds between the last event and the current time.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventLatency
-func (g GCControllerInputState) LastEventLatency() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("lastEventLatency"))
-	return rv
+func (g GCControllerInputState) LastEventLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](g.ID, objc.Sel("lastEventLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time of the most recent event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventTimestamp
-func (g GCControllerInputState) LastEventTimestamp() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("lastEventTimestamp"))
-	return rv
+func (g GCControllerInputState) LastEventTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](g.ID, objc.Sel("lastEventTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // Returns the element that the key specifies.
@@ -132,17 +129,6 @@ func (g GCControllerInputState) LastEventTimestamp() float64 {
 func (g GCControllerInputState) ObjectForKeyedSubscript(key string) GCPhysicalInputElement {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("objectForKeyedSubscript:"), objc.String(key))
 	return GCPhysicalInputElementObjectFromID(rv)
-}
-
-// The input profile for the controller.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/input
-func (g GCControllerInputState) Input() IGCControllerLiveInput {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("input"))
-	return GCControllerLiveInputFromID(objc.ID(rv))
-}
-func (g GCControllerInputState) SetInput(value IGCControllerLiveInput) {
-	objc.Send[struct{}](g.ID, objc.Sel("setInput:"), value)
 }
 
 // Protocol methods for GCDevicePhysicalInputState

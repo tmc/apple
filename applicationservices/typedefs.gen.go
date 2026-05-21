@@ -6,6 +6,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coreservices"
 	"github.com/tmc/apple/kernel"
 )
 
@@ -55,7 +56,7 @@ type ATSFontContext = uint32
 type ATSFontFamilyApplierFunction = func(ATSFontFamilyRef, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontfamilyiterator
-type ATSFontFamilyIterator = unsafe.Pointer
+type ATSFontFamilyIterator = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontfamilyref
 type ATSFontFamilyRef = uint32
@@ -64,16 +65,16 @@ type ATSFontFamilyRef = uint32
 type ATSFontFormat = uint32
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontiterator
-type ATSFontIterator = unsafe.Pointer
+type ATSFontIterator = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontnotificationinforef
-type ATSFontNotificationInfoRef uintptr
+type ATSFontNotificationInfoRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontnotificationref
-type ATSFontNotificationRef uintptr
+type ATSFontNotificationRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontquerycallback
-type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) unsafe.Pointer
+type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreText/ATSFontRef
 type ATSFontRef = uint32
@@ -91,7 +92,7 @@ type ATSGlyphInfoFlags = uint32
 type ATSGlyphRef = uint16
 
 // See: https://developer.apple.com/documentation/applicationservices/atsjustprioritywidthdeltaoverrides
-type ATSJustPriorityWidthDeltaOverrides = unsafe.Pointer
+type ATSJustPriorityWidthDeltaOverrides = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atslinelayoutoptions
 type ATSLineLayoutOptions = uint32
@@ -100,7 +101,7 @@ type ATSLineLayoutOptions = uint32
 type ATSNotificationCallback = func(ATSFontNotificationInfoRef, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/atsoptionflags
-type ATSOptionFlags = uint
+type ATSOptionFlags = uint32
 
 // See: https://developer.apple.com/documentation/applicationservices/atspoint
 type ATSPoint = unsafe.Pointer
@@ -160,7 +161,7 @@ type ATSUFlattenedDataStreamFormat = uint32
 type ATSUFontFallbackMethod = uint16
 
 // See: https://developer.apple.com/documentation/applicationservices/atsufontfallbacks
-type ATSUFontFallbacks = unsafe.Pointer
+type ATSUFontFallbacks = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsufontfeatureselector
 type ATSUFontFeatureSelector = uint16
@@ -199,7 +200,7 @@ type ATSUStyleComparison = uint16
 type ATSUStyleLineCountType = uint16
 
 // See: https://developer.apple.com/documentation/applicationservices/atsustylesettingref
-type ATSUStyleSettingRef uintptr
+type ATSUStyleSettingRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsutabtype
 type ATSUTabType = uint16
@@ -223,13 +224,13 @@ type AXObserverCallback = func(AXObserverRef, AXUIElementRef, corefoundation.CFS
 type AXObserverCallbackWithInfo = func(AXObserverRef, AXUIElementRef, corefoundation.CFString, corefoundation.CFDictionaryRef, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/axobserverref
-type AXObserverRef uintptr
+type AXObserverRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/axtextmarkerrangeref
-type AXTextMarkerRangeRef uintptr
+type AXTextMarkerRangeRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/axtextmarkerref
-type AXTextMarkerRef uintptr
+type AXTextMarkerRef = kernel.Pointer
 
 // AXUIElementRef is a structure used to refer to an accessibility object.
 //
@@ -237,7 +238,7 @@ type AXTextMarkerRef uintptr
 type AXUIElementRef uintptr
 
 // See: https://developer.apple.com/documentation/applicationservices/axvalueref
-type AXValueRef uintptr
+type AXValueRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/appparametersptr
 type AppParametersPtr = unsafe.Pointer
@@ -282,13 +283,13 @@ type CQDProcsPtr = *CQDProcs
 type CSpecArray = ColorSpec
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementprocptr
-type ColorComplementProcPtr = func(unsafe.Pointer) unsafe.Pointer
+type ColorComplementProcPtr = func(unsafe.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementupp
 type ColorComplementUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchprocptr
-type ColorSearchProcPtr = func(unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
+type ColorSearchProcPtr = func(unsafe.Pointer, unsafe.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchupp
 type ColorSearchUPP = unsafe.Pointer
@@ -297,7 +298,7 @@ type ColorSearchUPP = unsafe.Pointer
 type ColorSpecPtr = *ColorSpec
 
 // See: https://developer.apple.com/documentation/applicationservices/constatsuattributevalueptr
-type ConstATSUAttributeValuePtr = unsafe.Pointer
+type ConstATSUAttributeValuePtr = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/dragconstraint
 type DragConstraint = uint16
@@ -348,7 +349,7 @@ type HIMutableShapeRef uintptr
 type HIShapeEnumerateProcPtr = func(int32, HIShapeRef, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/hishaperef
-type HIShapeRef uintptr
+type HIShapeRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/icappspechandle
 type ICAppSpecHandle = *ICAppSpecPtr
@@ -420,7 +421,7 @@ type IconActionUPP = unsafe.Pointer
 type IconAlignmentType = int16
 
 // See: https://developer.apple.com/documentation/applicationservices/icongetterprocptr
-type IconGetterProcPtr = func(uint32, unsafe.Pointer) kernel.Ptr
+type IconGetterProcPtr = func(uint32, unsafe.Pointer) kernel.Handle
 
 // See: https://developer.apple.com/documentation/applicationservices/icongetterupp
 type IconGetterUPP = unsafe.Pointer
@@ -456,7 +457,7 @@ type PMLayoutDirection = uint16
 // PMObject is the base type for all the opaque types used in Core Printing.
 //
 // See: https://developer.apple.com/documentation/applicationservices/pmobject
-type PMObject = unsafe.Pointer
+type PMObject = kernel.Pointer
 
 // PMOrientation is constants that specify page orientation.
 //
@@ -489,15 +490,15 @@ type PMPaperType = uint32
 // PMPreset is an opaque type that stores information about a named preset available for a print job.
 //
 // See: https://developer.apple.com/documentation/applicationservices/pmpreset
-type PMPreset = unsafe.Pointer
+type PMPreset = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/pmprintdialogoptionflags
-type PMPrintDialogOptionFlags = uint
+type PMPrintDialogOptionFlags = uint32
 
 // PMPrintSession is an opaque type that stores information about a print job.
 //
 // See: https://developer.apple.com/documentation/applicationservices/pmprintsession
-type PMPrintSession = unsafe.Pointer
+type PMPrintSession = kernel.Pointer
 
 // PMPrintSettings is an opaque type that stores the settings in the Print dialog.
 //
@@ -525,10 +526,10 @@ type PMScalingAlignment = uint16
 // PMServer is an opaque type that identifies a local or remote print server.
 //
 // See: https://developer.apple.com/documentation/applicationservices/pmserver
-type PMServer = unsafe.Pointer
+type PMServer = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/pasteboarditemid
-type PasteboardItemID = string
+type PasteboardItemID = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/pasteboardpromisekeeperprocptr
 type PasteboardPromiseKeeperProcPtr = func(PasteboardRef, PasteboardItemID, corefoundation.CFString, unsafe.Pointer) int32
@@ -576,13 +577,13 @@ type QDArcProcPtr = func(GrafVerb, unsafe.Pointer, int16, int16)
 type QDArcUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsprocptr
-type QDBitsProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int16, unsafe.Pointer)
+type QDBitsProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int16, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsupp
 type QDBitsUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdcommentprocptr
-type QDCommentProcPtr = func(int16, int16, kernel.Ptr)
+type QDCommentProcPtr = func(int16, int16, kernel.Handle)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdcommentupp
 type QDCommentUPP = unsafe.Pointer
@@ -600,7 +601,7 @@ type QDGetPicUPP = unsafe.Pointer
 type QDJShieldCursorProcPtr = func(int16, int16, int16, int16)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdlineprocptr
-type QDLineProcPtr = func(Point)
+type QDLineProcPtr = func(corefoundation.CGPoint)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdlineupp
 type QDLineUPP = unsafe.Pointer
@@ -624,7 +625,7 @@ type QDPolyProcPtr = func(GrafVerb, PolyHandle)
 type QDPolyUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusprocptr
-type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, unsafe.Pointer, unsafe.Pointer) int32
+type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, kernel.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusupp
 type QDPrinterStatusUPP = unsafe.Pointer
@@ -651,7 +652,7 @@ type QDRectUPP = unsafe.Pointer
 type QDRegionParseDirection = int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnprocptr
-type QDRgnProcPtr = func(GrafVerb, unsafe.Pointer)
+type QDRgnProcPtr = func(GrafVerb, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnupp
 type QDRgnUPP = unsafe.Pointer
@@ -663,7 +664,7 @@ type QDStdGlyphsProcPtr = func(unsafe.Pointer, int) int32
 type QDStdGlyphsUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdtextprocptr
-type QDTextProcPtr = func(int16, unsafe.Pointer, Point, Point)
+type QDTextProcPtr = func(int16, unsafe.Pointer, corefoundation.CGPoint, corefoundation.CGPoint)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdtextupp
 type QDTextUPP = unsafe.Pointer
@@ -675,13 +676,13 @@ type QDTxMeasProcPtr = func(int16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointe
 type QDTxMeasUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundprocptr
-type RedrawBackgroundProcPtr = func(unsafe.Pointer, uint32, int, unsafe.Pointer, int) unsafe.Pointer
+type RedrawBackgroundProcPtr = func(kernel.Pointer, coreservices.UniCharArrayOffset, int, unsafe.Pointer, int) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundupp
 type RedrawBackgroundUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsprocptr
-type RegionToRectsProcPtr = func(uint16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
+type RegionToRectsProcPtr = func(uint16, kernel.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsupp
 type RegionToRectsUPP = unsafe.Pointer
@@ -708,7 +709,7 @@ type SpeechErrorCFProcPtr = func(*SpeechChannelRecord, uintptr, corefoundation.C
 type SpeechWordCFProcPtr = func(*SpeechChannelRecord, uintptr, corefoundation.CFString, corefoundation.CFRange)
 
 // See: https://developer.apple.com/documentation/applicationservices/translationflags
-type TranslationFlags = uint
+type TranslationFlags = uint32
 
 // See: https://developer.apple.com/documentation/applicationservices/translationref
 type TranslationRef uintptr

@@ -199,9 +199,9 @@ func (o NSFilePresenterObject) PresentedItemDidMoveToURL(newURL INSURL) {
 // contents of a file. To do that, you must store the date when your object
 // last made changes to the file and compare that date with the item’s
 // current modification date. Use the
-// [CoordinateReadingItemAtURLOptionsErrorByAccessor] method of a file
-// coordinator to ensure exclusive access to the file when reading the current
-// modification date.
+// [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor] method
+// of a file coordinator to ensure exclusive access to the file when reading
+// the current modification date.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidChange()
 func (o NSFilePresenterObject) PresentedItemDidChange() {
@@ -537,8 +537,9 @@ func (o NSFilePresenterObject) PrimaryPresentedItemURL() INSURL {
 // all the ubiquity attributes.
 //
 // The system checks this property only when the file coordinator’s
-// [AddFilePresenter] method is called. Make all changes to this property
-// before calling [AddFilePresenter].
+// [NSFileCoordinatorClass.AddFilePresenter] method is called. Make all
+// changes to this property before calling
+// [NSFileCoordinatorClass.AddFilePresenter].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/observedPresentedItemUbiquityAttributes
 //

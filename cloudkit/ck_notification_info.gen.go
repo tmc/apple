@@ -57,9 +57,9 @@ func (cc CKNotificationInfoClass) Alloc() CKNotificationInfo {
 //
 // When your app receives a push notification that a subscription generates,
 // instantiate an instance of [CKNotification] using the
-// [NotificationFromRemoteNotificationDictionary] method and pass the
-// notification’s payload. The object that the method returns contains the
-// data you specify when configuring the subscription.
+// [CKRecordZoneNotificationClass.NotificationFromRemoteNotificationDictionary]
+// method and pass the notification’s payload. The object that the method
+// returns contains the data you specify when configuring the subscription.
 //
 // For more information about push notification alerts and how they display to
 // the user, see [Apple Push Notification Service] in [Local and Remote
@@ -83,8 +83,6 @@ func (cc CKNotificationInfoClass) Alloc() CKNotificationInfo {
 //   - [CKNotificationInfo.SetAlertBody]
 //   - [CKNotificationInfo.AlertLocalizationKey]: The key that identifies the localized string for the notification’s alert.
 //   - [CKNotificationInfo.SetAlertLocalizationKey]
-//   - [CKNotificationInfo.AlertLocalizationArgs]: The fields for building a notification’s alert.
-//   - [CKNotificationInfo.SetAlertLocalizationArgs]
 //   - [CKNotificationInfo.AlertActionLocalizationKey]: The key that identifies the localized string for the notification’s action.
 //   - [CKNotificationInfo.SetAlertActionLocalizationKey]
 //   - [CKNotificationInfo.AlertLaunchImage]: The filename of an image to use as a launch image.
@@ -99,19 +97,12 @@ func (cc CKNotificationInfoClass) Alloc() CKNotificationInfo {
 //   - [CKNotificationInfo.ShouldSendMutableContent]: A Boolean value that indicates whether the push notification sets the mutable content flag.
 //   - [CKNotificationInfo.SetShouldSendMutableContent]
 //
-// # Accessing the Record’s Data
-//
-//   - [CKNotificationInfo.DesiredKeys]: The names of fields to include in the push notification’s payload.
-//   - [CKNotificationInfo.SetDesiredKeys]
-//
 // # Accessing the Notification Title
 //
 //   - [CKNotificationInfo.Title]: The notification’s title.
 //   - [CKNotificationInfo.SetTitle]
 //   - [CKNotificationInfo.TitleLocalizationKey]: The key that identifies the localized string for the notification’s title.
 //   - [CKNotificationInfo.SetTitleLocalizationKey]
-//   - [CKNotificationInfo.TitleLocalizationArgs]: The fields for building a notification’s title.
-//   - [CKNotificationInfo.SetTitleLocalizationArgs]
 //
 // # Accessing the Notification Subtitle
 //
@@ -119,8 +110,6 @@ func (cc CKNotificationInfoClass) Alloc() CKNotificationInfo {
 //   - [CKNotificationInfo.SetSubtitle]
 //   - [CKNotificationInfo.SubtitleLocalizationKey]: The key that identifies the localized string for the notification’s subtitle.
 //   - [CKNotificationInfo.SetSubtitleLocalizationKey]
-//   - [CKNotificationInfo.SubtitleLocalizationArgs]: The fields for building a notification’s subtitle.
-//   - [CKNotificationInfo.SetSubtitleLocalizationArgs]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSubscription/NotificationInfo-swift.class
 //
@@ -161,8 +150,6 @@ func CKNotificationInfoFromID(id objc.ID) CKNotificationInfo {
 //   - [ICKNotificationInfo.SetAlertBody]
 //   - [ICKNotificationInfo.AlertLocalizationKey]: The key that identifies the localized string for the notification’s alert.
 //   - [ICKNotificationInfo.SetAlertLocalizationKey]
-//   - [ICKNotificationInfo.AlertLocalizationArgs]: The fields for building a notification’s alert.
-//   - [ICKNotificationInfo.SetAlertLocalizationArgs]
 //   - [ICKNotificationInfo.AlertActionLocalizationKey]: The key that identifies the localized string for the notification’s action.
 //   - [ICKNotificationInfo.SetAlertActionLocalizationKey]
 //   - [ICKNotificationInfo.AlertLaunchImage]: The filename of an image to use as a launch image.
@@ -177,19 +164,12 @@ func CKNotificationInfoFromID(id objc.ID) CKNotificationInfo {
 //   - [ICKNotificationInfo.ShouldSendMutableContent]: A Boolean value that indicates whether the push notification sets the mutable content flag.
 //   - [ICKNotificationInfo.SetShouldSendMutableContent]
 //
-// # Accessing the Record’s Data
-//
-//   - [ICKNotificationInfo.DesiredKeys]: The names of fields to include in the push notification’s payload.
-//   - [ICKNotificationInfo.SetDesiredKeys]
-//
 // # Accessing the Notification Title
 //
 //   - [ICKNotificationInfo.Title]: The notification’s title.
 //   - [ICKNotificationInfo.SetTitle]
 //   - [ICKNotificationInfo.TitleLocalizationKey]: The key that identifies the localized string for the notification’s title.
 //   - [ICKNotificationInfo.SetTitleLocalizationKey]
-//   - [ICKNotificationInfo.TitleLocalizationArgs]: The fields for building a notification’s title.
-//   - [ICKNotificationInfo.SetTitleLocalizationArgs]
 //
 // # Accessing the Notification Subtitle
 //
@@ -197,8 +177,6 @@ func CKNotificationInfoFromID(id objc.ID) CKNotificationInfo {
 //   - [ICKNotificationInfo.SetSubtitle]
 //   - [ICKNotificationInfo.SubtitleLocalizationKey]: The key that identifies the localized string for the notification’s subtitle.
 //   - [ICKNotificationInfo.SetSubtitleLocalizationKey]
-//   - [ICKNotificationInfo.SubtitleLocalizationArgs]: The fields for building a notification’s subtitle.
-//   - [ICKNotificationInfo.SetSubtitleLocalizationArgs]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSubscription/NotificationInfo-swift.class
 type ICKNotificationInfo interface {
@@ -227,9 +205,6 @@ type ICKNotificationInfo interface {
 	// The key that identifies the localized string for the notification’s alert.
 	AlertLocalizationKey() string
 	SetAlertLocalizationKey(value string)
-	// The fields for building a notification’s alert.
-	AlertLocalizationArgs() string
-	SetAlertLocalizationArgs(value string)
 	// The key that identifies the localized string for the notification’s action.
 	AlertActionLocalizationKey() string
 	SetAlertActionLocalizationKey(value string)
@@ -249,12 +224,6 @@ type ICKNotificationInfo interface {
 	ShouldSendMutableContent() bool
 	SetShouldSendMutableContent(value bool)
 
-	// Topic: Accessing the Record’s Data
-
-	// The names of fields to include in the push notification’s payload.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
-
 	// Topic: Accessing the Notification Title
 
 	// The notification’s title.
@@ -263,9 +232,6 @@ type ICKNotificationInfo interface {
 	// The key that identifies the localized string for the notification’s title.
 	TitleLocalizationKey() string
 	SetTitleLocalizationKey(value string)
-	// The fields for building a notification’s title.
-	TitleLocalizationArgs() string
-	SetTitleLocalizationArgs(value string)
 
 	// Topic: Accessing the Notification Subtitle
 
@@ -275,13 +241,7 @@ type ICKNotificationInfo interface {
 	// The key that identifies the localized string for the notification’s subtitle.
 	SubtitleLocalizationKey() string
 	SetSubtitleLocalizationKey(value string)
-	// The fields for building a notification’s subtitle.
-	SubtitleLocalizationArgs() string
-	SetSubtitleLocalizationArgs(value string)
 
-	// The configuration for a subscription’s push notifications.
-	NotificationInfo() ICKNotificationInfo
-	SetNotificationInfo(value ICKNotificationInfo)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -373,7 +333,8 @@ func (c CKNotificationInfo) SetShouldBadge(value bool) {
 //
 // Set this property’s value to have the system display the specified string
 // when it receives the corresponding push notification. If you localize your
-// app’s content, use the [AlertLocalizationKey] property instead.
+// app’s content, use the [CKNotificationInfo.AlertLocalizationKey] property
+// instead.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSubscription/NotificationInfo-swift.class/alertBody
 func (c CKNotificationInfo) AlertBody() string {
@@ -393,7 +354,7 @@ func (c CKNotificationInfo) SetAlertBody(value string) {
 // when it receives the corresponding push notification. The system uses the
 // key to find the matching string in your app’s `Localizable.String()`
 // file. If you specify a value for this property, CloudKit ignores the
-// [AlertBody] property’s value.
+// [CKNotificationInfo.AlertBody] property’s value.
 //
 // For information about localizing string resources, see
 // [Internationalization and Localization Guide].
@@ -407,17 +368,6 @@ func (c CKNotificationInfo) AlertLocalizationKey() string {
 }
 func (c CKNotificationInfo) SetAlertLocalizationKey(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlertLocalizationKey:"), objc.String(value))
-}
-
-// The fields for building a notification’s alert.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/alertlocalizationargs
-func (c CKNotificationInfo) AlertLocalizationArgs() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("alertLocalizationArgs"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKNotificationInfo) SetAlertLocalizationArgs(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAlertLocalizationArgs:"), objc.String(value))
 }
 
 // The key that identifies the localized string for the notification’s
@@ -536,17 +486,6 @@ func (c CKNotificationInfo) SetShouldSendMutableContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShouldSendMutableContent:"), value)
 }
 
-// The names of fields to include in the push notification’s payload.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/desiredkeys
-func (c CKNotificationInfo) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKNotificationInfo) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
-}
-
 // The notification’s title.
 //
 // # Discussion
@@ -589,23 +528,13 @@ func (c CKNotificationInfo) SetTitleLocalizationKey(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTitleLocalizationKey:"), objc.String(value))
 }
 
-// The fields for building a notification’s title.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/titlelocalizationargs
-func (c CKNotificationInfo) TitleLocalizationArgs() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("titleLocalizationArgs"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKNotificationInfo) SetTitleLocalizationArgs(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setTitleLocalizationArgs:"), objc.String(value))
-}
-
 // The notification’s subtitle.
 //
 // # Discussion
 //
 // CloudKit uses this value to set the `subtitle` push notification property.
-// If you set [SubtitleLocalizationKey], CloudKit ignores this value.
+// If you set [CKNotificationInfo.SubtitleLocalizationKey], CloudKit ignores
+// this value.
 //
 // See [Generating a remote notification] for more details about push
 // notification properties.
@@ -627,7 +556,8 @@ func (c CKNotificationInfo) SetSubtitle(value string) {
 // # Discussion
 //
 // CloudKit uses this value to set the `subtitle-loc-key` push notification
-// property. Setting this property overrides any value in [Subtitle].
+// property. Setting this property overrides any value in
+// [CKNotificationInfo.Subtitle].
 //
 // See [Generating a remote notification] for more details about push
 // notification properties.
@@ -641,26 +571,4 @@ func (c CKNotificationInfo) SubtitleLocalizationKey() string {
 }
 func (c CKNotificationInfo) SetSubtitleLocalizationKey(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSubtitleLocalizationKey:"), objc.String(value))
-}
-
-// The fields for building a notification’s subtitle.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/subtitlelocalizationargs
-func (c CKNotificationInfo) SubtitleLocalizationArgs() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("subtitleLocalizationArgs"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKNotificationInfo) SetSubtitleLocalizationArgs(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubtitleLocalizationArgs:"), objc.String(value))
-}
-
-// The configuration for a subscription’s push notifications.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.property
-func (c CKNotificationInfo) NotificationInfo() ICKNotificationInfo {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("notificationInfo"))
-	return CKNotificationInfoFromID(objc.ID(rv))
-}
-func (c CKNotificationInfo) SetNotificationInfo(value ICKNotificationInfo) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNotificationInfo:"), value)
 }

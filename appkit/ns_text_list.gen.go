@@ -61,8 +61,9 @@ func (nc NSTextListClass) Alloc() NSTextList {
 // first and fourth paragraphs is (list1), while the text lists array for the
 // second and third paragraphs is (list1, list2).
 //
-// The methods implementing this are [NSTextList.TextLists] on [NSParagraphStyle], and
-// [NSTextList.TextLists] on [NSMutableParagraphStyle].
+// The methods implementing this are [NSParagraphStyle.TextLists] on
+// [NSParagraphStyle], and [NSMutableParagraphStyle.TextLists] on
+// [NSMutableParagraphStyle].
 //
 // In addition, [NSAttributedString] has convenience methods for lists, such
 // as [range(of:at:)], which determines the range covered by a list, and
@@ -164,9 +165,6 @@ type INSTextList interface {
 	StartingItemNumber() int
 	SetStartingItemNumber(value int)
 
-	// The text lists that contain the paragraph.
-	TextLists() INSTextList
-	SetTextLists(value INSTextList)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -377,17 +375,6 @@ func (t NSTextList) StartingItemNumber() int {
 }
 func (t NSTextList) SetStartingItemNumber(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStartingItemNumber:"), value)
-}
-
-// The text lists that contain the paragraph.
-//
-// See: https://developer.apple.com/documentation/appkit/nsmutableparagraphstyle/textlists
-func (t NSTextList) TextLists() INSTextList {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLists"))
-	return NSTextListFromID(objc.ID(rv))
-}
-func (t NSTextList) SetTextLists(value INSTextList) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTextLists:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/includesTextListMarkers

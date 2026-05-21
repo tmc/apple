@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -156,7 +157,7 @@ type IAVAudioTime interface {
 	// Topic: Getting the Core Audio Time Stamp
 
 	// The time as an audio timestamp.
-	AudioTimeStamp() unsafe.Pointer
+	AudioTimeStamp() coreaudiotypes.AudioTimeStamp
 }
 
 // Init initializes the instance.
@@ -253,8 +254,6 @@ func NewAudioTimeWithSampleTimeAtRate(sampleTime AVAudioFramePosition, sampleRat
 //
 // sampleRate: The sample rate.
 //
-// ts is a [*coreaudiotypes.AudioTimeStamp].
-//
 // # Return Value
 //
 // A new [AVAudioTime] instance.
@@ -350,7 +349,7 @@ func (a AVAudioTime) ExtrapolateTimeFromAnchor(anchorTime IAVAudioTime) IAVAudio
 // The host time that represents the seconds you specify.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/hostTime(forSeconds:)
-func (_AVAudioTimeClass AVAudioTimeClass) HostTimeForSeconds(seconds float64) uint64 {
+func (_AVAudioTimeClass AVAudioTimeClass) HostTimeForSeconds(seconds foundation.NSTimeInterval) uint64 {
 	rv := objc.Send[uint64](objc.ID(_AVAudioTimeClass.class), objc.Sel("hostTimeForSeconds:"), seconds)
 	return rv
 }
@@ -364,9 +363,9 @@ func (_AVAudioTimeClass AVAudioTimeClass) HostTimeForSeconds(seconds float64) ui
 // The number of seconds that represent the host time you specify.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/seconds(forHostTime:)
-func (_AVAudioTimeClass AVAudioTimeClass) SecondsForHostTime(hostTime uint64) float64 {
-	rv := objc.Send[float64](objc.ID(_AVAudioTimeClass.class), objc.Sel("secondsForHostTime:"), hostTime)
-	return rv
+func (_AVAudioTimeClass AVAudioTimeClass) SecondsForHostTime(hostTime uint64) foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](objc.ID(_AVAudioTimeClass.class), objc.Sel("secondsForHostTime:"), hostTime)
+	return foundation.NSTimeInterval(rv)
 }
 
 // Creates an audio time object with the specified timestamp and sample rate.
@@ -374,8 +373,6 @@ func (_AVAudioTimeClass AVAudioTimeClass) SecondsForHostTime(hostTime uint64) fl
 // ts: The timestamp.
 //
 // sampleRate: The sample rate.
-//
-// ts is a [*coreaudiotypes.AudioTimeStamp].
 //
 // # Return Value
 //
@@ -449,8 +446,8 @@ func (a AVAudioTime) HostTime() uint64 {
 //
 // # Discussion
 //
-// This property returns true if the [HostTime] property is valid; otherwise,
-// it returns false.
+// This property returns true if the [AVAudioTime.HostTime] property is valid;
+// otherwise, it returns false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/isHostTimeValid
 func (a AVAudioTime) IsHostTimeValid() bool {
@@ -491,7 +488,7 @@ func (a AVAudioTime) IsSampleTimeValid() bool {
 // Toolbox API.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/audioTimeStamp
-func (a AVAudioTime) AudioTimeStamp() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioTimeStamp"))
-	return rv
+func (a AVAudioTime) AudioTimeStamp() coreaudiotypes.AudioTimeStamp {
+	rv := objc.Send[coreaudiotypes.AudioTimeStamp](a.ID, objc.Sel("audioTimeStamp"))
+	return coreaudiotypes.AudioTimeStamp(rv)
 }

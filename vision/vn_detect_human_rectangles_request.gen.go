@@ -48,11 +48,6 @@ func (vc VNDetectHumanRectanglesRequestClass) Alloc() VNDetectHumanRectanglesReq
 //   - [VNDetectHumanRectanglesRequest.UpperBodyOnly]: A Boolean value that indicates whether the request requires detecting a full body or upper body only to produce a result.
 //   - [VNDetectHumanRectanglesRequest.SetUpperBodyOnly]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectHumanRectanglesRequest.VNDetectHumanRectanglesRequestRevision2]: A constant for specifying revision 2 of the human rectangles detection request.
-//   - [VNDetectHumanRectanglesRequest.VNDetectHumanRectanglesRequestRevision1]: A constant for specifying revision 1 of the human rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanRectanglesRequest
 type VNDetectHumanRectanglesRequest struct {
 	VNImageBasedRequest
@@ -75,11 +70,6 @@ func VNDetectHumanRectanglesRequestFromID(id objc.ID) VNDetectHumanRectanglesReq
 //   - [IVNDetectHumanRectanglesRequest.UpperBodyOnly]: A Boolean value that indicates whether the request requires detecting a full body or upper body only to produce a result.
 //   - [IVNDetectHumanRectanglesRequest.SetUpperBodyOnly]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectHumanRectanglesRequest.VNDetectHumanRectanglesRequestRevision2]: A constant for specifying revision 2 of the human rectangles detection request.
-//   - [IVNDetectHumanRectanglesRequest.VNDetectHumanRectanglesRequestRevision1]: A constant for specifying revision 1 of the human rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanRectanglesRequest
 type IVNDetectHumanRectanglesRequest interface {
 	IVNImageBasedRequest
@@ -89,13 +79,6 @@ type IVNDetectHumanRectanglesRequest interface {
 	// A Boolean value that indicates whether the request requires detecting a full body or upper body only to produce a result.
 	UpperBodyOnly() bool
 	SetUpperBodyOnly(value bool)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 2 of the human rectangles detection request.
-	VNDetectHumanRectanglesRequestRevision2() int
-	// A constant for specifying revision 1 of the human rectangles detection request.
-	VNDetectHumanRectanglesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -125,7 +108,7 @@ func NewVNDetectHumanRectanglesRequest() VNDetectHumanRectanglesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectHumanRectanglesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectHumanRectanglesRequest {
@@ -149,22 +132,4 @@ func (d VNDetectHumanRectanglesRequest) UpperBodyOnly() bool {
 }
 func (d VNDetectHumanRectanglesRequest) SetUpperBodyOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUpperBodyOnly:"), value)
-}
-
-// A constant for specifying revision 2 of the human rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanrectanglesrequestrevision2
-func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision2() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the human rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanrectanglesrequestrevision1
-func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision1"))
-	return rv
 }

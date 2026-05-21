@@ -52,16 +52,17 @@ func (nc NSDistributedLockClass) Alloc() NSDistributedLock {
 // to coordinate their activities, the lock must be writable on a file system
 // accessible to all hosts on which the applications might be running.
 //
-// Use the [NSDistributedLock.TryLock] method to attempt to acquire a lock. You should generally
-// use the [NSDistributedLock.Unlock] method to release the lock rather than [NSDistributedLock.BreakLock].
+// Use the [NSDistributedLock.TryLock] method to attempt to acquire a lock.
+// You should generally use the [NSDistributedLock.Unlock] method to release
+// the lock rather than [NSDistributedLock.BreakLock].
 //
 // [NSDistributedLock] doesn’t conform to the [NSLocking] protocol, nor does
 // it have a `lock` method. The protocol’s [Lock] method is intended to
 // block the execution of the thread until successful. For an
 // [NSDistributedLock] object, this could mean polling the file system at some
-// predetermined rate. A better solution is to provide the [NSDistributedLock.TryLock] method
-// and let you determine the polling frequency that makes sense for your
-// application.
+// predetermined rate. A better solution is to provide the
+// [NSDistributedLock.TryLock] method and let you determine the polling
+// frequency that makes sense for your application.
 //
 // # Creating an NSDistributedLock
 //
@@ -232,12 +233,12 @@ func (d NSDistributedLock) TryLock() bool {
 //
 // This method always succeeds unless the lock has been damaged. If another
 // process has already unlocked or broken the lock, this method has no effect.
-// You should generally use [Unlock] rather than [BreakLock] to relinquish a
-// lock.
+// You should generally use [NSDistributedLock.Unlock] rather than
+// [NSDistributedLock.BreakLock] to relinquish a lock.
 //
 // Even if you break a lock, there’s no guarantee that you will then be able
-// to acquire the lock—another process might get it before your [TryLock] is
-// invoked.
+// to acquire the lock—another process might get it before your
+// [NSDistributedLock.TryLock] is invoked.
 //
 // Raises an [NSGenericException] if the lock could not be removed.
 //
@@ -250,8 +251,8 @@ func (d NSDistributedLock) BreakLock() {
 //
 // # Discussion
 //
-// You should generally use the [Unlock] method rather than [BreakLock] to
-// release a lock.
+// You should generally use the [NSDistributedLock.Unlock] method rather than
+// [NSDistributedLock.BreakLock] to release a lock.
 //
 // An [NSGenericException] is raised if the receiver doesn’t already exist.
 //

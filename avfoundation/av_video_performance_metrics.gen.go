@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -90,7 +91,7 @@ type IAVVideoPerformanceMetrics interface {
 	// The total number of full screen frames rendered in a special power-efficient mode that didn’t require compositing with other UI elements.
 	NumberOfFramesDisplayedUsingOptimizedCompositing() int
 	// The accumulated amount of time between the prescribed presentation times of displayed video frames and their actual time of display.
-	TotalAccumulatedFrameDelay() float64
+	TotalAccumulatedFrameDelay() foundation.NSTimeInterval
 	// The total number of frames that display if no frames drop.
 	TotalNumberOfFrames() int
 
@@ -152,9 +153,9 @@ func (v AVVideoPerformanceMetrics) NumberOfFramesDisplayedUsingOptimizedComposit
 // displayed video frames and their actual time of display.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoPerformanceMetrics/totalAccumulatedFrameDelay
-func (v AVVideoPerformanceMetrics) TotalAccumulatedFrameDelay() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("totalAccumulatedFrameDelay"))
-	return rv
+func (v AVVideoPerformanceMetrics) TotalAccumulatedFrameDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](v.ID, objc.Sel("totalAccumulatedFrameDelay"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The total number of frames that display if no frames drop.

@@ -48,11 +48,13 @@ func (vc VZVirtioSoundDeviceConfigurationClass) Alloc() VZVirtioSoundDeviceConfi
 //
 // Use a [VZVirtioSoundDeviceConfiguration] object to configure an audio
 // device for your VM. After creating this object, assign appropriate values
-// to the [VZVirtioSoundDeviceConfiguration.Streams] array property which defines the behaviors of the
-// underlying audio streams for this audio device.
+// to the [VZVirtioSoundDeviceConfiguration.Streams] array property which
+// defines the behaviors of the underlying audio streams for this audio
+// device.
 //
 // After creating and configuring a [VZVirtioSoundDeviceConfiguration] object,
-// assign it to the [VZVirtioSoundDeviceConfiguration.AudioDevices] property of your VM’s configuration.
+// assign it to the [VZVirtualMachineConfiguration.AudioDevices] property of
+// your VM’s configuration.
 //
 // # Accessing the sound streams
 //
@@ -90,10 +92,6 @@ type IVZVirtioSoundDeviceConfiguration interface {
 	// List of audio streams exposed by this device.
 	Streams() []VZVirtioSoundDeviceStreamConfiguration
 	SetStreams(value []VZVirtioSoundDeviceStreamConfiguration)
-
-	// The list of audio devices.
-	AudioDevices() IVZAudioDeviceConfiguration
-	SetAudioDevices(value IVZAudioDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -130,15 +128,4 @@ func (v VZVirtioSoundDeviceConfiguration) Streams() []VZVirtioSoundDeviceStreamC
 }
 func (v VZVirtioSoundDeviceConfiguration) SetStreams(value []VZVirtioSoundDeviceStreamConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStreams:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The list of audio devices.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/audiodevices
-func (v VZVirtioSoundDeviceConfiguration) AudioDevices() IVZAudioDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("audioDevices"))
-	return VZAudioDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioSoundDeviceConfiguration) SetAudioDevices(value IVZAudioDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAudioDevices:"), value)
 }

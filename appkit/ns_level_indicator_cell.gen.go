@@ -371,7 +371,7 @@ func (l NSLevelIndicatorCell) SetCriticalValue(value float64) {
 //
 // Use this property to set the position where the control draws tick marks.
 // Regardless of the value in this property, tick marks are not drawn if the
-// value in the [NumberOfTickMarks] property is `0`.
+// value in the [NSLevelIndicatorCell.NumberOfTickMarks] property is `0`.
 //
 // The default value of this property is [NSTickMarkBelow], which also
 // corresponds to the value [NSTickMarkLeft] for vertically oriented level
@@ -412,7 +412,7 @@ func (l NSLevelIndicatorCell) SetNumberOfTickMarks(value int) {
 // # Discussion
 //
 // The value in this property must be less than or equal to the value in the
-// [NumberOfTickMarks] property.
+// [NSLevelIndicatorCell.NumberOfTickMarks] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicatorCell/numberOfMajorTickMarks
 func (l NSLevelIndicatorCell) NumberOfMajorTickMarks() int {

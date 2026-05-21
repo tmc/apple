@@ -121,12 +121,12 @@ type IAVAudioMixInputParameters interface {
 	// Topic: Getting the track ID
 
 	// The identifier of the audio track to which the parameters should be applied.
-	TrackID() int32
+	TrackID() coremedia.CMPersistentTrackID
 
 	// Topic: Getting volume ramps
 
 	// Retrieves the volume ramp that includes the specified time.
-	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool)
+	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool)
 
 	// Topic: Getting the time pitch algorithm setting
 
@@ -188,7 +188,7 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/getVolumeRamp(for:startVolume:endVolume:timeRange:)
 //
 // [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
-func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool) {
+func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
 	var startVolume float32
 	var endVolume float32
 	rv := objc.Send[bool](a.ID, objc.Sel("getVolumeRampForTime:startVolume:endVolume:timeRange:"), time, unsafe.Pointer(&startVolume), unsafe.Pointer(&endVolume), timeRange)
@@ -199,9 +199,9 @@ func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeR
 // applied.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/trackID
-func (a AVAudioMixInputParameters) TrackID() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
-	return rv
+func (a AVAudioMixInputParameters) TrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](a.ID, objc.Sel("trackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // The processing algorithm used to manage audio pitch for scaled audio edits.
@@ -209,10 +209,12 @@ func (a AVAudioMixInputParameters) TrackID() int32 {
 // # Discussion
 //
 // The supported constants are defined in Time Pitch Algorithm Settings. An
-// [InvalidArgumentException] will be raised if this property is set to a
+// [invalidArgumentException] will be raised if this property is set to a
 // value other than the defined constants.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/audioTimePitchAlgorithm
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (a AVAudioMixInputParameters) AudioTimePitchAlgorithm() AVAudioTimePitchAlgorithm {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTimePitchAlgorithm"))
 	return AVAudioTimePitchAlgorithm(foundation.NSStringFromID(rv).String())

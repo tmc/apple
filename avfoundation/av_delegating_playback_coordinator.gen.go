@@ -208,8 +208,8 @@ func (d AVDelegatingPlaybackCoordinator) InitWithPlaybackControlDelegate(playbac
 // # Discussion
 //
 // When the rate changes from zero to nonzero, the coordinator may also wait
-// for participant suspensions from the [SuspensionReasonsThatTriggerWaiting]
-// property.
+// for participant suspensions from the
+// [AVPlaybackCoordinator.SuspensionReasonsThatTriggerWaiting] property.
 //
 // Don’t call this method if the rate change doesn’t affect the group, or
 // if the group doesn’t have control over local playback temporarily. For
@@ -235,7 +235,7 @@ func (d AVDelegatingPlaybackCoordinator) CoordinateRateChangeToRateOptions(rate 
 // # Discussion
 //
 // To end a suspension and also affect the group timing, see
-// [EndProposingNewTime].
+// [AVCoordinatedPlaybackSuspension.EndProposingNewTime].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinator/coordinateSeek(to:options:)
 func (d AVDelegatingPlaybackCoordinator) CoordinateSeekToTimeOptions(time coremedia.CMTime, options AVDelegatingPlaybackCoordinatorSeekOptions) {
@@ -278,7 +278,7 @@ func (d AVDelegatingPlaybackCoordinator) ReapplyCurrentItemStateToPlaybackContro
 // # Discussion
 //
 // The coordinator sets this value in a previous call to
-// [TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase].
+// [AVDelegatingPlaybackCoordinator.TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinator/currentItemIdentifier
 func (d AVDelegatingPlaybackCoordinator) CurrentItemIdentifier() string {

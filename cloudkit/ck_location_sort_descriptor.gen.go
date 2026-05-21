@@ -172,8 +172,6 @@ func NewCKLocationSortDescriptorWithKeyRelativeLocation(key string, relativeLoca
 // relativeLocation: The reference location when sorting. CloudKit sorts records according to
 // their distance from this location.
 //
-// relativeLocation is a [*corelocation.CLLocation].
-//
 // # Discussion
 //
 // During sorting, the sort descriptor computes the distance between the value

@@ -48,6 +48,8 @@ func (nc NSPopoverTouchBarItemClass) Alloc() NSPopoverTouchBarItem {
 //
 // # Configuring the collapsed popover
 //
+//   - [NSPopoverTouchBarItem.CollapsedRepresentation]: The view displayed when this item is displayed in its parent bar.
+//   - [NSPopoverTouchBarItem.SetCollapsedRepresentation]
 //   - [NSPopoverTouchBarItem.CollapsedRepresentationImage]: The image displayed by the button for the default collapsed representation.
 //   - [NSPopoverTouchBarItem.SetCollapsedRepresentationImage]
 //   - [NSPopoverTouchBarItem.CollapsedRepresentationLabel]: The localized string displayed by the button for the default collapsed representation.
@@ -55,8 +57,12 @@ func (nc NSPopoverTouchBarItemClass) Alloc() NSPopoverTouchBarItem {
 //
 // # Configuring the expanded popover
 //
+//   - [NSPopoverTouchBarItem.PopoverTouchBar]: The bar displayed when this item is “popped.”
+//   - [NSPopoverTouchBarItem.SetPopoverTouchBar]
 //   - [NSPopoverTouchBarItem.ShowsCloseButton]: A Boolean value that determines whether a close button should be shown on the popover bar.
 //   - [NSPopoverTouchBarItem.SetShowsCloseButton]
+//   - [NSPopoverTouchBarItem.PressAndHoldTouchBar]: The bar that is displayed when a user press-and-holds on the popover item.
+//   - [NSPopoverTouchBarItem.SetPressAndHoldTouchBar]
 //
 // # Expanding and collapsing a popover
 //
@@ -84,6 +90,8 @@ func NSPopoverTouchBarItemFromID(id objc.ID) NSPopoverTouchBarItem {
 //
 // # Configuring the collapsed popover
 //
+//   - [INSPopoverTouchBarItem.CollapsedRepresentation]: The view displayed when this item is displayed in its parent bar.
+//   - [INSPopoverTouchBarItem.SetCollapsedRepresentation]
 //   - [INSPopoverTouchBarItem.CollapsedRepresentationImage]: The image displayed by the button for the default collapsed representation.
 //   - [INSPopoverTouchBarItem.SetCollapsedRepresentationImage]
 //   - [INSPopoverTouchBarItem.CollapsedRepresentationLabel]: The localized string displayed by the button for the default collapsed representation.
@@ -91,8 +99,12 @@ func NSPopoverTouchBarItemFromID(id objc.ID) NSPopoverTouchBarItem {
 //
 // # Configuring the expanded popover
 //
+//   - [INSPopoverTouchBarItem.PopoverTouchBar]: The bar displayed when this item is “popped.”
+//   - [INSPopoverTouchBarItem.SetPopoverTouchBar]
 //   - [INSPopoverTouchBarItem.ShowsCloseButton]: A Boolean value that determines whether a close button should be shown on the popover bar.
 //   - [INSPopoverTouchBarItem.SetShowsCloseButton]
+//   - [INSPopoverTouchBarItem.PressAndHoldTouchBar]: The bar that is displayed when a user press-and-holds on the popover item.
+//   - [INSPopoverTouchBarItem.SetPressAndHoldTouchBar]
 //
 // # Expanding and collapsing a popover
 //
@@ -106,6 +118,9 @@ type INSPopoverTouchBarItem interface {
 
 	// Topic: Configuring the collapsed popover
 
+	// The view displayed when this item is displayed in its parent bar.
+	CollapsedRepresentation() INSView
+	SetCollapsedRepresentation(value INSView)
 	// The image displayed by the button for the default collapsed representation.
 	CollapsedRepresentationImage() INSImage
 	SetCollapsedRepresentationImage(value INSImage)
@@ -115,9 +130,15 @@ type INSPopoverTouchBarItem interface {
 
 	// Topic: Configuring the expanded popover
 
+	// The bar displayed when this item is “popped.”
+	PopoverTouchBar() INSTouchBar
+	SetPopoverTouchBar(value INSTouchBar)
 	// A Boolean value that determines whether a close button should be shown on the popover bar.
 	ShowsCloseButton() bool
 	SetShowsCloseButton(value bool)
+	// The bar that is displayed when a user press-and-holds on the popover item.
+	PressAndHoldTouchBar() INSTouchBar
+	SetPressAndHoldTouchBar(value INSTouchBar)
 
 	// Topic: Expanding and collapsing a popover
 
@@ -194,13 +215,13 @@ func (p NSPopoverTouchBarItem) DismissPopover(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("dismissPopover:"), sender)
 }
 
-// Returns a gesture recognizer, configured to invoke the [ShowPopover]
-// method.
+// Returns a gesture recognizer, configured to invoke the
+// [NSPopoverTouchBarItem.ShowPopover] method.
 //
 // # Discussion
 //
 // Use this method to create a gesture recognizer that you then attach to a
-// custom [CollapsedRepresentation] view.
+// custom [NSPopoverTouchBarItem.CollapsedRepresentation] view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/makeStandardActivatePopoverGestureRecognizer()
 func (p NSPopoverTouchBarItem) MakeStandardActivatePopoverGestureRecognizer() INSGestureRecognizer {
@@ -208,12 +229,31 @@ func (p NSPopoverTouchBarItem) MakeStandardActivatePopoverGestureRecognizer() IN
 	return NSGestureRecognizerFromID(rv)
 }
 
+// The view displayed when this item is displayed in its parent bar.
+//
+// # Discussion
+//
+// By default, this is an [NSButton] whose target is this popover item, whose
+// action is [NSPopoverTouchBarItem.ShowPopover], and whose image and title
+// are bound to this item’s
+// [NSPopoverTouchBarItem.CollapsedRepresentationImage] and
+// [NSPopoverTouchBarItem.CollapsedRepresentationImage] respectively.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/collapsedRepresentation
+func (p NSPopoverTouchBarItem) CollapsedRepresentation() INSView {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("collapsedRepresentation"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (p NSPopoverTouchBarItem) SetCollapsedRepresentation(value INSView) {
+	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentation:"), value)
+}
+
 // The image displayed by the button for the default collapsed representation.
 //
 // # Discussion
 //
-// If the [CollapsedRepresentation] button has been replaced by a different
-// view, this property may not have any effect.
+// If the [NSPopoverTouchBarItem.CollapsedRepresentation] button has been
+// replaced by a different view, this property may not have any effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/collapsedRepresentationImage
 func (p NSPopoverTouchBarItem) CollapsedRepresentationImage() INSImage {
@@ -229,8 +269,8 @@ func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value INSImage) {
 //
 // # Discussion
 //
-// If the [CollapsedRepresentation] button has been replaced by a different
-// view, this property may not have any effect.
+// If the [NSPopoverTouchBarItem.CollapsedRepresentation] button has been
+// replaced by a different view, this property may not have any effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/collapsedRepresentationLabel
 func (p NSPopoverTouchBarItem) CollapsedRepresentationLabel() string {
@@ -239,6 +279,23 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationLabel() string {
 }
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationLabel(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationLabel:"), objc.String(value))
+}
+
+// The bar displayed when this item is “popped.”
+//
+// # Discussion
+//
+// Set this property to a fully configured instance of [NSTouchBar] that is
+// displayed when the user taps on the popover item. By default this is an
+// empty bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/popoverTouchBar
+func (p NSPopoverTouchBarItem) PopoverTouchBar() INSTouchBar {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("popoverTouchBar"))
+	return NSTouchBarFromID(objc.ID(rv))
+}
+func (p NSPopoverTouchBarItem) SetPopoverTouchBar(value INSTouchBar) {
+	objc.Send[struct{}](p.ID, objc.Sel("setPopoverTouchBar:"), value)
 }
 
 // A Boolean value that determines whether a close button should be shown on
@@ -257,4 +314,24 @@ func (p NSPopoverTouchBarItem) ShowsCloseButton() bool {
 }
 func (p NSPopoverTouchBarItem) SetShowsCloseButton(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShowsCloseButton:"), value)
+}
+
+// The bar that is displayed when a user press-and-holds on the popover item.
+//
+// # Discussion
+//
+// This [NSTouchBar] can be the same as the one used for the
+// [NSPopoverTouchBarItem.PopoverTouchBar] property, but does not have to be.
+//
+// When non-`nil` this touch bar is displayed while the user holds their
+// finger down on the collapsed representation of the popover item. When the
+// user raises their finger, this bar disappears.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/pressAndHoldTouchBar
+func (p NSPopoverTouchBarItem) PressAndHoldTouchBar() INSTouchBar {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("pressAndHoldTouchBar"))
+	return NSTouchBarFromID(objc.ID(rv))
+}
+func (p NSPopoverTouchBarItem) SetPressAndHoldTouchBar(value INSTouchBar) {
+	objc.Send[struct{}](p.ID, objc.Sel("setPressAndHoldTouchBar:"), value)
 }

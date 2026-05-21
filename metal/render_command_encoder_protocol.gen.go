@@ -3,8 +3,6 @@
 package metal
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -210,7 +208,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the fragment shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-	SetFragmentBytesLengthAtIndex(bytes []byte, index uint)
+	SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// Assigns an intersection function table to an entry in the fragment shader argument table.
 	//
@@ -285,7 +283,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-	SetMeshBytesLengthAtIndex(bytes []byte, index uint)
+	SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// Assigns a sampler state to an entry in the mesh shader argument table.
 	//
@@ -335,7 +333,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the object shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-	SetObjectBytesLengthAtIndex(bytes []byte, index uint)
+	SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// Assigns a sampler state to an entry in the object shader argument table.
 	//
@@ -445,7 +443,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-	SetTileBytesLengthAtIndex(bytes []byte, index uint)
+	SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// Assigns an intersection function table to an entry in the tile shader argument table.
 	//
@@ -545,12 +543,12 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-	SetVertexBytesLengthAtIndex(bytes []byte, index uint)
+	SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// SetVertexBytesLengthAttributeStrideAtIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
+	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
 
 	// Assigns an intersection function table to an entry in the vertex shader argument table.
 	//
@@ -1627,11 +1625,11 @@ func (o MTLRenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float3
 // # Discussion
 //
 // Use this method to define how the physical color attachments you specify
-// via [ColorAttachments] map to the logical color output the fragment shader
-// writes to.
+// via [MTLRenderPassDescriptor.ColorAttachments] map to the logical color
+// output the fragment shader writes to.
 //
-// To use this feature, make sure to set [SupportColorAttachmentMapping] to
-// true.
+// To use this feature, make sure to set
+// [MTLRenderPassDescriptor.SupportColorAttachmentMapping] to true.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorAttachmentMap(_:)
 func (o MTLRenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogicalToPhysicalColorAttachmentMap) {
@@ -1649,9 +1647,10 @@ func (o MTLRenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogical
 //
 // This method changes the render command encoder’s store action for a color
 // attachment. You can assign the default store action for a color attachment
-// by configuring the [StoreAction] property of its
-// [MTLRenderPassColorAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
-// its [ColorAttachments] property).
+// by configuring the [MTLRenderPassAttachmentDescriptor.StoreAction] property
+// of its [MTLRenderPassColorAttachmentDescriptor] (see
+// [MTLRenderPassDescriptor] and its
+// [MTLRenderPassDescriptor.ColorAttachments] property).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreAction(_:index:)
 func (o MTLRenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint) {
@@ -1757,9 +1756,10 @@ func (o MTLRenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthCl
 // writing, the render pass needs to have a depth attachment. Similarly, if
 // the new state enables stencil testing or stencil writing, the render
 // pass’s stencil needs to have a stencil attachment. You create depth and
-// stencil attachments for a render pass by assigning the [DepthAttachment]
-// and [StencilAttachment] properties of the [MTLRenderPassDescriptor]
-// instance that creates it.
+// stencil attachments for a render pass by assigning the
+// [MTLRenderPassDescriptor.DepthAttachment] and
+// [MTLRenderPassDescriptor.StencilAttachment] properties of the
+// [MTLRenderPassDescriptor] instance that creates it.
 //
 // Pass `nil` to clear the state from the previous call, which restores a
 // state that’s equivalent to the default values of an
@@ -1779,9 +1779,10 @@ func (o MTLRenderCommandEncoderObject) SetDepthStencilState(depthStencilState MT
 //
 // This method changes the render command encoder’s store action for the
 // depth attachment. You can assign the default store action for the depth
-// attachment by configuring the [StoreAction] property of its
+// attachment by configuring the
+// [MTLRenderPassAttachmentDescriptor.StoreAction] property of its
 // [MTLRenderPassDepthAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
-// its [DepthAttachment] property).
+// its [MTLRenderPassDescriptor.DepthAttachment] property).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreAction(_:)
 func (o MTLRenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStoreAction) {
@@ -1952,8 +1953,8 @@ func (o MTLRenderCommandEncoderObject) SetFragmentBuffersOffsetsWithRange(buffer
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), bytes, length, index)
 }
 
 // Assigns an intersection function table to an entry in the fragment shader
@@ -2031,8 +2032,9 @@ func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStateAtIndex(sampler MT
 //
 // The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
 // default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
+// configuring the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of [MTLSamplerDescriptor]
+// before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2063,9 +2065,9 @@ func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStateLodMinClampLodMaxC
 //
 // Each element of the method’s `lodMinClamps` and `lodMaxClamps` parameters
 // overrides the default values for the corresponding sampler in `samplers`.
-// You can set a sampler’s default values by configuring the [LodMinClamp]
-// and [LodMaxClamp] properties of [MTLSamplerDescriptor] before you create
-// the sampler.
+// You can set a sampler’s default values by configuring the
+// [MTLSamplerDescriptor.LodMinClamp] and [MTLSamplerDescriptor.LodMaxClamp]
+// properties of [MTLSamplerDescriptor] before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2295,8 +2297,8 @@ func (o MTLRenderCommandEncoderObject) SetMeshBuffersOffsetsWithRange(buffers []
 // it to [SetMeshBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), bytes, length, index)
 }
 
 // Assigns a sampler state to an entry in the mesh shader argument table.
@@ -2335,8 +2337,9 @@ func (o MTLRenderCommandEncoderObject) SetMeshSamplerStateAtIndex(sampler MTLSam
 //
 // The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
 // default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
+// configuring the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of [MTLSamplerDescriptor]
+// before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2367,9 +2370,9 @@ func (o MTLRenderCommandEncoderObject) SetMeshSamplerStateLodMinClampLodMaxClamp
 //
 // Each element of the method’s `lodMinClamps` and `lodMaxClamps` parameters
 // overrides the default values for the corresponding sampler in `samplers`.
-// You can set a sampler’s default values by configuring the [LodMinClamp]
-// and [LodMaxClamp] properties of [MTLSamplerDescriptor] before you create
-// the sampler.
+// You can set a sampler’s default values by configuring the
+// [MTLSamplerDescriptor.LodMinClamp] and [MTLSamplerDescriptor.LodMaxClamp]
+// properties of [MTLSamplerDescriptor] before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2542,8 +2545,8 @@ func (o MTLRenderCommandEncoderObject) SetObjectBuffersOffsetsWithRange(buffers 
 // it to [SetObjectBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), bytes, length, index)
 }
 
 // Assigns a sampler state to an entry in the object shader argument table.
@@ -2582,8 +2585,9 @@ func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateAtIndex(sampler MTLS
 //
 // The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
 // default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
+// configuring the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of [MTLSamplerDescriptor]
+// before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2614,9 +2618,9 @@ func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateLodMinClampLodMaxCla
 //
 // Each element of the method’s `lodMinClamps` and `lodMaxClamps` parameters
 // overrides the default values for the corresponding sampler in `samplers`.
-// You can set a sampler’s default values by configuring the [LodMinClamp]
-// and [LodMaxClamp] properties of [MTLSamplerDescriptor] before you create
-// the sampler.
+// You can set a sampler’s default values by configuring the
+// [MTLSamplerDescriptor.LodMinClamp] and [MTLSamplerDescriptor.LodMaxClamp]
+// properties of [MTLSamplerDescriptor] before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -2713,7 +2717,9 @@ func (o MTLRenderCommandEncoderObject) SetObjectThreadgroupMemoryLengthAtIndex(l
 // The render pipeline you pass to this method needs to be compatible with the
 // render pass’s attachments. You configure these attachments with the
 // properties of an [MTLRenderPassDescriptor] instance, including
-// [ColorAttachments], [DepthAttachment], and [StencilAttachment].
+// [MTLRenderPassDescriptor.ColorAttachments],
+// [MTLRenderPassDescriptor.DepthAttachment], and
+// [MTLRenderPassDescriptor.StencilAttachment].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setRenderPipelineState(_:)
 //
@@ -2798,9 +2804,10 @@ func (o MTLRenderCommandEncoderObject) SetScissorRectsCount(scissorRects []MTLSc
 // # Discussion
 //
 // The command sets separate reference values for front- and back-facing
-// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
-// [BackFaceStencil]). These reference values apply to the stencil state you
-// set with the [SetDepthStencilState] method.
+// primitives (see [MTLStencilDescriptor.StencilCompareFunction],
+// [MTLDepthStencilDescriptor.FrontFaceStencil], and
+// [MTLDepthStencilDescriptor.BackFaceStencil]). These reference values apply
+// to the stencil state you set with the [SetDepthStencilState] method.
 //
 // The render pass’s default reference value for the front and back stencil
 // compare function is `0`.
@@ -2818,9 +2825,10 @@ func (o MTLRenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferenc
 // # Discussion
 //
 // The command sets the same reference value for front- and back-facing
-// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
-// [BackFaceStencil]). This reference value applies to the stencil state you
-// set with the [SetDepthStencilState] method.
+// primitives (see [MTLStencilDescriptor.StencilCompareFunction],
+// [MTLDepthStencilDescriptor.FrontFaceStencil], and
+// [MTLDepthStencilDescriptor.BackFaceStencil]). This reference value applies
+// to the stencil state you set with the [SetDepthStencilState] method.
 //
 // The render pass’s default reference value for the front and back stencil
 // compare function is `0`.
@@ -2839,9 +2847,10 @@ func (o MTLRenderCommandEncoderObject) SetStencilReferenceValue(referenceValue u
 //
 // This method changes the render command encoder’s store action for the
 // stencil attachment. You can assign the default store action for the stencil
-// attachment by configuring the [StoreAction] property of its
+// attachment by configuring the
+// [MTLRenderPassAttachmentDescriptor.StoreAction] property of its
 // [MTLRenderPassStencilAttachmentDescriptor] (see [MTLRenderPassDescriptor]
-// and its [StencilAttachment] property).
+// and its [MTLRenderPassDescriptor.StencilAttachment] property).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilStoreAction(_:)
 func (o MTLRenderCommandEncoderObject) SetStencilStoreAction(storeAction MTLStoreAction) {
@@ -3048,8 +3057,8 @@ func (o MTLRenderCommandEncoderObject) SetTileBuffersOffsetsWithRange(buffers []
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), bytes, length, index)
 }
 
 // Assigns an intersection function table to an entry in the tile shader
@@ -3127,8 +3136,9 @@ func (o MTLRenderCommandEncoderObject) SetTileSamplerStateAtIndex(sampler MTLSam
 //
 // The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
 // default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
+// configuring the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of [MTLSamplerDescriptor]
+// before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -3159,9 +3169,9 @@ func (o MTLRenderCommandEncoderObject) SetTileSamplerStateLodMinClampLodMaxClamp
 //
 // Each element of the method’s `lodMinClamps` and `lodMaxClamps` parameters
 // overrides the default values for the corresponding sampler in `samplers`.
-// You can set a sampler’s default values by configuring the [LodMinClamp]
-// and [LodMaxClamp] properties of [MTLSamplerDescriptor] before you create
-// the sampler.
+// You can set a sampler’s default values by configuring the
+// [MTLSamplerDescriptor.LodMinClamp] and [MTLSamplerDescriptor.LodMaxClamp]
+// properties of [MTLSamplerDescriptor] before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -3453,13 +3463,13 @@ func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsWithRange(buffers 
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), bytes, length, index)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
 }
 
 // Assigns an intersection function table to an entry in the vertex shader
@@ -3537,8 +3547,9 @@ func (o MTLRenderCommandEncoderObject) SetVertexSamplerStateAtIndex(sampler MTLS
 //
 // The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
 // default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
+// configuring the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of [MTLSamplerDescriptor]
+// before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -3569,9 +3580,9 @@ func (o MTLRenderCommandEncoderObject) SetVertexSamplerStateLodMinClampLodMaxCla
 //
 // Each element of the method’s `lodMinClamps` and `lodMaxClamps` parameters
 // overrides the default values for the corresponding sampler in `samplers`.
-// You can set a sampler’s default values by configuring the [LodMinClamp]
-// and [LodMaxClamp] properties of [MTLSamplerDescriptor] before you create
-// the sampler.
+// You can set a sampler’s default values by configuring the
+// [MTLSamplerDescriptor.LodMinClamp] and [MTLSamplerDescriptor.LodMaxClamp]
+// properties of [MTLSamplerDescriptor] before you create the sampler.
 //
 // By default, the sampler state at each index is `nil`.
 //
@@ -3774,13 +3785,14 @@ func (o MTLRenderCommandEncoderObject) SetViewportsCount(viewports []MTLViewport
 // the render pass saves to a buffer, or disables visibility testing.
 //
 // offset: A location, in bytes, relative to the start of the render pass’s
-// [VisibilityResultBuffer]. The GPU stores the result of a visibility test at
-// `offset`, which needs to be a multiple of 8.
+// [MTLRenderPassDescriptor.VisibilityResultBuffer]. The GPU stores the result
+// of a visibility test at `offset`, which needs to be a multiple of 8.
 //
 // # Discussion
 //
 // To create a render pass that can enable visibility testing, assign an
-// [MTLBuffer] instance to the [VisibilityResultBuffer] property of an
+// [MTLBuffer] instance to the
+// [MTLRenderPassDescriptor.VisibilityResultBuffer] property of an
 // [MTLRenderPassDescriptor].
 //
 // You can monitor one or more drawing commands with a visibility test by
@@ -4126,8 +4138,8 @@ func (o MTLRenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(after
 //
 // # Discussion
 //
-// The value comes from the [TileWidth] property of the
-// [MTLRenderPassDescriptor] at the time you create the render command
+// The value comes from the [MTLRenderPassDescriptor.TileWidth] property of
+// the [MTLRenderPassDescriptor] at the time you create the render command
 // encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileWidth
@@ -4140,8 +4152,8 @@ func (o MTLRenderCommandEncoderObject) TileWidth() uint {
 //
 // # Discussion
 //
-// The value comes from the [TileHeight] property of the
-// [MTLRenderPassDescriptor] at the time you create the render command
+// The value comes from the [MTLRenderPassDescriptor.TileHeight] property of
+// the [MTLRenderPassDescriptor] at the time you create the render command
 // encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileHeight

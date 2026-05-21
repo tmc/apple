@@ -80,16 +80,6 @@ type IAVCaptionConversionAdjustment interface {
 
 	// The type of caption conversion adjustment.
 	AdjustmentType() AVCaptionConversionAdjustmentType
-
-	// A correction the converter makes when it converts a caption to a specific format.
-	Adjustment() IAVCaptionConversionAdjustment
-	SetAdjustment(value IAVCaptionConversionAdjustment)
-	// The range of the captions for which the system issued a warning.
-	RangeOfCaptions() foundation.NSRange
-	SetRangeOfCaptions(value foundation.NSRange)
-	// A type that indicates the nature of the validation warning.
-	WarningType() AVCaptionConversionWarningType
-	SetWarningType(value AVCaptionConversionWarningType)
 }
 
 // Init initializes the instance.
@@ -117,38 +107,4 @@ func NewAVCaptionConversionAdjustment() AVCaptionConversionAdjustment {
 func (c AVCaptionConversionAdjustment) AdjustmentType() AVCaptionConversionAdjustmentType {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("adjustmentType"))
 	return AVCaptionConversionAdjustmentType(foundation.NSStringFromID(rv).String())
-}
-
-// A correction the converter makes when it converts a caption to a specific
-// format.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionwarning/adjustment
-func (c AVCaptionConversionAdjustment) Adjustment() IAVCaptionConversionAdjustment {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("adjustment"))
-	return AVCaptionConversionAdjustmentFromID(objc.ID(rv))
-}
-func (c AVCaptionConversionAdjustment) SetAdjustment(value IAVCaptionConversionAdjustment) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAdjustment:"), value)
-}
-
-// The range of the captions for which the system issued a warning.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionwarning/rangeofcaptions
-func (c AVCaptionConversionAdjustment) RangeOfCaptions() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](c.ID, objc.Sel("rangeOfCaptions"))
-	return foundation.NSRange(rv)
-}
-func (c AVCaptionConversionAdjustment) SetRangeOfCaptions(value foundation.NSRange) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRangeOfCaptions:"), value)
-}
-
-// A type that indicates the nature of the validation warning.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionwarning/warningtype-swift.property
-func (c AVCaptionConversionAdjustment) WarningType() AVCaptionConversionWarningType {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("warningType"))
-	return AVCaptionConversionWarningType(foundation.NSStringFromID(rv).String())
-}
-func (c AVCaptionConversionAdjustment) SetWarningType(value AVCaptionConversionWarningType) {
-	objc.Send[struct{}](c.ID, objc.Sel("setWarningType:"), objc.String(string(value)))
 }

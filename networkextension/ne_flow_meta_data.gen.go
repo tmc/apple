@@ -49,7 +49,8 @@ func (nc NEFlowMetaDataClass) Alloc() NEFlowMetaData {
 //
 // This metadata is only present for data flowing through per-app VPN
 // providers, that is, app proxy providers and packet tunnel providers in
-// per-app VPN mode, as indicated by the [NEFlowMetaData.RoutingMethod] property.
+// per-app VPN mode, as indicated by the [NETunnelProvider.RoutingMethod]
+// property.
 //
 // # Getting source app information
 //
@@ -106,9 +107,6 @@ type INEFlowMetaData interface {
 	// The identifier of the content filter flow corresponding to this flow.
 	FilterFlowIdentifier() foundation.NSUUID
 
-	// The method by which network traffic is routed to the tunnel.
-	RoutingMethod() NETunnelProviderRoutingMethod
-	SetRoutingMethod(value NETunnelProviderRoutingMethod)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -175,15 +173,4 @@ func (f NEFlowMetaData) SourceAppAuditToken() foundation.NSData {
 func (f NEFlowMetaData) FilterFlowIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filterFlowIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
-}
-
-// The method by which network traffic is routed to the tunnel.
-//
-// See: https://developer.apple.com/documentation/networkextension/netunnelprovider/routingmethod
-func (f NEFlowMetaData) RoutingMethod() NETunnelProviderRoutingMethod {
-	rv := objc.Send[NETunnelProviderRoutingMethod](f.ID, objc.Sel("routingMethod"))
-	return NETunnelProviderRoutingMethod(rv)
-}
-func (f NEFlowMetaData) SetRoutingMethod(value NETunnelProviderRoutingMethod) {
-	objc.Send[struct{}](f.ID, objc.Sel("setRoutingMethod:"), value)
 }

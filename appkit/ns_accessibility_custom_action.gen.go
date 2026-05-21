@@ -121,9 +121,9 @@ type INSAccessibilityCustomAction interface {
 	// Topic: Creating a Custom Action
 
 	// Creates a custom action object with the specified name and handler.
-	InitWithNameHandler(name string, handler ErrorHandler) NSAccessibilityCustomAction
+	InitWithNameHandler(name string, handler bool) NSAccessibilityCustomAction
 	// Creates a custom action object with the specified name, target, and selector.
-	InitWithNameTargetSelector(name string, target objectivec.Object, selector objc.SEL) NSAccessibilityCustomAction
+	InitWithNameTargetSelector(name string, target objectivec.NSObject, selector objc.SEL) NSAccessibilityCustomAction
 
 	// Topic: Getting the Action Name
 
@@ -140,8 +140,8 @@ type INSAccessibilityCustomAction interface {
 	Target() objectivec.Object
 	SetTarget(value objectivec.Object)
 	// The method to call on the target to perform the action.
-	Selector() objc.SEL
-	SetSelector(value objc.SEL)
+	Selector() objectivec.SEL
+	SetSelector(value objectivec.SEL)
 }
 
 // Init initializes the instance.
@@ -176,7 +176,7 @@ func NewAccessibilityCustomActionWithNameHandler(name string, handler bool) NSAc
 // selector.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:target:selector:)
-func NewAccessibilityCustomActionWithNameTargetSelector(name string, target objectivec.Object, selector objc.SEL) NSAccessibilityCustomAction {
+func NewAccessibilityCustomActionWithNameTargetSelector(name string, target objectivec.NSObject, selector objc.SEL) NSAccessibilityCustomAction {
 	instance := getNSAccessibilityCustomActionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:target:selector:"), objc.String(name), target, selector)
 	return NSAccessibilityCustomActionFromID(rv)
@@ -185,9 +185,8 @@ func NewAccessibilityCustomActionWithNameTargetSelector(name string, target obje
 // Creates a custom action object with the specified name and handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:handler:)
-func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler ErrorHandler) NSAccessibilityCustomAction {
-	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[NSAccessibilityCustomAction](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
+func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler bool) NSAccessibilityCustomAction {
+	rv := objc.Send[NSAccessibilityCustomAction](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), handler)
 	return rv
 }
 
@@ -195,7 +194,7 @@ func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler Er
 // selector.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:target:selector:)
-func (a NSAccessibilityCustomAction) InitWithNameTargetSelector(name string, target objectivec.Object, selector objc.SEL) NSAccessibilityCustomAction {
+func (a NSAccessibilityCustomAction) InitWithNameTargetSelector(name string, target objectivec.NSObject, selector objc.SEL) NSAccessibilityCustomAction {
 	rv := objc.Send[NSAccessibilityCustomAction](a.ID, objc.Sel("initWithName:target:selector:"), objc.String(name), target, selector)
 	return rv
 }
@@ -239,10 +238,10 @@ func (a NSAccessibilityCustomAction) SetTarget(value objectivec.Object) {
 // The method to call on the target to perform the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/selector
-func (a NSAccessibilityCustomAction) Selector() objc.SEL {
+func (a NSAccessibilityCustomAction) Selector() objectivec.SEL {
 	rv := objc.Send[objc.SEL](a.ID, objc.Sel("selector"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (a NSAccessibilityCustomAction) SetSelector(value objc.SEL) {
+func (a NSAccessibilityCustomAction) SetSelector(value objectivec.SEL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSelector:"), value)
 }

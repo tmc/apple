@@ -63,9 +63,11 @@ func (nc NSMutableDataClass) Alloc() NSMutableData {
 //
 // The following [NSData] methods change when used on a mutable data object:
 //
-// - [NSMutableData.InitWithBytesNoCopyLengthFreeWhenDone] -
-// [NSMutableData.InitWithBytesNoCopyLengthDeallocator] - [NSMutableData.InitWithBytesNoCopyLength] -
-// [DataWithBytesNoCopyLengthFreeWhenDone] - [DataWithBytesNoCopyLength]
+// - [NSPurgeableData.InitWithBytesNoCopyLengthFreeWhenDone] -
+// [NSPurgeableData.InitWithBytesNoCopyLengthDeallocator] -
+// [NSPurgeableData.InitWithBytesNoCopyLength] -
+// [NSDataClass.DataWithBytesNoCopyLengthFreeWhenDone] -
+// [NSDataClass.DataWithBytesNoCopyLength]
 //
 // When called, the bytes are immediately copied and then the buffer is freed.
 //
@@ -211,14 +213,56 @@ func NewNSMutableData() NSMutableData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
+// Initializes a data object with the given Base64 encoded data.
+//
+// base64Data: A Base64, UTF-8 encoded data object.
+//
+// options: A mask that specifies options for Base64 decoding the data. Possible values
+// are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object containing the Base64 decoded data. Returns `nil` if the data
+// object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedData:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewMutableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
 	return NSMutableDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
+// Initializes a data object with the given Base64 encoded string.
+//
+// base64String: A Base-64 encoded string.
+//
+// options: A mask that specifies options for Base-64 decoding the data. Possible
+// values are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object built by Base64 decoding the provided string. Returns `nil`
+// if the data object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewMutableDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
@@ -239,11 +283,10 @@ func NewMutableDataWithBase64EncodedStringOptions(base64String string, options N
 // Although this method was only introduced publicly for iOS 7, it has existed
 // since iOS 4; you can use it if your application needs to target an
 // operating system prior to iOS 7. This method behaves like
-// [init(base64EncodedString:options:)], but ignores all unknown characters.
+// [NSPurgeableData.InitWithBase64EncodedStringOptions], but ignores all
+// unknown characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoding:)
-//
-// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
 func NewMutableDataWithBase64Encoding(base64String string) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64Encoding:"), objc.String(base64String))
@@ -343,7 +386,7 @@ func NewMutableDataWithCapacity(capacity uint) NSMutableData {
 	return NSMutableDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(coder:)
 func NewMutableDataWithCoder(coder INSCoder) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -361,8 +404,8 @@ func NewMutableDataWithCoder(coder INSCoder) NSMutableData {
 //
 // # Discussion
 //
-// This method is equivalent to [InitWithContentsOfFileOptionsError] with no
-// options.
+// This method is equivalent to
+// [NSPurgeableData.InitWithContentsOfFileOptionsError] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:)
 func NewMutableDataWithContentsOfFile(path string) NSMutableData {
@@ -608,7 +651,7 @@ func (m NSMutableData) ResetBytesInRange(range_ NSRange) {
 // # Discussion
 //
 // As part of its implementation, this method calls
-// [ReplaceBytesInRangeWithBytes].
+// [NSMutableData.ReplaceBytesInRangeWithBytes].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableData/setData(_:)
 func (m NSMutableData) SetData(data INSData) {
@@ -625,8 +668,8 @@ func (m NSMutableData) SetData(data INSData) {
 // Use this method to compress in-memory data when you want to reduce memory
 // usage and can afford the time to compress and decompress the data. If your
 // data object is already in a compressed format, such as media formats like
-// JPEG images or AAC audio, [CompressUsingAlgorithmError] may provide minimal
-// or no benefit.
+// JPEG images or AAC audio, [NSMutableData.CompressUsingAlgorithmError] may
+// provide minimal or no benefit.
 //
 // The following example shows how to compress data from a string and prints
 // the sizes of the data instances to illustrate the amount of compression:

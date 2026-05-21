@@ -89,13 +89,6 @@ type IAVCaptureDeviceInputSource interface {
 	InputSourceID() string
 	// A localized, human-readable name for the input source.
 	LocalizedName() string
-
-	// The currently active input source of the device.
-	ActiveInputSource() IAVCaptureDeviceInputSource
-	SetActiveInputSource(value IAVCaptureDeviceInputSource)
-	// An array of input sources that the device supports.
-	InputSources() IAVCaptureDeviceInputSource
-	SetInputSources(value IAVCaptureDeviceInputSource)
 }
 
 // Init initializes the instance.
@@ -141,26 +134,4 @@ func (c AVCaptureDeviceInputSource) InputSourceID() string {
 func (c AVCaptureDeviceInputSource) LocalizedName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The currently active input source of the device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activeinputsource
-func (c AVCaptureDeviceInputSource) ActiveInputSource() IAVCaptureDeviceInputSource {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeInputSource"))
-	return AVCaptureDeviceInputSourceFromID(objc.ID(rv))
-}
-func (c AVCaptureDeviceInputSource) SetActiveInputSource(value IAVCaptureDeviceInputSource) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveInputSource:"), value)
-}
-
-// An array of input sources that the device supports.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/inputsources
-func (c AVCaptureDeviceInputSource) InputSources() IAVCaptureDeviceInputSource {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputSources"))
-	return AVCaptureDeviceInputSourceFromID(objc.ID(rv))
-}
-func (c AVCaptureDeviceInputSource) SetInputSources(value IAVCaptureDeviceInputSource) {
-	objc.Send[struct{}](c.ID, objc.Sel("setInputSources:"), value)
 }

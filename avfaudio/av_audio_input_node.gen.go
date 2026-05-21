@@ -5,8 +5,8 @@ package avfaudio
 import (
 	"context"
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -187,7 +187,7 @@ func NewAVAudioInputNode() AVAudioInputNode {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/setManualRenderingInputPCMFormat(_:inputBlock:)
 func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AVAudioIONodeInputBlock) bool {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 uint32) unsafe.Pointer { return block(arg0) })
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 uint32) *coreaudiotypes.AudioBufferList { return block(arg0) })
 	// _block1 intentionally not released: "setManualRenderingInputPCMFormat:inputBlock:" retains the block past return.
 	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, objc.ID(_block1))
 	return rv
@@ -487,8 +487,8 @@ func (o AVAudioInputNode) SetSourceMode(value AVAudio3DMixingSourceMode) {
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
-// [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
-// instance.
+// [AVAudioEnvironmentNode.ApplicableRenderingAlgorithms] function of the
+// [AVAudioEnvironmentNode] instance.
 //
 // The default rendering algorithm is
 // [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the

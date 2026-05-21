@@ -48,9 +48,11 @@ func (nc NSScrubberSelectionStyleClass) Alloc() NSScrubberSelectionStyle {
 //
 // # Overview
 //
-// Choose a selection style ([NSScrubberSelectionStyle.OutlineOverlayStyle] or
-// [NSScrubberSelectionStyle.RoundedBackgroundStyle]), or create a custom selection style by
-// subclassing [NSScrubberSelectionStyle] and overriding [SelectionView].
+// Choose a selection style
+// ([NSScrubberSelectionStyleClass.OutlineOverlayStyle] or
+// [NSScrubberSelectionStyleClass.RoundedBackgroundStyle]), or create a custom
+// selection style by subclassing [NSScrubberSelectionStyle] and overriding
+// [NSScrubberSelectionStyle.SelectionView].
 //
 // # Creating a selection style
 //

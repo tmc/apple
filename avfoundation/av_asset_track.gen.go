@@ -66,15 +66,18 @@ func (ac AVAssetTrackClass) Alloc() AVAssetTrack {
 //   - [AVAssetTrack.MediaType]: The type of media that a track presents.
 //   - [AVAssetTrack.Asset]: The asset object that contains this track.
 //
-// # Loading track information
+// # Loading metadata
 //
-//   - [AVAssetTrack.MediaCharacteristics]: The media characteristics for the track.
-//   - [AVAssetTrack.SetMediaCharacteristics]
+//   - [AVAssetTrack.LoadMetadataForFormatCompletionHandler]: Loads metadata items that a track contains for the specified format.
 //
 // # Loading track segments
 //
 //   - [AVAssetTrack.LoadSegmentForTrackTimeCompletionHandler]: Loads a segment with a target time range that contains, or is closest to, the specified track time.
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]: Loads a sample presentation time that maps to the specified track time.
+//
+// # Loading track associations
+//
+//   - [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]: Loads associated tracks that have the specified association type.
 //
 // # Creating sample cursors
 //
@@ -107,15 +110,18 @@ func AVAssetTrackFromID(id objc.ID) AVAssetTrack {
 //   - [IAVAssetTrack.MediaType]: The type of media that a track presents.
 //   - [IAVAssetTrack.Asset]: The asset object that contains this track.
 //
-// # Loading track information
+// # Loading metadata
 //
-//   - [IAVAssetTrack.MediaCharacteristics]: The media characteristics for the track.
-//   - [IAVAssetTrack.SetMediaCharacteristics]
+//   - [IAVAssetTrack.LoadMetadataForFormatCompletionHandler]: Loads metadata items that a track contains for the specified format.
 //
 // # Loading track segments
 //
 //   - [IAVAssetTrack.LoadSegmentForTrackTimeCompletionHandler]: Loads a segment with a target time range that contains, or is closest to, the specified track time.
 //   - [IAVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]: Loads a sample presentation time that maps to the specified track time.
+//
+// # Loading track associations
+//
+//   - [IAVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]: Loads associated tracks that have the specified association type.
 //
 // # Creating sample cursors
 //
@@ -131,17 +137,16 @@ type IAVAssetTrack interface {
 	// Topic: Identifying an asset track
 
 	// The persistent unique identifier for this track.
-	TrackID() int32
+	TrackID() coremedia.CMPersistentTrackID
 	// The type of media that a track presents.
 	MediaType() AVMediaType
 	// The asset object that contains this track.
 	Asset() IAVAsset
 
-	// Topic: Loading track information
+	// Topic: Loading metadata
 
-	// The media characteristics for the track.
-	MediaCharacteristics() AVMediaCharacteristic
-	SetMediaCharacteristics(value AVMediaCharacteristic)
+	// Loads metadata items that a track contains for the specified format.
+	LoadMetadataForFormatCompletionHandler(format AVMetadataFormat, completionHandler AVMetadataItemArrayErrorHandler)
 
 	// Topic: Loading track segments
 
@@ -149,6 +154,11 @@ type IAVAssetTrack interface {
 	LoadSegmentForTrackTimeCompletionHandler(trackTime coremedia.CMTime, completionHandler AVAssetTrackSegmentErrorHandler)
 	// Loads a sample presentation time that maps to the specified track time.
 	LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime coremedia.CMTime, completionHandler CMTimeErrorHandler)
+
+	// Topic: Loading track associations
+
+	// Loads associated tracks that have the specified association type.
+	LoadAssociatedTracksOfTypeCompletionHandler(trackAssociationType AVTrackAssociationType, completionHandler AVAssetTrackArrayErrorHandler)
 
 	// Topic: Creating sample cursors
 
@@ -177,6 +187,23 @@ func NewAVAssetTrack() AVAssetTrack {
 	class := getAVAssetTrackClass()
 	rv := objc.Send[AVAssetTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// Loads metadata items that a track contains for the specified format.
+//
+// format: The format of the metadata items to load.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// metadata: The loaded metadata, or an empty array if no metadata items for
+// the specified format exist. The value is `nil` if an error occurs. error:
+// An error object if the request fails; otherwise, nil.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/loadMetadata(for:completionHandler:)
+func (a AVAssetTrack) LoadMetadataForFormatCompletionHandler(format AVMetadataFormat, completionHandler AVMetadataItemArrayErrorHandler) {
+	_block1, _ := NewAVMetadataItemArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadMetadataForFormat:completionHandler:"), format, _block1)
 }
 
 // Loads a segment with a target time range that contains, or is closest to,
@@ -221,6 +248,23 @@ func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTimeCompletionHandler(tr
 	objc.Send[objc.ID](a.ID, objc.Sel("loadSamplePresentationTimeForTrackTime:completionHandler:"), trackTime, _block1)
 }
 
+// Loads associated tracks that have the specified association type.
+//
+// trackAssociationType: The track association type to load tracks for.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// tracks: The array of associated tracks, which may be empty if there are no
+// tracks for the specified association type. The value is `nil` if an error
+// occurs. error: An error object if the request fails; otherwise, `nil`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/loadAssociatedTracks(ofType:completionHandler:)
+func (a AVAssetTrack) LoadAssociatedTracksOfTypeCompletionHandler(trackAssociationType AVTrackAssociationType, completionHandler AVAssetTrackArrayErrorHandler) {
+	_block1, _ := NewAVAssetTrackArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadAssociatedTracksOfType:completionHandler:"), trackAssociationType, _block1)
+}
+
 // Creates a sample cursor and positions it at or near the specified
 // presentation timestamp.
 //
@@ -232,13 +276,13 @@ func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTimeCompletionHandler(tr
 //
 // # Discussion
 //
-// If the track’s [Asset] property value for
+// If the track’s [AVAssetTrack.Asset] property value for
 // [providesPreciseDurationAndTiming] is true, the sample cursor is accurately
 // positioned at the track’slast media sample with a presentation timestamp
 // less than or equal to the desired timestamp, or, if there are no such
 // samples, the first sample in presentation order.
 //
-// If the track’s [Asset] property value for
+// If the track’s [AVAssetTrack.Asset] property value for
 // [providesPreciseDurationAndTiming] is false, and it’s prohibitively
 // expensive to locate the precise sample at the desired timestamp, the sample
 // cursor may be approximately positioned.
@@ -280,9 +324,9 @@ func (a AVAssetTrack) MakeSampleCursorAtLastSampleInDecodeOrder() IAVSampleCurso
 // The persistent unique identifier for this track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/trackID
-func (a AVAssetTrack) TrackID() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
-	return rv
+func (a AVAssetTrack) TrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](a.ID, objc.Sel("trackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // The type of media that a track presents.
@@ -301,18 +345,30 @@ func (a AVAssetTrack) Asset() IAVAsset {
 	return AVAssetFromID(objc.ID(rv))
 }
 
-// The media characteristics for the track.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avpartialasyncproperty/mediacharacteristics
-func (a AVAssetTrack) MediaCharacteristics() AVMediaCharacteristic {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mediaCharacteristics"))
-	return AVMediaCharacteristic(foundation.NSStringFromID(rv).String())
-}
-func (a AVAssetTrack) SetMediaCharacteristics(value AVMediaCharacteristic) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMediaCharacteristics:"), objc.String(string(value)))
-}
-
 // Protocol methods for AVAsynchronousKeyValueLoading
+
+// LoadMetadataForFormat is a synchronous wrapper around [AVAssetTrack.LoadMetadataForFormatCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAssetTrack) LoadMetadataForFormat(ctx context.Context, format AVMetadataFormat) ([]AVMetadataItem, error) {
+	type result struct {
+		val []AVMetadataItem
+		err error
+	}
+	done := make(chan result, 1)
+	a.LoadMetadataForFormatCompletionHandler(format, func(val *[]AVMetadataItem, err error) {
+		var out []AVMetadataItem
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
 
 // LoadSegmentForTrackTime is a synchronous wrapper around [AVAssetTrack.LoadSegmentForTrackTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -349,5 +405,28 @@ func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTime(ctx context.Context
 		return r.val, r.err
 	case <-ctx.Done():
 		return coremedia.CMTime{}, ctx.Err()
+	}
+}
+
+// LoadAssociatedTracksOfType is a synchronous wrapper around [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAssetTrack) LoadAssociatedTracksOfType(ctx context.Context, trackAssociationType AVTrackAssociationType) ([]AVAssetTrack, error) {
+	type result struct {
+		val []AVAssetTrack
+		err error
+	}
+	done := make(chan result, 1)
+	a.LoadAssociatedTracksOfTypeCompletionHandler(trackAssociationType, func(val *[]AVAssetTrack, err error) {
+		var out []AVAssetTrack
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 }

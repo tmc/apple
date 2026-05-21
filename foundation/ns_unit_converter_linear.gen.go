@@ -59,22 +59,25 @@ func (uc UnitConverterLinearClass) Alloc() UnitConverterLinear {
 // m`, where `y` represents the value passed in and `x` represents the value
 // returned.
 //
-// For example, consider the [Fahrenheit] unit that [NSUnitTemperature]
-// defines. The [BaseUnitValueFromValue] method calculates the value in the
-// base unit, [Kelvin], using the formula `K = (0.55555555555556) × °F +
-// 255.37222222222427`. The [ValueFromBaseUnitValue] method calculates the
-// value in [Fahrenheit] using the formula `°F = (K — 255.37222222222427) /
-// (0.55555555555556)`, where the [Coefficient] is `(0.55555555555556)` and
-// the [Constant] is `255.37222222222427`.
+// For example, consider the [NSUnitTemperatureClass.Fahrenheit] unit that
+// [NSUnitTemperature] defines. The [NSUnitConverter.BaseUnitValueFromValue]
+// method calculates the value in the base unit,
+// [NSUnitTemperatureClass.Kelvin], using the formula `K = (0.55555555555556)
+// × °F + 255.37222222222427`. The [NSUnitConverter.ValueFromBaseUnitValue]
+// method calculates the value in [NSUnitTemperatureClass.Fahrenheit] using
+// the formula `°F = (K — 255.37222222222427) / (0.55555555555556)`, where
+// the [NSUnitConverterLinear.Coefficient] is `(0.55555555555556)` and the
+// [NSUnitConverterLinear.Constant] is `255.37222222222427`.
 //
 // Units that perform conversion using only a scale factor have a
-// [Coefficient] equal to the scale factor and a [Constant] equal to `0`. For
-// example, consider the [Kilometers] unit [NSUnitLength] defines. The
-// [BaseUnitValueFromValue] method calculates the value in meters using the
-// formula `valueInMeters = 1000 * valueInKilometers + 0`. The
-// [ValueFromBaseUnitValue] calculates the value in kilometers using the
-// formula `valueInKilometers = (valueInMeters - 0) / 1000`, where the
-// coefficient is `1000` and the constant is `0`.
+// [NSUnitConverterLinear.Coefficient] equal to the scale factor and a
+// [NSUnitConverterLinear.Constant] equal to `0`. For example, consider the
+// [NSUnitLengthClass.Kilometers] unit [NSUnitLength] defines. The
+// [NSUnitConverter.BaseUnitValueFromValue] method calculates the value in
+// meters using the formula `valueInMeters = 1000 * valueInKilometers + 0`.
+// The [NSUnitConverter.ValueFromBaseUnitValue] calculates the value in
+// kilometers using the formula `valueInKilometers = (valueInMeters - 0) /
+// 1000`, where the coefficient is `1000` and the constant is `0`.
 //
 // # Accessing Linear Parameters
 //
@@ -175,7 +178,8 @@ func NewUnitConverterLinearWithCoder(coder INSCoder) UnitConverterLinear {
 // # Discussion
 //
 // Calling this initializer is equivalent to calling
-// [InitWithCoefficientConstant], passing `0` for the `constant` parameter.
+// [NSUnitConverterLinear.InitWithCoefficientConstant], passing `0` for the
+// `constant` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/init(coefficient:)
 func NewUnitConverterLinearWithCoefficient(coefficient float64) UnitConverterLinear {
@@ -208,7 +212,8 @@ func NewUnitConverterLinearWithCoefficientConstant(coefficient float64, constant
 // # Discussion
 //
 // Calling this initializer is equivalent to calling
-// [InitWithCoefficientConstant], passing `0` for the `constant` parameter.
+// [NSUnitConverterLinear.InitWithCoefficientConstant], passing `0` for the
+// `constant` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/init(coefficient:)
 func (u UnitConverterLinear) InitWithCoefficient(coefficient float64) UnitConverterLinear {
@@ -242,39 +247,6 @@ func (u UnitConverterLinear) Coefficient() float64 {
 func (u UnitConverterLinear) Constant() float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("constant"))
 	return rv
-}
-
-// The degree Fahrenheit unit of temperature.
-//
-// See: https://developer.apple.com/documentation/foundation/unittemperature/fahrenheit
-func (_UnitConverterLinearClass UnitConverterLinearClass) Fahrenheit() NSUnitTemperature {
-	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("fahrenheit"))
-	return NSUnitTemperatureFromID(objc.ID(rv))
-}
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value NSUnitTemperature) {
-	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setFahrenheit:"), value)
-}
-
-// The kelvin unit of temperature.
-//
-// See: https://developer.apple.com/documentation/foundation/unittemperature/kelvin
-func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() NSUnitTemperature {
-	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kelvin"))
-	return NSUnitTemperatureFromID(objc.ID(rv))
-}
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value NSUnitTemperature) {
-	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
-}
-
-// The kilometers unit of length.
-//
-// See: https://developer.apple.com/documentation/foundation/unitlength/kilometers
-func (_UnitConverterLinearClass UnitConverterLinearClass) Kilometers() NSUnitLength {
-	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kilometers"))
-	return NSUnitLengthFromID(objc.ID(rv))
-}
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value NSUnitLength) {
-	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
 }
 
 // Protocol methods for NSSecureCoding

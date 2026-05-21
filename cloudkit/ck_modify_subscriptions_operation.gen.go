@@ -6,7 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,7 +52,7 @@ func (cc CKModifySubscriptionsOperationClass) Alloc() CKModifySubscriptionsOpera
 // operation to save those changes to the server. You can also use this
 // operation to permanently delete subscriptions.
 //
-// If you assign a handler to the [CKModifySubscriptionsOperation.CompletionBlock] property, the operation
+// If you assign a handler to the [completionBlock] property, the operation
 // calls it after it executes and passes it the results. Use the handler to
 // perform any housekeeping tasks for the operation. The handler you specify
 // should manage any failures, whether due to an error or an explicit
@@ -72,14 +72,14 @@ func (cc CKModifySubscriptionsOperationClass) Alloc() CKModifySubscriptionsOpera
 //
 // # Instance Properties
 //
-//   - [CKModifySubscriptionsOperation.ModifySubscriptionsResultBlock]: The closure to execute after CloudKit modifies all of the subscriptions.
-//   - [CKModifySubscriptionsOperation.SetModifySubscriptionsResultBlock]
 //   - [CKModifySubscriptionsOperation.PerSubscriptionDeleteBlock]: The closure to execute when CloudKit deletes a subscription.
 //   - [CKModifySubscriptionsOperation.SetPerSubscriptionDeleteBlock]
 //   - [CKModifySubscriptionsOperation.PerSubscriptionSaveBlock]: The closure to execute when CloudKit saves a subscription.
 //   - [CKModifySubscriptionsOperation.SetPerSubscriptionSaveBlock]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKModifySubscriptionsOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKModifySubscriptionsOperation struct {
 	CKDatabaseOperation
 }
@@ -110,8 +110,6 @@ func CKModifySubscriptionsOperationFromID(id objc.ID) CKModifySubscriptionsOpera
 //
 // # Instance Properties
 //
-//   - [ICKModifySubscriptionsOperation.ModifySubscriptionsResultBlock]: The closure to execute after CloudKit modifies all of the subscriptions.
-//   - [ICKModifySubscriptionsOperation.SetModifySubscriptionsResultBlock]
 //   - [ICKModifySubscriptionsOperation.PerSubscriptionDeleteBlock]: The closure to execute when CloudKit deletes a subscription.
 //   - [ICKModifySubscriptionsOperation.SetPerSubscriptionDeleteBlock]
 //   - [ICKModifySubscriptionsOperation.PerSubscriptionSaveBlock]: The closure to execute when CloudKit saves a subscription.
@@ -127,26 +125,23 @@ type ICKModifySubscriptionsOperation interface {
 	SubscriptionsToSave() []CKSubscription
 	SetSubscriptionsToSave(value []CKSubscription)
 	// The IDs of the subscriptions that you want to delete.
-	SubscriptionIDsToDelete() string
-	SetSubscriptionIDsToDelete(value string)
+	SubscriptionIDsToDelete() unsafe.Pointer
+	SetSubscriptionIDsToDelete(value kernel.Pointer)
 
 	// Topic: Processing the Modify Subscription Results
 
 	// The closure to execute after the operation modifies the subscriptions.
-	ModifySubscriptionsCompletionBlock() unsafe.Pointer
-	SetModifySubscriptionsCompletionBlock(value unsafe.Pointer)
+	ModifySubscriptionsCompletionBlock() func(kernel.Pointer, kernel.Pointer, kernel.Pointer)
+	SetModifySubscriptionsCompletionBlock(value func(kernel.Pointer, kernel.Pointer, kernel.Pointer))
 
 	// Topic: Instance Properties
 
-	// The closure to execute after CloudKit modifies all of the subscriptions.
-	ModifySubscriptionsResultBlock() unsafe.Pointer
-	SetModifySubscriptionsResultBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit deletes a subscription.
 	PerSubscriptionDeleteBlock() unsafe.Pointer
-	SetPerSubscriptionDeleteBlock(value unsafe.Pointer)
+	SetPerSubscriptionDeleteBlock(value kernel.Pointer)
 	// The closure to execute when CloudKit saves a subscription.
 	PerSubscriptionSaveBlock() unsafe.Pointer
-	SetPerSubscriptionSaveBlock(value unsafe.Pointer)
+	SetPerSubscriptionSaveBlock(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -195,34 +190,23 @@ func (c CKModifySubscriptionsOperation) SetSubscriptionsToSave(value []CKSubscri
 // The IDs of the subscriptions that you want to delete.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckmodifysubscriptionsoperation/subscriptionidstodelete-3534e
-func (c CKModifySubscriptionsOperation) SubscriptionIDsToDelete() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("subscriptionIDsToDelete"))
-	return foundation.NSStringFromID(rv).String()
+func (c CKModifySubscriptionsOperation) SubscriptionIDsToDelete() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("subscriptionIDsToDelete"))
+	return rv
 }
-func (c CKModifySubscriptionsOperation) SetSubscriptionIDsToDelete(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDsToDelete:"), objc.String(value))
+func (c CKModifySubscriptionsOperation) SetSubscriptionIDsToDelete(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDsToDelete:"), value)
 }
 
 // The closure to execute after the operation modifies the subscriptions.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckmodifysubscriptionsoperation/modifysubscriptionscompletionblock-7l56
-func (c CKModifySubscriptionsOperation) ModifySubscriptionsCompletionBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("modifySubscriptionsCompletionBlock"))
-	return rv
+func (c CKModifySubscriptionsOperation) ModifySubscriptionsCompletionBlock() objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("modifySubscriptionsCompletionBlock"))
+	return objectivec.Object{ID: rv}
 }
-func (c CKModifySubscriptionsOperation) SetModifySubscriptionsCompletionBlock(value unsafe.Pointer) {
+func (c CKModifySubscriptionsOperation) SetModifySubscriptionsCompletionBlock(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModifySubscriptionsCompletionBlock:"), value)
-}
-
-// The closure to execute after CloudKit modifies all of the subscriptions.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckmodifysubscriptionsoperation/modifysubscriptionsresultblock
-func (c CKModifySubscriptionsOperation) ModifySubscriptionsResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("modifySubscriptionsResultBlock"))
-	return rv
-}
-func (c CKModifySubscriptionsOperation) SetModifySubscriptionsResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModifySubscriptionsResultBlock:"), value)
 }
 
 // The closure to execute when CloudKit deletes a subscription.
@@ -232,7 +216,7 @@ func (c CKModifySubscriptionsOperation) PerSubscriptionDeleteBlock() unsafe.Poin
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perSubscriptionDeleteBlock"))
 	return rv
 }
-func (c CKModifySubscriptionsOperation) SetPerSubscriptionDeleteBlock(value unsafe.Pointer) {
+func (c CKModifySubscriptionsOperation) SetPerSubscriptionDeleteBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerSubscriptionDeleteBlock:"), value)
 }
 
@@ -243,6 +227,6 @@ func (c CKModifySubscriptionsOperation) PerSubscriptionSaveBlock() unsafe.Pointe
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perSubscriptionSaveBlock"))
 	return rv
 }
-func (c CKModifySubscriptionsOperation) SetPerSubscriptionSaveBlock(value unsafe.Pointer) {
+func (c CKModifySubscriptionsOperation) SetPerSubscriptionSaveBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerSubscriptionSaveBlock:"), value)
 }

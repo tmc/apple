@@ -106,9 +106,6 @@ type IVNInstanceMaskObservation interface {
 	GenerateMaskedImageOfInstancesFromRequestHandlerCroppedToInstancesExtentError(instances foundation.NSIndexSet, requestHandler IVNImageRequestHandler, cropResult bool) (corevideo.CVImageBufferRef, error)
 	// Creates a high-resolution mask where everything becomes transparent black, except for the instances you specify.
 	GenerateScaledMaskForImageForInstancesFromRequestHandlerError(instances foundation.NSIndexSet, requestHandler IVNImageRequestHandler) (corevideo.CVImageBufferRef, error)
-
-	// A constant for specifying the first revision of the foreground instance mask request.
-	VNGenerateForegroundInstanceMaskRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -128,6 +125,13 @@ func NewVNInstanceMaskObservation() VNInstanceMaskObservation {
 	class := getVNInstanceMaskObservationClass()
 	rv := objc.Send[VNInstanceMaskObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewInstanceMaskObservationWithCoder(coder foundation.INSCoder) VNInstanceMaskObservation {
+	instance := getVNInstanceMaskObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNInstanceMaskObservationFromID(rv)
 }
 
 // Creates a low-resolution mask from the instances you specify.
@@ -218,13 +222,4 @@ func (i VNInstanceMaskObservation) AllInstances() foundation.NSIndexSet {
 func (i VNInstanceMaskObservation) InstanceMask() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("instanceMask"))
 	return corevideo.CVImageBufferRef(rv)
-}
-
-// A constant for specifying the first revision of the foreground instance
-// mask request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateforegroundinstancemaskrequestrevision1
-func (i VNInstanceMaskObservation) VNGenerateForegroundInstanceMaskRequestRevision1() int {
-	rv := objc.Send[int](i.ID, objc.Sel("VNGenerateForegroundInstanceMaskRequestRevision1"))
-	return rv
 }

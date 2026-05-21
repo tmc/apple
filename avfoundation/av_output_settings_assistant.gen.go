@@ -51,15 +51,16 @@ func (ac AVOutputSettingsAssistantClass) Alloc() AVOutputSettingsAssistant {
 // Use an output settings assistant to create the audio and video settings
 // that you use to configure instances of [AVAssetWriter] and
 // [AVAssetWriterInput]. You create an assistant with a specific preset
-// configuration, such as [AVOutputSettingsAssistant.Hevc3840x2160WithAlpha] or [AVOutputSettingsAssistant.Preset1920x1080]. You
+// configuration, such as [hevc3840x2160WithAlpha] or [preset1920x1080]. You
 // can accept the settings dictionaries as is to generate a file that conforms
 // to the criteria that the preset implies. You may also use the dictionaries
 // it generates as a base configuration that you can customize as you require.
 //
 // Providing the assistant additional details about your source media helps it
 // generate more complete results. For example, setting a value for its
-// [AVOutputSettingsAssistant.SourceVideoFormat] property ensures that the assistant generates settings
-// that don’t scale up video frames from a smaller size.
+// [AVOutputSettingsAssistant.SourceVideoFormat] property ensures that the
+// assistant generates settings that don’t scale up video frames from a
+// smaller size.
 //
 // # Configuring output settings
 //
@@ -76,6 +77,9 @@ func (ac AVOutputSettingsAssistantClass) Alloc() AVOutputSettingsAssistant {
 //   - [AVOutputSettingsAssistant.SetSourceVideoAverageFrameDuration]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant
+//
+// [hevc3840x2160WithAlpha]: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsPreset/hevc3840x2160WithAlpha
+// [preset1920x1080]: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsPreset/preset1920x1080
 type AVOutputSettingsAssistant struct {
 	objectivec.Object
 }
@@ -117,24 +121,19 @@ type IAVOutputSettingsAssistant interface {
 	// An audio settings dictionary.
 	AudioSettings() foundation.INSDictionary
 	// The format of the source audio data.
-	SourceAudioFormat() coremedia.CMFormatDescriptionRef
-	SetSourceAudioFormat(value coremedia.CMFormatDescriptionRef)
+	SourceAudioFormat() coremedia.CMAudioFormatDescriptionRef
+	SetSourceAudioFormat(value coremedia.CMAudioFormatDescriptionRef)
 	// A video settings dictionary.
 	VideoSettings() foundation.INSDictionary
 	// The format of the source video data.
-	SourceVideoFormat() coremedia.CMFormatDescriptionRef
-	SetSourceVideoFormat(value coremedia.CMFormatDescriptionRef)
+	SourceVideoFormat() coremedia.CMVideoFormatDescriptionRef
+	SetSourceVideoFormat(value coremedia.CMVideoFormatDescriptionRef)
 	// A time value that describes the minimum frame duration of the video data.
 	SourceVideoMinFrameDuration() coremedia.CMTime
 	SetSourceVideoMinFrameDuration(value coremedia.CMTime)
 	// A time value that describes the average frame duration of the video data.
 	SourceVideoAverageFrameDuration() coremedia.CMTime
 	SetSourceVideoAverageFrameDuration(value coremedia.CMTime)
-
-	// A preset for HEVC with Alpha video at 3840 by 2160 pixels.
-	Hevc3840x2160WithAlpha() AVOutputSettingsPreset
-	// A preset for H.264 video at 1920 by 1080 pixels.
-	Preset1920x1080() AVOutputSettingsPreset
 }
 
 // Init initializes the instance.
@@ -194,8 +193,8 @@ func (o AVOutputSettingsAssistant) OutputFileType() AVFileType {
 // # Discussion
 //
 // The value of this property may change as a result of setting a new value
-// for the [SourceAudioFormat] property. See [Audio settings] for keys and
-// values.
+// for the [AVOutputSettingsAssistant.SourceAudioFormat] property. See [Audio
+// settings] for keys and values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/audioSettings
 //
@@ -212,14 +211,15 @@ func (o AVOutputSettingsAssistant) AudioSettings() foundation.INSDictionary {
 // The default value is `nil`, which means the assistant doesn’t know the
 // audio format. Setting a value for this property helps the assistant
 // generate more complete audio settings. After setting a value, requery the
-// [AudioSettings] property to get the latest values.
+// [AVOutputSettingsAssistant.AudioSettings] property to get the latest
+// values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceAudioFormat
-func (o AVOutputSettingsAssistant) SourceAudioFormat() coremedia.CMFormatDescriptionRef {
-	rv := objc.Send[coremedia.CMFormatDescriptionRef](o.ID, objc.Sel("sourceAudioFormat"))
-	return coremedia.CMFormatDescriptionRef(rv)
+func (o AVOutputSettingsAssistant) SourceAudioFormat() coremedia.CMAudioFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMAudioFormatDescriptionRef](o.ID, objc.Sel("sourceAudioFormat"))
+	return coremedia.CMAudioFormatDescriptionRef(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value coremedia.CMFormatDescriptionRef) {
+func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value coremedia.CMAudioFormatDescriptionRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceAudioFormat:"), value)
 }
 
@@ -228,8 +228,8 @@ func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value coremedia.CMFormat
 // # Discussion
 //
 // The value of this property may change as a result of setting a new value
-// for the [SourceVideoFormat] property. See [Video settings] for the
-// supported keys and values.
+// for the [AVOutputSettingsAssistant.SourceVideoFormat] property. See [Video
+// settings] for the supported keys and values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/videoSettings
 //
@@ -246,14 +246,15 @@ func (o AVOutputSettingsAssistant) VideoSettings() foundation.INSDictionary {
 // The default value is `nil`, which means the assistant doesn’t know the
 // video format. Setting a value for this property helps the assistant
 // generate more complete video settings. After setting a value, requery the
-// [VideoSettings] property to get the latest values.
+// [AVOutputSettingsAssistant.VideoSettings] property to get the latest
+// values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoFormat
-func (o AVOutputSettingsAssistant) SourceVideoFormat() coremedia.CMFormatDescriptionRef {
-	rv := objc.Send[coremedia.CMFormatDescriptionRef](o.ID, objc.Sel("sourceVideoFormat"))
-	return coremedia.CMFormatDescriptionRef(rv)
+func (o AVOutputSettingsAssistant) SourceVideoFormat() coremedia.CMVideoFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMVideoFormatDescriptionRef](o.ID, objc.Sel("sourceVideoFormat"))
+	return coremedia.CMVideoFormatDescriptionRef(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value coremedia.CMFormatDescriptionRef) {
+func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value coremedia.CMVideoFormatDescriptionRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoFormat:"), value)
 }
 
@@ -263,7 +264,8 @@ func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value coremedia.CMFormat
 //
 // Setting this property enables the output settings assistant to generate
 // more complete video settings. After setting a value, requery the
-// [VideoSettings] property to get the latest values.
+// [AVOutputSettingsAssistant.VideoSettings] property to get the latest
+// values.
 //
 // If the source of the video data is an instance of [AVAssetReaderOutput],
 // you can discover the minimum frame duration of your source asset using the
@@ -289,7 +291,8 @@ func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value coremedi
 //
 // Setting this property enables the output settings assistant to generate
 // more complete video settings. After setting a value, requery the
-// [VideoSettings] property to get the latest values.
+// [AVOutputSettingsAssistant.VideoSettings] property to get the latest
+// values.
 //
 // The default value is `1/30`, which means the output settings assistant
 // assumes that your source video has a frame rate of 30fps.
@@ -301,20 +304,4 @@ func (o AVOutputSettingsAssistant) SourceVideoAverageFrameDuration() coremedia.C
 }
 func (o AVOutputSettingsAssistant) SetSourceVideoAverageFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoAverageFrameDuration:"), value)
-}
-
-// A preset for HEVC with Alpha video at 3840 by 2160 pixels.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avoutputsettingspreset/hevc3840x2160withalpha
-func (o AVOutputSettingsAssistant) Hevc3840x2160WithAlpha() AVOutputSettingsPreset {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("AVOutputSettingsPresetHEVC3840x2160WithAlpha"))
-	return AVOutputSettingsPreset(foundation.NSStringFromID(rv).String())
-}
-
-// A preset for H.264 video at 1920 by 1080 pixels.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avoutputsettingspreset/preset1920x1080
-func (o AVOutputSettingsAssistant) Preset1920x1080() AVOutputSettingsPreset {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("AVOutputSettingsPreset1920x1080"))
-	return AVOutputSettingsPreset(foundation.NSStringFromID(rv).String())
 }

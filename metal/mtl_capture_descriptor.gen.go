@@ -160,9 +160,9 @@ func (c MTLCaptureDescriptor) SetDestination(value MTLCaptureDestination) {
 //
 // # Discussion
 //
-// The default value is `nil`. If you set [Destination] to
-// [MTLCaptureDestinationGPUTraceDocument], you need to set this property to
-// where you want the file to be written to.
+// The default value is `nil`. If you set [MTLCaptureDescriptor.Destination]
+// to [MTLCaptureDestinationGPUTraceDocument], you need to set this property
+// to where you want the file to be written to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureDescriptor/outputURL
 func (c MTLCaptureDescriptor) OutputURL() foundation.NSURL {

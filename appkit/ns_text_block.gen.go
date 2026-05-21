@@ -207,6 +207,7 @@ type INSTextBlock interface {
 	// Called by the layout manager to draw any colors and other decorations before the text is drawn.
 	DrawBackgroundWithFrameInViewCharacterRangeLayoutManager(frameRect corefoundation.CGRect, controlView INSView, charRange foundation.NSRange, layoutManager INSLayoutManager)
 
+	InitWithCoder(coder foundation.INSCoder) NSTextBlock
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -229,6 +230,13 @@ func NewNSTextBlock() NSTextBlock {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSTextBlock/init(coder:)
+func NewTextBlockWithCoder(coder foundation.INSCoder) NSTextBlock {
+	instance := getNSTextBlockClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextBlockFromID(rv)
+}
+
 // Sets a dimension of the text block.
 //
 // val: The new value for the dimension.
@@ -247,7 +255,8 @@ func (t NSTextBlock) SetValueTypeForDimension(val float64, type_ NSTextBlockValu
 // # Return Value
 //
 // The value for the specified dimension. This value should be interpreted
-// according to the value type returned by [ValueTypeForDimension].
+// according to the value type returned by
+// [NSTextBlock.ValueTypeForDimension].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/value(for:)
 func (t NSTextBlock) ValueForDimension(dimension NSTextBlockDimension) float64 {
@@ -316,7 +325,8 @@ func (t NSTextBlock) SetWidthTypeForLayer(val float64, type_ NSTextBlockValueTyp
 // # Return Value
 //
 // The width of the `edge` of `layer`. This value must be interpreted
-// according to the value type returned by [WidthValueTypeForLayerEdge].
+// according to the value type returned by
+// [NSTextBlock.WidthValueTypeForLayerEdge].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/width(for:edge:)
 func (t NSTextBlock) WidthForLayerEdge(layer NSTextBlockLayer, edge foundation.NSRectEdge) float64 {
@@ -418,7 +428,7 @@ func (t NSTextBlock) RectForLayoutAtPointInRectTextContainerCharacterRange(start
 // padding, borders, and margins.
 //
 // contentRect: The actual rectangle in which the text was laid out, as determined by
-// [RectForLayoutAtPointInRectTextContainerCharacterRange].
+// [NSTextBlock.RectForLayoutAtPointInRectTextContainerCharacterRange].
 //
 // rect: The initial rectangle in `textContainer` proposed by the typesetter.
 //
@@ -460,6 +470,12 @@ func (t NSTextBlock) BoundsRectForContentRectInRectTextContainerCharacterRange(c
 func (t NSTextBlock) DrawBackgroundWithFrameInViewCharacterRangeLayoutManager(frameRect corefoundation.CGRect, controlView INSView, charRange foundation.NSRange, layoutManager INSLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawBackgroundWithFrame:inView:characterRange:layoutManager:"), frameRect, controlView, charRange, layoutManager)
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextBlock/init(coder:)
+func (t NSTextBlock) InitWithCoder(coder foundation.INSCoder) NSTextBlock {
+	rv := objc.Send[NSTextBlock](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (t NSTextBlock) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -469,7 +485,7 @@ func (t NSTextBlock) EncodeWithCoder(coder foundation.INSCoder) {
 // # Discussion
 //
 // This property interpreted according to the value type returned by
-// [ContentWidthValueType].
+// [NSTextBlock.ContentWidthValueType].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/contentWidth
 func (t NSTextBlock) ContentWidth() float64 {

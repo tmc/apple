@@ -19,6 +19,11 @@ type FSVolumeXattrOperations interface {
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/getXattr(named:of:replyHandler:)
 	GetXattrNamedOfItemReplyHandler(name IFSFileName, item IFSItem, reply DataErrorHandler)
 
+	// Gets the list of extended attributes currently set on the given item.
+	//
+	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/listXattrs(of:replyHandler:)
+	ListXattrsOfItemReplyHandler(item IFSItem, reply FSFileNameArrayErrorHandler)
+
 	// Sets the specified extended attribute data on the given item.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/setXattr(named:to:on:policy:replyHandler:)
@@ -64,6 +69,21 @@ func FSVolumeXattrOperationsObjectFromID(id objc.ID) FSVolumeXattrOperationsObje
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/getXattr(named:of:replyHandler:)
 func (o FSVolumeXattrOperationsObject) GetXattrNamedOfItemReplyHandler(name IFSFileName, item IFSItem, reply DataErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("getXattrNamed:ofItem:replyHandler:"), name, item, reply)
+}
+
+// Gets the list of extended attributes currently set on the given item.
+//
+// item: The item from which to get extended attributes.
+//
+// reply: A block or closure to indicate success or failure. If getting the list of
+// extended attributes succeeds, pass the xattrs as an array of [FSFileName]
+// instances and a `nil` error. If getting the attriubtes fails, pass `nil`
+// along with the relevant error. For an `async` Swift implementation,
+// there’s no reply handler; simply return the byte count or throw an error.
+//
+// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/listXattrs(of:replyHandler:)
+func (o FSVolumeXattrOperationsObject) ListXattrsOfItemReplyHandler(item IFSItem, reply FSFileNameArrayErrorHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("listXattrsOfItem:replyHandler:"), item, reply)
 }
 
 // Sets the specified extended attribute data on the given item.

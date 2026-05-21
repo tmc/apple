@@ -48,8 +48,8 @@ func (ac AVAssetResourceLoaderClass) Alloc() AVAssetResourceLoader {
 // # Overview
 //
 // You do not create resource loader objects yourself. Instead, you retrieve a
-// resource loader from the [AVAssetResourceLoader.ResourceLoader] property of an [AVURLAsset]
-// object and use it to assign your custom delegate object.
+// resource loader from the [AVURLAsset.ResourceLoader] property of an
+// [AVURLAsset] object and use it to assign your custom delegate object.
 //
 // The delegate you associate with this object must adopt the
 // [AVAssetResourceLoaderDelegate] protocol. For more information, see
@@ -128,10 +128,6 @@ type IAVAssetResourceLoader interface {
 	// A Boolean value that indicates whether to enable attaching Common Media Client Data as HTTP request headers.
 	SendsCommonMediaClientDataAsHTTPHeaders() bool
 	SetSendsCommonMediaClientDataAsHTTPHeaders(value bool)
-
-	// The resource loader for the asset.
-	ResourceLoader() IAVAssetResourceLoader
-	SetResourceLoader(value IAVAssetResourceLoader)
 }
 
 // Init initializes the instance.
@@ -238,15 +234,4 @@ func (a AVAssetResourceLoader) SendsCommonMediaClientDataAsHTTPHeaders() bool {
 }
 func (a AVAssetResourceLoader) SetSendsCommonMediaClientDataAsHTTPHeaders(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSendsCommonMediaClientDataAsHTTPHeaders:"), value)
-}
-
-// The resource loader for the asset.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avurlasset/resourceloader
-func (a AVAssetResourceLoader) ResourceLoader() IAVAssetResourceLoader {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("resourceLoader"))
-	return AVAssetResourceLoaderFromID(objc.ID(rv))
-}
-func (a AVAssetResourceLoader) SetResourceLoader(value IAVAssetResourceLoader) {
-	objc.Send[struct{}](a.ID, objc.Sel("setResourceLoader:"), value)
 }

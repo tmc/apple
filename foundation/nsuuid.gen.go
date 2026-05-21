@@ -4,7 +4,6 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -48,8 +47,8 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 //
 // # Overview
 //
-// In Swift, this object bridges to [UUID]; use [NSUUID] when you need
-// reference semantics or other Foundation-specific behavior.
+// In Swift, this object bridges to [NSUUIDClass.UUID]; use [NSUUID] when you
+// need reference semantics or other Foundation-specific behavior.
 //
 // UUIDs (Universally Unique Identifiers), also known as GUIDs (Globally
 // Unique Identifiers) or IIDs (Interface Identifiers), are 128-bit values.
@@ -128,12 +127,12 @@ type INSUUID interface {
 	// Initializes a new UUID with the formatted string.
 	InitWithUUIDString(string_ string) NSUUID
 	// Initializes a new UUID with the given bytes.
-	InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID
+	InitWithUUIDBytes(bytes [16]byte) NSUUID
 
 	// Topic: Get UUID Values
 
 	// Returns the UUID as bytes.
-	GetUUIDBytes(uuid unsafe.Pointer)
+	GetUUIDBytes(uuid [16]byte)
 	// The UUID as a string.
 	UUIDString() string
 
@@ -161,7 +160,7 @@ func NewNSUUID() NSUUID {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(coder:)
 func NewUUIDWithCoder(coder INSCoder) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -177,7 +176,7 @@ func NewUUIDWithCoder(coder INSCoder) NSUUID {
 // A new UUID object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
-func NewUUIDWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
+func NewUUIDWithUUIDBytes(bytes [16]byte) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return NSUUIDFromID(rv)
@@ -225,7 +224,7 @@ func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 // A new UUID object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
-func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
+func (u NSUUID) InitWithUUIDBytes(bytes [16]byte) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return rv
 }
@@ -235,7 +234,7 @@ func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 // uuid: The value of uuid represented as raw bytes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/getBytes(_:)
-func (u NSUUID) GetUUIDBytes(uuid unsafe.Pointer) {
+func (u NSUUID) GetUUIDBytes(uuid [16]byte) {
 	objc.Send[objc.ID](u.ID, objc.Sel("getUUIDBytes:"), uuid)
 }
 
@@ -254,7 +253,7 @@ func (u NSUUID) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(coder:)
 func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

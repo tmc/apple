@@ -93,10 +93,12 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 // the node that provides that data need to output a `float` value. If you
 // don’t match the types correctly, Metal doesn’t define the behavior of
 // the resulting function. - Create an array from the node instances and
-// assign it to the [MTLFunctionStitchingGraph.Nodes] property. - If the function produces an output,
-// create another node and assign it to the [MTLFunctionStitchingGraph.OutputNode] property. The output
-// type of this node needs to match the function’s return type. Don’t
-// include this node in the array of nodes you assign to the [MTLFunctionStitchingGraph.Nodes] property.
+// assign it to the [MTLFunctionStitchingGraph.Nodes] property. - If the
+// function produces an output, create another node and assign it to the
+// [MTLFunctionStitchingGraph.OutputNode] property. The output type of this
+// node needs to match the function’s return type. Don’t include this node
+// in the array of nodes you assign to the [MTLFunctionStitchingGraph.Nodes]
+// property.
 //
 // The MSL code below implements the functions in the example graph above, as
 // well as the function’s signature:

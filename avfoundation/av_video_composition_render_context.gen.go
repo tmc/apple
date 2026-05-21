@@ -174,8 +174,10 @@ func (v AVVideoCompositionRenderContext) RenderScale() float32 {
 //
 // # Discussion
 //
-// The transform to apply to the source image incorporating the [RenderScale],
-// [PixelAspectRatio], and [EdgeWidths].
+// The transform to apply to the source image incorporating the
+// [AVVideoCompositionRenderContext.RenderScale],
+// [AVVideoCompositionRenderContext.PixelAspectRatio], and
+// [AVVideoCompositionRenderContext.EdgeWidths].
 //
 // The coordinate system origin is the top left corner of the buffer.
 //

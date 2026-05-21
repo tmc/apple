@@ -49,12 +49,13 @@ func (ac AVPlayerInterstitialEventClass) Alloc() AVPlayerInterstitialEvent {
 //
 // # Overview
 //
-// An interstitial event defines a [AVPlayerInterstitialEvent.Date] or [AVPlayerInterstitialEvent.Time], on the timeline of its
-// [AVPlayerInterstitialEvent.PrimaryItem], at which playback of interstitial content begins. It
-// specifies the alternative interstitial content to play as an array of one
-// or more template player items. The system uses the configuration of the
-// event’s [AVPlayerInterstitialEvent.TemplateItems] to build new player item instances to present the
-// interstitial content.
+// An interstitial event defines a [AVPlayerInterstitialEvent.Date] or
+// [AVPlayerInterstitialEvent.Time], on the timeline of its
+// [AVPlayerInterstitialEvent.PrimaryItem], at which playback of interstitial
+// content begins. It specifies the alternative interstitial content to play
+// as an array of one or more template player items. The system uses the
+// configuration of the event’s [AVPlayerInterstitialEvent.TemplateItems] to
+// build new player item instances to present the interstitial content.
 //
 // Use [AVPlayerInterstitialEventMonitor] to observe the scheduling and
 // progress of interstitial events. If your app requires specifying the
@@ -346,9 +347,9 @@ func (p AVPlayerInterstitialEvent) PrimaryItem() IAVPlayerItem {
 // If you require the system to create new player items using the same asset
 // instance as the template item, create the asset with an
 // [AVURLAssetPrimarySessionIdentifierKey] value equal to
-// [HttpSessionIdentifier] of the primary item’s [Asset]. Creating assets
-// this way simplifies cases where you require loading their data with a
-// custom [AVAssetResourceLoader] delegate.
+// [AVURLAsset.HttpSessionIdentifier] of the primary item’s
+// [AVPlayerItem.Asset]. Creating assets this way simplifies cases where you
+// require loading their data with a custom [AVAssetResourceLoader] delegate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/templateItems
 //
@@ -493,9 +494,11 @@ func (p AVPlayerInterstitialEvent) Restrictions() AVPlayerInterstitialEventRestr
 // # Discussion
 //
 // The value of this property is `nil` if there is no asset list loaded for
-// the event. If this value is `nil` and the event’s [TemplateItems] is
-// empty, then an asset list read is expected. If this value is `nil` and
-// [TemplateItems] isn’t empty, an asset list read isn’t expected.
+// the event. If this value is `nil` and the event’s
+// [AVPlayerInterstitialEvent.TemplateItems] is empty, then an asset list read
+// is expected. If this value is `nil` and
+// [AVPlayerInterstitialEvent.TemplateItems] isn’t empty, an asset list read
+// isn’t expected.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/assetListResponse
 func (p AVPlayerInterstitialEvent) AssetListResponse() foundation.INSDictionary {

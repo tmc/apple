@@ -3,6 +3,7 @@
 package networkextension
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -60,9 +61,10 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // the [NEVPNManager] class. The key differences to be aware of when using
 // [NETunnelProviderManager] are:
 //
-// - The [NETunnelProviderManager.ProtocolConfiguration] property can only be set to instances of the
-// [NETunnelProviderProtocol] class - The [NETunnelProviderManager.Connection] read-only property is
-// set to an instance of the [NETunnelProviderSession] class.
+// - The [NEVPNManager.ProtocolConfiguration] property can only be set to
+// instances of the [NETunnelProviderProtocol] class - The
+// [NEVPNManager.Connection] read-only property is set to an instance of the
+// [NETunnelProviderSession] class.
 //
 // # Configuration Model
 //
@@ -165,7 +167,7 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // started automatically.
 //
 // It is possible to set regular VPN On Demand rules in a Per-App VPN
-// configuration via the [NETunnelProviderManager.OnDemandRules] property, but only
+// configuration via the [NEVPNManager.OnDemandRules] property, but only
 // [NEOnDemandRuleDisconnect] rules will be used. When a
 // [NEOnDemandRuleDisconnect] rule matches, apps which match the Per-App VPN
 // rules will bypass the VPN.
@@ -343,6 +345,27 @@ func (t NETunnelProviderManager) CopyAppRules() []NEAppRule {
 	})
 }
 
+// Read all of the VPN configurations created by the calling app that have
+// previously been saved to the Network Extension preferences.
+//
+// completionHandler: A block that takes an [NSArray] of [NETunnelProviderManager] objects, and
+// an [NSError] object. This block will be executed on the caller’s main
+// thread after the load operation is complete. If no configurations exist for
+// the calling app then the `managers` parameter will be set to nil and the
+// error parameter will be set to nil. If an error occurred while loading the
+// configurations, the error parameter will be set to an NSError object
+// containing details about the error. See [NEVPNManager] for a list of
+// possible errors.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/loadAllFromPreferences(completionHandler:)
+//
+// [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
+func (_NETunnelProviderManagerClass NETunnelProviderManagerClass) LoadAllFromPreferencesWithCompletionHandler(completionHandler NETunnelProviderManagerArrayErrorHandler) {
+	_block0, _ := NewNETunnelProviderManagerArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NETunnelProviderManagerClass.class), objc.Sel("loadAllFromPreferencesWithCompletionHandler:"), _block0)
+}
+
 // Returns a tunnel provider manager for managing a per-app VPN configuration.
 //
 // # Return Value
@@ -483,4 +506,27 @@ func (t NETunnelProviderManager) SafariDomains() []string {
 }
 func (t NETunnelProviderManager) SetSafariDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSafariDomains:"), objectivec.StringSliceToNSArray(value))
+}
+
+// LoadAllFromPreferences is a synchronous wrapper around [NETunnelProviderManager.LoadAllFromPreferencesWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (tc NETunnelProviderManagerClass) LoadAllFromPreferences(ctx context.Context) ([]NETunnelProviderManager, error) {
+	type result struct {
+		val []NETunnelProviderManager
+		err error
+	}
+	done := make(chan result, 1)
+	tc.LoadAllFromPreferencesWithCompletionHandler(func(val *[]NETunnelProviderManager, err error) {
+		var out []NETunnelProviderManager
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

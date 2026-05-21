@@ -254,7 +254,8 @@ func (t NSTextAttachmentViewProvider) AttachmentBoundsForAttributesLocationTextC
 // # Discussion
 //
 // Specify the value of this property at initialization time using the
-// [InitWithTextAttachmentParentViewTextLayoutManagerLocation] initializer.
+// [NSTextAttachmentViewProvider.InitWithTextAttachmentParentViewTextLayoutManagerLocation]
+// initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentViewProvider/location
 func (t NSTextAttachmentViewProvider) Location() NSTextLocation {
@@ -267,7 +268,8 @@ func (t NSTextAttachmentViewProvider) Location() NSTextLocation {
 // # Discussion
 //
 // Specify the value of this property at initialization time using the
-// [InitWithTextAttachmentParentViewTextLayoutManagerLocation] initializer.
+// [NSTextAttachmentViewProvider.InitWithTextAttachmentParentViewTextLayoutManagerLocation]
+// initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentViewProvider/textAttachment
 func (t NSTextAttachmentViewProvider) TextAttachment() INSTextAttachment {
@@ -280,7 +282,8 @@ func (t NSTextAttachmentViewProvider) TextAttachment() INSTextAttachment {
 // # Discussion
 //
 // Specify the value of this property at initialization time using the
-// [InitWithTextAttachmentParentViewTextLayoutManagerLocation] initializer.
+// [NSTextAttachmentViewProvider.InitWithTextAttachmentParentViewTextLayoutManagerLocation]
+// initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentViewProvider/textLayoutManager
 func (t NSTextAttachmentViewProvider) TextLayoutManager() INSTextLayoutManager {
@@ -293,7 +296,7 @@ func (t NSTextAttachmentViewProvider) TextLayoutManager() INSTextLayoutManager {
 // # Discussion
 //
 // If `true`, the framework calls the `textAttachment` property’s
-// [AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition]
+// [NSTextAttachmentViewProvider.AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition]
 // method and examines the text attachment view provider to determine the
 // bounds instead of using the `bounds` property of this instance. Defaults to
 // `false`.

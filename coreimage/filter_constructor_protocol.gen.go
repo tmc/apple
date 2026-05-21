@@ -47,9 +47,9 @@ func CIFilterConstructorObjectFromID(id objc.ID) CIFilterConstructorObject {
 // # Discussion
 //
 // Core Image calls this method when a filter is requested by name using the
-// [CIFilter] class method [FilterWithName] method (or related methods). Your
-// implementation of this method should provide a new instance of the
-// [CIFilter] subclass for your custom filter.
+// [CIFilter] class method [CIRAWFilterClass.FilterWithName] method (or
+// related methods). Your implementation of this method should provide a new
+// instance of the [CIFilter] subclass for your custom filter.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
 func (o CIFilterConstructorObject) FilterWithName(name string) CIFilter {

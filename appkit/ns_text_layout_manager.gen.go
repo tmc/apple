@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"context"
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
@@ -208,8 +207,8 @@ type INSTextLayoutManager interface {
 	// Topic: Configuring global layout manager options
 
 	// The queue that the framework dispatches layout operations on.
-	LayoutQueue() foundation.NSOperationQueue
-	SetLayoutQueue(value foundation.NSOperationQueue)
+	LayoutQueue() foundation.OperationQueue
+	SetLayoutQueue(value foundation.OperationQueue)
 	// A callback block that the framework invokes whenever the text layout manager needs to validate the rendering attributes for the range.
 	RenderingAttributesValidator() TextLayoutManagerTextLayoutFragmentHandler
 	SetRenderingAttributesValidator(value TextLayoutManagerTextLayoutFragmentHandler)
@@ -245,7 +244,7 @@ type INSTextLayoutManager interface {
 	// Returns the usage bounds for the text container.
 	UsageBoundsForTextContainer() corefoundation.CGRect
 	// Enumerates text segments of a specific type and in the text range you provide.
-	EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block CGRectTextContainerHandler)
+	EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block TextRangeCGRectFloat64TextContainerHandler)
 	// Replaces the current text content manager with a new one you provide.
 	ReplaceTextContentManager(textContentManager INSTextContentManager)
 	// Replaces content at the location you specify with an attributed string you provide.
@@ -256,7 +255,7 @@ type INSTextLayoutManager interface {
 	// Topic: Adjusting rendering
 
 	// Sets the rendering attribute for the value and range you specify.
-	AddRenderingAttributeValueForTextRange(renderingAttribute foundation.NSString, value objectivec.IObject, textRange INSTextRange)
+	AddRenderingAttributeValueForTextRange(renderingAttribute foundation.NSAttributedStringKey, value objectivec.IObject, textRange INSTextRange)
 	// Enumerates the rendering attributes from a location you specify.
 	EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block VoidHandler)
 	// Returns a dictionary of rendering attributes for rendering a link.
@@ -264,7 +263,7 @@ type INSTextLayoutManager interface {
 	// Invalidates the rendering attributes of the specified text range.
 	InvalidateRenderingAttributesForTextRange(textRange INSTextRange)
 	// Removes the rendering attribute from the specified text range.
-	RemoveRenderingAttributeForTextRange(renderingAttribute foundation.NSString, textRange INSTextRange)
+	RemoveRenderingAttributeForTextRange(renderingAttribute foundation.NSAttributedStringKey, textRange INSTextRange)
 	// Sets the rendering attributes for the range you specify.
 	SetRenderingAttributesForTextRange(renderingAttributes foundation.INSDictionary, textRange INSTextRange)
 
@@ -360,8 +359,8 @@ func (t NSTextLayoutManager) InitWithCoder(coder foundation.INSCoder) NSTextLayo
 //
 // [NSTextLayoutManager.SegmentType]: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/SegmentType
 // [NSTextLayoutManager.SegmentOptions]: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/SegmentOptions
-func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block CGRectTextContainerHandler) {
-	_block3, _ := NewCGRectTextContainerBlock(block)
+func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block TextRangeCGRectFloat64TextContainerHandler) {
+	_block3, _ := NewTextRangeCGRectFloat64TextContainerBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextSegmentsInRange:type:options:usingBlock:"), textRange, type_, options, _block3)
 }
 
@@ -417,13 +416,14 @@ func (t NSTextLayoutManager) ReplaceContentsInRangeWithTextElements(range_ INSTe
 //
 // Passing `nil` overrides the specified attribute by removing it from the
 // final attributes the framework passes to the layout and rendering engine.
-// This is a convenience method for [SetRenderingAttributesForTextRange].
+// This is a convenience method for
+// [NSTextLayoutManager.SetRenderingAttributesForTextRange].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/addRenderingAttribute(_:value:for:)
 //
 // [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
-func (t NSTextLayoutManager) AddRenderingAttributeValueForTextRange(renderingAttribute foundation.NSString, value objectivec.IObject, textRange INSTextRange) {
-	objc.Send[objc.ID](t.ID, objc.Sel("addRenderingAttribute:value:forTextRange:"), renderingAttribute, value, textRange)
+func (t NSTextLayoutManager) AddRenderingAttributeValueForTextRange(renderingAttribute foundation.NSAttributedStringKey, value objectivec.IObject, textRange INSTextRange) {
+	objc.Send[objc.ID](t.ID, objc.Sel("addRenderingAttribute:value:forTextRange:"), objc.String(string(renderingAttribute)), value, textRange)
 }
 
 // Enumerates the rendering attributes from a location you specify.
@@ -487,8 +487,8 @@ func (t NSTextLayoutManager) InvalidateRenderingAttributesForTextRange(textRange
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/removeRenderingAttribute(_:for:)
 //
 // [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
-func (t NSTextLayoutManager) RemoveRenderingAttributeForTextRange(renderingAttribute foundation.NSString, textRange INSTextRange) {
-	objc.Send[objc.ID](t.ID, objc.Sel("removeRenderingAttribute:forTextRange:"), renderingAttribute, textRange)
+func (t NSTextLayoutManager) RemoveRenderingAttributeForTextRange(renderingAttribute foundation.NSAttributedStringKey, textRange INSTextRange) {
+	objc.Send[objc.ID](t.ID, objc.Sel("removeRenderingAttribute:forTextRange:"), objc.String(string(renderingAttribute)), textRange)
 }
 
 // Sets the rendering attributes for the range you specify.
@@ -644,8 +644,8 @@ func (t NSTextLayoutManager) DocumentRange() INSTextRange {
 // the left, and on the right for right-to-left characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
-func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block NSTextLocationHandler) {
-	_block1, _ := NewNSTextLocationBlock(block)
+func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler) {
+	_block1, _ := NewFloat64NSTextLocationBoolBoolBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, _block1)
 }
 
@@ -667,8 +667,8 @@ func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingB
 // this layout functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
-func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationHandler) {
-	_block2, _ := NewNSTextLocationBlock(block)
+func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationBoolHandler) {
+	_block2, _ := NewNSTextLocationBoolBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 
@@ -772,11 +772,11 @@ func (t NSTextLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 // `estimatedUsageBounds` becomes `false`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/layoutQueue
-func (t NSTextLayoutManager) LayoutQueue() foundation.NSOperationQueue {
+func (t NSTextLayoutManager) LayoutQueue() foundation.OperationQueue {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("layoutQueue"))
-	return foundation.NSOperationQueueFromID(objc.ID(rv))
+	return foundation.OperationQueueFromID(objc.ID(rv))
 }
-func (t NSTextLayoutManager) SetLayoutQueue(value foundation.NSOperationQueue) {
+func (t NSTextLayoutManager) SetLayoutQueue(value foundation.OperationQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
 
@@ -785,8 +785,9 @@ func (t NSTextLayoutManager) SetLayoutQueue(value foundation.NSOperationQueue) {
 //
 // # Discussion
 //
-// The validator uses [SetRenderingAttributesForTextRange] to fill the
-// rendering attributes appropriate for the range inside `textLayoutFragment`.
+// The validator uses [NSTextLayoutManager.SetRenderingAttributesForTextRange]
+// to fill the rendering attributes appropriate for the range inside
+// `textLayoutFragment`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/renderingAttributesValidator
 func (t NSTextLayoutManager) RenderingAttributesValidator() TextLayoutManagerTextLayoutFragmentHandler {
@@ -918,8 +919,8 @@ func (t NSTextLayoutManager) SetTextSelections(value []NSTextSelection) {
 // # Discussion
 //
 // Views can observe this property to trigger a resize operation. For example,
-// [NSView] calls [NeedsUpdateConstraints] when the usage bounds changes. This
-// property is KVO-compliant.
+// [NSView] calls [NSView.NeedsUpdateConstraints] when the usage bounds
+// changes. This property is KVO-compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/usageBoundsForTextContainer
 func (t NSTextLayoutManager) UsageBoundsForTextContainer() corefoundation.CGRect {
@@ -933,7 +934,8 @@ func (t NSTextLayoutManager) UsageBoundsForTextContainer() corefoundation.CGRect
 // # Discussion
 //
 // The value of this property is `nil` if the text layout manager’s text
-// container is `nil`. Set [TextContainer] before accessing this property.
+// container is `nil`. Set [NSTextLayoutManager.TextContainer] before
+// accessing this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/textViewportLayoutController
 func (t NSTextLayoutManager) TextViewportLayoutController() INSTextViewportLayoutController {
@@ -977,33 +979,3 @@ func (_NSTextLayoutManagerClass NSTextLayoutManagerClass) LinkRenderingAttribute
 }
 
 // Protocol methods for NSTextSelectionDataSource
-
-// EnumerateRenderingAttributesFromLocationReverseUsingBlockSync is a synchronous wrapper around [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (t NSTextLayoutManager) EnumerateRenderingAttributesFromLocationReverseUsingBlockSync(ctx context.Context, location NSTextLocation, reverse bool) error {
-	done := make(chan struct{}, 1)
-	t.EnumerateRenderingAttributesFromLocationReverseUsingBlock(location, reverse, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlockSync is a synchronous wrapper around [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlockSync(ctx context.Context, location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions) (*NSTextLayoutFragment, error) {
-	done := make(chan *NSTextLayoutFragment, 1)
-	t.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location, options, func(val *NSTextLayoutFragment) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}

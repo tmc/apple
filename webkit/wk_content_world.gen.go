@@ -160,8 +160,10 @@ func (_WKContentWorldClass WKContentWorldClass) WorldWithName(name string) WKCon
 // # Discussion
 //
 // This property contains a valid string only for content worlds you retrieve
-// using the [WorldWithName] function. The value of this property is `nil` for
-// the content worlds in the [DefaultClientWorld] and [PageWorld] properties.
+// using the [WKContentWorldClass.WorldWithName] function. The value of this
+// property is `nil` for the content worlds in the
+// [WKContentWorldClass.DefaultClientWorld] and
+// [WKContentWorldClass.PageWorld] properties.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKContentWorld/name
 func (c WKContentWorld) Name() string {

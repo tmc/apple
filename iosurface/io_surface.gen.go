@@ -187,15 +187,16 @@ type IIOSurface interface {
 	ElementWidthOfPlaneAtIndex(planeIndex uint) int
 	HeightOfPlaneAtIndex(planeIndex uint) int
 	IncrementUseCount()
-	LockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32
+	LockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32
 	RemoveAllAttachments()
 	RemoveAttachmentForKey(key string)
 	SetAllAttachments(dict foundation.INSDictionary)
 	SetAttachmentForKey(anObject objectivec.IObject, key string)
 	SetPurgeableOldState(newState IOSurfacePurgeabilityState, oldState *IOSurfacePurgeabilityState) int32
-	UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32
+	UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32
 	WidthOfPlaneAtIndex(planeIndex uint) int
 
+	InitWithCoder(coder foundation.INSCoder) IOSurface
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -216,6 +217,13 @@ func NewIOSurface() IOSurface {
 	class := getIOSurfaceClass()
 	rv := objc.Send[IOSurface](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/IOSurface/IOSurface/init(coder:)
+func NewSurfaceWithCoder(coder foundation.INSCoder) IOSurface {
+	instance := getIOSurfaceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return IOSurfaceFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/init(properties:)
@@ -290,7 +298,7 @@ func (s IOSurface) IncrementUseCount() {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/lock(options:seed:)
-func (s IOSurface) LockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32 {
+func (s IOSurface) LockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("lockWithOptions:seed:"), options, seed)
 	return rv
 }
@@ -322,7 +330,7 @@ func (s IOSurface) SetPurgeableOldState(newState IOSurfacePurgeabilityState, old
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/unlock(options:seed:)
-func (s IOSurface) UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32 {
+func (s IOSurface) UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("unlockWithOptions:seed:"), options, seed)
 	return rv
 }
@@ -330,6 +338,12 @@ func (s IOSurface) UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed unsa
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/widthOfPlane(at:)
 func (s IOSurface) WidthOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("widthOfPlaneAtIndex:"), planeIndex)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/IOSurface/IOSurface/init(coder:)
+func (s IOSurface) InitWithCoder(coder foundation.INSCoder) IOSurface {
+	rv := objc.Send[IOSurface](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s IOSurface) EncodeWithCoder(coder foundation.INSCoder) {

@@ -84,9 +84,10 @@ func (o NSTextFinderBarContainerObject) FindBarViewDidChangeHeight() {
 //
 // This content view defines the view hierarchy to be dimmed during
 // incremental search, if the [NSTextFinder] instance’s
-// [IncrementalSearchingShouldDimContentView] is true. If this method is not
-// implemented or returns `nil`, then the [NSTextFinder] instance will act as
-// if [IncrementalSearchingShouldDimContentView] is false
+// [NSTextFinder.IncrementalSearchingShouldDimContentView] is true. If this
+// method is not implemented or returns `nil`, then the [NSTextFinder]
+// instance will act as if
+// [NSTextFinder.IncrementalSearchingShouldDimContentView] is false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/contentView()
 func (o NSTextFinderBarContainerObject) ContentView() INSView {

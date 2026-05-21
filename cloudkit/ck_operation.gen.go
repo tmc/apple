@@ -61,15 +61,15 @@ func (cc CKOperationClass) Alloc() CKOperation {
 // # Long-Lived Operations
 //
 // A is an operation that continues to run after the user closes the app. To
-// specify a long-lived operation, set [CKOperation.IsLongLived] to true, provide a
-// completion handler, and execute the operation. To get the identifiers of
-// all running long-lived operations, use the [allLongLivedOperationIDs()]
-// method that [CKContainer] provides. To get a specific long-lived operation,
-// use the [longLivedOperation(for:)] method. Make sure you set the completion
-// handler of a long-lived operation before you execute it so that the system
-// can notify you when it completes and you can process the results. Do not
-// execute an operation, change it to long-lived, and execute it again as a
-// long-lived operation.
+// specify a long-lived operation, set [CKOperation.IsLongLived] to true,
+// provide a completion handler, and execute the operation. To get the
+// identifiers of all running long-lived operations, use the
+// [allLongLivedOperationIDs()] method that [CKContainer] provides. To get a
+// specific long-lived operation, use the [longLivedOperation(for:)] method.
+// Make sure you set the completion handler of a long-lived operation before
+// you execute it so that the system can notify you when it completes and you
+// can process the results. Do not execute an operation, change it to
+// long-lived, and execute it again as a long-lived operation.
 //
 // The following is the typical life cycle of a long-lived operation:
 //
@@ -113,14 +113,14 @@ func (cc CKOperationClass) Alloc() CKOperation {
 // [allLongLivedOperationIDs()]: https://developer.apple.com/documentation/CloudKit/CKContainer/allLongLivedOperationIDs()
 // [longLivedOperation(for:)]: https://developer.apple.com/documentation/CloudKit/CKContainer/longLivedOperation(for:)
 type CKOperation struct {
-	foundation.Operation
+	foundation.NSOperation
 }
 
 // CKOperationFromID constructs a [CKOperation] from an objc.ID.
 //
 // The abstract base class for all operations that execute in a database.
 func CKOperationFromID(id objc.ID) CKOperation {
-	return CKOperation{Operation: foundation.OperationFromID(id)}
+	return CKOperation{NSOperation: foundation.NSOperationFromID(id)}
 }
 
 // NOTE: CKOperation adopts protocols; skip strict compile-time interface assertion.
@@ -144,13 +144,13 @@ func CKOperationFromID(id objc.ID) CKOperation {
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKOperation
 type ICKOperation interface {
-	foundation.IOperation
+	foundation.INSOperation
 
 	// Topic: Identifying the Operation
 
 	// A unique identifier for a long-lived operation.
-	OperationID() string
-	SetOperationID(value string)
+	OperationID() CKOperationID
+	SetOperationID(value CKOperationID)
 
 	// Topic: Managing the Operation’s Configuration
 
@@ -203,12 +203,12 @@ func NewCKOperation() CKOperation {
 // A unique identifier for a long-lived operation.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckoperation/operationid-8auuc
-func (c CKOperation) OperationID() string {
+func (c CKOperation) OperationID() CKOperationID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("operationID"))
-	return foundation.NSStringFromID(rv).String()
+	return CKOperationID(foundation.NSStringFromID(rv).String())
 }
-func (c CKOperation) SetOperationID(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setOperationID:"), objc.String(value))
+func (c CKOperation) SetOperationID(value CKOperationID) {
+	objc.Send[struct{}](c.ID, objc.Sel("setOperationID:"), objc.String(string(value)))
 }
 
 // The operation’s configuration.

@@ -164,7 +164,7 @@ func NewMTLArrayType() MTLArrayType {
 //
 // # Discussion
 //
-// Use this method if [ElementType] is [MTLDataTypeArray].
+// Use this method if [MTLArrayType.ElementType] is [MTLDataTypeArray].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/element()
 func (a MTLArrayType) ElementArrayType() IMTLArrayType {
@@ -182,7 +182,7 @@ func (a MTLArrayType) ElementArrayType() IMTLArrayType {
 //
 // # Discussion
 //
-// Use this method if [ElementType] is [MTLDataTypeStruct].
+// Use this method if [MTLArrayType.ElementType] is [MTLDataTypeStruct].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementStructType()
 func (a MTLArrayType) ElementStructType() IMTLStructType {
@@ -200,7 +200,7 @@ func (a MTLArrayType) ElementStructType() IMTLStructType {
 //
 // # Discussion
 //
-// Use this method if [ElementType] is [MTLDataTypePointer].
+// Use this method if [MTLArrayType.ElementType] is [MTLDataTypePointer].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementPointerType()
 func (a MTLArrayType) ElementPointerType() IMTLPointerType {
@@ -218,7 +218,7 @@ func (a MTLArrayType) ElementPointerType() IMTLPointerType {
 //
 // # Discussion
 //
-// Use this method if [ElementType] is [MTLDataTypeTexture].
+// Use this method if [MTLArrayType.ElementType] is [MTLDataTypeTexture].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementTextureReferenceType()
 func (a MTLArrayType) ElementTextureReferenceType() IMTLTextureReferenceType {

@@ -5,8 +5,7 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -80,25 +79,9 @@ type IAVAssetVariantVideoLayoutAttributes interface {
 	// Topic: Accessing attributes
 
 	// Attributes that describe the video’s stereo components.
-	StereoViewComponents() uint64
+	StereoViewComponents() coremedia.CMStereoViewComponents
 	// Describes the video projection.
-	ProjectionType() uint64
-
-	// The video sample codec types present in the variant’s renditions.
-	CodecTypes() AVVideoCodecType
-	SetCodecTypes(value AVVideoCodecType)
-	// The nominal frame rate of the variant’s renditions.
-	NominalFrameRate() float64
-	SetNominalFrameRate(value float64)
-	// The presentation size of the variant’s renditions.
-	PresentationSize() corefoundation.CGSize
-	SetPresentationSize(value corefoundation.CGSize)
-	// Attributes that describe the layout of the video content.
-	VideoLayoutAttributes() IAVAssetVariantVideoLayoutAttributes
-	SetVideoLayoutAttributes(value IAVAssetVariantVideoLayoutAttributes)
-	// The video range of the variant.
-	VideoRange() AVVideoRange
-	SetVideoRange(value AVVideoRange)
+	ProjectionType() coremedia.CMProjectionType
 }
 
 // Init initializes the instance.
@@ -133,70 +116,15 @@ func NewAVAssetVariantVideoLayoutAttributes() AVAssetVariantVideoLayoutAttribute
 // [kCMStereoView_None]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/kCMStereoView_None
 // [leftEye]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/leftEye
 // [rightEye]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/rightEye
-func (a AVAssetVariantVideoLayoutAttributes) StereoViewComponents() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("stereoViewComponents"))
-	return rv
+func (a AVAssetVariantVideoLayoutAttributes) StereoViewComponents() coremedia.CMStereoViewComponents {
+	rv := objc.Send[coremedia.CMStereoViewComponents](a.ID, objc.Sel("stereoViewComponents"))
+	return coremedia.CMStereoViewComponents(rv)
 }
 
 // Describes the video projection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/VideoAttributes-swift.class/LayoutAttributes/projectionType
-func (a AVAssetVariantVideoLayoutAttributes) ProjectionType() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("projectionType"))
-	return rv
-}
-
-// The video sample codec types present in the variant’s renditions.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/codectypes
-func (a AVAssetVariantVideoLayoutAttributes) CodecTypes() AVVideoCodecType {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("codecTypes"))
-	return AVVideoCodecType(foundation.NSStringFromID(rv).String())
-}
-func (a AVAssetVariantVideoLayoutAttributes) SetCodecTypes(value AVVideoCodecType) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCodecTypes:"), objc.String(string(value)))
-}
-
-// The nominal frame rate of the variant’s renditions.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/nominalframerate
-func (a AVAssetVariantVideoLayoutAttributes) NominalFrameRate() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("nominalFrameRate"))
-	return rv
-}
-func (a AVAssetVariantVideoLayoutAttributes) SetNominalFrameRate(value float64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setNominalFrameRate:"), value)
-}
-
-// The presentation size of the variant’s renditions.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/presentationsize
-func (a AVAssetVariantVideoLayoutAttributes) PresentationSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("presentationSize"))
-	return corefoundation.CGSize(rv)
-}
-func (a AVAssetVariantVideoLayoutAttributes) SetPresentationSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPresentationSize:"), value)
-}
-
-// Attributes that describe the layout of the video content.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/videolayoutattributes
-func (a AVAssetVariantVideoLayoutAttributes) VideoLayoutAttributes() IAVAssetVariantVideoLayoutAttributes {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoLayoutAttributes"))
-	return AVAssetVariantVideoLayoutAttributesFromID(objc.ID(rv))
-}
-func (a AVAssetVariantVideoLayoutAttributes) SetVideoLayoutAttributes(value IAVAssetVariantVideoLayoutAttributes) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVideoLayoutAttributes:"), value)
-}
-
-// The video range of the variant.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/videorange
-func (a AVAssetVariantVideoLayoutAttributes) VideoRange() AVVideoRange {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoRange"))
-	return AVVideoRange(foundation.NSStringFromID(rv).String())
-}
-func (a AVAssetVariantVideoLayoutAttributes) SetVideoRange(value AVVideoRange) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVideoRange:"), objc.String(string(value)))
+func (a AVAssetVariantVideoLayoutAttributes) ProjectionType() coremedia.CMProjectionType {
+	rv := objc.Send[coremedia.CMProjectionType](a.ID, objc.Sel("projectionType"))
+	return coremedia.CMProjectionType(rv)
 }

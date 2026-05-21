@@ -58,13 +58,6 @@ func (cc CIFeatureClass) Alloc() CIFeature {
 //   - [CIFeature.Bounds]: The rectangle that holds discovered feature.
 //   - [CIFeature.Type]: The type of feature that was discovered.
 //
-// # Feature Types
-//
-//   - [CIFeature.CIFeatureTypeFace]: A Core Image feature type for person’s face.
-//   - [CIFeature.CIFeatureTypeRectangle]: A Core Image feature type for rectangular object.
-//   - [CIFeature.CIFeatureTypeQRCode]: A Core Image feature type for QR code object.
-//   - [CIFeature.CIFeatureTypeText]: A Core Image feature type for text.
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIFeature
 type CIFeature struct {
 	objectivec.Object
@@ -88,13 +81,6 @@ func CIFeatureFromID(id objc.ID) CIFeature {
 //   - [ICIFeature.Bounds]: The rectangle that holds discovered feature.
 //   - [ICIFeature.Type]: The type of feature that was discovered.
 //
-// # Feature Types
-//
-//   - [ICIFeature.CIFeatureTypeFace]: A Core Image feature type for person’s face.
-//   - [ICIFeature.CIFeatureTypeRectangle]: A Core Image feature type for rectangular object.
-//   - [ICIFeature.CIFeatureTypeQRCode]: A Core Image feature type for QR code object.
-//   - [ICIFeature.CIFeatureTypeText]: A Core Image feature type for text.
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIFeature
 type ICIFeature interface {
 	objectivec.IObject
@@ -105,17 +91,6 @@ type ICIFeature interface {
 	Bounds() corefoundation.CGRect
 	// The type of feature that was discovered.
 	Type() string
-
-	// Topic: Feature Types
-
-	// A Core Image feature type for person’s face.
-	CIFeatureTypeFace() string
-	// A Core Image feature type for rectangular object.
-	CIFeatureTypeRectangle() string
-	// A Core Image feature type for QR code object.
-	CIFeatureTypeQRCode() string
-	// A Core Image feature type for text.
-	CIFeatureTypeText() string
 }
 
 // Init initializes the instance.
@@ -154,37 +129,5 @@ func (f CIFeature) Bounds() corefoundation.CGRect {
 // See: https://developer.apple.com/documentation/CoreImage/CIFeature/type
 func (f CIFeature) Type() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("type"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Core Image feature type for person’s face.
-//
-// See: https://developer.apple.com/documentation/coreimage/cifeaturetypeface
-func (f CIFeature) CIFeatureTypeFace() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeFace"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Core Image feature type for rectangular object.
-//
-// See: https://developer.apple.com/documentation/coreimage/cifeaturetyperectangle
-func (f CIFeature) CIFeatureTypeRectangle() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeRectangle"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Core Image feature type for QR code object.
-//
-// See: https://developer.apple.com/documentation/coreimage/cifeaturetypeqrcode
-func (f CIFeature) CIFeatureTypeQRCode() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeQRCode"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Core Image feature type for text.
-//
-// See: https://developer.apple.com/documentation/coreimage/cifeaturetypetext
-func (f CIFeature) CIFeatureTypeText() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeText"))
 	return foundation.NSStringFromID(rv).String()
 }

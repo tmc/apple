@@ -191,9 +191,9 @@ type IAVAudioNode interface {
 	// An audio unit object that wraps or underlies the implementation’s audio unit.
 	AUAudioUnit() objectivec.IObject
 	// The processing latency of the node, in seconds.
-	Latency() float64
+	Latency() foundation.NSTimeInterval
 	// The maximum render pipeline latency downstream of the node, in seconds.
-	OutputPresentationLatency() float64
+	OutputPresentationLatency() foundation.NSTimeInterval
 
 	// Topic: Resetting the Audio Node
 
@@ -392,9 +392,9 @@ func (a AVAudioNode) AUAudioUnit() objectivec.IObject {
 // indicates either no latency or an unknown latency.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/latency
-func (a AVAudioNode) Latency() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("latency"))
-	return rv
+func (a AVAudioNode) Latency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("latency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The maximum render pipeline latency downstream of the node, in seconds.
@@ -405,7 +405,7 @@ func (a AVAudioNode) Latency() float64 {
 // the output of a node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/outputPresentationLatency
-func (a AVAudioNode) OutputPresentationLatency() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("outputPresentationLatency"))
-	return rv
+func (a AVAudioNode) OutputPresentationLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("outputPresentationLatency"))
+	return foundation.NSTimeInterval(rv)
 }

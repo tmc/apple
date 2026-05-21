@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSScriptClassDescription] class.
@@ -225,7 +226,7 @@ type INSScriptClassDescription interface {
 	// Topic: Getting command information
 
 	// Returns the selector associated with the receiver for the specified command description.
-	SelectorForCommand(commandDescription INSScriptCommandDescription) objc.SEL
+	SelectorForCommand(commandDescription INSScriptCommandDescription) objectivec.SEL
 	// Returns a Boolean value indicating whether the receiver or any superclass supports the specified command.
 	SupportsCommand(commandDescription INSScriptCommandDescription) bool
 }
@@ -261,7 +262,7 @@ func NewNSScriptClassDescription() NSScriptClassDescription {
 // is. Returns `nil` if it doesn’t find a scriptable class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/init(for:)
-func NewScriptClassDescriptionForClass(aClass objc.Class) NSScriptClassDescription {
+func NewScriptClassDescriptionForClass(aClass objectivec.Class) NSScriptClassDescription {
 	rv := objc.Send[objc.ID](objc.ID(getNSScriptClassDescriptionClass().class), objc.Sel("classDescriptionForClass:"), aClass)
 	return NSScriptClassDescriptionFromID(rv)
 }
@@ -450,7 +451,7 @@ func (s NSScriptClassDescription) HasPropertyForKey(key string) bool {
 // # Discussion
 //
 // To determine if a property is read-only, invoke
-// [HasWritablePropertyForKey]/
+// [NSScriptClassDescription.HasWritablePropertyForKey]/
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/hasReadableProperty(forKey:)
 func (s NSScriptClassDescription) HasReadablePropertyForKey(key string) bool {
@@ -528,9 +529,9 @@ func (s NSScriptClassDescription) TypeForKey(key string) string {
 // superclass. Returns [NULL] if no matching selector is found.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/selector(forCommand:)
-func (s NSScriptClassDescription) SelectorForCommand(commandDescription INSScriptCommandDescription) objc.SEL {
-	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selectorForCommand:"), commandDescription)
-	return rv
+func (s NSScriptClassDescription) SelectorForCommand(commandDescription INSScriptCommandDescription) objectivec.SEL {
+	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selectorForCommand:"), commandDescription)
+	return objectivec.SEL(rv)
 }
 
 // Returns a Boolean value indicating whether the receiver or any superclass
@@ -580,7 +581,8 @@ func (s NSScriptClassDescription) SuperclassDescription() INSScriptClassDescript
 // A class name. This may be either the human-readable name for the
 // class—that is, the name that is used in a script—or the name of the
 // Objective-C class that is instantiated to implement the class. To reliably
-// obtain the implementation name, use [ImplementationClassName].
+// obtain the implementation name, use
+// [NSScriptClassDescription.ImplementationClassName].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/className
 func (s NSScriptClassDescription) ClassName() string {
@@ -611,11 +613,11 @@ func (s NSScriptClassDescription) DefaultSubcontainerAttributeKey() string {
 //
 // # Discussion
 //
-// The name returned by the [ClassName] method for an instance of
-// [NSScriptClassDescription] resulting from an sdef class declaration is the
-// human-readable name for the class—that is, the name that is used in a
-// script. To obtain the name of the Objective-C class instantiated to
-// implement the class, use `implementationClassName`.
+// The name returned by the [NSScriptClassDescription.ClassName] method for an
+// instance of [NSScriptClassDescription] resulting from an sdef class
+// declaration is the human-readable name for the class—that is, the name
+// that is used in a script. To obtain the name of the Objective-C class
+// instantiated to implement the class, use `implementationClassName`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/implementationClassName
 func (s NSScriptClassDescription) ImplementationClassName() string {

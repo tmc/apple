@@ -4,7 +4,6 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -53,10 +52,10 @@ func (cc CAEmitterLayerClass) Alloc() CAEmitterLayer {
 // layer’s background color and border.
 //
 // The following code shows how to set up a simple point (the default
-// [CAEmitterLayer.EmitterShape] is [CAEmitterLayer.Point]) particle emitter. It uses an image named
-// `RadialGradient.Png()` as the cell contents and, by setting the emitter
-// cell’s [CAEmitterLayer.EmissionRange] to `2` × [CAEmitterLayer.Pi], the particles are emitted in all
-// directions.
+// [CAEmitterLayer.EmitterShape] is [point]) particle emitter. It uses an
+// image named `RadialGradient.Png()` as the cell contents and, by setting the
+// emitter cell’s [CAEmitterCell.EmissionRange] to `2` × [pi], the
+// particles are emitted in all directions.
 //
 // # Specifying Particle Emitter Cells
 //
@@ -98,6 +97,9 @@ func (cc CAEmitterLayerClass) Alloc() CAEmitterLayer {
 //   - [CAEmitterLayer.SetPreservesDepth]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayer
+//
+// [pi]: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
+// [point]: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayerEmitterShape/point
 type CAEmitterLayer struct {
 	CALayer
 }
@@ -210,15 +212,6 @@ type ICAEmitterLayer interface {
 	// Defines whether the layer flattens the particles into its plane.
 	PreservesDepth() bool
 	SetPreservesDepth(value bool)
-
-	// The angle, in radians, defining a cone around the emission angle. Animatable.
-	EmissionRange() float64
-	SetEmissionRange(value float64)
-	// The mathematical constant pi (π), approximately equal to 3.14159.
-	Pi() unsafe.Pointer
-	SetPi(value unsafe.Pointer)
-	// Particles are emitted from a single point at (
-	Point() CAEmitterLayerEmitterShape
 }
 
 // Init initializes the instance.
@@ -251,7 +244,7 @@ func NewCAEmitterLayer() CAEmitterLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -330,11 +323,12 @@ func (e CAEmitterLayer) SetEmitterPosition(value corefoundation.CGPoint) {
 // # Discussion
 //
 // The possible values for emitterMode are shown in [Emitter Shape]. The
-// default value is [Point].
+// default value is [point].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayer/emitterShape
 //
 // [Emitter Shape]: https://developer.apple.com/documentation/QuartzCore/emitter-shape
+// [point]: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayerEmitterShape/point
 func (e CAEmitterLayer) EmitterShape() CAEmitterLayerEmitterShape {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("emitterShape"))
 	return CAEmitterLayerEmitterShape(foundation.NSStringFromID(rv).String())
@@ -369,8 +363,8 @@ func (e CAEmitterLayer) SetEmitterZPosition(value float64) {
 // # Discussion
 //
 // How the emitter depth is applied depends on the emitter shape. See [Emitter
-// Shape] for details. Depending on the value of [EmitterShape], this value
-// may be ignored.
+// Shape] for details. Depending on the value of
+// [CAEmitterLayer.EmitterShape], this value may be ignored.
 //
 // Default is `0.0`.
 //
@@ -390,8 +384,8 @@ func (e CAEmitterLayer) SetEmitterDepth(value float64) {
 // # Discussion
 //
 // How the emitter size is applied depends on the emitter shape. See [Emitter
-// Shape] for details. Depending on the value of [EmitterShape], this value
-// may be ignored.
+// Shape] for details. Depending on the value of
+// [CAEmitterLayer.EmitterShape], this value may be ignored.
 //
 // Default is `0.0`.
 //
@@ -513,9 +507,9 @@ func (e CAEmitterLayer) SetEmitterMode(value CAEmitterLayerEmitterMode) {
 //
 // Default value is `1.0`.
 //
-// By setting an emitter’s [Lifetime] to `0`, you effectively stop particle
-// emission: all new particles created have their [Lifetime] set to `0` and
-// are never rendered.
+// By setting an emitter’s [CAEmitterLayer.Lifetime] to `0`, you effectively
+// stop particle emission: all new particles created have their
+// [CAEmitterCell.Lifetime] set to `0` and are never rendered.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayer/lifetime
 func (e CAEmitterLayer) Lifetime() float32 {
@@ -544,35 +538,4 @@ func (e CAEmitterLayer) PreservesDepth() bool {
 }
 func (e CAEmitterLayer) SetPreservesDepth(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPreservesDepth:"), value)
-}
-
-// The angle, in radians, defining a cone around the emission angle.
-// Animatable.
-//
-// See: https://developer.apple.com/documentation/quartzcore/caemittercell/emissionrange
-func (e CAEmitterLayer) EmissionRange() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("emissionRange"))
-	return rv
-}
-func (e CAEmitterLayer) SetEmissionRange(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setEmissionRange:"), value)
-}
-
-// The mathematical constant pi (π), approximately equal to 3.14159.
-//
-// See: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
-func (e CAEmitterLayer) Pi() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("pi"))
-	return rv
-}
-func (e CAEmitterLayer) SetPi(value unsafe.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPi:"), value)
-}
-
-// Particles are emitted from a single point at (
-//
-// See: https://developer.apple.com/documentation/quartzcore/caemitterlayeremittershape/point
-func (e CAEmitterLayer) Point() CAEmitterLayerEmitterShape {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kCAEmitterLayerPoint"))
-	return CAEmitterLayerEmitterShape(foundation.NSStringFromID(rv).String())
 }

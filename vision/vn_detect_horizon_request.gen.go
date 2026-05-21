@@ -43,10 +43,6 @@ func (vc VNDetectHorizonRequestClass) Alloc() VNDetectHorizonRequest {
 
 // An image-analysis request that determines the horizon angle in an image.
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectHorizonRequest.VNDetectHorizonRequestRevision1]: A constant for specifying revision 1 of the horizon detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHorizonRequest
 type VNDetectHorizonRequest struct {
 	VNImageBasedRequest
@@ -64,18 +60,9 @@ func VNDetectHorizonRequestFromID(id objc.ID) VNDetectHorizonRequest {
 
 // An interface definition for the [VNDetectHorizonRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectHorizonRequest.VNDetectHorizonRequestRevision1]: A constant for specifying revision 1 of the horizon detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHorizonRequest
 type IVNDetectHorizonRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the horizon detection request.
-	VNDetectHorizonRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -105,19 +92,11 @@ func NewVNDetectHorizonRequest() VNDetectHorizonRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectHorizonRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectHorizonRequest {
 	instance := getVNDetectHorizonRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectHorizonRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the horizon detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthorizonrequestrevision1
-func (d VNDetectHorizonRequest) VNDetectHorizonRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHorizonRequestRevision1"))
-	return rv
 }

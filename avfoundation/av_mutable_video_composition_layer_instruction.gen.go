@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -94,11 +95,19 @@ func NewAVMutableVideoCompositionLayerInstruction() AVMutableVideoCompositionLay
 // # Return Value
 //
 // A new mutable video composition layer instruction with no transform or
-// opacity ramps and [TrackID] initialized to the track ID of `track`.
+// opacity ramps and [AVMutableVideoCompositionLayerInstruction.TrackID]
+// initialized to the track ID of `track`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionLayerInstruction/init(assetTrack:)
 func NewMutableVideoCompositionLayerInstructionWithAssetTrack(track IAVAssetTrack) AVMutableVideoCompositionLayerInstruction {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableVideoCompositionLayerInstructionClass().class), objc.Sel("videoCompositionLayerInstructionWithAssetTrack:"), track)
+	return AVMutableVideoCompositionLayerInstructionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/init(coder:)
+func NewMutableVideoCompositionLayerInstructionWithCoder(coder foundation.INSCoder) AVMutableVideoCompositionLayerInstruction {
+	instance := getAVMutableVideoCompositionLayerInstructionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return AVMutableVideoCompositionLayerInstructionFromID(rv)
 }
 
@@ -107,7 +116,8 @@ func NewMutableVideoCompositionLayerInstructionWithAssetTrack(track IAVAssetTrac
 // # Return Value
 //
 // A new mutable video composition layer instruction with no transform or
-// opacity ramps and [TrackID] initialized to [kCMPersistentTrackID_Invalid].
+// opacity ramps and [AVMutableVideoCompositionLayerInstruction.TrackID]
+// initialized to [kCMPersistentTrackID_Invalid].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionLayerInstruction/videoCompositionLayerInstruction
 //

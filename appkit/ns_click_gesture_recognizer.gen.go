@@ -55,9 +55,10 @@ func (nc NSClickGestureRecognizerClass) Alloc() NSClickGestureRecognizer {
 // recognized.
 //
 // The gesture recognizer automatically sets the values of the
-// [NSClickGestureRecognizer.DelaysPrimaryMouseButtonEvents], [NSClickGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
-// [NSClickGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for each button in the
-// [NSClickGestureRecognizer.ButtonMask] property.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents],
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for
+// each button in the [NSClickGestureRecognizer.ButtonMask] property.
 //
 // # Configuring the Gesture
 //
@@ -181,9 +182,10 @@ func NewClickGestureRecognizerWithTargetAction(target objectivec.IObject, action
 // button.
 //
 // Changing the value of this property also sets the values of the
-// [DelaysPrimaryMouseButtonEvents], [DelaysSecondaryMouseButtonEvents], and
-// [DelaysOtherMouseButtonEvents] properties to true for each of the buttons
-// you specified.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents],
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for
+// each of the buttons you specified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClickGestureRecognizer/buttonMask
 func (c NSClickGestureRecognizer) ButtonMask() uint {

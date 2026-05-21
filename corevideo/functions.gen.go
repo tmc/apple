@@ -9,6 +9,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 )
@@ -701,7 +702,7 @@ func tryCVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDi
 	if _cVDisplayLinkSetOutputHandler == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkSetOutputHandler", "10.4", _cVDisplayLinkSetOutputHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
 		return handler(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()

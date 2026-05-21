@@ -142,12 +142,13 @@ func (o NSApplicationDelegateObject) ApplicationDidResignActive(notification fou
 // # Discussion
 //
 // This method is called after the application’s Quit menu item has been
-// selected, or after the [Terminate] method has been called. Generally, you
-// should return [NSTerminateNow] to allow the termination to complete, but
-// you can cancel the termination process or delay it somewhat as needed. For
-// example, you might delay termination to finish processing some critical
-// data but then terminate the application as soon as you are done by calling
-// the [ReplyToApplicationShouldTerminate] method.
+// selected, or after the [NSApplication.Terminate] method has been called.
+// Generally, you should return [NSTerminateNow] to allow the termination to
+// complete, but you can cancel the termination process or delay it somewhat
+// as needed. For example, you might delay termination to finish processing
+// some critical data but then terminate the application as soon as you are
+// done by calling the [NSApplication.ReplyToApplicationShouldTerminate]
+// method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldTerminate(_:)
 //
@@ -319,7 +320,7 @@ func (o NSApplicationDelegateObject) ApplicationDidUpdate(notification foundatio
 //
 // Miniaturized windows, windows in the Dock, are considered visible by this
 // method, and cause `flag` to return true, despite the fact that miniaturized
-// windows return false when sent an [Visible] message.
+// windows return false when sent an [NSWindow.Visible] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldHandleReopen(_:hasVisibleWindows:)
 func (o NSApplicationDelegateObject) ApplicationShouldHandleReopenHasVisibleWindows(sender INSApplication, hasVisibleWindows bool) bool {
@@ -397,8 +398,8 @@ func (o NSApplicationDelegateObject) ApplicationDockMenu(sender INSApplication) 
 // responsible to make any required changes to support localized keyboards.
 //
 // During the final activation of your app at launch time, the app object’s
-// [FinishLaunching] method calls this method once to record your app’s
-// response.
+// [NSApplication.FinishLaunching] method calls this method once to record
+// your app’s response.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldAutomaticallyLocalizeKeyEquivalents(_:)
 func (o NSApplicationDelegateObject) ApplicationShouldAutomaticallyLocalizeKeyEquivalents(application INSApplication) bool {
@@ -598,11 +599,11 @@ func (o NSApplicationDelegateObject) ApplicationDidUpdateUserActivity(applicatio
 // # Discussion
 //
 // The delegate receives this message after the
-// [RegisterForRemoteNotificationTypes]method of [NSApplication] is invoked
-// and there is no error in the registration process. After receiving the
-// device token, the application should connect with its provider and give the
-// token to it. APNS only pushes notifications to the application’s computer
-// that are accompanied with this token.
+// [NSApplication.RegisterForRemoteNotificationTypes]method of [NSApplication]
+// is invoked and there is no error in the registration process. After
+// receiving the device token, the application should connect with its
+// provider and give the token to it. APNS only pushes notifications to the
+// application’s computer that are accompanied with this token.
 //
 // For more information about how to implement push notifications in your
 // application, see [Local and Remote Notification Programming Guide].
@@ -626,8 +627,9 @@ func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotification
 // # Discussion
 //
 // The delegate receives this message after the
-// [RegisterForRemoteNotificationTypes] method of [NSApplication] is invoked
-// and there is an error in the registration process.
+// [NSApplication.RegisterForRemoteNotificationTypes] method of
+// [NSApplication] is invoked and there is an error in the registration
+// process.
 //
 // For more information about how to implement push notifications in your
 // application, see [Local and Remote Notification Programming Guide].
@@ -881,8 +883,8 @@ func (o NSApplicationDelegateObject) ApplicationOpenTempFile(sender INSApplicati
 //
 // Identical to [ApplicationOpenFile] except that the receiver opens multiple
 // files corresponding to the file names in the `filenames` array. Delegates
-// should invoke the [ReplyToOpenOrPrint] method upon success or failure, or
-// when the user cancels the operation.
+// should invoke the [NSApplication.ReplyToOpenOrPrint] method upon success or
+// failure, or when the user cancels the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:openFiles:)
 func (o NSApplicationDelegateObject) ApplicationOpenFiles(sender INSApplication, filenames []string) {
@@ -944,8 +946,8 @@ func (o NSApplicationDelegateObject) ApplicationOpenUntitledFile(sender INSAppli
 // # Discussion
 //
 // This message is sent directly by `theApplication` to the delegate. The
-// application terminates (using the [Terminate] method) after this method
-// returns.
+// application terminates (using the [NSApplication.Terminate] method) after
+// this method returns.
 //
 // If at all possible, this method should print the file without displaying
 // the user interface. For example, if you pass the `-NSPrint` option to the
@@ -983,8 +985,8 @@ func (o NSApplicationDelegateObject) ApplicationPrintFile(sender INSApplication,
 // Return [NSPrintingReplyLater] if the result of printing cannot be returned
 // immediately, for example, if printing will cause the presentation of a
 // sheet. If your method returns [NSPrintingReplyLater] it must always invoke
-// the [NSApplication] method [ReplyToOpenOrPrint]] when the entire print
-// operation has been completed, successfully or not.
+// the [NSApplication] method [NSApplication.ReplyToOpenOrPrint]] when the
+// entire print operation has been completed, successfully or not.
 //
 // This delegate method replaces “, which is now deprecated. If your
 // application delegate only implements the deprecated method, it is still

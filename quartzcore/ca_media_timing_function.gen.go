@@ -4,7 +4,6 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,8 +53,9 @@ func (cc CAMediaTimingFunctionClass) Alloc() CAMediaTimingFunction {
 // `[0,1]`.
 //
 // You can create a media timing function by supplying your own cubic Bézier
-// curve control points using the [CAMediaTimingFunction.InitWithControlPoints] method or by using
-// one of the predefined timing functions.
+// curve control points using the
+// [CAMediaTimingFunction.InitWithControlPoints] method or by using one of the
+// predefined timing functions.
 //
 // # Creating Timing Functions
 //
@@ -102,7 +102,7 @@ type ICAMediaTimingFunction interface {
 	// Topic: Accessing the Control Points
 
 	// Returns the control point for the specified index.
-	GetControlPointAtIndexValues(idx uintptr, ptr unsafe.Pointer)
+	GetControlPointAtIndexValues(idx uintptr, ptr [2]float32)
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -221,7 +221,7 @@ func (m CAMediaTimingFunction) InitWithControlPoints(c1x float32, c1y float32, c
 // The value of `index` must be between 0 and 3.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/getControlPoint(at:values:)
-func (m CAMediaTimingFunction) GetControlPointAtIndexValues(idx uintptr, ptr unsafe.Pointer) {
+func (m CAMediaTimingFunction) GetControlPointAtIndexValues(idx uintptr, ptr [2]float32) {
 	objc.Send[objc.ID](m.ID, objc.Sel("getControlPointAtIndex:values:"), idx, ptr)
 }
 func (m CAMediaTimingFunction) EncodeWithCoder(coder foundation.INSCoder) {

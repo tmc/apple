@@ -54,9 +54,9 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 // support for common features.
 //
 // For complex elements that have subelements, you can get the containing
-// element using the [GCControllerElement.Collection] property. For example, a direction pad
-// ([GCControllerDirectionPad]) has two axis control and four button
-// subelements.
+// element using the [GCControllerElement.Collection] property. For example, a
+// direction pad ([GCControllerDirectionPad]) has two axis control and four
+// button subelements.
 //
 // If the user binds a controller element to a system gesture, the system
 // sends the input to the system gesture recognizer first. If it doesn’t
@@ -69,11 +69,11 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 // [GCSystemGestureStateAlwaysReceive] to receive the input simultaneously
 // without delay. Alternatively, set it to [GCSystemGestureStateDisabled] to
 // disable the system gesture and receive the input exclusively. Use the
-// [GCControllerElement.BoundToSystemGesture] property to check whether the user included an
-// element in a system gesture.
+// [GCControllerElement.BoundToSystemGesture] property to check whether the
+// user included an element in a system gesture.
 //
-// Use the [GCControllerElement.Analog] property to determine whether an element’s input value
-// is a range of values or a discrete digital value.
+// Use the [GCControllerElement.Analog] property to determine whether an
+// element’s input value is a range of values or a discrete digital value.
 //
 // # Accessing input values
 //
@@ -259,8 +259,9 @@ func (g GCControllerElement) SetLocalizedName(value string) {
 // # Discussion
 //
 // To present the element that a user wants to remap in your interface, use
-// this property to get the original name. Otherwise, use the [LocalizedName]
-// property to get the possibly remapped name.
+// this property to get the original name. Otherwise, use the
+// [GCControllerElement.LocalizedName] property to get the possibly remapped
+// name.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement/unmappedLocalizedName
 func (g GCControllerElement) UnmappedLocalizedName() string {
@@ -292,7 +293,8 @@ func (g GCControllerElement) SetSfSymbolsName(value string) {
 // # Discussion
 //
 // Use this property to get the original unmapped name. Otherwise, use the
-// [SfSymbolsName] property to get the possibly remapped symbol.
+// [GCControllerElement.SfSymbolsName] property to get the possibly remapped
+// symbol.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement/unmappedSfSymbolsName
 func (g GCControllerElement) UnmappedSfSymbolsName() string {

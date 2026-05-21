@@ -58,9 +58,9 @@ func (lc LAPersistedRightClass) Alloc() LAPersistedRight {
 // are always available.
 //
 // The following generates a right with the default authorization
-// requirements, stores it in the [SharedStore] [LARightStore], and exports
-// the public key so that you can use it to verify signatures that the
-// corresponding private key produces:
+// requirements, stores it in the [LARightStoreClass.SharedStore]
+// [LARightStore], and exports the public key so that you can use it to verify
+// signatures that the corresponding private key produces:
 //
 // The following uses the private key associated with the right from the
 // previous example to sign a challenge issued by a server:
@@ -150,15 +150,4 @@ func (p LAPersistedRight) Key() ILAPrivateKey {
 func (p LAPersistedRight) Secret() ILASecret {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("secret"))
 	return LASecretFromID(objc.ID(rv))
-}
-
-// A shared object that stores rights.
-//
-// See: https://developer.apple.com/documentation/localauthentication/larightstore/shared
-func (_LAPersistedRightClass LAPersistedRightClass) Shared() LARightStore {
-	rv := objc.Send[objc.ID](objc.ID(_LAPersistedRightClass.class), objc.Sel("sharedStore"))
-	return LARightStoreFromID(objc.ID(rv))
-}
-func (_LAPersistedRightClass LAPersistedRightClass) SetSharedStore(value LARightStore) {
-	objc.Send[struct{}](objc.ID(_LAPersistedRightClass.class), objc.Sel("setSharedStore:"), value)
 }

@@ -427,7 +427,7 @@ func (o NSOutlineView) ExpandItem(item objectivec.IObject) {
 // the root in the outline view.
 //
 // expandChildren: If true, recursively expands `item` and its children. If false, expands
-// `item` only (identical to [ExpandItem]).
+// `item` only (identical to [NSOutlineView.ExpandItem]).
 //
 // # Discussion
 //
@@ -465,7 +465,7 @@ func (o NSOutlineView) CollapseItem(item objectivec.IObject) {
 // under the root in the outline view.
 //
 // collapseChildren: If true, recursively collapses `item` and its children. If false, collapses
-// `item` only (identical to [CollapseItem]).
+// `item` only (identical to [NSOutlineView.CollapseItem]).
 //
 // # Discussion
 //
@@ -505,7 +505,7 @@ func (o NSOutlineView) ReloadItem(item objectivec.IObject) {
 // the root in the outline view.
 //
 // reloadChildren: If true, recursively reloads `item` and its children. If false, reloads
-// `item` only (identical to [ReloadItem]).
+// `item` only (identical to [NSOutlineView.ReloadItem]).
 //
 // It is not necessary, or efficient, to reload children if the item is not
 // expanded.
@@ -710,9 +710,9 @@ func (o NSOutlineView) NumberOfChildrenOfItem(item objectivec.IObject) int {
 // # Return Value
 //
 // The frame of the outline cell for the row at index `row`, considering the
-// current indentation and the value in the [IndentationMarkerFollowsCell]
-// property. If the row at index `row` is not an expandable row, returns
-// [NSZeroRect].
+// current indentation and the value in the
+// [NSOutlineView.IndentationMarkerFollowsCell] property. If the row at index
+// `row` is not an expandable row, returns [NSZeroRect].
 //
 // # Discussion
 //
@@ -739,17 +739,17 @@ func (o NSOutlineView) FrameOfOutlineCellAtRow(row int) corefoundation.CGRect {
 //
 // # Discussion
 //
-// This method parallels the [InsertRowsAtIndexesWithAnimation] method of
-// [NSTableView] and is used in a way similar to the [insert(_:at:)] method of
-// [NSMutableArray]. The method does nothing if `parent` is not expanded. The
-// actual item values are determined by the data source’s
-// [OutlineViewChildOfItem] method (which is called only after [EndUpdates] to
-// ensure data source integrity).
+// This method parallels the [NSTableView.InsertRowsAtIndexesWithAnimation]
+// method of [NSTableView] and is used in a way similar to the [insert(_:at:)]
+// method of [NSMutableArray]. The method does nothing if `parent` is not
+// expanded. The actual item values are determined by the data source’s
+// [OutlineViewChildOfItem] method (which is called only after
+// [NSTableView.EndUpdates] to ensure data source integrity).
 //
 // You can call this method multiple times within the same
-// [BeginUpdates]/[EndUpdates] block; new insertions move previously inserted
-// new items, just like modifying an array. Inserting an index beyond what is
-// available throws an exception.
+// [NSTableView.BeginUpdates]/[NSTableView.EndUpdates] block; new insertions
+// move previously inserted new items, just like modifying an array. Inserting
+// an index beyond what is available throws an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/insertItems(at:inParent:withAnimation:)
 //
@@ -772,13 +772,13 @@ func (o NSOutlineView) InsertItemsAtIndexesInParentWithAnimation(indexes foundat
 //
 // # Discussion
 //
-// This method parallels the [MoveRowAtIndexToIndex] method of [NSTableView].
-// The `newParent` can be the same as `oldParent` to reorder an item within
-// the same parent.
+// This method parallels the [NSTableView.MoveRowAtIndexToIndex] method of
+// [NSTableView]. The `newParent` can be the same as `oldParent` to reorder an
+// item within the same parent.
 //
 // You can call this method multiple times within the same
-// [BeginUpdates]/[EndUpdates] block. Moving from an invalid index, or to an
-// invalid index, throws an exception.
+// [NSTableView.BeginUpdates]/[NSTableView.EndUpdates] block. Moving from an
+// invalid index, or to an invalid index, throws an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/moveItem(at:inParent:to:inParent:)
 func (o NSOutlineView) MoveItemAtIndexInParentToIndexInParent(fromIndex int, oldParent objectivec.IObject, toIndex int, newParent objectivec.IObject) {
@@ -796,16 +796,16 @@ func (o NSOutlineView) MoveItemAtIndexInParentToIndexInParent(fromIndex int, old
 //
 // # Discussion
 //
-// This method parallels the [RemoveRowsAtIndexesWithAnimation] method of
-// [NSTableView] and is used in a way similar to the [removeObjects(at:)]
-// method of [NSMutableArray]. The method does nothing if `parent` is not
-// expanded. If any of the child items is expanded, then all of its child rows
-// are also be removed.
+// This method parallels the [NSTableView.RemoveRowsAtIndexesWithAnimation]
+// method of [NSTableView] and is used in a way similar to the
+// [removeObjects(at:)] method of [NSMutableArray]. The method does nothing if
+// `parent` is not expanded. If any of the child items is expanded, then all
+// of its child rows are also be removed.
 //
 // You can call this method multiple times within the same
-// [BeginUpdates]/[EndUpdates] block; changes work just like modifying an
-// array. Removing an item at an index beyond what is available throws an
-// exception.
+// [NSTableView.BeginUpdates]/[NSTableView.EndUpdates] block; changes work
+// just like modifying an array. Removing an item at an index beyond what is
+// available throws an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/removeItems(at:inParent:withAnimation:)
 //
@@ -848,9 +848,11 @@ func (o NSOutlineView) TextDidChange(notification foundation.NSNotification) {
 //
 // # Discussion
 //
-// The name of `aNotification` is [DidEndEditingNotification].
+// The name of `aNotification` is [didEndEditingNotification].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
+//
+// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
 func (o NSOutlineView) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](o.ID, objc.Sel("textDidEndEditing:"), notification)
 }
@@ -871,8 +873,9 @@ func (o NSOutlineView) TextShouldBeginEditing(textObject INSText) bool {
 	return rv
 }
 
-// Invoked from a text object’s implementation of [ResignFirstResponder],
-// this method requests permission for `aTextObject` to end editing.
+// Invoked from a text object’s implementation of
+// [NSResponder.ResignFirstResponder], this method requests permission for
+// `aTextObject` to end editing.
 //
 // # Discussion
 //
@@ -892,12 +895,12 @@ func (o NSOutlineView) TextShouldEndEditing(textObject INSText) bool {
 // # Discussion
 //
 // When the value of this property is true, the outline view retains and
-// releases the objects returned to it from [DataSource]. When the value is
-// false, the outline view treats the objects as opaque items and assumes that
-// the client has a retain on them. The default value is true for applications
-// linked on macOS 10.12 and later, and false for applications linked on
-// earlier versions of macOS. If you require the legacy behavior and your app
-// links in macOS 10.12 or later, the value of this property must be
+// releases the objects returned to it from [NSOutlineView.DataSource]. When
+// the value is false, the outline view treats the objects as opaque items and
+// assumes that the client has a retain on them. The default value is true for
+// applications linked on macOS 10.12 and later, and false for applications
+// linked on earlier versions of macOS. If you require the legacy behavior and
+// your app links in macOS 10.12 or later, the value of this property must be
 // explicitly set to false in code, because it is not encoded in the nib. In
 // general, this is required if the items themselves create a retain cycle.
 //
@@ -915,10 +918,10 @@ func (o NSOutlineView) SetStronglyReferencesItems(value bool) {
 // # Discussion
 //
 // Each level of hierarchical data is indented by the amount specified by the
-// [IndentationPerLevel] property (the default is `16.0`), and decorated with
-// the indentation marker (disclosure triangle) on rows that are expandable.
-// Outline table column data is archived with the rest of the outline view’s
-// state information.
+// [NSOutlineView.IndentationPerLevel] property (the default is `16.0`), and
+// decorated with the indentation marker (disclosure triangle) on rows that
+// are expandable. Outline table column data is archived with the rest of the
+// outline view’s state information.
 //
 // Attempts to set the value of this property to `nil` are silently ignored.
 //
@@ -943,7 +946,7 @@ func (o NSOutlineView) SetOutlineTableColumn(value INSTableColumn) {
 // The outline column is resized based on how many indentation levels are
 // exposed or hidden. For example, if expanding a row exposes a single
 // indentation level, the outline column width is increased by one
-// [IndentationPerLevel].
+// [NSOutlineView.IndentationPerLevel].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/autoresizesOutlineColumn
 func (o NSOutlineView) AutoresizesOutlineColumn() bool {
@@ -991,17 +994,18 @@ func (o NSOutlineView) SetIndentationMarkerFollowsCell(value bool) {
 //
 // When the value of this property is true, the outline view saves the state
 // of its expanded items and restores that state the next time the user
-// launches the app. (If the outline view’s [AutosaveName] property is
-// `nil`, or if you have not implemented the
+// launches the app. (If the outline view’s [NSTableView.AutosaveName]
+// property is `nil`, or if you have not implemented the
 // [OutlineViewItemForPersistentObject] and
 // [OutlineViewPersistentObjectForItem] delegate methods, this setting is
 // ignored and outline information is not saved.) The configuration data is
 // saved separately for each user and for each app. The default value of this
 // property is false.
 //
-// You can have separate settings for the [AutosaveExpandedItems] and
-// [AutosaveTableColumns] properties, so you could, for example, save expanded
-// item information, but not table column positions.
+// You can have separate settings for the
+// [NSOutlineView.AutosaveExpandedItems] and
+// [NSTableView.AutosaveTableColumns] properties, so you could, for example,
+// save expanded item information, but not table column positions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/autosaveExpandedItems
 func (o NSOutlineView) AutosaveExpandedItems() bool {

@@ -54,9 +54,10 @@ func (uc UnitLengthClass) Alloc() UnitLength {
 // meter (m), which is defined in terms of the distance traveled by light in a
 // vacuum.
 //
-// The [NSUnitLength] class defines its [BaseUnit] as [Meters], and provides
-// the following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitLength] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitLengthClass.Meters], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //
@@ -181,6 +182,14 @@ func (_UnitLengthClass UnitLengthClass) Decameters() NSUnitLength {
 	return NSUnitLengthFromID(objc.ID(rv))
 }
 
+// The meters unit of length.
+//
+// See: https://developer.apple.com/documentation/Foundation/UnitLength/meters
+func (_UnitLengthClass UnitLengthClass) Meters() NSUnitLength {
+	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("meters"))
+	return NSUnitLengthFromID(objc.ID(rv))
+}
+
 // The decimeters unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/decimeters
@@ -250,6 +259,14 @@ func (_UnitLengthClass UnitLengthClass) Feet() NSUnitLength {
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/yards
 func (_UnitLengthClass UnitLengthClass) Yards() NSUnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("yards"))
+	return NSUnitLengthFromID(objc.ID(rv))
+}
+
+// The miles unit of length.
+//
+// See: https://developer.apple.com/documentation/Foundation/UnitLength/miles
+func (_UnitLengthClass UnitLengthClass) Miles() NSUnitLength {
+	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("miles"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
 

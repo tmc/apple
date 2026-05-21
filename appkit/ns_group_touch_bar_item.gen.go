@@ -47,6 +47,8 @@ func (nc NSGroupTouchBarItemClass) Alloc() NSGroupTouchBarItem {
 //
 // # Configuring groups
 //
+//   - [NSGroupTouchBarItem.GroupTouchBar]: A bar that holds this group’s items.
+//   - [NSGroupTouchBarItem.SetGroupTouchBar]
 //   - [NSGroupTouchBarItem.GroupUserInterfaceLayoutDirection]: The user interface direction that controls the layout order of the items.
 //   - [NSGroupTouchBarItem.SetGroupUserInterfaceLayoutDirection]
 //
@@ -82,6 +84,8 @@ func NSGroupTouchBarItemFromID(id objc.ID) NSGroupTouchBarItem {
 //
 // # Configuring groups
 //
+//   - [INSGroupTouchBarItem.GroupTouchBar]: A bar that holds this group’s items.
+//   - [INSGroupTouchBarItem.SetGroupTouchBar]
 //   - [INSGroupTouchBarItem.GroupUserInterfaceLayoutDirection]: The user interface direction that controls the layout order of the items.
 //   - [INSGroupTouchBarItem.SetGroupUserInterfaceLayoutDirection]
 //
@@ -104,6 +108,9 @@ type INSGroupTouchBarItem interface {
 
 	// Topic: Configuring groups
 
+	// A bar that holds this group’s items.
+	GroupTouchBar() INSTouchBar
+	SetGroupTouchBar(value INSTouchBar)
 	// The user interface direction that controls the layout order of the items.
 	GroupUserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection
 	SetGroupUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection)
@@ -152,8 +159,8 @@ func NewNSGroupTouchBarItem() NSGroupTouchBarItem {
 // You can control spacing between items, but it is recommended to use
 // [fixedSpaceLarge] to maintain consistency.
 //
-// The [GroupUserInterfaceLayoutDirection] is set to match the application’s
-// [UserInterfaceLayoutDirection].
+// The [NSGroupTouchBarItem.GroupUserInterfaceLayoutDirection] is set to match
+// the application’s [NSApplication.UserInterfaceLayoutDirection].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/init(alertStyleWithIdentifier:)
 //
@@ -182,7 +189,7 @@ func NewGroupTouchBarItemGroupItemWithIdentifierItems(identifier NSTouchBarItemI
 // `breakEqualWidths`, `reduceMetrics`, `hideText`, `hideImages`.
 //
 // If you want to use non-standard compression options, add them by using the
-// [PrioritizedCompressionOptions] property.
+// [NSGroupTouchBarItem.PrioritizedCompressionOptions] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/init(identifier:items:allowedCompressionOptions:)
 func NewGroupTouchBarItemGroupItemWithIdentifierItemsAllowedCompressionOptions(identifier NSTouchBarItemIdentifier, items []NSTouchBarItem, allowedCompressionOptions INSUserInterfaceCompressionOptions) NSGroupTouchBarItem {
@@ -213,6 +220,23 @@ func NewGroupTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NSG
 	return NSGroupTouchBarItemFromID(rv)
 }
 
+// A bar that holds this group’s items.
+//
+// # Discussion
+//
+// This bar can be configured in the same way as all other bars.
+//
+// By default, this bar is empty.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/groupTouchBar
+func (g NSGroupTouchBarItem) GroupTouchBar() INSTouchBar {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("groupTouchBar"))
+	return NSTouchBarFromID(objc.ID(rv))
+}
+func (g NSGroupTouchBarItem) SetGroupTouchBar(value INSTouchBar) {
+	objc.Send[struct{}](g.ID, objc.Sel("setGroupTouchBar:"), value)
+}
+
 // The user interface direction that controls the layout order of the items.
 //
 // # Discussion
@@ -221,7 +245,7 @@ func NewGroupTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NSG
 //
 // If you want the order of the items in the group to respect the user’s
 // preferred layout, set this property to the value of
-// [UserInterfaceLayoutDirection] on the [NSApplication].
+// [NSApplication.UserInterfaceLayoutDirection] on the [NSApplication].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/groupUserInterfaceLayoutDirection
 func (g NSGroupTouchBarItem) GroupUserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection {
@@ -237,8 +261,8 @@ func (g NSGroupTouchBarItem) SetGroupUserInterfaceLayoutDirection(value NSUserIn
 //
 // # Discussion
 //
-// When true, items in the [GroupTouchBar] are sized to have equal widths when
-// possible.
+// When true, items in the [NSGroupTouchBarItem.GroupTouchBar] are sized to
+// have equal widths when possible.
 //
 // The default value is false.
 //
@@ -255,7 +279,7 @@ func (g NSGroupTouchBarItem) SetPrefersEqualWidths(value bool) {
 //
 // # Discussion
 //
-// This width applies when [PrefersEqualWidths] is true.
+// This width applies when [NSGroupTouchBarItem.PrefersEqualWidths] is true.
 //
 // This is the width that items are set to if there is enough room, and if the
 // items don’t clip.

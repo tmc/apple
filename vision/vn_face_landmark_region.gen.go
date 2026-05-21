@@ -79,9 +79,7 @@ type IVNFaceLandmarkRegion interface {
 	// The number of points in the face region.
 	PointCount() uint
 
-	// The facial features of the detected face.
-	Landmarks() IVNFaceLandmarks2D
-	SetLandmarks(value IVNFaceLandmarks2D)
+	InitWithCoder(coder foundation.INSCoder) VNFaceLandmarkRegion
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -101,6 +99,19 @@ func (f VNFaceLandmarkRegion) Autorelease() VNFaceLandmarkRegion {
 func NewVNFaceLandmarkRegion() VNFaceLandmarkRegion {
 	class := getVNFaceLandmarkRegionClass()
 	rv := objc.Send[VNFaceLandmarkRegion](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion/init(coder:)
+func NewFaceLandmarkRegionWithCoder(coder foundation.INSCoder) VNFaceLandmarkRegion {
+	instance := getVNFaceLandmarkRegionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNFaceLandmarkRegionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion/init(coder:)
+func (f VNFaceLandmarkRegion) InitWithCoder(coder foundation.INSCoder) VNFaceLandmarkRegion {
+	rv := objc.Send[VNFaceLandmarkRegion](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -126,17 +137,6 @@ func (f VNFaceLandmarkRegion) EncodeWithCoder(coder foundation.INSCoder) {
 func (f VNFaceLandmarkRegion) PointCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("pointCount"))
 	return rv
-}
-
-// The facial features of the detected face.
-//
-// See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
-func (f VNFaceLandmarkRegion) Landmarks() IVNFaceLandmarks2D {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("landmarks"))
-	return VNFaceLandmarks2DFromID(objc.ID(rv))
-}
-func (f VNFaceLandmarkRegion) SetLandmarks(value IVNFaceLandmarks2D) {
-	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
 
 // Protocol methods for VNRequestRevisionProviding

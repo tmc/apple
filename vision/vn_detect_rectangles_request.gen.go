@@ -76,10 +76,6 @@ func (vc VNDetectRectanglesRequestClass) Alloc() VNDetectRectanglesRequest {
 //   - [VNDetectRectanglesRequest.MaximumObservations]: An integer specifying the maximum number of rectangles Vision returns.
 //   - [VNDetectRectanglesRequest.SetMaximumObservations]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectRectanglesRequest.VNDetectRectanglesRequestRevision1]: A constant for specifying revision 1 of the rectangle detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectRectanglesRequest
 type VNDetectRectanglesRequest struct {
 	VNImageBasedRequest
@@ -113,10 +109,6 @@ func VNDetectRectanglesRequestFromID(id objc.ID) VNDetectRectanglesRequest {
 //   - [IVNDetectRectanglesRequest.MaximumObservations]: An integer specifying the maximum number of rectangles Vision returns.
 //   - [IVNDetectRectanglesRequest.SetMaximumObservations]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectRectanglesRequest.VNDetectRectanglesRequestRevision1]: A constant for specifying revision 1 of the rectangle detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectRectanglesRequest
 type IVNDetectRectanglesRequest interface {
 	IVNImageBasedRequest
@@ -141,11 +133,6 @@ type IVNDetectRectanglesRequest interface {
 	// An integer specifying the maximum number of rectangles Vision returns.
 	MaximumObservations() uint
 	SetMaximumObservations(value uint)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the rectangle detection request.
-	VNDetectRectanglesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -175,7 +162,7 @@ func NewVNDetectRectanglesRequest() VNDetectRectanglesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectRectanglesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectRectanglesRequest {
@@ -289,12 +276,4 @@ func (d VNDetectRectanglesRequest) MaximumObservations() uint {
 }
 func (d VNDetectRectanglesRequest) SetMaximumObservations(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumObservations:"), value)
-}
-
-// A constant for specifying revision 1 of the rectangle detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectrectanglesrequestrevision1
-func (d VNDetectRectanglesRequest) VNDetectRectanglesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectRectanglesRequestRevision1"))
-	return rv
 }

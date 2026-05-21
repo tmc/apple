@@ -50,7 +50,8 @@ func (nc NSScrubberSelectionViewClass) Alloc() NSScrubberSelectionView {
 //
 // Create a subclass to customize the selection or highlight appearance of an
 // item in your scrubber control. You need to return an instance of your
-// subclass from the [SelectionView] method on [NSScrubberSelectionStyle].
+// subclass from the [NSScrubberSelectionStyle.SelectionView] method on
+// [NSScrubberSelectionStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberSelectionView
 type NSScrubberSelectionView struct {

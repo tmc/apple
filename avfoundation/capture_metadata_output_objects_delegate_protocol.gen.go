@@ -46,17 +46,18 @@ func AVCaptureMetadataOutputObjectsDelegateObjectFromID(id objc.ID) AVCaptureMet
 // # Discussion
 //
 // The [AVCaptureMetadataOutput] object emits only metadata objects whose
-// types are included in its [MetadataObjectTypes] property. The delegate
-// implements this method to perform additional processing on metadata objects
-// as they become available. If you plan to use metadata objects outside the
-// scope of this method, you must store strong references to them and remove
-// those references when the objects are no longer required.
+// types are included in its [AVCaptureMetadataOutput.MetadataObjectTypes]
+// property. The delegate implements this method to perform additional
+// processing on metadata objects as they become available. If you plan to use
+// metadata objects outside the scope of this method, you must store strong
+// references to them and remove those references when the objects are no
+// longer required.
 //
 // This method is executed on the dispatch queue specified by the
-// [MetadataObjectsCallbackQueue] property of the capture metadata output
-// object. Because this method may be called frequently, your implementation
-// should be efficient to prevent capture performance problems, including
-// dropped metadata objects.
+// [AVCaptureMetadataOutput.MetadataObjectsCallbackQueue] property of the
+// capture metadata output object. Because this method may be called
+// frequently, your implementation should be efficient to prevent capture
+// performance problems, including dropped metadata objects.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutputObjectsDelegate/metadataOutput(_:didOutput:from:)
 func (o AVCaptureMetadataOutputObjectsDelegateObject) CaptureOutputDidOutputMetadataObjectsFromConnection(output IAVCaptureOutput, metadataObjects []AVMetadataObject, connection IAVCaptureConnection) {

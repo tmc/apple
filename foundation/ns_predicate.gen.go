@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -68,8 +69,8 @@ func (nc NSPredicateClass) Alloc() NSPredicate {
 // Guide].
 //
 // You can also create predicates that include variables using the
-// [NSPredicate.EvaluateWithObjectSubstitutionVariables] method so that you can predefine
-// the predicate before substituting concrete values at runtime.
+// [NSPredicate.EvaluateWithObjectSubstitutionVariables] method so that you
+// can predefine the predicate before substituting concrete values at runtime.
 //
 // # Creating a Predicate
 //
@@ -192,7 +193,7 @@ func NewPredicateFromMetadataQueryString(queryString string) NSPredicate {
 	return NSPredicateFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPredicate/init(coder:)
 func NewPredicateWithCoder(coder INSCoder) NSPredicate {
 	instance := getNSPredicateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -246,7 +247,7 @@ func NewPredicateWithFormatArgumentArray(predicateFormat string, arguments INSAr
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate/init(format:arguments:)
 //
 // [Predicate Format String Syntax]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/Articles/pSyntax.html#//apple_ref/doc/uid/TP40001795
-func NewPredicateWithFormatArguments(predicateFormat string, argList unsafe.Pointer) NSPredicate {
+func NewPredicateWithFormatArguments(predicateFormat string, argList kernel.VaList) NSPredicate {
 	rv := objc.Send[objc.ID](objc.ID(getNSPredicateClass().class), objc.Sel("predicateWithFormat:arguments:"), objc.String(predicateFormat), argList)
 	return NSPredicateFromID(rv)
 }
@@ -322,10 +323,11 @@ func (p NSPredicate) EvaluateWithObject(object objectivec.IObject) bool {
 // # Discussion
 //
 // This method returns the same result as the two step process of first
-// invoking [PredicateWithSubstitutionVariables] on the predicate and then
-// invoking [EvaluateWithObject] on the returned value. This method is
-// optimized for situations which require repeatedly evaluating a predicate
-// with substitution variables with different variable substitutions.
+// invoking [NSPredicate.PredicateWithSubstitutionVariables] on the predicate
+// and then invoking [NSPredicate.EvaluateWithObject] on the returned value.
+// This method is optimized for situations which require repeatedly evaluating
+// a predicate with substitution variables with different variable
+// substitutions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate/evaluate(with:substitutionVariables:)
 func (p NSPredicate) EvaluateWithObjectSubstitutionVariables(object objectivec.IObject, bindings INSDictionary) bool {
@@ -344,7 +346,7 @@ func (p NSPredicate) EvaluateWithObjectSubstitutionVariables(object objectivec.I
 // Before you enable evaluation, you should validate key paths, selectors, and
 // other details to ensure no erroneous or malicious code will be executed.
 // Once you’ve verified the predicate, you can enable the receiver for
-// evaluation by calling [AllowEvaluation].
+// evaluation by calling [NSPredicate.AllowEvaluation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate/allowEvaluation()
 func (p NSPredicate) AllowEvaluation() {
@@ -375,10 +377,40 @@ func (p NSPredicate) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPredicate/init(coder:)
 func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {
 	rv := objc.Send[NSPredicate](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
+}
+
+// Creates a predicate that evaluates using a specified block object and
+// bindings dictionary.
+//
+// block: The block is applied to the object to be evaluated.
+//
+// The block takes two arguments:
+//
+// evaluatedObject: The object to be evaluated. bindings: The substitution
+// variables dictionary. The dictionary must contain key-value pairs for all
+// variables in the receiver.
+//
+// The block returns true if the `evaluatedObject` evaluates to true,
+// otherwise false.
+//
+// # Return Value
+//
+// A new predicate by that evaluates objects using `block`.
+//
+// # Discussion
+//
+// In macOS 10.6 and later, Core Data supports block-based predicates in the
+// in-memory and atomic stores, but not in the SQLite-based store.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSPredicate/init(block:)
+func (_NSPredicateClass NSPredicateClass) PredicateWithBlock(block BoolIObjectHandler) NSPredicate {
+	_block0, _ := NewBoolIObjectBlock(block)
+	rv := objc.Send[objc.ID](objc.ID(_NSPredicateClass.class), objc.Sel("predicateWithBlock:"), _block0)
+	return NSPredicateFromID(rv)
 }
 
 // Creates and returns a new predicate formed by creating a new string with a
@@ -412,8 +444,8 @@ func (_NSPredicateClass NSPredicateClass) PredicateWithFormat(predicateFormat st
 // # Discussion
 //
 // The return value of this property is not guaranteed to be the same as the
-// string used to create the predicate using [PredicateWithFormat] or similar
-// methods.
+// string used to create the predicate using
+// [NSPredicateClass.PredicateWithFormat] or similar methods.
 //
 // You cannot use this method to create a persistent representation of a
 // predicate suitable for recreating the original predicate. If you need a

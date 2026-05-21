@@ -128,6 +128,7 @@ type INSGlyphInfo interface {
 	// The receiver’s glyph name.
 	GlyphName() string
 
+	InitWithCoder(coder foundation.INSCoder) NSGlyphInfo
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -167,7 +168,7 @@ func NewNSGlyphInfo() NSGlyphInfo {
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(cgGlyph:for:baseString:)
 //
 // [CGGlyph]: https://developer.apple.com/documentation/CoreGraphics/CGGlyph
-func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGFontIndex, font NSFont, string_ string) NSGlyphInfo {
+func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGGlyph, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithCGGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
@@ -196,18 +197,60 @@ func NewGlyphInfoWithCharacterIdentifierCollectionBaseString(cid uint, character
 	return NSGlyphInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:for:baseString:)
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(coder:)
+func NewGlyphInfoWithCoder(coder foundation.INSCoder) NSGlyphInfo {
+	instance := getNSGlyphInfoClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSGlyphInfoFromID(rv)
+}
+
+// Instantiates and returns a glyph information object using a glyph index and
+// a specified font.
+//
+// glyph: The identifier of the glyph.
+//
+// font: The font object to be associated with the returned [NSGlyphInfo] object,
+//
+// string: The part of the attributed string the returned instance is intended to
+// override.
+//
+// # Return Value
+//
+// The created [NSGlyphInfo] object or `nil` if the object couldn’t be
+// created.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:forFont:baseString:)
 func NewGlyphInfoWithGlyphForFontBaseString(glyph uint32, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyphName:for:baseString:)
+// Instantiates and returns a glyph information object using a glyph name and
+// a specified font.
+//
+// glyphName: The name of the glyph.
+//
+// font: The font object to be associated with the returned [NSGlyphInfo] object,
+//
+// string: The part of the attributed string the returned instance is intended to
+// override.
+//
+// # Return Value
+//
+// The created [NSGlyphInfo] object or `nil` if the object couldn’t be
+// created.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyphName:forFont:baseString:)
 func NewGlyphInfoWithGlyphNameForFontBaseString(glyphName string, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyphName:forFont:baseString:"), objc.String(glyphName), font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(coder:)
+func (g NSGlyphInfo) InitWithCoder(coder foundation.INSCoder) NSGlyphInfo {
+	rv := objc.Send[NSGlyphInfo](g.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (g NSGlyphInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }

@@ -29,22 +29,22 @@ type AuthorizationEnvironment = AuthorizationItemSet
 // AuthorizationMechanismId is the mechanism ID specified in the authorization policy database is passed to the plug-in to create the appropriate mechanism.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationMechanismId
-type AuthorizationMechanismId = unsafe.Pointer
+type AuthorizationMechanismId = kernel.Pointer
 
 // AuthorizationMechanismRef is a handle passed by the plug-in to the authorization engine when creating an instance of a mechanism.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationMechanismRef
-type AuthorizationMechanismRef = unsafe.Pointer
+type AuthorizationMechanismRef = kernel.Pointer
 
 // AuthorizationPluginId is an unused identifier for a plug-in.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationPluginId
-type AuthorizationPluginId = unsafe.Pointer
+type AuthorizationPluginId = kernel.Pointer
 
 // AuthorizationPluginRef is a handle passed by the plug-in to the authorization engine when the plug-in is initiated.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationPluginRef
-type AuthorizationPluginRef = unsafe.Pointer
+type AuthorizationPluginRef = kernel.Pointer
 
 // AuthorizationRef is a pointer to an opaque authorization reference structure.
 //
@@ -59,7 +59,7 @@ type AuthorizationRights = AuthorizationItemSet
 // AuthorizationSessionId is a unique value for an authorization session, provided by the authorization engine.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationSessionId
-type AuthorizationSessionId = unsafe.Pointer
+type AuthorizationSessionId = kernel.Pointer
 
 // AuthorizationString is a zero-terminated string in UTF-8 encoding.
 //
@@ -180,7 +180,7 @@ type CSSM_BITMASK = uint32
 type CSSM_BOOL = int32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CALLOC
-type CSSM_CALLOC = func(uint, uint, unsafe.Pointer) unsafe.Pointer
+type CSSM_CALLOC = func(uint, uint, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CC_HANDLE
 type CSSM_CC_HANDLE = unsafe.Pointer
@@ -318,19 +318,19 @@ type CSSM_DLTYPE = uint32
 type CSSM_DLTYPE_PTR = *uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_CUSTOM_ATTRIBUTES
-type CSSM_DL_CUSTOM_ATTRIBUTES = unsafe.Pointer
+type CSSM_DL_CUSTOM_ATTRIBUTES = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_FFS_ATTRIBUTES
-type CSSM_DL_FFS_ATTRIBUTES = unsafe.Pointer
+type CSSM_DL_FFS_ATTRIBUTES = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_HANDLE
 type CSSM_DL_HANDLE = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_LDAP_ATTRIBUTES
-type CSSM_DL_LDAP_ATTRIBUTES = unsafe.Pointer
+type CSSM_DL_LDAP_ATTRIBUTES = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ODBC_ATTRIBUTES
-type CSSM_DL_ODBC_ATTRIBUTES = unsafe.Pointer
+type CSSM_DL_ODBC_ATTRIBUTES = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_PKCS11_ATTRIBUTE
 type CSSM_DL_PKCS11_ATTRIBUTE = uintptr
@@ -345,13 +345,13 @@ type CSSM_ENCRYPT_MODE = uint32
 type CSSM_EVIDENCE_FORM = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_FREE
-type CSSM_FREE = func(unsafe.Pointer, unsafe.Pointer)
+type CSSM_FREE = func(kernel.Pointer, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HANDLE
 type CSSM_HANDLE = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HANDLE_PTR
-type CSSM_HANDLE_PTR = unsafe.Pointer
+type CSSM_HANDLE_PTR = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HEADERVERSION
 type CSSM_HEADERVERSION = uint32
@@ -411,7 +411,7 @@ type CSSM_LONG_HANDLE = uint64
 type CSSM_LONG_HANDLE_PTR = *uint64
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MALLOC
-type CSSM_MALLOC = func(uint, unsafe.Pointer) unsafe.Pointer
+type CSSM_MALLOC = func(uint, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MANAGER_EVENT_TYPES
 type CSSM_MANAGER_EVENT_TYPES = uint32
@@ -426,7 +426,7 @@ type CSSM_MODULE_EVENT_PTR = *uint32
 type CSSM_MODULE_HANDLE = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MODULE_HANDLE_PTR
-type CSSM_MODULE_HANDLE_PTR = unsafe.Pointer
+type CSSM_MODULE_HANDLE_PTR = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_NET_ADDRESS_TYPE
 type CSSM_NET_ADDRESS_TYPE = uint32
@@ -456,7 +456,7 @@ type CSSM_PRIVILEGE_SCOPE = uint32
 type CSSM_PROC_ADDR = func()
 
 // See: https://developer.apple.com/documentation/Security/CSSM_PROC_ADDR_PTR
-type CSSM_PROC_ADDR_PTR = unsafe.Pointer
+type CSSM_PROC_ADDR_PTR = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_PVC_MODE
 type CSSM_PVC_MODE = unsafe.Pointer
@@ -465,7 +465,7 @@ type CSSM_PVC_MODE = unsafe.Pointer
 type CSSM_QUERY_FLAGS = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_REALLOC
-type CSSM_REALLOC = func(unsafe.Pointer, uint, unsafe.Pointer) unsafe.Pointer
+type CSSM_REALLOC = func(kernel.Pointer, uint, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_RETURN
 type CSSM_RETURN = int32
@@ -486,7 +486,7 @@ type CSSM_SERVICE_TYPE = unsafe.Pointer
 type CSSM_SIZE = uintptr
 
 // See: https://developer.apple.com/documentation/Security/CSSM_STRING
-type CSSM_STRING = unsafe.Pointer
+type CSSM_STRING = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_TIMESTRING
 type CSSM_TIMESTRING = *byte
@@ -561,13 +561,13 @@ type CSSM_X509_OPTION = unsafe.Pointer
 type MDS_HANDLE = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecAccessRef
-type OpaqueSecAccessRef uintptr
+type OpaqueSecAccessRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecCertificateRef
-type OpaqueSecCertificateRef uintptr
+type OpaqueSecCertificateRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecIdentityRef
-type OpaqueSecIdentityRef uintptr
+type OpaqueSecIdentityRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecKeyRef
 type OpaqueSecKeyRef = string
@@ -580,7 +580,7 @@ type SSLCipherSuite = uint16
 // SSLConnectionRef is a pointer to an opaque I/O connection object.
 //
 // See: https://developer.apple.com/documentation/Security/SSLConnectionRef
-type SSLConnectionRef = unsafe.Pointer
+type SSLConnectionRef = kernel.Pointer
 
 // SSLContextRef is an opaque type that represents an SSL session context object.
 //
@@ -590,12 +590,12 @@ type SSLContextRef uintptr
 // SSLReadFunc is a pointer to a customized read function that secure transport calls to read data from the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLReadFunc
-type SSLReadFunc = func(unsafe.Pointer, unsafe.Pointer, *uint) int
+type SSLReadFunc = func(kernel.Pointer, kernel.Pointer, uint) int
 
 // SSLWriteFunc is a pointer to a customized write function that secure transport calls to write data to the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLWriteFunc
-type SSLWriteFunc = func(unsafe.Pointer, unsafe.Pointer, *uint) int
+type SSLWriteFunc = func(kernel.Pointer, kernel.Pointer, uint) int
 
 // SecACLRef is an opaque type that represents information about an ACL entry.
 //
@@ -657,7 +657,7 @@ type SecKeyAlgorithm = corefoundation.CFStringRef
 // SecKeyGeneratePairBlock is a block called with the results of a call to [SecKeyGeneratePairAsync(_:_:_:)].
 //
 // See: https://developer.apple.com/documentation/Security/SecKeyGeneratePairBlock
-type SecKeyGeneratePairBlock = func(string, string, unsafe.Pointer)
+type SecKeyGeneratePairBlock = func(string, string, kernel.Pointer)
 
 // SecKeyKeyExchangeParameter is the dictionary keys used to specify Diffie-Hellman key exchange parameters.
 //
@@ -702,7 +702,7 @@ type SecKeychainStatus = uint32
 // SecMessageBlock is a block that delivers messages during asynchronous operations.
 //
 // See: https://developer.apple.com/documentation/Security/SecMessageBlock
-type SecMessageBlock = func(unsafe.Pointer, unsafe.Pointer, uint32)
+type SecMessageBlock = func(kernel.Pointer, kernel.Pointer, uint32)
 
 // SecPasswordRef is contains information about a password.
 //
@@ -747,7 +747,7 @@ type SecTaskRef uintptr
 // SecTransformDataBlock is a block used to override the default data handling for a transform.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformDataBlock
-type SecTransformDataBlock = func(unsafe.Pointer) unsafe.Pointer
+type SecTransformDataBlock = func(kernel.Pointer) kernel.Pointer
 
 // SecTransformImplementationRef is an opaque pointer to a block that implements an instance of a transform.
 //
@@ -757,12 +757,12 @@ type SecTransformImplementationRef uintptr
 // SecTransformInstanceBlock is a block that you return from a transform creation function.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformInstanceBlock
-type SecTransformInstanceBlock = func() unsafe.Pointer
+type SecTransformInstanceBlock = func() kernel.Pointer
 
 // SecTrustCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustCallback
-type SecTrustCallback = func(unsafe.Pointer, SecTrustResultType)
+type SecTrustCallback = func(kernel.Pointer, SecTrustResultType)
 
 // SecTrustRef is an object used to evaluate trust.
 //
@@ -772,7 +772,7 @@ type SecTrustRef uintptr
 // SecTrustWithErrorCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustWithErrorCallback
-type SecTrustWithErrorCallback = func(unsafe.Pointer, bool, unsafe.Pointer)
+type SecTrustWithErrorCallback = func(kernel.Pointer, bool, kernel.Pointer)
 
 // SecTrustedApplicationRef is an opaque type that contains information about a trusted app.
 //

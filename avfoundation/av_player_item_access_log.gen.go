@@ -92,7 +92,7 @@ type IAVPlayerItemAccessLog interface {
 	// Returns a serialized representation of the access log in the Extended Log File Format.
 	ExtendedLogData() foundation.NSData
 	// The string encoding of the extended log data.
-	ExtendedLogDataStringEncoding() uint
+	ExtendedLogDataStringEncoding() foundation.NSStringEncoding
 }
 
 // Init initializes the instance.
@@ -161,7 +161,7 @@ func (p AVPlayerItemAccessLog) Events() []AVPlayerItemAccessLogEvent {
 // The string encoding of the extended log data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLog/extendedLogDataStringEncoding
-func (p AVPlayerItemAccessLog) ExtendedLogDataStringEncoding() uint {
-	rv := objc.Send[uint](p.ID, objc.Sel("extendedLogDataStringEncoding"))
-	return rv
+func (p AVPlayerItemAccessLog) ExtendedLogDataStringEncoding() foundation.NSStringEncoding {
+	rv := objc.Send[foundation.NSStringEncoding](p.ID, objc.Sel("extendedLogDataStringEncoding"))
+	return foundation.NSStringEncoding(rv)
 }

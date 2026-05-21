@@ -598,8 +598,8 @@ func (m NSMutableOrderedSet) RemoveObjectAtIndex(idx uint) {
 //
 // # Discussion
 //
-// This method is similar to [RemoveObjectAtIndex], but allows you to
-// efficiently remove multiple objects with a single operation.
+// This method is similar to [NSMutableOrderedSet.RemoveObjectAtIndex], but
+// allows you to efficiently remove multiple objects with a single operation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/removeObjects(at:)
 func (m NSMutableOrderedSet) RemoveObjectsAtIndexes(indexes INSIndexSet) {
@@ -613,16 +613,18 @@ func (m NSMutableOrderedSet) RemoveObjectsAtIndexes(indexes INSIndexSet) {
 //
 // # Discussion
 //
-// This method is similar to [RemoveObject], but allows you to efficiently
-// remove large sets of objects with a single operation. If the receiving
-// mutable ordered set does not contain objects in array, the method has no
-// effect (although it does incur the overhead of searching the contents).
+// This method is similar to [NSMutableOrderedSet.RemoveObject], but allows
+// you to efficiently remove large sets of objects with a single operation. If
+// the receiving mutable ordered set does not contain objects in array, the
+// method has no effect (although it does incur the overhead of searching the
+// contents).
 //
-// This method assumes that all elements in array respond to [Hash] and
+// This method assumes that all elements in array respond to [hash] and
 // [isEqual(_:)].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/removeObjects(in:)-8h2kh
 //
+// [hash]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
 // [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (m NSMutableOrderedSet) RemoveObjectsInArray(array []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsInArray:"), objectivec.IObjectSliceToNSArray(array))
@@ -635,7 +637,7 @@ func (m NSMutableOrderedSet) RemoveObjectsInArray(array []objectivec.IObject) {
 //
 // # Discussion
 //
-// The objects are removed using [RemoveObjectAtIndex].
+// The objects are removed using [NSMutableOrderedSet.RemoveObjectAtIndex].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/removeObjects(in:)-9jkis
 func (m NSMutableOrderedSet) RemoveObjectsInRange(range_ NSRange) {
@@ -897,7 +899,7 @@ func (m NSMutableOrderedSet) ApplyDifference(difference INSOrderedCollectionDiff
 // If the index is already occupied, the objects at index and beyond are
 // shifted by adding `1` to their indices to make room.
 //
-// This method is identical to [InsertObjectsAtIndexes].
+// This method is identical to [NSMutableOrderedSet.InsertObjectsAtIndexes].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/setObject:atIndexedSubscript:
 func (m NSMutableOrderedSet) SetObjectAtIndexedSubscript(obj objectivec.IObject, idx uint) {

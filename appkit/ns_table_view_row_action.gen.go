@@ -184,8 +184,8 @@ func NewNSTableViewRowAction() NSTableViewRowAction {
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/init(style:title:handler:)
 //
 // [NSTableViewRowAction.Style]: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/Style-swift.enum
-func (_NSTableViewRowActionClass NSTableViewRowActionClass) RowActionWithStyleTitleHandler(style NSTableViewRowActionStyle, title string, handler TableViewRowActionHandler) NSTableViewRowAction {
-	_block2, _ := NewTableViewRowActionBlock(handler)
+func (_NSTableViewRowActionClass NSTableViewRowActionClass) RowActionWithStyleTitleHandler(style NSTableViewRowActionStyle, title string, handler TableViewRowActionIntHandler) NSTableViewRowAction {
+	_block2, _ := NewTableViewRowActionIntBlock(handler)
 	rv := objc.Send[objc.ID](objc.ID(_NSTableViewRowActionClass.class), objc.Sel("rowActionWithStyle:title:handler:"), style, objc.String(title), _block2)
 	return NSTableViewRowActionFromID(rv)
 }
@@ -220,8 +220,9 @@ func (t NSTableViewRowAction) SetTitle(value string) {
 //
 // Use this property to specify the background color for your button. If you
 // do not specify a value for this property, AppKit assigns a default color
-// based on the value in the [Style] property. Generally, this color is red
-// for destructive actions and blue for nondestructive actions.
+// based on the value in the [NSTableViewRowAction.Style] property. Generally,
+// this color is red for destructive actions and blue for nondestructive
+// actions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/backgroundColor
 func (t NSTableViewRowAction) BackgroundColor() INSColor {

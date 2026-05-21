@@ -195,8 +195,9 @@ func (r MTLRasterizationRateMapDescriptor) SetLayerAtIndex(layer IMTLRasterizati
 //
 // # Return Value
 //
-// A descriptor object whose [ScreenSize] is set to the provided size. You
-// need to add at least one layer rate map to the descriptor.
+// A descriptor object whose [MTLRasterizationRateMapDescriptor.ScreenSize] is
+// set to the provided size. You need to add at least one layer rate map to
+// the descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/rasterizationRateMapDescriptorWithScreenSize:
 func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorClass) RasterizationRateMapDescriptorWithScreenSize(screenSize MTLSize) MTLRasterizationRateMapDescriptor {
@@ -212,8 +213,9 @@ func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorC
 //
 // # Return Value
 //
-// A descriptor object whose [ScreenSize] is set to the provided size. Layer 0
-// in the rate map is set to the provided layer descriptor.
+// A descriptor object whose [MTLRasterizationRateMapDescriptor.ScreenSize] is
+// set to the provided size. Layer 0 in the rate map is set to the provided
+// layer descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/rasterizationRateMapDescriptorWithScreenSize:layer:
 func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorClass) RasterizationRateMapDescriptorWithScreenSizeLayer(screenSize MTLSize, layer IMTLRasterizationRateLayerDescriptor) MTLRasterizationRateMapDescriptor {
@@ -231,8 +233,9 @@ func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorC
 //
 // # Return Value
 //
-// A descriptor object whose [ScreenSize] is set to the provided size and
-// whose rate map layers are set to the array you provided.
+// A descriptor object whose [MTLRasterizationRateMapDescriptor.ScreenSize] is
+// set to the provided size and whose rate map layers are set to the array you
+// provided.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/rasterizationRateMapDescriptorWithScreenSize:layerCount:layers:
 func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorClass) RasterizationRateMapDescriptorWithScreenSizeLayerCountLayers(screenSize MTLSize, layerCount uint, layers IMTLRasterizationRateLayerDescriptor) MTLRasterizationRateMapDescriptor {
@@ -283,7 +286,8 @@ func (r MTLRasterizationRateMapDescriptor) SetScreenSize(value MTLSize) {
 //
 // The value of this property is dynamically determined based on how many
 // layers you’ve added to the descriptor. To add a new layer, call
-// [SetLayerAtIndex] or use the subscripting operator to assign a layer.
+// [MTLRasterizationRateMapDescriptor.SetLayerAtIndex] or use the subscripting
+// operator to assign a layer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/layerCount
 func (r MTLRasterizationRateMapDescriptor) LayerCount() uint {

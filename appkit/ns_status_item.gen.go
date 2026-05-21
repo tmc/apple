@@ -47,9 +47,10 @@ func (nc NSStatusItemClass) Alloc() NSStatusItem {
 //
 // # Overview
 //
-// The [NSStatusBar] method [StatusItemWithLength] creates instances of this
-// class and automatically adds them to the menu bar. Use the [Button]
-// property to customize the appearance and behavior of the status item.
+// The [NSStatusBar] method [NSStatusBar.StatusItemWithLength] creates
+// instances of this class and automatically adds them to the menu bar. Use
+// the [NSStatusItem.Button] property to customize the appearance and behavior
+// of the status item.
 //
 // # Getting the Item’s Status Bar
 //
@@ -204,7 +205,8 @@ func (s NSStatusItem) SetBehavior(value NSStatusItemBehavior) {
 //
 // The status item automatically creates this button by default. Use this
 // property to customize the appearance and behavior of the button, such as
-// its [Image], [Target], [Action], [ToolTip], and so on.
+// its [NSButton.Image], [NSControl.Target], [NSControl.Action],
+// [NSView.ToolTip], and so on.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/button
 func (s NSStatusItem) Button() INSStatusBarButton {
@@ -237,7 +239,7 @@ func (s NSStatusItem) SetMenu(value INSMenu) {
 // bar. The item’s visiblity may also change if the user removes the item
 // manually, and you can watch for changes in visibility using key-value
 // observation. The status item’s visiblity persists and restores
-// automatically based on the value of [AutosaveName].
+// automatically based on the value of [NSStatusItem.AutosaveName].
 //
 // This property returns true even if the status item is temporarily hidden
 // due to insufficient space in the menu bar. The default value is true.
@@ -290,20 +292,4 @@ func (s NSStatusItem) AutosaveName() NSStatusItemAutosaveName {
 }
 func (s NSStatusItem) SetAutosaveName(value NSStatusItemAutosaveName) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutosaveName:"), objc.String(string(value)))
-}
-
-// A status item length that is equal to the status bar’s thickness.
-//
-// See: https://developer.apple.com/documentation/appkit/nsstatusitem/squarelength
-func (_NSStatusItemClass NSStatusItemClass) SquareLength() float64 {
-	rv := objc.Send[float64](objc.ID(_NSStatusItemClass.class), objc.Sel("NSSquareStatusItemLength"))
-	return rv
-}
-
-// A status item length that dynamically adjusts to the width of its contents.
-//
-// See: https://developer.apple.com/documentation/appkit/nsstatusitem/variablelength
-func (_NSStatusItemClass NSStatusItemClass) VariableLength() float64 {
-	rv := objc.Send[float64](objc.ID(_NSStatusItemClass.class), objc.Sel("NSVariableStatusItemLength"))
-	return rv
 }

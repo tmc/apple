@@ -56,7 +56,6 @@ func (ac AVPlayerItemTrackClass) Alloc() AVPlayerItemTrack {
 //   - [AVPlayerItemTrack.CurrentVideoFrameRate]: The current frame rate of the video track as it plays.
 //   - [AVPlayerItemTrack.VideoFieldMode]: A mode that specifies the handling of video frames that contain multiple fields.
 //   - [AVPlayerItemTrack.SetVideoFieldMode]
-//   - [AVPlayerItemTrack.AVPlayerItemTrackVideoFieldModeDeinterlaceFields]: A video field mode that requests deinterlacing of video fields.
 //
 // # Accessing the asset track
 //
@@ -90,7 +89,6 @@ func AVPlayerItemTrackFromID(id objc.ID) AVPlayerItemTrack {
 //   - [IAVPlayerItemTrack.CurrentVideoFrameRate]: The current frame rate of the video track as it plays.
 //   - [IAVPlayerItemTrack.VideoFieldMode]: A mode that specifies the handling of video frames that contain multiple fields.
 //   - [IAVPlayerItemTrack.SetVideoFieldMode]
-//   - [IAVPlayerItemTrack.AVPlayerItemTrackVideoFieldModeDeinterlaceFields]: A video field mode that requests deinterlacing of video fields.
 //
 // # Accessing the asset track
 //
@@ -113,8 +111,6 @@ type IAVPlayerItemTrack interface {
 	// A mode that specifies the handling of video frames that contain multiple fields.
 	VideoFieldMode() string
 	SetVideoFieldMode(value string)
-	// A video field mode that requests deinterlacing of video fields.
-	AVPlayerItemTrackVideoFieldModeDeinterlaceFields() string
 
 	// Topic: Accessing the asset track
 
@@ -161,10 +157,10 @@ func (p AVPlayerItemTrack) SetEnabled(value bool) {
 //
 // # Discussion
 //
-// If the media type of the [AssetTrack] is [video], the property indicates
-// the current frame rate of the track as it plays, in frames per second. If
-// the item isn’t playing, or if the media type of the track isn’t video,
-// the value of this property is `0.0`.
+// If the media type of the [AVPlayerItemTrack.AssetTrack] is [video], the
+// property indicates the current frame rate of the track as it plays, in
+// frames per second. If the item isn’t playing, or if the media type of the
+// track isn’t video, the value of this property is `0.0`.
 //
 // This property isn’t key-value observable.
 //
@@ -186,20 +182,14 @@ func (p AVPlayerItemTrack) CurrentVideoFrameRate() float32 {
 // [AVPlayerItemTrackVideoFieldModeDeinterlaceFields].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemTrack/videoFieldMode
+//
+// [AVPlayerItemTrackVideoFieldModeDeinterlaceFields]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemTrackVideoFieldModeDeinterlaceFields
 func (p AVPlayerItemTrack) VideoFieldMode() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("videoFieldMode"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (p AVPlayerItemTrack) SetVideoFieldMode(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVideoFieldMode:"), objc.String(value))
-}
-
-// A video field mode that requests deinterlacing of video fields.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemtrackvideofieldmodedeinterlacefields
-func (p AVPlayerItemTrack) AVPlayerItemTrackVideoFieldModeDeinterlaceFields() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("AVPlayerItemTrackVideoFieldModeDeinterlaceFields"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // An asset track that provides the media for the player item track.

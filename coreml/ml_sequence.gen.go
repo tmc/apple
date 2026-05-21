@@ -107,6 +107,7 @@ type IMLSequence interface {
 	// An array of 64-bit integers in the sequence.
 	Int64Values() []foundation.NSNumber
 
+	InitWithCoder(coder foundation.INSCoder) MLSequence
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -142,6 +143,13 @@ func NewSequenceEmptySequenceWithType(type_ MLFeatureType) MLSequence {
 	return MLSequenceFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLSequence/init(coder:)
+func NewSequenceWithCoder(coder foundation.INSCoder) MLSequence {
+	instance := getMLSequenceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLSequenceFromID(rv)
+}
+
 // Creates a sequence of integers from an array of numbers.
 //
 // int64Values: An array of integer values represented as [NSNumber] instances.
@@ -164,6 +172,11 @@ func NewSequenceWithStringArray(stringValues []string) MLSequence {
 	return MLSequenceFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLSequence/init(coder:)
+func (s MLSequence) InitWithCoder(coder foundation.INSCoder) MLSequence {
+	rv := objc.Send[MLSequence](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s MLSequence) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -174,7 +187,8 @@ func (s MLSequence) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // The sequence’s underlying element type can only be either
 // [MLFeatureTypeString] or [MLFeatureTypeInt64]. Use this value to determine
-// whether to access [StringValues] or [Int64Values] at runtime.
+// whether to access [MLSequence.StringValues] or [MLSequence.Int64Values] at
+// runtime.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/type
 func (s MLSequence) Type() MLFeatureType {
@@ -186,7 +200,7 @@ func (s MLSequence) Type() MLFeatureType {
 //
 // # Discussion
 //
-// Only use this property when the sequence’s [Type] is
+// Only use this property when the sequence’s [MLSequence.Type] is
 // [MLFeatureTypeString].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/stringValues
@@ -199,7 +213,7 @@ func (s MLSequence) StringValues() []string {
 //
 // # Discussion
 //
-// Only use this property when the sequence’s [Type] is
+// Only use this property when the sequence’s [MLSequence.Type] is
 // [MLFeatureTypeInt64].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/int64Values

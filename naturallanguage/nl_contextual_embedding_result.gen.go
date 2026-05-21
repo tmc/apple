@@ -89,8 +89,10 @@ type INLContextualEmbeddingResult interface {
 	// The string value.
 	String() string
 
+	// Iterates over the embedding vectors corresponding to the subword tokens within the specified range of the input string.
+	EnumerateTokenVectorsInRangeUsingBlock(range_ foundation.NSRange, block NSNumberArrayNSRangeBoolHandler)
 	// Returns a token vector at the specified character index.
-	TokenVectorAtIndexTokenRange(characterIndex uint, tokenRange foundation.NSRange) []foundation.NSNumber
+	TokenVectorAtIndexTokenRange(characterIndex uint, tokenRange foundation.NSRangePointer) []foundation.NSNumber
 }
 
 // Init initializes the instance.
@@ -112,6 +114,32 @@ func NewNLContextualEmbeddingResult() NLContextualEmbeddingResult {
 	return rv
 }
 
+// Iterates over the embedding vectors corresponding to the subword tokens
+// within the specified range of the input string.
+//
+// range: The range in the string to enumerate.
+//
+// block: A block that contains each token’s embedding vector and its corresponding
+// character range in the string.
+//
+// # Discussion
+//
+// Use this method to access the individual (subword) token embeddings. You
+// can apply pooling or combination techniques to aggregate these subword
+// vectors into a single representation for a word, phrase, or entire input.
+//
+// Common pooling techniques include:
+//
+// - Mean pooling to take the average of subword vectors. - Max pooling for
+// finding the element-wise maximum across tokens. - Use the embeddings of the
+// first or last subword tokens to represent the entire input.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingResult/enumerateTokenVectorsInRange:usingBlock:
+func (c NLContextualEmbeddingResult) EnumerateTokenVectorsInRangeUsingBlock(range_ foundation.NSRange, block NSNumberArrayNSRangeBoolHandler) {
+	_block1, _ := NewNSNumberArrayNSRangeBoolBlock(block)
+	objc.Send[objc.ID](c.ID, objc.Sel("enumerateTokenVectorsInRange:usingBlock:"), range_, _block1)
+}
+
 // Returns a token vector at the specified character index.
 //
 // characterIndex: The index to get the token vector at.
@@ -119,7 +147,7 @@ func NewNLContextualEmbeddingResult() NLContextualEmbeddingResult {
 // tokenRange: The character range of the token in the input string.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingResult/tokenVectorAtIndex:tokenRange:
-func (c NLContextualEmbeddingResult) TokenVectorAtIndexTokenRange(characterIndex uint, tokenRange foundation.NSRange) []foundation.NSNumber {
+func (c NLContextualEmbeddingResult) TokenVectorAtIndexTokenRange(characterIndex uint, tokenRange foundation.NSRangePointer) []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("tokenVectorAtIndex:tokenRange:"), characterIndex, tokenRange)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)

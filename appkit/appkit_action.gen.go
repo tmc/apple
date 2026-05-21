@@ -11,7 +11,7 @@ import (
 type Actionable interface {
 	objectivec.IObject
 	SetTarget(objectivec.IObject)
-	SetAction(objc.SEL)
+	SetAction(objectivec.SEL)
 }
 
 // SetActionHandler sets a Go function as the action handler for the control.
@@ -21,21 +21,21 @@ type Actionable interface {
 func (n NSControl) SetActionHandler(fn func()) {
 	target, sel := objc.NewActionTarget(n.ID, func(_ objc.ID) { fn() })
 	n.SetTarget(objectivec.Object{ID: target})
-	n.SetAction(sel)
+	n.SetAction(objectivec.SEL(sel))
 }
 
 // SetActionHandler sets a Go function as the action handler for the menu item.
 func (n NSMenuItem) SetActionHandler(fn func()) {
 	target, sel := objc.NewActionTarget(n.ID, func(_ objc.ID) { fn() })
 	n.SetTarget(objectivec.Object{ID: target})
-	n.SetAction(sel)
+	n.SetAction(objectivec.SEL(sel))
 }
 
 // SetActionHandler sets a Go function as the action handler for the toolbar item.
 func (n NSToolbarItem) SetActionHandler(fn func()) {
 	target, sel := objc.NewActionTarget(n.ID, func(_ objc.ID) { fn() })
 	n.SetTarget(objectivec.Object{ID: target})
-	n.SetAction(sel)
+	n.SetAction(objectivec.SEL(sel))
 }
 
 // SetActionHandlerFor sets a Go function as the action handler for any
@@ -46,5 +46,5 @@ func SetActionHandlerFor[T Actionable](ctrl T, fn func(T)) {
 		fn(ctrl)
 	})
 	ctrl.SetTarget(objectivec.Object{ID: target})
-	ctrl.SetAction(sel)
+	ctrl.SetAction(objectivec.SEL(sel))
 }

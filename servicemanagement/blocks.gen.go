@@ -26,5 +26,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }

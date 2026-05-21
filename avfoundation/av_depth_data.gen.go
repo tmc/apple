@@ -72,8 +72,8 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 // Because a depth data map is nonrectilinear, you can use an [AVDepthData]
 // map as a proxy for depth when rendering effects to its accompanying image,
 // but not to correlate points in 3D space. To use depth data for computer
-// vision tasks, use the data in the [CameraCalibrationData] property to
-// rectify the depth data.
+// vision tasks, use the data in the [AVDepthData.CameraCalibrationData]
+// property to rectify the depth data.
 //
 // There are two ways to capture depth data:
 //
@@ -310,7 +310,7 @@ func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation uint) IA
 // the specified data type.
 //
 // depthDataType: The data type to convert to. This value must be one of the formats present
-// in the [AvailableDepthDataTypes] array.
+// in the [AVDepthData.AvailableDepthDataTypes] array.
 //
 // # Return Value
 //
@@ -339,12 +339,12 @@ func (d AVDepthData) DepthDataByConvertingToDepthDataType(depthDataType uint32) 
 // # Discussion
 //
 // If you apply simple transforms to media containing depth data, you can use
-// the [DepthDataByApplyingExifOrientation] method to apply parallel
-// transforms to the corresponding depth data. More complex transforms and
-// edits require creating a derivative depth map reflecting whatever edits you
-// make to the corresponding image. In such cases, use this
-// [DepthDataByReplacingDepthDataMapWithPixelBufferError] method to create a
-// derivative depth data object.
+// the [AVDepthData.DepthDataByApplyingExifOrientation] method to apply
+// parallel transforms to the corresponding depth data. More complex
+// transforms and edits require creating a derivative depth map reflecting
+// whatever edits you make to the corresponding image. In such cases, use this
+// [AVDepthData.DepthDataByReplacingDepthDataMapWithPixelBufferError] method
+// to create a derivative depth data object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/replacingDepthDataMap(with:)
 func (d AVDepthData) DepthDataByReplacingDepthDataMapWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVDepthData, error) {
@@ -385,8 +385,8 @@ func (d AVDepthData) DepthDataType() uint32 {
 // between previous and subsequent frames of captured depth data. Use the
 // [AVCaptureDepthDataOutput] [isFilteringEnabled] property to control
 // filtering for streaming depth capture, or the [AVCapturePhotoSettings]
-// [DepthDataFiltered] property to control filtering for depth data captured
-// alongside photo capture.
+// [AVDepthData.DepthDataFiltered] property to control filtering for depth
+// data captured alongside photo capture.
 //
 // Filtering depth data makes it more useful for applying visual effects to a
 // companion image, but alters the data such that it may no longer be suitable
@@ -451,8 +451,8 @@ func (d AVDepthData) DepthDataQuality() AVDepthDataQuality {
 //
 // # Discussion
 //
-// Use the [DepthDataByConvertingToDepthDataType] method to obtain a converted
-// depth data object using one of the types in this list.
+// Use the [AVDepthData.DepthDataByConvertingToDepthDataType] method to obtain
+// a converted depth data object using one of the types in this list.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/availableDepthDataTypes-472g0
 func (d AVDepthData) AvailableDepthDataTypes() []foundation.NSNumber {

@@ -116,9 +116,10 @@ func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 // requirements.
 //
 // After creating the hardware model, use [VZMacPlatformConfiguration]
-// [HardwareModel] to configure the Mac platform, and
-// [InitCreatingStorageAtURLHardwareModelOptionsError] to create its auxiliary
-// storage.
+// [VZMacPlatformConfiguration.HardwareModel] to configure the Mac platform,
+// and
+// [VZMacAuxiliaryStorage.InitCreatingStorageAtURLHardwareModelOptionsError]
+// to create its auxiliary storage.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements/hardwareModel
 func (m VZMacOSConfigurationRequirements) HardwareModel() IVZMacHardwareModel {

@@ -143,9 +143,11 @@ func NewNSAccessibilityCustomRotorSearchParameters() NSAccessibilityCustomRotorS
 //
 // # Discussion
 //
-// If this value is `nil`, [SearchDirection] determines the current item. A
-// search direction of [NSAccessibilityCustomRotorSearchDirectionNext] begins
-// the search from the first item, and a search direction of
+// If this value is `nil`,
+// [NSAccessibilityCustomRotorSearchParameters.SearchDirection] determines the
+// current item. A search direction of
+// [NSAccessibilityCustomRotorSearchDirectionNext] begins the search from the
+// first item, and a search direction of
 // [NSAccessibilityCustomRotorSearchDirectionPrevious] begins the search from
 // the last item.
 //

@@ -60,12 +60,12 @@ func (nc NSTextStorageClass) Alloc() NSTextStorage {
 // In macOS, this class also defines properties for getting and setting
 // scriptable attributes of [NSTextStorage] objects. Unless you’re dealing
 // with scriptability, you shouldn’t access these properties directly. In
-// particular, using the [NSTextStorage.Characters], [NSTextStorage.Words], or [NSTextStorage.Paragraphs] properties is
-// an inefficient way to manipulate the text storage, since accessing these
-// properties involves the creation of many objects. Instead, use the text
-// access methods defined by [NSMutableAttributedString],
-// [NSAttributedString], [NSMutableString], and [NSString] to perform
-// character-level manipulation.
+// particular, using the [NSTextStorage.Characters], [NSTextStorage.Words], or
+// [NSTextStorage.Paragraphs] properties is an inefficient way to manipulate
+// the text storage, since accessing these properties involves the creation of
+// many objects. Instead, use the text access methods defined by
+// [NSMutableAttributedString], [NSAttributedString], [NSMutableString], and
+// [NSString] to perform character-level manipulation.
 //
 // # Subclassing Notes
 //
@@ -76,7 +76,7 @@ func (nc NSTextStorageClass) Alloc() NSTextStorage {
 // storage, which subclasses manage by overriding the two [NSAttributedString]
 // primitives:
 //
-// - [NSTextStorage.String]
+// - [string]
 // - [attributes(at:effectiveRange:)]
 //
 // Subclasses must also override two [NSMutableAttributedString] primitives:
@@ -85,7 +85,8 @@ func (nc NSTextStorageClass) Alloc() NSTextStorage {
 // - [setAttributes(_:range:)]
 //
 // These primitives should perform the change, then call
-// [NSTextStorage.EditedRangeChangeInLength] to let the parent class know there are changes.
+// [NSTextStorage.EditedRangeChangeInLength] to let the parent class know
+// there are changes.
 //
 // # Processing the editing actions
 //
@@ -146,6 +147,7 @@ func (nc NSTextStorageClass) Alloc() NSTextStorage {
 // [endEditing()]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/endEditing()
 // [replaceCharacters(in:with:)]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/replaceCharacters(in:with:)-6oq9r
 // [setAttributes(_:range:)]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setAttributes(_:range:)
+// [string]: https://developer.apple.com/documentation/Foundation/NSAttributedString/string
 type NSTextStorage struct {
 	foundation.NSMutableAttributedString
 }
@@ -374,20 +376,20 @@ func (t NSTextStorage) RemoveLayoutManager(aLayoutManager INSLayoutManager) {
 //
 // # Discussion
 //
-// This method invokes [ProcessEditing] if there are no outstanding
-// [beginEditing()] calls. [NSTextStorage] invokes this method automatically
-// each time it makes a change to its attributed string. Subclasses that
-// override or add methods that alter their attributed strings directly should
-// invoke this method after making those changes; otherwise you shouldn’t
-// invoke this method. The information accumulated with this method is then
-// used in an invocation of [ProcessEditing] to report the affected portion of
-// the receiver.
+// This method invokes [NSTextStorage.ProcessEditing] if there are no
+// outstanding [beginEditing()] calls. [NSTextStorage] invokes this method
+// automatically each time it makes a change to its attributed string.
+// Subclasses that override or add methods that alter their attributed strings
+// directly should invoke this method after making those changes; otherwise
+// you shouldn’t invoke this method. The information accumulated with this
+// method is then used in an invocation of [NSTextStorage.ProcessEditing] to
+// report the affected portion of the receiver.
 //
-// The methods for querying changes, [EditedRange] and [ChangeInLength],
-// indicate the extent of characters affected after the change. This method
-// expects the characters before the change because that information is
-// readily available as the argument to whatever method performs the change
-// (such as [replaceCharacters(in:with:)]).
+// The methods for querying changes, [NSTextStorage.EditedRange] and
+// [NSTextStorage.ChangeInLength], indicate the extent of characters affected
+// after the change. This method expects the characters before the change
+// because that information is readily available as the argument to whatever
+// method performs the change (such as [replaceCharacters(in:with:)]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/edited(_:range:changeInLength:)
 //
@@ -404,9 +406,9 @@ func (t NSTextStorage) EditedRangeChangeInLength(editedMask NSTextStorageEditAct
 // # Discussion
 //
 // This method is automatically invoked in response to an
-// [EditedRangeChangeInLength] message or an [endEditing()] message if edits
-// were made within the scope of a [beginEditing()] block. You should never
-// need to invoke it directly.
+// [NSTextStorage.EditedRangeChangeInLength] message or an [endEditing()]
+// message if edits were made within the scope of a [beginEditing()] block.
+// You should never need to invoke it directly.
 //
 // This method begins by posting an [willProcessEditingNotification] to the
 // default notification center (which results in the delegate receiving a
@@ -435,8 +437,8 @@ func (t NSTextStorage) ProcessEditing() {
 //
 // # Discussion
 //
-// Called from [ProcessEditing] to invalidate attributes when the text storage
-// changes. If the receiver isn’t lazy, this method calls
+// Called from [NSTextStorage.ProcessEditing] to invalidate attributes when
+// the text storage changes. If the receiver isn’t lazy, this method calls
 // [fixAttributes(in:)]. If lazy attribute fixing is in effect, this method
 // instead records the range needing fixing.
 //
@@ -717,9 +719,9 @@ func (t NSTextStorage) EditedRange() foundation.NSRange {
 // This property reflects difference between the current length of the edited
 // range and its length before editing began—that is, before the first call
 // to the [beginEditing()] method or a single call to
-// the[EditedRangeChangeInLength] method. This difference is accumulated with
-// each call to the [EditedRangeChangeInLength] method, until the changes are
-// finally processed.
+// the[NSTextStorage.EditedRangeChangeInLength] method. This difference is
+// accumulated with each call to the [NSTextStorage.EditedRangeChangeInLength]
+// method, until the changes are finally processed.
 //
 // The text storage object’s delegate and layout managers can use this
 // information to determine the nature of edits in their respective

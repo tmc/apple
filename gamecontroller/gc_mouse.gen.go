@@ -49,24 +49,14 @@ func (gc GCMouseClass) Alloc() GCMouse {
 // # Overview
 //
 // To get a mouse object and its input values, register for the
-// [GCMouse.GCMouseDidConnect] (Swift) or [GCMouseDidConnectNotification]
+// [GCMouseDidConnect] (Swift) or [GCMouseDidConnectNotification]
 // (Objective-C) notification for when a mouse connects to the device. Then
-// register for the [GCMouse.GCMouseDidBecomeCurrent] (Swift) or
+// register for the [GCMouseDidBecomeCurrent] (Swift) or
 // [GCMouseDidBecomeCurrentNotification] (Objective-C) notification for when
-// it becomes the [GCMouse.Current] mouse. Alternatively, use the [GCMouse.Current] class
-// property or the [GCMouse.Mice] class method to get a mouse object. Then get the
-// current input values from the mouse object’s [GCMouse.MouseInput] controller
-// profile.
-//
-// # Discovering mouse devices
-//
-//   - [GCMouse.GCMouseDidConnect]: A notification that posts after a mouse connects to the device.
-//   - [GCMouse.GCMouseDidDisconnect]: A notification that posts after a mouse disconnects from the device.
-//
-// # Handling multiple mouse devices
-//
-//   - [GCMouse.GCMouseDidBecomeCurrent]: A notification that posts when a mouse becomes the most recent mouse that the user connects.
-//   - [GCMouse.GCMouseDidStopBeingCurrent]: A notification that posts when a mouse stops being the most recent mouse that the user connects.
+// it becomes the [GCMouseClass.Current] mouse. Alternatively, use the
+// [GCMouseClass.Current] class property or the [GCMouseClass.Mice] class
+// method to get a mouse object. Then get the current input values from the
+// mouse object’s [GCMouse.MouseInput] controller profile.
 //
 // # Getting input values
 //
@@ -75,7 +65,9 @@ func (gc GCMouseClass) Alloc() GCMouse {
 // See: https://developer.apple.com/documentation/GameController/GCMouse
 //
 // [GCMouseDidBecomeCurrentNotification]: https://developer.apple.com/documentation/GameController/GCMouseDidBecomeCurrentNotification
+// [GCMouseDidBecomeCurrent]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidBecomeCurrent
 // [GCMouseDidConnectNotification]: https://developer.apple.com/documentation/GameController/GCMouseDidConnectNotification
+// [GCMouseDidConnect]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidConnect
 type GCMouse struct {
 	objectivec.Object
 }
@@ -92,16 +84,6 @@ func GCMouseFromID(id objc.ID) GCMouse {
 
 // An interface definition for the [GCMouse] class.
 //
-// # Discovering mouse devices
-//
-//   - [IGCMouse.GCMouseDidConnect]: A notification that posts after a mouse connects to the device.
-//   - [IGCMouse.GCMouseDidDisconnect]: A notification that posts after a mouse disconnects from the device.
-//
-// # Handling multiple mouse devices
-//
-//   - [IGCMouse.GCMouseDidBecomeCurrent]: A notification that posts when a mouse becomes the most recent mouse that the user connects.
-//   - [IGCMouse.GCMouseDidStopBeingCurrent]: A notification that posts when a mouse stops being the most recent mouse that the user connects.
-//
 // # Getting input values
 //
 //   - [IGCMouse.MouseInput]: The controller profile for the mouse device.
@@ -109,20 +91,6 @@ func GCMouseFromID(id objc.ID) GCMouse {
 // See: https://developer.apple.com/documentation/GameController/GCMouse
 type IGCMouse interface {
 	objectivec.IObject
-
-	// Topic: Discovering mouse devices
-
-	// A notification that posts after a mouse connects to the device.
-	GCMouseDidConnect() foundation.NSString
-	// A notification that posts after a mouse disconnects from the device.
-	GCMouseDidDisconnect() foundation.NSString
-
-	// Topic: Handling multiple mouse devices
-
-	// A notification that posts when a mouse becomes the most recent mouse that the user connects.
-	GCMouseDidBecomeCurrent() foundation.NSString
-	// A notification that posts when a mouse stops being the most recent mouse that the user connects.
-	GCMouseDidStopBeingCurrent() foundation.NSString
 
 	// Topic: Getting input values
 
@@ -196,40 +164,6 @@ func (_GCMouseClass GCMouseClass) Mice() []GCMouse {
 	return objc.ConvertSlice(rv, func(id objc.ID) GCMouse {
 		return GCMouseFromID(id)
 	})
-}
-
-// A notification that posts after a mouse connects to the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidConnect
-func (g GCMouse) GCMouseDidConnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCMouseDidConnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts after a mouse disconnects from the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidDisconnect
-func (g GCMouse) GCMouseDidDisconnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCMouseDidDisconnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts when a mouse becomes the most recent mouse that
-// the user connects.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidBecomeCurrent
-func (g GCMouse) GCMouseDidBecomeCurrent() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCMouseDidBecomeCurrent"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts when a mouse stops being the most recent mouse
-// that the user connects.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCMouseDidStopBeingCurrent
-func (g GCMouse) GCMouseDidStopBeingCurrent() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCMouseDidStopBeingCurrent"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // The controller profile for the mouse device.

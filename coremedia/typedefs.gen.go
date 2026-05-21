@@ -3,9 +3,8 @@
 package coremedia
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 )
 
 // CMAttachmentBearerRef is an object that can carry attachments.
@@ -49,34 +48,34 @@ type CMBlockBufferRef uintptr
 // CMBufferCompareCallback is callback that compares one [CMBuffer] with another.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferCompareCallback
-type CMBufferCompareCallback = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
+type CMBufferCompareCallback = func(kernel.Pointer, kernel.Pointer, kernel.Pointer) corefoundation.CFComparisonResult
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferCompareHandler
-type CMBufferCompareHandler = func(unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
+type CMBufferCompareHandler = func(kernel.Pointer, kernel.Pointer) corefoundation.CFComparisonResult
 
 // CMBufferGetBooleanCallback is callback that returns a Boolean value from a [CMBuffer].
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetBooleanCallback
-type CMBufferGetBooleanCallback = func(unsafe.Pointer, unsafe.Pointer) uint8
+type CMBufferGetBooleanCallback = func(kernel.Pointer, kernel.Pointer) uint8
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetBooleanHandler
-type CMBufferGetBooleanHandler = func(unsafe.Pointer) byte
+type CMBufferGetBooleanHandler = func(kernel.Pointer) byte
 
 // CMBufferGetSizeCallback is a client callback that returns a size.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetSizeCallback
-type CMBufferGetSizeCallback = func(unsafe.Pointer, unsafe.Pointer) uint
+type CMBufferGetSizeCallback = func(kernel.Pointer, kernel.Pointer) uint
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetSizeHandler
-type CMBufferGetSizeHandler = func(unsafe.Pointer) uint64
+type CMBufferGetSizeHandler = func(kernel.Pointer) uint64
 
 // CMBufferGetTimeCallback is callback that returns a [CMTime] from a [CMBuffer].
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetTimeCallback
-type CMBufferGetTimeCallback = func(unsafe.Pointer, unsafe.Pointer) CMTime
+type CMBufferGetTimeCallback = func(kernel.Pointer, kernel.Pointer) CMTime
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetTimeHandler
-type CMBufferGetTimeHandler = func(unsafe.Pointer) CMTime
+type CMBufferGetTimeHandler = func(kernel.Pointer) CMTime
 
 // CMBufferQueueRef is a reference to a buffer queue instance.
 //
@@ -86,7 +85,7 @@ type CMBufferQueueRef uintptr
 // CMBufferQueueTriggerCallback is a callback for the system to invoke when a trigger condition becomes true.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueTriggerCallback
-type CMBufferQueueTriggerCallback = func(unsafe.Pointer, uintptr)
+type CMBufferQueueTriggerCallback = func(kernel.Pointer, uintptr)
 
 // CMBufferQueueTriggerCondition is a type to specify conditions to associate with a buffer queue trigger.
 //
@@ -96,7 +95,7 @@ type CMBufferQueueTriggerCondition = int32
 // CMBufferQueueTriggerHandler is a type alias for a trigger handler.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueTriggerHandler
-type CMBufferQueueTriggerHandler = func(unsafe.Pointer)
+type CMBufferQueueTriggerHandler = func(kernel.Pointer)
 
 // CMBufferQueueTriggerToken is a type alias for a trigger token.
 //
@@ -111,12 +110,12 @@ type CMBufferRef = corefoundation.CFTypeRef
 // CMBufferValidationCallback is a type alias for a callback that tests whether a buffer is in a valid state to add to a queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferValidationCallback
-type CMBufferValidationCallback = func(uintptr, unsafe.Pointer, unsafe.Pointer) int
+type CMBufferValidationCallback = func(uintptr, kernel.Pointer, kernel.Pointer) int
 
 // CMBufferValidationHandler is a type alias for a handler that tests whether a buffer is in a valid state to add to a queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferValidationHandler
-type CMBufferValidationHandler = func(unsafe.Pointer, unsafe.Pointer) int
+type CMBufferValidationHandler = func(kernel.Pointer, kernel.Pointer) int
 
 // CMClockOrTimebaseRef is a type you use in argument lists and function results to indicate that you can pass either a clock or timebase.
 //
@@ -221,17 +220,17 @@ type CMSampleBufferInvalidateCallback = func(uintptr, uint64)
 // CMSampleBufferInvalidateHandler is client callback called by [CMSampleBufferInvalidate(_:)].
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferInvalidateHandler
-type CMSampleBufferInvalidateHandler = func(unsafe.Pointer)
+type CMSampleBufferInvalidateHandler = func(kernel.Pointer)
 
 // CMSampleBufferMakeDataReadyCallback is client callback called by [CMSampleBufferMakeDataReady(_:)].
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferMakeDataReadyCallback
-type CMSampleBufferMakeDataReadyCallback = func(uintptr, unsafe.Pointer) int
+type CMSampleBufferMakeDataReadyCallback = func(uintptr, kernel.Pointer) int
 
 // CMSampleBufferMakeDataReadyHandler is a block the system calls to make the sample buffer ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferMakeDataReadyHandler
-type CMSampleBufferMakeDataReadyHandler = func(unsafe.Pointer) int
+type CMSampleBufferMakeDataReadyHandler = func(kernel.Pointer) int
 
 // CMSampleBufferRef is a reference to a buffer of media data.
 //
@@ -259,7 +258,7 @@ type CMSubtitleFormatType = uint32
 // CMTagCollectionApplierFunction is a type for function application over elements of a tag collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionApplierFunction
-type CMTagCollectionApplierFunction = func(CMTag, unsafe.Pointer)
+type CMTagCollectionApplierFunction = func(CMTag, kernel.Pointer)
 
 // CMTagCollectionRef is a reference to a tag collection.
 //
@@ -269,7 +268,7 @@ type CMTagCollectionRef uintptr
 // CMTagCollectionTagFilterFunction is a type for filtering of tag collections.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionTagFilterFunction
-type CMTagCollectionTagFilterFunction = func(CMTag, unsafe.Pointer) uint8
+type CMTagCollectionTagFilterFunction = func(CMTag, kernel.Pointer) uint8
 
 // CMTagValue is the type used to represent tag values.
 //

@@ -5,6 +5,7 @@ package coreml
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -63,10 +64,6 @@ func MLMetricKeyFromID(id objc.ID) MLMetricKey {
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey
 type IMLMetricKey interface {
 	IMLKey
-
-	// The training metrics of the model for the update task, contained in a dictionary.
-	Metrics() IMLMetricKey
-	SetMetrics(value IMLMetricKey)
 }
 
 // Init initializes the instance.
@@ -88,23 +85,19 @@ func NewMLMetricKey() MLMetricKey {
 	return rv
 }
 
-// The training metrics of the model for the update task, contained in a
-// dictionary.
-//
-// See: https://developer.apple.com/documentation/coreml/mlupdatecontext/metrics
-func (m MLMetricKey) Metrics() IMLMetricKey {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metrics"))
-	return MLMetricKeyFromID(objc.ID(rv))
-}
-func (m MLMetricKey) SetMetrics(value IMLMetricKey) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMetrics:"), value)
+// See: https://developer.apple.com/documentation/CoreML/MLKey/init(coder:)
+func NewMetricKeyWithCoder(coder foundation.INSCoder) MLMetricKey {
+	instance := getMLMetricKeyClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLMetricKeyFromID(rv)
 }
 
 // The key you use to access the current loss (a `float` value).
 //
 // # Discussion
 //
-// Use this key to fetch the loss value in the [Metrics] dictionary.
+// Use this key to fetch the loss value in the [MLUpdateContext.Metrics]
+// dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/lossValue
 func (_MLMetricKeyClass MLMetricKeyClass) LossValue() MLMetricKey {
@@ -116,7 +109,8 @@ func (_MLMetricKeyClass MLMetricKeyClass) LossValue() MLMetricKey {
 //
 // # Discussion
 //
-// Use this key to fetch the epoch index value in the [Metrics] dictionary.
+// Use this key to fetch the epoch index value in the
+// [MLUpdateContext.Metrics] dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/epochIndex
 func (_MLMetricKeyClass MLMetricKeyClass) EpochIndex() MLMetricKey {
@@ -129,8 +123,8 @@ func (_MLMetricKeyClass MLMetricKeyClass) EpochIndex() MLMetricKey {
 //
 // # Discussion
 //
-// Use this key to fetch the mini-batch index value in the [Metrics]
-// dictionary.
+// Use this key to fetch the mini-batch index value in the
+// [MLUpdateContext.Metrics] dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/miniBatchIndex
 func (_MLMetricKeyClass MLMetricKeyClass) MiniBatchIndex() MLMetricKey {

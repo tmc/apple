@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -109,7 +110,7 @@ type ISCWindow interface {
 	// Topic: Identifying windows
 
 	// The Core Graphics window identifier.
-	WindowID() uint32
+	WindowID() coregraphics.CGWindowID
 	// The string that displays in a window’s title bar.
 	Title() string
 	// The app that owns the window.
@@ -152,9 +153,9 @@ func NewSCWindow() SCWindow {
 // The Core Graphics window identifier.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/windowID
-func (w SCWindow) WindowID() uint32 {
-	rv := objc.Send[uint32](w.ID, objc.Sel("windowID"))
-	return rv
+func (w SCWindow) WindowID() coregraphics.CGWindowID {
+	rv := objc.Send[coregraphics.CGWindowID](w.ID, objc.Sel("windowID"))
+	return coregraphics.CGWindowID(rv)
 }
 
 // The string that displays in a window’s title bar.

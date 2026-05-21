@@ -51,13 +51,13 @@ func (hc HostClass) Alloc() Host {
 // individual on a network. Use [NSHost] objects to get the current host’s
 // names and addresses and to look up other hosts by name or by address.
 //
-// To create an [NSHost] object, use the [CurrentHost], [HostWithAddress], or
-// [HostWithName] class methods (don’t use `alloc` and `init`). These
-// methods use available network administration services to discover all names
-// and addresses for the host requested. They don’t attempt to contact the
-// host itself, however. This approach avoids untimely delays due to a host
-// being unavailable, but it may result in incomplete information about the
-// host.
+// To create an [NSHost] object, use the [NSHostClass.CurrentHost],
+// [NSHostClass.HostWithAddress], or [NSHostClass.HostWithName] class methods
+// (don’t use `alloc` and `init`). These methods use available network
+// administration services to discover all names and addresses for the host
+// requested. They don’t attempt to contact the host itself, however. This
+// approach avoids untimely delays due to a host being unavailable, but it may
+// result in incomplete information about the host.
 //
 // An [NSHost] object contains all of the network addresses and names
 // discovered for a given host by the network administration services. Each
@@ -223,8 +223,9 @@ func (h Host) Name() string {
 // This is the name displayed in the Finder sidebar, as well as in the Sharing
 // preference panel.
 //
-// This method only returns an [NSString] when sent to the [CurrentHost]
-// instance, all other instances currently return `nil`.
+// This method only returns an [NSString] when sent to the
+// [NSHostClass.CurrentHost] instance, all other instances currently return
+// `nil`.
 //
 // This property is key-value observable.
 //

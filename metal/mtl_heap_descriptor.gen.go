@@ -249,9 +249,10 @@ func (h MTLHeapDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 //
 // # Discussion
 //
-// This property aggregates the values of [StorageMode], [CpuCacheMode], and
-// [HazardTrackingMode]. Any modifications you make to this property affect
-// the other properties, and vice versa.
+// This property aggregates the values of [MTLHeapDescriptor.StorageMode],
+// [MTLHeapDescriptor.CpuCacheMode], and
+// [MTLHeapDescriptor.HazardTrackingMode]. Any modifications you make to this
+// property affect the other properties, and vice versa.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/resourceOptions
 func (h MTLHeapDescriptor) ResourceOptions() MTLResourceOptions {
@@ -314,8 +315,9 @@ func (h MTLHeapDescriptor) SetSparsePageSize(value MTLSparsePageSize) {
 //
 // # Discussion
 //
-// This parameter only affects the heap if you set the [Type] property of this
-// descriptor to [MTLHeapTypePlacement].
+// This parameter only affects the heap if you set the
+// [MTLHeapDescriptor.Type] property of this descriptor to
+// [MTLHeapTypePlacement].
 //
 // The value you assign to this property determines the compatibility of the
 // Metal heap with with placement sparse resources, because placement sparse

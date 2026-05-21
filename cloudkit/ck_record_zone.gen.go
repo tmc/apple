@@ -98,6 +98,10 @@ func (cc CKRecordZoneClass) Alloc() CKRecordZone {
 //
 //   - [CKRecordZone.Share]: A reference to the record zone’s share record.
 //
+// # Initializers
+//
+//   - [CKRecordZone.InitWithCoder]
+//
 // # Instance Properties
 //
 //   - [CKRecordZone.EncryptionScope]: The encryption scope determines the granularity at which encryption keys are stored within the zone.
@@ -134,6 +138,10 @@ func CKRecordZoneFromID(id objc.ID) CKRecordZone {
 //
 //   - [ICKRecordZone.Share]: A reference to the record zone’s share record.
 //
+// # Initializers
+//
+//   - [ICKRecordZone.InitWithCoder]
+//
 // # Instance Properties
 //
 //   - [ICKRecordZone.EncryptionScope]: The encryption scope determines the granularity at which encryption keys are stored within the zone.
@@ -161,6 +169,10 @@ type ICKRecordZone interface {
 
 	// A reference to the record zone’s share record.
 	Share() ICKReference
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKRecordZone
 
 	// Topic: Instance Properties
 
@@ -190,6 +202,13 @@ func NewCKRecordZone() CKRecordZone {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(coder:)
+func NewCKRecordZoneWithCoder(coder foundation.INSCoder) CKRecordZone {
+	instance := getCKRecordZoneClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKRecordZoneFromID(rv)
+}
+
 // Creates a record zone object with the specified zone ID.
 //
 // zoneID: The ID for the new zone. This parameter must not be `nil`.
@@ -203,12 +222,12 @@ func NewCKRecordZone() CKRecordZone {
 // Use this method when you want to create a new record zone from the
 // information in a zone ID. After creating the zone, save it to the server
 // using a [CKModifyRecordZonesOperation] object or the
-// [SaveSubscriptionCompletionHandler] method of [CKDatabase].
+// [CKDatabase.SaveSubscriptionCompletionHandler] method of [CKDatabase].
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it
 // using a [CKFetchRecordZonesOperation] object or the
-// [FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
+// [CKDatabase.FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(zoneID:)
 func NewCKRecordZoneWithZoneID(zoneID ICKRecordZoneID) CKRecordZone {
@@ -236,14 +255,14 @@ func NewCKRecordZoneWithZoneID(zoneID ICKRecordZoneID) CKRecordZone {
 // Use this method to create a new record zone. The new zone has the name you
 // provide and the zone’s owner is the current user. After creating the
 // zone, save it to the server using a [CKModifyRecordZonesOperation] object
-// or the [SaveSubscriptionCompletionHandler] method of [CKDatabase]. You must
-// save the zone to the server before you attempt to save any records to that
-// zone.
+// or the [CKDatabase.SaveSubscriptionCompletionHandler] method of
+// [CKDatabase]. You must save the zone to the server before you attempt to
+// save any records to that zone.
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it
 // using a [CKFetchRecordZonesOperation] object or the
-// [FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
+// [CKDatabase.FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(zoneName:)
 func NewCKRecordZoneWithZoneName(zoneName string) CKRecordZone {
@@ -271,14 +290,14 @@ func NewCKRecordZoneWithZoneName(zoneName string) CKRecordZone {
 // Use this method to create a new record zone. The new zone has the name you
 // provide and the zone’s owner is the current user. After creating the
 // zone, save it to the server using a [CKModifyRecordZonesOperation] object
-// or the [SaveSubscriptionCompletionHandler] method of [CKDatabase]. You must
-// save the zone to the server before you attempt to save any records to that
-// zone.
+// or the [CKDatabase.SaveSubscriptionCompletionHandler] method of
+// [CKDatabase]. You must save the zone to the server before you attempt to
+// save any records to that zone.
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it
 // using a [CKFetchRecordZonesOperation] object or the
-// [FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
+// [CKDatabase.FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(zoneName:)
 func (c CKRecordZone) InitWithZoneName(zoneName string) CKRecordZone {
@@ -299,16 +318,22 @@ func (c CKRecordZone) InitWithZoneName(zoneName string) CKRecordZone {
 // Use this method when you want to create a new record zone from the
 // information in a zone ID. After creating the zone, save it to the server
 // using a [CKModifyRecordZonesOperation] object or the
-// [SaveSubscriptionCompletionHandler] method of [CKDatabase].
+// [CKDatabase.SaveSubscriptionCompletionHandler] method of [CKDatabase].
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it
 // using a [CKFetchRecordZonesOperation] object or the
-// [FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
+// [CKDatabase.FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(zoneID:)
 func (c CKRecordZone) InitWithZoneID(zoneID ICKRecordZoneID) CKRecordZone {
 	rv := objc.Send[CKRecordZone](c.ID, objc.Sel("initWithZoneID:"), zoneID)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/init(coder:)
+func (c CKRecordZone) InitWithCoder(coder foundation.INSCoder) CKRecordZone {
+	rv := objc.Send[CKRecordZone](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (c CKRecordZone) EncodeWithCoder(coder foundation.INSCoder) {
@@ -338,6 +363,7 @@ func (c CKRecordZone) EncodeWithCoder(coder foundation.INSCoder) {
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/default()
 //
 // [CKFetchRecordChangesOperation]: https://developer.apple.com/documentation/CloudKit/CKFetchRecordChangesOperation
+// [CKOwnerDefaultName]: https://developer.apple.com/documentation/CloudKit/CKOwnerDefaultName
 func (_CKRecordZoneClass CKRecordZoneClass) DefaultRecordZone() CKRecordZone {
 	rv := objc.Send[objc.ID](objc.ID(_CKRecordZoneClass.class), objc.Sel("defaultRecordZone"))
 	return CKRecordZoneFromID(rv)
@@ -384,10 +410,10 @@ func (c CKRecordZone) Capabilities() CKRecordZoneCapabilities {
 // share record; otherwise, it’s `nil`.
 //
 // To share a record zone, create a share record using the
-// [InitWithRecordZoneID] method and then save it to the server. Shared record
-// zones must have the [CKRecordZoneCapabilityZoneWideSharing] capability,
-// which CloudKit enables by default for new custom record zones in the
-// user’s private database.
+// [CKShare.InitWithRecordZoneID] method and then save it to the server.
+// Shared record zones must have the [CKRecordZoneCapabilityZoneWideSharing]
+// capability, which CloudKit enables by default for new custom record zones
+// in the user’s private database.
 //
 // A record zone, and the records it contains, can take part in only a single
 // share. CloudKit returns an error if you attempt to share an already-shared

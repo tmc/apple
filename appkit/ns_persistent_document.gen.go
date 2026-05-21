@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -84,9 +85,9 @@ func (nc NSPersistentDocumentClass) Alloc() NSPersistentDocument {
 //
 // The persistent document uses the managed object context’s undo manager.
 //
-// The [DocumentEdited] method returns true if the persistent document’s
-// managed object context, or editors registered with the context, have
-// uncommitted changes, otherwise it returns false.
+// The [NSDocument.DocumentEdited] method returns true if the persistent
+// document’s managed object context, or editors registered with the
+// context, have uncommitted changes, otherwise it returns false.
 //
 // # Managing the Persistence Objects
 //
@@ -132,16 +133,13 @@ type INSPersistentDocument interface {
 
 	// The managed object context for the document.
 	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value unsafe.Pointer)
+	SetManagedObjectContext(value kernel.Pointer)
 	// The managed object model of the document.
 	ManagedObjectModel() unsafe.Pointer
 	// Configures the receiver’s persistent store coordinator with the appropriate stores for a given URL.
 	ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.NSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error)
 	// Returns the type of persistent store associated with the specified file type.
 	PersistentStoreTypeForFileType(fileType string) string
-
-	// A Boolean value that indicates whether the document has unsaved changes.
-	IsDocumentEdited() bool
 }
 
 // Init initializes the instance.
@@ -220,16 +218,17 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 // documents.
 //
 // This method is invoked by the [NSDocumentController] method
-// [DocumentWithContentsOfURLOfTypeError]. The default implementation of this
-// method calls the [Init] and [ReadFromDataOfTypeError] methods and sets
-// values for the [FileURL], [FileType], and [FileModificationDate]
-// properties.
+// [NSDocumentController.DocumentWithContentsOfURLOfTypeError]. The default
+// implementation of this method calls the [NSPersistentDocument.Init] and
+// [NSDocument.ReadFromDataOfTypeError] methods and sets values for the
+// [NSDocument.FileURL], [NSDocument.FileType], and
+// [NSDocument.FileModificationDate] properties.
 //
 // For backward binary compatibility with OS X v10.3 and earlier, the default
 // implementation of this method instead invokes
 // [initWithContentsOfFile:ofType:] if it is overridden and the URL uses the
-// “ scheme. It still updates the [FileModificationDate] property in this
-// situation.
+// “ scheme. It still updates the [NSDocument.FileModificationDate] property
+// in this situation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(contentsOf:ofType:)
 //
@@ -262,8 +261,8 @@ func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typ
 // You can override this method to perform initialization that must be done
 // when creating new documents but should not be done when opening existing
 // documents. Your override should typically invoke `super`, or at least it
-// must invoke [Init], the [NSDocument] designated initializer, to initialize
-// the [NSDocument] private instance variables.
+// must invoke [NSPersistentDocument.Init], the [NSDocument] designated
+// initializer, to initialize the [NSDocument] private instance variables.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(type:)
 func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, error) {
@@ -356,7 +355,7 @@ func (p NSPersistentDocument) ManagedObjectContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectContext"))
 	return rv
 }
-func (p NSPersistentDocument) SetManagedObjectContext(value unsafe.Pointer) {
+func (p NSPersistentDocument) SetManagedObjectContext(value kernel.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 
@@ -380,15 +379,4 @@ func (p NSPersistentDocument) SetManagedObjectContext(value unsafe.Pointer) {
 func (p NSPersistentDocument) ManagedObjectModel() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectModel"))
 	return rv
-}
-
-// A Boolean value that indicates whether the document has unsaved changes.
-//
-// See: https://developer.apple.com/documentation/appkit/nsdocument/isdocumentedited
-func (p NSPersistentDocument) IsDocumentEdited() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("documentEdited"))
-	return rv
-}
-func (p NSPersistentDocument) SetDocumentEdited(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setDocumentEdited:"), value)
 }

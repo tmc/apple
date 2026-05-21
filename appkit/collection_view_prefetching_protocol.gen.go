@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -16,7 +17,7 @@ type NSCollectionViewPrefetching interface {
 	// CollectionViewPrefetchItemsAtIndexPaths protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:prefetchItemsAt:)
-	CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID)
+	CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []foundation.NSIndexPath)
 }
 
 // NSCollectionViewPrefetchingObject wraps an existing Objective-C object that conforms to the NSCollectionViewPrefetching protocol.
@@ -37,11 +38,11 @@ func NSCollectionViewPrefetchingObjectFromID(id objc.ID) NSCollectionViewPrefetc
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:prefetchItemsAt:)
-func (o NSCollectionViewPrefetchingObject) CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID) {
-	objc.Send[struct{}](o.ID, objc.Sel("collectionView:prefetchItemsAtIndexPaths:"), collectionView, objectivec.IDSliceToNSArray(indexPaths))
+func (o NSCollectionViewPrefetchingObject) CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []foundation.NSIndexPath) {
+	objc.Send[struct{}](o.ID, objc.Sel("collectionView:prefetchItemsAtIndexPaths:"), collectionView, objectivec.IObjectSliceToNSArray(indexPaths))
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:cancelPrefetchingForItemsAt:)
-func (o NSCollectionViewPrefetchingObject) CollectionViewCancelPrefetchingForItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID) {
-	objc.Send[struct{}](o.ID, objc.Sel("collectionView:cancelPrefetchingForItemsAtIndexPaths:"), collectionView, objectivec.IDSliceToNSArray(indexPaths))
+func (o NSCollectionViewPrefetchingObject) CollectionViewCancelPrefetchingForItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []foundation.NSIndexPath) {
+	objc.Send[struct{}](o.ID, objc.Sel("collectionView:cancelPrefetchingForItemsAtIndexPaths:"), collectionView, objectivec.IObjectSliceToNSArray(indexPaths))
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -98,6 +99,13 @@ func NewVNDetectedPoint() VNDetectedPoint {
 	class := getVNDetectedPointClass()
 	rv := objc.Send[VNDetectedPoint](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNPoint/init(coder:)
+func NewDetectedPointWithCoder(coder foundation.INSCoder) VNDetectedPoint {
+	instance := getVNDetectedPointClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNDetectedPointFromID(rv)
 }
 
 // Creates a point object from the specified Core Graphics point.

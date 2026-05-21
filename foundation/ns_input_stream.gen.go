@@ -66,7 +66,7 @@ func (ic InputStreamClass) Alloc() InputStream {
 // re-implement existing initializers. You must also provide complete
 // implementations of the following methods:
 //
-// - [ReadMaxLength]
+// - [NSInputStream.ReadMaxLength]
 //
 // From the current read index, take up to the number of bytes specified in
 // the second parameter from the stream and place them in the client-supplied
@@ -75,7 +75,7 @@ func (ic InputStreamClass) Alloc() InputStream {
 // if there is nothing left in the stream, return `0`. Reset the index into
 // the stream for the next read operation.
 //
-// - [GetBufferLength]
+// - [NSInputStream.GetBufferLength]
 //
 // Return in 0(1) a pointer to the subclass-allocated buffer (first
 // parameter). Return by reference in the second parameter the number of bytes
@@ -84,7 +84,7 @@ func (ic InputStreamClass) Alloc() InputStream {
 // buffer; otherwise, return true. If this method is not appropriate for your
 // type of stream, you may return false.
 //
-// - [HasBytesAvailable]
+// - [NSInputStream.HasBytesAvailable]
 //
 // Return true if there is more data to read in the stream, false if there is
 // not. If you want to be semantically compatible with [NSInputStream], return
@@ -153,7 +153,7 @@ type IInputStream interface {
 	// Topic: Using Streams
 
 	// Reads up to a given number of bytes into a given buffer.
-	ReadMaxLength(buffer unsafe.Pointer, len_ uint) int
+	ReadMaxLength(buffer *uint8, len_ uint) int
 	// Returns by reference a pointer to a read buffer and, by reference, the number of bytes available, and returns a Boolean value that indicates whether the buffer is available.
 	GetBufferLength(buffer *uint8) (uint, bool)
 	// A Boolean value that indicates whether the receiver has bytes available to read.
@@ -316,10 +316,10 @@ func (i InputStream) InitWithURL(url INSURL) InputStream {
 // - A positive number indicates the number of bytes read. - `0` indicates
 // that the end of the buffer was reached. - `-1` means that the operation
 // failed; more information about the error can be obtained with
-// [StreamError].
+// [NSStream.StreamError].
 //
 // See: https://developer.apple.com/documentation/Foundation/InputStream/read(_:maxLength:)
-func (i InputStream) ReadMaxLength(buffer unsafe.Pointer, len_ uint) int {
+func (i InputStream) ReadMaxLength(buffer *uint8, len_ uint) int {
 	rv := objc.Send[int](i.ID, objc.Sel("read:maxLength:"), buffer, len_)
 	return rv
 }
@@ -347,6 +347,12 @@ func (i InputStream) GetBufferLength(buffer *uint8) (uint, bool) {
 	var len_ uint
 	rv := objc.Send[bool](i.ID, objc.Sel("getBuffer:length:"), buffer, unsafe.Pointer(&len_))
 	return len_, rv
+}
+
+// See: https://developer.apple.com/documentation/Foundation/InputStream/init(URL:)-54ufn
+func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputStream {
+	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithURL:"), url)
+	return NSInputStreamFromID(rv)
 }
 
 // Creates and returns an initialized [NSInputStream] object for reading from
@@ -386,12 +392,6 @@ func (_InputStreamClass InputStreamClass) InputStreamWithData(data INSData) Inpu
 // See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithFileAtPath:
 func (_InputStreamClass InputStreamClass) InputStreamWithFileAtPath(path string) InputStream {
 	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithFileAtPath:"), objc.String(path))
-	return NSInputStreamFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithURL:
-func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputStream {
-	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithURL:"), url)
 	return NSInputStreamFromID(rv)
 }
 

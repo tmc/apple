@@ -104,7 +104,6 @@ type INSFilePromiseReceiver interface {
 	// Fulfills the promises at the specified destination.
 	ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.NSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler)
 
-	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver
 }
 
@@ -127,32 +126,7 @@ func NewNSFilePromiseReceiver() NSFilePromiseReceiver {
 	return rv
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/init(pasteboardPropertyList:ofType:)
 func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver {
 	instance := getNSFilePromiseReceiverClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
@@ -189,32 +163,7 @@ func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperation
 	objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/init(pasteboardPropertyList:ofType:)
 func (f NSFilePromiseReceiver) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver {
 	rv := objc.Send[NSFilePromiseReceiver](f.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
@@ -283,7 +232,7 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadingOptionsForT
 // # Discussion
 //
 // This property returns an empty array until the file promise is called using
-// [ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
+// [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/fileNames
 func (f NSFilePromiseReceiver) FileNames() []string {
@@ -311,13 +260,14 @@ func (f NSFilePromiseReceiver) FileTypes() []string {
 //
 // # Discussion
 //
-// A view must register what types it accepts via [RegisterForDraggedTypes].
-// Use that class method to get the file promise drag types that
-// [NSFilePromiseReceiver] can accept, in order to register a view to accept
-// promised files. [NSFilePromiseReceiver] can accept file promises from both
-// the item-based [NSFilePromiseProvider] and the non-item based API. If you
-// don’t register all these drag types, you might not be notified about some
-// file promise drags. Register using the following code:
+// A view must register what types it accepts via
+// [NSView.RegisterForDraggedTypes]. Use that class method to get the file
+// promise drag types that [NSFilePromiseReceiver] can accept, in order to
+// register a view to accept promised files. [NSFilePromiseReceiver] can
+// accept file promises from both the item-based [NSFilePromiseProvider] and
+// the non-item based API. If you don’t register all these drag types, you
+// might not be notified about some file promise drags. Register using the
+// following code:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/readableDraggedTypes
 func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableDraggedTypes() []string {
@@ -327,7 +277,7 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableDraggedTyp
 
 // ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync is a synchronous wrapper around [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 // It blocks until the completion handler fires or the context is cancelled.
-func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.NSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue) (*foundation.NSURL, error) {
+func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.NSURL, options foundation.INSDictionary, operationQueue foundation.OperationQueue) (*foundation.NSURL, error) {
 	type result struct {
 		val *foundation.NSURL
 		err error

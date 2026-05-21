@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -151,7 +150,7 @@ type INSGradient interface {
 	// Initializes a newly allocated gradient object with an array of colors.
 	InitWithColors(colorArray []NSColor) NSGradient
 	// Initializes a newly allocated gradient object with the specified colors, color locations, and color space.
-	InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient
+	InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations *float64, colorSpace INSColorSpace) NSGradient
 	// Creates a gradient from data in an unarchiver.
 	InitWithCoder(coder foundation.INSCoder) NSGradient
 
@@ -180,7 +179,7 @@ type INSGradient interface {
 	// The number of color stops associated with the gradient.
 	NumberOfColorStops() int
 	// Returns information about the color stop at the specified index in the receiver’s color array.
-	GetColorLocationAtIndex(color INSColor, location unsafe.Pointer, index int)
+	GetColorLocationAtIndex(color INSColor, location *float64, index int)
 	// Returns the color of the rendered gradient at the specified relative location.
 	InterpolatedColorAtLocation(location float64) INSColor
 
@@ -289,7 +288,7 @@ func NewGradientWithColorsAndLocations(firstColor INSColor) NSGradient {
 // the closest color stop is used to fill the gap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(colors:atLocations:colorSpace:)
-func NewGradientWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient {
+func NewGradientWithColorsAtLocationsColorSpace(colorArray []NSColor, locations *float64, colorSpace INSColorSpace) NSGradient {
 	instance := getNSGradientClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithColors:atLocations:colorSpace:"), objectivec.IObjectSliceToNSArray(colorArray), locations, colorSpace)
 	return NSGradientFromID(rv)
@@ -376,7 +375,7 @@ func (g NSGradient) InitWithColors(colorArray []NSColor) NSGradient {
 // the closest color stop is used to fill the gap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(colors:atLocations:colorSpace:)
-func (g NSGradient) InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient {
+func (g NSGradient) InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations *float64, colorSpace INSColorSpace) NSGradient {
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithColors:atLocations:colorSpace:"), objectivec.IObjectSliceToNSArray(colorArray), locations, colorSpace)
 	return rv
 }
@@ -460,9 +459,9 @@ func (g NSGradient) DrawInRectAngle(rect corefoundation.CGRect, angle float64) {
 // # Discussion
 //
 // This convenience method behaves in a similar way to the
-// [DrawInBezierPathAngle] method, with the path object replacing the
-// rectangle as the clipping region. Like the other method, the start and end
-// colors are guaranteed to be visible at the farthest ends of the path.
+// [NSGradient.DrawInBezierPathAngle] method, with the path object replacing
+// the rectangle as the clipping region. Like the other method, the start and
+// end colors are guaranteed to be visible at the farthest ends of the path.
 //
 // The gradient formed by this method is clipped to `path`.
 //
@@ -594,7 +593,7 @@ func (g NSGradient) DrawInBezierPathRelativeCenterPosition(path INSBezierPath, r
 // the locations can vary depending on how the receiver was created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/getColor(_:location:at:)
-func (g NSGradient) GetColorLocationAtIndex(color INSColor, location unsafe.Pointer, index int) {
+func (g NSGradient) GetColorLocationAtIndex(color INSColor, location *float64, index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("getColor:location:atIndex:"), color, location, index)
 }
 

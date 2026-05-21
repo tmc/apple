@@ -53,8 +53,8 @@ func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
 // Don’t instantiate a [VZGraphicsDisplay] directly. Graphics displays are
 // first configured on a [VZGraphicsDeviceConfiguration] subclass. When you
 // create a [VZVirtualMachine] from the configuration, the displays are
-// available through the [VZGraphicsDisplay.Displays] property of the configuration’s
-// [VZGraphicsDevice].
+// available through the [VZGraphicsDevice.Displays] property of the
+// configuration’s [VZGraphicsDevice].
 //
 // # Getting the display size
 //
@@ -123,10 +123,6 @@ type IVZGraphicsDisplay interface {
 	ReconfigureWithSizeInPixelsError(sizeInPixels corefoundation.CGSize) (bool, error)
 	// Reconfigure this display with the new display configuration you provide.
 	ReconfigureWithConfigurationError(configuration IVZGraphicsDisplayConfiguration) (bool, error)
-
-	// The list of graphics displays configured for this graphics device.
-	Displays() IVZGraphicsDisplay
-	SetDisplays(value IVZGraphicsDisplay)
 }
 
 // Init initializes the instance.
@@ -231,15 +227,4 @@ func (g VZGraphicsDisplay) ReconfigureWithConfigurationError(configuration IVZGr
 func (g VZGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](g.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
-}
-
-// The list of graphics displays configured for this graphics device.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzgraphicsdevice/displays
-func (g VZGraphicsDisplay) Displays() IVZGraphicsDisplay {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("displays"))
-	return VZGraphicsDisplayFromID(objc.ID(rv))
-}
-func (g VZGraphicsDisplay) SetDisplays(value IVZGraphicsDisplay) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDisplays:"), value)
 }

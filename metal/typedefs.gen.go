@@ -3,9 +3,8 @@
 package metal
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 )
 
 // MTL4CommitFeedbackHandler is defines the block signature for a callback Metal invokes to provide your app feedback after completing a workload.
@@ -88,7 +87,7 @@ type MTLIOCommandBufferHandler = func(MTLIOCommandBuffer)
 // MTLIOCompressionContext is a pointer that represents the state of a file compression session in progress.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCompressionContext
-type MTLIOCompressionContext = unsafe.Pointer
+type MTLIOCompressionContext = kernel.Pointer
 
 // MTLNewComputePipelineStateCompletionHandler is a completion handler signature a method calls when it finishes creating a compute pipeline.
 //

@@ -130,22 +130,6 @@ type IPDFAppearanceCharacteristics interface {
 	SetRotation(value int)
 	// A dictionary that contains a deep copy of the appearance characteristic key-value pairs.
 	AppearanceCharacteristicsKeyValues() foundation.INSDictionary
-
-	// The widget identifier for form annotation actions and behaviors.
-	FieldName() string
-	SetFieldName(value string)
-	// A Boolean value that determines whether the widget is editable.
-	IsReadOnly() bool
-	SetReadOnly(value bool)
-	// The string value that the widget reverts to when performing a reset form action.
-	WidgetDefaultStringValue() string
-	SetWidgetDefaultStringValue(value string)
-	// The type of widget annotation, such as button, choice, or text.
-	WidgetFieldType() PDFAnnotationWidgetSubtype
-	SetWidgetFieldType(value PDFAnnotationWidgetSubtype)
-	// The string value of the widget annotation.
-	WidgetStringValue() string
-	SetWidgetStringValue(value string)
 }
 
 // Init initializes the instance.
@@ -255,60 +239,4 @@ func (p PDFAppearanceCharacteristics) SetRotation(value int) {
 func (p PDFAppearanceCharacteristics) AppearanceCharacteristicsKeyValues() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("appearanceCharacteristicsKeyValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The widget identifier for form annotation actions and behaviors.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/fieldname
-func (p PDFAppearanceCharacteristics) FieldName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("fieldName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFAppearanceCharacteristics) SetFieldName(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFieldName:"), objc.String(value))
-}
-
-// A Boolean value that determines whether the widget is editable.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/isreadonly
-func (p PDFAppearanceCharacteristics) IsReadOnly() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("readOnly"))
-	return rv
-}
-func (p PDFAppearanceCharacteristics) SetReadOnly(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setReadOnly:"), value)
-}
-
-// The string value that the widget reverts to when performing a reset form
-// action.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/widgetdefaultstringvalue
-func (p PDFAppearanceCharacteristics) WidgetDefaultStringValue() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("widgetDefaultStringValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFAppearanceCharacteristics) SetWidgetDefaultStringValue(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setWidgetDefaultStringValue:"), objc.String(value))
-}
-
-// The type of widget annotation, such as button, choice, or text.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/widgetfieldtype
-func (p PDFAppearanceCharacteristics) WidgetFieldType() PDFAnnotationWidgetSubtype {
-	rv := objc.Send[PDFAnnotationWidgetSubtype](p.ID, objc.Sel("widgetFieldType"))
-	return PDFAnnotationWidgetSubtype(rv)
-}
-func (p PDFAppearanceCharacteristics) SetWidgetFieldType(value PDFAnnotationWidgetSubtype) {
-	objc.Send[struct{}](p.ID, objc.Sel("setWidgetFieldType:"), value)
-}
-
-// The string value of the widget annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/widgetstringvalue
-func (p PDFAppearanceCharacteristics) WidgetStringValue() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("widgetStringValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFAppearanceCharacteristics) SetWidgetStringValue(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setWidgetStringValue:"), objc.String(value))
 }

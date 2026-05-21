@@ -175,7 +175,7 @@ func NewQueuePlayerWithPlayerItem(item IAVPlayerItem) AVQueuePlayer {
 // # Discussion
 //
 // This method implicitly creates an [AVPlayerItem] object. You can get the
-// player item using [CurrentItem].
+// player item using [AVPlayer.CurrentItem].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
 func NewQueuePlayerWithURL(URL foundation.NSURL) AVQueuePlayer {
@@ -267,7 +267,7 @@ func (q AVQueuePlayer) InsertItemAfterItem(item IAVPlayerItem, afterItem IAVPlay
 // # Discussion
 //
 // If the item is currently playing, calling this method has the same effect
-// as calling the [AdvanceToNextItem] method.
+// as calling the [AVQueuePlayer.AdvanceToNextItem] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuePlayer/remove(_:)
 func (q AVQueuePlayer) RemoveItem(item IAVPlayerItem) {

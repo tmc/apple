@@ -48,8 +48,9 @@ func (cc CAEDRMetadataClass) Alloc() CAEDRMetadata {
 //
 // # Overview
 //
-// If you need specific tone-mapping behavior, set the [EDRMetadata] property
-// of a [CAMetalLayer] to point to an instance of this class.
+// If you need specific tone-mapping behavior, set the
+// [CAMetalLayer.EDRMetadata] property of a [CAMetalLayer] to point to an
+// instance of this class.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata
 type CAEDRMetadata struct {
@@ -73,9 +74,6 @@ func CAEDRMetadataFromID(id objc.ID) CAEDRMetadata {
 type ICAEDRMetadata interface {
 	objectivec.IObject
 
-	// Metadata describing the tone mapping to apply to the extended dynamic range (EDR) values in the layer.
-	EdrMetadata() ICAEDRMetadata
-	SetEDRMetadata(value ICAEDRMetadata)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -166,18 +164,6 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithMinLuminanceMaxLu
 func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadataWithAmbientViewingEnvironment(data foundation.NSData) CAEDRMetadata {
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HLGMetadataWithAmbientViewingEnvironment:"), data)
 	return CAEDRMetadataFromID(rv)
-}
-
-// Metadata describing the tone mapping to apply to the extended dynamic range
-// (EDR) values in the layer.
-//
-// See: https://developer.apple.com/documentation/quartzcore/cametallayer/edrmetadata
-func (e CAEDRMetadata) EdrMetadata() ICAEDRMetadata {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("EDRMetadata"))
-	return CAEDRMetadataFromID(objc.ID(rv))
-}
-func (e CAEDRMetadata) SetEDRMetadata(value ICAEDRMetadata) {
-	objc.Send[struct{}](e.ID, objc.Sel("setEDRMetadata:"), value)
 }
 
 // Extended dynamic range (EDR) metadata for the Hybrid Log-Gamma (HLG)

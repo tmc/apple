@@ -288,8 +288,8 @@ func (c AVCaptureDeviceInput) InitWithDeviceError(device IAVCaptureDevice) (AVCa
 //
 // # Discussion
 //
-// You can only set the [MultichannelAudioMode] property if the input supports
-// the value.
+// You can only set the [AVCaptureDeviceInput.MultichannelAudioMode] property
+// if the input supports the value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isMultichannelAudioModeSupported(_:)
 func (c AVCaptureDeviceInput) IsMultichannelAudioModeSupported(multichannelAudioMode AVCaptureMultichannelAudioMode) bool {
@@ -319,24 +319,27 @@ func (c AVCaptureDeviceInput) IsMultichannelAudioModeSupported(multichannelAudio
 //
 // The ability to follow an external sync device may change depending on the
 // device configuration. For example,
-// [FollowExternalSyncDeviceVideoFrameDurationDelegate] cannot be used when
-// [AutoVideoFrameRateEnabled] is `true`.
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate]
+// cannot be used when [AVCaptureDevice.AutoVideoFrameRateEnabled] is `true`.
 //
-// To stop following an external pulse, call [UnfollowExternalSyncDevice].
-// External sync device following is also disabled when your device’s
-// [AVCaptureDeviceFormat] changes.
+// To stop following an external pulse, call
+// [AVCaptureDeviceInput.UnfollowExternalSyncDevice]. External sync device
+// following is also disabled when your device’s [AVCaptureDeviceFormat]
+// changes.
 //
 // Your provided delegate’s [ExternalSyncDeviceStatusDidChange] method is
 // called with a status of [AVExternalSyncDeviceStatusReady] if the external
 // pulse signal is not close enough to the provided `videoFrameDuration` for
 // successful calibration.
 //
-// Once your [Status] changes to [AVExternalSyncDeviceStatusActiveSync], your
-// input’s `AVCaptureInput/activeExternalSyncVideoFrameDuration` property
-// reports the up-to-date frame duration.
+// Once your [AVExternalSyncDevice.Status] changes to
+// [AVExternalSyncDeviceStatusActiveSync], your input’s
+// `AVCaptureInput/activeExternalSyncVideoFrameDuration` property reports the
+// up-to-date frame duration.
 // `AVCaptureInput/activeExternalSyncVideoFrameDuration` is also reflected in
-// the [ActiveVideoMinFrameDuration] and [ActiveVideoMaxFrameDuration] of your
-// input’s associated device.
+// the [AVCaptureDevice.ActiveVideoMinFrameDuration] and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration] of your input’s associated
+// device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/follow(_:videoFrameDuration:delegate:)
 //
@@ -350,7 +353,8 @@ func (c AVCaptureDeviceInput) FollowExternalSyncDeviceVideoFrameDurationDelegate
 // # Discussion
 //
 // This method stops your input from syncing to the external sync device you
-// specified in [FollowExternalSyncDeviceVideoFrameDurationDelegate].
+// specified in
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/unfollowExternalSyncDevice()
 func (c AVCaptureDeviceInput) UnfollowExternalSyncDevice() {
@@ -429,9 +433,9 @@ func (c AVCaptureDeviceInput) SetWindNoiseRemovalEnabled(value bool) {
 // framework.
 //
 // You can adjust the video’s simulated aperture before starting a recording
-// using the [SimulatedAperture] property. With Cinematic Video specific focus
-// methods on [AVCaptureDevice], you can dynamically control focus
-// transitions.
+// using the [AVCaptureDeviceInput.SimulatedAperture] property. With Cinematic
+// Video specific focus methods on [AVCaptureDevice], you can dynamically
+// control focus transitions.
 //
 // Movie files captured with Cinematic Video enabled can be played back and
 // edited with the [Cinematic framework]
@@ -440,10 +444,11 @@ func (c AVCaptureDeviceInput) SetWindNoiseRemovalEnabled(value bool) {
 // This property returns `true` if the session’s current configuration
 // allows Cinematic Video capture. When switching cameras or formats, this
 // property may change. When this property changes from `true` to `false`,
-// [CinematicVideoCaptureEnabled] also reverts to `false`. If you’ve
-// previously opted in for Cinematic Video capture and then change
-// configuration, you may need to set [CinematicVideoCaptureEnabled] to `true`
-// again. This property is key-value observable.
+// [AVCaptureDeviceInput.CinematicVideoCaptureEnabled] also reverts to
+// `false`. If you’ve previously opted in for Cinematic Video capture and
+// then change configuration, you may need to set
+// [AVCaptureDeviceInput.CinematicVideoCaptureEnabled] to `true` again. This
+// property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isCinematicVideoCaptureSupported
 //
@@ -462,12 +467,13 @@ func (c AVCaptureDeviceInput) IsCinematicVideoCaptureSupported() bool {
 // Default is `false`. Set to `true` to enable support for Cinematic Video
 // capture.
 //
-// When you set this property to `true`, your input’s associated [FocusMode]
-// changes to [AVCaptureFocusModeContinuousAutoFocus]. While Cinematic Video
-// capture is enabled, you are not permitted to change your device’s focus
-// mode, and any attempt to do so results in an [NSInvalidArgumentException].
-// You may only set this property to `true` if
-// [CinematicVideoCaptureSupported] is `true`.
+// When you set this property to `true`, your input’s associated
+// [AVCaptureDevice.FocusMode] changes to
+// [AVCaptureFocusModeContinuousAutoFocus]. While Cinematic Video capture is
+// enabled, you are not permitted to change your device’s focus mode, and
+// any attempt to do so results in an [NSInvalidArgumentException]. You may
+// only set this property to `true` if
+// [AVCaptureDeviceInput.CinematicVideoCaptureSupported] is `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isCinematicVideoCaptureEnabled
 func (c AVCaptureDeviceInput) IsCinematicVideoCaptureEnabled() bool {
@@ -485,8 +491,8 @@ func (c AVCaptureDeviceInput) SetCinematicVideoCaptureEnabled(value bool) {
 // When capturing a Cinematic Video, use this property to control the amount
 // of blur in the simulated depth of field effect.
 //
-// This property only takes effect when [CinematicVideoCaptureEnabled] is set
-// to `true`.
+// This property only takes effect when
+// [AVCaptureDeviceInput.CinematicVideoCaptureEnabled] is set to `true`.
 //
 // This property is initialized to the associated
 // `AVCaptureDevice/activeFormat/defaultSimulatedAperture`.
@@ -510,13 +516,14 @@ func (c AVCaptureDeviceInput) SetSimulatedAperture(value float32) {
 //
 // Set this property to run the receiver’s associated [AVCaptureDevice] at
 // precisely your provided frame rate (expressed as a duration). Query
-// [MinSupportedLockedVideoFrameDuration] to find the minimum value supported
-// by this [AVCaptureDeviceInput]. In order to disable locked video frame
-// duration, set this property to `kCMTimeInvalid`. This property resets
-// itself to `kCMTimeInvalid` when the receiver’s attached [ActiveFormat]
-// changes. When you set this property, its value is also reflected in the
-// receiver’s [ActiveVideoMinFrameDuration] and
-// [ActiveVideoMaxFrameDuration].
+// [AVCaptureDevice.MinSupportedLockedVideoFrameDuration] to find the minimum
+// value supported by this [AVCaptureDeviceInput]. In order to disable locked
+// video frame duration, set this property to `kCMTimeInvalid`. This property
+// resets itself to `kCMTimeInvalid` when the receiver’s attached
+// [AVCaptureDevice.ActiveFormat] changes. When you set this property, its
+// value is also reflected in the receiver’s
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/activeLockedVideoFrameDuration
 func (c AVCaptureDeviceInput) ActiveLockedVideoFrameDuration() coremedia.CMTime {
@@ -531,8 +538,8 @@ func (c AVCaptureDeviceInput) SetActiveLockedVideoFrameDuration(value coremedia.
 //
 // # Discussion
 //
-// See [ActiveLockedVideoFrameDuration] for more information on video frame
-// duration locking.
+// See [AVCaptureDeviceInput.ActiveLockedVideoFrameDuration] for more
+// information on video frame duration locking.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isLockedVideoFrameDurationSupported
 func (c AVCaptureDeviceInput) IsLockedVideoFrameDurationSupported() bool {
@@ -545,8 +552,9 @@ func (c AVCaptureDeviceInput) IsLockedVideoFrameDurationSupported() bool {
 //
 // # Discussion
 //
-// See [FollowExternalSyncDeviceVideoFrameDurationDelegate] for more
-// information on external sync.
+// See
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate]
+// for more information on external sync.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isExternalSyncSupported
 func (c AVCaptureDeviceInput) IsExternalSyncSupported() bool {
@@ -560,7 +568,7 @@ func (c AVCaptureDeviceInput) IsExternalSyncSupported() bool {
 // # Discussion
 //
 // Set up your input to follow an external sync device by calling
-// [FollowExternalSyncDeviceVideoFrameDurationDelegate].
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/activeExternalSyncVideoFrameDuration
 func (c AVCaptureDeviceInput) ActiveExternalSyncVideoFrameDuration() coremedia.CMTime {
@@ -573,8 +581,9 @@ func (c AVCaptureDeviceInput) ActiveExternalSyncVideoFrameDuration() coremedia.C
 // # Discussion
 //
 // This readonly property returns the [AVExternalSyncDevice] instance you
-// provided in [FollowExternalSyncDeviceVideoFrameDurationDelegate]. This
-// property returns `nil` when an external sync device is disconnected or
+// provided in
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate].
+// This property returns `nil` when an external sync device is disconnected or
 // fails to calibrate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/externalSyncDevice
@@ -595,19 +604,20 @@ func (c AVCaptureDeviceInput) Device() IAVCaptureDevice {
 //
 // # Discussion
 //
-// Setting this property to `true` throws an exception if [AudioZoomSupported]
-// is `false`. Default is `true` when supported. When enabled, the sound field
-// narrows or expands to match the field of view of the video device’s zoom
-// factor. Set this property to `false` if you want to capture the full sound
-// field regardless of video zoom. This property only takes effect when added
-// to a session with a video device, and [AVCaptureMultichannelAudioMode] is
-// set to any value other than [AVCaptureMultichannelAudioModeNone]. When
-// using multiple cameras in [AVCaptureMultiCamSession], audio zoom is
-// determined by the zoom factor of the preferred camera. The preferred camera
-// is selected to match the mic position, either front or back. If more than
-// one camera is available in that position, the camera with the widest field
-// of view is chosen with virtual cameras preferred over single camera ones.
-// If no camera is found to match the mic position, audio zoom is unavailable.
+// Setting this property to `true` throws an exception if
+// [AVCaptureDeviceInput.AudioZoomSupported] is `false`. Default is `true`
+// when supported. When enabled, the sound field narrows or expands to match
+// the field of view of the video device’s zoom factor. Set this property to
+// `false` if you want to capture the full sound field regardless of video
+// zoom. This property only takes effect when added to a session with a video
+// device, and [AVCaptureMultichannelAudioMode] is set to any value other than
+// [AVCaptureMultichannelAudioModeNone]. When using multiple cameras in
+// [AVCaptureMultiCamSession], audio zoom is determined by the zoom factor of
+// the preferred camera. The preferred camera is selected to match the mic
+// position, either front or back. If more than one camera is available in
+// that position, the camera with the widest field of view is chosen with
+// virtual cameras preferred over single camera ones. If no camera is found to
+// match the mic position, audio zoom is unavailable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isAudioZoomEnabled
 //

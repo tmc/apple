@@ -57,13 +57,13 @@ func (nc NSMatrixClass) Alloc() NSMatrix {
 //
 // The [NSMatrix] class has the notion of a single selected cell, which is the
 // cell that was most recently clicked or that was so designated by a
-// [NSMatrix.SelectCellAtRowColumn] or [NSMatrix.SelectCellWithTag] message. The selected cell
-// is the cell chosen for action messages except for [PerformClick]
-// ([NSCell]), which is assigned to the key cell. (The key cell is generally
-// identical to the selected cell, but can be given click focus while leaving
-// the selected cell unchanged.) If the user has selected multiple cells, the
-// selected cell is the one lowest and furthest to the right in the matrix of
-// cells.
+// [NSMatrix.SelectCellAtRowColumn] or [NSMatrix.SelectCellWithTag] message.
+// The selected cell is the cell chosen for action messages except for
+// [NSCell.PerformClick] ([NSCell]), which is assigned to the key cell. (The
+// key cell is generally identical to the selected cell, but can be given
+// click focus while leaving the selected cell unchanged.) If the user has
+// selected multiple cells, the selected cell is the one lowest and furthest
+// to the right in the matrix of cells.
 //
 // # Initializing an NSMatrix Object
 //
@@ -370,7 +370,7 @@ type INSMatrix interface {
 	// Topic: Initializing an NSMatrix Object
 
 	// Initializes and returns a newly allocated matrix of the specified size using cells of the given class.
-	InitWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objc.Class, rowsHigh int, colsWide int) NSMatrix
+	InitWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objectivec.Class, rowsHigh int, colsWide int) NSMatrix
 	// Initializes and returns a newly allocated matrix of the specified size using the given cell as a prototype.
 	InitWithFrameModePrototypeNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, cell INSCell, rowsHigh int, colsWide int) NSMatrix
 
@@ -408,7 +408,7 @@ type INSMatrix interface {
 	CellSize() corefoundation.CGSize
 	SetCellSize(value corefoundation.CGSize)
 	// Obtains the number of rows and columns in the receiver.
-	GetNumberOfRowsColumns(rowCount unsafe.Pointer, colCount unsafe.Pointer)
+	GetNumberOfRowsColumns(rowCount *int, colCount *int)
 	// Inserts a new column of cells at the specified location.
 	InsertColumn(column int)
 	// Inserts a new column of cells before the specified column, using the given cells.
@@ -567,8 +567,8 @@ type INSMatrix interface {
 	// Iterates through the cells in the receiver, sending the specified selector to an object for each cell.
 	SendActionToForAllCells(selector objc.SEL, object objectivec.IObject, flag bool)
 	// The action sent to the target of the receiver when the user double-clicks a cell.
-	DoubleAction() objc.SEL
-	SetDoubleAction(value objc.SEL)
+	DoubleAction() objectivec.SEL
+	SetDoubleAction(value objectivec.SEL)
 	// Sends the double-click action message to the target of the receiver.
 	SendDoubleAction()
 
@@ -655,7 +655,7 @@ func NewMatrixWithFrame(frameRect corefoundation.CGRect) NSMatrix {
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/init(frame:mode:cellClass:numberOfRows:numberOfColumns:)
 //
 // [NSMatrix.Mode]: https://developer.apple.com/documentation/AppKit/NSMatrix/Mode-swift.enum
-func NewMatrixWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objc.Class, rowsHigh int, colsWide int) NSMatrix {
+func NewMatrixWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objectivec.Class, rowsHigh int, colsWide int) NSMatrix {
 	instance := getNSMatrixClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:mode:cellClass:numberOfRows:numberOfColumns:"), frameRect, mode, factoryId, rowsHigh, colsWide)
 	return NSMatrixFromID(rv)
@@ -718,7 +718,7 @@ func NewMatrixWithFrameModePrototypeNumberOfRowsNumberOfColumns(frameRect corefo
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/init(frame:mode:cellClass:numberOfRows:numberOfColumns:)
 //
 // [NSMatrix.Mode]: https://developer.apple.com/documentation/AppKit/NSMatrix/Mode-swift.enum
-func (m NSMatrix) InitWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objc.Class, rowsHigh int, colsWide int) NSMatrix {
+func (m NSMatrix) InitWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefoundation.CGRect, mode NSMatrixMode, factoryId objectivec.Class, rowsHigh int, colsWide int) NSMatrix {
 	rv := objc.Send[NSMatrix](m.ID, objc.Sel("initWithFrame:mode:cellClass:numberOfRows:numberOfColumns:"), frameRect, mode, factoryId, rowsHigh, colsWide)
 	return rv
 }
@@ -756,17 +756,17 @@ func (m NSMatrix) InitWithFrameModePrototypeNumberOfRowsNumberOfColumns(frameRec
 // # Discussion
 //
 // This method raises an [NSRangeException] if there are 0 rows or 0 columns.
-// This method creates new cells as needed with [CellAtRowColumn]. Use
-// [RenewRowsColumns] to add new cells to an empty matrix.
+// This method creates new cells as needed with [NSMatrix.CellAtRowColumn].
+// Use [NSMatrix.RenewRowsColumns] to add new cells to an empty matrix.
 //
 // If the number of rows or columns in the receiver has been changed with
-// [RenewRowsColumns], new cells are created only if they are needed. This
-// fact allows you to grow and shrink an [NSMatrix] without repeatedly
+// [NSMatrix.RenewRowsColumns], new cells are created only if they are needed.
+// This fact allows you to grow and shrink an [NSMatrix] without repeatedly
 // creating and freeing the cells.
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/addColumn()
 func (m NSMatrix) AddColumn() {
@@ -785,9 +785,9 @@ func (m NSMatrix) AddColumn() {
 //
 // # Discussion
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/addColumn(with:)
 func (m NSMatrix) AddColumnWithCells(newCells []NSCell) {
@@ -798,18 +798,18 @@ func (m NSMatrix) AddColumnWithCells(newCells []NSCell) {
 //
 // # Discussion
 //
-// New cells are created as needed with [CellAtRowColumn]. This method raises
-// an [NSRangeException] if there are 0 rows or 0 columns. Use
-// [RenewRowsColumns] to add new cells to an empty matrix.
+// New cells are created as needed with [NSMatrix.CellAtRowColumn]. This
+// method raises an [NSRangeException] if there are 0 rows or 0 columns. Use
+// [NSMatrix.RenewRowsColumns] to add new cells to an empty matrix.
 //
 // If the number of rows or columns in the receiver has been changed with
-// [RenewRowsColumns], then new cells are created only if they are needed.
-// This fact allows you to grow and shrink an NSMatrix without repeatedly
-// creating and freeing the cells.
+// [NSMatrix.RenewRowsColumns], then new cells are created only if they are
+// needed. This fact allows you to grow and shrink an NSMatrix without
+// repeatedly creating and freeing the cells.
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/addRow()
 func (m NSMatrix) AddRow() {
@@ -827,9 +827,9 @@ func (m NSMatrix) AddRow() {
 //
 // # Discussion
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/addRow(with:)
 func (m NSMatrix) AddRowWithCells(newCells []NSCell) {
@@ -861,7 +861,7 @@ func (m NSMatrix) CellFrameAtRowColumn(row int, col int) corefoundation.CGRect {
 // colCount: On return, the number of columns in the matrix.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/getNumberOfRows(_:columns:)
-func (m NSMatrix) GetNumberOfRowsColumns(rowCount unsafe.Pointer, colCount unsafe.Pointer) {
+func (m NSMatrix) GetNumberOfRowsColumns(rowCount *int, colCount *int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("getNumberOfRows:columns:"), rowCount, colCount)
 }
 
@@ -873,14 +873,15 @@ func (m NSMatrix) GetNumberOfRowsColumns(rowCount unsafe.Pointer, colCount unsaf
 //
 // # Discussion
 //
-// New cells are created if needed with [CellAtRowColumn]. This method redraws
-// the receiver. Your code may need to send [SizeToCells] after sending this
-// method to resize the receiver to fit the newly added cells.
+// New cells are created if needed with [NSMatrix.CellAtRowColumn]. This
+// method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // If the number of rows or columns in the receiver has been changed with
-// [RenewRowsColumns], new cells are created only if they’re needed. This
-// fact allows you to grow and shrink an [NSMatrix] without repeatedly
-// creating and freeing the cells.
+// [NSMatrix.RenewRowsColumns], new cells are created only if they’re
+// needed. This fact allows you to grow and shrink an [NSMatrix] without
+// repeatedly creating and freeing the cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/insertColumn(_:)
 func (m NSMatrix) InsertColumn(column int) {
@@ -902,13 +903,13 @@ func (m NSMatrix) InsertColumn(column int) {
 // columns are created to expand the receiver to be `column` columns wide.
 // `newCells` should either be empty or contain a sufficient number of cells
 // to fill each new column. If `newCells` is `nil` or an array with no
-// elements, the call is equivalent to calling [InsertColumn]. Extra cells are
-// ignored, unless the matrix is empty. In that case, a matrix is created with
-// one column and enough rows for all the elements of `newCells`.
+// elements, the call is equivalent to calling [NSMatrix.InsertColumn]. Extra
+// cells are ignored, unless the matrix is empty. In that case, a matrix is
+// created with one column and enough rows for all the elements of `newCells`.
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/insertColumn(_:with:)
 func (m NSMatrix) InsertColumnWithCells(column int, newCells []NSCell) {
@@ -923,14 +924,15 @@ func (m NSMatrix) InsertColumnWithCells(column int, newCells []NSCell) {
 //
 // # Discussion
 //
-// New cells are created if needed with [CellAtRowColumn]. This method redraws
-// the receiver. Your code may need to send [SizeToCells] after sending this
-// method to resize the receiver to fit the newly added cells.
+// New cells are created if needed with [NSMatrix.CellAtRowColumn]. This
+// method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // If the number of rows or columns in the receiver has been changed with
-// [RenewRowsColumns], then new cells are created only if they’re needed.
-// This fact allows you to grow and shrink an [NSMatrix] without repeatedly
-// creating and freeing the cells.
+// [NSMatrix.RenewRowsColumns], then new cells are created only if they’re
+// needed. This fact allows you to grow and shrink an [NSMatrix] without
+// repeatedly creating and freeing the cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/insertRow(_:)
 func (m NSMatrix) InsertRow(row int) {
@@ -951,13 +953,13 @@ func (m NSMatrix) InsertRow(row int) {
 // are created to expand the receiver to be `row` rows high. `newCells` should
 // either be empty or contain a sufficient number of cells to fill each new
 // row. If `newCells` is `nil` or an array with no elements, the call is
-// equivalent to calling [InsertRow]. Extra cells are ignored, unless the
-// matrix is empty. In that case, a matrix is created with one row and enough
-// columns for all the elements of `newCells`.
+// equivalent to calling [NSMatrix.InsertRow]. Extra cells are ignored, unless
+// the matrix is empty. In that case, a matrix is created with one row and
+// enough columns for all the elements of `newCells`.
 //
-// This method redraws the receiver. Your code may need to send [SizeToCells]
-// after sending this method to resize the receiver to fit the newly added
-// cells.
+// This method redraws the receiver. Your code may need to send
+// [NSMatrix.SizeToCells] after sending this method to resize the receiver to
+// fit the newly added cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/insertRow(_:with:)
 func (m NSMatrix) InsertRowWithCells(row int, newCells []NSCell) {
@@ -983,9 +985,9 @@ func (m NSMatrix) InsertRowWithCells(row int, newCells []NSCell) {
 // hasn’t had either a prototype cell or a cell class set, [NSMatrix]
 // creates an [NSActionCell].
 //
-// Your code should never invoke this method directly; it’s used by [AddRow]
-// and other methods when a cell must be created. It may be overridden to
-// provide more specific initialization of cells.
+// Your code should never invoke this method directly; it’s used by
+// [NSMatrix.AddRow] and other methods when a cell must be created. It may be
+// overridden to provide more specific initialization of cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/makeCell(atRow:column:)
 func (m NSMatrix) MakeCellAtRowColumn(row int, col int) INSCell {
@@ -1013,8 +1015,8 @@ func (m NSMatrix) PutCellAtRowColumn(newCell INSCell, row int, col int) {
 // # Discussion
 //
 // The column’s cells are autoreleased. This method redraws the receiver.
-// Your code should normally send [SizeToCells] after invoking this method to
-// resize the receiver so it fits the reduced cell count.
+// Your code should normally send [NSMatrix.SizeToCells] after invoking this
+// method to resize the receiver so it fits the reduced cell count.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/removeColumn(_:)
 func (m NSMatrix) RemoveColumn(col int) {
@@ -1028,8 +1030,8 @@ func (m NSMatrix) RemoveColumn(col int) {
 // # Discussion
 //
 // The row’s cells are autoreleased. This method redraws the receiver. Your
-// code should normally send [SizeToCells] after invoking this method to
-// resize the receiver so it fits the reduced cell count.
+// code should normally send [NSMatrix.SizeToCells] after invoking this method
+// to resize the receiver so it fits the reduced cell count.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/removeRow(_:)
 func (m NSMatrix) RemoveRow(row int) {
@@ -1046,9 +1048,9 @@ func (m NSMatrix) RemoveRow(row int) {
 //
 // This method uses the same cells as before, creating new cells only if the
 // new size is larger; it never frees cells. It doesn’t redisplay the
-// receiver. Your code should normally send [SizeToCells] after invoking this
-// method to resize the receiver so it fits the changed cell arrangement. This
-// method deselects all cells in the receiver.
+// receiver. Your code should normally send [NSMatrix.SizeToCells] after
+// invoking this method to resize the receiver so it fits the changed cell
+// arrangement. This method deselects all cells in the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/renewRows(_:columns:)
 func (m NSMatrix) RenewRowsColumns(newRows int, newCols int) {
@@ -1251,7 +1253,8 @@ func (m NSMatrix) SelectCellWithTag(tag int) bool {
 // third cell in the top row would be number 2.
 //
 // To simulate dragging without a modifier key, deselecting anything that was
-// selected before, call [DeselectAllCells] before calling this method.
+// selected before, call [NSMatrix.DeselectAllCells] before calling this
+// method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/setSelectionFrom(_:to:anchor:highlight:)
 func (m NSMatrix) SetSelectionFromToAnchorHighlight(startPos int, endPos int, anchorPos int, lit bool) {
@@ -1379,18 +1382,22 @@ func (m NSMatrix) TextShouldBeginEditing(textObject INSText) bool {
 // Invoked when there’s a change in the text after the receiver gains first
 // responder status.
 //
-// notification: The [TextDidBeginEditingNotification] notification.
+// notification: The [textDidBeginEditingNotification] notification.
 //
 // # Discussion
 //
 // This method’s default behavior is to post an
-// [TextDidBeginEditingNotification] along with the receiving object to the
+// [textDidBeginEditingNotification] along with the receiving object to the
 // default notification center. The posted notification’s user info contains
 // the contents of notification’s user info dictionary, plus an additional
 // key-value pair. The additional key is “[NSFieldEditor]”; the value for
 // this key is the text object that began editing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/textDidBeginEditing(_:)
+//
+// [textDidBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
+//
+// [textDidBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
 func (m NSMatrix) TextDidBeginEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](m.ID, objc.Sel("textDidBeginEditing:"), notification)
 }
@@ -1398,19 +1405,23 @@ func (m NSMatrix) TextDidBeginEditing(notification foundation.NSNotification) {
 // Invoked when a key-down event or paste operation occurs that changes the
 // receiver’s contents.
 //
-// notification: The [TextDidChangeNotification] notification.
+// notification: The [textDidChangeNotification] notification.
 //
 // # Discussion
 //
 // This method’s default behavior is to pass this message on to the selected
 // cell (if the selected cell responds to “) and then to post an
-// [TextDidChangeNotification] along with the receiving object to the default
+// [textDidChangeNotification] along with the receiving object to the default
 // notification center. The posted notification’s user info contains the
 // contents of notification’s user info dictionary, plus an additional
 // key-value pair. The additional key is “[NSFieldEditor]”; the value for
 // this key is the text object that changed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/textDidChange(_:)
+//
+// [textDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
+//
+// [textDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
 func (m NSMatrix) TextDidChange(notification foundation.NSNotification) {
 	objc.Send[objc.ID](m.ID, objc.Sel("textDidChange:"), notification)
 }
@@ -1456,10 +1467,10 @@ func (m NSMatrix) TextShouldEndEditing(textObject INSText) bool {
 // the contents of notification’s user info dictionary, plus an additional
 // key-value pair. The additional key is “[NSFieldEditor]”; the value for
 // this key is the text object that began editing. After posting the
-// notification, [NSMatrix] sends an [EndEditing] message to the selected
-// cell, draws and makes the selected cell key, and then takes the appropriate
-// action based on which key was used to end editing (Return, Tab, or
-// Back-Tab).
+// notification, [NSMatrix] sends an [NSCell.EndEditing] message to the
+// selected cell, draws and makes the selected cell key, and then takes the
+// appropriate action based on which key was used to end editing (Return, Tab,
+// or Back-Tab).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/textDidEndEditing(_:)
 //
@@ -1606,10 +1617,10 @@ func (m NSMatrix) SendActionToForAllCells(selector objc.SEL, object objectivec.I
 // # Discussion
 //
 // If the receiver doesn’t have a double-click action, the double-click
-// action message of the selected cell (as returned by [SelectedCell]) is sent
-// to the selected cell’s target. Finally, if the selected cell also has no
-// action, then the single-click action of the receiver is sent to the target
-// of the receiver.
+// action message of the selected cell (as returned by
+// [NSMatrix.SelectedCell]) is sent to the selected cell’s target. Finally,
+// if the selected cell also has no action, then the single-click action of
+// the receiver is sent to the target of the receiver.
 //
 // If the selected cell is disabled, this method does nothing.
 //
@@ -1776,11 +1787,11 @@ func (m NSMatrix) NumberOfRows() int {
 // # Discussion
 //
 // When the value of this property is true, auto-recalculation occurs. The
-// matrix will adjust its [CellSize] to accommodate its largest cell. Changing
-// the `cellSize` does not directly affect the frame of the matrix; however it
-// does affect the intrinsic content size, which may cause the receiver to
-// resize under Auto Layout. When using Auto Layout, you typically want this
-// to be set to true.
+// matrix will adjust its [NSMatrix.CellSize] to accommodate its largest cell.
+// Changing the `cellSize` does not directly affect the frame of the matrix;
+// however it does affect the intrinsic content size, which may cause the
+// receiver to resize under Auto Layout. When using Auto Layout, you typically
+// want this to be set to true.
 //
 // The default value of this property is false.
 //
@@ -1811,11 +1822,11 @@ func (m NSMatrix) SetKeyCell(value INSCell) {
 //
 // See the class description for a discussion of the selected cell.
 //
-// As an alternative to using [SetSelectionFromToAnchorHighlight] for
+// As an alternative to using [NSMatrix.SetSelectionFromToAnchorHighlight] for
 // programmatically making discontiguous selections of cells in a matrix, you
 // could first set the single selected cell and then set subsequent cells to
-// be highlighted; afterwards you can access [SelectedCells] to obtain the
-// selection of cells.
+// be highlighted; afterwards you can access [NSMatrix.SelectedCells] to
+// obtain the selection of cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/selectedCells
 func (m NSMatrix) SelectedCells() []NSCell {
@@ -1875,7 +1886,7 @@ func (m NSMatrix) Cells() []NSCell {
 // The value of this property is the background color used to fill the space
 // between cells or the space behind any non-opaque cells. The default
 // background color is the color returned by the [NSColor] method
-// [ControlColor].
+// [NSColorClass.ControlColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/backgroundColor
 func (m NSMatrix) BackgroundColor() INSColor {
@@ -1892,7 +1903,7 @@ func (m NSMatrix) SetBackgroundColor(value INSColor) {
 //
 // The value of this property is the background color used to fill the space
 // behind non-opaque cells. The default background color is the color returned
-// by the [NSColor] method [ControlColor].
+// by the [NSColor] method [NSColorClass.ControlColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/cellBackgroundColor
 func (m NSMatrix) CellBackgroundColor() INSColor {
@@ -2007,11 +2018,11 @@ func (m NSMatrix) SetAutosizesCells(value bool) {
 // it leaves `ignoresMultiClick` unchanged.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/doubleAction
-func (m NSMatrix) DoubleAction() objc.SEL {
+func (m NSMatrix) DoubleAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](m.ID, objc.Sel("doubleAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (m NSMatrix) SetDoubleAction(value objc.SEL) {
+func (m NSMatrix) SetDoubleAction(value objectivec.SEL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDoubleAction:"), value)
 }
 
@@ -2020,12 +2031,12 @@ func (m NSMatrix) SetDoubleAction(value objc.SEL) {
 //
 // # Discussion
 //
-// The [NSMatrix] [MouseDown] method obtains these flags by sending a
-// [ModifierFlags] message to the event passed into [MouseDown]. Use this
-// property if you want to access these flags. This property is valid only
-// during tracking; it isn’t useful if the target of the receiver initiates
-// another tracking loop as part of its action method (as a cell that pops up
-// a pop-up list does, for example).
+// The [NSMatrix] [NSMatrix.MouseDown] method obtains these flags by sending a
+// [NSEvent.ModifierFlags] message to the event passed into
+// [NSMatrix.MouseDown]. Use this property if you want to access these flags.
+// This property is valid only during tracking; it isn’t useful if the
+// target of the receiver initiates another tracking loop as part of its
+// action method (as a cell that pops up a pop-up list does, for example).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/mouseDownFlags
 func (m NSMatrix) MouseDownFlags() int {

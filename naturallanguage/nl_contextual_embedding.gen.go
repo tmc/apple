@@ -78,12 +78,12 @@ func (nc NLContextualEmbeddingClass) Alloc() NLContextualEmbedding {
 //
 // # Requesting assets
 //
-//   - [NLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]: Requests assets for an embedding, if available.
+//   - [NLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]: Requests embedding model assets and downloads them if available.
 //
 // # Loading and unloading assets
 //
 //   - [NLContextualEmbedding.LoadWithError]: Loads the embedding model.
-//   - [NLContextualEmbedding.Unload]: Unloads the embedding model.
+//   - [NLContextualEmbedding.Unload]: The instance method that unloads the embedding model.
 //
 // # Applying an embedding
 //
@@ -119,12 +119,12 @@ func NLContextualEmbeddingFromID(id objc.ID) NLContextualEmbedding {
 //
 // # Requesting assets
 //
-//   - [INLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]: Requests assets for an embedding, if available.
+//   - [INLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]: Requests embedding model assets and downloads them if available.
 //
 // # Loading and unloading assets
 //
 //   - [INLContextualEmbedding.LoadWithError]: Loads the embedding model.
-//   - [INLContextualEmbedding.Unload]: Unloads the embedding model.
+//   - [INLContextualEmbedding.Unload]: The instance method that unloads the embedding model.
 //
 // # Applying an embedding
 //
@@ -153,14 +153,14 @@ type INLContextualEmbedding interface {
 
 	// Topic: Requesting assets
 
-	// Requests assets for an embedding, if available.
+	// Requests embedding model assets and downloads them if available.
 	RequestEmbeddingAssetsWithCompletionHandler(completionHandler NLContextualEmbeddingAssetsResultErrorHandler)
 
 	// Topic: Loading and unloading assets
 
 	// Loads the embedding model.
 	LoadWithError() (bool, error)
-	// Unloads the embedding model.
+	// The instance method that unloads the embedding model.
 	Unload()
 
 	// Topic: Applying an embedding
@@ -193,6 +193,11 @@ func NewNLContextualEmbedding() NLContextualEmbedding {
 // language: The language the framework uses to find the most recent embedding suitable
 // for the value you specify.
 //
+// # Discussion
+//
+// The language the framework uses to find the most recent embedding suitable
+// for the value you specify.
+//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/init(language:)
 func NewContextualEmbeddingWithLanguage(language NLLanguage) NLContextualEmbedding {
 	rv := objc.Send[objc.ID](objc.ID(getNLContextualEmbeddingClass().class), objc.Sel("contextualEmbeddingWithLanguage:"), objc.String(string(language)))
@@ -201,7 +206,13 @@ func NewContextualEmbeddingWithLanguage(language NLLanguage) NLContextualEmbeddi
 
 // Creates a contextual embedding from a model identifier.
 //
-// modelIdentifier: The model identifier that identifies the embedding model.
+// modelIdentifier: A string that uniquely identifies the embedding model.
+//
+// # Discussion
+//
+// If you train a custom model with the contextual embedding as the feature
+// layer, keep track of this identifier and use it when loading the custom
+// model in your app.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/init(modelIdentifier:)
 func NewContextualEmbeddingWithModelIdentifier(modelIdentifier string) NLContextualEmbedding {
@@ -211,8 +222,8 @@ func NewContextualEmbeddingWithModelIdentifier(modelIdentifier string) NLContext
 
 // Creates a contextual embedding from a script.
 //
-// script: The script the framework uses to find the most recent embedding suitable
-// for the value you specify.
+// script: The writing system the framework uses to find the most suitable system
+// embedding for the value you specify; for example, Chinese or Latin.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/init(script:)
 func NewContextualEmbeddingWithScript(script NLScript) NLContextualEmbedding {
@@ -220,19 +231,29 @@ func NewContextualEmbeddingWithScript(script NLScript) NLContextualEmbedding {
 	return NLContextualEmbeddingFromID(rv)
 }
 
-// Requests assets for an embedding, if available.
+// Requests embedding model assets and downloads them if available.
 //
-// completionHandler: A completion handler the system calls after it finishes the request.
+// # Asynchronous alternative
+//
+// You can call this method from synchronous code using a completion handler,
+// as shown on this page, or you can call it as an asynchronous method that
+// has the following declaration:
+//
+// For information about concurrency and asynchronous code in Swift, see
+// [Calling Objective-C APIs Asynchronously].
 //
 // # Discussion
 //
 // You use a contextual embedding after loading the necessary assets onto the
-// device. Use [HasAvailableAssets] to determine whether assets are available.
+// device. Use [NLContextualEmbedding.HasAvailableAssets] to determine whether
+// assets are available. This method returns immediately if the framework
+// knows the state of the assets or if an error occurs.
 //
-// This method returns immediately if the framework knows the state of the
-// assets or if an error occurs.
+// completionHandler: A closure that notifies your app when the asset request completes.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/requestAssets(completionHandler:)
+//
+// [Calling Objective-C APIs Asynchronously]: https://developer.apple.com/documentation/Swift/calling-objective-c-apis-asynchronously
 func (c NLContextualEmbedding) RequestEmbeddingAssetsWithCompletionHandler(completionHandler NLContextualEmbeddingAssetsResultErrorHandler) {
 	_block0, _ := NewNLContextualEmbeddingAssetsResultErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("requestEmbeddingAssetsWithCompletionHandler:"), _block0)
@@ -243,12 +264,14 @@ func (c NLContextualEmbedding) RequestEmbeddingAssetsWithCompletionHandler(compl
 // # Discussion
 //
 // When you create a contextual embedding, the model isn’t loaded until you
-// need it, by default. Use [LoadWithError] and [Unload] to control when to
-// load and unload the model.
+// need it, by default. Use [NLContextualEmbedding.LoadWithError] and
+// [NLContextualEmbedding.Unload] to control when to load and unload the
+// model.
 //
 // The method fails if the necessary assets — for the model you specify —
-// aren’t on device. Use [HasAvailableAssets] and
-// [RequestEmbeddingAssetsWithCompletionHandler] to manage the assets.
+// aren’t on device. Use [NLContextualEmbedding.HasAvailableAssets] and
+// [NLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler] to
+// manage the assets.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/load()
 func (c NLContextualEmbedding) LoadWithError() (bool, error) {
@@ -265,7 +288,7 @@ func (c NLContextualEmbedding) LoadWithError() (bool, error) {
 
 }
 
-// Unloads the embedding model.
+// The instance method that unloads the embedding model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/unload()
 func (c NLContextualEmbedding) Unload() {

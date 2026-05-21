@@ -62,9 +62,10 @@ func (uc UnitEnergyClass) Alloc() UnitEnergy {
 // of one gram of water by one degree Celsius at a pressure of one atmosphere
 // (1cal ≡ 4.184J).
 //
-// The [NSUnitEnergy] class defines its [BaseUnit] as [Joules], and provides
-// the following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitEnergy] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitEnergyClass.Joules], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

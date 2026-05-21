@@ -75,13 +75,13 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // footprint.
 //
 // You create an [NSAutoreleasePool] object with the usual `alloc` and `init`
-// messages and dispose of it with [NSAutoreleasePool.Drain] (or `release`—to understand the
-// difference, see [NSAutoreleasePool]). Since you cannot retain an
-// autorelease pool (or autorelease it—see `retain` and `autorelease`),
-// draining a pool ultimately has the effect of deallocating it. You should
-// always drain an autorelease pool in the same context (invocation of a
-// method or function, or body of a loop) that it was created. See [Using
-// Autorelease Pool Blocks] for more details.
+// messages and dispose of it with [NSAutoreleasePool.Drain] (or
+// `release`—to understand the difference, see [NSAutoreleasePool]). Since
+// you cannot retain an autorelease pool (or autorelease it—see `retain` and
+// `autorelease`), draining a pool ultimately has the effect of deallocating
+// it. You should always drain an autorelease pool in the same context
+// (invocation of a method or function, or body of a loop) that it was
+// created. See [Using Autorelease Pool Blocks] for more details.
 //
 // Each thread (including the main thread) maintains its own stack of
 // [NSAutoreleasePool] objects (see [NSAutoreleasePool]). As new pools are
@@ -110,10 +110,11 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // You may, however, write a framework that is designed to work in both a
 // garbage-collected and reference-counted environment. In this case, you can
 // use autorelease pools to hint to the collector that collection may be
-// appropriate. In a garbage-collected environment, sending a [NSAutoreleasePool.Drain] message
-// to a pool triggers garbage collection if necessary; `release`, however, is
-// a no-op. In a reference-counted environment, [NSAutoreleasePool.Drain] has the same effect as
-// `release`. Typically, therefore, you should use [NSAutoreleasePool.Drain] instead of
+// appropriate. In a garbage-collected environment, sending a
+// [NSAutoreleasePool.Drain] message to a pool triggers garbage collection if
+// necessary; `release`, however, is a no-op. In a reference-counted
+// environment, [NSAutoreleasePool.Drain] has the same effect as `release`.
+// Typically, therefore, you should use [NSAutoreleasePool.Drain] instead of
 // `release`.
 //
 // # Managing a Pool
@@ -192,8 +193,9 @@ func NewNSAutoreleasePool() NSAutoreleasePool {
 // # Special Considerations
 //
 // In a garbage-collected environment, `release` is a no-op, so unless you do
-// not want to give the collector a hint it is important to use [Drain] in any
-// code that may be compiled for a garbage-collected environment.
+// not want to give the collector a hint it is important to use
+// [NSAutoreleasePool.Drain] in any code that may be compiled for a
+// garbage-collected environment.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAutoreleasePool/drain
 //

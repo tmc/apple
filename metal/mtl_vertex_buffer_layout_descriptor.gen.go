@@ -96,8 +96,6 @@ type IMTLVertexBufferLayoutDescriptor interface {
 	// The number of bytes between the first byte of two consecutive vertices in a buffer.
 	Stride() uint
 	SetStride(value uint)
-
-	MTLBufferLayoutStrideDynamic() int
 }
 
 // Init initializes the instance.
@@ -155,12 +153,12 @@ func (v MTLVertexBufferLayoutDescriptor) SetStepFunction(value MTLVertexStepFunc
 // # Discussion
 //
 // The default value is `1`. The `stepRate` value, in conjunction with the
-// [StepFunction] property, determines how often the function fetches new
-// attribute data. The `stepRate` property is generally used when
-// `stepFunction` is [MTLVertexStepFunctionPerInstance]. If `stepRate` is
-// equal to `1`, new attribute data is fetched for every instance; if
-// `stepRate` is equal to `2`, new attribute data is fetched for every two
-// instances, and so forth.
+// [MTLVertexBufferLayoutDescriptor.StepFunction] property, determines how
+// often the function fetches new attribute data. The `stepRate` property is
+// generally used when `stepFunction` is [MTLVertexStepFunctionPerInstance].
+// If `stepRate` is equal to `1`, new attribute data is fetched for every
+// instance; if `stepRate` is equal to `2`, new attribute data is fetched for
+// every two instances, and so forth.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptor/stepRate
 func (v MTLVertexBufferLayoutDescriptor) StepRate() uint {
@@ -188,10 +186,4 @@ func (v MTLVertexBufferLayoutDescriptor) Stride() uint {
 }
 func (v MTLVertexBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStride:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
-func (v MTLVertexBufferLayoutDescriptor) MTLBufferLayoutStrideDynamic() int {
-	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
-	return rv
 }

@@ -14,16 +14,18 @@ import (
 // # Discussion
 //
 // A preview layer begins displaying content when you call the capture
-// session’s [StartRunning] method. If you associate the layer with an
-// instance of [AVCaptureMultiCamSession], the system guarantees that all
-// video preview layers display content by the time the blocking call to
-// [StartRunning] or [CommitConfiguration] returns.
+// session’s [AVCaptureSession.StartRunning] method. If you associate the
+// layer with an instance of [AVCaptureMultiCamSession], the system guarantees
+// that all video preview layers display content by the time the blocking call
+// to [AVCaptureSession.StartRunning] or
+// [AVCaptureSession.CommitConfiguration] returns.
 //
 // While a session is running, you may enable or disable a video preview
 // layer’s connection to start or stop the flow of video to the layer. You
-// may key-value observe the connection’s [Enabled] property to observe this
-// property changing, and synchronize any user interface changes to take place
-// precisely when the video resumes rendering to the video preview layer.
+// may key-value observe the connection’s [AVCaptureConnection.Enabled]
+// property to observe this property changing, and synchronize any user
+// interface changes to take place precisely when the video resumes rendering
+// to the video preview layer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/isPreviewing
 //
@@ -39,9 +41,10 @@ func (c AVCaptureVideoPreviewLayer) IsPreviewing() bool {
 //
 // For some session configurations, preview will be mirrored by default.
 //
-// When the value of this property is true, the value of [Mirrored] may change
-// depending on the configuration of the session, for example after switching
-// to a different capture device input.
+// When the value of this property is true, the value of
+// [AVCaptureVideoPreviewLayer.Mirrored] may change depending on the
+// configuration of the session, for example after switching to a different
+// capture device input.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/automaticallyAdjustsMirroring
 func (c AVCaptureVideoPreviewLayer) AutomaticallyAdjustsMirroring() bool {
@@ -57,11 +60,11 @@ func (c AVCaptureVideoPreviewLayer) SetAutomaticallyAdjustsMirroring(value bool)
 // # Discussion
 //
 // To change the value of this property, the value of
-// [AutomaticallyAdjustsMirroring] must be false.
+// [AVCaptureVideoPreviewLayer.AutomaticallyAdjustsMirroring] must be false.
 //
 // Mirroring is not supported on all hardware configurations. You should check
-// the value of [SupportsVideoMirroring] ([AVCaptureConnection]) before
-// attempting to change this value.
+// the value of [AVCaptureConnection.SupportsVideoMirroring]
+// ([AVCaptureConnection]) before attempting to change this value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/mirrored
 func (c AVCaptureVideoPreviewLayer) IsMirrored() bool {
@@ -85,9 +88,10 @@ func (c AVCaptureVideoPreviewLayer) IsMirroringSupported() bool {
 // # Discussion
 //
 // Changes in orientation are not supported on all hardware configurations.
-// You should check the value of [SupportsVideoOrientation]
-// ([AVCaptureConnection]) before attempting to change the orientation of the
-// receiver. An exception is raised if this requirement is ignored.
+// You should check the value of
+// [AVCaptureConnection.SupportsVideoOrientation] ([AVCaptureConnection])
+// before attempting to change the orientation of the receiver. An exception
+// is raised if this requirement is ignored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/orientation
 func (c AVCaptureVideoPreviewLayer) Orientation() AVCaptureVideoOrientation {

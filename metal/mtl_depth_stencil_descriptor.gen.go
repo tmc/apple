@@ -58,11 +58,13 @@ func (mc MTLDepthStencilDescriptorClass) Alloc() MTLDepthStencilDescriptor {
 // The depthCompareFunction property specifies how the depth test is
 // performed. If a fragment’s depth value fails the depth test, the fragment
 // is discarded. [MTLCompareFunctionLess] is a commonly used value for
-// [MTLDepthStencilDescriptor.DepthCompareFunction], because fragment values that are farther away from
-// the viewer than the pixel depth value (a previously written fragment) fail
-// the depth test and are considered occluded by the earlier depth value.
+// [MTLDepthStencilDescriptor.DepthCompareFunction], because fragment values
+// that are farther away from the viewer than the pixel depth value (a
+// previously written fragment) fail the depth test and are considered
+// occluded by the earlier depth value.
 //
-// The [MTLDepthStencilDescriptor.FrontFaceStencil] and [MTLDepthStencilDescriptor.BackFaceStencil] properties define two
+// The [MTLDepthStencilDescriptor.FrontFaceStencil] and
+// [MTLDepthStencilDescriptor.BackFaceStencil] properties define two
 // independent stencil descriptors: one for front-facing primitives and the
 // other for back-facing primitives, respectively. Both properties can be set
 // to the same MTLStencilDescriptor instance.

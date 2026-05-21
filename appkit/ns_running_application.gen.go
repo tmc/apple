@@ -70,8 +70,8 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 // However, most properties lose their significance, and some properties may
 // not be available on a terminated application.
 //
-// To access the list of all running apps, use the [NSRunningApplication.RunningApplications]
-// method in [NSWorkspace].
+// To access the list of all running apps, use the
+// [NSWorkspace.RunningApplications] method in [NSWorkspace].
 //
 // # Activating applications
 //
@@ -210,10 +210,6 @@ type INSRunningApplication interface {
 	Terminate() bool
 	// Indicates that the receiver’s application has terminated.
 	IsTerminated() bool
-
-	// Returns an array of running apps.
-	RunningApplications() INSRunningApplication
-	SetRunningApplications(value INSRunningApplication)
 }
 
 // Init initializes the instance.
@@ -291,8 +287,8 @@ func (r NSRunningApplication) ActivateWithOptions(options NSApplicationActivatio
 //
 // Use this method to request app activation. Calling this method doesn’t
 // guarantee app activation. For cooperative activation, the other application
-// should call [YieldActivationToApplication] or equivalent prior to the
-// target application invoking [Activate].
+// should call [NSApplication.YieldActivationToApplication] or equivalent
+// prior to the target application invoking [NSApplication.Activate].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/activate(from:options:)
 func (r NSRunningApplication) ActivateFromApplicationOptions(application INSRunningApplication, options NSApplicationActivationOptions) bool {
@@ -431,7 +427,7 @@ func (r NSRunningApplication) IsActive() bool {
 // # Discussion
 //
 // The value returned by this property is usually fixed, but it may change
-// through a call to [ActivateWithOptions].
+// through a call to [NSRunningApplication.ActivateWithOptions].
 //
 // This property is observable using key-value observing.
 //
@@ -599,17 +595,6 @@ func (r NSRunningApplication) OwnsMenuBar() bool {
 func (r NSRunningApplication) IsTerminated() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isTerminated"))
 	return rv
-}
-
-// Returns an array of running apps.
-//
-// See: https://developer.apple.com/documentation/appkit/nsworkspace/runningapplications
-func (r NSRunningApplication) RunningApplications() INSRunningApplication {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("runningApplications"))
-	return NSRunningApplicationFromID(objc.ID(rv))
-}
-func (r NSRunningApplication) SetRunningApplications(value INSRunningApplication) {
-	objc.Send[struct{}](r.ID, objc.Sel("setRunningApplications:"), value)
 }
 
 // Returns an [NSRunningApplication] representing this application.

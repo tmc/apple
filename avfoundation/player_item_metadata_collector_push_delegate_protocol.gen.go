@@ -58,7 +58,7 @@ func AVPlayerItemMetadataCollectorPushDelegateObjectFromID(id objc.ID) AVPlayerI
 // `indexesOfNewGroup` referring to every index in `metadataGroups`.
 // Subsequent invocations may not contain all previously collected metadata
 // groups if they no longer refer to a region in the player item’s
-// [SeekableTimeRanges].
+// [AVPlayerItem.SeekableTimeRanges].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataCollectorPushDelegate/metadataCollector(_:didCollect:indexesOfNewGroups:indexesOfModifiedGroups:)
 func (o AVPlayerItemMetadataCollectorPushDelegateObject) MetadataCollectorDidCollectDateRangeMetadataGroupsIndexesOfNewGroupsIndexesOfModifiedGroups(metadataCollector IAVPlayerItemMetadataCollector, metadataGroups []AVDateRangeMetadataGroup, indexesOfNewGroups foundation.NSIndexSet, indexesOfModifiedGroups foundation.NSIndexSet) {

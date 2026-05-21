@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -88,12 +89,12 @@ type ICAMetalDisplayLinkUpdate interface {
 	// Topic: Timing the Next Animation Frame
 
 	// The time the system estimates until the display of the next frame.
-	TargetPresentationTimestamp() float64
+	TargetPresentationTimestamp() corefoundation.CFTimeInterval
 
 	// Topic: Drawing the Next Frame
 
 	// A deadline that indicates when your app needs to finish rendering to the drawable.
-	TargetTimestamp() float64
+	TargetTimestamp() corefoundation.CFTimeInterval
 	// The Metal drawable your app uses to render the next frame.
 	Drawable() CAMetalDrawable
 }
@@ -125,9 +126,9 @@ func NewCAMetalDisplayLinkUpdate() CAMetalDisplayLinkUpdate {
 // and the previous timestamp.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/Update/targetPresentationTimestamp
-func (m CAMetalDisplayLinkUpdate) TargetPresentationTimestamp() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("targetPresentationTimestamp"))
-	return rv
+func (m CAMetalDisplayLinkUpdate) TargetPresentationTimestamp() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](m.ID, objc.Sel("targetPresentationTimestamp"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // A deadline that indicates when your app needs to finish rendering to the
@@ -135,17 +136,18 @@ func (m CAMetalDisplayLinkUpdate) TargetPresentationTimestamp() float64 {
 //
 // # Discussion
 //
-// Your app needs to call the [Drawable] instance’s [present()] method
-// before the deadline. GPU rendering can continue after this time, based on
-// [PreferredFrameLatency]. For more information on timing your app’s
-// rendering, see [MetalDisplayLinkNeedsUpdate].
+// Your app needs to call the [CAMetalDisplayLinkUpdate.Drawable] instance’s
+// [present()] method before the deadline. GPU rendering can continue after
+// this time, based on [CAMetalDisplayLink.PreferredFrameLatency]. For more
+// information on timing your app’s rendering, see
+// [MetalDisplayLinkNeedsUpdate].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/Update/targetTimestamp
 //
 // [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
-func (m CAMetalDisplayLinkUpdate) TargetTimestamp() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("targetTimestamp"))
-	return rv
+func (m CAMetalDisplayLinkUpdate) TargetTimestamp() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](m.ID, objc.Sel("targetTimestamp"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The Metal drawable your app uses to render the next frame.

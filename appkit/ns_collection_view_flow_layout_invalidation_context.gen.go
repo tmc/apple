@@ -53,11 +53,12 @@ func (nc NSCollectionViewFlowLayoutInvalidationContextClass) Alloc() NSCollectio
 // layout information altogether.
 //
 // When you want to invalidate your flow layout object, call the
-// [NSCollectionViewFlowLayoutInvalidationContext.InvalidationContextClass] method of your layout object and instantiate the
-// resulting class. (The implementation of that method in
-// [NSCollectionViewFlowLayout] returns this class.) After instantiating this
-// class, set the properties to appropriate values and pass the object to the
-// [InvalidateLayoutWithContext] method of the layout object.
+// [NSCollectionViewLayoutClass.InvalidationContextClass] method of your
+// layout object and instantiate the resulting class. (The implementation of
+// that method in [NSCollectionViewFlowLayout] returns this class.) After
+// instantiating this class, set the properties to appropriate values and pass
+// the object to the [NSCollectionViewLayout.InvalidateLayoutWithContext]
+// method of the layout object.
 //
 // # Invalidating the Flow Layout
 //
@@ -170,16 +171,4 @@ func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutDeleg
 }
 func (c NSCollectionViewFlowLayoutInvalidationContext) SetInvalidateFlowLayoutDelegateMetrics(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInvalidateFlowLayoutDelegateMetrics:"), value)
-}
-
-// Returns the class to use when creating an invalidation context object for
-// the layout.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionviewlayout/invalidationcontextclass
-func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLayoutInvalidationContextClass) InvalidationContextClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewFlowLayoutInvalidationContextClass.class), objc.Sel("invalidationContextClass"))
-	return rv
-}
-func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLayoutInvalidationContextClass) SetInvalidationContextClass(value objc.Class) {
-	objc.Send[struct{}](objc.ID(_NSCollectionViewFlowLayoutInvalidationContextClass.class), objc.Sel("setInvalidationContextClass:"), value)
 }

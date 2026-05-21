@@ -99,6 +99,13 @@ func NewVNRecognizedPoint3D() VNRecognizedPoint3D {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(coder:)
+func NewRecognizedPoint3DWithCoder(coder foundation.INSCoder) VNRecognizedPoint3D {
+	instance := getVNRecognizedPoint3DClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNRecognizedPoint3DFromID(rv)
+}
+
 // Creates a point object with the position you specify.
 //
 // position: The three-dimensional position.

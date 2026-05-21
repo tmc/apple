@@ -75,7 +75,8 @@ func (uc URLSessionDownloadTaskClass) Alloc() URLSessionDownloadTask {
 // handler. The only errors your delegate receives through the `error`
 // parameter are client-side errors, such as being unable to resolve the
 // hostname or connect to the host. To check for server-side errors, inspect
-// the [Response] property of the `task` parameter received by this callback.
+// the [NSURLSessionTask.Response] property of the `task` parameter received
+// by this callback.
 //
 // # Canceling a download
 //
@@ -143,9 +144,9 @@ func NewURLSessionDownloadTask() URLSessionDownloadTask {
 //
 // If the download is resumable, the completion handler is provided with a
 // `resumeData` object. Your app can later pass this object to a session’s
-// [DownloadTaskWithResumeData] or
-// [DownloadTaskWithResumeDataCompletionHandler] method to create a new task
-// that resumes the download where it left off.
+// [NSURLSession.DownloadTaskWithResumeData] or
+// [NSURLSession.DownloadTaskWithResumeDataCompletionHandler] method to create
+// a new task that resumes the download where it left off.
 //
 // This block is not guaranteed to execute in a particular thread context. As
 // such, you may want specify an appropriate dispatch queue in which to

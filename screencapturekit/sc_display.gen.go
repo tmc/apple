@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -99,7 +100,7 @@ type ISCDisplay interface {
 	// Topic: Identifying displays
 
 	// The Core Graphics display identifier.
-	DisplayID() uint32
+	DisplayID() coregraphics.CGDirectDisplayID
 
 	// Topic: Accessing dimensions
 
@@ -133,9 +134,9 @@ func NewSCDisplay() SCDisplay {
 // The Core Graphics display identifier.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/displayID
-func (d SCDisplay) DisplayID() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("displayID"))
-	return rv
+func (d SCDisplay) DisplayID() coregraphics.CGDirectDisplayID {
+	rv := objc.Send[coregraphics.CGDirectDisplayID](d.ID, objc.Sel("displayID"))
+	return coregraphics.CGDirectDisplayID(rv)
 }
 
 // The frame of the display.

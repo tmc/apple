@@ -51,7 +51,7 @@ func (nc NSDockTileClass) Alloc() NSDockTile {
 //
 // You do not create Dock tile objects explicitly in your app. Instead, you
 // retrieve the Dock tile for an existing window or for the app by calling
-// that object’s [DockTile] method. Also, you do not subclass the
+// that object’s [NSWindow.DockTile] method. Also, you do not subclass the
 // [NSDockTile] class; instead, you use the methods of the class to make the
 // following customizations:
 //
@@ -64,7 +64,7 @@ func (nc NSDockTileClass) Alloc() NSDockTile {
 // # Application Dock Tiles
 //
 // An application Dock tile defaults to display the application’s
-// [NSDockTile.ApplicationIconImage].
+// [NSApplication.ApplicationIconImage].
 //
 // The application Dock tile never shows a smaller application icon badge.
 //
@@ -172,13 +172,6 @@ type INSDockTile interface {
 
 	// Redraws the dock tile’s content.
 	Display()
-
-	// The image used for the app’s icon.
-	ApplicationIconImage() INSImage
-	SetApplicationIconImage(value INSImage)
-	// The application’s Dock tile.
-	DockTile() INSDockTile
-	SetDockTile(value INSDockTile)
 }
 
 // Init initializes the instance.
@@ -301,26 +294,4 @@ func (d NSDockTile) BadgeLabel() string {
 }
 func (d NSDockTile) SetBadgeLabel(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBadgeLabel:"), objc.String(value))
-}
-
-// The image used for the app’s icon.
-//
-// See: https://developer.apple.com/documentation/appkit/nsapplication/applicationiconimage
-func (d NSDockTile) ApplicationIconImage() INSImage {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("applicationIconImage"))
-	return NSImageFromID(objc.ID(rv))
-}
-func (d NSDockTile) SetApplicationIconImage(value INSImage) {
-	objc.Send[struct{}](d.ID, objc.Sel("setApplicationIconImage:"), value)
-}
-
-// The application’s Dock tile.
-//
-// See: https://developer.apple.com/documentation/appkit/nswindow/docktile
-func (d NSDockTile) DockTile() INSDockTile {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("dockTile"))
-	return NSDockTileFromID(objc.ID(rv))
-}
-func (d NSDockTile) SetDockTile(value INSDockTile) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDockTile:"), value)
 }

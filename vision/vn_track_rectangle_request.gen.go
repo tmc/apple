@@ -55,10 +55,6 @@ func (vc VNTrackRectangleRequestClass) Alloc() VNTrackRectangleRequest {
 //   - [VNTrackRectangleRequest.InitWithRectangleObservation]: Creates a new rectangle tracking request with a rectangle observation.
 //   - [VNTrackRectangleRequest.InitWithRectangleObservationCompletionHandler]: Creates a new rectangle tracking request with a rectangle observation.
 //
-// # Identifying Request Revisions
-//
-//   - [VNTrackRectangleRequest.VNTrackRectangleRequestRevision1]: A constant for specifying revision 1 of the rectangling tracking request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest
 type VNTrackRectangleRequest struct {
 	VNTrackingRequest
@@ -82,10 +78,6 @@ func VNTrackRectangleRequestFromID(id objc.ID) VNTrackRectangleRequest {
 //   - [IVNTrackRectangleRequest.InitWithRectangleObservation]: Creates a new rectangle tracking request with a rectangle observation.
 //   - [IVNTrackRectangleRequest.InitWithRectangleObservationCompletionHandler]: Creates a new rectangle tracking request with a rectangle observation.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNTrackRectangleRequest.VNTrackRectangleRequestRevision1]: A constant for specifying revision 1 of the rectangling tracking request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest
 type IVNTrackRectangleRequest interface {
 	IVNTrackingRequest
@@ -96,11 +88,6 @@ type IVNTrackRectangleRequest interface {
 	InitWithRectangleObservation(observation IVNRectangleObservation) VNTrackRectangleRequest
 	// Creates a new rectangle tracking request with a rectangle observation.
 	InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the rectangling tracking request.
-	VNTrackRectangleRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -130,7 +117,7 @@ func NewVNTrackRectangleRequest() VNTrackRectangleRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewTrackRectangleRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackRectangleRequest {
@@ -183,13 +170,5 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[VNTrackRectangleRequest](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
-	return rv
-}
-
-// A constant for specifying revision 1 of the rectangling tracking request.
-//
-// See: https://developer.apple.com/documentation/vision/vntrackrectanglerequestrevision1
-func (t VNTrackRectangleRequest) VNTrackRectangleRequestRevision1() int {
-	rv := objc.Send[int](t.ID, objc.Sel("VNTrackRectangleRequestRevision1"))
 	return rv
 }

@@ -49,15 +49,16 @@ func (nc NSSwitchClass) Alloc() NSSwitch {
 // # Overview
 //
 // The [NSSwitch] class provides a simple interface for displaying and
-// toggling a Boolean state, such as on/off. A switch toggles its [NSSwitch.State] and
-// sends its [NSSwitch.Action] when clicked, activated through the keyboard, or tapped
-// in the Touch Bar. [NSSwitch] also allows dragging between states, and if
-// [Continuous] is true, the switch sends its [NSSwitch.Action] for each change in
-// position during the drag.
+// toggling a Boolean state, such as on/off. A switch toggles its
+// [NSSwitch.State] and sends its [NSControl.Action] when clicked, activated
+// through the keyboard, or tapped in the Touch Bar. [NSSwitch] also allows
+// dragging between states, and if [NSControl.Continuous] is true, the switch
+// sends its [NSControl.Action] for each change in position during the drag.
 //
 // [NSSwitch] doesn’t use an instance of [NSCell] to provide its
-// functionality. The [NSSwitch.CellClass] class property and [Cell] instance property
-// both return nil, and they ignore attempts to set a non-nil value.
+// functionality. The [NSControlClass.CellClass] class property and
+// [NSControl.Cell] instance property both return nil, and they ignore
+// attempts to set a non-nil value.
 //
 // For design guidance, see Human Interface Guidelines > [Toggles].
 //
@@ -99,9 +100,6 @@ type INSSwitch interface {
 	// The current position of the switch.
 	State() NSControlStateValue
 	SetState(value NSControlStateValue)
-
-	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
-	IsContinuous() bool
 }
 
 // Init initializes the instance.
@@ -253,18 +251,6 @@ func (s NSSwitch) State() NSControlStateValue {
 }
 func (s NSSwitch) SetState(value NSControlStateValue) {
 	objc.Send[struct{}](s.ID, objc.Sel("setState:"), value)
-}
-
-// A Boolean value indicating whether the receiver’s cell sends its action
-// message continuously to its target during mouse tracking.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrol/iscontinuous
-func (s NSSwitch) IsContinuous() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("continuous"))
-	return rv
-}
-func (s NSSwitch) SetContinuous(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setContinuous:"), value)
 }
 
 // Protocol methods for NSAccessibilitySwitch

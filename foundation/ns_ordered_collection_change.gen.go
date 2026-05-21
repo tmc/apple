@@ -115,17 +115,6 @@ type INSOrderedCollectionChange interface {
 	GetObject() objectivec.IObject
 	// When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 	AssociatedIndex() uint
-
-	NSNotFound() int
-	// A Boolean value that indicates if the difference has changes.
-	HasChanges() bool
-	SetHasChanges(value bool)
-	// A collection of insertion change objects.
-	Insertions() INSOrderedCollectionChange
-	SetInsertions(value INSOrderedCollectionChange)
-	// A collection of removal change objects.
-	Removals() INSOrderedCollectionChange
-	SetRemovals(value INSOrderedCollectionChange)
 }
 
 // Init initializes the instance.
@@ -177,11 +166,12 @@ func NewOrderedCollectionChangeWithObjectTypeIndex(anObject objectivec.IObject, 
 // # Discussion
 //
 // Pairs of changes with opposite types that refer to each other represent the
-// index location of their counterpart with the [AssociatedIndex] property.
-// Initializing an [NSOrderedCollectionDifference] with broken associations
-// (or associations that aren’t reflexive) generates an exception. The
-// following example creates a diff where the object `@”Red”` moves from
-// index `8` to index `3`:
+// index location of their counterpart with the
+// [NSOrderedCollectionChange.AssociatedIndex] property. Initializing an
+// [NSOrderedCollectionDifference] with broken associations (or associations
+// that aren’t reflexive) generates an exception. The following example
+// creates a diff where the object `@”Red”` moves from index `8` to index
+// `3`:
 //
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
@@ -228,11 +218,12 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndex(anObject objectivec.I
 // # Discussion
 //
 // Pairs of changes with opposite types that refer to each other represent the
-// index location of their counterpart with the [AssociatedIndex] property.
-// Initializing an [NSOrderedCollectionDifference] with broken associations
-// (or associations that aren’t reflexive) generates an exception. The
-// following example creates a diff where the object `@”Red”` moves from
-// index `8` to index `3`:
+// index location of their counterpart with the
+// [NSOrderedCollectionChange.AssociatedIndex] property. Initializing an
+// [NSOrderedCollectionDifference] with broken associations (or associations
+// that aren’t reflexive) generates an exception. The following example
+// creates a diff where the object `@”Red”` moves from index `8` to index
+// `3`:
 //
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
@@ -290,11 +281,12 @@ func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWith
 // # Discussion
 //
 // Pairs of changes with opposite types that refer to each other represent the
-// index location of their counterpart with the [AssociatedIndex] property.
-// Initializing a [NSOrderedCollectionDifference] with broken associations (or
-// associations that aren’t reflexive) will generate an exception. The
-// following example creates a diff where the object `@”Red”` moves from
-// index `8` to index `3`:
+// index location of their counterpart with the
+// [NSOrderedCollectionChange.AssociatedIndex] property. Initializing a
+// [NSOrderedCollectionDifference] with broken associations (or associations
+// that aren’t reflexive) will generate an exception. The following example
+// creates a diff where the object `@”Red”` moves from index `8` to index
+// `3`:
 //
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
@@ -345,9 +337,10 @@ func (o NSOrderedCollectionChange) GetObject() objectivec.IObject {
 // # Discussion
 //
 // Pairs of changes with opposite types that refer to each other represent the
-// index location of their counterpart with the [AssociatedIndex] property.
-// The following example creates a diff where the object `@”Red”` moves
-// from index `8` to index `3`:
+// index location of their counterpart with the
+// [NSOrderedCollectionChange.AssociatedIndex] property. The following example
+// creates a diff where the object `@”Red”` moves from index `8` to index
+// `3`:
 //
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
@@ -357,48 +350,10 @@ func (o NSOrderedCollectionChange) GetObject() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/associatedIndex
 //
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2
 // [NSFetchedResultsController]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsController
 // [controller(_:didChangeContentWith:)]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsControllerDelegate/controller(_:didChangeContentWith:)-5ullb
 func (o NSOrderedCollectionChange) AssociatedIndex() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("associatedIndex"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/foundation/nsnotfound-9t5v2
-func (o NSOrderedCollectionChange) NSNotFound() int {
-	rv := objc.Send[int](o.ID, objc.Sel("NSNotFound"))
-	return rv
-}
-
-// A Boolean value that indicates if the difference has changes.
-//
-// See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/haschanges
-func (o NSOrderedCollectionChange) HasChanges() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("hasChanges"))
-	return rv
-}
-func (o NSOrderedCollectionChange) SetHasChanges(value bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setHasChanges:"), value)
-}
-
-// A collection of insertion change objects.
-//
-// See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/insertions
-func (o NSOrderedCollectionChange) Insertions() INSOrderedCollectionChange {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("insertions"))
-	return NSOrderedCollectionChangeFromID(objc.ID(rv))
-}
-func (o NSOrderedCollectionChange) SetInsertions(value INSOrderedCollectionChange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setInsertions:"), value)
-}
-
-// A collection of removal change objects.
-//
-// See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/removals
-func (o NSOrderedCollectionChange) Removals() INSOrderedCollectionChange {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("removals"))
-	return NSOrderedCollectionChangeFromID(objc.ID(rv))
-}
-func (o NSOrderedCollectionChange) SetRemovals(value INSOrderedCollectionChange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setRemovals:"), value)
 }

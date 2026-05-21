@@ -5,6 +5,7 @@ package vision
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -82,10 +83,6 @@ type IVNImageAestheticsScoresObservation interface {
 	OverallScore() float32
 	// A Boolean value that represents images that are not necessarily of poor image quality, but may not have memorable or exciting content.
 	IsUtility() bool
-
-	// The results of the aesthetics request.
-	Results() IVNImageAestheticsScoresObservation
-	SetResults(value IVNImageAestheticsScoresObservation)
 }
 
 // Init initializes the instance.
@@ -105,6 +102,13 @@ func NewVNImageAestheticsScoresObservation() VNImageAestheticsScoresObservation 
 	class := getVNImageAestheticsScoresObservationClass()
 	rv := objc.Send[VNImageAestheticsScoresObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewImageAestheticsScoresObservationWithCoder(coder foundation.INSCoder) VNImageAestheticsScoresObservation {
+	instance := getVNImageAestheticsScoresObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNImageAestheticsScoresObservationFromID(rv)
 }
 
 // A score which incorporates aesthetic score, failure score, and utility
@@ -128,15 +132,4 @@ func (i VNImageAestheticsScoresObservation) OverallScore() float32 {
 func (i VNImageAestheticsScoresObservation) IsUtility() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isUtility"))
 	return rv
-}
-
-// The results of the aesthetics request.
-//
-// See: https://developer.apple.com/documentation/vision/vncalculateimageaestheticsscoresrequest/results
-func (i VNImageAestheticsScoresObservation) Results() IVNImageAestheticsScoresObservation {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("results"))
-	return VNImageAestheticsScoresObservationFromID(objc.ID(rv))
-}
-func (i VNImageAestheticsScoresObservation) SetResults(value IVNImageAestheticsScoresObservation) {
-	objc.Send[struct{}](i.ID, objc.Sel("setResults:"), value)
 }

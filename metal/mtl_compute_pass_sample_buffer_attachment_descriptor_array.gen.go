@@ -48,13 +48,15 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLCo
 // # Overview
 //
 // The number of elements in the array is at least the number of elements in
-// an [MTLDevice] instance’s [MTLComputePassSampleBufferAttachmentDescriptorArray.CounterSets] property.
+// an [MTLDevice] instance’s [counterSets] property.
 //
 // # Accessing a sample buffer attachment
 //
 //   - [MTLComputePassSampleBufferAttachmentDescriptorArray.ObjectAtIndexedSubscript]: Returns the descriptor object for the specified sample buffer attachment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptorArray
+//
+// [counterSets]: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
 type MTLComputePassSampleBufferAttachmentDescriptorArray struct {
 	objectivec.Object
 }
@@ -85,9 +87,6 @@ type IMTLComputePassSampleBufferAttachmentDescriptorArray interface {
 	// Returns the descriptor object for the specified sample buffer attachment.
 	ObjectAtIndexedSubscript(attachmentIndex uint) IMTLComputePassSampleBufferAttachmentDescriptor
 
-	// The counter sets supported by the device object.
-	CounterSets() MTLCounterSet
-	SetCounterSets(value MTLCounterSet)
 	// Sets the descriptor object for the specified sample buffer attachment.
 	SetObjectAtIndexedSubscript(attachment IMTLComputePassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
@@ -140,15 +139,4 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubs
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (c MTLComputePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLComputePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
-}
-
-// The counter sets supported by the device object.
-//
-// See: https://developer.apple.com/documentation/metal/mtldevice/countersets
-func (c MTLComputePassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCounterSet {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("counterSets"))
-	return MTLCounterSetObjectFromID(rv)
-}
-func (c MTLComputePassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCounterSets:"), value)
 }

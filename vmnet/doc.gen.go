@@ -2,73 +2,82 @@
 
 // Package vmnet provides Go bindings for the vmnet framework.
 //
-// Connect with network interfaces to read and write packets on guest operating systems.
+// Connect with network interfaces to read and write packets on guest
+// operating systems.
 //
-// The vmnet framework is an API for virtual machines to read and write packets.
+// The vmnet framework is an API for virtual machines to read and write
+// packets.
 //
 // # Essentials
 //
-//   - com.apple.vm.networking: A Boolean that indicates whether the app manages virtual network interfaces without escalating privileges to the root user.
+//   - [com.apple.vm.networking]: A Boolean that indicates whether the app manages virtual network interfaces without escalating privileges to the root user.
 //
 // # Starting and Stopping Interfaces
 //
-//   - vmnet_start_interface(_:_:_:): Starts host or shared mode on an interface with a specified configuration.
-//   - vmnet_interface_set_event_callback(_:_:_:_:): Schedules a callback to be executed when events for the specified interface are received.
-//   - vmnet_stop_interface(_:_:_:): Stops the interface.
+//   - [Vmnet_start_interface]: Starts host or shared mode on an interface with a specified configuration.
+//   - [Vmnet_interface_set_event_callback]: Schedules a callback to be executed when events for the specified interface are received.
+//   - [Vmnet_stop_interface]: Stops the interface.
 //
 // # Reading and Writing Packets
 //
-//   - vmnet_read(_:_:_:): Attempts to read a specified number of packets from an interface.
-//   - vmnet_write(_:_:_:): Attempts to write specified packets to an interface.
+//   - [Vmnet_read]: Attempts to read a specified number of packets from an interface.
+//   - [Vmnet_write]: Attempts to write specified packets to an interface.
 //
 // # Data Types
 //
-//   - vmnet_return_t: Values returned by functions in the vmnet Framework.
-//   - vmpktdesc: Describes a packet.
-//   - interface_ref: A virtual network interface.
-//   - interface_event_t: Interface event types.
-//   - operating_modes_t: The operating modes for an interface.
+//   - [Vmnet_return_t]: Values returned by functions in the vmnet Framework.
+//   - [Vmpktdesc]: Describes a packet.
+//   - [Interface_ref]: A virtual network interface.
+//   - [Interface_event_t]: Interface event types.
+//   - [Operating_modes_t]: The operating modes for an interface.
 //
 // # Constants
 //
-//   - interface_desc XPC Dictionary Keys: XPC dictionary keys supported by the  parameter passed to the  function to describe the parameters of the network interface.
-//   - interface_param XPC Dictionary Keys: XPC dictionary keys used by the  argument returned by the completion handler of the  function that describes the parameters that should be used to configure the network interface.
-//   - event XPC Dictionary: XPC dictionary keys used by the  value returned to the client in the  callback specified by the  function that provides information about the callback event.
+//   - [interface_desc XPC Dictionary Keys]: XPC dictionary keys supported by the parameter passed to the function to describe the parameters of the network interface.
+//   - [interface_param XPC Dictionary Keys]: XPC dictionary keys used by the argument returned by the completion handler of the function that describes the parameters that should be used to configure the network interface.
+//   - [event XPC Dictionary]: XPC dictionary keys used by the value returned to the client in the callback specified by the function that provides information about the callback event.
 //
 // # Variables
 //
-//   - vmnet_enable_virtio_header_key
-//   - vmnet_read_max_packets_key
-//   - vmnet_write_max_packets_key
+//   - [vmnet_enable_virtio_header_key]
+//   - [vmnet_read_max_packets_key]
+//   - [vmnet_write_max_packets_key]
 //
 // # Functions
 //
-//   - vmnet_interface_start_with_network(_:_:_:_:)
-//   - vmnet_network_configuration_add_dhcp_reservation(_:_:_:)
-//   - vmnet_network_configuration_add_port_forwarding_rule(_:_:_:_:_:_:)
-//   - vmnet_network_configuration_create(_:_:)
-//   - vmnet_network_configuration_disable_dhcp(_:)
-//   - vmnet_network_configuration_disable_dns_proxy(_:)
-//   - vmnet_network_configuration_disable_nat44(_:)
-//   - vmnet_network_configuration_disable_nat66(_:)
-//   - vmnet_network_configuration_disable_router_advertisement(_:)
-//   - vmnet_network_configuration_set_external_interface(_:_:)
-//   - vmnet_network_configuration_set_ipv4_subnet(_:_:_:)
-//   - vmnet_network_configuration_set_ipv6_prefix(_:_:_:)
-//   - vmnet_network_configuration_set_mtu(_:_:)
-//   - vmnet_network_copy_serialization(_:_:)
-//   - vmnet_network_create(_:_:)
-//   - vmnet_network_create_with_serialization(_:_:)
-//   - vmnet_network_get_ipv4_subnet(_:_:_:)
-//   - vmnet_network_get_ipv6_prefix(_:_:_:)
+//   - [Vmnet_interface_start_with_network]
+//   - [Vmnet_network_configuration_add_dhcp_reservation]
+//   - [Vmnet_network_configuration_add_port_forwarding_rule]
+//   - [Vmnet_network_configuration_create]
+//   - [Vmnet_network_configuration_disable_dhcp]
+//   - [Vmnet_network_configuration_disable_dns_proxy]
+//   - [Vmnet_network_configuration_disable_nat44]
+//   - [Vmnet_network_configuration_disable_nat66]
+//   - [Vmnet_network_configuration_disable_router_advertisement]
+//   - [Vmnet_network_configuration_set_external_interface]
+//   - [Vmnet_network_configuration_set_ipv4_subnet]
+//   - [Vmnet_network_configuration_set_ipv6_prefix]
+//   - [Vmnet_network_configuration_set_mtu]
+//   - [Vmnet_network_copy_serialization]
+//   - [Vmnet_network_create]
+//   - [Vmnet_network_create_with_serialization]
+//   - [Vmnet_network_get_ipv4_subnet]
+//   - [Vmnet_network_get_ipv6_prefix]
+//
+// # Macros
+//
+//   - [vmnet_enable_virtio_header_key]
 //
 // # Type Aliases
 //
-//   - vmnet_mode_t
-//   - vmnet_network_configuration_ref
-//   - vmnet_network_ref
+//   - [Vmnet_mode_t]
+//   - [Vmnet_network_configuration_ref]
+//   - [Vmnet_network_ref]//
 //
-// [vmnet Documentation]: https://developer.apple.com/documentation/vmnet
+// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
+// [event XPC Dictionary]: https://developer.apple.com/documentation/vmnet/event_xpc_dictionary
+// [interface_desc XPC Dictionary Keys]: https://developer.apple.com/documentation/vmnet/interface_desc_xpc_dictionary_keys
+// [interface_param XPC Dictionary Keys]: https://developer.apple.com/documentation/vmnet/interface_param_xpc_dictionary_keys
 package vmnet
 
 import (

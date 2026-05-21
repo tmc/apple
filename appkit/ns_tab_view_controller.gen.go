@@ -64,24 +64,26 @@ func (nc NSTabViewControllerClass) Alloc() NSTabViewController {
 //
 // Another way to add tabs programmatically is to add child view controllers
 // directly to the tab view controller. When you call the
-// [AddChildViewController] or [InsertChildViewControllerAtIndex] method of
-// this class, the tab view controller automatically creates a default
-// [NSTabViewItem] object for the specified view controller. You can fetch the
-// newly created item using the [NSTabViewController.TabViewItemForViewController] method and
-// configure it. Removing a child view controller with the
-// [RemoveChildViewControllerAtIndex] method similarly removes the
-// corresponding tab view item.
+// [NSViewController.AddChildViewController] or
+// [NSViewController.InsertChildViewControllerAtIndex] method of this class,
+// the tab view controller automatically creates a default [NSTabViewItem]
+// object for the specified view controller. You can fetch the newly created
+// item using the [NSTabViewController.TabViewItemForViewController] method
+// and configure it. Removing a child view controller with the
+// [NSViewController.RemoveChildViewControllerAtIndex] method similarly
+// removes the corresponding tab view item.
 //
 // The tab view controller lazily loads the views associated with each child
 // view controller, creating them only after the corresponding tab is
 // selected. When the tab view controller’s view is first displayed, only
 // the view for the initially selected tab is loaded.
 //
-// The [NSTabViewController.TabStyle] property determines the appearance of the tab controls. A
-// tab view controller can display a segmented control or display tabs in the
-// window’s toolbar. You can also provide your own control for displaying
-// tabs. The tab view controller automatically coordinates interactions
-// between designated control and the corresponding [TabView] object.
+// The [NSTabViewController.TabStyle] property determines the appearance of
+// the tab controls. A tab view controller can display a segmented control or
+// display tabs in the window’s toolbar. You can also provide your own
+// control for displaying tabs. The tab view controller automatically
+// coordinates interactions between designated control and the corresponding
+// [NSTabViewController.TabView] object.
 //
 // # Configuring the Tab View
 //
@@ -182,9 +184,6 @@ type INSTabViewController interface {
 	// The index of the selected tab.
 	SelectedTabViewItemIndex() int
 	SetSelectedTabViewItemIndex(value int)
-
-	// An array of view controllers that are hierarchical children of the view controller.
-	Children() INSViewController
 }
 
 // Init initializes the instance.
@@ -235,9 +234,10 @@ func NewTabViewControllerWithCoder(coder foundation.INSCoder) NSTabViewControlle
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewTabViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSTabViewController {
@@ -259,9 +259,9 @@ func NewTabViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNi
 //
 // This method is a convenient way to map a tab view item to a newly added
 // child view controller. When you add child view controllers using the
-// [AddChildViewController] method, the tab view automatically controller
-// creates a new tab view item. Use this method to fetch that tab view item
-// and configure it.
+// [NSViewController.AddChildViewController] method, the tab view
+// automatically controller creates a new tab view item. Use this method to
+// fetch that tab view item and configure it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewController/tabViewItem(for:)
 func (t NSTabViewController) TabViewItemForViewController(viewController INSViewController) INSTabViewItem {
@@ -280,9 +280,10 @@ func (t NSTabViewController) TabViewItemForViewController(viewController INSView
 //
 // Use this method to add new tabs to a tab view controller. This method adds
 // the tab’s associated view controller as a child of the tab view
-// controller, so you do not need to call the [AddChildViewController] method
-// directly. The view for the new view controller is not loaded until its
-// corresponding tab is selected by the user.
+// controller, so you do not need to call the
+// [NSViewController.AddChildViewController] method directly. The view for the
+// new view controller is not loaded until its corresponding tab is selected
+// by the user.
 //
 // If you override this method, you must call `super` at some point in your
 // implementation.
@@ -306,12 +307,13 @@ func (t NSTabViewController) AddTabViewItem(tabViewItem INSTabViewItem) {
 //
 // Use this method to insert new tabs into the existing list of tabs. This
 // method adds the tab’s associated view controller as a child of the tab
-// view controller, so you do not need to call the [AddChildViewController]
-// method directly. The view for the new view controller is not loaded until
-// its corresponding tab is selected by the user.
+// view controller, so you do not need to call the
+// [NSViewController.AddChildViewController] method directly. The view for the
+// new view controller is not loaded until its corresponding tab is selected
+// by the user.
 //
 // Inserting a new tab updates the tab view interface and adjusts the value in
-// the [SelectedTabViewItemIndex] property as needed.
+// the [NSTabViewController.SelectedTabViewItemIndex] property as needed.
 //
 // If you override this method, you must call `super` at some point in your
 // implementation.
@@ -333,7 +335,8 @@ func (t NSTabViewController) InsertTabViewItemAtIndex(tabViewItem INSTabViewItem
 // view controller’s list of child view controllers. If the removed tab view
 // item is currently selected, the tab view controller selects the next item
 // (or the previous item if there is no next item). Removing the last tab view
-// item sets the [SelectedTabViewItemIndex] property to `-1`.
+// item sets the [NSTabViewController.SelectedTabViewItemIndex] property to
+// `-1`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewController/removeTabViewItem(_:)
 func (t NSTabViewController) RemoveTabViewItem(tabViewItem INSTabViewItem) {
@@ -429,15 +432,16 @@ func (t NSTabViewController) TabViewDidSelectTabViewItem(tabView INSTabView, tab
 // This method is called for tab view interfaces that use the
 // [NSTabViewControllerTabStyleToolbar] style. Use this method to create
 // toolbar items for any custom identifiers you specified in the
-// [ToolbarAllowedItemIdentifiers] and [ToolbarDefaultItemIdentifiers]
-// methods.
+// [NSTabViewController.ToolbarAllowedItemIdentifiers] and
+// [NSTabViewController.ToolbarDefaultItemIdentifiers] methods.
 //
 // If you override this method, you must call `super` at some point in your
 // implementation. The default implementation of this method returns toolbar
 // items for the tabs in the tab bar interface. The identifier for each
 // toolbar item is the same as the identifier for the corresponding tab view
-// item. Similarly, the toolbar item’s [Label], [Image] and [ToolTip]
-// properties are bound to those of the corresponding tab view item.
+// item. Similarly, the toolbar item’s [NSToolbarItem.Label],
+// [NSToolbarItem.Image] and [NSToolbarItem.ToolTip] properties are bound to
+// those of the corresponding tab view item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewController/toolbar(_:itemForItemIdentifier:willBeInsertedIntoToolbar:)
 func (t NSTabViewController) ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar(toolbar INSToolbar, itemIdentifier NSToolbarItemIdentifier, flag bool) INSToolbarItem {
@@ -453,7 +457,7 @@ func (t NSTabViewController) ToolbarItemForItemIdentifierWillBeInsertedIntoToolb
 //
 // An array of [NSString] objects, each of which contains an identifier for an
 // available toolbar item. The array must contain all of the items returned by
-// the [ToolbarDefaultItemIdentifiers] method.
+// the [NSTabViewController.ToolbarDefaultItemIdentifiers] method.
 //
 // # Discussion
 //
@@ -462,7 +466,8 @@ func (t NSTabViewController) ToolbarItemForItemIdentifierWillBeInsertedIntoToolb
 // possible items that may be included in the toolbar. The order of the items
 // in the array is used to set their position in the toolbar configuration
 // palette. If you include custom identifiers in the returned array, you must
-// also override the [ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar]
+// also override the
+// [NSTabViewController.ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar]
 // method to specify the content for those toolbar items.
 //
 // If you override this method, you must call `super` at some point in your
@@ -496,8 +501,8 @@ func (t NSTabViewController) ToolbarAllowedItemIdentifiers(toolbar INSToolbar) [
 // included. For example, include [flexibleSpace] strings as the first and
 // last elements of the array to center the remaining toolbar items. If you
 // add custom identifiers, you must also override the
-// [ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar] method to specify
-// the content for those toolbar items.
+// [NSTabViewController.ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar]
+// method to specify the content for those toolbar items.
 //
 // If you override this method, you must call `super` at some point in your
 // implementation. The default implementation of this method returns the
@@ -528,9 +533,9 @@ func (t NSTabViewController) ToolbarDefaultItemIdentifiers(toolbar INSToolbar) [
 // [NSTabViewControllerTabStyleToolbar] style. Use this method to indicate
 // which toolbar items are selectable. When an item is selected, the toolbar
 // displays it with a visual highlight and updates the
-// [SelectedTabViewItemIndex] property. Typically, the toolbar items
-// associated with tabs are selectable so that the user can tell which tab is
-// selected.
+// [NSTabViewController.SelectedTabViewItemIndex] property. Typically, the
+// toolbar items associated with tabs are selectable so that the user can tell
+// which tab is selected.
 //
 // If you override this method, you must call `super` at some point in your
 // implementation. The default implementation of this method returns the
@@ -666,19 +671,21 @@ func (t NSTabViewController) SetTabStyle(value NSTabViewControllerTabStyle) {
 //
 // Use this property to access the tab view controller’s content view. The
 // object in this property may not be the same as the one in the tab view
-// controller’s [View] property. The tab view controller works directly with
-// the [NSTabView] object, setting itself as the tab view’s delegate. You
-// must not modify the items of the tab view directly or change its delegate.
-// Instead, use the methods of this class to make your changes.
+// controller’s [NSViewController.View] property. The tab view controller
+// works directly with the [NSTabView] object, setting itself as the tab
+// view’s delegate. You must not modify the items of the tab view directly
+// or change its delegate. Instead, use the methods of this class to make your
+// changes.
 //
 // Accessing this property creates the tab view object if it does not already
 // exist. To determine whether the tab view has been created (without creating
-// it prematurely), use the [ViewLoaded] property.
+// it prematurely), use the [NSViewController.ViewLoaded] property.
 //
 // You may provide your own tab view by assigning it to this property. If you
 // do so, you must assign your custom object before the tab view controller
 // creates one of its own. In other words, you must assign your tab view
-// object to this property while the [ViewLoaded] property is still false.
+// object to this property while the [NSViewController.ViewLoaded] property is
+// still false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewController/tabView
 func (t NSTabViewController) TabView() INSTabView {
@@ -698,7 +705,7 @@ func (t NSTabViewController) SetTabView(value INSTabView) {
 // [NSViewControllerTransitionAllowUserInteraction] options.
 //
 // The tab view controller uses the
-// [TransitionFromViewControllerToViewControllerOptionsCompletionHandler]
+// [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler]
 // method to perform transitions between tabs. For more information about how
 // transitions happen, see the description of that method.
 //
@@ -717,10 +724,10 @@ func (t NSTabViewController) SetTransitionOptions(value NSViewControllerTransiti
 // # Discussion
 //
 // When this property is true and the tab view controller’s own title is
-// `nil`, the tab view controller gets its title from the [Title] property of
-// the selected child view controller. When this property is false, the tab
-// view controller always provides the title, which may be `nil`. The default
-// value of this property is true.
+// `nil`, the tab view controller gets its title from the
+// [NSViewController.Title] property of the selected child view controller.
+// When this property is false, the tab view controller always provides the
+// title, which may be `nil`. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewController/canPropagateSelectedChildViewControllerTitle
 func (t NSTabViewController) CanPropagateSelectedChildViewControllerTitle() bool {
@@ -768,18 +775,6 @@ func (t NSTabViewController) SelectedTabViewItemIndex() int {
 }
 func (t NSTabViewController) SetSelectedTabViewItemIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedTabViewItemIndex:"), value)
-}
-
-// An array of view controllers that are hierarchical children of the view
-// controller.
-//
-// See: https://developer.apple.com/documentation/appkit/nsviewcontroller/children
-func (t NSTabViewController) Children() INSViewController {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("childViewControllers"))
-	return NSViewControllerFromID(objc.ID(rv))
-}
-func (t NSTabViewController) SetChildViewControllers(value INSViewController) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChildViewControllers:"), value)
 }
 
 // Protocol methods for NSTabViewDelegate

@@ -54,9 +54,10 @@ func (uc UnitFrequencyClass) Alloc() UnitFrequency {
 // SI unit for frequency is the hertz (Hz), which is a derived as one
 // occurrence per second (`1 Hz = 1 / 1s`).
 //
-// The [NSUnitFrequency] class defines its [BaseUnit] as [Hertz], and provides
-// the following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitFrequency] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitFrequencyClass.Hertz], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,17 +59,19 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 // [NSMutableDictionary] object. This allows a single [NSObjectController]
 // instance to be used to manage many different properties referenced by
 // key-value paths. The default content object class can be changed by calling
-// [NSObjectController.ObjectClass], which subclasses must override. Your application should use
-// a custom data class that is key-value compliant whenever possible.
+// [NSObjectController.ObjectClass], which subclasses must override. Your
+// application should use a custom data class that is key-value compliant
+// whenever possible.
 //
 // # Object Controllers, Entity Mode, and Lazy Fetching
 //
 // [NSObjectController] and its subclasses, when in entity mode, can now fetch
-// lazily. With lazy fetching enabled using the property [NSObjectController.UsesLazyFetching],
-// the controller will try to fetch only a small amount of data from available
-// persistent stores. This can provide a significant improvement in memory use
-// when a large amount of content is stored on disk but just a subset of that
-// data is required in memory.
+// lazily. With lazy fetching enabled using the property
+// [NSObjectController.UsesLazyFetching], the controller will try to fetch
+// only a small amount of data from available persistent stores. This can
+// provide a significant improvement in memory use when a large amount of
+// content is stored on disk but just a subset of that data is required in
+// memory.
 //
 // When set to use lazy fetching, a controller will fetch objects in batches.
 // You can change the default batch size for your application by setting a
@@ -240,8 +243,8 @@ type INSObjectController interface {
 	// Topic: Setting the content class
 
 	// The object class to use when creating new objects.
-	ObjectClass() objc.Class
-	SetObjectClass(value objc.Class)
+	ObjectClass() objectivec.Class
+	SetObjectClass(value objectivec.Class)
 
 	// Topic: Managing objects
 
@@ -283,9 +286,9 @@ type INSObjectController interface {
 	SetFetchPredicate(value foundation.NSPredicate)
 	// The receiver’s managed object context.
 	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value unsafe.Pointer)
+	SetManagedObjectContext(value kernel.Pointer)
 	// Subclasses should override this method to customize a fetch request, for example to specify fetch limits.
-	FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error)
+	FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error)
 
 	// Topic: Obtaining selections
 
@@ -366,8 +369,8 @@ func (o NSObjectController) InitWithContent(content objectivec.IObject) NSObject
 //
 // Subclasses that implement this method are responsible for creating the new
 // content object and setting it as the receiver’s content object. This
-// method is only called if [AutomaticallyPreparesContent] has been set to
-// true.
+// method is only called if [NSObjectController.AutomaticallyPreparesContent]
+// has been set to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/prepareContent()
 func (o NSObjectController) PrepareContent() {
@@ -384,19 +387,21 @@ func (o NSObjectController) PrepareContent() {
 //
 // # Discussion
 //
-// If an entity name is set (see [EntityName]), the object created is an
-// instance of the class specified for that entity (and the object is inserted
-// into the receiver’s managed object context). Otherwise the object created
-// is an instance of the class returned by [ObjectClass].
+// If an entity name is set (see [NSObjectController.EntityName]), the object
+// created is an instance of the class specified for that entity (and the
+// object is inserted into the receiver’s managed object context). Otherwise
+// the object created is an instance of the class returned by
+// [NSObjectController.ObjectClass].
 //
 // This method is called when adding and inserting objects if
-// [AutomaticallyPreparesContent] is true.
+// [NSObjectController.AutomaticallyPreparesContent] is true.
 //
-// The default implementation assumes the class returned by [ObjectClass] has
-// a standard `init` method without arguments. If the object class being
-// controlled is [NSManagedObject] (or a subclass thereof) its designated
-// initializer ([init(entity:insertInto:)]) is called instead, using the
-// entity and managed object context specified for the receiver.
+// The default implementation assumes the class returned by
+// [NSObjectController.ObjectClass] has a standard `init` method without
+// arguments. If the object class being controlled is [NSManagedObject] (or a
+// subclass thereof) its designated initializer ([init(entity:insertInto:)])
+// is called instead, using the entity and managed object context specified
+// for the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/newObject()
 //
@@ -445,9 +450,11 @@ func (o NSObjectController) RemoveObject(object objectivec.IObject) {
 //
 // # Discussion
 //
-// Creates a new object of the appropriate entity (specified by [EntityName])
-// or class (specified by [ObjectClass])—see [NewObject]—and sets it as
-// the receiver’s content object using [AddObject].
+// Creates a new object of the appropriate entity (specified by
+// [NSObjectController.EntityName]) or class (specified by
+// [NSObjectController.ObjectClass])—see [NSTreeController.NewObject]—and
+// sets it as the receiver’s content object using
+// [NSObjectController.AddObject].
 //
 // # Special Considerations
 //
@@ -466,7 +473,8 @@ func (o NSObjectController) Add(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// Removes the receiver’s content object using [RemoveObject].
+// Removes the receiver’s content object using
+// [NSObjectController.RemoveObject].
 //
 // # Special Considerations
 //
@@ -516,8 +524,6 @@ func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
 // merge: If true, the receiver merges the existing content with the fetch result,
 // otherwise the receiver replaces the entire content with the fetch result.
 //
-// fetchRequest is a [*coredata.NSFetchRequest].
-//
 // # Discussion
 //
 // This method performs a number of actions that you cannot reproduce. To
@@ -525,7 +531,7 @@ func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
 // and then invoke `super`’s implementation with the new fetch request.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
-func (o NSObjectController) FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error) {
+func (o NSObjectController) FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -572,10 +578,10 @@ func (o NSObjectController) SetContent(value objectivec.IObject) {
 // # Discussion
 //
 // If `flag` is true and the receiver is not using a managed object context,
-// [PrepareContent] is used to create the content object. If `flag` is true
-// and a managed object context is set, the initial content is fetched from
-// the managed object context using the current fetch predicate. The default
-// is false.
+// [NSObjectController.PrepareContent] is used to create the content object.
+// If `flag` is true and a managed object context is set, the initial content
+// is fetched from the managed object context using the current fetch
+// predicate. The default is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/automaticallyPreparesContent
 func (o NSObjectController) AutomaticallyPreparesContent() bool {
@@ -595,16 +601,16 @@ func (o NSObjectController) SetAutomaticallyPreparesContent(value bool) {
 // arguments.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/objectClass
-func (o NSObjectController) ObjectClass() objc.Class {
-	rv := objc.Send[objc.Class](o.ID, objc.Sel("objectClass"))
-	return rv
+func (o NSObjectController) ObjectClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](o.ID, objc.Sel("objectClass"))
+	return objectivec.Class(rv)
 }
-func (o NSObjectController) SetObjectClass(value objc.Class) {
+func (o NSObjectController) SetObjectClass(value objectivec.Class) {
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectClass:"), value)
 }
 
 // A Boolean value that indicates whether an object can be added to the
-// receiver using [Add].
+// receiver using [NSObjectController.Add].
 //
 // # Discussion
 //
@@ -685,8 +691,8 @@ func (o NSObjectController) SetUsesLazyFetching(value bool) {
 // # Discussion
 //
 // The receiver uses `predicate` when fetching its content, for example in
-// [Fetch]. If you need to customize the fetching behavior further, you can
-// override [FetchWithRequestMergeError].
+// [NSObjectController.Fetch]. If you need to customize the fetching behavior
+// further, you can override [NSObjectController.FetchWithRequestMergeError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetchPredicate
 func (o NSObjectController) FetchPredicate() foundation.NSPredicate {
@@ -704,7 +710,7 @@ func (o NSObjectController) ManagedObjectContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("managedObjectContext"))
 	return rv
 }
-func (o NSObjectController) SetManagedObjectContext(value unsafe.Pointer) {
+func (o NSObjectController) SetManagedObjectContext(value kernel.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 

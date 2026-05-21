@@ -104,10 +104,7 @@ type IAVPlayerItemIntegratedTimelineSnapshot interface {
 	// The current date on the integrated timeline when the system created the snapshot.
 	CurrentDate() foundation.NSDate
 
-	// An immutable representation of the timeline state at time of request.
-	CurrentSnapshot() IAVPlayerItemIntegratedTimelineSnapshot
-	SetCurrentSnapshot(value IAVPlayerItemIntegratedTimelineSnapshot)
-	MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject)
+	MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -130,7 +127,7 @@ func NewAVPlayerItemIntegratedTimelineSnapshot() AVPlayerItemIntegratedTimelineS
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/mapTime:toSegment:atSegmentOffset:
-func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject) {
+func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, timeSegmentOut, segmentOffsetOut)
 }
 
@@ -139,7 +136,8 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(
 // # Discussion
 //
 // The duration property takes into account the interstitial event’s
-// [PlayoutLimit] and [ResumptionOffset] values.
+// [AVPlayerInterstitialEvent.PlayoutLimit] and
+// [AVPlayerInterstitialEvent.ResumptionOffset] values.
 //
 // Before loading the duration of the primary item, the value of this property
 // is [invalid]. For livestreams, this value is [indefinite].
@@ -200,24 +198,4 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() coremedia.CMTime {
 func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
-}
-
-// An immutable representation of the timeline state at time of request.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimeline/currentsnapshot
-func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentSnapshot() IAVPlayerItemIntegratedTimelineSnapshot {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentSnapshot"))
-	return AVPlayerItemIntegratedTimelineSnapshotFromID(objc.ID(rv))
-}
-func (p AVPlayerItemIntegratedTimelineSnapshot) SetCurrentSnapshot(value IAVPlayerItemIntegratedTimelineSnapshot) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCurrentSnapshot:"), value)
-}
-
-// A notification the system posts when the snapshot objects provided by this
-// timeline become out of sync with the current timeline state.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimeline/snapshotsoutofsyncnotification
-func (_AVPlayerItemIntegratedTimelineSnapshotClass AVPlayerItemIntegratedTimelineSnapshotClass) SnapshotsOutOfSyncNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_AVPlayerItemIntegratedTimelineSnapshotClass.class), objc.Sel("AVPlayerIntegratedTimelineSnapshotsOutOfSyncNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

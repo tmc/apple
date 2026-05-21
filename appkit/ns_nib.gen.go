@@ -57,11 +57,11 @@ func (nc NSNibClass) Alloc() NSNib {
 //
 // During the instantiation process, each object in the archive is unarchived
 // and then initialized using the method befitting its type. View classes are
-// initialized using their [InitWithFrame] method. Custom objects are
-// initialized using their `init` method. In the case of Cocoa views (and
-// custom views that have options on an associated Interface Builder palette)
-// the initialization process also reads in any values set by the user in
-// Interface Builder.
+// initialized using their [NSVisualEffectView.InitWithFrame] method. Custom
+// objects are initialized using their `init` method. In the case of Cocoa
+// views (and custom views that have options on an associated Interface
+// Builder palette) the initialization process also reads in any values set by
+// the user in Interface Builder.
 //
 // Once all objects have been instantiated and initialized from the archive,
 // the nib loading code attempts to reestablish the connections between each
@@ -90,10 +90,11 @@ func (nc NSNibClass) Alloc() NSNib {
 // performs some post-processing on the top-level objects returned from the
 // `instantiateNib...` methods. If you want to modify how nib instantiations
 // are performed, it is recommended that you override the primitive method
-// [NSNib.InstantiateWithOwnerTopLevelObjects]. Note that the instance variables of
-// [NSNib] are private and thus are not available to subclasses. Any override
-// of [NSNib.InitWithNibDataBundle] or [NSNib.InitWithNibNamedBundle] should first invoke
-// the superclass implementation.
+// [NSNib.InstantiateWithOwnerTopLevelObjects]. Note that the instance
+// variables of [NSNib] are private and thus are not available to subclasses.
+// Any override of [NSNib.InitWithNibDataBundle] or
+// [NSNib.InitWithNibNamedBundle] should first invoke the superclass
+// implementation.
 //
 // # Initializing a Nib
 //
@@ -148,6 +149,7 @@ type INSNib interface {
 	// Instantiates objects in the nib file with the specified owner.
 	InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects foundation.INSArray) bool
 
+	InitWithCoder(coder foundation.INSCoder) NSNib
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -168,6 +170,13 @@ func NewNSNib() NSNib {
 	class := getNSNibClass()
 	rv := objc.Send[NSNib](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSNib/init(coder:)
+func NewNibWithCoder(coder foundation.INSCoder) NSNib {
+	instance := getNSNibClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSNibFromID(rv)
 }
 
 // Initializes an instance with nib data and specified bundle for locating
@@ -298,6 +307,12 @@ func (n NSNib) InitWithNibDataBundle(nibData foundation.NSData, bundle foundatio
 // See: https://developer.apple.com/documentation/AppKit/NSNib/instantiate(withOwner:topLevelObjects:)
 func (n NSNib) InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects foundation.INSArray) bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("instantiateWithOwner:topLevelObjects:"), owner, topLevelObjects)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSNib/init(coder:)
+func (n NSNib) InitWithCoder(coder foundation.INSCoder) NSNib {
+	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (n NSNib) EncodeWithCoder(coder foundation.INSCoder) {

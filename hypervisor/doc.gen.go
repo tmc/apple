@@ -2,33 +2,42 @@
 
 // Package hypervisor provides Go bindings for the Hypervisor framework.
 //
-// Build virtualization solutions on top of a lightweight hypervisor, without third-party kernel extensions.
+// Build virtualization solutions on top of a lightweight hypervisor, without
+// third-party kernel extensions.
 //
-// Hypervisor provides C APIs so you can interact with virtualization technologies in user space, without writing kernel extensions (KEXTs). As a result, the apps you create using this framework are suitable for distribution on the [Mac App Store](<https://www.appstore.com/>).
+// Hypervisor provides C APIs so you can interact with virtualization
+// technologies in user space, without writing kernel extensions (KEXTs). As a
+// result, the apps you create using this framework are suitable for
+// distribution on the Mac App Store.
+//
+// Mac App Store: https://www.appstore.com/
 //
 // # Platforms
 //
-//   - Apple Silicon: Create and run virtual machines on Apple silicon. ([OSHVVmConfig], [HVVmConfig], [HVReturn])
-//   - Intel-based Mac: Create and run virtual machines on Intel-based Mac computers. ([HVVmOptions], [HVCapability], [HVIonMessage], [HVIonFlags], [HVReturn])
+//   - [Apple Silicon]: Create and run virtual machines on Apple silicon. ([OSHVVmConfig], [HVVmConfig], [HVReturn])
+//   - [Intel-based Mac]: Create and run virtual machines on Intel-based Mac computers. ([HVVmOptions], [HVCapability], [HVIonMessage], [HVIonFlags], [HVReturn])
 //
 // # Entitlements
 //
-//   - com.apple.security.hypervisor: A Boolean value that indicates whether the app creates and manages virtual machines.
-//   - com.apple.vm.networking: A Boolean that indicates whether the app manages virtual network interfaces without escalating privileges to the root user.
-//   - com.apple.vm.device-access: A Boolean value that indicates whether the app captures USB devices and uses them in the guest-operating system.
-//
-// # Variables
-//
-//   - HV_IPA_GRANULE_16KB
-//   - HV_IPA_GRANULE_4KB
+//   - [com.apple.security.hypervisor]: A Boolean value that indicates whether the app creates and manages virtual machines.
+//   - [com.apple.vm.networking]: A Boolean that indicates whether the app manages virtual network interfaces without escalating privileges to the root user.
+//   - [com.apple.vm.device-access]: A Boolean value that indicates whether the app captures USB devices and uses them in the guest-operating system.
 //
 // # Functions
 //
-//   - hv_vm_config_get_default_ipa_granule(_:)
-//   - hv_vm_config_get_ipa_granule(_:_:)
-//   - hv_vm_config_set_ipa_granule(_:_:)
+//   - [HVVmConfigGetDefaultIPAGranule]
+//   - [HVVmConfigGetIPAGranule]
+//   - [HVVmConfigSetIPAGranule]
 //
-// [Hypervisor Documentation]: https://developer.apple.com/documentation/Hypervisor
+// # Enumerations
+//
+//   - [HVIPAGranule]//
+//
+// [Apple Silicon]: https://developer.apple.com/documentation/hypervisor/apple-silicon
+// [Intel-based Mac]: https://developer.apple.com/documentation/hypervisor/intel-based-mac
+// [com.apple.security.hypervisor]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.hypervisor
+// [com.apple.vm.device-access]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.device-access
+// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
 package hypervisor
 
 import (

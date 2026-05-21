@@ -64,9 +64,10 @@ func AVAssetResourceLoaderDelegateObjectFromID(id objc.ID) AVAssetResourceLoader
 //
 // You can load the resource synchronously or asynchronously. In both cases,
 // you must indicate success or failure of the operation by calling the
-// [finishLoading(with:data:redirect:)] or [FinishLoadingWithError] method of
-// the request object when you finish. If you load the resource
-// asynchronously, you must also store a strong reference to the object in the
+// [finishLoading(with:data:redirect:)] or
+// [AVAssetResourceLoadingRequest.FinishLoadingWithError] method of the
+// request object when you finish. If you load the resource asynchronously,
+// you must also store a strong reference to the object in the
 // `loadingRequest` parameter before returning from this method.
 //
 // If you return false from this method, the resource loader treats the

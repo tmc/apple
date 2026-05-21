@@ -53,7 +53,8 @@ func (mc MTL4IndirectInstanceAccelerationStructureDescriptorClass) Alloc() MTL4I
 //
 // You specify the properties of the instances in the acceleration structure
 // this descriptor builds by providing a buffer of `structs` via its
-// [MTL4IndirectInstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer] property.
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer]
+// property.
 //
 // Compared to [MTL4InstanceAccelerationStructureDescriptor], this descriptor
 // allows you to provide the number of instances it references indirectly
@@ -62,7 +63,10 @@ func (mc MTL4IndirectInstanceAccelerationStructureDescriptorClass) Alloc() MTL4I
 // This enables you to determine these counts indirectly in the GPU timeline
 // via a compute pipeline. Metal needs only to know the maximum possible
 // number of instances and motion transforms to support, which you specify via
-// the [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxInstanceCount] and [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxMotionTransformCount] properties.
+// the [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxInstanceCount]
+// and
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxMotionTransformCount]
+// properties.
 //
 // Use a [MTLResidencySet] to mark residency of all buffers and acceleration
 // structures this descriptor references when you build this acceleration
@@ -204,7 +208,8 @@ func NewMTL4IndirectInstanceAccelerationStructureDescriptor() MTL4IndirectInstan
 //
 // You are responsible for ensuring that the final number of instances at
 // build time, which you provide indirectly via this buffer reference , is
-// less than or equal to the value of property [MaxInstanceCount].
+// less than or equal to the value of property
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxInstanceCount].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4IndirectInstanceAccelerationStructureDescriptor/instanceCountBuffer
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) InstanceCountBuffer() MTL4BufferRange {
@@ -222,7 +227,8 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceCountBuf
 //
 // This buffer conceptually represents an array of instance data. The specific
 // format for the structs that comprise each entry depends on the value of the
-// [InstanceDescriptorType] property.
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.InstanceDescriptorType]
+// property.
 //
 // You are responsible for ensuring the buffer address the range contains is
 // not zero.
@@ -284,7 +290,11 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceDescript
 // # Discussion
 //
 // Metal interprets the value of this property as the layout for the buffers
-// that both [InstanceDescriptorBuffer] and [MotionTransformBuffer] reference.
+// that both
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer]
+// and
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.MotionTransformBuffer]
+// reference.
 //
 // Defaults to [MTLMatrixLayoutColumnMajor].
 //
@@ -304,7 +314,8 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceTransfor
 //
 // You are responsible for ensuring that the final number of instances at
 // build time, which you provide indirectly via a buffer reference in
-// [InstanceCountBuffer], is less than or equal to this number.
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.InstanceCountBuffer],
+// is less than or equal to this number.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4IndirectInstanceAccelerationStructureDescriptor/maxInstanceCount
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MaxInstanceCount() uint {
@@ -321,8 +332,9 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMaxInstanceCount
 // # Discussion
 //
 // You are responsible for ensuring that final number of motion transforms at
-// build time that the buffer [MotionTransformCountBuffer] references is less
-// than or equal to this number.
+// build time that the buffer
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.MotionTransformCountBuffer]
+// references is less than or equal to this number.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4IndirectInstanceAccelerationStructureDescriptor/maxMotionTransformCount
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MaxMotionTransformCount() uint {
@@ -360,7 +372,8 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMotionTransformB
 //
 // You are responsible for ensuring that the final number of motion transforms
 // at build time in the buffer this property references is less than or equal
-// to the value of property [MaxMotionTransformCount].
+// to the value of property
+// [MTL4IndirectInstanceAccelerationStructureDescriptor.MaxMotionTransformCount].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4IndirectInstanceAccelerationStructureDescriptor/motionTransformCountBuffer
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MotionTransformCountBuffer() MTL4BufferRange {

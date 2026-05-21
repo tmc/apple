@@ -161,9 +161,9 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidNotSearch(browser
 //
 // # Discussion
 //
-// When `netServiceBrowser` receives a [Stop] message from its client,
-// `netServiceBrowser` sends a “ message to its delegate. The delegate then
-// performs any necessary cleanup.
+// When `netServiceBrowser` receives a [NSNetServiceBrowser.Stop] message from
+// its client, `netServiceBrowser` sends a “ message to its delegate. The
+// delegate then performs any necessary cleanup.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowserDidStopSearch(_:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidStopSearch(browser INSNetServiceBrowser) {

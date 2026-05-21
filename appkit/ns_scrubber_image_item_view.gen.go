@@ -47,13 +47,14 @@ func (nc NSScrubberImageItemViewClass) Alloc() NSScrubberImageItemView {
 //
 // # Overview
 //
-// Provide the image you want to display in the scrubber item to the [Image]
-// property. If you want finer control over the appearance of the image, you
-// can access the underlying image view using the [ImageView] property.
+// Provide the image you want to display in the scrubber item to the
+// [NSScrubberImageItemView.Image] property. If you want finer control over
+// the appearance of the image, you can access the underlying image view using
+// the [NSScrubberImageItemView.ImageView] property.
 //
 // The image is scaled proportionally to fit the view’s frame. Use the
-// [NSScrubberImageItemView.ImageAlignment] property to determine how the scaled image is cropped
-// within that frame.
+// [NSScrubberImageItemView.ImageAlignment] property to determine how the
+// scaled image is cropped within that frame.
 //
 // # Providing image content
 //
@@ -185,7 +186,7 @@ func (s NSScrubberImageItemView) SetImage(value INSImage) {
 // # Discussion
 //
 // Use this property to access and configure the underlying image view used to
-// display the image in the [Image] property.
+// display the image in the [NSScrubberImageItemView.Image] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberImageItemView/imageView
 func (s NSScrubberImageItemView) ImageView() INSImageView {

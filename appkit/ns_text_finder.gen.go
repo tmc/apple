@@ -57,29 +57,30 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 //
 // All menu items related to finding (Find…, Find Next, Find Previous, Use
 // Selection for Find, etc.) should have the same action,
-// [PerformTextFinderAction], which gets sent down the responder chain in the
-// standard method.
+// [NSResponder.PerformTextFinderAction], which gets sent down the responder
+// chain in the standard method.
 //
 // # Implementing a Find Bar
 //
-// A responder of [PerformTextFinderAction] is responsible for creating and
-// owning an instance of [NSTextFinder]. Before any other messages are sent to
-// the [NSTextFinder], you should set its [NSTextFinder.Client] property to an object which
-// implements the [NSTextFinderClient] protocol.
+// A responder of [NSResponder.PerformTextFinderAction] is responsible for
+// creating and owning an instance of [NSTextFinder]. Before any other
+// messages are sent to the [NSTextFinder], you should set its
+// [NSTextFinder.Client] property to an object which implements the
+// [NSTextFinderClient] protocol.
 //
 // Each user interface item used for finding has a different tag value , which
 // corresponds to the appropriate value in [NSTextFinder.Action]. Upon receipt
-// of the [PerformTextFinderAction] message, the responder should call the
-// following on its [NSTextFinder] instance:
+// of the [NSResponder.PerformTextFinderAction] message, the responder should
+// call the following on its [NSTextFinder] instance:
 //
 // This method will determine the desired action from the tag and make various
-// callbacks to [NSTextFinder.Client] to perform that action. These callbacks are defined
-// in the [NSTextFinderClient] protocol.
+// callbacks to [NSTextFinder.Client] to perform that action. These callbacks
+// are defined in the [NSTextFinderClient] protocol.
 //
 // Validation occurs by a similar pattern. The responder should implement
 // [ValidateUserInterfaceItem] and, when the item’s action is the
-// [PerformTextFinderAction] method, it should pass the item’s tag to the
-// following method and return the result:
+// [NSResponder.PerformTextFinderAction] method, it should pass the item’s
+// tag to the following method and return the result:
 //
 // This method will invoke the required client methods to determine what the
 // appropriate response should be. These callbacks are also defined in the
@@ -126,33 +127,34 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // [StringAtIndexEffectiveRangeEndsWithSearchBoundary] will be used by
 // default.
 //
-// The text finder may require additional information from the [NSTextFinder.Client] object
-// to perform an action, or it may require the `client` to perform some parts
-// of the action on its behalf. The methods and properties described in
-// [NSTextFinder] describes the hooks the text finder requires for each of the
-// actions it supports. If the client does not implement one of these methods
-// or properties, then the action that requires it will be disabled.
+// The text finder may require additional information from the
+// [NSTextFinder.Client] object to perform an action, or it may require the
+// `client` to perform some parts of the action on its behalf. The methods and
+// properties described in [NSTextFinder] describes the hooks the text finder
+// requires for each of the actions it supports. If the client does not
+// implement one of these methods or properties, then the action that requires
+// it will be disabled.
 //
 // # Text Finder Client Implementation Requirements
 //
 // The text finder’s client may implement the following properties for by
-// the [NSTextFinder.ValidateAction] method: [NSTextFinder.IsSelectable], [NSTextFinder.AllowsMultipleSelection], and
-// `editable`. If any of these properties is not implemented, a value of true
-// is assumed. Returning false from any of these methods will disable the
-// actions that require them. For more information about these properties see
-// [NSTextFinderClient].
+// the [NSTextFinder.ValidateAction] method: [IsSelectable],
+// [AllowsMultipleSelection], and `editable`. If any of these properties is
+// not implemented, a value of true is assumed. Returning false from any of
+// these methods will disable the actions that require them. For more
+// information about these properties see [NSTextFinderClient].
 //
 // The following implementation’s are required by the text client to support
 // the specified actions:
 //
-// - The [NSTextFinderClient] protocol must implement the [NSTextFinder.FirstSelectedRange]
+// - The [NSTextFinderClient] protocol must implement the [FirstSelectedRange]
 // property to support the following functionality:
 // [NSTextFinderActionNextMatch], [NSTextFinderActionPreviousMatch],
 // [NSTextFinderActionReplace], [NSTextFinderActionReplaceAndFind], and
 // [NSTextFinderActionSetSearchString] actions. The `client` implementation of
-// [NSTextFinder.FirstSelectedRange] needs to return its first selected range, or {index,
+// [FirstSelectedRange] needs to return its first selected range, or {index,
 // 0} to indicate the location of the insertion point if there is no
-// selection. - The [NSTextFinder.SelectedRanges] property is required for the
+// selection. - The [SelectedRanges] property is required for the
 // [NSTextFinderActionReplaceAllInSelection], [NSTextFinderActionSelectAll],
 // and [NSTextFinderActionSelectAllInSelection] actions. The array should
 // contain [NSRange] structures wrapped in [NSValue] instances. - The
@@ -163,13 +165,14 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // used by the [NSTextFinderActionReplace], [NSTextFinderActionReplaceAll],
 // [NSTextFinderActionReplaceAllInSelection], and
 // [NSTextFinderActionReplaceAndFind] actions. The NSTextFinder instance does
-// not have the ability to directly make changes to the [NSTextFinder.Client] content, so
-// the `client` is responsible for performing replace operations in these
-// methods. - Before a replace operation is performed, the [NSTextFinder]
-// instance calls the [ShouldReplaceCharactersInRangesWithStrings] method to
-// determine if a replacement should take place. If it returns false, then the
-// given range will not be replaced. If the method returns true, or is not
-// implemented, then the [NSTextFinder] instance will call the
+// not have the ability to directly make changes to the [NSTextFinder.Client]
+// content, so the `client` is responsible for performing replace operations
+// in these methods. - Before a replace operation is performed, the
+// [NSTextFinder] instance calls the
+// [ShouldReplaceCharactersInRangesWithStrings] method to determine if a
+// replacement should take place. If it returns false, then the given range
+// will not be replaced. If the method returns true, or is not implemented,
+// then the [NSTextFinder] instance will call the
 // [ReplaceCharactersInRangeWithString] method, instructing the `client` to
 // carry out the replacement. Finally, the [DidReplaceCharacters] method will
 // be called, if implemented, to indicate that the replacement was completed.
@@ -186,18 +189,18 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // clients with minimal additional API.
 //
 // Incremental searching can be enabled by setting the
-// [NSTextFinder.IncrementalSearchingEnabled] property true. This property alone is
-// sufficient to start searching incrementally.
+// [NSTextFinder.IncrementalSearchingEnabled] property true. This property
+// alone is sufficient to start searching incrementally.
 //
 // For improved responsiveness, when a document is sufficiently long, the text
 // finder will search the document in the background. To ensure thread-safety,
 // a client using incremental search must call the
-// [NSTextFinder.NoteClientStringWillChange] method before any changes are made to the
-// string provided to the text finder.
+// [NSTextFinder.NoteClientStringWillChange] method before any changes are
+// made to the string provided to the text finder.
 //
 // During incremental search, all visible matches are highlighted. If the
 // `client` object that conforms to the [NSTextFinderClient] protocol
-// implements the read-only [NSTextFinder.VisibleCharacterRanges] property, then by default
+// implements the read-only [VisibleCharacterRanges] property, then by default
 // a gray overlay will appear over your find bar container’s content view
 // with transparent areas for each match. This view should be a superview of
 // all subviews reported by the text finder client. The [NSScrollView] class
@@ -214,17 +217,18 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // # Replacing Text
 //
 // The text replacement methods:[NSTextFinder.Action],
-// [NSTextFinder.FindIndicatorNeedsUpdate], and [NSTextFinder.ValidateAction] are used by the replace,
-// replace all, replace all in section, and replace and find actions.
+// [NSTextFinder.FindIndicatorNeedsUpdate], and [NSTextFinder.ValidateAction]
+// are used by the replace, replace all, replace all in section, and replace
+// and find actions.
 //
 // Before a replace operation is performed, the [NSTextFinder] instance calls
 // the `client` object’s [NSTextFinder.Action] method to determine if a
 // replacement should take place. If it returns false, then the characters in
 // the given ranges will not be replaced. If the method returns true, or is
-// not implemented, then the second method, [NSTextFinder.FindIndicatorNeedsUpdate],
-// instructing the client to carry out the replacement. Finally,
-// [NSTextFinder.ValidateAction], if implemented, is invoked to indicate that the
-// replacement was completed.
+// not implemented, then the second method,
+// [NSTextFinder.FindIndicatorNeedsUpdate], instructing the client to carry
+// out the replacement. Finally, [NSTextFinder.ValidateAction], if
+// implemented, is invoked to indicate that the replacement was completed.
 //
 // For replace all actions, these methods will be called multiple times,
 // starting from the last match and moving toward the first, in order to
@@ -235,14 +239,15 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // In order to display the find bar, a container for the find bar must be
 // specified. The container is an object that conforms to the
 // [NSTextFinderBarContainer] protocol. You specify a find bar container using
-// the following NSTextFinder class’s [NSTextFinder.FindBarContainer] property.
+// the following NSTextFinder class’s [NSTextFinder.FindBarContainer]
+// property.
 //
 // When a new NSTextFinder instance is created and instructed to display the
 // find bar, it will create a view for the find bar and assign that to the
-// container via the [NSTextFinderBarContainer] class’s [NSTextFinder.FindBarView]
+// container via the [NSTextFinderBarContainer] class’s [FindBarView]
 // property. The container then owns that view and should release it when the
 // container is deallocated. The container should make the find bar visible
-// when the container’s [NSTextFinder.IsFindBarVisible] property is set to true. The
+// when the container’s [IsFindBarVisible] property is set to true. The
 // container should implement the [FindBarViewDidChangeHeight] method so it
 // can reposition the find bar when its height changes, usually in response to
 // user action.
@@ -258,17 +263,18 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // order to support the find bar for any document view searched by the find
 // bar. The find bar can be positioned either above or below the document view
 // by assigning one of the values of the [NSScrollView.FindBarPosition]
-// constants to the [NSTextFinder.FindBarPosition] property.
+// constants to the [NSScrollView.FindBarPosition] property.
 //
 // # Text View Support for the Find Bar
 //
 // The [NSTextView] class also supports the find bar. The find bar can be
-// enabled or disabled on a text view with the [NSTextFinder.UsesFindBar] property.
+// enabled or disabled on a text view with the [NSTextView.UsesFindBar]
+// property.
 //
 // Since OS X v10.5, the [NSTextView] class has used an animated find
 // indicator to give feedback to the user about a successful find action. The
 // find indicator could be activated manually on an text view via the
-// [ShowFindIndicatorForRange] method.
+// [NSTextView.ShowFindIndicatorForRange] method.
 //
 // To provide this functionality for text finder clients in OS X v10.7, the
 // [NSTextFinder] class shows the find indicator at the appropriate time
@@ -302,9 +308,9 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // the find indicator should be immediately cancelled and hidden, such as when
 // the view’s content or selection is changed without the knowledge of the
 // text finder . The find indicator can be cancelled using the [NSTextFinder]
-// [NSTextFinder.CancelFindIndicator] method. If your document is not scrolled by
-// [NSScrollView], then you should set the [NSTextFinder.FindIndicatorNeedsUpdate] property
-// to true.
+// [NSTextFinder.CancelFindIndicator] method. If your document is not scrolled
+// by [NSScrollView], then you should set the
+// [NSTextFinder.FindIndicatorNeedsUpdate] property to true.
 //
 // [NSTextFinder] is responsible for drawing the yellow find indicator
 // background bezel, but the view must provide the contents. [NSTextFinder]
@@ -324,9 +330,9 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 //
 // In OS X v10.7, the [NSTextView] class also provides incremental search
 // support. It is disabled by default, but can be enabled by setting the
-// [NSTextFinder.IncrementalSearchingEnabled] property to true. Also, because incremental
-// searching requires the find bar, [NSTextFinder.UsesFindBar] must be set to true for
-// incremental searching to be occur.
+// [NSTextView.IncrementalSearchingEnabled] property to true. Also, because
+// incremental searching requires the find bar, [NSTextView.UsesFindBar] must
+// be set to true for incremental searching to be occur.
 //
 // # Validating and Performing Text Finding
 //
@@ -474,35 +480,6 @@ type INSTextFinder interface {
 
 	InitWithCoder(coder foundation.INSCoder) NSTextFinder
 
-	// Returns whether multiple items can be selected.
-	AllowsMultipleSelection() bool
-	SetAllowsMultipleSelection(value bool)
-	// The position of the find bar.
-	FindBarPosition() NSScrollViewFindBarPosition
-	SetFindBarPosition(value NSScrollViewFindBarPosition)
-	// The view assigned by the text bar as the find bar view for the container.
-	FindBarView() INSView
-	SetFindBarView(value INSView)
-	// Returns the currently selected range.
-	FirstSelectedRange() foundation.NSRange
-	SetFirstSelectedRange(value foundation.NSRange)
-	// Returns whether the container should display its find bar.
-	IsFindBarVisible() bool
-	SetFindBarVisible(value bool)
-	// Returns whether the text is selectable.
-	IsSelectable() bool
-	SetSelectable(value bool)
-	// Returns an array of selected ranges.
-	SelectedRanges() foundation.NSValue
-	SetSelectedRanges(value foundation.NSValue)
-	// Type for the Find panel metadata property list.
-	TextFinderOptions() NSPasteboardType
-	// A Boolean value that indicates whether to use the find bar for this text view.
-	UsesFindBar() bool
-	SetUsesFindBar(value bool)
-	// An array of visible character ranges.
-	VisibleCharacterRanges() foundation.NSValue
-	SetVisibleCharacterRanges(value foundation.NSValue)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -538,15 +515,15 @@ func NewTextFinderWithCoder(coder foundation.INSCoder) NSTextFinder {
 //
 // # Discussion
 //
-// Objects that respond to [PerformTextFinderAction] typically call
-// [ValidateAction] to ensure that the action is valid and then invoke
-// [PerformAction] if validation is successful.
+// Objects that respond to [NSResponder.PerformTextFinderAction] typically
+// call [NSTextFinder.ValidateAction] to ensure that the action is valid and
+// then invoke [NSTextFinder.PerformAction] if validation is successful.
 //
-// When invoking the [ValidateAction] and [PerformAction] the item or
-// sender’s tag should be passed as the parameter. By convention, the
-// `sender` parameter for this method will have an [NSTextFinder.Action] set
-// as its tag. The responder that receives this method should pass the tag as
-// the action for this method:
+// When invoking the [NSTextFinder.ValidateAction] and
+// [NSTextFinder.PerformAction] the item or sender’s tag should be passed as
+// the parameter. By convention, the `sender` parameter for this method will
+// have an [NSTextFinder.Action] set as its tag. The responder that receives
+// this method should pass the tag as the action for this method:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinder/performAction(_:)
 //
@@ -567,14 +544,14 @@ func (t NSTextFinder) PerformAction(op NSTextFinderAction) {
 //
 // # Discussion
 //
-// Responders the [NSResponder] method [PerformTextFinderAction] should call
-// this method.
+// Responders the [NSResponder] method [NSResponder.PerformTextFinderAction]
+// should call this method.
 //
 // This method should be called by an implementation of
 // [ValidateUserInterfaceItem] to properly validate items with an action of
-// [PerformTextFinderAction]. The responder’s [ValidateUserInterfaceItem] or
-// [validateMenuItem:] implementation should pass the tag as the action for
-// this method..
+// [NSResponder.PerformTextFinderAction]. The responder’s
+// [ValidateUserInterfaceItem] or [validateMenuItem:] implementation should
+// pass the tag as the action for this method..
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinder/validateAction(_:)
 //
@@ -632,10 +609,10 @@ func (t NSTextFinder) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // # Discussion
 //
-// If [IncrementalSearchingShouldDimContentView] is false, it is recommended
-// to highlight incremental matches in your own view. However, some
-// applications may choose to show incremental search values in a different
-// manner.
+// If [NSTextFinder.IncrementalSearchingShouldDimContentView] is false, it is
+// recommended to highlight incremental matches in your own view. However,
+// some applications may choose to show incremental search values in a
+// different manner.
 //
 // This method is not recommended to be overridden. The text finder never
 // calls it. The view calls it to get the standard highlight behavior. It is
@@ -645,8 +622,8 @@ func (t NSTextFinder) EncodeWithCoder(coder foundation.INSCoder) {
 // the view.
 //
 // The common usage pattern for this is: draw the background, draw the
-// incremental match highlights for the [IncrementalMatchRanges], and then
-// draw the text.
+// incremental match highlights for the [NSTextFinder.IncrementalMatchRanges],
+// and then draw the text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinder/drawIncrementalMatchHighlight(in:)
 func (_NSTextFinderClass NSTextFinderClass) DrawIncrementalMatchHighlightInRect(rect corefoundation.CGRect) {
@@ -708,9 +685,9 @@ func (t NSTextFinder) SetClient(value NSTextFinderClient) {
 //
 // # Discussion
 //
-// If the [Client] object’s document is not scrolled by an instance of
-// [NSScrollView], then set this property to true when scrolling occurs to
-// cause the find indicator to be updated appropriately.
+// If the [NSTextFinder.Client] object’s document is not scrolled by an
+// instance of [NSScrollView], then set this property to true when scrolling
+// occurs to cause the find indicator to be updated appropriately.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinder/findIndicatorNeedsUpdate
 func (t NSTextFinder) FindIndicatorNeedsUpdate() bool {
@@ -789,112 +766,4 @@ func (t NSTextFinder) IncrementalSearchingShouldDimContentView() bool {
 }
 func (t NSTextFinder) SetIncrementalSearchingShouldDimContentView(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncrementalSearchingShouldDimContentView:"), value)
-}
-
-// Returns whether multiple items can be selected.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/allowsmultipleselection
-func (t NSTextFinder) AllowsMultipleSelection() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("allowsMultipleSelection"))
-	return rv
-}
-func (t NSTextFinder) SetAllowsMultipleSelection(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAllowsMultipleSelection:"), value)
-}
-
-// The position of the find bar.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscrollview/findbarposition-swift.property
-func (t NSTextFinder) FindBarPosition() NSScrollViewFindBarPosition {
-	rv := objc.Send[NSScrollViewFindBarPosition](t.ID, objc.Sel("findBarPosition"))
-	return NSScrollViewFindBarPosition(rv)
-}
-func (t NSTextFinder) SetFindBarPosition(value NSScrollViewFindBarPosition) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFindBarPosition:"), value)
-}
-
-// The view assigned by the text bar as the find bar view for the container.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderbarcontainer/findbarview
-func (t NSTextFinder) FindBarView() INSView {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("findBarView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (t NSTextFinder) SetFindBarView(value INSView) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFindBarView:"), value)
-}
-
-// Returns the currently selected range.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/firstselectedrange
-func (t NSTextFinder) FirstSelectedRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("firstSelectedRange"))
-	return foundation.NSRange(rv)
-}
-func (t NSTextFinder) SetFirstSelectedRange(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFirstSelectedRange:"), value)
-}
-
-// Returns whether the container should display its find bar.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderbarcontainer/isfindbarvisible
-func (t NSTextFinder) IsFindBarVisible() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("findBarVisible"))
-	return rv
-}
-func (t NSTextFinder) SetFindBarVisible(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFindBarVisible:"), value)
-}
-
-// Returns whether the text is selectable.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/isselectable
-func (t NSTextFinder) IsSelectable() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("selectable"))
-	return rv
-}
-func (t NSTextFinder) SetSelectable(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSelectable:"), value)
-}
-
-// Returns an array of selected ranges.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/selectedranges
-func (t NSTextFinder) SelectedRanges() foundation.NSValue {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectedRanges"))
-	return foundation.NSValueFromID(objc.ID(rv))
-}
-func (t NSTextFinder) SetSelectedRanges(value foundation.NSValue) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSelectedRanges:"), value)
-}
-
-// Type for the Find panel metadata property list.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/textfinderoptions
-func (t NSTextFinder) TextFinderOptions() NSPasteboardType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSPasteboardTypeTextFinderOptions"))
-	return NSPasteboardType(foundation.NSStringFromID(rv).String())
-}
-
-// A Boolean value that indicates whether to use the find bar for this text
-// view.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextview/usesfindbar
-func (t NSTextFinder) UsesFindBar() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("usesFindBar"))
-	return rv
-}
-func (t NSTextFinder) SetUsesFindBar(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUsesFindBar:"), value)
-}
-
-// An array of visible character ranges.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/visiblecharacterranges
-func (t NSTextFinder) VisibleCharacterRanges() foundation.NSValue {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("visibleCharacterRanges"))
-	return foundation.NSValueFromID(objc.ID(rv))
-}
-func (t NSTextFinder) SetVisibleCharacterRanges(value foundation.NSValue) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVisibleCharacterRanges:"), value)
 }

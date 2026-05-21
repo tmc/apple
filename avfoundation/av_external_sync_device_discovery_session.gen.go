@@ -49,8 +49,8 @@ func (ac AVExternalSyncDeviceDiscoverySessionClass) Alloc() AVExternalSyncDevice
 //
 // [AVExternalSyncDeviceDiscoverySession] is a singleton that lists the
 // external sync devices connected to the host. The client is expected to
-// key-value observe the [AVExternalSyncDeviceDiscoverySession.Devices] property for changes to the external sync
-// devices list.
+// key-value observe the [AVExternalSyncDeviceDiscoverySession.Devices]
+// property for changes to the external sync devices list.
 //
 // # Finding devices
 //

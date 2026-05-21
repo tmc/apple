@@ -217,9 +217,9 @@ func (n NotificationQueue) EnqueueNotificationPostingStyleCoalesceMaskForModes(n
 // # Discussion
 //
 // This is a convenience method for calling
-// [EnqueueNotificationPostingStyleCoalesceMaskForModes] with coalescing
-// criteria that will coalesce only notifications that match both the
-// notification’s name and object and the runloop mode [default].
+// [NSNotificationQueue.EnqueueNotificationPostingStyleCoalesceMaskForModes]
+// with coalescing criteria that will coalesce only notifications that match
+// both the notification’s name and object and the runloop mode [default].
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/enqueue(_:postingStyle:)
 //

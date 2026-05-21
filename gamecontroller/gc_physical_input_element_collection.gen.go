@@ -5,7 +5,7 @@ package gamecontroller
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreservices"
+	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -97,9 +97,9 @@ type IGCPhysicalInputElementCollection interface {
 	// Topic: Accessing elements by key and alias
 
 	// Returns the element in the collection for the specified key.
-	ObjectForKeyedSubscript(key coreservices.Key) objectivec.IObject
+	ObjectForKeyedSubscript(key coreml.MLKey) objectivec.IObject
 	// Returns the element in the collection that uses the specified alias.
-	ElementForAlias(alias coreservices.Key) objectivec.IObject
+	ElementForAlias(alias coreml.MLKey) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -142,7 +142,7 @@ func (g GCPhysicalInputElementCollection) ElementEnumerator() foundation.NSEnume
 // An element in the collection.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElementCollection-c.class/objectForKeyedSubscript:
-func (g GCPhysicalInputElementCollection) ObjectForKeyedSubscript(key coreservices.Key) objectivec.IObject {
+func (g GCPhysicalInputElementCollection) ObjectForKeyedSubscript(key coreml.MLKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("objectForKeyedSubscript:"), key)
 	return objectivec.Object{ID: rv}
 }
@@ -156,7 +156,7 @@ func (g GCPhysicalInputElementCollection) ObjectForKeyedSubscript(key coreservic
 // An element in the collection.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElementCollection-c.class/elementForAlias:
-func (g GCPhysicalInputElementCollection) ElementForAlias(alias coreservices.Key) objectivec.IObject {
+func (g GCPhysicalInputElementCollection) ElementForAlias(alias coreml.MLKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementForAlias:"), alias)
 	return objectivec.Object{ID: rv}
 }

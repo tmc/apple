@@ -196,6 +196,7 @@ type ICIFilterGenerator interface {
 	// Creates a filter object based on the filter chain.
 	Filter() CIFilter
 
+	InitWithCoder(coder foundation.INSCoder) CIFilterGenerator
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -216,6 +217,13 @@ func NewCIFilterGenerator() CIFilterGenerator {
 	class := getCIFilterGeneratorClass()
 	rv := objc.Send[CIFilterGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/init(coder:)
+func NewFilterGeneratorWithCoder(coder foundation.INSCoder) CIFilterGenerator {
+	instance := getCIFilterGeneratorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIFilterGeneratorFromID(rv)
 }
 
 // Initializes a filter generator object with the contents of a filter
@@ -379,7 +387,8 @@ func (f CIFilterGenerator) WriteToURLAtomically(aURL foundation.NSURL, flag bool
 //
 // This method allows you to register the filter chain as a named filter in
 // the Core Image filter repository. You can then create a [CIFilter] object
-// from it using the [FilterWithName] method of the [CIFilter] class.
+// from it using the [CIRAWFilterClass.FilterWithName] method of the
+// [CIFilter] class.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/registerFilterName(_:)
 func (f CIFilterGenerator) RegisterFilterName(name string) {
@@ -415,14 +424,20 @@ func (f CIFilterGenerator) Filter() CIFilter {
 // # Discussion
 //
 // Core Image calls this method when a filter is requested by name using the
-// [CIFilter] class method [FilterWithName] method (or related methods). Your
-// implementation of this method should provide a new instance of the
-// [CIFilter] subclass for your custom filter.
+// [CIFilter] class method [CIRAWFilterClass.FilterWithName] method (or
+// related methods). Your implementation of this method should provide a new
+// instance of the [CIFilter] subclass for your custom filter.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
 func (f CIFilterGenerator) FilterWithName(name string) CIFilter {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filterWithName:"), objc.String(name))
 	return CIFilterFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/init(coder:)
+func (f CIFilterGenerator) InitWithCoder(coder foundation.INSCoder) CIFilterGenerator {
+	rv := objc.Send[CIFilterGenerator](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (f CIFilterGenerator) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -473,8 +488,9 @@ func (_CIFilterGeneratorClass CIFilterGeneratorClass) FilterGeneratorWithContent
 // # Discussion
 //
 // This method returns the keys that you exported using the
-// [ExportKeyFromObjectWithName] method or that were exported before being
-// written to the file from which you read the filter chain.
+// [CIFilterGenerator.ExportKeyFromObjectWithName] method or that were
+// exported before being written to the file from which you read the filter
+// chain.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/exportedKeys
 //

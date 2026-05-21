@@ -4,9 +4,7 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -64,9 +62,10 @@ func (cc CKFetchShareParticipantsOperationClass) Alloc() CKFetchShareParticipant
 //
 // CloudKit queries iCloud for corresponding accounts as part of the
 // operation. If it doesn’t find an account, the server updates the
-// participant’s [CKFetchShareParticipantsOperation.UserIdentity] to reflect that by setting the
-// [CKFetchShareParticipantsOperation.HasiCloudAccount] property to false. CloudKit associates a participant
-// with their iCloud account when they accept the share.
+// participant’s [CKShareParticipant.UserIdentity] to reflect that by
+// setting the [CKUserIdentity.HasiCloudAccount] property to false. CloudKit
+// associates a participant with their iCloud account when they accept the
+// share.
 //
 // Anyone with the URL of a public share can become a participant in that
 // share. For a private share, the owner manages its participants. A
@@ -82,9 +81,9 @@ func (cc CKFetchShareParticipantsOperationClass) Alloc() CKFetchShareParticipant
 // The operation calls [shareParticipantFetchedBlock] once for each item you
 // provide, and CloudKit returns the participant, or an error if it can’t
 // generate a particpant. CloudKit also batches per-participant errors. If the
-// operation completes with errors, it returns a [CKFetchShareParticipantsOperation.PartialFailure] error. The
-// error stores the individual errors in its [CKFetchShareParticipantsOperation.UserInfo] dictionary. Use the
-// [CKFetchShareParticipantsOperation.CKPartialErrorsByItemIDKey] key to extract them.
+// operation completes with errors, it returns a [partialFailure] error. The
+// error stores the individual errors in its [userInfo] dictionary. Use the
+// [CKPartialErrorsByItemIDKey] key to extract them.
 //
 // # Creating an Operation
 //
@@ -95,16 +94,12 @@ func (cc CKFetchShareParticipantsOperationClass) Alloc() CKFetchShareParticipant
 //   - [CKFetchShareParticipantsOperation.UserIdentityLookupInfos]: The user data for the participants.
 //   - [CKFetchShareParticipantsOperation.SetUserIdentityLookupInfos]
 //
-// # Instance Properties
-//
-//   - [CKFetchShareParticipantsOperation.FetchShareParticipantsResultBlock]: The closure to execute when the operation finishes.
-//   - [CKFetchShareParticipantsOperation.SetFetchShareParticipantsResultBlock]
-//   - [CKFetchShareParticipantsOperation.PerShareParticipantResultBlock]: The closure to execute as the operation generates individual participants.
-//   - [CKFetchShareParticipantsOperation.SetPerShareParticipantResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchShareParticipantsOperation
 //
+// [CKPartialErrorsByItemIDKey]: https://developer.apple.com/documentation/CloudKit/CKPartialErrorsByItemIDKey
+// [partialFailure]: https://developer.apple.com/documentation/CloudKit/CKError/partialFailure
 // [shareParticipantFetchedBlock]: https://developer.apple.com/documentation/CloudKit/CKFetchShareParticipantsOperation/shareParticipantFetchedBlock
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSError/userInfo
 type CKFetchShareParticipantsOperation struct {
 	CKOperation
 }
@@ -130,13 +125,6 @@ func CKFetchShareParticipantsOperationFromID(id objc.ID) CKFetchShareParticipant
 //   - [ICKFetchShareParticipantsOperation.UserIdentityLookupInfos]: The user data for the participants.
 //   - [ICKFetchShareParticipantsOperation.SetUserIdentityLookupInfos]
 //
-// # Instance Properties
-//
-//   - [ICKFetchShareParticipantsOperation.FetchShareParticipantsResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKFetchShareParticipantsOperation.SetFetchShareParticipantsResultBlock]
-//   - [ICKFetchShareParticipantsOperation.PerShareParticipantResultBlock]: The closure to execute as the operation generates individual participants.
-//   - [ICKFetchShareParticipantsOperation.SetPerShareParticipantResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchShareParticipantsOperation
 type ICKFetchShareParticipantsOperation interface {
 	ICKOperation
@@ -151,30 +139,6 @@ type ICKFetchShareParticipantsOperation interface {
 	// The user data for the participants.
 	UserIdentityLookupInfos() []CKUserIdentityLookupInfo
 	SetUserIdentityLookupInfos(value []CKUserIdentityLookupInfo)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	FetchShareParticipantsResultBlock() unsafe.Pointer
-	SetFetchShareParticipantsResultBlock(value unsafe.Pointer)
-	// The closure to execute as the operation generates individual participants.
-	PerShareParticipantResultBlock() unsafe.Pointer
-	SetPerShareParticipantResultBlock(value unsafe.Pointer)
-
-	// The key to retrieve partial errors.
-	CKPartialErrorsByItemIDKey() string
-	// A Boolean value that indicates whether the user has an iCloud account.
-	HasiCloudAccount() bool
-	SetHasiCloudAccount(value bool)
-	// An error that occurs when an operation completes with partial failures.
-	PartialFailure() CKErrorCode
-	SetPartialFailure(value CKErrorCode)
-	// The identity of the participant.
-	UserIdentity() ICKUserIdentity
-	SetUserIdentity(value ICKUserIdentity)
-	// The user info dictionary.
-	UserInfo() string
-	SetUserInfo(value string)
 }
 
 // Init initializes the instance.
@@ -200,8 +164,8 @@ func NewCKFetchShareParticipantsOperation() CKFetchShareParticipantsOperation {
 // user data.
 //
 // userIdentityLookupInfos: The user data for the participants. If you specify `nil`, you must assign a
-// value to the [UserIdentityLookupInfos] property before you execute this
-// operation.
+// value to the [CKFetchShareParticipantsOperation.UserIdentityLookupInfos]
+// property before you execute this operation.
 //
 // # Discussion
 //
@@ -221,8 +185,8 @@ func NewCKFetchShareParticipantsOperationWithUserIdentityLookupInfos(userIdentit
 // user data.
 //
 // userIdentityLookupInfos: The user data for the participants. If you specify `nil`, you must assign a
-// value to the [UserIdentityLookupInfos] property before you execute this
-// operation.
+// value to the [CKFetchShareParticipantsOperation.UserIdentityLookupInfos]
+// property before you execute this operation.
 //
 // # Discussion
 //
@@ -254,78 +218,4 @@ func (c CKFetchShareParticipantsOperation) UserIdentityLookupInfos() []CKUserIde
 }
 func (c CKFetchShareParticipantsOperation) SetUserIdentityLookupInfos(value []CKUserIdentityLookupInfo) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUserIdentityLookupInfos:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchshareparticipantsoperation/fetchshareparticipantsresultblock
-func (c CKFetchShareParticipantsOperation) FetchShareParticipantsResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchShareParticipantsResultBlock"))
-	return rv
-}
-func (c CKFetchShareParticipantsOperation) SetFetchShareParticipantsResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchShareParticipantsResultBlock:"), value)
-}
-
-// The closure to execute as the operation generates individual participants.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchshareparticipantsoperation/pershareparticipantresultblock
-func (c CKFetchShareParticipantsOperation) PerShareParticipantResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perShareParticipantResultBlock"))
-	return rv
-}
-func (c CKFetchShareParticipantsOperation) SetPerShareParticipantResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerShareParticipantResultBlock:"), value)
-}
-
-// The key to retrieve partial errors.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckpartialerrorsbyitemidkey
-func (c CKFetchShareParticipantsOperation) CKPartialErrorsByItemIDKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKPartialErrorsByItemIDKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Boolean value that indicates whether the user has an iCloud account.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckuseridentity/hasicloudaccount
-func (c CKFetchShareParticipantsOperation) HasiCloudAccount() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("hasiCloudAccount"))
-	return rv
-}
-func (c CKFetchShareParticipantsOperation) SetHasiCloudAccount(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setHasiCloudAccount:"), value)
-}
-
-// An error that occurs when an operation completes with partial failures.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckerror/partialfailure
-func (c CKFetchShareParticipantsOperation) PartialFailure() CKErrorCode {
-	rv := objc.Send[CKErrorCode](c.ID, objc.Sel("partialFailure"))
-	return CKErrorCode(rv)
-}
-func (c CKFetchShareParticipantsOperation) SetPartialFailure(value CKErrorCode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPartialFailure:"), value)
-}
-
-// The identity of the participant.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/participant/useridentity
-func (c CKFetchShareParticipantsOperation) UserIdentity() ICKUserIdentity {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userIdentity"))
-	return CKUserIdentityFromID(objc.ID(rv))
-}
-func (c CKFetchShareParticipantsOperation) SetUserIdentity(value ICKUserIdentity) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserIdentity:"), value)
-}
-
-// The user info dictionary.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSError/userInfo
-func (c CKFetchShareParticipantsOperation) UserInfo() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userInfo"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKFetchShareParticipantsOperation) SetUserInfo(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserInfo:"), objc.String(value))
 }

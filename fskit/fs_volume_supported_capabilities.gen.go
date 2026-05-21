@@ -271,12 +271,6 @@ type IFSVolumeSupportedCapabilities interface {
 	CaseFormat() FSVolumeCaseFormat
 	SetCaseFormat(value FSVolumeCaseFormat)
 
-	// A property that provides the supported capabilities of the volume.
-	SupportedVolumeCapabilities() IFSVolumeSupportedCapabilities
-	SetSupportedVolumeCapabilities(value IFSVolumeSupportedCapabilities)
-	// A property that provides up-to-date statistics of the volume.
-	VolumeStatistics() IFSStatFSResult
-	SetVolumeStatistics(value IFSStatFSResult)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -598,26 +592,4 @@ func (v FSVolumeSupportedCapabilities) CaseFormat() FSVolumeCaseFormat {
 }
 func (v FSVolumeSupportedCapabilities) SetCaseFormat(value FSVolumeCaseFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCaseFormat:"), value)
-}
-
-// A property that provides the supported capabilities of the volume.
-//
-// See: https://developer.apple.com/documentation/fskit/fsvolume/operations/supportedvolumecapabilities
-func (v FSVolumeSupportedCapabilities) SupportedVolumeCapabilities() IFSVolumeSupportedCapabilities {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("supportedVolumeCapabilities"))
-	return FSVolumeSupportedCapabilitiesFromID(objc.ID(rv))
-}
-func (v FSVolumeSupportedCapabilities) SetSupportedVolumeCapabilities(value IFSVolumeSupportedCapabilities) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSupportedVolumeCapabilities:"), value)
-}
-
-// A property that provides up-to-date statistics of the volume.
-//
-// See: https://developer.apple.com/documentation/fskit/fsvolume/operations/volumestatistics
-func (v FSVolumeSupportedCapabilities) VolumeStatistics() IFSStatFSResult {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("volumeStatistics"))
-	return FSStatFSResultFromID(objc.ID(rv))
-}
-func (v FSVolumeSupportedCapabilities) SetVolumeStatistics(value IFSStatFSResult) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVolumeStatistics:"), value)
 }

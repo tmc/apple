@@ -48,8 +48,9 @@ func (nc NSTrackingSeparatorToolbarItemClass) Alloc() NSTrackingSeparatorToolbar
 //
 // Use a [NSTrackingSeparatorToolbarItem] to divide an [NSToolbar] into
 // sections that visually align with the views on either side of the divider
-// of the [SplitView]. This keeps [NSToolbarItem]s above the content that’s
-// the [NSTrackingSeparatorToolbarItem.Target] for the item’s [NSTrackingSeparatorToolbarItem.Target].
+// of the [NSTrackingSeparatorToolbarItem.SplitView]. This keeps
+// [NSToolbarItem]s above the content that’s the [NSToolbarItem.Target] for
+// the item’s [NSToolbarItem.Target].
 //
 // The `splitView` must be in the same window as the toolbar containing this
 // item before showing the toolbar.

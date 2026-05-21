@@ -242,9 +242,10 @@ func (w WKWebExtensionAction) BadgeText() string {
 //
 // # Discussion
 //
-// This property is automatically set to [YES] when [BadgeText] changes and is
-// not empty. If [BadgeText] becomes empty or the popup associated with the
-// action is presented, this property is automatically set to [NO].
+// This property is automatically set to [YES] when
+// [WKWebExtensionAction.BadgeText] changes and is not empty. If
+// [WKWebExtensionAction.BadgeText] becomes empty or the popup associated with
+// the action is presented, this property is automatically set to [NO].
 // Additionally, it should be set to [NO] by the app when the badge has been
 // presented to the user. This property is useful for higher-level
 // notification badges when extensions might be hidden behind an action sheet.
@@ -315,9 +316,10 @@ func (w WKWebExtensionAction) MenuItems() []appkit.NSMenuItem {
 //
 // This popover contains a view controller with a web view preloaded with the
 // pop-up page. It automatically adjusts its size to fit the web view’s
-// content size. The [PresentsPopup] property should be checked to determine
-// the availability of a pop-up before using this property. Dismissing the
-// popover will close the pop-up and unload the web view.
+// content size. The [WKWebExtensionAction.PresentsPopup] property should be
+// checked to determine the availability of a pop-up before using this
+// property. Dismissing the popover will close the pop-up and unload the web
+// view.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/popupPopover
 func (w WKWebExtensionAction) PopupPopover() appkit.NSPopover {
@@ -331,8 +333,9 @@ func (w WKWebExtensionAction) PopupPopover() appkit.NSPopover {
 // # Discussion
 //
 // The web view will be preloaded with the pop-up page upon first access or
-// after it has been unloaded. Use the [PresentsPopup] property to determine
-// whether a pop-up should be displayed before using this property.
+// after it has been unloaded. Use the [WKWebExtensionAction.PresentsPopup]
+// property to determine whether a pop-up should be displayed before using
+// this property.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/popupWebView
 func (w WKWebExtensionAction) PopupWebView() IWKWebView {

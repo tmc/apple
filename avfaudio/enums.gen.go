@@ -666,7 +666,7 @@ const (
 	AVAudioSessionCategoryOptionMixWithOthers AVAudioSessionCategoryOptions = 0x1
 	// AVAudioSessionCategoryOptionOverrideMutedMicrophoneInterruption: An option that indicates whether the system interrupts the audio session when it mutes the built-in microphone.
 	AVAudioSessionCategoryOptionOverrideMutedMicrophoneInterruption AVAudioSessionCategoryOptions = 0x80
-	// Deprecated.
+	// Deprecated: use AVAudioSessionCategoryOptionAllowBluetoothHFP.
 	AVAudioSessionCategoryOptionAllowBluetooth AVAudioSessionCategoryOptions = 0x4
 )
 
@@ -778,7 +778,7 @@ func (e AVAudioSessionIOType) String() string {
 type AVAudioSessionInterruptionFlags uint
 
 const (
-	// Deprecated.
+	// Deprecated: use AVAudioSessionInterruptionOptions.
 	AVAudioSessionInterruptionFlags_ShouldResume AVAudioSessionInterruptionFlags = 1
 )
 
@@ -932,11 +932,11 @@ func (e AVAudioSessionPromptStyle) String() string {
 type AVAudioSessionRecordPermission uint
 
 const (
-	// Deprecated.
+	// Deprecated: use AVAudioSessionRecordPermissionDenied.
 	AVAudioSessionRecordPermissionDenied AVAudioSessionRecordPermission = 'd'<<24 | 'e'<<16 | 'n'<<8 | 'y' // 'deny'
-	// Deprecated.
+	// Deprecated: use AVAudioSessionRecordPermissionGranted.
 	AVAudioSessionRecordPermissionGranted AVAudioSessionRecordPermission = 'g'<<24 | 'r'<<16 | 'n'<<8 | 't' // 'grnt'
-	// Deprecated.
+	// Deprecated: use AVAudioSessionRecordPermissionUndetermined.
 	AVAudioSessionRecordPermissionUndetermined AVAudioSessionRecordPermission = 'u'<<24 | 'n'<<16 | 'd'<<8 | 't' // 'undt'
 )
 
@@ -1052,7 +1052,7 @@ const (
 	AVAudioSessionRouteSharingPolicyLongFormAudio AVAudioSessionRouteSharingPolicy = 1
 	// AVAudioSessionRouteSharingPolicyLongFormVideo: A policy that routes output to the shared long-form video output.
 	AVAudioSessionRouteSharingPolicyLongFormVideo AVAudioSessionRouteSharingPolicy = 3
-	// Deprecated.
+	// Deprecated: use AVAudioSessionRouteSharingPolicyLongFormAudio.
 	AVAudioSessionRouteSharingPolicyLongForm AVAudioSessionRouteSharingPolicy = 1
 )
 
@@ -1074,7 +1074,7 @@ func (e AVAudioSessionRouteSharingPolicy) String() string {
 type AVAudioSessionSetActiveFlags uint
 
 const (
-	// Deprecated.
+	// Deprecated: use AVAudioSessionSetActiveOptions.
 	AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation AVAudioSessionSetActiveFlags = 1
 )
 

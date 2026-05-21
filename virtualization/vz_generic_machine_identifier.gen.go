@@ -47,7 +47,8 @@ func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 //
 // # Overview
 //
-// Use the data representation in [VZGenericMachineIdentifier.DataRepresentation] to save the VM’s
+// Use the data representation in
+// [VZGenericMachineIdentifier.DataRepresentation] to save the VM’s
 // identifier. To restore a previously saved identifier use
 // [VZGenericMachineIdentifier.InitWithDataRepresentation].
 //
@@ -97,13 +98,6 @@ type IVZGenericMachineIdentifier interface {
 
 	// An opaque data representation of the VM’s identifier.
 	DataRepresentation() foundation.NSData
-
-	// A Boolean value that indicates whether nested virtualization is in an enabled state.
-	IsNestedVirtualizationEnabled() bool
-	SetNestedVirtualizationEnabled(value bool)
-	// A value that represents a unique identifier for the virtual machine.
-	MachineIdentifier() IVZGenericMachineIdentifier
-	SetMachineIdentifier(value IVZGenericMachineIdentifier)
 }
 
 // Init initializes the instance.
@@ -152,39 +146,4 @@ func (g VZGenericMachineIdentifier) InitWithDataRepresentation(dataRepresentatio
 func (g VZGenericMachineIdentifier) DataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
-}
-
-// A Boolean value that indicates whether nested virtualization is in an
-// enabled state.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/isnestedvirtualizationenabled
-func (g VZGenericMachineIdentifier) IsNestedVirtualizationEnabled() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("nestedVirtualizationEnabled"))
-	return rv
-}
-func (g VZGenericMachineIdentifier) SetNestedVirtualizationEnabled(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
-}
-
-// A value that represents a unique identifier for the virtual machine.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/machineidentifier
-func (g VZGenericMachineIdentifier) MachineIdentifier() IVZGenericMachineIdentifier {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("machineIdentifier"))
-	return VZGenericMachineIdentifierFromID(objc.ID(rv))
-}
-func (g VZGenericMachineIdentifier) SetMachineIdentifier(value IVZGenericMachineIdentifier) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMachineIdentifier:"), value)
-}
-
-// A Boolean value that describes whether the platform configuration supports
-// nested virtualization.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/isnestedvirtualizationsupported
-func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) IsNestedVirtualizationSupported() bool {
-	rv := objc.Send[bool](objc.ID(_VZGenericMachineIdentifierClass.class), objc.Sel("nestedVirtualizationSupported"))
-	return rv
-}
-func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) SetNestedVirtualizationSupported(value bool) {
-	objc.Send[struct{}](objc.ID(_VZGenericMachineIdentifierClass.class), objc.Sel("setNestedVirtualizationSupported:"), value)
 }

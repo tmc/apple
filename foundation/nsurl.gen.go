@@ -146,24 +146,24 @@ func (nc NSURLClass) Alloc() NSURL {
 //
 // If `startAccessingSecurityScopedResource` (or
 // [CFUrLStartAccessingSecurityScopedResource]) returns true, you must
-// relinquish your access by calling the [NSURL.StopAccessingSecurityScopedResource]
-// method (or its Core Foundation equivalent, the
-// [CFURLStopAccessingSecurityScopedResource(_:)] function). You should
-// relinquish your access as soon as you have finished using the file. After
-// you call these methods, you immediately lose access to the resource in
-// question.
+// relinquish your access by calling the
+// [NSURL.StopAccessingSecurityScopedResource] method (or its Core Foundation
+// equivalent, the [CFURLStopAccessingSecurityScopedResource(_:)] function).
+// You should relinquish your access as soon as you have finished using the
+// file. After you call these methods, you immediately lose access to the
+// resource in question.
 //
 // # Security-Scoped URLs and String Paths
 //
 // In a macOS app, when you copy a security-scoped URL, the copy has the
 // security scope of the original. You gain access to the file-system resource
 // (that the URL points to) just as you would with the original URL: by
-// calling the [NSURL.StartAccessingSecurityScopedResource] method (or its Core
-// Foundation equivalent).
+// calling the [NSURL.StartAccessingSecurityScopedResource] method (or its
+// Core Foundation equivalent).
 //
 // If you need a security-scoped URL’s path as a string value (as provided
-// by the [NSURL.Path] method), such as to provide to an API that requires a string
-// value, obtain the path from the URL as needed. Note, however, that a
+// by the [NSURL.Path] method), such as to provide to an API that requires a
+// string value, obtain the path from the URL as needed. Note, however, that a
 // string-based path obtained from a security-scoped URL have security scope
 // and you cannot use that string to obtain access to a security-scoped
 // resource.
@@ -266,10 +266,9 @@ func (nc NSURLClass) Alloc() NSURL {
 //
 //   - [NSURL.WriteToPasteboard]: Writes the URL to the specified pasteboard.
 //
-// # Using Quick Looks
+// # Initializers
 //
-//   - [NSURL.CustomPlaygroundQuickLook]: A custom playground Quick Look for this instance.
-//   - [NSURL.SetCustomPlaygroundQuickLook]
+//   - [NSURL.InitWithPasteboardPropertyListOfType]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL
 //
@@ -397,10 +396,9 @@ func NSURLFromID(id objc.ID) NSURL {
 //
 //   - [INSURL.WriteToPasteboard]: Writes the URL to the specified pasteboard.
 //
-// # Using Quick Looks
+// # Initializers
 //
-//   - [INSURL.CustomPlaygroundQuickLook]: A custom playground Quick Look for this instance.
-//   - [INSURL.SetCustomPlaygroundQuickLook]
+//   - [INSURL.InitWithPasteboardPropertyListOfType]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL
 type INSURL interface {
@@ -422,7 +420,7 @@ type INSURL interface {
 	// Initializes a newly created NSURL referencing the local file or directory at `path`.
 	InitFileURLWithPath(path string) NSURL
 	// Initializes a newly created NSURL that points to a location specified by resolving bookmark data.
-	InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale unsafe.Pointer) (NSURL, error)
+	InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale *bool) (NSURL, error)
 	// Fills the provided buffer with a C string representing a local file system path.
 	GetFileSystemRepresentationMaxLength(buffer string, maxBufferLength uint) bool
 	// Initializes a URL object with a C string representing a local file system path.
@@ -548,11 +546,9 @@ type INSURL interface {
 	// Writes the URL to the specified pasteboard.
 	WriteToPasteboard(pasteBoard objectivec.IObject)
 
-	// Topic: Using Quick Looks
+	// Topic: Initializers
 
-	// A custom playground Quick Look for this instance.
-	CustomPlaygroundQuickLook() unsafe.Pointer
-	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
+	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ INSString) NSURL
 }
 
 // Init initializes the instance.
@@ -598,7 +594,8 @@ func NewURLAbsoluteURLWithDataRepresentationRelativeToURL(data INSData, baseURL 
 //
 // Creates and initializes a new URL based on the alias file at `url`. Use
 // this method to resolve bookmark data that was saved using
-// [WriteBookmarkDataToURLOptionsError] and resolves that data in one step.
+// [NSURLClass.WriteBookmarkDataToURLOptionsError] and resolves that data in
+// one step.
 //
 // If the `url` argument does not refer to an alias file as defined by the
 // [NSURLIsAliasFileKey] property, this method returns the `url` argument.
@@ -635,7 +632,7 @@ func NewURLByResolvingAliasFileAtURLOptionsError(url INSURL, options NSURLBookma
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(resolvingBookmarkData:options:relativeTo:bookmarkDataIsStale:)
-func NewURLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale unsafe.Pointer) (NSURL, error) {
+func NewURLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale *bool) (NSURL, error) {
 	var errorPtr objc.ID
 	instance := getNSURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:"), bookmarkData, options, relativeURL, isStale, unsafe.Pointer(&errorPtr))
@@ -679,9 +676,9 @@ func NewURLFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path stri
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // # Return Value
 //
@@ -699,8 +696,8 @@ func NewURLFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path stri
 // does not exist in the file system, the method assumes that it represents a
 // file and does not append a trailing slash.
 //
-// As an alternative, consider using [InitFileURLWithPathIsDirectory], which
-// allows you to explicitly specify whether the returned [NSURL] object
+// As an alternative, consider using [NSURL.InitFileURLWithPathIsDirectory],
+// which allows you to explicitly specify whether the returned [NSURL] object
 // represents a file or directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithPath:)
@@ -718,9 +715,9 @@ func NewURLFileURLWithPath(path string) NSURL {
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // isDir: A Boolean value that specifies whether `path` is treated as a directory
 // path when resolving against relative path components. Pass true if the
@@ -774,7 +771,7 @@ func NewURLFromPasteboard(pasteBoard objectivec.IObject) NSURL {
 	return NSURLFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSURL/init(coder:)
 func NewURLWithCoder(coder INSCoder) NSURL {
 	instance := getNSURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -785,6 +782,13 @@ func NewURLWithCoder(coder INSCoder) NSURL {
 func NewURLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
 	instance := getNSURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataRepresentation:relativeToURL:"), data, baseURL)
+	return NSURLFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Foundation/NSURL/init(pasteboardPropertyList:ofType:)
+func NewURLWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ INSString) NSURL {
+	instance := getNSURLClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, type_)
 	return NSURLFromID(rv)
 }
 
@@ -872,7 +876,8 @@ func NewURLWithStringEncodingInvalidCharacters(URLString string, encodingInvalid
 // characters must be properly percent encoded. Any percent-encoded characters
 // are interpreted using UTF-8 encoding.
 //
-// [InitWithStringRelativeToURL] is the designated initializer for NSURL.
+// [NSURL.InitWithStringRelativeToURL] is the designated initializer for
+// NSURL.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(string:relativeTo:)
 func NewURLWithStringRelativeToURL(URLString string, baseURL INSURL) NSURL {
@@ -963,7 +968,8 @@ func (u NSURL) InitWithStringEncodingInvalidCharacters(URLString string, encodin
 // characters must be properly percent encoded. Any percent-encoded characters
 // are interpreted using UTF-8 encoding.
 //
-// [InitWithStringRelativeToURL] is the designated initializer for NSURL.
+// [NSURL.InitWithStringRelativeToURL] is the designated initializer for
+// NSURL.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(string:relativeTo:)
 func (u NSURL) InitWithStringRelativeToURL(URLString string, baseURL INSURL) NSURL {
@@ -976,9 +982,9 @@ func (u NSURL) InitWithStringRelativeToURL(URLString string, baseURL INSURL) NSU
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // isDir: A Boolean value that specifies whether `path` is treated as a directory
 // path when resolving against relative path components. Pass true if the
@@ -1019,9 +1025,9 @@ func (u NSURL) InitFileURLWithPathIsDirectoryRelativeToURL(path string, isDir bo
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // # Return Value
 //
@@ -1039,8 +1045,8 @@ func (u NSURL) InitFileURLWithPathIsDirectoryRelativeToURL(path string, isDir bo
 // does not exist in the file system, the method assumes that it represents a
 // file and does not append a trailing slash.
 //
-// As an alternative, consider using [InitFileURLWithPathIsDirectory], which
-// allows you to explicitly specify whether the returned [NSURL] object
+// As an alternative, consider using [NSURL.InitFileURLWithPathIsDirectory],
+// which allows you to explicitly specify whether the returned [NSURL] object
 // represents a file or directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithPath:)
@@ -1070,7 +1076,7 @@ func (u NSURL) InitFileURLWithPath(path string) NSURL {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(resolvingBookmarkData:options:relativeTo:bookmarkDataIsStale:)
-func (u NSURL) InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale unsafe.Pointer) (NSURL, error) {
+func (u NSURL) InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale *bool) (NSURL, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:"), bookmarkData, options, relativeURL, isStale, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1326,7 +1332,7 @@ func (u NSURL) SetResourceValueForKeyError(value objectivec.IObject, key NSURLRe
 //
 // The order in which the resource values are set is not defined. If you need
 // to guarantee the order in which resource values are set, you should make
-// multiple requests to this method or [SetResourceValueForKeyError].
+// multiple requests to this method or [NSURL.SetResourceValueForKeyError].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/setResourceValues(_:)
 func (u NSURL) SetResourceValuesError(keyedValues INSDictionary) (bool, error) {
@@ -1389,12 +1395,12 @@ func (u NSURL) RemoveCachedResourceValueForKey(key NSURLResourceKey) {
 // for an app-defined resource value key in memory without modifying the
 // actual resource that the URL represents. Once set, you can copy the
 // temporary resource value from the URL object just as you would copy
-// system-defined keys—by calling [GetResourceValueForKeyError] or
-// [ResourceValuesForKeysError].
+// system-defined keys—by calling [NSURL.GetResourceValueForKeyError] or
+// [NSURL.ResourceValuesForKeysError].
 //
 // Your app can remove a temporary resource value from the URL object by
-// calling [RemoveCachedResourceValueForKey] or
-// [RemoveAllCachedResourceValues] (to remove all temporary values).
+// calling [NSURL.RemoveCachedResourceValueForKey] or
+// [NSURL.RemoveAllCachedResourceValues] (to remove all temporary values).
 //
 // This method is applicable only to URLs for file system resources.
 //
@@ -1454,8 +1460,8 @@ func (u NSURL) FileReferenceURL() INSURL {
 // resulting path is a directory. This is done synchronously, and may have
 // significant performance costs if the receiver is a location on a network
 // mounted filesystem. You can instead call the
-// [URLByAppendingPathComponentIsDirectory] method if you know whether the
-// resulting path is a directory to avoid this file metadata operation.
+// [NSURL.URLByAppendingPathComponentIsDirectory] method if you know whether
+// the resulting path is a directory to avoid this file metadata operation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/appendingPathComponent(_:)
 func (u NSURL) URLByAppendingPathComponent(pathComponent string) INSURL {
@@ -1594,7 +1600,8 @@ func (u NSURL) URLByAppendingPathExtensionForType(contentType objectivec.IObject
 //
 // keys: An array of names of URL resource properties to store as part of the
 // bookmark. You can later access these values (without resolving the
-// bookmark) by calling the [ResourceValuesForKeysFromBookmarkData] method.
+// bookmark) by calling the [NSURLClass.ResourceValuesForKeysFromBookmarkData]
+// method.
 //
 // The values of these properties must be of a type that the bookmark
 // generation code can serialize. Specifically, the values can contain any of
@@ -1680,12 +1687,13 @@ func (u NSURL) BookmarkDataWithOptionsIncludingResourceValuesForKeysRelativeToUR
 // [CFURLStartAccessingSecurityScopedResource(_:)] function.
 //
 // If this method returns true, then you must relinquish access as soon as you
-// finish using the resource. Call the [StopAccessingSecurityScopedResource]
-// method to relinquish access. You must balance each call to
-// [StartAccessingSecurityScopedResource] for a given security-scoped URL with
-// a call to [StopAccessingSecurityScopedResource]. When you make the last
-// balanced call to [StopAccessingSecurityScopedResource], you immediately
-// lose access to the resource in question.
+// finish using the resource. Call the
+// [NSURL.StopAccessingSecurityScopedResource] method to relinquish access.
+// You must balance each call to [NSURL.StartAccessingSecurityScopedResource]
+// for a given security-scoped URL with a call to
+// [NSURL.StopAccessingSecurityScopedResource]. When you make the last
+// balanced call to [NSURL.StopAccessingSecurityScopedResource], you
+// immediately lose access to the resource in question.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/startAccessingSecurityScopedResource()
 //
@@ -1706,11 +1714,11 @@ func (u NSURL) StartAccessingSecurityScopedResource() bool {
 // use its Core Foundation equivalent, the
 // [CFURLStopAccessingSecurityScopedResource(_:)] function.
 //
-// You must balance each call to [StartAccessingSecurityScopedResource] for a
-// given security-scoped URL with a call to
-// [StopAccessingSecurityScopedResource]. When you make the last balanced call
-// to [StopAccessingSecurityScopedResource], you immediately lose access to
-// the resource in question.
+// You must balance each call to [NSURL.StartAccessingSecurityScopedResource]
+// for a given security-scoped URL with a call to
+// [NSURL.StopAccessingSecurityScopedResource]. When you make the last
+// balanced call to [NSURL.StopAccessingSecurityScopedResource], you
+// immediately lose access to the resource in question.
 //
 // If you call this method on a URL whose referenced resource you don’t have
 // access to, nothing happens.
@@ -1733,11 +1741,11 @@ func (u NSURL) StopAccessingSecurityScopedResource() {
 // # Discussion
 //
 // This method behaves identically to
-// [CheckResourceIsReachableAndReturnError], but works on promised items. A
-// promised item is not guaranteed to have its contents in the file system
-// until you use a file coordinator to perform a coordinated read on its URL,
-// which causes the contents to be downloaded or otherwise generated. Promised
-// item URLs are returned by various APIs, including:
+// [NSURL.CheckResourceIsReachableAndReturnError], but works on promised
+// items. A promised item is not guaranteed to have its contents in the file
+// system until you use a file coordinator to perform a coordinated read on
+// its URL, which causes the contents to be downloaded or otherwise generated.
+// Promised item URLs are returned by various APIs, including:
 //
 // - A metadata query using either the [NSMetadataQueryUbiquitousDataScope] or
 // [NSMetadataQueryUbiquitousDocumentsScope] scopes - The contents of the
@@ -1779,9 +1787,9 @@ func (u NSURL) CheckPromisedItemIsReachableAndReturnError() (bool, error) {
 //
 // # Discussion
 //
-// This method behaves identically to [GetResourceValueForKeyError], but works
-// on promised items. A promised item is not guaranteed to have its contents
-// in the file system until you use a file coordinator to perform a
+// This method behaves identically to [NSURL.GetResourceValueForKeyError], but
+// works on promised items. A promised item is not guaranteed to have its
+// contents in the file system until you use a file coordinator to perform a
 // coordinated read on its URL, which causes the contents to be downloaded or
 // otherwise generated. Promised item URLs are returned by various APIs,
 // including:
@@ -1834,9 +1842,9 @@ func (u NSURL) GetPromisedItemResourceValueForKeyError(value []objectivec.IObjec
 //
 // # Discussion
 //
-// This method behaves identically to [ResourceValuesForKeysError], but works
-// on promised items. A promised item is not guaranteed to have its contents
-// in the file system until you use a file coordinator to perform a
+// This method behaves identically to [NSURL.ResourceValuesForKeysError], but
+// works on promised items. A promised item is not guaranteed to have its
+// contents in the file system until you use a file coordinator to perform a
 // coordinated read on its URL, which causes the contents to be downloaded or
 // otherwise generated. Promised item URLs are returned by various APIs,
 // including:
@@ -1891,6 +1899,12 @@ func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }
 
+// See: https://developer.apple.com/documentation/Foundation/NSURL/init(pasteboardPropertyList:ofType:)
+func (u NSURL) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ INSString) NSURL {
+	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, type_)
+	return rv
+}
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1900,7 +1914,7 @@ func (u NSURL) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSURL/init(coder:)
 func (u NSURL) InitWithCoder(coder INSCoder) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -1957,9 +1971,9 @@ func (u NSURL) WritableTypeIdentifiersForItemProvider() []string {
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // isDir: A Boolean value that specifies whether `path` is treated as a directory
 // path when resolving against relative path components. Pass true if the
@@ -1992,9 +2006,9 @@ func (_NSURLClass NSURLClass) FileURLWithPathIsDirectoryRelativeToURL(path strin
 //
 // path: The path that the NSURL object will represent. `path` should be a valid
 // system path, and must not be an empty path. If `path` begins with a tilde,
-// it must first be expanded with [StringByExpandingTildeInPath]. If `path` is
-// a relative path, it is treated as being relative to the current working
-// directory.
+// it must first be expanded with [NSString.StringByExpandingTildeInPath]. If
+// `path` is a relative path, it is treated as being relative to the current
+// working directory.
 //
 // # Return Value
 //
@@ -2009,8 +2023,8 @@ func (_NSURLClass NSURLClass) FileURLWithPathIsDirectoryRelativeToURL(path strin
 // does not exist in the file system, the method assumes that it represents a
 // file and does not append a trailing slash.
 //
-// As an alternative, consider using [FileURLWithPathIsDirectory], which
-// allows you to explicitly specify whether the returned [NSURL] object
+// As an alternative, consider using [NSURLClass.FileURLWithPathIsDirectory],
+// which allows you to explicitly specify whether the returned [NSURL] object
 // represents a file or directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/fileURL(withPath:)
@@ -2110,7 +2124,7 @@ func (_NSURLClass NSURLClass) BookmarkDataWithContentsOfURLError(bookmarkFileURL
 // keys: An array of names of URL resource properties. In addition to the standard,
 // system-defined resource properties, you can also request any custom
 // properties that you provided when you created the bookmark. See the
-// [BookmarkDataWithOptionsIncludingResourceValuesForKeysRelativeToURLError]
+// [NSURL.BookmarkDataWithOptionsIncludingResourceValuesForKeysRelativeToURLError]
 // method for details.
 //
 // bookmarkData: The bookmark data from which you want to retrieve resource values.
@@ -2219,9 +2233,9 @@ func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data
 //
 // This method fails if the original file or directory could not be located or
 // is on a volume that could not be mounted. If this method fails, you can use
-// the [ResourceValuesForKeysFromBookmarkData] method to obtain information
-// about the bookmark, such as the last known path ([pathKey]) to help the
-// user decide how to proceed.
+// the [NSURLClass.ResourceValuesForKeysFromBookmarkData] method to obtain
+// information about the bookmark, such as the last known path ([pathKey]) to
+// help the user decide how to proceed.
 //
 // To obtain a security-scoped URL from a security-scoped bookmark, call this
 // method using the [NSURLBookmarkResolutionWithSecurityScope] option. In
@@ -2231,8 +2245,8 @@ func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data
 //
 // To then obtain access to the file-system resource pointed to by a
 // security-scoped URL (in other words, to bring the resource into your
-// app’s sandbox), call the [StartAccessingSecurityScopedResource] method
-// (or its Core Foundation equivalent, the
+// app’s sandbox), call the [NSURL.StartAccessingSecurityScopedResource]
+// method (or its Core Foundation equivalent, the
 // [CFURLStartAccessingSecurityScopedResource(_:)] function) on the URL.
 //
 // For an app-scoped bookmark, no sandboxed app other than the one that
@@ -2248,7 +2262,7 @@ func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data
 // [CFURLStartAccessingSecurityScopedResource(_:)]: https://developer.apple.com/documentation/CoreFoundation/CFURLStartAccessingSecurityScopedResource(_:)
 // [Enabling Security-Scoped Bookmark and URL Access]: https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW18
 // [pathKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/pathKey
-func (_NSURLClass NSURLClass) URLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale unsafe.Pointer) (NSURL, error) {
+func (_NSURLClass NSURLClass) URLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale *bool) (NSURL, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:"), bookmarkData, options, relativeURL, isStale, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -2368,8 +2382,8 @@ func (u NSURL) DataRepresentation() INSData {
 // otherwise. Both file path and file reference URLs are considered to be file
 // URLs.
 //
-// If this property’s value is true, then the receiver’s [Path] property
-// contains a suitable value for input into [NSFileManager] or
+// If this property’s value is true, then the receiver’s [NSURL.Path]
+// property contains a suitable value for input into [NSFileManager] or
 // [NSPathUtilities].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/isFileURL
@@ -2426,7 +2440,7 @@ func (u NSURL) BaseURL() INSURL {
 //
 // This string is automatically freed in the same way that a returned object
 // would be released. The caller must either copy the string or use
-// [GetFileSystemRepresentationMaxLength] if it needs to store the
+// [NSURL.GetFileSystemRepresentationMaxLength] if it needs to store the
 // representation outside of the autorelease context in which the value was
 // obtained.
 //
@@ -2514,9 +2528,9 @@ func (u NSURL) Password() string {
 // to RFC 1808, this property contains `nil`.
 //
 // If the receiver contains a file or file reference URL (as determined with
-// [FileURL]), this property’s value is suitable for input into methods of
-// [NSFileManager] or [NSPathUtilities]. If the path has a trailing slash, it
-// is stripped.
+// [NSURL.FileURL]), this property’s value is suitable for input into
+// methods of [NSFileManager] or [NSPathUtilities]. If the path has a trailing
+// slash, it is stripped.
 //
 // If the receiver contains a file reference URL, this property’s value
 // provides the for the referenced resource, which may be `nil` if the
@@ -2565,7 +2579,7 @@ func (u NSURL) PathComponents() []string {
 //
 // # Return Value
 //
-// The path extension of the receiver, or `nil` if [Path] is `nil`.
+// The path extension of the receiver, or `nil` if [NSURL.Path] is `nil`.
 //
 // # Discussion
 //
@@ -2618,8 +2632,8 @@ func (u NSURL) Query() string {
 // This property contains the relative path of the receiver’s URL without
 // resolving against its base URL. Any percent-encoded characters are not
 // unescaped. If the path has a trailing slash it is stripped. If the receiver
-// is an absolute URL, this property contains the same value as [Path]. If the
-// receiver does not conform to RFC 1808, it contains `nil`.
+// is an absolute URL, this property contains the same value as [NSURL.Path].
+// If the receiver does not conform to RFC 1808, it contains `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/relativePath
 func (u NSURL) RelativePath() string {
@@ -2633,7 +2647,8 @@ func (u NSURL) RelativePath() string {
 //
 // This property contains a string representation of the relative portion of
 // the URL. Any percent-encoded characters are not unescaped. If the receiver
-// is an absolute URL this method returns the same value as [AbsoluteString].
+// is an absolute URL this method returns the same value as
+// [NSURL.AbsoluteString].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/relativeString
 func (u NSURL) RelativeString() string {
@@ -2667,7 +2682,7 @@ func (u NSURL) ResourceSpecifier() string {
 // `//www.ExampleXCUIElementTypeCom()/index.Html()`, the scheme is `http`.
 //
 // The full URL is the concatenation of the scheme, a colon (`:`), and the
-// value of [ResourceSpecifier].
+// value of [NSURL.ResourceSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/scheme
 func (u NSURL) Scheme() string {
@@ -2786,16 +2801,17 @@ func (u NSURL) URLByResolvingSymlinksInPath() INSURL {
 // This property only works on URLs with the “ path scheme. For all other
 // URLs, it returns a copy of the original URL.
 //
-// Like [StringByStandardizingPath], this property can make the following
-// changes in the provided URL:
+// Like [NSString.StringByStandardizingPath], this property can make the
+// following changes in the provided URL:
 //
-// - Expand an initial tilde expression using [StringByExpandingTildeInPath].
-// - Reduce empty components and references to the current directory (that is,
-// the sequences “//” and “/./”) to single path separators. - In
-// absolute paths only, resolve references to the parent directory (that is,
-// the component “..”) to the real parent directory if possible using
-// [StringByResolvingSymlinksInPath], which consults the file system to
-// resolve each potential symbolic link.
+// - Expand an initial tilde expression using
+// [NSString.StringByExpandingTildeInPath]. - Reduce empty components and
+// references to the current directory (that is, the sequences “//” and
+// “/./”) to single path separators. - In absolute paths only, resolve
+// references to the parent directory (that is, the component “..”) to the
+// real parent directory if possible using
+// [NSString.StringByResolvingSymlinksInPath], which consults the file system
+// to resolve each potential symbolic link.
 //
 // In relative paths, because symbolic links can’t be resolved, references
 // to the parent directory are left in place.
@@ -2825,17 +2841,6 @@ func (u NSURL) URLByStandardizingPath() INSURL {
 func (u NSURL) HasDirectoryPath() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasDirectoryPath"))
 	return rv
-}
-
-// A custom playground Quick Look for this instance.
-//
-// See: https://developer.apple.com/documentation/foundation/nsurl/customplaygroundquicklook
-func (u NSURL) CustomPlaygroundQuickLook() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("customPlaygroundQuickLook"))
-	return rv
-}
-func (u NSURL) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
-	objc.Send[struct{}](u.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
 }
 
 // Protocol methods for NSCopying

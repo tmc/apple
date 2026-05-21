@@ -50,8 +50,8 @@ func (wc WKPreferencesClass) Alloc() WKPreferences {
 // Use a [WKPreferences] object to specify the preferences for your website,
 // including the minimum font size, the JavaScript behavior, and the behavior
 // for handling fraudulent websites. Create this object and assign it to the
-// [Preferences] property of the [WKWebViewConfiguration] object you use to
-// create your web view.
+// [WKWebViewConfiguration.Preferences] property of the
+// [WKWebViewConfiguration] object you use to create your web view.
 //
 // # Setting Rendering Preferences
 //
@@ -173,9 +173,7 @@ type IWKPreferences interface {
 	IsFraudulentWebsiteWarningEnabled() bool
 	SetFraudulentWebsiteWarningEnabled(value bool)
 
-	// The object that manages the preference-related settings for the web view.
-	Preferences() IWKPreferences
-	SetPreferences(value IWKPreferences)
+	InitWithCoder(coder foundation.INSCoder) WKPreferences
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -198,6 +196,18 @@ func NewWKPreferences() WKPreferences {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/WebKit/WKPreferences/init(coder:)
+func NewPreferencesWithCoder(coder foundation.INSCoder) WKPreferences {
+	instance := getWKPreferencesClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return WKPreferencesFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/WebKit/WKPreferences/init(coder:)
+func (p WKPreferences) InitWithCoder(coder foundation.INSCoder) WKPreferences {
+	rv := objc.Send[WKPreferences](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p WKPreferences) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -352,15 +362,4 @@ func (p WKPreferences) IsFraudulentWebsiteWarningEnabled() bool {
 }
 func (p WKPreferences) SetFraudulentWebsiteWarningEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFraudulentWebsiteWarningEnabled:"), value)
-}
-
-// The object that manages the preference-related settings for the web view.
-//
-// See: https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/preferences
-func (p WKPreferences) Preferences() IWKPreferences {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("preferences"))
-	return WKPreferencesFromID(objc.ID(rv))
-}
-func (p WKPreferences) SetPreferences(value IWKPreferences) {
-	objc.Send[struct{}](p.ID, objc.Sel("setPreferences:"), value)
 }

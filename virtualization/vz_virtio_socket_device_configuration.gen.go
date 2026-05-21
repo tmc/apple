@@ -48,7 +48,8 @@ func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceCon
 //
 // Use a [VZVirtioSocketDeviceConfiguration] object to implement port-based
 // communication between the guest operating system and the host computer.
-// When you add this object to the [VZVirtioSocketDeviceConfiguration.SocketDevices] property of your
+// When you add this object to the
+// [VZVirtualMachineConfiguration.SocketDevices] property of your
 // [VZVirtualMachineConfiguration], the virtual machine provides a
 // corresponding [VZVirtioSocketDevice] object to use to configure the ports.
 // Add only one [VZVirtioSocketDeviceConfiguration] to your virtual
@@ -75,10 +76,6 @@ func VZVirtioSocketDeviceConfigurationFromID(id objc.ID) VZVirtioSocketDeviceCon
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDeviceConfiguration
 type IVZVirtioSocketDeviceConfiguration interface {
 	IVZSocketDeviceConfiguration
-
-	// The socket device that you use to implement port-based communication with the guest operating system.
-	SocketDevices() IVZSocketDeviceConfiguration
-	SetSocketDevices(value IVZSocketDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -98,16 +95,4 @@ func NewVZVirtioSocketDeviceConfiguration() VZVirtioSocketDeviceConfiguration {
 	class := getVZVirtioSocketDeviceConfigurationClass()
 	rv := objc.Send[VZVirtioSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The socket device that you use to implement port-based communication with
-// the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/socketdevices
-func (v VZVirtioSocketDeviceConfiguration) SocketDevices() IVZSocketDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("socketDevices"))
-	return VZSocketDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioSocketDeviceConfiguration) SetSocketDevices(value IVZSocketDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSocketDevices:"), value)
 }

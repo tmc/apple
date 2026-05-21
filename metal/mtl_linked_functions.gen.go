@@ -114,22 +114,6 @@ type IMTLLinkedFunctions interface {
 	// An array of function objects to link to the new function, without exporting the functions publicly.
 	PrivateFunctions() []objectivec.IObject
 	SetPrivateFunctions(value []objectivec.IObject)
-
-	// The binary archives to search for a previously-compiled version of this function.
-	BinaryArchives() MTLBinaryArchive
-	SetBinaryArchives(value MTLBinaryArchive)
-	// The set of constant values assigned to the function constants.
-	ConstantValues() IMTLFunctionConstantValues
-	SetConstantValues(value IMTLFunctionConstantValues)
-	// The name of the function to fetch from the library.
-	Name() string
-	SetName(value string)
-	// Flags specifying how Metal should create the new function object.
-	Options() MTLFunctionOptions
-	SetOptions(value MTLFunctionOptions)
-	// A new name for the created function object.
-	SpecializedName() string
-	SetSpecializedName(value string)
 }
 
 // Init initializes the instance.
@@ -236,60 +220,4 @@ func (l MTLLinkedFunctions) PrivateFunctions() []objectivec.IObject {
 }
 func (l MTLLinkedFunctions) SetPrivateFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPrivateFunctions:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The binary archives to search for a previously-compiled version of this
-// function.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/binaryarchives
-func (l MTLLinkedFunctions) BinaryArchives() MTLBinaryArchive {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("binaryArchives"))
-	return MTLBinaryArchiveObjectFromID(rv)
-}
-func (l MTLLinkedFunctions) SetBinaryArchives(value MTLBinaryArchive) {
-	objc.Send[struct{}](l.ID, objc.Sel("setBinaryArchives:"), value)
-}
-
-// The set of constant values assigned to the function constants.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/constantvalues
-func (l MTLLinkedFunctions) ConstantValues() IMTLFunctionConstantValues {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("constantValues"))
-	return MTLFunctionConstantValuesFromID(objc.ID(rv))
-}
-func (l MTLLinkedFunctions) SetConstantValues(value IMTLFunctionConstantValues) {
-	objc.Send[struct{}](l.ID, objc.Sel("setConstantValues:"), value)
-}
-
-// The name of the function to fetch from the library.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/name
-func (l MTLLinkedFunctions) Name() string {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("name"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (l MTLLinkedFunctions) SetName(value string) {
-	objc.Send[struct{}](l.ID, objc.Sel("setName:"), objc.String(value))
-}
-
-// Flags specifying how Metal should create the new function object.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/options
-func (l MTLLinkedFunctions) Options() MTLFunctionOptions {
-	rv := objc.Send[MTLFunctionOptions](l.ID, objc.Sel("options"))
-	return MTLFunctionOptions(rv)
-}
-func (l MTLLinkedFunctions) SetOptions(value MTLFunctionOptions) {
-	objc.Send[struct{}](l.ID, objc.Sel("setOptions:"), value)
-}
-
-// A new name for the created function object.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/specializedname
-func (l MTLLinkedFunctions) SpecializedName() string {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("specializedName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (l MTLLinkedFunctions) SetSpecializedName(value string) {
-	objc.Send[struct{}](l.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }

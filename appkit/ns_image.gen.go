@@ -3,9 +3,7 @@
 package appkit
 
 import (
-	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -79,23 +77,23 @@ func (nc NSImageClass) Alloc() NSImage {
 //
 // # Using Images with Core Animation Layers
 //
-// Although you can assign an [NSImage] object directly to the [NSImage.Contents]
+// Although you can assign an [NSImage] object directly to the [contents]
 // property of a [CALayer] object, doing so may not always yield the best
 // results. Instead of using your image object, you can use the
-// [NSImage.LayerContentsForContentsScale] method to obtain an object that you can use
-// for your layer’s contents. The image created by that method serves as the
-// contents of a layer, which also supports all of the layer’s gravity
-// modes. By contrast, the [NSImage] class supports only the [NSImage.Resize],
-// [NSImage.ResizeAspect], and [NSImage.ResizeAspectFill] modes.
+// [NSImage.LayerContentsForContentsScale] method to obtain an object that you
+// can use for your layer’s contents. The image created by that method
+// serves as the contents of a layer, which also supports all of the layer’s
+// gravity modes. By contrast, the [NSImage] class supports only the [resize],
+// [resizeAspect], and [resizeAspectFill] modes.
 //
 // Before calling the [NSImage.LayerContentsForContentsScale] method, use the
-// [NSImage.RecommendedLayerContentsScale] method to get the recommended scale factor
-// for the resulting image. The code listing below shows a typical example
-// that uses the scale factor of a window’s backing store as the desired
-// scale factor. From that scale factor, the code gets the scale factor for
-// the specified image object and creates an object that you assign to the
-// layer. You might use this code for images that fit the layer bounds
-// precisely or for which you rely on the [NSImage.ContentsGravity] property of the
+// [NSImage.RecommendedLayerContentsScale] method to get the recommended scale
+// factor for the resulting image. The code listing below shows a typical
+// example that uses the scale factor of a window’s backing store as the
+// desired scale factor. From that scale factor, the code gets the scale
+// factor for the specified image object and creates an object that you assign
+// to the layer. You might use this code for images that fit the layer bounds
+// precisely or for which you rely on the [contentsGravity] property of the
 // layer to position or scale the image.
 //
 // Listing 1. Assigning an image to a layer
@@ -220,13 +218,18 @@ func (nc NSImageClass) Alloc() NSImage {
 //
 // # Localizing Images
 //
-//   - [NSImage.ImageWithLocale]
+//   - [NSImage.ImageWithLocale]: Creates and returns a new image with the specified locale.
 //   - [NSImage.Locale]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage
 //
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [Cocoa Drawing Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003290
+// [contentsGravity]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsGravity
+// [contents]: https://developer.apple.com/documentation/QuartzCore/CALayer/contents
+// [resizeAspectFill]: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resizeAspectFill
+// [resizeAspect]: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resizeAspect
+// [resize]: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resize
 type NSImage struct {
 	objectivec.Object
 }
@@ -363,7 +366,7 @@ func NSImageFromID(id objc.ID) NSImage {
 //
 // # Localizing Images
 //
-//   - [INSImage.ImageWithLocale]
+//   - [INSImage.ImageWithLocale]: Creates and returns a new image with the specified locale.
 //   - [INSImage.Locale]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage
@@ -535,21 +538,10 @@ type INSImage interface {
 
 	// Topic: Localizing Images
 
+	// Creates and returns a new image with the specified locale.
 	ImageWithLocale(locale foundation.NSLocale) INSImage
 	Locale() foundation.NSLocale
 
-	// An object that provides the contents of the layer. Animatable.
-	Contents() unsafe.Pointer
-	SetContents(value unsafe.Pointer)
-	// A constant that specifies how the layer’s contents are positioned or scaled within its bounds.
-	ContentsGravity() foundation.NSString
-	SetContentsGravity(value foundation.NSString)
-	// The content is resized to fit the entire bounds rectangle.
-	Resize() foundation.NSString
-	// The content is resized to fit the bounds rectangle, preserving the aspect of the content. If the content does not completely fill the bounds rectangle, the content is centered in the partial axis.
-	ResizeAspect() foundation.NSString
-	// The content is resized to completely fill the bounds rectangle, while still preserving the aspect of the content. The content is centered in the axis it exceeds.
-	ResizeAspectFill() foundation.NSString
 	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSImage
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -597,8 +589,8 @@ func NewNSImage() NSImage {
 //
 // Because this method doesn’t actually create image representations for the
 // image data, your app should do error checking before attempting to use the
-// image; one way to do so is by accessing the [Valid] property to check
-// whether the image can be drawn.
+// image; one way to do so is by accessing the [NSImage.Valid] property to
+// check whether the image can be drawn.
 //
 // This method invokes [setDataRetained:] with an argument of true, thus
 // enabling it to hold onto its filename. When archiving an image created with
@@ -609,7 +601,7 @@ func NewNSImage() NSImage {
 // occur for images whose resolution is greater than 72 dpi.) If you resize
 // the image by less than 50%, AppKit loads the data in again from the file.
 // If you expect to delete the file or change its contents, use
-// [InitWithContentsOfFile] instead.
+// [NSImage.InitWithContentsOfFile] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(byReferencingFile:)
 //
@@ -642,8 +634,8 @@ func NewImageByReferencingFile(fileName string) NSImage {
 //
 // Because this method doesn’t actually create image representations for the
 // image data, your app should do error checking before attempting to use the
-// image; one way to do so is by accessing the [Valid] property to check
-// whether the image can be drawn.
+// image; one way to do so is by accessing the [NSImage.Valid] property to
+// check whether the image can be drawn.
 //
 // This method invokes [setDataRetained:] with an argument of true, thus
 // enabling it to hold onto its URL. When archiving an image created with this
@@ -674,19 +666,19 @@ func NewImageByReferencingURL(url foundation.NSURL) NSImage {
 // first image it finds matching the given name. The order of the search is as
 // follows:
 //
-// - Search for an object whose name was set explicitly using the [SetName]
-// method and currently resides in the image cache. - Search the app’s main
-// bundle for a file whose name matches the specified string. (For information
-// on how the bundle is searched, see “[Accessing a Bundle’s Contents]”
-// in [Bundle Programming Guide].) - Search the Application Kit framework for
-// a shared image with the specified name.
+// - Search for an object whose name was set explicitly using the
+// [NSImage.SetName] method and currently resides in the image cache. - Search
+// the app’s main bundle for a file whose name matches the specified string.
+// (For information on how the bundle is searched, see “[Accessing a
+// Bundle’s Contents]” in [Bundle Programming Guide].) - Search the
+// Application Kit framework for a shared image with the specified name.
 //
 // When looking for files in the app bundle, it is better (but not required)
 // to include the filename extension in the `name` parameter. When naming an
-// image with the [SetName] method, it is convention not to include filename
-// extensions in the names you specify. That way, you can easily distinguish
-// between images you have named explicitly and those you want to load from
-// the app’s bundle.
+// image with the [NSImage.SetName] method, it is convention not to include
+// filename extensions in the names you specify. That way, you can easily
+// distinguish between images you have named explicitly and those you want to
+// load from the app’s bundle.
 //
 // One particularly useful image you can retrieve is your app’s icon. This
 // image is set by Cocoa automatically and accessible using the
@@ -707,8 +699,8 @@ func NewImageByReferencingURL(url foundation.NSURL) NSImage {
 // subsequently removed, the object may be quietly removed from the cache.
 // Thus, if you plan to hold onto a returned image object, you must maintain a
 // strong reference to it like you would any Cocoa object. You can clear an
-// image object from the cache explicitly by calling the object’s [SetName]
-// method and specifying `nil` for the image name.
+// image object from the cache explicitly by calling the object’s
+// [NSImage.SetName] method and specifying `nil` for the image name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(named:)
 //
@@ -736,6 +728,7 @@ func NewImageNamed(name NSImageName) NSImage {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
 //
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
 func NewImageWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundation.CGSize) NSImage {
 	instance := getNSImageClass().Alloc()
@@ -765,9 +758,9 @@ func NewImageWithCoder(coder foundation.INSCoder) NSImage {
 //
 // # Discussion
 //
-// Unlike [InitByReferencingFile], which initializes an [NSImage] object
-// lazily, this method immediately opens the specified file and creates one or
-// more image representations from its data.
+// Unlike [NSImage.InitByReferencingFile], which initializes an [NSImage]
+// object lazily, this method immediately opens the specified file and creates
+// one or more image representations from its data.
 //
 // The `filename` parameter should include the file extension that identifies
 // the type of the image data. This method looks for an [NSImageRep] subclass
@@ -935,6 +928,19 @@ func NewImageWithSize(size corefoundation.CGSize) NSImage {
 	return NSImageFromID(rv)
 }
 
+// Creates a symbol image with the specified symbol name and variable value.
+//
+// name: The name of the symbol image.
+//
+// bundle: The bundle containing the image file or asset catalog.
+//
+// value: The value the system uses to customize the symbol’s content, between `0`
+// and `1`.
+//
+// # Discussion
+//
+// The `value` parameter is valid for symbols that support variable rendering.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(symbolName:bundle:variableValue:)
 func NewImageWithSymbolNameBundleVariableValue(name string, bundle foundation.NSBundle, value float64) NSImage {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSymbolName:bundle:variableValue:"), objc.String(name), bundle, value)
@@ -1030,7 +1036,7 @@ func NewImageWithSystemSymbolNameVariableValueAccessibilityDescription(name stri
 // distinguish between images you have named explicitly and those you want to
 // load from the app’s bundle. For information about the rules used to
 // search for images, and for information about the ownership policy of named
-// images, see the [ImageNamed] method.
+// images, see the [NSImageClass.ImageNamed] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/setName(_:)
 func (i NSImage) SetName(string_ NSImageName) bool {
@@ -1073,8 +1079,8 @@ func (i NSImage) Name() NSImageName {
 //
 // Because this method doesn’t actually create image representations for the
 // image data, your app should do error checking before attempting to use the
-// image; one way to do so is by accessing the [Valid] property to check
-// whether the image can be drawn.
+// image; one way to do so is by accessing the [NSImage.Valid] property to
+// check whether the image can be drawn.
 //
 // This method invokes [setDataRetained:] with an argument of true, thus
 // enabling it to hold onto its filename. When archiving an image created with
@@ -1085,7 +1091,7 @@ func (i NSImage) Name() NSImageName {
 // occur for images whose resolution is greater than 72 dpi.) If you resize
 // the image by less than 50%, AppKit loads the data in again from the file.
 // If you expect to delete the file or change its contents, use
-// [InitWithContentsOfFile] instead.
+// [NSImage.InitWithContentsOfFile] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(byReferencingFile:)
 //
@@ -1117,8 +1123,8 @@ func (i NSImage) InitByReferencingFile(fileName string) NSImage {
 //
 // Because this method doesn’t actually create image representations for the
 // image data, your app should do error checking before attempting to use the
-// image; one way to do so is by accessing the [Valid] property to check
-// whether the image can be drawn.
+// image; one way to do so is by accessing the [NSImage.Valid] property to
+// check whether the image can be drawn.
 //
 // This method invokes [setDataRetained:] with an argument of true, thus
 // enabling it to hold onto its URL. When archiving an image created with this
@@ -1145,9 +1151,9 @@ func (i NSImage) InitByReferencingURL(url foundation.NSURL) NSImage {
 //
 // # Discussion
 //
-// Unlike [InitByReferencingFile], which initializes an [NSImage] object
-// lazily, this method immediately opens the specified file and creates one or
-// more image representations from its data.
+// Unlike [NSImage.InitByReferencingFile], which initializes an [NSImage]
+// object lazily, this method immediately opens the specified file and creates
+// one or more image representations from its data.
 //
 // The `filename` parameter should include the file extension that identifies
 // the type of the image data. This method looks for an [NSImageRep] subclass
@@ -1233,6 +1239,7 @@ func (i NSImage) InitWithDataIgnoringOrientation(data foundation.NSData) NSImage
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
 //
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
 func (i NSImage) InitWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundation.CGSize) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithCGImage:size:"), cgImage, size)
@@ -1537,8 +1544,9 @@ func (i NSImage) DrawInRectFromRectOperationFractionRespectFlippedHints(dstSpace
 // This method fills the specified rectangle with the image’s current
 // background color and then sends a message to the specified image
 // representation asking if to draw itself. If the image supports the ability
-// to scale itself when it is resized, this method sends a [DrawInRect]
-// message; otherwise, it sends a [DrawAtPoint] message.
+// to scale itself when it is resized, this method sends a
+// [NSImageRep.DrawInRect] message; otherwise, it sends a
+// [NSImageRep.DrawAtPoint] message.
 //
 // You should not call this method directly; an [NSImage] object uses it to
 // cache and print its image representations. You can override this method to
@@ -1561,13 +1569,13 @@ func (i NSImage) DrawRepresentationInRect(imageRep INSImageRep, rect corefoundat
 //
 // # Discussion
 //
-// If you modify an image representation, you must send a [Recache] message to
-// the corresponding image object to force the changes to be recached. The
-// next time any image representation is drawn, it is asked to recreate its
-// cached image. If you do not send this message, the image representation may
-// use the old cache data. This method simply clears the cached image data; it
-// does not delete the [NSCachedImageRep] objects associated with any image
-// representations.
+// If you modify an image representation, you must send a [NSImage.Recache]
+// message to the corresponding image object to force the changes to be
+// recached. The next time any image representation is drawn, it is asked to
+// recreate its cached image. If you do not send this message, the image
+// representation may use the old cache data. This method simply clears the
+// cached image data; it does not delete the [NSCachedImageRep] objects
+// associated with any image representations.
 //
 // If you do not plan to use an image again right away, you can free its
 // caches to reduce the amount of memory consumed by your program.
@@ -1603,7 +1611,7 @@ func (i NSImage) Recache() {
 // method creates the TIFF data from that representation’s cached content.
 //
 // Additional image formats can be saved by using the [NSBitmapImageRep]
-// method [RepresentationUsingTypeProperties].
+// method [NSBitmapImageRep.RepresentationUsingTypeProperties].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/tiffRepresentation(using:factor:)
 func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.NSData {
@@ -1687,11 +1695,11 @@ func (i NSImage) HitTestRectWithImageDestinationRectContextHintsFlipped(testRect
 // Returns an object that may be used as the contents of a layer.
 //
 // layerContentsScale: The scale factor for the resulting image. Obtain the value for this
-// parameter by calling the [RecommendedLayerContentsScale] method.
+// parameter by calling the [NSImage.RecommendedLayerContentsScale] method.
 //
 // # Return Value
 //
-// A object that you can assign to the [Contents] property of a [CALayer]
+// A object that you can assign to the [contents] property of a [CALayer]
 // object. This object contains the image data from the current image
 // optimized for the specified scale factor.
 //
@@ -1706,6 +1714,7 @@ func (i NSImage) HitTestRectWithImageDestinationRectContextHintsFlipped(testRect
 // See: https://developer.apple.com/documentation/AppKit/NSImage/layerContents(forContentsScale:)
 //
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
+// [contents]: https://developer.apple.com/documentation/QuartzCore/CALayer/contents
 func (i NSImage) LayerContentsForContentsScale(layerContentsScale float64) objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("layerContentsForContentsScale:"), layerContentsScale)
 	return objectivec.Object{ID: rv}
@@ -1726,9 +1735,9 @@ func (i NSImage) LayerContentsForContentsScale(layerContentsScale float64) objec
 // # Discussion
 //
 // Use this method to obtain the scale factor value that you pass to the
-// [LayerContentsForContentsScale] method. This method uses the image data to
-// determine the scale factor that is best suited for creating an image that
-// looks good in the layer.
+// [NSImage.LayerContentsForContentsScale] method. This method uses the image
+// data to determine the scale factor that is best suited for creating an
+// image that looks good in the layer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/recommendedLayerContentsScale(_:)
 func (i NSImage) RecommendedLayerContentsScale(preferredContentsScale float64) float64 {
@@ -1736,6 +1745,16 @@ func (i NSImage) RecommendedLayerContentsScale(preferredContentsScale float64) f
 	return rv
 }
 
+// Creates and returns a new image with the specified locale.
+//
+// # Discussion
+//
+// If the receiver contains locale-sensitive representations, the returned
+// image will prefer to draw using representations appropriate for the
+// specified locale. If locale is `nil`, the returned image uses the default
+// behavior of choosing representations appropriate for the system’s
+// currently-configured locale.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImage/withLocale(_:)
 func (i NSImage) ImageWithLocale(locale foundation.NSLocale) INSImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageWithLocale:"), locale)
@@ -1893,15 +1912,16 @@ func (i NSImage) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // When you draw the image for the first time, the underlying image
 // representation executes the `drawingHandler` block. The image object caches
-// the results according to its usual caching policies; see the [CacheMode]
-// property. As long as the configuration of the destination graphics context
-// does not change in a significant way, subsequent attempts to draw the image
-// reuse the cached results whenever possible. If the pixel density or color
-// space of the destination graphics context changes, though, the image
-// representation throws away any caches and executes the block again to
-// obtain a new version of the image. For example, if you drew the image on a
-// standard resolution display but then draw it on a Retina display, AppKit
-// executes the block again to obtain an image at the new resolution.
+// the results according to its usual caching policies; see the
+// [NSImage.CacheMode] property. As long as the configuration of the
+// destination graphics context does not change in a significant way,
+// subsequent attempts to draw the image reuse the cached results whenever
+// possible. If the pixel density or color space of the destination graphics
+// context changes, though, the image representation throws away any caches
+// and executes the block again to obtain a new version of the image. For
+// example, if you drew the image on a standard resolution display but then
+// draw it on a Retina display, AppKit executes the block again to obtain an
+// image at the new resolution.
 //
 // The most typical use for this method is to create an image based on
 // vector-based content. In that case, your `drawingHandler` block would
@@ -1910,10 +1930,9 @@ func (i NSImage) EncodeWithCoder(coder foundation.INSCoder) {
 // the appropriate resolution for the destination graphics context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(size:flipped:drawingHandler:)
-func (_NSImageClass NSImageClass) ImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSImage {
-	_block1, _ := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
-	_block2, _ := NewRectBlock(drawingHandler)
-	rv := objc.Send[objc.ID](objc.ID(_NSImageClass.class), objc.Sel("imageWithSize:flipped:drawingHandler:"), size, _block1, _block2)
+func (_NSImageClass NSImageClass) ImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext bool, drawingHandler BoolCGRectHandler) NSImage {
+	_block2, _ := NewBoolCGRectBlock(drawingHandler)
+	rv := objc.Send[objc.ID](objc.ID(_NSImageClass.class), objc.Sel("imageWithSize:flipped:drawingHandler:"), size, drawingHandlerShouldBeCalledWithFlippedContext, _block2)
 	return NSImageFromID(rv)
 }
 
@@ -2012,8 +2031,8 @@ func (_NSImageClass NSImageClass) ReadingOptionsForTypePasteboard(type_ NSPasteb
 // unspecified values.
 //
 // You can’t modify this property directly, but you can use
-// [ImageWithSymbolConfiguration] when you want to create a new image object
-// with a specific set of traits.
+// [NSImage.ImageWithSymbolConfiguration] when you want to create a new image
+// object with a specific set of traits.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/symbolConfiguration-swift.property
 func (i NSImage) SymbolConfiguration() INSImageSymbolConfiguration {
@@ -2191,8 +2210,8 @@ func (i NSImage) IsValid() bool {
 // such caches are always created with a white background. Assigning a new
 // background color does not cause the receiver to recache itself.
 //
-// The default color is transparent, as returned by the [ClearColor] method of
-// [NSColor].
+// The default color is transparent, as returned by the
+// [NSColorClass.ClearColor] method of [NSColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/backgroundColor
 func (i NSImage) BackgroundColor() INSColor {
@@ -2292,7 +2311,7 @@ func (i NSImage) SetCacheMode(value NSImageCacheMode) {
 // This property contains `nil` if the TIFF data cannot be created.
 //
 // Additional image formats can be saved by using the [NSBitmapImageRep]
-// method [RepresentationUsingTypeProperties].
+// method [NSBitmapImageRep.RepresentationUsingTypeProperties].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/tiffRepresentation
 func (i NSImage) TIFFRepresentation() foundation.NSData {
@@ -2348,57 +2367,6 @@ func (i NSImage) SetMatchesOnlyOnBestFittingAxis(value bool) {
 func (i NSImage) Locale() foundation.NSLocale {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("locale"))
 	return foundation.NSLocaleFromID(objc.ID(rv))
-}
-
-// An object that provides the contents of the layer. Animatable.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CALayer/contents
-func (i NSImage) Contents() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("contents"))
-	return rv
-}
-func (i NSImage) SetContents(value unsafe.Pointer) {
-	objc.Send[struct{}](i.ID, objc.Sel("setContents:"), value)
-}
-
-// A constant that specifies how the layer’s contents are positioned or
-// scaled within its bounds.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsGravity
-func (i NSImage) ContentsGravity() foundation.NSString {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("contentsGravity"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-func (i NSImage) SetContentsGravity(value foundation.NSString) {
-	objc.Send[struct{}](i.ID, objc.Sel("setContentsGravity:"), value)
-}
-
-// The content is resized to fit the entire bounds rectangle.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resize
-func (i NSImage) Resize() foundation.NSString {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("resize"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The content is resized to fit the bounds rectangle, preserving the aspect
-// of the content. If the content does not completely fill the bounds
-// rectangle, the content is centered in the partial axis.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resizeAspect
-func (i NSImage) ResizeAspect() foundation.NSString {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("resizeAspect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The content is resized to completely fill the bounds rectangle, while still
-// preserving the aspect of the content. The content is centered in the axis
-// it exceeds.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resizeAspectFill
-func (i NSImage) ResizeAspectFill() foundation.NSString {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("resizeAspectFill"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // Returns an array of UTI strings identifying the image types supported by
@@ -2457,18 +2425,3 @@ func (_NSImageClass NSImageClass) ImageUnfilteredTypes() []string {
 }
 
 // Protocol methods for NSPasteboardWriting
-
-// ImageWithSizeFlippedDrawingHandlerSync is a synchronous wrapper around [NSImage.ImageWithSizeFlippedDrawingHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (ic NSImageClass) ImageWithSizeFlippedDrawingHandlerSync(ctx context.Context, size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler) (corefoundation.CGRect, error) {
-	done := make(chan corefoundation.CGRect, 1)
-	ic.ImageWithSizeFlippedDrawingHandler(size, drawingHandlerShouldBeCalledWithFlippedContext, func(val corefoundation.CGRect) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return corefoundation.CGRect{}, ctx.Err()
-	}
-}

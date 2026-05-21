@@ -52,13 +52,15 @@ func (dc DimensionClass) Alloc() Dimension {
 //
 // [Table data omitted]
 //
-// Each instance of a [NSDimension] subclass has a [Converter], which
-// represents the unit in terms of the dimension’s [BaseUnit]. For example,
-// the [NSLengthUnit] class uses [Meters] as its base unit. The system defines
-// the predefined [Miles] unit by a [NSUnitConverterLinear] with a
-// [Coefficient] of `1609.34`, which corresponds to the conversion ratio of
-// miles to meters (1 mi = 1609.34 m); the system defines the predefined
-// [Meters] unit by a [NSUnitConverterLinear] with a [Coefficient] of `1.0`
+// Each instance of a [NSDimension] subclass has a [NSDimension.Converter],
+// which represents the unit in terms of the dimension’s
+// [NSDimensionClass.BaseUnit]. For example, the [NSLengthUnit] class uses
+// [NSUnitLengthClass.Meters] as its base unit. The system defines the
+// predefined [NSUnitLengthClass.Miles] unit by a [NSUnitConverterLinear] with
+// a [NSUnitConverterLinear.Coefficient] of `1609.34`, which corresponds to
+// the conversion ratio of miles to meters (1 mi = 1609.34 m); the system
+// defines the predefined [NSUnitLengthClass.Meters] unit by a
+// [NSUnitConverterLinear] with a [NSUnitConverterLinear.Coefficient] of `1.0`
 // because it’s the base unit.
 //
 // You typically use an [NSDimension] subclass in conjunction with the
@@ -76,7 +78,8 @@ func (dc DimensionClass) Alloc() Dimension {
 // # Initializing a Custom Unit with a Specified Symbol and Definition
 //
 // The simplest way to define a custom unit is to create a new instance of an
-// existing [NSDimension] subclass using the [InitWithSymbolConverter] method.
+// existing [NSDimension] subclass using the
+// [NSUnitVolume.InitWithSymbolConverter] method.
 //
 // For example, the is a nonstandard unit of length (1 smoot = 1.70180 m). You
 // can create a new instance of [NSUnitLength] as follows:
@@ -119,21 +122,23 @@ func (dc DimensionClass) Alloc() Dimension {
 //
 // # Methods to Override
 //
-// All subclasses must fully implement the [BaseUnit] method designating the
-// base unit, relative to which you define any additional units.
+// All subclasses must fully implement the [NSDimensionClass.BaseUnit] method
+// designating the base unit, relative to which you define any additional
+// units.
 //
 // You must also implement a class method named for the base unit itself, to
 // use interchangeably. For example, the [NSUnitIlluminance] class defines its
-// [BaseUnit] in terms of the lux (lx) and provides a corresponding [Lux]
-// class method.
+// [NSDimensionClass.BaseUnit] in terms of the lux (lx) and provides a
+// corresponding [NSUnitIlluminanceClass.Lux] class method.
 //
 // # Alternatives to Subclassing
 //
 // As described in [NSDimension], you need to create a custom subclass of
 // [NSDimension] only if you or the system haven’t defined a unit of the
 // desired dimension. You can define a custom unit for an existing
-// [NSDimension] subclass by either calling the [InitWithSymbolConverter]
-// method or extending the subclass and adding a corresponding class method.
+// [NSDimension] subclass by either calling the
+// [NSUnitVolume.InitWithSymbolConverter] method or extending the subclass and
+// adding a corresponding class method.
 //
 // # Creating Dimensions
 //
@@ -184,10 +189,6 @@ type IDimension interface {
 
 	// The unit converter that represents the unit in terms of the dimension’s base unit.
 	Converter() INSUnitConverter
-
-	// The coefficient to use in the linear unit conversion calculation.
-	Coefficient() float64
-	SetCoefficient(value float64)
 }
 
 // Init initializes the instance.
@@ -291,7 +292,8 @@ func (d Dimension) InitWithSymbolConverter(symbol string, converter INSUnitConve
 // When implementing a subclass, you should return a unit converter that
 // returns the inputted value for both the “ and “ methods. You can create a
 // unit converter for a base unit using the [NSUnitConverterLinear]
-// [InitWithCoefficient] initializer, passing `1` as the coefficient.
+// [NSUnitConverterLinear.InitWithCoefficient] initializer, passing `1` as the
+// coefficient.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/baseUnit()
 func (_DimensionClass DimensionClass) BaseUnit() Dimension {
@@ -306,48 +308,4 @@ func (_DimensionClass DimensionClass) BaseUnit() Dimension {
 func (d Dimension) Converter() INSUnitConverter {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("converter"))
 	return NSUnitConverterFromID(objc.ID(rv))
-}
-
-// The coefficient to use in the linear unit conversion calculation.
-//
-// See: https://developer.apple.com/documentation/foundation/unitconverterlinear/coefficient
-func (d Dimension) Coefficient() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("coefficient"))
-	return rv
-}
-func (d Dimension) SetCoefficient(value float64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCoefficient:"), value)
-}
-
-// The lux unit of illuminance.
-//
-// See: https://developer.apple.com/documentation/foundation/unitilluminance/lux
-func (_DimensionClass DimensionClass) Lux() NSUnitIlluminance {
-	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("lux"))
-	return NSUnitIlluminanceFromID(objc.ID(rv))
-}
-func (_DimensionClass DimensionClass) SetLux(value NSUnitIlluminance) {
-	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setLux:"), value)
-}
-
-// The meters unit of length.
-//
-// See: https://developer.apple.com/documentation/foundation/unitlength/meters
-func (_DimensionClass DimensionClass) Meters() NSUnitLength {
-	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("meters"))
-	return NSUnitLengthFromID(objc.ID(rv))
-}
-func (_DimensionClass DimensionClass) SetMeters(value NSUnitLength) {
-	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMeters:"), value)
-}
-
-// The miles unit of length.
-//
-// See: https://developer.apple.com/documentation/foundation/unitlength/miles
-func (_DimensionClass DimensionClass) Miles() NSUnitLength {
-	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("miles"))
-	return NSUnitLengthFromID(objc.ID(rv))
-}
-func (_DimensionClass DimensionClass) SetMiles(value NSUnitLength) {
-	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMiles:"), value)
 }

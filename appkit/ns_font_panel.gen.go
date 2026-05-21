@@ -162,7 +162,7 @@ func NewNSFontPanel() NSFontPanel {
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -177,10 +177,10 @@ func NewNSFontPanel() NSFontPanel {
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewFontPanelWindowWithContentViewController(contentViewController INSViewController) NSFontPanel {
@@ -234,7 +234,8 @@ func NewFontPanelWithCoder(coder foundation.INSCoder) NSFontPanel {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -320,8 +321,8 @@ func (f NSFontPanel) ReloadDefaultFontFamilies() {
 // # Discussion
 //
 // You normally don’t use this method directly; instead, you send
-// [SetSelectedFontIsMultiple] to the shared [NSFontManager], which in turn
-// invokes this method.
+// [NSFontManager.SetSelectedFontIsMultiple] to the shared [NSFontManager],
+// which in turn invokes this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/setPanelFont(_:isMultiple:)
 func (f NSFontPanel) SetPanelFontIsMultiple(fontObj NSFont, flag bool) {

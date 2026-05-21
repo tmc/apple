@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -270,13 +271,13 @@ type IAVComposition interface {
 	// The tracks that a composition contains.
 	Tracks() []AVCompositionTrack
 	// Returns a track that contains the specified identifier.
-	TrackWithTrackID(trackID int32) IAVCompositionTrack
+	TrackWithTrackID(trackID coremedia.CMPersistentTrackID) IAVCompositionTrack
 	// Returns tracks that contain media of a specified type.
 	TracksWithMediaType(mediaType AVMediaType) []AVCompositionTrack
 	// Returns tracks that contain media of a specified characteristic.
 	TracksWithMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) []AVCompositionTrack
 	// Returns an identifier that no other tracks in the asset use.
-	UnusedTrackID() int32
+	UnusedTrackID() coremedia.CMPersistentTrackID
 
 	// Topic: Accessing track groups
 
@@ -337,11 +338,11 @@ type IAVComposition interface {
 	// Topic: Inspecting preferences
 
 	// The asset’s rate preference for playing its media.
-	PreferredRate() float32
-	SetPreferredRate(value float32)
+	PreferredRate() kernel.Float
+	SetPreferredRate(value kernel.Float)
 	// The asset’s volume preference for playing its audible media.
-	PreferredVolume() float32
-	SetPreferredVolume(value float32)
+	PreferredVolume() kernel.Float
+	SetPreferredVolume(value kernel.Float)
 	// The asset’s transform preference to apply to its visual content during presentation or processing.
 	PreferredTransform() corefoundation.CGAffineTransform
 	SetPreferredTransform(value corefoundation.CGAffineTransform)
@@ -364,7 +365,7 @@ type IAVComposition interface {
 
 	// The locales of the asset’s chapter metadata.
 	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value unsafe.Pointer)
+	SetAvailableChapterLocales(value kernel.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -435,10 +436,10 @@ func NewCompositionAssetWithURL(URL foundation.NSURL) AVComposition {
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load a track asynchronously using
-// [LoadTrackWithTrackIDCompletionHandler] instead.
+// [AVComposition.LoadTrackWithTrackIDCompletionHandler] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/track(withTrackID:)
-func (c AVComposition) TrackWithTrackID(trackID int32) IAVCompositionTrack {
+func (c AVComposition) TrackWithTrackID(trackID coremedia.CMPersistentTrackID) IAVCompositionTrack {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("trackWithTrackID:"), trackID)
 	return AVCompositionTrackFromID(rv)
 }
@@ -455,7 +456,7 @@ func (c AVComposition) TrackWithTrackID(trackID int32) IAVCompositionTrack {
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load tracks asynchronously using
-// [LoadTracksWithMediaTypeCompletionHandler] instead.
+// [AVComposition.LoadTracksWithMediaTypeCompletionHandler] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/tracks(withMediaType:)
 func (c AVComposition) TracksWithMediaType(mediaType AVMediaType) []AVCompositionTrack {
@@ -478,7 +479,7 @@ func (c AVComposition) TracksWithMediaType(mediaType AVMediaType) []AVCompositio
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load tracks asynchronously using
-// [LoadTracksWithMediaCharacteristicCompletionHandler] instead.
+// [AVComposition.LoadTracksWithMediaCharacteristicCompletionHandler] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/tracks(withMediaCharacteristic:)
 func (c AVComposition) TracksWithMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) []AVCompositionTrack {
@@ -497,9 +498,9 @@ func (c AVComposition) TracksWithMediaCharacteristic(mediaCharacteristic AVMedia
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/unusedTrackID()
 //
 // [CMPersistentTrackID]: https://developer.apple.com/documentation/CoreMedia/CMPersistentTrackID
-func (c AVComposition) UnusedTrackID() int32 {
-	rv := objc.Send[int32](c.ID, objc.Sel("unusedTrackID"))
-	return rv
+func (c AVComposition) UnusedTrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](c.ID, objc.Sel("unusedTrackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // Returns an array of metadata items from the container with the specified
@@ -517,8 +518,8 @@ func (c AVComposition) UnusedTrackID() int32 {
 //
 // You can filter the array to the specific items of interest using the class
 // methods provided by [AVMetadataItem], like
-// [MetadataItemsFromArrayFilteredByIdentifier] or
-// [MetadataItemsFromArrayWithLocale].
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] or
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale].
 //
 // You can call this method without blocking the current thread after you’ve
 // asynchronously loaded the [availableMetadataFormats] property.
@@ -601,10 +602,10 @@ func (c AVComposition) MediaSelectionGroupForMediaCharacteristic(mediaCharacteri
 // don’t need to match the locale of the chapter titles.
 //
 // You can use the
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
 // method to further filter the metadata items in each group. You can also
 // filter the returned items based on locale using the
-// [MetadataItemsFromArrayWithLocale] method.
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale] method.
 //
 // This method is callable without blocking the current thread after you’ve
 // asynchronously loaded the [availableChapterLocales] property.
@@ -646,7 +647,8 @@ func (c AVComposition) ChapterMetadataGroupsBestMatchingPreferredLanguages(prefe
 //
 // The locale of items that don’t contain chapter titles doesn’t need to
 // match the specified locale parameter. You can filter the returned items
-// based on locale using [MetadataItemsFromArrayWithLocale].
+// based on locale using
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/chapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:)
 //
@@ -750,9 +752,9 @@ func (c AVComposition) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
 // # Discussion
 //
 // You can filter the metadata items by language using the
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
 // method, or by identifier with the
-// [MetadataItemsFromArrayFilteredByIdentifier] method.
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/metadata
 func (c AVComposition) Metadata() IAVMetadataItem {
@@ -771,9 +773,9 @@ func (c AVComposition) SetMetadata(value IAVMetadataItem) {
 // This property value is an array of metadata items, one for each metadata
 // key from the common key space for which the asset has an available value.
 // You can use the various class methods provided by [AVMetadataItem], such as
-// [MetadataItemsFromArrayFilteredByIdentifier] or
-// [MetadataItemsFromArrayWithLocale] to filter the array to the specific
-// items of interest.
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] or
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale] to filter the array
+// to the specific items of interest.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/commonMetadata
 func (c AVComposition) CommonMetadata() IAVMetadataItem {
@@ -925,11 +927,11 @@ func (c AVComposition) SetCompatibleWithAirPlayVideo(value bool) {
 // This value is typically, but not always, 1.0.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/preferredRate
-func (c AVComposition) PreferredRate() float32 {
-	rv := objc.Send[float32](c.ID, objc.Sel("preferredRate"))
-	return rv
+func (c AVComposition) PreferredRate() kernel.Float {
+	rv := objc.Send[kernel.Float](c.ID, objc.Sel("preferredRate"))
+	return kernel.Float(rv)
 }
-func (c AVComposition) SetPreferredRate(value float32) {
+func (c AVComposition) SetPreferredRate(value kernel.Float) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreferredRate:"), value)
 }
 
@@ -940,11 +942,11 @@ func (c AVComposition) SetPreferredRate(value float32) {
 // This value is typically, but not always, 1.0.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/preferredVolume
-func (c AVComposition) PreferredVolume() float32 {
-	rv := objc.Send[float32](c.ID, objc.Sel("preferredVolume"))
-	return rv
+func (c AVComposition) PreferredVolume() kernel.Float {
+	rv := objc.Send[kernel.Float](c.ID, objc.Sel("preferredVolume"))
+	return kernel.Float(rv)
 }
-func (c AVComposition) SetPreferredVolume(value float32) {
+func (c AVComposition) SetPreferredVolume(value kernel.Float) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreferredVolume:"), value)
 }
 
@@ -1010,7 +1012,7 @@ func (c AVComposition) AvailableChapterLocales() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("availableChapterLocales"))
 	return rv
 }
-func (c AVComposition) SetAvailableChapterLocales(value unsafe.Pointer) {
+func (c AVComposition) SetAvailableChapterLocales(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 
@@ -1066,10 +1068,12 @@ func (c AVComposition) SetCanContainFragments(value bool) {
 // # Discussion
 //
 // For QuickTime movie files and MPEG-4 files, the value is true if
-// [CanContainFragments] is true and at least one `moof` box is present after
+// [canContainFragments] is true and at least one `moof` box is present after
 // the `moov` box.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/containsFragments
+//
+// [canContainFragments]: https://developer.apple.com/documentation/AVFoundation/AVAsset/canContainFragments
 func (c AVComposition) ContainsFragments() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsFragments"))
 	return rv

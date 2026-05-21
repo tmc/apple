@@ -101,22 +101,6 @@ type IAVFrameRateRange interface {
 	MinFrameDuration() coremedia.CMTime
 	// The minimum frame rate supported by the range.
 	MinFrameRate() float64
-
-	// A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
-	IsAutoVideoFrameRateSupported() bool
-	SetAutoVideoFrameRateSupported(value bool)
-	// A Boolean value that indicates whether a multi-camera capture session supports this format.
-	IsMultiCamSupported() bool
-	SetMultiCamSupported(value bool)
-	// A Boolean value that indicates whether the format produces video data in a binned format.
-	IsVideoBinned() bool
-	SetVideoBinned(value bool)
-	// A Boolean value that indicates whether the format supports high dynamic range streaming.
-	IsVideoHDRSupported() bool
-	SetVideoHDRSupported(value bool)
-	// A list of frame rate ranges that a format supports.
-	VideoSupportedFrameRateRanges() IAVFrameRateRange
-	SetVideoSupportedFrameRateRanges(value IAVFrameRateRange)
 }
 
 // Init initializes the instance.
@@ -142,8 +126,8 @@ func NewAVFrameRateRange() AVFrameRateRange {
 //
 // # Discussion
 //
-// This value is the reciprocal of [MinFrameRate], and expresses the minimum
-// frame rate as a duration.
+// This value is the reciprocal of [AVFrameRateRange.MinFrameRate], and
+// expresses the minimum frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/maxFrameDuration
 func (f AVFrameRateRange) MaxFrameDuration() coremedia.CMTime {
@@ -167,8 +151,8 @@ func (f AVFrameRateRange) MaxFrameRate() float64 {
 //
 // # Discussion
 //
-// This value is the reciprocal of [MaxFrameRate], and expresses the maximum
-// frame rate as a duration.
+// This value is the reciprocal of [AVFrameRateRange.MaxFrameRate], and
+// expresses the maximum frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/minFrameDuration
 func (f AVFrameRateRange) MinFrameDuration() coremedia.CMTime {
@@ -186,63 +170,4 @@ func (f AVFrameRateRange) MinFrameDuration() coremedia.CMTime {
 func (f AVFrameRateRange) MinFrameRate() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("minFrameRate"))
 	return rv
-}
-
-// A Boolean value that Indicates whether the format supports performing
-// automatic video frame rate adjustments.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/isautovideoframeratesupported
-func (f AVFrameRateRange) IsAutoVideoFrameRateSupported() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("autoVideoFrameRateSupported"))
-	return rv
-}
-func (f AVFrameRateRange) SetAutoVideoFrameRateSupported(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setAutoVideoFrameRateSupported:"), value)
-}
-
-// A Boolean value that indicates whether a multi-camera capture session
-// supports this format.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/ismulticamsupported
-func (f AVFrameRateRange) IsMultiCamSupported() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("multiCamSupported"))
-	return rv
-}
-func (f AVFrameRateRange) SetMultiCamSupported(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setMultiCamSupported:"), value)
-}
-
-// A Boolean value that indicates whether the format produces video data in a
-// binned format.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/isvideobinned
-func (f AVFrameRateRange) IsVideoBinned() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("videoBinned"))
-	return rv
-}
-func (f AVFrameRateRange) SetVideoBinned(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setVideoBinned:"), value)
-}
-
-// A Boolean value that indicates whether the format supports high dynamic
-// range streaming.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/isvideohdrsupported
-func (f AVFrameRateRange) IsVideoHDRSupported() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("videoHDRSupported"))
-	return rv
-}
-func (f AVFrameRateRange) SetVideoHDRSupported(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setVideoHDRSupported:"), value)
-}
-
-// A list of frame rate ranges that a format supports.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/videosupportedframerateranges
-func (f AVFrameRateRange) VideoSupportedFrameRateRanges() IAVFrameRateRange {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("videoSupportedFrameRateRanges"))
-	return AVFrameRateRangeFromID(objc.ID(rv))
-}
-func (f AVFrameRateRange) SetVideoSupportedFrameRateRanges(value IAVFrameRateRange) {
-	objc.Send[struct{}](f.ID, objc.Sel("setVideoSupportedFrameRateRanges:"), value)
 }

@@ -50,19 +50,21 @@ func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
 // You use an [MLImageSizeConstraint] to express what image sizes of an image
 // feature a model will accept as input or produce as output.
 //
-// Use [MLImageSizeConstraint.Type] to determine which properties describe what image sizes the
-// model’s image feature expects as input or produces as output.
+// Use [MLImageSizeConstraint.Type] to determine which properties describe
+// what image sizes the model’s image feature expects as input or produces
+// as output.
 //
 // If `type` is:
 //
 // - [MLImageSizeConstraintTypeRange], the image feature accepts any image
-// that has a width in [MLImageSizeConstraint.PixelsWideRange] and a height in [MLImageSizeConstraint.PixelsHighRange]. -
+// that has a width in [MLImageSizeConstraint.PixelsWideRange] and a height in
+// [MLImageSizeConstraint.PixelsHighRange]. -
 // [MLImageSizeConstraintTypeEnumerated], the image feature accepts any image
 // size listed in [MLImageSizeConstraint.EnumeratedImageSizes]. -
 // [MLImageSizeConstraintTypeUnspecified], the [MLImageSizeConstraint]
 // instance is not configured and should be ignored. Instead, use the image
-// feature’s default image size constraint, defined by [MLImageSizeConstraint.PixelsWide] and
-// [MLImageSizeConstraint.PixelsHigh].
+// feature’s default image size constraint, defined by
+// [MLImageConstraint.PixelsWide] and [MLImageConstraint.PixelsHigh].
 //
 // [media-3027121]
 //
@@ -130,15 +132,7 @@ type IMLImageSizeConstraint interface {
 	// An array of image sizes a model’s image feature accepts as input or produces as output.
 	EnumeratedImageSizes() []MLImageSize
 
-	// The model’s default height for an image feature.
-	PixelsHigh() int
-	SetPixelsHigh(value int)
-	// The model’s default width for an image feature.
-	PixelsWide() int
-	SetPixelsWide(value int)
-	// Additional sizes this image feature supports.
-	SizeConstraint() IMLImageSizeConstraint
-	SetSizeConstraint(value IMLImageSizeConstraint)
+	InitWithCoder(coder foundation.INSCoder) MLImageSizeConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -161,6 +155,18 @@ func NewMLImageSizeConstraint() MLImageSizeConstraint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/init(coder:)
+func NewImageSizeConstraintWithCoder(coder foundation.INSCoder) MLImageSizeConstraint {
+	instance := getMLImageSizeConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLImageSizeConstraintFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/init(coder:)
+func (i MLImageSizeConstraint) InitWithCoder(coder foundation.INSCoder) MLImageSizeConstraint {
+	rv := objc.Send[MLImageSizeConstraint](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (i MLImageSizeConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -200,37 +206,4 @@ func (i MLImageSizeConstraint) EnumeratedImageSizes() []MLImageSize {
 	return objc.ConvertSlice(rv, func(id objc.ID) MLImageSize {
 		return MLImageSizeFromID(id)
 	})
-}
-
-// The model’s default height for an image feature.
-//
-// See: https://developer.apple.com/documentation/coreml/mlimageconstraint/pixelshigh
-func (i MLImageSizeConstraint) PixelsHigh() int {
-	rv := objc.Send[int](i.ID, objc.Sel("pixelsHigh"))
-	return rv
-}
-func (i MLImageSizeConstraint) SetPixelsHigh(value int) {
-	objc.Send[struct{}](i.ID, objc.Sel("setPixelsHigh:"), value)
-}
-
-// The model’s default width for an image feature.
-//
-// See: https://developer.apple.com/documentation/coreml/mlimageconstraint/pixelswide
-func (i MLImageSizeConstraint) PixelsWide() int {
-	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
-	return rv
-}
-func (i MLImageSizeConstraint) SetPixelsWide(value int) {
-	objc.Send[struct{}](i.ID, objc.Sel("setPixelsWide:"), value)
-}
-
-// Additional sizes this image feature supports.
-//
-// See: https://developer.apple.com/documentation/coreml/mlimageconstraint/sizeconstraint
-func (i MLImageSizeConstraint) SizeConstraint() IMLImageSizeConstraint {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("sizeConstraint"))
-	return MLImageSizeConstraintFromID(objc.ID(rv))
-}
-func (i MLImageSizeConstraint) SetSizeConstraint(value IMLImageSizeConstraint) {
-	objc.Send[struct{}](i.ID, objc.Sel("setSizeConstraint:"), value)
 }

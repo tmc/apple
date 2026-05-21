@@ -82,23 +82,6 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 //   - [AVAudioUnitComponent.UserTagNames]: An array of tags the user creates.
 //   - [AVAudioUnitComponent.SetUserTagNames]
 //
-// # Audio unit manufacturer names
-//
-//   - [AVAudioUnitComponent.AVAudioUnitManufacturerNameApple]: The audio unit manufacturer is Apple.
-//
-// # Audio unit types
-//
-//   - [AVAudioUnitComponent.AVAudioUnitTypeOutput]: An audio unit type that represents an output.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeMusicDevice]: An audio unit type that represents a music device.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeMusicEffect]: An audio unit type that represents a music effect.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeFormatConverter]: An audio unit type that represents a format converter.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeEffect]: An audio unit type that represents an effect.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeMixer]: An audio unit type that represents a mixer.
-//   - [AVAudioUnitComponent.AVAudioUnitTypePanner]: An audio unit type that represents a panner.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeGenerator]: An audio unit type that represents a generator.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeOfflineEffect]: An audio unit type that represents an offline effect.
-//   - [AVAudioUnitComponent.AVAudioUnitTypeMIDIProcessor]: An audio unit type that represents a MIDI processor.
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent
 type AVAudioUnitComponent struct {
 	objectivec.Object
@@ -145,23 +128,6 @@ func AVAudioUnitComponentFromID(id objc.ID) AVAudioUnitComponent {
 //   - [IAVAudioUnitComponent.AllTagNames]: An array of tag names for the audio unit component.
 //   - [IAVAudioUnitComponent.UserTagNames]: An array of tags the user creates.
 //   - [IAVAudioUnitComponent.SetUserTagNames]
-//
-// # Audio unit manufacturer names
-//
-//   - [IAVAudioUnitComponent.AVAudioUnitManufacturerNameApple]: The audio unit manufacturer is Apple.
-//
-// # Audio unit types
-//
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeOutput]: An audio unit type that represents an output.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeMusicDevice]: An audio unit type that represents a music device.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeMusicEffect]: An audio unit type that represents a music effect.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeFormatConverter]: An audio unit type that represents a format converter.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeEffect]: An audio unit type that represents an effect.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeMixer]: An audio unit type that represents a mixer.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypePanner]: An audio unit type that represents a panner.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeGenerator]: An audio unit type that represents a generator.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeOfflineEffect]: An audio unit type that represents an offline effect.
-//   - [IAVAudioUnitComponent.AVAudioUnitTypeMIDIProcessor]: An audio unit type that represents a MIDI processor.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent
 type IAVAudioUnitComponent interface {
@@ -216,34 +182,6 @@ type IAVAudioUnitComponent interface {
 	// An array of tags the user creates.
 	UserTagNames() []string
 	SetUserTagNames(value []string)
-
-	// Topic: Audio unit manufacturer names
-
-	// The audio unit manufacturer is Apple.
-	AVAudioUnitManufacturerNameApple() string
-
-	// Topic: Audio unit types
-
-	// An audio unit type that represents an output.
-	AVAudioUnitTypeOutput() string
-	// An audio unit type that represents a music device.
-	AVAudioUnitTypeMusicDevice() string
-	// An audio unit type that represents a music effect.
-	AVAudioUnitTypeMusicEffect() string
-	// An audio unit type that represents a format converter.
-	AVAudioUnitTypeFormatConverter() string
-	// An audio unit type that represents an effect.
-	AVAudioUnitTypeEffect() string
-	// An audio unit type that represents a mixer.
-	AVAudioUnitTypeMixer() string
-	// An audio unit type that represents a panner.
-	AVAudioUnitTypePanner() string
-	// An audio unit type that represents a generator.
-	AVAudioUnitTypeGenerator() string
-	// An audio unit type that represents an offline effect.
-	AVAudioUnitTypeOfflineEffect() string
-	// An audio unit type that represents a MIDI processor.
-	AVAudioUnitTypeMIDIProcessor() string
 }
 
 // Init initializes the instance.
@@ -482,92 +420,4 @@ func (a AVAudioUnitComponent) UserTagNames() []string {
 }
 func (a AVAudioUnitComponent) SetUserTagNames(value []string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUserTagNames:"), objectivec.StringSliceToNSArray(value))
-}
-
-// The audio unit manufacturer is Apple.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounitmanufacturernameapple
-func (a AVAudioUnitComponent) AVAudioUnitManufacturerNameApple() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitManufacturerNameApple"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents an output.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeoutput
-func (a AVAudioUnitComponent) AVAudioUnitTypeOutput() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeOutput"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a music device.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemusicdevice
-func (a AVAudioUnitComponent) AVAudioUnitTypeMusicDevice() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMusicDevice"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a music effect.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemusiceffect
-func (a AVAudioUnitComponent) AVAudioUnitTypeMusicEffect() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMusicEffect"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a format converter.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeformatconverter
-func (a AVAudioUnitComponent) AVAudioUnitTypeFormatConverter() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeFormatConverter"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents an effect.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeeffect
-func (a AVAudioUnitComponent) AVAudioUnitTypeEffect() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeEffect"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a mixer.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemixer
-func (a AVAudioUnitComponent) AVAudioUnitTypeMixer() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMixer"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a panner.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypepanner
-func (a AVAudioUnitComponent) AVAudioUnitTypePanner() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypePanner"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a generator.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypegenerator
-func (a AVAudioUnitComponent) AVAudioUnitTypeGenerator() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeGenerator"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents an offline effect.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeofflineeffect
-func (a AVAudioUnitComponent) AVAudioUnitTypeOfflineEffect() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeOfflineEffect"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An audio unit type that represents a MIDI processor.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemidiprocessor
-func (a AVAudioUnitComponent) AVAudioUnitTypeMIDIProcessor() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMIDIProcessor"))
-	return foundation.NSStringFromID(rv).String()
 }

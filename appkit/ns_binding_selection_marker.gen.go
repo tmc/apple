@@ -82,13 +82,13 @@ func NewNSBindingSelectionMarker() NSBindingSelectionMarker {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBindingSelectionMarker/defaultPlaceholder(for:on:withBinding:)
-func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) DefaultPlaceholderForMarkerOnClassWithBinding(marker INSBindingSelectionMarker, objectClass objc.Class, binding string) objectivec.IObject {
+func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) DefaultPlaceholderForMarkerOnClassWithBinding(marker INSBindingSelectionMarker, objectClass objectivec.Class, binding string) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("defaultPlaceholderForMarker:onClass:withBinding:"), marker, objectClass, objc.String(binding))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBindingSelectionMarker/setDefaultPlaceholder(_:for:on:withBinding:)
-func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) SetDefaultPlaceholderForMarkerOnClassWithBinding(placeholder objectivec.IObject, marker INSBindingSelectionMarker, objectClass objc.Class, binding string) {
+func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) SetDefaultPlaceholderForMarkerOnClassWithBinding(placeholder objectivec.IObject, marker INSBindingSelectionMarker, objectClass objectivec.Class, binding string) {
 	objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("setDefaultPlaceholder:forMarker:onClass:withBinding:"), placeholder, marker, objectClass, objc.String(binding))
 }
 

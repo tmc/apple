@@ -4,9 +4,9 @@ package metalkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -124,9 +124,9 @@ type IMTKSubmesh interface {
 	// The number of indices in the index buffer.
 	IndexCount() uint
 	// The type of index data in the index buffer.
-	IndexType() unsafe.Pointer
+	IndexType() metal.MTLIndexType
 	// The primitive type with which to draw the submesh object.
-	PrimitiveType() unsafe.Pointer
+	PrimitiveType() metal.MTLPrimitiveType
 
 	// Topic: Identifying Properties
 
@@ -211,9 +211,9 @@ func (s MTKSubmesh) IndexCount() uint {
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/indexType
 //
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-func (s MTKSubmesh) IndexType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indexType"))
-	return rv
+func (s MTKSubmesh) IndexType() metal.MTLIndexType {
+	rv := objc.Send[metal.MTLIndexType](s.ID, objc.Sel("indexType"))
+	return metal.MTLIndexType(rv)
 }
 
 // The primitive type with which to draw the submesh object.
@@ -226,9 +226,9 @@ func (s MTKSubmesh) IndexType() unsafe.Pointer {
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/primitiveType
 //
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-func (s MTKSubmesh) PrimitiveType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("primitiveType"))
-	return rv
+func (s MTKSubmesh) PrimitiveType() metal.MTLPrimitiveType {
+	rv := objc.Send[metal.MTLPrimitiveType](s.ID, objc.Sel("primitiveType"))
+	return metal.MTLPrimitiveType(rv)
 }
 
 // The name of the submesh.

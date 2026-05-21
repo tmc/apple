@@ -55,8 +55,8 @@ func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObje
 // [NSDocument] if you don’t implement
 // [ApplicationContinueUserActivityRestorationHandler], or if you return
 // false. When this occurs, the system opens the document using
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
-// `restoreUserActivityState` on it.
+// [NSDocumentController.OpenDocumentWithContentsOfURLDisplayCompletionHandler],
+// and calls `restoreUserActivityState` on it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
 //

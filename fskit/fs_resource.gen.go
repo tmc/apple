@@ -82,6 +82,10 @@ func (fc FSResourceClass) Alloc() FSResource {
 //   - [FSResource.Revoke]: Revokes the resource.
 //   - [FSResource.IsRevoked]: A Boolean value that indicates whether the resource is revoked.
 //
+// # Initializers
+//
+//   - [FSResource.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSResource
 type FSResource struct {
 	objectivec.Object
@@ -108,6 +112,10 @@ func FSResourceFromID(id objc.ID) FSResource {
 //   - [IFSResource.Revoke]: Revokes the resource.
 //   - [IFSResource.IsRevoked]: A Boolean value that indicates whether the resource is revoked.
 //
+// # Initializers
+//
+//   - [IFSResource.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSResource
 type IFSResource interface {
 	objectivec.IObject
@@ -123,6 +131,10 @@ type IFSResource interface {
 	Revoke()
 	// A Boolean value that indicates whether the resource is revoked.
 	IsRevoked() bool
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) FSResource
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -144,6 +156,13 @@ func NewFSResource() FSResource {
 	class := getFSResourceClass()
 	rv := objc.Send[FSResource](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSResource/init(coder:)
+func NewResourceWithCoder(coder foundation.INSCoder) FSResource {
+	instance := getFSResourceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSResourceFromID(rv)
 }
 
 // Creates a proxy object of this resource.
@@ -170,6 +189,12 @@ func (r FSResource) MakeProxy() IFSResource {
 // See: https://developer.apple.com/documentation/FSKit/FSResource/revoke()
 func (r FSResource) Revoke() {
 	objc.Send[objc.ID](r.ID, objc.Sel("revoke"))
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSResource/init(coder:)
+func (r FSResource) InitWithCoder(coder foundation.INSCoder) FSResource {
+	rv := objc.Send[FSResource](r.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (r FSResource) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)

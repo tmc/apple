@@ -27,7 +27,7 @@ type NSGlyphStorage interface {
 	// Inserts the given glyphs into the glyph cache and maps them to the specified characters.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/insertGlyphs(_:length:forStartingGlyphAt:characterIndex:)
-	InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs NSGlyph, length uint, glyphIndex uint, charIndex uint)
+	InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs uint32, length uint, glyphIndex uint, charIndex uint)
 
 	// Sets a custom attribute value for a given glyph.
 	//
@@ -93,7 +93,7 @@ func (o NSGlyphStorageObject) LayoutOptions() uint {
 // This is a bulk insert method for the glyph cache.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/insertGlyphs(_:length:forStartingGlyphAt:characterIndex:)
-func (o NSGlyphStorageObject) InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs NSGlyph, length uint, glyphIndex uint, charIndex uint) {
+func (o NSGlyphStorageObject) InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs uint32, length uint, glyphIndex uint, charIndex uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("insertGlyphs:length:forStartingGlyphAtIndex:characterIndex:"), glyphs, length, glyphIndex, charIndex)
 }
 

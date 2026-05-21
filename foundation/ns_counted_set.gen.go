@@ -5,6 +5,7 @@ package foundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,11 +53,11 @@ func (nc NSCountedSetClass) Alloc() NSCountedSet {
 // objects are inserted and requires that objects be removed the same number
 // of times. Thus, there is only one instance of an object in an [NSSet]
 // object even if the object has been added to the set multiple times. The
-// [NSCountedSet.Count] method defined by the superclass [NSSet] has special significance;
-// it returns the number of distinct objects, not the total number of times
-// objects are represented in the set. The [NSSet] and [NSMutableSet] classes
-// are provided for static and dynamic sets, respectively, whose elements are
-// distinct.
+// [NSSet.Count] method defined by the superclass [NSSet] has special
+// significance; it returns the number of distinct objects, not the total
+// number of times objects are represented in the set. The [NSSet] and
+// [NSMutableSet] classes are provided for static and dynamic sets,
+// respectively, whose elements are distinct.
 //
 // While [NSCountedSet] and [CFBag] are not toll-free bridged, they provide
 // similar functionality. For more information about [CFBag], see the [CFBag].
@@ -76,10 +77,8 @@ func (nc NSCountedSetClass) Alloc() NSCountedSet {
 // you change how objects are stored, you must override all of the affected
 // methods. These include:
 //
-// - [NSCountedSet.AddObject]
-// - [NSCountedSet.RemoveObject]
-// - [NSCountedSet.ObjectEnumerator]
-// - [NSCountedSet.CountForObject]
+// - [NSCountedSet.AddObject] - [NSCountedSet.RemoveObject] -
+// [NSCountedSet.ObjectEnumerator] - [NSCountedSet.CountForObject]
 //
 // If you change the primitive behavior, you must also override the primitive
 // methods of [NSSet] and [NSMutableSet].
@@ -198,8 +197,8 @@ func NewCountedSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSCo
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
-func NewCountedSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSCountedSet {
-	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
+func NewCountedSetWithCollectionViewIndexPaths(indexPaths []kernel.ID) NSCountedSet {
+	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), indexPaths)
 	return NSCountedSetFromID(rv)
 }
 

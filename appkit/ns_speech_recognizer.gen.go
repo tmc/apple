@@ -57,12 +57,13 @@ func (nc NSSpeechRecognizerClass) Alloc() NSSpeechRecognizer {
 // move.”
 //
 // The [NSSpeechRecognizer] class has a property that lets you specify which
-// spoken words should be recognized as commands ([NSSpeechRecognizer.Commands]) and methods that
-// let you start and stop listening ([NSSpeechRecognizer.StartListening] and [NSSpeechRecognizer.StopListening]).
-// When the speech recognition facility recognizes one of the designated
-// commands, [NSSpeechRecognizer] invokes the delegation method
-// [SpeechRecognizerDidRecognizeCommand], allowing the delegate to perform the
-// command.
+// spoken words should be recognized as commands
+// ([NSSpeechRecognizer.Commands]) and methods that let you start and stop
+// listening ([NSSpeechRecognizer.StartListening] and
+// [NSSpeechRecognizer.StopListening]). When the speech recognition facility
+// recognizes one of the designated commands, [NSSpeechRecognizer] invokes the
+// delegation method [SpeechRecognizerDidRecognizeCommand], allowing the
+// delegate to perform the command.
 //
 // Speech recognition is just one of the macOS speech technologies. The speech
 // synthesis technology allows applications to “pronounce” written text in

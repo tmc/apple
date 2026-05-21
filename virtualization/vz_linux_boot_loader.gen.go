@@ -52,7 +52,8 @@ func (vc VZLinuxBootLoaderClass) Alloc() VZLinuxBootLoader {
 // Linux kernel that serves as the guest operating system. You can also
 // specify additional information to use during the boot process, such as
 // command-line parameters to pass to the kernel. Assign the
-// [VZLinuxBootLoader] object to the [BootLoader] property of your
+// [VZLinuxBootLoader] object to the
+// [VZVirtualMachineConfiguration.BootLoader] property of your
 // [VZVirtualMachineConfiguration] object. A configuration with
 // [VZLinuxBootLoader] is only valid if used with
 // [VZGenericPlatformConfiguration].
@@ -130,10 +131,6 @@ type IVZLinuxBootLoader interface {
 	// The URL of the Linux kernel file.
 	KernelURL() foundation.NSURL
 	SetKernelURL(value foundation.NSURL)
-
-	// The guest system to boot when the VM starts.
-	BootLoader() IVZBootLoader
-	SetBootLoader(value IVZBootLoader)
 }
 
 // Init initializes the instance.
@@ -229,15 +226,4 @@ func (l VZLinuxBootLoader) KernelURL() foundation.NSURL {
 }
 func (l VZLinuxBootLoader) SetKernelURL(value foundation.NSURL) {
 	objc.Send[struct{}](l.ID, objc.Sel("setKernelURL:"), value)
-}
-
-// The guest system to boot when the VM starts.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/bootloader
-func (l VZLinuxBootLoader) BootLoader() IVZBootLoader {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("bootLoader"))
-	return VZBootLoaderFromID(objc.ID(rv))
-}
-func (l VZLinuxBootLoader) SetBootLoader(value IVZBootLoader) {
-	objc.Send[struct{}](l.ID, objc.Sel("setBootLoader:"), value)
 }

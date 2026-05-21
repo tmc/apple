@@ -3,7 +3,7 @@
 package endpointsecurity
 
 import (
-	"unsafe"
+	"github.com/tmc/apple/kernel"
 )
 
 type Es_action_type_t = EsActionType
@@ -21,14 +21,14 @@ type Es_auto_unlock_type_t = EsAutoUnlock
 type Es_btm_item_type_t = EsBtmItemType
 
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_cdhash_t
-type Es_cdhash_t = unsafe.Pointer
+type Es_cdhash_t = kernel.Pointer
 
 type Es_clear_cache_result_t = EsClearCacheResult
 
 // Es_client_t is an opaque type that stores the Endpoint Security client state.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_client_t
-type Es_client_t = unsafe.Pointer
+type Es_client_t = kernel.Pointer
 
 type Es_cs_validation_category_t = EsCsValidationCategory
 
@@ -46,7 +46,7 @@ type Es_graphical_session_id_t = uint32
 // Es_handler_block_t is a block that handles a message received from Endpoint Security.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_handler_block_t
-type Es_handler_block_t = func(*Es_client_t, *Es_message_t)
+type Es_handler_block_t = func(kernel.Pointer, *Es_message_t)
 
 type Es_mount_disposition_t = EsMountDisposition
 
@@ -81,12 +81,12 @@ type Es_return_t = EsReturn
 type Es_set_or_clear_t = Es
 
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_sha256_t
-type Es_sha256_t = unsafe.Pointer
+type Es_sha256_t = kernel.Pointer
 
 // Es_statfs_t is this typedef is no longer used, but exists for API backwards compatibility.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_statfs_t
-type Es_statfs_t = unsafe.Pointer
+type Es_statfs_t = kernel.Pointer
 
 type Es_sudo_plugin_type_t = EsSudoPluginType
 

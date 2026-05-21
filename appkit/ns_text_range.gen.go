@@ -48,9 +48,10 @@ func (nc NSTextRangeClass) Alloc() NSTextRange {
 // # Overview
 //
 // An [NSTextRange] consists of the starting and terminating locations. There
-// the two basic properties: [NSTextRange.Location] and [NSTextRange.EndLocation], respectively. The
-// terminating [NSTextRange.Location], [NSTextRange.EndLocation], is directly following the last
-// location in the range. For example, a location contains a range if
+// the two basic properties: [NSTextRange.Location] and
+// [NSTextRange.EndLocation], respectively. The terminating
+// [NSTextRange.Location], [NSTextRange.EndLocation], is directly following
+// the last location in the range. For example, a location contains a range if
 // `(range.Location() <= location) && (location < range.EndLocation())` is
 // `true`.
 //

@@ -57,7 +57,8 @@ func (nc NSCollectionLayoutBoundarySupplementaryItemClass) Alloc() NSCollectionL
 // identify each element, for example:
 //
 // Add boundary supplementary items to a section by setting that section’s
-// [NSCollectionLayoutBoundarySupplementaryItem.BoundarySupplementaryItems] property:
+// [NSCollectionViewCompositionalLayoutConfiguration.BoundarySupplementaryItems]
+// property:
 //
 // # Specifying scrolling behavior
 //
@@ -119,10 +120,6 @@ type INSCollectionLayoutBoundarySupplementaryItem interface {
 	// A Boolean value that indicates whether a boundary supplementary item extends the content area of the section or layout it’s attached to.
 	ExtendsBoundary() bool
 	SetExtendsBoundary(value bool)
-
-	// An array of the supplementary items that are associated with the boundary edges of the entire layout, such as global headers and footers.
-	BoundarySupplementaryItems() INSCollectionLayoutBoundarySupplementaryItem
-	SetBoundarySupplementaryItems(value INSCollectionLayoutBoundarySupplementaryItem)
 }
 
 // Init initializes the instance.
@@ -252,16 +249,4 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) ExtendsBoundary() bool {
 }
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetExtendsBoundary(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExtendsBoundary:"), value)
-}
-
-// An array of the supplementary items that are associated with the boundary
-// edges of the entire layout, such as global headers and footers.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionviewcompositionallayoutconfiguration/boundarysupplementaryitems
-func (c NSCollectionLayoutBoundarySupplementaryItem) BoundarySupplementaryItems() INSCollectionLayoutBoundarySupplementaryItem {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("boundarySupplementaryItems"))
-	return NSCollectionLayoutBoundarySupplementaryItemFromID(objc.ID(rv))
-}
-func (c NSCollectionLayoutBoundarySupplementaryItem) SetBoundarySupplementaryItems(value INSCollectionLayoutBoundarySupplementaryItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), value)
 }

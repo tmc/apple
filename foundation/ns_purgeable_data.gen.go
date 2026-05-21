@@ -113,14 +113,56 @@ func NewNSPurgeableData() NSPurgeableData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
+// Initializes a data object with the given Base64 encoded data.
+//
+// base64Data: A Base64, UTF-8 encoded data object.
+//
+// options: A mask that specifies options for Base64 decoding the data. Possible values
+// are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object containing the Base64 decoded data. Returns `nil` if the data
+// object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedData:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewPurgeableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
 	return NSPurgeableDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
+// Initializes a data object with the given Base64 encoded string.
+//
+// base64String: A Base-64 encoded string.
+//
+// options: A mask that specifies options for Base-64 decoding the data. Possible
+// values are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object built by Base64 decoding the provided string. Returns `nil`
+// if the data object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
@@ -141,11 +183,10 @@ func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options
 // Although this method was only introduced publicly for iOS 7, it has existed
 // since iOS 4; you can use it if your application needs to target an
 // operating system prior to iOS 7. This method behaves like
-// [init(base64EncodedString:options:)], but ignores all unknown characters.
+// [NSPurgeableData.InitWithBase64EncodedStringOptions], but ignores all
+// unknown characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoding:)
-//
-// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
 func NewPurgeableDataWithBase64Encoding(base64String string) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64Encoding:"), objc.String(base64String))
@@ -245,7 +286,7 @@ func NewPurgeableDataWithCapacity(capacity uint) NSPurgeableData {
 	return NSPurgeableDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(coder:)
 func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -263,8 +304,8 @@ func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
 //
 // # Discussion
 //
-// This method is equivalent to [InitWithContentsOfFileOptionsError] with no
-// options.
+// This method is equivalent to
+// [NSPurgeableData.InitWithContentsOfFileOptionsError] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:)
 func NewPurgeableDataWithContentsOfFile(path string) NSPurgeableData {

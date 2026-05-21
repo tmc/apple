@@ -183,7 +183,7 @@ func NewCaptureSliderWithLocalizedTitleSymbolNameMinValueMaxValue(localizedTitle
 // maxValue: The upper bound of the range.
 //
 // step: The distance between each valid value. This specified value must be greater
-// than `0` or the system throws an [InvalidArgumentException].
+// than `0` or the system throws an [invalidArgumentException].
 //
 // # Discussion
 //
@@ -191,6 +191,8 @@ func NewCaptureSliderWithLocalizedTitleSymbolNameMinValueMaxValue(localizedTitle
 // within the specified range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/initWithLocalizedTitle:symbolName:minValue:maxValue:step:
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func NewCaptureSliderWithLocalizedTitleSymbolNameMinValueMaxValueStep(localizedTitle string, symbolName string, minValue float32, maxValue float32, step float32) AVCaptureSlider {
 	instance := getAVCaptureSliderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocalizedTitle:symbolName:minValue:maxValue:step:"), objc.String(localizedTitle), objc.String(symbolName), minValue, maxValue, step)
@@ -251,7 +253,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValue(locali
 // maxValue: The upper bound of the range.
 //
 // step: The distance between each valid value. This specified value must be greater
-// than `0` or the system throws an [InvalidArgumentException].
+// than `0` or the system throws an [invalidArgumentException].
 //
 // # Discussion
 //
@@ -259,6 +261,8 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValue(locali
 // within the specified range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/initWithLocalizedTitle:symbolName:minValue:maxValue:step:
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValueStep(localizedTitle string, symbolName string, minValue float32, maxValue float32, step float32) AVCaptureSlider {
 	rv := objc.Send[AVCaptureSlider](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:minValue:maxValue:step:"), objc.String(localizedTitle), objc.String(symbolName), minValue, maxValue, step)
 	return rv

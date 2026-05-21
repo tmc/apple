@@ -170,7 +170,8 @@ func (t NSTextParagraph) AttributedString() foundation.NSAttributedString {
 //
 // # Discussion
 //
-// The containing text is [NSTextContentStorage]’s [AttributedString].
+// The containing text is [NSTextContentStorage]’s
+// [NSTextContentStorage.AttributedString].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/paragraphContentRange
 func (t NSTextParagraph) ParagraphContentRange() INSTextRange {
@@ -183,7 +184,8 @@ func (t NSTextParagraph) ParagraphContentRange() INSTextRange {
 //
 // # Discussion
 //
-// The containing text is [NSTextContentStorage]’s [AttributedString].
+// The containing text is [NSTextContentStorage]’s
+// [NSTextContentStorage.AttributedString].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/paragraphSeparatorRange
 func (t NSTextParagraph) ParagraphSeparatorRange() INSTextRange {

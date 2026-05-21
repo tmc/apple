@@ -142,8 +142,8 @@ func NewNEVPNProtocolIPSec() NEVPNProtocolIPSec {
 // # Discussion
 //
 // If this property is set to [NEVPNIKEAuthenticationMethodNone], extended
-// authentication will still be negotiated if [UseExtendedAuthentication] is
-// set to true.
+// authentication will still be negotiated if
+// [NEVPNProtocolIPSec.UseExtendedAuthentication] is set to true.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/authenticationMethod
 func (v NEVPNProtocolIPSec) AuthenticationMethod() NEVPNIKEAuthenticationMethod {

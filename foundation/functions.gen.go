@@ -1129,10 +1129,10 @@ func NSGetSizeAndAlignment(typePtr string, sizep *uint, alignp *uint) *byte {
 	return result
 }
 
-var _nSGetUncaughtExceptionHandler func() func(unsafe.Pointer)
+var _nSGetUncaughtExceptionHandler func() unsafe.Pointer
 var _nSGetUncaughtExceptionHandlerErr error
 
-func tryNSGetUncaughtExceptionHandler() (func(unsafe.Pointer), error) {
+func tryNSGetUncaughtExceptionHandler() (unsafe.Pointer, error) {
 	if _nSGetUncaughtExceptionHandler == nil {
 		return nil, symbolCallError("NSGetUncaughtExceptionHandler", "10.0", _nSGetUncaughtExceptionHandlerErr)
 	}
@@ -1142,7 +1142,7 @@ func tryNSGetUncaughtExceptionHandler() (func(unsafe.Pointer), error) {
 // NSGetUncaughtExceptionHandler returns the top-level error handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSGetUncaughtExceptionHandler()
-func NSGetUncaughtExceptionHandler() func(unsafe.Pointer) {
+func NSGetUncaughtExceptionHandler() unsafe.Pointer {
 	result, callErr := tryNSGetUncaughtExceptionHandler()
 	if callErr != nil {
 		panic(callErr)
@@ -2475,10 +2475,10 @@ func NSZoneRealloc(zone *NSZone, ptr unsafe.Pointer, size uint) unsafe.Pointer {
 	return result
 }
 
-var _nXReadNSObjectFromCoder func(decoder *NSCoder) *objectivec.Object
+var _nXReadNSObjectFromCoder func(decoder *NSCoder) *objectivec.NSObject
 var _nXReadNSObjectFromCoderErr error
 
-func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.Object, error) {
+func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.NSObject, error) {
 	if _nXReadNSObjectFromCoder == nil {
 		return nil, symbolCallError("NXReadNSObjectFromCoder", "10.0", _nXReadNSObjectFromCoderErr)
 	}
@@ -2490,7 +2490,7 @@ func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.Object, error) {
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/Foundation/NXReadNSObjectFromCoder
-func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.Object {
+func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.NSObject {
 	result, callErr := tryNXReadNSObjectFromCoder(decoder)
 	if callErr != nil {
 		panic(callErr)

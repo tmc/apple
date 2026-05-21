@@ -86,10 +86,6 @@ type IAVCaptionConversionWarning interface {
 	RangeOfCaptions() foundation.NSRange
 	// A correction the converter makes when it converts a caption to a specific format.
 	Adjustment() IAVCaptionConversionAdjustment
-
-	// The collection of warnings the validator encountered.
-	Warnings() IAVCaptionConversionWarning
-	SetWarnings(value IAVCaptionConversionWarning)
 }
 
 // Init initializes the instance.
@@ -147,15 +143,4 @@ func (c AVCaptionConversionWarning) RangeOfCaptions() foundation.NSRange {
 func (c AVCaptionConversionWarning) Adjustment() IAVCaptionConversionAdjustment {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("adjustment"))
 	return AVCaptionConversionAdjustmentFromID(objc.ID(rv))
-}
-
-// The collection of warnings the validator encountered.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionvalidator/warnings
-func (c AVCaptionConversionWarning) Warnings() IAVCaptionConversionWarning {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("warnings"))
-	return AVCaptionConversionWarningFromID(objc.ID(rv))
-}
-func (c AVCaptionConversionWarning) SetWarnings(value IAVCaptionConversionWarning) {
-	objc.Send[struct{}](c.ID, objc.Sel("setWarnings:"), value)
 }

@@ -3,7 +3,6 @@
 package foundation
 
 import (
-	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -47,9 +46,9 @@ func (nc NSOrderedCollectionDifferenceClass) Alloc() NSOrderedCollectionDifferen
 //
 // # Overview
 //
-// Use [DifferenceFromArray] or one of its variations to get an instance of
-// [NSOrderedCollectionDifference], which represents the difference between
-// two ordered collections.
+// Use [NSArray.DifferenceFromArray] or one of its variations to get an
+// instance of [NSOrderedCollectionDifference], which represents the
+// difference between two ordered collections.
 //
 // For example, the following sample compares two arrays of strings to create
 // a difference that represents the changes:
@@ -360,19 +359,4 @@ func (o NSOrderedCollectionDifference) Removals() []NSOrderedCollectionChange {
 	return objc.ConvertSlice(rv, func(id objc.ID) NSOrderedCollectionChange {
 		return NSOrderedCollectionChangeFromID(id)
 	})
-}
-
-// DifferenceByTransformingChangesWithBlockSync is a synchronous wrapper around [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlockSync(ctx context.Context) (*NSOrderedCollectionChange, error) {
-	done := make(chan *NSOrderedCollectionChange, 1)
-	o.DifferenceByTransformingChangesWithBlock(func(val *NSOrderedCollectionChange) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
 }

@@ -50,8 +50,6 @@ func (nc NEFilterFlowClass) Alloc() NEFilterFlow {
 //   - [NEFilterFlow.URL]: The flow’s HTTP URL.
 //   - [NEFilterFlow.Identifier]: The unique identifier of the flow.
 //   - [NEFilterFlow.Direction]: The initial direction of the flow: incoming or outgoing.
-//   - [NEFilterFlow.NEFilterFlowBytesMax]: The maximum number of bytes to pass or peek for a flow.
-//   - [NEFilterFlow.SetNEFilterFlowBytesMax]
 //
 // # Source app identification
 //
@@ -80,8 +78,6 @@ func NEFilterFlowFromID(id objc.ID) NEFilterFlow {
 //   - [INEFilterFlow.URL]: The flow’s HTTP URL.
 //   - [INEFilterFlow.Identifier]: The unique identifier of the flow.
 //   - [INEFilterFlow.Direction]: The initial direction of the flow: incoming or outgoing.
-//   - [INEFilterFlow.NEFilterFlowBytesMax]: The maximum number of bytes to pass or peek for a flow.
-//   - [INEFilterFlow.SetNEFilterFlowBytesMax]
 //
 // # Source app identification
 //
@@ -100,9 +96,6 @@ type INEFilterFlow interface {
 	Identifier() foundation.NSUUID
 	// The initial direction of the flow: incoming or outgoing.
 	Direction() NETrafficDirection
-	// The maximum number of bytes to pass or peek for a flow.
-	NEFilterFlowBytesMax() uint64
-	SetNEFilterFlowBytesMax(value uint64)
 
 	// Topic: Source app identification
 
@@ -166,17 +159,6 @@ func (f NEFilterFlow) Direction() NETrafficDirection {
 	return NETrafficDirection(rv)
 }
 
-// The maximum number of bytes to pass or peek for a flow.
-//
-// See: https://developer.apple.com/documentation/networkextension/nefilterflowbytesmax
-func (f NEFilterFlow) NEFilterFlowBytesMax() uint64 {
-	rv := objc.Send[uint64](f.ID, objc.Sel("NEFilterFlowBytesMax"))
-	return rv
-}
-func (f NEFilterFlow) SetNEFilterFlowBytesMax(value uint64) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNEFilterFlowBytesMax:"), value)
-}
-
 // The audit token of the source application of the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/sourceAppAuditToken
@@ -190,9 +172,9 @@ func (f NEFilterFlow) SourceAppAuditToken() foundation.NSData {
 // # Discussion
 //
 // In cases where a system process creates the connection on behalf of a
-// source app, this value is different from [SourceAppAuditToken]. In cases
-// where the source app directly creates the connection, these values are
-// identical.
+// source app, this value is different from
+// [NEFilterFlow.SourceAppAuditToken]. In cases where the source app directly
+// creates the connection, these values are identical.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/sourceProcessAuditToken
 func (f NEFilterFlow) SourceProcessAuditToken() foundation.NSData {

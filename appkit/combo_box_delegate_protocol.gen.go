@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -246,10 +245,10 @@ func (o NSComboBoxDelegateObject) ControlTextShouldEndEditing(control INSControl
 // selected initially.
 //
 // The actual means of presentation of the potential completions is determined
-// by the [Complete] method of [NSTextView].
+// by the [NSTextView.Complete] method of [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
-func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }

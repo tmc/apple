@@ -53,8 +53,8 @@ func (wc WKSnapshotConfigurationClass) Alloc() WKSnapshotConfiguration {
 // image based on your web view’s content. Use this object to specify the
 // portion of the web view to capture and the capture behavior. To generate
 // the snapshot, pass the configuration object to the
-// [TakeSnapshotWithConfigurationCompletionHandler] method of [WKWebView],
-// which returns a platform-native image for you to use.
+// [WKWebView.TakeSnapshotWithConfigurationCompletionHandler] method of
+// [WKWebView], which returns a platform-native image for you to use.
 //
 // # Specifying the snapshot dimensions
 //

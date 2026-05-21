@@ -47,8 +47,9 @@ func (gc GCDirectionalGamepadClass) Alloc() GCDirectionalGamepad {
 // # Overview
 //
 // The directional gamepad profile is similar to a micro gamepad profile
-// except it doesn’t support motion or rotation. The controller’s [GCDirectionalGamepad.Motion]
-// property is `nil` and the inherited [GCDirectionalGamepad.AllowsRotation] property is false.
+// except it doesn’t support motion or rotation. The controller’s
+// [GCController.Motion] property is `nil` and the inherited
+// [GCMicroGamepad.AllowsRotation] property is false.
 //
 // If you select Micro Gamepad when you add the Game Controllers capability
 // ([GCSupportedGameControllers] ) to your project, and you also support the
@@ -59,9 +60,9 @@ func (gc GCDirectionalGamepadClass) Alloc() GCDirectionalGamepad {
 // list in your project.
 //
 // In addition, the directional pad element may report digital or analog
-// values. If the directional pad’s [Analog] property is false, it reports
-// absolute directional pad values (the [GCDirectionalGamepad.ReportsAbsoluteDpadValues] property
-// is true).
+// values. If the directional pad’s [GCControllerElement.Analog] property is
+// false, it reports absolute directional pad values (the
+// [GCMicroGamepad.ReportsAbsoluteDpadValues] property is true).
 //
 // See: https://developer.apple.com/documentation/GameController/GCDirectionalGamepad
 //
@@ -87,10 +88,6 @@ func GCDirectionalGamepadFromID(id objc.ID) GCDirectionalGamepad {
 // See: https://developer.apple.com/documentation/GameController/GCDirectionalGamepad
 type IGCDirectionalGamepad interface {
 	IGCMicroGamepad
-
-	// A Boolean value that indicates whether the element provides analog data.
-	IsAnalog() bool
-	SetAnalog(value bool)
 }
 
 // Init initializes the instance.
@@ -110,15 +107,4 @@ func NewGCDirectionalGamepad() GCDirectionalGamepad {
 	class := getGCDirectionalGamepadClass()
 	rv := objc.Send[GCDirectionalGamepad](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// A Boolean value that indicates whether the element provides analog data.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontrollerelement/isanalog
-func (g GCDirectionalGamepad) IsAnalog() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("analog"))
-	return rv
-}
-func (g GCDirectionalGamepad) SetAnalog(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setAnalog:"), value)
 }

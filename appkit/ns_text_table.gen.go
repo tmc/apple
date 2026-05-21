@@ -185,6 +185,13 @@ func NewNSTextTable() NSTextTable {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSTextBlock/init(coder:)
+func NewTextTableWithCoder(coder foundation.INSCoder) NSTextTable {
+	instance := getNSTextTableClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextTableFromID(rv)
+}
+
 // Returns the rectangle within which glyphs should be laid out for a text
 // table block.
 //
@@ -221,7 +228,7 @@ func (t NSTextTable) RectForBlockLayoutAtPointInRectTextContainerCharacterRange(
 // block: The text table block that wants to determine where to layout its glyphs.
 //
 // contentRect: The actual rectangle in which the text was laid out, as determined by
-// [RectForLayoutAtPointInRectTextContainerCharacterRange].
+// [NSTextBlock.RectForLayoutAtPointInRectTextContainerCharacterRange].
 //
 // rect: The initial rectangle in `textContainer` proposed by the typesetter.
 //

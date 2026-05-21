@@ -50,7 +50,8 @@ func (uc UNPushNotificationTriggerClass) Alloc() UNPushNotificationTrigger {
 // [UNPushNotificationTrigger] objects and associates them with requests that
 // originated from Apple Push Notification service. You encounter instances of
 // this class when managing your app’s delivered notification requests,
-// which store an object of this type in their [UNPushNotificationTrigger.Trigger] property.
+// which store an object of this type in their [UNNotificationRequest.Trigger]
+// property.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNPushNotificationTrigger
 type UNPushNotificationTrigger struct {
@@ -73,10 +74,6 @@ func UNPushNotificationTriggerFromID(id objc.ID) UNPushNotificationTrigger {
 // See: https://developer.apple.com/documentation/UserNotifications/UNPushNotificationTrigger
 type IUNPushNotificationTrigger interface {
 	IUNNotificationTrigger
-
-	// The conditions that trigger the delivery of the notification.
-	Trigger() IUNNotificationTrigger
-	SetTrigger(value IUNNotificationTrigger)
 }
 
 // Init initializes the instance.
@@ -96,15 +93,4 @@ func NewUNPushNotificationTrigger() UNPushNotificationTrigger {
 	class := getUNPushNotificationTriggerClass()
 	rv := objc.Send[UNPushNotificationTrigger](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The conditions that trigger the delivery of the notification.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationrequest/trigger
-func (u UNPushNotificationTrigger) Trigger() IUNNotificationTrigger {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("trigger"))
-	return UNNotificationTriggerFromID(objc.ID(rv))
-}
-func (u UNPushNotificationTrigger) SetTrigger(value IUNNotificationTrigger) {
-	objc.Send[struct{}](u.ID, objc.Sel("setTrigger:"), value)
 }

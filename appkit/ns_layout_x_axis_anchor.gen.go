@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -126,6 +127,13 @@ func NewNSLayoutXAxisAnchor() NSLayoutXAxisAnchor {
 	class := getNSLayoutXAxisAnchorClass()
 	rv := objc.Send[NSLayoutXAxisAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/init(coder:)
+func NewLayoutXAxisAnchorWithCoder(coder foundation.INSCoder) NSLayoutXAxisAnchor {
+	instance := getNSLayoutXAxisAnchorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSLayoutXAxisAnchorFromID(rv)
 }
 
 // Returns a constraint that defines by how much the current anchor trails the

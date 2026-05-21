@@ -46,8 +46,11 @@ func (gc GCControllerDirectionPadClass) Alloc() GCControllerDirectionPad {
 // # Overview
 //
 // You get the input values for this element from its subelements. You can use
-// either the [GCControllerDirectionPad.XAxis] and [GCControllerDirectionPad.YAxis] properties to get coordinates, or the [GCControllerDirectionPad.Up],
-// [GCControllerDirectionPad.Down], [GCControllerDirectionPad.Left], and [GCControllerDirectionPad.Right] buttons that simulate directional pad buttons.
+// either the [GCControllerDirectionPad.XAxis] and
+// [GCControllerDirectionPad.YAxis] properties to get coordinates, or the
+// [GCControllerDirectionPad.Up], [GCControllerDirectionPad.Down],
+// [GCControllerDirectionPad.Left], and [GCControllerDirectionPad.Right]
+// buttons that simulate directional pad buttons.
 //
 // # Accessing values using the axes
 //
@@ -170,8 +173,8 @@ func NewGCControllerDirectionPad() GCControllerDirectionPad {
 // # Discussion
 //
 // This method does nothing if the associated controller isn’t a snapshot
-// (its [Snapshot] property is false`)`. Otherwise, this method sets the value
-// of the direction pad’s buttons as well.
+// (its [GCController.Snapshot] property is false`)`. Otherwise, this method
+// sets the value of the direction pad’s buttons as well.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerDirectionPad/setValueForXAxis(_:yAxis:)
 func (g GCControllerDirectionPad) SetValueForXAxisYAxis(xAxis float32, yAxis float32) {

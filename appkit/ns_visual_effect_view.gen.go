@@ -71,8 +71,9 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 //
 // # Choosing a Translucency Effect for Your View
 //
-// For visual effect views you create yourself, use the [NSVisualEffectView.BlendingMode]
-// property to specify how and where you want the translucency applied.
+// For visual effect views you create yourself, use the
+// [NSVisualEffectView.BlendingMode] property to specify how and where you
+// want the translucency applied.
 //
 // - uses the content behind the window as the background for your visual
 // effect view. Behind-window blending makes your entire window stand out
@@ -89,8 +90,8 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 //
 // The presence of a visual effect view in your view hierarchy does not
 // automatically add vibrancy to your content. For custom views, you must
-// explicitly enable vibrancy by overriding the [NSVisualEffectView.AllowsVibrancy] property and
-// returning true.
+// explicitly enable vibrancy by overriding the [NSView.AllowsVibrancy]
+// property and returning true.
 //
 // It is recommended that you enable vibrancy only in the leaf views of your
 // view hierarchy. Subviews inherit the vibrancy of their parent. Once enabled
@@ -107,18 +108,21 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // designs.
 //
 // Instead of defining custom grayscale color assets, consider using the
-// built-in colors [NSVisualEffectView.LabelColor], [NSVisualEffectView.SecondaryLabelColor], [NSVisualEffectView.TertiaryLabelColor],
-// and [NSVisualEffectView.QuaternaryLabelColor]. While typically used with text, these colors
-// are applicable with any app content. The built-in colors represent varying
-// levels of contrast for your content, with [NSVisualEffectView.LabelColor] offering the most
-// contrast, and [NSVisualEffectView.QuaternaryLabelColor] offering the least contrast.
+// built-in colors [NSColorClass.LabelColor],
+// [NSColorClass.SecondaryLabelColor], [NSColorClass.TertiaryLabelColor], and
+// [NSColorClass.QuaternaryLabelColor]. While typically used with text, these
+// colors are applicable with any app content. The built-in colors represent
+// varying levels of contrast for your content, with [NSColorClass.LabelColor]
+// offering the most contrast, and [NSColorClass.QuaternaryLabelColor]
+// offering the least contrast.
 //
 // # Subclassing Notes
 //
 // If you subclass [NSVisualEffectView]:
 //
-// - Always call `super` if you override [NSVisualEffectView.ViewDidMoveToWindow] or
-// [NSVisualEffectView.ViewWillMoveToWindow]. - Do not override [DrawRect] or [UpdateLayer].
+// - Always call `super` if you override [NSView.ViewDidMoveToWindow] or
+// [NSView.ViewWillMoveToWindow]. - Do not override [NSView.DrawRect] or
+// [NSView.UpdateLayer].
 //
 // # Specifying the Background Material
 //
@@ -378,48 +382,4 @@ func (v NSVisualEffectView) State() NSVisualEffectState {
 }
 func (v NSVisualEffectView) SetState(value NSVisualEffectState) {
 	objc.Send[struct{}](v.ID, objc.Sel("setState:"), value)
-}
-
-// The primary color to use for text labels.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/labelcolor
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) LabelColor() NSColor {
-	rv := objc.Send[objc.ID](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("labelColor"))
-	return NSColorFromID(objc.ID(rv))
-}
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetLabelColor(value NSColor) {
-	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setLabelColor:"), value)
-}
-
-// The quaternary color to use for text labels and separators.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/quaternarylabelcolor
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) QuaternaryLabelColor() NSColor {
-	rv := objc.Send[objc.ID](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("quaternaryLabelColor"))
-	return NSColorFromID(objc.ID(rv))
-}
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetQuaternaryLabelColor(value NSColor) {
-	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setQuaternaryLabelColor:"), value)
-}
-
-// The secondary color to use for text labels.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/secondarylabelcolor
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) SecondaryLabelColor() NSColor {
-	rv := objc.Send[objc.ID](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("secondaryLabelColor"))
-	return NSColorFromID(objc.ID(rv))
-}
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetSecondaryLabelColor(value NSColor) {
-	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setSecondaryLabelColor:"), value)
-}
-
-// The tertiary color to use for text labels.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/tertiarylabelcolor
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) TertiaryLabelColor() NSColor {
-	rv := objc.Send[objc.ID](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("tertiaryLabelColor"))
-	return NSColorFromID(objc.ID(rv))
-}
-func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetTertiaryLabelColor(value NSColor) {
-	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setTertiaryLabelColor:"), value)
 }

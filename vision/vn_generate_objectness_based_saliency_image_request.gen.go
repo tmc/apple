@@ -49,10 +49,6 @@ func (vc VNGenerateObjectnessBasedSaliencyImageRequestClass) Alloc() VNGenerateO
 // The resulting observation, [VNSaliencyImageObservation], encodes this data
 // as a heat map, which you can use to highlight regions of interest.
 //
-// # Identifying Request Revisions
-//
-//   - [VNGenerateObjectnessBasedSaliencyImageRequest.VNGenerateObjectnessBasedSaliencyImageRequestRevision1]: A constant for specifying revision 1 of the image saliency request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateObjectnessBasedSaliencyImageRequest
 type VNGenerateObjectnessBasedSaliencyImageRequest struct {
 	VNImageBasedRequest
@@ -71,18 +67,9 @@ func VNGenerateObjectnessBasedSaliencyImageRequestFromID(id objc.ID) VNGenerateO
 
 // An interface definition for the [VNGenerateObjectnessBasedSaliencyImageRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGenerateObjectnessBasedSaliencyImageRequest.VNGenerateObjectnessBasedSaliencyImageRequestRevision1]: A constant for specifying revision 1 of the image saliency request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateObjectnessBasedSaliencyImageRequest
 type IVNGenerateObjectnessBasedSaliencyImageRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the image saliency request.
-	VNGenerateObjectnessBasedSaliencyImageRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -112,19 +99,11 @@ func NewVNGenerateObjectnessBasedSaliencyImageRequest() VNGenerateObjectnessBase
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGenerateObjectnessBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateObjectnessBasedSaliencyImageRequest {
 	instance := getVNGenerateObjectnessBasedSaliencyImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGenerateObjectnessBasedSaliencyImageRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the image saliency request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateobjectnessbasedsaliencyimagerequestrevision1
-func (g VNGenerateObjectnessBasedSaliencyImageRequest) VNGenerateObjectnessBasedSaliencyImageRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateObjectnessBasedSaliencyImageRequestRevision1"))
-	return rv
 }

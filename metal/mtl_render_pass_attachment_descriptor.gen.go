@@ -59,13 +59,19 @@ func (mc MTLRenderPassAttachmentDescriptorClass) Alloc() MTLRenderPassAttachment
 // instance from the render pass descriptor and configure its properties for
 // use during this rendering pass.
 //
-// You need to set the attachment’s [MTLRenderPassAttachmentDescriptor.Texture] property. The [MTLRenderPassAttachmentDescriptor.Level],
-// [MTLRenderPassAttachmentDescriptor.Slice], and [MTLRenderPassAttachmentDescriptor.DepthPlane] properties specify the mipmap level, slice, and
-// depth plane (for 3D textures) of the texture, respectively.
+// You need to set the attachment’s
+// [MTLRenderPassAttachmentDescriptor.Texture] property. The
+// [MTLRenderPassAttachmentDescriptor.Level],
+// [MTLRenderPassAttachmentDescriptor.Slice], and
+// [MTLRenderPassAttachmentDescriptor.DepthPlane] properties specify the
+// mipmap level, slice, and depth plane (for 3D textures) of the texture,
+// respectively.
 //
-// The [MTLRenderPassAttachmentDescriptor.LoadAction] and [MTLRenderPassAttachmentDescriptor.StoreAction] properties specify actions to perform at
-// the start and end of a rendering pass for the attachment, respectively. For
-// example, if you set the [MTLRenderPassAttachmentDescriptor.LoadAction] property of an attachment to
+// The [MTLRenderPassAttachmentDescriptor.LoadAction] and
+// [MTLRenderPassAttachmentDescriptor.StoreAction] properties specify actions
+// to perform at the start and end of a rendering pass for the attachment,
+// respectively. For example, if you set the
+// [MTLRenderPassAttachmentDescriptor.LoadAction] property of an attachment to
 // [MTLLoadActionClear], then the contents of the texture fill with a value
 // for the type of attachment at the start of the rendering pass.
 //
@@ -79,13 +85,17 @@ func (mc MTLRenderPassAttachmentDescriptorClass) Alloc() MTLRenderPassAttachment
 // # Multisampling
 //
 // To perform multisampled antialiased rendering, you use two textures. Attach
-// to the [MTLRenderPassAttachmentDescriptor.Texture] property a [MTLTextureType2DMultisample] texture, and a 2D
-// or cube texture to the [MTLRenderPassAttachmentDescriptor.ResolveTexture] property. When a rendering command
-// executes, it renders to the multisample texture. At the end of the render
-// pass, the GPU resolves the contents of the multisample texture and writes
-// the results into the resolve texture. The [MTLRenderPassAttachmentDescriptor.ResolveLevel], [MTLRenderPassAttachmentDescriptor.ResolveSlice],
-// and [MTLRenderPassAttachmentDescriptor.ResolveDepthPlane] properties specify where the resolved image is
-// written to. The attachment’s [MTLRenderPassAttachmentDescriptor.StoreAction] property determines what
+// to the [MTLRenderPassAttachmentDescriptor.Texture] property a
+// [MTLTextureType2DMultisample] texture, and a 2D or cube texture to the
+// [MTLRenderPassAttachmentDescriptor.ResolveTexture] property. When a
+// rendering command executes, it renders to the multisample texture. At the
+// end of the render pass, the GPU resolves the contents of the multisample
+// texture and writes the results into the resolve texture. The
+// [MTLRenderPassAttachmentDescriptor.ResolveLevel],
+// [MTLRenderPassAttachmentDescriptor.ResolveSlice], and
+// [MTLRenderPassAttachmentDescriptor.ResolveDepthPlane] properties specify
+// where the resolved image is written to. The attachment’s
+// [MTLRenderPassAttachmentDescriptor.StoreAction] property determines what
 // happens to the multisample texture after the GPU resolves its data.
 //
 // # Specifying the texture for the attachment
@@ -346,11 +356,14 @@ func (r MTLRenderPassAttachmentDescriptor) SetLoadAction(value MTLLoadAction) {
 // - [Metal feature set tables (Numbers)]
 //
 // When the store action is either [MTLStoreActionMultisampleResolve] or
-// [MTLStoreActionStoreAndMultisampleResolve], the [ResolveTexture] property
-// needs to be set to the texture to use as the target for the resolve action.
-// Use the [ResolveLevel], [ResolveSlice], and [ResolveDepthPlane] properties
-// to specify the mipmap level, cube slice, and depth plane of the resolve
-// texture, respectively.
+// [MTLStoreActionStoreAndMultisampleResolve], the
+// [MTLRenderPassAttachmentDescriptor.ResolveTexture] property needs to be set
+// to the texture to use as the target for the resolve action. Use the
+// [MTLRenderPassAttachmentDescriptor.ResolveLevel],
+// [MTLRenderPassAttachmentDescriptor.ResolveSlice], and
+// [MTLRenderPassAttachmentDescriptor.ResolveDepthPlane] properties to specify
+// the mipmap level, cube slice, and depth plane of the resolve texture,
+// respectively.
 //
 // For color render targets, the default value is [MTLStoreActionStore]. For
 // depth or stencil render targets, the default value is
@@ -373,7 +386,7 @@ func (r MTLRenderPassAttachmentDescriptor) SetStoreAction(value MTLStoreAction) 
 // # Discussion
 //
 // This property specifies additional behavior for the store action specified
-// by the [StoreAction] property.
+// by the [MTLRenderPassAttachmentDescriptor.StoreAction] property.
 //
 // The default value is [MTLStoreActionOptionNone].
 //
@@ -391,9 +404,11 @@ func (r MTLRenderPassAttachmentDescriptor) SetStoreActionOptions(value MTLStoreA
 //
 // # Discussion
 //
-// If the [StoreAction] value is set to [MTLStoreActionMultisampleResolve] or
-// [MTLStoreActionStoreAndMultisampleResolve], then the [ResolveTexture] value
-// needs to point to a valid texture. Otherwise, Metal ignores this property.
+// If the [MTLRenderPassAttachmentDescriptor.StoreAction] value is set to
+// [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], then the
+// [MTLRenderPassAttachmentDescriptor.ResolveTexture] value needs to point to
+// a valid texture. Otherwise, Metal ignores this property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/resolveTexture
 func (r MTLRenderPassAttachmentDescriptor) ResolveTexture() MTLTexture {
@@ -408,9 +423,10 @@ func (r MTLRenderPassAttachmentDescriptor) SetResolveTexture(value MTLTexture) {
 //
 // # Discussion
 //
-// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
-// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
-// to a mipmap in the resolve texture.
+// If the value of [MTLRenderPassAttachmentDescriptor.StoreAction] is set to
+// [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], set this property to point to a
+// mipmap in the resolve texture.
 //
 // The default value is `0`.
 //
@@ -427,9 +443,10 @@ func (r MTLRenderPassAttachmentDescriptor) SetResolveLevel(value uint) {
 //
 // # Discussion
 //
-// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
-// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
-// to a slice in the resolve texture.
+// If the value of [MTLRenderPassAttachmentDescriptor.StoreAction] is set to
+// [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], set this property to point to a
+// slice in the resolve texture.
 //
 // The default value is `0`.
 //
@@ -446,9 +463,10 @@ func (r MTLRenderPassAttachmentDescriptor) SetResolveSlice(value uint) {
 //
 // # Discussion
 //
-// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
-// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
-// to a depth plane in the resolve texture.
+// If the value of [MTLRenderPassAttachmentDescriptor.StoreAction] is set to
+// [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], set this property to point to a
+// depth plane in the resolve texture.
 //
 // The default value is `0`.
 //

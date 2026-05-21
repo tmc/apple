@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -49,17 +48,17 @@ func (cc CAConstraintLayoutManagerClass) Alloc() CAConstraintLayoutManager {
 // # Overview
 //
 // You use the shared instance of this object by assigning it to the
-// [CAConstraintLayoutManager.LayoutManager] property of any layer objects to which you have added
-// constraints. During a layout update, Core Animation uses the layout manager
-// to update the size and position of the sublayers based on the registered
-// set of constraints.
+// [CALayer.LayoutManager] property of any layer objects to which you have
+// added constraints. During a layout update, Core Animation uses the layout
+// manager to update the size and position of the sublayers based on the
+// registered set of constraints.
 //
 // Constraints let you define a set of geometric relationships between a layer
 // and its sibling layers or between a layer and its superlayer. These
 // relationships are expressed using constraint objects, which are instances
 // of the [CAConstraint] class. When creating constraints, you can reference a
-// layer by name using that object’s [CAConstraintLayoutManager.Name] property. You can also use the
-// special name `superlayer` to refer to the layer’s superlayer.
+// layer by name using that object’s [CALayer.Name] property. You can also
+// use the special name `superlayer` to refer to the layer’s superlayer.
 //
 // The following example shows how you can use [CAConstraintLayoutManager] to
 // create a layer containing two constrained sublayers: `leftLayer` and
@@ -95,13 +94,6 @@ func CAConstraintLayoutManagerFromID(id objc.ID) CAConstraintLayoutManager {
 type ICAConstraintLayoutManager interface {
 	objectivec.IObject
 	CALayoutManager
-
-	// The object responsible for laying out the layer’s sublayers.
-	LayoutManager() CALayoutManager
-	SetLayoutManager(value CALayoutManager)
-	// The name of the receiver.
-	Name() string
-	SetName(value string)
 }
 
 // Init initializes the instance.
@@ -162,28 +154,6 @@ func (c CAConstraintLayoutManager) PreferredSizeOfLayer(layer ICALayer) corefoun
 func (_CAConstraintLayoutManagerClass CAConstraintLayoutManagerClass) LayoutManager() CAConstraintLayoutManager {
 	rv := objc.Send[objc.ID](objc.ID(_CAConstraintLayoutManagerClass.class), objc.Sel("layoutManager"))
 	return CAConstraintLayoutManagerFromID(rv)
-}
-
-// The object responsible for laying out the layer’s sublayers.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/layoutmanager
-func (c CAConstraintLayoutManager) LayoutManager() CALayoutManager {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutManager"))
-	return CALayoutManagerObjectFromID(rv)
-}
-func (c CAConstraintLayoutManager) SetLayoutManager(value CALayoutManager) {
-	objc.Send[struct{}](c.ID, objc.Sel("setLayoutManager:"), value)
-}
-
-// The name of the receiver.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/name
-func (c CAConstraintLayoutManager) Name() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("name"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CAConstraintLayoutManager) SetName(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
 
 // Protocol methods for CALayoutManager

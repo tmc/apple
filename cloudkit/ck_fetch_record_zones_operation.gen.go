@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -50,7 +49,7 @@ func (cc CKFetchRecordZonesOperationClass) Alloc() CKFetchRecordZonesOperation {
 // Use this operation object to fetch record zones so that you can ascertain
 // their capabilities.
 //
-// If you assign a handler to the [CKFetchRecordZonesOperation.CompletionBlock] property of the operation,
+// If you assign a handler to the [completionBlock] property of the operation,
 // CloudKit calls it after the operation executes and returns its results. You
 // can use the handler to perform any housekeeping tasks that relate to the
 // operation, but don’t use it to process the results of the operation. The
@@ -66,14 +65,9 @@ func (cc CKFetchRecordZonesOperationClass) Alloc() CKFetchRecordZonesOperation {
 //   - [CKFetchRecordZonesOperation.RecordZoneIDs]: The IDs of the record zones to retrieve.
 //   - [CKFetchRecordZonesOperation.SetRecordZoneIDs]
 //
-// # Instance Properties
-//
-//   - [CKFetchRecordZonesOperation.FetchRecordZonesResultBlock]: The closure to execute after CloudKit retrieves all of the record zones.
-//   - [CKFetchRecordZonesOperation.SetFetchRecordZonesResultBlock]
-//   - [CKFetchRecordZonesOperation.PerRecordZoneResultBlock]: The closure to execute when a record zone becomes available.
-//   - [CKFetchRecordZonesOperation.SetPerRecordZoneResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordZonesOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKFetchRecordZonesOperation struct {
 	CKDatabaseOperation
 }
@@ -99,13 +93,6 @@ func CKFetchRecordZonesOperationFromID(id objc.ID) CKFetchRecordZonesOperation {
 //   - [ICKFetchRecordZonesOperation.RecordZoneIDs]: The IDs of the record zones to retrieve.
 //   - [ICKFetchRecordZonesOperation.SetRecordZoneIDs]
 //
-// # Instance Properties
-//
-//   - [ICKFetchRecordZonesOperation.FetchRecordZonesResultBlock]: The closure to execute after CloudKit retrieves all of the record zones.
-//   - [ICKFetchRecordZonesOperation.SetFetchRecordZonesResultBlock]
-//   - [ICKFetchRecordZonesOperation.PerRecordZoneResultBlock]: The closure to execute when a record zone becomes available.
-//   - [ICKFetchRecordZonesOperation.SetPerRecordZoneResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordZonesOperation
 type ICKFetchRecordZonesOperation interface {
 	ICKDatabaseOperation
@@ -120,15 +107,6 @@ type ICKFetchRecordZonesOperation interface {
 	// The IDs of the record zones to retrieve.
 	RecordZoneIDs() []CKRecordZoneID
 	SetRecordZoneIDs(value []CKRecordZoneID)
-
-	// Topic: Instance Properties
-
-	// The closure to execute after CloudKit retrieves all of the record zones.
-	FetchRecordZonesResultBlock() unsafe.Pointer
-	SetFetchRecordZonesResultBlock(value unsafe.Pointer)
-	// The closure to execute when a record zone becomes available.
-	PerRecordZoneResultBlock() unsafe.Pointer
-	SetPerRecordZoneResultBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -153,8 +131,9 @@ func NewCKFetchRecordZonesOperation() CKFetchRecordZonesOperation {
 // Creates an operation for fetching the specified record zones.
 //
 // zoneIDs: An array of[CKRecordZoneID] objects that represents the zones you want to
-// retrieve. If you provide an empty array, you must set the [RecordZoneIDs]
-// property before you execute the operation.
+// retrieve. If you provide an empty array, you must set the
+// [CKFetchRecordZonesOperation.RecordZoneIDs] property before you execute the
+// operation.
 //
 // # Discussion
 //
@@ -173,8 +152,9 @@ func NewCKFetchRecordZonesOperationWithRecordZoneIDs(zoneIDs []CKRecordZoneID) C
 // Creates an operation for fetching the specified record zones.
 //
 // zoneIDs: An array of[CKRecordZoneID] objects that represents the zones you want to
-// retrieve. If you provide an empty array, you must set the [RecordZoneIDs]
-// property before you execute the operation.
+// retrieve. If you provide an empty array, you must set the
+// [CKFetchRecordZonesOperation.RecordZoneIDs] property before you execute the
+// operation.
 //
 // # Discussion
 //
@@ -212,7 +192,8 @@ func (_CKFetchRecordZonesOperationClass CKFetchRecordZonesOperationClass) FetchA
 // retrieve. If you intend to change the value of this property, do so before
 // you execute the operation or submit the operation to a queue.
 //
-// If you use the operation that [FetchAllRecordZonesOperation] returns,
+// If you use the operation that
+// [CKFetchRecordZonesOperationClass.FetchAllRecordZonesOperation] returns,
 // CloudKit ignores the contents of this property and sets its value to `nil`.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordZonesOperation/recordZoneIDs
@@ -224,26 +205,4 @@ func (c CKFetchRecordZonesOperation) RecordZoneIDs() []CKRecordZoneID {
 }
 func (c CKFetchRecordZonesOperation) SetRecordZoneIDs(value []CKRecordZoneID) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordZoneIDs:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The closure to execute after CloudKit retrieves all of the record zones.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonesoperation/fetchrecordzonesresultblock
-func (c CKFetchRecordZonesOperation) FetchRecordZonesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchRecordZonesResultBlock"))
-	return rv
-}
-func (c CKFetchRecordZonesOperation) SetFetchRecordZonesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchRecordZonesResultBlock:"), value)
-}
-
-// The closure to execute when a record zone becomes available.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonesoperation/perrecordzoneresultblock
-func (c CKFetchRecordZonesOperation) PerRecordZoneResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordZoneResultBlock"))
-	return rv
-}
-func (c CKFetchRecordZonesOperation) SetPerRecordZoneResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordZoneResultBlock:"), value)
 }

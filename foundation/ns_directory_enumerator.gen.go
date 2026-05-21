@@ -46,9 +46,9 @@ func (nc NSDirectoryEnumeratorClass) Alloc() NSDirectoryEnumerator {
 // # Overview
 //
 // You obtain a directory enumerator using [NSFileManager]’s
-// [EnumeratorAtPath] method. The enumeration provides the pathnames of all
-// files and directories contained within that directory. These pathnames are
-// relative to the directory.
+// [NSFileManager.EnumeratorAtPath] method. The enumeration provides the
+// pathnames of all files and directories contained within that directory.
+// These pathnames are relative to the directory.
 //
 // An enumeration is recursive, including the files of all subdirectories, and
 // crosses device boundaries. An enumeration does not resolve symbolic links,
@@ -158,7 +158,8 @@ func (d NSDirectoryEnumerator) SkipDescendents() {
 //
 // # Discussion
 //
-// This method is identical to [SkipDescendents] except for the spelling.
+// This method is identical to [NSDirectoryEnumerator.SkipDescendents] except
+// for the spelling.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/skipDescendants()
 func (d NSDirectoryEnumerator) SkipDescendants() {
@@ -170,8 +171,8 @@ func (d NSDirectoryEnumerator) SkipDescendants() {
 //
 // # Discussion
 //
-// See the description of the [FileAttributesAtPathTraverseLink] method of
-// [NSFileManager] for details on obtaining the attributes from the
+// See the description of the [NSFileManager.FileAttributesAtPathTraverseLink]
+// method of [NSFileManager] for details on obtaining the attributes from the
 // dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/directoryAttributes
@@ -185,8 +186,8 @@ func (d NSDirectoryEnumerator) DirectoryAttributes() INSDictionary {
 //
 // # Discussion
 //
-// See the description of the [FileAttributesAtPathTraverseLink] method of
-// [NSFileManager] for details on obtaining the attributes from the
+// See the description of the [NSFileManager.FileAttributesAtPathTraverseLink]
+// method of [NSFileManager] for details on obtaining the attributes from the
 // dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/fileAttributes
@@ -201,7 +202,7 @@ func (d NSDirectoryEnumerator) FileAttributes() INSDictionary {
 // # Discussion
 //
 // The number of levels, with the directory passed to
-// [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
+// [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
 // ([NSFileManager]) considered to be level `0`.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/level

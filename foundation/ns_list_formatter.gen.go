@@ -152,11 +152,12 @@ func NewListFormatterWithCoder(coder INSCoder) ListFormatter {
 //
 // # Discussion
 //
-// The list formatter uses [ItemFormatter] to format each item in the array.
-// If [ItemFormatter] doesn’t apply to a particular item, the list formatter
-// falls back to the item’s [DescriptionWithLocale] or
-// [LocalizedDescription] if implemented. If those methods aren’t
-// implemented, the formatter uses [description] instead.
+// The list formatter uses [NSListFormatter.ItemFormatter] to format each item
+// in the array. If [NSListFormatter.ItemFormatter] doesn’t apply to a
+// particular item, the list formatter falls back to the item’s
+// [NSArray.DescriptionWithLocale] or [NSProgress.LocalizedDescription] if
+// implemented. If those methods aren’t implemented, the formatter uses
+// [description] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/ListFormatter/string(from:)
 //
@@ -189,9 +190,9 @@ func (_ListFormatterClass ListFormatterClass) LocalizedStringByJoiningStrings(st
 // # Discussion
 //
 // If this property isn’t set, the list formatter falls back to the item’s
-// [DescriptionWithLocale] or [LocalizedDescription] methods if implemented.
-// If those methods aren’t implemented, the formatter uses [description]
-// instead.
+// [NSArray.DescriptionWithLocale] or [NSProgress.LocalizedDescription]
+// methods if implemented. If those methods aren’t implemented, the
+// formatter uses [description] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/ListFormatter/itemFormatter
 //
@@ -208,8 +209,9 @@ func (l ListFormatter) SetItemFormatter(value INSFormatter) {
 //
 // # Discussion
 //
-// The default value is [AutoupdatingCurrentLocale]. If you set this property
-// to `nil`, the formatter resets to using [AutoupdatingCurrentLocale].
+// The default value is [NSLocaleClass.AutoupdatingCurrentLocale]. If you set
+// this property to `nil`, the formatter resets to using
+// [NSLocaleClass.AutoupdatingCurrentLocale].
 //
 // See: https://developer.apple.com/documentation/Foundation/ListFormatter/locale
 func (l ListFormatter) Locale() INSLocale {

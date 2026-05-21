@@ -3,8 +3,6 @@
 package foundation
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -82,7 +80,7 @@ func NSSpellServerDelegateObjectFromID(id objc.ID) NSSpellServerDelegateObject {
 // [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 // [checkSpelling(of:startingAt:)]: https://developer.apple.com/documentation/AppKit/NSSpellChecker/checkSpelling(of:startingAt:)
 // [requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)]: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)
-func (o NSSpellServerDelegateObject) SpellServerCheckStringOffsetTypesOptionsOrthographyWordCount(sender INSSpellServer, stringToCheck string, offset uint, checkingTypes NSTextCheckingTypes, options INSDictionary, orthography INSOrthography, wordCount unsafe.Pointer) []NSTextCheckingResult {
+func (o NSSpellServerDelegateObject) SpellServerCheckStringOffsetTypesOptionsOrthographyWordCount(sender INSSpellServer, stringToCheck string, offset uint, checkingTypes NSTextCheckingTypes, options INSDictionary, orthography INSOrthography, wordCount *int) []NSTextCheckingResult {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("spellServer:checkString:offset:types:options:orthography:wordCount:"), sender, objc.String(stringToCheck), offset, checkingTypes, options, orthography, wordCount)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSTextCheckingResult {
 		return NSTextCheckingResultFromID(id)
@@ -154,11 +152,12 @@ func (o NSSpellServerDelegateObject) SpellServerCheckGrammarInStringLanguageDeta
 //
 // # Discussion
 //
-// Send [IsWordInUserDictionariesCaseSensitive] to the spelling server to
-// determine if the word exists in the user’s language dictionaries.
+// Send [NSSpellServer.IsWordInUserDictionariesCaseSensitive] to the spelling
+// server to determine if the word exists in the user’s language
+// dictionaries.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:findMisspelledWordIn:language:wordCount:countOnly:)
-func (o NSSpellServerDelegateObject) SpellServerFindMisspelledWordInStringLanguageWordCountCountOnly(sender INSSpellServer, stringToCheck string, language string, wordCount unsafe.Pointer, countOnly bool) NSRange {
+func (o NSSpellServerDelegateObject) SpellServerFindMisspelledWordInStringLanguageWordCountCountOnly(sender INSSpellServer, stringToCheck string, language string, wordCount *int, countOnly bool) NSRange {
 	rv := objc.Send[NSRange](o.ID, objc.Sel("spellServer:findMisspelledWordInString:language:wordCount:countOnly:"), sender, objc.String(stringToCheck), objc.String(language), wordCount, countOnly)
 	return rv
 }

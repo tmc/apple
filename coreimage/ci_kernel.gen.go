@@ -128,7 +128,7 @@ type ICIKernel interface {
 	// Topic: Identifying the Region of Interest for the Kernel
 
 	// Sets the selector Core Image uses to query the region of interest for image processing with the kernel.
-	SetROISelector(method objc.SEL)
+	SetROISelector(method objectivec.SEL)
 
 	// Topic: Applying a Kernel to Filter an Image
 
@@ -285,10 +285,10 @@ func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name st
 // - `samplerIndex` defines the sampler to query - `destRect` is the extent of
 // the region, in working space coordinates, to render. - `userInfo` is the
 // object associated with the `kCIApplyOptionUserInfo` option when the kernel
-// is applied to its arguments (with the [ApplyArgumentsOptions] method of a
-// [CIFilter] object using the kernel). The `userInfo` is important because
-// instance variables can’t be used by the defining class. Instance
-// variables must be passed through the `userInfo` argument.
+// is applied to its arguments (with the [CIFilter.ApplyArgumentsOptions]
+// method of a [CIFilter] object using the kernel). The `userInfo` is
+// important because instance variables can’t be used by the defining class.
+// Instance variables must be passed through the `userInfo` argument.
 //
 // The “ method of the CIFilter object is called by the framework. This
 // method returns the rectangle that contains the region of the sampler that
@@ -303,15 +303,15 @@ func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name st
 //
 // `[kernel @selector()`]
 //
-// Alternatively, use the [ApplyWithExtentRoiCallbackArguments] method to
-// directly apply a kernel to create an output image, specifying the ROI
-// callback as a block or closure.
+// Alternatively, use the [CIKernel.ApplyWithExtentRoiCallbackArguments]
+// method to directly apply a kernel to create an output image, specifying the
+// ROI callback as a block or closure.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/setROISelector(_:)
 //
 // [CGRectNull]: https://developer.apple.com/documentation/CoreGraphics/CGRectNull
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
-func (k CIKernel) SetROISelector(method objc.SEL) {
+func (k CIKernel) SetROISelector(method objectivec.SEL) {
 	objc.Send[objc.ID](k.ID, objc.Sel("setROISelector:"), method)
 }
 
@@ -333,12 +333,13 @@ func (k CIKernel) SetROISelector(method objc.SEL) {
 //
 // # Discussion
 //
-// This method is analogous to the [CIFilter] method [ApplyArgumentsOptions],
-// but it does not require construction of a [CIFilter] object, and it allows
-// you to specify a callback for determining the kernel’s region of interest
-// as a block or closure. As with the similar [CIFilter] method, calling this
-// method does not execute the kernel code—filters and their kernel code are
-// evaluated only when rendering a final output image.
+// This method is analogous to the [CIFilter] method
+// [CIFilter.ApplyArgumentsOptions], but it does not require construction of a
+// [CIFilter] object, and it allows you to specify a callback for determining
+// the kernel’s region of interest as a block or closure. As with the
+// similar [CIFilter] method, calling this method does not execute the kernel
+// code—filters and their kernel code are evaluated only when rendering a
+// final output image.
 //
 // When applying a filter kernel, the region of interest (ROI) is the area of
 // source image pixels that must be processed to produce a given area of
@@ -357,7 +358,7 @@ func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRe
 		return callback(arg0, arg1)
 	})
 	// _block1 intentionally not released: "applyWithExtent:roiCallback:arguments:" retains the block past return.
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, objc.ID(_block1), args)
+	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, objc.ID(_block1), objectivec.IObjectSliceToNSArray(args))
 	return CIImageFromID(rv)
 }
 

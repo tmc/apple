@@ -58,44 +58,36 @@ func (gc GCControllerClass) Alloc() GCController {
 // simultaneously. A is a software emulation of a real controller.
 //
 // You discover controllers, and then you process the input from those
-// controllers during gameplay. Use the [GCController.Controllers] method to get the
-// currently connected controllers. If necessary, use the
-// [GCController.StartWirelessControllerDiscoveryWithCompletionHandler] method to connect
-// with wireless controllers.
+// controllers during gameplay. Use the [GCControllerClass.Controllers] method
+// to get the currently connected controllers. If necessary, use the
+// [GCControllerClass.StartWirelessControllerDiscoveryWithCompletionHandler]
+// method to connect with wireless controllers.
 //
 // This framework supports multiple connected game controllers. To identify
 // which player is using a controller in a multiplayer game, check the
-// [GCController.PlayerIndex] property and set it, if necessary. For single-player games,
-// use the [GCController.Current] property to get the controller that the player is
-// actively using.
+// [GCController.PlayerIndex] property and set it, if necessary. For
+// single-player games, use the [GCControllerClass.Current] property to get
+// the controller that the player is actively using.
 //
 // A controller’s profile encapsulates the details about a controller’s
 // buttons, pads, axis, and other input elements. Get the controller’s
-// profile using one of the profile properties, such as [GCController.ExtendedGamepad], and
-// then process the input from its elements.
+// profile using one of the profile properties, such as
+// [GCController.ExtendedGamepad], and then process the input from its
+// elements.
 //
 // You can either get the values of input elements on each iteration of your
 // game loop, or set handlers to receive callbacks when those values change.
-// For example, use the [GCController.LeftThumbstick] property of the [GCExtendedGamepad]
-// profile to get the thumbstick state. Use the [GCController.ValueChangedHandler] property
-// to set a handler that you implement to process any input values that change
-// in the profile.
+// For example, use the [GCExtendedGamepad.LeftThumbstick] property of the
+// [GCExtendedGamepad] profile to get the thumbstick state. Use the
+// [GCExtendedGamepad.ValueChangedHandler] property to set a handler that you
+// implement to process any input values that change in the profile.
 //
 // Alternatively, you can create a snapshot of a real or virtual controller
-// using the [GCController.Capture] method. A is a copy of a controller at a moment in time
-// with its current element values. Creating a snapshot may impact
-// performance, and over time a snapshot doesn’t stay current. Unlike other
-// types of controllers, you can set the values of elements in a snapshot.
-//
-// # Discovering controllers
-//
-//   - [GCController.GCControllerDidConnect]: A notification that posts after a controller connects to the device.
-//   - [GCController.GCControllerDidDisconnect]: A notification that posts after a controller disconnects from the device.
-//
-// # Handling multiple controllers
-//
-//   - [GCController.GCControllerDidBecomeCurrent]: A notification that posts when a controller becomes the current controller.
-//   - [GCController.GCControllerDidStopBeingCurrent]: A notification that posts when a controller stops being the current controller.
+// using the [GCController.Capture] method. A is a copy of a controller at a
+// moment in time with its current element values. Creating a snapshot may
+// impact performance, and over time a snapshot doesn’t stay current. Unlike
+// other types of controllers, you can set the values of elements in a
+// snapshot.
 //
 // # Inspecting a controller
 //
@@ -145,16 +137,6 @@ func GCControllerFromID(id objc.ID) GCController {
 
 // An interface definition for the [GCController] class.
 //
-// # Discovering controllers
-//
-//   - [IGCController.GCControllerDidConnect]: A notification that posts after a controller connects to the device.
-//   - [IGCController.GCControllerDidDisconnect]: A notification that posts after a controller disconnects from the device.
-//
-// # Handling multiple controllers
-//
-//   - [IGCController.GCControllerDidBecomeCurrent]: A notification that posts when a controller becomes the current controller.
-//   - [IGCController.GCControllerDidStopBeingCurrent]: A notification that posts when a controller stops being the current controller.
-//
 // # Inspecting a controller
 //
 //   - [IGCController.IsAttachedToDevice]: A Boolean value that indicates whether the controller closely integrates with the device.
@@ -188,20 +170,6 @@ func GCControllerFromID(id objc.ID) GCController {
 // See: https://developer.apple.com/documentation/GameController/GCController
 type IGCController interface {
 	objectivec.IObject
-
-	// Topic: Discovering controllers
-
-	// A notification that posts after a controller connects to the device.
-	GCControllerDidConnect() foundation.NSString
-	// A notification that posts after a controller disconnects from the device.
-	GCControllerDidDisconnect() foundation.NSString
-
-	// Topic: Handling multiple controllers
-
-	// A notification that posts when a controller becomes the current controller.
-	GCControllerDidBecomeCurrent() foundation.NSString
-	// A notification that posts when a controller stops being the current controller.
-	GCControllerDidStopBeingCurrent() foundation.NSString
 
 	// Topic: Inspecting a controller
 
@@ -243,13 +211,6 @@ type IGCController interface {
 	Capture() IGCController
 	// A Boolean value that indicates whether the controller is a snapshot of a controller.
 	IsSnapshot() bool
-
-	// The controller’s left thumbstick element.
-	LeftThumbstick() IGCControllerDirectionPad
-	SetLeftThumbstick(value IGCControllerDirectionPad)
-	// The block that the profile calls when an element’s value changes.
-	ValueChangedHandler() GCExtendedGamepadValueChangedHandler
-	SetValueChangedHandler(value GCExtendedGamepadValueChangedHandler)
 }
 
 // Init initializes the instance.
@@ -337,9 +298,13 @@ func (g GCController) VendorName() string {
 // See: https://developer.apple.com/documentation/GameController/GCController/controllers()
 //
 // [GCControllerDidBecomeCurrentNotification]: https://developer.apple.com/documentation/GameController/GCControllerDidBecomeCurrentNotification
+// [GCControllerDidBecomeCurrent]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidBecomeCurrent
 // [GCControllerDidConnectNotification]: https://developer.apple.com/documentation/GameController/GCControllerDidConnectNotification
+// [GCControllerDidConnect]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidConnect
 // [GCControllerDidDisconnectNotification]: https://developer.apple.com/documentation/GameController/GCControllerDidDisconnectNotification
+// [GCControllerDidDisconnect]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidDisconnect
 // [GCControllerDidStopBeingCurrentNotification]: https://developer.apple.com/documentation/GameController/GCControllerDidStopBeingCurrentNotification
+// [GCControllerDidStopBeingCurrent]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidStopBeingCurrent
 func (_GCControllerClass GCControllerClass) Controllers() []GCController {
 	rv := objc.Send[[]objc.ID](objc.ID(_GCControllerClass.class), objc.Sel("controllers"))
 	return objc.ConvertSlice(rv, func(id objc.ID) GCController {
@@ -361,13 +326,15 @@ func (_GCControllerClass GCControllerClass) Controllers() []GCController {
 // pass to this method to handle when the framework finishes discovering
 // controllers or when it times out.
 //
-// If you call the [StartWirelessControllerDiscoveryWithCompletionHandler]
+// If you call the
+// [GCControllerClass.StartWirelessControllerDiscoveryWithCompletionHandler]
 // method multiple times during discovery, the framework only calls the last
 // completion handler you pass to this method.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/startWirelessControllerDiscovery(completionHandler:)
 //
 // [GCControllerDidConnectNotification]: https://developer.apple.com/documentation/GameController/GCControllerDidConnectNotification
+// [GCControllerDidConnect]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidConnect
 func (_GCControllerClass GCControllerClass) StartWirelessControllerDiscoveryWithCompletionHandler(completionHandler VoidHandler) {
 	_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_GCControllerClass.class), objc.Sel("startWirelessControllerDiscoveryWithCompletionHandler:"), _block0)
@@ -380,7 +347,8 @@ func (_GCControllerClass GCControllerClass) StartWirelessControllerDiscoveryWith
 // If you call this method while the framework searches for wireless
 // controllers, the framework stops searching and invokes the completion
 // handler you pass to the
-// [StartWirelessControllerDiscoveryWithCompletionHandler] method.
+// [GCControllerClass.StartWirelessControllerDiscoveryWithCompletionHandler]
+// method.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/stopWirelessControllerDiscovery()
 func (_GCControllerClass GCControllerClass) StopWirelessControllerDiscovery() {
@@ -443,39 +411,6 @@ func (_GCControllerClass GCControllerClass) ControllerWithExtendedGamepad() GCCo
 func (_GCControllerClass GCControllerClass) ControllerWithMicroGamepad() GCController {
 	rv := objc.Send[objc.ID](objc.ID(_GCControllerClass.class), objc.Sel("controllerWithMicroGamepad"))
 	return GCControllerFromID(rv)
-}
-
-// A notification that posts after a controller connects to the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidConnect
-func (g GCController) GCControllerDidConnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCControllerDidConnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts after a controller disconnects from the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidDisconnect
-func (g GCController) GCControllerDidDisconnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCControllerDidDisconnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts when a controller becomes the current controller.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidBecomeCurrent
-func (g GCController) GCControllerDidBecomeCurrent() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCControllerDidBecomeCurrent"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts when a controller stops being the current
-// controller.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerDidStopBeingCurrent
-func (g GCController) GCControllerDidStopBeingCurrent() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCControllerDidStopBeingCurrent"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // A Boolean value that indicates whether the controller closely integrates
@@ -551,8 +486,8 @@ func (g GCController) Motion() IGCMotion {
 //
 // # Discussion
 //
-// This is a convenience property that returns the [ExtendedGamepad] or
-// [MicroGamepad] properties.
+// This is a convenience property that returns the
+// [GCController.ExtendedGamepad] or [GCController.MicroGamepad] properties.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/physicalInputProfile
 func (g GCController) PhysicalInputProfile() IGCPhysicalInputProfile {
@@ -642,28 +577,6 @@ func (g GCController) Light() IGCDeviceLight {
 func (g GCController) IsSnapshot() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isSnapshot"))
 	return rv
-}
-
-// The controller’s left thumbstick element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcextendedgamepad/leftthumbstick
-func (g GCController) LeftThumbstick() IGCControllerDirectionPad {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("leftThumbstick"))
-	return GCControllerDirectionPadFromID(objc.ID(rv))
-}
-func (g GCController) SetLeftThumbstick(value IGCControllerDirectionPad) {
-	objc.Send[struct{}](g.ID, objc.Sel("setLeftThumbstick:"), value)
-}
-
-// The block that the profile calls when an element’s value changes.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcextendedgamepad/valuechangedhandler
-func (g GCController) ValueChangedHandler() GCExtendedGamepadValueChangedHandler {
-	rv := objc.Send[GCExtendedGamepadValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCExtendedGamepadValueChangedHandler(rv)
-}
-func (g GCController) SetValueChangedHandler(value GCExtendedGamepadValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
 }
 
 // The most recently used game controller.

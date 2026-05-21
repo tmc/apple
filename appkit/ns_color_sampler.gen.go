@@ -50,9 +50,9 @@ func (nc NSColorSamplerClass) Alloc() NSColorSampler {
 //
 // Create an [NSColorSampler] object when you want the user to select a color
 // based on existing onscreen colors. When you call the
-// [NSColorSampler.ShowSamplerWithSelectionHandler] method, AppKit shows the system’s color
-// sampler interface and reports the selected color back to the provided
-// block.
+// [NSColorSampler.ShowSamplerWithSelectionHandler] method, AppKit shows the
+// system’s color sampler interface and reports the selected color back to
+// the provided block.
 //
 // # Capturing a Color Sample
 //

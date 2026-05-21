@@ -55,14 +55,15 @@ func (uc UnitSpeedClass) Alloc() UnitSpeed {
 // (m/s), and is also commonly expressed in terms of kilometers per hour
 // (km/h) and miles per hour (mph).
 //
-// The [NSUnitSpeed] class defines its [BaseUnit] as [MetersPerSecond], and
-// provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitSpeed] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitSpeedClass.MetersPerSecond], and provides the following units, which
+// are initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //
-// The base unit is [MetersPerSecond] and is accessed via [BaseUnit] on the
-// [NSDimension] protocol.
+// The base unit is [NSUnitSpeedClass.MetersPerSecond] and is accessed via
+// [NSDimensionClass.BaseUnit] on the [NSDimension] protocol.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitSpeed
 type UnitSpeed struct {

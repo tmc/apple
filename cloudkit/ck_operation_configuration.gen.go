@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +50,8 @@ func (cc CKOperationConfigurationClass) Alloc() CKOperationConfiguration {
 // All of the properties in [CKOperationConfiguration] have a default value.
 // When determining which properties to apply to a CloudKit operation, consult
 // the operation’s configuration property, as well as the
-// [CKOperationConfiguration.DefaultConfiguration] property of the group that the operation belongs to.
-// These properties combine through the following rules:
+// [CKOperationGroup.DefaultConfiguration] property of the group that the
+// operation belongs to. These properties combine through the following rules:
 //
 // [Table data omitted]
 //
@@ -122,24 +121,11 @@ type ICKOperationConfiguration interface {
 	QualityOfService() foundation.NSQualityOfService
 	SetQualityOfService(value foundation.NSQualityOfService)
 	// The maximum amount of time that a request can take.
-	TimeoutIntervalForRequest() float64
-	SetTimeoutIntervalForRequest(value float64)
+	TimeoutIntervalForRequest() foundation.NSTimeInterval
+	SetTimeoutIntervalForRequest(value foundation.NSTimeInterval)
 	// The maximum amount of time that a resource request can take.
-	TimeoutIntervalForResource() float64
-	SetTimeoutIntervalForResource(value float64)
-
-	// The operation’s configuration.
-	Configuration() ICKOperationConfiguration
-	SetConfiguration(value ICKOperationConfiguration)
-	// The default configuration for operations in the group.
-	DefaultConfiguration() ICKOperationConfiguration
-	SetDefaultConfiguration(value ICKOperationConfiguration)
-	// The operation’s group.
-	Group() ICKOperationGroup
-	SetGroup(value ICKOperationGroup)
-	// The closure to execute when the server begins to store callbacks for the long-lived operation.
-	LongLivedOperationWasPersistedBlock() unsafe.Pointer
-	SetLongLivedOperationWasPersistedBlock(value unsafe.Pointer)
+	TimeoutIntervalForResource() foundation.NSTimeInterval
+	SetTimeoutIntervalForResource(value foundation.NSTimeInterval)
 }
 
 // Init initializes the instance.
@@ -216,66 +202,21 @@ func (c CKOperationConfiguration) SetQualityOfService(value foundation.NSQuality
 // The maximum amount of time that a request can take.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKOperation/Configuration-swift.class/timeoutIntervalForRequest
-func (c CKOperationConfiguration) TimeoutIntervalForRequest() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("timeoutIntervalForRequest"))
-	return rv
+func (c CKOperationConfiguration) TimeoutIntervalForRequest() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](c.ID, objc.Sel("timeoutIntervalForRequest"))
+	return foundation.NSTimeInterval(rv)
 }
-func (c CKOperationConfiguration) SetTimeoutIntervalForRequest(value float64) {
+func (c CKOperationConfiguration) SetTimeoutIntervalForRequest(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeoutIntervalForRequest:"), value)
 }
 
 // The maximum amount of time that a resource request can take.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKOperation/Configuration-swift.class/timeoutIntervalForResource
-func (c CKOperationConfiguration) TimeoutIntervalForResource() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("timeoutIntervalForResource"))
-	return rv
+func (c CKOperationConfiguration) TimeoutIntervalForResource() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](c.ID, objc.Sel("timeoutIntervalForResource"))
+	return foundation.NSTimeInterval(rv)
 }
-func (c CKOperationConfiguration) SetTimeoutIntervalForResource(value float64) {
+func (c CKOperationConfiguration) SetTimeoutIntervalForResource(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeoutIntervalForResource:"), value)
-}
-
-// The operation’s configuration.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperation/configuration-swift.property
-func (c CKOperationConfiguration) Configuration() ICKOperationConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("configuration"))
-	return CKOperationConfigurationFromID(objc.ID(rv))
-}
-func (c CKOperationConfiguration) SetConfiguration(value ICKOperationConfiguration) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
-}
-
-// The default configuration for operations in the group.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperationgroup/defaultconfiguration
-func (c CKOperationConfiguration) DefaultConfiguration() ICKOperationConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("defaultConfiguration"))
-	return CKOperationConfigurationFromID(objc.ID(rv))
-}
-func (c CKOperationConfiguration) SetDefaultConfiguration(value ICKOperationConfiguration) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDefaultConfiguration:"), value)
-}
-
-// The operation’s group.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperation/group
-func (c CKOperationConfiguration) Group() ICKOperationGroup {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("group"))
-	return CKOperationGroupFromID(objc.ID(rv))
-}
-func (c CKOperationConfiguration) SetGroup(value ICKOperationGroup) {
-	objc.Send[struct{}](c.ID, objc.Sel("setGroup:"), value)
-}
-
-// The closure to execute when the server begins to store callbacks for the
-// long-lived operation.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperation/longlivedoperationwaspersistedblock
-func (c CKOperationConfiguration) LongLivedOperationWasPersistedBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("longLivedOperationWasPersistedBlock"))
-	return rv
-}
-func (c CKOperationConfiguration) SetLongLivedOperationWasPersistedBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setLongLivedOperationWasPersistedBlock:"), value)
 }

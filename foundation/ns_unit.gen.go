@@ -46,9 +46,9 @@ func (uc UnitClass) Alloc() Unit {
 //
 // # Overview
 //
-// Each instance of an [NSUnit] subclass consists of a [Symbol], which can be
-// used to create string representations of [NSMeasurement] objects with the
-// [NSMeasurementFormatter] class.
+// Each instance of an [NSUnit] subclass consists of a [NSUnit.Symbol], which
+// can be used to create string representations of [NSMeasurement] objects
+// with the [NSMeasurementFormatter] class.
 //
 // The [NSDimension] subclass is an abstract class that represents a
 // dimensional unit, which can be converted into different units of the same

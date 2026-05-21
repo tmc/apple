@@ -43,7 +43,7 @@ type NSTextInputClient interface {
 	// Returns an attributed string derived from the given range in the receiver’s text storage.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-	AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString
+	AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString
 
 	// Returns the index of the character whose bounding rectangle includes the given point.
 	//
@@ -53,7 +53,7 @@ type NSTextInputClient interface {
 	// Returns the first logical boundary rectangle for characters in the given range.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-	FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect
+	FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) corefoundation.CGRect
 
 	// Invokes the action specified by the given selector.
 	//
@@ -164,7 +164,7 @@ func (o NSTextInputClientObject) SelectedRange() foundation.NSRange {
 //
 // When `aString` is an [NSString] object, the receiver is expected to render
 // the marked text with distinguishing appearance (for example, [NSTextView]
-// renders with [MarkedTextAttributes]).
+// renders with [NSTextView.MarkedTextAttributes]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
 func (o NSTextInputClientObject) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
@@ -227,7 +227,7 @@ func (o NSTextInputClientObject) ValidAttributesForMarkedText() []string {
 // the document’s range, return `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-func (o NSTextInputClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
+func (o NSTextInputClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 }
@@ -295,7 +295,7 @@ func (o NSTextInputClientObject) CharacterIndexForPoint(point corefoundation.CGP
 // width is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-func (o NSTextInputClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
+func (o NSTextInputClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
 	return rv
 }

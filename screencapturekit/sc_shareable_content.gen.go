@@ -48,10 +48,11 @@ func (sc SCShareableContentClass) Alloc() SCShareableContent {
 //
 // # Overview
 //
-// Use the [SCShareableContent.Displays], [SCShareableContent.Windows], and [SCShareableContent.Applications] properties to create a
-// [SCContentFilter] object that specifies what display content to capture.
-// You apply the filter to an instance of [SCStream] to limit its output to
-// only the content matching your filter.
+// Use the [SCShareableContent.Displays], [SCShareableContent.Windows], and
+// [SCShareableContent.Applications] properties to create a [SCContentFilter]
+// object that specifies what display content to capture. You apply the filter
+// to an instance of [SCStream] to limit its output to only the content
+// matching your filter.
 //
 // # Inspecting shareable content
 //

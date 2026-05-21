@@ -6,8 +6,9 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [CKFetchSubscriptionsOperation] class.
@@ -55,7 +56,7 @@ func (cc CKFetchSubscriptionsOperationClass) Alloc() CKFetchSubscriptionsOperati
 // — for example, to adjust the delivery options for push notifications that
 // the subscription generates.
 //
-// If you assign a handler to the [CKFetchSubscriptionsOperation.CompletionBlock] property, the operation
+// If you assign a handler to the [completionBlock] property, the operation
 // calls it after it executes and passes it the results. Use the handler to
 // perform any housekeeping tasks for the operation. The handler you specify
 // should manage any failures, whether due to an error or an explicit
@@ -71,14 +72,9 @@ func (cc CKFetchSubscriptionsOperationClass) Alloc() CKFetchSubscriptionsOperati
 //   - [CKFetchSubscriptionsOperation.FetchSubscriptionCompletionBlock]: The block to execute with the fetch results.
 //   - [CKFetchSubscriptionsOperation.SetFetchSubscriptionCompletionBlock]
 //
-// # Instance Properties
-//
-//   - [CKFetchSubscriptionsOperation.FetchSubscriptionsResultBlock]: The closure to execute after CloudKit retrieves all of the subscriptions.
-//   - [CKFetchSubscriptionsOperation.SetFetchSubscriptionsResultBlock]
-//   - [CKFetchSubscriptionsOperation.PerSubscriptionResultBlock]: The closure to execute when a subscription becomes available.
-//   - [CKFetchSubscriptionsOperation.SetPerSubscriptionResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchSubscriptionsOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKFetchSubscriptionsOperation struct {
 	CKDatabaseOperation
 }
@@ -105,13 +101,6 @@ func CKFetchSubscriptionsOperationFromID(id objc.ID) CKFetchSubscriptionsOperati
 //   - [ICKFetchSubscriptionsOperation.FetchSubscriptionCompletionBlock]: The block to execute with the fetch results.
 //   - [ICKFetchSubscriptionsOperation.SetFetchSubscriptionCompletionBlock]
 //
-// # Instance Properties
-//
-//   - [ICKFetchSubscriptionsOperation.FetchSubscriptionsResultBlock]: The closure to execute after CloudKit retrieves all of the subscriptions.
-//   - [ICKFetchSubscriptionsOperation.SetFetchSubscriptionsResultBlock]
-//   - [ICKFetchSubscriptionsOperation.PerSubscriptionResultBlock]: The closure to execute when a subscription becomes available.
-//   - [ICKFetchSubscriptionsOperation.SetPerSubscriptionResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchSubscriptionsOperation
 type ICKFetchSubscriptionsOperation interface {
 	ICKDatabaseOperation
@@ -119,23 +108,14 @@ type ICKFetchSubscriptionsOperation interface {
 	// Topic: Configuring the Fetch Subscriptions Operation
 
 	// The IDs of the subscriptions to fetch.
-	SubscriptionIDs() string
-	SetSubscriptionIDs(value string)
+	SubscriptionIDs() unsafe.Pointer
+	SetSubscriptionIDs(value kernel.Pointer)
 
 	// Topic: Processing the Fetch Subscription Results
 
 	// The block to execute with the fetch results.
-	FetchSubscriptionCompletionBlock() unsafe.Pointer
-	SetFetchSubscriptionCompletionBlock(value unsafe.Pointer)
-
-	// Topic: Instance Properties
-
-	// The closure to execute after CloudKit retrieves all of the subscriptions.
-	FetchSubscriptionsResultBlock() unsafe.Pointer
-	SetFetchSubscriptionsResultBlock(value unsafe.Pointer)
-	// The closure to execute when a subscription becomes available.
-	PerSubscriptionResultBlock() unsafe.Pointer
-	SetPerSubscriptionResultBlock(value unsafe.Pointer)
+	FetchSubscriptionCompletionBlock() func(kernel.Pointer, kernel.Pointer)
+	SetFetchSubscriptionCompletionBlock(value func(kernel.Pointer, kernel.Pointer))
 }
 
 // Init initializes the instance.
@@ -175,43 +155,21 @@ func (_CKFetchSubscriptionsOperationClass CKFetchSubscriptionsOperationClass) Fe
 // The IDs of the subscriptions to fetch.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchsubscriptionsoperation/subscriptionids-17f4q
-func (c CKFetchSubscriptionsOperation) SubscriptionIDs() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("subscriptionIDs"))
-	return foundation.NSStringFromID(rv).String()
+func (c CKFetchSubscriptionsOperation) SubscriptionIDs() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("subscriptionIDs"))
+	return rv
 }
-func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDs:"), objc.String(value))
+func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDs:"), value)
 }
 
 // The block to execute with the fetch results.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchsubscriptionsoperation/fetchsubscriptioncompletionblock-6hhpi
-func (c CKFetchSubscriptionsOperation) FetchSubscriptionCompletionBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchSubscriptionCompletionBlock"))
-	return rv
+func (c CKFetchSubscriptionsOperation) FetchSubscriptionCompletionBlock() objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("fetchSubscriptionCompletionBlock"))
+	return objectivec.Object{ID: rv}
 }
-func (c CKFetchSubscriptionsOperation) SetFetchSubscriptionCompletionBlock(value unsafe.Pointer) {
+func (c CKFetchSubscriptionsOperation) SetFetchSubscriptionCompletionBlock(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFetchSubscriptionCompletionBlock:"), value)
-}
-
-// The closure to execute after CloudKit retrieves all of the subscriptions.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsubscriptionsoperation/fetchsubscriptionsresultblock
-func (c CKFetchSubscriptionsOperation) FetchSubscriptionsResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchSubscriptionsResultBlock"))
-	return rv
-}
-func (c CKFetchSubscriptionsOperation) SetFetchSubscriptionsResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchSubscriptionsResultBlock:"), value)
-}
-
-// The closure to execute when a subscription becomes available.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsubscriptionsoperation/persubscriptionresultblock
-func (c CKFetchSubscriptionsOperation) PerSubscriptionResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perSubscriptionResultBlock"))
-	return rv
-}
-func (c CKFetchSubscriptionsOperation) SetPerSubscriptionResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerSubscriptionResultBlock:"), value)
 }

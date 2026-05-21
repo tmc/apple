@@ -74,9 +74,10 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 // structures are always the original source of content, and the item contains
 // only a copy of that data to present to the user. When the underlying data
 // associated with an item changes, the data source should invalidate the item
-// by calling the [ReloadItemsAtIndexPaths] method of the collection view.
-// Invalidating an item forces the collection view to dispose of it so that
-// the collection view can create a new one with the updated content.
+// by calling the [NSCollectionView.ReloadItemsAtIndexPaths] method of the
+// collection view. Invalidating an item forces the collection view to dispose
+// of it so that the collection view can create a new one with the updated
+// content.
 //
 // For information about how the collection view displays items to the user,
 // see [NSCollectionView].
@@ -91,10 +92,10 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 // the item.
 //
 // When creating the views programmatically, you typically override the
-// item’s [LoadView] method as you would for any view controller. In your
-// implementation, create the views and add them as subviews to the view
-// controller’s root view. Add accessor properties to your subclass so that
-// you can access the views later and configure them.
+// item’s [NSViewController.LoadView] method as you would for any view
+// controller. In your implementation, create the views and add them as
+// subviews to the view controller’s root view. Add accessor properties to
+// your subclass so that you can access the views later and configure them.
 //
 // When using a nib file, you can use a generic [NSCollectionViewItem] object
 // if your item contains only an image or text field. For more complex item
@@ -107,18 +108,18 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 // Before you can ask the collection view to create items, you must register
 // those items using one of the following methods:
 //
-// - Use the [RegisterNibForItemWithIdentifier] method when your
-// [NSCollectionViewItem] subclass handles the creation of its own views. -
-// Use the [RegisterNibForItemWithIdentifier] method when you store the
-// item’s views in a nib file.
+// - Use the [NSCollectionView.RegisterNibForItemWithIdentifier] method when
+// your [NSCollectionViewItem] subclass handles the creation of its own views.
+// - Use the [NSCollectionView.RegisterNibForItemWithIdentifier] method when
+// you store the item’s views in a nib file.
 //
 // You must register at least one item type before trying to display content
 // from your collection view. The collection view’s data source uses the
-// [ItemWithIdentifierForIndexPath] method to fetch an empty item for
-// configuration. During the initial configuration of the collection view,
-// that method creates all items using the registered classes and nib files
-// you provided. Later on, the method may return a recycled item that can be
-// repurposed with new data.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] method to fetch an empty
+// item for configuration. During the initial configuration of the collection
+// view, that method creates all items using the registered classes and nib
+// files you provided. Later on, the method may return a recycled item that
+// can be repurposed with new data.
 //
 // For more information about how how to register items, see
 // [NSCollectionView]. For information about how the data source object
@@ -127,7 +128,7 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 // # Legacy Item Support
 //
 // For apps built before OS X 10.11, you created a template item and assigned
-// it to the [NSCollectionViewItem.ItemPrototype] property of your collection view. To create new
+// it to the [itemPrototype] property of your collection view. To create new
 // instances of the item, you called the collection view’s
 // [newItem(forRepresentedObject:)] method. For more information about how to
 // support older collection view configurations, see Collection View
@@ -157,6 +158,7 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewItem
 //
+// [itemPrototype]: https://developer.apple.com/documentation/AppKit/NSCollectionView/itemPrototype
 // [newItem(forRepresentedObject:)]: https://developer.apple.com/documentation/AppKit/NSCollectionView/newItem(forRepresentedObject:)
 type NSCollectionViewItem struct {
 	NSViewController
@@ -228,10 +230,6 @@ type INSCollectionViewItem interface {
 
 	// Dragging images for multi-image drag and drop support.
 	DraggingImageComponents() []NSDraggingImageComponent
-
-	// The receiver’s collection view item prototype.
-	ItemPrototype() INSCollectionViewItem
-	SetItemPrototype(value INSCollectionViewItem)
 }
 
 // Init initializes the instance.
@@ -282,9 +280,10 @@ func NewCollectionViewItemWithCoder(coder foundation.INSCoder) NSCollectionViewI
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSCollectionViewItem {
@@ -368,10 +367,11 @@ func (c NSCollectionViewItem) PreferredLayoutAttributesFittingAttributes(layoutA
 // performance of a collection view. Instead of creating all views from
 // scratch, the collection view recycles views and view controllers that move
 // offscreen. When your app subsequently calls the
-// [ItemWithIdentifierForIndexPath] or
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
-// view retrieves a recycled object from the appropriate storage, calls this
-// method, and then returns the object to your app.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] or
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath]
+// method, the collection view retrieves a recycled object from the
+// appropriate storage, calls this method, and then returns the object to your
+// app.
 //
 // Implement this method when you need to delete old data or when you want to
 // restore your recycled views to a standard initial state prior to their
@@ -506,8 +506,9 @@ func (c NSCollectionViewItem) CollectionView() INSCollectionView {
 // [NSDraggingImageComponent] objects to create the drag image.
 //
 // The default implementation will return an array of up to two
-// [NSDraggingImageComponent] instances – one for the [ImageView] and
-// another for the [TextField] (if not `nil`).
+// [NSDraggingImageComponent] instances – one for the
+// [NSCollectionViewItem.ImageView] and another for the
+// [NSCollectionViewItem.TextField] (if not `nil`).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewItem/draggingImageComponents
 func (c NSCollectionViewItem) DraggingImageComponents() []NSDraggingImageComponent {
@@ -515,17 +516,6 @@ func (c NSCollectionViewItem) DraggingImageComponents() []NSDraggingImageCompone
 	return objc.ConvertSlice(rv, func(id objc.ID) NSDraggingImageComponent {
 		return NSDraggingImageComponentFromID(id)
 	})
-}
-
-// The receiver’s collection view item prototype.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/itemprototype
-func (c NSCollectionViewItem) ItemPrototype() INSCollectionViewItem {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemPrototype"))
-	return NSCollectionViewItemFromID(objc.ID(rv))
-}
-func (c NSCollectionViewItem) SetItemPrototype(value INSCollectionViewItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setItemPrototype:"), value)
 }
 
 // Protocol methods for NSCollectionViewElement

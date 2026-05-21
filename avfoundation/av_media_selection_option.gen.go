@@ -312,7 +312,7 @@ func (m AVMediaSelectionOption) MakeNowPlayingInfoLanguageOption() objectivec.IO
 //
 // A serializable property list that you can use to obtain an instance of
 // [AVMediaSelectionOption] representing the same option as the receiver using
-// [MediaSelectionOptionWithPropertyList].
+// [AVMediaSelectionGroup.MediaSelectionOptionWithPropertyList].
 //
 // # Discussion
 //
@@ -369,13 +369,15 @@ func (m AVMediaSelectionOption) MediaSubTypes() []foundation.NSNumber {
 // # Discussion
 //
 // You can filter the array of [AVMetadataItem] objects according to locale
-// using [MetadataItemsFromArrayWithLocale], key using
-// [MetadataItemsFromArrayWithKeyKeySpace], or language using
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages].
+// using [AVMetadataItemClass.MetadataItemsFromArrayWithLocale], key using
+// [AVMetadataItemClass.MetadataItemsFromArrayWithKeyKeySpace], or language
+// using
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages].
 //
 // Clients that are filtering media selection options by language should be
-// prepared to handle cases in which the [ExtendedLanguageTag] property value
-// is `nil`. Further, they should be prepared to handle cases in which an
+// prepared to handle cases in which the
+// [AVMediaSelectionOption.ExtendedLanguageTag] property value is `nil`.
+// Further, they should be prepared to handle cases in which an
 // `extendedLanguageTag` is present but indicates that the language is
 // “undetermined” (a language value of @“und”, as defined in ISO
 // 639-2).

@@ -99,9 +99,6 @@ type ICAAnimationGroup interface {
 	// An array of [CAAnimation] objects to be evaluated in the time space of the receiver.
 	Animations() []CAAnimation
 	SetAnimations(value []CAAnimation)
-
-	// Determines if the animation is removed from the target layer’s animations upon completion.
-	IsRemovedOnCompletion() bool
 }
 
 // Init initializes the instance.
@@ -139,16 +136,4 @@ func (a CAAnimationGroup) Animations() []CAAnimation {
 }
 func (a CAAnimationGroup) SetAnimations(value []CAAnimation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimations:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// Determines if the animation is removed from the target layer’s animations
-// upon completion.
-//
-// See: https://developer.apple.com/documentation/quartzcore/caanimation/isremovedoncompletion
-func (a CAAnimationGroup) IsRemovedOnCompletion() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("removedOnCompletion"))
-	return rv
-}
-func (a CAAnimationGroup) SetRemovedOnCompletion(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRemovedOnCompletion:"), value)
 }

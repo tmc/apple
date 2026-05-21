@@ -122,10 +122,12 @@ func NewMTLRenderPassDepthAttachmentDescriptor() MTLRenderPassDepthAttachmentDes
 //
 // # Discussion
 //
-// If the [LoadAction] property of the attachment is set to
-// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
-// contents of the attachment with the value stored in the [ClearDepth]
-// property. Otherwise, the GPU ignores [ClearDepth].
+// If the [MTLRenderPassAttachmentDescriptor.LoadAction] property of the
+// attachment is set to [MTLLoadActionClear], then at the start of a render
+// pass, the GPU fills the contents of the attachment with the value stored in
+// the [MTLRenderPassDepthAttachmentDescriptor.ClearDepth] property.
+// Otherwise, the GPU ignores
+// [MTLRenderPassDepthAttachmentDescriptor.ClearDepth].
 //
 // The default value is `1.0`.
 //

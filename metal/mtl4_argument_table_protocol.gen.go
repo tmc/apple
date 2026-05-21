@@ -75,13 +75,15 @@ func MTL4ArgumentTableObjectFromID(id objc.ID) MTL4ArgumentTableObject {
 // stride: The stride between attributes in the buffer.
 //
 // bindingIndex: A valid binding index in the buffer binding range. It is an error for this
-// value to match or exceed the value of property [MaxBufferBindCount] on the
-// descriptor from which you created this argument table.
+// value to match or exceed the value of property
+// [MTL4ArgumentTableDescriptor.MaxBufferBindCount] on the descriptor from
+// which you created this argument table.
 //
 // # Discussion
 //
-// This method requires that the value of property [SupportAttributeStrides]
-// on the descriptor from which you created this argument table is true.
+// This method requires that the value of property
+// [MTL4ArgumentTableDescriptor.SupportAttributeStrides] on the descriptor
+// from which you created this argument table is true.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setAddress(_:attributeStride:index:)
 func (o MTL4ArgumentTableObject) SetAddressAttributeStrideAtIndex(gpuAddress MTLGPUAddress, stride uint, bindingIndex uint) {
@@ -93,8 +95,9 @@ func (o MTL4ArgumentTableObject) SetAddressAttributeStrideAtIndex(gpuAddress MTL
 // gpuAddress: The GPU address of a [MTLBuffer] to set.
 //
 // bindingIndex: A valid binding index in the buffer binding range. It is an error for this
-// value to match or exceed the value of property [MaxBufferBindCount] on the
-// descriptor from which you created this argument table.
+// value to match or exceed the value of property
+// [MTL4ArgumentTableDescriptor.MaxBufferBindCount] on the descriptor from
+// which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setAddress(_:index:)
 func (o MTL4ArgumentTableObject) SetAddressAtIndex(gpuAddress MTLGPUAddress, bindingIndex uint) {
@@ -106,8 +109,9 @@ func (o MTL4ArgumentTableObject) SetAddressAtIndex(gpuAddress MTLGPUAddress, bin
 // resourceID: The [MTLResourceID] of the Metal resource to bind.
 //
 // bindingIndex: A valid binding index in the buffer binding range. It is an error for this
-// value to match or exceed the value of property [MaxBufferBindCount] on the
-// descriptor from which you created this argument table.
+// value to match or exceed the value of property
+// [MTL4ArgumentTableDescriptor.MaxBufferBindCount] on the descriptor from
+// which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setResource(_:bufferIndex:)
 //
@@ -121,8 +125,9 @@ func (o MTL4ArgumentTableObject) SetResourceAtBufferIndex(resourceID MTLResource
 // resourceID: The [MTLResourceID] of the [MTLSamplerState] instance to bind.
 //
 // bindingIndex: A valid binding index in the sampler binding range. It is an error for this
-// value to match or exceed the value of property [MaxSamplerStateBindCount]
-// on the descriptor from which you created this argument table.
+// value to match or exceed the value of property
+// [MTL4ArgumentTableDescriptor.MaxSamplerStateBindCount] on the descriptor
+// from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setSamplerState(_:index:)
 //
@@ -136,8 +141,9 @@ func (o MTL4ArgumentTableObject) SetSamplerStateAtIndex(resourceID MTLResourceID
 // resourceID: The [MTLResourceID] of the [MTLTexture] instance to bind.
 //
 // bindingIndex: A valid binding index in the texture binding range. It is an error for this
-// value to match or exceed the value of property [MaxTextureBindCount] on the
-// descriptor from which you created this argument table.
+// value to match or exceed the value of property
+// [MTL4ArgumentTableDescriptor.MaxTextureBindCount] on the descriptor from
+// which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setTexture(_:index:)
 //
@@ -158,8 +164,8 @@ func (o MTL4ArgumentTableObject) Device() MTLDevice {
 //
 // # Discussion
 //
-// You set this label by setting property [Label] on the descriptor object,
-// prior to creating this table instance.
+// You set this label by setting property [MTL4ArgumentTableDescriptor.Label]
+// on the descriptor object, prior to creating this table instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
 func (o MTL4ArgumentTableObject) Label() string {

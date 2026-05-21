@@ -56,8 +56,9 @@ func (uc UnitFuelEfficiencyClass) Alloc() UnitFuelEfficiency {
 // per meter (m3/m), but is more commonly expressed in terms of liters per
 // kilometer (L/km) and miles per gallon (mpg).
 //
-// The [NSUnitFuelEfficiency] class defines its [BaseUnit] as
-// [LitersPer100Kilometers], and provides the following units:
+// The [NSUnitFuelEfficiency] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitFuelEfficiencyClass.LitersPer100Kilometers], and provides the
+// following units:
 //
 // [Table data omitted]
 //

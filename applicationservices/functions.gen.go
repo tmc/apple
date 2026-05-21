@@ -1902,10 +1902,10 @@ func HIShapeDifference(inShape1 HIShapeRef, inShape2 HIShapeRef, outResult HIMut
 	return result
 }
 
-var _hIShapeEnumerate func(inShape HIShapeRef, inOptions OptionBits, inProc unsafe.Pointer, inRefcon unsafe.Pointer) int32
+var _hIShapeEnumerate func(inShape HIShapeRef, inOptions uint32, inProc unsafe.Pointer, inRefcon unsafe.Pointer) int32
 var _hIShapeEnumerateErr error
 
-func tryHIShapeEnumerate(inShape HIShapeRef, inOptions OptionBits, inProc HIShapeEnumerateProcPtr, inRefcon unsafe.Pointer) (int32, error) {
+func tryHIShapeEnumerate(inShape HIShapeRef, inOptions uint32, inProc HIShapeEnumerateProcPtr, inRefcon unsafe.Pointer) (int32, error) {
 	if _hIShapeEnumerate == nil {
 		return 0, symbolCallError("HIShapeEnumerate", "10.5", _hIShapeEnumerateErr)
 	}
@@ -1920,7 +1920,7 @@ func tryHIShapeEnumerate(inShape HIShapeRef, inOptions OptionBits, inProc HIShap
 // HIShapeEnumerate.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459161-hishapeenumerate
-func HIShapeEnumerate(inShape HIShapeRef, inOptions OptionBits, inProc HIShapeEnumerateProcPtr, inRefcon unsafe.Pointer) int32 {
+func HIShapeEnumerate(inShape HIShapeRef, inOptions uint32, inProc HIShapeEnumerateProcPtr, inRefcon unsafe.Pointer) int32 {
 	result, callErr := tryHIShapeEnumerate(inShape, inOptions, inProc, inRefcon)
 	if callErr != nil {
 		panic(callErr)
@@ -3500,7 +3500,7 @@ func tryNewIconGetterUPP(userRoutine IconGetterProcPtr) (IconGetterUPP, error) {
 	if _newIconGetterUPP == nil {
 		return *new(IconGetterUPP), symbolCallError("NewIconGetterUPP", "10.0", _newIconGetterUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer) kernel.Ptr {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer) kernel.Handle {
 		return userRoutine(blockArg0, blockArg1)
 	})
 	defer _block0Value.Release()
@@ -6640,10 +6640,10 @@ func SetFrontProcess(arg0 *ProcessSerialNumber) int16 {
 	return result
 }
 
-var _setFrontProcessWithOptions func(arg0 *ProcessSerialNumber, arg1 OptionBits) int32
+var _setFrontProcessWithOptions func(arg0 *ProcessSerialNumber, arg1 uint32) int32
 var _setFrontProcessWithOptionsErr error
 
-func trySetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 OptionBits) (int32, error) {
+func trySetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 uint32) (int32, error) {
 	if _setFrontProcessWithOptions == nil {
 		return 0, symbolCallError("SetFrontProcessWithOptions", "10.2", _setFrontProcessWithOptionsErr)
 	}
@@ -6655,7 +6655,7 @@ func trySetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 OptionBits) (
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501003-setfrontprocesswithoptions
-func SetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 OptionBits) int32 {
+func SetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 uint32) int32 {
 	result, callErr := trySetFrontProcessWithOptions(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)

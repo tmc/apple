@@ -210,8 +210,8 @@ type INSColorWell interface {
 	// Topic: Customizing the color selection behavior
 
 	// The action to perform when someone clicks in the color area of the color well.
-	PulldownAction() objc.SEL
-	SetPulldownAction(value objc.SEL)
+	PulldownAction() objectivec.SEL
+	SetPulldownAction(value objectivec.SEL)
 	// The target object that defines the action you want to perform when someone interacts with the color well.
 	PulldownTarget() objectivec.IObject
 	SetPulldownTarget(value objectivec.IObject)
@@ -316,8 +316,9 @@ func (c NSColorWell) TakeColorFrom(sender objectivec.IObject) {
 // When you call this method, the color well displays the standard color panel
 // and sets the panel’s current color to the value in the color well. When
 // someone changes the color in the color panel, the color well updates its
-// selected color to match. If the color well’s [Bordered] property is true,
-// the color well highlights that border while it’s active.
+// selected color to match. If the color well’s [NSColorWell.Bordered]
+// property is true, the color well highlights that border while it’s
+// active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/activate(_:)
 func (c NSColorWell) Activate(exclusive bool) {
@@ -373,8 +374,8 @@ func (c NSColorWell) SetColor(value INSColor) {
 // this property to true enables partial color opacity, and also makes the
 // alpha slider visible.
 //
-// If [IgnoresAlpha] is true, this property always returns false, disabling
-// alpha globally.
+// If [NSColorClass.IgnoresAlpha] is true, this property always returns false,
+// disabling alpha globally.
 //
 // By default this value is true.
 //
@@ -423,8 +424,8 @@ func (c NSColorWell) SetColorWellStyle(value NSColorWellStyle) {
 //
 // # Discussion
 //
-// The color well applies the image only when the [ColorWellStyle] property is
-// set to [NSColorWellStyleExpanded].
+// The color well applies the image only when the [NSColorWell.ColorWellStyle]
+// property is set to [NSColorWellStyleExpanded].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/image
 func (c NSColorWell) Image() INSImage {
@@ -472,15 +473,15 @@ func (c NSColorWell) IsActive() bool {
 // picker. For a color well with the [NSColorWellStyleMinimal] or
 // [NSColorWellStyleExpanded] style, clicks in the color area normally display
 // a popover with the system color picker. If you specify a value for this
-// property and the [PulldownTarget] property, clicks in the color area
-// execute your custom action method instead.
+// property and the [NSColorWell.PulldownTarget] property, clicks in the color
+// area execute your custom action method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/pulldownAction
-func (c NSColorWell) PulldownAction() objc.SEL {
+func (c NSColorWell) PulldownAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](c.ID, objc.Sel("pulldownAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (c NSColorWell) SetPulldownAction(value objc.SEL) {
+func (c NSColorWell) SetPulldownAction(value objectivec.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownAction:"), value)
 }
 
@@ -493,8 +494,8 @@ func (c NSColorWell) SetPulldownAction(value objc.SEL) {
 // picker. For a color well with the [NSColorWellStyleMinimal] or
 // [NSColorWellStyleExpanded] style, clicks in the color area normally display
 // a popover with the system color picker. If you specify a value for this
-// property and the [PulldownAction] property, clicks in the color area
-// execute your custom action method instead.
+// property and the [NSColorWell.PulldownAction] property, clicks in the color
+// area execute your custom action method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/pulldownTarget
 func (c NSColorWell) PulldownTarget() objectivec.IObject {

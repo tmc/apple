@@ -121,6 +121,13 @@ func NewFSPathURLResource() FSPathURLResource {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSResource/init(coder:)
+func NewPathURLResourceWithCoder(coder foundation.INSCoder) FSPathURLResource {
+	instance := getFSPathURLResourceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSPathURLResourceFromID(rv)
+}
+
 // Creates a path URL resource.
 //
 // URL: A URL in the system file space that represents the contents of a file

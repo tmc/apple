@@ -54,11 +54,12 @@ func (mc MTLStructMemberClass) Alloc() MTLStructMember {
 // represented by [MTLArgument].
 //
 // Don’t create [MTLStructMember] instances directly. You obtain an
-// [MTLStructMember] instance from either the [MTLStructMember.Members] property or the
-// [MemberByName] method of an [MTLStructType] instance. The [MTLStructMember.DataType]
-// property of the [MTLStructMember] instance tells you what kind of data is
-// stored in the member. Recursively drill down every struct member until you
-// reach a data type that is neither a struct nor an array.
+// [MTLStructMember] instance from either the [MTLStructType.Members] property
+// or the [MTLStructType.MemberByName] method of an [MTLStructType] instance.
+// The [MTLStructMember.DataType] property of the [MTLStructMember] instance
+// tells you what kind of data is stored in the member. Recursively drill down
+// every struct member until you reach a data type that is neither a struct
+// nor an array.
 //
 // # Describing the struct member
 //
@@ -145,10 +146,6 @@ type IMTLStructMember interface {
 
 	// Provides a description of the underlying tensor type when this struct member holds a tensor.
 	TensorReferenceType() IMTLTensorReferenceType
-
-	// An array of instances that describe the fields in the struct.
-	Members() IMTLStructMember
-	SetMembers(value IMTLStructMember)
 }
 
 // Init initializes the instance.
@@ -175,8 +172,8 @@ func NewMTLStructMember() MTLStructMember {
 //
 // # Return Value
 //
-// An object that describes the array. If [DataType] indicates that this
-// member is not an array, this method returns `nil.`
+// An object that describes the array. If [MTLStructMember.DataType] indicates
+// that this member is not an array, this method returns `nil.`
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/arrayType()
 func (s MTLStructMember) ArrayType() IMTLArrayType {
@@ -189,8 +186,8 @@ func (s MTLStructMember) ArrayType() IMTLArrayType {
 //
 // # Return Value
 //
-// An object that describes the struct. If [DataType] indicates that this
-// member is not a struct, this method returns `nil`.
+// An object that describes the struct. If [MTLStructMember.DataType]
+// indicates that this member is not a struct, this method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/structType()
 func (s MTLStructMember) StructType() IMTLStructType {
@@ -203,8 +200,8 @@ func (s MTLStructMember) StructType() IMTLStructType {
 //
 // # Return Value
 //
-// An object that describes the pointer. If [DataType] indicates that this
-// member isn’t a pointer, this method returns `nil`.
+// An object that describes the pointer. If [MTLStructMember.DataType]
+// indicates that this member isn’t a pointer, this method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/pointerType()
 func (s MTLStructMember) PointerType() IMTLPointerType {
@@ -217,8 +214,8 @@ func (s MTLStructMember) PointerType() IMTLPointerType {
 //
 // # Return Value
 //
-// An object that describes the texture. If [DataType] indicates that this
-// member isn’t a texture, this method returns `nil`.
+// An object that describes the texture. If [MTLStructMember.DataType]
+// indicates that this member isn’t a texture, this method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/textureReferenceType()
 func (s MTLStructMember) TextureReferenceType() IMTLTextureReferenceType {
@@ -253,10 +250,10 @@ func (s MTLStructMember) Name() string {
 // # Discussion
 //
 // For information on possible values, see [MTLDataType]. If the value is
-// [MTLDataTypeArray], then the [ArrayType] method returns an object that
-// describes the underlying array. If the value is [MTLDataTypeStruct], then
-// the [StructType] method returns an object that describes the underlying
-// struct.
+// [MTLDataTypeArray], then the [MTLStructMember.ArrayType] method returns an
+// object that describes the underlying array. If the value is
+// [MTLDataTypeStruct], then the [MTLStructMember.StructType] method returns
+// an object that describes the underlying struct.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/dataType
 //
@@ -280,15 +277,4 @@ func (s MTLStructMember) Offset() uint {
 func (s MTLStructMember) ArgumentIndex() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("argumentIndex"))
 	return rv
-}
-
-// An array of instances that describe the fields in the struct.
-//
-// See: https://developer.apple.com/documentation/metal/mtlstructtype/members
-func (s MTLStructMember) Members() IMTLStructMember {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("members"))
-	return MTLStructMemberFromID(objc.ID(rv))
-}
-func (s MTLStructMember) SetMembers(value IMTLStructMember) {
-	objc.Send[struct{}](s.ID, objc.Sel("setMembers:"), value)
 }

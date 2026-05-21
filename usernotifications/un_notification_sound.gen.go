@@ -49,17 +49,19 @@ func (uc UNNotificationSoundClass) Alloc() UNNotificationSound {
 //
 // Create a [UNNotificationSound] object when you want the system to play a
 // specific sound when it delivers with your notification. To play the default
-// system sound, create your sound object using the [UNNotificationSound.DefaultSound] method. If
-// you want to play a custom sound, create a new sound object and specify the
-// name of the audio file that you want to play.
+// system sound, create your sound object using the
+// [UNNotificationSoundClass.DefaultSound] method. If you want to play a
+// custom sound, create a new sound object and specify the name of the audio
+// file that you want to play.
 //
-// For local notifications, assign the sound object to the [UNNotificationSound.Sound] property of
-// your [UNMutableNotificationContent] object. For a remote notification,
-// assign the name of your sound file to the `sound` key in the `aps`
-// dictionary. You can also use a notification service app extension to add a
-// sound file to a notification shortly before delivery. In your extension,
-// create a [UNNotificationSound] object and add it to your notification
-// content in the same way that you’d for a local notification.
+// For local notifications, assign the sound object to the
+// [UNMutableNotificationContent.Sound] property of your
+// [UNMutableNotificationContent] object. For a remote notification, assign
+// the name of your sound file to the `sound` key in the `aps` dictionary. You
+// can also use a notification service app extension to add a sound file to a
+// notification shortly before delivery. In your extension, create a
+// [UNNotificationSound] object and add it to your notification content in the
+// same way that you’d for a local notification.
 //
 // Audio files must already be on the user’s device before the system can
 // play them. If you use a predefined set of sounds for your notifications,
@@ -112,9 +114,6 @@ func UNNotificationSoundFromID(id objc.ID) UNNotificationSound {
 type IUNNotificationSound interface {
 	objectivec.IObject
 
-	// The sound that plays when the system delivers the notification.
-	Sound() IUNNotificationSound
-	SetSound(value IUNNotificationSound)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -238,17 +237,6 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) CriticalSoundNamed(nam
 func (_UNNotificationSoundClass UNNotificationSoundClass) CriticalSoundNamedWithAudioVolume(name UNNotificationSoundName, volume float32) UNNotificationSound {
 	rv := objc.Send[objc.ID](objc.ID(_UNNotificationSoundClass.class), objc.Sel("criticalSoundNamed:withAudioVolume:"), objc.String(string(name)), volume)
 	return UNNotificationSoundFromID(rv)
-}
-
-// The sound that plays when the system delivers the notification.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unmutablenotificationcontent/sound
-func (u UNNotificationSound) Sound() IUNNotificationSound {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("sound"))
-	return UNNotificationSoundFromID(objc.ID(rv))
-}
-func (u UNNotificationSound) SetSound(value IUNNotificationSound) {
-	objc.Send[struct{}](u.ID, objc.Sel("setSound:"), value)
 }
 
 // Returns an object representing the default sound for notifications.

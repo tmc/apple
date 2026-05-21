@@ -46,11 +46,14 @@ func (mc MeasurementFormatterClass) Alloc() MeasurementFormatter {
 //
 // # Overview
 //
-// You use the [StringFromUnit] method to create a localized representation of
-// an [NSMeasurement] object, and you use the [StringFromUnit] method to
-// create a localized representation of an [NSUnit] object. The formatter
-// takes into account the specified [Locale], [UnitStyle], and [UnitOptions]
-// when producing string representations of units and measurements.
+// You use the [NSMeasurementFormatter.StringFromUnit] method to create a
+// localized representation of an [NSMeasurement] object, and you use the
+// [NSMeasurementFormatter.StringFromUnit] method to create a localized
+// representation of an [NSUnit] object. The formatter takes into account the
+// specified [NSMeasurementFormatter.Locale],
+// [NSMeasurementFormatter.UnitStyle], and
+// [NSMeasurementFormatter.UnitOptions] when producing string representations
+// of units and measurements.
 //
 // # Specifying the Format
 //
@@ -184,7 +187,7 @@ func (m MeasurementFormatter) StringFromMeasurement(measurement INSMeasurement) 
 // # Return Value
 //
 // A user-readable string that represents the unit of measure. If the unit
-// cannot be localized, the unit’s [Symbol] value is used.
+// cannot be localized, the unit’s [NSUnit.Symbol] value is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/string(from:)-4hwjz
 func (m MeasurementFormatter) StringFromUnit(unit INSUnit) string {
@@ -201,13 +204,14 @@ func (m MeasurementFormatter) StringFromUnit(unit INSUnit) string {
 // locale. For possible values, see [MeasurementFormatter.UnitOptions].
 //
 // If no options are specified, the formatter localizes according to the
-// preferences of the formatter’s [Locale]. For example, a measurement in
-// kilocalories may be formatted as [C] instead of `kcal`, or a measurement in
-// kilometers per hour may be formatted as `miles per hour` for US and UK
-// locales, but `kilometers per hour` for other locales. However, if the
-// `providedUnit` option is specified, a measurement with [Kilocalories] units
-// would be formatted as `kcal`, even if the locale prefers [C], and a
-// measurement with [KilometersPerHour] units would be formatted as
+// preferences of the formatter’s [NSMeasurementFormatter.Locale]. For
+// example, a measurement in kilocalories may be formatted as [C] instead of
+// `kcal`, or a measurement in kilometers per hour may be formatted as `miles
+// per hour` for US and UK locales, but `kilometers per hour` for other
+// locales. However, if the `providedUnit` option is specified, a measurement
+// with [NSUnitEnergyClass.Kilocalories] units would be formatted as `kcal`,
+// even if the locale prefers [C], and a measurement with
+// [NSUnitSpeedClass.KilometersPerHour] units would be formatted as
 // `kilometers per hour` for US and UK locales, even though they prefer `miles
 // per hour`.
 //

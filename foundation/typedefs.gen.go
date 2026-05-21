@@ -6,14 +6,14 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
 // CompletionHandler is a completion handler for getting an asynchronous attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/CompletionHandler
-type CompletionHandler = func(NSAttributedString, unsafe.Pointer, unsafe.Pointer)
+type CompletionHandler = func(NSAttributedString, INSDictionary, kernel.Pointer)
 
 // NSAppleEventManagerSuspensionID is identifies an Apple event whose handling has been suspended. Can be used to resume handling of the Apple event.
 //
@@ -100,7 +100,7 @@ type NSItemProviderCompletionHandler = func(NSSecureCoding, NSError)
 // NSItemProviderLoadHandler is a block that loads the item provider’s data and coerces it to the specified type.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/LoadHandler
-type NSItemProviderLoadHandler = func(func(objc.ID, *NSError), objc.Class, INSDictionary)
+type NSItemProviderLoadHandler = func(func(objectivec.IObject, *NSError), objectivec.Class, INSDictionary)
 
 // NSKeyValueChangeKey is the keys that can appear in the change dictionary.
 //
@@ -313,7 +313,7 @@ type NSURLUbiquitousSharedItemPermissions = string
 type NSURLUbiquitousSharedItemRole = string
 
 // See: https://developer.apple.com/documentation/Foundation/NSUncaughtExceptionHandler
-type NSUncaughtExceptionHandler = uintptr
+type NSUncaughtExceptionHandler = kernel.Pointer
 
 // NSUndoManagerUserInfoKey is an extensible namespace for undo and redo user info keys.
 //

@@ -83,9 +83,6 @@ type IMTLBufferLayoutDescriptorArray interface {
 	// Returns the state of the specified buffer layout.
 	ObjectAtIndexedSubscript(index uint) IMTLBufferLayoutDescriptor
 
-	// The organization of input and output data for the next kernel call.
-	StageInputDescriptor() IMTLStageInputOutputDescriptor
-	SetStageInputDescriptor(value IMTLStageInputOutputDescriptor)
 	// Sets the state of the specified buffer layout.
 	SetObjectAtIndexedSubscript(bufferDesc IMTLBufferLayoutDescriptor, index uint)
 }
@@ -133,15 +130,4 @@ func (b MTLBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uint) IMT
 // See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutDescriptorArray/setObject:atIndexedSubscript:
 func (b MTLBufferLayoutDescriptorArray) SetObjectAtIndexedSubscript(bufferDesc IMTLBufferLayoutDescriptor, index uint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setObject:atIndexedSubscript:"), bufferDesc, index)
-}
-
-// The organization of input and output data for the next kernel call.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
-func (b MTLBufferLayoutDescriptorArray) StageInputDescriptor() IMTLStageInputOutputDescriptor {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("stageInputDescriptor"))
-	return MTLStageInputOutputDescriptorFromID(objc.ID(rv))
-}
-func (b MTLBufferLayoutDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
-	objc.Send[struct{}](b.ID, objc.Sel("setStageInputDescriptor:"), value)
 }

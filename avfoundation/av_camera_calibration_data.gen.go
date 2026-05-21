@@ -174,9 +174,9 @@ func (c AVCameraCalibrationData) IntrinsicMatrix() unsafe.Pointer {
 //
 // # Discussion
 //
-// The [IntrinsicMatrix] property measures focal length and principal point
-// offset in pixels, but those values are meaningful only in the context of an
-// image of this size.
+// The [AVCameraCalibrationData.IntrinsicMatrix] property measures focal
+// length and principal point offset in pixels, but those values are
+// meaningful only in the context of an image of this size.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/intrinsicMatrixReferenceDimensions
 func (c AVCameraCalibrationData) IntrinsicMatrixReferenceDimensions() corefoundation.CGSize {
@@ -242,10 +242,10 @@ func (c AVCameraCalibrationData) LensDistortionLookupTable() foundation.NSData {
 // # Discussion
 //
 // If you’ve rectified an image by removing the distortions characterized by
-// the [LensDistortionLookupTable] property, and now wish to go back to a
-// geometrically distorted image (for example, to render visual effects into
-// the camera image or perform computer vision tasks such as scene
-// reconstruction), use this inverse lookup table.
+// the [AVCameraCalibrationData.LensDistortionLookupTable] property, and now
+// wish to go back to a geometrically distorted image (for example, to render
+// visual effects into the camera image or perform computer vision tasks such
+// as scene reconstruction), use this inverse lookup table.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/inverseLensDistortionLookupTable
 func (c AVCameraCalibrationData) InverseLensDistortionLookupTable() foundation.NSData {

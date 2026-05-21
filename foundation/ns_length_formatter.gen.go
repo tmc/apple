@@ -194,7 +194,8 @@ func (l LengthFormatter) StringFromValueUnit(value float64, unit NSLengthFormatt
 // # Discussion
 //
 // This method selects the correct unit based on the formatter’s locale, the
-// magnitude of the value, and the [ForPersonHeightUse] property.
+// magnitude of the value, and the [NSLengthFormatter.ForPersonHeightUse]
+// property.
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/unitString(fromMeters:usedUnit:)
 //
@@ -226,12 +227,13 @@ func (l LengthFormatter) UnitStringFromValueUnit(value float64, unit NSLengthFor
 //
 // # Discussion
 //
-// Returns true if the value passed to [StringFromMeters] or
-// [UnitStringFromMetersUsedUnit] is a person’s height; otherwise, false. By
-// default, this property returns false.
+// Returns true if the value passed to [NSLengthFormatter.StringFromMeters] or
+// [NSLengthFormatter.UnitStringFromMetersUsedUnit] is a person’s height;
+// otherwise, false. By default, this property returns false.
 //
 // The length formatter uses this property when determining the best unit for
-// a given locale (for example, in the [StringFromMeters] method).
+// a given locale (for example, in the [NSLengthFormatter.StringFromMeters]
+// method).
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/isForPersonHeightUse
 func (l LengthFormatter) IsForPersonHeightUse() bool {

@@ -232,8 +232,8 @@ func NewMovieWithDataOptions(data foundation.NSData, options foundation.INSDicti
 //
 // # Discussion
 //
-// Upon creation, the values of the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are `nil`.
+// Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
+// and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
 func NewMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
@@ -251,8 +251,8 @@ func NewMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictiona
 //
 // # Discussion
 //
-// Upon creation, the values of the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are `nil`.
+// Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
+// and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
 func (m AVMovie) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
@@ -392,8 +392,8 @@ func (_AVMovieClass AVMovieClass) MovieWithDataOptions(data foundation.NSData, o
 //
 // # Discussion
 //
-// Upon creation, the values of the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are `nil`.
+// Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
+// and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/movieWithURL:options:
 func (_AVMovieClass AVMovieClass) MovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
@@ -420,8 +420,8 @@ func (m AVMovie) CanContainMovieFragments() bool {
 //
 // # Discussion
 //
-// This property is [YES] if [CanContainMovieFragments] is [YES] and at least
-// one `moof` box is present after the `moov` box.
+// This property is [YES] if [AVMovie.CanContainMovieFragments] is [YES] and
+// at least one `moof` box is present after the `moov` box.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/containsMovieFragments
 func (m AVMovie) ContainsMovieFragments() bool {

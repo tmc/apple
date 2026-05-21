@@ -70,9 +70,9 @@ func (uc UNUserNotificationCenterClass) Alloc() UNUserNotificationCenter {
 //
 // To handle incoming notifications and notification-related actions, create
 // an object that adopts the [UNUserNotificationCenterDelegate] protocol and
-// assign it to the [UNUserNotificationCenter.Delegate] property. Always assign an object to the
-// [UNUserNotificationCenter.Delegate] property before performing any tasks that might interact with
-// that delegate.
+// assign it to the [UNUserNotificationCenter.Delegate] property. Always
+// assign an object to the [UNUserNotificationCenter.Delegate] property before
+// performing any tasks that might interact with that delegate.
 //
 // You may use the shared user notification center object simultaneously from
 // any of your app’s threads. The object processes requests serially in the
@@ -96,21 +96,19 @@ func (uc UNUserNotificationCenterClass) Alloc() UNUserNotificationCenter {
 // # Scheduling notifications
 //
 //   - [UNUserNotificationCenter.AddNotificationRequestWithCompletionHandler]: Schedules the delivery of a local notification.
+//   - [UNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler]: Fetches all of your app’s local notifications that are pending delivery.
 //   - [UNUserNotificationCenter.RemovePendingNotificationRequestsWithIdentifiers]: Removes your app’s local notifications that are pending and match the specified identifiers.
 //   - [UNUserNotificationCenter.RemoveAllPendingNotificationRequests]: Removes all of your app’s pending local notifications.
 //
 // # Removing delivered notifications
 //
+//   - [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]: Fetches all of your app’s delivered notifications that are still present in Notification Center.
 //   - [UNUserNotificationCenter.RemoveDeliveredNotificationsWithIdentifiers]: Removes your app’s notifications from Notification Center that match the specified identifiers.
 //   - [UNUserNotificationCenter.RemoveAllDeliveredNotifications]: Removes all of your app’s delivered notifications from Notification Center.
 //
 // # Managing notification categories
 //
 //   - [UNUserNotificationCenter.SetNotificationCategories]: Registers the notification categories that your app supports.
-//
-// # Handling errors
-//
-//   - [UNUserNotificationCenter.UNErrorDomain]: The error domain for notifications.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter
 //
@@ -153,21 +151,19 @@ func UNUserNotificationCenterFromID(id objc.ID) UNUserNotificationCenter {
 // # Scheduling notifications
 //
 //   - [IUNUserNotificationCenter.AddNotificationRequestWithCompletionHandler]: Schedules the delivery of a local notification.
+//   - [IUNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler]: Fetches all of your app’s local notifications that are pending delivery.
 //   - [IUNUserNotificationCenter.RemovePendingNotificationRequestsWithIdentifiers]: Removes your app’s local notifications that are pending and match the specified identifiers.
 //   - [IUNUserNotificationCenter.RemoveAllPendingNotificationRequests]: Removes all of your app’s pending local notifications.
 //
 // # Removing delivered notifications
 //
+//   - [IUNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]: Fetches all of your app’s delivered notifications that are still present in Notification Center.
 //   - [IUNUserNotificationCenter.RemoveDeliveredNotificationsWithIdentifiers]: Removes your app’s notifications from Notification Center that match the specified identifiers.
 //   - [IUNUserNotificationCenter.RemoveAllDeliveredNotifications]: Removes all of your app’s delivered notifications from Notification Center.
 //
 // # Managing notification categories
 //
 //   - [IUNUserNotificationCenter.SetNotificationCategories]: Registers the notification categories that your app supports.
-//
-// # Handling errors
-//
-//   - [IUNUserNotificationCenter.UNErrorDomain]: The error domain for notifications.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter
 type IUNUserNotificationCenter interface {
@@ -197,6 +193,8 @@ type IUNUserNotificationCenter interface {
 
 	// Schedules the delivery of a local notification.
 	AddNotificationRequestWithCompletionHandler(request IUNNotificationRequest, completionHandler ErrorHandler)
+	// Fetches all of your app’s local notifications that are pending delivery.
+	GetPendingNotificationRequestsWithCompletionHandler(completionHandler UNNotificationRequestArrayHandler)
 	// Removes your app’s local notifications that are pending and match the specified identifiers.
 	RemovePendingNotificationRequestsWithIdentifiers(identifiers []string)
 	// Removes all of your app’s pending local notifications.
@@ -204,6 +202,8 @@ type IUNUserNotificationCenter interface {
 
 	// Topic: Removing delivered notifications
 
+	// Fetches all of your app’s delivered notifications that are still present in Notification Center.
+	GetDeliveredNotificationsWithCompletionHandler(completionHandler UNNotificationArrayHandler)
 	// Removes your app’s notifications from Notification Center that match the specified identifiers.
 	RemoveDeliveredNotificationsWithIdentifiers(identifiers []string)
 	// Removes all of your app’s delivered notifications from Notification Center.
@@ -213,11 +213,6 @@ type IUNUserNotificationCenter interface {
 
 	// Registers the notification categories that your app supports.
 	SetNotificationCategories(categories foundation.INSSet)
-
-	// Topic: Handling errors
-
-	// The error domain for notifications.
-	UNErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -301,9 +296,9 @@ func (u UNUserNotificationCenter) SetBadgeCountWithCompletionHandler(newBadgeCou
 // authorization. The value of this parameter is true when the person grants
 // authorization for one or more options. The value is false when the person
 // denies authorization or authorization is undetermined. Use
-// [GetNotificationSettingsWithCompletionHandler] to check the authorization
-// status. error: An object containing error information or `nil` if no error
-// occurs.
+// [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler] to
+// check the authorization status. error: An object containing error
+// information or `nil` if no error occurs.
 //
 // # Discussion
 //
@@ -323,8 +318,9 @@ func (u UNUserNotificationCenter) SetBadgeCountWithCompletionHandler(newBadgeCou
 // notifications to the user’s device.
 //
 // The person may change the interactions they allow at any time in system
-// settings. Use the [GetNotificationSettingsWithCompletionHandler] method to
-// determine what interactions are allowed for your app.
+// settings. Use the
+// [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler]
+// method to determine what interactions are allowed for your app.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/requestAuthorization(options:completionHandler:)
 //
@@ -365,13 +361,34 @@ func (u UNUserNotificationCenter) AddNotificationRequestWithCompletionHandler(re
 	objc.Send[objc.ID](u.ID, objc.Sel("addNotificationRequest:withCompletionHandler:"), request, _block1)
 }
 
+// Fetches all of your app’s local notifications that are pending delivery.
+//
+// completionHandler: A block for processing notification requests. This block may be executed on
+// a background thread. The block has no return value and takes a single
+// parameter.
+//
+// requests: An array of [UNNotificationRequest] objects representing the
+// scheduled notification requests. If there are no scheduled requests, this
+// array is empty.
+//
+// # Discussion
+//
+// Here’s an example that obtains the pending notification requests.
+//
+// See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/getPendingNotificationRequests(completionHandler:)
+func (u UNUserNotificationCenter) GetPendingNotificationRequestsWithCompletionHandler(completionHandler UNNotificationRequestArrayHandler) {
+	_block0, _ := NewUNNotificationRequestArrayBlock(completionHandler)
+	objc.Send[objc.ID](u.ID, objc.Sel("getPendingNotificationRequestsWithCompletionHandler:"), _block0)
+}
+
 // Removes your app’s local notifications that are pending and match the
 // specified identifiers.
 //
-// identifiers: An array of [NSString] objects, each of which contains the [Identifier] of
-// an active [UNNotificationRequest] object. If the identifier belongs to a
-// non repeating request, and the trigger condition for that request has
-// already been met, this method ignores the identifier.
+// identifiers: An array of [NSString] objects, each of which contains the
+// [UNNotificationRequest.Identifier] of an active [UNNotificationRequest]
+// object. If the identifier belongs to a non repeating request, and the
+// trigger condition for that request has already been met, this method
+// ignores the identifier.
 //
 // # Discussion
 //
@@ -397,13 +414,37 @@ func (u UNUserNotificationCenter) RemoveAllPendingNotificationRequests() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllPendingNotificationRequests"))
 }
 
+// Fetches all of your app’s delivered notifications that are still present
+// in Notification Center.
+//
+// completionHandler: The block to execute with the results. This block may be executed on a
+// background thread. The block has no return value and takes the following
+// parameter:
+//
+// notifications: An array of [UNNotification] objects representing the local
+// and remote notifications of your app that have been delivered and are still
+// visible in Notification Center. If none of your app’s notifications are
+// visible in Notification Center, the array is empty.
+//
+// # Discussion
+//
+// This method executes asynchronously, returning immediately and executing
+// the provided block on a background thread when the results become
+// available.
+//
+// See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/getDeliveredNotifications(completionHandler:)
+func (u UNUserNotificationCenter) GetDeliveredNotificationsWithCompletionHandler(completionHandler UNNotificationArrayHandler) {
+	_block0, _ := NewUNNotificationArrayBlock(completionHandler)
+	objc.Send[objc.ID](u.ID, objc.Sel("getDeliveredNotificationsWithCompletionHandler:"), _block0)
+}
+
 // Removes your app’s notifications from Notification Center that match the
 // specified identifiers.
 //
 // identifiers: An array of [NSString] objects, each of which corresponds to a value in the
-// [Identifier] property of a [UNNotificationRequest] object. This method
-// ignores the identifiers of requests whose notifications are not currently
-// displayed in Notification Center.
+// [UNNotificationRequest.Identifier] property of a [UNNotificationRequest]
+// object. This method ignores the identifiers of requests whose notifications
+// are not currently displayed in Notification Center.
 //
 // # Discussion
 //
@@ -532,14 +573,6 @@ func (u UNUserNotificationCenter) SupportsContentExtensions() bool {
 	return rv
 }
 
-// The error domain for notifications.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unerrordomain
-func (u UNUserNotificationCenter) UNErrorDomain() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // GetNotificationSettings is a synchronous wrapper around [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (u UNUserNotificationCenter) GetNotificationSettings(ctx context.Context) (*UNNotificationSettings, error) {
@@ -601,5 +634,43 @@ func (u UNUserNotificationCenter) AddNotificationRequest(ctx context.Context, re
 		return err
 	case <-ctx.Done():
 		return ctx.Err()
+	}
+}
+
+// GetPendingNotificationRequests is a synchronous wrapper around [UNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u UNUserNotificationCenter) GetPendingNotificationRequests(ctx context.Context) ([]UNNotificationRequest, error) {
+	done := make(chan []UNNotificationRequest, 1)
+	u.GetPendingNotificationRequestsWithCompletionHandler(func(val *[]UNNotificationRequest) {
+		var out []UNNotificationRequest
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// GetDeliveredNotifications is a synchronous wrapper around [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u UNUserNotificationCenter) GetDeliveredNotifications(ctx context.Context) ([]UNNotification, error) {
+	done := make(chan []UNNotification, 1)
+	u.GetDeliveredNotificationsWithCompletionHandler(func(val *[]UNNotification) {
+		var out []UNNotification
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 }

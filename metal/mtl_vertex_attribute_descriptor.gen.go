@@ -104,8 +104,6 @@ type IMTLVertexAttributeDescriptor interface {
 	// The index in the argument table for the associated vertex buffer.
 	BufferIndex() uint
 	SetBufferIndex(value uint)
-
-	MTLBufferLayoutStrideDynamic() int
 }
 
 // Init initializes the instance.
@@ -194,10 +192,4 @@ func (v MTLVertexAttributeDescriptor) BufferIndex() uint {
 }
 func (v MTLVertexAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBufferIndex:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
-func (v MTLVertexAttributeDescriptor) MTLBufferLayoutStrideDynamic() int {
-	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
-	return rv
 }

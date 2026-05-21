@@ -59,9 +59,9 @@ func (uc URLCacheClass) Alloc() URLCache {
 //
 // Although [NSURLCache] instance methods can safely be called from multiple
 // execution contexts at the same time, be aware that methods like
-// [CachedResponseForRequest] and [StoreCachedResponseForDataTask] have an
-// unavoidable race condition when attempting to read or write responses for
-// the same request.
+// [NSURLCache.CachedResponseForRequest] and
+// [NSURLCache.StoreCachedResponseForDataTask] have an unavoidable race
+// condition when attempting to read or write responses for the same request.
 //
 // Subclasses of [NSURLCache] must implement overridden methods in such a
 // thread-safe manner.
@@ -79,13 +79,14 @@ func (uc URLCacheClass) Alloc() URLCache {
 // follows:
 //
 // - Storing responses in the cache — Override the task-based
-// [StoreCachedResponseForDataTask], instead of or in addition to the
-// request-based [StoreCachedResponseForDataTask]. - Getting responses from
-// the cache — Override [GetCachedResponseForDataTaskCompletionHandler],
-// instead of or in addition to [CachedResponseForRequest]. - Removing cached
-// responses — Override the task-based [RemoveCachedResponseForDataTask],
-// instead of or in addition to the request-based
-// [RemoveCachedResponseForDataTask].
+// [NSURLCache.StoreCachedResponseForDataTask], instead of or in addition to
+// the request-based [NSURLCache.StoreCachedResponseForDataTask]. - Getting
+// responses from the cache — Override
+// [NSURLCache.GetCachedResponseForDataTaskCompletionHandler], instead of or
+// in addition to [NSURLCache.CachedResponseForRequest]. - Removing cached
+// responses — Override the task-based
+// [NSURLCache.RemoveCachedResponseForDataTask], instead of or in addition to
+// the request-based [NSURLCache.RemoveCachedResponseForDataTask].
 //
 // # Getting and storing cached objects
 //
@@ -287,7 +288,7 @@ func NewURLCacheWithMemoryCapacityDiskCapacityDiskPath(memoryCapacity uint, disk
 // # Discussion
 //
 // If you override this method, you should also override
-// [GetCachedResponseForDataTaskCompletionHandler].
+// [NSURLCache.GetCachedResponseForDataTaskCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/cachedResponse(for:)
 func (u URLCache) CachedResponseForRequest(request INSURLRequest) INSCachedURLResponse {
@@ -304,7 +305,7 @@ func (u URLCache) CachedResponseForRequest(request INSURLRequest) INSCachedURLRe
 // # Discussion
 //
 // If you override this method, you should also override
-// [StoreCachedResponseForDataTask].
+// [NSURLCache.StoreCachedResponseForDataTask].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/storeCachedResponse(_:for:)-7p7bl
 func (u URLCache) StoreCachedResponseForRequest(cachedResponse INSCachedURLResponse, request INSURLRequest) {
@@ -344,7 +345,7 @@ func (u URLCache) StoreCachedResponseForDataTask(cachedResponse INSCachedURLResp
 // # Discussion
 //
 // If you override this method, you should also override
-// [RemoveCachedResponseForDataTask].
+// [NSURLCache.RemoveCachedResponseForDataTask].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/removeCachedResponse(for:)-1dh89
 func (u URLCache) RemoveCachedResponseForRequest(request INSURLRequest) {

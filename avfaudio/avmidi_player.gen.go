@@ -147,10 +147,10 @@ type IAVMIDIPlayer interface {
 	// Topic: Accessing player timing
 
 	// The current playback position, in seconds.
-	CurrentPosition() float64
-	SetCurrentPosition(value float64)
+	CurrentPosition() foundation.NSTimeInterval
+	SetCurrentPosition(value foundation.NSTimeInterval)
 	// The duration, in seconds, of the currently loaded file.
-	Duration() float64
+	Duration() foundation.NSTimeInterval
 }
 
 // Init initializes the instance.
@@ -273,8 +273,8 @@ func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.NSData, bank
 // # Discussion
 //
 // The system automatically calls this method on playback, but calling it in
-// advance minimizes the delay between calling [Play] and the start of sound
-// output.
+// advance minimizes the delay between calling [AVMIDIPlayer.Play] and the
+// start of sound output.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/prepareToPlay()
 func (m AVMIDIPlayer) PrepareToPlay() {
@@ -324,18 +324,18 @@ func (m AVMIDIPlayer) SetRate(value float32) {
 // The current playback position, in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/currentPosition
-func (m AVMIDIPlayer) CurrentPosition() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("currentPosition"))
-	return rv
+func (m AVMIDIPlayer) CurrentPosition() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("currentPosition"))
+	return foundation.NSTimeInterval(rv)
 }
-func (m AVMIDIPlayer) SetCurrentPosition(value float64) {
+func (m AVMIDIPlayer) SetCurrentPosition(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurrentPosition:"), value)
 }
 
 // The duration, in seconds, of the currently loaded file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/duration
-func (m AVMIDIPlayer) Duration() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("duration"))
-	return rv
+func (m AVMIDIPlayer) Duration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("duration"))
+	return foundation.NSTimeInterval(rv)
 }

@@ -11762,9 +11762,9 @@ type User_sf_hdtr struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_termios
 type User_termios struct {
 	C_iflag  User_tcflag_t
-	C_ospeed UserSpeed
+	C_ospeed User_speed_t
 	C_oflag  User_tcflag_t
-	C_ispeed UserSpeed
+	C_ispeed User_speed_t
 	C_cflag  User_tcflag_t
 	C_cc     Cc_t
 	C_lflag  User_tcflag_t
@@ -12259,7 +12259,7 @@ type Vnop_getattrlistbulk_args struct {
 	A_eofflag     unsafe.Pointer
 	A_private     unsafe.Pointer
 	A_actualcount unsafe.Pointer
-	A_uio         Uio
+	A_uio         unsafe.Pointer
 	A_vp          Vnode_t
 	A_vap         *Vnode_attr
 }
@@ -12504,7 +12504,7 @@ type Vnop_read_args struct {
 	A_context Vfs_context_t
 	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_uio     Uio
+	A_uio     unsafe.Pointer
 }
 
 // Vnop_readdir_args - Call down to a filesystem to create a symbolic link.
@@ -12516,7 +12516,7 @@ type Vnop_readdir_args struct {
 	A_vp        Vnode_t
 	A_desc      unsafe.Pointer
 	A_context   Vfs_context_t
-	A_uio       Uio
+	A_uio       unsafe.Pointer
 	A_numdirent unsafe.Pointer
 	A_eofflag   unsafe.Pointer
 }
@@ -12530,7 +12530,7 @@ type Vnop_readdirattr_args struct {
 	A_desc        unsafe.Pointer
 	A_alist       *Attrlist
 	A_context     Vfs_context_t
-	A_uio         Uio
+	A_uio         unsafe.Pointer
 	A_newstate    unsafe.Pointer
 	A_vp          Vnode_t
 	A_eofflag     unsafe.Pointer
@@ -12544,7 +12544,7 @@ type Vnop_readdirattr_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_readlink_args
 type Vnop_readlink_args struct {
 	A_desc    unsafe.Pointer
-	A_uio     Uio
+	A_uio     unsafe.Pointer
 	A_context Vfs_context_t
 	A_vp      Vnode_t
 }
@@ -12654,7 +12654,7 @@ type Vnop_searchfs_args struct {
 	A_searchparams2 unsafe.Pointer
 	A_searchattrs   *Attrlist
 	A_options       unsafe.Pointer
-	A_uio           Uio
+	A_uio           unsafe.Pointer
 	A_searchparams1 unsafe.Pointer
 	A_desc          unsafe.Pointer
 	A_maxmatches    unsafe.Pointer
@@ -12766,7 +12766,7 @@ type Vnop_whiteout_args struct {
 type Vnop_write_args struct {
 	A_context Vfs_context_t
 	A_vp      Vnode_t
-	A_uio     Uio
+	A_uio     unsafe.Pointer
 	A_desc    unsafe.Pointer
 	A_ioflag  unsafe.Pointer
 }

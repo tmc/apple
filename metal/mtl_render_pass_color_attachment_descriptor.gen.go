@@ -106,14 +106,17 @@ func NewMTLRenderPassColorAttachmentDescriptor() MTLRenderPassColorAttachmentDes
 //
 // # Discussion
 //
-// If the [LoadAction] property of the attachment is set to
-// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
-// texture with the value stored in the [ClearColor] property. Otherwise, the
-// GPU ignores the [ClearColor] property.
+// If the [MTLRenderPassAttachmentDescriptor.LoadAction] property of the
+// attachment is set to [MTLLoadActionClear], then at the start of a render
+// pass, the GPU fills the texture with the value stored in the
+// [MTLRenderPassColorAttachmentDescriptor.ClearColor] property. Otherwise,
+// the GPU ignores the [MTLRenderPassColorAttachmentDescriptor.ClearColor]
+// property.
 //
-// The [ClearColor] property represents a set of RGBA components. The default
-// value is `(0.0, 0.0, 0.0, 1.0)` (black). Use the [MTLClearColorMake]
-// function to construct an [MTLClearColor] value.
+// The [MTLRenderPassColorAttachmentDescriptor.ClearColor] property represents
+// a set of RGBA components. The default value is `(0.0, 0.0, 0.0, 1.0)`
+// (black). Use the [MTLClearColorMake] function to construct an
+// [MTLClearColor] value.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassColorAttachmentDescriptor/clearColor
 //

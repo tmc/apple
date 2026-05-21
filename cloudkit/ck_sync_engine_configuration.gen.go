@@ -223,11 +223,11 @@ func (c CKSyncEngineConfiguration) SetDelegate(value CKSyncEngineDelegate) {
 // behavior in your app.
 //
 // If you set this property’s value to false, use
-// [FetchChangesWithCompletionHandler] and [SendChangesWithCompletionHandler]
-// to invoke immediate sync operations, allowing for more control over when
-// your app syncs its records. For example, you may want to sync at a specific
-// time of day or deterministically simulate certain conditions in your unit
-// tests.
+// [CKSyncEngine.FetchChangesWithCompletionHandler] and
+// [CKSyncEngine.SendChangesWithCompletionHandler] to invoke immediate sync
+// operations, allowing for more control over when your app syncs its records.
+// For example, you may want to sync at a specific time of day or
+// deterministically simulate certain conditions in your unit tests.
 //
 // The default value is true.
 //

@@ -2,18 +2,30 @@
 
 // Package iosurface provides Go bindings for the IOSurface framework.
 //
-// Share hardware-accelerated buffer data (framebuffers and textures) across multiple processes. Manage image memory more efficiently.
+// Share hardware-accelerated buffer data (framebuffers and textures) across
+// multiple processes. Manage image memory more efficiently.
 //
-// The IOSurface framework provides a framebuffer object suitable for sharing across process boundaries. It is commonly used to allow applications to move complex image decompression and draw logic into a separate process to enhance security.
+// The IOSurface framework provides a framebuffer object suitable for sharing
+// across process boundaries. It is commonly used to allow applications to
+// move complex image decompression and draw logic into a separate process to
+// enhance security.
 //
 // # Classes
 //
-//   - IOSurface: Data type representing an IOSurface opaque object.
-//   - IOSurfaceRef: Data type representing an IOSurface opaque object.
+//   - [IOSurface]: Data type representing an IOSurface opaque object.
+//   - [IOSurfaceRef]: Data type representing an IOSurface opaque object.
 //
 // # Variables
 //
-//   - kIOSurfaceContentHeadroom
+//   - [KIOSurfaceContentHeadroom]
+//
+// # Macros
+//
+//   - IOSFC_SWIFT_NONSENDABLE
+//   - IOSFC_SWIFT_SENDABLE
+//
+// # Enumeration Cases
+//
 //   - kIOSurfaceCopybackCache
 //   - kIOSurfaceCopybackInnerCache
 //   - kIOSurfaceDefaultCache
@@ -31,8 +43,6 @@
 // # Key Types
 //
 //   - [IOSurface] - Data type representing an IOSurface opaque object.
-//
-// [IOSurface Documentation]: https://developer.apple.com/documentation/IOSurface
 package iosurface
 
 import (

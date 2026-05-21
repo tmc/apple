@@ -48,13 +48,14 @@ func (vc VZVirtioNetworkDeviceConfigurationClass) Alloc() VZVirtioNetworkDeviceC
 //
 // Use a [VZVirtioNetworkDeviceConfiguration] object to configure one network
 // interface of your virtual machine. After creating this object, assign an
-// appropriate value to its inherited [VZVirtioNetworkDeviceConfiguration.Attachment] property to define the type
-// of network interface you want. You can also assign a specific MAC address,
-// or let the system generate a random address for you.
+// appropriate value to its inherited
+// [VZNetworkDeviceConfiguration.Attachment] property to define the type of
+// network interface you want. You can also assign a specific MAC address, or
+// let the system generate a random address for you.
 //
 // After creating and configuring a [VZVirtioNetworkDeviceConfiguration]
-// object, assign it to the [VZVirtioNetworkDeviceConfiguration.NetworkDevices] property of your virtual
-// machine’s configuration.
+// object, assign it to the [VZVirtualMachineConfiguration.NetworkDevices]
+// property of your virtual machine’s configuration.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioNetworkDeviceConfiguration
 type VZVirtioNetworkDeviceConfiguration struct {
@@ -77,10 +78,6 @@ func VZVirtioNetworkDeviceConfigurationFromID(id objc.ID) VZVirtioNetworkDeviceC
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioNetworkDeviceConfiguration
 type IVZVirtioNetworkDeviceConfiguration interface {
 	IVZNetworkDeviceConfiguration
-
-	// The array of network devices that you expose to the guest operating system.
-	NetworkDevices() IVZNetworkDeviceConfiguration
-	SetNetworkDevices(value IVZNetworkDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -100,15 +97,4 @@ func NewVZVirtioNetworkDeviceConfiguration() VZVirtioNetworkDeviceConfiguration 
 	class := getVZVirtioNetworkDeviceConfigurationClass()
 	rv := objc.Send[VZVirtioNetworkDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The array of network devices that you expose to the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
-func (v VZVirtioNetworkDeviceConfiguration) NetworkDevices() IVZNetworkDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("networkDevices"))
-	return VZNetworkDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioNetworkDeviceConfiguration) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNetworkDevices:"), value)
 }

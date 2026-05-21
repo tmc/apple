@@ -148,12 +148,13 @@ func MTLIndirectRenderCommandObjectFromID(id objc.ID) MTLIndirectRenderCommandOb
 // # Discussion
 //
 // You don’t need to call this method if you create an indirect command
-// buffer with its [InheritPipelineState] property equal to true. The command
-// gets the pipeline state from the parent encoder when it runs.
+// buffer with its [MTLIndirectCommandBufferDescriptor.InheritPipelineState]
+// property equal to true. The command gets the pipeline state from the parent
+// encoder when it runs.
 //
-// If you created the indirect command buffer with [InheritPipelineState] set
-// to false, you need to set the pipeline state prior to encoding the drawing
-// command.
+// If you created the indirect command buffer with
+// [MTLIndirectCommandBufferDescriptor.InheritPipelineState] set to false, you
+// need to set the pipeline state prior to encoding the drawing command.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setRenderPipelineState(_:)
 func (o MTLIndirectRenderCommandObject) SetRenderPipelineState(pipelineState MTLRenderPipelineState) {
@@ -173,8 +174,9 @@ func (o MTLIndirectRenderCommandObject) SetRenderPipelineState(pipelineState MTL
 // # Discussion
 //
 // You don’t need to call this method if you create an indirect command
-// buffer with its [InheritBuffers] property equal to true. The command gets
-// the arguments from the parent encoder when it runs.
+// buffer with its [MTLIndirectCommandBufferDescriptor.InheritBuffers]
+// property equal to true. The command gets the arguments from the parent
+// encoder when it runs.
 //
 // If you need to pass other kinds of parameters to your shader, such as
 // textures and samplers, create an argument buffer and pass it to the shader
@@ -198,8 +200,9 @@ func (o MTLIndirectRenderCommandObject) SetVertexBufferOffsetAtIndex(buffer MTLB
 // # Discussion
 //
 // You don’t need to call this method if you create an indirect command
-// buffer with its [InheritBuffers] equal to true. The command gets the
-// arguments from the parent encoder when it runs.
+// buffer with its [MTLIndirectCommandBufferDescriptor.InheritBuffers] equal
+// to true. The command gets the arguments from the parent encoder when it
+// runs.
 //
 // If you need to pass other kinds of parameters to your shader, such as
 // textures and samplers, create an argument buffer and pass it to the shader

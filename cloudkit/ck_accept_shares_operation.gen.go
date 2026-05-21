@@ -4,9 +4,7 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,22 +48,22 @@ func (cc CKAcceptSharesOperationClass) Alloc() CKAcceptSharesOperation {
 //
 // Use this operation to accept participation in one or more shares. You
 // create the operation with an array of share metadatas, which CloudKit
-// provides to your app when the user taps or clicks a share’s [URL]. The
-// method CloudKit calls varies by platform and app configuration. For more
-// information, see [CKShareMetadata]. You can also fetch a share’s metadata
-// using [CKFetchShareMetadataOperation].
+// provides to your app when the user taps or clicks a share’s
+// [CKShare.URL]. The method CloudKit calls varies by platform and app
+// configuration. For more information, see [CKShareMetadata]. You can also
+// fetch a share’s metadata using [CKFetchShareMetadataOperation].
 //
-// If there are several metadatas, group them by their [CKAcceptSharesOperation.ContainerIdentifier]
-// and create an operation for each container. Then add the operation to each
-// container’s operation queue to run it. The operation executes its
-// callbacks on a private serial queue.
+// If there are several metadatas, group them by their
+// [CKShareMetadata.ContainerIdentifier] and create an operation for each
+// container. Then add the operation to each container’s operation queue to
+// run it. The operation executes its callbacks on a private serial queue.
 //
 // The operation calls [perShareCompletionBlock] once for each metadata you
 // provide. CloudKit returns the metadata and its related share, or an error
 // if it can’t accept the share. CloudKit also batches per-metadata errors.
-// If the operation completes with errors, it returns a [CKAcceptSharesOperation.PartialFailure]
-// error. The error stores individual errors in its [CKAcceptSharesOperation.UserInfo] dictionary. Use
-// the [CKAcceptSharesOperation.CKPartialErrorsByItemIDKey] key to extract them.
+// If the operation completes with errors, it returns a [partialFailure]
+// error. The error stores individual errors in its [userInfo] dictionary. Use
+// the [CKPartialErrorsByItemIDKey] key to extract them.
 //
 // After CloudKit applies all record changes, the operation calls
 // [acceptSharesCompletionBlock]. When the closure executes, the server may
@@ -85,17 +83,13 @@ func (cc CKAcceptSharesOperationClass) Alloc() CKAcceptSharesOperation {
 //   - [CKAcceptSharesOperation.ShareMetadatas]: The share metadatas to process.
 //   - [CKAcceptSharesOperation.SetShareMetadatas]
 //
-// # Instance Properties
-//
-//   - [CKAcceptSharesOperation.AcceptSharesResultBlock]: The closure to execute when the operation finishes.
-//   - [CKAcceptSharesOperation.SetAcceptSharesResultBlock]
-//   - [CKAcceptSharesOperation.PerShareResultBlock]: The block to execute as CloudKit processes individual shares.
-//   - [CKAcceptSharesOperation.SetPerShareResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKAcceptSharesOperation
 //
+// [CKPartialErrorsByItemIDKey]: https://developer.apple.com/documentation/CloudKit/CKPartialErrorsByItemIDKey
 // [acceptSharesCompletionBlock]: https://developer.apple.com/documentation/CloudKit/CKAcceptSharesOperation/acceptSharesCompletionBlock
+// [partialFailure]: https://developer.apple.com/documentation/CloudKit/CKError/partialFailure
 // [perShareCompletionBlock]: https://developer.apple.com/documentation/CloudKit/CKAcceptSharesOperation/perShareCompletionBlock
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSError/userInfo
 type CKAcceptSharesOperation struct {
 	CKOperation
 }
@@ -121,13 +115,6 @@ func CKAcceptSharesOperationFromID(id objc.ID) CKAcceptSharesOperation {
 //   - [ICKAcceptSharesOperation.ShareMetadatas]: The share metadatas to process.
 //   - [ICKAcceptSharesOperation.SetShareMetadatas]
 //
-// # Instance Properties
-//
-//   - [ICKAcceptSharesOperation.AcceptSharesResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKAcceptSharesOperation.SetAcceptSharesResultBlock]
-//   - [ICKAcceptSharesOperation.PerShareResultBlock]: The block to execute as CloudKit processes individual shares.
-//   - [ICKAcceptSharesOperation.SetPerShareResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKAcceptSharesOperation
 type ICKAcceptSharesOperation interface {
 	ICKOperation
@@ -142,30 +129,6 @@ type ICKAcceptSharesOperation interface {
 	// The share metadatas to process.
 	ShareMetadatas() []CKShareMetadata
 	SetShareMetadatas(value []CKShareMetadata)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	AcceptSharesResultBlock() unsafe.Pointer
-	SetAcceptSharesResultBlock(value unsafe.Pointer)
-	// The block to execute as CloudKit processes individual shares.
-	PerShareResultBlock() unsafe.Pointer
-	SetPerShareResultBlock(value unsafe.Pointer)
-
-	// The key to retrieve partial errors.
-	CKPartialErrorsByItemIDKey() string
-	// The ID of the share’s container.
-	ContainerIdentifier() string
-	SetContainerIdentifier(value string)
-	// An error that occurs when an operation completes with partial failures.
-	PartialFailure() CKErrorCode
-	SetPartialFailure(value CKErrorCode)
-	// The Uniform Resource Locator (URL) for inviting participants to the share.
-	Url() foundation.NSURL
-	SetURL(value foundation.NSURL)
-	// The user info dictionary.
-	UserInfo() string
-	SetUserInfo(value string)
 }
 
 // Init initializes the instance.
@@ -190,7 +153,8 @@ func NewCKAcceptSharesOperation() CKAcceptSharesOperation {
 // Creates an operation for accepting the specified shares.
 //
 // shareMetadatas: The share metadatas to accept. If you specify `nil`, you must assign a
-// value to the [ShareMetadatas] property before you execute the operation.
+// value to the [CKAcceptSharesOperation.ShareMetadatas] property before you
+// execute the operation.
 //
 // # Discussion
 //
@@ -209,7 +173,8 @@ func NewCKAcceptSharesOperationWithShareMetadatas(shareMetadatas []CKShareMetada
 // Creates an operation for accepting the specified shares.
 //
 // shareMetadatas: The share metadatas to accept. If you specify `nil`, you must assign a
-// value to the [ShareMetadatas] property before you execute the operation.
+// value to the [CKAcceptSharesOperation.ShareMetadatas] property before you
+// execute the operation.
 //
 // # Discussion
 //
@@ -241,78 +206,4 @@ func (c CKAcceptSharesOperation) ShareMetadatas() []CKShareMetadata {
 }
 func (c CKAcceptSharesOperation) SetShareMetadatas(value []CKShareMetadata) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShareMetadatas:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckacceptsharesoperation/acceptsharesresultblock
-func (c CKAcceptSharesOperation) AcceptSharesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("acceptSharesResultBlock"))
-	return rv
-}
-func (c CKAcceptSharesOperation) SetAcceptSharesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAcceptSharesResultBlock:"), value)
-}
-
-// The block to execute as CloudKit processes individual shares.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckacceptsharesoperation/pershareresultblock
-func (c CKAcceptSharesOperation) PerShareResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perShareResultBlock"))
-	return rv
-}
-func (c CKAcceptSharesOperation) SetPerShareResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerShareResultBlock:"), value)
-}
-
-// The key to retrieve partial errors.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckpartialerrorsbyitemidkey
-func (c CKAcceptSharesOperation) CKPartialErrorsByItemIDKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKPartialErrorsByItemIDKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The ID of the share’s container.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/metadata/containeridentifier
-func (c CKAcceptSharesOperation) ContainerIdentifier() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("containerIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKAcceptSharesOperation) SetContainerIdentifier(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContainerIdentifier:"), objc.String(value))
-}
-
-// An error that occurs when an operation completes with partial failures.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckerror/partialfailure
-func (c CKAcceptSharesOperation) PartialFailure() CKErrorCode {
-	rv := objc.Send[CKErrorCode](c.ID, objc.Sel("partialFailure"))
-	return CKErrorCode(rv)
-}
-func (c CKAcceptSharesOperation) SetPartialFailure(value CKErrorCode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPartialFailure:"), value)
-}
-
-// The Uniform Resource Locator (URL) for inviting participants to the share.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/url
-func (c CKAcceptSharesOperation) Url() foundation.NSURL {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
-}
-func (c CKAcceptSharesOperation) SetURL(value foundation.NSURL) {
-	objc.Send[struct{}](c.ID, objc.Sel("setURL:"), value)
-}
-
-// The user info dictionary.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSError/userInfo
-func (c CKAcceptSharesOperation) UserInfo() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userInfo"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKAcceptSharesOperation) SetUserInfo(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserInfo:"), objc.String(value))
 }

@@ -75,11 +75,11 @@ func (nc NSEventClass) Alloc() NSEvent {
 //
 // You can also monitor the events your app receives and modify or cancel some
 // events as needed. Install a local monitor using the
-// [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler] method to detect specific
-// types of events and take action when your app receives them. Install a
-// global monitor using the [NSEvent.AddGlobalMonitorForEventsMatchingMaskHandler]
-// method to monitor events systemwide, although without the ability to modify
-// them.
+// [NSEventClass.AddLocalMonitorForEventsMatchingMaskHandler] method to detect
+// specific types of events and take action when your app receives them.
+// Install a global monitor using the
+// [NSEventClass.AddGlobalMonitorForEventsMatchingMaskHandler] method to
+// monitor events systemwide, although without the ability to modify them.
 //
 // # Getting the event type
 //
@@ -327,7 +327,7 @@ type INSEvent interface {
 	// The event location in the base coordinate system of the associated window.
 	LocationInWindow() corefoundation.CGPoint
 	// The time when the event occurred in seconds since system startup.
-	Timestamp() float64
+	Timestamp() foundation.NSTimeInterval
 	// The window object associated with the event.
 	Window() INSWindow
 	// The identifier for the window device associated with the event.
@@ -389,7 +389,7 @@ type INSEvent interface {
 	// Topic: Configuring swipe event behaviors
 
 	// Allows tracking and user interface feedback of scroll wheel events.
-	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64Handler)
+	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64NSEventPhaseBoolBoolHandler)
 
 	// Topic: Getting gesture and touch information
 
@@ -484,6 +484,7 @@ type INSEvent interface {
 	// Returns the location of the receiver in the coordinate system of the given node.
 	LocationInNode(node objectivec.IObject) corefoundation.CGPoint
 
+	InitWithCoder(coder foundation.INSCoder) NSEvent
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -526,6 +527,13 @@ func NewNSEvent() NSEvent {
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
 func NewEventWithCGEvent(cgEvent coregraphics.CGEvent) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(getNSEventClass().class), objc.Sel("eventWithCGEvent:"), cgEvent)
+	return NSEventFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(coder:)
+func NewEventWithCoder(coder foundation.INSCoder) NSEvent {
+	instance := getNSEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSEventFromID(rv)
 }
 
@@ -598,8 +606,8 @@ func (e NSEvent) CharactersByApplyingModifiers(modifiers NSEventModifierFlags) s
 // interface. This may be a fractional amount.
 //
 // The direction of the gestureAmount matches the user’s “scroll
-// content” preference setting as set in [DirectionInvertedFromDevice],
-// which is based on a user preference.
+// content” preference setting as set in
+// [NSEvent.DirectionInvertedFromDevice], which is based on a user preference.
 //
 // Upon completion, the gesture amount will animate to one of the following
 // values: -1, 0, 1.
@@ -643,8 +651,8 @@ func (e NSEvent) CharactersByApplyingModifiers(modifiers NSEventModifierFlags) s
 //
 // [NSEvent.SwipeTrackingOptions]: https://developer.apple.com/documentation/AppKit/NSEvent/SwipeTrackingOptions
 // [NSEvent.Phase]: https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct
-func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64Handler) {
-	_block3, _ := NewFloat64Block(trackingHandler)
+func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64NSEventPhaseBoolBoolHandler) {
+	_block3, _ := NewFloat64NSEventPhaseBoolBoolBlock(trackingHandler)
 	objc.Send[objc.ID](e.ID, objc.Sel("trackSwipeEventWithOptions:dampenAmountThresholdMin:max:usingHandler:"), options, minDampenThreshold, maxDampenThreshold, _block3)
 }
 
@@ -750,6 +758,12 @@ func (e NSEvent) LocationInNode(node objectivec.IObject) corefoundation.CGPoint 
 	rv := objc.Send[corefoundation.CGPoint](e.ID, objc.Sel("locationInNode:"), node)
 	return corefoundation.CGPoint(rv)
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(coder:)
+func (e NSEvent) InitWithCoder(coder foundation.INSCoder) NSEvent {
+	rv := objc.Send[NSEvent](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (e NSEvent) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -793,7 +807,7 @@ func (e NSEvent) EncodeWithCoder(coder foundation.INSCoder) {
 // created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/keyEvent(with:location:modifierFlags:timestamp:windowNumber:context:characters:charactersIgnoringModifiers:isARepeat:keyCode:)
-func (_NSEventClass NSEventClass) KeyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time float64, wNum int, unusedPassNil INSGraphicsContext, keys string, ukeys string, flag bool, code uint16) NSEvent {
+func (_NSEventClass NSEventClass) KeyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time foundation.NSTimeInterval, wNum int, unusedPassNil INSGraphicsContext, keys string, ukeys string, flag bool, code uint16) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("keyEventWithType:location:modifierFlags:timestamp:windowNumber:context:characters:charactersIgnoringModifiers:isARepeat:keyCode:"), type_, location, flags, time, wNum, unusedPassNil, objc.String(keys), objc.String(ukeys), flag, code)
 	return NSEventFromID(rv)
 }
@@ -835,7 +849,7 @@ func (_NSEventClass NSEventClass) KeyEventWithTypeLocationModifierFlagsTimestamp
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/mouseEvent(with:location:modifierFlags:timestamp:windowNumber:context:eventNumber:clickCount:pressure:)
 //
 // [NSEvent.EventType]: https://developer.apple.com/documentation/AppKit/NSEvent/EventType
-func (_NSEventClass NSEventClass) MouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time float64, wNum int, unusedPassNil INSGraphicsContext, eNum int, cNum int, pressure float32) NSEvent {
+func (_NSEventClass NSEventClass) MouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time foundation.NSTimeInterval, wNum int, unusedPassNil INSGraphicsContext, eNum int, cNum int, pressure float32) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("mouseEventWithType:location:modifierFlags:timestamp:windowNumber:context:eventNumber:clickCount:pressure:"), type_, location, flags, time, wNum, unusedPassNil, eNum, cNum, pressure)
 	return NSEventFromID(rv)
 }
@@ -865,17 +879,18 @@ func (_NSEventClass NSEventClass) MouseEventWithTypeLocationModifierFlagsTimesta
 //
 // tNum: A number that identifies the tracking rectangle. This identifier is the
 // same as that returned by the [NSView] method
-// [AddTrackingRectOwnerUserDataAssumeInside].
+// [NSView.AddTrackingRectOwnerUserDataAssumeInside].
 //
 // data: Data arbitrarily associated with the tracking rectangle when it was set up
-// using the [NSView] method [AddTrackingRectOwnerUserDataAssumeInside].
+// using the [NSView] method
+// [NSView.AddTrackingRectOwnerUserDataAssumeInside].
 //
 // # Return Value
 //
 // The created [NSEvent] object or `nil` if the object could not be created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/enterExitEvent(with:location:modifierFlags:timestamp:windowNumber:context:eventNumber:trackingNumber:userData:)
-func (_NSEventClass NSEventClass) EnterExitEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberTrackingNumberUserData(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time float64, wNum int, unusedPassNil INSGraphicsContext, eNum int, tNum int, data unsafe.Pointer) NSEvent {
+func (_NSEventClass NSEventClass) EnterExitEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberTrackingNumberUserData(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time foundation.NSTimeInterval, wNum int, unusedPassNil INSGraphicsContext, eNum int, tNum int, data unsafe.Pointer) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("enterExitEventWithType:location:modifierFlags:timestamp:windowNumber:context:eventNumber:trackingNumber:userData:"), type_, location, flags, time, wNum, unusedPassNil, eNum, tNum, data)
 	return NSEventFromID(rv)
 }
@@ -918,7 +933,7 @@ func (_NSEventClass NSEventClass) EnterExitEventWithTypeLocationModifierFlagsTim
 // The created [NSEvent] object or `nil` if the object couldn’t be created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/otherEvent(with:location:modifierFlags:timestamp:windowNumber:context:subtype:data1:data2:)
-func (_NSEventClass NSEventClass) OtherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time float64, wNum int, unusedPassNil INSGraphicsContext, subtype int16, d1 int, d2 int) NSEvent {
+func (_NSEventClass NSEventClass) OtherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(type_ NSEventType, location corefoundation.CGPoint, flags NSEventModifierFlags, time foundation.NSTimeInterval, wNum int, unusedPassNil INSGraphicsContext, subtype int16, d1 int, d2 int) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("otherEventWithType:location:modifierFlags:timestamp:windowNumber:context:subtype:data1:data2:"), type_, location, flags, time, wNum, unusedPassNil, subtype, d1, d2)
 	return NSEventFromID(rv)
 }
@@ -937,7 +952,7 @@ func (_NSEventClass NSEventClass) OtherEventWithTypeLocationModifierFlagsTimesta
 // modal loop while tracking mouse-dragged events.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/startPeriodicEvents(afterDelay:withPeriod:)
-func (_NSEventClass NSEventClass) StartPeriodicEventsAfterDelayWithPeriod(delay float64, period float64) {
+func (_NSEventClass NSEventClass) StartPeriodicEventsAfterDelayWithPeriod(delay foundation.NSTimeInterval, period foundation.NSTimeInterval) {
 	objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("startPeriodicEventsAfterDelay:withPeriod:"), delay, period)
 }
 
@@ -989,7 +1004,7 @@ func (_NSEventClass NSEventClass) StopPeriodicEvents() {
 // [NSLeftMouseUp] - [NSRightMouseUp] - [NSOtherMouseUp] - [NSLeftMouseDown] -
 // [NSRightMouseDown] - [NSOtherMouseDown] - [NSMouseMoved] - [NSFlagsChanged]
 // - [NSScrollWheel] - [NSTabletPoint] - [NSTabletProximity] - [NSKeyDown]
-// (Key repeats are determined using the [ARepeat] property.)
+// (Key repeats are determined using the [NSEvent.ARepeat] property.)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/addGlobalMonitorForEvents(matching:handler:)
 //
@@ -1035,7 +1050,7 @@ func (_NSEventClass NSEventClass) AddGlobalMonitorForEventsMatchingMaskHandler(m
 // Your handler will not be called for events that are consumed by nested
 // event-tracking loops such as control tracking, menu tracking, or window
 // dragging; only events that are dispatched through the applications
-// [SendEvent] method will be passed to your handler.
+// [NSApplication.SendEvent] method will be passed to your handler.
 //
 // # Special Considerations
 //
@@ -1047,7 +1062,7 @@ func (_NSEventClass NSEventClass) AddGlobalMonitorForEventsMatchingMaskHandler(m
 // [NSOtherMouseUp] - [NSLeftMouseDown] - [NSRightMouseDown] -
 // [NSOtherMouseDown] - [NSMouseMoved] - [NSFlagsChanged] - [NSScrollWheel] -
 // [NSTabletPoint] - [NSTabletProximity] - [NSKeyDown] (Key repeats are
-// determined using the [ARepeat] property.)
+// determined using the [NSEvent.ARepeat] property.)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/addLocalMonitorForEvents(matching:handler:)
 //
@@ -1106,8 +1121,8 @@ func (e NSEvent) Type() NSEventType {
 //
 // # Discussion
 //
-// Access this property only if the event is a mouse event or if the [Type]
-// property contains [NSAppKitDefined], [NSSystemDefined],
+// Access this property only if the event is a mouse event or if the
+// [NSEvent.Type] property contains [NSAppKitDefined], [NSSystemDefined],
 // [NSApplicationDefined], or [NSPeriodic]. If you access this property for
 // other types, AppKit raises [internalInconsistencyException]. For
 // information about predefined mouse and tablet subtypes, see `Getting
@@ -1135,14 +1150,14 @@ func (e NSEvent) Subtype() NSEventSubtype {
 // this property is undefined.
 //
 // With [NSMouseMoved] and possibly other events, the event can have a `nil`
-// window (that is, the [Window] property contains nil). In this case, this
-// property contains the event location in screen coordinates.
+// window (that is, the [NSEvent.Window] property contains nil). In this case,
+// this property contains the event location in screen coordinates.
 //
 // In a method of a custom view that handles mouse events, you commonly use
-// this property with the [ConvertSizeFromView] method of [NSView] to get the
-// mouse location in the view’s coordinate system. The following code shows
-// how to perform this conversion. The y coordinate in the returned point
-// starts from a base of 1, and not 0.
+// this property with the [NSView.ConvertSizeFromView] method of [NSView] to
+// get the mouse location in the view’s coordinate system. The following
+// code shows how to perform this conversion. The y coordinate in the returned
+// point starts from a base of 1, and not 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/locationInWindow
 //
@@ -1155,9 +1170,9 @@ func (e NSEvent) LocationInWindow() corefoundation.CGPoint {
 // The time when the event occurred in seconds since system startup.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/timestamp
-func (e NSEvent) Timestamp() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("timestamp"))
-	return rv
+func (e NSEvent) Timestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](e.ID, objc.Sel("timestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The window object associated with the event.
@@ -1219,7 +1234,7 @@ func (e NSEvent) EventRef() unsafe.Pointer {
 //
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
 func (e NSEvent) CGEvent() coregraphics.CGEvent {
-	rv := objc.Send[coregraphics.CGEvent](e.ID, objc.Sel("CGEvent"))
+	rv := objc.Send[coregraphics.CGEventRef](e.ID, objc.Sel("CGEvent"))
 	return coregraphics.CGEvent(rv)
 }
 
@@ -1270,8 +1285,8 @@ func (e NSEvent) Characters() string {
 //
 // This property is set to the non-modifier key character pressed for dead
 // keys, such as Option-e. For example, Option-e (no shift key) returns an
-// “e” for this method, whereas the [Characters] property returns an empty
-// string.
+// “e” for this method, whereas the [NSEvent.Characters] property returns
+// an empty string.
 //
 // This property is useful for determining “basic” key values in a
 // hardware-independent manner, enabling such features as keyboard equivalents
@@ -1403,7 +1418,7 @@ func (e NSEvent) AssociatedEventsMask() NSEventMask {
 // swipe; `-1.0` corresponds to swipe right and `1.0` corresponds to swipe
 // left.
 //
-// For scroll wheel events, use [ScrollingDeltaX] instead.
+// For scroll wheel events, use [NSEvent.ScrollingDeltaX] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/deltaX
 func (e NSEvent) DeltaX() float64 {
@@ -1420,7 +1435,7 @@ func (e NSEvent) DeltaX() float64 {
 // swipe events. For swipe events, a nonzero value represents a horizontal
 // swipe; `-1.0` corresponds to swipe down and `1.0` corresponds to swipe up.
 //
-// For scroll wheel events, use [ScrollingDeltaY] instead.
+// For scroll wheel events, use [NSEvent.ScrollingDeltaY] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/deltaY
 func (e NSEvent) DeltaY() float64 {
@@ -1452,7 +1467,8 @@ func (e NSEvent) DeltaZ() float64 {
 // This property is valid for [NSScrollWheel] events. A generic scroll wheel
 // issues rather coarse scroll deltas. Some mice and trackpads provide much
 // more precise delta. This method determines how the values of the
-// [ScrollingDeltaX] and [ScrollingDeltaY] should be interpreted.
+// [NSEvent.ScrollingDeltaX] and [NSEvent.ScrollingDeltaY] should be
+// interpreted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/hasPreciseScrollingDeltas
 //
@@ -1467,8 +1483,8 @@ func (e NSEvent) HasPreciseScrollingDeltas() bool {
 // # Discussion
 //
 // This is the preferred property for accessing [NSScrollWheel] delta values.
-// When [HasPreciseScrollingDeltas] is false, your application may need to
-// modify the raw value before using it.
+// When [NSEvent.HasPreciseScrollingDeltas] is false, your application may
+// need to modify the raw value before using it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/scrollingDeltaX
 //
@@ -1483,9 +1499,9 @@ func (e NSEvent) ScrollingDeltaX() float64 {
 // # Discussion
 //
 // This is the preferred property for accessing [NSScrollWheel] delta values.
-// When [HasPreciseScrollingDeltas] is false, multiply the value returned by
-// this method by the line or row height. Otherwise scroll by the returned
-// amount.
+// When [NSEvent.HasPreciseScrollingDeltas] is false, multiply the value
+// returned by this method by the line or row height. Otherwise scroll by the
+// returned amount.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/scrollingDeltaY
 //
@@ -1532,9 +1548,10 @@ func (e NSEvent) MomentumPhase() NSEventPhase {
 // events. The user may choose to change the scrolling behavior such that it
 // feels like they are moving the content instead of the scroll bar.
 //
-// To accomplish this, [DeltaX] and [DeltaY] and [ScrollingDeltaX] and
-// [ScrollingDeltaY] values are automatically inverted for NSEventScrollWheel
-// events according to the user’s preferences.
+// To accomplish this, [NSEvent.DeltaX] and [NSEvent.DeltaY] and
+// [NSEvent.ScrollingDeltaX] and [NSEvent.ScrollingDeltaY] values are
+// automatically inverted for NSEventScrollWheel events according to the
+// user’s preferences.
 //
 // The direction of fluid swipes matches the direction of scrolling and as
 // such for NSEventTypeSwipe events gestureAmount is inverted. However, for
@@ -1573,8 +1590,8 @@ func (e NSEvent) IsDirectionInvertedFromDevice() bool {
 //
 // Legacy scroll wheel events (say from a Mighty Mouse) and momentum scroll
 // wheel events both have a phase of [NSEventPhaseNone]. (Legacy scroll wheel
-// events also have a [MomentumPhase] of [NSEventPhaseNone].) To learn more
-// about scroll wheel events, see [Handling Trackpad Events].
+// events also have a [NSEvent.MomentumPhase] of [NSEventPhaseNone].) To learn
+// more about scroll wheel events, see [Handling Trackpad Events].
 //
 // See [NSEvent.Phase] for possible values.
 //
@@ -1610,16 +1627,16 @@ func (e NSEvent) Magnification() float64 {
 // pressure is applied to the device.
 //
 // For [NSEventTypePressure] events, pressure value relates to the current
-// [Stage] of the gesture event. Each stage has its own pressure curve. For
-// example, pressure ranges from `0.0` through `1.0` for a stage 1 event, and
-// `0.0` through `1.0` for a stage 2 event. Pressure readings should be
-// retrieved for a single stage of a gesture only, and should not be combined
-// to achieve a wider range of pressure levels. In most cases, retrieving
-// pressure during stage 1 is sufficient and appropriate for supporting
-// variable input. Stage 1 pressure is the most physically comfortable for the
-// user. Stage 2 pressure should only be used in rare circumstances where
-// additional tactile feedback is necessary prior to retrieving pressure
-// level.
+// [NSEvent.Stage] of the gesture event. Each stage has its own pressure
+// curve. For example, pressure ranges from `0.0` through `1.0` for a stage 1
+// event, and `0.0` through `1.0` for a stage 2 event. Pressure readings
+// should be retrieved for a single stage of a gesture only, and should not be
+// combined to achieve a wider range of pressure levels. In most cases,
+// retrieving pressure during stage 1 is sufficient and appropriate for
+// supporting variable input. Stage 1 pressure is the most physically
+// comfortable for the user. Stage 2 pressure should only be used in rare
+// circumstances where additional tactile feedback is necessary prior to
+// retrieving pressure level.
 //
 // For input devices that aren’t pressure-sensitive, the value is either
 // `0.0` or `1.0`. An [internalInconsistencyException] exception is raised if
@@ -1898,7 +1915,8 @@ func (e NSEvent) VendorPointingDeviceType() uint {
 // valid only for mouse events with a subtype of [NSTabletPointEventSubtype]
 // and for events of type [NSTabletPoint]. Use this value if you want to scale
 // from tablet location to screen location yourself; otherwise use the class
-// method [MouseLocation] or the instance method [LocationInWindow].
+// method [NSEventClass.MouseLocation] or the instance method
+// [NSEvent.LocationInWindow].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/absoluteX
 func (e NSEvent) AbsoluteX() int {
@@ -1916,7 +1934,8 @@ func (e NSEvent) AbsoluteX() int {
 // valid only for mouse events with a subtype of [NSTabletPointEventSubtype]
 // and for events of type [NSTabletPoint]. Use this value if you want to scale
 // from tablet location to screen location yourself; otherwise use the class
-// method [MouseLocation] or the instance method [LocationInWindow].
+// method [NSEventClass.MouseLocation] or the instance method
+// [NSEvent.LocationInWindow].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/absoluteY
 func (e NSEvent) AbsoluteY() int {
@@ -2075,10 +2094,10 @@ func (e NSEvent) TrackingNumber() int {
 // [internalInconsistencyException].
 //
 // If the event corresponds to a tracking rectangle installed with the
-// [AddTrackingRectOwnerUserDataAssumeInside] method of [NSView], the value of
-// this property is `nil`. The [TrackingNumber] property contains either an
-// [NSTrackingArea] object or [NSTrackingRectTag], depending on how AppKit
-// generated the event.
+// [NSView.AddTrackingRectOwnerUserDataAssumeInside] method of [NSView], the
+// value of this property is `nil`. The [NSEvent.TrackingNumber] property
+// contains either an [NSTrackingArea] object or [NSTrackingRectTag],
+// depending on how AppKit generated the event.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/trackingArea
 //
@@ -2095,7 +2114,7 @@ func (e NSEvent) TrackingArea() INSTrackingArea {
 //
 // # Discussion
 //
-// When you call [AddTrackingRectOwnerUserDataAssumeInside] to set up a
+// When you call [NSView.AddTrackingRectOwnerUserDataAssumeInside] to set up a
 // tracking rectangle, you can provide custom data to store in the event.
 // AppKit makes that custom data available to you from this property.
 //
@@ -2174,9 +2193,9 @@ func (e NSEvent) Data2() int {
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/keyRepeatDelay
-func (_NSEventClass NSEventClass) KeyRepeatDelay() float64 {
-	rv := objc.Send[float64](objc.ID(_NSEventClass.class), objc.Sel("keyRepeatDelay"))
-	return rv
+func (_NSEventClass NSEventClass) KeyRepeatDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](objc.ID(_NSEventClass.class), objc.Sel("keyRepeatDelay"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The number of seconds someone must hold down a key to generate key-repeat
@@ -2192,9 +2211,9 @@ func (_NSEventClass NSEventClass) KeyRepeatDelay() float64 {
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/keyRepeatInterval
-func (_NSEventClass NSEventClass) KeyRepeatInterval() float64 {
-	rv := objc.Send[float64](objc.ID(_NSEventClass.class), objc.Sel("keyRepeatInterval"))
-	return rv
+func (_NSEventClass NSEventClass) KeyRepeatInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](objc.ID(_NSEventClass.class), objc.Sel("keyRepeatInterval"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The indices of the currently pressed mouse buttons.
@@ -2230,9 +2249,9 @@ func (_NSEventClass NSEventClass) PressedMouseButtons() uint {
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/doubleClickInterval
-func (_NSEventClass NSEventClass) DoubleClickInterval() float64 {
-	rv := objc.Send[float64](objc.ID(_NSEventClass.class), objc.Sel("doubleClickInterval"))
-	return rv
+func (_NSEventClass NSEventClass) DoubleClickInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](objc.ID(_NSEventClass.class), objc.Sel("doubleClickInterval"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // Reports the current mouse position in screen coordinates.
@@ -2243,12 +2262,12 @@ func (_NSEventClass NSEventClass) DoubleClickInterval() float64 {
 //
 // # Discussion
 //
-// This method is similar to the [MouseLocationOutsideOfEventStream] method of
-// [NSWindow]. It returns the location regardless of the current event or
-// pending events. The difference between these methods is that
-// [MouseLocationOutsideOfEventStream] returns a point in the receiving
-// window’s coordinates, and [MouseLocation] returns the same information in
-// screen coordinates.
+// This method is similar to the [NSWindow.MouseLocationOutsideOfEventStream]
+// method of [NSWindow]. It returns the location regardless of the current
+// event or pending events. The difference between these methods is that
+// [NSWindow.MouseLocationOutsideOfEventStream] returns a point in the
+// receiving window’s coordinates, and [NSEventClass.MouseLocation] returns
+// the same information in screen coordinates.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/mouseLocation
 func (_NSEventClass NSEventClass) MouseLocation() corefoundation.CGPoint {
@@ -2264,8 +2283,8 @@ func (_NSEventClass NSEventClass) MouseLocation() corefoundation.CGPoint {
 // If your app implements its own scrolling, or one of your responder objects
 // tracks scroll wheel messages before they reach a scroll view, make sure the
 // value of this property is true before you call
-// [TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler] to
-// handle the event. The system defines the value of this property based on
+// [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler]
+// to handle the event. The system defines the value of this property based on
 // user-level preferences.
 //
 // If you use [NSScrollView] for your app’s scrolling behavior, you don’t
@@ -2296,41 +2315,11 @@ func (_NSEventClass NSEventClass) SetMouseCoalescingEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_NSEventClass.class), objc.Sel("setMouseCoalescingEnabled:"), value)
 }
 
-// TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandlerSync is a synchronous wrapper around [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandlerSync(ctx context.Context, options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64) (float64, error) {
-	done := make(chan float64, 1)
-	e.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options, minDampenThreshold, maxDampenThreshold, func(val float64) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return 0.0, ctx.Err()
-	}
-}
-
 // AddGlobalMonitorForEventsMatchingMaskHandlerSync is a synchronous wrapper around [NSEvent.AddGlobalMonitorForEventsMatchingMaskHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (ec NSEventClass) AddGlobalMonitorForEventsMatchingMaskHandlerSync(ctx context.Context, mask NSEventMask) (*NSEvent, error) {
 	done := make(chan *NSEvent, 1)
 	ec.AddGlobalMonitorForEventsMatchingMaskHandler(mask, func(val *NSEvent) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// AddLocalMonitorForEventsMatchingMaskHandlerSync is a synchronous wrapper around [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (ec NSEventClass) AddLocalMonitorForEventsMatchingMaskHandlerSync(ctx context.Context, mask NSEventMask) (*NSEvent, error) {
-	done := make(chan *NSEvent, 1)
-	ec.AddLocalMonitorForEventsMatchingMaskHandler(mask, func(val *NSEvent) {
 		done <- val
 	})
 	select {

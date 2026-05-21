@@ -40,15 +40,15 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 // # Discussion
 //
 // To accept the connection, first configure the connection if desired, then
-// call [Resume] on the new connection, then return true.
+// call [NSXPCConnection.Resume] on the new connection, then return true.
 //
 // To reject the connect, return a value of false. This causes the connection
 // object to be invalidated.
 //
 // In this method, you can also set up properties on the connection object,
-// such as its exported object and interfaces. Be sure to call [Resume] when
-// you are finished configuring the connection object and are ready for it to
-// receive messages.
+// such as its exported object and interfaces. Be sure to call
+// [NSXPCConnection.Resume] when you are finished configuring the connection
+// object and are ready for it to receive messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListenerDelegate/listener(_:shouldAcceptNewConnection:)
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener INSXPCListener, newConnection INSXPCConnection) bool {

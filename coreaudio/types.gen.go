@@ -5,6 +5,7 @@ package coreaudio
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/corefoundation"
 )
 
@@ -109,14 +110,14 @@ type AudioServerPlugInHostInterface struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInIOCycleInfo
 type AudioServerPlugInIOCycleInfo struct {
-	MCurrentTime              unsafe.Pointer
+	MCurrentTime              coreaudiotypes.AudioTimeStamp
 	MDeviceHostTicksPerFrame  float64
 	MIOCycleCounter           uint64
-	MInputTime                unsafe.Pointer
+	MInputTime                coreaudiotypes.AudioTimeStamp
 	MMainHostTicksPerFrame    float64
 	MMasterHostTicksPerFrame  float64
 	MNominalIOBufferFrameSize uint32
-	MOutputTime               unsafe.Pointer
+	MOutputTime               coreaudiotypes.AudioTimeStamp
 }
 
 // AudioStreamRangedDescription - This structure allows a specific sample rate range to be associated with an AudioStreamBasicDescription that specifies its sample rate as kAudioStreamAnyRate.
@@ -124,6 +125,6 @@ type AudioServerPlugInIOCycleInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioStreamRangedDescription
 type AudioStreamRangedDescription struct {
-	MFormat          unsafe.Pointer
-	MSampleRateRange unsafe.Pointer
+	MFormat          coreaudiotypes.AudioStreamBasicDescription
+	MSampleRateRange coreaudiotypes.AudioValueRange
 }

@@ -233,9 +233,9 @@ func (o MTLResidencySetObject) RemoveAllocationsCount(allocations []MTLAllocatio
 //
 // # Discussion
 //
-// The value of this property comes from the [Label] property of the
-// [MTLResidencySetDescriptor] instance you use to create the residency set
-// with [NewResidencySetWithDescriptorError].
+// The value of this property comes from the [MTLResidencySetDescriptor.Label]
+// property of the [MTLResidencySetDescriptor] instance you use to create the
+// residency set with [NewResidencySetWithDescriptorError].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/label
 func (o MTLResidencySetObject) Label() string {

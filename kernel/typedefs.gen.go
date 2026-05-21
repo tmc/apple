@@ -1418,7 +1418,7 @@ type FFTSetup = uintptr
 // FFTSetupD is an opaque type that contains setup information for a given double-precision FFT transform.
 //
 // See: https://developer.apple.com/documentation/kernel/fftsetupd
-type FFTSetupD = uintptr
+type FFTSetupD = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/fwaddress
 type FWAddress = unsafe.Pointer
@@ -1669,7 +1669,7 @@ type IOAlignment = uint
 type IOAppleTimingID = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/ioasyncmethod
-type IOAsyncMethod = *uintptr
+type IOAsyncMethod = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/ioaudiobufferdatadescriptor
 type IOAudioBufferDataDescriptor = unsafe.Pointer
@@ -7532,7 +7532,7 @@ type VDSP_Stride = int
 type VDSP_biquad_Setup = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/vdsp_biquad_setupd
-type VDSP_biquad_SetupD = uintptr
+type VDSP_biquad_SetupD = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/vdsp_biquadm_setup
 type VDSP_biquadm_Setup = uintptr
@@ -7551,7 +7551,7 @@ type VDSP_uint24 = unsafe.Pointer
 // VDouble is a 128-bit vector packed with `double` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDouble
-type VDouble = float64
+type VDouble = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/va_list
 type Va_list = unsafe.Pointer

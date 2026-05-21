@@ -4,36 +4,43 @@
 //
 // Manage startup items, launch agents, and launch daemons from within an app.
 //
-// Use Service Management to install and observe the permission settings of three supplemental helper executables that macOS supports. You can use all three of these to provide additional functionality related to your app, from inside your app’s bundle:
+// Use Service Management to install and observe the permission settings of
+// three supplemental helper executables that macOS supports. You can use all
+// three of these to provide additional functionality related to your app,
+// from inside your app’s bundle:
 //
 // # Essentials
 //
-//   - Updating helper executables from earlier versions of macOS: Simplify your app’s helper executables and support new authorization controls.
-//   - Updating your app package installer to use the new Service Management API: Learn about the Service Management API with a GUI-less agent app.
+//   - [Updating helper executables from earlier versions of macOS]: Simplify your app’s helper executables and support new authorization controls.
+//   - [Updating your app package installer to use the new Service Management API]: Learn about the Service Management API with a GUI-less agent app.
 //
 // # Management
 //
-//   - SMAppService: An object the framework uses to control helper executables that live inside an app’s main bundle.
-//   - Authorization Constants: Constants that describe the ability to authorize helper executables or modify daemon applications.
-//   - Property List Keys: Property list keys that describe the kinds of applications, daemons, and helper executables the framework manages.
+//   - [SMAppService]: An object the framework uses to control helper executables that live inside an app’s main bundle.
+//   - [Authorization Constants]: Constants that describe the ability to authorize helper executables or modify daemon applications.
+//   - [Property List Keys]: Property list keys that describe the kinds of applications, daemons, and helper executables the framework manages.
 //
 // # Status
 //
-//   - SMAppService.Status: Constants that describe the registration or authorization status of a helper executable.
+//   - [SMAppServiceStatus]: Constants that describe the registration or authorization status of a helper executable.
 //
 // # Errors
 //
-//   - Service Management Errors: Errors that the framework returns.
+//   - [Service Management Errors]: Errors that the framework returns.
 //
 // # Variables
 //
-//   - SMAppServiceErrorDomain
+//   - [SMAppServiceErrorDomain]//
 //
 // # Key Types
 //
 //   - [SMAppService] - An object the framework uses to control helper executables that live inside an app’s main bundle.
 //
-// [ServiceManagement Documentation]: https://developer.apple.com/documentation/ServiceManagement
+// [Authorization Constants]: https://developer.apple.com/documentation/servicemanagement/authorization-constants
+// [Property List Keys]: https://developer.apple.com/documentation/servicemanagement/property-list-keys
+// [Service Management Errors]: https://developer.apple.com/documentation/servicemanagement/service-management-errors
+// [Updating helper executables from earlier versions of macOS]: https://developer.apple.com/documentation/servicemanagement/updating-helper-executables-from-earlier-versions-of-macos
+// [Updating your app package installer to use the new Service Management API]: https://developer.apple.com/documentation/servicemanagement/updating-your-app-package-installer-to-use-the-new-service-management-api
 package servicemanagement
 
 import (

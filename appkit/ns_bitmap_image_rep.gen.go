@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
@@ -223,9 +222,9 @@ type INSBitmapImageRep interface {
 	// Colorizes a grayscale image.
 	ColorizeByMappingGrayToColorBlackMappingWhiteMapping(midPoint float64, midPointColor INSColor, shadowColor INSColor, lightColor INSColor)
 	// Initializes a newly allocated bitmap image representation so it can render the specified image.
-	InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep
+	InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation so it can render the specified image.
-	InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep
+	InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep
 	// Returns a bitmap image representation from a Core Graphics image object.
 	InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep
 	// Returns a bitmap image representation from a Core Image object.
@@ -257,7 +256,7 @@ type INSBitmapImageRep interface {
 	// A pointer to the bitmap data.
 	BitmapData() string
 	// Returns by indirection bitmap data of the bitmap image representation separated into planes.
-	GetBitmapDataPlanes(data unsafe.Pointer)
+	GetBitmapDataPlanes(data *uint8)
 
 	// Topic: Producing Other Representations of Images
 
@@ -275,7 +274,7 @@ type INSBitmapImageRep interface {
 	// Sets the bitmap image representation’s compression type and compression factor.
 	SetCompressionFactor(compression NSTIFFCompression, factor float32)
 	// Returns by indirection the bitmap image representation’s compression type and compression factor.
-	GetCompressionFactor(compression NSTIFFCompression, factor unsafe.Pointer)
+	GetCompressionFactor(compression NSTIFFCompression, factor *float32)
 	// Sets the specified property of the bitmap image representation to the specified value.
 	SetPropertyWithValue(property NSBitmapImageRepPropertyKey, value objectivec.IObject)
 	// Returns the value for the specified property.
@@ -337,8 +336,8 @@ func NewNSBitmapImageRep() NSBitmapImageRep {
 // # Discussion
 //
 // The receiver returns itself after setting its size and data buffer to zero.
-// You can then call [IncrementalLoadFromDataComplete] to incrementally add
-// image data.
+// You can then call [NSBitmapImageRep.IncrementalLoadFromDataComplete] to
+// incrementally add image data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(forIncrementalLoad:)
 func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
@@ -361,10 +360,10 @@ func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
 //
 // If `planes` is [NULL] or an array of [NULL] pointers, this method allocates
 // enough memory to hold the image described by the other arguments. You can
-// then obtain pointers to this memory (with the [GetPixelAtXY] method or
-// [BitmapData] property) and fill in the image data. In this case, the
-// allocated memory will belong to the object and will be freed when it’s
-// freed.
+// then obtain pointers to this memory (with the
+// [NSBitmapImageRep.GetPixelAtXY] method or [NSBitmapImageRep.BitmapData]
+// property) and fill in the image data. In this case, the allocated memory
+// will belong to the object and will be freed when it’s freed.
 //
 // If `planes` is not [NULL] and the array contains at least one data pointer,
 // the returned object will only reference the image data; it will not copy
@@ -427,9 +426,9 @@ func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
 //
 // If you pass in a `rowBytes` value of 0, the bitmap data allocated may be
 // padded to fall on long word or larger boundaries for performance. If your
-// code wants to advance row by row, use [BytesPerRow] and do not assume the
-// data is packed. Passing in a non-zero value allows you to specify exact row
-// advances.
+// code wants to advance row by row, use [NSBitmapImageRep.BytesPerRow] and do
+// not assume the data is packed. Passing in a non-zero value allows you to
+// specify exact row advances.
 //
 // pBits: This integer value informs [NSBitmapImageRep] how many bits are actually
 // allocated per pixel in each plane of data. If the data is in planar
@@ -455,7 +454,7 @@ func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:)
 //
 // [NSBitmapImageRep.Format]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/Format
-func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
+func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
 	return NSBitmapImageRepFromID(rv)
@@ -475,10 +474,10 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 //
 // If `planes` is [NULL] or an array of [NULL] pointers, this method allocates
 // enough memory to hold the image described by the other arguments. You can
-// then obtain pointers to this memory (with the [GetPixelAtXY] method or
-// [BitmapData] property) and fill in the image data. In this case, the
-// allocated memory will belong to the object and will be freed when it’s
-// freed.
+// then obtain pointers to this memory (with the
+// [NSBitmapImageRep.GetPixelAtXY] method or [NSBitmapImageRep.BitmapData]
+// property) and fill in the image data. In this case, the allocated memory
+// will belong to the object and will be freed when it’s freed.
 //
 // If `planes` is not [NULL] and the array contains at least one data pointer,
 // the returned object will only reference the image data; it will not copy
@@ -536,9 +535,9 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 //
 // If you pass in a `rowBytes` value of 0, the bitmap data allocated may be
 // padded to fall on long word or larger boundaries for performance. If your
-// code wants to advance row by row, use [BytesPerRow] and do not assume the
-// data is packed. Passing in a non-zero value allows you to specify exact row
-// advances.
+// code wants to advance row by row, use [NSBitmapImageRep.BytesPerRow] and do
+// not assume the data is packed. Passing in a non-zero value allows you to
+// specify exact row advances.
 //
 // pBits: This integer value informs [NSBitmapImageRep] how many bits are actually
 // allocated per pixel in each plane of data. If the data is in planar
@@ -562,7 +561,7 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 // initialized.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:)
-func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
+func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
 	return NSBitmapImageRepFromID(rv)
@@ -703,10 +702,10 @@ func (b NSBitmapImageRep) ColorizeByMappingGrayToColorBlackMappingWhiteMapping(m
 //
 // If `planes` is [NULL] or an array of [NULL] pointers, this method allocates
 // enough memory to hold the image described by the other arguments. You can
-// then obtain pointers to this memory (with the [GetPixelAtXY] method or
-// [BitmapData] property) and fill in the image data. In this case, the
-// allocated memory will belong to the object and will be freed when it’s
-// freed.
+// then obtain pointers to this memory (with the
+// [NSBitmapImageRep.GetPixelAtXY] method or [NSBitmapImageRep.BitmapData]
+// property) and fill in the image data. In this case, the allocated memory
+// will belong to the object and will be freed when it’s freed.
 //
 // If `planes` is not [NULL] and the array contains at least one data pointer,
 // the returned object will only reference the image data; it will not copy
@@ -769,9 +768,9 @@ func (b NSBitmapImageRep) ColorizeByMappingGrayToColorBlackMappingWhiteMapping(m
 //
 // If you pass in a `rowBytes` value of 0, the bitmap data allocated may be
 // padded to fall on long word or larger boundaries for performance. If your
-// code wants to advance row by row, use [BytesPerRow] and do not assume the
-// data is packed. Passing in a non-zero value allows you to specify exact row
-// advances.
+// code wants to advance row by row, use [NSBitmapImageRep.BytesPerRow] and do
+// not assume the data is packed. Passing in a non-zero value allows you to
+// specify exact row advances.
 //
 // pBits: This integer value informs [NSBitmapImageRep] how many bits are actually
 // allocated per pixel in each plane of data. If the data is in planar
@@ -797,7 +796,7 @@ func (b NSBitmapImageRep) ColorizeByMappingGrayToColorBlackMappingWhiteMapping(m
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:)
 //
 // [NSBitmapImageRep.Format]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/Format
-func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
+func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
 	return rv
 }
@@ -816,10 +815,10 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 //
 // If `planes` is [NULL] or an array of [NULL] pointers, this method allocates
 // enough memory to hold the image described by the other arguments. You can
-// then obtain pointers to this memory (with the [GetPixelAtXY] method or
-// [BitmapData] property) and fill in the image data. In this case, the
-// allocated memory will belong to the object and will be freed when it’s
-// freed.
+// then obtain pointers to this memory (with the
+// [NSBitmapImageRep.GetPixelAtXY] method or [NSBitmapImageRep.BitmapData]
+// property) and fill in the image data. In this case, the allocated memory
+// will belong to the object and will be freed when it’s freed.
 //
 // If `planes` is not [NULL] and the array contains at least one data pointer,
 // the returned object will only reference the image data; it will not copy
@@ -877,9 +876,9 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 //
 // If you pass in a `rowBytes` value of 0, the bitmap data allocated may be
 // padded to fall on long word or larger boundaries for performance. If your
-// code wants to advance row by row, use [BytesPerRow] and do not assume the
-// data is packed. Passing in a non-zero value allows you to specify exact row
-// advances.
+// code wants to advance row by row, use [NSBitmapImageRep.BytesPerRow] and do
+// not assume the data is packed. Passing in a non-zero value allows you to
+// specify exact row advances.
 //
 // pBits: This integer value informs [NSBitmapImageRep] how many bits are actually
 // allocated per pixel in each plane of data. If the data is in planar
@@ -903,7 +902,7 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 // initialized.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:)
-func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes unsafe.Pointer, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
+func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
 	return rv
 }
@@ -997,8 +996,8 @@ func (b NSBitmapImageRep) InitWithData(data foundation.NSData) NSBitmapImageRep 
 // # Discussion
 //
 // The receiver returns itself after setting its size and data buffer to zero.
-// You can then call [IncrementalLoadFromDataComplete] to incrementally add
-// image data.
+// You can then call [NSBitmapImageRep.IncrementalLoadFromDataComplete] to
+// incrementally add image data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(forIncrementalLoad:)
 func (b NSBitmapImageRep) InitForIncrementalLoad() NSBitmapImageRep {
@@ -1019,14 +1018,15 @@ func (b NSBitmapImageRep) InitForIncrementalLoad() NSBitmapImageRep {
 //
 // Color components in planar configuration are arranged in the expected
 // order—for example, red before green before blue for RGB color. All color
-// planes precede the coverage plane. For bitmaps whose [BitmapFormat] mask
-// does not include [NSBitmapFormatAlphaNonpremultiplied], if a coverage plane
-// exists, the bitmap’s color components are premultiplied with it. In this
-// case, if you modify the contents of the bitmap, you are responsible for
-// premultiplying the data.
+// planes precede the coverage plane. For bitmaps whose
+// [NSBitmapImageRep.BitmapFormat] mask does not include
+// [NSBitmapFormatAlphaNonpremultiplied], if a coverage plane exists, the
+// bitmap’s color components are premultiplied with it. In this case, if you
+// modify the contents of the bitmap, you are responsible for premultiplying
+// the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/getBitmapDataPlanes(_:)
-func (b NSBitmapImageRep) GetBitmapDataPlanes(data unsafe.Pointer) {
+func (b NSBitmapImageRep) GetBitmapDataPlanes(data *uint8) {
 	objc.Send[objc.ID](b.ID, objc.Sel("getBitmapDataPlanes:"), data)
 }
 
@@ -1049,8 +1049,8 @@ func (b NSBitmapImageRep) GetBitmapDataPlanes(data unsafe.Pointer) {
 // [NSTIFFCompressionNone] before the TIFF representation is generated.
 //
 // If a problem is encountered during generation of the TIFF,
-// [TIFFRepresentationUsingCompressionFactor] raises an [NSTIFFException] or
-// an [NSBadBitmapParametersException].
+// [NSBitmapImageRep.TIFFRepresentationUsingCompressionFactor] raises an
+// [NSTIFFException] or an [NSBadBitmapParametersException].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/tiffRepresentation(using:factor:)
 //
@@ -1131,10 +1131,11 @@ func (b NSBitmapImageRep) CanBeCompressedUsing(compression NSTIFFCompression) bo
 // # Discussion
 //
 // When an [NSBitmapImageRep] is created, the instance stores the compression
-// type and factor for the source data. The [TIFFRepresentation] property and
-// [TIFFRepresentationOfImageRepsInArray] class method try to use the stored
-// compression type and factor. Use this method to change the compression type
-// and factor.
+// type and factor for the source data. The
+// [NSBitmapImageRep.TIFFRepresentation] property and
+// [NSBitmapImageRepClass.TIFFRepresentationOfImageRepsInArray] class method
+// try to use the stored compression type and factor. Use this method to
+// change the compression type and factor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/setCompression(_:factor:)
 //
@@ -1148,7 +1149,7 @@ func (b NSBitmapImageRep) SetCompressionFactor(compression NSTIFFCompression, fa
 //
 // compression: On return, an `enum` constant that represents the compression type used on
 // the data; it corresponds to one of the values returned by the class method
-// [GetTIFFCompressionTypesCount].
+// [NSBitmapImageRepClass.GetTIFFCompressionTypesCount].
 //
 // factor: A float value that is specific to the compression type. Many types of
 // compression don’t support varying degrees of compression and thus ignore
@@ -1161,7 +1162,7 @@ func (b NSBitmapImageRep) SetCompressionFactor(compression NSTIFFCompression, fa
 // image data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/getCompression(_:factor:)
-func (b NSBitmapImageRep) GetCompressionFactor(compression NSTIFFCompression, factor unsafe.Pointer) {
+func (b NSBitmapImageRep) GetCompressionFactor(compression NSTIFFCompression, factor *float32) {
 	objc.Send[objc.ID](b.ID, objc.Sel("getCompression:factor:"), compression, factor)
 }
 
@@ -1221,18 +1222,18 @@ func (b NSBitmapImageRep) ValueForProperty(property NSBitmapImageRepPropertyKey)
 //
 // # Discussion
 //
-// After initializing the receiver with [InitForIncrementalLoad], you should
-// call this method to incrementally load the image. Call this method each
-// time new data becomes available. Always pass the entire image data buffer
-// in `data`, not just the newest data, because the image decompressor may
-// need the original data in order to backtrack. This method will block until
-// the data is decompressed; it will decompress as much of the image as
-// possible based on the length of the data. The image rep does not retain
-// `data`, so you must ensure that `data` is not released for the duration of
-// this method call. Pass false for `complete` until the entire image is
-// downloaded, at which time you should pass true. You should also pass true
-// for `complete` if you have only partially downloaded the data, but cannot
-// finish the download.
+// After initializing the receiver with
+// [NSBitmapImageRep.InitForIncrementalLoad], you should call this method to
+// incrementally load the image. Call this method each time new data becomes
+// available. Always pass the entire image data buffer in `data`, not just the
+// newest data, because the image decompressor may need the original data in
+// order to backtrack. This method will block until the data is decompressed;
+// it will decompress as much of the image as possible based on the length of
+// the data. The image rep does not retain `data`, so you must ensure that
+// `data` is not released for the duration of this method call. Pass false for
+// `complete` until the entire image is downloaded, at which time you should
+// pass true. You should also pass true for `complete` if you have only
+// partially downloaded the data, but cannot finish the download.
 //
 // This method returns [NSImageRepLoadStatusUnknownType] if you did not pass
 // enough data to determine the image format; you should continue to invoke
@@ -1268,8 +1269,9 @@ func (b NSBitmapImageRep) ValueForProperty(property NSBitmapImageRepPropertyKey)
 // is returned. If enough data has been provided (regardless of the `complete`
 // flag), then [NSImageRepLoadStatusCompleted] is returned. When any of these
 // three status results are returned, this method has adjusted the
-// [NSBitmapImageRep] so that [PixelsHigh] and [Size], as well as the bitmap
-// data, only contains the pixels that are valid, if any.
+// [NSBitmapImageRep] so that [NSImageRep.PixelsHigh] and [NSImageRep.Size],
+// as well as the bitmap data, only contains the pixels that are valid, if
+// any.
 //
 // To cancel decompression, just pass in the existing data or `nil` and true
 // for `complete`. This method stops decompression immediately, adjusts the
@@ -1277,7 +1279,8 @@ func (b NSBitmapImageRep) ValueForProperty(property NSBitmapImageRepPropertyKey)
 // returns [NSImageRepLoadStatusCompleted] if you call it after receiving any
 // error results ([NSImageRepLoadStatusInvalidData] or
 // [NSImageRepLoadStatusUnexpectedEOF]) or if you call it on an
-// [NSBitmapImageRep] that was not initialized with [InitForIncrementalLoad].
+// [NSBitmapImageRep] that was not initialized with
+// [NSBitmapImageRep.InitForIncrementalLoad].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/incrementalLoad(from:complete:)
 func (b NSBitmapImageRep) IncrementalLoadFromDataComplete(data foundation.NSData, complete bool) int {
@@ -1313,8 +1316,8 @@ func (b NSBitmapImageRep) SetColorAtXY(color INSColor, x int, y int) {
 // Calling this method creates a new [NSColor] object. The overhead of object
 // creation means this method is best suited for infrequent color sampling. If
 // you instead need to work with large numbers of pixels, access the bitmap
-// data directly using the [BitmapData] property or the [GetPixelAtXY] method
-// for better performance.
+// data directly using the [NSBitmapImageRep.BitmapData] property or the
+// [NSBitmapImageRep.GetPixelAtXY] method for better performance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/colorAt(x:y:)
 func (b NSBitmapImageRep) ColorAtXY(x int, y int) INSColor {
@@ -1432,10 +1435,10 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) ImageRepsWithData(data found
 //
 // # Discussion
 //
-// This method uses the compression returned by [GetCompressionFactor] (if
-// applicable). If a problem is encountered during generation of the TIFF,
-// this method raises an [NSTIFFException] or an
-// [NSBadBitmapParametersException].
+// This method uses the compression returned by
+// [NSBitmapImageRep.GetCompressionFactor] (if applicable). If a problem is
+// encountered during generation of the TIFF, this method raises an
+// [NSTIFFException] or an [NSBadBitmapParametersException].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/tiffRepresentationOfImageReps(in:)
 //
@@ -1528,7 +1531,7 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) RepresentationOfImageRepsInA
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/getTIFFCompressionTypes(_:count:)
 //
 // [NSBitmapImageRep.TIFFCompression]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/TIFFCompression
-func (_NSBitmapImageRepClass NSBitmapImageRepClass) GetTIFFCompressionTypesCount(list []NSTIFFCompression, numTypes unsafe.Pointer) {
+func (_NSBitmapImageRepClass NSBitmapImageRepClass) GetTIFFCompressionTypesCount(list []NSTIFFCompression, numTypes *int) {
 	objc.Send[objc.ID](objc.ID(_NSBitmapImageRepClass.class), objc.Sel("getTIFFCompressionTypes:count:"), objc.CArray(list), numTypes)
 }
 
@@ -1546,9 +1549,9 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) GetTIFFCompressionTypesCount
 // # Discussion
 //
 // When implementing a user interface for selecting TIFF compression types,
-// use [GetTIFFCompressionTypesCount] to get the list of supported compression
-// types, then use this method to get the localized names for each compression
-// type.
+// use [NSBitmapImageRepClass.GetTIFFCompressionTypesCount] to get the list of
+// supported compression types, then use this method to get the localized
+// names for each compression type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/localizedName(forTIFFCompressionType:)
 //
@@ -1597,7 +1600,7 @@ func (b NSBitmapImageRep) BitmapFormat() NSBitmapFormat {
 // This number is normally equal to the number of bits per sample or, if the
 // data is in meshed configuration, the number of bits per sample times the
 // number of samples per pixel. It can be explicitly set to another value (in
-// [InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel])
+// [NSBitmapImageRep.InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel])
 // in case extra memory is allocated for each pixel. This may be the case, for
 // example, if pixel data is aligned on byte boundaries.
 //
@@ -1627,7 +1630,7 @@ func (b NSBitmapImageRep) BytesPerPlane() int {
 //
 // A scan line is a single row of pixels spanning the width of the image. If
 // not explicitly set to another value (in
-// [InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel]),
+// [NSBitmapImageRep.InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel]),
 // this number will be figured from the width of the image, the number of bits
 // per sample, and, if the data is in a meshed configuration, the number of
 // samples per pixel. It can be set to another value to indicate that each row
@@ -1660,9 +1663,10 @@ func (b NSBitmapImageRep) IsPlanar() bool {
 //
 // # Discussion
 //
-// If the data has a separate plane for each component—that is, [Planar] is
-// true—the value of this property is the number of samples per pixel. If
-// the data is meshed, the value of this property is `1`.
+// If the data has a separate plane for each component—that is,
+// [NSBitmapImageRep.Planar] is true—the value of this property is the
+// number of samples per pixel. If the data is meshed, the value of this
+// property is `1`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/numberOfPlanes
 func (b NSBitmapImageRep) NumberOfPlanes() int {
@@ -1700,14 +1704,15 @@ func (b NSBitmapImageRep) BitmapData() string {
 // # Discussion
 //
 // Accessing this property results in a call to the
-// [TIFFRepresentationUsingCompressionFactor] method using the stored
-// compression type and factor retrieved from the initial image data or
-// changed using the [SetCompressionFactor] method. If the stored compression
-// type isn’t supported for writing TIFF data (for example,
-// [NSTIFFCompressionNEXT]), the stored compression is changed to
+// [NSBitmapImageRep.TIFFRepresentationUsingCompressionFactor] method using
+// the stored compression type and factor retrieved from the initial image
+// data or changed using the [NSBitmapImageRep.SetCompressionFactor] method.
+// If the stored compression type isn’t supported for writing TIFF data (for
+// example, [NSTIFFCompressionNEXT]), the stored compression is changed to
 // [NSTIFFCompressionNone] before calling the
-// [TIFFRepresentationUsingCompressionFactor] method using the compression
-// that’s returned by [GetCompressionFactor] (if applicable).
+// [NSBitmapImageRep.TIFFRepresentationUsingCompressionFactor] method using
+// the compression that’s returned by
+// [NSBitmapImageRep.GetCompressionFactor] (if applicable).
 //
 // If a problem is encountered during generation of the TIFF, an
 // [NSTIFFException] or an [NSBadBitmapParametersException] is raised.

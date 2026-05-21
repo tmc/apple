@@ -99,7 +99,7 @@ type INSInvocationOperation interface {
 	// Topic: Initialization
 
 	// Returns an [NSInvocationOperation] object initialized with the specified target and selector.
-	InitWithTargetSelectorObject(target objectivec.IObject, sel objc.SEL, arg objectivec.IObject) NSInvocationOperation
+	InitWithTargetSelectorObject(target objectivec.IObject, sel objectivec.SEL, arg objectivec.IObject) NSInvocationOperation
 	// Returns an [NSInvocationOperation] object initialized with the specified invocation object.
 	InitWithInvocation(inv INSInvocation) NSInvocationOperation
 
@@ -174,12 +174,12 @@ func NewInvocationOperationWithInvocation(inv INSInvocation) NSInvocationOperati
 // # Discussion
 //
 // If you specify a selector with a non-void return type, you can get the
-// return value by calling the [Result] method after the operation finishes
-// executing. The receiver tells the invocation object to retain its
-// arguments.
+// return value by calling the [NSInvocationOperation.Result] method after the
+// operation finishes executing. The receiver tells the invocation object to
+// retain its arguments.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocationOperation/initWithTarget:selector:object:
-func NewInvocationOperationWithTargetSelectorObject(target objectivec.IObject, sel objc.SEL, arg objectivec.IObject) NSInvocationOperation {
+func NewInvocationOperationWithTargetSelectorObject(target objectivec.IObject, sel objectivec.SEL, arg objectivec.IObject) NSInvocationOperation {
 	instance := getNSInvocationOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:selector:object:"), target, sel, arg)
 	return NSInvocationOperationFromID(rv)
@@ -206,12 +206,12 @@ func NewInvocationOperationWithTargetSelectorObject(target objectivec.IObject, s
 // # Discussion
 //
 // If you specify a selector with a non-void return type, you can get the
-// return value by calling the [Result] method after the operation finishes
-// executing. The receiver tells the invocation object to retain its
-// arguments.
+// return value by calling the [NSInvocationOperation.Result] method after the
+// operation finishes executing. The receiver tells the invocation object to
+// retain its arguments.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocationOperation/initWithTarget:selector:object:
-func (i NSInvocationOperation) InitWithTargetSelectorObject(target objectivec.IObject, sel objc.SEL, arg objectivec.IObject) NSInvocationOperation {
+func (i NSInvocationOperation) InitWithTargetSelectorObject(target objectivec.IObject, sel objectivec.SEL, arg objectivec.IObject) NSInvocationOperation {
 	rv := objc.Send[NSInvocationOperation](i.ID, objc.Sel("initWithTarget:selector:object:"), target, sel, arg)
 	return rv
 }

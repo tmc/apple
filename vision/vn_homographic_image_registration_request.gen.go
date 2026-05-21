@@ -55,10 +55,6 @@ func (vc VNHomographicImageRegistrationRequestClass) Alloc() VNHomographicImageR
 // content in two images through a homography. A is an isomorphism of
 // projected spaces, a bijection that maps lines to lines.
 //
-// # Identifying Request Revisions
-//
-//   - [VNHomographicImageRegistrationRequest.VNHomographicImageRegistrationRequestRevision1]: A constant for specifying revision 1 of the homographic image registration request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNHomographicImageRegistrationRequest
 type VNHomographicImageRegistrationRequest struct {
 	VNImageRegistrationRequest
@@ -77,18 +73,9 @@ func VNHomographicImageRegistrationRequestFromID(id objc.ID) VNHomographicImageR
 
 // An interface definition for the [VNHomographicImageRegistrationRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNHomographicImageRegistrationRequest.VNHomographicImageRegistrationRequestRevision1]: A constant for specifying revision 1 of the homographic image registration request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNHomographicImageRegistrationRequest
 type IVNHomographicImageRegistrationRequest interface {
 	IVNImageRegistrationRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the homographic image registration request.
-	VNHomographicImageRegistrationRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -118,7 +105,7 @@ func NewVNHomographicImageRegistrationRequest() VNHomographicImageRegistrationRe
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewHomographicImageRegistrationRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNHomographicImageRegistrationRequest {
@@ -556,13 +543,4 @@ func NewHomographicImageRegistrationRequestWithTargetedImageURLOrientationOption
 	instance := getVNHomographicImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the homographic image registration
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vnhomographicimageregistrationrequestrevision1
-func (h VNHomographicImageRegistrationRequest) VNHomographicImageRegistrationRequestRevision1() int {
-	rv := objc.Send[int](h.ID, objc.Sel("VNHomographicImageRegistrationRequestRevision1"))
-	return rv
 }

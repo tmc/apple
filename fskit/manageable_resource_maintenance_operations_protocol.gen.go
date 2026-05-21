@@ -17,12 +17,12 @@ type FSManageableResourceMaintenanceOperations interface {
 	// Starts checking the file system with the given options.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSManageableResourceMaintenanceOperations/startCheck(task:options:)
-	StartCheckWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.NSProgress, error)
+	StartCheckWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.Progress, error)
 
 	// Starts formatting the file system with the given options.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSManageableResourceMaintenanceOperations/startFormat(task:options:)
-	StartFormatWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.NSProgress, error)
+	StartFormatWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.Progress, error)
 }
 
 // FSManageableResourceMaintenanceOperationsObject wraps an existing Objective-C object that conforms to the FSManageableResourceMaintenanceOperations protocol.
@@ -57,10 +57,10 @@ func FSManageableResourceMaintenanceOperationsObjectFromID(id objc.ID) FSManagea
 // See: https://developer.apple.com/documentation/FSKit/FSManageableResourceMaintenanceOperations/startCheck(task:options:)
 //
 // [Progress]: https://developer.apple.com/documentation/Foundation/Progress
-func (o FSManageableResourceMaintenanceOperationsObject) StartCheckWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.NSProgress, error) {
+func (o FSManageableResourceMaintenanceOperationsObject) StartCheckWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.Progress, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("startCheckWithTask:options:error:"), task, options)
 	if err != nil {
-		return *new(foundation.NSProgress), err
+		return foundation.Progress{}, err
 	}
 	return foundation.NSProgressFromID(rv), nil
 }
@@ -80,10 +80,10 @@ func (o FSManageableResourceMaintenanceOperationsObject) StartCheckWithTaskOptio
 // See: https://developer.apple.com/documentation/FSKit/FSManageableResourceMaintenanceOperations/startFormat(task:options:)
 //
 // [Progress]: https://developer.apple.com/documentation/Foundation/Progress
-func (o FSManageableResourceMaintenanceOperationsObject) StartFormatWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.NSProgress, error) {
+func (o FSManageableResourceMaintenanceOperationsObject) StartFormatWithTaskOptionsError(task IFSTask, options IFSTaskOptions) (foundation.Progress, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("startFormatWithTask:options:error:"), task, options)
 	if err != nil {
-		return *new(foundation.NSProgress), err
+		return foundation.Progress{}, err
 	}
 	return foundation.NSProgressFromID(rv), nil
 }

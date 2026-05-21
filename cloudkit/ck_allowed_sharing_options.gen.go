@@ -64,6 +64,10 @@ func (cc CKAllowedSharingOptionsClass) Alloc() CKAllowedSharingOptions {
 //   - [CKAllowedSharingOptions.AllowedParticipantPermissionOptions]: The permission option the system uses to control whether a user can grant read-only or write access.
 //   - [CKAllowedSharingOptions.SetAllowedParticipantPermissionOptions]
 //
+// # Initializers
+//
+//   - [CKAllowedSharingOptions.InitWithCoder]
+//
 // # Instance Properties
 //
 //   - [CKAllowedSharingOptions.AllowsAccessRequests]: Default value is [NO]. If set, the system sharing UI will allow the user to configure whether access requests are enabled on the share.
@@ -102,6 +106,10 @@ func CKAllowedSharingOptionsFromID(id objc.ID) CKAllowedSharingOptions {
 //   - [ICKAllowedSharingOptions.AllowedParticipantPermissionOptions]: The permission option the system uses to control whether a user can grant read-only or write access.
 //   - [ICKAllowedSharingOptions.SetAllowedParticipantPermissionOptions]
 //
+// # Initializers
+//
+//   - [ICKAllowedSharingOptions.InitWithCoder]
+//
 // # Instance Properties
 //
 //   - [ICKAllowedSharingOptions.AllowsAccessRequests]: Default value is [NO]. If set, the system sharing UI will allow the user to configure whether access requests are enabled on the share.
@@ -126,6 +134,10 @@ type ICKAllowedSharingOptions interface {
 	// The permission option the system uses to control whether a user can grant read-only or write access.
 	AllowedParticipantPermissionOptions() CKSharingParticipantPermissionOption
 	SetAllowedParticipantPermissionOptions(value CKSharingParticipantPermissionOption)
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKAllowedSharingOptions
 
 	// Topic: Instance Properties
 
@@ -174,6 +186,13 @@ func NewCKAllowedSharingOptionsWithAllowedParticipantPermissionOptionsAllowedPar
 	return CKAllowedSharingOptionsFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions/init(coder:)
+func NewCKAllowedSharingOptionsWithCoder(coder foundation.INSCoder) CKAllowedSharingOptions {
+	instance := getCKAllowedSharingOptionsClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKAllowedSharingOptionsFromID(rv)
+}
+
 // Creates and initializes an allowed sharing options object.
 //
 // allowedParticipantPermissionOptions: The [CKSharingParticipantPermissionOption] setting.
@@ -186,6 +205,12 @@ func NewCKAllowedSharingOptionsWithAllowedParticipantPermissionOptionsAllowedPar
 // [CKSharingParticipantAccessOption]: https://developer.apple.com/documentation/CloudKit/CKSharingParticipantAccessOption
 func (c CKAllowedSharingOptions) InitWithAllowedParticipantPermissionOptionsAllowedParticipantAccessOptions(allowedParticipantPermissionOptions CKSharingParticipantPermissionOption, allowedParticipantAccessOptions CKSharingParticipantAccessOption) CKAllowedSharingOptions {
 	rv := objc.Send[CKAllowedSharingOptions](c.ID, objc.Sel("initWithAllowedParticipantPermissionOptions:allowedParticipantAccessOptions:"), allowedParticipantPermissionOptions, allowedParticipantAccessOptions)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions/init(coder:)
+func (c CKAllowedSharingOptions) InitWithCoder(coder foundation.INSCoder) CKAllowedSharingOptions {
+	rv := objc.Send[CKAllowedSharingOptions](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (c CKAllowedSharingOptions) EncodeWithCoder(coder foundation.INSCoder) {
@@ -251,9 +276,10 @@ func (c CKAllowedSharingOptions) SetAllowsParticipantsToInviteOthers(value bool)
 //
 // # Discussion
 //
-// The `standardOptions` has [AllowedParticipantPermissionOptions] set to
+// The `standardOptions` has
+// [CKAllowedSharingOptions.AllowedParticipantPermissionOptions] set to
 // [CKSharingParticipantPermissionOptionAny] and
-// [AllowedParticipantAccessOptions] set to
+// [CKAllowedSharingOptions.AllowedParticipantAccessOptions] set to
 // [CKSharingParticipantAccessOptionAny].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions/standard

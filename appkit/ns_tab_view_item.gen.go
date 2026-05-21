@@ -240,6 +240,7 @@ type INSTabViewItem interface {
 	ViewController() INSViewController
 	SetViewController(value INSViewController)
 
+	InitWithCoder(coder foundation.INSCoder) NSTabViewItem
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -260,6 +261,13 @@ func NewNSTabViewItem() NSTabViewItem {
 	class := getNSTabViewItemClass()
 	rv := objc.Send[NSTabViewItem](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/init(coder:)
+func NewTabViewItemWithCoder(coder foundation.INSCoder) NSTabViewItem {
+	instance := getNSTabViewItemClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTabViewItemFromID(rv)
 }
 
 // Performs default initialization for the receiver.
@@ -318,14 +326,20 @@ func (t NSTabViewItem) DrawLabelInRect(shouldTruncateLabel bool, labelRect coref
 // If `shouldTruncateLabel` is false, returns the size of the receiver’s
 // full label. If `shouldTruncateLabel` is true, returns the truncated size.
 // If your application does anything to change the size of tab labels, such as
-// overriding the [DrawLabelInRect] method to add an icon to each tab, you
-// should override [SizeOfLabel] too so the NSTabView knows the correct size
-// for the tab label.
+// overriding the [NSTabViewItem.DrawLabelInRect] method to add an icon to
+// each tab, you should override [NSTabViewItem.SizeOfLabel] too so the
+// NSTabView knows the correct size for the tab label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/sizeOfLabel(_:)
 func (t NSTabViewItem) SizeOfLabel(computeMin bool) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](t.ID, objc.Sel("sizeOfLabel:"), computeMin)
 	return corefoundation.CGSize(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/init(coder:)
+func (t NSTabViewItem) InitWithCoder(coder foundation.INSCoder) NSTabViewItem {
+	rv := objc.Send[NSTabViewItem](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (t NSTabViewItem) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -419,8 +433,8 @@ func (t NSTabViewItem) SetInitialFirstResponder(value INSView) {
 //
 // A tab view item normally learns about its parent tab view when it is
 // inserted into the view’s array of items. The NSTabView methods
-// [AddTabViewItem] and [InsertTabViewItemAtIndex] set the tab view for the
-// added or inserted item.
+// [NSTabView.AddTabViewItem] and [NSTabView.InsertTabViewItemAtIndex] set the
+// tab view for the added or inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/tabView
 func (t NSTabViewItem) TabView() INSTabView {

@@ -123,7 +123,8 @@ func (d AVDelegatingPlaybackCoordinatorPlaybackControlCommand) ExpectedCurrentIt
 // Only commands that the system issues on behalf of another participant
 // contain an originator. Local commands to coordinate rate change, or those
 // that originate from a call to
-// [ReapplyCurrentItemStateToPlaybackControlDelegate], don’t.
+// [AVDelegatingPlaybackCoordinator.ReapplyCurrentItemStateToPlaybackControlDelegate],
+// don’t.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlaybackControlCommand/originator
 func (d AVDelegatingPlaybackCoordinatorPlaybackControlCommand) Originator() IAVCoordinatedPlaybackParticipant {

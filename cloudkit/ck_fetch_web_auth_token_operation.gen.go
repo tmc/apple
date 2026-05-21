@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -73,7 +72,7 @@ func (cc CKFetchWebAuthTokenOperationClass) Alloc() CKFetchWebAuthTokenOperation
 // CloudKit operations have a default QoS of [QualityOfService.default].
 // Operations with this service level are discretionary. The system schedules
 // their execution at an optimal time according to battery level and network
-// conditions, among other factors. Use the [CKFetchWebAuthTokenOperation.QualityOfService] property to set
+// conditions, among other factors. Use the [qualityOfService] property to set
 // a more appropriate QoS for the operation.
 //
 // The following example shows how to create the operation, configure its
@@ -88,17 +87,13 @@ func (cc CKFetchWebAuthTokenOperationClass) Alloc() CKFetchWebAuthTokenOperation
 //   - [CKFetchWebAuthTokenOperation.APIToken]: The API token that allows access to an app’s container.
 //   - [CKFetchWebAuthTokenOperation.SetAPIToken]
 //
-// # Instance Properties
-//
-//   - [CKFetchWebAuthTokenOperation.FetchWebAuthTokenResultBlock]: The closure to execute when the operation finishes.
-//   - [CKFetchWebAuthTokenOperation.SetFetchWebAuthTokenResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation
 //
 // [Changing Access Controls on User Data]: https://developer.apple.com/documentation/CloudKit/changing-access-controls-on-user-data
 // [CloudKit Dashboard]: https://icloud.developer.apple.com
 // [QualityOfService.default]: https://developer.apple.com/documentation/Foundation/QualityOfService/default
 // [fetchWebAuthTokenCompletionBlock]: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation/fetchWebAuthTokenCompletionBlock
+// [qualityOfService]: https://developer.apple.com/documentation/Foundation/Operation/qualityOfService
 type CKFetchWebAuthTokenOperation struct {
 	CKDatabaseOperation
 }
@@ -125,11 +120,6 @@ func CKFetchWebAuthTokenOperationFromID(id objc.ID) CKFetchWebAuthTokenOperation
 //   - [ICKFetchWebAuthTokenOperation.APIToken]: The API token that allows access to an app’s container.
 //   - [ICKFetchWebAuthTokenOperation.SetAPIToken]
 //
-// # Instance Properties
-//
-//   - [ICKFetchWebAuthTokenOperation.FetchWebAuthTokenResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKFetchWebAuthTokenOperation.SetFetchWebAuthTokenResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation
 type ICKFetchWebAuthTokenOperation interface {
 	ICKDatabaseOperation
@@ -144,12 +134,6 @@ type ICKFetchWebAuthTokenOperation interface {
 	// The API token that allows access to an app’s container.
 	APIToken() string
 	SetAPIToken(value string)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	FetchWebAuthTokenResultBlock() unsafe.Pointer
-	SetFetchWebAuthTokenResultBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -201,15 +185,4 @@ func (c CKFetchWebAuthTokenOperation) APIToken() string {
 }
 func (c CKFetchWebAuthTokenOperation) SetAPIToken(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAPIToken:"), objc.String(value))
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchwebauthtokenoperation/fetchwebauthtokenresultblock
-func (c CKFetchWebAuthTokenOperation) FetchWebAuthTokenResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchWebAuthTokenResultBlock"))
-	return rv
-}
-func (c CKFetchWebAuthTokenOperation) SetFetchWebAuthTokenResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchWebAuthTokenResultBlock:"), value)
 }

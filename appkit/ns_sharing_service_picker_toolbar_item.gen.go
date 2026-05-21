@@ -52,8 +52,9 @@ func (nc NSSharingServicePickerToolbarItemClass) Alloc() NSSharingServicePickerT
 // viewing, the currently selected text, or the window’s associated
 // document.
 //
-// Provide the items to share using the associated [NSSharingServicePickerToolbarItem.Delegate] object. For an
-// app built using Mac Catalyst, provide the items from the object in the
+// Provide the items to share using the associated
+// [NSSharingServicePickerToolbarItem.Delegate] object. For an app built using
+// Mac Catalyst, provide the items from the object in the
 // [NSSharingServicePickerToolbarItem.ActivityItemsConfiguration] property.
 //
 // # Getting the Toolbar Items

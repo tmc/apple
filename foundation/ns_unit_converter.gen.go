@@ -61,8 +61,8 @@ func (uc UnitConverterClass) Alloc() UnitConverter {
 //
 // All subclasses must fully implement the following methods:
 //
-// - [BaseUnitValueFromValue]
-// - [ValueFromBaseUnitValue]
+// - [NSUnitConverter.BaseUnitValueFromValue] -
+// [NSUnitConverter.ValueFromBaseUnitValue]
 //
 // # Alternatives to Subclassing
 //

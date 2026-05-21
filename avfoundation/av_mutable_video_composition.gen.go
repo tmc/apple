@@ -3,6 +3,7 @@
 package avfoundation
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -109,14 +110,16 @@ func NewAVMutableVideoComposition() AVMutableVideoComposition {
 //
 // It also has the following values for its properties:
 //
-// - A value for [FrameDuration] short enough to accommodate the greatest
-// [nominalFrameRate] among the asset’s video tracks. If the
-// [nominalFrameRate] of all of the asset’s video tracks is 0, a default
-// frame rate of 30fps is used. - If the specified asset is an instance of
-// [AVComposition], the [RenderSize] is set to the [NaturalSize] of the
-// [AVComposition]; otherwise the [RenderSize] will be set to a value that
-// encompasses all of the asset’s video tracks. - A [RenderScale] of 1.0. -
-// The [AnimationTool] property set to `nil`.
+// - A value for [AVMutableVideoComposition.FrameDuration] short enough to
+// accommodate the greatest [nominalFrameRate] among the asset’s video
+// tracks. If the [nominalFrameRate] of all of the asset’s video tracks is
+// 0, a default frame rate of 30fps is used. - If the specified asset is an
+// instance of [AVComposition], the [AVMutableVideoComposition.RenderSize] is
+// set to the [AVComposition.NaturalSize] of the [AVComposition]; otherwise
+// the [AVMutableVideoComposition.RenderSize] will be set to a value that
+// encompasses all of the asset’s video tracks. - A
+// [AVMutableVideoComposition.RenderScale] of 1.0. - The
+// [AVMutableVideoComposition.AnimationTool] property set to `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/init(propertiesOf:)
 //
@@ -143,6 +146,62 @@ func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset I
 	return AVMutableVideoCompositionFromID(rv)
 }
 
+// Returns a new video composition that’s configured to apply Core Image
+// filters to each video frame of the specified asset.
+//
+// asset: The asset whose configuration matches the intended use of the video
+// composition.
+//
+// applier: A block that AVFoundation calls when processing each video frame.
+//
+// The block takes a single parameter and has no return value:
+//
+// request: An [AVAsynchronousCIImageFilteringRequest] object representing the
+// frame to be processed.
+//
+// completionHandler: A block the system calls when it finishes creating the new video
+// composition.
+//
+// # Discussion
+//
+// The composition calls the specified handler one time for each frame to
+// display (or processed for export) from the asset’s first enabled video
+// track. In that block, you access the video frame and return a filtered
+// result using the provided [AVAsynchronousCIImageFilteringRequest] object.
+// Use that object’s [sourceImage] property to get the video frame in the
+// form of a [CIImage] object you can apply filters to. Pass the result of
+// your filters to the `request` object’s [finish(with:context:)] method.
+// (If your filter rendering fails, call the `request` object’s
+// [finish(with:)] method if you can’t apply filters).
+//
+// Creating a composition with this method sets values for the following
+// properties:
+//
+// - The value of the [AVVideoComposition.FrameDuration] property accommodates
+// the [nominalFrameRate] value for the asset’s first enabled video track.
+// If the nominal frame rate is zero, AVFoundation uses a default frame rate
+// of 30 fps. - The [AVVideoComposition.RenderSize] property value a size that
+// encompasses the asset’s first enabled video track, respecting the
+// track’s [preferredTransform] property. - The
+// [AVVideoComposition.RenderScale] property value is `1.0`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/videoComposition(with:applyingCIFiltersWithHandler:completionHandler:)
+//
+// [AVAsynchronousCIImageFilteringRequest]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
+// [finish(with:)]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest/finish(with:)
+// [finish(with:context:)]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest/finish(with:context:)
+// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/nominalFrameRate
+// [preferredTransform]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/preferredTransform
+// [sourceImage]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest/sourceImage
+//
+// [AVAsynchronousCIImageFilteringRequest]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest
+func (_AVMutableVideoCompositionClass AVMutableVideoCompositionClass) VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler(asset IAVAsset, applier AVAsynchronousCIImageFilteringRequestHandler, completionHandler AVMutableVideoCompositionErrorHandler) {
+	_block1, _ := NewAVAsynchronousCIImageFilteringRequestBlock(applier)
+	_block2, _ := NewAVMutableVideoCompositionErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_AVMutableVideoCompositionClass.class), objc.Sel("videoCompositionWithAsset:applyingCIFiltersWithHandler:completionHandler:"), asset, _block1, _block2)
+}
+
 // Creates a new mutable video composition.
 //
 // # Return Value
@@ -153,8 +212,10 @@ func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset I
 //
 // The returned [AVMutableVideoComposition] has the following properties:
 //
-// - A [FrameDuration] of [zero]. - A [RenderSize] of `{0.0, 0.0}`. - A `nil`
-// array of [Instructions]. - The [AnimationTool] property set to `nil`.
+// - A [AVMutableVideoComposition.FrameDuration] of [zero]. - A
+// [AVMutableVideoComposition.RenderSize] of `{0.0, 0.0}`. - A `nil` array of
+// [AVMutableVideoComposition.Instructions]. - The
+// [AVMutableVideoComposition.AnimationTool] property set to `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/videoComposition
 //
@@ -162,4 +223,23 @@ func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset I
 func (_AVMutableVideoCompositionClass AVMutableVideoCompositionClass) VideoComposition() AVMutableVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableVideoCompositionClass.class), objc.Sel("videoComposition"))
 	return AVMutableVideoCompositionFromID(rv)
+}
+
+// VideoCompositionWithAssetApplyingCIFiltersWithHandlerSync is a synchronous wrapper around [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (mc AVMutableVideoCompositionClass) VideoCompositionWithAssetApplyingCIFiltersWithHandlerSync(ctx context.Context, asset IAVAsset, applier AVAsynchronousCIImageFilteringRequestHandler) (*AVMutableVideoComposition, error) {
+	type result struct {
+		val *AVMutableVideoComposition
+		err error
+	}
+	done := make(chan result, 1)
+	mc.VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler(asset, applier, func(val *AVMutableVideoComposition, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

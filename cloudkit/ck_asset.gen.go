@@ -60,10 +60,10 @@ func (cc CKAssetClass) Alloc() CKAsset {
 //
 // When you fetch a record that contains an asset, CloudKit stores the
 // asset’s data in a staging area accessible to your app. Use the asset’s
-// [CKAsset.FileURL] property to access its staged location. The system regularly
-// deletes files in the staging area to reclaim disk space. To avoid this
-// behavior, move the data into your app’s container as soon as you fetch
-// it.
+// [CKAsset.FileURL] property to access its staged location. The system
+// regularly deletes files in the staging area to reclaim disk space. To avoid
+// this behavior, move the data into your app’s container as soon as you
+// fetch it.
 //
 // If you don’t require the asset when retrieving records, use the
 // operation’s `desiredKeys` property to exclude the field. For more

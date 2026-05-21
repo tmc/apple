@@ -106,6 +106,13 @@ func NewAVMetricContentKeyRequestEvent() AVMetricContentKeyRequestEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricContentKeyRequestEventWithCoder(coder foundation.INSCoder) AVMetricContentKeyRequestEvent {
+	instance := getAVMetricContentKeyRequestEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricContentKeyRequestEventFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricContentKeyRequestEvent/contentKeySpecifier
 func (m AVMetricContentKeyRequestEvent) ContentKeySpecifier() IAVContentKeySpecifier {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("contentKeySpecifier"))

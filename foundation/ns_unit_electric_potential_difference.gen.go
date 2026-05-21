@@ -58,9 +58,11 @@ func (uc UnitElectricPotentialDifferenceClass) Alloc() UnitElectricPotentialDiff
 // current of one ampere dissipates one watt of power between those points (1V
 // = 1W/1A).
 //
-// The [NSUnitElectricPotentialDifference] class defines its [BaseUnit] as
-// [Volts], and provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitElectricPotentialDifference] class defines its
+// [NSDimensionClass.BaseUnit] as
+// [NSUnitElectricPotentialDifferenceClass.Volts], and provides the following
+// units, which are initialized using [NSUnitConverterLinear] converters with
+// the specified coefficients:
 //
 // [Table data omitted]
 //

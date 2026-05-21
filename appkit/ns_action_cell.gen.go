@@ -51,20 +51,20 @@ func (nc NSActionCellClass) Alloc() NSActionCell {
 // object; and it handles mouse (cursor) tracking by properly highlighting its
 // area and sending action messages to its target based on cursor movement.
 //
-// The [NSActionCell.ControlView] of an [NSActionCell] is the view in which the receiver
-// was last drawn.
+// The [NSCell.ControlView] of an [NSActionCell] is the view in which the
+// receiver was last drawn.
 //
 // # Obtaining and Setting Cell Values
 //
-// The [NSActionCell.FloatValue], [NSActionCell.IntValue], and [NSActionCell.IntegerValue] methods return the value
-// with their corresponding types after validating any editing of cell
-// content. If the cell is not a text-type cell or the cell value is not
-// scannable to the appropriate type, these return 0.
+// The [NSCell.FloatValue], [NSCell.IntValue], and [NSCell.IntegerValue]
+// methods return the value with their corresponding types after validating
+// any editing of cell content. If the cell is not a text-type cell or the
+// cell value is not scannable to the appropriate type, these return 0.
 //
-// The [NSActionCell.StringValue] method returns the receiver’s value as a string object
-// as converted by the cell’s formatter, if one exists. If no formatter
-// exists and the value is an [NSString], returns the value as a plain,
-// attributed, or localized formatted string. If the value is not an
+// The [NSCell.StringValue] method returns the receiver’s value as a string
+// object as converted by the cell’s formatter, if one exists. If no
+// formatter exists and the value is an [NSString], returns the value as a
+// plain, attributed, or localized formatted string. If the value is not an
 // [NSString] or cannot be converted to one, returns an empty string. The
 // method supplements the [NSCell] implementation by validating and retaining
 // any editing changes being made to cell text.

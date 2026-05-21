@@ -59,13 +59,13 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // - Lock the condition object. - Test a boolean predicate. (This predicate is
 // a boolean flag or other variable in your code that indicates whether it is
 // safe to perform the task protected by the condition.) - If the boolean
-// predicate is false, call the condition object’s [NSCondition.Wait] or [NSCondition.WaitUntilDate]
-// method to block the thread. Upon returning from these methods, go to step 2
-// to retest your boolean predicate. (Continue waiting and retesting the
-// predicate until it is true.) - If the boolean predicate is true, perform
-// the task. - Optionally update any predicates (or signal any conditions)
-// affected by your task. - When your task is done, unlock the condition
-// object.
+// predicate is false, call the condition object’s [NSCondition.Wait] or
+// [NSCondition.WaitUntilDate] method to block the thread. Upon returning from
+// these methods, go to step 2 to retest your boolean predicate. (Continue
+// waiting and retesting the predicate until it is true.) - If the boolean
+// predicate is true, perform the task. - Optionally update any predicates (or
+// signal any conditions) affected by your task. - When your task is done,
+// unlock the condition object.
 //
 // The pseudocode for performing the preceding steps would therefore look
 // something like the following:
@@ -81,8 +81,8 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // When a thread waits on a condition, the condition object unlocks its lock
 // and blocks the thread. When the condition is signaled, the system wakes up
 // the thread. The condition object then reacquires its lock before returning
-// from the [NSCondition.Wait] or [NSCondition.WaitUntilDate] method. Thus, from the point of view of
-// the thread, it is as if it always held the lock.
+// from the [NSCondition.Wait] or [NSCondition.WaitUntilDate] method. Thus,
+// from the point of view of the thread, it is as if it always held the lock.
 //
 // A boolean predicate is an important part of the semantics of using
 // conditions because of the way signaling works. Signaling a condition does

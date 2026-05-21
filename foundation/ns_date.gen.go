@@ -4,7 +4,6 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -80,13 +79,13 @@ func (nc NSDateClass) Alloc() NSDate {
 //
 // - Declare a suitable instance variable to hold the date and time value
 // (relative to an absolute reference date) - Override the
-// [NSDate.TimeIntervalSinceReferenceDate] instance method to provide the correct
-// date and time value based on your instance variable - Override
-// [NSDate.InitWithTimeIntervalSinceReferenceDate], one of the designated initializer
-// methods - If creating a subclass that represents a calendrical system,
-// define methods that partition past and future periods into the units of
-// this calendar - Implement the methods required by the [NSCopying] and
-// [NSCoding] protocols, because [NSDate] adopts these protocols
+// [NSDate.TimeIntervalSinceReferenceDate] instance method to provide the
+// correct date and time value based on your instance variable - Override
+// [NSDate.InitWithTimeIntervalSinceReferenceDate], one of the designated
+// initializer methods - If creating a subclass that represents a calendrical
+// system, define methods that partition past and future periods into the
+// units of this calendar - Implement the methods required by the [NSCopying]
+// and [NSCoding] protocols, because [NSDate] adopts these protocols
 //
 // # Special Considerations
 //
@@ -94,11 +93,11 @@ func (nc NSDateClass) Alloc() NSDate {
 // reference date used by [NSDate] (00:00:00 UTC on 1 January 2001). If it
 // does, it must still use the absolute reference date in its implementations
 // of the methods [NSDate.TimeIntervalSinceReferenceDate] and
-// [NSDate.InitWithTimeIntervalSinceReferenceDate]. That is, the reference date
-// referred to in the titles of these methods is the absolute reference date.
-// If you do not use the absolute reference date in these methods, comparisons
-// between [NSDate] objects of your subclass and [NSDate] objects of a private
-// subclass will not work.
+// [NSDate.InitWithTimeIntervalSinceReferenceDate]. That is, the reference
+// date referred to in the titles of these methods is the absolute reference
+// date. If you do not use the absolute reference date in these methods,
+// comparisons between [NSDate] objects of your subclass and [NSDate] objects
+// of a private subclass will not work.
 //
 // # Initializing a Date
 //
@@ -119,8 +118,6 @@ func (nc NSDateClass) Alloc() NSDate {
 //   - [NSDate.TimeIntervalSinceNow]: The interval between the date object and the current date and time.
 //   - [NSDate.TimeIntervalSinceReferenceDate]: The interval between the date object and 00:00:00 UTC on 1 January 2001.
 //   - [NSDate.TimeIntervalSince1970]: The interval between the date object and 00:00:00 UTC on 1 January 1970.
-//   - [NSDate.NSTimeIntervalSince1970]: The number of seconds from 1 January 1970 to the reference date, 1 January 2001.
-//   - [NSDate.SetNSTimeIntervalSince1970]
 //
 // # Adding Time Intervals
 //
@@ -130,12 +127,6 @@ func (nc NSDateClass) Alloc() NSDate {
 //
 //   - [NSDate.Description]: A string representation of the date object.
 //   - [NSDate.DescriptionWithLocale]: Returns a string representation of the date using the given locale.
-//   - [NSDate.CustomPlaygroundQuickLook]: A custom playground Quick Look for this object.
-//   - [NSDate.SetCustomPlaygroundQuickLook]
-//
-// # Recognizing Notifications
-//
-//   - [NSDate.NSSystemClockDidChange]: A notification posted whenever the system clock is changed.
 //
 // # Initializers
 //
@@ -182,8 +173,6 @@ func NSDateFromID(id objc.ID) NSDate {
 //   - [INSDate.TimeIntervalSinceNow]: The interval between the date object and the current date and time.
 //   - [INSDate.TimeIntervalSinceReferenceDate]: The interval between the date object and 00:00:00 UTC on 1 January 2001.
 //   - [INSDate.TimeIntervalSince1970]: The interval between the date object and 00:00:00 UTC on 1 January 1970.
-//   - [INSDate.NSTimeIntervalSince1970]: The number of seconds from 1 January 1970 to the reference date, 1 January 2001.
-//   - [INSDate.SetNSTimeIntervalSince1970]
 //
 // # Adding Time Intervals
 //
@@ -193,12 +182,6 @@ func NSDateFromID(id objc.ID) NSDate {
 //
 //   - [INSDate.Description]: A string representation of the date object.
 //   - [INSDate.DescriptionWithLocale]: Returns a string representation of the date using the given locale.
-//   - [INSDate.CustomPlaygroundQuickLook]: A custom playground Quick Look for this object.
-//   - [INSDate.SetCustomPlaygroundQuickLook]
-//
-// # Recognizing Notifications
-//
-//   - [INSDate.NSSystemClockDidChange]: A notification posted whenever the system clock is changed.
 //
 // # Initializers
 //
@@ -239,9 +222,6 @@ type INSDate interface {
 	TimeIntervalSinceReferenceDate() float64
 	// The interval between the date object and 00:00:00 UTC on 1 January 1970.
 	TimeIntervalSince1970() float64
-	// The number of seconds from 1 January 1970 to the reference date, 1 January 2001.
-	NSTimeIntervalSince1970() float64
-	SetNSTimeIntervalSince1970(value float64)
 
 	// Topic: Adding Time Intervals
 
@@ -254,14 +234,6 @@ type INSDate interface {
 	Description() string
 	// Returns a string representation of the date using the given locale.
 	DescriptionWithLocale(locale objectivec.IObject) string
-	// A custom playground Quick Look for this object.
-	CustomPlaygroundQuickLook() unsafe.Pointer
-	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
-
-	// Topic: Recognizing Notifications
-
-	// A notification posted whenever the system clock is changed.
-	NSSystemClockDidChange() NSNotificationName
 
 	// Topic: Initializers
 
@@ -462,8 +434,8 @@ func (d NSDate) InitWithCoder(coder INSCoder) NSDate {
 // # Discussion
 //
 // This method detects sub-second differences between dates. If you want to
-// compare dates with a less fine granularity, use [TimeIntervalSinceDate] to
-// compare the two dates.
+// compare dates with a less fine granularity, use
+// [NSDate.TimeIntervalSinceDate] to compare the two dates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/isEqual(to:)
 func (d NSDate) IsEqualToDate(otherDate INSDate) bool {
@@ -478,8 +450,8 @@ func (d NSDate) IsEqualToDate(otherDate INSDate) bool {
 // # Return Value
 //
 // The earlier of the receiver and `anotherDate`, determined using
-// [TimeIntervalSinceDate]. If the receiver and `anotherDate` represent the
-// same date, returns the receiver.
+// [NSDate.TimeIntervalSinceDate]. If the receiver and `anotherDate` represent
+// the same date, returns the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/earlierDate(_:)
 func (d NSDate) EarlierDate(anotherDate INSDate) INSDate {
@@ -494,8 +466,8 @@ func (d NSDate) EarlierDate(anotherDate INSDate) INSDate {
 // # Return Value
 //
 // The later of the receiver and `anotherDate`, determined using
-// [TimeIntervalSinceDate]. If the receiver and `anotherDate` represent the
-// same date, returns the receiver.
+// [NSDate.TimeIntervalSinceDate]. If the receiver and `anotherDate` represent
+// the same date, returns the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/laterDate(_:)
 func (d NSDate) LaterDate(anotherDate INSDate) INSDate {
@@ -522,8 +494,8 @@ func (d NSDate) LaterDate(anotherDate INSDate) INSDate {
 // # Discussion
 //
 // This method detects sub-second differences between dates. If you want to
-// compare dates with a less fine granularity, use [TimeIntervalSinceDate] to
-// compare the two dates.
+// compare dates with a less fine granularity, use
+// [NSDate.TimeIntervalSinceDate] to compare the two dates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/compare(_:)
 func (d NSDate) Compare(other INSDate) NSComparisonResult {
@@ -571,7 +543,7 @@ func (d NSDate) DateByAddingTimeInterval(ti float64) INSDate {
 // locale: An [NSLocale] object.
 //
 // If you pass `nil`, [NSDate] formats the date in the same way as the
-// [Description] property.
+// [NSDate.Description] property.
 //
 // In OS X v10.4 and earlier, this parameter was an [NSDictionary] object. If
 // you pass in an [NSDictionary] object in OS X v10.5, [NSDate] uses the
@@ -620,9 +592,11 @@ func (d NSDate) EncodeWithCoder(coder INSCoder) {
 //
 // # Discussion
 //
-// This method uses the default initializer method for the class, [Init].
+// This method uses the default initializer method for the class,
+// [NSDate.Init].
 //
-// The following code sample shows how to use [Date] to get the current date:
+// The following code sample shows how to use [NSDateClass.Date] to get the
+// current date:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/date
 func (_NSDateClass NSDateClass) Date() NSDate {
@@ -730,18 +704,6 @@ func (d NSDate) TimeIntervalSince1970() float64 {
 	return float64(rv)
 }
 
-// The number of seconds from 1 January 1970 to the reference date, 1 January
-// 2001.
-//
-// See: https://developer.apple.com/documentation/foundation/nstimeintervalsince1970
-func (d NSDate) NSTimeIntervalSince1970() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("NSTimeIntervalSince1970"))
-	return rv
-}
-func (d NSDate) SetNSTimeIntervalSince1970(value float64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSTimeIntervalSince1970:"), value)
-}
-
 // A string representation of the date object.
 //
 // # Discussion
@@ -750,7 +712,7 @@ func (d NSDate) SetNSTimeIntervalSince1970(value float64) {
 //
 // There are a number of options to acquire a formatted string for a date
 // including: date formatters (see [NSDateFormatter] and [Data Formatting
-// Guide]), and the [NSDate] methods [DescriptionWithLocale],
+// Guide]), and the [NSDate] methods [NSDate.DescriptionWithLocale],
 // [date(withCalendarFormat:timeZone:)], and
 // [description(withCalendarFormat:timeZone:locale:)]
 //
@@ -762,25 +724,6 @@ func (d NSDate) SetNSTimeIntervalSince1970(value float64) {
 func (d NSDate) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
-}
-
-// A custom playground Quick Look for this object.
-//
-// See: https://developer.apple.com/documentation/foundation/nsdate/customplaygroundquicklook
-func (d NSDate) CustomPlaygroundQuickLook() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("customPlaygroundQuickLook"))
-	return rv
-}
-func (d NSDate) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
-}
-
-// A notification posted whenever the system clock is changed.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nssystemclockdidchange
-func (d NSDate) NSSystemClockDidChange() NSNotificationName {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSSystemClockDidChangeNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // A date object representing a date in the distant future.
@@ -796,8 +739,8 @@ func (d NSDate) NSSystemClockDidChange() NSNotificationName {
 // date argument essentially ignored. For example, the [NSWindow] method
 // [nextEvent(matching:until:inMode:dequeue:)] returns `nil` if an event
 // specified in the event mask does not happen before the specified date. You
-// can use the object returned by [DistantFuture] as the date argument to wait
-// indefinitely for the event to occur.
+// can use the object returned by [NSDateClass.DistantFuture] as the date
+// argument to wait indefinitely for the event to occur.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/distantFuture
 //

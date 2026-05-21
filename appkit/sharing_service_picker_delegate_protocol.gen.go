@@ -99,7 +99,8 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerDidChooseShari
 //
 // # Discussion
 //
-// The sharing service assigns the returned object to its [Delegate] property.
+// The sharing service assigns the returned object to its
+// [NSSharingService.Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:delegateFor:)
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerDelegateForSharingService(sharingServicePicker INSSharingServicePicker, sharingService INSSharingService) NSSharingServiceDelegate {

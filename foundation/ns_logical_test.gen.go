@@ -53,10 +53,11 @@ func (nc NSLogicalTestClass) Alloc() NSLogicalTest {
 //
 // For [AND] and [OR] operations, an [NSLogicalTest] object is typically
 // initialized with an array containing two or more [NSSpecifierTest] objects.
-// [IsTrue]—inherited from [NSScriptWhoseTest]—evaluates the array in a
-// manner appropriate to the logical operation. For [NOT] operations, an
-// [NSLogicalTest] object is initialized with only one [NSSpecifierTest]
-// object; it simply reverses the Boolean outcome of the [IsTrue] method.
+// [NSScriptWhoseTest.IsTrue]—inherited from [NSScriptWhoseTest]—evaluates
+// the array in a manner appropriate to the logical operation. For [NOT]
+// operations, an [NSLogicalTest] object is initialized with only one
+// [NSSpecifierTest] object; it simply reverses the Boolean outcome of the
+// [NSScriptWhoseTest.IsTrue] method.
 //
 // You don’t normally subclass [NSLogicalTest].
 //

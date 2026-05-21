@@ -59,7 +59,8 @@ func (nc NSStoryboardSegueClass) Alloc() NSStoryboardSegue {
 // You do not create storyboard segue objects directly. Instead, the system
 // creates them as needed as segues are invoked. To run code during
 // initialization and performance of a segue, override the
-// [NSStoryboardSegue.InitWithIdentifierSourceDestination] and [NSStoryboardSegue.Perform] methods.
+// [NSStoryboardSegue.InitWithIdentifierSourceDestination] and
+// [NSStoryboardSegue.Perform] methods.
 //
 // You can initiate a segue programmatically with the
 // [PerformSegueWithIdentifierSender] method of the [NSSeguePerforming]
@@ -148,8 +149,8 @@ func NewNSStoryboardSegue() NSStoryboardSegue {
 
 // The designated initializer for a storyboard segue.
 //
-// identifier: The unique identifier for the storyboard segue. See the [Identifier]
-// property.
+// identifier: The unique identifier for the storyboard segue. See the
+// [NSStoryboardSegue.Identifier] property.
 //
 // sourceController: The starting/containing view controller or window controller for the
 // storyboard segue.
@@ -167,7 +168,8 @@ func NewNSStoryboardSegue() NSStoryboardSegue {
 // initialization, implement a storyboard segue subclass and override this
 // method.
 //
-// Whenever this method is called, the system then calls the [Perform] method.
+// Whenever this method is called, the system then calls the
+// [NSStoryboardSegue.Perform] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:)
 func NewStoryboardSegueWithIdentifierSourceDestination(identifier NSStoryboardSegueIdentifier, sourceController objectivec.IObject, destinationController objectivec.IObject) NSStoryboardSegue {
@@ -178,8 +180,8 @@ func NewStoryboardSegueWithIdentifierSourceDestination(identifier NSStoryboardSe
 
 // The designated initializer for a storyboard segue.
 //
-// identifier: The unique identifier for the storyboard segue. See the [Identifier]
-// property.
+// identifier: The unique identifier for the storyboard segue. See the
+// [NSStoryboardSegue.Identifier] property.
 //
 // sourceController: The starting/containing view controller or window controller for the
 // storyboard segue.
@@ -197,7 +199,8 @@ func NewStoryboardSegueWithIdentifierSourceDestination(identifier NSStoryboardSe
 // initialization, implement a storyboard segue subclass and override this
 // method.
 //
-// Whenever this method is called, the system then calls the [Perform] method.
+// Whenever this method is called, the system then calls the
+// [NSStoryboardSegue.Perform] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:)
 func (s NSStoryboardSegue) InitWithIdentifierSourceDestination(identifier NSStoryboardSegueIdentifier, sourceController objectivec.IObject, destinationController objectivec.IObject) NSStoryboardSegue {
@@ -229,8 +232,8 @@ func (s NSStoryboardSegue) Perform() {
 
 // Creates a storyboard segue and a block used when the segue is performed.
 //
-// identifier: The unique identifier for the storyboard segue. See the [Identifier]
-// property.
+// identifier: The unique identifier for the storyboard segue. See the
+// [NSStoryboardSegue.Identifier] property.
 //
 // sourceController: The starting/containing view controller or window controller for the
 // storyboard segue.
@@ -239,7 +242,7 @@ func (s NSStoryboardSegue) Perform() {
 // storyboard segue.
 //
 // performHandler: A block of code that you provide, to be run each time the system calls the
-// [Perform] method.
+// [NSStoryboardSegue.Perform] method.
 //
 // # Return Value
 //

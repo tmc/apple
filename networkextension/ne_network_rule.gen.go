@@ -308,8 +308,8 @@ func (n NENetworkRule) MatchRemoteEndpoint() INWHostEndpoint {
 //
 // # Discussion
 //
-// This property is [NSNotFound] for rules where [MatchRemoteEndpoint]
-// doesn’t contain an IP address.
+// This property is [NSNotFound] for rules where
+// [NENetworkRule.MatchRemoteEndpoint] doesn’t contain an IP address.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchRemotePrefix
 //
@@ -331,8 +331,8 @@ func (n NENetworkRule) MatchLocalNetwork() INWHostEndpoint {
 //
 // # Discussion
 //
-// This property is [NSNotFound] for rules whose [MatchLocalNetwork] property
-// is `nil.`
+// This property is [NSNotFound] for rules whose
+// [NENetworkRule.MatchLocalNetwork] property is `nil.`
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchLocalPrefix
 //

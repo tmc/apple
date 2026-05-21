@@ -163,7 +163,7 @@ func NewNSMutableIndexSet() NSMutableIndexSet {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(coder:)
 func NewMutableIndexSetWithCoder(coder INSCoder) NSMutableIndexSet {
 	instance := getNSMutableIndexSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -214,16 +214,19 @@ func NewMutableIndexSetWithIndexSet(indexSet INSIndexSet) NSMutableIndexSet {
 //
 // # Discussion
 //
-// This method raises an [RangeException] when `indexRange` would add an index
+// This method raises an [rangeException] when `indexRange` would add an index
 // that exceeds the maximum allowed value for unsigned integers.
 //
-// The resulting index set has a [FirstIndex] equal to the `location` of
-// `indexRange`, and a [Count] equal to the `length` of `indexRange`.
-// Specifying a zero-length range results in an empty index set.
+// The resulting index set has a [NSIndexSet.FirstIndex] equal to the
+// `location` of `indexRange`, and a [NSIndexSet.Count] equal to the `length`
+// of `indexRange`. Specifying a zero-length range results in an empty index
+// set.
 //
 // This method is a designated initializer for [NSIndexSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(indexesIn:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func NewMutableIndexSetWithIndexesInRange(range_ NSRange) NSMutableIndexSet {
 	instance := getNSMutableIndexSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexesInRange:"), range_)
@@ -254,10 +257,12 @@ func (m NSMutableIndexSet) AddIndexes(indexSet INSIndexSet) {
 //
 // # Discussion
 //
-// This method raises an [RangeException] when `range` would add an index that
+// This method raises an [rangeException] when `range` would add an index that
 // exceeds the maximum allowed value for unsigned integers.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet/add(in:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableIndexSet) AddIndexesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndexesInRange:"), range_)
 }

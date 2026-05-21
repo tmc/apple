@@ -214,7 +214,7 @@ func NewNSColorPanel() NSColorPanel {
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -229,10 +229,10 @@ func NewNSColorPanel() NSColorPanel {
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewColorPanelWindowWithContentViewController(contentViewController INSViewController) NSColorPanel {
@@ -286,7 +286,8 @@ func NewColorPanelWithCoder(coder foundation.INSCoder) NSColorPanel {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -376,8 +377,8 @@ func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 }
 
 // Adds the list of [NSColor] objects specified to all the color pickers in
-// the receiver that display color lists by invoking [AttachColorList] on all
-// color pickers in the application.
+// the receiver that display color lists by invoking
+// [NSColorPanel.AttachColorList] on all color pickers in the application.
 //
 // colorList: The list of colors to add to the color pickers in the receiver.
 //
@@ -393,8 +394,8 @@ func (c NSColorPanel) AttachColorList(colorList INSColorList) {
 }
 
 // Removes the list of colors from all the color pickers in the receiver that
-// display color lists by invoking [DetachColorList] on all color pickers in
-// the application.
+// display color lists by invoking [NSColorPanel.DetachColorList] on all color
+// pickers in the application.
 //
 // colorList: The list of [NSColor] objects to remove from the color pickers in the color
 // panel.
@@ -465,8 +466,9 @@ func (_NSColorPanelClass NSColorPanelClass) SetPickerMask(mask NSColorPanelOptio
 // This method is usually invoked by the “ method of `sourceView`. The
 // dragging mechanism handles all subsequent events.
 //
-// Because it is a class method, [DragColorWithEventFromView] can be invoked
-// whether or not the instance of [NSColorPanel] exists.
+// Because it is a class method,
+// [NSColorPanelClass.DragColorWithEventFromView] can be invoked whether or
+// not the instance of [NSColorPanel] exists.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/dragColor(_:with:from:)
 func (_NSColorPanelClass NSColorPanelClass) DragColorWithEventFromView(color INSColor, event INSEvent, sourceView INSView) bool {

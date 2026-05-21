@@ -66,9 +66,9 @@ func (xc XMLElementClass) Alloc() XMLElement {
 // # Methods to Override
 //
 // To subclass [NSXMLElement] you need to override the primary initializer,
-// [InitWithNameURI], and the methods listed below. In most cases, you need
-// only invoke the superclass implementation, adding any subclass-specific
-// code before or after the invocation, as necessary.
+// [NSXMLElement.InitWithNameURI], and the methods listed below. In most
+// cases, you need only invoke the superclass implementation, adding any
+// subclass-specific code before or after the invocation, as necessary.
 //
 // [Table data omitted]
 //
@@ -81,17 +81,17 @@ func (xc XMLElementClass) Alloc() XMLElement {
 //
 // Because of the architecture and data model of NSXML, when it parses and
 // processes a source of XML it cannot know about your subclass unless you
-// override the class method [ReplacementClassForClass] to return your custom
-// class in place of an NSXML class. If your custom class has no direct NSXML
-// counterpart—for example, it is a subclass of [NSXMLNode] that represents
-// CDATA sections—then you can walk the tree after it has been created and
-// insert the new node where appropriate.
+// override the class method [NSXMLDocumentClass.ReplacementClassForClass] to
+// return your custom class in place of an NSXML class. If your custom class
+// has no direct NSXML counterpart—for example, it is a subclass of
+// [NSXMLNode] that represents CDATA sections—then you can walk the tree
+// after it has been created and insert the new node where appropriate.
 //
 // Note that you can safely set the root element of the XML document (using
-// the [NSXMLDocument] [SetRootElement]method) to be an instance of your
-// subclass because this method only checks to see if the added node is of an
-// element kind ([NSXMLElementKind]). These precautions do not apply, of
-// course, if you are creating an XML tree programmatically.
+// the [NSXMLDocument] [NSXMLDocument.SetRootElement]method) to be an instance
+// of your subclass because this method only checks to see if the added node
+// is of an element kind ([NSXMLElementKind]). These precautions do not apply,
+// of course, if you are creating an XML tree programmatically.
 //
 // # Initializing NSXMLElement Objects
 //
@@ -300,13 +300,13 @@ func NewXMLElement() XMLElement {
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -336,7 +336,7 @@ func NewXMLElementWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 // # Discussion
 //
 // The XML string representation of this object is “. This method invokes
-// [InitWithNameURI] with the URI parameter set to `nil`.
+// [NSXMLElement.InitWithNameURI] with the URI parameter set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:)
 func NewXMLElementWithName(name string) XMLElement {
@@ -383,8 +383,8 @@ func NewXMLElementWithNameStringValue(name string, string_ string) XMLElement {
 // # Discussion
 //
 // You can look up the namespace prefix for this element node based on its URI
-// using [ResolvePrefixForNamespaceURI]. This method is the primary
-// initializer for the [NSXMLElement] class.
+// using [NSXMLElement.ResolvePrefixForNamespaceURI]. This method is the
+// primary initializer for the [NSXMLElement] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)-1r286
 func NewXMLElementWithNameURI(name string, URI string) XMLElement {
@@ -429,7 +429,7 @@ func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 // # Discussion
 //
 // The XML string representation of this object is “. This method invokes
-// [InitWithNameURI] with the URI parameter set to `nil`.
+// [NSXMLElement.InitWithNameURI] with the URI parameter set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:)
 func (x XMLElement) InitWithName(name string) XMLElement {
@@ -474,8 +474,8 @@ func (x XMLElement) InitWithNameStringValue(name string, string_ string) XMLElem
 // # Discussion
 //
 // You can look up the namespace prefix for this element node based on its URI
-// using [ResolvePrefixForNamespaceURI]. This method is the primary
-// initializer for the [NSXMLElement] class.
+// using [NSXMLElement.ResolvePrefixForNamespaceURI]. This method is the
+// primary initializer for the [NSXMLElement] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)-1r286
 func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
@@ -512,9 +512,9 @@ func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
 //
 // name: A string specifying the name of the child element nodes to find and return.
 // If `name` is a qualified name, then this method invokes
-// [ElementsForLocalNameURI] with the URI parameter set to the URI associated
-// with the prefix. Otherwise comparison is based on string equality of the
-// qualified or non-qualified name.
+// [NSXMLElement.ElementsForLocalNameURI] with the URI parameter set to the
+// URI associated with the prefix. Otherwise comparison is based on string
+// equality of the qualified or non-qualified name.
 //
 // # Return Value
 //
@@ -639,8 +639,8 @@ func (x XMLElement) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 // A text node with a value of an empty string is removed. When you process an
 // input source of XML, adjacent text nodes are automatically normalized. You
 // should invoke this method (with `preserve` as false) before using the
-// [NSXMLNode] methods [ObjectsForXQueryConstantsError] or
-// [NodesForXPathError].
+// [NSXMLNode] methods [NSXMLNode.ObjectsForXQueryConstantsError] or
+// [NSXMLNode.NodesForXPathError].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/normalizeAdjacentTextNodesPreservingCDATA(_:)
 func (x XMLElement) NormalizeAdjacentTextNodesPreservingCDATA(preserve bool) {
@@ -675,9 +675,9 @@ func (x XMLElement) AddAttribute(attribute INSXMLNode) {
 // # Discussion
 //
 // If `name` is a qualified name, then this method invokes
-// [AttributeForLocalNameURI] with the URI parameter set to the URI associated
-// with the prefix. Otherwise comparison is based on string equality of the
-// qualified or non-qualified name.
+// [NSXMLElement.AttributeForLocalNameURI] with the URI parameter set to the
+// URI associated with the prefix. Otherwise comparison is based on string
+// equality of the qualified or non-qualified name.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/attribute(forName:)
 func (x XMLElement) AttributeForName(name string) INSXMLNode {
@@ -820,7 +820,7 @@ func (x XMLElement) ResolvePrefixForNamespaceURI(namespaceURI string) string {
 // # Discussion
 //
 // To set attributes in an element node using an [NSDictionary] object as the
-// input parameter, see [SetAttributesWithDictionary].
+// input parameter, see [NSXMLElement.SetAttributesWithDictionary].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/attributes
 func (x XMLElement) Attributes() []NSXMLNode {

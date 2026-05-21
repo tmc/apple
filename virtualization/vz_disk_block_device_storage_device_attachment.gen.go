@@ -108,12 +108,12 @@ type IVZDiskBlockDeviceStorageDeviceAttachment interface {
 	// Topic: Initializers
 
 	// Creates a new block storage device attachment from a file handle and with the specified access mode, synchronization mode, and error object that you provide.
-	InitWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.NSFileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error)
+	InitWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.FileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error)
 
 	// Topic: Getting the block storage device details
 
 	// A file handle to a block device.
-	FileHandle() foundation.NSFileHandle
+	FileHandle() foundation.FileHandle
 	// A Boolean value that indicates whether this disk attachment is read-only; otherwise, if the file handle allows writes, the device can write data into it.
 	IsReadOnly() bool
 	// The value that defines how the disk synchronizes with the underlying storage when the guest operating system flushes data.
@@ -164,7 +164,7 @@ func NewVZDiskBlockDeviceStorageDeviceAttachment() VZDiskBlockDeviceStorageDevic
 //
 // [FileHandle]: https://developer.apple.com/documentation/Foundation/FileHandle
 // [VZDiskSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskSynchronizationMode
-func NewDiskBlockDeviceStorageDeviceAttachmentWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.NSFileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error) {
+func NewDiskBlockDeviceStorageDeviceAttachmentWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.FileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskBlockDeviceStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileHandle:readOnly:synchronizationMode:error:"), fileHandle, readOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
@@ -200,7 +200,7 @@ func NewDiskBlockDeviceStorageDeviceAttachmentWithFileHandleReadOnlySynchronizat
 //
 // [FileHandle]: https://developer.apple.com/documentation/Foundation/FileHandle
 // [VZDiskSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskSynchronizationMode
-func (d VZDiskBlockDeviceStorageDeviceAttachment) InitWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.NSFileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error) {
+func (d VZDiskBlockDeviceStorageDeviceAttachment) InitWithFileHandleReadOnlySynchronizationModeError(fileHandle foundation.FileHandle, readOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZDiskBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFileHandle:readOnly:synchronizationMode:error:"), fileHandle, readOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -214,9 +214,9 @@ func (d VZDiskBlockDeviceStorageDeviceAttachment) InitWithFileHandleReadOnlySync
 // A file handle to a block device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/fileHandle
-func (d VZDiskBlockDeviceStorageDeviceAttachment) FileHandle() foundation.NSFileHandle {
+func (d VZDiskBlockDeviceStorageDeviceAttachment) FileHandle() foundation.FileHandle {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileHandle"))
-	return foundation.NSFileHandleFromID(objc.ID(rv))
+	return foundation.FileHandleFromID(objc.ID(rv))
 }
 
 // A Boolean value that indicates whether this disk attachment is read-only;

@@ -142,10 +142,10 @@ func NewFSMetadataRange() FSMetadataRange {
 // Initializes a metadata range with the given properties.
 //
 // startOffset: The start offset of the range in bytes. Ensure this value is a multiple of
-// the corresponding resource’s [BlockSize].
+// the corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentLength: The segment length in bytes. Ensure this value is a multiple of the
-// corresponding resource’s [BlockSize].
+// corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentCount: The number of segments in the range.
 //
@@ -159,10 +159,10 @@ func NewMetadataRangeWithOffsetSegmentLengthSegmentCount(startOffset int64, segm
 // Initializes a metadata range with the given properties.
 //
 // startOffset: The start offset of the range in bytes. Ensure this value is a multiple of
-// the corresponding resource’s [BlockSize].
+// the corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentLength: The segment length in bytes. Ensure this value is a multiple of the
-// corresponding resource’s [BlockSize].
+// corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentCount: The number of segments in the range.
 //
@@ -175,10 +175,10 @@ func (m FSMetadataRange) InitWithOffsetSegmentLengthSegmentCount(startOffset int
 // Creates a metadata range with the given properties.
 //
 // startOffset: The start offset of the range in bytes. Ensure this value is a multiple of
-// the corresponding resource’s [BlockSize].
+// the corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentLength: The segment length in bytes. Ensure this value is a multiple of the
-// corresponding resource’s [BlockSize].
+// corresponding resource’s [FSBlockDeviceResource.BlockSize].
 //
 // segmentCount: The number of segments in the range.
 //
@@ -193,7 +193,7 @@ func (_FSMetadataRangeClass FSMetadataRangeClass) RangeWithOffsetSegmentLengthSe
 // # Discussion
 //
 // Ensure this value is a multiple of the corresponding resource’s
-// [BlockSize].
+// [FSBlockDeviceResource.BlockSize].
 //
 // See: https://developer.apple.com/documentation/FSKit/FSMetadataRange/startOffset
 func (m FSMetadataRange) StartOffset() int64 {
@@ -206,7 +206,7 @@ func (m FSMetadataRange) StartOffset() int64 {
 // # Discussion
 //
 // Ensure this value is a multiple of the corresponding resource’s
-// [BlockSize].
+// [FSBlockDeviceResource.BlockSize].
 //
 // See: https://developer.apple.com/documentation/FSKit/FSMetadataRange/segmentLength
 func (m FSMetadataRange) SegmentLength() uint64 {

@@ -34,7 +34,8 @@ func (_NSIndexPathClass NSIndexPathClass) IndexPathForRowInSection(row int, sect
 //
 // # Discussion
 //
-// The section the row is in is identified by the value of [Section].
+// The section the row is in is identified by the value of
+// [NSIndexPath.Section].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/row
 func (i NSIndexPath) Row() int {

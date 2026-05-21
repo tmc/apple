@@ -49,9 +49,10 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 // # Overview
 //
 // Each app is allowed to create a single filter configuration. The
-// [NEFilterManager] class has a class method ([NEFilterManager.SharedManager]) that provides
-// access to a single [NEFilterManager] instance. This single instance
-// corresponds to a single filter configuration.
+// [NEFilterManager] class has a class method
+// ([NEFilterManagerClass.SharedManager]) that provides access to a single
+// [NEFilterManager] instance. This single instance corresponds to a single
+// filter configuration.
 //
 // The filter configuration is stored in the Network Extension preferences
 // which are managed by the Network Extension framework. The filter
@@ -95,14 +96,6 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 //
 //   - [NEFilterManager.Grade]: The grade of the filter, which determines when it acts relative to other filters.
 //   - [NEFilterManager.SetGrade]
-//
-// # Errors
-//
-//   - [NEFilterManager.NEFilterErrorDomain]: The domain for errors resulting from calls to the filter manager.
-//
-// # Notifications
-//
-//   - [NEFilterManager.NEFilterConfigurationDidChange]: Posted after the filter configuration stored in the Network Extension preferences changes.
 //
 // # Instance Properties
 //
@@ -149,14 +142,6 @@ func NEFilterManagerFromID(id objc.ID) NEFilterManager {
 //   - [INEFilterManager.Grade]: The grade of the filter, which determines when it acts relative to other filters.
 //   - [INEFilterManager.SetGrade]
 //
-// # Errors
-//
-//   - [INEFilterManager.NEFilterErrorDomain]: The domain for errors resulting from calls to the filter manager.
-//
-// # Notifications
-//
-//   - [INEFilterManager.NEFilterConfigurationDidChange]: Posted after the filter configuration stored in the Network Extension preferences changes.
-//
 // # Instance Properties
 //
 //   - [INEFilterManager.DisableEncryptedDNSSettings]
@@ -192,16 +177,6 @@ type INEFilterManager interface {
 	// The grade of the filter, which determines when it acts relative to other filters.
 	Grade() NEFilterManagerGrade
 	SetGrade(value NEFilterManagerGrade)
-
-	// Topic: Errors
-
-	// The domain for errors resulting from calls to the filter manager.
-	NEFilterErrorDomain() string
-
-	// Topic: Notifications
-
-	// Posted after the filter configuration stored in the Network Extension preferences changes.
-	NEFilterConfigurationDidChange() foundation.NSString
 
 	// Topic: Instance Properties
 
@@ -378,23 +353,6 @@ func (f NEFilterManager) Grade() NEFilterManagerGrade {
 }
 func (f NEFilterManager) SetGrade(value NEFilterManagerGrade) {
 	objc.Send[struct{}](f.ID, objc.Sel("setGrade:"), value)
-}
-
-// The domain for errors resulting from calls to the filter manager.
-//
-// See: https://developer.apple.com/documentation/networkextension/nefiltererrordomain
-func (f NEFilterManager) NEFilterErrorDomain() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NEFilterErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Posted after the filter configuration stored in the Network Extension
-// preferences changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NEFilterConfigurationDidChange
-func (f NEFilterManager) NEFilterConfigurationDidChange() foundation.NSString {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NEFilterConfigurationDidChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/disableEncryptedDNSSettings

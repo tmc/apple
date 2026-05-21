@@ -61,7 +61,8 @@ func (nc NSCollectionViewDiffableDataSourceClass) Alloc() NSCollectionViewDiffab
 // current state of the data. - Display the data in the UI.
 //
 // To connect a diffable data source to a collection view, you create the
-// diffable data source using its [NSCollectionViewDiffableDataSource.InitWithCollectionViewItemProvider]
+// diffable data source using its
+// [NSCollectionViewDiffableDataSource.InitWithCollectionViewItemProvider]
 // initializer, passing in the collection view you want to associate with that
 // data source. You also pass in an item provider, where you configure each of
 // your items to determine how to display your data in the UI.
@@ -145,7 +146,7 @@ type INSCollectionViewDiffableDataSource interface {
 	// Returns an identifier for the item at the specified index path in the collection view.
 	ItemIdentifierForIndexPath(indexPath foundation.NSIndexPath) unsafe.Pointer
 	// Returns an index path for the item with the specified identifier in the collection view.
-	IndexPathForItemIdentifier(identifier unsafe.Pointer) objc.ID
+	IndexPathForItemIdentifier(identifier unsafe.Pointer) foundation.NSIndexPath
 
 	// Topic: Updating Data
 
@@ -204,7 +205,7 @@ var _nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_k
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/init(collectionView:itemProvider:)
 func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewDiffableDataSourceItemProvider) NSCollectionViewDiffableDataSource {
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 objc.ID) objc.ID {
-		return itemProvider(NSCollectionViewFromID(arg0), arg1, objectivec.ObjectFromID(arg2)).ID
+		return itemProvider(NSCollectionViewFromID(arg0), foundation.NSIndexPathFromID(arg1), objectivec.ObjectFromID(arg2)).ID
 	})
 	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, objc.ID(_block1))
 	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_key, _block1)
@@ -250,9 +251,9 @@ func (c NSCollectionViewDiffableDataSource) ItemIdentifierForIndexPath(indexPath
 // overhead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/indexPath(forItemIdentifier:)
-func (c NSCollectionViewDiffableDataSource) IndexPathForItemIdentifier(identifier unsafe.Pointer) objc.ID {
+func (c NSCollectionViewDiffableDataSource) IndexPathForItemIdentifier(identifier unsafe.Pointer) foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathForItemIdentifier:"), identifier)
-	return rv
+	return foundation.NSIndexPathFromID(rv)
 }
 
 // Returns a representation of the current state of the data in the collection
@@ -311,10 +312,10 @@ func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(sn
 // All data source objects must implement this method. Your implementation is
 // responsible for creating, configuring, and returning the appropriate item
 // object based on the specified index path. You do this by calling the
-// [ItemWithIdentifierForIndexPath] method of the collection view to retrieve
-// an empty item object of the appropriate type. After receiving the item
-// object, update its properties with the data from your app’s data
-// structures and return it.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] method of the collection
+// view to retrieve an empty item object of the appropriate type. After
+// receiving the item object, update its properties with the data from your
+// app’s data structures and return it.
 //
 // You do not need to set the frame of an item’s view from this method. The
 // collection view gets the item’s location and other layout-related
@@ -375,10 +376,10 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 // Implement this method if the collection view’s layout object supports
 // supplementary views. Your implementation is responsible for creating,
 // configuring, and returning an appropriate view. You do this by calling the
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method of the
-// collection view to retrieve an unconfigured view of the appropriate type.
-// After receiving the view, update its properties and content using your
-// app’s data structures and return it.
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath] method
+// of the collection view to retrieve an unconfigured view of the appropriate
+// type. After receiving the view, update its properties and content using
+// your app’s data structures and return it.
 //
 // You do not need to set the location of supplementary views inside the
 // collection view’s bounds. The collection view gets the view’s location

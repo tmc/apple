@@ -47,7 +47,7 @@ func (ac AVMetadataItemFilterClass) Alloc() AVMetadataItemFilter {
 // # Overview
 //
 // Filter instances are opaque, unmodifiable objects, that you create with the
-// [AVMetadataItemFilter.MetadataItemFilterForSharing] class method.
+// [AVMetadataItemFilterClass.MetadataItemFilterForSharing] class method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItemFilter
 type AVMetadataItemFilter struct {

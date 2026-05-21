@@ -2,46 +2,57 @@
 
 // Package webkit provides Go bindings for the WebKit framework.
 //
-// Integrate web content seamlessly into your app, and customize content interactions to meet your app’s needs.
+// Integrate web content seamlessly into your app, and customize content
+// interactions to meet your app’s needs.
 //
-// Use the WebKit framework to integrate richly styled web content into your app’s native content. WebKit offers a full browsing experience for your content, offering a platform-native view and supporting classes to:
+// Use the WebKit framework to integrate richly styled web content into your
+// app’s native content. WebKit offers a full browsing experience for your
+// content, offering a platform-native view and supporting classes to:
 //
 // # WebKit APIs
 //
-//   - WebKit for AppKit and UIKit: Display web content in AppKit or UIKit apps, or apps built with Objective-C. ([WKWebView], [WKUIDelegate], [WKWebViewConfiguration], [WKWindowFeatures], [WKPreferences])
-//   - WebKit for SwiftUI: Integrate web content into your SwiftUI apps with new standard views you connect to webpages. ([WebView], [URLSchemeHandler])
+//   - [WebKit for AppKit and UIKit]: Display web content in AppKit or UIKit apps, or apps built with Objective-C. ([WKWebView], [WKUIDelegate], [WKWebViewConfiguration], [WKWindowFeatures], [WKPreferences])
 //
 // # Safari Support
 //
-//   - Optimizing Your Website for Safari: Improve your website by optimizing it for Safari.
-//   - Delivering Video Content for Safari: Improve the performance and appearance of video in your website in Safari.
-//   - Promoting Apps with Smart App Banners: Create a banner to promote your app on the App Store from a website.
+//   - [Optimizing Your Website for Safari]: Improve your website by optimizing it for Safari.
+//   - [Delivering Video Content for Safari]: Improve the performance and appearance of video in your website in Safari.
+//   - [Promoting Apps with Smart App Banners]: Create a banner to promote your app on the App Store from a website.
 //
 // # WebDriver
 //
-//   - macOS WebDriver Commands for Safari 11.1 and earlier: Test your web content using the WebDriver commands supported by Safari 11.1 and earlier.
-//   - macOS WebDriver Commands for Safari 12 and later: Test your web content using the WebDriver commands supported by Safari 12 and later.
-//   - About WebDriver for Safari: Enhance testing of your web content using Safari’s enhancements to WebDriver.
-//   - Testing with WebDriver in Safari: Enable WebDriver and run a test.
+//   - [macOS WebDriver Commands for Safari 11.1 and earlier]: Test your web content using the WebDriver commands supported by Safari 11.1 and earlier.
+//   - [macOS WebDriver Commands for Safari 12 and later]: Test your web content using the WebDriver commands supported by Safari 12 and later.
+//   - [About WebDriver for Safari]: Enhance testing of your web content using Safari’s enhancements to WebDriver.
+//   - [Testing with WebDriver in Safari]: Enable WebDriver and run a test.
 //
 // # Enumerations
 //
-//   - WKSecurityRestrictionMode
+//   - [WKDownloadPlaceholderPolicy]
+//   - [WKSecurityRestrictionMode]
+//   - [WKWebpagePreferencesUpgradeToHTTPSPolicy]//
 //
 // # Key Types
 //
 //   - [WKWebView] - An object that displays interactive web content, such as for an in-app browser.
 //   - [WKWebExtensionContext] - An object that represents the runtime environment for a web extension.
 //   - [WKWebExtension] - An object that encapsulates a web extension’s resources that the manifest file defines.
-//   - [WKWebExtensionController] - An object that manages a set of loaded extension contexts.
 //   - [WKWebViewConfiguration] - A collection of properties that you use to initialize a web view.
+//   - [WKWebExtensionController] - An object that manages a set of loaded extension contexts.
 //   - [WKWebExtensionMatchPattern] - An object that represents a way to specify groups of URLs.
 //   - [WKWebsiteDataStore] - An object that manages cookies, disk and memory caches, and other types of data for a web view.
 //   - [WKUserContentController] - An object for managing interactions between JavaScript code and your web view, and for filtering content in your web view.
 //   - [WKWebExtensionAction] - An object that encapsulates the properties for an individual web extension action.
 //   - [WKPreferences] - An object that encapsulates the standard behaviors to apply to websites.
 //
-// [WebKit Documentation]: https://developer.apple.com/documentation/WebKit
+// [About WebDriver for Safari]: https://developer.apple.com/documentation/webkit/about-webdriver-for-safari
+// [Delivering Video Content for Safari]: https://developer.apple.com/documentation/webkit/delivering-video-content-for-safari
+// [Optimizing Your Website for Safari]: https://developer.apple.com/documentation/webkit/optimizing-your-website-for-safari
+// [Promoting Apps with Smart App Banners]: https://developer.apple.com/documentation/webkit/promoting-apps-with-smart-app-banners
+// [Testing with WebDriver in Safari]: https://developer.apple.com/documentation/webkit/testing-with-webdriver-in-safari
+// [WebKit for AppKit and UIKit]: https://developer.apple.com/documentation/webkit/webkit-for-appkit-and-uikit
+// [macOS WebDriver Commands for Safari 11.1 and earlier]: https://developer.apple.com/documentation/webkit/macos-webdriver-commands-for-safari-11-1-and-earlier
+// [macOS WebDriver Commands for Safari 12 and later]: https://developer.apple.com/documentation/webkit/macos-webdriver-commands-for-safari-12-and-later
 package webkit
 
 import (

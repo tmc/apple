@@ -59,7 +59,7 @@ func (nc NSAdaptiveImageGlyphClass) Alloc() NSAdaptiveImageGlyph {
 // text-input system. When someone creates a new emoji and inserts it into
 // their text, TextKit creates an instance of this type to represent it. If
 // your app examines or changes the attributes of attributed strings, preserve
-// the [AdaptiveImageGlyph] attribute when making any changes. For example, if
+// the [adaptiveImageGlyph] attribute when making any changes. For example, if
 // you filter unknown attributes in a custom text-storage object, update your
 // code to preserve this attribute. The value of the attribute is an
 // [NSAdaptiveImageGlyph] containing the emoji data. You can save the image
@@ -81,6 +81,8 @@ func (nc NSAdaptiveImageGlyphClass) Alloc() NSAdaptiveImageGlyph {
 //   - [NSAdaptiveImageGlyph.ContentDescription]: An alternate textual description of the image contents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph
+//
+// [adaptiveImageGlyph]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/adaptiveImageGlyph
 type NSAdaptiveImageGlyph struct {
 	objectivec.Object
 }
@@ -133,8 +135,6 @@ type INSAdaptiveImageGlyph interface {
 	// An alternate textual description of the image contents.
 	ContentDescription() string
 
-	// The adaptive image glyph for the text.
-	AdaptiveImageGlyph() foundation.NSString
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -228,7 +228,7 @@ func (a NSAdaptiveImageGlyph) EncodeWithCoder(coder foundation.INSCoder) {
 // the image description, and additional metadata. When saving your content to
 // disk, save the data for any adaptive images with the rest of your content.
 // If you need to specify a type for the image data, use the value in the
-// [ContentType] property.
+// [NSAdaptiveImageGlyphClass.ContentType] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/imageContent
 func (a NSAdaptiveImageGlyph) ImageContent() foundation.NSData {
@@ -262,14 +262,6 @@ func (a NSAdaptiveImageGlyph) ContentIdentifier() string {
 func (a NSAdaptiveImageGlyph) ContentDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("contentDescription"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The adaptive image glyph for the text.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/adaptiveImageGlyph
-func (a NSAdaptiveImageGlyph) AdaptiveImageGlyph() foundation.NSString {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("adaptiveImageGlyph"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // The image data format to use for this image type.

@@ -137,8 +137,8 @@ func NewAVExternalSyncDevice() AVExternalSyncDevice {
 //
 // # Discussion
 //
-// This property returns [NULL] until the [Status] reaches
-// [AVExternalSyncDeviceStatusActiveSync].
+// This property returns [NULL] until the [AVExternalSyncDevice.Status]
+// reaches [AVExternalSyncDeviceStatusActiveSync].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/clock
 func (e AVExternalSyncDevice) Clock() coremedia.CMClockRef {
@@ -151,8 +151,8 @@ func (e AVExternalSyncDevice) Clock() coremedia.CMClockRef {
 // # Discussion
 //
 // This [UInt32] value comes from the hardware vendor, and returns 0 if not
-// available. Use this value in conjunction with the [VendorID] to determine a
-// specific product.
+// available. Use this value in conjunction with the
+// [AVExternalSyncDevice.VendorID] to determine a specific product.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/productID
 func (e AVExternalSyncDevice) ProductID() uint32 {

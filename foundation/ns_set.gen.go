@@ -3,9 +3,9 @@
 package foundation
 
 import (
-	"context"
 	"sync"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -144,6 +144,10 @@ func (nc NSSetClass) Alloc() NSSet {
 //   - [NSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [NSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
+// # Instance Methods
+//
+//   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 //
 // [CFSet]: https://developer.apple.com/documentation/CoreFoundation/CFSet
@@ -210,6 +214,10 @@ func NSSetFromID(id objc.ID) NSSet {
 //   - [INSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [INSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
+// # Instance Methods
+//
+//   - [INSSet.EnumerateIndexPathsWithOptionsUsingBlock]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type INSSet interface {
 	objectivec.IObject
@@ -255,13 +263,13 @@ type INSSet interface {
 	// Returns an enumerator object that lets you access each object in the set.
 	ObjectEnumerator() INSEnumerator
 	// Executes a given block using each object in the set.
-	EnumerateObjectsUsingBlock(block ObjectTypeHandler)
+	EnumerateObjectsUsingBlock(block IObjectBoolHandler)
 	// Executes a given block using each object in the set, using the specified enumeration options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectBoolHandler)
 	// Returns a set of objects that pass a test in a given block.
-	ObjectsPassingTest(predicate ObjectTypeHandler) INSSet
+	ObjectsPassingTest(predicate BoolIObjectHandler) INSSet
 	// Returns a set of objects that pass a test in a given block, using the specified enumeration options.
-	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet
+	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSSet
 
 	// Topic: Comparing Sets
 
@@ -284,12 +292,16 @@ type INSSet interface {
 	// Returns a string that represents the contents of the set, formatted as a property list.
 	DescriptionWithLocale(locale objectivec.IObject) string
 
+	// Topic: Instance Methods
+
+	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block IndexPathBoolHandler)
+
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelector(aSelector objc.SEL)
+	MakeObjectsPerformSelector(aSelector objectivec.SEL)
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
+	MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -346,8 +358,8 @@ func NewSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSSet {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
-func NewSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSSet {
-	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
+func NewSetWithCollectionViewIndexPaths(indexPaths []kernel.ID) NSSet {
+	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), indexPaths)
 	return NSSetFromID(rv)
 }
 
@@ -693,8 +705,8 @@ func (s NSSet) Member(object objectivec.IObject) objectivec.IObject {
 //
 // When this method is used with mutable subclasses of [NSSet], your code
 // shouldn’t modify the set during enumeration. If you intend to modify the
-// set, use the [AllObjects] method to create a “snapshot” of the set’s
-// members. Enumerate the snapshot, but make your modifications to the
+// set, use the [NSSet.AllObjects] method to create a “snapshot” of the
+// set’s members. Enumerate the snapshot, but make your modifications to the
 // original set.
 //
 // # Special Considerations
@@ -721,8 +733,8 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 // Boolean to true within the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
-func (s NSSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-	_block0, _ := NewObjectTypeBlock(block)
+func (s NSSet) EnumerateObjectsUsingBlock(block IObjectBoolHandler) {
+	_block0, _ := NewIObjectBoolBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 
@@ -741,8 +753,8 @@ func (s NSSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
 // Boolean to true within the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
-func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-	_block1, _ := NewObjectTypeBlock(block)
+func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectBoolHandler) {
+	_block1, _ := NewIObjectBoolBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -765,8 +777,8 @@ func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, 
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
-func (s NSSet) ObjectsPassingTest(predicate ObjectTypeHandler) INSSet {
-	_block0, _ := NewObjectTypeBlock(predicate)
+func (s NSSet) ObjectsPassingTest(predicate BoolIObjectHandler) INSSet {
+	_block0, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
@@ -793,8 +805,8 @@ func (s NSSet) ObjectsPassingTest(predicate ObjectTypeHandler) INSSet {
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
-func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet {
-	_block1, _ := NewObjectTypeBlock(predicate)
+func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSSet {
+	_block1, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
@@ -917,6 +929,12 @@ func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateIndexPaths(options:using:)
+func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block IndexPathBoolHandler) {
+	_block1, _ := NewIndexPathBoolBlock(block)
+	objc.Send[objc.ID](s.ID, objc.Sel("enumerateIndexPathsWithOptions:usingBlock:"), opts, _block1)
+}
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -992,7 +1010,7 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:
-func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
+func (s NSSet) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
@@ -1011,7 +1029,7 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 // [NSInvalidArgumentException] if `aSelector` is [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:withObject:
-func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
+func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 
@@ -1155,63 +1173,3 @@ func (s NSSet) Description() string {
 // Protocol methods for NSMutableCopying
 
 // Protocol methods for NSSecureCoding
-
-// EnumerateObjectsUsingBlockSync is a synchronous wrapper around [NSSet.EnumerateObjectsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s NSSet) EnumerateObjectsUsingBlockSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	s.EnumerateObjectsUsingBlock(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsWithOptionsUsingBlockSync is a synchronous wrapper around [NSSet.EnumerateObjectsWithOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s NSSet) EnumerateObjectsWithOptionsUsingBlockSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	s.EnumerateObjectsWithOptionsUsingBlock(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// ObjectsPassingTestSync is a synchronous wrapper around [NSSet.ObjectsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s NSSet) ObjectsPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	s.ObjectsPassingTest(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// ObjectsWithOptionsPassingTestSync is a synchronous wrapper around [NSSet.ObjectsWithOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s NSSet) ObjectsWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	s.ObjectsWithOptionsPassingTest(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}

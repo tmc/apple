@@ -97,14 +97,14 @@ type INSAccessibilityCustomRotorItemResult interface {
 	// Topic: Creating an Item Result
 
 	// Creates an item result with the specified target element.
-	InitWithTargetElement(targetElement NSAccessibilityElement) NSAccessibilityCustomRotorItemResult
+	InitWithTargetElement(targetElement INSAccessibilityElement) NSAccessibilityCustomRotorItemResult
 	// Creates an item result with the specified item load token and custom label.
-	InitWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult
+	InitWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult
 
 	// Topic: Identifying an Item Result
 
 	// A target element that references an element to message for accessibility properties.
-	TargetElement() NSAccessibilityElement
+	TargetElement() INSAccessibilityElement
 	// A token to determine which item to return.
 	ItemLoadingToken() NSAccessibilityLoadingToken
 	// A range that specifies the area of interest for text-based elements.
@@ -113,10 +113,6 @@ type INSAccessibilityCustomRotorItemResult interface {
 	// A localized label to use instead of the default item label to describe the item result.
 	CustomLabel() string
 	SetCustomLabel(value string)
-
-	// The current item that determines where the search starts.
-	CurrentItem() INSAccessibilityCustomRotorItemResult
-	SetCurrentItem(value INSAccessibilityCustomRotorItemResult)
 }
 
 // Init initializes the instance.
@@ -141,7 +137,7 @@ func NewNSAccessibilityCustomRotorItemResult() NSAccessibilityCustomRotorItemRes
 // Creates an item result with the specified item load token and custom label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(itemLoadingToken:customLabel:)
-func NewAccessibilityCustomRotorItemResultWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult {
+func NewAccessibilityCustomRotorItemResultWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult {
 	instance := getNSAccessibilityCustomRotorItemResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItemLoadingToken:customLabel:"), itemLoadingToken, objc.String(customLabel))
 	return NSAccessibilityCustomRotorItemResultFromID(rv)
@@ -150,7 +146,7 @@ func NewAccessibilityCustomRotorItemResultWithItemLoadingTokenCustomLabel(itemLo
 // Creates an item result with the specified target element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(targetElement:)
-func NewAccessibilityCustomRotorItemResultWithTargetElement(targetElement NSAccessibilityElement) NSAccessibilityCustomRotorItemResult {
+func NewAccessibilityCustomRotorItemResultWithTargetElement(targetElement INSAccessibilityElement) NSAccessibilityCustomRotorItemResult {
 	instance := getNSAccessibilityCustomRotorItemResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetElement:"), targetElement)
 	return NSAccessibilityCustomRotorItemResultFromID(rv)
@@ -159,7 +155,7 @@ func NewAccessibilityCustomRotorItemResultWithTargetElement(targetElement NSAcce
 // Creates an item result with the specified target element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(targetElement:)
-func (a NSAccessibilityCustomRotorItemResult) InitWithTargetElement(targetElement NSAccessibilityElement) NSAccessibilityCustomRotorItemResult {
+func (a NSAccessibilityCustomRotorItemResult) InitWithTargetElement(targetElement INSAccessibilityElement) NSAccessibilityCustomRotorItemResult {
 	rv := objc.Send[NSAccessibilityCustomRotorItemResult](a.ID, objc.Sel("initWithTargetElement:"), targetElement)
 	return rv
 }
@@ -167,7 +163,7 @@ func (a NSAccessibilityCustomRotorItemResult) InitWithTargetElement(targetElemen
 // Creates an item result with the specified item load token and custom label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(itemLoadingToken:customLabel:)
-func (a NSAccessibilityCustomRotorItemResult) InitWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult {
+func (a NSAccessibilityCustomRotorItemResult) InitWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult {
 	rv := objc.Send[NSAccessibilityCustomRotorItemResult](a.ID, objc.Sel("initWithItemLoadingToken:customLabel:"), itemLoadingToken, objc.String(customLabel))
 	return rv
 }
@@ -176,7 +172,7 @@ func (a NSAccessibilityCustomRotorItemResult) InitWithItemLoadingTokenCustomLabe
 // properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/targetElement
-func (a NSAccessibilityCustomRotorItemResult) TargetElement() NSAccessibilityElement {
+func (a NSAccessibilityCustomRotorItemResult) TargetElement() INSAccessibilityElement {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("targetElement"))
 	return NSAccessibilityElementFromID(objc.ID(rv))
 }
@@ -210,15 +206,4 @@ func (a NSAccessibilityCustomRotorItemResult) CustomLabel() string {
 }
 func (a NSAccessibilityCustomRotorItemResult) SetCustomLabel(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCustomLabel:"), objc.String(value))
-}
-
-// The current item that determines where the search starts.
-//
-// See: https://developer.apple.com/documentation/appkit/nsaccessibilitycustomrotor/searchparameters/currentitem
-func (a NSAccessibilityCustomRotorItemResult) CurrentItem() INSAccessibilityCustomRotorItemResult {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentItem"))
-	return NSAccessibilityCustomRotorItemResultFromID(objc.ID(rv))
-}
-func (a NSAccessibilityCustomRotorItemResult) SetCurrentItem(value INSAccessibilityCustomRotorItemResult) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCurrentItem:"), value)
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSComparisonPredicate] class.
@@ -104,7 +105,7 @@ type INSComparisonPredicate interface {
 	// Topic: Creating Comparison Predicates
 
 	// Creates a predicate that you form by combining specified left and right expressions using a specified selector.
-	InitWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objc.SEL) NSComparisonPredicate
+	InitWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objectivec.SEL) NSComparisonPredicate
 	// Creates a predicate to a specified type that you form by combining specified left and right expressions using a specified modifier and options.
 	InitWithLeftExpressionRightExpressionModifierTypeOptions(lhs INSExpression, rhs INSExpression, modifier NSComparisonPredicateModifier, type_ NSPredicateOperatorType, options NSComparisonPredicateOptions) NSComparisonPredicate
 
@@ -113,7 +114,7 @@ type INSComparisonPredicate interface {
 	// The comparison predicate modifier for the receiver.
 	ComparisonPredicateModifier() NSComparisonPredicateModifier
 	// The selector for the receiver.
-	CustomSelector() objc.SEL
+	CustomSelector() objectivec.SEL
 	// The right expression for the receiver.
 	RightExpression() INSExpression
 	// The left expression for the receiver.
@@ -170,7 +171,7 @@ func NewComparisonPredicateWithCoder(coder INSCoder) NSComparisonPredicate {
 // `selector`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/init(leftExpression:rightExpression:customSelector:)
-func NewComparisonPredicateWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objc.SEL) NSComparisonPredicate {
+func NewComparisonPredicateWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objectivec.SEL) NSComparisonPredicate {
 	instance := getNSComparisonPredicateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpression:rightExpression:customSelector:"), lhs, rhs, selector)
 	return NSComparisonPredicateFromID(rv)
@@ -221,7 +222,7 @@ func NewComparisonPredicateWithLeftExpressionRightExpressionModifierTypeOptions(
 // `selector`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/init(leftExpression:rightExpression:customSelector:)
-func (c NSComparisonPredicate) InitWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objc.SEL) NSComparisonPredicate {
+func (c NSComparisonPredicate) InitWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objectivec.SEL) NSComparisonPredicate {
 	rv := objc.Send[NSComparisonPredicate](c.ID, objc.Sel("initWithLeftExpression:rightExpression:customSelector:"), lhs, rhs, selector)
 	return rv
 }
@@ -270,7 +271,7 @@ func (c NSComparisonPredicate) InitWithLeftExpressionRightExpressionModifierType
 // `selector`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/predicateWithLeftExpression:rightExpression:customSelector:
-func (_NSComparisonPredicateClass NSComparisonPredicateClass) PredicateWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objc.SEL) NSComparisonPredicate {
+func (_NSComparisonPredicateClass NSComparisonPredicateClass) PredicateWithLeftExpressionRightExpressionCustomSelector(lhs INSExpression, rhs INSExpression, selector objectivec.SEL) NSComparisonPredicate {
 	rv := objc.Send[objc.ID](objc.ID(_NSComparisonPredicateClass.class), objc.Sel("predicateWithLeftExpression:rightExpression:customSelector:"), lhs, rhs, selector)
 	return NSComparisonPredicateFromID(rv)
 }
@@ -321,9 +322,9 @@ func (c NSComparisonPredicate) ComparisonPredicateModifier() NSComparisonPredica
 // [NULL] if there is none.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/customSelector
-func (c NSComparisonPredicate) CustomSelector() objc.SEL {
-	rv := objc.Send[objc.SEL](c.ID, objc.Sel("customSelector"))
-	return rv
+func (c NSComparisonPredicate) CustomSelector() objectivec.SEL {
+	rv := objc.Send[objectivec.SEL](c.ID, objc.Sel("customSelector"))
+	return objectivec.SEL(rv)
 }
 
 // The right expression for the receiver.

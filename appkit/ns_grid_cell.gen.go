@@ -127,6 +127,7 @@ type INSGridCell interface {
 	YPlacement() NSGridCellPlacement
 	SetYPlacement(value NSGridCellPlacement)
 
+	InitWithCoder(coder foundation.INSCoder) NSGridCell
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -149,6 +150,18 @@ func NewNSGridCell() NSGridCell {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSGridCell/init(coder:)
+func NewGridCellWithCoder(coder foundation.INSCoder) NSGridCell {
+	instance := getNSGridCellClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSGridCellFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSGridCell/init(coder:)
+func (g NSGridCell) InitWithCoder(coder foundation.INSCoder) NSGridCell {
+	rv := objc.Send[NSGridCell](g.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (g NSGridCell) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }

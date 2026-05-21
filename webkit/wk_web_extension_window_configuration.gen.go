@@ -172,8 +172,9 @@ func (w WKWebExtensionWindowConfiguration) ShouldBePrivate() bool {
 //
 // # Discussion
 //
-// If [TabURLs] and [Tabs] are both empty, the app’s default start page
-// should appear in a tab.
+// If [WKWebExtensionWindowConfiguration.TabURLs] and
+// [WKWebExtensionWindowConfiguration.Tabs] are both empty, the app’s
+// default start page should appear in a tab.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/WindowConfiguration/tabURLs
 func (w WKWebExtensionWindowConfiguration) TabURLs() []foundation.NSURL {
@@ -187,8 +188,9 @@ func (w WKWebExtensionWindowConfiguration) TabURLs() []foundation.NSURL {
 //
 // # Discussion
 //
-// If [Tabs] and [TabURLs] are both empty, the app’s default start page
-// should appear in a tab.
+// If [WKWebExtensionWindowConfiguration.Tabs] and
+// [WKWebExtensionWindowConfiguration.TabURLs] are both empty, the app’s
+// default start page should appear in a tab.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/WindowConfiguration/tabs
 func (w WKWebExtensionWindowConfiguration) Tabs() []objectivec.IObject {

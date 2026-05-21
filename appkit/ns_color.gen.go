@@ -3,9 +3,7 @@
 package appkit
 
 import (
-	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -60,16 +58,16 @@ func (nc NSColorClass) Alloc() NSColor {
 // automatically to system appearance changes. - Use the semantic colors for
 // custom UI elements, so that they match the appearance of other AppKit
 // views; see [UI element colors]. - Use the adaptable system colors, such as
-// [NSColor.SystemBlueColor], when you want a specific tint that looks correct in both
-// light and dark environments. - Create a color object from another object,
-// such as a Core Graphics representation of a color, or a Core Image color. -
-// Create a color from an [NSImage] object, and paint a repeating pattern
-// instead of using a solid color. - Create a color by applying a transform to
-// another [NSColor] object. For example, you might perform a blend operation
-// between two colors, or you might create a color that represents the same
-// color, but in a different color space. - Create custom colors using raw
-// component values, and a variety of color spaces, when you need to represent
-// user-specified colors.
+// [NSColorClass.SystemBlueColor], when you want a specific tint that looks
+// correct in both light and dark environments. - Create a color object from
+// another object, such as a Core Graphics representation of a color, or a
+// Core Image color. - Create a color from an [NSImage] object, and paint a
+// repeating pattern instead of using a solid color. - Create a color by
+// applying a transform to another [NSColor] object. For example, you might
+// perform a blend operation between two colors, or you might create a color
+// that represents the same color, but in a different color space. - Create
+// custom colors using raw component values, and a variety of color spaces,
+// when you need to represent user-specified colors.
 //
 // For user-specified colors, you can also display a color panel and let the
 // user specify the color. For information about color panels, see
@@ -81,8 +79,8 @@ func (nc NSColorClass) Alloc() NSColor {
 // ([NSColor.CGColor]) in a Core Graphics color space ([CGColorSpace]). Colors can
 // also be created in extended color spaces:
 //
-// - [ExtendedSRGBColorSpace]
-// - [ExtendedGenericGamma22GrayColorSpace]
+// - [NSColorSpaceClass.ExtendedSRGBColorSpace] -
+// [NSColorSpaceClass.ExtendedGenericGamma22GrayColorSpace]
 //
 // When you need to worry about color spaces, use extended color spaces as
 // working color spaces. When you need to worry about representing that color
@@ -102,14 +100,15 @@ func (nc NSColorClass) Alloc() NSColor {
 //
 // It is a programmer error to access color components of a color space that
 // the [NSColor] object does not support. For example, you cannot access the
-// [NSColor.RedComponent] property and [NSColor.GetRedGreenBlueAlpha] method on a color that
-// uses the CMYK color space. Further, the [NSColor.GetComponents] method and
-// [NSColor.NumberOfComponents] property work only in color spaces that have
-// individual components. As such, they return the components of color objects
-// as individual floating-point values regardless of whether they’re based
-// on [NSColorSpace] objects or named color spaces. However, older
-// component-fetching methods such as [NSColor.GetRedGreenBlueAlpha] are effective
-// only on color objects based on named color spaces.
+// [NSColor.RedComponent] property and [NSColor.GetRedGreenBlueAlpha] method
+// on a color that uses the CMYK color space. Further, the
+// [NSColor.GetComponents] method and [NSColor.NumberOfComponents] property
+// work only in color spaces that have individual components. As such, they
+// return the components of color objects as individual floating-point values
+// regardless of whether they’re based on [NSColorSpace] objects or named
+// color spaces. However, older component-fetching methods such as
+// [NSColor.GetRedGreenBlueAlpha] are effective only on color objects based on
+// named color spaces.
 //
 // If you have a color object in an unknown color space and you want to
 // extract its components, convert the color object to a known color space and
@@ -303,17 +302,17 @@ type INSColor interface {
 	// Topic: Retrieving component values from color objects
 
 	// Returns the color object’s CMYK and opacity values.
-	GetCyanMagentaYellowBlackAlpha(cyan unsafe.Pointer, magenta unsafe.Pointer, yellow unsafe.Pointer, black unsafe.Pointer, alpha unsafe.Pointer)
+	GetCyanMagentaYellowBlackAlpha(cyan *float64, magenta *float64, yellow *float64, black *float64, alpha *float64)
 	// Returns the color object’s HSB component and opacity values in the respective arguments.
-	GetHueSaturationBrightnessAlpha(hue unsafe.Pointer, saturation unsafe.Pointer, brightness unsafe.Pointer, alpha unsafe.Pointer)
+	GetHueSaturationBrightnessAlpha(hue *float64, saturation *float64, brightness *float64, alpha *float64)
 	// Returns the color object’s RGB component and opacity values in the respective arguments.
-	GetRedGreenBlueAlpha(red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, alpha unsafe.Pointer)
+	GetRedGreenBlueAlpha(red *float64, green *float64, blue *float64, alpha *float64)
 	// Returns the grayscale and alpha values of the color.
-	GetWhiteAlpha(white unsafe.Pointer, alpha unsafe.Pointer)
+	GetWhiteAlpha(white *float64, alpha *float64)
 	// The number of components in the color.
 	NumberOfComponents() int
 	// Returns the components of the color as an array.
-	GetComponents(components unsafe.Pointer)
+	GetComponents(components *float64)
 
 	// Topic: Retrieving individual components
 
@@ -388,7 +387,6 @@ type INSColor interface {
 	PatternImage() INSImage
 	// Creates a color object from data in an unarchiver.
 	InitWithCoder(coder foundation.INSCoder) NSColor
-	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSColor
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -420,7 +418,7 @@ func NewNSColor() NSColor {
 //
 // The color currently on the pasteboard or `nil` if `pasteBoard` doesn’t
 // contain color data. The returned color’s alpha component is set to 1.0 if
-// [IgnoresAlpha] returns true.
+// [NSColorClass.IgnoresAlpha] returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(from:)
 func NewColorFromPasteboard(pasteBoard INSPasteboard) NSColor {
@@ -483,7 +481,7 @@ func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 // The method raises if the color space and components associated with `color`
 // are `nil` or invalid.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)-3rxsk
 func NewColorWithCIColor(color objectivec.IObject) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCIColor:"), color)
 	return NSColorFromID(rv)
@@ -824,8 +822,8 @@ func NewColorWithGenericGamma22WhiteAlpha(white float64, alpha float64) NSColor 
 // code that uses [UIColor] in iOS.
 //
 // Where possible, it is preferable to specify the colorspace explicitly using
-// the [ColorWithSRGBRedGreenBlueAlpha] or [ColorWithGenericGamma22WhiteAlpha]
-// method.
+// the [NSColorClass.ColorWithSRGBRedGreenBlueAlpha] or
+// [NSColorClass.ColorWithGenericGamma22WhiteAlpha] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(hue:saturation:brightness:alpha:)
 //
@@ -835,32 +833,7 @@ func NewColorWithHueSaturationBrightnessAlpha(hue float64, saturation float64, b
 	return NSColorFromID(rv)
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(pasteboardPropertyList:ofType:)
 func NewColorWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSColor {
 	instance := getNSColorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
@@ -907,8 +880,8 @@ func NewColorWithPatternImage(image INSImage) NSColor {
 // easier reuse of code that uses [UIColor] in iOS.
 //
 // Where possible, it is preferable to specify the colorspace explicitly using
-// the [ColorWithSRGBRedGreenBlueAlpha] or [ColorWithGenericGamma22WhiteAlpha]
-// method.
+// the [NSColorClass.ColorWithSRGBRedGreenBlueAlpha] or
+// [NSColorClass.ColorWithGenericGamma22WhiteAlpha] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(red:green:blue:alpha:)
 //
@@ -988,13 +961,13 @@ func NewColorWithSRGBRedGreenBlueAlpha(red float64, green float64, blue float64,
 //
 // This method accepts extended color component values. If the alpha or white
 // values are outside of the `0-1.0` range, the method creates a color in the
-// extended range or [ExtendedGenericGamma22GrayColorSpace] color space that
-// is compatible with the sRGB colorspace. This method is provided for easier
-// reuse of code that uses [UIColor] in iOS.
+// extended range or [NSColorSpaceClass.ExtendedGenericGamma22GrayColorSpace]
+// color space that is compatible with the sRGB colorspace. This method is
+// provided for easier reuse of code that uses [UIColor] in iOS.
 //
 // Where possible, it is preferable to specify the colorspace explicitly using
-// the [ColorWithSRGBRedGreenBlueAlpha] or [ColorWithGenericGamma22WhiteAlpha]
-// method.
+// the [NSColorClass.ColorWithSRGBRedGreenBlueAlpha] or
+// [NSColorClass.ColorWithGenericGamma22WhiteAlpha] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(white:alpha:)
 //
@@ -1104,8 +1077,9 @@ func (c NSColor) ColorWithAlphaComponent(alpha float64) INSColor {
 //
 // # Discussion
 //
-// The highlight color is provided by the [HighlightColor] property. Call this
-// method when you want to brighten the current color for use in highlights.
+// The highlight color is provided by the [NSColorClass.HighlightColor]
+// property. Call this method when you want to brighten the current color for
+// use in highlights.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/highlight(withLevel:)
 func (c NSColor) HighlightWithLevel(val float64) INSColor {
@@ -1126,8 +1100,9 @@ func (c NSColor) HighlightWithLevel(val float64) INSColor {
 //
 // # Discussion
 //
-// The shadow color is provided by the [ShadowColor] property. Call this
-// method when you want to darken the current color for use in shadows.
+// The shadow color is provided by the [NSColorClass.ShadowColor] property.
+// Call this method when you want to darken the current color for use in
+// shadows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/shadow(withLevel:)
 func (c NSColor) ShadowWithLevel(val float64) INSColor {
@@ -1166,7 +1141,7 @@ func (c NSColor) WriteToPasteboard(pasteBoard INSPasteboard) {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/getCyan(_:magenta:yellow:black:alpha:)
 //
 // [deviceCMYK]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceCMYK
-func (c NSColor) GetCyanMagentaYellowBlackAlpha(cyan unsafe.Pointer, magenta unsafe.Pointer, yellow unsafe.Pointer, black unsafe.Pointer, alpha unsafe.Pointer) {
+func (c NSColor) GetCyanMagentaYellowBlackAlpha(cyan *float64, magenta *float64, yellow *float64, black *float64, alpha *float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getCyan:magenta:yellow:black:alpha:"), cyan, magenta, yellow, black, alpha)
 }
 
@@ -1192,7 +1167,7 @@ func (c NSColor) GetCyanMagentaYellowBlackAlpha(cyan unsafe.Pointer, magenta uns
 //
 // [calibratedRGB]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/calibratedRGB
 // [deviceRGB]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceRGB
-func (c NSColor) GetHueSaturationBrightnessAlpha(hue unsafe.Pointer, saturation unsafe.Pointer, brightness unsafe.Pointer, alpha unsafe.Pointer) {
+func (c NSColor) GetHueSaturationBrightnessAlpha(hue *float64, saturation *float64, brightness *float64, alpha *float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getHue:saturation:brightness:alpha:"), hue, saturation, brightness, alpha)
 }
 
@@ -1218,7 +1193,7 @@ func (c NSColor) GetHueSaturationBrightnessAlpha(hue unsafe.Pointer, saturation 
 //
 // [calibratedRGB]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/calibratedRGB
 // [deviceRGB]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceRGB
-func (c NSColor) GetRedGreenBlueAlpha(red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, alpha unsafe.Pointer) {
+func (c NSColor) GetRedGreenBlueAlpha(red *float64, green *float64, blue *float64, alpha *float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getRed:green:blue:alpha:"), red, green, blue, alpha)
 }
 
@@ -1242,7 +1217,7 @@ func (c NSColor) GetRedGreenBlueAlpha(red unsafe.Pointer, green unsafe.Pointer, 
 // [NSDeviceBlackColorSpace]: https://developer.apple.com/documentation/AppKit/NSDeviceBlackColorSpace
 // [calibratedWhite]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/calibratedWhite
 // [deviceWhite]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceWhite
-func (c NSColor) GetWhiteAlpha(white unsafe.Pointer, alpha unsafe.Pointer) {
+func (c NSColor) GetWhiteAlpha(white *float64, alpha *float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getWhite:alpha:"), white, alpha)
 }
 
@@ -1256,10 +1231,10 @@ func (c NSColor) GetWhiteAlpha(white unsafe.Pointer, alpha unsafe.Pointer) {
 // spaces to get the individual floating-point components, including alpha.
 // Raises an exception if the receiver doesn’t have floating-point
 // components. To find out how many components are in the `components` array,
-// use the [NumberOfComponents] property.
+// use the [NSColor.NumberOfComponents] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/getComponents(_:)
-func (c NSColor) GetComponents(components unsafe.Pointer) {
+func (c NSColor) GetComponents(components *float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getComponents:"), components)
 }
 
@@ -1368,32 +1343,7 @@ func (c NSColor) InitWithCoder(coder foundation.INSCoder) NSColor {
 	return rv
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(pasteboardPropertyList:ofType:)
 func (c NSColor) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSColor {
 	rv := objc.Send[NSColor](c.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
@@ -1490,11 +1440,12 @@ func (c NSColor) EncodeWithCoder(coder foundation.INSCoder) {
 // # Discussion
 //
 // When methods on a color need color component values, AppKit calls the
-// provider with [CurrentDrawingAppearance]. The provider can use the
-// appearance to return another color to use for drawing. For example, if you
-// create a color matching [SystemYellowColor] for Light appearance, you’ll
-// get a color matching [SystemYellowColor] for Dark appearance when using
-// Dark Mode. As often as possible, use the given appearance.
+// provider with [NSAppearanceClass.CurrentDrawingAppearance]. The provider
+// can use the appearance to return another color to use for drawing. For
+// example, if you create a color matching [NSColorClass.SystemYellowColor]
+// for Light appearance, you’ll get a color matching
+// [NSColorClass.SystemYellowColor] for Dark appearance when using Dark Mode.
+// As often as possible, use the given appearance.
 //
 // The `colorName` is equal to the identity of the color and should be
 // universally unique; if `nil`, the system generates a unique name.
@@ -1843,7 +1794,7 @@ func (c NSColor) LocalizedColorNameComponent() string {
 //
 // A color object’s type determines which of its methods and properties you
 // may access. For example, if the type is [NSColorTypePattern], you may
-// safely access the [PatternImage] property.
+// safely access the [NSColor.PatternImage] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/type
 func (c NSColor) Type() NSColorType {
@@ -1937,15 +1888,6 @@ func (c NSColor) PatternImage() INSImage {
 	return NSImageFromID(objc.ID(rv))
 }
 
-// Sent when the system colors have changed, such as through a system control
-// panel interface.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/systemcolorsdidchangenotification
-func (_NSColorClass NSColorClass) SystemColorsDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("NSSystemColorsDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
 // A Boolean value that indicates whether the app supports alpha.
 //
 // # Return Value
@@ -1963,8 +1905,8 @@ func (_NSColorClass NSColorClass) SystemColorsDidChangeNotification() foundation
 //
 // This method provides a global approach for removing alpha, which might not
 // always be appropriate. Apps that need to disable alpha can use more
-// fine-grained APIs for individual controls, such as [ShowsAlpha] and
-// [SupportsAlpha].
+// fine-grained APIs for individual controls, such as
+// [NSColorPanel.ShowsAlpha] and [NSColorWell.SupportsAlpha].
 //
 // In macOS 13 and earlier, the default value is true. This property is
 // deprecated as of macOS 14.
@@ -1978,21 +1920,13 @@ func (_NSColorClass NSColorClass) SetIgnoresAlpha(value bool) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setIgnoresAlpha:"), value)
 }
 
-// Sent after the user changes control tint preference.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolor/currentcontroltintdidchangenotification
-func (_NSColorClass NSColorClass) CurrentControlTintDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("NSControlTintDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
 // The color to use for text in a selected control.
 //
 // # Discussion
 //
 // This color is the table and list view equivalent to the
-// [SelectedControlTextColor] color, which is used for controls in other
-// views.
+// [NSColorClass.SelectedControlTextColor] color, which is used for controls
+// in other views.
 //
 // For more information, see [NSColor].
 //
@@ -2105,12 +2039,13 @@ func (_NSColorClass NSColorClass) ControlBackgroundColor() NSColor {
 // The system color used for the flat surfaces of a control. By default, the
 // control color is a pattern color that will draw the ruled lines for the
 // window background, which is the same as returned by
-// [WindowBackgroundColor].
+// [NSColorClass.WindowBackgroundColor].
 //
 // # Discussion
 //
-// If you use [ControlColor] assuming that it is a solid, you may have an
-// incorrect appearance. You should use [LightGrayColor] in its place.
+// If you use [NSColorClass.ControlColor] assuming that it is a solid, you may
+// have an incorrect appearance. You should use [NSColorClass.LightGrayColor]
+// in its place.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/controlColor
 func (_NSColorClass NSColorClass) ControlColor() NSColor {
@@ -2140,10 +2075,12 @@ func (_NSColorClass NSColorClass) ControlTextColor() NSColor {
 // # Discussion
 //
 // An application can register for the
-// [CurrentControlTintDidChangeNotification] notification to be notified of
+// [currentControlTintDidChangeNotification] notification to be notified of
 // changes to the system control tint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/currentControlTint
+//
+// [currentControlTintDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSColor/currentControlTintDidChangeNotification
 func (_NSColorClass NSColorClass) CurrentControlTint() NSControlTint {
 	rv := objc.Send[NSControlTint](objc.ID(_NSColorClass.class), objc.Sel("currentControlTint"))
 	return NSControlTint(rv)
@@ -2186,29 +2123,6 @@ func (_NSColorClass NSColorClass) DarkGrayColor() NSColor {
 func (_NSColorClass NSColorClass) DisabledControlTextColor() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("disabledControlTextColor"))
 	return NSColorFromID(objc.ID(rv))
-}
-
-// A color space object that represents an extended gray color space with a
-// gamma value of 2.2.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolorspace/extendedgenericgamma22gray
-func (_NSColorClass NSColorClass) ExtendedGenericGamma22Gray() NSColorSpace {
-	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("extendedGenericGamma22GrayColorSpace"))
-	return NSColorSpaceFromID(objc.ID(rv))
-}
-func (_NSColorClass NSColorClass) SetExtendedGenericGamma22GrayColorSpace(value NSColorSpace) {
-	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedGenericGamma22GrayColorSpace:"), value)
-}
-
-// A color space object that represents an extended sRGB color space.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolorspace/extendedsrgb
-func (_NSColorClass NSColorClass) ExtendedSRGB() NSColorSpace {
-	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("extendedSRGBColorSpace"))
-	return NSColorSpaceFromID(objc.ID(rv))
-}
-func (_NSColorClass NSColorClass) SetExtendedSRGBColorSpace(value NSColorSpace) {
-	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedSRGBColorSpace:"), value)
 }
 
 // The highlight color to use for the bubble that shows inline search result
@@ -2279,7 +2193,7 @@ func (_NSColorClass NSColorClass) HeaderTextColor() NSColor {
 //
 // # Discussion
 //
-// This method is invoked by the [HighlightWithLevel] method. For more
+// This method is invoked by the [NSColor.HighlightWithLevel] method. For more
 // information, see [NSColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/highlightColor
@@ -2541,8 +2455,8 @@ func (_NSColorClass NSColorClass) SeparatorColor() NSColor {
 //
 // # Discussion
 //
-// This method is invoked by [ShadowWithLevel]. For more information, see
-// [NSColor].
+// This method is invoked by [NSColor.ShadowWithLevel]. For more information,
+// see [NSColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/shadowColor
 func (_NSColorClass NSColorClass) ShadowColor() NSColor {
@@ -2767,7 +2681,7 @@ func (_NSColorClass NSColorClass) TertiarySystemFillColor() NSColor {
 // # Discussion
 //
 // When text is selected, its background color changes to the return value of
-// [SelectedTextBackgroundColor].
+// [NSColorClass.SelectedTextBackgroundColor].
 //
 // When applied to an [NSBox] object, this color supports Desktop Tinting in
 // Dark Mode. With Desktop Tinting, the system modifies this color dynamically
@@ -2785,7 +2699,7 @@ func (_NSColorClass NSColorClass) TextBackgroundColor() NSColor {
 // # Discussion
 //
 // When text is selected, its color changes to the return value of
-// [SelectedTextColor].
+// [NSColorClass.SelectedTextColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/textColor
 func (_NSColorClass NSColorClass) TextColor() NSColor {
@@ -2917,18 +2831,3 @@ func (_NSColorClass NSColorClass) YellowColor() NSColor {
 // Protocol methods for NSAccessibilityColor
 
 // Protocol methods for NSPasteboardWriting
-
-// ColorWithNameDynamicProviderSync is a synchronous wrapper around [NSColor.ColorWithNameDynamicProvider].
-// It blocks until the completion handler fires or the context is cancelled.
-func (cc NSColorClass) ColorWithNameDynamicProviderSync(ctx context.Context, colorName string) (*NSAppearance, error) {
-	done := make(chan *NSAppearance, 1)
-	cc.ColorWithNameDynamicProvider(colorName, func(val *NSAppearance) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}

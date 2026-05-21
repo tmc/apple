@@ -307,7 +307,7 @@ func NewTableRowViewWithFrame(frameRect corefoundation.CGRect) NSTableRowView {
 //
 // By default, this method draws the background color or group row style as
 // appropriate for the row. This method also draws the “below look” for a
-// drop target if [TargetForDropOperation] is true.
+// drop target if [NSTableRowView.TargetForDropOperation] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/drawBackground(in:)
 func (t NSTableRowView) DrawBackgroundInRect(dirtyRect corefoundation.CGRect) {
@@ -324,8 +324,9 @@ func (t NSTableRowView) DrawBackgroundInRect(dirtyRect corefoundation.CGRect) {
 // Overriding this method allows an application to draw custom dragging
 // destination feedback when the entire row is a drop target.
 //
-// This method only is called if [TargetForDropOperation] is true, and is only
-// drawn based on the properties set, such as the group row style.
+// This method only is called if [NSTableRowView.TargetForDropOperation] is
+// true, and is only drawn based on the properties set, such as the group row
+// style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/drawDraggingDestinationFeedback(in:)
 func (t NSTableRowView) DrawDraggingDestinationFeedbackInRect(dirtyRect corefoundation.CGRect) {
@@ -343,7 +344,8 @@ func (t NSTableRowView) DrawDraggingDestinationFeedbackInRect(dirtyRect corefoun
 // The selection will automatically be alpha-blended if the selection is
 // animating in or out.
 //
-// The default selection drawn is dependent on the [SelectionHighlightStyle].
+// The default selection drawn is dependent on the
+// [NSTableView.SelectionHighlightStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/drawSelection(in:)
 func (t NSTableRowView) DrawSelectionInRect(dirtyRect corefoundation.CGRect) {
@@ -357,7 +359,7 @@ func (t NSTableRowView) DrawSelectionInRect(dirtyRect corefoundation.CGRect) {
 // # Discussion
 //
 // By default, the separator is only drawn if the enclosing table’s
-// [GridStyleMask] is set to include a horizontal separator.
+// [NSTableView.GridStyleMask] is set to include a horizontal separator.
 //
 // The separator should be drawn at the bottom of the row view, indicating a
 // separation from this row and the next.
@@ -556,7 +558,7 @@ func (t NSTableRowView) SetIndentationForDropOperation(value float64) {
 // # Discussion
 //
 // When true, the row view will draw a drop on indicator based on the current
-// [DraggingDestinationFeedbackStyle].
+// [NSTableView.DraggingDestinationFeedbackStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isTargetForDropOperation
 func (t NSTableRowView) IsTargetForDropOperation() bool {
@@ -600,10 +602,10 @@ func (t NSTableRowView) NumberOfColumns() int {
 //
 // # Discussion
 //
-// The property defaults to the table view’s [BackgroundColor], unless
-// [UsesAlternatingRowBackgroundColors] is set to true. In that case, the
-// colors alternate, and are automatically updated as required by insertions
-// and deletions.
+// The property defaults to the table view’s [NSTableView.BackgroundColor],
+// unless [NSTableView.UsesAlternatingRowBackgroundColors] is set to true. In
+// that case, the colors alternate, and are automatically updated as required
+// by insertions and deletions.
 //
 // The value of the background color can be customized in the
 // [NSTableViewDelegate] method “. The property is animatable.

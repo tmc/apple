@@ -231,7 +231,7 @@ type IAVAudioPlayer interface {
 	// Plays audio asynchronously.
 	Play() bool
 	// Plays audio asynchronously, starting at a specified point in the audio output device’s timeline.
-	PlayAtTime(time float64) bool
+	PlayAtTime(time foundation.NSTimeInterval) bool
 	// Pauses audio playback.
 	Pause()
 	// Stops playback and undoes the setup the system requires for playback.
@@ -245,7 +245,7 @@ type IAVAudioPlayer interface {
 	Volume() float32
 	SetVolume(value float32)
 	// Changes the audio player’s volume over a duration of time.
-	SetVolumeFadeDuration(volume float32, duration float64)
+	SetVolumeFadeDuration(volume float32, duration foundation.NSTimeInterval)
 	// The audio player’s stereo pan position.
 	Pan() float32
 	SetPan(value float32)
@@ -262,10 +262,10 @@ type IAVAudioPlayer interface {
 	// Topic: Accessing player timing
 
 	// The current playback time, in seconds, within the audio timeline.
-	CurrentTime() float64
-	SetCurrentTime(value float64)
+	CurrentTime() foundation.NSTimeInterval
+	SetCurrentTime(value foundation.NSTimeInterval)
 	// The total duration, in seconds, of the player’s audio.
-	Duration() float64
+	Duration() foundation.NSTimeInterval
 
 	// Topic: Managing audio channels
 
@@ -307,7 +307,7 @@ type IAVAudioPlayer interface {
 	CurrentDevice() string
 	SetCurrentDevice(value string)
 	// The time value, in seconds, of the audio output device’s clock.
-	DeviceCurrentTime() float64
+	DeviceCurrentTime() foundation.NSTimeInterval
 }
 
 // Init initializes the instance.
@@ -560,11 +560,12 @@ func (a AVAudioPlayer) InitWithDataFileTypeHintError(data foundation.NSData, uti
 // [AVAudioSessionCategoryOptionDuckOthers], this method lowers the audio
 // outside of the app.
 //
-// The system calls this method when using the method [Play], but calling it
-// in advance minimizes the delay between calling `play()` and the start of
-// sound output.
+// The system calls this method when using the method [AVAudioPlayer.Play],
+// but calling it in advance minimizes the delay between calling `play()` and
+// the start of sound output.
 //
-// Calling [Stop], or allowing a sound to finish playing, undoes this setup.
+// Calling [AVAudioPlayer.Stop], or allowing a sound to finish playing, undoes
+// this setup.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/prepareToPlay()
 //
@@ -582,8 +583,8 @@ func (a AVAudioPlayer) PrepareToPlay() bool {
 //
 // # Discussion
 //
-// Calling this method implicitly calls [PrepareToPlay] if the audio player is
-// unprepared for playback.
+// Calling this method implicitly calls [AVAudioPlayer.PrepareToPlay] if the
+// audio player is unprepared for playback.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/play()
 func (a AVAudioPlayer) Play() bool {
@@ -606,11 +607,11 @@ func (a AVAudioPlayer) Play() bool {
 // Use this method to precisely synchronize the playback of two or more audio
 // player objects as the following example shows:
 //
-// Calling this method implicitly calls [PrepareToPlay] if the audio player is
-// unprepared for playback.
+// Calling this method implicitly calls [AVAudioPlayer.PrepareToPlay] if the
+// audio player is unprepared for playback.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/play(atTime:)
-func (a AVAudioPlayer) PlayAtTime(time float64) bool {
+func (a AVAudioPlayer) PlayAtTime(time foundation.NSTimeInterval) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("playAtTime:"), time)
 	return rv
 }
@@ -619,9 +620,9 @@ func (a AVAudioPlayer) PlayAtTime(time float64) bool {
 //
 // # Discussion
 //
-// Unlike calling [Stop], pausing playback doesn’t deallocate hardware
-// resources. It leaves the audio ready to resume playback from where it
-// stops.
+// Unlike calling [AVAudioPlayer.Stop], pausing playback doesn’t deallocate
+// hardware resources. It leaves the audio ready to resume playback from where
+// it stops.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/pause()
 func (a AVAudioPlayer) Pause() {
@@ -633,8 +634,9 @@ func (a AVAudioPlayer) Pause() {
 // # Discussion
 //
 // Calling this method undoes the resource allocation the system performs in
-// [PrepareToPlay] or [Play]. It doesn’t reset the player’s [CurrentTime]
-// value to `0`, so playback resumes from where it stops.
+// [AVAudioPlayer.PrepareToPlay] or [AVAudioPlayer.Play]. It doesn’t reset
+// the player’s [AVAudioPlayer.CurrentTime] value to `0`, so playback
+// resumes from where it stops.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/stop()
 func (a AVAudioPlayer) Stop() {
@@ -648,7 +650,7 @@ func (a AVAudioPlayer) Stop() {
 // duration: The duration, in seconds, over which to fade the volume.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/setVolume(_:fadeDuration:)
-func (a AVAudioPlayer) SetVolumeFadeDuration(volume float32, duration float64) {
+func (a AVAudioPlayer) SetVolumeFadeDuration(volume float32, duration foundation.NSTimeInterval) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setVolume:fadeDuration:"), volume, duration)
 }
 
@@ -675,9 +677,9 @@ func (a AVAudioPlayer) UpdateMeters() {
 // # Discussion
 //
 // Before asking the player for its average power value, you must call
-// [UpdateMeters] to generate the latest data. The returned value ranges from
-// `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
-// power.
+// [AVAudioPlayer.UpdateMeters] to generate the latest data. The returned
+// value ranges from `–160` dBFS, indicating minimum power, to 0 dBFS,
+// indicating maximum power.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/averagePower(forChannel:)
 func (a AVAudioPlayer) AveragePowerForChannel(channelNumber uint) float32 {
@@ -700,9 +702,9 @@ func (a AVAudioPlayer) AveragePowerForChannel(channelNumber uint) float32 {
 // # Discussion
 //
 // Before asking the player for its peak power value, you must call
-// [UpdateMeters] to generate the latest data. The returned value ranges from
-// `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
-// power.
+// [AVAudioPlayer.UpdateMeters] to generate the latest data. The returned
+// value ranges from `–160` dBFS, indicating minimum power, to 0 dBFS,
+// indicating maximum power.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/peakPower(forChannel:)
 func (a AVAudioPlayer) PeakPowerForChannel(channelNumber uint) float32 {
@@ -758,7 +760,7 @@ func (a AVAudioPlayer) SetPan(value float32) {
 // # Discussion
 //
 // To enable modifying the player’s rate, set this property to true after
-// you create the player, but before you call [PrepareToPlay].
+// you create the player, but before you call [AVAudioPlayer.PrepareToPlay].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/enableRate
 func (a AVAudioPlayer) EnableRate() bool {
@@ -774,7 +776,7 @@ func (a AVAudioPlayer) SetEnableRate(value bool) {
 // # Discussion
 //
 // To set an audio player’s playback rate, you must first enable the rate
-// adjustment by setting its [EnableRate] property to true.
+// adjustment by setting its [AVAudioPlayer.EnableRate] property to true.
 //
 // The default value of this property is `1.0`, which indicates that audio
 // playback occurs at standard speed. This property supports values in the
@@ -797,7 +799,7 @@ func (a AVAudioPlayer) SetRate(value float32) {
 // integer value to specify the number of times to repeat the sound. For
 // example, a value of `1` plays the sound twice: the original sound and one
 // repetition. Set a negative integer value to loop the sound continuously
-// until you call the [Stop] method.
+// until you call the [AVAudioPlayer.Stop] method.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/numberOfLoops
 func (a AVAudioPlayer) NumberOfLoops() int {
@@ -814,27 +816,27 @@ func (a AVAudioPlayer) SetNumberOfLoops(value int) {
 //
 // If the sound is playing, this property value is the offset, in seconds,
 // from the start of the sound. If the sound isn’t playing, this property
-// indicates the offset from where playback starts upon calling the [Play]
-// method.
+// indicates the offset from where playback starts upon calling the
+// [AVAudioPlayer.Play] method.
 //
 // Use this property to seek to a specific time in the audio data or to
 // implement audio fast-forward and rewind functions.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/currentTime
-func (a AVAudioPlayer) CurrentTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("currentTime"))
-	return rv
+func (a AVAudioPlayer) CurrentTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("currentTime"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a AVAudioPlayer) SetCurrentTime(value float64) {
+func (a AVAudioPlayer) SetCurrentTime(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentTime:"), value)
 }
 
 // The total duration, in seconds, of the player’s audio.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/duration
-func (a AVAudioPlayer) Duration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("duration"))
-	return rv
+func (a AVAudioPlayer) Duration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("duration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The number of audio channels in the player’s audio.
@@ -937,7 +939,7 @@ func (a AVAudioPlayer) SetCurrentDevice(value string) {
 // paused state, device time reverts to `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/deviceCurrentTime
-func (a AVAudioPlayer) DeviceCurrentTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("deviceCurrentTime"))
-	return rv
+func (a AVAudioPlayer) DeviceCurrentTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("deviceCurrentTime"))
+	return foundation.NSTimeInterval(rv)
 }

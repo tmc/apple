@@ -79,10 +79,6 @@ func (nc NETunnelProviderClass) Alloc() NETunnelProvider {
 //   - [NETunnelProvider.Reasserting]: Indicate to the system that the tunnel is being re-established.
 //   - [NETunnelProvider.SetReasserting]
 //
-// # Errors
-//
-//   - [NETunnelProvider.NETunnelProviderErrorDomain]: The domain used for Tunnel Provider errors.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider
 type NETunnelProvider struct {
 	NEProvider
@@ -120,10 +116,6 @@ func NETunnelProviderFromID(id objc.ID) NETunnelProvider {
 //   - [INETunnelProvider.Reasserting]: Indicate to the system that the tunnel is being re-established.
 //   - [INETunnelProvider.SetReasserting]
 //
-// # Errors
-//
-//   - [INETunnelProvider.NETunnelProviderErrorDomain]: The domain used for Tunnel Provider errors.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider
 type INETunnelProvider interface {
 	INEProvider
@@ -152,11 +144,6 @@ type INETunnelProvider interface {
 	// Indicate to the system that the tunnel is being re-established.
 	Reasserting() bool
 	SetReasserting(value bool)
-
-	// Topic: Errors
-
-	// The domain used for Tunnel Provider errors.
-	NETunnelProviderErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -206,11 +193,12 @@ func NewNETunnelProvider() NETunnelProvider {
 // provider object. - The provider obtains the network settings for the tunnel
 // by some means dictated by the tunnel provider, such as by downloading them
 // from the tunnel server. - The tunnel provider calls
-// [SetTunnelNetworkSettingsCompletionHandler] method to apply the network
-// settings to the system. - The system executes the completion handler passed
-// to `completionHandler`: to indicate that the network settings have been
-// set. - The tunnel provider executes the completion handler block passed to
-// the “start” method to indicate that the tunnel is fully established.
+// [NETunnelProvider.SetTunnelNetworkSettingsCompletionHandler] method to
+// apply the network settings to the system. - The system executes the
+// completion handler passed to `completionHandler`: to indicate that the
+// network settings have been set. - The tunnel provider executes the
+// completion handler block passed to the “start” method to indicate that
+// the tunnel is fully established.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/setTunnelNetworkSettings(_:completionHandler:)
 //
@@ -309,14 +297,6 @@ func (t NETunnelProvider) Reasserting() bool {
 }
 func (t NETunnelProvider) SetReasserting(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReasserting:"), value)
-}
-
-// The domain used for Tunnel Provider errors.
-//
-// See: https://developer.apple.com/documentation/networkextension/netunnelprovidererrordomain
-func (t NETunnelProvider) NETunnelProviderErrorDomain() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NETunnelProviderErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // SetTunnelNetworkSettings is a synchronous wrapper around [NETunnelProvider.SetTunnelNetworkSettingsCompletionHandler].

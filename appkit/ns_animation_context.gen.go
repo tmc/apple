@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
@@ -126,8 +127,8 @@ type INSAnimationContext interface {
 	// Topic: Modifying the Animation Duration
 
 	// The duration used by animations created as a result of setting new values for an animatable property.
-	Duration() float64
-	SetDuration(value float64)
+	Duration() foundation.NSTimeInterval
+	SetDuration(value foundation.NSTimeInterval)
 	// The timing function used for all animations within this animation proxy group.
 	TimingFunction() quartzcore.CAMediaTimingFunction
 	SetTimingFunction(value quartzcore.CAMediaTimingFunction)
@@ -180,7 +181,7 @@ func (_NSAnimationContextClass NSAnimationContextClass) EndGrouping() {
 // The `context` parameter passes the thread’s current [NSAnimationContext]
 // to the Block as a convenience, so code within the Block that wants to
 // change or query properties of the current `context` does not have to call
-// [CurrentContext].
+// [NSAnimationContextClass.CurrentContext].
 //
 // The block object returns no value.
 //
@@ -258,11 +259,11 @@ func (a NSAnimationContext) SetCompletionHandler(value VoidHandler) {
 // properties in the current context will run for this duration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/duration
-func (a NSAnimationContext) Duration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("duration"))
-	return rv
+func (a NSAnimationContext) Duration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("duration"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a NSAnimationContext) SetDuration(value float64) {
+func (a NSAnimationContext) SetDuration(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
 
@@ -276,18 +277,20 @@ func (a NSAnimationContext) SetDuration(value float64) {
 //
 // Animations initiated through the “animator” proxy syntax, that do not
 // have an explicitly specified timing functions, will inherit the enclosing
-// [NSAnimationContext] instance’s [TimingFunction] if it is not `nil`
-// (which is the default).
+// [NSAnimationContext] instance’s [NSAnimationContext.TimingFunction] if it
+// is not `nil` (which is the default).
 //
-// As with the existing [Duration] property, changing a timing function causes
-// the same change in the underlying CATransaction instance’s
-// [animationTimingFunction()].
+// As with the existing [NSAnimationContext.Duration] property, changing a
+// timing function causes the same change in the underlying CATransaction
+// instance’s [animationTimingFunction()].
 //
-// Also as with the [Duration] property, you may change the timingFunction any
-// number of times within a given NSAnimationContext [BeginGrouping] and
-// [EndGrouping] block. Changes to the `timingFunction` will apply to any
-// animations that are subsequently initiated in that NSAnimationContext
-// grouping, until the `timingFunction` is possibly changed again.
+// Also as with the [NSAnimationContext.Duration] property, you may change the
+// timingFunction any number of times within a given NSAnimationContext
+// [NSAnimationContextClass.BeginGrouping] and
+// [NSAnimationContextClass.EndGrouping] block. Changes to the
+// `timingFunction` will apply to any animations that are subsequently
+// initiated in that NSAnimationContext grouping, until the `timingFunction`
+// is possibly changed again.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/timingFunction
 //

@@ -51,8 +51,8 @@ func (wc WKBackForwardListClass) Alloc() WKBackForwardList {
 // loaded pages. Typically, you don’t create [WKBackForwardList] objects
 // directly. Each web view creates one automatically and uses it to store the
 // history of all loaded pages. Fetch this object from your web view’s
-// [BackForwardList] property and use its contents to facilitate programmatic
-// navigation.
+// [WKWebView.BackForwardList] property and use its contents to facilitate
+// programmatic navigation.
 //
 // # Getting the Most Recent Items
 //
@@ -126,10 +126,6 @@ type IWKBackForwardList interface {
 	BackList() []WKBackForwardListItem
 	// The array of items that follow the current item.
 	ForwardList() []WKBackForwardListItem
-
-	// The web view’s back-forward list.
-	BackForwardList() IWKBackForwardList
-	SetBackForwardList(value IWKBackForwardList)
 }
 
 // Init initializes the instance.
@@ -228,15 +224,4 @@ func (b WKBackForwardList) ForwardList() []WKBackForwardListItem {
 	return objc.ConvertSlice(rv, func(id objc.ID) WKBackForwardListItem {
 		return WKBackForwardListItemFromID(id)
 	})
-}
-
-// The web view’s back-forward list.
-//
-// See: https://developer.apple.com/documentation/webkit/wkwebview/backforwardlist
-func (b WKBackForwardList) BackForwardList() IWKBackForwardList {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("backForwardList"))
-	return WKBackForwardListFromID(objc.ID(rv))
-}
-func (b WKBackForwardList) SetBackForwardList(value IWKBackForwardList) {
-	objc.Send[struct{}](b.ID, objc.Sel("setBackForwardList:"), value)
 }

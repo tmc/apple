@@ -55,15 +55,18 @@ func (mc MTLIOCommandQueueDescriptorClass) Alloc() MTLIOCommandQueueDescriptor {
 // Create each input/output queue to meet your apps needs by setting the
 // descriptor’s properties.
 //
-// - Select a queue’s relative level of importance with the [MTLIOCommandQueueDescriptor.Priority]
-// property. - Create a queue that runs multiple input/output command buffers
-// in parallel by setting the [Type] property to
+// - Select a queue’s relative level of importance with the
+// [MTLIOCommandQueueDescriptor.Priority] property. - Create a queue that runs
+// multiple input/output command buffers in parallel by setting the
+// [MTLIOCommandQueueDescriptor.Type] property to
 // [MTLIOCommandQueueTypeConcurrent]. - Decide how many individual commands a
-// queue can run simultaneously with the [MTLIOCommandQueueDescriptor.MaxCommandsInFlight] property. -
-// Choose how many command buffers a queue can have waiting to run with
-// [MTLIOCommandQueueDescriptor.MaxCommandBufferCount] property. - Take control of the queue’s scratch
-// memory allocation by implementing [MTLIOScratchBufferAllocator] and assign
-// an instance of it to the [MTLIOCommandQueueDescriptor.ScratchBufferAllocator] property.
+// queue can run simultaneously with the
+// [MTLIOCommandQueueDescriptor.MaxCommandsInFlight] property. - Choose how
+// many command buffers a queue can have waiting to run with
+// [MTLIOCommandQueueDescriptor.MaxCommandBufferCount] property. - Take
+// control of the queue’s scratch memory allocation by implementing
+// [MTLIOScratchBufferAllocator] and assign an instance of it to the
+// [MTLIOCommandQueueDescriptor.ScratchBufferAllocator] property.
 //
 // # Configuring the input/output command queue
 //
@@ -224,7 +227,8 @@ func (i MTLIOCommandQueueDescriptor) SetMaxCommandBufferCount(value uint) {
 //
 // Your app can manage an input/output command queue’s scratch memory by an
 // implementing [MTLIOScratchBufferAllocator] in one of your types, and
-// assigning an instance of it to [ScratchBufferAllocator]. Otherwise, set to
+// assigning an instance of it to
+// [MTLIOCommandQueueDescriptor.ScratchBufferAllocator]. Otherwise, set to
 // `nil` to instruct the input/output command queue to allocate and manage its
 // own scratch buffers.
 //

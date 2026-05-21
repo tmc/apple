@@ -170,7 +170,7 @@ func NewNSMeasurement() NSMeasurement {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSMeasurement/init(coder:)
 func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
 	instance := getNSMeasurementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -233,10 +233,12 @@ func (m NSMeasurement) CanBeConvertedToUnit(unit INSUnit) bool {
 //
 // # Discussion
 //
-// This method raises an [InvalidArgumentException] if the receiver cannot be
+// This method raises an [invalidArgumentException] if the receiver cannot be
 // converted to unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/converting(to:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (m NSMeasurement) MeasurementByConvertingToUnit(unit INSUnit) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByConvertingToUnit:"), unit)
 	return NSMeasurementFromID(rv)
@@ -254,14 +256,16 @@ func (m NSMeasurement) MeasurementByConvertingToUnit(unit INSUnit) INSMeasuremen
 //
 // # Discussion
 //
-// This method raises an [InvalidArgumentException] if the receiver cannot be
+// This method raises an [invalidArgumentException] if the receiver cannot be
 // converted to unit.
 //
-// You can use the [CanBeConvertedToUnit] method, passing the unit of the
-// specified measurement, to determine whether a measurement can be converted
-// to a particular unit before calling this method.
+// You can use the [NSMeasurement.CanBeConvertedToUnit] method, passing the
+// unit of the specified measurement, to determine whether a measurement can
+// be converted to a particular unit before calling this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/adding(_:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (m NSMeasurement) MeasurementByAddingMeasurement(measurement INSMeasurement) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByAddingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
@@ -279,14 +283,16 @@ func (m NSMeasurement) MeasurementByAddingMeasurement(measurement INSMeasurement
 //
 // # Discussion
 //
-// This method raises an [InvalidArgumentException] if the receiver cannot be
+// This method raises an [invalidArgumentException] if the receiver cannot be
 // converted to unit.
 //
-// You can use the [CanBeConvertedToUnit] method, passing the unit of the
-// specified measurement, to determine whether a measurement can be converted
-// to a particular unit before calling this method.
+// You can use the [NSMeasurement.CanBeConvertedToUnit] method, passing the
+// unit of the specified measurement, to determine whether a measurement can
+// be converted to a particular unit before calling this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/subtracting(_:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasurement) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementBySubtractingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
@@ -301,7 +307,7 @@ func (m NSMeasurement) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSMeasurement/init(coder:)
 func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
 	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

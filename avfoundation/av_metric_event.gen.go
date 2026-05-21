@@ -85,6 +85,7 @@ type IAVMetricEvent interface {
 	MediaTime() coremedia.CMTime
 	SessionID() string
 
+	InitWithCoder(coder foundation.INSCoder) AVMetricEvent
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -107,6 +108,18 @@ func NewAVMetricEvent() AVMetricEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricEventWithCoder(coder foundation.INSCoder) AVMetricEvent {
+	instance := getAVMetricEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricEventFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func (m AVMetricEvent) InitWithCoder(coder foundation.INSCoder) AVMetricEvent {
+	rv := objc.Send[AVMetricEvent](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m AVMetricEvent) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }

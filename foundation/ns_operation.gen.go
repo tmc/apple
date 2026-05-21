@@ -65,20 +65,21 @@ func (oc OperationClass) Alloc() Operation {
 // information about how queues execute operations, see [NSOperationQueue].
 //
 // If you do not want to use an operation queue, you can execute an operation
-// yourself by calling its [Start] method directly from your code. Executing
-// operations manually does put more of a burden on your code, because
-// starting an operation that is not in the ready state triggers an exception.
-// The [Ready] property reports on the operation’s readiness.
+// yourself by calling its [NSOperation.Start] method directly from your code.
+// Executing operations manually does put more of a burden on your code,
+// because starting an operation that is not in the ready state triggers an
+// exception. The [NSOperation.Ready] property reports on the operation’s
+// readiness.
 //
 // # Operation Dependencies
 //
 // Dependencies are a convenient way to execute operations in a specific
 // order. You can add and remove dependencies for an operation using the
-// [AddDependency] and [RemoveDependency] methods. By default, an operation
-// object that has dependencies is not considered ready until all of its
-// dependent operation objects have finished executing. Once the last
-// dependent operation finishes, however, the operation object becomes ready
-// and able to execute.
+// [NSOperation.AddDependency] and [NSOperation.RemoveDependency] methods. By
+// default, an operation object that has dependencies is not considered ready
+// until all of its dependent operation objects have finished executing. Once
+// the last dependent operation finishes, however, the operation object
+// becomes ready and able to execute.
 //
 // The dependencies supported by [NSOperation] make no distinction about
 // whether a dependent operation finished successfully or unsuccessfully. (In
@@ -137,18 +138,20 @@ func (oc OperationClass) Alloc() Operation {
 // to a queue, you can design your operation to execute in a synchronous or
 // asynchronous manner. Operation objects are synchronous by default. In a
 // synchronous operation, the operation object does not create a separate
-// thread on which to run its task. When you call the [Start] method of a
-// synchronous operation directly from your code, the operation executes
-// immediately in the current thread. By the time the [Start] method of such
-// an object returns control to the caller, the task itself is complete.
+// thread on which to run its task. When you call the [NSOperation.Start]
+// method of a synchronous operation directly from your code, the operation
+// executes immediately in the current thread. By the time the
+// [NSOperation.Start] method of such an object returns control to the caller,
+// the task itself is complete.
 //
-// When you call the [Start] method of an asynchronous operation, that method
-// may return before the corresponding task is completed. An asynchronous
-// operation object is responsible for scheduling its task on a separate
-// thread. The operation could do that by starting a new thread directly, by
-// calling an asynchronous method, or by submitting a block to a dispatch
-// queue for execution. It does not actually matter if the operation is
-// ongoing when control returns to the caller, only that it could be ongoing.
+// When you call the [NSOperation.Start] method of an asynchronous operation,
+// that method may return before the corresponding task is completed. An
+// asynchronous operation object is responsible for scheduling its task on a
+// separate thread. The operation could do that by starting a new thread
+// directly, by calling an asynchronous method, or by submitting a block to a
+// dispatch queue for execution. It does not actually matter if the operation
+// is ongoing when control returns to the caller, only that it could be
+// ongoing.
 //
 // If you always plan to use queues to execute your operations, it is simpler
 // to define them as synchronous. If you execute operations manually, though,
@@ -160,9 +163,10 @@ func (oc OperationClass) Alloc() Operation {
 // the calling thread.
 //
 // When you add an operation to an operation queue, the queue ignores the
-// value of the [Asynchronous] property and always calls the [Start] method
-// from a separate thread. Therefore, if you always run operations by adding
-// them to an operation queue, there is no reason to make them asynchronous.
+// value of the [NSOperation.Asynchronous] property and always calls the
+// [NSOperation.Start] method from a separate thread. Therefore, if you always
+// run operations by adding them to an operation queue, there is no reason to
+// make them asynchronous.
 //
 // For information on how to define both synchronous and asynchronous
 // operations, see the subclassing notes.
@@ -178,7 +182,7 @@ func (oc OperationClass) Alloc() Operation {
 //
 // For non-concurrent operations, you typically override only one method:
 //
-// - [Main]
+// - [NSOperation.Main]
 //
 // Into this method, you place the code needed to perform the given task. Of
 // course, you should also define a custom initialization method to make it
@@ -190,19 +194,19 @@ func (oc OperationClass) Alloc() Operation {
 // If you are creating a concurrent operation, you need to override the
 // following methods and properties at a minimum:
 //
-// - [Start]
-// - [Asynchronous]
-// - [Executing]
-// - [Finished]
+// - [NSOperation.Start] - [NSOperation.Asynchronous] -
+// [NSOperation.Executing] - [NSOperation.Finished]
 //
-// In a concurrent operation, your [Start] method is responsible for starting
-// the operation in an asynchronous manner. Whether you spawn a thread or call
-// an asynchronous function, you do it from this method. Upon starting the
-// operation, your [Start] method should also update the execution state of
-// the operation as reported by the [Executing] property. You do this by
-// sending out KVO notifications for the [Executing] key path, which lets
-// interested clients know that the operation is now running. Your [Executing]
-// property must also provide the status in a thread-safe manner.
+// In a concurrent operation, your [NSOperation.Start] method is responsible
+// for starting the operation in an asynchronous manner. Whether you spawn a
+// thread or call an asynchronous function, you do it from this method. Upon
+// starting the operation, your [NSOperation.Start] method should also update
+// the execution state of the operation as reported by the
+// [NSOperation.Executing] property. You do this by sending out KVO
+// notifications for the [NSOperation.Executing] key path, which lets
+// interested clients know that the operation is now running. Your
+// [NSOperation.Executing] property must also provide the status in a
+// thread-safe manner.
 //
 // Upon completion or cancellation of its task, your concurrent operation
 // object must generate KVO notifications for both the `isExecuting` and
@@ -211,8 +215,9 @@ func (oc OperationClass) Alloc() Operation {
 // the `isFinished` key path, even if the operation did not completely finish
 // its task. Queued operations must report that they are finished before they
 // can be removed from a queue.) In addition to generating KVO notifications,
-// your overrides of the [Executing] and [Finished] properties should also
-// continue to report accurate values based on the state of your operation.
+// your overrides of the [NSOperation.Executing] and [NSOperation.Finished]
+// properties should also continue to report accurate values based on the
+// state of your operation.
 //
 // For additional information and guidance on how to define concurrent
 // operations, see [Concurrency Programming Guide].
@@ -222,9 +227,9 @@ func (oc OperationClass) Alloc() Operation {
 // dependency features of operations, you might have to override additional
 // methods and provide additional KVO notifications. In the case of
 // dependencies, this would likely only require providing notifications for
-// the `isReady` key path. Because the [Dependencies] property contains the
-// list of dependent operations, changes to it are already handled by the
-// default [NSOperation] class.
+// the `isReady` key path. Because the [NSOperation.Dependencies] property
+// contains the list of dependent operations, changes to it are already
+// handled by the default [NSOperation] class.
 //
 // # Maintaining Operation Object States
 //
@@ -239,9 +244,9 @@ func (oc OperationClass) Alloc() Operation {
 // yourself. If the readiness of your operations is determined by factors
 // other than dependent operations, however—such as by some external
 // condition in your program—you can provide your own implementation of the
-// [Ready] property and track your operation’s readiness yourself. It is
-// often simpler though just to create operation objects only when your
-// external state allows it.
+// [NSOperation.Ready] property and track your operation’s readiness
+// yourself. It is often simpler though just to create operation objects only
+// when your external state allows it.
 //
 // In macOS 10.6 and later, if you cancel an operation while it is waiting on
 // the completion of one or more dependent operations, those dependencies are
@@ -249,13 +254,13 @@ func (oc OperationClass) Alloc() Operation {
 // that it is now ready to run. This behavior gives an operation queue the
 // chance to flush cancelled operations out of its queue more quickly.
 //
-// If you replace the [Start] method of your operation object, you must also
-// replace the [Executing] property and generate KVO notifications when the
-// execution state of your operation changes.
+// If you replace the [NSOperation.Start] method of your operation object, you
+// must also replace the [NSOperation.Executing] property and generate KVO
+// notifications when the execution state of your operation changes.
 //
-// If you replace the [Start] method or your operation object, you must also
-// replace the [Finished] property and generate KVO notifications when the
-// operation finishes executing or is cancelled.
+// If you replace the [NSOperation.Start] method or your operation object, you
+// must also replace the [NSOperation.Finished] property and generate KVO
+// notifications when the operation finishes executing or is cancelled.
 //
 // # Responding to the Cancel Command
 //
@@ -264,34 +269,37 @@ func (oc OperationClass) Alloc() Operation {
 // you decide later that you do not want to execute the operation after
 // all—because the user pressed a cancel button in a progress panel or quit
 // the application, for example—you can cancel the operation to prevent it
-// from consuming CPU time needlessly. You do this by calling the [Cancel]
-// method of the operation object itself or by calling the
-// [CancelAllOperations] method of the [NSOperationQueue] class.
+// from consuming CPU time needlessly. You do this by calling the
+// [NSOperation.Cancel] method of the operation object itself or by calling
+// the [NSOperationQueue.CancelAllOperations] method of the [NSOperationQueue]
+// class.
 //
 // Canceling an operation does not immediately force it to stop what it is
-// doing. Although respecting the value in the [Cancelled] property is
-// expected of all operations, your code must explicitly check the value in
-// this property and abort as needed. The default implementation of
+// doing. Although respecting the value in the [NSOperation.Cancelled]
+// property is expected of all operations, your code must explicitly check the
+// value in this property and abort as needed. The default implementation of
 // [NSOperation] includes checks for cancellation. For example, if you cancel
-// an operation before its [Start] method is called, the [Start] method exits
-// without starting the task.
+// an operation before its [NSOperation.Start] method is called, the
+// [NSOperation.Start] method exits without starting the task.
 //
 // You should always support cancellation semantics in any custom code you
 // write. In particular, your main task code should periodically check the
-// value of the [Cancelled] property. If the property reports the value true,
-// your operation object should clean up and exit as quickly as possible. If
-// you implement a custom [Start] method, that method should include early
-// checks for cancellation and behave appropriately. Your custom [Start]
-// method must be prepared to handle this type of early cancellation.
+// value of the [NSOperation.Cancelled] property. If the property reports the
+// value true, your operation object should clean up and exit as quickly as
+// possible. If you implement a custom [NSOperation.Start] method, that method
+// should include early checks for cancellation and behave appropriately. Your
+// custom [NSOperation.Start] method must be prepared to handle this type of
+// early cancellation.
 //
 // In addition to simply exiting when an operation is cancelled, it is also
 // important that you move a cancelled operation to the appropriate final
-// state. Specifically, if you manage the values for the [Finished] and
-// [Executing] properties yourself (perhaps because you are implementing a
-// concurrent operation), you must update those properties accordingly.
-// Specifically, you must change the value returned by [Finished] to true and
-// the value returned by [Executing] to false. You must make these changes
-// even if the operation was cancelled before it started executing.
+// state. Specifically, if you manage the values for the
+// [NSOperation.Finished] and [NSOperation.Executing] properties yourself
+// (perhaps because you are implementing a concurrent operation), you must
+// update those properties accordingly. Specifically, you must change the
+// value returned by [NSOperation.Finished] to true and the value returned by
+// [NSOperation.Executing] to false. You must make these changes even if the
+// operation was cancelled before it started executing.
 //
 // # Executing the Operation
 //
@@ -482,17 +490,17 @@ func NewOperation() Operation {
 // # Discussion
 //
 // The default implementation of this method updates the execution state of
-// the operation and calls the receiver’s [Main] method. This method also
-// performs several checks to ensure that the operation can actually run. For
-// example, if the receiver was cancelled or is already finished, this method
-// simply returns without calling [Main]. (In OS X v10.5, this method throws
-// an exception if the operation is already finished.) If the operation is
-// currently executing or is not ready to execute, this method throws an
-// [NSInvalidArgumentException] exception. In OS X v10.5, this method catches
-// and ignores any exceptions thrown by your [Main] method automatically. In
-// macOS 10.6 and later, exceptions are allowed to propagate beyond this
-// method. You should never allow exceptions to propagate out of your [Main]
-// method.
+// the operation and calls the receiver’s [NSOperation.Main] method. This
+// method also performs several checks to ensure that the operation can
+// actually run. For example, if the receiver was cancelled or is already
+// finished, this method simply returns without calling [NSOperation.Main].
+// (In OS X v10.5, this method throws an exception if the operation is already
+// finished.) If the operation is currently executing or is not ready to
+// execute, this method throws an [NSInvalidArgumentException] exception. In
+// OS X v10.5, this method catches and ignores any exceptions thrown by your
+// [NSOperation.Main] method automatically. In macOS 10.6 and later,
+// exceptions are allowed to propagate beyond this method. You should never
+// allow exceptions to propagate out of your [NSOperation.Main] method.
 //
 // If you are implementing a concurrent operation, you must override this
 // method and use it to initiate your operation. Your custom implementation
@@ -529,7 +537,7 @@ func (o Operation) Start() {
 //
 // If you are implementing a concurrent operation, you are not required to
 // override this method but may do so if you plan to call it from your custom
-// [Start] method.
+// [NSOperation.Start] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/main()
 func (o Operation) Main() {
@@ -550,17 +558,17 @@ func (o Operation) Main() {
 // In macOS 10.6 and later, if an operation is in a queue but waiting on
 // unfinished dependent operations, those operations are subsequently ignored.
 // Because it is already cancelled, this behavior allows the operation queue
-// to call the operation’s [Start] method sooner and clear the object out of
-// the queue. If you cancel an operation that is not in a queue, this method
-// immediately marks the object as finished. In each case, marking the object
-// as ready or finished results in the generation of the appropriate KVO
-// notifications.
+// to call the operation’s [NSOperation.Start] method sooner and clear the
+// object out of the queue. If you cancel an operation that is not in a queue,
+// this method immediately marks the object as finished. In each case, marking
+// the object as ready or finished results in the generation of the
+// appropriate KVO notifications.
 //
 // In versions of macOS prior to 10.6, an operation object remains in the
 // queue until all of its dependencies are removed through the normal
 // processes. Thus, the operation must wait until all of its dependent
 // operations finish executing or are themselves cancelled and have their
-// [Start] method called.
+// [NSOperation.Start] method called.
 //
 // For more information on what you must do in your operation objects to
 // support cancellation, see [NSOperation].
@@ -645,14 +653,14 @@ func (o Operation) WaitUntilFinished() {
 // use the completion block to ping that thread.
 //
 // The completion block you provide is executed when the value in the
-// [Finished] property changes to true. Because the completion block executes
-// after the operation indicates it has finished its task, you must not use a
-// completion block to queue additional work considered to be part of that
-// task. An operation object whose [Finished] property contains the value true
-// must be done with all of its task-related work by definition. The
-// completion block should be used to notify interested objects that the work
-// is complete or perform other tasks that might be related to, but not part
-// of, the operation’s actual task.
+// [NSOperation.Finished] property changes to true. Because the completion
+// block executes after the operation indicates it has finished its task, you
+// must not use a completion block to queue additional work considered to be
+// part of that task. An operation object whose [NSOperation.Finished]
+// property contains the value true must be done with all of its task-related
+// work by definition. The completion block should be used to notify
+// interested objects that the work is complete or perform other tasks that
+// might be related to, but not part of, the operation’s actual task.
 //
 // A finished operation may finish either because it was cancelled or because
 // it successfully completed its task. You should take that fact into account
@@ -679,9 +687,9 @@ func (o Operation) SetCompletionBlock(value VoidHandler) {
 //
 // # Discussion
 //
-// The default value of this property is false. Calling the [Cancel] method of
-// this object sets the value of this property to true. Once canceled, an
-// operation must move to the finished state.
+// The default value of this property is false. Calling the
+// [NSOperation.Cancel] method of this object sets the value of this property
+// to true. Once canceled, an operation must move to the finished state.
 //
 // Canceling an operation does not actively stop the receiver’s code from
 // executing. An operation object is responsible for calling this method
@@ -689,11 +697,12 @@ func (o Operation) SetCompletionBlock(value VoidHandler) {
 //
 // You should always check the value of this property before doing any work
 // towards accomplishing the operation’s task, which typically means
-// checking it at the beginning of your custom [Main] method. It is possible
-// for an operation to be cancelled before it begins executing or at any time
-// while it is executing. Therefore, checking the value at the beginning of
-// your [Main] method (and periodically throughout that method) lets you exit
-// as quickly as possible when an operation is cancelled.
+// checking it at the beginning of your custom [NSOperation.Main] method. It
+// is possible for an operation to be cancelled before it begins executing or
+// at any time while it is executing. Therefore, checking the value at the
+// beginning of your [NSOperation.Main] method (and periodically throughout
+// that method) lets you exit as quickly as possible when an operation is
+// cancelled.
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/isCancelled
 func (o Operation) IsCancelled() bool {
@@ -755,7 +764,7 @@ func (o Operation) IsFinished() bool {
 //
 // # Discussion
 //
-// Use the [Asynchronous] property instead.
+// Use the [NSOperation.Asynchronous] property instead.
 //
 // The value of this property is true for operations that run asynchronously
 // with respect to the current thread or false for operations that run
@@ -839,14 +848,14 @@ func (o Operation) SetName(value string) {
 // # Discussion
 //
 // This property contains an array of [NSOperation] objects. To add an object
-// to this array, use the [AddDependency] method.
+// to this array, use the [NSOperation.AddDependency] method.
 //
 // An operation object must not execute until all of its dependent operations
 // finish executing. Operations are not removed from this dependency list as
 // they finish executing. You can use this list to track all dependent
 // operations, including those that have already finished executing. The only
-// way to remove an operation from this list is to use the [RemoveDependency]
-// method.
+// way to remove an operation from this list is to use the
+// [NSOperation.RemoveDependency] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/dependencies
 func (o Operation) Dependencies() []NSOperation {
@@ -910,8 +919,8 @@ func (o Operation) SetQualityOfService(value NSQualityOfService) {
 // You should use priority values only as needed to classify the relative
 // priority of non-dependent operations. Priority values should not be used to
 // implement dependency management among different operation objects. If you
-// need to establish dependencies between operations, use the [AddDependency]
-// method instead.
+// need to establish dependencies between operations, use the
+// [NSOperation.AddDependency] method instead.
 //
 // If you attempt to specify a priority value that does not match one of the
 // defined constants, the operation object automatically adjusts the value you

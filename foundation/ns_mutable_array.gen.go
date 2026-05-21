@@ -62,8 +62,8 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 // # Accessing Values Using Subscripting
 //
 // In addition to the provided instance methods, such as
-// [NSMutableArray.ReplaceObjectAtIndexWithObject], you can access [NSArray] values by their
-// indexes using .
+// [NSMutableArray.ReplaceObjectAtIndexWithObject], you can access [NSArray]
+// values by their indexes using .
 //
 // # Subclassing Notes
 //
@@ -81,8 +81,10 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 //
 // [NSMutableArray] defines five primitive methods:
 //
-// - [NSMutableArray.InsertObjectsAtIndexes] - [NSMutableArray.RemoveObjectAtIndex] - [NSMutableArray.AddObject] -
-// [NSMutableArray.RemoveLastObject] - [NSMutableArray.ReplaceObjectAtIndexWithObject]
+// - [NSMutableArray.InsertObjectsAtIndexes] -
+// [NSMutableArray.RemoveObjectAtIndex] - [NSMutableArray.AddObject] -
+// [NSMutableArray.RemoveLastObject] -
+// [NSMutableArray.ReplaceObjectAtIndexWithObject]
 //
 // In a subclass, you must override all these methods. You must also override
 // the primitive methods of the [NSArray] class.
@@ -272,7 +274,7 @@ type INSMutableArray interface {
 	// Sorts the receiver in ascending order as defined by the comparison function `compare`.
 	SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
 	// Sorts the receiver in ascending order, as determined by the comparison method specified by a given selector.
-	SortUsingSelector(comparator objc.SEL)
+	SortUsingSelector(comparator objectivec.SEL)
 
 	ApplyDifference(difference INSOrderedCollectionDifference)
 	// Replaces the object at the index with the new object, possibly adding the object.
@@ -388,6 +390,31 @@ func NewMutableArrayWithCapacity(numItems uint) NSMutableArray {
 func NewMutableArrayWithCoder(coder INSCoder) NSMutableArray {
 	instance := getNSMutableArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSMutableArrayFromID(rv)
+}
+
+// Creates and returns a mutable array containing the contents specified by a
+// given URL.
+//
+// url: The location of the file containing a string representation of a mutable
+// array produced by the [NSArray.WriteToURLAtomically] method.
+//
+// # Return Value
+//
+// A mutable array containing the contents specified by `aURL`. Returns `nil`
+// if the location can’t be opened or if the contents of the location
+// can’t be parsed into a mutable array.
+//
+// # Discussion
+//
+// The array representation at the location identified by `aURL` must contain
+// only property list objects ([NSString], [NSData], [NSDate], [NSNumber],
+// [NSArray], or [NSDictionary] objects). The objects contained by this array
+// are immutable even if the array is mutable.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSMutableArray/init(contentsOfURL:)
+func NewMutableArrayWithContentsOfURL(url INSURL) NSMutableArray {
+	rv := objc.Send[objc.ID](objc.ID(getNSMutableArrayClass().class), objc.Sel("arrayWithContentsOfURL:"), url)
 	return NSMutableArrayFromID(rv)
 }
 
@@ -620,10 +647,11 @@ func (m NSMutableArray) RemoveObjectAtIndex(index uint) {
 //
 // # Discussion
 //
-// This method is similar to [RemoveObjectAtIndex], but allows you to
-// efficiently remove multiple objects with a single operation. `indexes`
-// specifies the locations of objects to be removed given the state of the
-// array when the method is invoked, as illustrated in the following example:
+// This method is similar to [NSMutableArray.RemoveObjectAtIndex], but allows
+// you to efficiently remove multiple objects with a single operation.
+// `indexes` specifies the locations of objects to be removed given the state
+// of the array when the method is invoked, as illustrated in the following
+// example:
 //
 // If `indexes` is `nil`, this method raises an exception.
 //
@@ -673,10 +701,10 @@ func (m NSMutableArray) RemoveObjectIdenticalToInRange(anObject objectivec.IObje
 //
 // # Discussion
 //
-// This method is similar to [RemoveObject], but it allows you to efficiently
-// remove large sets of objects with a single operation. If the receiving
-// array does not contain objects in `otherArray`, the method has no effect
-// (although it does incur the overhead of searching the contents).
+// This method is similar to [NSMutableArray.RemoveObject], but it allows you
+// to efficiently remove large sets of objects with a single operation. If the
+// receiving array does not contain objects in `otherArray`, the method has no
+// effect (although it does incur the overhead of searching the contents).
 //
 // This method assumes that all elements in `otherArray` respond to `hash` and
 // “.
@@ -692,7 +720,7 @@ func (m NSMutableArray) RemoveObjectsInArray(otherArray []objectivec.IObject) {
 //
 // # Discussion
 //
-// The objects are removed using [RemoveObjectAtIndex].
+// The objects are removed using [NSMutableArray.RemoveObjectAtIndex].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/removeObjects(in:)-1udmn
 func (m NSMutableArray) RemoveObjectsInRange(range_ NSRange) {
@@ -889,7 +917,7 @@ func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, con
 // [NSOrderedSame] if they are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(using:)-537vs
-func (m NSMutableArray) SortUsingSelector(comparator objc.SEL) {
+func (m NSMutableArray) SortUsingSelector(comparator objectivec.SEL) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingSelector:"), comparator)
 }
 
@@ -909,16 +937,18 @@ func (m NSMutableArray) ApplyDifference(difference INSOrderedCollectionDifferenc
 //
 // # Discussion
 //
-// This method has the same behavior as the [ReplaceObjectAtIndexWithObject]
-// method.
+// This method has the same behavior as the
+// [NSMutableArray.ReplaceObjectAtIndexWithObject] method.
 //
 // If `idx` is beyond the end of the array (that is, if `idx` is greater than
-// the value returned by `count`), an [RangeException] is raised.
+// the value returned by `count`), an [rangeException] is raised.
 //
 // You shouldn’t need to call this method directly. Instead, this method is
 // called when setting an object by index using subscripting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/setObject:atIndexedSubscript:
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableArray) SetObjectAtIndexedSubscript(obj objectivec.IObject, idx uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndexedSubscript:"), obj, idx)
 }

@@ -342,8 +342,8 @@ func (s NSSlider) ClosestTickMarkValueToValue(value float64) float64 {
 //
 // In its implementation of this method, the receiving [NSSlider] instance
 // invokes the method of the same name of its [NSSliderCell] instance. This
-// method invokes [RectOfTickMarkAtIndex] for each tick mark on the slider
-// until it finds a tick mark containing the point.
+// method invokes [NSSlider.RectOfTickMarkAtIndex] for each tick mark on the
+// slider until it finds a tick mark containing the point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/indexOfTickMark(at:)
 func (s NSSlider) IndexOfTickMarkAtPoint(point corefoundation.CGPoint) int {
@@ -640,10 +640,10 @@ func (s NSSlider) SetNumberOfTickMarks(value int) {
 // [NSTickMarkPositionAbove]. For vertical sliders, use
 // [NSTickMarkPositionLeading], and [NSTickMarkPositionTrailing]. The default
 // positions are `below` for horizontal and `leading` for vertical. This
-// property has no effect if [NumberOfTickMarks] is `0`, or if the slider is
-// circular. In its implementation of this property, the receiving [NSSlider]
-// instance invokes the method of the same name of its [NSSliderCell]
-// instance.
+// property has no effect if [NSSlider.NumberOfTickMarks] is `0`, or if the
+// slider is circular. In its implementation of this property, the receiving
+// [NSSlider] instance invokes the method of the same name of its
+// [NSSliderCell] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/tickMarkPosition-swift.property
 func (s NSSlider) TickMarkPosition() NSTickMarkPosition {

@@ -372,7 +372,8 @@ func NewURLComponentsWithStringEncodingInvalidCharacters(URLString string, encod
 // resolve: Controls whether the URL should be resolved against its base URL before
 // parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
-// [AbsoluteURL] method. Otherwise, the string portion is used by itself.
+// [NSURL.AbsoluteURL] method. Otherwise, the string portion is used by
+// itself.
 //
 // # Return Value
 //
@@ -428,7 +429,8 @@ func (u NSURLComponents) InitWithStringEncodingInvalidCharacters(URLString strin
 // resolve: Controls whether the URL should be resolved against its base URL before
 // parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
-// [AbsoluteURL] method. Otherwise, the string portion is used by itself.
+// [NSURL.AbsoluteURL] method. Otherwise, the string portion is used by
+// itself.
 //
 // # Return Value
 //
@@ -457,8 +459,8 @@ func (u NSURLComponents) InitWithURLResolvingAgainstBaseURL(url INSURL, resolve 
 // `"//"`. If it does, this property contains `nil`.
 //
 // To configure a components object based on an existing URL, call either the
-// [ComponentsWithURLResolvingAgainstBaseURL] or
-// [InitWithURLResolvingAgainstBaseURL] method.
+// [NSURLComponentsClass.ComponentsWithURLResolvingAgainstBaseURL] or
+// [NSURLComponents.InitWithURLResolvingAgainstBaseURL] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/url(relativeTo:)
 func (u NSURLComponents) URLRelativeToURL(baseURL INSURL) INSURL {
@@ -513,7 +515,8 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithStringEncodingIn
 // resolve: Controls whether the URL should be resolved against its base URL before
 // parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
-// [AbsoluteURL] method. Otherwise, the string portion is used by itself.
+// [NSURL.AbsoluteURL] method. Otherwise, the string portion is used by
+// itself.
 //
 // # Return Value
 //
@@ -540,8 +543,9 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithURLResolvingAgai
 //
 // This property can be used only to obtain a URL string based on the values
 // of the other properties. To configure a components object based on an
-// existing URL string, call either the [ComponentsWithString] or
-// [InitWithString] method.
+// existing URL string, call either the
+// [NSURLComponentsClass.ComponentsWithString] or
+// [NSURLComponents.InitWithString] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/string
 func (u NSURLComponents) String() string {
@@ -562,14 +566,15 @@ func (u NSURLComponents) String() string {
 // it does, this property contains `nil`.
 //
 // If the receiver has `nil` values for all component properties, such as when
-// initializing with [Init], this property returns an [NSURL] object with an
-// empty string, because a URL always has a path—even if it’s an empty
-// string.
+// initializing with [NSURLComponents.Init], this property returns an [NSURL]
+// object with an empty string, because a URL always has a path—even if
+// it’s an empty string.
 //
 // This property can be used only to obtain a URL based on the values of the
 // other properties. To configure a components object based on an existing
-// URL, call either the [ComponentsWithURLResolvingAgainstBaseURL] or
-// [InitWithURLResolvingAgainstBaseURL] method.
+// URL, call either the
+// [NSURLComponentsClass.ComponentsWithURLResolvingAgainstBaseURL] or
+// [NSURLComponents.InitWithURLResolvingAgainstBaseURL] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/url
 func (u NSURLComponents) URL() INSURL {
@@ -710,20 +715,23 @@ func (u NSURLComponents) SetQuery(value string) {
 // # Discussion
 //
 // When you get this property’s value, the [NSURLComponents] class parses
-// the [Query] string and returns an array of [NSURLQueryItem] objects, each
-// of which represents a single key-value pair, in the order in which they
-// appear in the original query string. Because a name may appear more than
-// once in a single query string, the [Name] properties of query items are not
-// guaranteed to be unique. If the [Query] property is an empty string, the
-// [QueryItems] property is an empty array. If the [Query] property is `nil`,
-// the [QueryItems] property is also `nil`.
+// the [NSURLComponents.Query] string and returns an array of [NSURLQueryItem]
+// objects, each of which represents a single key-value pair, in the order in
+// which they appear in the original query string. Because a name may appear
+// more than once in a single query string, the [NSURLQueryItem.Name]
+// properties of query items are not guaranteed to be unique. If the
+// [NSURLComponents.Query] property is an empty string, the
+// [NSURLComponents.QueryItems] property is an empty array. If the
+// [NSURLComponents.Query] property is `nil`, the [NSURLComponents.QueryItems]
+// property is also `nil`.
 //
 // When you set this property’s value, the [NSURLComponents] class joins
 // each name/value pair with a `=` delimiter and joins the array with a `&`
-// delimiter, then sets the [Query] property to the resulting string. Setting
-// the [QueryItems] property to an empty array sets the [Query] property to an
-// empty string, and setting the [QueryItems] property to `nil` sets the
-// [Query] property to `nil`.
+// delimiter, then sets the [NSURLComponents.Query] property to the resulting
+// string. Setting the [NSURLComponents.QueryItems] property to an empty array
+// sets the [NSURLComponents.Query] property to an empty string, and setting
+// the [NSURLComponents.QueryItems] property to `nil` sets the
+// [NSURLComponents.Query] property to `nil`.
 //
 // To ensure you can compose and decompose URL queries even with empty
 // components, the [NSURLComponents] class has the following behavior for

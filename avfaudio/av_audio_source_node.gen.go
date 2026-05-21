@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -182,7 +183,7 @@ var _avaudiosourcenode_initwithrenderblock_p0_key byte
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(renderBlock:)
 func (a AVAudioSourceNode) InitWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
-		return block(arg0, arg1, arg2, arg3)
+		return block(arg0, (*coreaudiotypes.AudioTimeStamp)(arg1), arg2, (*coreaudiotypes.AudioBufferList)(arg3))
 	})
 	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), objc.ID(_block0))
 	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithrenderblock_p0_key, _block0)
@@ -214,7 +215,7 @@ var _avaudiosourcenode_initwithformat_renderblock_p1_key byte
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(format:renderBlock:)
 func (a AVAudioSourceNode) InitWithFormatRenderBlock(format IAVAudioFormat, block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
-		return block(arg0, arg1, arg2, arg3)
+		return block(arg0, (*coreaudiotypes.AudioTimeStamp)(arg1), arg2, (*coreaudiotypes.AudioBufferList)(arg3))
 	})
 	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, objc.ID(_block1))
 	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithformat_renderblock_p1_key, _block1)
@@ -447,8 +448,8 @@ func (o AVAudioSourceNode) SetSourceMode(value AVAudio3DMixingSourceMode) {
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
-// [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
-// instance.
+// [AVAudioEnvironmentNode.ApplicableRenderingAlgorithms] function of the
+// [AVAudioEnvironmentNode] instance.
 //
 // The default rendering algorithm is
 // [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the

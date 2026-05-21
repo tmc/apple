@@ -86,7 +86,7 @@ type IAVAssetSegmentTrackReport interface {
 	// Topic: Inspecting a report
 
 	// A persistent unique identifier for a track.
-	TrackID() int32
+	TrackID() coremedia.CMPersistentTrackID
 	// The type of media a track contains.
 	MediaType() AVMediaType
 	// The duration of a track.
@@ -95,13 +95,6 @@ type IAVAssetSegmentTrackReport interface {
 	EarliestPresentationTimeStamp() coremedia.CMTime
 	// Information about the first video sample in a track.
 	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
-
-	// The type of segment data.
-	SegmentType() AVAssetSegmentType
-	SetSegmentType(value AVAssetSegmentType)
-	// The reports for the segment’s track data.
-	TrackReports() IAVAssetSegmentTrackReport
-	SetTrackReports(value IAVAssetSegmentTrackReport)
 }
 
 // Init initializes the instance.
@@ -126,9 +119,9 @@ func NewAVAssetSegmentTrackReport() AVAssetSegmentTrackReport {
 // A persistent unique identifier for a track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/trackID
-func (a AVAssetSegmentTrackReport) TrackID() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
-	return rv
+func (a AVAssetSegmentTrackReport) TrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](a.ID, objc.Sel("trackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // The type of media a track contains.
@@ -178,26 +171,4 @@ func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() coremedia.CMT
 func (a AVAssetSegmentTrackReport) FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("firstVideoSampleInformation"))
 	return AVAssetSegmentReportSampleInformationFromID(objc.ID(rv))
-}
-
-// The type of segment data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmentreport/segmenttype
-func (a AVAssetSegmentTrackReport) SegmentType() AVAssetSegmentType {
-	rv := objc.Send[AVAssetSegmentType](a.ID, objc.Sel("segmentType"))
-	return AVAssetSegmentType(rv)
-}
-func (a AVAssetSegmentTrackReport) SetSegmentType(value AVAssetSegmentType) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSegmentType:"), value)
-}
-
-// The reports for the segment’s track data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmentreport/trackreports
-func (a AVAssetSegmentTrackReport) TrackReports() IAVAssetSegmentTrackReport {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("trackReports"))
-	return AVAssetSegmentTrackReportFromID(objc.ID(rv))
-}
-func (a AVAssetSegmentTrackReport) SetTrackReports(value IAVAssetSegmentTrackReport) {
-	objc.Send[struct{}](a.ID, objc.Sel("setTrackReports:"), value)
 }

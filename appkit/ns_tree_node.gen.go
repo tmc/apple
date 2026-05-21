@@ -118,7 +118,7 @@ type INSTreeNode interface {
 	// The object the tree node represents.
 	RepresentedObject() objectivec.IObject
 	// The position of the receiver relative to its root parent.
-	IndexPath() objc.ID
+	IndexPath() foundation.NSIndexPath
 	// A Boolean that indicates whether the receiver is a leaf node.
 	IsLeaf() bool
 	// An array containing receiver’s child nodes.
@@ -243,9 +243,9 @@ func (t NSTreeNode) RepresentedObject() objectivec.IObject {
 // The position of the receiver relative to its root parent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/indexPath
-func (t NSTreeNode) IndexPath() objc.ID {
+func (t NSTreeNode) IndexPath() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("indexPath"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
 
 // A Boolean that indicates whether the receiver is a leaf node.

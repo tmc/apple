@@ -55,10 +55,6 @@ func (vc VNDetectContoursRequestClass) Alloc() VNDetectContoursRequest {
 //   - [VNDetectContoursRequest.MaximumImageDimension]: The maximum image dimension to use for contour detection.
 //   - [VNDetectContoursRequest.SetMaximumImageDimension]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectContoursRequest.VNDetectContourRequestRevision1]: A constant for specifying revision 1 of the contours detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest
 type VNDetectContoursRequest struct {
 	VNImageBasedRequest
@@ -87,10 +83,6 @@ func VNDetectContoursRequestFromID(id objc.ID) VNDetectContoursRequest {
 //   - [IVNDetectContoursRequest.MaximumImageDimension]: The maximum image dimension to use for contour detection.
 //   - [IVNDetectContoursRequest.SetMaximumImageDimension]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectContoursRequest.VNDetectContourRequestRevision1]: A constant for specifying revision 1 of the contours detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest
 type IVNDetectContoursRequest interface {
 	IVNImageBasedRequest
@@ -109,11 +101,6 @@ type IVNDetectContoursRequest interface {
 	// The maximum image dimension to use for contour detection.
 	MaximumImageDimension() uint
 	SetMaximumImageDimension(value uint)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the contours detection request.
-	VNDetectContourRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -143,7 +130,7 @@ func NewVNDetectContoursRequest() VNDetectContoursRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectContoursRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectContoursRequest {
@@ -228,12 +215,4 @@ func (d VNDetectContoursRequest) MaximumImageDimension() uint {
 }
 func (d VNDetectContoursRequest) SetMaximumImageDimension(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumImageDimension:"), value)
-}
-
-// A constant for specifying revision 1 of the contours detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectcontourrequestrevision1
-func (d VNDetectContoursRequest) VNDetectContourRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectContourRequestRevision1"))
-	return rv
 }

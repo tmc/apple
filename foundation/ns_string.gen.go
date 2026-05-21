@@ -9,6 +9,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -90,9 +91,9 @@ func (nc NSStringClass) Alloc() NSString {
 //
 // A string object presents itself as a sequence of UTF–16 code units. You
 // can determine how many UTF-16 code units a string object contains with the
-// [NSString.Length] method and can retrieve a specific UTF-16 code unit with the
-// [NSString.CharacterAtIndex] method. These two “primitive” methods provide basic
-// access to a string object.
+// [NSString.Length] method and can retrieve a specific UTF-16 code unit with
+// the [NSString.CharacterAtIndex] method. These two “primitive” methods
+// provide basic access to a string object.
 //
 // Most use of strings, however, is at a higher level, with the strings being
 // treated as single entities: You compare strings against one another, search
@@ -144,15 +145,16 @@ func (nc NSStringClass) Alloc() NSString {
 //
 // # Methods to Override
 //
-// Any subclass of [NSString] override the primitive instance methods [NSString.Length]
-// and [NSString.CharacterAtIndex]. These methods must operate on the backing store
-// that you provide for the characters of the string. For this backing store
-// you can use a static array, a dynamically allocated buffer, a standard
-// [NSString] object, or some other data type or mechanism. You may also
-// choose to override, partially or fully, any other [NSString] method for
-// which you want to provide an alternative implementation. For example, for
-// better performance it is recommended that you override [NSString.GetCharactersRange]
-// and give it a faster implementation.
+// Any subclass of [NSString] override the primitive instance methods
+// [NSString.Length] and [NSString.CharacterAtIndex]. These methods must
+// operate on the backing store that you provide for the characters of the
+// string. For this backing store you can use a static array, a dynamically
+// allocated buffer, a standard [NSString] object, or some other data type or
+// mechanism. You may also choose to override, partially or fully, any other
+// [NSString] method for which you want to provide an alternative
+// implementation. For example, for better performance it is recommended that
+// you override [NSString.GetCharactersRange] and give it a faster
+// implementation.
 //
 // You might want to implement an initializer for your subclass that is suited
 // to the backing store that the subclass is managing. The [NSString] class
@@ -380,11 +382,6 @@ func (nc NSStringClass) Alloc() NSString {
 //   - [NSString.InitWithContentsOfURLEncodingError]
 //   - [NSString.InitWithContentsOfURLUsedEncodingError]
 //   - [NSString.InitWithUTF8String]
-//
-// # Instance Properties
-//
-//   - [NSString.CustomPlaygroundQuickLook]: A custom playground Quick Look for this instance.
-//   - [NSString.SetCustomPlaygroundQuickLook]
 //
 // # Instance Methods
 //
@@ -616,11 +613,6 @@ func NSStringFromID(id objc.ID) NSString {
 //   - [INSString.InitWithContentsOfURLUsedEncodingError]
 //   - [INSString.InitWithUTF8String]
 //
-// # Instance Properties
-//
-//   - [INSString.CustomPlaygroundQuickLook]: A custom playground Quick Look for this instance.
-//   - [INSString.SetCustomPlaygroundQuickLook]
-//
 // # Instance Methods
 //
 //   - [INSString.StringByAppendingPathComponentConformingToType]
@@ -644,9 +636,9 @@ type INSString interface {
 	// Returns an [NSString] object initialized by copying the characters from another given string.
 	InitWithString(aString string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted without any localization.
-	InitWithFormatArguments(format string, argList unsafe.Pointer) NSString
+	InitWithFormatArguments(format string, argList kernel.VaList) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted according to given locale information. This method is meant to be called from within a variadic function, where the argument list will be available.
-	InitWithFormatLocaleArguments(format string, locale objectivec.IObject, argList unsafe.Pointer) NSString
+	InitWithFormatLocaleArguments(format string, locale objectivec.IObject, argList kernel.VaList) NSString
 	// Returns an [NSString] object initialized by converting given data into UTF-16 code units using a given encoding.
 	InitWithDataEncoding(data INSData, encoding uint) NSString
 
@@ -655,7 +647,7 @@ type INSString interface {
 	// Returns an [NSString] object initialized by reading data from the file at a given path using a given encoding.
 	InitWithContentsOfFileEncodingError(path string, enc uint) (NSString, error)
 	// Returns an [NSString] object initialized by reading data from the file at a given path and returns by reference the encoding used to interpret the characters.
-	InitWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error)
+	InitWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error)
 
 	// Topic: Getting a String’s Length
 
@@ -673,7 +665,7 @@ type INSString interface {
 	// Copies characters from a given range in the receiver into a given buffer.
 	GetCharactersRange(buffer Unichar, range_ NSRange)
 	// Gets a given range of characters as bytes in a specified encoding.
-	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
+	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer kernel.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
 
 	// Topic: Getting C Strings
 
@@ -817,11 +809,11 @@ type INSString interface {
 	// Topic: Determining Line and Paragraph Ranges
 
 	// Returns by reference the beginning of the first line and the end of the last line touched by the given range.
-	GetLineStartEndContentsEndForRange(startPtr unsafe.Pointer, lineEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange)
+	GetLineStartEndContentsEndForRange(startPtr *uint, lineEndPtr *uint, contentsEndPtr *uint, range_ NSRange)
 	// Returns the range of characters representing the line or lines containing a given range.
 	LineRangeForRange(range_ NSRange) NSRange
 	// Returns by reference the beginning of the first paragraph and the end of the last paragraph touched by the given range.
-	GetParagraphStartEndContentsEndForRange(startPtr unsafe.Pointer, parEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange)
+	GetParagraphStartEndContentsEndForRange(startPtr *uint, parEndPtr *uint, contentsEndPtr *uint, range_ NSRange)
 	// Returns the range of characters representing the paragraph or paragraphs containing a given range.
 	ParagraphRangeForRange(range_ NSRange) NSRange
 
@@ -943,17 +935,11 @@ type INSString interface {
 
 	// Topic: Initializers
 
-	InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(unsafe.Pointer, uint64)) NSString
+	InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(kernel.Pointer, uint64)) NSString
 	InitWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString
 	InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error)
-	InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error)
+	InitWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error)
 	InitWithUTF8String(nullTerminatedCString string) NSString
-
-	// Topic: Instance Properties
-
-	// A custom playground Quick Look for this instance.
-	CustomPlaygroundQuickLook() unsafe.Pointer
-	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
 
 	// Topic: Instance Methods
 
@@ -964,9 +950,9 @@ type INSString interface {
 	InitWithFormat(format string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted according to given locale.
 	InitWithFormatLocale(format string, locale objectivec.IObject) NSString
-	InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error)
+	InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList kernel.VaList) (NSString, error)
 	InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error)
-	InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error)
+	InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList kernel.VaList) (NSString, error)
 	InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error)
 	// Returns a string made by appending to the receiver a string constructed from a given format string and the following arguments.
 	StringByAppendingFormat(format string) string
@@ -1050,7 +1036,21 @@ func NewStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, le
 	return NSStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// `cString` must be a zero-terminated C string in the default C string
+// encoding, and may not be [NULL]. Returns an initialized object, which might
+// be different from the original receiver.
+//
+// To create an immutable string from an immutable C string buffer, do not
+// attempt to use this method. Instead, use
+// [NSString.InitWithCStringNoCopyLengthFreeWhenDone].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:)-vkuo
 func NewStringWithCString(bytes string) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")))
@@ -1064,17 +1064,50 @@ func NewStringWithCStringEncoding(nullTerminatedCString string, encoding uint) N
 	return NSStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
-func NewStringWithCStringLength(bytes string, length uint) NSString {
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// This method converts `length` * `sizeof(char)` bytes from `cString` and
+// doesn’t stop short at a zero character. `cString` must contain bytes in
+// the default C-string encoding and may not be [NULL]. Returns an initialized
+// object, which might be different from the original receiver.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:length:)-5ure3
+func NewStringWithCStringLength(bytes unsafe.Pointer, length int) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), bytes, length)
 	return NSStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
-func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes string, length uint, freeBuffer bool) NSString {
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// This method converts `length` * `sizeof(char)` bytes from `cString` and
+// doesn’t stop short at a zero character. `cString` must contain data in
+// the default C-string encoding and may not be [NULL]. The receiver becomes
+// the owner of `cString`; if `flag` is true it will free the memory when it
+// no longer needs it, but if `flag` is false it won’t. Returns an
+// initialized object, which might be different from the original receiver.
+//
+// You can use this method to create an immutable string from an immutable
+// (`const char *`) C-string buffer. If you receive a warning message, you can
+// disregard it; its purpose is simply to warn you that the C string passed as
+// the method’s first argument may be modified. If you make certain the
+// `freeWhenDone` argument to `initWithStringNoCopy` is false, the C string
+// passed as the method’s first argument cannot be modified, so you can
+// safely use `initWithStringNoCopy` to create an immutable string from an
+// immutable (`const char *`) C-string buffer.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CStringNoCopy:length:freeWhenDone:)-86dm2
+func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length int, freeBuffer bool) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length, freeBuffer)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), bytes, length, freeBuffer)
 	return NSStringFromID(rv)
 }
 
@@ -1202,7 +1235,7 @@ func NewStringWithContentsOfFileEncodingError(path string, enc uint) (NSString, 
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
+func NewStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -1213,7 +1246,19 @@ func NewStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointe
 	return NSStringFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
+// Initializes the receiver, a newly allocated [NSString] object, by reading
+// data from the location named by a given URL.
+//
+// # Discussion
+//
+// Initializes the receiver, a newly allocated [NSString] object, by reading
+// data from the location named by `aURL`. If the contents begin with a
+// byte-order mark (`U+FEFF` or `U+FFFE`), interprets the contents as UTF-16
+// code units; otherwise interprets the contents as data in the default C
+// string encoding. Returns an initialized object, which might be different
+// from the original receiver, or `nil` if the location can’t be opened.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfURL:)
 func NewStringWithContentsOfURL(url INSURL) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
@@ -1233,7 +1278,7 @@ func NewStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, er
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
+func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -1286,10 +1331,10 @@ func NewStringWithDataEncoding(data INSData, encoding uint) NSString {
 // Pass a comma-separated list of variadic arguments to substitute into
 // `format`.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:
 //
@@ -1322,16 +1367,16 @@ func NewStringWithFormat(format string) NSString {
 // This method is meant to be called from within a variadic function, where
 // the argument list will be available.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(format:arguments:)
 //
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-func NewStringWithFormatArguments(format string, argList unsafe.Pointer) NSString {
+func NewStringWithFormatArguments(format string, argList kernel.VaList) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:arguments:"), objc.String(format), argList)
 	return NSStringFromID(rv)
@@ -1357,7 +1402,8 @@ func NewStringWithFormatArguments(format string, argList unsafe.Pointer) NSStrin
 // Pass comma-separated list of trailing variadic arguments to substitute into
 // `format`.
 //
-// Invokes [InitWithFormatLocaleArguments] with `locale` as the locale.
+// Invokes [NSString.InitWithFormatLocaleArguments] with `locale` as the
+// locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:locale:
 //
@@ -1379,8 +1425,8 @@ func NewStringWithFormatLocale(format string, locale objectivec.IObject) NSStrin
 // specifiers. This value must not be `nil`.
 //
 // locale: An [NSLocale] object specifying the locale to use. To use the current
-// locale (specified by user preferences), pass [NSLocale] [CurrentLocale]].
-// To use the system locale, pass `nil`.
+// locale (specified by user preferences), pass [NSLocale]
+// [NSLocaleClass.CurrentLocale]]. To use the system locale, pass `nil`.
 //
 // For legacy support, this may be an instance of [NSDictionary] containing
 // locale information.
@@ -1408,7 +1454,7 @@ func NewStringWithFormatLocale(format string, locale objectivec.IObject) NSStrin
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
-func NewStringWithFormatLocaleArguments(format string, locale objectivec.IObject, argList unsafe.Pointer) NSString {
+func NewStringWithFormatLocaleArguments(format string, locale objectivec.IObject, argList kernel.VaList) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:arguments:"), objc.String(format), locale, argList)
 	return NSStringFromID(rv)
@@ -1439,7 +1485,7 @@ func NewStringWithUTF8String(nullTerminatedCString string) NSString {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
-func NewStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error) {
+func NewStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList kernel.VaList) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
@@ -1463,7 +1509,7 @@ func NewStringWithValidatedFormatValidFormatSpecifiersError(format string, valid
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
-func NewStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error) {
+func NewStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList kernel.VaList) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
@@ -1628,16 +1674,16 @@ func (s NSString) InitWithString(aString string) NSString {
 // This method is meant to be called from within a variadic function, where
 // the argument list will be available.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(format:arguments:)
 //
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-func (s NSString) InitWithFormatArguments(format string, argList unsafe.Pointer) NSString {
+func (s NSString) InitWithFormatArguments(format string, argList kernel.VaList) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithFormat:arguments:"), objc.String(format), argList)
 	return rv
 }
@@ -1652,8 +1698,8 @@ func (s NSString) InitWithFormatArguments(format string, argList unsafe.Pointer)
 // specifiers. This value must not be `nil`.
 //
 // locale: An [NSLocale] object specifying the locale to use. To use the current
-// locale (specified by user preferences), pass [NSLocale] [CurrentLocale]].
-// To use the system locale, pass `nil`.
+// locale (specified by user preferences), pass [NSLocale]
+// [NSLocaleClass.CurrentLocale]]. To use the system locale, pass `nil`.
 //
 // For legacy support, this may be an instance of [NSDictionary] containing
 // locale information.
@@ -1681,7 +1727,7 @@ func (s NSString) InitWithFormatArguments(format string, argList unsafe.Pointer)
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
-func (s NSString) InitWithFormatLocaleArguments(format string, locale objectivec.IObject, argList unsafe.Pointer) NSString {
+func (s NSString) InitWithFormatLocaleArguments(format string, locale objectivec.IObject, argList kernel.VaList) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithFormat:locale:arguments:"), objc.String(format), locale, argList)
 	return rv
 }
@@ -1757,7 +1803,7 @@ func (s NSString) InitWithContentsOfFileEncodingError(path string, enc uint) (NS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func (s NSString) InitWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
+func (s NSString) InitWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1829,10 +1875,11 @@ func (s NSString) MaximumLengthOfBytesUsingEncoding(enc uint) uint {
 //
 // # Discussion
 //
-// You should always use the [RangeOfComposedCharacterSequenceAtIndex] or
-// [RangeOfComposedCharacterSequencesForRange] method to determine character
-// boundaries, so that any surrogate pairs or character clusters are handled
-// correctly.
+// You should always use the
+// [NSString.RangeOfComposedCharacterSequenceAtIndex] or
+// [NSString.RangeOfComposedCharacterSequencesForRange] method to determine
+// character boundaries, so that any surrogate pairs or character clusters are
+// handled correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/character(at:)
 func (s NSString) CharacterAtIndex(index uint) Unichar {
@@ -1853,14 +1900,15 @@ func (s NSString) CharacterAtIndex(index uint) Unichar {
 //
 // This method does not add a [NULL] character.
 //
-// The abstract implementation of this method uses [CharacterAtIndex]
+// The abstract implementation of this method uses [NSString.CharacterAtIndex]
 // repeatedly, correctly extracting the characters, though very inefficiently.
 // Subclasses should override it to provide a fast implementation.
 //
-// You should always use the [RangeOfComposedCharacterSequenceAtIndex] or
-// [RangeOfComposedCharacterSequencesForRange] method to determine character
-// boundaries, so that any surrogate pairs or character clusters are handled
-// correctly.
+// You should always use the
+// [NSString.RangeOfComposedCharacterSequenceAtIndex] or
+// [NSString.RangeOfComposedCharacterSequencesForRange] method to determine
+// character boundaries, so that any surrogate pairs or character clusters are
+// handled correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:range:)
 func (s NSString) GetCharactersRange(buffer Unichar, range_ NSRange) {
@@ -1897,7 +1945,7 @@ func (s NSString) GetCharactersRange(buffer Unichar, range_ NSRange) {
 // the conversion isn’t possible due to the chosen encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getBytes(_:maxLength:usedLength:encoding:options:range:remaining:)
-func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool) {
+func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer kernel.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool) {
 	var usedBufferCount uint
 	rv := objc.Send[bool](s.ID, objc.Sel("getBytes:maxLength:usedLength:encoding:options:range:remainingRange:"), buffer, maxBufferCount, unsafe.Pointer(&usedBufferCount), encoding, options, range_, leftover)
 	return usedBufferCount, rv
@@ -1919,15 +1967,16 @@ func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(
 //
 // The returned C string is guaranteed to be valid only until either the
 // receiver is freed, or until the current memory is emptied, whichever occurs
-// first. You should copy the C string or use [GetCStringMaxLengthEncoding] if
-// it needs to store the C string beyond this time.
+// first. You should copy the C string or use
+// [NSString.GetCStringMaxLengthEncoding] if it needs to store the C string
+// beyond this time.
 //
-// You can use [CanBeConvertedToEncoding] to check whether a string can be
-// losslessly converted to `encoding`. If it can’t, you can use
-// [DataUsingEncodingAllowLossyConversion] to get a C-string representation
-// using `encoding`, allowing some loss of information (note that the data
-// returned by [DataUsingEncodingAllowLossyConversion] is not a strict
-// C-string since it does not have a [NULL] terminator).
+// You can use [NSString.CanBeConvertedToEncoding] to check whether a string
+// can be losslessly converted to `encoding`. If it can’t, you can use
+// [NSString.DataUsingEncodingAllowLossyConversion] to get a C-string
+// representation using `encoding`, allowing some loss of information (note
+// that the data returned by [NSString.DataUsingEncodingAllowLossyConversion]
+// is not a strict C-string since it does not have a [NULL] terminator).
 //
 // # Special Considerations
 //
@@ -1962,17 +2011,17 @@ func (s NSString) CStringUsingEncoding(encoding uint) string {
 // # Discussion
 //
 // Note that in the treatment of the `maxBufferCount` argument, this method
-// differs from the deprecated [GetCStringMaxLength] method which it replaces.
-// (The buffer should include room for `maxBufferCount` bytes; this number
-// should accommodate the expected size of the return value plus the [NULL]
-// termination byte, which this method adds.)
+// differs from the deprecated [NSString.GetCStringMaxLength] method which it
+// replaces. (The buffer should include room for `maxBufferCount` bytes; this
+// number should accommodate the expected size of the return value plus the
+// [NULL] termination byte, which this method adds.)
 //
-// You can use [CanBeConvertedToEncoding] to check whether a string can be
-// losslessly converted to `encoding`. If it can’t, you can use
-// [DataUsingEncodingAllowLossyConversion] to get a C-string representation
-// using `encoding`, allowing some loss of information (note that the data
-// returned by [DataUsingEncodingAllowLossyConversion] is not a strict
-// C-string since it does not have a [NULL] terminator).
+// You can use [NSString.CanBeConvertedToEncoding] to check whether a string
+// can be losslessly converted to `encoding`. If it can’t, you can use
+// [NSString.DataUsingEncodingAllowLossyConversion] to get a C-string
+// representation using `encoding`, allowing some loss of information (note
+// that the data returned by [NSString.DataUsingEncodingAllowLossyConversion]
+// is not a strict C-string since it does not have a [NULL] terminator).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCString(_:maxLength:encoding:)
 func (s NSString) GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint, encoding uint) bool {
@@ -1980,7 +2029,7 @@ func (s NSString) GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint
 	return rv
 }
 
-// Returns the result of invoking [CompareOptions] with
+// Returns the result of invoking [NSString.CompareOptions] with
 // [NSCaseInsensitiveSearch] as the only option.
 //
 // string: The string with which to compare the receiver.
@@ -1994,7 +2043,7 @@ func (s NSString) GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint
 //
 // # Discussion
 //
-// This method is the equivalent of invoking [CompareOptions] with
+// This method is the equivalent of invoking [NSString.CompareOptions] with
 // [NSCaseInsensitiveSearch] as the only option.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/caseInsensitiveCompare(_:)
@@ -2032,8 +2081,8 @@ func (s NSString) LocalizedCaseInsensitiveCompare(string_ string) NSComparisonRe
 	return NSComparisonResult(rv)
 }
 
-// Returns the result of invoking [CompareOptionsRange] with no options and
-// the receiver’s full extent as the range.
+// Returns the result of invoking [NSString.CompareOptionsRange] with no
+// options and the receiver’s full extent as the range.
 //
 // string: The string with which to compare the receiver.
 //
@@ -2049,8 +2098,8 @@ func (s NSString) LocalizedCaseInsensitiveCompare(string_ string) NSComparisonRe
 //
 // # Discussion
 //
-// This method is equivalent to invoking [CompareOptionsRange] with no options
-// and the receiver’s full extent as the range.
+// This method is equivalent to invoking [NSString.CompareOptionsRange] with
+// no options and the receiver’s full extent as the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/compare(_:)
 //
@@ -2107,8 +2156,8 @@ func (s NSString) LocalizedCompare(string_ string) NSComparisonResult {
 //
 // # Discussion
 //
-// This method is equivalent to invoking [CompareOptionsRange] with a given
-// mask as the options and the receiver’s full extent as the range.
+// This method is equivalent to invoking [NSString.CompareOptionsRange] with a
+// given mask as the options and the receiver’s full extent as the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/compare(_:options:)
 //
@@ -2119,8 +2168,8 @@ func (s NSString) CompareOptions(string_ string, mask NSStringCompareOptions) NS
 	return NSComparisonResult(rv)
 }
 
-// Returns the result of invoking [CompareOptionsRangeLocale] with a `nil`
-// locale.
+// Returns the result of invoking [NSString.CompareOptionsRangeLocale] with a
+// `nil` locale.
 //
 // string: The string with which to compare the range of the receiver specified by
 // `range`.
@@ -2146,8 +2195,8 @@ func (s NSString) CompareOptions(string_ string, mask NSStringCompareOptions) NS
 //
 // # Discussion
 //
-// This method is equivalent to invoking [CompareOptionsRangeLocale] with a
-// `nil` locale.
+// This method is equivalent to invoking [NSString.CompareOptionsRangeLocale]
+// with a `nil` locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/compare(_:options:range:)
 //
@@ -2177,8 +2226,9 @@ func (s NSString) CompareOptionsRange(string_ string, mask NSStringCompareOption
 // must not exceed the bounds of the receiver.
 //
 // locale: An instance of [NSLocale]. To use the current locale, pass [NSLocale]
-// [CurrentLocale]]. For example, if you are comparing strings to present to
-// the end-user, use the current locale. To use the system locale, pass `nil`.
+// [NSLocaleClass.CurrentLocale]]. For example, if you are comparing strings
+// to present to the end-user, use the current locale. To use the system
+// locale, pass `nil`.
 //
 // # Return Value
 //
@@ -2360,7 +2410,8 @@ func (s NSString) StringByPaddingToLengthWithStringStartingAtIndex(newLength uin
 // taking into account the specified locale.
 //
 // locale: The locale. For strings presented to users, pass the current locale
-// ([NSLocale] [CurrentLocale]]). To use the system locale, pass `nil`.
+// ([NSLocale] [NSLocaleClass.CurrentLocale]]). To use the system locale, pass
+// `nil`.
 //
 // # Return Value
 //
@@ -2369,8 +2420,8 @@ func (s NSString) StringByPaddingToLengthWithStringStartingAtIndex(newLength uin
 // # Discussion
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/lowercased(with:)
 func (s NSString) LowercaseStringWithLocale(locale INSLocale) string {
@@ -2382,7 +2433,8 @@ func (s NSString) LowercaseStringWithLocale(locale INSLocale) string {
 // taking into account the specified locale.
 //
 // locale: The locale. For strings presented to users, pass the current locale
-// ([NSLocale] [CurrentLocale]]). To use the system locale, pass `nil`.
+// ([NSLocale] [NSLocaleClass.CurrentLocale]]). To use the system locale, pass
+// `nil`.
 //
 // # Return Value
 //
@@ -2398,7 +2450,8 @@ func (s NSString) UppercaseStringWithLocale(locale INSLocale) string {
 // locale.
 //
 // locale: The locale. For strings presented to users, pass the current locale
-// ([NSLocale] [CurrentLocale]]). To use the system locale, pass `nil`.
+// ([NSLocale] [NSLocaleClass.CurrentLocale]]). To use the system locale, pass
+// `nil`.
 //
 // # Return Value
 //
@@ -2412,13 +2465,13 @@ func (s NSString) UppercaseStringWithLocale(locale INSLocale) string {
 // changed to its corresponding uppercase value, and all remaining characters
 // set to their corresponding lowercase values. A “word” is any sequence
 // of characters delimited by spaces, tabs, or line terminators (listed under
-// [GetLineStartEndContentsEndForRange]). Some common word delimiting
+// [NSString.GetLineStartEndContentsEndForRange]). Some common word delimiting
 // punctuation isn’t considered, so this property may not generally produce
 // the desired results for multiword strings.
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/capitalized(with:)
 func (s NSString) CapitalizedStringWithLocale(locale INSLocale) string {
@@ -2497,8 +2550,9 @@ func (s NSString) ComponentsSeparatedByCharactersInSet(separator INSCharacterSet
 //
 // # Discussion
 //
-// Use [WhitespaceCharacterSet] or [WhitespaceAndNewlineCharacterSet] to
-// remove whitespace around strings.
+// Use [NSCharacterSetClass.WhitespaceCharacterSet] or
+// [NSCharacterSetClass.WhitespaceAndNewlineCharacterSet] to remove whitespace
+// around strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/trimmingCharacters(in:)
 func (s NSString) StringByTrimmingCharactersInSet(set INSCharacterSet) string {
@@ -2512,7 +2566,7 @@ func (s NSString) StringByTrimmingCharactersInSet(set INSCharacterSet) string {
 // from: An index. The value must lie within the bounds of the receiver, or be equal
 // to the length of the receiver.
 //
-// Raises an [RangeException] if (`anIndex` - 1) lies beyond the end of the
+// Raises an [rangeException] if (`anIndex` - 1) lies beyond the end of the
 // receiver.
 //
 // # Return Value
@@ -2522,6 +2576,8 @@ func (s NSString) StringByTrimmingCharactersInSet(set INSCharacterSet) string {
 // returns an empty string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/substring(from:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSString) SubstringFromIndex(from uint) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("substringFromIndex:"), from)
 	return NSStringFromID(rv).String()
@@ -2532,7 +2588,7 @@ func (s NSString) SubstringFromIndex(from uint) string {
 //
 // range: A range. The range must not exceed the bounds of the receiver.
 //
-// Raises an [RangeException] if (`aRange.Location()` - 1) or
+// Raises an [rangeException] if (`aRange.Location()` - 1) or
 // (`aRange.Location()` + `aRange.Length()` - 1) lies beyond the end of the
 // receiver.
 //
@@ -2550,6 +2606,8 @@ func (s NSString) SubstringFromIndex(from uint) string {
 // execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/substring(with:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSString) SubstringWithRange(range_ NSRange) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("substringWithRange:"), range_)
 	return NSStringFromID(rv).String()
@@ -2561,7 +2619,7 @@ func (s NSString) SubstringWithRange(range_ NSRange) string {
 // to: An index. The value must lie within the bounds of the receiver, or be equal
 // to the length of the receiver.
 //
-// Raises an [RangeException] if (`anIndex` - 1) lies beyond the end of the
+// Raises an [rangeException] if (`anIndex` - 1) lies beyond the end of the
 // receiver.
 //
 // # Return Value
@@ -2571,6 +2629,8 @@ func (s NSString) SubstringWithRange(range_ NSRange) string {
 // string, returns a copy of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/substring(to:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSString) SubstringToIndex(to uint) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("substringToIndex:"), to)
 	return NSStringFromID(rv).String()
@@ -2606,11 +2666,11 @@ func (s NSString) SubstringToIndex(to uint) string {
 // more efficient comparison method. For example, if you were determining the
 // case-insensitive (that is, “HELLO”, “hello”, and “Hello” are
 // all considered equal) intersection of two sets of strings, instead of
-// calling the [LocalizedCaseInsensitiveCompare] method for each pair of
-// strings, you might first normalize both sets of strings by calling the
-// [StringByFoldingWithOptionsLocale] method, passing the
+// calling the [NSString.LocalizedCaseInsensitiveCompare] method for each pair
+// of strings, you might first normalize both sets of strings by calling the
+// [NSString.StringByFoldingWithOptionsLocale] method, passing the
 // [NSCaseInsensitiveSearch] option and the current locale, and then compare
-// each pair of folded strings using the [IsEqualToString] method.
+// each pair of folded strings using the [NSString.IsEqualToString] method.
 //
 // Rules for how characters are folded may vary, depending on the locale. For
 // example, when folding a string containing the character “I” (`U+0049`
@@ -2654,8 +2714,8 @@ func (s NSString) StringByApplyingTransformReverse(transform NSStringTransform, 
 //
 // # Discussion
 //
-// Calling this method is equivalent to calling [RangeOfStringOptions] with no
-// options.
+// Calling this method is equivalent to calling
+// [NSString.RangeOfStringOptions] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/contains(_:)
 func (s NSString) ContainsString(str string) bool {
@@ -2698,7 +2758,7 @@ func (s NSString) LocalizedStandardContainsString(str string) bool {
 //
 // searchSet: A character set. This value must not be `nil`.
 //
-// Raises an [InvalidArgumentException] if `aSet` is `nil`.
+// Raises an [invalidArgumentException] if `aSet` is `nil`.
 //
 // # Return Value
 //
@@ -2708,9 +2768,11 @@ func (s NSString) LocalizedStandardContainsString(str string) bool {
 //
 // # Discussion
 //
-// Invokes [RangeOfCharacterFromSetOptions] with no options.
+// Invokes [NSString.RangeOfCharacterFromSetOptions] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/rangeOfCharacter(from:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (s NSString) RangeOfCharacterFromSet(searchSet INSCharacterSet) NSRange {
 	rv := objc.Send[NSRange](s.ID, objc.Sel("rangeOfCharacterFromSet:"), searchSet)
 	return NSRange(rv)
@@ -2735,8 +2797,8 @@ func (s NSString) RangeOfCharacterFromSet(searchSet INSCharacterSet) NSRange {
 //
 // # Discussion
 //
-// Invokes [RangeOfCharacterFromSetOptionsRange] with `mask` for the options
-// and the entire extent of the receiver for the range.
+// Invokes [NSString.RangeOfCharacterFromSetOptionsRange] with `mask` for the
+// options and the entire extent of the receiver for the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/rangeOfCharacter(from:options:)
 func (s NSString) RangeOfCharacterFromSetOptions(searchSet INSCharacterSet, mask NSStringCompareOptions) NSRange {
@@ -2758,7 +2820,7 @@ func (s NSString) RangeOfCharacterFromSetOptions(searchSet INSCharacterSet, mask
 // rangeOfReceiverToSearch: The range in which to search. `aRange` must not exceed the bounds of the
 // receiver.
 //
-// Raises an [RangeException] if `aRange` is invalid.
+// Raises an [rangeException] if `aRange` is invalid.
 //
 // # Return Value
 //
@@ -2778,6 +2840,8 @@ func (s NSString) RangeOfCharacterFromSetOptions(searchSet INSCharacterSet, mask
 // found.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/rangeOfCharacter(from:options:range:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSString) RangeOfCharacterFromSetOptionsRange(searchSet INSCharacterSet, mask NSStringCompareOptions, rangeOfReceiverToSearch NSRange) NSRange {
 	rv := objc.Send[NSRange](s.ID, objc.Sel("rangeOfCharacterFromSet:options:range:"), searchSet, mask, rangeOfReceiverToSearch)
 	return NSRange(rv)
@@ -2796,7 +2860,7 @@ func (s NSString) RangeOfCharacterFromSetOptionsRange(searchSet INSCharacterSet,
 //
 // # Discussion
 //
-// Invokes [RangeOfStringOptions] with no options.
+// Invokes [NSString.RangeOfStringOptions] with no options.
 //
 // [NSString] objects are compared by checking the Unicode canonical
 // equivalence of their code point sequences. The length of the returned range
@@ -2834,8 +2898,8 @@ func (s NSString) RangeOfString(searchString string) NSRange {
 //
 // # Discussion
 //
-// Invokes [RangeOfStringOptionsRange] with the options specified by `mask`
-// and the entire extent of the receiver as the range.
+// Invokes [NSString.RangeOfStringOptionsRange] with the options specified by
+// `mask` and the entire extent of the receiver as the range.
 //
 // [NSString] objects are compared by checking the Unicode canonical
 // equivalence of their code point sequences. The length of the returned range
@@ -2923,11 +2987,11 @@ func (s NSString) RangeOfStringOptionsRange(searchString string, mask NSStringCo
 //
 // rangeOfReceiverToSearch: The range within the receiver for which to search for `aString`.
 //
-// Raises an [RangeException] if `aRange` is invalid.
+// Raises an [rangeException] if `aRange` is invalid.
 //
 // locale: The locale to use when comparing the receiver with `aString`. To use the
-// current locale, pass [NSLocale] [CurrentLocale]]. To use the system locale,
-// pass `nil`.
+// current locale, pass [NSLocale] [NSLocaleClass.CurrentLocale]]. To use the
+// system locale, pass `nil`.
 //
 // The locale argument affects the equality checking algorithm. For example,
 // for the Turkish locale, case-insensitive compare matches “I” to
@@ -2960,6 +3024,7 @@ func (s NSString) RangeOfStringOptionsRange(searchString string, mask NSStringCo
 // See: https://developer.apple.com/documentation/Foundation/NSString/range(of:options:range:locale:)
 //
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 func (s NSString) RangeOfStringOptionsRangeLocale(searchString string, mask NSStringCompareOptions, rangeOfReceiverToSearch NSRange, locale INSLocale) NSRange {
 	rv := objc.Send[NSRange](s.ID, objc.Sel("rangeOfString:options:range:locale:"), objc.String(searchString), mask, rangeOfReceiverToSearch, locale)
@@ -2997,7 +3062,8 @@ func (s NSString) LocalizedStandardRangeOfString(str string) NSRange {
 //
 // # Discussion
 //
-// Invokes [StringByReplacingOccurrencesOfStringWithStringOptionsRange]with
+// Invokes
+// [NSString.StringByReplacingOccurrencesOfStringWithStringOptionsRange]with
 // `0` options and range of the whole string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/replacingOccurrences(of:with:)
@@ -3125,7 +3191,7 @@ func (s NSString) CommonPrefixWithStringOptions(str string, mask NSStringCompare
 // execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getLineStart(_:end:contentsEnd:for:)
-func (s NSString) GetLineStartEndContentsEndForRange(startPtr unsafe.Pointer, lineEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange) {
+func (s NSString) GetLineStartEndContentsEndForRange(startPtr *uint, lineEndPtr *uint, contentsEndPtr *uint, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getLineStart:end:contentsEnd:forRange:"), startPtr, lineEndPtr, contentsEndPtr, range_)
 }
 
@@ -3139,7 +3205,8 @@ func (s NSString) GetLineStartEndContentsEndForRange(startPtr unsafe.Pointer, li
 //
 // The range of characters representing the line or lines containing `aRange`,
 // including the line termination characters. See
-// [GetLineStartEndContentsEndForRange] for a discussion of line terminators.
+// [NSString.GetLineStartEndContentsEndForRange] for a discussion of line
+// terminators.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/lineRange(for:)
 func (s NSString) LineRangeForRange(range_ NSRange) NSRange {
@@ -3174,11 +3241,11 @@ func (s NSString) LineRangeForRange(range_ NSRange) NSRange {
 //
 // If `aRange` is contained with a single paragraph, of course, the returned
 // indexes all belong to that paragraph. Similar to
-// [GetLineStartEndContentsEndForRange], you can use the results of this
-// method to construct the ranges for paragraphs.
+// [NSString.GetLineStartEndContentsEndForRange], you can use the results of
+// this method to construct the ranges for paragraphs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getParagraphStart(_:end:contentsEnd:for:)
-func (s NSString) GetParagraphStartEndContentsEndForRange(startPtr unsafe.Pointer, parEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange) {
+func (s NSString) GetParagraphStartEndContentsEndForRange(startPtr *uint, parEndPtr *uint, contentsEndPtr *uint, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getParagraphStart:end:contentsEnd:forRange:"), startPtr, parEndPtr, contentsEndPtr, range_)
 }
 
@@ -3253,8 +3320,8 @@ func (s NSString) RangeOfComposedCharacterSequencesForRange(range_ NSRange) NSRa
 // encoding.
 //
 // path: The file to which to write the receiver. If `path` contains a tilde (`~`)
-// character, you must expand it with [StringByExpandingTildeInPath] before
-// invoking this method.
+// character, you must expand it with [NSString.StringByExpandingTildeInPath]
+// before invoking this method.
 //
 // useAuxiliaryFile: If true, the receiver is written to an auxiliary file, and then the
 // auxiliary file is renamed to `path`. If false, the receiver is written
@@ -3281,8 +3348,9 @@ func (s NSString) RangeOfComposedCharacterSequencesForRange(range_ NSRange) NSRa
 // - `UTF-8;`
 // - `;3071`
 //
-// The methods [InitWithContentsOfFileUsedEncodingError],
-// `NSString/init()-2c72d`, [StringWithContentsOfFileUsedEncodingError], and
+// The methods [NSString.InitWithContentsOfFileUsedEncodingError],
+// `NSString/init()-2c72d`,
+// [NSStringClass.StringWithContentsOfFileUsedEncodingError], and
 // `NSString/init()-9jrum` use this information to open the file using the
 // right encoding.
 //
@@ -3333,8 +3401,9 @@ func (s NSString) WriteToFileAtomicallyEncodingError(path string, useAuxiliaryFi
 // - `UTF-8;`
 // - `;3071`
 //
-// The methods [InitWithContentsOfFileUsedEncodingError],
-// `NSString/init()-2c72d`, [StringWithContentsOfFileUsedEncodingError], and
+// The methods [NSString.InitWithContentsOfFileUsedEncodingError],
+// `NSString/init()-2c72d`,
+// [NSStringClass.StringWithContentsOfFileUsedEncodingError], and
 // `NSString/init()-9jrum` use this information to open the file using the
 // right encoding.
 //
@@ -3418,11 +3487,11 @@ func (s NSString) PropertyListFromStringsFileFormat() INSDictionary {
 // # Discussion
 //
 // The width (height for vertical layout) of the rendering area is unlimited,
-// unlike [DrawInRectWithAttributes], which uses a bounding rectangle. As a
-// result, this method renders the text in a single line. However, if newline
-// characters are present in the string, those characters are honored and
-// cause subsequent text to be placed on the next line underneath the starting
-// point.
+// unlike [NSString.DrawInRectWithAttributes], which uses a bounding
+// rectangle. As a result, this method renders the text in a single line.
+// However, if newline characters are present in the string, those characters
+// are honored and cause subsequent text to be placed on the next line
+// underneath the starting point.
 //
 // There must be either a focused view or an active graphics context when you
 // call this method.
@@ -3674,8 +3743,8 @@ func (s NSString) CanBeConvertedToEncoding(encoding uint) bool {
 //
 // # Return Value
 //
-// The result of invoking [DataUsingEncodingAllowLossyConversion] with false
-// as the second argument (that is, requiring lossless conversion).
+// The result of invoking [NSString.DataUsingEncodingAllowLossyConversion]
+// with false as the second argument (that is, requiring lossless conversion).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/data(using:)
 func (s NSString) DataUsingEncoding(encoding uint) INSData {
@@ -3870,8 +3939,8 @@ func (s NSString) StringByAppendingPathExtension(str string) string {
 // # Discussion
 //
 // Note that this method only works with file paths (not, for example, string
-// representations of URLs). See [StringByAppendingPathComponent] for an
-// individual example.
+// representations of URLs). See [NSString.StringByAppendingPathComponent] for
+// an individual example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/strings(byAppendingPaths:)
 func (s NSString) StringsByAppendingPaths(paths []string) []string {
@@ -3884,7 +3953,8 @@ func (s NSString) StringsByAppendingPaths(paths []string) []string {
 //
 // allowedCharacters: The characters not replaced in the string. Typically, you specify one of
 // the predefined character sets for a particular URL component, such as
-// [URLPathAllowedCharacterSet] or [URLQueryAllowedCharacterSet].
+// [NSCharacterSetClass.URLPathAllowedCharacterSet] or
+// [NSCharacterSetClass.URLQueryAllowedCharacterSet].
 //
 // # Return Value
 //
@@ -3915,8 +3985,8 @@ func (s NSString) StringByAddingPercentEncodingWithAllowedCharacters(allowedChar
 //
 // # Discussion
 //
-// Invokes [GetCharactersRange] with `buffer` and the entire extent of the
-// receiver as the range.
+// Invokes [NSString.GetCharactersRange] with `buffer` and the entire extent
+// of the receiver as the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:)
 func (s NSString) GetCharacters(buffer Unichar) {
@@ -3998,8 +4068,8 @@ func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSi
 var _nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key byte
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(unsafe.Pointer, uint64)) NSString {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(kernel.Pointer, uint64)) NSString {
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, objc.ID(_block3))
 	objc.AssociateBlockWithReceiver(rv.ID, &_nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key, _block3)
 	return rv
@@ -4030,7 +4100,7 @@ func (s NSString) InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSSt
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
+func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -4086,10 +4156,10 @@ func (s NSString) EncodeWithCoder(coder INSCoder) {
 // Pass a comma-separated list of variadic arguments to substitute into
 // `format`.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:
 //
@@ -4120,7 +4190,8 @@ func (s NSString) InitWithFormat(format string) NSString {
 // Pass comma-separated list of trailing variadic arguments to substitute into
 // `format`.
 //
-// Invokes [InitWithFormatLocaleArguments] with `locale` as the locale.
+// Invokes [NSString.InitWithFormatLocaleArguments] with `locale` as the
+// locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:locale:
 //
@@ -4132,7 +4203,7 @@ func (s NSString) InitWithFormatLocale(format string, locale objectivec.IObject)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error) {
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList kernel.VaList) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -4156,7 +4227,7 @@ func (s NSString) InitWithValidatedFormatValidFormatSpecifiersError(format strin
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error) {
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList kernel.VaList) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -4225,7 +4296,8 @@ func (s NSString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typ
 // # Return Value
 //
 // A string made by appending to the receiver a string constructed from
-// `format` and the following arguments, in the manner of [StringWithFormat].
+// `format` and the following arguments, in the manner of
+// [NSStringClass.StringWithFormat].
 //
 // # Discussion
 //
@@ -4306,7 +4378,7 @@ func (_NSStringClass NSStringClass) LocalizedUserNotificationStringForKeyArgumen
 // determined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringEncoding(for:encodingOptions:convertedString:usedLossyConversion:)
-func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) NSStringEncoding {
+func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion *bool) NSStringEncoding {
 	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
 	return NSStringEncoding(rv)
 }
@@ -4342,13 +4414,25 @@ func (_NSStringClass NSStringClass) LocalizedNameOfStringEncoding(encoding uint)
 // # Discussion
 //
 // This method doesn’t clean up the path created; use
-// [StringByStandardizingPath] to resolve empty components, references to the
-// parent directory, and so on.
+// [NSString.StringByStandardizingPath] to resolve empty components,
+// references to the parent directory, and so on.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/path(withComponents:)
 func (_NSStringClass NSStringClass) PathWithComponents(components []string) string {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("pathWithComponents:"), objectivec.StringSliceToNSArray(components))
 	return NSStringFromID(rv).String()
+}
+
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:encoding:)-8229r
+func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString unsafe.Pointer, enc uint) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), cString, enc)
+	return NSStringFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(UTF8String:)-321f6
+func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString unsafe.Pointer) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), nullTerminatedCString)
+	return NSStringFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:
@@ -4364,7 +4448,7 @@ func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFrom
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:fromTable:arguments:
-func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFromTableArguments(format string, table string, arguments unsafe.Pointer) string {
+func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFromTableArguments(format string, table string, arguments kernel.VaList) string {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:fromTable:arguments:"), objc.String(format), objc.String(table), arguments)
 	return NSStringFromID(rv).String()
 }
@@ -4390,12 +4474,13 @@ func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFrom
 // Pass a comma-separated list of variadic arguments to substitute into
 // `format`.
 //
-// This method is equivalent to using [InitWithFormatLocale] and passing the
-// current locale as the locale argument.
+// This method is equivalent to using [NSString.InitWithFormatLocale] and
+// passing the current locale as the locale argument.
 //
 // As an example of formatting, this method replaces the decimal according to
 // the locale in `%f` and `%d` substitutions, and calls
-// [DescriptionWithLocale] instead of [description()] where necessary.
+// [NSNumber.DescriptionWithLocale] instead of [description()] where
+// necessary.
 //
 // This code excerpt creates a string from another string and a float:
 //
@@ -4460,12 +4545,6 @@ func (_NSStringClass NSStringClass) ObjectWithItemProviderDataTypeIdentifierErro
 // See: https://developer.apple.com/documentation/Foundation/NSString/string
 func (_NSStringClass NSStringClass) String() NSString {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("string"))
-	return NSStringFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCString:encoding:
-func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString string, enc uint) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), enc)
 	return NSStringFromID(rv)
 }
 
@@ -4540,7 +4619,7 @@ func (_NSStringClass NSStringClass) StringWithContentsOfFileEncodingError(path s
 // This method attempts to determine the encoding of the file at `path`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfFile:usedEncoding:error:
-func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
+func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -4551,7 +4630,7 @@ func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(pa
 
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:encoding:error:
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfURL:encoding:)-1d0eu
 func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -4563,7 +4642,7 @@ func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INS
 
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:usedEncoding:error:
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfURL:usedEncoding:)-86ukw
 func (_NSStringClass NSStringClass) StringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -4592,10 +4671,10 @@ func (_NSStringClass NSStringClass) StringWithContentsOfURLUsedEncodingError(url
 // Pass a comma-separated list of trailing variadic arguments to substitute
 // into `format`.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithFormat:
 //
@@ -4618,12 +4697,6 @@ func (_NSStringClass NSStringClass) StringWithFormat(format string) NSString {
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithString:
 func (_NSStringClass NSStringClass) StringWithString(string_ string) NSString {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithString:"), objc.String(string_))
-	return NSStringFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithUTF8String:
-func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString string) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))
 	return NSStringFromID(rv)
 }
 
@@ -4672,9 +4745,9 @@ func (s NSString) UTF8String() string {
 //
 // # Discussion
 //
-// If two string objects are equal (as determined by the [IsEqualToString]
-// method), they must have the same hash value. This property fulfills this
-// requirement.
+// If two string objects are equal (as determined by the
+// [NSString.IsEqualToString] method), they must have the same hash value.
+// This property fulfills this requirement.
 //
 // You should not rely on this property having the same hash value across
 // releases of macOS.
@@ -4719,8 +4792,8 @@ func (s NSString) LowercaseString() string {
 // # Discussion
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedLowercase
 func (s NSString) LocalizedLowercaseString() string {
@@ -4737,8 +4810,8 @@ func (s NSString) LocalizedLowercaseString() string {
 // depending on the current locale.
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/uppercased
 func (s NSString) UppercaseString() string {
@@ -4752,8 +4825,8 @@ func (s NSString) UppercaseString() string {
 // # Discussion
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedUppercase
 func (s NSString) LocalizedUppercaseString() string {
@@ -4769,13 +4842,13 @@ func (s NSString) LocalizedUppercaseString() string {
 // changed to its corresponding uppercase value, and all remaining characters
 // set to their corresponding lowercase values. A word is any sequence of
 // characters delimited by spaces, tabs, or line terminators (listed under
-// [GetLineStartEndContentsEndForRange]). Some common word delimiting
+// [NSString.GetLineStartEndContentsEndForRange]). Some common word delimiting
 // punctuation isn’t considered, so this property may not generally produce
 // the desired results for multiword strings.
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // This property performs the canonical (non-localized) mapping. It is
 // suitable for programming operations that require stable results not
@@ -4796,13 +4869,13 @@ func (s NSString) CapitalizedString() string {
 // changed to its corresponding uppercase value, and all remaining characters
 // set to their corresponding lowercase values. A “word” is any sequence
 // of characters delimited by spaces, tabs, or line terminators (listed under
-// [GetLineStartEndContentsEndForRange]). Some common word delimiting
+// [NSString.GetLineStartEndContentsEndForRange]). Some common word delimiting
 // punctuation isn’t considered, so this property may not generally produce
 // the desired results for multiword strings.
 //
 // Case transformations aren’t guaranteed to be symmetrical or to produce
-// strings of the same lengths as the originals. See [LowercaseString] for an
-// example.
+// strings of the same lengths as the originals. See
+// [NSString.LowercaseString] for an example.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedCapitalized
 func (s NSString) LocalizedCapitalizedString() string {
@@ -4899,7 +4972,7 @@ func (s NSString) FloatValue() float32 {
 //
 // # Special Considerations
 //
-// In macOS 10.5 and later, use [IntegerValue] instead.
+// In macOS 10.5 and later, use [NSString.IntegerValue] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/intValue
 func (s NSString) IntValue() int {
@@ -5036,7 +5109,7 @@ func (s NSString) PathComponents() []string {
 //
 // The returned C string will be automatically freed just as a returned object
 // would be released; your code should copy the representation or use
-// [GetFileSystemRepresentationMaxLength] if it needs to store the
+// [NSString.GetFileSystemRepresentationMaxLength] if it needs to store the
 // representation outside of the memory context in which the representation
 // was created.
 //
@@ -5048,8 +5121,9 @@ func (s NSString) PathComponents() []string {
 // representations of URLs).
 //
 // To convert a `char *` path (such as you might get from a C library routine)
-// to an [NSString] object, use the [StringWithFileSystemRepresentationLength]
-// method on [NSFileManager].
+// to an [NSString] object, use the
+// [NSFileManager.StringWithFileSystemRepresentationLength] method on
+// [NSFileManager].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/fileSystemRepresentation
 //
@@ -5071,8 +5145,8 @@ func (s NSString) FileSystemRepresentation() string {
 //
 // Note that this method only works with file paths (not, for example, string
 // representations of URLs). The method does not check the filesystem for the
-// existence of the path (use [FileExistsAtPath] or similar methods in
-// [NSFileManager] for that task).
+// existence of the path (use [NSFileManager.FileExistsAtPath] or similar
+// methods in [NSFileManager] for that task).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/isAbsolutePath
 //
@@ -5090,8 +5164,8 @@ func (s NSString) IsAbsolutePath() bool {
 // (slash “/”) or the beginning or end of the path string. Multiple path
 // separators at the end of the string are stripped.
 //
-// The following table illustrates the effect of [LastPathComponent] on a
-// variety of different paths:
+// The following table illustrates the effect of [NSString.LastPathComponent]
+// on a variety of different paths:
 //
 // [Table data omitted]
 //
@@ -5110,8 +5184,8 @@ func (s NSString) LastPathComponent() string {
 //
 // The path extension is the portion of the last path component which follows
 // the final period, if there is one. The extension divider is not included.
-// The following table illustrates the effect of [PathExtension] on a variety
-// of different paths:
+// The following table illustrates the effect of [NSString.PathExtension] on a
+// variety of different paths:
 //
 // [Table data omitted]
 //
@@ -5250,7 +5324,7 @@ func (s NSString) StringByResolvingSymlinksInPath() string {
 // A new string made by performing the following operations:
 //
 // - Expanding an initial tilde expression using
-// [StringByExpandingTildeInPath]. - Removing an initial component of
+// [NSString.StringByExpandingTildeInPath]. - Removing an initial component of
 // “`/private/var/automount`”, “`/var/automount`”, or “`/private`”
 // from the path, if the result still indicates an existing file or directory
 // (checked by consulting the file system). - Reducing empty components and
@@ -5258,8 +5332,8 @@ func (s NSString) StringByResolvingSymlinksInPath() string {
 // “/./”) to single path separators. - Removing a trailing slash from the
 // last component. - For absolute paths only, resolving references to the
 // parent directory (that is, the component “..”) to the real parent
-// directory if possible using [StringByResolvingSymlinksInPath]. For relative
-// paths, references to the parent directory are left in place.
+// directory if possible using [NSString.StringByResolvingSymlinksInPath]. For
+// relative paths, references to the parent directory are left in place.
 //
 // Returns `self` if an error occurs.
 //
@@ -5289,17 +5363,6 @@ func (s NSString) StringByRemovingPercentEncoding() string {
 	return NSStringFromID(rv).String()
 }
 
-// A custom playground Quick Look for this instance.
-//
-// See: https://developer.apple.com/documentation/foundation/nsstring/customplaygroundquicklook
-func (s NSString) CustomPlaygroundQuickLook() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("customPlaygroundQuickLook"))
-	return rv
-}
-func (s NSString) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
-}
-
 // Returns a zero-terminated list of the encodings string objects support in
 // the application’s environment.
 //
@@ -5325,8 +5388,8 @@ func (s NSString) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
 // See: https://developer.apple.com/documentation/Foundation/NSString/availableStringEncodings
 //
 // [CFStringConvertEncodingToNSStringEncoding(_:)]: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToNSStringEncoding(_:)
-func (_NSStringClass NSStringClass) AvailableStringEncodings() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_NSStringClass.class), objc.Sel("availableStringEncodings"))
+func (_NSStringClass NSStringClass) AvailableStringEncodings() uint {
+	rv := objc.Send[uint](objc.ID(_NSStringClass.class), objc.Sel("availableStringEncodings"))
 	return rv
 }
 
@@ -5350,11 +5413,11 @@ func (_NSStringClass NSStringClass) AvailableStringEncodings() unsafe.Pointer {
 // with a bidirectional encoding.
 //
 // Methods that accept a C string as an argument use `...CString...` in the
-// keywords for such arguments: for example, [StringWithCString]—note,
-// though, that these are deprecated. The default C-string encoding is
-// determined from system information and can’t be changed programmatically
-// for an individual process. See [NSStringEncoding] for a full list of
-// supported encodings.
+// keywords for such arguments: for example,
+// [NSStringClass.StringWithCString]—note, though, that these are
+// deprecated. The default C-string encoding is determined from system
+// information and can’t be changed programmatically for an individual
+// process. See [NSStringEncoding] for a full list of supported encodings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/defaultCStringEncoding
 func (_NSStringClass NSStringClass) DefaultCStringEncoding() NSStringEncoding {

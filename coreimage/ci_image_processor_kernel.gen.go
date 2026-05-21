@@ -61,22 +61,24 @@ func (cc CIImageProcessorKernelClass) Alloc() CIImageProcessorKernel {
 // CPU-based image-processing routines—with a Core Image filter chain.
 //
 // Your custom image processing operation is invoked by your subclassed image
-// processor kernel’s [CIImageProcessorKernel.ProcessWithInputsArgumentsOutputError] method. The
-// method can accept zero, one or more inputs: kernels that generate imagery
-// (such as a noise or pattern generator) need no inputs, while kernels that
-// composite source images together require multiple inputs. The `arguments`
-// dictionary allows the caller to pass in additional parameter values (such
-// as the radius of a blur) and the `output` contains the destination for your
-// image processing code to write to.
+// processor kernel’s
+// [CIImageProcessorKernelClass.ProcessWithInputsArgumentsOutputError] method.
+// The method can accept zero, one or more inputs: kernels that generate
+// imagery (such as a noise or pattern generator) need no inputs, while
+// kernels that composite source images together require multiple inputs. The
+// `arguments` dictionary allows the caller to pass in additional parameter
+// values (such as the radius of a blur) and the `output` contains the
+// destination for your image processing code to write to.
 //
 // The following code shows how you can subclass [CIImageProcessorKernel] to
 // apply the Metal Performance Shader [MPSImageThresholdBinary] kernel to a
 // [CIImage]:
 //
 // To apply to kernel to an image, the calling side invokes the image
-// processor’s [CIImageProcessorKernel.ApplyWithExtentInputsArgumentsError] method. The following
-// code generates a new [CIImage] object named `result` which contains a
-// thresholded version of the source image, `inputImage`.
+// processor’s
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError] method.
+// The following code generates a new [CIImage] object named `result` which
+// contains a thresholded version of the source image, `inputImage`.
 //
 // # Subclassing Notes
 //
@@ -89,26 +91,27 @@ func (cc CIImageProcessorKernelClass) Alloc() CIImageProcessorKernel {
 // readonly properties) of an image processor kernel class are class methods.
 //
 // Your subclass should override at least the
-// [CIImageProcessorKernel.ProcessWithInputsArgumentsOutputError] method to perform its image
-// processing.
+// [CIImageProcessorKernelClass.ProcessWithInputsArgumentsOutputError] method
+// to perform its image processing.
 //
 // If your image processor needs to work with a larger or smaller region of
 // interest in the input image than each corresponding region of the output
 // image (for example, a blur filter, which samples several input pixels for
 // each output pixel), you should also override the
-// [CIImageProcessorKernel.RoiForInputArgumentsOutputRect] method.
+// [CIImageProcessorKernelClass.RoiForInputArgumentsOutputRect] method.
 //
-// You can also override the [CIImageProcessorKernel.FormatForInputAtIndex] method and [CIImageProcessorKernel.OutputFormat]
-// property getter to customize the input and output pixel formats for your
-// processor (for example, as part of a multi-step workflow where you extract
-// a single channel from an RGBA image, apply an effect to that channel only,
-// then recombine the channels).
+// You can also override the
+// [CIImageProcessorKernelClass.FormatForInputAtIndex] method and
+// [CIImageProcessorKernelClass.OutputFormat] property getter to customize the
+// input and output pixel formats for your processor (for example, as part of
+// a multi-step workflow where you extract a single channel from an RGBA
+// image, apply an effect to that channel only, then recombine the channels).
 //
 // # Using a Custom Image Processor
 //
 // To apply your custom image processor class to filter one or more images,
-// call the [CIImageProcessorKernel.ApplyWithExtentInputsArgumentsError] class method. (Do not
-// override this method.)
+// call the [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError]
+// class method. (Do not override this method.)
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel
 //
@@ -183,10 +186,11 @@ func NewCIImageProcessorKernel() CIImageProcessorKernel {
 //
 // This method will return `nil` and an error if:
 //
-// - calling [OutputFormat] on your subclass returns an unsupported format. -
-// calling [FormatForInputAtIndex] on your subclass returns an unsupported
-// format. - your subclass does not implement
-// [ProcessWithInputsArgumentsOutputError]
+// - calling [CIImageProcessorKernelClass.OutputFormat] on your subclass
+// returns an unsupported format. - calling
+// [CIImageProcessorKernelClass.FormatForInputAtIndex] on your subclass
+// returns an unsupported format. - your subclass does not implement
+// [CIImageProcessorKernelClass.ProcessWithInputsArgumentsOutputError]
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/apply(withExtent:inputs:arguments:)
 func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtentInputsArgumentsError(extent corefoundation.CGRect, inputs []CIImage, arguments foundation.INSDictionary) (CIImage, error) {
@@ -229,10 +233,10 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAt
 //
 // inputs: An array of `id` that the class consumes to produce its output. The
 // `input.Region()` may be larger than the rect returned by
-// [RoiForInputArgumentsOutputRect].
+// [CIImageProcessorKernelClass.RoiForInputArgumentsOutputRect].
 //
 // arguments: The arguments dictionary that was passed to
-// [ApplyWithExtentInputsArgumentsError].
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError].
 //
 // output: The `id` that the [CIImageProcessorKernel] must provide results to.
 //
@@ -268,7 +272,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // rectangle.
 //
 // arguments: The arguments dictionary that was passed to
-// [ApplyWithExtentInputsArgumentsError].
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError].
 //
 // outputRect: The output [CGRect] that processor will be asked to output.
 //
@@ -298,7 +302,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 // array of ROI rectangles
 //
 // arguments: The arguments dictionary that was passed to
-// [ApplyWithExtentInputsArgumentsError].
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError].
 //
 // outputRect: The output [CGRect] that processor will be asked to output.
 //
@@ -320,8 +324,8 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 //
 // - as CoreImage prepares for a render, this method will be called for each
 // input to return an ROI tile array. - as CoreImage performs the render, the
-// method [ProcessWithInputsArgumentsOutputError] will be called once for each
-// tile.
+// method [CIImageProcessorKernelClass.ProcessWithInputsArgumentsOutputError]
+// will be called once for each tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/roiTileArray(forInput:arguments:outputRect:)
 func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForInputArgumentsOutputRect(inputIndex int, arguments foundation.INSDictionary, outputRect corefoundation.CGRect) []CIVector {
@@ -360,10 +364,11 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForI
 //
 // This method will return `nil` and an error if:
 //
-// - calling [OutputFormatAtIndexArguments] on your subclass returns an
-// unsupported format. - calling [FormatForInputAtIndex] on your subclass
+// - calling [CIImageProcessorKernelClass.OutputFormatAtIndexArguments] on
+// your subclass returns an unsupported format. - calling
+// [CIImageProcessorKernelClass.FormatForInputAtIndex] on your subclass
 // returns an unsupported format. - your subclass does not implement
-// [ProcessWithInputsArgumentsOutputError]
+// [CIImageProcessorKernelClass.ProcessWithInputsArgumentsOutputError]
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/apply(withExtents:inputs:arguments:)
 func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtentsInputsArgumentsError(extents []CIVector, inputs []CIImage, arguments foundation.INSDictionary) ([]CIImage, error) {
@@ -387,7 +392,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtents
 // desired [CIPixelFormat]
 //
 // arguments: The arguments dictionary that was passed to
-// [ApplyWithExtentInputsArgumentsError].
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError].
 //
 // # Return Value
 //
@@ -413,10 +418,10 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIn
 //
 // inputs: An array of `id` that the class consumes to produce its output. The
 // `input.Region()` may be larger than the rect returned by
-// [RoiForInputArgumentsOutputRect].
+// [CIImageProcessorKernelClass.RoiForInputArgumentsOutputRect].
 //
 // arguments: The arguments dictionary that was passed to
-// [ApplyWithExtentInputsArgumentsError].
+// [CIImageProcessorKernelClass.ApplyWithExtentInputsArgumentsError].
 //
 // outputs: An array `id` that the [CIImageProcessorKernel] must provide results to.
 //

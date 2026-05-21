@@ -61,17 +61,20 @@ func (nc NumberFormatterClass) Alloc() NumberFormatter {
 // The [NSNumberFormatter] class provides flexible options for displaying
 // non-zero fractional parts of numbers.
 //
-// If you set the [UsesSignificantDigits] property to true, you can configure
-// [NSNumberFormatter] to display significant digits using the
-// [MinimumSignificantDigits] and [MaximumSignificantDigits] properties. If
-// [UsesSignificantDigits] is false, these properties are ignored. See
-// Configuring Significant Digits.
+// If you set the [NSNumberFormatter.UsesSignificantDigits] property to true,
+// you can configure [NSNumberFormatter] to display significant digits using
+// the [NSNumberFormatter.MinimumSignificantDigits] and
+// [NSNumberFormatter.MaximumSignificantDigits] properties. If
+// [NSNumberFormatter.UsesSignificantDigits] is false, these properties are
+// ignored. See Configuring Significant Digits.
 //
 // Otherwise, you can configure the minimum and maximum number of integer and
 // fraction digits, or the numbers before and after the decimal separator,
-// respectively, using the [MinimumIntegerDigits], [MaximumIntegerDigits],
-// [MinimumFractionDigits], and [MaximumFractionDigits] properties. See
-// Configuring Integer and Fraction Digits.
+// respectively, using the [NSNumberFormatter.MinimumIntegerDigits],
+// [NSNumberFormatter.MaximumIntegerDigits],
+// [NSNumberFormatter.MinimumFractionDigits], and
+// [NSNumberFormatter.MaximumFractionDigits] properties. See Configuring
+// Integer and Fraction Digits.
 //
 // # Thread Safety
 //
@@ -767,8 +770,8 @@ func NewNumberFormatterWithCoder(coder INSCoder) NumberFormatter {
 // of characters in a given string.
 //
 // obj: On return, contains an instance of [NSDecimalNumber] or [NSNumber] based on
-// the current value of the [GeneratesDecimalNumbers] property. Returns `nil`
-// by reference if conversion failed.
+// the current value of the [NSNumberFormatter.GeneratesDecimalNumbers]
+// property. Returns `nil` by reference if conversion failed.
 //
 // string: A string object with the range of characters specified in `rangep` that is
 // used to create `anObject`.
@@ -1010,7 +1013,7 @@ func (n NumberFormatter) SetRoundingMode(value NSNumberFormatterRoundingMode) {
 // By default, this property is set to `0`.
 //
 // The following code demonstrates the effect of setting
-// [MinimumIntegerDigits] when formatting a number:
+// [NSNumberFormatter.MinimumIntegerDigits] when formatting a number:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimumIntegerDigits
 func (n NumberFormatter) MinimumIntegerDigits() uint {
@@ -1028,7 +1031,7 @@ func (n NumberFormatter) SetMinimumIntegerDigits(value uint) {
 // By default, this property is set to `42`.
 //
 // The following code demonstrates the effect of setting
-// [MaximumIntegerDigits] when formatting a number:
+// [NSNumberFormatter.MaximumIntegerDigits] when formatting a number:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/maximumIntegerDigits
 func (n NumberFormatter) MaximumIntegerDigits() uint {
@@ -1046,7 +1049,7 @@ func (n NumberFormatter) SetMaximumIntegerDigits(value uint) {
 // By default, this property is set to `0`.
 //
 // The following code demonstrates the effect of setting
-// [MinimumFractionDigits] when formatting a number:
+// [NSNumberFormatter.MinimumFractionDigits] when formatting a number:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimumFractionDigits
 func (n NumberFormatter) MinimumFractionDigits() uint {
@@ -1064,7 +1067,7 @@ func (n NumberFormatter) SetMinimumFractionDigits(value uint) {
 // By default, this property is set to `0`.
 //
 // The following code demonstrates the effect of setting
-// [MaximumFractionDigits] when formatting a number:
+// [NSNumberFormatter.MaximumFractionDigits] when formatting a number:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/maximumFractionDigits
 func (n NumberFormatter) MaximumFractionDigits() uint {
@@ -1090,12 +1093,14 @@ func (n NumberFormatter) SetMaximumFractionDigits(value uint) {
 // false by default.
 //
 // Set this property to true to format numbers according to the significant
-// digits configuration specified by the [MinimumSignificantDigits] and
-// [MaximumSignificantDigits] properties. By default, the minimum number of
-// significant digits is 1, and the maximum number of significant digits is 6.
+// digits configuration specified by the
+// [NSNumberFormatter.MinimumSignificantDigits] and
+// [NSNumberFormatter.MaximumSignificantDigits] properties. By default, the
+// minimum number of significant digits is 1, and the maximum number of
+// significant digits is 6.
 //
 // The following code demonstrates the effect of configuring
-// [UsesSignificantDigits] when formatting various numbers:
+// [NSNumberFormatter.UsesSignificantDigits] when formatting various numbers:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/usesSignificantDigits
 func (n NumberFormatter) UsesSignificantDigits() bool {
@@ -1110,12 +1115,13 @@ func (n NumberFormatter) SetUsesSignificantDigits(value bool) {
 //
 // # Discussion
 //
-// You must set the [UsesSignificantDigits] property to true in order for this
-// property to affect formatting behavior. By default, the minimum number of
-// significant digits is 1.
+// You must set the [NSNumberFormatter.UsesSignificantDigits] property to true
+// in order for this property to affect formatting behavior. By default, the
+// minimum number of significant digits is 1.
 //
 // The following code demonstrates the effect of setting
-// [MinimumSignificantDigits] when formatting various numbers:
+// [NSNumberFormatter.MinimumSignificantDigits] when formatting various
+// numbers:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimumSignificantDigits
 func (n NumberFormatter) MinimumSignificantDigits() uint {
@@ -1130,12 +1136,13 @@ func (n NumberFormatter) SetMinimumSignificantDigits(value uint) {
 //
 // # Discussion
 //
-// You must set the [UsesSignificantDigits] property to true in order for this
-// property to affect formatting behavior. By default, the maximum number of
-// significant digits is 6. Values less than 1 are ignored.
+// You must set the [NSNumberFormatter.UsesSignificantDigits] property to true
+// in order for this property to affect formatting behavior. By default, the
+// maximum number of significant digits is 6. Values less than 1 are ignored.
 //
 // The following code demonstrates the effect of setting
-// [MaximumSignificantDigits] when formatting various numbers:
+// [NSNumberFormatter.MaximumSignificantDigits] when formatting various
+// numbers:
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/maximumSignificantDigits
 func (n NumberFormatter) MaximumSignificantDigits() uint {
@@ -1186,7 +1193,7 @@ func (n NumberFormatter) SetFormattingContext(value NSFormattingContext) {
 //
 // The format width is the number of characters of a formatted number within a
 // string that is either left justified or right justified based on the value
-// contained in [PaddingPosition].
+// contained in [NSNumberFormatter.PaddingPosition].
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/formatWidth
 func (n NumberFormatter) FormatWidth() uint {
@@ -1705,7 +1712,7 @@ func (n NumberFormatter) SetUsesGroupingSeparator(value bool) {
 // # Discussion
 //
 // If you don’t have thousand separators enabled through any other means
-// (such as [Format]), using this method enables them.
+// (such as [NSNumberFormatter.Format]), using this method enables them.
 //
 // # Special Considerations
 //

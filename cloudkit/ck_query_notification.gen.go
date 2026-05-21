@@ -55,39 +55,41 @@ func (cc CKQueryNotificationClass) Alloc() CKQueryNotification {
 // excludes the device where the change originates.
 //
 // You configure a subscription’s notifications by setting it’s
-// [CKQueryNotification.NotificationInfo] property. Do this before you save it to the server. A
-// subscription generates either high-priority or medium-priority push
-// notifications. CloudKit delivers medium-priority notifications to your app
-// in the background. High-priority notifications are visual and the system
-// displays them to the user. Visual notifications need the user’s
-// permission. For more information, see [Asking permission to use
-// notifications].
+// [CKSubscription.NotificationInfo] property. Do this before you save it to
+// the server. A subscription generates either high-priority or
+// medium-priority push notifications. CloudKit delivers medium-priority
+// notifications to your app in the background. High-priority notifications
+// are visual and the system displays them to the user. Visual notifications
+// need the user’s permission. For more information, see [Asking permission
+// to use notifications].
 //
 // A subscription uses [CKNotificationInfo] to configure its notifications.
-// For background delivery, set only its [CKQueryNotification.ShouldSendContentAvailable] property
-// to true. If you set any other property, CloudKit treats the notification as
-// high-priority.
+// For background delivery, set only its
+// [CKNotificationInfo.ShouldSendContentAvailable] property to true. If you
+// set any other property, CloudKit treats the notification as high-priority.
 //
 // Don’t rely on push notifications for changes because the system can
 // coalesce them. CloudKit can omit data to keep the notification’s payload
-// size under the APNs size limit. If you use [CKQueryNotification.DesiredKeys] to include extra
-// data in the payload, the server removes that first. A notification’s
-// [CKQueryNotification.IsPruned] property is true if CloudKit omits data.
+// size under the APNs size limit. If you use [CKSubscription.DesiredKeys] to
+// include extra data in the payload, the server removes that first. A
+// notification’s [CKNotification.IsPruned] property is true if CloudKit
+// omits data.
 //
-// Consider notifications an indication of remote changes. Use [CKQueryNotification.DatabaseScope]
-// to determine which database contains the changed record. To fetch the
-// changes, configure an instance of [CKQueryOperation] to match the
-// subscription and then execute it in the database. CloudKit returns all
-// records that match the predicate, including the changed record. Dispose of
-// any records you cache on-device and use the operation’s results instead.
+// Consider notifications an indication of remote changes. Use
+// [CKDatabaseNotification.DatabaseScope] to determine which database contains
+// the changed record. To fetch the changes, configure an instance of
+// [CKQueryOperation] to match the subscription and then execute it in the
+// database. CloudKit returns all records that match the predicate, including
+// the changed record. Dispose of any records you cache on-device and use the
+// operation’s results instead.
 //
 // You don’t instantiate this class. Instead, implement
 // [application(_:didReceiveRemoteNotification:fetchCompletionHandler:)] in
 // your app delegate. Initialize [CKNotification] with the `userInfo`
 // dictionary that CloudKit passes to the method. This returns an instance of
-// the appropriate subclass. Use the [CKQueryNotification.NotificationType] property to determine
-// the type. Then cast to that type to access type-specific properties and
-// methods.
+// the appropriate subclass. Use the [CKNotification.NotificationType]
+// property to determine the type. Then cast to that type to access
+// type-specific properties and methods.
 //
 // # Getting the Database Scope
 //
@@ -156,16 +158,6 @@ type ICKQueryNotification interface {
 	RecordID() ICKRecordID
 	// A dictionary of fields that have changes.
 	RecordFields() foundation.INSDictionary
-
-	// The names of fields to include in the push notification’s payload.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
-	// The configuration for a subscription’s push notifications.
-	NotificationInfo() ICKNotificationInfo
-	SetNotificationInfo(value ICKNotificationInfo)
-	// A Boolean value that indicates whether the push notification includes the content available flag.
-	ShouldSendContentAvailable() bool
-	SetShouldSendContentAvailable(value bool)
 }
 
 // Init initializes the instance.
@@ -250,9 +242,9 @@ func (c CKQueryNotification) RecordID() ICKRecordID {
 // For updated and created records, this property contains the
 // subscription’s desired keys. When you configure the notification info of
 // a subscription, you specify the names of one or more fields in the
-// [DesiredKeys] property. When a push notification triggers, CloudKit
-// retrieves the values for each of those keys from the record and includes
-// them in the notification’s payload.
+// [CKSubscription.DesiredKeys] property. When a push notification triggers,
+// CloudKit retrieves the values for each of those keys from the record and
+// includes them in the notification’s payload.
 //
 // For query notifications that you fetch from a container, all keys and
 // values are present. For query notifications that you create from push
@@ -265,38 +257,4 @@ func (c CKQueryNotification) RecordID() ICKRecordID {
 func (c CKQueryNotification) RecordFields() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordFields"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The names of fields to include in the push notification’s payload.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/desiredkeys
-func (c CKQueryNotification) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKQueryNotification) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
-}
-
-// The configuration for a subscription’s push notifications.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.property
-func (c CKQueryNotification) NotificationInfo() ICKNotificationInfo {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("notificationInfo"))
-	return CKNotificationInfoFromID(objc.ID(rv))
-}
-func (c CKQueryNotification) SetNotificationInfo(value ICKNotificationInfo) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNotificationInfo:"), value)
-}
-
-// A Boolean value that indicates whether the push notification includes the
-// content available flag.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/shouldsendcontentavailable
-func (c CKQueryNotification) ShouldSendContentAvailable() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("shouldSendContentAvailable"))
-	return rv
-}
-func (c CKQueryNotification) SetShouldSendContentAvailable(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setShouldSendContentAvailable:"), value)
 }

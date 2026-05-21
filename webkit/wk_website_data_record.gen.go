@@ -56,9 +56,9 @@ func (wc WKWebsiteDataRecordClass) Alloc() WKWebsiteDataRecord {
 //
 // You don’t create [WKWebsiteDataRecord] objects directly. WebKit creates
 // these records and stores them in the web view’s data store. Use the
-// [FetchDataRecordsOfTypesCompletionHandler] of that data store to retrieve
-// the current record objects. You also use that object to remove unwanted
-// records.
+// [WKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler] of that data
+// store to retrieve the current record objects. You also use that object to
+// remove unwanted records.
 //
 // # Getting the Record Information
 //
@@ -106,9 +106,6 @@ type IWKWebsiteDataRecord interface {
 
 	// The types of data associated with the record.
 	DataTypes() foundation.INSSet
-
-	// The local files WebKit can access when loading content.
-	ReadAccessURL() foundation.NSString
 }
 
 // Init initializes the instance.
@@ -158,12 +155,4 @@ func (w WKWebsiteDataRecord) DisplayName() string {
 func (w WKWebsiteDataRecord) DataTypes() foundation.INSSet {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("dataTypes"))
 	return foundation.NSSetFromID(objc.ID(rv))
-}
-
-// The local files WebKit can access when loading content.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/readAccessURL
-func (w WKWebsiteDataRecord) ReadAccessURL() foundation.NSString {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("readAccessURL"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

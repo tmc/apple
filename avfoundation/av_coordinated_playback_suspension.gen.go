@@ -48,8 +48,9 @@ func (ac AVCoordinatedPlaybackSuspensionClass) Alloc() AVCoordinatedPlaybackSusp
 //
 // # Overview
 //
-// See the playback coordinator’s [BeginSuspensionForReason] method for
-// details about suspending playback.
+// See the playback coordinator’s
+// [AVPlaybackCoordinator.BeginSuspensionForReason] method for details about
+// suspending playback.
 //
 // # Inspecting a suspension
 //
@@ -134,7 +135,8 @@ func NewAVCoordinatedPlaybackSuspension() AVCoordinatedPlaybackSuspension {
 // playback object to match the group.
 //
 // To end a suspension and simultaneously propose a new playback time to the
-// group, call the [EndProposingNewTime] method.
+// group, call the [AVCoordinatedPlaybackSuspension.EndProposingNewTime]
+// method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackSuspension/end()
 func (c AVCoordinatedPlaybackSuspension) End() {
@@ -144,7 +146,7 @@ func (c AVCoordinatedPlaybackSuspension) End() {
 // Ends a suspension and proposes a new playback time to the group.
 //
 // time: The proposed playback time. Passing a nonnumeric time results in the same
-// behavior as calling the [End] method.
+// behavior as calling the [AVCoordinatedPlaybackSuspension.End] method.
 //
 // # Discussion
 //

@@ -48,12 +48,12 @@ func (ac AVCaptureSystemZoomSliderClass) Alloc() AVCaptureSystemZoomSlider {
 // # Overview
 //
 // The system sets the slider’s range to the value of the
-// [AVCaptureSystemZoomSlider.SystemRecommendedVideoZoomRange] property of the device’s active format.
-// If a device’s [AVCaptureSystemZoomSlider.ActiveFormat] value changes, the slider updates its range
-// to the new format’s recommendation.
+// [systemRecommendedVideoZoomRange] property of the device’s active format.
+// If a device’s [AVCaptureDevice.ActiveFormat] value changes, the slider
+// updates its range to the new format’s recommendation.
 //
 // To use this control, add it to the capture session by calling the
-// session’s [AddControl] method.
+// session’s [AVCaptureSession.AddControl] method.
 //
 // # Creating a zoom slider
 //
@@ -61,6 +61,8 @@ func (ac AVCaptureSystemZoomSliderClass) Alloc() AVCaptureSystemZoomSlider {
 //   - [AVCaptureSystemZoomSlider.InitWithDeviceAction]: Creates a slider to control the zoom level of the specified capture device with an action to respond to zoom changes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider
+//
+// [systemRecommendedVideoZoomRange]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/systemRecommendedVideoZoomRange
 type AVCaptureSystemZoomSlider struct {
 	AVCaptureControl
 }
@@ -93,13 +95,6 @@ type IAVCaptureSystemZoomSlider interface {
 	InitWithDevice(device IAVCaptureDevice) AVCaptureSystemZoomSlider
 	// Creates a slider to control the zoom level of the specified capture device with an action to respond to zoom changes.
 	InitWithDeviceAction(device IAVCaptureDevice, action Float64Handler) AVCaptureSystemZoomSlider
-
-	// The capture format in use by the device.
-	ActiveFormat() IAVCaptureDeviceFormat
-	SetActiveFormat(value IAVCaptureDeviceFormat)
-	// The system’s recommended zoom range for this device format.
-	SystemRecommendedVideoZoomRange() float64
-	SetSystemRecommendedVideoZoomRange(value float64)
 }
 
 // Init initializes the instance.
@@ -128,7 +123,7 @@ func NewAVCaptureSystemZoomSlider() AVCaptureSystemZoomSlider {
 // # Discussion
 //
 // You can only create a zoom slider with a device that support’s setting
-// its [VideoZoomFactor] property value.
+// its [AVCaptureDevice.VideoZoomFactor] property value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider/init(device:)
 func NewCaptureSystemZoomSliderWithDevice(device IAVCaptureDevice) AVCaptureSystemZoomSlider {
@@ -144,7 +139,7 @@ func NewCaptureSystemZoomSliderWithDevice(device IAVCaptureDevice) AVCaptureSyst
 // # Discussion
 //
 // You can only create a zoom slider with a device that support’s setting
-// its [VideoZoomFactor] property value.
+// its [AVCaptureDevice.VideoZoomFactor] property value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider/init(device:)
 func (c AVCaptureSystemZoomSlider) InitWithDevice(device IAVCaptureDevice) AVCaptureSystemZoomSlider {
@@ -158,42 +153,21 @@ func (c AVCaptureSystemZoomSlider) InitWithDevice(device IAVCaptureDevice) AVCap
 // device: The capture device to control.
 //
 // action: An action the system calls on the main actor to respond to changes to the
-// device’s [VideoZoomFactor] property.
+// device’s [AVCaptureDevice.VideoZoomFactor] property.
 //
 // # Discussion
 //
 // The system calls the specified action only when the zoom slider changes the
-// device’s [VideoZoomFactor] property value. If your app needs to react to
-// other sources of video zoom factor changes like
-// [RampToVideoZoomFactorWithRate], use key-value observation instead.
+// device’s [AVCaptureDevice.VideoZoomFactor] property value. If your app
+// needs to react to other sources of video zoom factor changes like
+// [AVCaptureDevice.RampToVideoZoomFactorWithRate], use key-value observation
+// instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider/init(device:action:)
 func (c AVCaptureSystemZoomSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float64Handler) AVCaptureSystemZoomSlider {
 	_block1, _ := NewFloat64Block(action)
 	rv := objc.Send[AVCaptureSystemZoomSlider](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
 	return rv
-}
-
-// The capture format in use by the device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activeformat
-func (c AVCaptureSystemZoomSlider) ActiveFormat() IAVCaptureDeviceFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeFormat"))
-	return AVCaptureDeviceFormatFromID(objc.ID(rv))
-}
-func (c AVCaptureSystemZoomSlider) SetActiveFormat(value IAVCaptureDeviceFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveFormat:"), value)
-}
-
-// The system’s recommended zoom range for this device format.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/systemrecommendedvideozoomrange
-func (c AVCaptureSystemZoomSlider) SystemRecommendedVideoZoomRange() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("systemRecommendedVideoZoomRange"))
-	return rv
-}
-func (c AVCaptureSystemZoomSlider) SetSystemRecommendedVideoZoomRange(value float64) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSystemRecommendedVideoZoomRange:"), value)
 }
 
 // InitWithDeviceActionSync is a synchronous wrapper around [AVCaptureSystemZoomSlider.InitWithDeviceAction].

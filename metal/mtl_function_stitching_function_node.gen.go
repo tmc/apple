@@ -48,13 +48,15 @@ func (mc MTLFunctionStitchingFunctionNodeClass) Alloc() MTLFunctionStitchingFunc
 // # Overview
 //
 // When the Metal device object evaluates the function graph to compile the
-// stitched function, it evaluates the nodes stored in the [MTLFunctionStitchingFunctionNode.Arguments]
-// property that it hasn’t already evaluated, and then calls the function
-// specified by [MTLFunctionStitchingFunctionNode.Name] to generate the node’s output.
+// stitched function, it evaluates the nodes stored in the
+// [MTLFunctionStitchingFunctionNode.Arguments] property that it hasn’t
+// already evaluated, and then calls the function specified by
+// [MTLFunctionStitchingFunctionNode.Name] to generate the node’s output.
 //
 // If the function has side effects on the input data, use the
-// [MTLFunctionStitchingFunctionNode.ControlDependencies] property on other nodes to specify whether the Metal
-// device object needs to evaluate this node first.
+// [MTLFunctionStitchingFunctionNode.ControlDependencies] property on other
+// nodes to specify whether the Metal device object needs to evaluate this
+// node first.
 //
 // # Initializing a function node
 //
@@ -175,7 +177,7 @@ func (f MTLFunctionStitchingFunctionNode) InitWithNameArgumentsControlDependenci
 // # Discussion
 //
 // The name needs to match one of the functions in the stitched library
-// descriptor’s [Functions] property.
+// descriptor’s [MTLStitchedLibraryDescriptor.Functions] property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionStitchingFunctionNode/name
 func (f MTLFunctionStitchingFunctionNode) Name() string {
@@ -210,7 +212,8 @@ func (f MTLFunctionStitchingFunctionNode) SetArguments(value []objectivec.IObjec
 //
 // When a stitched function calls functions that have side effects on their
 // input data, you often need the GPU to execute functions in a specific
-// order. In such cases, use the [ControlDependencies] property to specify
+// order. In such cases, use the
+// [MTLFunctionStitchingFunctionNode.ControlDependencies] property to specify
 // which nodes need to run before executing this node.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionStitchingFunctionNode/controlDependencies

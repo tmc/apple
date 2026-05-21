@@ -49,8 +49,8 @@ func (vc VZSocketDeviceClass) Alloc() VZSocketDevice {
 // Don’t create or use a [VZSocketDevice] object directly. If your virtual
 // machine’s configuration includes a [VZVirtioSocketDeviceConfiguration]
 // object, the virtual machine returns a [VZVirtioSocketDevice] object in its
-// [VZSocketDevice.SocketDevices] property. Use that object to configure the port-based
-// communications for your virtual machine.
+// [VZVirtualMachine.SocketDevices] property. Use that object to configure the
+// port-based communications for your virtual machine.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice
 type VZSocketDevice struct {
@@ -72,10 +72,6 @@ func VZSocketDeviceFromID(id objc.ID) VZSocketDevice {
 // See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice
 type IVZSocketDevice interface {
 	objectivec.IObject
-
-	// The array of socket devices that the VM configures for use ports in the guest VM.
-	SocketDevices() IVZSocketDevice
-	SetSocketDevices(value IVZSocketDevice)
 }
 
 // Init initializes the instance.
@@ -95,16 +91,4 @@ func NewVZSocketDevice() VZSocketDevice {
 	class := getVZSocketDeviceClass()
 	rv := objc.Send[VZSocketDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The array of socket devices that the VM configures for use ports in the
-// guest VM.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/socketdevices
-func (s VZSocketDevice) SocketDevices() IVZSocketDevice {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("socketDevices"))
-	return VZSocketDeviceFromID(objc.ID(rv))
-}
-func (s VZSocketDevice) SetSocketDevices(value IVZSocketDevice) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSocketDevices:"), value)
 }

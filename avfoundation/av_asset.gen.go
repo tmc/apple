@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -67,11 +68,21 @@ func (ac AVAssetClass) Alloc() AVAsset {
 // # Loading tracks
 //
 //   - [AVAsset.LoadTrackWithTrackIDCompletionHandler]: Loads a track that contains the specified identifier.
+//   - [AVAsset.LoadTracksWithMediaTypeCompletionHandler]: Loads tracks that contain media of a specified type.
+//   - [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]: Loads tracks that contain media of a specified characteristic.
 //   - [AVAsset.FindUnusedTrackIDWithCompletionHandler]: Loads an identifier that no other track in the asset uses.
+//
+// # Loading metadata
+//
+//   - [AVAsset.LoadMetadataForFormatCompletionHandler]: Loads an array of metadata items that the asset contains for the specified format.
 //
 // # Loading media selections
 //
 //   - [AVAsset.LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler]: Loads a media selection group that contains one or more options with the specified media characteristic.
+//
+// # Loading chapter metadata
+//
+//   - [AVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]: Loads chapter metadata with a locale that best matches the list of preferred languages.
 //
 // # Canceling property loading
 //
@@ -103,11 +114,21 @@ func AVAssetFromID(id objc.ID) AVAsset {
 // # Loading tracks
 //
 //   - [IAVAsset.LoadTrackWithTrackIDCompletionHandler]: Loads a track that contains the specified identifier.
+//   - [IAVAsset.LoadTracksWithMediaTypeCompletionHandler]: Loads tracks that contain media of a specified type.
+//   - [IAVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]: Loads tracks that contain media of a specified characteristic.
 //   - [IAVAsset.FindUnusedTrackIDWithCompletionHandler]: Loads an identifier that no other track in the asset uses.
+//
+// # Loading metadata
+//
+//   - [IAVAsset.LoadMetadataForFormatCompletionHandler]: Loads an array of metadata items that the asset contains for the specified format.
 //
 // # Loading media selections
 //
 //   - [IAVAsset.LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler]: Loads a media selection group that contains one or more options with the specified media characteristic.
+//
+// # Loading chapter metadata
+//
+//   - [IAVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]: Loads chapter metadata with a locale that best matches the list of preferred languages.
 //
 // # Canceling property loading
 //
@@ -125,14 +146,28 @@ type IAVAsset interface {
 	// Topic: Loading tracks
 
 	// Loads a track that contains the specified identifier.
-	LoadTrackWithTrackIDCompletionHandler(trackID int32, completionHandler AVAssetTrackErrorHandler)
+	LoadTrackWithTrackIDCompletionHandler(trackID coremedia.CMPersistentTrackID, completionHandler AVAssetTrackErrorHandler)
+	// Loads tracks that contain media of a specified type.
+	LoadTracksWithMediaTypeCompletionHandler(mediaType AVMediaType, completionHandler AVAssetTrackArrayErrorHandler)
+	// Loads tracks that contain media of a specified characteristic.
+	LoadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic AVMediaCharacteristic, completionHandler AVAssetTrackArrayErrorHandler)
 	// Loads an identifier that no other track in the asset uses.
 	FindUnusedTrackIDWithCompletionHandler(completionHandler CMPersistentTrackIDErrorHandler)
+
+	// Topic: Loading metadata
+
+	// Loads an array of metadata items that the asset contains for the specified format.
+	LoadMetadataForFormatCompletionHandler(format AVMetadataFormat, completionHandler AVMetadataItemArrayErrorHandler)
 
 	// Topic: Loading media selections
 
 	// Loads a media selection group that contains one or more options with the specified media characteristic.
 	LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler(mediaCharacteristic AVMediaCharacteristic, completionHandler AVMediaSelectionGroupErrorHandler)
+
+	// Topic: Loading chapter metadata
+
+	// Loads chapter metadata with a locale that best matches the list of preferred languages.
+	LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler(preferredLanguages []string, completionHandler AVTimedMetadataGroupArrayErrorHandler)
 
 	// Topic: Canceling property loading
 
@@ -143,6 +178,9 @@ type IAVAsset interface {
 
 	// The restrictions that an asset places on how it resolves references to external media.
 	ReferenceRestrictions() AVAssetReferenceRestrictions
+
+	// Loads chapter metadata that contains the specified title locale and common keys.
+	LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler(locale foundation.NSLocale, commonKeys []string, completionHandler AVTimedMetadataGroupArrayErrorHandler)
 }
 
 // Init initializes the instance.
@@ -186,9 +224,43 @@ func NewAssetWithURL(URL foundation.NSURL) AVAsset {
 // otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadTrack(withTrackID:completionHandler:)
-func (a AVAsset) LoadTrackWithTrackIDCompletionHandler(trackID int32, completionHandler AVAssetTrackErrorHandler) {
+func (a AVAsset) LoadTrackWithTrackIDCompletionHandler(trackID coremedia.CMPersistentTrackID, completionHandler AVAssetTrackErrorHandler) {
 	_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadTrackWithTrackID:completionHandler:"), trackID, _block1)
+}
+
+// Loads tracks that contain media of a specified type.
+//
+// mediaType: The media type of the tracks to load.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading operation.
+// It passes the completion handler the following parameters:
+//
+// tracks: An array of tracks, which may be empty if no tracks with the
+// specified media type exist. The value is `nil` if an error occurs. error:
+// An error object if the request fails; otherwise, `nil`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadTracks(withMediaType:completionHandler:)
+func (a AVAsset) LoadTracksWithMediaTypeCompletionHandler(mediaType AVMediaType, completionHandler AVAssetTrackArrayErrorHandler) {
+	_block1, _ := NewAVAssetTrackArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadTracksWithMediaType:completionHandler:"), mediaType, _block1)
+}
+
+// Loads tracks that contain media of a specified characteristic.
+//
+// mediaCharacteristic: The media characteristic of the tracks to load.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// tracks: An array of tracks, which may be empty if no tracks with the
+// specified media characteristic exist. The value is `nil` if an error
+// occurs. error: An error object if the request fails; otherwise, `nil`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadTracks(withMediaCharacteristic:completionHandler:)
+func (a AVAsset) LoadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic AVMediaCharacteristic, completionHandler AVAssetTrackArrayErrorHandler) {
+	_block1, _ := NewAVAssetTrackArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadTracksWithMediaCharacteristic:completionHandler:"), mediaCharacteristic, _block1)
 }
 
 // Loads an identifier that no other track in the asset uses.
@@ -199,6 +271,24 @@ func (a AVAsset) LoadTrackWithTrackIDCompletionHandler(trackID int32, completion
 func (a AVAsset) FindUnusedTrackIDWithCompletionHandler(completionHandler CMPersistentTrackIDErrorHandler) {
 	_block0, _ := NewCMPersistentTrackIDErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("findUnusedTrackIDWithCompletionHandler:"), _block0)
+}
+
+// Loads an array of metadata items that the asset contains for the specified
+// format.
+//
+// format: The format of the metadata items to load.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// metadata: An array of metadata items, which may be empty if there are no
+// items of the specified format. The value is `nil` if an error occurs.
+// error: An error object if the request fails; otherwise, `nil`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadMetadata(for:completionHandler:)
+func (a AVAsset) LoadMetadataForFormatCompletionHandler(format AVMetadataFormat, completionHandler AVMetadataItemArrayErrorHandler) {
+	_block1, _ := NewAVMetadataItemArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadMetadataForFormat:completionHandler:"), format, _block1)
 }
 
 // Loads a media selection group that contains one or more options with the
@@ -230,6 +320,50 @@ func (a AVAsset) LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler(
 	objc.Send[objc.ID](a.ID, objc.Sel("loadMediaSelectionGroupForMediaCharacteristic:completionHandler:"), mediaCharacteristic, _block1)
 }
 
+// Loads chapter metadata with a locale that best matches the list of
+// preferred languages.
+//
+// preferredLanguages: An array of language identifiers in order of preference, each of which is
+// an IETF BCP 47 (RFC 4646) language identifier. Call [preferredLanguages] to
+// retrieve the list of languates the user prefers.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// metadataGroups: An array of metadata groups, which may be empty if no
+// groups exist for the specified languages. The value is `nil` if an error
+// occurs. error: An error object if the request fails; otherwise, `nil`.
+//
+// # Discussion
+//
+// This method returns an array of [AVTimedMetadataGroup] objects
+// asynchronously. Each object in the array contains an [AVMetadataItem] that
+// represents the chapter’s title, and the metadata group’s
+// [AVTimedMetadataGroup.TimeRange] value equals the time range of the chapter
+// title item.
+//
+// The metadata group contains all chapter metadata, including items with the
+// common key [commonKeyArtwork], if such items are present. The system adds
+// an [AVMetadataItem] with the specified common key to an existing
+// [AVTimedMetadataGroup] object if the time range (timestamp and duration) of
+// the metadata item and the metadata group overlap. The locales of such items
+// don’t need to match the locale of the chapter titles.
+//
+// You can use the
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// method to further filter the metadata items in each group. You can also
+// filter the returned items based on locale using the
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale] method.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadChapterMetadataGroups(bestMatchingPreferredLanguages:completionHandler:)
+//
+// [preferredLanguages]: https://developer.apple.com/documentation/Foundation/Locale/preferredLanguages
+// [commonKeyArtwork]: https://developer.apple.com/documentation/AVFoundation/AVMetadataKey/commonKeyArtwork
+func (a AVAsset) LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler(preferredLanguages []string, completionHandler AVTimedMetadataGroupArrayErrorHandler) {
+	_block1, _ := NewAVTimedMetadataGroupArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadChapterMetadataGroupsBestMatchingPreferredLanguages:completionHandler:"), preferredLanguages, _block1)
+}
+
 // Cancels all pending requests to asynchronously load property values.
 //
 // # Discussion
@@ -242,6 +376,29 @@ func (a AVAsset) LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler(
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/cancelLoading()
 func (a AVAsset) CancelLoading() {
 	objc.Send[objc.ID](a.ID, objc.Sel("cancelLoading"))
+}
+
+// Loads chapter metadata that contains the specified title locale and common
+// keys.
+//
+// locale: The locale of the chapter metadata to load.
+//
+// commonKeys: An array of common keys of [AVMetadataItem] to include in the returned
+// array. The framework currently only supports the [commonKeyArtwork] key.
+//
+// completionHandler: A callback that the system invokes after it finishes the loading request.
+// It passes the completion handler the following parameters:
+//
+// metadataGroups: An array of metadata groups, which may be empty if no
+// groups exist for the locale. The value is `nil` if an error occurs. error:
+// An error object if the request fails; otherwise, `nil`.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadChapterMetadataGroupsWithTitleLocale:containingItemsWithCommonKeys:completionHandler:
+//
+// [commonKeyArtwork]: https://developer.apple.com/documentation/AVFoundation/AVMetadataKey/commonKeyArtwork
+func (a AVAsset) LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler(locale foundation.NSLocale, commonKeys []string, completionHandler AVTimedMetadataGroupArrayErrorHandler) {
+	_block2, _ := NewAVTimedMetadataGroupArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadChapterMetadataGroupsWithTitleLocale:containingItemsWithCommonKeys:completionHandler:"), locale, commonKeys, _block2)
 }
 
 // The restrictions that an asset places on how it resolves references to
@@ -269,7 +426,7 @@ func (a AVAsset) ReferenceRestrictions() AVAssetReferenceRestrictions {
 
 // LoadTrackWithTrackID is a synchronous wrapper around [AVAsset.LoadTrackWithTrackIDCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAsset) LoadTrackWithTrackID(ctx context.Context, trackID int32) (*AVAssetTrack, error) {
+func (a AVAsset) LoadTrackWithTrackID(ctx context.Context, trackID coremedia.CMPersistentTrackID) (*AVAssetTrack, error) {
 	type result struct {
 		val *AVAssetTrack
 		err error
@@ -286,22 +443,91 @@ func (a AVAsset) LoadTrackWithTrackID(ctx context.Context, trackID int32) (*AVAs
 	}
 }
 
-// FindUnusedTrackID is a synchronous wrapper around [AVAsset.FindUnusedTrackIDWithCompletionHandler].
+// LoadTracksWithMediaType is a synchronous wrapper around [AVAsset.LoadTracksWithMediaTypeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAsset) FindUnusedTrackID(ctx context.Context) (int32, error) {
+func (a AVAsset) LoadTracksWithMediaType(ctx context.Context, mediaType AVMediaType) ([]AVAssetTrack, error) {
 	type result struct {
-		val int32
+		val []AVAssetTrack
 		err error
 	}
 	done := make(chan result, 1)
-	a.FindUnusedTrackIDWithCompletionHandler(func(val int32, err error) {
+	a.LoadTracksWithMediaTypeCompletionHandler(mediaType, func(val *[]AVAssetTrack, err error) {
+		var out []AVAssetTrack
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// LoadTracksWithMediaCharacteristic is a synchronous wrapper around [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAsset) LoadTracksWithMediaCharacteristic(ctx context.Context, mediaCharacteristic AVMediaCharacteristic) ([]AVAssetTrack, error) {
+	type result struct {
+		val []AVAssetTrack
+		err error
+	}
+	done := make(chan result, 1)
+	a.LoadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic, func(val *[]AVAssetTrack, err error) {
+		var out []AVAssetTrack
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// FindUnusedTrackID is a synchronous wrapper around [AVAsset.FindUnusedTrackIDWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAsset) FindUnusedTrackID(ctx context.Context) (coremedia.CMPersistentTrackID, error) {
+	type result struct {
+		val coremedia.CMPersistentTrackID
+		err error
+	}
+	done := make(chan result, 1)
+	a.FindUnusedTrackIDWithCompletionHandler(func(val coremedia.CMPersistentTrackID, err error) {
 		done <- result{val, err}
 	})
 	select {
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(coremedia.CMPersistentTrackID), ctx.Err()
+	}
+}
+
+// LoadMetadataForFormat is a synchronous wrapper around [AVAsset.LoadMetadataForFormatCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAsset) LoadMetadataForFormat(ctx context.Context, format AVMetadataFormat) ([]AVMetadataItem, error) {
+	type result struct {
+		val []AVMetadataItem
+		err error
+	}
+	done := make(chan result, 1)
+	a.LoadMetadataForFormatCompletionHandler(format, func(val *[]AVMetadataItem, err error) {
+		var out []AVMetadataItem
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 }
 

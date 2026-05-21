@@ -49,18 +49,18 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 // # Overview
 //
 // Setting the integer, float, double, or object value of an [NSButtonCell]
-// object results in a call to [NSButtonCell.State] with the value converted to integer. In
-// the case of [NSButtonCell.ObjectValue], `nil` is equivalent to `0`, and a non-`nil`
-// object that doesn’t respond to [NSButtonCell.IntValue] sets the state to `1`.
-// Otherwise, the state is set to the object’s [NSButtonCell.IntValue]. Similarly, for
-// most button types, querying the integer, float, double, or object value of
-// an [NSButtonCell] returns the current state in the requested
-// representation. In the case of [NSButtonCell.ObjectValue], this is an [NSNumber]
-// containing true for on, false for off, and integer value `-1` for the mixed
-// state. For accelerator buttons (type [NSAcceleratorButton] or
-// [NSMultiLevelAcceleratorButton]) on systems that support pressure
-// sensitivity, querying [NSButtonCell.DoubleValue] returns the amount of pressure applied
-// while pressing the button.
+// object results in a call to [NSCell.State] with the value converted to
+// integer. In the case of [NSCell.ObjectValue], `nil` is equivalent to `0`,
+// and a non-`nil` object that doesn’t respond to [NSCell.IntValue] sets the
+// state to `1`. Otherwise, the state is set to the object’s
+// [NSCell.IntValue]. Similarly, for most button types, querying the integer,
+// float, double, or object value of an [NSButtonCell] returns the current
+// state in the requested representation. In the case of [NSCell.ObjectValue],
+// this is an [NSNumber] containing true for on, false for off, and integer
+// value `-1` for the mixed state. For accelerator buttons (type
+// [NSAcceleratorButton] or [NSMultiLevelAcceleratorButton]) on systems that
+// support pressure sensitivity, querying [NSControl.DoubleValue] returns the
+// amount of pressure applied while pressing the button.
 //
 // The configuration of an [NSButtonCell] object controls how the button
 // object appears and behaves, but it’s [NSButton] that sends a message when
@@ -70,16 +70,16 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 //
 // # Exceptions
 //
-// In its implementation of the [Compare] method (declared in [NSCell]),
-// [NSButtonCell] raises an [NSBadComparisonException] if the `otherCell`
-// argument is not of the [NSButtonCell] class.
+// In its implementation of the [NSCell.Compare] method (declared in
+// [NSCell]), [NSButtonCell] raises an [NSBadComparisonException] if the
+// `otherCell` argument is not of the [NSButtonCell] class.
 //
 // # Fonts
 //
-// Setting the [Font] property does nothing if the button has no title or
-// alternate title. If the button cell has a key equivalent, its font is not
-// changed, but the key equivalent’s font size is changed to match the new
-// title font.
+// Setting the [NSCell.Font] property does nothing if the button has no title
+// or alternate title. If the button cell has a key equivalent, its font is
+// not changed, but the key equivalent’s font size is changed to match the
+// new title font.
 //
 // # Setting Titles
 //
@@ -377,7 +377,7 @@ func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
 //
 // # Discussion
 //
-// These values are used if the button is configured (by a [Continuous]
+// These values are used if the button is configured (by a [NSCell.Continuous]
 // message) to continuously send the action message to the target object while
 // tracking the mouse.
 //
@@ -393,11 +393,12 @@ func (b NSButtonCell) SetPeriodicDelayInterval(delay float32, interval float32) 
 //
 // # Discussion
 //
-// The [SetButtonType] method redisplays the button before returning.
+// The [NSButtonCell.SetButtonType] method redisplays the button before
+// returning.
 //
 // The types available are for the most common button types, which are also
 // accessible in Interface Builder; you can configure different behavior with
-// the [HighlightsBy] and [ShowsStateBy] properties.
+// the [NSButtonCell.HighlightsBy] and [NSButtonCell.ShowsStateBy] properties.
 //
 // Note that there is no `-buttonType` method. The set method sets various
 // button properties that together establish the behavior of the type.
@@ -416,7 +417,7 @@ func (b NSButtonCell) SetButtonType(type_ NSButtonType) {
 // # Discussion
 //
 // This method is called only when the pointer moves onto the button and the
-// value of [ShowsBorderOnlyWhileMouseInside] is true.
+// value of [NSButtonCell.ShowsBorderOnlyWhileMouseInside] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/mouseEntered(with:)
 func (b NSButtonCell) MouseEntered(event INSEvent) {
@@ -430,7 +431,7 @@ func (b NSButtonCell) MouseEntered(event INSEvent) {
 // # Discussion
 //
 // This method is called only when the pointer moves off the button and the
-// value of [ShowsBorderOnlyWhileMouseInside] is true.
+// value of [NSButtonCell.ShowsBorderOnlyWhileMouseInside] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/mouseExited(with:)
 func (b NSButtonCell) MouseExited(event INSEvent) {
@@ -684,8 +685,8 @@ func (b NSButtonCell) SetBezelStyle(value NSBezelStyle) {
 // text dims.
 //
 // The default setting for this state is reasserted whenever you invoke
-// [SetButtonType], so be sure to specify the button cell’s type before you
-// set [ImageDimsWhenDisabled].
+// [NSButtonCell.SetButtonType], so be sure to specify the button cell’s
+// type before you set [NSButtonCell.ImageDimsWhenDisabled].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/imageDimsWhenDisabled
 //

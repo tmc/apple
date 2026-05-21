@@ -53,7 +53,8 @@ func (vc VZVirtioEntropyDeviceConfigurationClass) Alloc() VZVirtioEntropyDeviceC
 // random numbers.
 //
 // Create a [VZVirtioEntropyDeviceConfiguration] object and add it to the
-// [VZVirtioEntropyDeviceConfiguration.EntropyDevices] property of your virtual machine’s configuration.
+// [VZVirtualMachineConfiguration.EntropyDevices] property of your virtual
+// machine’s configuration.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioEntropyDeviceConfiguration
 type VZVirtioEntropyDeviceConfiguration struct {
@@ -75,10 +76,6 @@ func VZVirtioEntropyDeviceConfigurationFromID(id objc.ID) VZVirtioEntropyDeviceC
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioEntropyDeviceConfiguration
 type IVZVirtioEntropyDeviceConfiguration interface {
 	IVZEntropyDeviceConfiguration
-
-	// The array of randomization devices that you expose to the guest operating system.
-	EntropyDevices() IVZEntropyDeviceConfiguration
-	SetEntropyDevices(value IVZEntropyDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -98,16 +95,4 @@ func NewVZVirtioEntropyDeviceConfiguration() VZVirtioEntropyDeviceConfiguration 
 	class := getVZVirtioEntropyDeviceConfigurationClass()
 	rv := objc.Send[VZVirtioEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The array of randomization devices that you expose to the guest operating
-// system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/entropydevices
-func (v VZVirtioEntropyDeviceConfiguration) EntropyDevices() IVZEntropyDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("entropyDevices"))
-	return VZEntropyDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioEntropyDeviceConfiguration) SetEntropyDevices(value IVZEntropyDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEntropyDevices:"), value)
 }

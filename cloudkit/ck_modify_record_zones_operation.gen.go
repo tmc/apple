@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,7 +52,7 @@ func (cc CKModifyRecordZonesOperationClass) Alloc() CKModifyRecordZonesOperation
 // zones to the database. You can also use the operation to delete record
 // zones and their records.
 //
-// If you assign a handler to the [CKModifyRecordZonesOperation.CompletionBlock] property of the operation,
+// If you assign a handler to the [completionBlock] property of the operation,
 // CloudKit calls the handler after the operation executes and returns its
 // results. Use the handler to perform housekeeping tasks for the operation,
 // but don’t use it to process the results of the operation. The handler you
@@ -67,14 +68,14 @@ func (cc CKModifyRecordZonesOperationClass) Alloc() CKModifyRecordZonesOperation
 //
 // # Instance Properties
 //
-//   - [CKModifyRecordZonesOperation.ModifyRecordZonesResultBlock]: The closure to execute after CloudKit modifies all of the record zones.
-//   - [CKModifyRecordZonesOperation.SetModifyRecordZonesResultBlock]
 //   - [CKModifyRecordZonesOperation.PerRecordZoneDeleteBlock]: The closure to execute when CloudKit deletes a record zone.
 //   - [CKModifyRecordZonesOperation.SetPerRecordZoneDeleteBlock]
 //   - [CKModifyRecordZonesOperation.PerRecordZoneSaveBlock]: The closure to execute when CloudKit saves a record zone.
 //   - [CKModifyRecordZonesOperation.SetPerRecordZoneSaveBlock]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKModifyRecordZonesOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKModifyRecordZonesOperation struct {
 	CKDatabaseOperation
 }
@@ -100,8 +101,6 @@ func CKModifyRecordZonesOperationFromID(id objc.ID) CKModifyRecordZonesOperation
 //
 // # Instance Properties
 //
-//   - [ICKModifyRecordZonesOperation.ModifyRecordZonesResultBlock]: The closure to execute after CloudKit modifies all of the record zones.
-//   - [ICKModifyRecordZonesOperation.SetModifyRecordZonesResultBlock]
 //   - [ICKModifyRecordZonesOperation.PerRecordZoneDeleteBlock]: The closure to execute when CloudKit deletes a record zone.
 //   - [ICKModifyRecordZonesOperation.SetPerRecordZoneDeleteBlock]
 //   - [ICKModifyRecordZonesOperation.PerRecordZoneSaveBlock]: The closure to execute when CloudKit saves a record zone.
@@ -122,15 +121,12 @@ type ICKModifyRecordZonesOperation interface {
 
 	// Topic: Instance Properties
 
-	// The closure to execute after CloudKit modifies all of the record zones.
-	ModifyRecordZonesResultBlock() unsafe.Pointer
-	SetModifyRecordZonesResultBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit deletes a record zone.
 	PerRecordZoneDeleteBlock() unsafe.Pointer
-	SetPerRecordZoneDeleteBlock(value unsafe.Pointer)
+	SetPerRecordZoneDeleteBlock(value kernel.Pointer)
 	// The closure to execute when CloudKit saves a record zone.
 	PerRecordZoneSaveBlock() unsafe.Pointer
-	SetPerRecordZoneSaveBlock(value unsafe.Pointer)
+	SetPerRecordZoneSaveBlock(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -204,17 +200,6 @@ func (c CKModifyRecordZonesOperation) SetRecordZoneIDsToDelete(value []CKRecordZ
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordZoneIDsToDelete:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-// The closure to execute after CloudKit modifies all of the record zones.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckmodifyrecordzonesoperation/modifyrecordzonesresultblock
-func (c CKModifyRecordZonesOperation) ModifyRecordZonesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("modifyRecordZonesResultBlock"))
-	return rv
-}
-func (c CKModifyRecordZonesOperation) SetModifyRecordZonesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModifyRecordZonesResultBlock:"), value)
-}
-
 // The closure to execute when CloudKit deletes a record zone.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckmodifyrecordzonesoperation/perrecordzonedeleteblock-6c82y
@@ -222,7 +207,7 @@ func (c CKModifyRecordZonesOperation) PerRecordZoneDeleteBlock() unsafe.Pointer 
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordZoneDeleteBlock"))
 	return rv
 }
-func (c CKModifyRecordZonesOperation) SetPerRecordZoneDeleteBlock(value unsafe.Pointer) {
+func (c CKModifyRecordZonesOperation) SetPerRecordZoneDeleteBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordZoneDeleteBlock:"), value)
 }
 
@@ -233,6 +218,6 @@ func (c CKModifyRecordZonesOperation) PerRecordZoneSaveBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordZoneSaveBlock"))
 	return rv
 }
-func (c CKModifyRecordZonesOperation) SetPerRecordZoneSaveBlock(value unsafe.Pointer) {
+func (c CKModifyRecordZonesOperation) SetPerRecordZoneSaveBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordZoneSaveBlock:"), value)
 }

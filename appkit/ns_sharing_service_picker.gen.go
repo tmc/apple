@@ -58,7 +58,8 @@ func (nc NSSharingServicePickerClass) Alloc() NSSharingServicePicker {
 // Create a sharing service picker and configure it with a delegate object to
 // monitor interactions. Your delegate must conform to the
 // [NSSharingServicePickerDelegate] protocol. Present the picker from your
-// interface using the [NSSharingServicePicker.ShowRelativeToRectOfViewPreferredEdge] method.
+// interface using the
+// [NSSharingServicePicker.ShowRelativeToRectOfViewPreferredEdge] method.
 //
 // # Creating a sharing service picker
 //
@@ -260,7 +261,7 @@ func (s NSSharingServicePicker) ShowRelativeToRectOfViewPreferredEdge(rect coref
 // # Discussion
 //
 // The [SharingServicePickerDidChooseSharingService] method will be invoked if
-// the [Delegate] is set to `nil`.
+// the [NSSharingServicePicker.Delegate] is set to `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/close()
 func (s NSSharingServicePicker) Close() {

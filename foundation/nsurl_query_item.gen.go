@@ -50,8 +50,8 @@ func (nc NSURLQueryItemClass) Alloc() NSURLQueryItem {
 // In Swift, this object bridges to [URLQueryItem]; use [NSURLQueryItem] when
 // you need reference semantics or other Foundation-specific behavior.
 //
-// You use query items with the [NSURLQueryItem.QueryItems] property of an [NSURLComponents]
-// object.
+// You use query items with the [NSURLComponents.QueryItems] property of an
+// [NSURLComponents] object.
 //
 // # Creating a Query Item
 //
@@ -107,10 +107,6 @@ type INSURLQueryItem interface {
 	Name() string
 	// The value for the query item.
 	Value() string
-
-	// The query URL component as an array of name/value pairs.
-	QueryItems() INSURLQueryItem
-	SetQueryItems(value INSURLQueryItem)
 }
 
 // Init initializes the instance.
@@ -132,7 +128,7 @@ func NewNSURLQueryItem() NSURLQueryItem {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem/init(coder:)
 func NewURLQueryItemWithCoder(coder INSCoder) NSURLQueryItem {
 	instance := getNSURLQueryItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -156,9 +152,10 @@ func NewURLQueryItemWithCoder(coder INSCoder) NSURLQueryItem {
 // # Discussion
 //
 // To use the newly initialized query item in composing a URL, add it to the
-// [QueryItems] array of an [NSURLComponents] instance. Because assigning an
-// array of query items to an [NSURLComponents] instance automatically encodes
-// the name and value properties, you should not percent-encode these strings.
+// [NSURLComponents.QueryItems] array of an [NSURLComponents] instance.
+// Because assigning an array of query items to an [NSURLComponents] instance
+// automatically encodes the name and value properties, you should not
+// percent-encode these strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem/init(name:value:)
 func NewURLQueryItemWithNameValue(name string, value string) NSURLQueryItem {
@@ -184,9 +181,10 @@ func NewURLQueryItemWithNameValue(name string, value string) NSURLQueryItem {
 // # Discussion
 //
 // To use the newly initialized query item in composing a URL, add it to the
-// [QueryItems] array of an [NSURLComponents] instance. Because assigning an
-// array of query items to an [NSURLComponents] instance automatically encodes
-// the name and value properties, you should not percent-encode these strings.
+// [NSURLComponents.QueryItems] array of an [NSURLComponents] instance.
+// Because assigning an array of query items to an [NSURLComponents] instance
+// automatically encodes the name and value properties, you should not
+// percent-encode these strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem/init(name:value:)
 func (u NSURLQueryItem) InitWithNameValue(name string, value string) NSURLQueryItem {
@@ -203,7 +201,7 @@ func (u NSURLQueryItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem/init(coder:)
 func (u NSURLQueryItem) InitWithCoder(coder INSCoder) NSURLQueryItem {
 	rv := objc.Send[NSURLQueryItem](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -226,9 +224,10 @@ func (u NSURLQueryItem) InitWithCoder(coder INSCoder) NSURLQueryItem {
 // # Discussion
 //
 // To use the newly initialized query item in composing a URL, add it to the
-// [QueryItems] array of an [NSURLComponents] instance. Because assigning an
-// array of query items to an [NSURLComponents] instance automatically encodes
-// the name and value properties, you should not percent-encode these strings.
+// [NSURLComponents.QueryItems] array of an [NSURLComponents] instance.
+// Because assigning an array of query items to an [NSURLComponents] instance
+// automatically encodes the name and value properties, you should not
+// percent-encode these strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem/queryItemWithName:value:
 func (_NSURLQueryItemClass NSURLQueryItemClass) QueryItemWithNameValue(name string, value string) NSURLQueryItem {
@@ -264,17 +263,6 @@ func (u NSURLQueryItem) Name() string {
 func (u NSURLQueryItem) Value() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("value"))
 	return NSStringFromID(rv).String()
-}
-
-// The query URL component as an array of name/value pairs.
-//
-// See: https://developer.apple.com/documentation/foundation/nsurlcomponents/queryitems
-func (u NSURLQueryItem) QueryItems() INSURLQueryItem {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("queryItems"))
-	return NSURLQueryItemFromID(objc.ID(rv))
-}
-func (u NSURLQueryItem) SetQueryItems(value INSURLQueryItem) {
-	objc.Send[struct{}](u.ID, objc.Sel("setQueryItems:"), value)
 }
 
 // Protocol methods for NSCopying

@@ -55,8 +55,9 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // does not vend a view and does insert itself into the responder chain.
 //
 // Conceptually, the page controller manages swiping between an array of
-// pages, the [NSPageController.ArrangedObjects]. Using the [NSPageController.SelectedIndex] property, you can
-// determine how many pages forward or backward the user may navigate.
+// pages, the [NSPageController.ArrangedObjects]. Using the
+// [NSPageController.SelectedIndex] property, you can determine how many pages
+// forward or backward the user may navigate.
 //
 // # Page Controller Modes
 //
@@ -74,12 +75,13 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // in the history.
 //
 // As the user navigates to new content, add to the history by calling
-// [NSPageController.NavigateForwardToObject]. The page controller will remove any
-// `arrangedObjects` after the [NSPageController.SelectedIndex] and then add the object to the
-// end of the `arrangedObjects` array and update the `selectedIndex` property.
-// Just like navigating in a new direction in a web browser, all forward
-// history is lost once the user starts navigating a new path. After returning
-// from “ you are free to update the contents of `pageController.View()`.
+// [NSPageController.NavigateForwardToObject]. The page controller will remove
+// any `arrangedObjects` after the [NSPageController.SelectedIndex] and then
+// add the object to the end of the `arrangedObjects` array and update the
+// `selectedIndex` property. Just like navigating in a new direction in a web
+// browser, all forward history is lost once the user starts navigating a new
+// path. After returning from “ you are free to update the contents of
+// `pageController.View()`.
 //
 // # Delegate Method Invocation During History Mode Swiping
 //
@@ -109,10 +111,10 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // settings or other display specific state stored in the
 // [PageControllerWillStartLiveTransition] implementation. The
 // `pageController.View()` is still hidden at this point and you must call
-// [NSPageController.CompleteTransition] on the page controller instance to inform the instance
-// to hide the private transition view and show `pageController.View()`. Often
-// you do this immediately, however, if your content is not ready you can call
-// this at a later.
+// [NSPageController.CompleteTransition] on the page controller instance to
+// inform the instance to hide the private transition view and show
+// `pageController.View()`. Often you do this immediately, however, if your
+// content is not ready you can call this at a later.
 //
 // # Book Mode (View Controller Mode)
 //
@@ -162,34 +164,35 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 //
 // After returning from the [PageControllerWillStartLiveTransition] delegate
 // method, the page controller takes a snapshot of the `view` in the specified
-// [NSPageController.SelectedViewController] and then removes it from `pageController.View()`.
-// The page controller replaces it with a private view hierarchy to animate
-// previously taken snapshots. Unlike when building up a history, snapshots
-// may not yet exist for the page being navigated to. In this case, a
-// previously gathered default snapshot is used for that page’s identifier.
-// Regardless, if using a default snapshot or a previously gathered snapshot
-// of actual contents, a view controller is prepared for the page being
-// navigated to, and passed to the delegate. This `viewController.View()` is
-// then asked to draw on a background thread while swiping continues. Note
-// that at this point the view does not reside within a window. Once the
-// background threaded drawing completes, the initial snapshot is replaced
-// with the newly generated snapshot.
+// [NSPageController.SelectedViewController] and then removes it from
+// `pageController.View()`. The page controller replaces it with a private
+// view hierarchy to animate previously taken snapshots. Unlike when building
+// up a history, snapshots may not yet exist for the page being navigated to.
+// In this case, a previously gathered default snapshot is used for that
+// page’s identifier. Regardless, if using a default snapshot or a
+// previously gathered snapshot of actual contents, a view controller is
+// prepared for the page being navigated to, and passed to the delegate. This
+// `viewController.View()` is then asked to draw on a background thread while
+// swiping continues. Note that at this point the view does not reside within
+// a window. Once the background threaded drawing completes, the initial
+// snapshot is replaced with the newly generated snapshot.
 //
 // Next the [PageControllerDidTransitionToObject] delegate method is invoked
 // after a physically successful swipe, but before the animation has
 // completed. The supplied object is the page the user navigated to - the new
-// object in the [NSPageController.ArrangedObjects] array at the [NSPageController.SelectedIndex]. Note that the
-// page controller’s [NSPageController.SelectedViewController] has not been updated yet. If
-// you need to start some background loading tasks, now is the time to do it.
-// Do not block the main thread or the animation will stutter or pause.
+// object in the [NSPageController.ArrangedObjects] array at the
+// [NSPageController.SelectedIndex]. Note that the page controller’s
+// [NSPageController.SelectedViewController] has not been updated yet. If you
+// need to start some background loading tasks, now is the time to do it. Do
+// not block the main thread or the animation will stutter or pause.
 //
 // Finally the [PageControllerDidEndLiveTransition] method is invoked after
 // the swipe and swipe animations are complete. The
 // `selectedViewController.View()` is still detached at this point and you
-// must call [NSPageController.CompleteTransition] on the page controller to hide the private
-// transition view and update the [NSPageController.SelectedViewController]. Often you do this
-// immediately, however, if your content is not ready you can call this at a
-// later.
+// must call [NSPageController.CompleteTransition] on the page controller to
+// hide the private transition view and update the
+// [NSPageController.SelectedViewController]. Often you do this immediately,
+// however, if your content is not ready you can call this at a later.
 //
 // # Completing the Page Controller Transition
 //
@@ -198,18 +201,19 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // responsibility to inform the page controller when you are ready to draw the
 // new content. Ideally, the new content should match the snapshot so the user
 // is none the wiser. You inform the page controller to complete the
-// transition by calling [NSPageController.CompleteTransition]. If needed, a view controller is
-// prepared and then the content view is shown (or added) to the view
-// hierarchy and the private transition view is hidden.
+// transition by calling [NSPageController.CompleteTransition]. If needed, a
+// view controller is prepared and then the content view is shown (or added)
+// to the view hierarchy and the private transition view is hidden.
 //
 // During page controller initiated animations,
 // [PageControllerWillStartLiveTransition] and
 // [PageControllerDidEndLiveTransition] are invoked on the delegate. Generally
 // during [PageControllerDidEndLiveTransition] you will call
-// [NSPageController.CompleteTransition]. Programatic animations via the animator proxy do not
-// call the delegate methods and you are responsible for calling
-// [NSPageController.CompleteTransition] when the animation completes.This is easily done via a
-// completion handler on an [NSAnimationContext] grouping. For example:
+// [NSPageController.CompleteTransition]. Programatic animations via the
+// animator proxy do not call the delegate methods and you are responsible for
+// calling [NSPageController.CompleteTransition] when the animation
+// completes.This is easily done via a completion handler on an
+// [NSAnimationContext] grouping. For example:
 //
 // # Customizing the Paged Interface Behavior
 //
@@ -395,9 +399,10 @@ func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSPageController {
@@ -412,9 +417,9 @@ func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 //
 // # Discussion
 //
-// Clears the [ArrangedObjects] array after the selected index, adds the
-// argument to that array, and sets the [SelectedIndex] to the object’s
-// index.
+// Clears the [NSPageController.ArrangedObjects] array after the selected
+// index, adds the argument to that array, and sets the
+// [NSPageController.SelectedIndex] to the object’s index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/navigateForward(to:)
 func (p NSPageController) NavigateForwardToObject(object objectivec.IObject) {
@@ -616,8 +621,8 @@ func (p NSPageController) SetDelegate(value NSPageControllerDelegate) {
 //
 // The delegate will be asked for snapshots as they are needed. Alternatively,
 // you may never directly set this array and use the
-// -[NavigateForwardToObject] method to create a history as the user
-// navigates.
+// -[NSPageController.NavigateForwardToObject] method to create a history as
+// the user navigates.
 //
 // This property is key-value observing compliant.
 //

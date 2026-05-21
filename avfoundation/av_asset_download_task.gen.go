@@ -48,7 +48,8 @@ func (ac AVAssetDownloadTaskClass) Alloc() AVAssetDownloadTask {
 //
 // This class is a subclass of [URLSessionTask] that you use to download HTTP
 // Live Streaming assets. You create instances of this class by calling
-// [AssetDownloadTaskWithConfiguration] on the download session.
+// [AVAssetDownloadURLSession.AssetDownloadTaskWithConfiguration] on the
+// download session.
 //
 // # Accessing task information
 //
@@ -58,14 +59,14 @@ func (ac AVAssetDownloadTaskClass) Alloc() AVAssetDownloadTask {
 //
 // [URLSessionTask]: https://developer.apple.com/documentation/Foundation/URLSessionTask
 type AVAssetDownloadTask struct {
-	foundation.URLSessionTask
+	foundation.NSURLSessionTask
 }
 
 // AVAssetDownloadTaskFromID constructs a [AVAssetDownloadTask] from an objc.ID.
 //
 // A session used to download HTTP Live Streaming assets.
 func AVAssetDownloadTaskFromID(id objc.ID) AVAssetDownloadTask {
-	return AVAssetDownloadTask{URLSessionTask: foundation.URLSessionTaskFromID(id)}
+	return AVAssetDownloadTask{NSURLSessionTask: foundation.NSURLSessionTaskFromID(id)}
 }
 
 // NOTE: AVAssetDownloadTask adopts protocols; skip strict compile-time interface assertion.
@@ -79,7 +80,7 @@ func AVAssetDownloadTaskFromID(id objc.ID) AVAssetDownloadTask {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadTask
 type IAVAssetDownloadTask interface {
-	foundation.IURLSessionTask
+	foundation.INSURLSessionTask
 
 	// Topic: Accessing task information
 

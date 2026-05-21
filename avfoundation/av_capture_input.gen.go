@@ -117,7 +117,7 @@ func NewAVCaptureInput() AVCaptureInput {
 // # Discussion
 //
 // Individual ports post an [formatDescriptionDidChangeNotification]
-// notification when their [FormatDescription] changes.
+// notification when their [AVCaptureInputPort.FormatDescription] changes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/ports
 //

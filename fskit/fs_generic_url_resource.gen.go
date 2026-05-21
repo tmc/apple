@@ -125,6 +125,13 @@ func NewFSGenericURLResource() FSGenericURLResource {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSResource/init(coder:)
+func NewGenericURLResourceWithCoder(coder foundation.INSCoder) FSGenericURLResource {
+	instance := getFSGenericURLResourceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSGenericURLResourceFromID(rv)
+}
+
 // Creates a generic URL resource with the given URL.
 //
 // url: A URL that provides the content of the file system. The format of this URL

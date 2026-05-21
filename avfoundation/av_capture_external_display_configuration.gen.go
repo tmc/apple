@@ -130,11 +130,12 @@ func NewAVCaptureExternalDisplayConfiguration() AVCaptureExternalDisplayConfigur
 //
 // # Discussion
 //
-// Set [BypassColorSpaceConversion] to `true` if you would like the
-// configurator’s [AVCaptureVideoPreviewLayer] color space preserved on the
-// output display. This is accomplished by setting the working color space to
-// match the color space of the external display. The color properties of the
-// [CALayer] remain untouched. The default value is `false`.
+// Set [AVCaptureExternalDisplayConfiguration.BypassColorSpaceConversion] to
+// `true` if you would like the configurator’s [AVCaptureVideoPreviewLayer]
+// color space preserved on the output display. This is accomplished by
+// setting the working color space to match the color space of the external
+// display. The color properties of the [CALayer] remain untouched. The
+// default value is `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfiguration/bypassColorSpaceConversion
 func (c AVCaptureExternalDisplayConfiguration) BypassColorSpaceConversion() bool {
@@ -149,9 +150,9 @@ func (c AVCaptureExternalDisplayConfiguration) SetBypassColorSpaceConversion(val
 //
 // # Discussion
 //
-// Use [PreferredResolution] to set your desired resolution of the external
-// display. When left at the default value of { 0, 0 }, the native resolution
-// of the external display is used.
+// Use [AVCaptureExternalDisplayConfiguration.PreferredResolution] to set your
+// desired resolution of the external display. When left at the default value
+// of { 0, 0 }, the native resolution of the external display is used.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfiguration/preferredResolution
 func (c AVCaptureExternalDisplayConfiguration) PreferredResolution() coremedia.CMVideoDimensions {
@@ -168,8 +169,9 @@ func (c AVCaptureExternalDisplayConfiguration) SetPreferredResolution(value core
 // # Discussion
 //
 // If you want to configure your [AVCaptureVideoPreviewLayer] to match its
-// source [ActiveVideoMinFrameDuration], set [ShouldMatchFrameRate] to `true`.
-// The default value is `false`.
+// source [AVCaptureDevice.ActiveVideoMinFrameDuration], set
+// [AVCaptureExternalDisplayConfiguration.ShouldMatchFrameRate] to `true`. The
+// default value is `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfiguration/shouldMatchFrameRate
 func (c AVCaptureExternalDisplayConfiguration) ShouldMatchFrameRate() bool {

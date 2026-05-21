@@ -66,7 +66,8 @@ func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject
 // # Discussion
 //
 // You can only call this method on a counter sample buffer that you create
-// with [MTLStorageModeShared] (see [StorageMode]). For an example of how and
+// with [MTLStorageModeShared] (see
+// [MTLCounterSampleBufferDescriptor.StorageMode]). For an example of how and
 // when to use this method, see [Converting a GPU’s counter data into a
 // readable format].
 //

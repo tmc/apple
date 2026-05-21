@@ -189,8 +189,9 @@ func NewAudioCompressedBufferWithFormatPacketCapacity(format IAVAudioFormat, pac
 //
 // # Discussion
 //
-// You can obtain the maximum packet size from the [MaximumOutputPacketSize]
-// property of an [AVAudioConverter] you configure for encoding this format.
+// You can obtain the maximum packet size from the
+// [AVAudioConverter.MaximumOutputPacketSize] property of an
+// [AVAudioConverter] you configure for encoding this format.
 //
 // The method raises an exception if the format is PCM.
 //
@@ -237,8 +238,9 @@ func (a AVAudioCompressedBuffer) InitWithFormatPacketCapacity(format IAVAudioFor
 //
 // # Discussion
 //
-// You can obtain the maximum packet size from the [MaximumOutputPacketSize]
-// property of an [AVAudioConverter] you configure for encoding this format.
+// You can obtain the maximum packet size from the
+// [AVAudioConverter.MaximumOutputPacketSize] property of an
+// [AVAudioConverter] you configure for encoding this format.
 //
 // The method raises an exception if the format is PCM.
 //

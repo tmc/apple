@@ -9,13 +9,10 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// ErrorHandler handles The closures the task calls during the update process.
-// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+// ErrorHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [MLModelAsset.FunctionNamesWithCompletionHandler]
-//   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError]
-//   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataProgressHandlersError]
 type ErrorHandler = func(error)
 
 // NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
@@ -23,8 +20,6 @@ type ErrorHandler = func(error)
 //
 // Used by:
 //   - [MLModelAsset.FunctionNamesWithCompletionHandler]
-//   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError]
-//   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataProgressHandlersError]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -32,6 +27,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -246,15 +242,6 @@ func NewMLUpdateContextBlock(handler MLUpdateContextHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// NSNumberArrayHandler handles The block to receive the buffer pointer, its size in bytes, and strides.
-//   - bytes: The pointer to the buffer.
-//   - size: The size of the buffer.
-//   - strides: The strides of the buffer in scalars. Note that this may be different from `strides`’s value prior to this method invocation.
-//
-// Used by:
-//   - [MLMultiArray.GetMutableBytesWithHandler]
-type NSNumberArrayHandler = func(*[]foundation.NSNumber)
-
 // URLErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -282,44 +269,53 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// VoidHandler handles In Swift, a closure the multiarray calls in its deinitializer.
+// UnsafePointerIntHandler handles The block to receive the buffer pointer and its size in bytes.
 //
 // Used by:
-//   - [MLMultiArray.InitWithDataPointerShapeDataTypeStridesDeallocatorError]
-type VoidHandler = func()
+//   - [MLMultiArray.GetBytesWithHandler]
+type UnsafePointerIntHandler = func(unsafe.Pointer, int)
 
-// NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
+// NewUnsafePointerIntBlock wraps a Go [UnsafePointerIntHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [MLMultiArray.InitWithDataPointerShapeDataTypeStridesDeallocatorError]
-func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+//   - [MLMultiArray.GetBytesWithHandler]
+func NewUnsafePointerIntBlock(handler UnsafePointerIntHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block) {
-		handler()
+	block := objc.NewBlock(func(b objc.Block, primitive unsafe.Pointer, extra0 int) {
+		handler(primitive, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
 
-// constvoidHandler handles The block to receive the buffer pointer and its size in bytes.
+// UnsafePointerIntNumberArrayHandler handles The block to receive the buffer pointer, its size in bytes, and strides.
+//   - bytes: The pointer to the buffer.
+//   - size: The size of the buffer.
+//   - strides: The strides of the buffer in scalars. Note that this may be different from `strides`’s value prior to this method invocation.
 //
 // Used by:
-//   - [MLMultiArray.GetBytesWithHandler]
-type constvoidHandler = func(unsafe.Pointer, int64)
+//   - [MLMultiArray.GetMutableBytesWithHandler]
+type UnsafePointerIntNumberArrayHandler = func(unsafe.Pointer, int, *foundation.NSArray)
 
-// NewconstvoidBlock wraps a Go [constvoidHandler] as an Objective-C block.
+// NewUnsafePointerIntNumberArrayBlock wraps a Go [UnsafePointerIntNumberArrayHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [MLMultiArray.GetBytesWithHandler]
-func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
+//   - [MLMultiArray.GetMutableBytesWithHandler]
+func NewUnsafePointerIntNumberArrayBlock(handler UnsafePointerIntNumberArrayHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, bytes unsafe.Pointer, size int64) {
-		handler(bytes, size)
+	block := objc.NewBlock(func(b objc.Block, primitive unsafe.Pointer, extra0 int, extra1ID objc.ID) {
+		var extra1 *foundation.NSArray
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			v := foundation.NSArrayFromID(extra1ID)
+			extra1 = &v
+		}
+		handler(primitive, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

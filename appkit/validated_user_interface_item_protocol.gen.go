@@ -16,7 +16,7 @@ type NSValidatedUserInterfaceItem interface {
 	// Returns the selector of the receiver’s action method.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/action
-	Action() objc.SEL
+	Action() objectivec.SEL
 
 	// Returns the receiver’s tag integer.
 	//
@@ -48,9 +48,9 @@ func NSValidatedUserInterfaceItemObjectFromID(id objc.ID) NSValidatedUserInterfa
 // The selector of the receiver’s action method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/action
-func (o NSValidatedUserInterfaceItemObject) Action() objc.SEL {
+func (o NSValidatedUserInterfaceItemObject) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](o.ID, objc.Sel("action"))
-	return objc.SEL(rv)
+	return objectivec.SEL(rv)
 }
 
 // Returns the receiver’s tag integer.

@@ -50,14 +50,15 @@ func (uc URLProtocolClass) Alloc() URLProtocol {
 // subclasses for any custom protocols or URL schemes that your app supports.
 // When a download starts, the system creates the appropriate protocol object
 // to handle the corresponding URL request. You define your protocol class and
-// call the [RegisterClass] class method during your app’s launch time so
-// that the system is aware of your protocol.
+// call the [NSURLProtocolClass.RegisterClass] class method during your
+// app’s launch time so that the system is aware of your protocol.
 //
 // To support the customization of protocol-specific requests, create
 // extensions to the [URLRequest] class to provide any custom API that you
 // need. You can store and retrieve protocol-specific request data by using
-// [NSURLProtocol]’s class methods [PropertyForKeyInRequest] and
-// [SetPropertyForKeyInRequest].
+// [NSURLProtocol]’s class methods
+// [NSURLProtocolClass.PropertyForKeyInRequest] and
+// [NSURLProtocolClass.SetPropertyForKeyInRequest].
 //
 // Create a [NSURLResponse] for each request your subclass processes
 // successfully. You may want to create a custom [NSURLResponse] class to
@@ -72,16 +73,18 @@ func (uc URLProtocolClass) Alloc() URLProtocol {
 //
 // Swift:
 //
-// - Initialization — Override [InitWithTaskCachedResponseClient] instead of
-// or in addition to [InitWithRequestCachedResponseClient]. Also override the
-// task-based [CanInitWithTask] instead of or in addition to the request-based
-// [CanInitWithTask].
+// - Initialization — Override
+// [NSURLProtocol.InitWithTaskCachedResponseClient] instead of or in addition
+// to [NSURLProtocol.InitWithRequestCachedResponseClient]. Also override the
+// task-based [NSURLProtocolClass.CanInitWithTask] instead of or in addition
+// to the request-based [NSURLProtocolClass.CanInitWithTask].
 //
 // Objective-C:
 //
-// - Initialization — Override [CanInitWithTask] and
-// [InitWithTaskCachedResponseClient] instead of or in addition to
-// [CanInitWithTask] and [InitWithRequestCachedResponseClient].
+// - Initialization — Override [NSURLProtocolClass.CanInitWithTask] and
+// [NSURLProtocol.InitWithTaskCachedResponseClient] instead of or in addition
+// to [NSURLProtocolClass.CanInitWithTask] and
+// [NSURLProtocol.InitWithRequestCachedResponseClient].
 //
 // # Creating protocol objects
 //
@@ -167,10 +170,6 @@ type IURLProtocol interface {
 	Request() INSURLRequest
 	// The protocol’s task.
 	Task() INSURLSessionTask
-
-	// An array of extra protocol subclasses that handle requests in a session.
-	ProtocolClasses() objc.Class
-	SetProtocolClasses(value objc.Class)
 }
 
 // Init initializes the instance.
@@ -243,7 +242,8 @@ func NewURLProtocolWithRequestCachedResponseClient(request INSURLRequest, cached
 // Don’t call this method explicitly. When you register your custom protocol
 // class, the system will initialize instances of your protocol as needed.
 //
-// This initializer calls through to [InitWithRequestCachedResponseClient].
+// This initializer calls through to
+// [NSURLProtocol.InitWithRequestCachedResponseClient].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/init(task:cachedResponse:client:)
 func NewURLProtocolWithTaskCachedResponseClient(task INSURLSessionTask, cachedResponse INSCachedURLResponse, client NSURLProtocolClient) URLProtocol {
@@ -302,7 +302,8 @@ func (u URLProtocol) InitWithRequestCachedResponseClient(request INSURLRequest, 
 // Don’t call this method explicitly. When you register your custom protocol
 // class, the system will initialize instances of your protocol as needed.
 //
-// This initializer calls through to [InitWithRequestCachedResponseClient].
+// This initializer calls through to
+// [NSURLProtocol.InitWithRequestCachedResponseClient].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/init(task:cachedResponse:client:)
 func (u URLProtocol) InitWithTaskCachedResponseClient(task INSURLSessionTask, cachedResponse INSCachedURLResponse, client NSURLProtocolClient) URLProtocol {
@@ -357,16 +358,17 @@ func (u URLProtocol) StopLoading() {
 // Register any custom [NSURLProtocol] subclasses prior to making URL
 // requests. When the URL loading system begins to load a request, it tries to
 // initialize each registered protocol class with the specified request. The
-// first [NSURLProtocol] subclass to return true when sent a [CanInitWithTask]
-// message is used to load the request. There is no guarantee that all
-// registered protocol classes will be consulted.
+// first [NSURLProtocol] subclass to return true when sent a
+// [NSURLProtocolClass.CanInitWithTask] message is used to load the request.
+// There is no guarantee that all registered protocol classes will be
+// consulted.
 //
 // Classes are consulted in the reverse order of their registration. A similar
 // design governs the process to create the canonical form of a request with
-// [CanonicalRequestForRequest].
+// [NSURLProtocolClass.CanonicalRequestForRequest].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/registerClass(_:)
-func (_URLProtocolClass URLProtocolClass) RegisterClass(protocolClass objc.Class) bool {
+func (_URLProtocolClass URLProtocolClass) RegisterClass(protocolClass objectivec.Class) bool {
 	rv := objc.Send[bool](objc.ID(_URLProtocolClass.class), objc.Sel("registerClass:"), protocolClass)
 	return rv
 }
@@ -381,7 +383,7 @@ func (_URLProtocolClass URLProtocolClass) RegisterClass(protocolClass objc.Class
 // URL loading system.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/unregisterClass(_:)
-func (_URLProtocolClass URLProtocolClass) UnregisterClass(protocolClass objc.Class) {
+func (_URLProtocolClass URLProtocolClass) UnregisterClass(protocolClass objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_URLProtocolClass.class), objc.Sel("unregisterClass:"), protocolClass)
 }
 
@@ -583,15 +585,4 @@ func (u URLProtocol) Request() INSURLRequest {
 func (u URLProtocol) Task() INSURLSessionTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("task"))
 	return NSURLSessionTaskFromID(objc.ID(rv))
-}
-
-// An array of extra protocol subclasses that handle requests in a session.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses
-func (u URLProtocol) ProtocolClasses() objc.Class {
-	rv := objc.Send[objc.Class](u.ID, objc.Sel("protocolClasses"))
-	return rv
-}
-func (u URLProtocol) SetProtocolClasses(value objc.Class) {
-	objc.Send[struct{}](u.ID, objc.Sel("setProtocolClasses:"), value)
 }

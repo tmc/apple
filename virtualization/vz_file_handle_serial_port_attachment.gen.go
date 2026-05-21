@@ -52,9 +52,10 @@ func (vc VZFileHandleSerialPortAttachmentClass) Alloc() VZFileHandleSerialPortAt
 // machine, use the file handles in this object in the following way:
 //
 // - To send data to the guest operating system, write data to the file handle
-// in the [VZFileHandleSerialPortAttachment.FileHandleForReading] property. - To receive data from the guest
-// operating system, read data from the file handle in the
-// [VZFileHandleSerialPortAttachment.FileHandleForWriting] property.
+// in the [VZFileHandleSerialPortAttachment.FileHandleForReading] property. -
+// To receive data from the guest operating system, read data from the file
+// handle in the [VZFileHandleSerialPortAttachment.FileHandleForWriting]
+// property.
 //
 // # Creating the attachment point
 //
@@ -104,9 +105,9 @@ type IVZFileHandleSerialPortAttachment interface {
 	// Topic: Getting the file handles
 
 	// The file handle that the guest operating system uses to read data.
-	FileHandleForReading() foundation.NSFileHandle
+	FileHandleForReading() foundation.FileHandle
 	// The file handle that the guest operating system uses to write data.
-	FileHandleForWriting() foundation.NSFileHandle
+	FileHandleForWriting() foundation.FileHandle
 }
 
 // Init initializes the instance.
@@ -177,9 +178,9 @@ func (f VZFileHandleSerialPortAttachment) InitWithFileHandleForReadingFileHandle
 // file handle in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleSerialPortAttachment/fileHandleForReading
-func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.NSFileHandle {
+func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.FileHandle {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForReading"))
-	return foundation.NSFileHandleFromID(objc.ID(rv))
+	return foundation.FileHandleFromID(objc.ID(rv))
 }
 
 // The file handle that the guest operating system uses to write data.
@@ -190,7 +191,7 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.NSFi
 // from the file handle in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleSerialPortAttachment/fileHandleForWriting
-func (f VZFileHandleSerialPortAttachment) FileHandleForWriting() foundation.NSFileHandle {
+func (f VZFileHandleSerialPortAttachment) FileHandleForWriting() foundation.FileHandle {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForWriting"))
-	return foundation.NSFileHandleFromID(objc.ID(rv))
+	return foundation.FileHandleFromID(objc.ID(rv))
 }

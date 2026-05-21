@@ -290,9 +290,10 @@ func (m NSMutableCharacterSet) FormUnionWithCharacterSet(otherSet INSCharacterSe
 //
 // # Discussion
 //
-// Inverting a mutable character set, whether by [Invert] or by [InvertedSet],
-// is much less efficient than inverting an immutable character set with
-// [InvertedSet].
+// Inverting a mutable character set, whether by
+// [NSMutableCharacterSet.Invert] or by [NSCharacterSet.InvertedSet], is much
+// less efficient than inverting an immutable character set with
+// [NSCharacterSet.InvertedSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableCharacterSet/invert()
 func (m NSMutableCharacterSet) Invert() {

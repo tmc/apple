@@ -61,7 +61,6 @@ func (ac AVSampleBufferAudioRendererClass) Alloc() AVSampleBufferAudioRenderer {
 // # Removing queued buffers
 //
 //   - [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler]: Flushes queued sample buffers with presentation time stamps later than or equal to the specified time.
-//   - [AVSampleBufferAudioRenderer.AVSampleBufferAudioRendererFlushTimeKey]: The key that indicates the presentation timestamp of the first queued sample that was flushed.
 //
 // # Configuring time and pitch
 //
@@ -111,7 +110,6 @@ func AVSampleBufferAudioRendererFromID(id objc.ID) AVSampleBufferAudioRenderer {
 // # Removing queued buffers
 //
 //   - [IAVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler]: Flushes queued sample buffers with presentation time stamps later than or equal to the specified time.
-//   - [IAVSampleBufferAudioRenderer.AVSampleBufferAudioRendererFlushTimeKey]: The key that indicates the presentation timestamp of the first queued sample that was flushed.
 //
 // # Configuring time and pitch
 //
@@ -149,8 +147,6 @@ type IAVSampleBufferAudioRenderer interface {
 
 	// Flushes queued sample buffers with presentation time stamps later than or equal to the specified time.
 	FlushFromSourceTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler)
-	// The key that indicates the presentation timestamp of the first queued sample that was flushed.
-	AVSampleBufferAudioRendererFlushTimeKey() string
 
 	// Topic: Configuring time and pitch
 
@@ -227,7 +223,8 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 // because the source time was too close to (or earlier than) the current time
 // or because the current configuration of the receiver does not support
 // flushing at a particular time. In these cases, the caller can choose to
-// flush all enqueued media data by invoking [Flush].
+// flush all enqueued media data by invoking
+// [AVSampleBufferDisplayLayer.Flush].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/flush(fromSourceTime:completionHandler:)
 func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler) {
@@ -359,15 +356,6 @@ func (s AVSampleBufferAudioRenderer) Status() AVQueuedSampleBufferRenderingStatu
 	return AVQueuedSampleBufferRenderingStatus(rv)
 }
 
-// The key that indicates the presentation timestamp of the first queued
-// sample that was flushed.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avsamplebufferaudiorendererflushtimekey
-func (s AVSampleBufferAudioRenderer) AVSampleBufferAudioRendererFlushTimeKey() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSampleBufferAudioRendererFlushTimeKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The processing algorithm used to manage audio pitch at different rates.
 //
 // # Discussion
@@ -488,7 +476,8 @@ func (s AVSampleBufferAudioRenderer) SetAudioOutputDeviceUniqueID(value string) 
 //
 // # Discussion
 //
-// The value of this property is nil unless the value of [Status] is
+// The value of this property is nil unless the value of
+// [AVSampleBufferAudioRenderer.Status] is
 // [AVQueuedSampleBufferRenderingStatusFailed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/error

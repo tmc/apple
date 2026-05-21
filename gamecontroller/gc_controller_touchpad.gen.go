@@ -186,7 +186,7 @@ func NewGCControllerTouchpad() GCControllerTouchpad {
 // # Discussion
 //
 // This method does nothing if the associated controller isn’t a snapshot
-// (its [Snapshot] property is false`)`.
+// (its [GCController.Snapshot] property is false`)`.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpad/setValueForXAxis(_:yAxis:touchDown:buttonValue:)
 func (g GCControllerTouchpad) SetValueForXAxisYAxisTouchDownButtonValue(xAxis float32, yAxis float32, touchDown bool, buttonValue float32) {
@@ -199,8 +199,8 @@ func (g GCControllerTouchpad) SetValueForXAxisYAxisTouchDownButtonValue(xAxis fl
 // # Discussion
 //
 // This element provides the recent or last touch positions on the two axes.
-// Use the [TouchState] property to determine whether the user is currently
-// touching the surface.
+// Use the [GCControllerTouchpad.TouchState] property to determine whether the
+// user is currently touching the surface.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpad/touchSurface
 func (g GCControllerTouchpad) TouchSurface() IGCControllerDirectionPad {

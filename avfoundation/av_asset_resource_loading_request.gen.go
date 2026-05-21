@@ -63,7 +63,6 @@ func (ac AVAssetResourceLoadingRequestClass) Alloc() AVAssetResourceLoadingReque
 //   - [AVAssetResourceLoadingRequest.DataRequest]: The range of requested resource data.
 //   - [AVAssetResourceLoadingRequest.Redirect]: An URL request instance if the loading request was redirected.
 //   - [AVAssetResourceLoadingRequest.SetRedirect]
-//   - [AVAssetResourceLoadingRequest.AVAssetResourceLoadingRequestStreamingContentKeyRequestRequiresPersistentKey]: Specifies whether the content key request requires a persistable key to be returned from the key vendor.
 //
 // # Reporting the result of the request
 //
@@ -100,7 +99,6 @@ func AVAssetResourceLoadingRequestFromID(id objc.ID) AVAssetResourceLoadingReque
 //   - [IAVAssetResourceLoadingRequest.DataRequest]: The range of requested resource data.
 //   - [IAVAssetResourceLoadingRequest.Redirect]: An URL request instance if the loading request was redirected.
 //   - [IAVAssetResourceLoadingRequest.SetRedirect]
-//   - [IAVAssetResourceLoadingRequest.AVAssetResourceLoadingRequestStreamingContentKeyRequestRequiresPersistentKey]: Specifies whether the content key request requires a persistable key to be returned from the key vendor.
 //
 // # Reporting the result of the request
 //
@@ -128,14 +126,12 @@ type IAVAssetResourceLoadingRequest interface {
 	// An URL request instance if the loading request was redirected.
 	Redirect() foundation.NSURLRequest
 	SetRedirect(value foundation.NSURLRequest)
-	// Specifies whether the content key request requires a persistable key to be returned from the key vendor.
-	AVAssetResourceLoadingRequestStreamingContentKeyRequestRequiresPersistentKey() string
 
 	// Topic: Reporting the result of the request
 
 	// The URL response for the loading request.
-	Response() foundation.NSURLResponse
-	SetResponse(value foundation.NSURLResponse)
+	Response() foundation.URLResponse
+	SetResponse(value foundation.URLResponse)
 	// Causes the receiver to treat the processing of the request as complete.
 	FinishLoading()
 	// A Boolean value that indicates whether the request has been cancelled.
@@ -169,11 +165,13 @@ func NewAVAssetResourceLoadingRequest() AVAssetResourceLoadingRequest {
 //
 // # Discussion
 //
-// If a [DataRequest] is present and the resource does not contain the full
-// extent of the data that has been requested according to the values of the
-// [RequestedOffset] and [RequestedLength] properties of the request, invoke
-// `finishLoading` after providing as much of the requested data as the
-// resource contains.
+// If a [AVAssetResourceLoadingRequest.DataRequest] is present and the
+// resource does not contain the full extent of the data that has been
+// requested according to the values of the
+// [AVAssetResourceLoadingDataRequest.RequestedOffset] and
+// [AVAssetResourceLoadingDataRequest.RequestedLength] properties of the
+// request, invoke `finishLoading` after providing as much of the requested
+// data as the resource contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/finishLoading()
 func (a AVAssetResourceLoadingRequest) FinishLoading() {
@@ -267,15 +265,6 @@ func (a AVAssetResourceLoadingRequest) SetRedirect(value foundation.NSURLRequest
 	objc.Send[struct{}](a.ID, objc.Sel("setRedirect:"), value)
 }
 
-// Specifies whether the content key request requires a persistable key to be
-// returned from the key vendor.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetresourceloadingrequeststreamingcontentkeyrequestrequirespersistentkey
-func (a AVAssetResourceLoadingRequest) AVAssetResourceLoadingRequestStreamingContentKeyRequestRequiresPersistentKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetResourceLoadingRequestStreamingContentKeyRequestRequiresPersistentKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The URL response for the loading request.
 //
 // # Discussion
@@ -287,11 +276,11 @@ func (a AVAssetResourceLoadingRequest) AVAssetResourceLoadingRequestStreamingCon
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/response
 //
 // [URLResponse]: https://developer.apple.com/documentation/Foundation/URLResponse
-func (a AVAssetResourceLoadingRequest) Response() foundation.NSURLResponse {
+func (a AVAssetResourceLoadingRequest) Response() foundation.URLResponse {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("response"))
-	return foundation.NSURLResponseFromID(objc.ID(rv))
+	return foundation.URLResponseFromID(objc.ID(rv))
 }
-func (a AVAssetResourceLoadingRequest) SetResponse(value foundation.NSURLResponse) {
+func (a AVAssetResourceLoadingRequest) SetResponse(value foundation.URLResponse) {
 	objc.Send[struct{}](a.ID, objc.Sel("setResponse:"), value)
 }
 
@@ -316,7 +305,8 @@ func (a AVAssetResourceLoadingRequest) IsCancelled() bool {
 //
 // The value of this property is false initially. The value changes to true
 // when the delegate object handling the request calls the
-// [finishLoading(with:data:redirect:)] or [FinishLoadingWithError] method.
+// [finishLoading(with:data:redirect:)] or
+// [AVAssetResourceLoadingRequest.FinishLoadingWithError] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/isFinished
 //

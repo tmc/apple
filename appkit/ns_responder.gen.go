@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,13 +55,14 @@ func (nc NSResponderClass) Alloc() NSResponder {
 // chain.
 //
 // [NSResponder] also plays an important role in the presentation of error
-// information. The default implementations of the [NSResponder.PresentError] and
-// [NSResponder.PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo] methods
-// send [NSResponder.WillPresentError] to `self`, thereby giving subclasses the
-// opportunity to customize the localized information presented in error
-// alerts. [NSResponder] then forwards the message to the next responder,
-// passing it the customized [NSError] object. The exact path up the modified
-// responder chain depends on the type of application window:
+// information. The default implementations of the [NSResponder.PresentError]
+// and
+// [NSResponder.PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo]
+// methods send [NSResponder.WillPresentError] to `self`, thereby giving
+// subclasses the opportunity to customize the localized information presented
+// in error alerts. [NSResponder] then forwards the message to the next
+// responder, passing it the customized [NSError] object. The exact path up
+// the modified responder chain depends on the type of application window:
 //
 // - Window that the document owns: view > superviews > window > window
 // controller > document object > document controller > the application object
@@ -480,7 +482,7 @@ type INSResponder interface {
 	// Presents an error alert to the user as an application-modal dialog.
 	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a document-modal sheet attached to document window.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Returns a custom version of the supplied error object that’s more suitable for presentation in alert sheets and dialogs.
 	WillPresentError(error_ foundation.NSError) foundation.NSError
 
@@ -503,7 +505,7 @@ type INSResponder interface {
 	// Topic: Getting the Undo Manager
 
 	// The undo manager for this responder.
-	UndoManager() foundation.NSUndoManager
+	UndoManager() foundation.UndoManager
 
 	// Topic: Testing Events
 
@@ -613,8 +615,8 @@ func NewResponderWithCoder(coder foundation.INSCoder) NSResponder {
 // such as highlighting the selection, or to return false, refusing first
 // responder status.
 //
-// Use the [NSWindow] [FirstResponder] method, not this method, to make an
-// object the first responder. Never invoke this method directly.
+// Use the [NSWindow] [NSWindow.FirstResponder] method, not this method, to
+// make an object the first responder. Never invoke this method directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/becomeFirstResponder()
 func (r NSResponder) BecomeFirstResponder() bool {
@@ -632,8 +634,8 @@ func (r NSResponder) BecomeFirstResponder() bool {
 // such as unhighlighting the selection, or to return false, refusing to
 // relinquish first responder status.
 //
-// Use the [NSWindow] [FirstResponder] method, not this method, to make an
-// object the first responder. Never invoke this method directly.
+// Use the [NSWindow] [NSWindow.FirstResponder] method, not this method, to
+// make an object the first responder. Never invoke this method directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/resignFirstResponder()
 func (r NSResponder) ResignFirstResponder() bool {
@@ -656,16 +658,18 @@ func (r NSResponder) ResignFirstResponder() bool {
 // Some controls, such as [NSTextField], should only become first responder
 // when the enclosing NSTableView/NSBrowser indicates that the view can begin
 // editing. It is up to the particular control that wants to be validated to
-// call this method in its [MouseDown] method (or perhaps at another time) to
-// determine if it should attempt to become the first responder or not.
+// call this method in its [NSResponder.MouseDown] method (or perhaps at
+// another time) to determine if it should attempt to become the first
+// responder or not.
 //
 // The [NSTableView], [NSOutlineView], and [NSBrowser] classes implement this
 // to allow first responder status only if the responder is a view in a
 // selected row. It also delays the first responder assignment if a
 // `doubleAction` may be invoked.
 //
-// The default implementation returns true when there is no [NextResponder]
-// set, otherwise, it is forwarded up the responder chain.
+// The default implementation returns true when there is no
+// [NSResponder.NextResponder] set, otherwise, it is forwarded up the
+// responder chain.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/validateProposedFirstResponder(_:for:)
 func (r NSResponder) ValidateProposedFirstResponderForEvent(responder INSResponder, event INSEvent) bool {
@@ -853,8 +857,8 @@ func (r NSResponder) OtherMouseUp(event INSEvent) {
 // # Discussion
 //
 // The receiver can interpret `event` itself, or pass it to the system input
-// manager using [InterpretKeyEvents]. The default implementation simply
-// passes this message to the next responder.
+// manager using [NSResponder.InterpretKeyEvents]. The default implementation
+// simply passes this message to the next responder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/keyDown(with:)
 func (r NSResponder) KeyDown(event INSEvent) {
@@ -881,12 +885,12 @@ func (r NSResponder) KeyUp(event INSEvent) {
 //
 // # Discussion
 //
-// This method, which is invoked by subclasses from the [KeyDown] method,
-// sends the character input in `eventArray` to the system input manager for
-// interpretation as text to insert or commands to perform. The input manager
-// responds to the request by sending [InsertText] and [DoCommandBySelector]
-// messages back to the invoker of this method. Subclasses shouldn’t
-// override this method.
+// This method, which is invoked by subclasses from the [NSResponder.KeyDown]
+// method, sends the character input in `eventArray` to the system input
+// manager for interpretation as text to insert or commands to perform. The
+// input manager responds to the request by sending [InsertText] and
+// [DoCommandBySelector] messages back to the invoker of this method.
+// Subclasses shouldn’t override this method.
 //
 // See the [NSInputManager] and [NSTextInput] class and protocol
 // specifications for more information on input management.
@@ -1027,9 +1031,9 @@ func (r NSResponder) TabletProximity(event INSEvent) {
 // # Discussion
 //
 // [NSWindow] invokes this method automatically when the user clicks for help
-// and help has been registered using [SetContextHelpForObject]. Otherwise,
-// [NSWindow] passes the message to the next responder. Subclasses are not
-// required to override this method.
+// and help has been registered using [NSHelpManager.SetContextHelpForObject].
+// Otherwise, [NSWindow] passes the message to the next responder. Subclasses
+// are not required to override this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/helpRequested(_:)
 func (r NSResponder) HelpRequested(eventPtr INSEvent) {
@@ -1057,11 +1061,12 @@ func (r NSResponder) ScrollWheel(event INSEvent) {
 // # Discussion
 //
 // The [NSEventTypeQuickLook] event type supports this method. The only valid
-// properties of an [NSEventTypeQuickLook] event are [LocationInWindow] and
-// [ModifierFlags]. A Quick Look event does not come in through the normal
-// event mechanism; therefore, there is no corresponding event mask for it,
-// nor should you attempt to look for it in a [SendEvent] message or with the
-// [NextEventMatchingMask] methods.
+// properties of an [NSEventTypeQuickLook] event are
+// [NSEvent.LocationInWindow] and [NSEvent.ModifierFlags]. A Quick Look event
+// does not come in through the normal event mechanism; therefore, there is no
+// corresponding event mask for it, nor should you attempt to look for it in a
+// [NSWindow.SendEvent] message or with the [NSWindow.NextEventMatchingMask]
+// methods.
 //
 // If there are no Quick Look items at the location, call super.
 //
@@ -1184,8 +1189,9 @@ func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundat
 // some point in your implementation.
 //
 // Subclasses can override this method and use it to restore any information
-// that was saved in the [EncodeRestorableStateWithCoder] method. You can also
-// use this method to reconfigure the responder to its previous appearance.
+// that was saved in the [NSResponder.EncodeRestorableStateWithCoder] method.
+// You can also use this method to reconfigure the responder to its previous
+// appearance.
 //
 // For information about using a coder object to read data from an archive,
 // see [Encoding and Decoding Custom Types].
@@ -1248,19 +1254,20 @@ func (r NSResponder) UpdateUserActivityState(userActivity foundation.NSUserActiv
 // [NSErrorRecoveryAttempting] informal protocol) must be associated with
 // `error`.
 //
-// The default implementation of this method sends [WillPresentError] to
-// `self`. By doing this, [NSResponder] gives subclasses an opportunity to
-// customize error presentation. It then forwards the message, passing any
-// customized error object, to the next responder; if there is no next
-// responder, it passes the error object to [NSApp], which displays a
-// document-modal error alert. When the user dismisses the alert, any recovery
-// attempter associated with the error object is given a chance to recover
-// from the error. See the class description for the precise route up the
-// responder chain (plus document and controller objects) this message might
-// travel.
+// The default implementation of this method sends
+// [NSResponder.WillPresentError] to `self`. By doing this, [NSResponder]
+// gives subclasses an opportunity to customize error presentation. It then
+// forwards the message, passing any customized error object, to the next
+// responder; if there is no next responder, it passes the error object to
+// [NSApp], which displays a document-modal error alert. When the user
+// dismisses the alert, any recovery attempter associated with the error
+// object is given a chance to recover from the error. See the class
+// description for the precise route up the responder chain (plus document and
+// controller objects) this message might travel.
 //
 // It is not recommended that you attempt to override this method. If you wish
-// to customize the error presentation, override [WillPresentError] instead.
+// to customize the error presentation, override
+// [NSResponder.WillPresentError] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:)
 //
@@ -1300,23 +1307,25 @@ func (r NSResponder) PresentError(error_ foundation.NSError) bool {
 // attempted (that is, `didRecover` is false). Any supplemental data is passed
 // to the modal delegate via `contextInfo`.
 //
-// The default implementation of this method sends [WillPresentError] to
-// `self`. By doing this, [NSResponder] gives subclasses an opportunity to
-// customize error presentation. It then forwards the message, passing any
-// customized error to the next responder or, if there is no next responder,
-// it passes the error object to [NSApp], which displays a document-modal
-// error alert. When the user dismisses the alert, any recovery attempter
-// associated with the error object is given a chance to recover from the
-// error. See the class description for the precise route up the responder
-// chain (plus document and controller objects) this message might travel.
+// The default implementation of this method sends
+// [NSResponder.WillPresentError] to `self`. By doing this, [NSResponder]
+// gives subclasses an opportunity to customize error presentation. It then
+// forwards the message, passing any customized error to the next responder
+// or, if there is no next responder, it passes the error object to [NSApp],
+// which displays a document-modal error alert. When the user dismisses the
+// alert, any recovery attempter associated with the error object is given a
+// chance to recover from the error. See the class description for the precise
+// route up the responder chain (plus document and controller objects) this
+// message might travel.
 //
 // It is not recommended that you attempt to override this method. If you wish
-// to customize the error presentation, override [WillPresentError] instead.
+// to customize the error presentation, override
+// [NSResponder.WillPresentError] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:modalFor:delegate:didPresent:contextInfo:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
+func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](r.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -1452,7 +1461,8 @@ func (r NSResponder) ShouldBeTreatedAsInkEvent(event INSEvent) bool {
 //
 // # Discussion
 //
-// The default implementation beeps if `eventSelector` is [KeyDown].
+// The default implementation beeps if `eventSelector` is
+// [NSResponder.KeyDown].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/noResponder(for:)
 func (r NSResponder) NoResponderFor(eventSelector objc.SEL) {
@@ -1469,8 +1479,8 @@ func (r NSResponder) NoResponderFor(eventSelector objc.SEL) {
 //
 // Note that this method is no longer called on apps that link against macOS
 // 10.11 and later. If you need to access the phases of a specific gesture,
-// you can implement the responder for that gesture and examine its [Phase]
-// property instead.
+// you can implement the responder for that gesture and examine its
+// [NSEvent.Phase] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/beginGesture(with:)
 func (r NSResponder) BeginGestureWithEvent(event INSEvent) {
@@ -1485,8 +1495,8 @@ func (r NSResponder) BeginGestureWithEvent(event INSEvent) {
 //
 // Note that this method is no longer called on apps that link against macOS
 // 10.11 and later. If you need to access the phases of a specific gesture,
-// you can implement the responder for that gesture and examine its [Phase]
-// property instead.
+// you can implement the responder for that gesture and examine its
+// [NSEvent.Phase] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/endGesture(with:)
 func (r NSResponder) EndGestureWithEvent(event INSEvent) {
@@ -1540,12 +1550,12 @@ func (r NSResponder) SwipeWithEvent(event INSEvent) {
 //
 // The system sends the event to the view under the touch in the key window.
 // To get the set of touches that began for this view (or descendants of this
-// view) call [TouchesMatchingPhaseInView] on `event` and pass
+// view) call [NSEvent.TouchesMatchingPhaseInView] on `event` and pass
 // [NSTouchPhaseBegan] for the phase send.
 //
 // This isn’t always the point of contact with the touch device. A touch
 // that transitions from resting to active may be part of a
-// [TouchesBeganWithEvent] set.
+// [NSResponder.TouchesBeganWithEvent] set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/touchesBegan(with:)
 func (r NSResponder) TouchesBeganWithEvent(event INSEvent) {
@@ -1560,8 +1570,8 @@ func (r NSResponder) TouchesBeganWithEvent(event INSEvent) {
 //
 // The system sends the to the view under the touch in the key window. To get
 // the set of touches that moved for this view (or descendants of this view)
-// call [TouchesMatchingPhaseInView] on `event` and pass [NSTouchPhaseMoved]
-// for the phase.
+// call [NSEvent.TouchesMatchingPhaseInView] on `event` and pass
+// [NSTouchPhaseMoved] for the phase.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/touchesMoved(with:)
 func (r NSResponder) TouchesMovedWithEvent(event INSEvent) {
@@ -1590,12 +1600,12 @@ func (r NSResponder) TouchesCancelledWithEvent(event INSEvent) {
 //
 // The system sends the event to the view under the touch in the key window.
 // To get the set of touches that ended for this view (or descendants of this
-// view) call [TouchesMatchingPhaseInView] on `event` and pass
+// view) call [NSEvent.TouchesMatchingPhaseInView] on `event` and pass
 // [NSTouchPhaseEnded] for the phase.
 //
 // This isn’t always the point of removal with the touch device. A touch
 // that transitions from active to resting may be part of an
-// [TouchesEndedWithEvent] set.
+// [NSResponder.TouchesEndedWithEvent] set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/touchesEnded(with:)
 func (r NSResponder) TouchesEndedWithEvent(event INSEvent) {
@@ -1617,7 +1627,7 @@ func (r NSResponder) TouchesEndedWithEvent(event INSEvent) {
 //
 // Some views process gesture scroll events to perform elastic scrolling. In
 // some cases, you may want to track gesture scroll events like a swipe, see
-// [TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler].
+// [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler].
 //
 // Implement this method and return true in your swipe controller and views
 // that perform elastic scrolling will forward gesture scroll events up the
@@ -2273,8 +2283,8 @@ func (r NSResponder) QuickLookPreviewItems(sender objectivec.IObject) {
 // [NSDocument] if you don’t implement
 // [ApplicationContinueUserActivityRestorationHandler], or if you return
 // false. When this occurs, the system opens the document using
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
-// `restoreUserActivityState` on it.
+// [NSDocumentController.OpenDocumentWithContentsOfURLDisplayCompletionHandler],
+// and calls `restoreUserActivityState` on it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
 //
@@ -2444,10 +2454,10 @@ func (r NSResponder) EncodeWithCoder(coder foundation.INSCoder) {
 // restores values only for the allowed classes your app returns in the array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/allowedClasses(forRestorableStateKeyPath:)
-func (_NSResponderClass NSResponderClass) AllowedClassesForRestorableStateKeyPath(keyPath string) []objc.Class {
+func (_NSResponderClass NSResponderClass) AllowedClassesForRestorableStateKeyPath(keyPath string) []objectivec.Class {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSResponderClass.class), objc.Sel("allowedClassesForRestorableStateKeyPath:"), objc.String(keyPath))
-	return objc.ConvertSlice(rv, func(id objc.ID) objc.Class {
-		return objc.Class(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.Class {
+		return objectivec.Class(id)
 	})
 }
 
@@ -2487,22 +2497,23 @@ func (r NSResponder) SetNextResponder(value INSResponder) {
 //
 // # Discussion
 //
-// By setting the [UserActivity] property on a responder, the [NSUserActivity]
-// object becomes managed by AppKit. You should override
-// [UpdateUserActivityState] to write lazily any state data representing the
-// user’s activity to the `userInfo` dictionary. AppKit automatically saves
-// user activities it manages at appropriate times. Multiple responders can
-// share a single [NSUserActivity] instance, in which case they all get a
-// callback, such as [UpdateUserActivityState], when the system updates the
-// user activity object.
+// By setting the [NSResponder.UserActivity] property on a responder, the
+// [NSUserActivity] object becomes managed by AppKit. You should override
+// [NSResponder.UpdateUserActivityState] to write lazily any state data
+// representing the user’s activity to the `userInfo` dictionary. AppKit
+// automatically saves user activities it manages at appropriate times.
+// Multiple responders can share a single [NSUserActivity] instance, in which
+// case they all get a callback, such as
+// [NSResponder.UpdateUserActivityState], when the system updates the user
+// activity object.
 //
 // In macOS, [NSUserActivity] objects managed by [NSResponder] automatically
 // [becomeCurrent()] based on the main window and the responder chain.
 //
-// A responder object can set its [UserActivity] property to `nil` if it no
-// longer wants to participate. Any [NSUserActivity] objects that AppKit
-// manages but have no associated responders (or documents) are automatically
-// invalidated.
+// A responder object can set its [NSResponder.UserActivity] property to `nil`
+// if it no longer wants to participate. Any [NSUserActivity] objects that
+// AppKit manages but have no associated responders (or documents) are
+// automatically invalidated.
 //
 // You can use this property from any thread, and it’s key-value observable
 // (KVO).
@@ -2524,7 +2535,7 @@ func (r NSResponder) SetUserActivity(value foundation.NSUserActivity) {
 // # Discussion
 //
 // For [NSApplication] this menu is the same as the menu returned by its
-// [MainMenu] property.
+// [NSApplication.MainMenu] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/menu
 func (r NSResponder) Menu() INSMenu {
@@ -2543,9 +2554,9 @@ func (r NSResponder) SetMenu(value INSMenu) {
 // responder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/undoManager
-func (r NSResponder) UndoManager() foundation.NSUndoManager {
+func (r NSResponder) UndoManager() foundation.UndoManager {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("undoManager"))
-	return foundation.NSUndoManagerFromID(objc.ID(rv))
+	return foundation.UndoManagerFromID(objc.ID(rv))
 }
 
 // The [NSTouchBar] object associated with the responder.
@@ -2553,8 +2564,9 @@ func (r NSResponder) UndoManager() foundation.NSUndoManager {
 // # Discussion
 //
 // If you have not explicitly provided an [NSTouchBar] object for a responder
-// by setting this property, the system sends the [TouchBar] message to the
-// responder to create the default bar. This property is archived.
+// by setting this property, the system sends the [NSResponder.TouchBar]
+// message to the responder to create the default bar. This property is
+// archived.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/touchBar
 func (r NSResponder) TouchBar() INSTouchBar {
@@ -2576,11 +2588,12 @@ func (r NSResponder) SetTouchBar(value INSTouchBar) {
 // # Discussion
 //
 // You can use this method instead of, or in addition to, the
-// [EncodeRestorableStateWithCoder] and [RestoreStateWithCoder] methods to
-// save and restore the state of your responder. The key paths you return must
-// refer to attributes that are key-value coding and key-value observing
-// compliant. To learn more about these mechanisms, see [Key-Value Coding
-// Programming Guide] and [Key-Value Observing Programming Guide].
+// [NSResponder.EncodeRestorableStateWithCoder] and
+// [NSResponder.RestoreStateWithCoder] methods to save and restore the state
+// of your responder. The key paths you return must refer to attributes that
+// are key-value coding and key-value observing compliant. To learn more about
+// these mechanisms, see [Key-Value Coding Programming Guide] and [Key-Value
+// Observing Programming Guide].
 //
 // When changes are detected, the specified attributes are automatically
 // written to disk with the rest of the application’s interface-related

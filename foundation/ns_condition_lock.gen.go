@@ -286,7 +286,8 @@ func (c NSConditionLock) TryLock() bool {
 // # Discussion
 //
 // As part of its implementation, this method invokes
-// [LockWhenConditionBeforeDate]. This method returns immediately.
+// [NSConditionLock.LockWhenConditionBeforeDate]. This method returns
+// immediately.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSConditionLock/tryLock(whenCondition:)
 func (c NSConditionLock) TryLockWhenCondition(condition int) bool {

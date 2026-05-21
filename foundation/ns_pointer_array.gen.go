@@ -189,7 +189,7 @@ func NewNSPointerArray() NSPointerArray {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(coder:)
 func NewPointerArrayWithCoder(coder INSCoder) NSPointerArray {
 	instance := getNSPointerArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -257,7 +257,7 @@ func (p NSPointerArray) InitWithPointerFunctions(functions INSPointerFunctions) 
 // Returns the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
-// [Count] of the receiver.
+// [NSPointerArray.Count] of the receiver.
 //
 // # Return Value
 //
@@ -279,7 +279,7 @@ func (p NSPointerArray) PointerAtIndex(index uint) unsafe.Pointer {
 //
 // # Discussion
 //
-// `pointer` is added at index [Count].
+// `pointer` is added at index [NSPointerArray.Count].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/addPointer(_:)
 func (p NSPointerArray) AddPointer(pointer unsafe.Pointer) {
@@ -289,7 +289,7 @@ func (p NSPointerArray) AddPointer(pointer unsafe.Pointer) {
 // Removes the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
-// [Count] of the receiver.
+// [NSPointerArray.Count] of the receiver.
 //
 // # Discussion
 //
@@ -305,7 +305,7 @@ func (p NSPointerArray) RemovePointerAtIndex(index uint) {
 // item: The pointer to add.
 //
 // index: The index of an element in the receiver. This value must be less than the
-// [Count] of the receiver.
+// [NSPointerArray.Count] of the receiver.
 //
 // # Discussion
 //
@@ -319,7 +319,7 @@ func (p NSPointerArray) InsertPointerAtIndex(item unsafe.Pointer, index uint) {
 // Replaces the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
-// [Count] of the receiver.
+// [NSPointerArray.Count] of the receiver.
 //
 // item: The item with which to replace the element at `index`. This value may be
 // [NULL].
@@ -372,7 +372,7 @@ func (p NSPointerArray) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(coder:)
 func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
 	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

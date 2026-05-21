@@ -84,7 +84,7 @@ func (nc NSFileProviderServiceClass) Alloc() NSFileProviderService {
 // library imported by both sides). - If a collection parameter contains types
 // other than property list types (see [Property List Types and Objects]),
 // declare the valid types using the [NSXPCInterface] class’s
-// [ClassesForSelectorArgumentIndexOfReply] method.
+// [NSXPCInterface.ClassesForSelectorArgumentIndexOfReply] method.
 //
 // # Accessing the Service
 //

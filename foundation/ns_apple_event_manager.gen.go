@@ -61,8 +61,8 @@ func (nc NSAppleEventManagerClass) Alloc() NSAppleEventManager {
 //
 // Each application has at most one instance of [NSAppleEventManager]. To
 // obtain a reference to it, you call the class method
-// [NSAppleEventManager.SharedAppleEventManager], which creates the instance if it doesn’t
-// already exist.
+// [NSAppleEventManagerClass.SharedAppleEventManager], which creates the
+// instance if it doesn’t already exist.
 //
 // For information about the Apple Event Manager, see [Apple Event Manager]
 // and Apple Events Programming Guide.
@@ -135,12 +135,12 @@ type INSAppleEventManager interface {
 	// If an Apple event handler has been registered for the event specified by `eventClass` and `eventID`, removes it.
 	RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32)
 	// Registers the Apple event handler specified by `handler` for the event specified by `eventClass` and `eventID`.
-	SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass uint32, eventID uint32)
+	SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32)
 
 	// Topic: Working with events
 
 	// Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
-	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon ErrorHandler) objectivec.IObject
+	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) objectivec.IObject
 
 	// Topic: Suspending and resuming Apple events
 
@@ -201,18 +201,13 @@ func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClas
 // following:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)
-func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass uint32, eventID uint32) {
-	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), _block0, handleEventSelector, eventClass, eventID)
+func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), handler, handleEventSelector, eventClass, eventID)
 }
 
 // Causes the Apple event specified by `theAppleEvent` to be dispatched to the
 // appropriate Apple event handler, if one has been registered by calling
-// [SetEventHandlerAndSelectorForEventClassAndEventID].
-//
-// theAppleEvent is a [*coreservices.AppleEvent].
-//
-// theReply is a [*coreservices.AppleEvent].
+// [NSAppleEventManager.SetEventHandlerAndSelectorForEventClassAndEventID].
 //
 // # Discussion
 //
@@ -229,22 +224,21 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 // application. You cannot use this method to an event to other applications.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/dispatchRawAppleEvent(_:withRawReply:handlerRefCon:)
-func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon ErrorHandler) objectivec.IObject {
-	_block2, _ := NewErrorBlock(handlerRefCon)
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
+func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, handlerRefCon)
 	return objectivec.Object{ID: rv}
 }
 
 // Given a nonzero `suspensionID` returned by an invocation of
-// [SuspendCurrentAppleEvent], returns the descriptor for the event whose
-// handling was suspended.
+// [NSAppleEventManager.SuspendCurrentAppleEvent], returns the descriptor for
+// the event whose handling was suspended.
 //
 // # Discussion
 //
 // The effects of mutating or retaining the returned descriptor are undefined,
-// although it may be copied. [AppleEventForSuspensionID] may be invoked in
-// any thread, not just the one in which the corresponding invocation of
-// [SuspendCurrentAppleEvent] occurred.
+// although it may be copied. [NSAppleEventManager.AppleEventForSuspensionID]
+// may be invoked in any thread, not just the one in which the corresponding
+// invocation of [NSAppleEventManager.SuspendCurrentAppleEvent] occurred.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/appleEvent(forSuspensionID:)
 func (a NSAppleEventManager) AppleEventForSuspensionID(suspensionID NSAppleEventManagerSuspensionID) INSAppleEventDescriptor {
@@ -253,8 +247,8 @@ func (a NSAppleEventManager) AppleEventForSuspensionID(suspensionID NSAppleEvent
 }
 
 // Given a nonzero `suspensionID` returned by an invocation of
-// [SuspendCurrentAppleEvent], returns the corresponding reply event
-// descriptor.
+// [NSAppleEventManager.SuspendCurrentAppleEvent], returns the corresponding
+// reply event descriptor.
 //
 // # Discussion
 //
@@ -262,9 +256,10 @@ func (a NSAppleEventManager) AppleEventForSuspensionID(suspensionID NSAppleEvent
 // the suspended event when handling of the event is resumed, if the sender
 // has requested a reply. The effects of retaining the descriptor are
 // undefined; it may be copied, but mutations of the copy are returned to the
-// sender of the suspended event. [ReplyAppleEventForSuspensionID] may be
-// invoked in any thread, not just the one in which the corresponding
-// invocation of [SuspendCurrentAppleEvent] occurred.
+// sender of the suspended event.
+// [NSAppleEventManager.ReplyAppleEventForSuspensionID] may be invoked in any
+// thread, not just the one in which the corresponding invocation of
+// [NSAppleEventManager.SuspendCurrentAppleEvent] occurred.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/replyAppleEvent(forSuspensionID:)
 func (a NSAppleEventManager) ReplyAppleEventForSuspensionID(suspensionID NSAppleEventManagerSuspensionID) INSAppleEventDescriptor {
@@ -273,20 +268,21 @@ func (a NSAppleEventManager) ReplyAppleEventForSuspensionID(suspensionID NSApple
 }
 
 // Given a nonzero `suspensionID` returned by an invocation of
-// [SuspendCurrentAppleEvent], signal that handling of the suspended event may
-// now continue.
+// [NSAppleEventManager.SuspendCurrentAppleEvent], signal that handling of the
+// suspended event may now continue.
 //
 // # Discussion
 //
 // This may result in the immediate sending of the reply event to the sender
 // of the suspended event, if the sender has requested a reply. If
 // `suspensionID` has been used in a previous invocation of
-// [SetCurrentAppleEventAndReplyEventWithSuspensionID] the effects of that
-// invocation are completely undone. Redundant invocations of
-// [ResumeWithSuspensionID] are ignored. Subsequent invocations of other
-// [NSAppleEventManager] methods using the same suspension ID are invalid.
-// [ResumeWithSuspensionID] may be invoked in any thread, not just the one in
-// which the corresponding invocation of [SuspendCurrentAppleEvent] occurred.
+// [NSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID] the
+// effects of that invocation are completely undone. Redundant invocations of
+// [NSAppleEventManager.ResumeWithSuspensionID] are ignored. Subsequent
+// invocations of other [NSAppleEventManager] methods using the same
+// suspension ID are invalid. [NSAppleEventManager.ResumeWithSuspensionID] may
+// be invoked in any thread, not just the one in which the corresponding
+// invocation of [NSAppleEventManager.SuspendCurrentAppleEvent] occurred.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/resume(withSuspensionID:)
 func (a NSAppleEventManager) ResumeWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID) {
@@ -294,15 +290,17 @@ func (a NSAppleEventManager) ResumeWithSuspensionID(suspensionID NSAppleEventMan
 }
 
 // Given a nonzero `suspensionID` returned by an invocation of
-// [SuspendCurrentAppleEvent], sets the values that will be returned by
-// subsequent invocations of [CurrentAppleEvent] and [CurrentReplyAppleEvent]
-// to be the event whose handling was suspended and its corresponding reply
-// event, respectively.
+// [NSAppleEventManager.SuspendCurrentAppleEvent], sets the values that will
+// be returned by subsequent invocations of
+// [NSAppleEventManager.CurrentAppleEvent] and
+// [NSAppleEventManager.CurrentReplyAppleEvent] to be the event whose handling
+// was suspended and its corresponding reply event, respectively.
 //
 // # Discussion
 //
 // Redundant invocations of
-// [SetCurrentAppleEventAndReplyEventWithSuspensionID] are ignored.
+// [NSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID] are
+// ignored.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setCurrentAppleEventAndReplyEventWithSuspensionID(_:)
 func (a NSAppleEventManager) SetCurrentAppleEventAndReplyEventWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID) {
@@ -316,8 +314,9 @@ func (a NSAppleEventManager) SetCurrentAppleEventAndReplyEventWithSuspensionID(s
 // # Discussion
 //
 // An Apple event is being handled on the current thread if
-// [CurrentAppleEvent] does not return `nil`. Returns zero otherwise. The
-// suspended event is no longer the current event after this method returns.
+// [NSAppleEventManager.CurrentAppleEvent] does not return `nil`. Returns zero
+// otherwise. The suspended event is no longer the current event after this
+// method returns.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()
 func (a NSAppleEventManager) SuspendCurrentAppleEvent() NSAppleEventManagerSuspensionID {
@@ -340,11 +339,12 @@ func (_NSAppleEventManagerClass NSAppleEventManagerClass) SharedAppleEventManage
 // # Discussion
 //
 // An Apple event is being handled on the current thread if a handler that was
-// registered with [SetEventHandlerAndSelectorForEventClassAndEventID] is
+// registered with
+// [NSAppleEventManager.SetEventHandlerAndSelectorForEventClassAndEventID] is
 // being messaged at this instant or
-// [SetCurrentAppleEventAndReplyEventWithSuspensionID] has just been invoked.
-// Returns `nil` otherwise. The effects of mutating or retaining the returned
-// descriptor are undefined, although it may be copied.
+// [NSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID] has
+// just been invoked. Returns `nil` otherwise. The effects of mutating or
+// retaining the returned descriptor are undefined, although it may be copied.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentAppleEvent
 func (a NSAppleEventManager) CurrentAppleEvent() INSAppleEventDescriptor {
@@ -358,12 +358,12 @@ func (a NSAppleEventManager) CurrentAppleEvent() INSAppleEventDescriptor {
 // # Discussion
 //
 // An Apple event is being handled on the current thread if
-// [CurrentAppleEvent] does not return `nil`. Returns `nil` otherwise. This
-// descriptor, including any mutations, will be returned to the sender of the
-// current event when all handling of the event has been completed, if the
-// sender has requested a reply. The effects of retaining the descriptor are
-// undefined; it may be copied, but mutations of the copy are not returned to
-// the sender of the current event.
+// [NSAppleEventManager.CurrentAppleEvent] does not return `nil`. Returns
+// `nil` otherwise. This descriptor, including any mutations, will be returned
+// to the sender of the current event when all handling of the event has been
+// completed, if the sender has requested a reply. The effects of retaining
+// the descriptor are undefined; it may be copied, but mutations of the copy
+// are not returned to the sender of the current event.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent
 func (a NSAppleEventManager) CurrentReplyAppleEvent() INSAppleEventDescriptor {

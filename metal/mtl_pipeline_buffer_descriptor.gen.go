@@ -51,9 +51,9 @@ func (mc MTLPipelineBufferDescriptorClass) Alloc() MTLPipelineBufferDescriptor {
 // Use immutable buffers as much as possible to take advantage of Metal
 // optimizations.
 //
-// To declare that a buffer is immutable, set the [MTLPipelineBufferDescriptor.Mutability] property of
-// their associated [MTLPipelineBufferDescriptor] object to
-// [MTLMutabilityImmutable].
+// To declare that a buffer is immutable, set the
+// [MTLPipelineBufferDescriptor.Mutability] property of their associated
+// [MTLPipelineBufferDescriptor] object to [MTLMutabilityImmutable].
 //
 // # Setting buffer mutability
 //

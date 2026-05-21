@@ -51,7 +51,7 @@ func (nc NSParagraphStyleClass) Alloc() NSParagraphStyle {
 // of text. The formatting information includes the amount of space between
 // lines, indentations for lines of text, line heights, tab-stop positions,
 // and more. Apply paragraph styles to the text of an attributed string by
-// adding the [ParagraphStyle] attribute and setting its value to an instance
+// adding the [paragraphStyle] attribute and setting its value to an instance
 // of this class. The text-rendering system uses the paragraph style
 // information in an attributed string to lay out and render the text.
 //
@@ -100,6 +100,8 @@ func (nc NSParagraphStyleClass) Alloc() NSParagraphStyle {
 //   - [NSParagraphStyle.BaseWritingDirection]: The base writing direction for the paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle
+//
+// [paragraphStyle]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
 type NSParagraphStyle struct {
 	objectivec.Object
 }
@@ -222,8 +224,7 @@ type INSParagraphStyle interface {
 	// The base writing direction for the paragraph.
 	BaseWritingDirection() NSWritingDirection
 
-	// The paragraph style of the text.
-	ParagraphStyle() foundation.NSString
+	InitWithCoder(coder foundation.INSCoder) NSParagraphStyle
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -246,6 +247,18 @@ func NewNSParagraphStyle() NSParagraphStyle {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/init(coder:)
+func NewParagraphStyleWithCoder(coder foundation.INSCoder) NSParagraphStyle {
+	instance := getNSParagraphStyleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSParagraphStyleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/init(coder:)
+func (p NSParagraphStyle) InitWithCoder(coder foundation.INSCoder) NSParagraphStyle {
+	rv := objc.Send[NSParagraphStyle](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p NSParagraphStyle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -395,7 +408,7 @@ func (p NSParagraphStyle) LineSpacing() float64 {
 // This property contains the space (measured in points) between paragraphs.
 // This value is always nonnegative. The framework determines the space
 // between paragraphs by adding the previous paragraph’s `paragraphSpacing`
-// and the current paragraph’s [ParagraphSpacingBefore].
+// and the current paragraph’s [NSParagraphStyle.ParagraphSpacingBefore].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/paragraphSpacing
 func (p NSParagraphStyle) ParagraphSpacing() float64 {
@@ -438,8 +451,8 @@ func (p NSParagraphStyle) TabStops() []NSTextTab {
 // # Discussion
 //
 // This property represents the default tab interval in points. Tabs after the
-// last specified in [TabStops] are placed at integer multiples of this
-// distance (if positive). Default value is 0.0.
+// last specified in [NSParagraphStyle.TabStops] are placed at integer
+// multiples of this distance (if positive). Default value is 0.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/defaultTabInterval
 func (p NSParagraphStyle) DefaultTabInterval() float64 {
@@ -491,10 +504,11 @@ func (p NSParagraphStyle) LineBreakMode() NSLineBreakMode {
 //
 // Line-break strategies are collections of options the system uses to
 // determine where to break lines in a paragraph. This is different from
-// [LineBreakMode], which controls how to lay out lines of text that don’t
-// fit in a container. The system ignores this property if the paragraph
-// style’s [LineBreakMode] property specifies a mode that doesn’t support
-// multiple lines, such as [NSLineBreakByClipping].
+// [NSParagraphStyle.LineBreakMode], which controls how to lay out lines of
+// text that don’t fit in a container. The system ignores this property if
+// the paragraph style’s [NSParagraphStyle.LineBreakMode] property specifies
+// a mode that doesn’t support multiple lines, such as
+// [NSLineBreakByClipping].
 //
 // The default value is [NSLineBreakStrategyNone].
 //
@@ -597,14 +611,6 @@ func (p NSParagraphStyle) HeaderLevel() int {
 func (p NSParagraphStyle) BaseWritingDirection() NSWritingDirection {
 	rv := objc.Send[NSWritingDirection](p.ID, objc.Sel("baseWritingDirection"))
 	return NSWritingDirection(rv)
-}
-
-// The paragraph style of the text.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
-func (p NSParagraphStyle) ParagraphStyle() foundation.NSString {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("paragraphStyle"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // The default paragraph style.

@@ -72,17 +72,17 @@ func (nc NSControlClass) Alloc() NSControl {
 // # Responding to mouse events
 //
 // When the mouse button is pressed while the cursor is within the bounds of
-// the receiver, the system calls [NSControl.MouseDown]. This method highlights the
-// receiver’s cell and sends it a [TrackMouseInRectOfViewUntilMouseUp]
-// message. Whenever the cell finishes tracking the mouse (for example,
-// because the cursor has left the cell’s bounds), the cell is
-// unhighlighted. If the mouse button is still down and the cursor reenters
-// the bounds, the cell is again highlighted and a new
-// [TrackMouseInRectOfViewUntilMouseUp] message is sent. This behavior repeats
-// until the mouse button goes up. If it goes up with the cursor in the
-// control, the state of the control is changed, and the action message is
-// sent to the target. If the mouse button goes up when the cursor is outside
-// the control, no action message is sent.
+// the receiver, the system calls [NSResponder.MouseDown]. This method
+// highlights the receiver’s cell and sends it a
+// [NSCell.TrackMouseInRectOfViewUntilMouseUp] message. Whenever the cell
+// finishes tracking the mouse (for example, because the cursor has left the
+// cell’s bounds), the cell is unhighlighted. If the mouse button is still
+// down and the cursor reenters the bounds, the cell is again highlighted and
+// a new [NSCell.TrackMouseInRectOfViewUntilMouseUp] message is sent. This
+// behavior repeats until the mouse button goes up. If it goes up with the
+// cursor in the control, the state of the control is changed, and the action
+// message is sent to the target. If the mouse button goes up when the cursor
+// is outside the control, no action message is sent.
 //
 // # Enabling and Disabling the Control
 //
@@ -370,8 +370,8 @@ type INSControl interface {
 	UsesSingleLineMode() bool
 	SetUsesSingleLineMode(value bool)
 	// The receiver’s formatter.
-	Formatter() foundation.NSFormatter
-	SetFormatter(value foundation.NSFormatter)
+	Formatter() foundation.Formatter
+	SetFormatter(value foundation.Formatter)
 	// The initial writing direction used to determine the actual writing direction for text.
 	BaseWritingDirection() NSWritingDirection
 	SetBaseWritingDirection(value NSWritingDirection)
@@ -420,8 +420,8 @@ type INSControl interface {
 	// Topic: Implementing the Target-Action Mechanism
 
 	// The default action-message selector associated with the control.
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 	// The target object that receives action messages from the cell.
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
@@ -529,7 +529,7 @@ func NewControlWithFrame(frameRect corefoundation.CGRect) NSControl {
 // floating-point value obtained from the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [DoubleValue] property.
+// [NSControl.DoubleValue] property.
 //
 // # Discussion
 //
@@ -550,7 +550,7 @@ func (c NSControl) TakeDoubleValueFrom(sender objectivec.IObject) {
 // floating-point value obtained from the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [FloatValue] property.
+// [NSControl.FloatValue] property.
 //
 // # Discussion
 //
@@ -571,7 +571,7 @@ func (c NSControl) TakeFloatValueFrom(sender objectivec.IObject) {
 // the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [IntValue] property.
+// [NSControl.IntValue] property.
 //
 // # Discussion
 //
@@ -592,7 +592,7 @@ func (c NSControl) TakeIntValueFrom(sender objectivec.IObject) {
 // from the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [FloatValue] message.
+// [NSControl.FloatValue] message.
 //
 // # Discussion
 //
@@ -613,7 +613,7 @@ func (c NSControl) TakeIntegerValueFrom(sender objectivec.IObject) {
 // the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [ObjectValue] property.
+// [NSControl.ObjectValue] property.
 //
 // # Discussion
 //
@@ -634,7 +634,7 @@ func (c NSControl) TakeObjectValueFrom(sender objectivec.IObject) {
 // the specified object.
 //
 // sender: The object from which to take the value. This object must respond to the
-// [StringValue] property.
+// [NSControl.StringValue] property.
 //
 // # Discussion
 //
@@ -787,8 +787,8 @@ func (c NSControl) EditWithFrameEditorDelegateEvent(rect corefoundation.CGRect, 
 // # Discussion
 //
 // Ends any editing of text that began with a call to
-// [EditWithFrameEditorDelegateEvent] or
-// [SelectWithFrameEditorDelegateStartLength].
+// [NSControl.EditWithFrameEditorDelegateEvent] or
+// [NSControl.SelectWithFrameEditorDelegateStartLength].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/endEditing(_:)
 func (c NSControl) EndEditing(textObj INSText) {
@@ -811,10 +811,10 @@ func (c NSControl) EndEditing(textObj INSText) {
 //
 // # Discussion
 //
-// This method is similar to [EditWithFrameEditorDelegateEvent], except that
-// it can be invoked in any situation, not only on a mouse-down event. This
-// method returns without doing anything if `textObj` or the receiver is
-// `nil`, or if the receiver has no font set for it.
+// This method is similar to [NSControl.EditWithFrameEditorDelegateEvent],
+// except that it can be invoked in any situation, not only on a mouse-down
+// event. This method returns without doing anything if `textObj` or the
+// receiver is `nil`, or if the receiver has no font set for it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/select(withFrame:editor:delegate:start:length:)
 func (c NSControl) SelectWithFrameEditorDelegateStartLength(rect corefoundation.CGRect, textObj INSText, delegate objectivec.IObject, selStart int, selLength int) {
@@ -832,7 +832,8 @@ func (c NSControl) SelectWithFrameEditorDelegateStartLength(rect corefoundation.
 //
 // # Discussion
 //
-// By default, this method returns the [IntrinsicContentSize] of the receiver.
+// By default, this method returns the [NSView.IntrinsicContentSize] of the
+// receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/sizeThatFits(_:)
 func (c NSControl) SizeThatFits(size corefoundation.CGSize) corefoundation.CGSize {
@@ -848,7 +849,7 @@ func (c NSControl) SizeThatFits(size corefoundation.CGSize) corefoundation.CGSiz
 // If you want a multiple-cell custom subclass of [NSControl] to size itself
 // to fit its cells, you must override this method. This method neither
 // redisplays the receiver nor marks it as needing display. You must do this
-// yourself with either the[Display] or [setNeedsDisplay()] method.
+// yourself with either the[NSView.Display] or [setNeedsDisplay()] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/sizeToFit()
 //
@@ -873,10 +874,11 @@ func (c NSControl) SizeToFit() {
 //
 // # Discussion
 //
-// This method uses the [SendActionToFrom] method of [NSApplication] to invoke
-// the specified method on an object. The receiver is passed as the parameter
-// to the action message. This method is invoked primarily by the
-// [TrackMouseInRectOfViewUntilMouseUp] method of [NSCell].
+// This method uses the [NSApplication.SendActionToFrom] method of
+// [NSApplication] to invoke the specified method on an object. The receiver
+// is passed as the parameter to the action message. This method is invoked
+// primarily by the [NSCell.TrackMouseInRectOfViewUntilMouseUp] method of
+// [NSCell].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/sendAction(_:to:)
 func (c NSControl) SendActionTo(action objc.SEL, target objectivec.IObject) bool {
@@ -906,8 +908,8 @@ func (c NSControl) SendActionTo(action objc.SEL, target objectivec.IObject) bool
 // [NSLeftMouseDraggedMask], and [NSPeriodicMask], which are declared in the
 // [NSEvent] class reference.
 //
-// The default implementation of this method simply invokes the [SendActionOn]
-// method of its associated cell.
+// The default implementation of this method simply invokes the
+// [NSCell.SendActionOn] method of its associated cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/sendAction(on:)
 func (c NSControl) SendActionOn(mask NSEventMask) int {
@@ -921,9 +923,9 @@ func (c NSControl) SendActionOn(mask NSEventMask) int {
 //
 // # Discussion
 //
-// This method calls the [PerformClick] method of the receiver’s cell with
-// the sender being the control itself. This method raises an exception if the
-// action message cannot be successfully sent.
+// This method calls the [NSCell.PerformClick] method of the receiver’s cell
+// with the sender being the control itself. This method raises an exception
+// if the action message cannot be successfully sent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/performClick(_:)
 func (c NSControl) PerformClick(sender objectivec.IObject) {
@@ -939,8 +941,8 @@ func (c NSControl) PerformClick(sender objectivec.IObject) {
 //
 // Controls determine their intrinsic content size based on the cell size for
 // a given bounds returned by their cell. When the content of the cell changes
-// in a way that would change the return value of [CellSizeForBounds], the
-// cell needs to call this method to notify its control that its intrinsic
+// in a way that would change the return value of [NSCell.CellSizeForBounds],
+// the cell needs to call this method to notify its control that its intrinsic
 // size is no longer valid.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/invalidateIntrinsicContentSize(for:)
@@ -973,8 +975,8 @@ func (c NSControl) DrawCell(cell INSCell) {
 // # Discussion
 //
 // If the receiver is transparent, the method causes the superview to draw
-// itself. This method invokes the [DrawInteriorWithFrameInView] method of
-// NSCell. This method has no effect on controls (such as [NSMatrix] and
+// itself. This method invokes the [NSCell.DrawInteriorWithFrameInView] method
+// of NSCell. This method has no effect on controls (such as [NSMatrix] and
 // [NSForm]) that have multiple cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/drawCellInside(_:)
@@ -1083,7 +1085,7 @@ func (c NSControl) SetEnabled(value bool) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1107,7 +1109,7 @@ func (c NSControl) SetDoubleValue(value float64) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1130,7 +1132,7 @@ func (c NSControl) SetFloatValue(value float32) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1153,7 +1155,7 @@ func (c NSControl) SetIntValue(value int) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1176,7 +1178,7 @@ func (c NSControl) SetIntegerValue(value int) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1199,7 +1201,7 @@ func (c NSControl) SetObjectValue(value objectivec.IObject) {
 // If the control contains many cells (for example, [NSMatrix]), then this
 // property contains the value of the currently selected cell. If the control
 // is in the process of editing the affected cell, then it invokes the
-// [ValidateEditing] method before getting the value.
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1221,8 +1223,8 @@ func (c NSControl) SetStringValue(value string) {
 //
 // If the control contains many cells (for example, [NSMatrix]), this property
 // contains the value of the currently selected cell. If the control is in the
-// process of editing the affected cell, then it invokes the [ValidateEditing]
-// method before getting the value.
+// process of editing the affected cell, then it invokes the
+// [NSControl.ValidateEditing] method before getting the value.
 //
 // If the cell is being edited, setting this property aborts all editing
 // before setting the value. If the cell does not inherit from [NSActionCell],
@@ -1296,7 +1298,7 @@ func (c NSControl) SetLineBreakMode(value NSLineBreakMode) {
 //
 // # Discussion
 //
-// See [UsesSingleLineMode] for details.
+// See [NSCell.UsesSingleLineMode] for details.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/usesSingleLineMode
 func (c NSControl) UsesSingleLineMode() bool {
@@ -1310,11 +1312,11 @@ func (c NSControl) SetUsesSingleLineMode(value bool) {
 // The receiver’s formatter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/formatter
-func (c NSControl) Formatter() foundation.NSFormatter {
+func (c NSControl) Formatter() foundation.Formatter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatter"))
-	return foundation.NSFormatterFromID(objc.ID(rv))
+	return foundation.FormatterFromID(objc.ID(rv))
 }
-func (c NSControl) SetFormatter(value foundation.NSFormatter) {
+func (c NSControl) SetFormatter(value foundation.Formatter) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatter:"), value)
 }
 
@@ -1352,9 +1354,9 @@ func (c NSControl) SetBaseWritingDirection(value NSWritingDirection) {
 //
 // Expansion tooltips are shown when the cell cannot show the full content and
 // the user hovers the pointer over the control. This is controlled by the
-// [NSCell] class method [ExpansionFrameWithFrameInView] and is drawn by
-// [DrawWithExpansionFrameInView]. This value is encoded along with the
-// control.
+// [NSCell] class method [NSCell.ExpansionFrameWithFrameInView] and is drawn
+// by [NSCell.DrawWithExpansionFrameInView]. This value is encoded along with
+// the control.
 //
 // In general, it is recommended to turn this on for [NSTextField] instances
 // in a view-based [NSTableView].
@@ -1405,11 +1407,11 @@ func (c NSControl) SetHighlighted(value bool) {
 // `action` property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/action
-func (c NSControl) Action() objc.SEL {
+func (c NSControl) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](c.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (c NSControl) SetAction(value objc.SEL) {
+func (c NSControl) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAction:"), value)
 }
 
@@ -1492,7 +1494,7 @@ func (c NSControl) SetIgnoresMultiClick(value bool) {
 // # Discussion
 //
 // For controls with multiple cells (such as [NSMatrix] or [NSForm]), use the
-// [SelectedCell] property to retrieve a specific cell.
+// [NSControl.SelectedCell] property to retrieve a specific cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/cell
 func (c NSControl) Cell() INSCell {
@@ -1512,10 +1514,10 @@ func (c NSControl) SetCell(value INSCell) {
 // NSControl).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/cellClass
-func (_NSControlClass NSControlClass) CellClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSControlClass.class), objc.Sel("cellClass"))
-	return rv
+func (_NSControlClass NSControlClass) CellClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSControlClass.class), objc.Sel("cellClass"))
+	return objectivec.Class(rv)
 }
-func (_NSControlClass NSControlClass) SetCellClass(value objc.Class) {
+func (_NSControlClass NSControlClass) SetCellClass(value objectivec.Class) {
 	objc.Send[struct{}](objc.ID(_NSControlClass.class), objc.Sel("setCellClass:"), value)
 }

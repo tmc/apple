@@ -248,14 +248,14 @@ func (u NSURLConnection) Cancel() {
 // mode when it is created. If you create a connection with the
 // [init(request:delegate:startImmediately:)] method and provide false for the
 // `startImmediately` parameter, you can schedule the connection on a
-// different run loop or mode before starting it with the [Start] method. You
-// can schedule a connection on multiple run loops and modes, or on the same
-// run loop in multiple modes.
+// different run loop or mode before starting it with the
+// [NSURLConnection.Start] method. You can schedule a connection on multiple
+// run loops and modes, or on the same run loop in multiple modes.
 //
 // You cannot reschedule a connection after it has started.
 //
 // It is an error to schedule delegate method calls with both this method and
-// the [SetDelegateQueue] method.
+// the [NSURLConnection.SetDelegateQueue] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnection/schedule(in:forMode:)
 //
@@ -275,12 +275,12 @@ func (u NSURLConnection) ScheduleInRunLoopForMode(aRunLoop INSRunLoop, mode NSRu
 // mode when it is created. If you create a connection with the
 // [init(request:delegate:startImmediately:)] method and provide false for the
 // `startImmediately` parameter, you can instead schedule the connection on an
-// operation queue before starting it with the [Start] method.
+// operation queue before starting it with the [NSURLConnection.Start] method.
 //
 // You cannot reschedule a connection after it has started.
 //
 // It is an error to schedule delegate method calls with both this method and
-// the [ScheduleInRunLoopForMode] method.
+// the [NSURLConnection.ScheduleInRunLoopForMode] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnection/setDelegateQueue(_:)
 //
@@ -302,10 +302,11 @@ func (u NSURLConnection) SetDelegateQueue(queue INSOperationQueue) {
 // mode when it is created. If you create a connection with the
 // [init(request:delegate:startImmediately:)] method and provide false for the
 // `startImmediately` parameter, you can instead schedule connection on a
-// different run loop or mode before starting it with the [Start] method. You
-// can schedule a connection on multiple run loops and modes, or on the same
-// run loop in multiple modes. Use this method to unschedule the connection
-// from an undesired run loop and mode before starting the connection.
+// different run loop or mode before starting it with the
+// [NSURLConnection.Start] method. You can schedule a connection on multiple
+// run loops and modes, or on the same run loop in multiple modes. Use this
+// method to unschedule the connection from an undesired run loop and mode
+// before starting the connection.
 //
 // You cannot reschedule a connection after it has started. It is not
 // necessary to unschedule a connection after it has finished.
@@ -345,8 +346,8 @@ func (_NSURLConnectionClass NSURLConnectionClass) CanHandleRequest(request INSUR
 // # Discussion
 //
 // As the connection performs the load, the request may change as a result of
-// protocol canonicalization or due to following redirects. [CurrentRequest]
-// can be used to retrieve this value.
+// protocol canonicalization or due to following redirects.
+// [NSURLConnection.CurrentRequest] can be used to retrieve this value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnection/originalRequest
 func (u NSURLConnection) OriginalRequest() INSURLRequest {

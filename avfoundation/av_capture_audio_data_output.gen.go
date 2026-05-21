@@ -4,8 +4,8 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -105,8 +105,8 @@ type IAVCaptureAudioDataOutput interface {
 	// Specifies the recommended settings for use with an [AVAssetWriterInput].
 	RecommendedAudioSettingsForAssetWriterWithOutputFileType(outputFileType AVFileType) foundation.INSDictionary
 	// The audio channel layout tag of the audio sample buffers produced by the audio data output.
-	SpatialAudioChannelLayoutTag() unsafe.Pointer
-	SetSpatialAudioChannelLayoutTag(value unsafe.Pointer)
+	SpatialAudioChannelLayoutTag() coreaudiotypes.AudioChannelLayoutTag
+	SetSpatialAudioChannelLayoutTag(value coreaudiotypes.AudioChannelLayoutTag)
 
 	// Topic: Receiving captured audio data
 
@@ -151,15 +151,17 @@ func NewAVCaptureAudioDataOutput() AVCaptureAudioDataOutput {
 //
 // The value of this property is an [NSDictionary] containing values for
 // compression settings keys defined in [Audio settings]. This dictionary is
-// suitable for use as the [AssetWriterInputWithMediaTypeOutputSettings]
+// suitable for use as the
+// [AVAssetWriterInputClass.AssetWriterInputWithMediaTypeOutputSettings]
 // method’s `outputSettings` parameter when creating an
 // [AVAssetWriterInputPixelBufferAdaptor]; for example,
 //
 // The dictionary returned contains all necessary keys and values needed to
 // create an [AVAssetWriter] instance; see the
-// [InitWithMediaTypeOutputSettings] method for a more in depth discussion.
-// For QuickTime movie and ISO files, the recommended audio settings will
-// always produce output comparable to that of [AVCaptureMovieFileOutput].
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettings] method for a more in
+// depth discussion. For QuickTime movie and ISO files, the recommended audio
+// settings will always produce output comparable to that of
+// [AVCaptureMovieFileOutput].
 //
 // The dictionary of settings is dependent on the current configuration of the
 // receiver’s [AVCaptureSession] and its inputs. The settings dictionary may
@@ -245,40 +247,44 @@ func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionar
 //
 // # Discussion
 //
-// When you set your audio data output’s associated [MultichannelAudioMode]
-// property to [AVCaptureMultichannelAudioModeFirstOrderAmbisonics], the
+// When you set your audio data output’s associated
+// [AVCaptureDeviceInput.MultichannelAudioMode] property to
+// [AVCaptureMultichannelAudioModeFirstOrderAmbisonics], the
 // [AVCaptureSession] allows up to two [AVCaptureAudioDataOutput] instances to
 // be connected to the First-order Ambisonsics (FOA) input. If you connect a
 // single [AVCaptureAudioDataOutput] instance, you must configure its
-// [SpatialAudioChannelLayoutTag] property to produce either four channels of
-// FOA audio or two channels of Stereo audio. If you connect two
-// [AVCaptureAudioDataOutput] instances, you must configure one to output four
-// channels of FOA audio and the other to output two channels of Stereo audio.
+// [AVCaptureAudioDataOutput.SpatialAudioChannelLayoutTag] property to produce
+// either four channels of FOA audio or two channels of Stereo audio. If you
+// connect two [AVCaptureAudioDataOutput] instances, you must configure one to
+// output four channels of FOA audio and the other to output two channels of
+// Stereo audio.
 //
-// Thus, when you set your associated [MultichannelAudioMode] property to
+// Thus, when you set your associated
+// [AVCaptureDeviceInput.MultichannelAudioMode] property to
 // [AVCaptureMultichannelAudioModeFirstOrderAmbisonics], you must set your
 // connected [AVCaptureAudioDataOutput] instance’s
-// [SpatialAudioChannelLayoutTag] property to either
+// [AVCaptureAudioDataOutput.SpatialAudioChannelLayoutTag] property to either
 // `kAudioChannelLayoutTag_Stereo` for stereo, or
 // `(kAudioChannelLayoutTag_HOA_ACN_SN3D | 4)` for FOA (see
 // [AudioChannelLayoutTag]). When you set your associated
-// [MultichannelAudioMode] to any other value, the [AVCaptureSession] only
-// supports one [AVCaptureAudioDataOutput], and you may only set
-// [SpatialAudioChannelLayoutTag] to `kAudioChannelLayoutTag_Unknown` (the
-// default value).
+// [AVCaptureDeviceInput.MultichannelAudioMode] to any other value, the
+// [AVCaptureSession] only supports one [AVCaptureAudioDataOutput], and you
+// may only set [AVCaptureAudioDataOutput.SpatialAudioChannelLayoutTag] to
+// `kAudioChannelLayoutTag_Unknown` (the default value).
 //
 // Your [AVCaptureSession] validates your app’s adherence to the the above
-// rules when you call `AVCaptureSession/` or [CommitConfiguration] and throws
-// a [NSInvalidArgumentException] if necessary.
+// rules when you call `AVCaptureSession/` or
+// [AVCaptureSession.CommitConfiguration] and throws a
+// [NSInvalidArgumentException] if necessary.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/spatialAudioChannelLayoutTag
 //
 // [AudioChannelLayoutTag]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayoutTag
-func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("spatialAudioChannelLayoutTag"))
-	return rv
+func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() coreaudiotypes.AudioChannelLayoutTag {
+	rv := objc.Send[coreaudiotypes.AudioChannelLayoutTag](c.ID, objc.Sel("spatialAudioChannelLayoutTag"))
+	return coreaudiotypes.AudioChannelLayoutTag(rv)
 }
-func (c AVCaptureAudioDataOutput) SetSpatialAudioChannelLayoutTag(value unsafe.Pointer) {
+func (c AVCaptureAudioDataOutput) SetSpatialAudioChannelLayoutTag(value coreaudiotypes.AudioChannelLayoutTag) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSpatialAudioChannelLayoutTag:"), value)
 }
 

@@ -37,12 +37,12 @@ type GCAxis2DInput interface {
 	// The time of the most recent value change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/lastValueTimestamp
-	LastValueTimestamp() float64
+	LastValueTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the last value change and the current time.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/lastValueLatency
-	LastValueLatency() float64
+	LastValueLatency() foundation.NSTimeInterval
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -126,9 +126,9 @@ func (o GCAxis2DInputObject) Value() GCPoint2 {
 // time.
 //
 // See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/lastValueTimestamp
-func (o GCAxis2DInputObject) LastValueTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastValueTimestamp"))
-	return float64(rv)
+func (o GCAxis2DInputObject) LastValueTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastValueTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the last value change and the current time.
@@ -139,9 +139,9 @@ func (o GCAxis2DInputObject) LastValueTimestamp() float64 {
 // that accrues on the device or when it transmits the event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/lastValueLatency
-func (o GCAxis2DInputObject) LastValueLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastValueLatency"))
-	return float64(rv)
+func (o GCAxis2DInputObject) LastValueLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastValueLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

@@ -50,10 +50,11 @@ func (fc FSItemSetAttributesRequestClass) Alloc() FSItemSetAttributesRequest {
 // parent type, [FSItemAttributes], contain the values of the attributes to
 // set.
 //
-// Modify the [FSItemSetAttributesRequest.ConsumedAttributes] property to indicate which attributes your
-// file system successfully used. FSKit calls the [FSItemSetAttributesRequest.WasAttributeConsumed]
-// method to determine whether the file system successfully used a given
-// attribute. Only set the attributes that your file system supports.
+// Modify the [FSItemSetAttributesRequest.ConsumedAttributes] property to
+// indicate which attributes your file system successfully used. FSKit calls
+// the [FSItemSetAttributesRequest.WasAttributeConsumed] method to determine
+// whether the file system successfully used a given attribute. Only set the
+// attributes that your file system supports.
 //
 // # Inspecting used attributes
 //

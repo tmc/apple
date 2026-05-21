@@ -5,7 +5,6 @@ package quartzcore
 import (
 	"sync"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -54,11 +53,11 @@ func (cc CATransitionClass) Alloc() CATransition {
 //
 // The following code shows how you can transition between the two states of a
 // [CATextLayer] named `transitioningLayer`. When the layer is first created,
-// its [CATransition.BackgroundColor] is set to red and its [CATransition.String] property is set to
-// [Red]. When the `runTransition()` function is called, a new [CATransition]
-// object is created and added to `transitioningLayer`, and the state of the
-// layer is changed so that its background color is blue and its rendered text
-// reads [Blue].
+// its [CALayer.BackgroundColor] is set to red and its [CATextLayer.String]
+// property is set to [Red]. When the `runTransition()` function is called, a
+// new [CATransition] object is created and added to `transitioningLayer`, and
+// the state of the layer is changed so that its background color is blue and
+// its rendered text reads [Blue].
 //
 // The end result is that the push transition animates the red state from left
 // to right with the blue state entering the scene from the left.
@@ -145,10 +144,6 @@ type ICATransition interface {
 	// An optional Core Image filter object that provides the transition.
 	Filter() objectivec.IObject
 	SetFilter(value objectivec.IObject)
-
-	// The background color of the receiver. Animatable.
-	BackgroundColor() coregraphics.CGColorRef
-	SetBackgroundColor(value coregraphics.CGColorRef)
 }
 
 // Init initializes the instance.
@@ -193,9 +188,10 @@ func (t CATransition) SetStartProgress(value float32) {
 //
 // # Discussion
 //
-// The value must be greater than or equal to [StartProgress], and not greater
-// than 1.0. If `endProgress` is less than [StartProgress] the behavior is
-// undefined. The default value is 1.0.
+// The value must be greater than or equal to [CATransition.StartProgress],
+// and not greater than 1.0. If `endProgress` is less than
+// [CATransition.StartProgress] the behavior is undefined. The default value
+// is 1.0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransition/endProgress
 func (t CATransition) EndProgress() float32 {
@@ -211,8 +207,8 @@ func (t CATransition) SetEndProgress(value float32) {
 // # Discussion
 //
 // The possible values are shown in [Common Transition Types]. This property
-// is ignored if a custom transition is specified in the [Filter] property.
-// The default is [fade].
+// is ignored if a custom transition is specified in the [CATransition.Filter]
+// property. The default is [fade].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransition/type
 //
@@ -235,7 +231,7 @@ func (t CATransition) SetType(value CATransitionType) {
 // is `nil`.
 //
 // This property is ignored if a custom transition is specified in the
-// [Filter] property.
+// [CATransition.Filter] property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransition/subtype
 //
@@ -259,19 +255,19 @@ func (t CATransition) SetSubtype(value CATransitionSubtype) {
 // should run. If `filter` does not support the required input and output keys
 // the behavior is undefined.
 //
-// Defaults to `nil`. When a transition filter is specified the [Type] and
-// [Subtype] properties are ignored.
+// Defaults to `nil`. When a transition filter is specified the
+// [CATransition.Type] and [CATransition.Subtype] properties are ignored.
 //
 // The [NSView] that contains the transitioning layer must have its
 // [layerUsesCoreImageFilters] set to true.
 //
 // The following code shows how you can transition between the two states of a
 // [CATextLayer] named `transitioningLayer`. When the layer is first created,
-// its [BackgroundColor] is set to red and its [String] property is set to
-// [Red]. When the `runTransition()` function is called, a new [CATransition]
-// object is created and added to `transitioningLayer`, and the state of the
-// layer is changed so that its background color is blue and its rendered text
-// reads [Blue].
+// its [CALayer.BackgroundColor] is set to red and its [CATextLayer.String]
+// property is set to [Red]. When the `runTransition()` function is called, a
+// new [CATransition] object is created and added to `transitioningLayer`, and
+// the state of the layer is changed so that its background color is blue and
+// its rendered text reads [Blue].
 //
 // The end result is that the transition animates from the red state to the
 // blue state using a [CICopyMachineTransition] transition.
@@ -295,15 +291,4 @@ func (t CATransition) Filter() objectivec.IObject {
 }
 func (t CATransition) SetFilter(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFilter:"), value)
-}
-
-// The background color of the receiver. Animatable.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/backgroundcolor
-func (t CATransition) BackgroundColor() coregraphics.CGColorRef {
-	rv := objc.Send[coregraphics.CGColorRef](t.ID, objc.Sel("backgroundColor"))
-	return coregraphics.CGColorRef(rv)
-}
-func (t CATransition) SetBackgroundColor(value coregraphics.CGColorRef) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }

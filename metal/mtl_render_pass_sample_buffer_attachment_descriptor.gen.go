@@ -166,6 +166,8 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTL
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/startOfVertexSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) StartOfVertexSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfVertexSampleIndex"))
 	return rv
@@ -187,6 +189,8 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfVertexSampleInd
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/endOfVertexSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfVertexSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfVertexSampleIndex"))
 	return rv
@@ -208,6 +212,8 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetEndOfVertexSampleIndex
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/startOfFragmentSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) StartOfFragmentSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfFragmentSampleIndex"))
 	return rv
@@ -229,6 +235,8 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfFragmentSampleI
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/endOfFragmentSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfFragmentSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfFragmentSampleIndex"))
 	return rv

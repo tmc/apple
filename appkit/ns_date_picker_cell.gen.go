@@ -183,8 +183,8 @@ type INSDatePickerCell interface {
 	DateValue() foundation.NSDate
 	SetDateValue(value foundation.NSDate)
 	// The time interval that represents the date range.
-	TimeInterval() float64
-	SetTimeInterval(value float64)
+	TimeInterval() foundation.NSTimeInterval
+	SetTimeInterval(value foundation.NSTimeInterval)
 	// The calendar used by the date picker.
 	Calendar() foundation.NSCalendar
 	SetCalendar(value foundation.NSCalendar)
@@ -361,8 +361,8 @@ func (d NSDatePickerCell) SetDatePickerMode(value NSDatePickerMode) {
 // # Discussion
 //
 // Assign a date to this property to set the starting value for the picker.
-// For range-based dates, use the [TimeInterval] property to set the extent of
-// the time range.
+// For range-based dates, use the [NSDatePickerCell.TimeInterval] property to
+// set the extent of the time range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/dateValue
 func (d NSDatePickerCell) DateValue() foundation.NSDate {
@@ -377,18 +377,18 @@ func (d NSDatePickerCell) SetDateValue(value foundation.NSDate) {
 //
 // # Discussion
 //
-// The date range begins at the date in the [DateValue] property. The value in
-// this property applies only when the date picker is in the [NSRangeDateMode]
-// mode.
+// The date range begins at the date in the [NSDatePickerCell.DateValue]
+// property. The value in this property applies only when the date picker is
+// in the [NSRangeDateMode] mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/timeInterval
 //
 // [NSRangeDateMode]: https://developer.apple.com/documentation/AppKit/NSRangeDateMode
-func (d NSDatePickerCell) TimeInterval() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeInterval"))
-	return rv
+func (d NSDatePickerCell) TimeInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](d.ID, objc.Sel("timeInterval"))
+	return foundation.NSTimeInterval(rv)
 }
-func (d NSDatePickerCell) SetTimeInterval(value float64) {
+func (d NSDatePickerCell) SetTimeInterval(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeInterval:"), value)
 }
 

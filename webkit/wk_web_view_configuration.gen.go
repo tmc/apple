@@ -261,6 +261,7 @@ type IWKWebViewConfiguration interface {
 	WritingToolsBehavior() appkit.NSWritingToolsBehavior
 	SetWritingToolsBehavior(value appkit.NSWritingToolsBehavior)
 
+	InitWithCoder(coder foundation.INSCoder) WKWebViewConfiguration
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -283,6 +284,13 @@ func NewWKWebViewConfiguration() WKWebViewConfiguration {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/init(coder:)
+func NewWebViewConfigurationWithCoder(coder foundation.INSCoder) WKWebViewConfiguration {
+	instance := getWKWebViewConfigurationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return WKWebViewConfigurationFromID(rv)
+}
+
 // Registers an object to load resources associated with the specified URL
 // scheme.
 //
@@ -298,8 +306,8 @@ func NewWKWebViewConfiguration() WKWebViewConfiguration {
 // It is a programmer error to register a handler for a scheme WebKit already
 // handles, such as `https`, and this method raises an
 // [invalidArgumentException] if you try to do so. To determine whether WebKit
-// handles a specific scheme, call the [HandlesURLScheme] class method of
-// [WKWebView].
+// handles a specific scheme, call the [WKWebViewClass.HandlesURLScheme] class
+// method of [WKWebView].
 //
 // # Discussion
 //
@@ -336,6 +344,12 @@ func (w WKWebViewConfiguration) UrlSchemeHandlerForURLScheme(urlScheme string) W
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("urlSchemeHandlerForURLScheme:"), objc.String(urlScheme))
 	return WKURLSchemeHandlerObjectFromID(rv)
 }
+
+// See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/init(coder:)
+func (w WKWebViewConfiguration) InitWithCoder(coder foundation.INSCoder) WKWebViewConfiguration {
+	rv := objc.Send[WKWebViewConfiguration](w.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (w WKWebViewConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](w.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -348,8 +362,8 @@ func (w WKWebViewConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 // If you don’t assign a value to this property, the configuration object
 // uses the default data store object to store data persistently. To create a
 // private web-browsing session, create a nonpersistent data store using the
-// [NonPersistentDataStore] method and assign it to this property. For more
-// information, see [WKWebsiteDataStore].
+// [WKWebsiteDataStoreClass.NonPersistentDataStore] method and assign it to
+// this property. For more information, see [WKWebsiteDataStore].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/websiteDataStore
 func (w WKWebViewConfiguration) WebsiteDataStore() IWKWebsiteDataStore {

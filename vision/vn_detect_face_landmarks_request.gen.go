@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNDetectFaceLandmarksRequest] class.
@@ -62,12 +63,6 @@ func (vc VNDetectFaceLandmarksRequestClass) Alloc() VNDetectFaceLandmarksRequest
 //   - [VNDetectFaceLandmarksRequest.Constellation]: A variable that describes how a face landmarks request orders or enumerates the resulting features.
 //   - [VNDetectFaceLandmarksRequest.SetConstellation]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision3]: A constant for specifying revision 3 of the face landmarks detection request.
-//   - [VNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision2]: A constant for specifying revision 2 of the face landmarks detection request.
-//   - [VNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision1]: A constant for specifying revision 1 of the face landmarks detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceLandmarksRequest
 type VNDetectFaceLandmarksRequest struct {
 	VNImageBasedRequest
@@ -91,12 +86,6 @@ func VNDetectFaceLandmarksRequestFromID(id objc.ID) VNDetectFaceLandmarksRequest
 //   - [IVNDetectFaceLandmarksRequest.Constellation]: A variable that describes how a face landmarks request orders or enumerates the resulting features.
 //   - [IVNDetectFaceLandmarksRequest.SetConstellation]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision3]: A constant for specifying revision 3 of the face landmarks detection request.
-//   - [IVNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision2]: A constant for specifying revision 2 of the face landmarks detection request.
-//   - [IVNDetectFaceLandmarksRequest.VNDetectFaceLandmarksRequestRevision1]: A constant for specifying revision 1 of the face landmarks detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceLandmarksRequest
 type IVNDetectFaceLandmarksRequest interface {
 	IVNImageBasedRequest
@@ -106,15 +95,6 @@ type IVNDetectFaceLandmarksRequest interface {
 	// A variable that describes how a face landmarks request orders or enumerates the resulting features.
 	Constellation() VNRequestFaceLandmarksConstellation
 	SetConstellation(value VNRequestFaceLandmarksConstellation)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 3 of the face landmarks detection request.
-	VNDetectFaceLandmarksRequestRevision3() int
-	// A constant for specifying revision 2 of the face landmarks detection request.
-	VNDetectFaceLandmarksRequestRevision2() int
-	// A constant for specifying revision 1 of the face landmarks detection request.
-	VNDetectFaceLandmarksRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -144,13 +124,23 @@ func NewVNDetectFaceLandmarksRequest() VNDetectFaceLandmarksRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectFaceLandmarksRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectFaceLandmarksRequest {
 	instance := getVNDetectFaceLandmarksRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectFaceLandmarksRequestFromID(rv)
+}
+
+// An array of [VNFaceObservation] objects to process as part of the request.
+//
+// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
+func (d VNDetectFaceLandmarksRequest) InputFaceObservations() []VNFaceObservation {
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("inputFaceObservations"))
+	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
+		return VNFaceObservationFromID(id)
+	})
 }
 
 // Returns a Boolean value that indicates whether a revision supports a
@@ -190,40 +180,11 @@ func (d VNDetectFaceLandmarksRequest) SetConstellation(value VNRequestFaceLandma
 	objc.Send[struct{}](d.ID, objc.Sel("setConstellation:"), value)
 }
 
-// A constant for specifying revision 3 of the face landmarks detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacelandmarksrequestrevision3
-func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision3() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision3"))
-	return rv
-}
+// Protocol methods for VNFaceObservationAccepting
 
-// A constant for specifying revision 2 of the face landmarks detection
-// request.
+// An array of [VNFaceObservation] objects to process as part of the request.
 //
-// See: https://developer.apple.com/documentation/vision/vndetectfacelandmarksrequestrevision2
-func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision2() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the face landmarks detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacelandmarksrequestrevision1
-func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision1"))
-	return rv
-}
-
-// An array of
-//
-// See: https://developer.apple.com/documentation/vision/vnfaceobservationaccepting/inputfaceobservations
-func (d VNDetectFaceLandmarksRequest) InputFaceObservations() IVNFaceObservation {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputFaceObservations"))
-	return VNFaceObservationFromID(objc.ID(rv))
-}
-func (d VNDetectFaceLandmarksRequest) SetInputFaceObservations(value IVNFaceObservation) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputFaceObservations:"), value)
+// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
+func (o VNDetectFaceLandmarksRequest) SetInputFaceObservations(value []VNFaceObservation) {
+	objc.Send[struct{}](o.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
 }

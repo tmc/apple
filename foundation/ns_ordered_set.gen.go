@@ -3,7 +3,6 @@
 package foundation
 
 import (
-	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -262,11 +261,11 @@ type INSOrderedSet interface {
 	// Returns a Boolean value that indicates whether a given object is present in the ordered set.
 	ContainsObject(object objectivec.IObject) bool
 	// Executes a given block using the objects in the ordered set at the specified indexes.
-	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler)
+	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block IObjectUintBoolHandler)
 	// Executes a given block using each object in the ordered set.
-	EnumerateObjectsUsingBlock(block ObjectTypeHandler)
+	EnumerateObjectsUsingBlock(block IObjectUintBoolHandler)
 	// Executes a given block using each object in the set, using the specified enumeration options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler)
 	// The first object in the ordered set.
 	FirstObject() objectivec.IObject
 	// The last object in the ordered set.
@@ -282,17 +281,17 @@ type INSOrderedSet interface {
 	// Returns the index, within a specified range, of an object compared with elements in the ordered set using a given NSComparator block.
 	IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint
 	// Returns the index, from a given set of indexes, of the object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint
+	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint
 	// Returns the index of the object in the ordered set that passes a test in a given block.
-	IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint
+	IndexOfObjectPassingTest(predicate BoolIObjectHandler) uint
 	// Returns the index of an object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint
+	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) uint
 	// Returns the index, from a given set of indexes, of the object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet
 	// Returns the index of the object in the ordered set that passes a test in a given block.
-	IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) INSIndexSet
 	// Returns the index of an object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet
 	// Returns an enumerator object that lets you access each object in the ordered set.
 	ObjectEnumerator() INSEnumerator
 	// Returns an enumerator object that lets you access each object in the ordered set.
@@ -348,7 +347,7 @@ type INSOrderedSet interface {
 	// Compares two ordered sets, with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptions(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two ordered sets, using the provided block and with options, to create a difference object that represents the changes between them.
-	DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference
+	DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference
 	// Copies the objects contained in the ordered set that fall within the specified range to `objects`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
@@ -799,8 +798,8 @@ func (o NSOrderedSet) ContainsObject(object objectivec.IObject) bool {
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(at:options:using:)
-func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler) {
-	_block2, _ := NewObjectTypeBlock(block)
+func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block IObjectUintBoolHandler) {
+	_block2, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, _block2)
 }
 
@@ -819,8 +818,8 @@ func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, 
 // test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(_:)
-func (o NSOrderedSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-	_block0, _ := NewObjectTypeBlock(block)
+func (o NSOrderedSet) EnumerateObjectsUsingBlock(block IObjectUintBoolHandler) {
+	_block0, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 
@@ -844,8 +843,8 @@ func (o NSOrderedSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
 // test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(options:using:)
-func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-	_block1, _ := NewObjectTypeBlock(block)
+func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler) {
+	_block1, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -856,10 +855,12 @@ func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOp
 // # Return Value
 //
 // If `idx` is beyond the end of the ordered set (that is, if index is greater
-// than or equal to the value returned by count), an [RangeException] is
+// than or equal to the value returned by count), an [rangeException] is
 // raised.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/object(at:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (o NSOrderedSet) ObjectAtIndex(idx uint) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("objectAtIndex:"), idx)
 	return objectivec.Object{ID: rv}
@@ -872,14 +873,16 @@ func (o NSOrderedSet) ObjectAtIndex(idx uint) objectivec.IObject {
 // # Return Value
 //
 // If `idx` is beyond the end of the ordered set (that is, if index is greater
-// than or equal to the value returned by count), an [RangeException] is
+// than or equal to the value returned by count), an [rangeException] is
 // raised.
 //
 // # Discussion
 //
-// This method is the same as [ObjectAtIndex].
+// This method is the same as [NSOrderedSet.ObjectAtIndex].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/subscript(_:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (o NSOrderedSet) ObjectAtIndexedSubscript(idx uint) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("objectAtIndexedSubscript:"), idx)
 	return objectivec.Object{ID: rv}
@@ -897,10 +900,12 @@ func (o NSOrderedSet) ObjectAtIndexedSubscript(idx uint) objectivec.IObject {
 //
 // # Discussion
 //
-// Raises an [RangeException] if any location in indexes exceeds the bounds of
+// Raises an [rangeException] if any location in indexes exceeds the bounds of
 // the array, of if `indexes` is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/objects(at:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (o NSOrderedSet) ObjectsAtIndexes(indexes INSIndexSet) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("objectsAtIndexes:"), indexes)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -929,13 +934,13 @@ func (o NSOrderedSet) IndexOfObject(object objectivec.IObject) uint {
 //
 // object: An object for which to search in the ordered set.
 //
-// If this value is `nil`, throws an [InvalidArgumentException].
+// If this value is `nil`, throws an [invalidArgumentException].
 //
 // range: The range within the array to search for `object`.
 //
 // If r exceeds the bounds of the ordered set (if the location plus length of
 // the range is greater than the count of the ordered set), throws an
-// [RangeException].
+// [rangeException].
 //
 // opts: Options for the search. For possible values, see
 // [NSBinarySearchingOptions].
@@ -943,7 +948,7 @@ func (o NSOrderedSet) IndexOfObject(object objectivec.IObject) uint {
 // cmp: A comparator block used to compare the object obj with elements in the
 // ordered set.
 //
-// If this value is [NULL], throws an [InvalidArgumentException].
+// If this value is [NULL], throws an [invalidArgumentException].
 //
 // # Return Value
 //
@@ -974,7 +979,11 @@ func (o NSOrderedSet) IndexOfObject(object objectivec.IObject) uint {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(of:inSortedRange:options:usingComparator:)
 //
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [NSBinarySearchingOptions]: https://developer.apple.com/documentation/Foundation/NSBinarySearchingOptions
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint {
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
 		return cmp(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
@@ -1021,8 +1030,8 @@ func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object ob
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectAt:options:passingTest:)
-func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-	_block2, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
+	_block2, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, _block2)
 	return rv
 }
@@ -1047,8 +1056,8 @@ func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, op
 // test, returns [NSNotFound].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectPassingTest:)
-func (o NSOrderedSet) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint {
-	_block0, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexOfObjectPassingTest(predicate BoolIObjectHandler) uint {
+	_block0, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectPassingTest:"), _block0)
 	return rv
 }
@@ -1087,8 +1096,8 @@ func (o NSOrderedSet) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(_:ofObjectPassingTest:)
-func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-	_block1, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
+	_block1, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, _block1)
 	return rv
 }
@@ -1130,8 +1139,8 @@ func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOpti
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsAt:options:passingTest:)
-func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-	_block2, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
+	_block2, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, _block2)
 	return NSIndexSetFromID(rv)
 }
@@ -1160,8 +1169,8 @@ func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet,
 // If the block parameter is `nil`, this method raises an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsPassingTest:)
-func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet {
-	_block0, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) INSIndexSet {
+	_block0, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsPassingTest:"), _block0)
 	return NSIndexSetFromID(rv)
 }
@@ -1199,8 +1208,8 @@ func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) I
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(options:ofObjectsPassingTest:)
-func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-	_block1, _ := NewObjectTypeBlock(predicate)
+func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
+	_block1, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, _block1)
 	return NSIndexSetFromID(rv)
 }
@@ -1449,7 +1458,7 @@ func (o NSOrderedSet) FilteredOrderedSetUsingPredicate(p INSPredicate) INSOrdere
 // # Discussion
 //
 // For a description of how locale is applied to each element in the receiving
-// ordered set, see [DescriptionWithLocaleIndent].
+// ordered set, see [NSOrderedSet.DescriptionWithLocaleIndent].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/description(withLocale:)
 func (o NSOrderedSet) DescriptionWithLocale(locale objectivec.IObject) string {
@@ -1551,8 +1560,8 @@ func (o NSOrderedSet) DifferenceFromOrderedSet(other INSOrderedSet) INSOrderedCo
 // The options allow you to choose to omit insertion or removal references to
 // the change objects within the difference object. You can also choose to
 // infer moves when computing the difference, which provides an
-// [AssociatedIndex] within the change objects that indicates the index in the
-// ordered set where the object moved from.
+// [NSOrderedCollectionChange.AssociatedIndex] within the change objects that
+// indicates the index in the ordered set where the object moved from.
 //
 // The following example computes the difference between two ordered sets,
 // inferring moves between them:
@@ -1572,11 +1581,12 @@ func (o NSOrderedSet) DifferenceFromOrderedSetWithOptions(other INSOrderedSet, o
 // the change objects within the difference object’s changes. Don’t use
 // the option [NSOrderedCollectionDifferenceCalculationInferMoves] when
 // providing a block for the equivalence test. The changes returned in the
-// difference object don’t include valid values for [AssociatedIndex].
+// difference object don’t include valid values for
+// [NSOrderedCollectionChange.AssociatedIndex].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/differenceFromOrderedSet:withOptions:usingEquivalenceTest:
-func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference {
-	_block2, _ := NewObjectTypeBlock(block)
+func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference {
+	_block2, _ := NewBoolIObjectBlock(block)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceFromOrderedSet:withOptions:usingEquivalenceTest:"), other, options, _block2)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
@@ -1599,9 +1609,11 @@ func (o NSOrderedSet) EncodeWithCoder(coder INSCoder) {
 // range: A range within the bounds of the array.
 //
 // If the location plus the length of the range is greater than the count of
-// the array, this method raises an [RangeException].
+// the array, this method raises an [rangeException].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/getObjects:range:
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (o NSOrderedSet) GetObjectsRange(objects []objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](o.ID, objc.Sel("getObjects:range:"), objectivec.IObjectSliceToNSArray(objects), range_)
 }
@@ -1912,153 +1924,3 @@ func (o NSOrderedSet) Set() INSSet {
 // Protocol methods for NSMutableCopying
 
 // Protocol methods for NSSecureCoding
-
-// EnumerateObjectsAtIndexesOptionsUsingBlockSync is a synchronous wrapper around [NSOrderedSet.EnumerateObjectsAtIndexesOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlockSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.EnumerateObjectsAtIndexesOptionsUsingBlock(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsUsingBlockSync is a synchronous wrapper around [NSOrderedSet.EnumerateObjectsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) EnumerateObjectsUsingBlockSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.EnumerateObjectsUsingBlock(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsWithOptionsUsingBlockSync is a synchronous wrapper around [NSOrderedSet.EnumerateObjectsWithOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlockSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.EnumerateObjectsWithOptionsUsingBlock(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexOfObjectAtIndexesOptionsPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexOfObjectAtIndexesOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTestSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexOfObjectAtIndexesOptionsPassingTest(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexOfObjectPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexOfObjectPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexOfObjectPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexOfObjectPassingTest(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexOfObjectWithOptionsPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexOfObjectWithOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexOfObjectWithOptionsPassingTest(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsAtIndexesOptionsPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexesOfObjectsAtIndexesOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTestSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexesOfObjectsAtIndexesOptionsPassingTest(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexesOfObjectsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexesOfObjectsPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexesOfObjectsPassingTest(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsWithOptionsPassingTestSync is a synchronous wrapper around [NSOrderedSet.IndexesOfObjectsWithOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.IndexesOfObjectsWithOptionsPassingTest(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// DifferenceFromOrderedSetWithOptionsUsingEquivalenceTestSync is a synchronous wrapper around [NSOrderedSet.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTestSync(ctx context.Context, other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	o.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other, options, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}

@@ -136,8 +136,8 @@ type INSColorPickerTouchBarItem interface {
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 	// The selector on the target object that is invoked when a user interacts with the color picker.
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 }
 
 // Init initializes the instance.
@@ -307,10 +307,10 @@ func (c NSColorPickerTouchBarItem) SetTarget(value objectivec.IObject) {
 // with the color picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/action
-func (c NSColorPickerTouchBarItem) Action() objc.SEL {
+func (c NSColorPickerTouchBarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](c.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (c NSColorPickerTouchBarItem) SetAction(value objc.SEL) {
+func (c NSColorPickerTouchBarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAction:"), value)
 }

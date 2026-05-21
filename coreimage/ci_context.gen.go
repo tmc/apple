@@ -336,10 +336,6 @@ type ICIContext interface {
 	CalculateHDRStatsForImage(image ICIImage) ICIImage
 	// Creates a Core Graphics image from a region of a Core Image image instance with an option for calculating HDR statistics.
 	CreateCGImageFromRectFormatColorSpaceDeferredCalculateHDRStats(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef, deferred bool, calculateHDRStats bool) coregraphics.CGImageRef
-
-	// The render destination’s representation of alpha (transparency) values.
-	AlphaMode() CIRenderDestinationAlphaMode
-	SetAlphaMode(value CIRenderDestinationAlphaMode)
 }
 
 // Init initializes the instance.
@@ -429,14 +425,14 @@ func NewContextWithEAGLContextOptions(eaglContext objectivec.IObject, options fo
 	return CIContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:)-7dtqk
-func NewContextWithMTLCommandQueue(commandQueue metal.MTLCommandQueue) CIContext {
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(MTLCommandQueue:)-2pgxu
+func NewContextWithMTLCommandQueue(commandQueue unsafe.Pointer) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:"), commandQueue)
 	return CIContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:options:)-6i3me
-func NewContextWithMTLCommandQueueOptions(commandQueue metal.MTLCommandQueue, options foundation.INSDictionary) CIContext {
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(MTLCommandQueue:options:)-q929
+func NewContextWithMTLCommandQueueOptions(commandQueue unsafe.Pointer, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:options:"), commandQueue, options)
 	return CIContextFromID(rv)
 }
@@ -453,8 +449,8 @@ func NewContextWithMTLCommandQueueOptions(commandQueue metal.MTLCommandQueue, op
 //
 // Use this method to choose a specific Metal device for rendering when a
 // system contains multiple Metal devices. To create a Metal-based context
-// using the system’s default Metal device, use the [ContextWithOptions]
-// method.
+// using the system’s default Metal device, use the
+// [CIContextClass.ContextWithOptions] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)-swey
 func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
@@ -478,8 +474,8 @@ func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 //
 // Use this method to choose a specific Metal device for rendering when a
 // system contains multiple Metal devices. To create a Metal-based context
-// using the system’s default Metal device, use the [ContextWithOptions]
-// method.
+// using the system’s default Metal device, use the
+// [CIContextClass.ContextWithOptions] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:options:)-26usb
 func NewContextWithMTLDeviceOptions(device metal.MTLDevice, options foundation.INSDictionary) CIContext {
@@ -491,7 +487,7 @@ func NewContextWithMTLDeviceOptions(device metal.MTLDevice, options foundation.I
 // specified options.
 //
 // options: A dictionary containing options for the context. For applicable keys and
-// values, see `Context Options`.
+// values, see [CIContextOption].
 //
 // # Return Value
 //
@@ -695,10 +691,11 @@ func (c CIContext) RenderToIOSurfaceBoundsColorSpace(image ICIImage, surface ios
 // same [MTLCommandBuffer] object you use for those tasks.
 //
 // Rendering to a Metal texture requires a Metal-based context created with
-// the [ContextWithMTLDevice] or [ContextWithMTLDeviceOptions] method. Calling
-// this method on any other context raises an exception. This method renders
-// only to Metal textures whose texture type is [MTLTextureType.type2D] and
-// whose [sampleCount] value is 1.
+// the [CIContextClass.ContextWithMTLDevice] or
+// [CIContextClass.ContextWithMTLDeviceOptions] method. Calling this method on
+// any other context raises an exception. This method renders only to Metal
+// textures whose texture type is [MTLTextureType.type2D] and whose
+// [sampleCount] value is 1.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/render(_:to:commandBuffer:bounds:colorSpace:)
 //
@@ -786,8 +783,9 @@ func (c CIContext) ReclaimResources() {
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/tiffRepresentation(of:format:colorSpace:options:)
 //
@@ -820,8 +818,9 @@ func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIIma
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/jpegRepresentation(of:colorSpace:options:)
 //
@@ -857,8 +856,9 @@ func (c CIContext) JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, co
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/pngRepresentation(of:format:colorSpace:options:)
 //
@@ -892,8 +892,9 @@ func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImag
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/heifRepresentation(of:format:colorSpace:options:)
 //
@@ -968,8 +969,9 @@ func (c CIContext) OpenEXRRepresentationOfImageOptionsError(image ICIImage, opti
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/writeTIFFRepresentation(of:to:format:colorSpace:options:)
 //
@@ -1008,8 +1010,9 @@ func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsErr
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/writeJPEGRepresentation(of:to:colorSpace:options:)
 //
@@ -1049,8 +1052,9 @@ func (c CIContext) WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(ima
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/writePNGRepresentation(of:to:format:colorSpace:options:)
 //
@@ -1089,8 +1093,9 @@ func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsErro
 // # Discussion
 //
 // To render an image for export, the image’s contents must not be empty and
-// its [Extent] dimensions must be finite. To export after applying a filter
-// whose output has infinite extent, see the [ImageByClampingToExtent] method.
+// its [CIImage.Extent] dimensions must be finite. To export after applying a
+// filter whose output has infinite extent, see the
+// [CIImage.ImageByClampingToExtent] method.
 //
 // In Objective-C `writeHEIFRepresentationOfImage` returns true if the file
 // export succeeded. If false, examine the `errorPtr` parameter for possible
@@ -1345,7 +1350,7 @@ func (c CIContext) PrepareRenderFromRectToDestinationAtPointError(image ICIImage
 }
 
 // Fills the entire destination with black or clear depending on its
-// [AlphaMode].
+// [CIRenderDestination.AlphaMode].
 //
 // destination: The [CIRenderDestination] to clear.
 //
@@ -1355,10 +1360,11 @@ func (c CIContext) PrepareRenderFromRectToDestinationAtPointError(image ICIImage
 //
 // # Discussion
 //
-// If the destination’s [AlphaMode] is [CIRenderDestinationAlphaNone], this
-// command fills the entire destination with black `(0, 0, 0, 1)`.
+// If the destination’s [CIRenderDestination.AlphaMode] is
+// [CIRenderDestinationAlphaNone], this command fills the entire destination
+// with black `(0, 0, 0, 1)`.
 //
-// If the destination’s [AlphaMode] is
+// If the destination’s [CIRenderDestination.AlphaMode] is
 // [CIRenderDestinationAlphaPremultiplied] or
 // [CIRenderDestinationAlphaUnpremultiplied], this command fills the entire
 // destination with clear `(0, 0, 0, 0)`.
@@ -1393,8 +1399,8 @@ func (c CIContext) StartTaskToClearError(destination ICIRenderDestination) (ICIR
 // # Discussion
 //
 // This method crops the image to the specified rectangle and renders the
-// result at the indicated origin point. If the image’s [Extent] property
-// and `fromRect` argument values are infinite, this call renders the
+// result at the indicated origin point. If the image’s [CIImage.Extent]
+// property and `fromRect` argument values are infinite, this call renders the
 // image’s (0, 0) point starting from the origin `atPoint`.
 //
 // You must use an [MTLTexture]-backed [CIContext] to support an
@@ -1449,7 +1455,7 @@ func (c CIContext) StartTaskToRenderToDestinationError(image ICIImage, destinati
 // specified options.
 //
 // options: A dictionary containing options for the context. For applicable keys and
-// values, see `Context Options`.
+// values, see [CIContextOption].
 //
 // # Return Value
 //
@@ -1625,8 +1631,8 @@ func (_CIContextClass CIContextClass) OfflineGPUCount() uint32 {
 // without an explicit destination for the methods listed in Drawing Images.
 // Instead, use the methods listed in Rendering Images.
 //
-// To specify additional options for the context, use the [ContextWithOptions]
-// method instead.
+// To specify additional options for the context, use the
+// [CIContextClass.ContextWithOptions] method instead.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/context
 func (_CIContextClass CIContextClass) Context() CIContext {
@@ -1700,15 +1706,4 @@ func (c CIContext) WorkingColorSpace() coregraphics.CGColorSpaceRef {
 func (c CIContext) WorkingFormat() CIFormat {
 	rv := objc.Send[CIFormat](c.ID, objc.Sel("workingFormat"))
 	return CIFormat(rv)
-}
-
-// The render destination’s representation of alpha (transparency) values.
-//
-// See: https://developer.apple.com/documentation/coreimage/cirenderdestination/alphamode
-func (c CIContext) AlphaMode() CIRenderDestinationAlphaMode {
-	rv := objc.Send[CIRenderDestinationAlphaMode](c.ID, objc.Sel("alphaMode"))
-	return CIRenderDestinationAlphaMode(rv)
-}
-func (c CIContext) SetAlphaMode(value CIRenderDestinationAlphaMode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAlphaMode:"), value)
 }

@@ -60,9 +60,9 @@ func (cc CAShapeLayerClass) Alloc() CAShapeLayer {
 // The following code shows how you can build complex, composite paths and
 // display them using a shape layer. In this example, a series of
 // progressively transformed ellipses form a simple flower shape. The shape
-// layer that displays the path has its [CAShapeLayer.FillRule] set to [CAShapeLayer.EvenOdd] which
-// stops the overlapping “petals” from filling with the yellow
-// [CAShapeLayer.FillColor].
+// layer that displays the path has its [CAShapeLayer.FillRule] set to
+// [evenOdd] which stops the overlapping “petals” from filling with the
+// yellow [CAShapeLayer.FillColor].
 //
 // The following figure shows the resulting shape layer.
 //
@@ -99,6 +99,8 @@ func (cc CAShapeLayerClass) Alloc() CAShapeLayer {
 //   - [CAShapeLayer.SetStrokeEnd]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAShapeLayer
+//
+// [evenOdd]: https://developer.apple.com/documentation/QuartzCore/CAShapeLayerFillRule/evenOdd
 type CAShapeLayer struct {
 	CALayer
 }
@@ -190,9 +192,6 @@ type ICAShapeLayer interface {
 	// The relative location at which to stop stroking the path. Animatable.
 	StrokeEnd() float64
 	SetStrokeEnd(value float64)
-
-	// Specifies the even-odd winding rule. Count the total number of path crossings. If the number of crossings is even, the point is outside the path. If the number of crossings is odd, the point is inside the path and the region containing it should be filled.
-	EvenOdd() CAShapeLayerFillRule
 }
 
 // Init initializes the instance.
@@ -225,7 +224,7 @@ func NewCAShapeLayer() CAShapeLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -247,8 +246,8 @@ func NewShapeLayerWithLayer(layer objectivec.IObject) CAShapeLayer {
 //
 // # Discussion
 //
-// Unlike most animatable properties, [Path] (as with all [CGPath] animatable
-// properties) does not support implicit animation.
+// Unlike most animatable properties, [CAShapeLayer.Path] (as with all
+// [CGPath] animatable properties) does not support implicit animation.
 //
 // The path object may be animated using any of the concrete subclasses of
 // [CAPropertyAnimation]. Paths will interpolate as a linear blend of the
@@ -354,8 +353,8 @@ func (s CAShapeLayer) SetLineCap(value CAShapeLayerLineCap) {
 // that describes a horizontal line.
 //
 // The following figure shows three shape layers created with the code above.
-// The top solid line has a `nil` [LineDashPattern], the middle has `[2,3]`
-// and the bottom has `[10,5,5,5]`.
+// The top solid line has a `nil` [CAShapeLayer.LineDashPattern], the middle
+// has `[2,3]` and the bottom has `[10,5,5,5]`.
 //
 // [media-2825198]
 //
@@ -379,8 +378,9 @@ func (s CAShapeLayer) SetLineDashPattern(value []foundation.NSNumber) {
 // Default is `0`.
 //
 // The following code shows how you can create a “marching ant” effect by
-// adding an animation to a shape layer that animates its [LineDashPhase] from
-// `0` to the sum of the segment lengths of its [LineDashPattern].
+// adding an animation to a shape layer that animates its
+// [CAShapeLayer.LineDashPhase] from `0` to the sum of the segment lengths of
+// its [CAShapeLayer.LineDashPattern].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAShapeLayer/lineDashPhase
 func (s CAShapeLayer) LineDashPhase() float64 {
@@ -431,11 +431,11 @@ func (s CAShapeLayer) SetLineWidth(value float64) {
 //
 // # Discussion
 //
-// If the current line join style is set to [miter] (see [LineJoin]), the
-// miter limit determines whether the lines should be joined with a bevel
-// instead of a miter. The length of the miter is divided by the line width.
-// If the result is greater than the miter limit, the path is drawn with a
-// bevel.
+// If the current line join style is set to [miter] (see
+// [CAShapeLayer.LineJoin]), the miter limit determines whether the lines
+// should be joined with a bevel instead of a miter. The length of the miter
+// is divided by the line width. If the result is greater than the miter
+// limit, the path is drawn with a bevel.
 //
 // Default is `10.0`.
 //
@@ -474,12 +474,13 @@ func (s CAShapeLayer) SetStrokeColor(value coregraphics.CGColorRef) {
 // The value of this property must be in the range 0.0 to 1.0. The default
 // value of this property is 0.0.
 //
-// Combined with the [StrokeEnd] property, this property defines the subregion
-// of the path to stroke. The value in this property indicates the relative
-// point along the path at which to begin stroking while the [StrokeEnd]
-// property defines the end point. A value of 0.0 represents the beginning of
-// the path while a value of 1.0 represents the end of the path. Values in
-// between are interpreted linearly along the path length.
+// Combined with the [CAShapeLayer.StrokeEnd] property, this property defines
+// the subregion of the path to stroke. The value in this property indicates
+// the relative point along the path at which to begin stroking while the
+// [CAShapeLayer.StrokeEnd] property defines the end point. A value of 0.0
+// represents the beginning of the path while a value of 1.0 represents the
+// end of the path. Values in between are interpreted linearly along the path
+// length.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAShapeLayer/strokeStart
 func (s CAShapeLayer) StrokeStart() float64 {
@@ -497,13 +498,13 @@ func (s CAShapeLayer) SetStrokeStart(value float64) {
 // The value of this property must be in the range 0.0 to 1.0. The default
 // value of this property is 1.0.
 //
-// Combined with the [StrokeStart] property, this property defines the
-// subregion of the path to stroke. The value in this property indicates the
-// relative point along the path at which to finish stroking while the
-// [StrokeStart] property defines the starting point. A value of 0.0
-// represents the beginning of the path while a value of 1.0 represents the
-// end of the path. Values in between are interpreted linearly along the path
-// length.
+// Combined with the [CAShapeLayer.StrokeStart] property, this property
+// defines the subregion of the path to stroke. The value in this property
+// indicates the relative point along the path at which to finish stroking
+// while the [CAShapeLayer.StrokeStart] property defines the starting point. A
+// value of 0.0 represents the beginning of the path while a value of 1.0
+// represents the end of the path. Values in between are interpreted linearly
+// along the path length.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAShapeLayer/strokeEnd
 func (s CAShapeLayer) StrokeEnd() float64 {
@@ -512,15 +513,4 @@ func (s CAShapeLayer) StrokeEnd() float64 {
 }
 func (s CAShapeLayer) SetStrokeEnd(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStrokeEnd:"), value)
-}
-
-// Specifies the even-odd winding rule. Count the total number of path
-// crossings. If the number of crossings is even, the point is outside the
-// path. If the number of crossings is odd, the point is inside the path and
-// the region containing it should be filled.
-//
-// See: https://developer.apple.com/documentation/quartzcore/cashapelayerfillrule/evenodd
-func (s CAShapeLayer) EvenOdd() CAShapeLayerFillRule {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("kCAFillRuleEvenOdd"))
-	return CAShapeLayerFillRule(foundation.NSStringFromID(rv).String())
 }

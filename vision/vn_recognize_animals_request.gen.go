@@ -54,11 +54,6 @@ func (vc VNRecognizeAnimalsRequestClass) Alloc() VNRecognizeAnimalsRequest {
 //
 //   - [VNRecognizeAnimalsRequest.SupportedIdentifiersAndReturnError]: Returns the identifiers of the animals that the request detects.
 //
-// # Identifying Request Revisions
-//
-//   - [VNRecognizeAnimalsRequest.VNRecognizeAnimalsRequestRevision2]: A constant for specifying revision 2 of the animal recognition request.
-//   - [VNRecognizeAnimalsRequest.VNRecognizeAnimalsRequestRevision1]: A constant for specifying revision 1 of the animal recognition request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest
 //
 // [knownAnimalIdentifiers(forRevision:)]: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest/knownAnimalIdentifiers(forRevision:)
@@ -82,11 +77,6 @@ func VNRecognizeAnimalsRequestFromID(id objc.ID) VNRecognizeAnimalsRequest {
 //
 //   - [IVNRecognizeAnimalsRequest.SupportedIdentifiersAndReturnError]: Returns the identifiers of the animals that the request detects.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNRecognizeAnimalsRequest.VNRecognizeAnimalsRequestRevision2]: A constant for specifying revision 2 of the animal recognition request.
-//   - [IVNRecognizeAnimalsRequest.VNRecognizeAnimalsRequestRevision1]: A constant for specifying revision 1 of the animal recognition request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest
 type IVNRecognizeAnimalsRequest interface {
 	IVNImageBasedRequest
@@ -95,13 +85,6 @@ type IVNRecognizeAnimalsRequest interface {
 
 	// Returns the identifiers of the animals that the request detects.
 	SupportedIdentifiersAndReturnError() ([]string, error)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 2 of the animal recognition request.
-	VNRecognizeAnimalsRequestRevision2() int
-	// A constant for specifying revision 1 of the animal recognition request.
-	VNRecognizeAnimalsRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -131,7 +114,7 @@ func NewVNRecognizeAnimalsRequest() VNRecognizeAnimalsRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRecognizeAnimalsRequest {
@@ -156,20 +139,4 @@ func (r VNRecognizeAnimalsRequest) SupportedIdentifiersAndReturnError() ([]strin
 	}
 	return objc.ConvertSliceToStrings(rv), nil
 
-}
-
-// A constant for specifying revision 2 of the animal recognition request.
-//
-// See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision2
-func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision2() int {
-	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the animal recognition request.
-//
-// See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision1
-func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision1() int {
-	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision1"))
-	return rv
 }

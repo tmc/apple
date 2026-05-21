@@ -368,12 +368,13 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetIndexType(val
 // containing the radii corresponding to the keyframe.
 //
 // Metal interpolates curve radii according to the basis function you specify
-// via [CurveBasis].
+// via [MTL4AccelerationStructureMotionCurveGeometryDescriptor.CurveBasis].
 //
 // You are responsible for ensuring the type of each radius matches the type
-// property [RadiusFormat] specifies, that each radius is at least zero, and
-// that the buffer address of the top-level buffer, as well as of buffer it
-// references, is not zero.
+// property
+// [MTL4AccelerationStructureMotionCurveGeometryDescriptor.RadiusFormat]
+// specifies, that each radius is at least zero, and that the buffer address
+// of the top-level buffer, as well as of buffer it references, is not zero.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/radiusBuffers
 //
@@ -407,8 +408,9 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetRadiusFormat(
 // # Discussion
 //
 // You are responsible for ensuring this property is set to a multiple of the
-// size corresponding to the [RadiusFormat]. All keyframes share the same
-// radius stride.
+// size corresponding to the
+// [MTL4AccelerationStructureMotionCurveGeometryDescriptor.RadiusFormat]. All
+// keyframes share the same radius stride.
 //
 // This property defaults to `0` bytes, indicating that the radii are tightly
 // packed.

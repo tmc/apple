@@ -168,6 +168,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -200,6 +201,93 @@ func NewImageErrorBlock(handler ImageErrorHandler) (objc.ID, func()) {
 			result = &v
 		}
 		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IntURLCredentialHandler handles A closure you must invoke to respond to the authentication challenge.
+//   - disposition: The option to use to handle the challenge. For a list of options, see [URLSession.AuthChallengeDisposition](<doc://com.apple.documentation/documentation/Foundation/URLSession/AuthChallengeDisposition>).
+//   - credential: The credential to use for authentication when the `disposition` parameter contains the value [URLSession.AuthChallengeDisposition.useCredential](<doc://com.apple.documentation/documentation/Foundation/URLSession/AuthChallengeDisposition/useCredential>). Specify `nil` to continue without a credential.
+//
+// Used by:
+//   - [WKDownloadDelegate.DownloadDidReceiveAuthenticationChallengeCompletionHandler]
+//   - [WKNavigationDelegate.WebViewDidReceiveAuthenticationChallengeCompletionHandler]
+type IntURLCredentialHandler = func(int, *foundation.NSURLCredential)
+
+// NewIntURLCredentialBlock wraps a Go [IntURLCredentialHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKDownloadDelegate.DownloadDidReceiveAuthenticationChallengeCompletionHandler]
+//   - [WKNavigationDelegate.WebViewDidReceiveAuthenticationChallengeCompletionHandler]
+func NewIntURLCredentialBlock(handler IntURLCredentialHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive int, extra0ID objc.ID) {
+		var extra0 *foundation.NSURLCredential
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := foundation.NSURLCredentialFromID(extra0ID)
+			extra0 = &v
+		}
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IntURLHandler handles completion with primitive and object results.
+//
+// Used by:
+//   - [WKDownloadDelegate.DownloadDecidePlaceholderPolicy]
+type IntURLHandler = func(int, *foundation.NSURL)
+
+// NewIntURLBlock wraps a Go [IntURLHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKDownloadDelegate.DownloadDecidePlaceholderPolicy]
+func NewIntURLBlock(handler IntURLHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive int, extra0ID objc.ID) {
+		var extra0 *foundation.NSURL
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := foundation.NSURLFromID(extra0ID)
+			extra0 = &v
+		}
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IntWKWebpagePreferencesHandler handles A completion handler block to call with the results about whether to allow or cancel the navigation.
+//   - policy: A constant that indicates whether to cancel or allow the navigation. For a list of possible values, see [WKNavigationActionPolicy](<doc://com.apple.webkit/documentation/WebKit/WKNavigationActionPolicy>).
+//   - preferences: The set of preferences to apply to the page if the navigation is allowed. You may pass the object from the `preferences` parameter or configure a new preferences object and pass it instead.
+//
+// Used by:
+//   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler]
+type IntWKWebpagePreferencesHandler = func(int, *WKWebpagePreferences)
+
+// NewIntWKWebpagePreferencesBlock wraps a Go [IntWKWebpagePreferencesHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler]
+func NewIntWKWebpagePreferencesBlock(handler IntWKWebpagePreferencesHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive int, extra0ID objc.ID) {
+		var extra0 *WKWebpagePreferences
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := WKWebpagePreferencesFromID(extra0ID)
+			extra0 = &v
+		}
+		handler(primitive, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -239,17 +327,98 @@ func NewLocaleErrorBlock(handler LocaleErrorHandler) (objc.ID, func()) {
 //   - [WKHTTPCookieStore.GetAllCookies]
 type NSHTTPCookieArrayHandler = func(*[]foundation.NSHTTPCookie)
 
+// NewNSHTTPCookieArrayBlock wraps a Go [NSHTTPCookieArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKHTTPCookieStore.GetAllCookies]
+func NewNSHTTPCookieArrayBlock(handler NSHTTPCookieArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]foundation.NSHTTPCookie
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]foundation.NSHTTPCookie, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = foundation.NSHTTPCookieFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSURLArrayHandler handles The completion handler the system calls after a person dismisses the open panel.
 //
 // Used by:
 //   - [WKUIDelegate.WebViewRunOpenPanelWithParametersInitiatedByFrameCompletionHandler]
 type NSURLArrayHandler = func(*[]foundation.NSURL)
 
+// NewNSURLArrayBlock wraps a Go [NSURLArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKUIDelegate.WebViewRunOpenPanelWithParametersInitiatedByFrameCompletionHandler]
+func NewNSURLArrayBlock(handler NSURLArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]foundation.NSURL
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]foundation.NSURL, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = foundation.NSURLFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSUUIDArrayHandler handles A block to invoke with the fetched list of unique identifiers.
 //
 // Used by:
 //   - [WKWebsiteDataStore.FetchAllDataStoreIdentifiers]
 type NSUUIDArrayHandler = func(*[]foundation.NSUUID)
+
+// NewNSUUIDArrayBlock wraps a Go [NSUUIDArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKWebsiteDataStore.FetchAllDataStoreIdentifiers]
+func NewNSUUIDArrayBlock(handler NSUUIDArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]foundation.NSUUID
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]foundation.NSUUID, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = foundation.NSUUIDFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // ObjectErrorHandler handles A handler block to execute when script evaluation finishes.
 //   - object: The result of the script evaluation, or `nil` if an error occurred.
@@ -284,12 +453,38 @@ func NewObjectErrorBlock(handler ObjectErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// StringHandler handles A reply handler block to execute with the response to send back to the webpage.
+// ObjectHandler handles A reply handler block to execute with the response to send back to the webpage.
 //   - reply: An object that contains the data to return to the webpage. Allowed types for this parameter are [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>), [NSString](<doc://com.apple.documentation/documentation/Foundation/NSString>), [NSDate](<doc://com.apple.documentation/documentation/Foundation/NSDate>), [NSArray](<doc://com.apple.documentation/documentation/Foundation/NSArray>), [NSDictionary](<doc://com.apple.documentation/documentation/Foundation/NSDictionary>), and [NSNull](<doc://com.apple.documentation/documentation/Foundation/NSNull>). Specify `nil` if an error occurred.
 //   - errorMessage: `nil` on success, or a string that describes the error that occurred.
 //
 // Used by:
 //   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
+type ObjectHandler = func(objectivec.IObject)
+
+// NewObjectBlock wraps a Go [ObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
+func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
+		var val objectivec.IObject
+		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(valID)
+			val = &obj
+		}
+		handler(val)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// StringHandler handles The completion handler to call after the text input panel has been dismissed.
+//
+// Used by:
 //   - [WKUIDelegate.WebViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler]
 type StringHandler = func(*string)
 
@@ -327,42 +522,10 @@ func NewUIContextMenuConfigurationBlock(handler UIContextMenuConfigurationHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
-// URLCredentialHandler handles A closure you must invoke to respond to the authentication challenge.
-//   - disposition: The option to use to handle the challenge. For a list of options, see [URLSession.AuthChallengeDisposition](<doc://com.apple.documentation/documentation/Foundation/URLSession/AuthChallengeDisposition>).
-//   - credential: The credential to use for authentication when the `disposition` parameter contains the value [URLSession.AuthChallengeDisposition.useCredential](<doc://com.apple.documentation/documentation/Foundation/URLSession/AuthChallengeDisposition/useCredential>). Specify `nil` to continue without a credential.
-//
-// Used by:
-//   - [WKDownloadDelegate.DownloadDidReceiveAuthenticationChallengeCompletionHandler]
-//   - [WKNavigationDelegate.WebViewDidReceiveAuthenticationChallengeCompletionHandler]
-type URLCredentialHandler = func(*foundation.NSURLCredential)
-
-// NewURLCredentialBlock wraps a Go [URLCredentialHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [WKDownloadDelegate.DownloadDidReceiveAuthenticationChallengeCompletionHandler]
-//   - [WKNavigationDelegate.WebViewDidReceiveAuthenticationChallengeCompletionHandler]
-func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *foundation.NSURLCredential
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := foundation.NSURLCredentialFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // URLHandler handles A closure you invoke with a destination file URL to begin the download, or `nil` to cancel the download.
 //
 // Used by:
 //   - [WKDownloadDelegate.DownloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler]
-//   - [WKDownloadDelegate.DownloadDecidePlaceholderPolicy]
 type URLHandler = func(*foundation.NSURL)
 
 // NewURLBlock wraps a Go [URLHandler] as an Objective-C block.
@@ -370,7 +533,6 @@ type URLHandler = func(*foundation.NSURL)
 //
 // Used by:
 //   - [WKDownloadDelegate.DownloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler]
-//   - [WKDownloadDelegate.DownloadDecidePlaceholderPolicy]
 func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -692,6 +854,33 @@ func NewWKPermissionDecisionBlock(handler WKPermissionDecisionHandler) (objc.ID,
 //   - [WKWebExtensionController.FetchDataRecordsOfTypesCompletionHandler]
 type WKWebExtensionDataRecordArrayHandler = func(*[]WKWebExtensionDataRecord)
 
+// NewWKWebExtensionDataRecordArrayBlock wraps a Go [WKWebExtensionDataRecordArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKWebExtensionController.FetchDataRecordsOfTypesCompletionHandler]
+func NewWKWebExtensionDataRecordArrayBlock(handler WKWebExtensionDataRecordArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]WKWebExtensionDataRecord
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]WKWebExtensionDataRecord, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = WKWebExtensionDataRecordFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // WKWebExtensionDataRecordHandler handles A block to invoke when the data record has been fetched.
 //
 // Used by:
@@ -811,38 +1000,36 @@ func NewWKWebExtensionWindowErrorBlock(handler WKWebExtensionWindowErrorHandler)
 	return objc.ID(block), func() { block.Release() }
 }
 
-// WKWebpagePreferencesHandler handles A completion handler block to call with the results about whether to allow or cancel the navigation.
-//   - policy: A constant that indicates whether to cancel or allow the navigation. For a list of possible values, see [WKNavigationActionPolicy](<doc://com.apple.webkit/documentation/WebKit/WKNavigationActionPolicy>).
-//   - preferences: The set of preferences to apply to the page if the navigation is allowed. You may pass the object from the `preferences` parameter or configure a new preferences object and pass it instead.
-//
-// Used by:
-//   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler]
-type WKWebpagePreferencesHandler = func(*WKWebpagePreferences)
-
-// NewWKWebpagePreferencesBlock wraps a Go [WKWebpagePreferencesHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler]
-func NewWKWebpagePreferencesBlock(handler WKWebpagePreferencesHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *WKWebpagePreferences
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := WKWebpagePreferencesFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // WKWebsiteDataRecordArrayHandler handles The completion handler block to execute asynchronously with the results.
 //   - dataRecordArray: An array of [WKWebsiteDataRecord](<doc://com.apple.webkit/documentation/WebKit/WKWebsiteDataRecord>) objects. Each object in this array corresponds to data for one of the requested types. If no records of the requested types exist, this array is empty.
 //
 // Used by:
 //   - [WKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler]
 type WKWebsiteDataRecordArrayHandler = func(*[]WKWebsiteDataRecord)
+
+// NewWKWebsiteDataRecordArrayBlock wraps a Go [WKWebsiteDataRecordArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler]
+func NewWKWebsiteDataRecordArrayBlock(handler WKWebsiteDataRecordArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]WKWebsiteDataRecord
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]WKWebsiteDataRecord, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = WKWebsiteDataRecordFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}

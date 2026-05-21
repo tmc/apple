@@ -58,10 +58,11 @@ func (nc NSAssertionHandlerClass) Alloc() NSAssertionHandler {
 // You create assertions only using the assertion macros—you rarely need to
 // invoke [NSAssertionHandler] methods directly. The macros for use inside
 // methods and functions send
-// [NSAssertionHandler.HandleFailureInMethodObjectFileLineNumberDescription] and
-// [NSAssertionHandler.HandleFailureInFunctionFileLineNumberDescription] messages respectively to
-// the current assertion handler. The assertion handler for the current thread
-// is obtained using the [NSAssertionHandler.CurrentHandler] class method. See
+// [NSAssertionHandler.HandleFailureInMethodObjectFileLineNumberDescription]
+// and [NSAssertionHandler.HandleFailureInFunctionFileLineNumberDescription]
+// messages respectively to the current assertion handler. The assertion
+// handler for the current thread is obtained using the
+// [NSAssertionHandlerClass.CurrentHandler] class method. See
 // doc:nsassertionhandlerkey if you need to customize the behavior of
 // [NSAssertionHandler].
 //
@@ -87,7 +88,7 @@ type INSAssertionHandler interface {
 	objectivec.IObject
 
 	HandleFailureInFunctionFileLineNumberDescription(functionName string, fileName string, line int, format string)
-	HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string)
+	HandleFailureInMethodObjectFileLineNumberDescription(selector objectivec.SEL, object objectivec.IObject, fileName string, line int, format string)
 }
 
 // Init initializes the instance.
@@ -115,7 +116,7 @@ func (a NSAssertionHandler) HandleFailureInFunctionFileLineNumberDescription(fun
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSAssertionHandler/handleFailureInMethod:object:file:lineNumber:description:
-func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string) {
+func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objectivec.SEL, object objectivec.IObject, fileName string, line int, format string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("handleFailureInMethod:object:file:lineNumber:description:"), selector, object, objc.String(fileName), line, objc.String(format))
 }
 

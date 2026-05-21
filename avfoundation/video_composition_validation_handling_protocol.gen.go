@@ -110,7 +110,7 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // # Discussion
 //
 // The asset track is specified in the
-// [IsValidForAssetTimeRangeValidationDelegate] method.
+// [AVVideoComposition.IsValidForAssetTimeRangeValidationDelegate] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingInvalidTrackIDIn:layerInstruction:asset:)
 func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTrackIDInInstructionLayerInstructionAsset(videoComposition IAVVideoComposition, videoCompositionInstruction AVVideoCompositionInstruction, layerInstruction IAVVideoCompositionLayerInstruction, asset IAVAsset) bool {

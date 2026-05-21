@@ -55,10 +55,10 @@ func (uc UnitTemperatureClass) Alloc() UnitTemperature {
 // point of water. Temperature is also commonly measured by degrees of various
 // scales, including Celsius (°C) and Fahrenheit (°F).
 //
-// The [NSUnitTemperature] class defines its [BaseUnit] to be [Kelvin], and
-// provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients and
-// constants:
+// The [NSUnitTemperature] class defines its [NSDimensionClass.BaseUnit] to be
+// [NSUnitTemperatureClass.Kelvin], and provides the following units, which
+// are initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients and constants:
 //
 // [Table data omitted]
 //

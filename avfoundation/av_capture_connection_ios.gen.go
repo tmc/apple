@@ -57,17 +57,19 @@ func (c AVCaptureConnection) ActiveVideoStabilizationMode() AVCaptureVideoStabil
 // stabilization introduces additional latency into the video capture pipeline
 // and may consume more system memory, depending on the stabilization mode and
 // format. If a stabilization mode isn’t available, the connection sets its
-// [ActiveVideoStabilizationMode] property to
+// [AVCaptureConnection.ActiveVideoStabilizationMode] property to
 // [AVCaptureVideoStabilizationModeOff]. You can make the connection use an
 // appropriate capture format and frame rate by setting the property to
 // [AVCaptureVideoStabilizationModeAuto].
 //
-// Use key-value observing with the [ActiveVideoStabilizationMode] property to
-// determine which stabilization mode is in use.
+// Use key-value observing with the
+// [AVCaptureConnection.ActiveVideoStabilizationMode] property to determine
+// which stabilization mode is in use.
 //
-// You can monitor the [ActiveVideoStabilizationMode] property to detect which
-// stabilization mode the connection’s using. See [NSKeyValueObserving] and
-// [Using Key-Value Observing in Swift] for more information.
+// You can monitor the [AVCaptureConnection.ActiveVideoStabilizationMode]
+// property to detect which stabilization mode the connection’s using. See
+// [NSKeyValueObserving] and [Using Key-Value Observing in Swift] for more
+// information.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/preferredVideoStabilizationMode
 //
@@ -86,9 +88,10 @@ func (c AVCaptureConnection) SetPreferredVideoStabilizationMode(value AVCaptureV
 //
 // # Discussion
 //
-// A value of true means you can set [CameraIntrinsicMatrixDeliveryEnabled] to
-// true. The property is only true if both the connection’s input device
-// format and output type support delivering camera intrinsics. In iOS 11, the
+// A value of true means you can set
+// [AVCaptureConnection.CameraIntrinsicMatrixDeliveryEnabled] to true. The
+// property is only true if both the connection’s input device format and
+// output type support delivering camera intrinsics. In iOS 11, the
 // [AVCaptureVideoDataOutput] class is the only output type that supports
 // camera intrinsics.
 //
@@ -104,8 +107,9 @@ func (c AVCaptureConnection) IsCameraIntrinsicMatrixDeliverySupported() bool {
 // # Discussion
 //
 // You can set this property to true for a video connection if
-// [CameraIntrinsicMatrixDeliverySupported] is true, and only before calling
-// the [AVCaptureSession] [StartRunning] method. The default value is false.
+// [AVCaptureConnection.CameraIntrinsicMatrixDeliverySupported] is true, and
+// only before calling the [AVCaptureSession] [AVCaptureSession.StartRunning]
+// method. The default value is false.
 //
 // Camera intrinsics describe the current imaging parameters of a capture
 // device in ways that you can use to render overlays or perform computer
@@ -130,8 +134,8 @@ func (c AVCaptureConnection) SetCameraIntrinsicMatrixDeliveryEnabled(value bool)
 // # Discussion
 //
 // The value defines the largest value you can set the
-// [VideoScaleAndCropFactor] property to, which only applies to a video
-// connection.
+// [AVCaptureConnection.VideoScaleAndCropFactor] property to, which only
+// applies to a video connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoMaxScaleAndCropFactor
 func (c AVCaptureConnection) VideoMaxScaleAndCropFactor() float64 {

@@ -3,8 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -98,7 +96,8 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutSizeForIte
 // The insets you return reflect the spacing between the items and the header
 // and footer views of the section. They also reflect the spacing at the edges
 // of a single row or column. For more information about how insets are
-// applied, see the description of the [SectionInset] property.
+// applied, see the description of the
+// [NSCollectionViewFlowLayout.SectionInset] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegateFlowLayout/collectionView(_:layout:insetForSectionAt:)
 func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutInsetForSectionAtIndex(collectionView INSCollectionView, collectionViewLayout INSCollectionViewLayout, section int) foundation.NSEdgeInsets {
@@ -135,8 +134,8 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutInsetForSe
 // value represents the minimum spacing between successive columns. This
 // spacing is not applied to the space between the header and the first line
 // or between the last line and the footer. For more information about how
-// line spacing is applied, see the description of the [MinimumLineSpacing]
-// property.
+// line spacing is applied, see the description of the
+// [NSCollectionViewFlowLayout.MinimumLineSpacing] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegateFlowLayout/collectionView(_:layout:minimumLineSpacingForSectionAt:)
 func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutMinimumLineSpacingForSectionAtIndex(collectionView INSCollectionView, collectionViewLayout INSCollectionViewLayout, section int) float64 {
@@ -175,7 +174,7 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutMinimumLin
 // in a single row or column. The actual spacing may be increased after the
 // number of items has been determined. For more information about how
 // inter-item spacing is applied, see the description of the
-// [MinimumInteritemSpacing] property.
+// [NSCollectionViewFlowLayout.MinimumInteritemSpacing] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegateFlowLayout/collectionView(_:layout:minimumInteritemSpacingForSectionAt:)
 func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutMinimumInteritemSpacingForSectionAtIndex(collectionView INSCollectionView, collectionViewLayout INSCollectionViewLayout, section int) float64 {
@@ -211,6 +210,8 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutMinimumInt
 // from being displayed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegateFlowLayout/collectionView(_:layout:referenceSizeForHeaderInSection:)
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutReferenceSizeForHeaderInSection(collectionView INSCollectionView, collectionViewLayout INSCollectionViewLayout, section int) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("collectionView:layout:referenceSizeForHeaderInSection:"), collectionView, collectionViewLayout, section)
 	return rv
@@ -244,6 +245,8 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutReferenceS
 // from being displayed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegateFlowLayout/collectionView(_:layout:referenceSizeForFooterInSection:)
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewLayoutReferenceSizeForFooterInSection(collectionView INSCollectionView, collectionViewLayout INSCollectionViewLayout, section int) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("collectionView:layout:referenceSizeForFooterInSection:"), collectionView, collectionViewLayout, section)
 	return rv
@@ -615,13 +618,15 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewCanDragItemsAtIn
 // create and return the pasteboard writer—an object conforming to the
 // [NSPasteboardWriting] protocol—to use for providing the item’s data.
 // Using the object you provide, the collection view creates an
-// [NSDraggingItem] object for you and configures its [DraggingFrame] and
-// [ImageComponents] properties for you using information from the item at the
-// specified index path.
+// [NSDraggingItem] object for you and configures its
+// [NSDraggingItem.DraggingFrame] and [NSDraggingItem.ImageComponents]
+// properties for you using information from the item at the specified index
+// path.
 //
 // If you implement this method, the collection view does not call the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] of your
-// delegate or the [DraggingImageForItemsAtIndexesWithEventOffset] method of
+// delegate or the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method of
 // [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-5eyyl
@@ -661,13 +666,14 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewPasteboardWriter
 // specified amount.
 //
 // If you do not implement this method, the collection view uses the drag
-// image returned by the [DraggingImageForItemsAtIndexesWithEventOffset]
-// method instead.
+// image returned by the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method
+// instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-898js
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:"), collectionView, indexPaths, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -758,9 +764,9 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewUpdateDraggingIt
 //
 // Although implementation of this method is optional, you must implement it
 // to support drops onto the associated collection view. You must also call
-// the collection view’s [RegisterForDraggedTypes] method to register the
-// types of drops it supports. If you do not perform both of these actions,
-// the collection view does not accept drops.
+// the collection view’s [NSView.RegisterForDraggedTypes] method to register
+// the types of drops it supports. If you do not perform both of these
+// actions, the collection view does not accept drops.
 //
 // When an interactive drag operation occurs, the collection view calls this
 // method to determine whether the current mouse location is a valid place to
@@ -777,7 +783,7 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewUpdateDraggingIt
 // it sets the parameter to [NSCollectionViewDropBefore].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndexPath:dropOperation:)
-func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndexPath objectivec.IObject, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndexPath foundation.NSIndexPath, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndexPath:dropOperation:"), collectionView, draggingInfo, proposedDropIndexPath, proposedDropOperation)
 	return rv
 }
@@ -875,13 +881,15 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewCanDragItemsAtIn
 // create and return the pasteboard writer—an object conforming to the
 // [NSPasteboardWriting] protocol—to use for providing the item’s data.
 // Using the object you provide, the collection view creates an
-// [NSDraggingItem] object for you and configures its [DraggingFrame] and
-// [ImageComponents] properties for you using information from the item at the
-// specified index path.
+// [NSDraggingItem] object for you and configures its
+// [NSDraggingItem.DraggingFrame] and [NSDraggingItem.ImageComponents]
+// properties for you using information from the item at the specified index
+// path.
 //
 // If you implement this method, the collection view does not call the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] of your
-// delegate or the [DraggingImageForItemsAtIndexesWithEventOffset] method of
+// delegate or the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method of
 // [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-7ldvs
@@ -910,7 +918,8 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewPasteboardWriter
 // # Discussion
 //
 // If the delegate does not implement this method, the collection view uses
-// the image returned by [DraggingImageForItemsAtIndexesWithEventOffset].
+// the image returned by
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset].
 //
 // You do not need to implement this method for your collection view to be a
 // drag source.
@@ -918,7 +927,7 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewPasteboardWriter
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-4yvk5
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingImageForItemsAtIndexesWithEventOffset(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingImageForItemsAtIndexesWithEventOffset(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexes:withEvent:offset:"), collectionView, indexes, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -972,14 +981,15 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingSessionW
 // this default behavior by changing `proposedDropOperation` or
 // `proposedDropIndex`.
 //
-// To receive drag messages, you must first send [RegisterForDraggedTypes] to
-// the collection view with the drag types you want to support.
+// To receive drag messages, you must first send
+// [NSView.RegisterForDraggedTypes] to the collection view with the drag types
+// you want to support.
 //
 // You must implement this method for your collection view to be a drag
 // destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndex:dropOperation:)
-func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex unsafe.Pointer, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex *int, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndex:dropOperation:"), collectionView, draggingInfo, proposedDropIndex, proposedDropOperation)
 	return rv
 }

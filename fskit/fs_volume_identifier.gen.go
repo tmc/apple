@@ -94,6 +94,13 @@ func NewFSVolumeIdentifier() FSVolumeIdentifier {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(coder:)
+func NewVolumeIdentifierWithCoder(coder foundation.INSCoder) FSVolumeIdentifier {
+	instance := getFSVolumeIdentifierClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSVolumeIdentifierFromID(rv)
+}
+
 // Creates an entity identifier with the given UUID.
 //
 // uuid: The UUID to use for this identifier.

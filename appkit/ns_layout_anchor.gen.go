@@ -63,8 +63,8 @@ func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 // [NSLayoutConstraint.Attribute] subclasses provide additional type checking,
 // preventing you from creating invalid constraints.
 //
-// For more information on the anchor properties, see [NSLayoutAnchor.BottomAnchor] in the
-// [NSView] or [NSLayoutGuide].
+// For more information on the anchor properties, see [NSView.BottomAnchor] in
+// the [NSView] or [NSLayoutGuide].
 //
 // # Building constraints
 //
@@ -147,15 +147,7 @@ type INSLayoutAnchor interface {
 	// The layout item used to calculate the anchor’s position.
 	Item() objectivec.IObject
 
-	// A layout anchor representing the bottom edge of the view’s frame.
-	BottomAnchor() INSLayoutYAxisAnchor
-	SetBottomAnchor(value INSLayoutYAxisAnchor)
-	// A layout anchor representing the leading edge of the view’s frame.
-	LeadingAnchor() INSLayoutXAxisAnchor
-	SetLeadingAnchor(value INSLayoutXAxisAnchor)
-	// A layout anchor representing the left edge of the view’s frame.
-	LeftAnchor() INSLayoutXAxisAnchor
-	SetLeftAnchor(value INSLayoutXAxisAnchor)
+	InitWithCoder(coder foundation.INSCoder) NSLayoutAnchor
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -176,6 +168,13 @@ func NewNSLayoutAnchor() NSLayoutAnchor {
 	class := getNSLayoutAnchorClass()
 	rv := objc.Send[NSLayoutAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/init(coder:)
+func NewLayoutAnchorWithCoder(coder foundation.INSCoder) NSLayoutAnchor {
+	instance := getNSLayoutAnchorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSLayoutAnchorFromID(rv)
 }
 
 // Returns a constraint that defines one item’s attribute as equal to
@@ -416,6 +415,12 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchorConstant(anchor INSLayo
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:constant:"), anchor, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/init(coder:)
+func (l NSLayoutAnchor) InitWithCoder(coder foundation.INSCoder) NSLayoutAnchor {
+	rv := objc.Send[NSLayoutAnchor](l.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (l NSLayoutAnchor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -453,37 +458,4 @@ func (l NSLayoutAnchor) Name() string {
 func (l NSLayoutAnchor) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
-}
-
-// A layout anchor representing the bottom edge of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
-func (l NSLayoutAnchor) BottomAnchor() INSLayoutYAxisAnchor {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("bottomAnchor"))
-	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
-}
-func (l NSLayoutAnchor) SetBottomAnchor(value INSLayoutYAxisAnchor) {
-	objc.Send[struct{}](l.ID, objc.Sel("setBottomAnchor:"), value)
-}
-
-// A layout anchor representing the leading edge of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/leadinganchor
-func (l NSLayoutAnchor) LeadingAnchor() INSLayoutXAxisAnchor {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("leadingAnchor"))
-	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
-}
-func (l NSLayoutAnchor) SetLeadingAnchor(value INSLayoutXAxisAnchor) {
-	objc.Send[struct{}](l.ID, objc.Sel("setLeadingAnchor:"), value)
-}
-
-// A layout anchor representing the left edge of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/leftanchor
-func (l NSLayoutAnchor) LeftAnchor() INSLayoutXAxisAnchor {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("leftAnchor"))
-	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
-}
-func (l NSLayoutAnchor) SetLeftAnchor(value INSLayoutXAxisAnchor) {
-	objc.Send[struct{}](l.ID, objc.Sel("setLeftAnchor:"), value)
 }

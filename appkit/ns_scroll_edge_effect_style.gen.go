@@ -64,10 +64,6 @@ func NSScrollEdgeEffectStyleFromID(id objc.ID) NSScrollEdgeEffectStyle {
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle
 type INSScrollEdgeEffectStyle interface {
 	objectivec.IObject
-
-	// The titlebar accessory’s preferred effect for content scrolling behind it.
-	PreferredScrollEdgeEffectStyle() INSScrollEdgeEffectStyle
-	SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle)
 }
 
 // Init initializes the instance.
@@ -87,18 +83,6 @@ func NewNSScrollEdgeEffectStyle() NSScrollEdgeEffectStyle {
 	class := getNSScrollEdgeEffectStyleClass()
 	rv := objc.Send[NSScrollEdgeEffectStyle](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The titlebar accessory’s preferred effect for content scrolling behind
-// it.
-//
-// See: https://developer.apple.com/documentation/appkit/nstitlebaraccessoryviewcontroller/preferredscrolledgeeffectstyle
-func (s NSScrollEdgeEffectStyle) PreferredScrollEdgeEffectStyle() INSScrollEdgeEffectStyle {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("preferredScrollEdgeEffectStyle"))
-	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
-}
-func (s NSScrollEdgeEffectStyle) SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
 
 // The automatic scroll edge effect style.

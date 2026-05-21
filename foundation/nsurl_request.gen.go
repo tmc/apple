@@ -91,8 +91,9 @@ func (nc NSURLRequestClass) Alloc() NSURLRequest {
 // If you implement a custom URL protocol by subclassing [NSURLProtocol], and
 // it needs protocol-specific properties, extend [NSURLRequest] with accessor
 // methods for those custom properties. In your accessor methods, call
-// [PropertyForKeyInRequest] and [SetPropertyForKeyInRequest] to associate
-// property values with the request.
+// [NSURLProtocolClass.PropertyForKeyInRequest] and
+// [NSURLProtocolClass.SetPropertyForKeyInRequest] to associate property
+// values with the request.
 //
 // # Creating requests
 //
@@ -615,10 +616,10 @@ func (u NSURLRequest) AllowsCellularAccess() bool {
 // Data Mode to reduce your app’s network data usage. This property controls
 // the request’s behavior when the user turns on Low Data Mode. If there are
 // no nonconstrained network interfaces available and the request’s
-// [AllowsConstrainedNetworkAccess] property is false, any connection created
-// from the request fails. In this case, the error provided when the
-// connection fails has a [networkUnavailableReason] property whose value is
-// [NSURLErrorNetworkUnavailableReasonConstrained].
+// [NSURLRequest.AllowsConstrainedNetworkAccess] property is false, any
+// connection created from the request fails. In this case, the error provided
+// when the connection fails has a [networkUnavailableReason] property whose
+// value is [NSURLErrorNetworkUnavailableReasonConstrained].
 //
 // Limit your app’s of use of constrained network access to user-initiated
 // tasks, and put off discretionary tasks until a nonconstrained interface
@@ -641,9 +642,9 @@ func (u NSURLRequest) AllowsConstrainedNetworkAccess() bool {
 // of the network interface and other factors. iOS 13 considers most cellular
 // networks and personal hotspots expensive. If there are no nonexpensive
 // network interfaces available and the request’s
-// [AllowsExpensiveNetworkAccess] property is false, any task created from the
-// request fails. In this case, the error provided when the task fails has a
-// [networkUnavailableReason] property whose value is
+// [NSURLRequest.AllowsExpensiveNetworkAccess] property is false, any task
+// created from the request fails. In this case, the error provided when the
+// task fails has a [networkUnavailableReason] property whose value is
 // [NSURLErrorNetworkUnavailableReasonExpensive].
 //
 // Limit your app’s of use of expensive network access to user-initiated

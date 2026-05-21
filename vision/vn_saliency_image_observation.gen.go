@@ -5,6 +5,7 @@ package vision
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -105,6 +106,13 @@ func NewVNSaliencyImageObservation() VNSaliencyImageObservation {
 	class := getVNSaliencyImageObservationClass()
 	rv := objc.Send[VNSaliencyImageObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewSaliencyImageObservationWithCoder(coder foundation.INSCoder) VNSaliencyImageObservation {
+	instance := getVNSaliencyImageObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNSaliencyImageObservationFromID(rv)
 }
 
 // A collection of objects describing the distinct areas of the saliency heat

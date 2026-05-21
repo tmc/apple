@@ -199,8 +199,8 @@ func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
-// the ID to `uniqueID`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and sets the ID to `uniqueID`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier/init(containerClassDescription:containerSpecifier:key:uniqueID:)
 func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKeyUniqueID(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, uniqueID objectivec.IObject) NSUniqueIDSpecifier {
@@ -250,8 +250,8 @@ func NewUniqueIDSpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
-// the ID to `uniqueID`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and sets the ID to `uniqueID`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier/init(containerClassDescription:containerSpecifier:key:uniqueID:)
 func (u NSUniqueIDSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyUniqueID(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, uniqueID objectivec.IObject) NSUniqueIDSpecifier {

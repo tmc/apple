@@ -5,6 +5,7 @@
 package avfoundation
 
 import (
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -23,6 +24,6 @@ func (s AVSampleBufferRenderSynchronizer) IntendedSpatialAudioExperience() unsaf
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("intendedSpatialAudioExperience"))
 	return rv
 }
-func (s AVSampleBufferRenderSynchronizer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
+func (s AVSampleBufferRenderSynchronizer) SetIntendedSpatialAudioExperience(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }

@@ -108,6 +108,13 @@ func NewNSMutableFontCollection() NSMutableFontCollection {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(coder:)
+func NewMutableFontCollectionWithCoder(coder foundation.INSCoder) NSMutableFontCollection {
+	instance := getNSMutableFontCollectionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSMutableFontCollectionFromID(rv)
+}
+
 // Creates a mutable font collection containing the fonts that match the
 // specified font descriptors.
 //

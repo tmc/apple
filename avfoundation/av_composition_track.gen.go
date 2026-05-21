@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -262,7 +263,7 @@ type IAVCompositionTrack interface {
 	SetSelfContained(value bool)
 	// The total number of bytes of sample data the track requires.
 	TotalSampleDataLength() unsafe.Pointer
-	SetTotalSampleDataLength(value unsafe.Pointer)
+	SetTotalSampleDataLength(value kernel.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -272,11 +273,11 @@ type IAVCompositionTrack interface {
 	TimeRange() coremedia.CMTimeRange
 	SetTimeRange(value coremedia.CMTimeRange)
 	// The natural time scale of the media that a track references.
-	NaturalTimeScale() int32
-	SetNaturalTimeScale(value int32)
+	NaturalTimeScale() coremedia.CMTimeScale
+	SetNaturalTimeScale(value coremedia.CMTimeScale)
 	// The estimated data rate, in bits per second, of the media that the track references.
-	EstimatedDataRate() float32
-	SetEstimatedDataRate(value float32)
+	EstimatedDataRate() kernel.Float
+	SetEstimatedDataRate(value kernel.Float)
 	// Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
 	SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime
 
@@ -309,8 +310,8 @@ type IAVCompositionTrack interface {
 	// Topic: Accessing audible characteristics
 
 	// The track’s volume preference for playing its audible media.
-	PreferredVolume() float32
-	SetPreferredVolume(value float32)
+	PreferredVolume() kernel.Float
+	SetPreferredVolume(value kernel.Float)
 	// A Boolean value that indicates whether the track has sample dependencies.
 	HasAudioSampleDependencies() bool
 	SetHasAudioSampleDependencies(value bool)
@@ -318,8 +319,8 @@ type IAVCompositionTrack interface {
 	// Topic: Accessing frame-based characteristics
 
 	// The frame rate of the track, in frames per second.
-	NominalFrameRate() float32
-	SetNominalFrameRate(value float32)
+	NominalFrameRate() kernel.Float
+	SetNominalFrameRate(value kernel.Float)
 	// The minimum duration of the track’s frames.
 	MinFrameDuration() coremedia.CMTime
 	SetMinFrameDuration(value coremedia.CMTime)
@@ -351,8 +352,8 @@ type IAVCompositionTrack interface {
 	// Topic: Accessing track associations
 
 	// An array of association types that the track uses to associate with other tracks.
-	AvailableTrackAssociationTypes() objc.ID
-	SetAvailableTrackAssociationTypes(value objc.ID)
+	AvailableTrackAssociationTypes() objectivec.IObject
+	SetAvailableTrackAssociationTypes(value objectivec.IObject)
 	// Returns an array of associated tracks that have the specified association type.
 	AssociatedTracksOfType(trackAssociationType AVTrackAssociationType) []AVAssetTrack
 
@@ -462,7 +463,7 @@ func (c AVCompositionTrack) SegmentForTrackTime(trackTime coremedia.CMTime) IAVC
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load associated tracks asynchronously using
-// [LoadAssociatedTracksOfTypeCompletionHandler] instead.
+// [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler] instead.
 //
 // You can call this method without blocking the current thread after you’ve
 // loaded the [availableTrackAssociationTypes] property.
@@ -510,8 +511,8 @@ func (c AVCompositionTrack) SetDecodable(value bool) {
 //
 // # Discussion
 //
-// For file-based media, you can change its [Enabled] presentation state using
-// [AVPlayerItemTrack].
+// For file-based media, you can change its [AVPlayerItemTrack.Enabled]
+// presentation state using [AVPlayerItemTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/isEnabled
 func (c AVCompositionTrack) IsEnabled() bool {
@@ -546,7 +547,7 @@ func (c AVCompositionTrack) TotalSampleDataLength() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("totalSampleDataLength"))
 	return rv
 }
-func (c AVCompositionTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
+func (c AVCompositionTrack) SetTotalSampleDataLength(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 
@@ -573,11 +574,11 @@ func (c AVCompositionTrack) SetTimeRange(value coremedia.CMTimeRange) {
 // The natural time scale of the media that a track references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/naturalTimeScale
-func (c AVCompositionTrack) NaturalTimeScale() int32 {
-	rv := objc.Send[int32](c.ID, objc.Sel("naturalTimeScale"))
-	return rv
+func (c AVCompositionTrack) NaturalTimeScale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](c.ID, objc.Sel("naturalTimeScale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (c AVCompositionTrack) SetNaturalTimeScale(value int32) {
+func (c AVCompositionTrack) SetNaturalTimeScale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNaturalTimeScale:"), value)
 }
 
@@ -585,11 +586,11 @@ func (c AVCompositionTrack) SetNaturalTimeScale(value int32) {
 // references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/estimatedDataRate
-func (c AVCompositionTrack) EstimatedDataRate() float32 {
-	rv := objc.Send[float32](c.ID, objc.Sel("estimatedDataRate"))
-	return rv
+func (c AVCompositionTrack) EstimatedDataRate() kernel.Float {
+	rv := objc.Send[kernel.Float](c.ID, objc.Sel("estimatedDataRate"))
+	return kernel.Float(rv)
 }
-func (c AVCompositionTrack) SetEstimatedDataRate(value float32) {
+func (c AVCompositionTrack) SetEstimatedDataRate(value kernel.Float) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEstimatedDataRate:"), value)
 }
 
@@ -663,7 +664,7 @@ func (c AVCompositionTrack) SetFormatDescriptions(value objectivec.IObject) {
 //
 // The property’s values specify an original and a replacement format
 // description, as set in a previous call to
-// [ReplaceFormatDescriptionWithFormatDescription].
+// [AVMutableCompositionTrack.ReplaceFormatDescriptionWithFormatDescription].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/formatDescriptionReplacements
 func (c AVCompositionTrack) FormatDescriptionReplacements() []AVCompositionTrackFormatDescriptionReplacement {
@@ -719,11 +720,11 @@ func (c AVCompositionTrack) SetPreferredTransform(value corefoundation.CGAffineT
 // `1.0`. For non-audible tracks, the value is `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/preferredVolume
-func (c AVCompositionTrack) PreferredVolume() float32 {
-	rv := objc.Send[float32](c.ID, objc.Sel("preferredVolume"))
-	return rv
+func (c AVCompositionTrack) PreferredVolume() kernel.Float {
+	rv := objc.Send[kernel.Float](c.ID, objc.Sel("preferredVolume"))
+	return kernel.Float(rv)
 }
-func (c AVCompositionTrack) SetPreferredVolume(value float32) {
+func (c AVCompositionTrack) SetPreferredVolume(value kernel.Float) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreferredVolume:"), value)
 }
 
@@ -752,11 +753,11 @@ func (c AVCompositionTrack) SetHasAudioSampleDependencies(value bool) {
 // frame rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/nominalFrameRate
-func (c AVCompositionTrack) NominalFrameRate() float32 {
-	rv := objc.Send[float32](c.ID, objc.Sel("nominalFrameRate"))
-	return rv
+func (c AVCompositionTrack) NominalFrameRate() kernel.Float {
+	rv := objc.Send[kernel.Float](c.ID, objc.Sel("nominalFrameRate"))
+	return kernel.Float(rv)
 }
-func (c AVCompositionTrack) SetNominalFrameRate(value float32) {
+func (c AVCompositionTrack) SetNominalFrameRate(value kernel.Float) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNominalFrameRate:"), value)
 }
 
@@ -799,9 +800,9 @@ func (c AVCompositionTrack) SetRequiresFrameReordering(value bool) {
 // # Discussion
 //
 // You can filter the array of metadata items according to language using the
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
 // method. Filter the results by identifier using the
-// [MetadataItemsFromArrayFilteredByIdentifier] method.
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/metadata
 func (c AVCompositionTrack) Metadata() IAVMetadataItem {
@@ -848,11 +849,11 @@ func (c AVCompositionTrack) Segments() []AVCompositionTrackSegment {
 // tracks.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/availableTrackAssociationTypes
-func (c AVCompositionTrack) AvailableTrackAssociationTypes() objc.ID {
+func (c AVCompositionTrack) AvailableTrackAssociationTypes() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("availableTrackAssociationTypes"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
-func (c AVCompositionTrack) SetAvailableTrackAssociationTypes(value objc.ID) {
+func (c AVCompositionTrack) SetAvailableTrackAssociationTypes(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAvailableTrackAssociationTypes:"), value)
 }
 

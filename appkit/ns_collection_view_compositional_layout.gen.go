@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -142,6 +143,13 @@ func NewNSCollectionViewCompositionalLayout() NSCollectionViewCompositionalLayou
 	class := getNSCollectionViewCompositionalLayoutClass()
 	rv := objc.Send[NSCollectionViewCompositionalLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func NewCollectionViewCompositionalLayoutWithCoder(coder foundation.INSCoder) NSCollectionViewCompositionalLayout {
+	instance := getNSCollectionViewCompositionalLayoutClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSCollectionViewCompositionalLayoutFromID(rv)
 }
 
 // Creates a compositional layout object with a single section.

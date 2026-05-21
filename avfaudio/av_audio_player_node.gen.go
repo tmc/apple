@@ -64,23 +64,26 @@ func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
 // When playing buffers, there’s an implicit assumption that the buffers are
 // at the same sample rate as the node’s output format.
 //
-// The [AVAudioPlayerNode.Stop] method unschedules all previously scheduled buffers and file
-// segments, and returns the player timeline to sample time `0`.
+// The [AVAudioPlayerNode.Stop] method unschedules all previously scheduled
+// buffers and file segments, and returns the player timeline to sample time
+// `0`.
 //
 // # Player Timeline
 //
-// The usual [AVAudioNode] sample times, which [AVAudioPlayerNode.LastRenderTime] observes, have
-// an arbitrary zero point. The [AVAudioPlayerNode] class superimposes a
-// second player timeline on top of this to reflect when the player starts and
-// intervals when it pauses. The methods [AVAudioPlayerNode.NodeTimeForPlayerTime] and
+// The usual [AVAudioNode] sample times, which [AVAudioNode.LastRenderTime]
+// observes, have an arbitrary zero point. The [AVAudioPlayerNode] class
+// superimposes a second player timeline on top of this to reflect when the
+// player starts and intervals when it pauses. The methods
+// [AVAudioPlayerNode.NodeTimeForPlayerTime] and
 // [AVAudioPlayerNode.PlayerTimeForNodeTime] convert between the two.
 //
 // # Scheduling Playback Time
 //
 // The [AVAudioPlayerNode.ScheduleBufferAtTimeOptionsCompletionHandler],
 // [AVAudioPlayerNode.ScheduleFileAtTimeCompletionHandler], and
-// [AVAudioPlayerNode.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler] methods
-// take an [AVAudioTime] `when` parameter, and you interpret it as follows:
+// [AVAudioPlayerNode.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler]
+// methods take an [AVAudioTime] `when` parameter, and you interpret it as
+// follows:
 //
 // - If the `when` parameter is `nil`: - If there are previous commands, the
 // new one plays immediately following the last one. - Otherwise, if the node
@@ -106,8 +109,9 @@ func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
 // # Rendering Offline
 //
 // When you use a player node with the engine operating in manual rendering
-// mode, you use the buffer or file completion handlers — [AVAudioPlayerNode.LastRenderTime],
-// [AVAudioPlayerNode.Latency], and [AVAudioPlayerNode.OutputPresentationLatency] — to track how much data the
+// mode, you use the buffer or file completion handlers —
+// [AVAudioNode.LastRenderTime], [AVAudioNode.Latency], and
+// [AVAudioNode.OutputPresentationLatency] — to track how much data the
 // player rendered and how much remains to render.
 //
 // # Scheduling Playback
@@ -413,7 +417,7 @@ func (a AVAudioPlayerNode) ScheduleBufferCompletionCallbackTypeCompletionHandler
 // # Discussion
 //
 // For more information about this method and its inverse
-// [PlayerTimeForNodeTime], see [AVAudioPlayerNode].
+// [AVAudioPlayerNode.PlayerTimeForNodeTime], see [AVAudioPlayerNode].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/nodeTime(forPlayerTime:)
 func (a AVAudioPlayerNode) NodeTimeForPlayerTime(playerTime IAVAudioTime) IAVAudioTime {
@@ -433,7 +437,7 @@ func (a AVAudioPlayerNode) NodeTimeForPlayerTime(playerTime IAVAudioTime) IAVAud
 // # Discussion
 //
 // For more information about this method and its inverse
-// [NodeTimeForPlayerTime], see [AVAudioPlayerNode].
+// [AVAudioPlayerNode.NodeTimeForPlayerTime], see [AVAudioPlayerNode].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/playerTime(forNodeTime:)
 func (a AVAudioPlayerNode) PlayerTimeForNodeTime(nodeTime IAVAudioTime) IAVAudioTime {
@@ -454,7 +458,7 @@ func (a AVAudioPlayerNode) PrepareWithFrameCount(frameCount AVAudioFrameCount) {
 //
 // # Discussion
 //
-// This is equivalent to [PlayAtTime] with a value of `nil`.
+// This is equivalent to [AVAudioPlayerNode.PlayAtTime] with a value of `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/play()
 func (a AVAudioPlayerNode) Play() {
@@ -504,7 +508,8 @@ func (a AVAudioPlayerNode) Pause() {
 //
 // Clears all events you schedule, including any events in the middle of
 // playing. It resets the node’s sample time to `0`, and doesn’t proceed
-// until the node starts again through [Play] or [PlayAtTime].
+// until the node starts again through [AVAudioPlayerNode.Play] or
+// [AVAudioPlayerNode.PlayAtTime].
 //
 // Pausing or stopping all of the players you connect to an engine doesn’t
 // pause or stop the engine or the underlying hardware. You must explicitly
@@ -750,8 +755,8 @@ func (o AVAudioPlayerNode) SetSourceMode(value AVAudio3DMixingSourceMode) {
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
-// [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
-// instance.
+// [AVAudioEnvironmentNode.ApplicableRenderingAlgorithms] function of the
+// [AVAudioEnvironmentNode] instance.
 //
 // The default rendering algorithm is
 // [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the

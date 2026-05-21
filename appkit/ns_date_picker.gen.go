@@ -215,8 +215,8 @@ type INSDatePicker interface {
 	DateValue() foundation.NSDate
 	SetDateValue(value foundation.NSDate)
 	// The time interval selected by the date picker.
-	TimeInterval() float64
-	SetTimeInterval(value float64)
+	TimeInterval() foundation.NSTimeInterval
+	SetTimeInterval(value foundation.NSTimeInterval)
 
 	// Topic: Constraining the Displayable/Selectable Range
 
@@ -477,15 +477,15 @@ func (d NSDatePicker) SetDateValue(value foundation.NSDate) {
 // # Discussion
 //
 // The time interval that represents the receiver’s date range. The date
-// range begins at the date returned by [DateValue]. This method returns 0
-// when the receiver is not in the NSRangeDateMode mode.
+// range begins at the date returned by [NSDatePicker.DateValue]. This method
+// returns 0 when the receiver is not in the NSRangeDateMode mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/timeInterval
-func (d NSDatePicker) TimeInterval() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeInterval"))
-	return rv
+func (d NSDatePicker) TimeInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](d.ID, objc.Sel("timeInterval"))
+	return foundation.NSTimeInterval(rv)
 }
-func (d NSDatePicker) SetTimeInterval(value float64) {
+func (d NSDatePicker) SetTimeInterval(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeInterval:"), value)
 }
 

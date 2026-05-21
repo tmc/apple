@@ -114,7 +114,7 @@ type IAVAudioUnitComponentManager interface {
 	// Gets an array of audio component objects that match the search predicate.
 	ComponentsMatchingPredicate(predicate foundation.NSPredicate) []AVAudioUnitComponent
 	// Gets an array of audio components that pass the block method.
-	ComponentsPassingTest(testHandler AVAudioUnitComponentHandler) []AVAudioUnitComponent
+	ComponentsPassingTest(testHandler AVAudioUnitComponentInt8Handler) []AVAudioUnitComponent
 
 	// Topic: Getting audio unit tags
 
@@ -215,8 +215,8 @@ func (a AVAudioUnitComponentManager) ComponentsMatchingPredicate(predicate found
 // instance to the array.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(passingTest:)
-func (a AVAudioUnitComponentManager) ComponentsPassingTest(testHandler AVAudioUnitComponentHandler) []AVAudioUnitComponent {
-	_block0, _ := NewAVAudioUnitComponentBlock(testHandler)
+func (a AVAudioUnitComponentManager) ComponentsPassingTest(testHandler AVAudioUnitComponentInt8Handler) []AVAudioUnitComponent {
+	_block0, _ := NewAVAudioUnitComponentInt8Block(testHandler)
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsPassingTest:"), _block0)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)

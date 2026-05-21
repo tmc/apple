@@ -5,7 +5,6 @@ package metal
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -81,8 +80,6 @@ type IMTL4CommandBufferOptions interface {
 	// Contains information related to shader logging.
 	LogState() MTLLogState
 	SetLogState(value MTLLogState)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -121,10 +118,4 @@ func (m MTL4CommandBufferOptions) LogState() MTLLogState {
 }
 func (m MTL4CommandBufferOptions) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLogState:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4CommandBufferOptions) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

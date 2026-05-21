@@ -49,19 +49,20 @@ func (mc MTLStencilDescriptorClass) Alloc() MTLStencilDescriptor {
 //
 // A stencil test is a comparison between a masked reference value and a
 // masked value stored in a stencil attachment. (A value is by performing a
-// logical AND operation on it with the [MTLStencilDescriptor.ReadMask] value.) The
-// [MTLStencilDescriptor] object defines how to update the contents of the
-// stencil attachment, based on the results of the stencil test and the depth
-// test.
+// logical AND operation on it with the [MTLStencilDescriptor.ReadMask]
+// value.) The [MTLStencilDescriptor] object defines how to update the
+// contents of the stencil attachment, based on the results of the stencil
+// test and the depth test.
 //
-// The [MTLStencilDescriptor.StencilCompareFunction] property defines the stencil test. The
-// [MTLStencilDescriptor.StencilFailureOperation], [MTLStencilDescriptor.DepthFailureOperation], and
-// [MTLStencilDescriptor.DepthStencilPassOperation] properties specify what to do to a stencil
-// value stored in the stencil attachment for three different test outcomes:
-// if the stencil test fails, if the stencil test passes and the depth test
-// fails, or if both stencil and depth tests succeed, respectively.
-// [MTLStencilDescriptor.WriteMask] determines which stencil bits can be modified as the result of
-// a stencil operation.
+// The [MTLStencilDescriptor.StencilCompareFunction] property defines the
+// stencil test. The [MTLStencilDescriptor.StencilFailureOperation],
+// [MTLStencilDescriptor.DepthFailureOperation], and
+// [MTLStencilDescriptor.DepthStencilPassOperation] properties specify what to
+// do to a stencil value stored in the stencil attachment for three different
+// test outcomes: if the stencil test fails, if the stencil test passes and
+// the depth test fails, or if both stencil and depth tests succeed,
+// respectively. [MTLStencilDescriptor.WriteMask] determines which stencil
+// bits can be modified as the result of a stencil operation.
 //
 // # Configuring stencil functions and operations
 //
@@ -240,8 +241,9 @@ func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOpera
 // passes.
 //
 // The stored stencil value and the reference value are both by performing a
-// logical AND operation with the [ReadMask] value before the comparison takes
-// place. For more information on possible values, see [MTLCompareFunction].
+// logical AND operation with the [MTLStencilDescriptor.ReadMask] value before
+// the comparison takes place. For more information on possible values, see
+// [MTLCompareFunction].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/stencilCompareFunction
 //
@@ -259,12 +261,12 @@ func (s MTLStencilDescriptor) SetStencilCompareFunction(value MTLCompareFunction
 //
 // # Discussion
 //
-// The [ReadMask] bits are used for logical AND operations to both the stored
-// stencil value and the reference value.
+// The [MTLStencilDescriptor.ReadMask] bits are used for logical AND
+// operations to both the stored stencil value and the reference value.
 //
 // The least significant bits of the read mask are used. The default value is
-// all ones. A logical AND operation with the default [ReadMask] does not
-// change the value.
+// all ones. A logical AND operation with the default
+// [MTLStencilDescriptor.ReadMask] does not change the value.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/readMask
 func (s MTLStencilDescriptor) ReadMask() uint32 {
@@ -279,12 +281,13 @@ func (s MTLStencilDescriptor) SetReadMask(value uint32) {
 //
 // # Discussion
 //
-// [WriteMask] are used for logical AND operations to values that are going to
-// be written into a stencil attachment as the result of a stencil operation.
+// [MTLStencilDescriptor.WriteMask] are used for logical AND operations to
+// values that are going to be written into a stencil attachment as the result
+// of a stencil operation.
 //
 // The least significant bits of the write mask are used. The default value is
-// all ones. A logical AND operation with the default [WriteMask] does not
-// change the value.
+// all ones. A logical AND operation with the default
+// [MTLStencilDescriptor.WriteMask] does not change the value.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/writeMask
 func (s MTLStencilDescriptor) WriteMask() uint32 {

@@ -214,8 +214,8 @@ func (h NSHelpManager) OpenHelpAnchorInBook(anchor NSHelpAnchorName, book NSHelp
 // `Info.Plist()` in the bundle should contain a help book directory path,
 // which specifies one or more folders containing help books.
 //
-// The main bundle is automatically registered by [OpenHelpAnchorInBook] and
-// [FindStringInBook].
+// The main bundle is automatically registered by
+// [NSHelpManager.OpenHelpAnchorInBook] and [NSHelpManager.FindStringInBook].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/registerBooks(in:)
 func (h NSHelpManager) RegisterBooksInBundle(bundle foundation.NSBundle) bool {
@@ -307,23 +307,4 @@ func (_NSHelpManagerClass NSHelpManagerClass) IsContextHelpModeActive() bool {
 }
 func (_NSHelpManagerClass NSHelpManagerClass) SetContextHelpModeActive(value bool) {
 	objc.Send[struct{}](objc.ID(_NSHelpManagerClass.class), objc.Sel("setContextHelpModeActive:"), value)
-}
-
-// Posted when the application enters context-sensitive help mode. This
-// typically happens when the user holds down the Help key.
-//
-// See: https://developer.apple.com/documentation/appkit/nshelpmanager/contexthelpmodedidactivatenotification
-func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidActivateNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("NSContextHelpModeDidActivateNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// Posted when the application exits context-sensitive help mode. This happens
-// when the user clicks the mouse button while the cursor is anywhere on the
-// screen after displaying a context-sensitive help topic.
-//
-// See: https://developer.apple.com/documentation/appkit/nshelpmanager/contexthelpmodediddeactivatenotification
-func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidDeactivateNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("NSContextHelpModeDidDeactivateNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

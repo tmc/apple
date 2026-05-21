@@ -54,13 +54,6 @@ func (vc VNDetectHumanBodyPose3DRequestClass) Alloc() VNDetectHumanBodyPose3DReq
 // system allows it, the request uses [AVDepthData] information to improve the
 // accuracy.
 //
-// # Determining Supported Joints
-//
-//   - [VNDetectHumanBodyPose3DRequest.SupportedJointsGroupNames]: Returns the joint names the request supports.
-//   - [VNDetectHumanBodyPose3DRequest.SetSupportedJointsGroupNames]
-//   - [VNDetectHumanBodyPose3DRequest.SupportedJointNames]: Returns the joint group names the request supports.
-//   - [VNDetectHumanBodyPose3DRequest.SetSupportedJointNames]
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequest
 //
 // [AVDepthData]: https://developer.apple.com/documentation/AVFoundation/AVDepthData
@@ -81,25 +74,9 @@ func VNDetectHumanBodyPose3DRequestFromID(id objc.ID) VNDetectHumanBodyPose3DReq
 
 // An interface definition for the [VNDetectHumanBodyPose3DRequest] class.
 //
-// # Determining Supported Joints
-//
-//   - [IVNDetectHumanBodyPose3DRequest.SupportedJointsGroupNames]: Returns the joint names the request supports.
-//   - [IVNDetectHumanBodyPose3DRequest.SetSupportedJointsGroupNames]
-//   - [IVNDetectHumanBodyPose3DRequest.SupportedJointNames]: Returns the joint group names the request supports.
-//   - [IVNDetectHumanBodyPose3DRequest.SetSupportedJointNames]
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequest
 type IVNDetectHumanBodyPose3DRequest interface {
 	IVNStatefulRequest
-
-	// Topic: Determining Supported Joints
-
-	// Returns the joint names the request supports.
-	SupportedJointsGroupNames() VNHumanBodyPose3DObservationJointsGroupName
-	SetSupportedJointsGroupNames(value VNHumanBodyPose3DObservationJointsGroupName)
-	// Returns the joint group names the request supports.
-	SupportedJointNames() VNHumanBodyPose3DObservationJointName
-	SetSupportedJointNames(value VNHumanBodyPose3DObservationJointName)
 
 	// Returns the joint names the request supports.
 	SupportedJointNamesAndReturnError() ([]string, error)
@@ -191,26 +168,4 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointsGroupNamesAndReturnError(
 	}
 	return objc.ConvertSliceToStrings(rv), nil
 
-}
-
-// Returns the joint names the request supports.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanbodypose3drequest/supportedjointsgroupnames
-func (d VNDetectHumanBodyPose3DRequest) SupportedJointsGroupNames() VNHumanBodyPose3DObservationJointsGroupName {
-	rv := objc.Send[VNHumanBodyPose3DObservationJointsGroupName](d.ID, objc.Sel("supportedJointsGroupNames"))
-	return VNHumanBodyPose3DObservationJointsGroupName(rv)
-}
-func (d VNDetectHumanBodyPose3DRequest) SetSupportedJointsGroupNames(value VNHumanBodyPose3DObservationJointsGroupName) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
-}
-
-// Returns the joint group names the request supports.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanbodypose3drequest/supportedjointnames
-func (d VNDetectHumanBodyPose3DRequest) SupportedJointNames() VNHumanBodyPose3DObservationJointName {
-	rv := objc.Send[VNHumanBodyPose3DObservationJointName](d.ID, objc.Sel("supportedJointNames"))
-	return VNHumanBodyPose3DObservationJointName(rv)
-}
-func (d VNDetectHumanBodyPose3DRequest) SetSupportedJointNames(value VNHumanBodyPose3DObservationJointName) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }

@@ -229,7 +229,7 @@ func NewSocketPortWithCoder(coder INSCoder) SocketPort {
 // or receive messages. Incoming messages are passed to the receiver’s
 // delegate method handlePortMessage:.
 //
-// To create a standard TCP/IP socket, use [InitWithTCPPort].
+// To create a standard TCP/IP socket, use [NSSocketPort.InitWithTCPPort].
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:address:)
 func NewSocketPortWithProtocolFamilySocketTypeProtocolAddress(family int, type_ int, protocol_ int, address INSData) SocketPort {
@@ -325,7 +325,7 @@ func (s SocketPort) InitWithTCPPort(port uint16) SocketPort {
 // or receive messages. Incoming messages are passed to the receiver’s
 // delegate method handlePortMessage:.
 //
-// To create a standard TCP/IP socket, use [InitWithTCPPort].
+// To create a standard TCP/IP socket, use [NSSocketPort.InitWithTCPPort].
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:address:)
 func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolAddress(family int, type_ int, protocol_ int, address INSData) SocketPort {

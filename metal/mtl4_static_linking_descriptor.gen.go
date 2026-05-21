@@ -150,9 +150,9 @@ func (m MTL4StaticLinkingDescriptor) SetGroups(value foundation.INSDictionary) {
 //
 // # Discussion
 //
-// You specify private functions to link separately from [FunctionDescriptors]
-// because pipelines don’t export private functions as [MTLFunctionHandle]
-// instances.
+// You specify private functions to link separately from
+// [MTL4StaticLinkingDescriptor.FunctionDescriptors] because pipelines don’t
+// export private functions as [MTLFunctionHandle] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4StaticLinkingDescriptor/privateFunctionDescriptors
 func (m MTL4StaticLinkingDescriptor) PrivateFunctionDescriptors() []MTL4FunctionDescriptor {

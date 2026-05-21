@@ -162,7 +162,8 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 //
 // # Discussion
 //
-// The Automator workflow will execute using the [Variables] property values.
+// The Automator workflow will execute using the
+// [NSUserAutomatorTask.Variables] property values.
 //
 // This method should be invoked no more than once for a given instance of the
 // class.

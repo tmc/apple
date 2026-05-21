@@ -102,10 +102,6 @@ type IMTLAttributeDescriptor interface {
 	// The format of the attribute’s data.
 	Format() MTLAttributeFormat
 	SetFormat(value MTLAttributeFormat)
-
-	// The organization of input and output data for the next kernel call.
-	StageInputDescriptor() IMTLStageInputOutputDescriptor
-	SetStageInputDescriptor(value IMTLStageInputOutputDescriptor)
 }
 
 // Init initializes the instance.
@@ -160,15 +156,4 @@ func (a MTLAttributeDescriptor) Format() MTLAttributeFormat {
 }
 func (a MTLAttributeDescriptor) SetFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFormat:"), value)
-}
-
-// The organization of input and output data for the next kernel call.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
-func (a MTLAttributeDescriptor) StageInputDescriptor() IMTLStageInputOutputDescriptor {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("stageInputDescriptor"))
-	return MTLStageInputOutputDescriptorFromID(objc.ID(rv))
-}
-func (a MTLAttributeDescriptor) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStageInputDescriptor:"), value)
 }

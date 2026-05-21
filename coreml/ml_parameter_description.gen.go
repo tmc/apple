@@ -98,15 +98,7 @@ type IMLParameterDescription interface {
 	// The constraints of this paramter description value, if and only if the value is numerical.
 	NumericConstraint() IMLNumericConstraint
 
-	// A Boolean value that indicates whether you can update the model with additional training.
-	IsUpdatable() bool
-	SetIsUpdatable(value bool)
-	// A dictionary of the descriptions for the model’s parameters.
-	ParameterDescriptionsByKey() IMLParameterDescription
-	SetParameterDescriptionsByKey(value IMLParameterDescription)
-	// A dictionary of the training input feature descriptions, which the model keys by the input’s name.
-	TrainingInputDescriptionsByName() IMLFeatureDescription
-	SetTrainingInputDescriptionsByName(value IMLFeatureDescription)
+	InitWithCoder(coder foundation.INSCoder) MLParameterDescription
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -129,6 +121,18 @@ func NewMLParameterDescription() MLParameterDescription {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/init(coder:)
+func NewParameterDescriptionWithCoder(coder foundation.INSCoder) MLParameterDescription {
+	instance := getMLParameterDescriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLParameterDescriptionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/init(coder:)
+func (p MLParameterDescription) InitWithCoder(coder foundation.INSCoder) MLParameterDescription {
+	rv := objc.Send[MLParameterDescription](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p MLParameterDescription) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -156,39 +160,4 @@ func (p MLParameterDescription) Key() IMLParameterKey {
 func (p MLParameterDescription) NumericConstraint() IMLNumericConstraint {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("numericConstraint"))
 	return MLNumericConstraintFromID(objc.ID(rv))
-}
-
-// A Boolean value that indicates whether you can update the model with
-// additional training.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/isupdatable
-func (p MLParameterDescription) IsUpdatable() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("isUpdatable"))
-	return rv
-}
-func (p MLParameterDescription) SetIsUpdatable(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setIsUpdatable:"), value)
-}
-
-// A dictionary of the descriptions for the model’s parameters.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/parameterdescriptionsbykey
-func (p MLParameterDescription) ParameterDescriptionsByKey() IMLParameterDescription {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("parameterDescriptionsByKey"))
-	return MLParameterDescriptionFromID(objc.ID(rv))
-}
-func (p MLParameterDescription) SetParameterDescriptionsByKey(value IMLParameterDescription) {
-	objc.Send[struct{}](p.ID, objc.Sel("setParameterDescriptionsByKey:"), value)
-}
-
-// A dictionary of the training input feature descriptions, which the model
-// keys by the input’s name.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/traininginputdescriptionsbyname
-func (p MLParameterDescription) TrainingInputDescriptionsByName() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("trainingInputDescriptionsByName"))
-	return MLFeatureDescriptionFromID(objc.ID(rv))
-}
-func (p MLParameterDescription) SetTrainingInputDescriptionsByName(value IMLFeatureDescription) {
-	objc.Send[struct{}](p.ID, objc.Sel("setTrainingInputDescriptionsByName:"), value)
 }

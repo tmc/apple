@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -89,9 +88,6 @@ type IAVAssetVariantAudioRenditionSpecificAttributes interface {
 
 	// The count of audio channels in the rendition.
 	ChannelCount() int
-	// The audio formats of the renditions present in the variant.
-	FormatIDs() unsafe.Pointer
-	SetFormatIDs(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -164,15 +160,4 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) IsDownmix() bool {
 func (a AVAssetVariantAudioRenditionSpecificAttributes) ChannelCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("channelCount"))
 	return rv
-}
-
-// The audio formats of the renditions present in the variant.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.class/formatids
-func (a AVAssetVariantAudioRenditionSpecificAttributes) FormatIDs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("formatIDs"))
-	return rv
-}
-func (a AVAssetVariantAudioRenditionSpecificAttributes) SetFormatIDs(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFormatIDs:"), value)
 }

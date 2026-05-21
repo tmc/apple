@@ -59,18 +59,19 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 // You don’t create capture device instances directly. Instead, retrieve
 // them using an instance of [AVCaptureDeviceDiscoverySession], or by calling
-// the [AVCaptureDevice.DefaultDeviceWithDeviceTypeMediaTypePosition] method.
+// the [AVCaptureDeviceClass.DefaultDeviceWithDeviceTypeMediaTypePosition]
+// method.
 //
 // A capture device provides several configuration options. Before attempting
 // to configure device properties, such as its focus mode, exposure mode, and
 // so on, you must first acquire a lock on the device by calling the
-// [AVCaptureDevice.LockForConfiguration] method. You should also query the device’s
-// capabilities to ensure that the new modes you intend to set are valid for
-// the device. You can then set the properties and release the lock using the
-// [AVCaptureDevice.UnlockForConfiguration] method. You may hold the lock if you want all
-// settable device properties to remain unchanged. However, holding the device
-// lock unnecessarily may degrade capture quality in other apps sharing the
-// device and isn’t recommended.
+// [AVCaptureDevice.LockForConfiguration] method. You should also query the
+// device’s capabilities to ensure that the new modes you intend to set are
+// valid for the device. You can then set the properties and release the lock
+// using the [AVCaptureDevice.UnlockForConfiguration] method. You may hold the
+// lock if you want all settable device properties to remain unchanged.
+// However, holding the device lock unnecessarily may degrade capture quality
+// in other apps sharing the device and isn’t recommended.
 //
 // # Identifying a device
 //
@@ -103,7 +104,6 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //   - [AVCaptureDevice.SetCinematicVideoFixedFocusAtPointFocusMode]: Fix focus at a distance.
 //   - [AVCaptureDevice.SetCinematicVideoTrackingFocusAtPointFocusMode]: Focus on and start tracking an object if it can be detected at the region specified by the point.
 //   - [AVCaptureDevice.SetCinematicVideoTrackingFocusWithDetectedObjectIDFocusMode]: Focus on and start tracking a detected object.
-//   - [AVCaptureDevice.NotEnoughLight]: The light level of the current scene is insufficient for the current set of features to function optimally.
 //   - [AVCaptureDevice.CinematicVideoCaptureSceneMonitoringStatuses]: The current scene monitoring statuses related to Cinematic Video capture.
 //
 // # Enabling automatic frame rate
@@ -119,10 +119,6 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 //   - [AVCaptureDevice.IsContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
 //   - [AVCaptureDevice.CompanionDeskViewCamera]: A Desk View camera associated with a device.
-//
-// # Monitoring system pressure
-//
-//   - [AVCaptureDevice.AVCaptureSessionInterruptionSystemPressureStateKey]: A key to retrieve a state value that indicates the system pressure level and contributing factors that caused the interruption.
 //
 // # Restricting camera switching
 //
@@ -199,7 +195,6 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //   - [IAVCaptureDevice.SetCinematicVideoFixedFocusAtPointFocusMode]: Fix focus at a distance.
 //   - [IAVCaptureDevice.SetCinematicVideoTrackingFocusAtPointFocusMode]: Focus on and start tracking an object if it can be detected at the region specified by the point.
 //   - [IAVCaptureDevice.SetCinematicVideoTrackingFocusWithDetectedObjectIDFocusMode]: Focus on and start tracking a detected object.
-//   - [IAVCaptureDevice.NotEnoughLight]: The light level of the current scene is insufficient for the current set of features to function optimally.
 //   - [IAVCaptureDevice.CinematicVideoCaptureSceneMonitoringStatuses]: The current scene monitoring statuses related to Cinematic Video capture.
 //
 // # Enabling automatic frame rate
@@ -215,10 +210,6 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //
 //   - [IAVCaptureDevice.IsContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
 //   - [IAVCaptureDevice.CompanionDeskViewCamera]: A Desk View camera associated with a device.
-//
-// # Monitoring system pressure
-//
-//   - [IAVCaptureDevice.AVCaptureSessionInterruptionSystemPressureStateKey]: A key to retrieve a state value that indicates the system pressure level and contributing factors that caused the interruption.
 //
 // # Restricting camera switching
 //
@@ -298,8 +289,6 @@ type IAVCaptureDevice interface {
 	SetCinematicVideoTrackingFocusAtPointFocusMode(point corefoundation.CGPoint, focusMode AVCaptureCinematicVideoFocusMode)
 	// Focus on and start tracking a detected object.
 	SetCinematicVideoTrackingFocusWithDetectedObjectIDFocusMode(detectedObjectID int, focusMode AVCaptureCinematicVideoFocusMode)
-	// The light level of the current scene is insufficient for the current set of features to function optimally.
-	NotEnoughLight() AVCaptureSceneMonitoringStatus
 	// The current scene monitoring statuses related to Cinematic Video capture.
 	CinematicVideoCaptureSceneMonitoringStatuses() foundation.INSSet
 
@@ -320,11 +309,6 @@ type IAVCaptureDevice interface {
 	IsContinuityCamera() bool
 	// A Desk View camera associated with a device.
 	CompanionDeskViewCamera() IAVCaptureDevice
-
-	// Topic: Monitoring system pressure
-
-	// A key to retrieve a state value that indicates the system pressure level and contributing factors that caused the interruption.
-	AVCaptureSessionInterruptionSystemPressureStateKey() string
 
 	// Topic: Restricting camera switching
 
@@ -571,11 +555,12 @@ func (c AVCaptureDevice) SupportsAVCaptureSessionPreset(preset AVCaptureSessionP
 //
 // # Discussion
 //
-// To set hardware properties on a capture device, such as the [FocusMode] and
-// [ExposureMode], your app must first acquire a lock on the device. Only hold
-// the device lock if your app requires settable device properties to remain
-// unchanged. Holding the device lock unnecessarily may degrade capture
-// quality in other apps sharing the device.
+// To set hardware properties on a capture device, such as the
+// [AVCaptureDevice.FocusMode] and [AVCaptureDevice.ExposureMode], your app
+// must first acquire a lock on the device. Only hold the device lock if your
+// app requires settable device properties to remain unchanged. Holding the
+// device lock unnecessarily may degrade capture quality in other apps sharing
+// the device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/lockForConfiguration()
 func (c AVCaptureDevice) LockForConfiguration() (bool, error) {
@@ -596,9 +581,9 @@ func (c AVCaptureDevice) LockForConfiguration() (bool, error) {
 //
 // # Discussion
 //
-// If you’ve previously locked a device by calling [LockForConfiguration],
-// call this method when your app no longer requires preventing device
-// properties from changing automatically.
+// If you’ve previously locked a device by calling
+// [AVCaptureDevice.LockForConfiguration], call this method when your app no
+// longer requires preventing device properties from changing automatically.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/unlockForConfiguration()
 func (c AVCaptureDevice) UnlockForConfiguration() {
@@ -661,13 +646,13 @@ func (c AVCaptureDevice) SetCinematicVideoTrackingFocusWithDetectedObjectIDFocus
 // Use this method to configure the camera switching behavior of a capture
 // device. Before calling it, determine if a device supports configuring its
 // device switching behavior by querying the device’s
-// [ActivePrimaryConstituentDeviceSwitchingBehavior] property. If the value
-// equals `XCUIElementTypeUnsupported`, attempting to configure its switching
-// behavior results in an error.
+// [AVCaptureDevice.ActivePrimaryConstituentDeviceSwitchingBehavior] property.
+// If the value equals `XCUIElementTypeUnsupported`, attempting to configure
+// its switching behavior results in an error.
 //
 // When recording using an instance of [AVCaptureMovieFileOutput], you may
 // override the switching behavior by calling the movie file output’s
-// [SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]
+// [AVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]
 // method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setPrimaryConstituentDeviceSwitchingBehavior(_:restrictedSwitchingBehaviorConditions:)
@@ -687,18 +672,20 @@ func (c AVCaptureDevice) SetPrimaryConstituentDeviceSwitchingBehaviorRestrictedS
 // Each run of detection processes frames over a short period, and produces
 // one detection result. Use `detectionInterval` to specify the interval time
 // between each run of detections. For example, when
-// [CameraLensSmudgeDetectionEnabled] is set to `true` and `detectionInterval`
-// is set to 1 minute, detection runs once per minute, and updates
-// [AVCaptureCameraLensSmudgeDetectionStatus]. If `detectionInterval` is set
-// to `kCMTimeInvalid`, detection runs only once after the session starts. If
-// `detectionInterval` is set to `kCMTimeZero`, detection runs continuously.
+// [AVCaptureDevice.CameraLensSmudgeDetectionEnabled] is set to `true` and
+// `detectionInterval` is set to 1 minute, detection runs once per minute, and
+// updates [AVCaptureCameraLensSmudgeDetectionStatus]. If `detectionInterval`
+// is set to `kCMTimeInvalid`, detection runs only once after the session
+// starts. If `detectionInterval` is set to `kCMTimeZero`, detection runs
+// continuously.
 //
 // [AVCaptureDevice] throws an [NSInvalidArgumentException] if the
-// [CameraLensSmudgeDetectionSupported] property on the current active format
-// returns `false`. Enabling detection requires a lengthy reconfiguration of
-// the capture render pipeline, so you should enable detection before calling
-// [StartRunning] or within [BeginConfiguration] and [CommitConfiguration]
-// while running.
+// [AVCaptureDeviceFormat.CameraLensSmudgeDetectionSupported] property on the
+// current active format returns `false`. Enabling detection requires a
+// lengthy reconfiguration of the capture render pipeline, so you should
+// enable detection before calling [AVCaptureSession.StartRunning] or within
+// [AVCaptureSession.BeginConfiguration] and
+// [AVCaptureSession.CommitConfiguration] while running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setCameraLensSmudgeDetectionEnabled(_:detectionInterval:)
 //
@@ -717,8 +704,8 @@ func (c AVCaptureDevice) SetCameraLensSmudgeDetectionEnabledDetectionInterval(ca
 // For example, pass `(0.5, 0.5)` to get the exposure rectangle of interest
 // used for the default exposure point of interest at `(0.5, 0.5)`.
 //
-// This method returns [CGRectNull] if [ExposureRectOfInterestSupported]
-// returns `false`.
+// This method returns [CGRectNull] if
+// [AVCaptureDevice.ExposureRectOfInterestSupported] returns `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/defaultRectForExposurePoint(ofInterest:)
 func (c AVCaptureDevice) DefaultRectForExposurePointOfInterest(pointOfInterest corefoundation.CGPoint) corefoundation.CGRect {
@@ -735,8 +722,8 @@ func (c AVCaptureDevice) DefaultRectForExposurePointOfInterest(pointOfInterest c
 // For example, pass `(0.5, 0.5)` to get the focus rectangle of interest used
 // for the default focus point of interest at `(0.5, 0.5)`.
 //
-// This method returns [CGRectNull] if [FocusRectOfInterestSupported] returns
-// `false`.
+// This method returns [CGRectNull] if
+// [AVCaptureDevice.FocusRectOfInterestSupported] returns `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/defaultRectForFocusPoint(ofInterest:)
 func (c AVCaptureDevice) DefaultRectForFocusPointOfInterest(pointOfInterest corefoundation.CGPoint) corefoundation.CGRect {
@@ -807,14 +794,16 @@ func (c AVCaptureDevice) IsWhiteBalanceModeSupported(whiteBalanceMode AVCaptureW
 // Performs the specified reaction type on the video stream.
 //
 // reactionType: A reaction type to perform. Specifying a type that doesn’t exists within
-// the set of [AvailableReactionTypes] for the device results in an exception.
+// the set of [AVCaptureDevice.AvailableReactionTypes] for the device results
+// in an exception.
 //
 // # Discussion
 //
-// The entries in the [ReactionEffectsInProgress] property may not reflect
-// one-to-one with calls to this method. Depending on reaction style or
-// resource limits, the system may coalesce overlapping reactions of the same
-// type by extending an existing reaction rather than overlaying a new one.
+// The entries in the [AVCaptureDevice.ReactionEffectsInProgress] property may
+// not reflect one-to-one with calls to this method. Depending on reaction
+// style or resource limits, the system may coalesce overlapping reactions of
+// the same type by extending an existing reaction rather than overlaying a
+// new one.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/performEffect(for:)
 func (c AVCaptureDevice) PerformEffectForReaction(reactionType AVCaptureReactionType) {
@@ -825,7 +814,7 @@ func (c AVCaptureDevice) PerformEffectForReaction(reactionType AVCaptureReaction
 //
 // torchLevel: The new torch mode level. This value must be a floating-point number
 // between `0.0` and `1.0`. To set the torch mode level to the currently
-// available maximum, specify the constant [MaxAvailableTorchLevel] for this
+// available maximum, specify the constant [maxAvailableTorchLevel] for this
 // parameter.
 //
 // # Discussion
@@ -838,13 +827,15 @@ func (c AVCaptureDevice) PerformEffectForReaction(reactionType AVCaptureReaction
 // because the device is overheating—this method returns false.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, calling this method raises an
-// exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, calling this method raises
+// an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setTorchModeOn(level:)
+//
+// [maxAvailableTorchLevel]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/maxAvailableTorchLevel
 func (c AVCaptureDevice) SetTorchModeOnWithLevelError(torchLevel float32) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("setTorchModeOnWithLevel:error:"), torchLevel, unsafe.Pointer(&errorPtr))
@@ -869,11 +860,11 @@ func (c AVCaptureDevice) SetTorchModeOnWithLevelError(torchLevel float32) (bool,
 // # Discussion
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, calling this method raises an
-// exception. When you’re finished configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, calling this method raises
+// an exception. When you’re finished configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setTransportControlsPlaybackMode(_:speed:)
 func (c AVCaptureDevice) SetTransportControlsPlaybackModeSpeed(mode AVCaptureDeviceTransportControlsPlaybackMode, speed AVCaptureDeviceTransportControlsSpeed) {
@@ -980,8 +971,8 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) RequestAccessForMediaTypeCompl
 // A user must explicitly grant your app access to record audio or video. Call
 // this method to determine your app’s current authorization status. If it
 // returns a value of [AVAuthorizationStatusNotDetermined], call
-// [RequestAccessForMediaTypeCompletionHandler] to prompt the user for capture
-// permission.
+// [AVCaptureDeviceClass.RequestAccessForMediaTypeCompletionHandler] to prompt
+// the user for capture permission.
 //
 // After the user grants permission, the system remembers their choice and
 // doesn’t prompt them again. However, a user can change their choice at any
@@ -1071,9 +1062,9 @@ func (c AVCaptureDevice) Manufacturer() string {
 //
 // # Discussion
 //
-// Use the [DefaultDeviceWithDeviceTypeMediaTypePosition] method or the
-// [AVCaptureDeviceDiscoverySession] class to find capture devices by device
-// type.
+// Use the [AVCaptureDeviceClass.DefaultDeviceWithDeviceTypeMediaTypePosition]
+// method or the [AVCaptureDeviceDiscoverySession] class to find capture
+// devices by device type.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/deviceType-swift.property
 func (c AVCaptureDevice) DeviceType() AVCaptureDeviceType {
@@ -1149,15 +1140,6 @@ func (c AVCaptureDevice) TransportType() int32 {
 	return rv
 }
 
-// The light level of the current scene is insufficient for the current set of
-// features to function optimally.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturescenemonitoringstatus/notenoughlight
-func (c AVCaptureDevice) NotEnoughLight() AVCaptureSceneMonitoringStatus {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVCaptureSceneMonitoringStatusNotEnoughLight"))
-	return AVCaptureSceneMonitoringStatus(foundation.NSStringFromID(rv).String())
-}
-
 // The current scene monitoring statuses related to Cinematic Video capture.
 //
 // # Discussion
@@ -1178,12 +1160,12 @@ func (c AVCaptureDevice) CinematicVideoCaptureSceneMonitoringStatuses() foundati
 // # Discussion
 //
 // You can enable this property on a device when its active format’s
-// [AutoVideoFrameRateSupported] property is true. When enabled, a capture
-// device automatically adjusts the active frame rate based on light level.
-// Under low light conditions, it decreases the frame rate to properly expose
-// the scene. For formats with a maximum frame rate of 30 fps, the frame rate
-// switches between 30-24. For formats with a maximum frame rate of 60 fps,
-// the frame rate switches between 60-30-24.
+// [AVCaptureDeviceFormat.AutoVideoFrameRateSupported] property is true. When
+// enabled, a capture device automatically adjusts the active frame rate based
+// on light level. Under low light conditions, it decreases the frame rate to
+// properly expose the scene. For formats with a maximum frame rate of 30 fps,
+// the frame rate switches between 30-24. For formats with a maximum frame
+// rate of 60 fps, the frame rate switches between 60-30-24.
 //
 // Changing the device’s active format resets this property to its default
 // value of false.
@@ -1241,15 +1223,6 @@ func (c AVCaptureDevice) CompanionDeskViewCamera() IAVCaptureDevice {
 	return AVCaptureDeviceFromID(objc.ID(rv))
 }
 
-// A key to retrieve a state value that indicates the system pressure level
-// and contributing factors that caused the interruption.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturesessioninterruptionsystempressurestatekey
-func (c AVCaptureDevice) AVCaptureSessionInterruptionSystemPressureStateKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVCaptureSessionInterruptionSystemPressureStateKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The switching behavior for the primary constituent device.
 //
 // # Discussion
@@ -1290,9 +1263,9 @@ func (c AVCaptureDevice) PrimaryConstituentDeviceRestrictedSwitchingBehaviorCond
 //
 // For virtual devices with multiple constituent devices, this property
 // provides the active switching behavior. It equals the value of the
-// [PrimaryConstituentDeviceSwitchingBehavior] property except when you record
-// with an [AVCaptureMovieFileOutput] that you configure to use different
-// behavior.
+// [AVCaptureDevice.PrimaryConstituentDeviceSwitchingBehavior] property except
+// when you record with an [AVCaptureMovieFileOutput] that you configure to
+// use different behavior.
 //
 // The value of this property is
 // [AVCapturePrimaryConstituentDeviceSwitchingBehaviorUnsupported] for devices
@@ -1313,9 +1286,10 @@ func (c AVCaptureDevice) ActivePrimaryConstituentDeviceSwitchingBehavior() AVCap
 //
 // For virtual devices with multiple constituent devices, this property
 // returns the active restricted switching behavior conditions. This is equal
-// to [PrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions] except
-// while recording using an [AVCaptureMovieFileOutput] that you configure with
-// different restricted switching behavior conditions.
+// to
+// [AVCaptureDevice.PrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions]
+// except while recording using an [AVCaptureMovieFileOutput] that you
+// configure with different restricted switching behavior conditions.
 //
 // Devices that don’t support constituent device switching return
 // [AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionNone].
@@ -1365,9 +1339,9 @@ func (c AVCaptureDevice) SupportedFallbackPrimaryConstituentDevices() []AVCaptur
 // # Discussion
 //
 // By default, this value contains the array of devices that the
-// [SupportedFallbackPrimaryConstituentDevices] property provides. The system
-// throws an exception if you attempt to specify a device other than the ones
-// found in the device array.
+// [AVCaptureDevice.SupportedFallbackPrimaryConstituentDevices] property
+// provides. The system throws an exception if you attempt to specify a device
+// other than the ones found in the device array.
 //
 // This property is key-value observable.
 //
@@ -1387,8 +1361,8 @@ func (c AVCaptureDevice) SetFallbackPrimaryConstituentDevices(value []AVCaptureD
 // # Discussion
 //
 // You enable lens smudge detection by calling
-// [SetCameraLensSmudgeDetectionEnabledDetectionInterval]. By default, this
-// property is returns `false`.
+// [AVCaptureDevice.SetCameraLensSmudgeDetectionEnabledDetectionInterval]. By
+// default, this property is returns `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isCameraLensSmudgeDetectionEnabled
 func (c AVCaptureDevice) IsCameraLensSmudgeDetectionEnabled() bool {
@@ -1400,9 +1374,9 @@ func (c AVCaptureDevice) IsCameraLensSmudgeDetectionEnabled() bool {
 //
 // # Discussion
 //
-// [CameraLensSmudgeDetectionInterval] is set by calling
-// [SetCameraLensSmudgeDetectionEnabledDetectionInterval]. By default, this
-// property returns `kCMTimeInvalid`.
+// [AVCaptureDevice.CameraLensSmudgeDetectionInterval] is set by calling
+// [AVCaptureDevice.SetCameraLensSmudgeDetectionEnabledDetectionInterval]. By
+// default, this property returns `kCMTimeInvalid`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/cameraLensSmudgeDetectionInterval
 func (c AVCaptureDevice) CameraLensSmudgeDetectionInterval() coremedia.CMTime {
@@ -1414,11 +1388,12 @@ func (c AVCaptureDevice) CameraLensSmudgeDetectionInterval() coremedia.CMTime {
 //
 // # Discussion
 //
-// During initial detection execution, [CameraLensSmudgeDetectionStatus]
-// returns [AVCaptureCameraLensSmudgeDetectionStatusUnknown] until the
-// detection result settles. Once a detection result is produced,
-// [CameraLensSmudgeDetectionStatus] returns the most recent detection result.
-// This property can be key-value observed.
+// During initial detection execution,
+// [AVCaptureDevice.CameraLensSmudgeDetectionStatus] returns
+// [AVCaptureCameraLensSmudgeDetectionStatusUnknown] until the detection
+// result settles. Once a detection result is produced,
+// [AVCaptureDevice.CameraLensSmudgeDetectionStatus] returns the most recent
+// detection result. This property can be key-value observed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/cameraLensSmudgeDetectionStatus
 func (c AVCaptureDevice) CameraLensSmudgeDetectionStatus() AVCaptureCameraLensSmudgeDetectionStatus {
@@ -1430,8 +1405,9 @@ func (c AVCaptureDevice) CameraLensSmudgeDetectionStatus() AVCaptureCameraLensSm
 //
 // # Discussion
 //
-// See [FollowExternalSyncDeviceVideoFrameDurationDelegate] for more
-// information on external sync.
+// See
+// [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate]
+// for more information on external sync.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFollowingExternalSyncDevice
 func (c AVCaptureDevice) IsFollowingExternalSyncDevice() bool {
@@ -1461,9 +1437,10 @@ func (c AVCaptureDevice) MinSupportedExternalSyncFrameDuration() coremedia.CMTim
 // # Discussion
 //
 // Returns `true` when an [AVCaptureDeviceInput] associated with the device
-// has its [ActiveLockedVideoFrameDuration] property set to something other
-// than `kCMTimeInvalid`. See [ActiveLockedVideoFrameDuration] for more
-// information on video frame duration locking.
+// has its [AVCaptureDeviceInput.ActiveLockedVideoFrameDuration] property set
+// to something other than `kCMTimeInvalid`. See
+// [AVCaptureDeviceInput.ActiveLockedVideoFrameDuration] for more information
+// on video frame duration locking.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isVideoFrameDurationLocked
 func (c AVCaptureDevice) IsVideoFrameDurationLocked() bool {
@@ -1477,8 +1454,9 @@ func (c AVCaptureDevice) IsVideoFrameDurationLocked() bool {
 // # Discussion
 //
 // `kCMTimeInvalid` is returned when the device or its current configuration
-// does not support locked frame rate. Use [ActiveLockedVideoFrameDuration] to
-// set the locked frame rate on the input.
+// does not support locked frame rate. Use
+// [AVCaptureDeviceInput.ActiveLockedVideoFrameDuration] to set the locked
+// frame rate on the input.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minSupportedLockedVideoFrameDuration
 func (c AVCaptureDevice) MinSupportedLockedVideoFrameDuration() coremedia.CMTime {
@@ -1495,20 +1473,21 @@ func (c AVCaptureDevice) MinSupportedLockedVideoFrameDuration() coremedia.CMTime
 // a much wider gamut of colors than the sRGB color space. By default, a
 // capture session automatically enables wide-gamut capture for supported
 // devices and capture workflows—for details, see the
-// [AutomaticallyConfiguresCaptureDeviceForWideColor] of your capture session.
-// To instead set the color space manually, disable that [AVCaptureSession]
-// property before setting the active color space.
+// [AVCaptureSession.AutomaticallyConfiguresCaptureDeviceForWideColor] of your
+// capture session. To instead set the color space manually, disable that
+// [AVCaptureSession] property before setting the active color space.
 //
-// For best results, choose a color space before calling [StartRunning] on
-// your capture session. Changing this property while a capture session is
-// running requires a disruptive reconfiguration of the capture render
-// pipeline—movie captures in progress ends immediately, unfulfilled photo
-// requests abort, and video preview temporarily freeze.
+// For best results, choose a color space before calling
+// [AVCaptureSession.StartRunning] on your capture session. Changing this
+// property while a capture session is running requires a disruptive
+// reconfiguration of the capture render pipeline—movie captures in progress
+// ends immediately, unfulfilled photo requests abort, and video preview
+// temporarily freeze.
 //
-// Before changing this property, you must call the [LockForConfiguration]
-// method to obtain exclusive access to the capture device. Attempting to
-// change this property without locking the device raises an exception
-// ([genericException]).
+// Before changing this property, you must call the
+// [AVCaptureDevice.LockForConfiguration] method to obtain exclusive access to
+// the capture device. Attempting to change this property without locking the
+// device raises an exception ([genericException]).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeColorSpace
 //
@@ -1526,16 +1505,18 @@ func (c AVCaptureDevice) SetActiveColorSpace(value AVCaptureColorSpace) {
 // # Discussion
 //
 // In iOS, a device’s active format and a capture session’s
-// [SessionPreset] are mutually exclusive. If you set a device’s active
-// format, the session to which it’s attached changes its preset to
-// [inputPriority]. Likewise if you set a preset on a capture session, the
-// session assumes control of its input devices, and configures their active
-// format appropriately.
+// [AVCaptureSession.SessionPreset] are mutually exclusive. If you set a
+// device’s active format, the session to which it’s attached changes its
+// preset to [inputPriority]. Likewise if you set a preset on a capture
+// session, the session assumes control of its input devices, and configures
+// their active format appropriately.
 //
-// Set the [ActiveFormat], [ActiveVideoMinFrameDuration], and
-// [ActiveVideoMaxFrameDuration] properties simultaneously by performing the
-// configuration between calls to the session’s [BeginConfiguration] and
-// [CommitConfiguration] methods.
+// Set the [AVCaptureDevice.ActiveFormat],
+// [AVCaptureDevice.ActiveVideoMinFrameDuration], and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration] properties simultaneously by
+// performing the configuration between calls to the session’s
+// [AVCaptureSession.BeginConfiguration] and
+// [AVCaptureSession.CommitConfiguration] methods.
 //
 // If you configure a session to use an active format intended for high
 // resolution still photography, and you apply zoom, orientation, or format
@@ -1559,9 +1540,9 @@ func (c AVCaptureDevice) SetActiveFormat(value IAVCaptureDeviceFormat) {
 //
 // # Discussion
 //
-// You must call [LockForConfiguration] before attempting to set a format.
-// Setting a format that isn’t present in the [InputSources] array results
-// in an exception.
+// You must call [AVCaptureDevice.LockForConfiguration] before attempting to
+// set a format. Setting a format that isn’t present in the
+// [AVCaptureDevice.InputSources] array results in an exception.
 //
 // This property is key-value observable.
 //
@@ -1588,13 +1569,14 @@ func (c AVCaptureDevice) SetActiveInputSource(value IAVCaptureDeviceInputSource)
 // value.
 //
 // Attempting to set this property to a value not found in the active
-// format’s [VideoSupportedFrameRateRanges] array raises an exception
-// ([InvalidArgumentException]).
+// format’s [AVCaptureDeviceFormat.VideoSupportedFrameRateRanges] array
+// raises an exception ([invalidArgumentException]).
 //
 // This property value is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeVideoMaxFrameDuration
 //
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (c AVCaptureDevice) ActiveVideoMaxFrameDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeVideoMaxFrameDuration"))
@@ -1618,13 +1600,14 @@ func (c AVCaptureDevice) SetActiveVideoMaxFrameDuration(value coremedia.CMTime) 
 // value.
 //
 // Attempting to set this property to a value not found in the active
-// format’s [VideoSupportedFrameRateRanges] array raises an exception
-// ([InvalidArgumentException]).
+// format’s [AVCaptureDeviceFormat.VideoSupportedFrameRateRanges] array
+// raises an exception ([invalidArgumentException]).
 //
 // This property value is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeVideoMinFrameDuration
 //
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (c AVCaptureDevice) ActiveVideoMinFrameDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeVideoMinFrameDuration"))
@@ -1706,8 +1689,9 @@ func (c AVCaptureDevice) IsBackgroundReplacementActive() bool {
 //
 // # Discussion
 //
-// This value is true when a device’s [ReactionEffectsEnabled] and its
-// active format’s [ReactionEffectsSupported] property values are true.
+// This value is true when a device’s
+// [AVCaptureDeviceClass.ReactionEffectsEnabled] and its active format’s
+// [AVCaptureDeviceFormat.ReactionEffectsSupported] property values are true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/canPerformReactionEffects
 func (c AVCaptureDevice) CanPerformReactionEffects() bool {
@@ -1728,19 +1712,23 @@ func (c AVCaptureDevice) CanPerformReactionEffects() bool {
 // is active:
 //
 // - It limits the range of values the device supports for its
-// [MinAvailableVideoZoomFactor] and [MaxAvailableVideoZoomFactor] properties
-// to those of the active capture format’s
-// [VideoMinZoomFactorForCenterStage] and [VideoMaxZoomFactorForCenterStage],
-// respectively. - It limits the [ActiveVideoMinFrameDuration] and
-// [ActiveVideoMaxFrameDuration] to the value set by the active capture
-// format’s [VideoFrameRateRangeForCenterStage] property.
+// [AVCaptureDevice.MinAvailableVideoZoomFactor] and
+// [AVCaptureDevice.MaxAvailableVideoZoomFactor] properties to those of the
+// active capture format’s
+// [AVCaptureDeviceFormat.VideoMinZoomFactorForCenterStage] and
+// [AVCaptureDeviceFormat.VideoMaxZoomFactorForCenterStage], respectively. -
+// It limits the [AVCaptureDevice.ActiveVideoMinFrameDuration] and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration] to the value set by the
+// active capture format’s
+// [AVCaptureDeviceFormat.VideoFrameRateRangeForCenterStage] property.
 //
 // The system deactivates Center Stage in the following cases:
 //
 // - You enable depth data delivery on a capture output, such as
 // [AVCaptureDepthDataOutput] or [AVCapturePhotoOutput]. - The device supports
 // geometric distortion correction, but you haven’t enabled it by setting
-// the value of [GeometricDistortionCorrectionEnabled] to true.
+// the value of [AVCaptureDevice.GeometricDistortionCorrectionEnabled] to
+// true.
 //
 // This property is key-value observable.
 //
@@ -1770,9 +1758,9 @@ func (c AVCaptureDevice) IsCenterStageActive() bool {
 // the system throwing an illegal argument exception:
 //
 // - If none of the capture device’s supported formats support Center Stage.
-// - If the capture device’s [CenterStageEnabled] property value is false. -
-// If you specify a value that’s outside the normalized (`0`-`1`) coordinate
-// space.
+// - If the capture device’s [AVCaptureDeviceClass.CenterStageEnabled]
+// property value is false. - If you specify a value that’s outside the
+// normalized (`0`-`1`) coordinate space.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/centerStageRectOfInterest
 func (c AVCaptureDevice) CenterStageRectOfInterest() corefoundation.CGRect {
@@ -1804,7 +1792,8 @@ func (c AVCaptureDevice) IsCenterStageRectOfInterestSupported() bool {
 //
 // Some system user interfaces, like the macOS Video Effects Menu, display a
 // video zoom factor value in a way most appropriate for visual presentation,
-// which might differ from the [VideoZoomFactor] property value.
+// which might differ from the [AVCaptureDevice.VideoZoomFactor] property
+// value.
 //
 // Your app can key-value observe this property to update the display video
 // zoom factor values in its user interface to stay consistent with Apple’s
@@ -1821,11 +1810,11 @@ func (c AVCaptureDevice) DisplayVideoZoomFactorMultiplier() float64 {
 // # Discussion
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you’re done configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you’re done configuring the device,
+// call [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -1844,8 +1833,8 @@ func (c AVCaptureDevice) SetExposureMode(value AVCaptureExposureMode) {
 //
 // Setting a value for this property doesn’t initiate an exposure
 // rebalancing operation. To set exposure using a point of interest, first set
-// this property’s value, then set the [ExposureMode] property to
-// [AVCaptureExposureModeAutoExpose] or
+// this property’s value, then set the [AVCaptureDevice.ExposureMode]
+// property to [AVCaptureExposureModeAutoExpose] or
 // [AVCaptureExposureModeContinuousAutoExposure].
 //
 // This property’s [CGPoint] value uses a coordinate system where `{0,0}` is
@@ -1856,11 +1845,11 @@ func (c AVCaptureDevice) SetExposureMode(value AVCaptureExposureMode) {
 // [AVCaptureVideoPreviewLayer] methods.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you’re done configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you’re done configuring the device,
+// call [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -1894,26 +1883,30 @@ func (c AVCaptureDevice) IsExposurePointOfInterestSupported() bool {
 //
 // The value of this property is a [CGRect] determining the device’s
 // exposure rectangle of interest. Use this as an alternative to setting
-// [ExposurePointOfInterest], as it allows you to specify both a location and
-// size. For example, a value of `CGRectMake(0, 0, 1, 1)` tells the device to
-// use the entire field of view when determining the exposure, while
-// `CGRectMake(0, 0, 0.25, 0.25)` indicates the top left sixteenth, and
+// [AVCaptureDevice.ExposurePointOfInterest], as it allows you to specify both
+// a location and size. For example, a value of `CGRectMake(0, 0, 1, 1)` tells
+// the device to use the entire field of view when determining the exposure,
+// while `CGRectMake(0, 0, 0.25, 0.25)` indicates the top left sixteenth, and
 // `CGRectMake(0.75, 0.75, 0.25, 0.25)` indicates the bottom right sixteenth.
-// Setting [ExposureRectOfInterest] throws an [NSInvalidArgumentException] if
-// [ExposureRectOfInterestSupported] returns `false`. Setting
-// [ExposureRectOfInterest] throws an [NSInvalidArgumentException] if your
-// provided rectangle’s size is smaller than the
-// [MinExposureRectOfInterestSize]. Setting [ExposureRectOfInterest] throws an
-// [NSGenericException] if you call it without first obtaining exclusive
-// access to the device using [LockForConfiguration]. Setting
-// [ExposureRectOfInterest] updates the device’s [ExposurePointOfInterest]
-// to the center of your provided rectangle of interest. If you later set the
-// device’s [ExposurePointOfInterest], the [ExposureRectOfInterest] resets
-// to the default sized rectangle of interest for the new exposure point of
-// interest. If you change your [ActiveFormat], the point of interest and
-// rectangle of interest both revert to their default values. You can observe
-// automatic changes to the device’s [ExposureRectOfInterest] by key-value
-// observing this property.
+// Setting [AVCaptureDevice.ExposureRectOfInterest] throws an
+// [NSInvalidArgumentException] if
+// [AVCaptureDevice.ExposureRectOfInterestSupported] returns `false`. Setting
+// [AVCaptureDevice.ExposureRectOfInterest] throws an
+// [NSInvalidArgumentException] if your provided rectangle’s size is smaller
+// than the [AVCaptureDevice.MinExposureRectOfInterestSize]. Setting
+// [AVCaptureDevice.ExposureRectOfInterest] throws an [NSGenericException] if
+// you call it without first obtaining exclusive access to the device using
+// [AVCaptureDevice.LockForConfiguration]. Setting
+// [AVCaptureDevice.ExposureRectOfInterest] updates the device’s
+// [AVCaptureDevice.ExposurePointOfInterest] to the center of your provided
+// rectangle of interest. If you later set the device’s
+// [AVCaptureDevice.ExposurePointOfInterest], the
+// [AVCaptureDevice.ExposureRectOfInterest] resets to the default sized
+// rectangle of interest for the new exposure point of interest. If you change
+// your [AVCaptureDevice.ActiveFormat], the point of interest and rectangle of
+// interest both revert to their default values. You can observe automatic
+// changes to the device’s [AVCaptureDevice.ExposureRectOfInterest] by
+// key-value observing this property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/exposureRectOfInterest
 func (c AVCaptureDevice) ExposureRectOfInterest() corefoundation.CGRect {
@@ -1928,8 +1921,8 @@ func (c AVCaptureDevice) SetExposureRectOfInterest(value corefoundation.CGRect) 
 //
 // # Discussion
 //
-// You may only set the device’s [ExposureRectOfInterest] property if this
-// property returns `true`.
+// You may only set the device’s [AVCaptureDevice.ExposureRectOfInterest]
+// property if this property returns `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isExposureRectOfInterestSupported
 func (c AVCaptureDevice) IsExposureRectOfInterestSupported() bool {
@@ -1958,11 +1951,11 @@ func (c AVCaptureDevice) IsFlashAvailable() bool {
 // # Discussion
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -1980,11 +1973,11 @@ func (c AVCaptureDevice) SetFlashMode(value AVCaptureFlashMode) {
 // # Discussion
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -2003,8 +1996,8 @@ func (c AVCaptureDevice) SetFocusMode(value AVCaptureFocusMode) {
 //
 // Setting a value for this property doesn’t initiate a focusing operation.
 // To focus the camera on a point of interest, first set this property’s
-// value, then set the [FocusMode] property to [AVCaptureFocusModeAutoFocus]
-// or [AVCaptureFocusModeContinuousAutoFocus].
+// value, then set the [AVCaptureDevice.FocusMode] property to
+// [AVCaptureFocusModeAutoFocus] or [AVCaptureFocusModeContinuousAutoFocus].
 //
 // This property’s [CGPoint] value uses a coordinate system where `{0,0}` is
 // the top-left of the picture area and `{1,1}` is the bottom-right. This
@@ -2014,11 +2007,11 @@ func (c AVCaptureDevice) SetFocusMode(value AVCaptureFocusMode) {
 // [AVCaptureVideoPreviewLayer] methods.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -2052,26 +2045,30 @@ func (c AVCaptureDevice) IsFocusPointOfInterestSupported() bool {
 //
 // The value of this property is a [CGRect] determining the device’s focus
 // rectangle of interest. Use this as an alternative to setting
-// [FocusPointOfInterest], as it allows you to specify both a location and
-// size. For example, a value of `CGRectMake(0, 0, 1, 1)` tells the device to
-// use the entire field of view when determining the focus, while
-// `CGRectMake(0, 0, 0.25, 0.25)` indicates the top left sixteenth, and
+// [AVCaptureDevice.FocusPointOfInterest], as it allows you to specify both a
+// location and size. For example, a value of `CGRectMake(0, 0, 1, 1)` tells
+// the device to use the entire field of view when determining the focus,
+// while `CGRectMake(0, 0, 0.25, 0.25)` indicates the top left sixteenth, and
 // `CGRectMake(0.75, 0.75, 0.25, 0.25)` indicates the bottom right sixteenth.
-// Setting [FocusRectOfInterest] throws an [NSInvalidArgumentException] if
-// [FocusRectOfInterestSupported] returns `false`. Setting
-// [FocusRectOfInterest] throws an [NSInvalidArgumentException] if your
-// provided rectangle’s size is smaller than the
-// [MinFocusRectOfInterestSize]. Setting [FocusRectOfInterest] throws an
-// [NSGenericException] if you call it without first obtaining exclusive
-// access to the device using [LockForConfiguration]. Setting
-// [FocusRectOfInterest] updates the device’s [FocusPointOfInterest] to the
-// center of your provided rectangle of interest. If you later set the
-// device’s [FocusPointOfInterest], the [FocusRectOfInterest] resets to the
-// default sized rectangle of interest for the new focus point of interest. If
-// you change your [ActiveFormat], the point of interest and rectangle of
+// Setting [AVCaptureDevice.FocusRectOfInterest] throws an
+// [NSInvalidArgumentException] if
+// [AVCaptureDevice.FocusRectOfInterestSupported] returns `false`. Setting
+// [AVCaptureDevice.FocusRectOfInterest] throws an
+// [NSInvalidArgumentException] if your provided rectangle’s size is smaller
+// than the [AVCaptureDevice.MinFocusRectOfInterestSize]. Setting
+// [AVCaptureDevice.FocusRectOfInterest] throws an [NSGenericException] if you
+// call it without first obtaining exclusive access to the device using
+// [AVCaptureDevice.LockForConfiguration]. Setting
+// [AVCaptureDevice.FocusRectOfInterest] updates the device’s
+// [AVCaptureDevice.FocusPointOfInterest] to the center of your provided
+// rectangle of interest. If you later set the device’s
+// [AVCaptureDevice.FocusPointOfInterest], the
+// [AVCaptureDevice.FocusRectOfInterest] resets to the default sized rectangle
+// of interest for the new focus point of interest. If you change your
+// [AVCaptureDevice.ActiveFormat], the point of interest and rectangle of
 // interest both revert to their default values. You can observe automatic
-// changes to the device’s [FocusRectOfInterest] by key-value observing this
-// property.
+// changes to the device’s [AVCaptureDevice.FocusRectOfInterest] by
+// key-value observing this property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/focusRectOfInterest
 func (c AVCaptureDevice) FocusRectOfInterest() corefoundation.CGRect {
@@ -2086,8 +2083,8 @@ func (c AVCaptureDevice) SetFocusRectOfInterest(value corefoundation.CGRect) {
 //
 // # Discussion
 //
-// You may only set the device’s [FocusRectOfInterest] property if this
-// property returns `true`.
+// You may only set the device’s [AVCaptureDevice.FocusRectOfInterest]
+// property if this property returns `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFocusRectOfInterestSupported
 func (c AVCaptureDevice) IsFocusRectOfInterestSupported() bool {
@@ -2102,7 +2099,8 @@ func (c AVCaptureDevice) IsFocusRectOfInterestSupported() bool {
 // A capture device format describes the details of the video, image, or audio
 // parameters of a specific mode of capture. If you require specifying capture
 // settings not covered by a capture session preset, you can set the
-// [ActiveFormat] property to any of the formats in this array.
+// [AVCaptureDevice.ActiveFormat] property to any of the formats in this
+// array.
 //
 // This property value is key-value observable.
 //
@@ -2136,7 +2134,8 @@ func (c AVCaptureDevice) HasFlash() bool {
 // illumination hardware built-in.
 //
 // Even if the device has a torch, that torch might not be available for use,
-// so check the value of the [TorchAvailable] property before using it.
+// so check the value of the [AVCaptureDevice.TorchAvailable] property before
+// using it.
 //
 // This property is key-value observable.
 //
@@ -2185,7 +2184,8 @@ func (c AVCaptureDevice) LinkedDevices() []AVCaptureDevice {
 // # Discussion
 //
 // The size returned is in normalized coordinates, and depends on the current
-// [ActiveFormat]. If [ExposureRectOfInterestSupported] returns `false`, this
+// [AVCaptureDevice.ActiveFormat]. If
+// [AVCaptureDevice.ExposureRectOfInterestSupported] returns `false`, this
 // property returns { 0, 0 }.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minExposureRectOfInterestSize
@@ -2199,7 +2199,8 @@ func (c AVCaptureDevice) MinExposureRectOfInterestSize() corefoundation.CGSize {
 // # Discussion
 //
 // The size returned is in normalized coordinates, and depends on the current
-// [ActiveFormat]. If [FocusRectOfInterestSupported] returns `false`, this
+// [AVCaptureDevice.ActiveFormat]. If
+// [AVCaptureDevice.FocusRectOfInterestSupported] returns `false`, this
 // property returns { 0, 0 }.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minFocusRectOfInterestSize
@@ -2234,13 +2235,14 @@ func (c AVCaptureDevice) MinimumFocusDistance() int {
 //
 // When active, the device blurs the background, simulating a shallow depth of
 // field effect. The device also limits the values of its
-// [ActiveVideoMinFrameDuration] and [ActiveVideoMaxFrameDuration] to the
-// value that the device format’s [VideoFrameRateRangeForPortraitEffect]
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration] to the value that the device
+// format’s [AVCaptureDeviceFormat.VideoFrameRateRangeForPortraitEffect]
 // specifies.
 //
-// When a capture device’s [PortraitEffectEnabled] property value is true,
-// it may also return true for this property, depending on whether it supports
-// the feature in its current configuration.
+// When a capture device’s [AVCaptureDeviceClass.PortraitEffectEnabled]
+// property value is true, it may also return true for this property,
+// depending on whether it supports the feature in its current configuration.
 //
 // This property is key-value observable.
 //
@@ -2258,8 +2260,9 @@ func (c AVCaptureDevice) IsPortraitEffectActive() bool {
 // Key-value observe this property to determine when reaction effects begin
 // and end. If your key-value observing callback provides old and new values,
 // any in-progress reaction effects in the new array have a value of [invalid]
-// for their [EndTime] property value. Completed reaction effects are only in
-// the old array, and have their [EndTime] property value set to the
+// for their [AVCaptureReactionEffectState.EndTime] property value. Completed
+// reaction effects are only in the old array, and have their
+// [AVCaptureReactionEffectState.EndTime] property value set to the
 // presentation time of the first frame where the reaction effect was no
 // longer present.
 //
@@ -2342,18 +2345,18 @@ func (c AVCaptureDevice) TorchLevel() float32 {
 // Setting the value of this property also sets the torch level to its maximum
 // current value.
 //
-// Before setting the value of this property, call the [IsTorchModeSupported]
-// method to make sure the device supports the desired mode. Setting the
-// device to an unsupported torch mode results in the raising of an exception.
-// For a list of possible values for this property, see
-// [AVCaptureDevice.TorchMode].
+// Before setting the value of this property, call the
+// [AVCaptureDevice.IsTorchModeSupported] method to make sure the device
+// supports the desired mode. Setting the device to an unsupported torch mode
+// results in the raising of an exception. For a list of possible values for
+// this property, see [AVCaptureDevice.TorchMode].
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -2422,11 +2425,11 @@ func (c AVCaptureDevice) TransportControlsSupported() bool {
 // # Discussion
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you’re done configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you’re done configuring the device,
+// call [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -2444,24 +2447,25 @@ func (c AVCaptureDevice) SetWhiteBalanceMode(value AVCaptureWhiteBalanceMode) {
 // # Discussion
 //
 // The system chooses the value of this property. It considers the value of
-// [UserPreferredCamera], as well as other factors like camera suspension and
-// the appearance of Continuity Cameras that apps should choose automatically.
-// The property may change spontaneously, such as when the preferred camera
-// goes away.
+// [AVCaptureDeviceClass.UserPreferredCamera], as well as other factors like
+// camera suspension and the appearance of Continuity Cameras that apps should
+// choose automatically. The property may change spontaneously, such as when
+// the preferred camera goes away.
 //
 // Apps that adopt this API should always key-value observe this property and
 // update their capture session’s input device to reflect changes to this
 // value. An app can still offer users the ability to pick a camera by setting
-// a [UserPreferredCamera] value. Doing so puts the user’s choice first
-// until either another system-preferred device becomes available or the user
-// reboots the machine (after which it reverts to its original behavior of
-// returning the internally-determined best camera to use).
+// a [AVCaptureDeviceClass.UserPreferredCamera] value. Doing so puts the
+// user’s choice first until either another system-preferred device becomes
+// available or the user reboots the machine (after which it reverts to its
+// original behavior of returning the internally-determined best camera to
+// use).
 //
 // If you want to offer users a fully manual camera selection mode in addition
 // to automatic camera selection, it’s recommended to set the
-// [UserPreferredCamera] value each time the user makes a camera selection,
-// but ignore key-value observer updates to this property value while in
-// manual selection mode.
+// [AVCaptureDeviceClass.UserPreferredCamera] value each time the user makes a
+// camera selection, but ignore key-value observer updates to this property
+// value while in manual selection mode.
 //
 // This property always returns a device that’s present. If no camera is
 // available, this value is `nil`.
@@ -2476,12 +2480,12 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) SystemPreferredCamera() AVCapt
 //
 // # Discussion
 //
-// In addition to being a [SystemPreferredCamera], you can designate a device
-// as a user-preferred camera. Setting a value for this property allows an app
-// to persist its preference across app launches and system reboots. The
-// system internally maintains a short history of devices, so if a user’s
-// most recently preferred camera isn’t currently connected, it still
-// reports the next best choice.
+// In addition to being a [AVCaptureDeviceClass.SystemPreferredCamera], you
+// can designate a device as a user-preferred camera. Setting a value for this
+// property allows an app to persist its preference across app launches and
+// system reboots. The system internally maintains a short history of devices,
+// so if a user’s most recently preferred camera isn’t currently
+// connected, it still reports the next best choice.
 //
 // This property always returns a device that’s present. If no camera is
 // available, this value is `nil`.
@@ -2527,8 +2531,9 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsEdgeLightEnabled() bool {
 //
 // # Discussion
 //
-// The value may differ from the value of the [PreferredMicrophoneMode]
-// property if the app’s active audio route doesn’t support the mode.
+// The value may differ from the value of the
+// [AVCaptureDeviceClass.PreferredMicrophoneMode] property if the app’s
+// active audio route doesn’t support the mode.
 //
 // This property is key-value observable.
 //
@@ -2581,30 +2586,6 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) SetCenterStageEnabled(value bo
 	objc.Send[struct{}](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("setCenterStageEnabled:"), value)
 }
 
-// A special constant that represents the current exposure bias value.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/currentexposuretargetbias
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) CurrentExposureTargetBias() float32 {
-	rv := objc.Send[float32](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("AVCaptureExposureTargetBiasCurrent"))
-	return rv
-}
-
-// A constant that represents the current lens position.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/currentlensposition
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) CurrentLensPosition() float32 {
-	rv := objc.Send[float32](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("AVCaptureLensPositionCurrent"))
-	return rv
-}
-
-// A constant that indicates to set the torch to its maximum level.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/maxavailabletorchlevel
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) MaxAvailableTorchLevel() float32 {
-	rv := objc.Send[float32](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("AVCaptureMaxAvailableTorchLevel"))
-	return rv
-}
-
 // A Boolean value that indicates whether the user enabled the Portrait video
 // effect in Control Center.
 //
@@ -2635,7 +2616,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) PreferredMicrophoneMode() AVCa
 //
 // Gesture detection runs only when the device’s active format supports
 // reaction effects, which you determine by querying the value of the
-// format’s [ReactionEffectsSupported] property.
+// format’s [AVCaptureDeviceFormat.ReactionEffectsSupported] property.
 //
 // This property is key-value observable.
 //
@@ -2652,7 +2633,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) ReactionEffectGesturesEnabled(
 //
 // The system only renders reaction effects when the device’s active format
 // supports the feature, which you determine by querying the value of its
-// [ReactionEffectsSupported] property.
+// [AVCaptureDeviceFormat.ReactionEffectsSupported] property.
 //
 // In macOS, the system enables reaction effects for all apps by default. In
 // iOS, it enables them by default only for video conferencing apps (apps that

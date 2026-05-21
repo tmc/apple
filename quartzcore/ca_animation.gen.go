@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -288,17 +289,17 @@ func (a CAAnimation) Autoreverses() bool {
 // if applicable.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (a CAAnimation) BeginTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("beginTime"))
-	return rv
+func (a CAAnimation) BeginTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](a.ID, objc.Sel("beginTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Specifies the basic duration of the animation, in seconds.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (a CAAnimation) Duration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("duration"))
-	return rv
+func (a CAAnimation) Duration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](a.ID, objc.Sel("duration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Determines if the receiver’s presentation is frozen or removed once its
@@ -321,9 +322,9 @@ func (a CAAnimation) RepeatCount() float32 {
 // Determines how many seconds the animation will repeat for.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (a CAAnimation) RepeatDuration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("repeatDuration"))
-	return rv
+func (a CAAnimation) RepeatDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](a.ID, objc.Sel("repeatDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Called to trigger the action specified by the identifier.
@@ -354,9 +355,9 @@ func (a CAAnimation) Speed() float32 {
 // Specifies an additional time offset in active local time.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (a CAAnimation) TimeOffset() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("timeOffset"))
-	return rv
+func (a CAAnimation) TimeOffset() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](a.ID, objc.Sel("timeOffset"))
+	return corefoundation.CFTimeInterval(rv)
 }
 func (a CAAnimation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -592,7 +593,7 @@ func (a CAAnimation) SetPreferredFrameRateRange(value CAFrameRateRange) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (o CAAnimation) SetBeginTime(value float64) {
+func (o CAAnimation) SetBeginTime(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBeginTime:"), value)
 }
 
@@ -603,7 +604,7 @@ func (o CAAnimation) SetBeginTime(value float64) {
 // Defaults to 0. .
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (o CAAnimation) SetTimeOffset(value float64) {
+func (o CAAnimation) SetTimeOffset(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTimeOffset:"), value)
 }
 
@@ -633,7 +634,7 @@ func (o CAAnimation) SetRepeatCount(value float32) {
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (o CAAnimation) SetRepeatDuration(value float64) {
+func (o CAAnimation) SetRepeatDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRepeatDuration:"), value)
 }
 
@@ -644,7 +645,7 @@ func (o CAAnimation) SetRepeatDuration(value float64) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (o CAAnimation) SetDuration(value float64) {
+func (o CAAnimation) SetDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDuration:"), value)
 }
 

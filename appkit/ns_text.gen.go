@@ -550,9 +550,9 @@ func (t NSText) ToggleRuler(sender objectivec.IObject) {
 // This method applies only to rich text objects.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // This method is designed for transferring text from out-of-process sources
 // such as the pasteboard. In most cases, programmatic modification of the
@@ -578,9 +578,9 @@ func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfDa
 // This method applies only to rich text objects.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // This method is designed for transferring text from out-of-process sources
 // such as the pasteboard. In most cases, programmatic modification of the
@@ -609,9 +609,9 @@ func (t NSText) ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfd
 // in the receiver are used.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // In most cases, programmatic modification of the text is best done by
 // operating on the text storage directly, using the general methods of
@@ -711,10 +711,10 @@ func (t NSText) Delete(sender objectivec.IObject) {
 //
 // If the receiver doesn’t use the Font panel, this method does nothing.
 //
-// This method changes the font by sending a [ConvertFont] message to the
-// shared NSFontManager and applying each NSFont returned to the appropriate
-// text. See the [NSFontManager] class specification for more information on
-// font conversion.
+// This method changes the font by sending a [NSFontManager.ConvertFont]
+// message to the shared NSFontManager and applying each NSFont returned to
+// the appropriate text. See the [NSFontManager] class specification for more
+// information on font conversion.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/changeFont(_:)
 func (t NSText) ChangeFont(sender objectivec.IObject) {
@@ -728,9 +728,9 @@ func (t NSText) ChangeFont(sender objectivec.IObject) {
 // This method applies only to a rich text object.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/setFont(_:range:)
 func (t NSText) SetFontRange(font NSFont, range_ foundation.NSRange) {
@@ -770,9 +770,9 @@ func (t NSText) AlignRight(sender objectivec.IObject) {
 // only to rich text objects.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/setTextColor(_:range:)
 func (t NSText) SetTextColorRange(color INSColor, range_ foundation.NSRange) {
@@ -866,8 +866,8 @@ func (t NSText) WriteRTFDToFileAtomically(path string, flag bool) bool {
 // the receiver’s characters.
 //
 // When writing data to the pasteboard, you can use the NSData object as the
-// first argument to [NSPasteboard]’s [SetDataForType] method, with a second
-// argument of [NSRTFDPboardType].
+// first argument to [NSPasteboard]’s [NSPasteboard.SetDataForType] method,
+// with a second argument of [NSRTFDPboardType].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/rtfd(from:)
 func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.NSData {
@@ -885,8 +885,8 @@ func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.NSData {
 // the receiver’s characters.
 //
 // When writing data to the pasteboard, you can use the NSData object as the
-// first argument to [NSPasteboard]’s [SetDataForType] method, with a second
-// argument of [NSRTFPboardType].
+// first argument to [NSPasteboard]’s [NSPasteboard.SetDataForType] method,
+// with a second argument of [NSRTFPboardType].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/rtf(from:)
 func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.NSData {
@@ -900,9 +900,9 @@ func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.NSData {
 //
 // The search starts at the end of the selection and continues until it
 // reaches a word suspected of being misspelled or the end of the text. If a
-// word isn’t recognized by the spelling server, a [ShowGuessPanel] message
-// then opens the Guess panel and allows the user to make a correction or add
-// the word to the local dictionary.
+// word isn’t recognized by the spelling server, a [NSText.ShowGuessPanel]
+// message then opens the Guess panel and allows the user to make a correction
+// or add the word to the local dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/checkSpelling(_:)
 func (t NSText) CheckSpelling(sender objectivec.IObject) {

@@ -390,6 +390,13 @@ func NewRAWFilterWithCVPixelBufferProperties(buffer corevideo.CVImageBufferRef, 
 	return CIRAWFilterFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(coder:)
+func NewRAWFilterWithCoder(coder foundation.INSCoder) CIRAWFilter {
+	instance := getCIRAWFilterClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIRAWFilterFromID(rv)
+}
+
 // Creates a RAW filter from the image data and type hint that you specify.
 //
 // data: The image data.
@@ -417,7 +424,7 @@ func NewRAWFilterWithImageURL(url foundation.NSURL) CIRAWFilter {
 // # Discussion
 //
 // This array is sorted in reverse chronological order. All entries represent
-// a valid version identifier set to [DecoderVersion].
+// a valid version identifier set to [CIRAWFilter.DecoderVersion].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/supportedDecoderVersions
 func (r CIRAWFilter) SupportedDecoderVersions() []string {
@@ -431,7 +438,7 @@ func (r CIRAWFilter) SupportedDecoderVersions() []string {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of color noise reduction
-// to apply to the image by setting [ColorNoiseReductionAmount].
+// to apply to the image by setting [CIRAWFilter.ColorNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isColorNoiseReductionSupported
 func (r CIRAWFilter) IsColorNoiseReductionSupported() bool {
@@ -445,7 +452,7 @@ func (r CIRAWFilter) IsColorNoiseReductionSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of contrast to apply to
-// the image by setting [ContrastAmount].
+// the image by setting [CIRAWFilter.ContrastAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isContrastSupported
 func (r CIRAWFilter) IsContrastSupported() bool {
@@ -459,7 +466,7 @@ func (r CIRAWFilter) IsContrastSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of detail enhancement to
-// apply to the image by setting [DetailAmount].
+// apply to the image by setting [CIRAWFilter.DetailAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isDetailSupported
 func (r CIRAWFilter) IsDetailSupported() bool {
@@ -473,7 +480,7 @@ func (r CIRAWFilter) IsDetailSupported() bool {
 // # Discussion
 //
 // If this value is true, you can enable lens correction on the image by
-// setting [LensCorrectionEnabled] to true.
+// setting [CIRAWFilter.LensCorrectionEnabled] to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLensCorrectionSupported
 func (r CIRAWFilter) IsLensCorrectionSupported() bool {
@@ -487,7 +494,7 @@ func (r CIRAWFilter) IsLensCorrectionSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of local tone curve to
-// apply to the image by setting [LocalToneMapAmount].
+// apply to the image by setting [CIRAWFilter.LocalToneMapAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLocalToneMapSupported
 func (r CIRAWFilter) IsLocalToneMapSupported() bool {
@@ -501,7 +508,8 @@ func (r CIRAWFilter) IsLocalToneMapSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of luminance noise
-// reduction to apply to the image by setting [LuminanceNoiseReductionAmount].
+// reduction to apply to the image by setting
+// [CIRAWFilter.LuminanceNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLuminanceNoiseReductionSupported
 func (r CIRAWFilter) IsLuminanceNoiseReductionSupported() bool {
@@ -515,7 +523,8 @@ func (r CIRAWFilter) IsLuminanceNoiseReductionSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of moire artifact
-// reduction to apply to the image by setting [MoireReductionAmount].
+// reduction to apply to the image by setting
+// [CIRAWFilter.MoireReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isMoireReductionSupported
 func (r CIRAWFilter) IsMoireReductionSupported() bool {
@@ -529,7 +538,7 @@ func (r CIRAWFilter) IsMoireReductionSupported() bool {
 // # Discussion
 //
 // If this value is true, you can adjust the amount of sharpness to apply to
-// the image by setting [SharpnessAmount].
+// the image by setting [CIRAWFilter.SharpnessAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isSharpnessSupported
 func (r CIRAWFilter) IsSharpnessSupported() bool {
@@ -645,8 +654,8 @@ func (r CIRAWFilter) SetContrastAmount(value float32) {
 // A newly initialized object defaults to the newest available decoder version
 // for the given image type. You can request an older version to maintain
 // compatibility with older releases. However, the version you request needs
-// to be a member of [SupportedDecoderVersions], otherwise the system
-// generates a `nil` output image.
+// to be a member of [CIRAWFilter.SupportedDecoderVersions], otherwise the
+// system generates a `nil` output image.
 //
 // When you request a specific version of the decoder, Core Image produces an
 // image that looks the same across different versions. However, Core Image

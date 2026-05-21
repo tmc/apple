@@ -58,16 +58,16 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 // time, for example, 5 hours and 16 minutes. An [NSDateComponents] object is
 // not required to define all the component fields. When a new instance of
 // [NSDateComponents] is created, the date components are set to
-// [NSDateComponents.NSDateComponentUndefined].
+// [NSDateComponentUndefined].
 //
 // An instance of [NSDateComponents] is not responsible for answering
 // questions about a date beyond the information with which it was
 // initialized. For example, if you initialize one with May 4, 2017, its
-// weekday is [NSDateComponents.NSDateComponentUndefined], not Thursday. To get the correct day
+// weekday is [NSDateComponentUndefined], not Thursday. To get the correct day
 // of the week, you must create a suitable instance of [NSCalendar], create an
-// [NSDate] object using [DateFromComponents] and then use
-// [ComponentsFromDate] to retrieve the weekday—as illustrated in the
-// following example.
+// [NSDate] object using [NSCalendar.DateFromComponents] and then use
+// [NSCalendar.ComponentsFromDate] to retrieve the weekday—as illustrated in
+// the following example.
 //
 // For more details, see [Calendars, Date Components, and Calendar Units] in
 // [Date and Time Programming Guide].
@@ -313,10 +313,6 @@ type INSDateComponents interface {
 	SetDayOfYear(value int)
 	IsRepeatedDay() bool
 	SetRepeatedDay(value bool)
-
-	// Specifies a date component without a value.
-	NSDateComponentUndefined() int
-	SetNSDateComponentUndefined(value int)
 }
 
 // Init initializes the instance.
@@ -338,7 +334,7 @@ func NewNSDateComponents() NSDateComponents {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/init(coder:)
 func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
 	instance := getNSDateComponentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -357,14 +353,14 @@ func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
 //
 // # Discussion
 //
-// If the [TimeZone] property is set on the receiver, the time zone property
-// value is used.
+// If the [NSDateComponents.TimeZone] property is set on the receiver, the
+// time zone property value is used.
 //
 // This property should not be used for [NSDateComponents] objects that
 // represent relative quantities of calendar components. To find the the next
 // or previous date that matches a particular set of date components, use the
-// [NSCalendar] instance method [NextDateAfterDateMatchingUnitValueOptions]
-// instead.
+// [NSCalendar] instance method
+// [NSCalendar.NextDateAfterDateMatchingUnitValueOptions] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isValidDate(in:)
 func (d NSDateComponents) IsValidDateInCalendar(calendar INSCalendar) bool {
@@ -422,7 +418,7 @@ func (d NSDateComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/init(coder:)
 func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
 	rv := objc.Send[NSDateComponents](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -471,9 +467,9 @@ func (d NSDateComponents) SetTimeZone(value INSTimeZone) {
 //
 // # Discussion
 //
-// If the [TimeZone] property is set on the receiver, the time zone property
-// value is used. If the [Calendar] property is not set on the receiver, `nil`
-// is returned.
+// If the [NSDateComponents.TimeZone] property is set on the receiver, the
+// time zone property value is used. If the [NSDateComponents.Calendar]
+// property is not set on the receiver, `nil` is returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isValidDate
 func (d NSDateComponents) IsValidDate() bool {
@@ -485,8 +481,8 @@ func (d NSDateComponents) IsValidDate() bool {
 //
 // # Discussion
 //
-// Returns `nil` if the [Calendar] property value of the receiver is `nil` or
-// cannot convert the receiver into an [NSDate] object.
+// Returns `nil` if the [NSDateComponents.Calendar] property value of the
+// receiver is `nil` or cannot convert the receiver into an [NSDate] object.
 //
 // See [Calendars, Date Components, and Calendar Units] in [Date and Time
 // Programming Guide].
@@ -551,18 +547,20 @@ func (d NSDateComponents) SetYear(value int) {
 // preceding year. To reconcile this, ISO 8601 defines a week-numbering year,
 // consisting of either 52 or 53 full weeks (364 or 371 days), such that the
 // first week of a year is designated to be the week containing the first
-// Thursday of the year. For a given date, the [WeekOfYear] property indicates
-// which week the date falls in, and [YearForWeekOfYear] provides the
-// corresponding week-numbering year.
+// Thursday of the year. For a given date, the [NSDateComponents.WeekOfYear]
+// property indicates which week the date falls in, and
+// [NSDateComponents.YearForWeekOfYear] provides the corresponding
+// week-numbering year.
 //
 // You can use the week-numbering year when specifying a date with
-// [NSDateComponents], usually in combination with the [WeekOfYear]. The code
-// listing below shows this approach. It creates an [NSDateComponents]
-// instance specifying the first Friday (weekday 6) of the first week of 2016,
-// which started on a Friday. Therefore, this date is January 1, 2016 in the
-// Gregorian calendar. However, on the ISO 8601 calendar, the first week of
-// 2016 begins on the following Monday. This means the first Friday in the
-// first week of 2016 is January 8, 2016 on the ISO 8601 calendar.
+// [NSDateComponents], usually in combination with the
+// [NSDateComponents.WeekOfYear]. The code listing below shows this approach.
+// It creates an [NSDateComponents] instance specifying the first Friday
+// (weekday 6) of the first week of 2016, which started on a Friday.
+// Therefore, this date is January 1, 2016 in the Gregorian calendar. However,
+// on the ISO 8601 calendar, the first week of 2016 begins on the following
+// Monday. This means the first Friday in the first week of 2016 is January 8,
+// 2016 on the ISO 8601 calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/yearForWeekOfYear
 func (d NSDateComponents) YearForWeekOfYear() int {
@@ -823,17 +821,6 @@ func (d NSDateComponents) IsRepeatedDay() bool {
 }
 func (d NSDateComponents) SetRepeatedDay(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRepeatedDay:"), value)
-}
-
-// Specifies a date component without a value.
-//
-// See: https://developer.apple.com/documentation/foundation/nsdatecomponentundefined
-func (d NSDateComponents) NSDateComponentUndefined() int {
-	rv := objc.Send[int](d.ID, objc.Sel("NSDateComponentUndefined"))
-	return rv
-}
-func (d NSDateComponents) SetNSDateComponentUndefined(value int) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSDateComponentUndefined:"), value)
 }
 
 // Protocol methods for NSCopying

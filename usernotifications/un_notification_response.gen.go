@@ -69,8 +69,6 @@ func (uc UNNotificationResponseClass) Alloc() UNNotificationResponse {
 //
 //   - [UNNotificationResponse.ActionIdentifier]: The identifier string of the action that the user selected.
 //   - [UNNotificationResponse.Notification]: The notification to which the user responded.
-//   - [UNNotificationResponse.UNNotificationDefaultActionIdentifier]: An action that indicates the user opened the app from the notification interface.
-//   - [UNNotificationResponse.UNNotificationDismissActionIdentifier]: The action that indicates the user explicitly dismissed the notification interface.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse
 //
@@ -95,8 +93,6 @@ func UNNotificationResponseFromID(id objc.ID) UNNotificationResponse {
 //
 //   - [IUNNotificationResponse.ActionIdentifier]: The identifier string of the action that the user selected.
 //   - [IUNNotificationResponse.Notification]: The notification to which the user responded.
-//   - [IUNNotificationResponse.UNNotificationDefaultActionIdentifier]: An action that indicates the user opened the app from the notification interface.
-//   - [IUNNotificationResponse.UNNotificationDismissActionIdentifier]: The action that indicates the user explicitly dismissed the notification interface.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse
 type IUNNotificationResponse interface {
@@ -108,10 +104,6 @@ type IUNNotificationResponse interface {
 	ActionIdentifier() string
 	// The notification to which the user responded.
 	Notification() IUNNotification
-	// An action that indicates the user opened the app from the notification interface.
-	UNNotificationDefaultActionIdentifier() string
-	// The action that indicates the user explicitly dismissed the notification interface.
-	UNNotificationDismissActionIdentifier() string
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -156,6 +148,8 @@ func (u UNNotificationResponse) EncodeWithCoder(coder foundation.INSCoder) {
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse/actionIdentifier
 //
 // [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
+// [UNNotificationDefaultActionIdentifier]: https://developer.apple.com/documentation/UserNotifications/UNNotificationDefaultActionIdentifier
+// [UNNotificationDismissActionIdentifier]: https://developer.apple.com/documentation/UserNotifications/UNNotificationDismissActionIdentifier
 func (u UNNotificationResponse) ActionIdentifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("actionIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -167,22 +161,4 @@ func (u UNNotificationResponse) ActionIdentifier() string {
 func (u UNNotificationResponse) Notification() IUNNotification {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("notification"))
 	return UNNotificationFromID(objc.ID(rv))
-}
-
-// An action that indicates the user opened the app from the notification
-// interface.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationdefaultactionidentifier
-func (u UNNotificationResponse) UNNotificationDefaultActionIdentifier() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationDefaultActionIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The action that indicates the user explicitly dismissed the notification
-// interface.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationdismissactionidentifier
-func (u UNNotificationResponse) UNNotificationDismissActionIdentifier() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationDismissActionIdentifier"))
-	return foundation.NSStringFromID(rv).String()
 }

@@ -54,19 +54,19 @@ func (dc DateIntervalFormatterClass) Alloc() DateIntervalFormatter {
 // date value.
 //
 // To use this class, create an instance, configure its properties, and call
-// the [StringFromDateToDate] method to generate a string. The properties of
-// this class let you configure the calendar and specify the style to apply to
-// date and time values. Given a current date of January 16, 2015, Configuring
-// the Formatter Options shows how to configure a formatter object and
-// generate the string “1/16/15 - 1/17/15”.
+// the [NSDateIntervalFormatter.StringFromDateToDate] method to generate a
+// string. The properties of this class let you configure the calendar and
+// specify the style to apply to date and time values. Given a current date of
+// January 16, 2015, Configuring the Formatter Options shows how to configure
+// a formatter object and generate the string “1/16/15 - 1/17/15”.
 //
 // # Configuring a formatter object
 //
-// The [StringFromDateToDate] method may be called safely from any thread of
-// your app. It is also safe to share a single instance of this class from
-// multiple threads, with the caveat that you should not change the
-// configuration of the object while another thread is using it to generate a
-// string.
+// The [NSDateIntervalFormatter.StringFromDateToDate] method may be called
+// safely from any thread of your app. It is also safe to share a single
+// instance of this class from multiple threads, with the caveat that you
+// should not change the configuration of the object while another thread is
+// using it to generate a string.
 //
 // # Formatting a String
 //
@@ -214,9 +214,9 @@ func NewDateIntervalFormatterWithCoder(coder INSCoder) DateIntervalFormatter {
 // only when there is enough of a difference in their values to warrant the
 // inclusion of both. If the date and time difference cannot be adequately
 // displayed, the formatter displays one date value. For example, if the
-// [TimeStyle] property was set to [NSDateIntervalFormatterNoStyle], the two
-// dates would need to be at least one day apart in order for both to be
-// displayed.
+// [NSDateIntervalFormatter.TimeStyle] property was set to
+// [NSDateIntervalFormatterNoStyle], the two dates would need to be at least
+// one day apart in order for both to be displayed.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/string(from:to:)
 func (d DateIntervalFormatter) StringFromDateToDate(fromDate INSDate, toDate INSDate) string {
@@ -272,8 +272,9 @@ func (d DateIntervalFormatter) SetTimeStyle(value NSDateIntervalFormatterStyle) 
 // minute, and other pieces of date or time information.
 //
 // If you do not assign a value to this string, the formatter object
-// automatically updates the string based on the values in the [DateStyle] and
-// [TimeStyle] properties.
+// automatically updates the string based on the values in the
+// [NSDateIntervalFormatter.DateStyle] and [NSDateIntervalFormatter.TimeStyle]
+// properties.
 //
 // For information about how to define a custom formatting string, see [Date
 // Formatters] in [Data Formatting Guide].
@@ -295,8 +296,8 @@ func (d DateIntervalFormatter) SetDateTemplate(value string) {
 // # Discussion
 //
 // The default value of this property is the calendar associated with the
-// current [Locale] object. You can change this value to use a different
-// calendar for interpreting dates.
+// current [NSDateIntervalFormatter.Locale] object. You can change this value
+// to use a different calendar for interpreting dates.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/calendar
 func (d DateIntervalFormatter) Calendar() INSCalendar {
@@ -312,8 +313,9 @@ func (d DateIntervalFormatter) SetCalendar(value INSCalendar) {
 // # Discussion
 //
 // The default value of this property is the current user’s locale, which is
-// accessible from the [CurrentLocale] method of [NSLocale]. You can change
-// this value to a different locale to generate strings based on that locale.
+// accessible from the [NSLocaleClass.CurrentLocale] method of [NSLocale]. You
+// can change this value to a different locale to generate strings based on
+// that locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/locale
 func (d DateIntervalFormatter) Locale() INSLocale {
@@ -329,8 +331,8 @@ func (d DateIntervalFormatter) SetLocale(value INSLocale) {
 // # Discussion
 //
 // The default value of this property is the default time zone for the current
-// user, which is accessible from the [DefaultTimeZone] method of
-// [NSTimeZone]. You can change this value to a different time zone to
+// user, which is accessible from the [NSTimeZoneClass.DefaultTimeZone] method
+// of [NSTimeZone]. You can change this value to a different time zone to
 // generate strings based on that time zone.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/timeZone

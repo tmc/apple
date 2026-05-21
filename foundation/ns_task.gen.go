@@ -116,8 +116,6 @@ func (nc NSTaskClass) Alloc() NSTask {
 //
 // # Instance Properties
 //
-//   - [NSTask.LaunchRequirement]
-//   - [NSTask.SetLaunchRequirement]
 //   - [NSTask.LaunchRequirementData]
 //   - [NSTask.SetLaunchRequirementData]
 //
@@ -190,8 +188,6 @@ func NSTaskFromID(id objc.ID) NSTask {
 //
 // # Instance Properties
 //
-//   - [INSTask.LaunchRequirement]
-//   - [INSTask.SetLaunchRequirement]
 //   - [INSTask.LaunchRequirementData]
 //   - [INSTask.SetLaunchRequirementData]
 //
@@ -272,8 +268,6 @@ type INSTask interface {
 
 	// Topic: Instance Properties
 
-	LaunchRequirement() unsafe.Pointer
-	SetLaunchRequirement(value unsafe.Pointer)
 	LaunchRequirementData() INSData
 	SetLaunchRequirementData(value INSData)
 }
@@ -325,7 +319,8 @@ func (t NSTask) LaunchAndReturnError() (bool, error) {
 // this method raises an [NSInvalidArgumentException].
 //
 // It isn’t always possible to interrupt the receiver because it might be
-// ignoring the interrupt signal. The [Interrupt] method sends [SIGINT].
+// ignoring the interrupt signal. The [NSTask.Interrupt] method sends
+// [SIGINT].
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/interrupt()
 //
@@ -342,8 +337,9 @@ func (t NSTask) Interrupt() {
 //
 // # Discussion
 //
-// If the system sent multiple [Suspend] messages to the receiver, an equal
-// number of [Resume] messages must be sent before the task resumes execution.
+// If the system sent multiple [NSTask.Suspend] messages to the receiver, an
+// equal number of [NSTask.Resume] messages must be sent before the task
+// resumes execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/resume()
 func (t NSTask) Resume() bool {
@@ -359,8 +355,9 @@ func (t NSTask) Resume() bool {
 //
 // # Discussion
 //
-// Multiple [Suspend] messages can be sent, but they must be balanced with an
-// equal number of [Resume] messages before the task resumes execution.
+// Multiple [NSTask.Suspend] messages can be sent, but they must be balanced
+// with an equal number of [NSTask.Resume] messages before the task resumes
+// execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/suspend()
 func (t NSTask) Suspend() bool {
@@ -379,7 +376,8 @@ func (t NSTask) Suspend() bool {
 // this method raises an [NSInvalidArgumentException].
 //
 // It’s not always possible to terminate the receiver because it might be
-// ignoring the terminate signal. The [Terminate] method sends [SIGTERM].
+// ignoring the terminate signal. The [NSTask.Terminate] method sends
+// [SIGTERM].
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/terminate()
 //
@@ -393,11 +391,12 @@ func (t NSTask) Terminate() {
 // # Discussion
 //
 // This method first checks to see if the receiver is still running using
-// [Running]. Then it polls the current run loop using [NSDefaultRunLoopMode]
-// until the task completes.
+// [NSTask.Running]. Then it polls the current run loop using
+// [NSDefaultRunLoopMode] until the task completes.
 //
-// [WaitUntilExit] does not guarantee that the [TerminationHandler] block has
-// been fully executed before [WaitUntilExit] returns.
+// [NSTask.WaitUntilExit] does not guarantee that the
+// [NSTask.TerminationHandler] block has been fully executed before
+// [NSTask.WaitUntilExit] returns.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/waitUntilExit()
 func (t NSTask) WaitUntilExit() {
@@ -491,10 +490,10 @@ func (t NSTask) TerminationReason() NSTaskTerminationReason {
 // # Discussion
 //
 // The [NSTask] object converts both `path` and the strings in `arguments` to
-// appropriate C-style strings (using [FileSystemRepresentation]) before
-// passing them to the task through `argv[]`. The strings in `arguments`
-// don’t undergo shell expansion, so you don’t need to do special quoting,
-// and shell variables, such as `$PWD`, aren’t resolved.
+// appropriate C-style strings (using [NSString.FileSystemRepresentation])
+// before passing them to the task through `argv[]`. The strings in
+// `arguments` don’t undergo shell expansion, so you don’t need to do
+// special quoting, and shell variables, such as `$PWD`, aren’t resolved.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/arguments
 func (t NSTask) Arguments() []string {
@@ -629,8 +628,8 @@ func (t NSTask) SetStandardOutput(value objectivec.IObject) {
 // The system passes the task object to the block to allow access to the task
 // parameters, for example to determine if the task completed successfully.
 //
-// This block isn’t guaranteed to be fully executed prior to [WaitUntilExit]
-// returning.
+// This block isn’t guaranteed to be fully executed prior to
+// [NSTask.WaitUntilExit] returning.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/terminationHandler
 func (t NSTask) TerminationHandler() TaskHandler {
@@ -670,15 +669,6 @@ func (t NSTask) LaunchPath() string {
 }
 func (t NSTask) SetLaunchPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchPath:"), objc.String(value))
-}
-
-// See: https://developer.apple.com/documentation/foundation/process/launchrequirement
-func (t NSTask) LaunchRequirement() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("launchRequirement"))
-	return rv
-}
-func (t NSTask) SetLaunchRequirement(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirement:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/Process/launchRequirementData

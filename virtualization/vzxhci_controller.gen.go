@@ -47,8 +47,9 @@ func (vc VZXHCIControllerClass) Alloc() VZXHCIController {
 // # Overview
 //
 // Don’t create [VZXHCIController] objects directly. Instead, you create a
-// [VZXHCIController] object at runtime though the [VZXHCIController.UsbControllers] property
-// of the [VZVirtualMachineConfiguration] object by populating it with
+// [VZXHCIController] object at runtime though the
+// [VZVirtualMachineConfiguration.UsbControllers] property of the
+// [VZVirtualMachineConfiguration] object by populating it with
 // [VZXHCIControllerConfiguration] objects.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController

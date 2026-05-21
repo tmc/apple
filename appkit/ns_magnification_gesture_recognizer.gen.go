@@ -52,7 +52,7 @@ func (nc NSMagnificationGestureRecognizerClass) Alloc() NSMagnificationGestureRe
 // stores the resulting magnification value for you to use in your code.
 //
 // This gesture recognizer automatically sets the value of the
-// [NSMagnificationGestureRecognizer.DelaysMagnificationEvents] property to true.
+// [NSGestureRecognizer.DelaysMagnificationEvents] property to true.
 //
 // # Finding the Magnification Factor
 //

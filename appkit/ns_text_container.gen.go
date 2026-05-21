@@ -222,7 +222,7 @@ type INSTextContainer interface {
 	// Initializes a text container with a specified bounding rectangle.
 	InitWithContainerSize(aContainerSize corefoundation.CGSize) NSTextContainer
 	// Calculates and returns the longest rectangle available in the proposed rectangle for displaying text.
-	LineFragmentRectForProposedRectSweepDirectionMovementDirectionRemainingRect(proposedRect corefoundation.CGRect, sweepDirection NSLineSweepDirection, movementDirection NSLineMovementDirection, remainingRect foundation.NSRect) corefoundation.CGRect
+	LineFragmentRectForProposedRectSweepDirectionMovementDirectionRemainingRect(proposedRect corefoundation.CGRect, sweepDirection NSLineSweepDirection, movementDirection NSLineMovementDirection, remainingRect foundation.NSRectPointer) corefoundation.CGRect
 	// The size of the text container’s bounding rectangle.
 	ContainerSize() corefoundation.CGSize
 	SetContainerSize(value corefoundation.CGSize)
@@ -340,8 +340,8 @@ func (t NSTextContainer) InitWithCoder(coder foundation.INSCoder) NSTextContaine
 //
 // The framework reassigns all text containers and text views attached to the
 // old layout manager to the new layout manager. Unlike setting the
-// [LayoutManager] property directly, this method makes all the adjustments
-// necessary to keep the text object relationships intact.
+// [NSTextContainer.LayoutManager] property directly, this method makes all
+// the adjustments necessary to keep the text object relationships intact.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/replaceLayoutManager(_:)
 func (t NSTextContainer) ReplaceLayoutManager(newLayoutManager INSLayoutManager) {
@@ -441,7 +441,7 @@ func (t NSTextContainer) InitWithContainerSize(aContainerSize corefoundation.CGS
 // indicate that the proposed rectangle simply doesn’t fit.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/lineFragmentRect(forProposedRect:sweepDirection:movementDirection:remaining:)
-func (t NSTextContainer) LineFragmentRectForProposedRectSweepDirectionMovementDirectionRemainingRect(proposedRect corefoundation.CGRect, sweepDirection NSLineSweepDirection, movementDirection NSLineMovementDirection, remainingRect foundation.NSRect) corefoundation.CGRect {
+func (t NSTextContainer) LineFragmentRectForProposedRectSweepDirectionMovementDirectionRemainingRect(proposedRect corefoundation.CGRect, sweepDirection NSLineSweepDirection, movementDirection NSLineMovementDirection, remainingRect foundation.NSRectPointer) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("lineFragmentRectForProposedRect:sweepDirection:movementDirection:remainingRect:"), proposedRect, sweepDirection, movementDirection, remainingRect)
 	return corefoundation.CGRect(rv)
 }
@@ -462,10 +462,10 @@ func (t NSTextContainer) EncodeWithCoder(coder foundation.INSCoder) {
 // # Discussion
 //
 // Avoid assigning a layout manager directly through this property. Instead,
-// use the [ReplaceLayoutManager] method when you want to replace the layout
-// manager. The framework sets the value of this property automatically when
-// you add a text container to your layout manager using the
-// [AddTextContainer] method.
+// use the [NSTextContainer.ReplaceLayoutManager] method when you want to
+// replace the layout manager. The framework sets the value of this property
+// automatically when you add a text container to your layout manager using
+// the [NSLayoutManager.AddTextContainer] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/layoutManager
 func (t NSTextContainer) LayoutManager() INSLayoutManager {
@@ -507,8 +507,8 @@ func (t NSTextContainer) SetTextView(value INSTextView) {
 // # Discussion
 //
 // This property defines the maximum size for the layout area returned from
-// [LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect]. A
-// value of `0.0` or less means no limitation.
+// [NSTextContainer.LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect].
+// A value of `0.0` or less means no limitation.
 //
 // If you don’t specify an explicit size when you initialize a text
 // container, the system uses a default large size of (`10000000.0`,
@@ -663,9 +663,10 @@ func (t NSTextContainer) SetLineFragmentPadding(value float64) {
 // The value of this property is true when the text container’s region is a
 // rectangle with no holes or gaps and the edges are parallel to the text
 // view’s coordinate system axes. The default value of this property is
-// false when the [ExclusionPaths] property contains one or more items, when
-// the [MaximumNumberOfLines] property is not zero, or when you override the
-// [LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect]
+// false when the [NSTextContainer.ExclusionPaths] property contains one or
+// more items, when the [NSTextContainer.MaximumNumberOfLines] property is not
+// zero, or when you override the
+// [NSTextContainer.LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect]
 // method. Otherwise, the default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/isSimpleRectangularTextContainer

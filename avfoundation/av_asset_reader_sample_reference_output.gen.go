@@ -5,8 +5,6 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,18 +47,18 @@ func (ac AVAssetReaderSampleReferenceOutputClass) Alloc() AVAssetReaderSampleRef
 //
 // Apps can extract information about the location of samples in a track —
 // the file URL and offset — by adding an instance of this class to an asset
-// reader. Read the [KCMSampleBufferAttachmentKey_SampleReferenceURL] and
-// [KCMSampleBufferAttachmentKey_SampleReferenceByteOffset] attachments on the
+// reader. Read the [kCMSampleBufferAttachmentKey_SampleReferenceURL] and
+// [kCMSampleBufferAttachmentKey_SampleReferenceByteOffset] attachments on the
 // extracted sample buffers to get the location of the sample data.
 //
 // You can also append sample buffers that you extract using this class to an
 // [AVAssetWriterInput] instance to create movie tracks that aren’t
 // self-contained and reference data in the original file instead. To write
 // tracks that aren’t self-contained, use instances of [AVAssetWriter] that
-// you configure to write files of type [AVAssetReaderSampleReferenceOutput.Mov].
+// you configure to write files of type [mov].
 //
 // Because this output doesn’t return sample data, it ignores the value of
-// the [AVAssetReaderSampleReferenceOutput.AlwaysCopiesSampleData] property.
+// the [alwaysCopiesSampleData] property.
 //
 // # Creating a sample reference output
 //
@@ -71,6 +69,11 @@ func (ac AVAssetReaderSampleReferenceOutputClass) Alloc() AVAssetReaderSampleRef
 //   - [AVAssetReaderSampleReferenceOutput.Track]: The track from which the output reads sample references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderSampleReferenceOutput
+//
+// [alwaysCopiesSampleData]: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderOutput/alwaysCopiesSampleData
+// [kCMSampleBufferAttachmentKey_SampleReferenceByteOffset]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceByteOffset
+// [kCMSampleBufferAttachmentKey_SampleReferenceURL]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceURL
+// [mov]: https://developer.apple.com/documentation/AVFoundation/AVFileType/mov
 type AVAssetReaderSampleReferenceOutput struct {
 	AVAssetReaderOutput
 }
@@ -108,16 +111,6 @@ type IAVAssetReaderSampleReferenceOutput interface {
 
 	// The track from which the output reads sample references.
 	Track() IAVAssetTrack
-
-	// A Boolean value that indicates whether the output vends copied sample data.
-	AlwaysCopiesSampleData() bool
-	SetAlwaysCopiesSampleData(value bool)
-	// Indicates the byte offset at which the sample data begins (type `CFNumber`).
-	KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFString
-	// Indicates the URL where the sample data is (type `CFURL`).
-	KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFString
-	// The UTI for the QuickTime movie file format.
-	Mov() AVFileType
 }
 
 // Init initializes the instance.
@@ -180,40 +173,4 @@ func (_AVAssetReaderSampleReferenceOutputClass AVAssetReaderSampleReferenceOutpu
 func (a AVAssetReaderSampleReferenceOutput) Track() IAVAssetTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("track"))
 	return AVAssetTrackFromID(objc.ID(rv))
-}
-
-// A Boolean value that indicates whether the output vends copied sample data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetreaderoutput/alwayscopiessampledata
-func (a AVAssetReaderSampleReferenceOutput) AlwaysCopiesSampleData() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("alwaysCopiesSampleData"))
-	return rv
-}
-func (a AVAssetReaderSampleReferenceOutput) SetAlwaysCopiesSampleData(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAlwaysCopiesSampleData:"), value)
-}
-
-// Indicates the byte offset at which the sample data begins (type
-// `CFNumber`).
-//
-// See: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceByteOffset
-func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFString {
-	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceByteOffset"))
-	return corefoundation.CFString(rv)
-}
-
-// Indicates the URL where the sample data is (type `CFURL`).
-//
-// See: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceURL
-func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFString {
-	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceURL"))
-	return corefoundation.CFString(rv)
-}
-
-// The UTI for the QuickTime movie file format.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avfiletype/mov
-func (a AVAssetReaderSampleReferenceOutput) Mov() AVFileType {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVFileTypeQuickTimeMovie"))
-	return AVFileType(foundation.NSStringFromID(rv).String())
 }

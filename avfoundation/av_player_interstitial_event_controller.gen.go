@@ -108,8 +108,8 @@ type IAVPlayerInterstitialEventController interface {
 	// Topic: Accessing strings
 
 	// The bundle that contains the localized strings to be used by the AVPlayerInterstitialEventController.
-	LocalizedStringsBundle() foundation.NSBundle
-	SetLocalizedStringsBundle(value foundation.NSBundle)
+	LocalizedStringsBundle() foundation.Bundle
+	SetLocalizedStringsBundle(value foundation.Bundle)
 	// The name of the table in the bundle that contains the localized strings to be used by the AVPlayerInterstitialEventController.
 	LocalizedStringsTableName() string
 	SetLocalizedStringsTableName(value string)
@@ -155,8 +155,8 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 // # Discussion
 //
 // When you cancel interstitial events using this method, the resumption
-// offset value that you specify overrides the events’s [ResumptionOffset]
-// value.
+// offset value that you specify overrides the events’s
+// [AVPlayerInterstitialEvent.ResumptionOffset] value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventController/cancelCurrentEvent(withResumptionOffset:)
 func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset coremedia.CMTime) {
@@ -202,11 +202,11 @@ func (_AVPlayerInterstitialEventControllerClass AVPlayerInterstitialEventControl
 // that provides localized translations of skip control labels.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventController/localizedStringsBundle
-func (p AVPlayerInterstitialEventController) LocalizedStringsBundle() foundation.NSBundle {
+func (p AVPlayerInterstitialEventController) LocalizedStringsBundle() foundation.Bundle {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("localizedStringsBundle"))
-	return foundation.NSBundleFromID(objc.ID(rv))
+	return foundation.BundleFromID(objc.ID(rv))
 }
-func (p AVPlayerInterstitialEventController) SetLocalizedStringsBundle(value foundation.NSBundle) {
+func (p AVPlayerInterstitialEventController) SetLocalizedStringsBundle(value foundation.Bundle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLocalizedStringsBundle:"), value)
 }
 

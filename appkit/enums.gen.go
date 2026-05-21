@@ -254,7 +254,7 @@ const (
 	NSWorkspaceErrorMinimum              NS = 67328
 	// Deprecated.
 	NSAnyType NS = 0
-	// Deprecated.
+	// Deprecated: use NSApplication.ModalResponse.cancel.
 	NSCancelButton NS = 0
 	// Deprecated.
 	NSDoubleType NS = 6
@@ -270,7 +270,7 @@ const (
 	NSNoInterfaceStyle NS = 0
 	// Deprecated.
 	NSNoUnderlineStyle NS = 0
-	// Deprecated.
+	// Deprecated: use NSApplication.ModalResponse.OK.
 	NSOKButton NS = 0
 	// Deprecated.
 	NSPositiveDoubleType NS = 7
@@ -1258,9 +1258,9 @@ type NSBackingStoreType uint
 const (
 	// NSBackingStoreBuffered: The window renders all drawing into a display buffer and then flushes it to the screen.
 	NSBackingStoreBuffered NSBackingStoreType = 2
-	// Deprecated.
+	// Deprecated: use NSBackingStoreBuffered.
 	NSBackingStoreNonretained NSBackingStoreType = 1
-	// Deprecated.
+	// Deprecated: use NSBackingStoreBuffered.
 	NSBackingStoreRetained NSBackingStoreType = 0
 )
 
@@ -1307,23 +1307,23 @@ const (
 	NSBezelStyleSmallSquare NSBezelStyle = 10
 	// NSBezelStyleToolbar: A button style that’s appropriate for a toolbar item.
 	NSBezelStyleToolbar NSBezelStyle = 11
-	// Deprecated.
+	// Deprecated: use NSBezelStyleBadge.
 	NSBezelStyleInline NSBezelStyle = 15
-	// Deprecated.
+	// Deprecated: use NSBezelStyleAccessoryBar.
 	NSBezelStyleRecessed NSBezelStyle = 13
-	// Deprecated.
+	// Deprecated: use NSBezelStyleFlexiblePush.
 	NSBezelStyleRegularSquare NSBezelStyle = 2
-	// Deprecated.
+	// Deprecated: use NSBezelStyleAccessoryBarAction.
 	NSBezelStyleRoundRect NSBezelStyle = 12
-	// Deprecated.
+	// Deprecated: use NSBezelStylePush.
 	NSBezelStyleRounded NSBezelStyle = 1
-	// Deprecated.
+	// Deprecated: use NSBezelStylePushDisclosure.
 	NSBezelStyleRoundedDisclosure NSBezelStyle = 14
-	// Deprecated.
+	// Deprecated: use NSBezelStyleSmallSquare.
 	NSBezelStyleShadowlessSquare NSBezelStyle = 6
-	// Deprecated.
+	// Deprecated: use NSBezelStyleToolbar.
 	NSBezelStyleTexturedRounded NSBezelStyle = 11
-	// Deprecated.
+	// Deprecated: use NSBezelStyleSmallSquare.
 	NSBezelStyleTexturedSquare NSBezelStyle = 8
 )
 
@@ -1376,7 +1376,7 @@ const (
 	// NSBezierPathElementMoveTo: Moves the path object’s current drawing point to the specified point.
 	NSBezierPathElementMoveTo           NSBezierPathElement = 0
 	NSBezierPathElementQuadraticCurveTo NSBezierPathElement = 4
-	// Deprecated.
+	// Deprecated: use NSBezierPathElementCubicCurveTo.
 	NSBezierPathElementCurveTo NSBezierPathElement = 2
 )
 
@@ -3621,9 +3621,9 @@ func (e NSEventType) String() string {
 type NSFileHandlingPanel uint
 
 const (
-	// Deprecated.
+	// Deprecated: use NSApplication.ModalResponse.cancel.
 	NSFileHandlingPanelCancelButton NSFileHandlingPanel = 0
-	// Deprecated.
+	// Deprecated: use NSApplication.ModalResponse.OK.
 	NSFileHandlingPanelOKButton NSFileHandlingPanel = 0
 )
 
@@ -6359,9 +6359,9 @@ func (e NSPrinterTableStatus) String() string {
 type NSPrintingOrientation uint
 
 const (
-	// Deprecated.
+	// Deprecated: use NSPrintInfo.PaperOrientation.landscape.
 	NSLandscapeOrientation NSPrintingOrientation = 1
-	// Deprecated.
+	// Deprecated: use NSPrintInfo.PaperOrientation.portrait.
 	NSPortraitOrientation NSPrintingOrientation = 0
 )
 

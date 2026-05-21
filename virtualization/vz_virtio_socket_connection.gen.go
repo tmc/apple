@@ -53,9 +53,9 @@ func (vc VZVirtioSocketConnectionClass) Alloc() VZVirtioSocketConnection {
 // the virtual machine creates the connection object and passes it to the
 // appropriate [VZVirtioSocketListener] object, which forwards the object to
 // its delegate. When the virtual machine opens a connection to a guest port,
-// the [ConnectToPortCompletionHandler] method (Objective-C) or
-// [connect(toPort:completionHandler:)] method (Swift) pass the connection
-// object to your completion handler.
+// the [VZVirtioSocketDevice.ConnectToPortCompletionHandler] method
+// (Objective-C) or [connect(toPort:completionHandler:)] method (Swift) pass
+// the connection object to your completion handler.
 //
 // # Getting the connection details
 //

@@ -66,14 +66,15 @@ func (nc NSInvocationClass) Alloc() NSInvocation {
 //
 // [NSInvocation] does not support invocations of methods with either variable
 // numbers of arguments or `union` arguments. You should use the
-// [NSInvocation.InvocationWithMethodSignature] class method to create [NSInvocation]
-// objects; you should not create these objects using [alloc] and [init()].
+// [NSInvocationClass.InvocationWithMethodSignature] class method to create
+// [NSInvocation] objects; you should not create these objects using [alloc]
+// and [init()].
 //
 // This class does not retain the arguments for the contained invocation by
 // default. If those objects might disappear between the time you create your
 // instance of [NSInvocation] and the time you use it, you should explicitly
-// retain the objects yourself or invoke the [NSInvocation.RetainArguments] method to have
-// the invocation object retain them itself.
+// retain the objects yourself or invoke the [NSInvocation.RetainArguments]
+// method to have the invocation object retain them itself.
 //
 // # Configuring an Invocation Object
 //
@@ -154,8 +155,8 @@ type INSInvocation interface {
 	// Topic: Configuring an Invocation Object
 
 	// The receiver’s selector, or 0 if it hasn’t been set.
-	Selector() objc.SEL
-	SetSelector(value objc.SEL)
+	Selector() objectivec.SEL
+	SetSelector(value objectivec.SEL)
 	// The receiver’s target, or `nil` if the receiver has no target.
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
@@ -216,9 +217,9 @@ func NewNSInvocation() NSInvocation {
 // idx: An integer specifying the index of the argument.
 //
 // Indices 0 and 1 indicate the hidden arguments `self` and `_cmd`,
-// respectively; you should set these values directly with the [Target] and
-// [Selector] properties. Use indices 2 and greater for the arguments normally
-// passed in a message.
+// respectively; you should set these values directly with the
+// [NSInvocation.Target] and [NSInvocation.Selector] properties. Use indices 2
+// and greater for the arguments normally passed in a message.
 //
 // # Discussion
 //
@@ -258,13 +259,16 @@ func (i NSInvocation) SetArgumentAtIndex(argumentLocation unsafe.Pointer, idx in
 // In the following example, `myInvocation` represents a call to a
 // two-argument method called “ in a class called [MyClass], which takes an
 // [NSMutableString] and an `int`. The example performs the invocation with
-// [Invoke], then retrieves the first argument with [GetArgumentAtIndex] and
-// copies it to a strongly-held property called `myObject`.
+// [NSInvocation.Invoke], then retrieves the first argument with
+// [NSInvocation.GetArgumentAtIndex] and copies it to a strongly-held property
+// called `myObject`.
 //
-// This method raises [InvalidArgumentException] if `index` is greater than
+// This method raises [invalidArgumentException] if `index` is greater than
 // the actual number of arguments for the selector.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/getArgument:atIndex:
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (i NSInvocation) GetArgumentAtIndex(argumentLocation unsafe.Pointer, idx int) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getArgument:atIndex:"), argumentLocation, idx)
 }
@@ -275,8 +279,8 @@ func (i NSInvocation) GetArgumentAtIndex(argumentLocation unsafe.Pointer, idx in
 //
 // # Discussion
 //
-// Before this method is invoked, [ArgumentsRetained] returns false; after, it
-// returns true.
+// Before this method is invoked, [NSInvocation.ArgumentsRetained] returns
+// false; after, it returns true.
 //
 // For efficiency, newly created [NSInvocation] objects don’t retain or copy
 // their arguments, nor do they retain their targets, copy C strings, or copy
@@ -298,8 +302,8 @@ func (i NSInvocation) RetainArguments() {
 //
 // # Discussion
 //
-// This value is normally set when you send an [Invoke] or [InvokeWithTarget]
-// message.
+// This value is normally set when you send an [NSInvocation.Invoke] or
+// [NSInvocation.InvokeWithTarget] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/setReturnValue:
 func (i NSInvocation) SetReturnValue(retLoc unsafe.Pointer) {
@@ -314,16 +318,17 @@ func (i NSInvocation) SetReturnValue(retLoc unsafe.Pointer) {
 //
 // # Discussion
 //
-// Use the [NSMethodSignature] method [MethodReturnLength] to determine the
-// size needed for `buffer`:
+// Use the [NSMethodSignature] method [NSMethodSignature.MethodReturnLength]
+// to determine the size needed for `buffer`:
 //
 // When the return value is an object, pass a pointer to the variable (or
 // memory) into which [NSInvocation] should place the object. In the following
 // example, `myInvocation` represents a call to a no-argument method called
 // `createReturnValue` in a class called [MyClass], which returns an
-// [NSMutableString]. The example performs the invocation with [Invoke], then
-// retrieves the object with [GetReturnValue] and copies it to a strongly-held
-// property called `myObject`.
+// [NSMutableString]. The example performs the invocation with
+// [NSInvocation.Invoke], then retrieves the object with
+// [NSInvocation.GetReturnValue] and copies it to a strongly-held property
+// called `myObject`.
 //
 // If you haven’t invoked the [NSInvocation] object, the result of this
 // method is undefined.
@@ -374,8 +379,9 @@ func (i NSInvocation) InvokeUsingIMP(imp objectivec.IMP) {
 // # Discussion
 //
 // The new object must have its selector set with [NSInvocation] and its
-// arguments set with [SetArgumentAtIndex] before it can be invoked. Do not
-// use the [alloc]/[init()] approach to create [NSInvocation] objects.
+// arguments set with [NSInvocation.SetArgumentAtIndex] before it can be
+// invoked. Do not use the [alloc]/[init()] approach to create [NSInvocation]
+// objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/invocationWithMethodSignature:
 //
@@ -389,11 +395,11 @@ func (_NSInvocationClass NSInvocationClass) InvocationWithMethodSignature(sig IN
 // The receiver’s selector, or 0 if it hasn’t been set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/selector
-func (i NSInvocation) Selector() objc.SEL {
-	rv := objc.Send[objc.SEL](i.ID, objc.Sel("selector"))
-	return rv
+func (i NSInvocation) Selector() objectivec.SEL {
+	rv := objc.Send[objectivec.SEL](i.ID, objc.Sel("selector"))
+	return objectivec.SEL(rv)
 }
-func (i NSInvocation) SetSelector(value objc.SEL) {
+func (i NSInvocation) SetSelector(value objectivec.SEL) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSelector:"), value)
 }
 
@@ -401,7 +407,7 @@ func (i NSInvocation) SetSelector(value objc.SEL) {
 //
 // # Discussion
 //
-// The target is the receiver of the message sent by [Invoke].
+// The target is the receiver of the message sent by [NSInvocation.Invoke].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/target
 func (i NSInvocation) Target() objectivec.IObject {

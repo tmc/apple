@@ -55,9 +55,9 @@ func (uc UnitDurationClass) Alloc() UnitDuration {
 // Duration is also commonly expressed in terms of minutes (min) and hours
 // (hr).
 //
-// The [NSUnitDuration] class defines its [BaseUnit] as [Seconds], and
-// provides the following units, which [NSUnitConverterLinear] converters
-// initialize with the given coefficients:
+// The [NSUnitDuration] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitDurationClass.Seconds], and provides the following units, which
+// [NSUnitConverterLinear] converters initialize with the given coefficients:
 //
 // [Table data omitted]
 //

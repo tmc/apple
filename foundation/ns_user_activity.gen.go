@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,18 +63,19 @@ func (nc NSUserActivityClass) Alloc() NSUserActivity {
 //
 // If SiriKit needs to launch your app for any reason, it creates a user
 // activity object and assigns an appropriate [INInteraction] object to its
-// [NSUserActivity.Interaction] property. Your app can use the interaction information to
-// configure itself and display information related to the interaction started
-// by SiriKit. You can also provide SiriKit with a custom user activity object
-// containing additional data that you want passed to your app.
+// [NSUserActivity.Interaction] property. Your app can use the interaction
+// information to configure itself and display information related to the
+// interaction started by SiriKit. You can also provide SiriKit with a custom
+// user activity object containing additional data that you want passed to
+// your app.
 //
 // In iOS 15 and later, a person can share content they’re viewing by asking
 // Siri to “share this”. Apps built with Mac Catalyst provide the same
 // capability with an [NSSharingServicePickerToolbarItem] in the toolbar. You
-// can use [NSUserActivity.ActivityItemsConfiguration] or [NSUserActivity.ActivityItemsConfigurationSource]
+// can use [activityItemsConfiguration] or [activityItemsConfigurationSource]
 // to provide shareable content. In iOS, if both of those properties are nil,
-// Siri uses the [NSUserActivity.WebpageURL] property of your app’s current user activity
-// as a fallback value.
+// Siri uses the [NSUserActivity.WebpageURL] property of your app’s current
+// user activity as a fallback value.
 //
 // # Quick Note
 //
@@ -81,30 +83,32 @@ func (nc NSUserActivityClass) Alloc() NSUserActivity {
 // [NSUserActivity]. To appear as a link, the content must be the app’s
 // current activity, and provide at least one of the following identifiers:
 //
-// [NSUserActivity.WebpageURL]: An “ URL, ideally in a canonical form that’s consistent
-// every time a person visits the same content. [NSUserActivity.PersistentIdentifier]: A
-// string that uniquely identifies the content in this domain. The identifier
-// should identify the same content across devices. [NSUserActivity.TargetContentIdentifier]:
-// A string that uniquely identifies the content in this domain, but also
-// allows disambiguating between multiple scenes of an app. The identifier
-// should identify the same content across devices.
+// [NSUserActivity.WebpageURL]: An “ URL, ideally in a canonical form
+// that’s consistent every time a person visits the same content.
+// [NSUserActivity.PersistentIdentifier]: A string that uniquely identifies
+// the content in this domain. The identifier should identify the same content
+// across devices. [NSUserActivity.TargetContentIdentifier]: A string that
+// uniquely identifies the content in this domain, but also allows
+// disambiguating between multiple scenes of an app. The identifier should
+// identify the same content across devices.
 //
 // To work well with Quick Note, content must adhere to the following
 // guidelines:
 //
-// - The activity [NSUserActivity.Title] should be clear and concise. This text describes the
-// content of the link, like “Photo taken on July 27, 2020” or
-// “Conversation with Maria”. Use nouns for activity titles. - Keep the
-// app’s current activity up to date, using [NSUserActivity.BecomeCurrent] and
-// [NSUserActivity.ResignCurrent]. - Linkable identifiers (listed above) must be stable and
-// consistent for the same content. When you link from a note to a document in
-// an app, and later revisit that document, the system shows an indicator
-// linking back to the note. The system compares identifiers to check that the
-// document is the same as the original source of the link. - Maintain support
-// for activities provided by your app, and support navigating to linked
-// content indefinitely. Links added to notes are important to people, who may
-// feel that a broken link indicates data loss. - Gracefully handle attempts
-// to navigate to an activity that points to content that doesn’t exist. For
+// - The activity [NSUserActivity.Title] should be clear and concise. This
+// text describes the content of the link, like “Photo taken on July 27,
+// 2020” or “Conversation with Maria”. Use nouns for activity titles. -
+// Keep the app’s current activity up to date, using
+// [NSUserActivity.BecomeCurrent] and [NSUserActivity.ResignCurrent]. -
+// Linkable identifiers (listed above) must be stable and consistent for the
+// same content. When you link from a note to a document in an app, and later
+// revisit that document, the system shows an indicator linking back to the
+// note. The system compares identifiers to check that the document is the
+// same as the original source of the link. - Maintain support for activities
+// provided by your app, and support navigating to linked content
+// indefinitely. Links added to notes are important to people, who may feel
+// that a broken link indicates data loss. - Gracefully handle attempts to
+// navigate to an activity that points to content that doesn’t exist. For
 // example, you can redirect to the new location of moved content, or show an
 // error message. This situation may happen with shared notes, when a person
 // links to content that exists only on another person’s device.
@@ -112,19 +116,19 @@ func (nc NSUserActivityClass) Alloc() NSUserActivity {
 // # Search results
 //
 // If your [NSUserActivity] objects contain information that a person might
-// want to search for later, set the [NSUserActivity.EligibleForSearch] property to true.
-// When you enable search, Spotlight indexes your user activity objects and
-// considers them during subsequent on-device searches. For example, if a
-// person viewed information about a particular restaurant in your app,
-// you’d enable search for the corresponding user activity object.
-// Subsequent searches for restaurants using Spotlight could then include the
-// results obtained from your user activity object.
+// want to search for later, set the [NSUserActivity.EligibleForSearch]
+// property to true. When you enable search, Spotlight indexes your user
+// activity objects and considers them during subsequent on-device searches.
+// For example, if a person viewed information about a particular restaurant
+// in your app, you’d enable search for the corresponding user activity
+// object. Subsequent searches for restaurants using Spotlight could then
+// include the results obtained from your user activity object.
 //
 // In addition to on-device searches, you can contribute URLs accessed by your
 // app with the global Spotlight search engine. Sharing a URL helps Spotlight
 // improve its own search results for other people. To contribute a URL, put
-// the URL in the [NSUserActivity.WebpageURL] property of your activity object and set the
-// [NSUserActivity.EligibleForPublicIndexing] property to true.
+// the URL in the [NSUserActivity.WebpageURL] property of your activity object
+// and set the [NSUserActivity.EligibleForPublicIndexing] property to true.
 //
 // Employ user activity objects to record user-initiated activities, not as a
 // general-purpose indexing mechanism of your app’s data. To index all of
@@ -214,37 +218,14 @@ func (nc NSUserActivityClass) Alloc() NSUserActivity {
 //   - [NSUserActivity.IsClassKitDeepLink]: A Boolean value that indicates whether a user activity represents a ClassKit context.
 //   - [NSUserActivity.ContextIdentifierPath]: The identifier path associated with a user activity generated by an app that adopts ClassKit.
 //
-// # Identifying activity types
-//
-//   - [NSUserActivity.NSUserActivityTypeBrowsingWeb]: An activity that continues from Handoff or a universal link.
-//   - [NSUserActivity.TVUserActivityTypeBrowsingChannelGuide]: An activity for viewing your app’s channel guide.
-//
-// # Reporting errors
-//
-//   - [NSUserActivity.NSUserActivityConnectionUnavailableError]: The user activity couldn’t be continued because a required connection wasn’t available.
-//   - [NSUserActivity.SetNSUserActivityConnectionUnavailableError]
-//   - [NSUserActivity.NSUserActivityErrorMaximum]: The end of the range of error codes reserved for user activity errors.
-//   - [NSUserActivity.SetNSUserActivityErrorMaximum]
-//   - [NSUserActivity.NSUserActivityErrorMinimum]: The start of the range of error codes reserved for user activity errors.
-//   - [NSUserActivity.SetNSUserActivityErrorMinimum]
-//   - [NSUserActivity.NSUserActivityHandoffFailedError]: The data for the user activity wasn’t available.
-//   - [NSUserActivity.SetNSUserActivityHandoffFailedError]
-//   - [NSUserActivity.NSUserActivityHandoffUserInfoTooLargeError]: The user info dictionary was too large to receive.
-//   - [NSUserActivity.SetNSUserActivityHandoffUserInfoTooLargeError]
-//   - [NSUserActivity.NSUserActivityRemoteApplicationTimedOutError]: The remote application failed to send data within the specified time.
-//   - [NSUserActivity.SetNSUserActivityRemoteApplicationTimedOutError]
-//
-// # Instance Properties
-//
-//   - [NSUserActivity.AppEntityIdentifier]: The identifier of an app entity that you associate with the user activity.
-//   - [NSUserActivity.SetAppEntityIdentifier]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity
 //
 // [Core Spotlight]: https://developer.apple.com/documentation/CoreSpotlight
 // [INInteraction]: https://developer.apple.com/documentation/Intents/INInteraction
 // [Implementing Handoff in Your App]: https://developer.apple.com/documentation/Foundation/implementing-handoff-in-your-app
 // [NSSharingServicePickerToolbarItem]: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerToolbarItem
+// [activityItemsConfigurationSource]: https://developer.apple.com/documentation/UIKit/UIWindowScene/activityItemsConfigurationSource
+// [activityItemsConfiguration]: https://developer.apple.com/documentation/UIKit/UIActivityItemsConfigurationProviding/activityItemsConfiguration
 type NSUserActivity struct {
 	objectivec.Object
 }
@@ -343,31 +324,6 @@ func NSUserActivityFromID(id objc.ID) NSUserActivity {
 //
 //   - [INSUserActivity.IsClassKitDeepLink]: A Boolean value that indicates whether a user activity represents a ClassKit context.
 //   - [INSUserActivity.ContextIdentifierPath]: The identifier path associated with a user activity generated by an app that adopts ClassKit.
-//
-// # Identifying activity types
-//
-//   - [INSUserActivity.NSUserActivityTypeBrowsingWeb]: An activity that continues from Handoff or a universal link.
-//   - [INSUserActivity.TVUserActivityTypeBrowsingChannelGuide]: An activity for viewing your app’s channel guide.
-//
-// # Reporting errors
-//
-//   - [INSUserActivity.NSUserActivityConnectionUnavailableError]: The user activity couldn’t be continued because a required connection wasn’t available.
-//   - [INSUserActivity.SetNSUserActivityConnectionUnavailableError]
-//   - [INSUserActivity.NSUserActivityErrorMaximum]: The end of the range of error codes reserved for user activity errors.
-//   - [INSUserActivity.SetNSUserActivityErrorMaximum]
-//   - [INSUserActivity.NSUserActivityErrorMinimum]: The start of the range of error codes reserved for user activity errors.
-//   - [INSUserActivity.SetNSUserActivityErrorMinimum]
-//   - [INSUserActivity.NSUserActivityHandoffFailedError]: The data for the user activity wasn’t available.
-//   - [INSUserActivity.SetNSUserActivityHandoffFailedError]
-//   - [INSUserActivity.NSUserActivityHandoffUserInfoTooLargeError]: The user info dictionary was too large to receive.
-//   - [INSUserActivity.SetNSUserActivityHandoffUserInfoTooLargeError]
-//   - [INSUserActivity.NSUserActivityRemoteApplicationTimedOutError]: The remote application failed to send data within the specified time.
-//   - [INSUserActivity.SetNSUserActivityRemoteApplicationTimedOutError]
-//
-// # Instance Properties
-//
-//   - [INSUserActivity.AppEntityIdentifier]: The identifier of an app entity that you associate with the user activity.
-//   - [INSUserActivity.SetAppEntityIdentifier]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity
 type INSUserActivity interface {
@@ -476,7 +432,7 @@ type INSUserActivity interface {
 
 	// Attaches the specified map item to a user activity object.
 	MapItem() unsafe.Pointer
-	SetMapItem(value unsafe.Pointer)
+	SetMapItem(value kernel.Pointer)
 
 	// Topic: Working with ClassKit
 
@@ -484,47 +440,6 @@ type INSUserActivity interface {
 	IsClassKitDeepLink() bool
 	// The identifier path associated with a user activity generated by an app that adopts ClassKit.
 	ContextIdentifierPath() []string
-
-	// Topic: Identifying activity types
-
-	// An activity that continues from Handoff or a universal link.
-	NSUserActivityTypeBrowsingWeb() string
-	// An activity for viewing your app’s channel guide.
-	TVUserActivityTypeBrowsingChannelGuide() string
-
-	// Topic: Reporting errors
-
-	// The user activity couldn’t be continued because a required connection wasn’t available.
-	NSUserActivityConnectionUnavailableError() int
-	SetNSUserActivityConnectionUnavailableError(value int)
-	// The end of the range of error codes reserved for user activity errors.
-	NSUserActivityErrorMaximum() int
-	SetNSUserActivityErrorMaximum(value int)
-	// The start of the range of error codes reserved for user activity errors.
-	NSUserActivityErrorMinimum() int
-	SetNSUserActivityErrorMinimum(value int)
-	// The data for the user activity wasn’t available.
-	NSUserActivityHandoffFailedError() int
-	SetNSUserActivityHandoffFailedError(value int)
-	// The user info dictionary was too large to receive.
-	NSUserActivityHandoffUserInfoTooLargeError() int
-	SetNSUserActivityHandoffUserInfoTooLargeError(value int)
-	// The remote application failed to send data within the specified time.
-	NSUserActivityRemoteApplicationTimedOutError() int
-	SetNSUserActivityRemoteApplicationTimedOutError(value int)
-
-	// Topic: Instance Properties
-
-	// The identifier of an app entity that you associate with the user activity.
-	AppEntityIdentifier() string
-	SetAppEntityIdentifier(value string)
-
-	// An object or value that specifies items to share.
-	ActivityItemsConfiguration() unsafe.Pointer
-	SetActivityItemsConfiguration(value unsafe.Pointer)
-	// An object that can provide shareable items for a scene.
-	ActivityItemsConfigurationSource() unsafe.Pointer
-	SetActivityItemsConfigurationSource(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -586,12 +501,13 @@ func (u NSUserActivity) InitWithActivityType(activityType string) NSUserActivity
 // # Discussion
 //
 // Use this method to add the keys from `otherDictionary` into the dictionary
-// in the [UserInfo] property. If the same key is in both dictionaries, the
-// value of the key is set to the value in the `otherDictionary` parameter.
+// in the [NSUserActivity.UserInfo] property. If the same key is in both
+// dictionaries, the value of the key is set to the value in the
+// `otherDictionary` parameter.
 //
-// It’s recommended that you keep the [UserInfo] dictionary as small as
-// possible. The larger the dictionary, the longer it takes to deliver that
-// payload and resume the activity.
+// It’s recommended that you keep the [NSUserActivity.UserInfo] dictionary
+// as small as possible. The larger the dictionary, the longer it takes to
+// deliver that payload and resume the activity.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/addUserInfoEntries(from:)
 func (u NSUserActivity) AddUserInfoEntriesFromDictionary(otherDictionary INSDictionary) {
@@ -612,8 +528,8 @@ func (u NSUserActivity) AddUserInfoEntriesFromDictionary(otherDictionary INSDict
 // request. Siri holds on to user activity objects and passes them along to
 // your app automatically in response to specific events.
 //
-// If you previously called the [Invalidate] method on the current object,
-// calling this method has no effect.
+// If you previously called the [NSUserActivity.Invalidate] method on the
+// current object, calling this method has no effect.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/becomeCurrent()
 func (u NSUserActivity) BecomeCurrent() {
@@ -627,8 +543,8 @@ func (u NSUserActivity) BecomeCurrent() {
 // Calling this method marks the user activity as no longer current, but
 // doesn’t invalidate it entirely. You can call this method when you want to
 // stop advertising the activity for continuation and search indexing only
-// temporarily. You may call [BecomeCurrent] later to restore this object as
-// the current activity.
+// temporarily. You may call [NSUserActivity.BecomeCurrent] later to restore
+// this object as the current activity.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/resignCurrent()
 func (u NSUserActivity) ResignCurrent() {
@@ -643,8 +559,8 @@ func (u NSUserActivity) ResignCurrent() {
 // Call this method when the user stops engaging in the associated activity
 // and that activity is no longer available. For example, you might call this
 // method when the user closes the window associated with the activity. After
-// calling this method on a user activity object, calling the [BecomeCurrent]
-// method on that object has no effect.
+// calling this method on a user activity object, calling the
+// [NSUserActivity.BecomeCurrent] method on that object has no effect.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/invalidate()
 func (u NSUserActivity) Invalidate() {
@@ -830,7 +746,7 @@ func (u NSUserActivity) SetTitle(value string) {
 //
 // # Discussion
 //
-// The keys come from the [UserInfo] property.
+// The keys come from the [NSUserActivity.UserInfo] property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/requiredUserInfoKeys
 func (u NSUserActivity) RequiredUserInfoKeys() INSSet {
@@ -876,7 +792,7 @@ func (u NSUserActivity) SetUserInfo(value INSDictionary) {
 //
 // This property is optional but is highly recommended to create a great
 // multitasking experience for apps that run on iPad. Setting this property
-// doesn’t automatically set [NeedsSave] to true.
+// doesn’t automatically set [NSUserActivity.NeedsSave] to true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/targetContentIdentifier
 //
@@ -949,8 +865,8 @@ func (u NSUserActivity) SetKeywords(value INSSet) {
 //
 // Set this property to a value that identifies the user activity so you can
 // later delete it with
-// [DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler]. For
-// example, if the user checks the weather for Cupertino each morning from
+// [NSUserActivityClass.DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler].
+// For example, if the user checks the weather for Cupertino each morning from
 // home, the weather app sets the persistent identifier to the city name
 // (Cupertino). When the user deletes Cupertino from the weather app, the app
 // deletes the user activity associated with the identifier, “Cupertino”.
@@ -1006,8 +922,8 @@ func (u NSUserActivity) SetEligibleForSearch(value bool) {
 // activity isn’t useful to other users. When the value of this property is
 // true, the system identifies this activity as one that can be shared
 // publicly. When you make an activity public, the system indexes the values
-// in the [RequiredUserInfoKeys] or [WebpageURL] properties, and you must
-// provide a value for one of those properties.
+// in the [NSUserActivity.RequiredUserInfoKeys] or [NSUserActivity.WebpageURL]
+// properties, and you must provide a value for one of those properties.
 //
 // Identifying an activity as public confers an advantage when you also add
 // web markup to the content on your related website. Specifically, when users
@@ -1083,26 +999,28 @@ func (u NSUserActivity) SetSupportsContinuationStreams(value bool) {
 //
 // # Discussion
 //
-// When no suitable app is installed on a resuming device and the [WebpageURL]
-// property is set, the specified webpage is loaded and the user activity is
-// continued in a web browser.
+// When no suitable app is installed on a resuming device and the
+// [NSUserActivity.WebpageURL] property is set, the specified webpage is
+// loaded and the user activity is continued in a web browser.
 //
 // If your activity’s content can be restored on the web or you support
 // Safari universal links, be sure to set this property so that the system can
-// resume the activity in Safari or your app. After setting the [WebpageURL]
-// property on an activity for which [EligibleForSearch] is true, also set the
-// [RequiredUserInfoKeys] property, using the keys of the [UserInfo]
-// dictionary that must be stored. If you don’t also set the
-// [RequiredUserInfoKeys] property, the [UserInfo] dictionary will be empty
-// when the activity is restored.
+// resume the activity in Safari or your app. After setting the
+// [NSUserActivity.WebpageURL] property on an activity for which
+// [NSUserActivity.EligibleForSearch] is true, also set the
+// [NSUserActivity.RequiredUserInfoKeys] property, using the keys of the
+// [NSUserActivity.UserInfo] dictionary that must be stored. If you don’t
+// also set the [NSUserActivity.RequiredUserInfoKeys] property, the
+// [NSUserActivity.UserInfo] dictionary will be empty when the activity is
+// restored.
 //
-// If [EligibleForSearch] is true for this activity and you’re using both
-// [NSUserActivity] and web markup to index the same item, set [WebpageURL] to
-// the relevant URL on your website to avoid showing duplicate results in
-// Spotlight. The [NSUserActivity] API does not perform any modifications to
-// the URL that you specify. URL components, such as the query string and the
-// fragment identifier, are used for matching the item against pages that are
-// indexed by Applebot.
+// If [NSUserActivity.EligibleForSearch] is true for this activity and
+// you’re using both [NSUserActivity] and web markup to index the same item,
+// set [NSUserActivity.WebpageURL] to the relevant URL on your website to
+// avoid showing duplicate results in Spotlight. The [NSUserActivity] API does
+// not perform any modifications to the URL that you specify. URL components,
+// such as the query string and the fragment identifier, are used for matching
+// the item against pages that are indexed by Applebot.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/webpageURL
 func (u NSUserActivity) WebpageURL() INSURL {
@@ -1182,11 +1100,12 @@ func (u NSUserActivity) DetectedBarcodeDescriptor() objectivec.IObject {
 // restaurant reviews, this property can make the same location available to
 // the user when they switch to an app that helps them make travel plans.
 //
-// Setting the [MapItem] property also populates the user activity object’s
-// [ContentAttributeSet] property. After attaching a map item to a user
-// activity object, you can easily adopt app search by setting the object’s
-// [EligibleForSearch] property to true. To learn more about participating in
-// app search, see [App Search Programming Guide].
+// Setting the [NSUserActivity.MapItem] property also populates the user
+// activity object’s [NSUserActivity.ContentAttributeSet] property. After
+// attaching a map item to a user activity object, you can easily adopt app
+// search by setting the object’s [NSUserActivity.EligibleForSearch]
+// property to true. To learn more about participating in app search, see [App
+// Search Programming Guide].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/mapItem
 //
@@ -1195,7 +1114,7 @@ func (u NSUserActivity) MapItem() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("mapItem"))
 	return rv
 }
-func (u NSUserActivity) SetMapItem(value unsafe.Pointer) {
+func (u NSUserActivity) SetMapItem(value kernel.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMapItem:"), value)
 }
 
@@ -1207,9 +1126,9 @@ func (u NSUserActivity) SetMapItem(value unsafe.Pointer) {
 // When a student taps on an assignment associated with an app that adopts
 // ClassKit, the framework redirects the student to the corresponding app
 // using either a universal link or a user activity, depending on the app’s
-// configuration. Use the [IsClassKitDeepLink] property of a [NSUserActivity]
-// instance that you receive to test if that activity is from ClassKit. See
-// [Linking directly to assignments] for more information.
+// configuration. Use the [NSUserActivity.IsClassKitDeepLink] property of a
+// [NSUserActivity] instance that you receive to test if that activity is from
+// ClassKit. See [Linking directly to assignments] for more information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/isClassKitDeepLink
 //
@@ -1225,10 +1144,11 @@ func (u NSUserActivity) IsClassKitDeepLink() bool {
 // # Discussion
 //
 // If you receive an [NSUserActivity] instance that has its
-// [IsClassKitDeepLink] property set to true, then the activity’s
-// [ContextIdentifierPath] contains the identifier path of the context
-// associated with the assignment that the user tapped to generate the user
-// activity. See [Linking directly to assignments] for more information.
+// [NSUserActivity.IsClassKitDeepLink] property set to true, then the
+// activity’s [NSUserActivity.ContextIdentifierPath] contains the identifier
+// path of the context associated with the assignment that the user tapped to
+// generate the user activity. See [Linking directly to assignments] for more
+// information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/contextIdentifierPath
 //
@@ -1236,122 +1156,6 @@ func (u NSUserActivity) IsClassKitDeepLink() bool {
 func (u NSUserActivity) ContextIdentifierPath() []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("contextIdentifierPath"))
 	return objc.ConvertSliceToStrings(rv)
-}
-
-// An activity that continues from Handoff or a universal link.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivitytypebrowsingweb
-func (u NSUserActivity) NSUserActivityTypeBrowsingWeb() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUserActivityTypeBrowsingWeb"))
-	return NSStringFromID(rv).String()
-}
-
-// An activity for viewing your app’s channel guide.
-//
-// See: https://developer.apple.com/documentation/TVServices/TVUserActivityTypeBrowsingChannelGuide
-func (u NSUserActivity) TVUserActivityTypeBrowsingChannelGuide() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("TVUserActivityTypeBrowsingChannelGuide"))
-	return NSStringFromID(rv).String()
-}
-
-// The user activity couldn’t be continued because a required connection
-// wasn’t available.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityconnectionunavailableerror-swift.var
-func (u NSUserActivity) NSUserActivityConnectionUnavailableError() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityConnectionUnavailableError"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityConnectionUnavailableError(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityConnectionUnavailableError:"), value)
-}
-
-// The end of the range of error codes reserved for user activity errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityerrormaximum-swift.var
-func (u NSUserActivity) NSUserActivityErrorMaximum() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityErrorMaximum"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityErrorMaximum(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityErrorMaximum:"), value)
-}
-
-// The start of the range of error codes reserved for user activity errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityerrorminimum-swift.var
-func (u NSUserActivity) NSUserActivityErrorMinimum() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityErrorMinimum"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityErrorMinimum(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityErrorMinimum:"), value)
-}
-
-// The data for the user activity wasn’t available.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityhandofffailederror-swift.var
-func (u NSUserActivity) NSUserActivityHandoffFailedError() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityHandoffFailedError"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityHandoffFailedError(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityHandoffFailedError:"), value)
-}
-
-// The user info dictionary was too large to receive.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityhandoffuserinfotoolargeerror-swift.var
-func (u NSUserActivity) NSUserActivityHandoffUserInfoTooLargeError() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityHandoffUserInfoTooLargeError"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityHandoffUserInfoTooLargeError(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityHandoffUserInfoTooLargeError:"), value)
-}
-
-// The remote application failed to send data within the specified time.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivityremoteapplicationtimedouterror-swift.var
-func (u NSUserActivity) NSUserActivityRemoteApplicationTimedOutError() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUserActivityRemoteApplicationTimedOutError"))
-	return rv
-}
-func (u NSUserActivity) SetNSUserActivityRemoteApplicationTimedOutError(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityRemoteApplicationTimedOutError:"), value)
-}
-
-// The identifier of an app entity that you associate with the user activity.
-//
-// See: https://developer.apple.com/documentation/foundation/nsuseractivity/appentityidentifier
-func (u NSUserActivity) AppEntityIdentifier() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("appEntityIdentifier"))
-	return NSStringFromID(rv).String()
-}
-func (u NSUserActivity) SetAppEntityIdentifier(value string) {
-	objc.Send[struct{}](u.ID, objc.Sel("setAppEntityIdentifier:"), objc.String(value))
-}
-
-// An object or value that specifies items to share.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIActivityItemsConfigurationProviding/activityItemsConfiguration
-func (u NSUserActivity) ActivityItemsConfiguration() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("activityItemsConfiguration"))
-	return rv
-}
-func (u NSUserActivity) SetActivityItemsConfiguration(value unsafe.Pointer) {
-	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfiguration:"), value)
-}
-
-// An object that can provide shareable items for a scene.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIWindowScene/activityItemsConfigurationSource
-func (u NSUserActivity) ActivityItemsConfigurationSource() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("activityItemsConfigurationSource"))
-	return rv
-}
-func (u NSUserActivity) SetActivityItemsConfigurationSource(value unsafe.Pointer) {
-	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfigurationSource:"), value)
 }
 
 // Protocol methods for NSItemProviderReading

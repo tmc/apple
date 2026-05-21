@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -82,13 +81,13 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerDidInvalidateLayout(sender I
 //
 // This message is sent whenever the layout manager is about to store the
 // initial glyph information via
-// [SetGlyphsPropertiesCharacterIndexesFontForGlyphRange]. To customize the
-// initial glyph generation process, this method can invoke
-// [SetGlyphsPropertiesCharacterIndexesFontForGlyphRange] with modified glyph
-// information.
+// [NSLayoutManager.SetGlyphsPropertiesCharacterIndexesFontForGlyphRange]. To
+// customize the initial glyph generation process, this method can invoke
+// [NSLayoutManager.SetGlyphsPropertiesCharacterIndexesFontForGlyphRange] with
+// modified glyph information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:)
-func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange(layoutManager INSLayoutManager, glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes unsafe.Pointer, aFont NSFont, glyphRange foundation.NSRange) uint {
+func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange(layoutManager INSLayoutManager, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFont NSFont, glyphRange foundation.NSRange) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"), layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
 	return rv
 }
@@ -327,7 +326,7 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerBoundingBoxForControlGlyphAt
 // rectangles remain valid and still lie within the text container.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:in:forGlyphRange:)
-func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange(layoutManager INSLayoutManager, lineFragmentRect *corefoundation.CGRect, lineFragmentUsedRect *corefoundation.CGRect, baselineOffset unsafe.Pointer, textContainer INSTextContainer, glyphRange foundation.NSRange) bool {
+func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange(layoutManager INSLayoutManager, lineFragmentRect *corefoundation.CGRect, lineFragmentUsedRect *corefoundation.CGRect, baselineOffset *float64, textContainer INSTextContainer, glyphRange foundation.NSRange) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:"), layoutManager, lineFragmentRect, lineFragmentUsedRect, baselineOffset, textContainer, glyphRange)
 	return rv
 }
@@ -359,7 +358,7 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLin
 // otherwise, without changing `effectiveCharRange`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:)
-func (o NSLayoutManagerDelegateObject) LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange(layoutManager INSLayoutManager, attrs foundation.INSDictionary, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRange) foundation.INSDictionary {
+func (o NSLayoutManagerDelegateObject) LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange(layoutManager INSLayoutManager, attrs foundation.INSDictionary, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRangePointer) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("layoutManager:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:"), layoutManager, attrs, toScreen, charIndex, effectiveCharRange)
 	return foundation.NSDictionaryFromID(rv)
 }
@@ -378,11 +377,11 @@ type NSLayoutManagerDelegateConfig struct {
 	// LayoutManagerDidInvalidateLayout — Informs the delegate when the specified layout manager invalidates layout information (not glyph information).
 	LayoutManagerDidInvalidateLayout func(sender NSLayoutManager)
 	// LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange — Enables customization of the initial glyph generation process.
-	LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange func(layoutManager NSLayoutManager, glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes *uint, aFont NSFont, glyphRange foundation.NSRange) uint
+	LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange func(layoutManager NSLayoutManager, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFont NSFont, glyphRange foundation.NSRange) uint
 
 	// Managing temporary attribute support
 	// LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange — Asks the delegate whether to use temporary attributes when drawing the text.
-	LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange func(layoutManager NSLayoutManager, attrs foundation.INSDictionary, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRange) foundation.INSDictionary
+	LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange func(layoutManager NSLayoutManager, attrs foundation.INSDictionary, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRangePointer) foundation.INSDictionary
 
 	// Other Methods
 	// LayoutManagerShouldUseActionForControlCharacterAtIndex — Returns the control character action for the control character at the specified character index.
@@ -430,7 +429,7 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		fn := config.LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes *uint, aFontID objc.ID, glyphRange foundation.NSRange) uint {
+			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFontID objc.ID, glyphRange foundation.NSRange) uint {
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				aFont := NSFontFromID(aFontID)
 				return fn(layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
@@ -499,7 +498,7 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		fn := config.LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, attrsID objc.ID, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRange) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, attrsID objc.ID, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRangePointer) objc.ID {
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				attrs := foundation.NSDictionaryFromID(attrsID)
 				return fn(layoutManager, attrs, toScreen, charIndex, effectiveCharRange).GetID()

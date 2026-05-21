@@ -54,11 +54,12 @@ func (nc NSFilePromiseProviderClass) Alloc() NSFilePromiseProvider {
 //
 // Use the [NSFilePromiseProvider] class when creating file promises.
 // Instantiate one [NSFilePromiseProvider] for each file promised. Set the
-// [NSFilePromiseProvider.FileType] and [NSFilePromiseProvider.Delegate] properties before writing any
-// [NSFilePromiseProvider] to the pasteboard. The file type must be a Uniform
-// Type Identifier (UTI) that ultimately conforms to `kUTTypeData` or
-// `kUTTypeDirectory`. The [NSFilePromiseProviderDelegate] will write the
-// promised file to the destination directory.
+// [NSFilePromiseProvider.FileType] and [NSFilePromiseProvider.Delegate]
+// properties before writing any [NSFilePromiseProvider] to the pasteboard.
+// The file type must be a Uniform Type Identifier (UTI) that ultimately
+// conforms to `kUTTypeData` or `kUTTypeDirectory`. The
+// [NSFilePromiseProviderDelegate] will write the promised file to the
+// destination directory.
 //
 // Optionally, you may attach a `userInfo` object of your choosing to the
 // [NSFilePromiseProvider] to determine which promise is being referenced when

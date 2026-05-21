@@ -6,21 +6,27 @@
 //
 // # View Management
 //
-//   - MTKView: A specialized view that creates, configures, and displays Metal objects.
-//   - MTKViewDelegate: Methods for responding to a MetalKit view’s drawing and resizing events.
+//   - [MTKView]: A specialized view that creates, configures, and displays Metal objects.
+//   - [MTKViewDelegate]: Methods for responding to a MetalKit view’s drawing and resizing events.
 //
 // # Texture Loading
 //
-//   - MTKTextureLoader: An object that creates textures from existing data in common image formats.
+//   - [MTKTextureLoader]: An object that creates textures from existing data in common image formats.
 //
 // # Model Handling
 //
-//   - MTKMesh: A container for the vertex data of a Model I/O mesh, suitable for use in a Metal app.
-//   - MTKMeshBuffer: A buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
-//   - MTKMeshBufferAllocator: An interface for allocating a MetalKit buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
-//   - MTKSubmesh: A container for the index data of a Model I/O submesh, suitable for use in a Metal app.
-//   - Conversion Functions: Convert between Metal and Model I/O vertex representations.
-//   - Model Errors: Learn about errors thrown by model handling methods. ([MTKModelError])
+//   - [MTKMesh]: A container for the vertex data of a Model I/O mesh, suitable for use in a Metal app.
+//   - [MTKMeshBuffer]: A buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
+//   - [MTKMeshBufferAllocator]: An interface for allocating a MetalKit buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
+//   - [MTKSubmesh]: A container for the index data of a Model I/O submesh, suitable for use in a Metal app.
+//   - [Conversion Functions]: Convert between Metal and Model I/O vertex representations.
+//   - [Model Errors]: Learn about errors thrown by model handling methods. ([MTKModelError])
+//
+// # Macros
+//
+//   - MTK_EXPORT
+//   - MTK_EXTERN
+//   - MTK_INLINE//
 //
 // # Key Types
 //
@@ -31,7 +37,8 @@
 //   - [MTKSubmesh] - A container for the index data of a Model I/O submesh, suitable for use in a Metal app.
 //   - [MTKMeshBufferAllocator] - An interface for allocating a MetalKit buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
 //
-// [MetalKit Documentation]: https://developer.apple.com/documentation/MetalKit
+// [Conversion Functions]: https://developer.apple.com/documentation/metalkit/conversion-functions
+// [Model Errors]: https://developer.apple.com/documentation/metalkit/model-errors
 package metalkit
 
 import (

@@ -98,7 +98,7 @@ type INSController interface {
 	// Attempts to commit any pending edits.
 	CommitEditing() bool
 	// Attempts to commit any pending changes in known editors of the receiver.
-	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Discards any pending changes by registered editors.
 	DiscardEditing()
 	// A Boolean value indicating if any editors are registered with the controller.
@@ -191,8 +191,9 @@ func (c NSController) CommitEditing() bool {
 // to commit pending changes in known editors. Known editors are either
 // instances of a subclass of [NSController] or (more rarely) user interface
 // controls that may contain pending edits—such as text fields—that
-// registered with the context using [ObjectDidBeginEditing] and have not yet
-// unregistered using a subsequent invocation of [ObjectDidEndEditing].
+// registered with the context using [NSController.ObjectDidBeginEditing] and
+// have not yet unregistered using a subsequent invocation of
+// [NSController.ObjectDidEndEditing].
 //
 // The receiver iterates through the array of its known editors and invokes
 // `commitEditing` on each. The receiver then sends the message specified by
@@ -212,12 +213,12 @@ func (c NSController) CommitEditing() bool {
 // using Cocoa Bindings) when you want to ensure that pending changes are
 // applied before a change in user interface state. For example, you may need
 // to ensure that changes pending in a text field are applied before a window
-// is closed. See also [CommitEditing] which performs a similar function but
-// which allows you to handle any errors directly, although it provides no
-// information beyond simple success/failure.
+// is closed. See also [NSController.CommitEditing] which performs a similar
+// function but which allows you to handle any errors directly, although it
+// provides no information beyond simple success/failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/commitEditing(withDelegate:didCommit:contextInfo:)
-func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
+func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
 

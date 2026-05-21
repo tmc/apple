@@ -55,8 +55,8 @@ func (nc NSSplitViewItemClass) Alloc() NSSplitViewItem {
 // To add one or more accessory views to the top or bottom of a split view
 // item, such as a search field above a list, use the
 // [NSSplitViewItem.TopAlignedAccessoryViewControllers] and
-// [NSSplitViewItem.BottomAlignedAccessoryViewControllers] properties to specify
-// [NSSplitViewItemAccessoryViewController] types.
+// [NSSplitViewItem.BottomAlignedAccessoryViewControllers] properties to
+// specify [NSSplitViewItemAccessoryViewController] types.
 //
 // # Managing the item thickness
 //
@@ -283,6 +283,7 @@ type INSSplitViewItem interface {
 	Animations() foundation.INSDictionary
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSSplitViewItem
+	InitWithCoder(coder foundation.INSCoder) NSSplitViewItem
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -315,10 +316,11 @@ func NewNSSplitViewItem() NSSplitViewItem {
 //
 // Content lists use standard system default values for these properties:
 //
-// - [MinimumThickness], [MaximumThickness], and [AutomaticMaximumThickness]
-// use the standard system defaults for content lists -
-// [PreferredThicknessFraction] uses the standard fraction for content lists
-// (`0.28` if an adjacent sidebar is visible, `0.33` if not)
+// - [NSSplitViewItem.MinimumThickness], [NSSplitViewItem.MaximumThickness],
+// and [NSSplitViewItem.AutomaticMaximumThickness] use the standard system
+// defaults for content lists - [NSSplitViewItem.PreferredThicknessFraction]
+// uses the standard fraction for content lists (`0.28` if an adjacent sidebar
+// is visible, `0.33` if not)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(contentListWithViewController:)
 func NewSplitViewItemContentListWithViewController(viewController INSViewController) NSSplitViewItem {
@@ -326,6 +328,19 @@ func NewSplitViewItemContentListWithViewController(viewController INSViewControl
 	return NSSplitViewItemFromID(rv)
 }
 
+// Creates a split view item that represents an inspector for the specified
+// view controller.
+//
+// # Discussion
+//
+// In macOS 14.0 and later, inspectors use standard system default values for
+// these properties:
+//
+// - [NSSplitViewItem.CanCollapse] is true. -
+// [NSSplitViewItem.MinimumThickness] and
+// [NSSplitViewItem.MaximumThickness]are the standard inspector size (270) and
+// aren’t resizable by default.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(inspectorWithViewController:)
 func NewSplitViewItemInspectorWithViewController(viewController INSViewController) NSSplitViewItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSSplitViewItemClass().class), objc.Sel("inspectorWithViewController:"), viewController)
@@ -347,14 +362,22 @@ func NewSplitViewItemInspectorWithViewController(viewController INSViewControlle
 // Additionally, sidebars use standard system default values for these
 // properties:
 //
-// - [CanCollapse] and [SpringLoaded] are true - [MinimumThickness] and
-// [MaximumThickness] use the standard minimum and maximum sidebar size -
-// [PreferredThicknessFraction] uses the standard fraction for sidebars
-// (`0.15`)
+// - [NSSplitViewItem.CanCollapse] and [NSSplitViewItem.SpringLoaded] are true
+// - [NSSplitViewItem.MinimumThickness] and [NSSplitViewItem.MaximumThickness]
+// use the standard minimum and maximum sidebar size -
+// [NSSplitViewItem.PreferredThicknessFraction] uses the standard fraction for
+// sidebars (`0.15`)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(sidebarWithViewController:)
 func NewSplitViewItemSidebarWithViewController(viewController INSViewController) NSSplitViewItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSSplitViewItemClass().class), objc.Sel("sidebarWithViewController:"), viewController)
+	return NSSplitViewItemFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(coder:)
+func NewSplitViewItemWithCoder(coder foundation.INSCoder) NSSplitViewItem {
+	instance := getNSSplitViewItemClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSplitViewItemFromID(rv)
 }
 
@@ -466,6 +489,12 @@ func (s NSSplitViewItem) Animator() INSSplitViewItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("animator"))
 	return NSSplitViewItemFromID(rv)
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(coder:)
+func (s NSSplitViewItem) InitWithCoder(coder foundation.INSCoder) NSSplitViewItem {
+	rv := objc.Send[NSSplitViewItem](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s NSSplitViewItem) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -517,10 +546,10 @@ func (_NSSplitViewItemClass NSSplitViewItemClass) DefaultAnimationForKey(key NSA
 // # Discussion
 //
 // Automatic sizing may happen when the split view item has a set
-// [PreferredThicknessFraction] and the app enters full-screen mode, or when
-// other split view items cause the item to change size. The user can still
-// resize the item up to its absolute maximum size in [MaximumThickness] by
-// dragging the divider.
+// [NSSplitViewItem.PreferredThicknessFraction] and the app enters full-screen
+// mode, or when other split view items cause the item to change size. The
+// user can still resize the item up to its absolute maximum size in
+// [NSSplitViewItem.MaximumThickness] by dragging the divider.
 //
 // The default value of this property is [unspecifiedDimension], which means
 // the split view item doesn’t enforce an automatic maximum size.
@@ -724,8 +753,8 @@ func (s NSSplitViewItem) SetSpringLoaded(value bool) {
 //
 // # Discussion
 //
-// This can differ from [CanCollapse] to allow divider collapsing but not
-// windows resize collapsing, or vice versa.
+// This can differ from [NSSplitViewItem.CanCollapse] to allow divider
+// collapsing but not windows resize collapsing, or vice versa.
 //
 // The default value of this property is true for Sidebars and false for
 // Inspectors.

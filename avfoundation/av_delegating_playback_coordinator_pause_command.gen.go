@@ -107,7 +107,9 @@ func NewAVDelegatingPlaybackCoordinatorPauseCommand() AVDelegatingPlaybackCoordi
 // # Discussion
 //
 // A true value indicates that a participant player requests starting playback
-// at the [AnticipatedPlaybackRate] value.
+// at the
+// [AVDelegatingPlaybackCoordinatorPauseCommand.AnticipatedPlaybackRate]
+// value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPauseCommand/shouldBufferInAnticipationOfPlayback
 func (d AVDelegatingPlaybackCoordinatorPauseCommand) ShouldBufferInAnticipationOfPlayback() bool {

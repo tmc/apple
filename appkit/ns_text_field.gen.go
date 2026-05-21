@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -58,8 +57,9 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 // doesn’t fit the available space.
 //
 // The parent class, [NSControl], provides the methods for setting the values
-// of the text field, such as [NSTextField.StringValue] and [NSTextField.DoubleValue]. There are
-// corresponding methods to retrieve values.
+// of the text field, such as [NSControl.StringValue] and
+// [NSControl.DoubleValue]. There are corresponding methods to retrieve
+// values.
 //
 // In macOS 12 and later, if you explicitly call the `layoutManager` property
 // on your text field, the framework will revert to a compatibility mode that
@@ -161,8 +161,6 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 //   - [NSTextField.SetPlaceholderStrings]
 //   - [NSTextField.ResolvesNaturalAlignmentWithBaseWritingDirection]: Specifies the behavior for resolving `NSTextAlignment.Natural()` to the visual alignment.
 //   - [NSTextField.SetResolvesNaturalAlignmentWithBaseWritingDirection]
-//   - [NSTextField.SuggestionsDelegate]: The delegate that provides text suggestions for the receiving text field and responds to the user highlighting and selecting items.
-//   - [NSTextField.SetSuggestionsDelegate]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField
 type NSTextField struct {
@@ -277,8 +275,6 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 //   - [INSTextField.SetPlaceholderStrings]
 //   - [INSTextField.ResolvesNaturalAlignmentWithBaseWritingDirection]: Specifies the behavior for resolving `NSTextAlignment.Natural()` to the visual alignment.
 //   - [INSTextField.SetResolvesNaturalAlignmentWithBaseWritingDirection]
-//   - [INSTextField.SuggestionsDelegate]: The delegate that provides text suggestions for the receiving text field and responds to the user highlighting and selecting items.
-//   - [INSTextField.SetSuggestionsDelegate]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField
 type INSTextField interface {
@@ -405,9 +401,6 @@ type INSTextField interface {
 	// Specifies the behavior for resolving `NSTextAlignment.Natural()` to the visual alignment.
 	ResolvesNaturalAlignmentWithBaseWritingDirection() bool
 	SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool)
-	// The delegate that provides text suggestions for the receiving text field and responds to the user highlighting and selecting items.
-	SuggestionsDelegate() unsafe.Pointer
-	SetSuggestionsDelegate(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -570,7 +563,7 @@ func (t NSTextField) TextShouldBeginEditing(textObject INSText) bool {
 // Posts a notification to the default notification center that the text is
 // about to go into edit mode.
 //
-// notification: The [TextDidBeginEditingNotification] notification to post to the default
+// notification: The [textDidBeginEditingNotification] notification to post to the default
 // notification center.
 //
 // # Discussion
@@ -581,6 +574,7 @@ func (t NSTextField) TextShouldBeginEditing(textObject INSText) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/textDidBeginEditing(_:)
 //
+// [textDidBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
 // [controlTextDidBeginEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/controlTextDidBeginEditing:
 func (t NSTextField) TextDidBeginEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidBeginEditing:"), notification)
@@ -589,7 +583,7 @@ func (t NSTextField) TextDidBeginEditing(notification foundation.NSNotification)
 // Posts a notification when the text changes, and forwards the message to the
 // text field’s cell if it responds.
 //
-// notification: The [TextDidChangeNotification] notification to post to the default
+// notification: The [textDidChangeNotification] notification to post to the default
 // notification center.
 //
 // # Discussion
@@ -600,6 +594,7 @@ func (t NSTextField) TextDidBeginEditing(notification foundation.NSNotification)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/textDidChange(_:)
 //
+// [textDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
 // [controlTextDidChange:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/controlTextDidChange:
 func (t NSTextField) TextDidChange(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidChange:"), notification)
@@ -640,18 +635,18 @@ func (t NSTextField) TextShouldEndEditing(textObject INSText) bool {
 // After validating the new value, this method posts a
 // [textDidEndEditingNotification] to the default notification center, which
 // causes the text field’s delegate to receive a [controlTextDidEndEditing:]
-// message. This method then sends [EndEditing] to the text field’s cell and
-// handles the key that causes editing to end as follows:
+// message. This method then sends [NSCell.EndEditing] to the text field’s
+// cell and handles the key that causes editing to end as follows:
 //
 // - If the user ends editing by pressing Return, this method tries to send
 // the text field’s action to its target. If unsuccessful, it sends
-// [PerformKeyEquivalent] to its [NSView], for example, to handle the default
-// button on a panel. If that also fails, the text field selects its text. -
-// If the user ends editing by pressing Tab or Shift-Tab, the text field tries
-// to have its [NSWindow] object select its next or previous key view, using
-// the [NSWindow] method [SelectKeyViewFollowingView] or
-// [SelectKeyViewPrecedingView]. If unsuccessful, the text field selects its
-// text.
+// [NSView.PerformKeyEquivalent] to its [NSView], for example, to handle the
+// default button on a panel. If that also fails, the text field selects its
+// text. - If the user ends editing by pressing Tab or Shift-Tab, the text
+// field tries to have its [NSWindow] object select its next or previous key
+// view, using the [NSWindow] method [NSWindow.SelectKeyViewFollowingView] or
+// [NSWindow.SelectKeyViewPrecedingView]. If unsuccessful, the text field
+// selects its text.
 //
 // See [NSControl] for more information about the text delegate method.
 //
@@ -811,9 +806,9 @@ func (t NSTextField) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem
 //
 // # Discussion
 //
-// If true, the text field becomes selectable but not editable. Use [Editable]
-// to make the text field selectable and editable. If false, the text is
-// neither editable nor selectable.
+// If true, the text field becomes selectable but not editable. Use
+// [NSTextField.Editable] to make the text field selectable and editable. If
+// false, the text is neither editable nor selectable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isSelectable
 func (t NSTextField) IsSelectable() bool {
@@ -831,12 +826,12 @@ func (t NSTextField) SetSelectable(value bool) {
 //
 // If true, the user can select and edit text. If false, the user can’t edit
 // text, and the ability to select the text field’s content is dependent on
-// the value of [Selectable].
+// the value of [NSTextField.Selectable].
 //
 // For example, if an [NSTextField] object is selectable but uneditable,
 // becomes editable for a time, and then becomes uneditable again, it remains
 // selectable. To ensure that text is neither editable nor selectable, use
-// [Selectable] to disable text selection.
+// [NSTextField.Selectable] to disable text selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isEditable
 func (t NSTextField) IsEditable() bool {
@@ -957,8 +952,8 @@ func (t NSTextField) SetAllowsDefaultTighteningForTruncation(value bool) {
 //
 // If the text field reaches the maximum number of lines, or if the height of
 // the container can’t accommodate the number of lines, the text field clips
-// or truncates the text, depending on the cell’s [TruncatesLastVisibleLine]
-// setting.
+// or truncates the text, depending on the cell’s
+// [NSCell.TruncatesLastVisibleLine] setting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/maximumNumberOfLines
 func (t NSTextField) MaximumNumberOfLines() int {
@@ -1036,8 +1031,9 @@ func (t NSTextField) SetDrawsBackground(value bool) {
 //
 // # Discussion
 //
-// If true, the text field draws a bezel and sets [DrawsBackground] to false;
-// if false, it doesn’t draw a bezeled background.
+// If true, the text field draws a bezel and sets
+// [NSTextField.DrawsBackground] to false; if false, it doesn’t draw a
+// bezeled background.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isBezeled
 func (t NSTextField) IsBezeled() bool {
@@ -1052,8 +1048,9 @@ func (t NSTextField) SetBezeled(value bool) {
 //
 // # Discussion
 //
-// To enable a bezel for a text field, set [Bezeled] to true, then set the
-// bezel style. See [NSTextField.BezelStyle] for available bezel styles.
+// To enable a bezel for a text field, set [NSTextField.Bezeled] to true, then
+// set the bezel style. See [NSTextField.BezelStyle] for available bezel
+// styles.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/bezelStyle-swift.property
 //
@@ -1172,18 +1169,6 @@ func (t NSTextField) ResolvesNaturalAlignmentWithBaseWritingDirection() bool {
 }
 func (t NSTextField) SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResolvesNaturalAlignmentWithBaseWritingDirection:"), value)
-}
-
-// The delegate that provides text suggestions for the receiving text field
-// and responds to the user highlighting and selecting items.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfield/suggestionsdelegate
-func (t NSTextField) SuggestionsDelegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("suggestionsDelegate"))
-	return rv
-}
-func (t NSTextField) SetSuggestionsDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSuggestionsDelegate:"), value)
 }
 
 // Protocol methods for NSAccessibilityNavigableStaticText

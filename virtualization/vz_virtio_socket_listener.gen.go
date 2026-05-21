@@ -50,14 +50,14 @@ func (vc VZVirtioSocketListenerClass) Alloc() VZVirtioSocketListener {
 // Use a [VZVirtioSocketListener] object to route connection requests to your
 // associated delegate object. The socket listener object handles incoming
 // connection requests from the guest operating system and directs them to the
-// methods of its associated [VZVirtioSocketListener.Delegate] object. You may use the same listener
-// object to monitor connections on multiple ports.
+// methods of its associated [VZVirtioSocketListener.Delegate] object. You may
+// use the same listener object to monitor connections on multiple ports.
 //
 // After creating a [VZVirtioSocketListener] object, assign a custom object to
-// its [VZVirtioSocketListener.Delegate] property. The delegate must implement the
-// [VZVirtioSocketListenerDelegate] protocol. To connect the listener to a
-// port, call the [SetSocketListenerForPort] method of your virtual
-// machine’s [VZVirtioSocketDevice] object.
+// its [VZVirtioSocketListener.Delegate] property. The delegate must implement
+// the [VZVirtioSocketListenerDelegate] protocol. To connect the listener to a
+// port, call the [VZVirtioSocketDevice.SetSocketListenerForPort] method of
+// your virtual machine’s [VZVirtioSocketDevice] object.
 //
 // # Responding to new connections
 //

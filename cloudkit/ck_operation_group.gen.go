@@ -58,8 +58,9 @@ func (cc CKOperationGroupClass) Alloc() CKOperationGroup {
 // fetches of records in response to a push notification. - Update several
 // records when the user saves a calendar event.
 //
-// Associate operation groups with operations by setting their [CKOperationGroup.Group]
-// property. Create a new operation group for each distinct user interaction.
+// Associate operation groups with operations by setting their
+// [CKOperation.Group] property. Create a new operation group for each
+// distinct user interaction.
 //
 // # Creating an Operation Group
 //
@@ -143,9 +144,6 @@ type ICKOperationGroup interface {
 	Quantity() uint
 	SetQuantity(value uint)
 
-	// The operation’s group.
-	Group() ICKOperationGroup
-	SetGroup(value ICKOperationGroup)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -290,15 +288,4 @@ func (c CKOperationGroup) Quantity() uint {
 }
 func (c CKOperationGroup) SetQuantity(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setQuantity:"), value)
-}
-
-// The operation’s group.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperation/group
-func (c CKOperationGroup) Group() ICKOperationGroup {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("group"))
-	return CKOperationGroupFromID(objc.ID(rv))
-}
-func (c CKOperationGroup) SetGroup(value ICKOperationGroup) {
-	objc.Send[struct{}](c.ID, objc.Sel("setGroup:"), value)
 }

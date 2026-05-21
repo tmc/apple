@@ -53,13 +53,15 @@ func (uc UNNotificationCategoryClass) Alloc() UNNotificationCategory {
 // — notifications that have action buttons the user can select in response
 // to the notification. Each category object you create stores the actions and
 // other behaviors associated with a specific type of notification. Register
-// your category objects using the [SetNotificationCategories] method of
+// your category objects using the
+// [UNUserNotificationCenter.SetNotificationCategories] method of
 // [UNUserNotificationCenter]. You can register as many category objects as
 // you need.
 //
 // To apply category objects to your notifications, include the category’s
 // identifier string in the payload of any notifications you create. For local
-// notifications, put this string in the [UNNotificationCategory.CategoryIdentifier] property of the
+// notifications, put this string in the
+// [UNMutableNotificationContent.CategoryIdentifier] property of the
 // [UNMutableNotificationContent] object that you use to specify the
 // notification’s content. For remote notifications, use this string as the
 // value of the `category` key in the `aps` dictionary of your payload.
@@ -133,12 +135,6 @@ type IUNNotificationCategory interface {
 	// Options for how to handle notifications of this type.
 	Options() UNNotificationCategoryOptions
 
-	// The identifier of the notification’s category.
-	CategoryIdentifier() string
-	SetCategoryIdentifier(value string)
-	// The action performs a destructive task.
-	Destructive() UNNotificationActionOptions
-	SetUNNotificationActionOptionDestructive(value UNNotificationActionOptions)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -294,9 +290,10 @@ func (u UNNotificationCategory) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // Use this string to differentiate the different types of notifications that
 // your app can send. To assign a category to a local notification, assign
-// this string to the [CategoryIdentifier] property of the content object. To
-// assign a category to a remote notification, use the string as the value of
-// the `category` key in the notification payload `aps` dictionary.
+// this string to the [UNMutableNotificationContent.CategoryIdentifier]
+// property of the content object. To assign a category to a remote
+// notification, use the string as the value of the `category` key in the
+// notification payload `aps` dictionary.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/identifier
 func (u UNNotificationCategory) Identifier() string {
@@ -373,26 +370,4 @@ func (u UNNotificationCategory) CategorySummaryFormat() string {
 func (u UNNotificationCategory) Options() UNNotificationCategoryOptions {
 	rv := objc.Send[UNNotificationCategoryOptions](u.ID, objc.Sel("options"))
 	return UNNotificationCategoryOptions(rv)
-}
-
-// The identifier of the notification’s category.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unmutablenotificationcontent/categoryidentifier
-func (u UNNotificationCategory) CategoryIdentifier() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("categoryIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (u UNNotificationCategory) SetCategoryIdentifier(value string) {
-	objc.Send[struct{}](u.ID, objc.Sel("setCategoryIdentifier:"), objc.String(value))
-}
-
-// The action performs a destructive task.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationactionoptions/destructive
-func (u UNNotificationCategory) Destructive() UNNotificationActionOptions {
-	rv := objc.Send[UNNotificationActionOptions](u.ID, objc.Sel("UNNotificationActionOptionDestructive"))
-	return UNNotificationActionOptions(rv)
-}
-func (u UNNotificationCategory) SetUNNotificationActionOptionDestructive(value UNNotificationActionOptions) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUNNotificationActionOptionDestructive:"), value)
 }

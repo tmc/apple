@@ -52,28 +52,29 @@ func (cc CKShareClass) Alloc() CKShare {
 // custom record zone in the user’s private database. As you create records
 // in that zone, they become eligible for record zone sharing. If you want to
 // share a specific hierarchy of related records, rather than the entire
-// record zone, set each record’s [CKShare.Parent] property to define the
+// record zone, set each record’s [CKRecord.Parent] property to define the
 // relationship with its parent. CloudKit infers the shared hierarchy using
-// only the [CKShare.Parent] property, and ignores any custom reference fields.
+// only the [CKRecord.Parent] property, and ignores any custom reference
+// fields.
 //
 // You create a share with either the ID of the record zone to share, or the
 // root record, which defines the point in a record hierarchy where you want
 // to start sharing. CloudKit shares all the records in the record zone, or
 // every record in the hierarchy below the root. If you set the root
-// record’s [CKShare.Parent] property, CloudKit ignores it. A record can take part
-// in only a single share. This applies to every record in the shared record
-// zone or hierarchy. If a record is participating in another share, any
-// attempt to save the share fails, and CloudKit returns an [CKShare.AlreadyShared]
-// error.
+// record’s [CKRecord.Parent] property, CloudKit ignores it. A record can
+// take part in only a single share. This applies to every record in the
+// shared record zone or hierarchy. If a record is participating in another
+// share, any attempt to save the share fails, and CloudKit returns an
+// [alreadyShared] error.
 //
 // Use [CKModifyRecordsOperation] to save the share to the server. The initial
 // set of records the share includes must exist on the server or be part of
 // the same save operation to succeed. CloudKit then updates the share’s
-// [CKShare.URL] property. Use [UICloudSharingController] to present options to the
-// user for sharing the URL. Otherwise, distribute the URL to any participants
-// you add to the share. You can allow anyone with the URL to take part in the
-// share by setting [CKShare.PublicPermission] to a value more permissive than
-// [CKShare.ParticipantPermission.none].
+// [CKShare.URL] property. Use [UICloudSharingController] to present options
+// to the user for sharing the URL. Otherwise, distribute the URL to any
+// participants you add to the share. You can allow anyone with the URL to
+// take part in the share by setting [CKShare.PublicPermission] to a value
+// more permissive than [CKShare.ParticipantPermission.none].
 //
 // After CloudKit saves the share, a participant can fetch its corresponding
 // metadata, which includes a reference to the share, information about the
@@ -85,10 +86,10 @@ func (cc CKShareClass) Alloc() CKShare {
 // If a user receives the share URL and taps or clicks it, CloudKit
 // automatically processes their participation.
 //
-// To determine the configuration of a fetched share, inspect the [CKShare.RecordName]
-// property of its [CKShare.RecordID]. If the value is [CKShare.CKRecordNameZoneWideShare],
-// the share is managing a shared record zone; otherwise, it’s managing a
-// shared record hierarchy.
+// To determine the configuration of a fetched share, inspect the
+// [CKRecordID.RecordName] property of its [CKRecord.RecordID]. If the value
+// is [CKRecordNameZoneWideShare], the share is managing a shared record zone;
+// otherwise, it’s managing a shared record hierarchy.
 //
 // CloudKit limits the number of participants in a share to 100, and each
 // participant must have an active iCloud account. You don’t create
@@ -98,19 +99,20 @@ func (cc CKShareClass) Alloc() CKShare {
 // address or phone number, and use [CKFetchShareParticipantsOperation] to
 // fetch the corresponding participants. CloudKit queries iCloud for
 // corresponding accounts as part of the operation. If it doesn’t find an
-// account, the server updates the participant’s [CKShare.UserIdentity] to reflect
-// that by setting the [CKShare.HasiCloudAccount] property to false. CloudKit
-// associates the participant with their iCloud account when they accept the
-// share if they launch the process by tapping or clicking the share URL.
+// account, the server updates the participant’s
+// [CKShareParticipant.UserIdentity] to reflect that by setting the
+// [CKUserIdentity.HasiCloudAccount] property to false. CloudKit associates
+// the participant with their iCloud account when they accept the share if
+// they launch the process by tapping or clicking the share URL.
 //
 // Participants with write permissions can modify or delete any record that
 // you include in the share. However, only the owner can delete a shared
 // hierarchy’s root record. If a participant attempts to delete the share,
 // CloudKit removes the participant. The share remains active for all other
 // participants. If the owner deletes a share that manages a record hierarchy,
-// CloudKit sets the root record’s [CKShare.Share] property to `nil`. CloudKit
-// deletes the share if the owner of the shared heirarchy deletes its root
-// record.
+// CloudKit sets the root record’s [CKRecord.Share] property to `nil`.
+// CloudKit deletes the share if the owner of the shared heirarchy deletes its
+// root record.
 //
 // You can customize the title and image the system displays when initiating a
 // share or accepting an invitation to participate. You can also provide a
@@ -152,9 +154,11 @@ func (cc CKShareClass) Alloc() CKShare {
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare
 //
+// [CKRecordNameZoneWideShare]: https://developer.apple.com/documentation/CloudKit/CKRecordNameZoneWideShare
 // [CKShare.ParticipantPermission.none]: https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantPermission/none
 // [CKShare.SystemFieldKey]: https://developer.apple.com/documentation/CloudKit/CKShare/SystemFieldKey
 // [UICloudSharingController]: https://developer.apple.com/documentation/UIKit/UICloudSharingController
+// [alreadyShared]: https://developer.apple.com/documentation/CloudKit/CKError/alreadyShared
 type CKShare struct {
 	CKRecord
 }
@@ -257,17 +261,6 @@ type ICKShare interface {
 	// Unblocks previously blocked users, allowing them to request access again.
 	UnblockIdentities(blockedIdentities []CKShareBlockedIdentity)
 
-	// The name of a share record that manages a shared record zone.
-	CKRecordNameZoneWideShare() string
-	// An error that occurs when CloudKit attempts to share a record with an existing share.
-	AlreadyShared() CKErrorCode
-	SetAlreadyShared(value CKErrorCode)
-	// A Boolean value that indicates whether the user has an iCloud account.
-	HasiCloudAccount() bool
-	SetHasiCloudAccount(value bool)
-	// The unique name of the record.
-	RecordName() string
-	SetRecordName(value string)
 	// The identity of the participant.
 	UserIdentity() ICKUserIdentity
 	SetUserIdentity(value ICKUserIdentity)
@@ -299,7 +292,7 @@ func NewCKShare() CKShare {
 // # Discussion
 //
 // When saving a newly created [CKShare], you must save the share and its
-// [RootRecord] in the same [CKModifyRecordsOperation] batch.
+// [CKShareMetadata.RootRecord] in the same [CKModifyRecordsOperation] batch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(coder:)
 func NewCKShareWithCoder(aDecoder foundation.INSCoder) CKShare {
@@ -326,9 +319,11 @@ func NewCKShareWithCoder(aDecoder foundation.INSCoder) CKShare {
 // and execute the operation to fetch the records.
 //
 // If you use [CKFetchShareMetadataOperation] to fetch the metadata for a
-// shared record zone, the operation ignores the [ShouldFetchRootRecord] and
-// [RootRecordDesiredKeys] properties because, unlike a shared record
-// hierarchy, a record zone doesn’t have a nominated root record.
+// shared record zone, the operation ignores the
+// [CKFetchShareMetadataOperation.ShouldFetchRootRecord] and
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] properties because,
+// unlike a shared record hierarchy, a record zone doesn’t have a nominated
+// root record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(recordZoneID:)
 func NewCKShareWithRecordZoneID(recordZoneID ICKRecordZoneID) CKShare {
@@ -344,7 +339,7 @@ func NewCKShareWithRecordZoneID(recordZoneID ICKRecordZoneID) CKShare {
 // # Discussion
 //
 // When saving a newly created [CKShare], you must save the share and its
-// [RootRecord] in the same [CKModifyRecordsOperation] batch.
+// [CKShareMetadata.RootRecord] in the same [CKModifyRecordsOperation] batch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(rootRecord:)
 func NewCKShareWithRootRecord(rootRecord ICKRecord) CKShare {
@@ -361,8 +356,8 @@ func NewCKShareWithRootRecord(rootRecord ICKRecord) CKShare {
 //
 // # Discussion
 //
-// When saving a newly created [CKShare], save the share and its [RootRecord]
-// in the same [CKModifyRecordsOperation] batch.
+// When saving a newly created [CKShare], save the share and its
+// [CKShareMetadata.RootRecord] in the same [CKModifyRecordsOperation] batch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(rootRecord:shareID:)
 func NewCKShareWithRootRecordShareID(rootRecord ICKRecord, shareID ICKRecordID) CKShare {
@@ -378,7 +373,7 @@ func NewCKShareWithRootRecordShareID(rootRecord ICKRecord, shareID ICKRecordID) 
 // # Discussion
 //
 // When saving a newly created [CKShare], you must save the share and its
-// [RootRecord] in the same [CKModifyRecordsOperation] batch.
+// [CKShareMetadata.RootRecord] in the same [CKModifyRecordsOperation] batch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(rootRecord:)
 func (c CKShare) InitWithRootRecord(rootRecord ICKRecord) CKShare {
@@ -394,8 +389,8 @@ func (c CKShare) InitWithRootRecord(rootRecord ICKRecord) CKShare {
 //
 // # Discussion
 //
-// When saving a newly created [CKShare], save the share and its [RootRecord]
-// in the same [CKModifyRecordsOperation] batch.
+// When saving a newly created [CKShare], save the share and its
+// [CKShareMetadata.RootRecord] in the same [CKModifyRecordsOperation] batch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(rootRecord:shareID:)
 func (c CKShare) InitWithRootRecordShareID(rootRecord ICKRecord, shareID ICKRecordID) CKShare {
@@ -421,9 +416,11 @@ func (c CKShare) InitWithRootRecordShareID(rootRecord ICKRecord, shareID ICKReco
 // and execute the operation to fetch the records.
 //
 // If you use [CKFetchShareMetadataOperation] to fetch the metadata for a
-// shared record zone, the operation ignores the [ShouldFetchRootRecord] and
-// [RootRecordDesiredKeys] properties because, unlike a shared record
-// hierarchy, a record zone doesn’t have a nominated root record.
+// shared record zone, the operation ignores the
+// [CKFetchShareMetadataOperation.ShouldFetchRootRecord] and
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] properties because,
+// unlike a shared record hierarchy, a record zone doesn’t have a nominated
+// root record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/init(recordZoneID:)
 func (c CKShare) InitWithRecordZoneID(recordZoneID ICKRecordZoneID) CKShare {
@@ -437,14 +434,15 @@ func (c CKShare) InitWithRecordZoneID(recordZoneID ICKRecordZoneID) CKShare {
 //
 // # Discussion
 //
-// If a participant with a matching [UserIdentity] already exists in the
-// share, the system updates the existing participant’s properties and
-// doesn’t add a new participant.
+// If a participant with a matching [CKShareParticipant.UserIdentity] already
+// exists in the share, the system updates the existing participant’s
+// properties and doesn’t add a new participant.
 //
-// To modify the list of participants, a share’s [PublicPermission] must be
-// [CKShare.ParticipantPermission.none]. You can’t mix and match public and
-// private users in the same share. You can only add certain participant types
-// with this API. See [CKShareParticipant] for more information.
+// To modify the list of participants, a share’s [CKShare.PublicPermission]
+// must be [CKShare.ParticipantPermission.none]. You can’t mix and match
+// public and private users in the same share. You can only add certain
+// participant types with this API. See [CKShareParticipant] for more
+// information.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/addParticipant(_:)
 //
@@ -459,10 +457,11 @@ func (c CKShare) AddParticipant(participant ICKShareParticipant) {
 //
 // # Discussion
 //
-// To modify the list of participants, a share’s [PublicPermission] must be
-// [CKShare.ParticipantPermission.none]. You can’t mix and match public and
-// private users in the same share. You can only add certain participant types
-// with this API. See [CKShareParticipant] for more information.
+// To modify the list of participants, a share’s [CKShare.PublicPermission]
+// must be [CKShare.ParticipantPermission.none]. You can’t mix and match
+// public and private users in the same share. You can only add certain
+// participant types with this API. See [CKShareParticipant] for more
+// information.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/removeParticipant(_:)
 //
@@ -479,7 +478,7 @@ func (c CKShare) RemoveParticipant(participant ICKShareParticipant) {
 //
 // Blocking prevents users from submitting future access requests and removes
 // existing participants from the share. Blocked requesters appear in the
-// [BlockedIdentities] array.
+// [CKShare.BlockedIdentities] array.
 //
 // To persist this change, save the share to the server after calling this
 // method.
@@ -499,11 +498,12 @@ func (c CKShare) BlockRequesters(requesters []CKShareAccessRequester) {
 // # Discussion
 //
 // Use this method to deny pending access requests from uninvited users.
-// CloudKit removes denied requesters from the [Requesters] array. To persist
-// the changes, save the share to the server after calling this method.
+// CloudKit removes denied requesters from the [CKShare.Requesters] array. To
+// persist the changes, save the share to the server after calling this
+// method.
 //
 // After denial, requesters can still submit new access requests unless
-// explicitly blocked using [BlockRequesters].
+// explicitly blocked using [CKShare.BlockRequesters].
 //
 // Only the share owner or an administrator can invoke this method. Attempts
 // by other participants result in an exception.
@@ -519,9 +519,9 @@ func (c CKShare) DenyRequesters(requesters []CKShareAccessRequester) {
 //
 // # Discussion
 //
-// Use this method to remove specified identities from the [BlockedIdentities]
-// array. Unblocked identities can request access again if access requests are
-// enabled.
+// Use this method to remove specified identities from the
+// [CKShare.BlockedIdentities] array. Unblocked identities can request access
+// again if access requests are enabled.
 //
 // To persist this change, save the share to the server after calling this
 // method.
@@ -629,7 +629,7 @@ func (c CKShare) SetAllowsAccessRequests(value bool) {
 // # Discussion
 //
 // Identities remain in this list until an owner or administrator calls
-// [UnblockIdentities].
+// [CKShare.UnblockIdentities].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/blockedIdentities
 func (c CKShare) BlockedIdentities() []CKShareBlockedIdentity {
@@ -653,10 +653,11 @@ func (c CKShare) BlockedIdentities() []CKShareBlockedIdentity {
 //
 // - - Fetch the participant information by running
 // [CKFetchShareParticipantsOperation] with the requester’s
-// [ParticipantLookupInfo]. - Add the resulting participant to the share. - -
-// Use [DenyRequesters] to remove the requester from the requesters list. - -
-// Use [BlockRequesters] to block requesters. - Blocking a requester prevents
-// them from sending future access requests to the share.
+// [CKShareAccessRequester.ParticipantLookupInfo]. - Add the resulting
+// participant to the share. - - Use [CKShare.DenyRequesters] to remove the
+// requester from the requesters list. - - Use [CKShare.BlockRequesters] to
+// block requesters. - Blocking a requester prevents them from sending future
+// access requests to the share.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/requesters
 func (c CKShare) Requesters() []CKShareAccessRequester {
@@ -664,48 +665,6 @@ func (c CKShare) Requesters() []CKShareAccessRequester {
 	return objc.ConvertSlice(rv, func(id objc.ID) CKShareAccessRequester {
 		return CKShareAccessRequesterFromID(id)
 	})
-}
-
-// The name of a share record that manages a shared record zone.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecordnamezonewideshare
-func (c CKShare) CKRecordNameZoneWideShare() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKRecordNameZoneWideShare"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An error that occurs when CloudKit attempts to share a record with an
-// existing share.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckerror/alreadyshared
-func (c CKShare) AlreadyShared() CKErrorCode {
-	rv := objc.Send[CKErrorCode](c.ID, objc.Sel("alreadyShared"))
-	return CKErrorCode(rv)
-}
-func (c CKShare) SetAlreadyShared(value CKErrorCode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAlreadyShared:"), value)
-}
-
-// A Boolean value that indicates whether the user has an iCloud account.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckuseridentity/hasicloudaccount
-func (c CKShare) HasiCloudAccount() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("hasiCloudAccount"))
-	return rv
-}
-func (c CKShare) SetHasiCloudAccount(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setHasiCloudAccount:"), value)
-}
-
-// The unique name of the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/id/recordname
-func (c CKShare) RecordName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKShare) SetRecordName(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordName:"), objc.String(value))
 }
 
 // The identity of the participant.

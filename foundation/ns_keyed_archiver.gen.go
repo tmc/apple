@@ -255,7 +255,7 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 // the class’ translation map.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/setClassName(_:for:)-swift.type.method
-func (_NSKeyedArchiverClass NSKeyedArchiverClass) SetClassNameForClass(codedName string, cls objc.Class) {
+func (_NSKeyedArchiverClass NSKeyedArchiverClass) SetClassNameForClass(codedName string, cls objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_NSKeyedArchiverClass.class), objc.Sel("setClassName:forClass:"), objc.String(codedName), cls)
 }
 
@@ -271,7 +271,7 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) SetClassNameForClass(codedName
 // `cls`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/className(for:)-swift.type.method
-func (_NSKeyedArchiverClass NSKeyedArchiverClass) ClassNameForClassWithCls(cls objc.Class) string {
+func (_NSKeyedArchiverClass NSKeyedArchiverClass) ClassNameForClassWithCls(cls objectivec.Class) string {
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedArchiverClass.class), objc.Sel("classNameForClass:"), cls)
 	return NSStringFromID(rv).String()
 }
@@ -281,9 +281,10 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ClassNameForClassWithCls(cls o
 // # Discussion
 //
 // If encoding has not yet finished, invoking this property calls
-// [FinishEncoding] and populates this property with the encoded data. If you
-// initialized the keyed archiver with [init(forWritingWith:)] and a specific
-// mutable data instance, this property contains that instance.
+// [NSKeyedArchiver.FinishEncoding] and populates this property with the
+// encoded data. If you initialized the keyed archiver with
+// [init(forWritingWith:)] and a specific mutable data instance, this property
+// contains that instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/encodedData
 //

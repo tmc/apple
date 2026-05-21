@@ -51,15 +51,16 @@ func (ac AVCapturePhotoSettingsClass) Alloc() AVCapturePhotoSettings {
 //
 // To take a photo, you create and configure a [AVCapturePhotoSettings]
 // object, then pass it to the [AVCapturePhotoOutput]
-// [CapturePhotoWithSettingsDelegate] method.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method.
 //
 // A [AVCapturePhotoSettings] instance can include any combination of
 // settings, regardless of whether that combination is valid for a given
 // capture session. When you initiate a capture by passing a photo settings
-// object to the [CapturePhotoWithSettingsDelegate] method, the photo capture
-// output validates your settings to ensure deterministic behavior. For
-// example, the [AVCapturePhotoSettings.FlashMode] setting must specify a value that’s present in
-// the photo output’s [SupportedFlashModes] array. For detailed validation
+// object to the [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// method, the photo capture output validates your settings to ensure
+// deterministic behavior. For example, the [AVCapturePhotoSettings.FlashMode]
+// setting must specify a value that’s present in the photo output’s
+// [AVCapturePhotoOutput.SupportedFlashModes] array. For detailed validation
 // rules, see each property description below.
 //
 // # Inspecting settings
@@ -173,9 +174,6 @@ type IAVCapturePhotoSettings interface {
 	// A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
 	IsConstantColorFallbackPhotoDeliveryEnabled() bool
 	SetConstantColorFallbackPhotoDeliveryEnabled(value bool)
-
-	// Name of an exception that occurs when you pass an invalid argument to a method, such as a `nil` pointer where a non-`nil` object is required.
-	InvalidArgumentException() foundation.NSString
 }
 
 // Init initializes the instance.
@@ -209,15 +207,16 @@ func NewAVCapturePhotoSettings() AVCapturePhotoSettings {
 // # Discussion
 //
 // It is illegal to reuse a [AVCapturePhotoSettings] instance for multiple
-// captures. Calling the [CapturePhotoWithSettingsDelegate] method throws an
-// exception if the [UniqueID] value of the `settings` parameter matches that
-// of any previously used settings object.
+// captures. Calling the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method throws an
+// exception if the [AVCapturePhotoSettings.UniqueID] value of the `settings`
+// parameter matches that of any previously used settings object.
 //
 // To reuse a specific combination of settings, use this initializer to create
 // a new [AVCapturePhotoSettings] instance from an existing photo settings
 // object. The newly created instance has a new, unique value for its
-// [UniqueID] property, but copies the values for all other properties from
-// the `photoSettings` parameter.
+// [AVCapturePhotoSettings.UniqueID] property, but copies the values for all
+// other properties from the `photoSettings` parameter.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(from:)
 func NewCapturePhotoSettingsFromPhotoSettings(photoSettings IAVCapturePhotoSettings) AVCapturePhotoSettings {
@@ -233,13 +232,15 @@ func NewCapturePhotoSettingsFromPhotoSettings(photoSettings IAVCapturePhotoSetti
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
 // set the key [kCVPixelBufferPixelFormatTypeKey] in the `format` dictionary.
 // The corresponding value must be one of the pixel format identifiers listed
-// in the [AvailablePhotoPixelFormatTypes] array of your photo capture output.
+// in the [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // To capture a photo in a compressed format, such as JPEG, set the key
 // [AVVideoCodecKey] in the `format` dictionary. The corresponding value must
-// be one of the codec identifiers listed in the [AvailablePhotoCodecTypes]
-// array of your photo capture output. For a compressed format, you can also
-// specify a compression level with the key [AVVideoQualityKey].
+// be one of the codec identifiers listed in the
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array of your photo capture
+// output. For a compressed format, you can also specify a compression level
+// with the key [AVVideoQualityKey].
 //
 // # Return Value
 //
@@ -248,10 +249,11 @@ func NewCapturePhotoSettingsFromPhotoSettings(photoSettings IAVCapturePhotoSetti
 // # Discussion
 //
 // Requesting capture in a processed format adds requirements for other photo
-// settings: for details, see the [Format] property. The capture output
-// validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// settings: for details, see the [AVCapturePhotoSettings.Format] property.
+// The capture output validates these requirements when you call the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate don’t meet these requirements, that method raises
+// an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(format:)
 //
@@ -267,8 +269,9 @@ func NewCapturePhotoSettingsWithFormat(format foundation.INSDictionary) AVCaptur
 // specified pixel format.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // # Return Value
 //
@@ -278,13 +281,15 @@ func NewCapturePhotoSettingsWithFormat(format foundation.INSDictionary) AVCaptur
 //
 // Use this initializer for RAW-only capture. To capture an image in both RAW
 // format and a processed format (such as JPEG), use the
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer instead.
 //
 // Requesting RAW format capture adds requirements for other photo settings:
-// for details, see the [RawPhotoPixelFormatType] property. The capture output
-// validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// for details, see the [AVCapturePhotoSettings.RawPhotoPixelFormatType]
+// property. The capture output validates these requirements when you call the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate don’t meet these requirements, that method raises
+// an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:)
 func NewCapturePhotoSettingsWithRawPixelFormatType(rawPixelFormatType uint32) AVCapturePhotoSettings {
@@ -296,8 +301,9 @@ func NewCapturePhotoSettingsWithRawPixelFormatType(rawPixelFormatType uint32) AV
 // processed format.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // processedFormat: A dictionary of Core Video pixel buffer attributes or AVFoundation video
 // settings constants (see `Video Settings`).
@@ -305,13 +311,15 @@ func NewCapturePhotoSettingsWithRawPixelFormatType(rawPixelFormatType uint32) AV
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
 // set the key [kCVPixelBufferPixelFormatTypeKey] in the `format` dictionary.
 // The corresponding value must be one of the pixel format identifiers listed
-// in the [AvailablePhotoPixelFormatTypes] array of your photo capture output.
+// in the [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // To capture a photo in a compressed format, such as JPEG, set the key
 // [AVVideoCodecKey] in the `format` dictionary. The corresponding value must
-// be one of the codec identifiers listed in the [AvailablePhotoCodecTypes]
-// array of your photo capture output. For a compressed format, you can also
-// specify a compression level with the key [AVVideoQualityKey].
+// be one of the codec identifiers listed in the
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array of your photo capture
+// output. For a compressed format, you can also specify a compression level
+// with the key [AVVideoQualityKey].
 //
 // # Return Value
 //
@@ -321,14 +329,16 @@ func NewCapturePhotoSettingsWithRawPixelFormatType(rawPixelFormatType uint32) AV
 //
 // Use this initializer to capture an image in both RAW format and a processed
 // format (such as JPEG). For RAW-only capture, use the
-// [PhotoSettingsWithRawPixelFormatType] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType]
+// initializer instead.
 //
 // Requesting both formats adds requirements for other photo settings: see the
-// [Format] property for processed format requirements and the
-// [RawPhotoPixelFormatType] property for RAW format requirements. The capture
-// output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// [AVCapturePhotoSettings.Format] property for processed format requirements
+// and the [AVCapturePhotoSettings.RawPhotoPixelFormatType] property for RAW
+// format requirements. The capture output validates these requirements when
+// you call the [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// method. If your settings and delegate don’t meet these requirements, that
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:processedFormat:)
 //
@@ -344,8 +354,9 @@ func NewCapturePhotoSettingsWithRawPixelFormatTypeProcessedFormat(rawPixelFormat
 // processed format with the specified output file types.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // rawFileType: The container file format for eventual output of the RAW image.
 //
@@ -359,13 +370,15 @@ func NewCapturePhotoSettingsWithRawPixelFormatTypeProcessedFormat(rawPixelFormat
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
 // set the key [kCVPixelBufferPixelFormatTypeKey] in the `format` dictionary.
 // The corresponding value must be one of the pixel format identifiers listed
-// in the [AvailablePhotoPixelFormatTypes] array of your photo capture output.
+// in the [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // To capture a photo in a compressed format, such as JPEG, set the key
 // [AVVideoCodecKey] in the `format` dictionary. The corresponding value must
-// be one of the codec identifiers listed in the [AvailablePhotoCodecTypes]
-// array of your photo capture output. For a compressed format, you can also
-// specify a compression level with the key [AVVideoQualityKey].
+// be one of the codec identifiers listed in the
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array of your photo capture
+// output. For a compressed format, you can also specify a compression level
+// with the key [AVVideoQualityKey].
 //
 // processedFileType: The container file format for eventual output of the processed image.
 //
@@ -381,14 +394,16 @@ func NewCapturePhotoSettingsWithRawPixelFormatTypeProcessedFormat(rawPixelFormat
 //
 // Use this initializer to capture an image in both RAW format and a processed
 // format (such as JPEG). For RAW-only capture, use the
-// [PhotoSettingsWithRawPixelFormatType] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType]
+// initializer instead.
 //
 // Requesting both formats adds requirements for other photo settings: see the
-// [Format] property for processed format requirements and the
-// [RawPhotoPixelFormatType] property for RAW format requirements. The capture
-// output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate do
-// not meet these requirements, that method raises an exception.
+// [AVCapturePhotoSettings.Format] property for processed format requirements
+// and the [AVCapturePhotoSettings.RawPhotoPixelFormatType] property for RAW
+// format requirements. The capture output validates these requirements when
+// you call the [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// method. If your settings and delegate do not meet these requirements, that
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:rawFileType:processedFormat:processedFileType:)
 //
@@ -412,10 +427,12 @@ func NewCapturePhotoSettingsWithRawPixelFormatTypeRawFileTypeProcessedFormatProc
 // format.
 //
 // Requesting capture in a processed format (such as JPEG) adds requirements
-// for other photo settings: for details, see the [Format] property. The
-// capture output validates these requirement when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirement, that method raises an exception.
+// for other photo settings: for details, see the
+// [AVCapturePhotoSettings.Format] property. The capture output validates
+// these requirement when you call the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate don’t meet these requirement, that method raises an
+// exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/photoSettings
 func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettings() AVCapturePhotoSettings {
@@ -431,19 +448,23 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettings() 
 // value to this property.
 //
 // Use this property to track a photo capture request. After you call the
-// [CapturePhotoWithSettingsDelegate] method, the photo capture output calls
-// your delegate object to provide information about the progress and results
-// of the capture. Each delegate method includes a
-// [AVCaptureResolvedPhotoSettings] whose [UniqueID] property matches the
-// [UniqueID] value of the [AVCapturePhotoSettings] object you used to request
-// capture.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method, the photo
+// capture output calls your delegate object to provide information about the
+// progress and results of the capture. Each delegate method includes a
+// [AVCaptureResolvedPhotoSettings] whose [AVCapturePhotoSettings.UniqueID]
+// property matches the [AVCapturePhotoSettings.UniqueID] value of the
+// [AVCapturePhotoSettings] object you used to request capture.
 //
 // It is illegal to reuse a [AVCapturePhotoSettings] instance for multiple
-// captures. Calling the [CapturePhotoWithSettingsDelegate] method throws an
-// exception ([InvalidArgumentException]) if the `settings` object’s
-// [UniqueID] value matches that of any previously used settings object.
+// captures. Calling the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method throws an
+// exception ([invalidArgumentException]) if the `settings` object’s
+// [AVCapturePhotoSettings.UniqueID] value matches that of any previously used
+// settings object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/uniqueID
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (c AVCapturePhotoSettings) UniqueID() int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("uniqueID"))
 	return rv
@@ -455,8 +476,10 @@ func (c AVCapturePhotoSettings) UniqueID() int64 {
 // # Discussion
 //
 // This property is read-only—you specify a processed format when creating a
-// settings object with the [PhotoSettings], [PhotoSettingsWithFormat], or
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer.
+// settings object with the [AVCapturePhotoSettingsClass.PhotoSettings],
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithFormat], or
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer.
 //
 // When capturing images in processed formats, the following requirements
 // apply:
@@ -466,18 +489,20 @@ func (c AVCapturePhotoSettings) UniqueID() int64 {
 // [AVVideoCodecKey] (to request a compressed format such as JPEG) key, but
 // not both. - If this dictionary has the [kCVPixelBufferPixelFormatTypeKey]
 // key, the value for that key must be listed in the photo output’s
-// [AvailablePhotoPixelFormatTypes] array.
+// [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array.
 //
 // If this dictionary has the [AVVideoCodecKey] key, the value for that key
-// must be listed in the photo output’s [AvailablePhotoCodecTypes] array.
+// must be listed in the photo output’s
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array.
 //
 // - Your delegate method must implement the
 // [CaptureOutputDidFinishProcessingPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError]
 // method.
 //
 // The capture output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate do
-// not meet these requirements, that method raises an exception.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate do not meet these requirements, that method raises an
+// exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/format
 //
@@ -493,10 +518,10 @@ func (c AVCapturePhotoSettings) Format() foundation.INSDictionary {
 // # Discussion
 //
 // You specify a file format when creating capture settings with the
-// [PhotoSettingsWithRawPixelFormatTypeRawFileTypeProcessedFormatProcessedFileType]
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeRawFileTypeProcessedFormatProcessedFileType]
 // initializer. If you didn’t specify a file format, this value is `nil`,
 // and the photo output automatically chooses a default file format
-// appropriate to the [Format] property.
+// appropriate to the [AVCapturePhotoSettings.Format] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/processedFileType
 func (c AVCapturePhotoSettings) ProcessedFileType() AVFileType {
@@ -511,27 +536,30 @@ func (c AVCapturePhotoSettings) ProcessedFileType() AVFileType {
 // The default value for this setting is [AVCaptureFlashModeOff].
 //
 // Assuming a static scene, using the [AVCaptureFlashModeAuto] setting is
-// equivalent to testing the [AVCapturePhotoOutput] [IsFlashScene] property
-// (which indicates whether flash is recommended for the scene currently
-// visible to the camera), and then setting the [FlashMode] property of your
-// photo settings output accordingly before requesting a capture. However, the
+// equivalent to testing the [AVCapturePhotoOutput]
+// [AVCapturePhotoOutput.IsFlashScene] property (which indicates whether flash
+// is recommended for the scene currently visible to the camera), and then
+// setting the [AVCapturePhotoSettings.FlashMode] property of your photo
+// settings output accordingly before requesting a capture. However, the
 // visible scene can change between when you request a capture and when the
 // camera hardware captures an image—the automatic setting ensures that the
 // flash is enabled or disabled appropriately at the moment of capture. When
 // the capture occurs, your [AVCapturePhotoCaptureDelegate] methods receive an
-// [AVCaptureResolvedPhotoSettings] object whose [FlashEnabled] property
-// indicates which flash mode was used for that capture.
+// [AVCaptureResolvedPhotoSettings] object whose
+// [AVCaptureResolvedPhotoSettings.FlashEnabled] property indicates which
+// flash mode was used for that capture.
 //
 // When specifying a flash mode, the following requirements apply:
 //
 // - The specified mode must be present in the photo output’s
-// [SupportedFlashModes] array. - You may not enable image stabilization if
-// the flash mode is [AVCaptureFlashModeOn]. (Enabling the flash takes
-// priority over the [AutoStillImageStabilizationEnabled] setting).
+// [AVCapturePhotoOutput.SupportedFlashModes] array. - You may not enable
+// image stabilization if the flash mode is [AVCaptureFlashModeOn]. (Enabling
+// the flash takes priority over the
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled] setting).
 //
 // The capture output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings don’t meet
-// these requirements, that method raises an exception.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings don’t meet these requirements, that method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/flashMode
 func (c AVCapturePhotoSettings) FlashMode() AVCaptureFlashMode {
@@ -549,7 +577,7 @@ func (c AVCapturePhotoSettings) SetFlashMode(value AVCaptureFlashMode) {
 // Setting a value specifies a maximum for the captured image. The dimensions
 // must match one of the dimensions returned by capture device’s active
 // format’s [supportedMaxPhotoDimensions], and be equal to or smaller than
-// the value of the photo outputs [MaxPhotoDimensions].
+// the value of the photo outputs [AVCapturePhotoOutput.MaxPhotoDimensions].
 //
 // This property defaults to the smallest dimensions returned by
 // [supportedMaxPhotoDimensions].
@@ -571,11 +599,12 @@ func (c AVCapturePhotoSettings) SetMaxPhotoDimensions(value coremedia.CMVideoDim
 // # Discussion
 //
 // [AVCapturePhotoOutput] applies a variety of techniques to improve photo
-// quality, depending on the source device’s [ActiveFormat]. Some of these
-// techniques — which include reducing noise, preserving detail in low
-// light, and freezing motion — can take significant processing time before
-// the system returns a photo to your delegate callback. This property allows
-// you to specify your preferred quality versus speed of delivery.
+// quality, depending on the source device’s [AVCaptureDevice.ActiveFormat].
+// Some of these techniques — which include reducing noise, preserving
+// detail in low light, and freezing motion — can take significant
+// processing time before the system returns a photo to your delegate
+// callback. This property allows you to specify your preferred quality versus
+// speed of delivery.
 //
 // The default value of this property is
 // [AVCapturePhotoQualityPrioritizationBalanced] and indicates that speed and
@@ -603,8 +632,9 @@ func (c AVCapturePhotoSettings) SetPhotoQualityPrioritization(value AVCapturePho
 // The default value is false. Set the value to true to suppress the photo
 // output’s built-in shutter sound for this request. The photo output throws
 // an invalid argument exception when calling
-// [CapturePhotoWithSettingsDelegate] if its
-// [ShutterSoundSuppressionSupported] property returns false.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] if its
+// [AVCapturePhotoOutput.ShutterSoundSuppressionSupported] property returns
+// false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isShutterSoundSuppressionEnabled
 func (c AVCapturePhotoSettings) IsShutterSoundSuppressionEnabled() bool {
@@ -648,13 +678,4 @@ func (c AVCapturePhotoSettings) IsConstantColorFallbackPhotoDeliveryEnabled() bo
 }
 func (c AVCapturePhotoSettings) SetConstantColorFallbackPhotoDeliveryEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConstantColorFallbackPhotoDeliveryEnabled:"), value)
-}
-
-// Name of an exception that occurs when you pass an invalid argument to a
-// method, such as a `nil` pointer where a non-`nil` object is required.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
-func (c AVCapturePhotoSettings) InvalidArgumentException() foundation.NSString {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidArgumentException"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

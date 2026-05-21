@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -132,9 +133,10 @@ func (cc CKRecordClass) Alloc() CKRecord {
 // # Storing Records Locally
 //
 // If you store records in a local database, use the
-// [CKRecord.EncodeSystemFieldsWithCoder] method to encode and store the record’s
-// metadata. The metadata contains the record ID and the change tag, which you
-// need later to sync records in a local database with those in CloudKit.
+// [CKRecord.EncodeSystemFieldsWithCoder] method to encode and store the
+// record’s metadata. The metadata contains the record ID and the change
+// tag, which you need later to sync records in a local database with those in
+// CloudKit.
 //
 // # Accessing the Record’s Metadata
 //
@@ -166,6 +168,10 @@ func (cc CKRecordClass) Alloc() CKRecord {
 //   - [CKRecord.Share]: A reference to the share object that determines the share status of the record.
 //   - [CKRecord.SetParentReferenceFromRecord]: Creates and sets a reference object for a parent from its record.
 //   - [CKRecord.SetParentReferenceFromRecordID]: Creates and sets a reference object for a parent from the parent’s record ID.
+//
+// # Initializers
+//
+//   - [CKRecord.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecord
 //
@@ -222,6 +228,10 @@ func CKRecordFromID(id objc.ID) CKRecord {
 //   - [ICKRecord.SetParentReferenceFromRecord]: Creates and sets a reference object for a parent from its record.
 //   - [ICKRecord.SetParentReferenceFromRecordID]: Creates and sets a reference object for a parent from the parent’s record ID.
 //
+// # Initializers
+//
+//   - [ICKRecord.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CloudKit/CKRecord
 type ICKRecord interface {
 	objectivec.IObject
@@ -232,7 +242,7 @@ type ICKRecord interface {
 	RecordID() ICKRecordID
 	// The value that your app defines to identify the type of record.
 	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
+	SetRecordType(value kernel.Pointer)
 	// The time when CloudKit first saves the record to the server.
 	CreationDate() foundation.NSDate
 	// The ID of the user who creates the record.
@@ -271,6 +281,10 @@ type ICKRecord interface {
 	// Creates and sets a reference object for a parent from the parent’s record ID.
 	SetParentReferenceFromRecordID(parentRecordID ICKRecordID)
 
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKRecord
+
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -291,6 +305,13 @@ func NewCKRecord() CKRecord {
 	class := getCKRecordClass()
 	rv := objc.Send[CKRecord](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKRecord/init(coder:)
+func NewCKRecordWithCoder(coder foundation.INSCoder) CKRecord {
+	instance := getCKRecordClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKRecordFromID(rv)
 }
 
 // Returns the object that the record stores for the specified key.
@@ -394,6 +415,12 @@ func (c CKRecord) SetParentReferenceFromRecordID(parentRecordID ICKRecordID) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setParentReferenceFromRecordID:"), parentRecordID)
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKRecord/init(coder:)
+func (c CKRecord) InitWithCoder(coder foundation.INSCoder) CKRecord {
+	rv := objc.Send[CKRecord](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
+
 // Returns an array of the record’s keys.
 //
 // # Return Value
@@ -492,7 +519,7 @@ func (c CKRecord) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKRecord) SetRecordType(value unsafe.Pointer) {
+func (c CKRecord) SetRecordType(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }
 
@@ -616,8 +643,8 @@ func (c CKRecord) EncryptedValues() CKRecordKeyValueSetting {
 // records. CloudKit shares the hierarchy when a [CKShare] includes a
 // referenced record. Add relationships between records as you create them,
 // even if you don’t plan to share them. This allows you to manage the
-// sharing of a hierarchy by only modifying the root record’s [Share]
-// reference.
+// sharing of a hierarchy by only modifying the root record’s
+// [CKRecord.Share] reference.
 //
 // To indicate that a record belongs to its parent, set this property to a
 // reference that points to the parent record. The reference must use the

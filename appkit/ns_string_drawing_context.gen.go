@@ -161,9 +161,10 @@ func (s NSStringDrawingContext) SetMinimumScaleFactor(value float64) {
 //
 // # Discussion
 //
-// If you specified a custom value in the [MinimumScaleFactor] property, when
-// drawing is complete, this property contains the actual scale factor value
-// that was used to draw the string.
+// If you specified a custom value in the
+// [NSStringDrawingContext.MinimumScaleFactor] property, when drawing is
+// complete, this property contains the actual scale factor value that was
+// used to draw the string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStringDrawingContext/actualScaleFactor
 func (s NSStringDrawingContext) ActualScaleFactor() float64 {

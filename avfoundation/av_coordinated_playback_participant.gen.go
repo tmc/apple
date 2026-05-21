@@ -48,8 +48,8 @@ func (ac AVCoordinatedPlaybackParticipantClass) Alloc() AVCoordinatedPlaybackPar
 // # Overview
 //
 // Access the other participants in a session through the playback
-// coordinator’s [AVCoordinatedPlaybackParticipant.OtherParticipants] property to determine their playback
-// readiness and suspension reasons.
+// coordinator’s [AVPlaybackCoordinator.OtherParticipants] property to
+// determine their playback readiness and suspension reasons.
 //
 // # Accessing participant status
 //
@@ -92,10 +92,6 @@ type IAVCoordinatedPlaybackParticipant interface {
 	IsReadyToPlay() bool
 	// The reasons a participant isn’t currently participating in coordinated playback.
 	SuspensionReasons() []string
-
-	// The identifiers of the other participants in a group.
-	OtherParticipants() IAVCoordinatedPlaybackParticipant
-	SetOtherParticipants(value IAVCoordinatedPlaybackParticipant)
 }
 
 // Init initializes the instance.
@@ -146,24 +142,4 @@ func (c AVCoordinatedPlaybackParticipant) IsReadyToPlay() bool {
 func (c AVCoordinatedPlaybackParticipant) SuspensionReasons() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("suspensionReasons"))
 	return objc.ConvertSliceToStrings(rv)
-}
-
-// The identifiers of the other participants in a group.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplaybackcoordinator/otherparticipants
-func (c AVCoordinatedPlaybackParticipant) OtherParticipants() IAVCoordinatedPlaybackParticipant {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("otherParticipants"))
-	return AVCoordinatedPlaybackParticipantFromID(objc.ID(rv))
-}
-func (c AVCoordinatedPlaybackParticipant) SetOtherParticipants(value IAVCoordinatedPlaybackParticipant) {
-	objc.Send[struct{}](c.ID, objc.Sel("setOtherParticipants:"), value)
-}
-
-// A notification that the coordinator posts when its other participants
-// change.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplaybackcoordinator/otherparticipantsdidchangenotification
-func (_AVCoordinatedPlaybackParticipantClass AVCoordinatedPlaybackParticipantClass) OtherParticipantsDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_AVCoordinatedPlaybackParticipantClass.class), objc.Sel("AVPlaybackCoordinatorOtherParticipantsDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

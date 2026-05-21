@@ -65,10 +65,6 @@ func (vc VNDetectTrajectoriesRequestClass) Alloc() VNDetectTrajectoriesRequest {
 //   - [VNDetectTrajectoriesRequest.ObjectMaximumNormalizedRadius]: The maximum radius of the bounding circle of the object to track.
 //   - [VNDetectTrajectoriesRequest.SetObjectMaximumNormalizedRadius]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectTrajectoriesRequest.VNDetectTrajectoriesRequestRevision1]: A constant for specifying revision 1 of the trajectories detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest
 type VNDetectTrajectoriesRequest struct {
 	VNStatefulRequest
@@ -101,10 +97,6 @@ func VNDetectTrajectoriesRequestFromID(id objc.ID) VNDetectTrajectoriesRequest {
 //   - [IVNDetectTrajectoriesRequest.ObjectMaximumNormalizedRadius]: The maximum radius of the bounding circle of the object to track.
 //   - [IVNDetectTrajectoriesRequest.SetObjectMaximumNormalizedRadius]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectTrajectoriesRequest.VNDetectTrajectoriesRequestRevision1]: A constant for specifying revision 1 of the trajectories detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest
 type IVNDetectTrajectoriesRequest interface {
 	IVNStatefulRequest
@@ -127,11 +119,6 @@ type IVNDetectTrajectoriesRequest interface {
 	// The maximum radius of the bounding circle of the object to track.
 	ObjectMaximumNormalizedRadius() float32
 	SetObjectMaximumNormalizedRadius(value float32)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the trajectories detection request.
-	VNDetectTrajectoriesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -161,7 +148,7 @@ func NewVNDetectTrajectoriesRequest() VNDetectTrajectoriesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
@@ -290,12 +277,4 @@ func (d VNDetectTrajectoriesRequest) ObjectMaximumNormalizedRadius() float32 {
 }
 func (d VNDetectTrajectoriesRequest) SetObjectMaximumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMaximumNormalizedRadius:"), value)
-}
-
-// A constant for specifying revision 1 of the trajectories detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequestrevision1
-func (d VNDetectTrajectoriesRequest) VNDetectTrajectoriesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTrajectoriesRequestRevision1"))
-	return rv
 }

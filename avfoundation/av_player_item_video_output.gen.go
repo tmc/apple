@@ -120,7 +120,7 @@ type IAVPlayerItemVideoOutput interface {
 	// Topic: Notifying the delegate of changes
 
 	// Tells the receiver that the video out put client is entering a quiescent state.
-	RequestNotificationOfMediaDataChangeWithAdvanceInterval(interval float64)
+	RequestNotificationOfMediaDataChangeWithAdvanceInterval(interval foundation.NSTimeInterval)
 
 	// Topic: Getting pixel buffer data
 
@@ -225,7 +225,7 @@ func (p AVPlayerItemVideoOutput) SetDelegateQueue(delegate AVPlayerItemOutputPul
 //
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 // [CVDisplayLink]: https://developer.apple.com/documentation/CoreVideo/CVDisplayLink
-func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvanceInterval(interval float64) {
+func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvanceInterval(interval foundation.NSTimeInterval) {
 	objc.Send[objc.ID](p.ID, objc.Sel("requestNotificationOfMediaDataChangeWithAdvanceInterval:"), interval)
 }
 

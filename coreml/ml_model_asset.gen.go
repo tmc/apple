@@ -54,7 +54,8 @@ func (mc MLModelAssetClass) Alloc() MLModelAsset {
 // representations.
 //
 // To use an in-memory model, create an [MLModelAsset] with an in-memory model
-// specification, then call [LoadModelAssetConfigurationCompletionHandler].
+// specification, then call
+// [MLModelClass.LoadModelAssetConfigurationCompletionHandler].
 //
 // # Getting function names
 //

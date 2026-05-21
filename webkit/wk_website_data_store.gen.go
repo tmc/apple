@@ -55,19 +55,20 @@ func (wc WKWebsiteDataStoreClass) Alloc() WKWebsiteDataStore {
 // - Manage cookies that your web site uses - Learn about the types of data
 // that websites store - Remove unwanted web site data
 //
-// Create a data store object and assign it to the [WebsiteDataStore] property
-// of a [WKWebViewConfiguration] object before you create your web view.
+// Create a data store object and assign it to the
+// [WKWebViewConfiguration.WebsiteDataStore] property of a
+// [WKWebViewConfiguration] object before you create your web view.
 //
 // By default, [WKWebViewConfiguration] uses the default data store returned
-// by the [WKWebsiteDataStore.DefaultDataStore] method, which saves website data persistently to
-// disk.
+// by the [WKWebsiteDataStoreClass.DefaultDataStore] method, which saves
+// website data persistently to disk.
 //
 // To implement private browsing, create a nonpersistent data store using the
-// [WKWebsiteDataStore.NonPersistentDataStore] method instead.
+// [WKWebsiteDataStoreClass.NonPersistentDataStore] method instead.
 //
 // To implement profile browsing, create a persistent data store using the
-// [WKWebsiteDataStore.DataStoreForIdentifier] method, passing an identifier that you use to
-// identify the data store.
+// [WKWebsiteDataStoreClass.DataStoreForIdentifier] method, passing an
+// identifier that you use to identify the data store.
 //
 // # Inspecting data store properties
 //
@@ -77,6 +78,10 @@ func (wc WKWebsiteDataStoreClass) Alloc() WKWebsiteDataStore {
 // # Retrieving a cookie store
 //
 //   - [WKWebsiteDataStore.HttpCookieStore]: The object that manages the HTTP cookies for your website.
+//
+// # Retrieving specific types of data
+//
+//   - [WKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler]: Fetches the specified types of records from the data store.
 //
 // # Removing specific types of data
 //
@@ -120,6 +125,10 @@ func WKWebsiteDataStoreFromID(id objc.ID) WKWebsiteDataStore {
 //
 //   - [IWKWebsiteDataStore.HttpCookieStore]: The object that manages the HTTP cookies for your website.
 //
+// # Retrieving specific types of data
+//
+//   - [IWKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler]: Fetches the specified types of records from the data store.
+//
 // # Removing specific types of data
 //
 //   - [IWKWebsiteDataStore.RemoveDataOfTypesForDataRecordsCompletionHandler]: Removes the specified types of website data from one or more data records.
@@ -151,6 +160,11 @@ type IWKWebsiteDataStore interface {
 	// The object that manages the HTTP cookies for your website.
 	HttpCookieStore() IWKHTTPCookieStore
 
+	// Topic: Retrieving specific types of data
+
+	// Fetches the specified types of records from the data store.
+	FetchDataRecordsOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler WKWebsiteDataRecordArrayHandler)
+
 	// Topic: Removing specific types of data
 
 	// Removes the specified types of website data from one or more data records.
@@ -168,11 +182,7 @@ type IWKWebsiteDataStore interface {
 	FetchDataOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler DataErrorHandler)
 	RestoreDataCompletionHandler(data foundation.NSData, completionHandler ErrorHandler)
 
-	// The local files WebKit can access when loading content.
-	ReadAccessURL() foundation.NSString
-	// The object you use to get and set the site’s cookies and to track the cached data objects.
-	WebsiteDataStore() IWKWebsiteDataStore
-	SetWebsiteDataStore(value IWKWebsiteDataStore)
+	InitWithCoder(coder foundation.INSCoder) WKWebsiteDataStore
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -211,6 +221,42 @@ func NewWKWebsiteDataStore() WKWebsiteDataStore {
 func NewWebsiteDataStoreForIdentifier(identifier foundation.NSUUID) WKWebsiteDataStore {
 	rv := objc.Send[objc.ID](objc.ID(getWKWebsiteDataStoreClass().class), objc.Sel("dataStoreForIdentifier:"), identifier)
 	return WKWebsiteDataStoreFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/init(coder:)
+func NewWebsiteDataStoreWithCoder(coder foundation.INSCoder) WKWebsiteDataStore {
+	instance := getWKWebsiteDataStoreClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return WKWebsiteDataStoreFromID(rv)
+}
+
+// Fetches the specified types of records from the data store.
+//
+// dataTypes: The types of records to fetch. For a list of all possible types, see [Data
+// Store Record Types]. To specify all types, specify the set returned by the
+// [WKWebsiteDataStoreClass.AllWebsiteDataTypes] method.
+//
+// completionHandler: The completion handler block to execute asynchronously with the results.
+// This block has no return value and takes the following parameter:
+//
+// dataRecordArray: An array of [WKWebsiteDataRecord] objects. Each object in
+// this array corresponds to data for one of the requested types. If no
+// records of the requested types exist, this array is empty.
+//
+// # Discussion
+//
+// Call this method to retrieve information about the types of data that the
+// website saves. The returned records don’t include the data itself, but
+// contain information that you can convey to the user. For example, you might
+// use the returned data records to display the cookies a website uses, or to
+// show which websites cache data.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/fetchDataRecords(ofTypes:completionHandler:)
+//
+// [Data Store Record Types]: https://developer.apple.com/documentation/WebKit/data-store-record-types
+func (w WKWebsiteDataStore) FetchDataRecordsOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler WKWebsiteDataRecordArrayHandler) {
+	_block1, _ := NewWKWebsiteDataRecordArrayBlock(completionHandler)
+	objc.Send[objc.ID](w.ID, objc.Sel("fetchDataRecordsOfTypes:completionHandler:"), dataTypes, _block1)
 }
 
 // Removes the specified types of website data from one or more data records.
@@ -262,6 +308,12 @@ func (w WKWebsiteDataStore) RestoreDataCompletionHandler(data foundation.NSData,
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("restoreData:completionHandler:"), data, _block1)
 }
+
+// See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/init(coder:)
+func (w WKWebsiteDataStore) InitWithCoder(coder foundation.INSCoder) WKWebsiteDataStore {
+	rv := objc.Send[WKWebsiteDataStore](w.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (w WKWebsiteDataStore) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](w.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -301,6 +353,17 @@ func (_WKWebsiteDataStoreClass WKWebsiteDataStoreClass) DefaultDataStore() WKWeb
 func (_WKWebsiteDataStoreClass WKWebsiteDataStoreClass) NonPersistentDataStore() WKWebsiteDataStore {
 	rv := objc.Send[objc.ID](objc.ID(_WKWebsiteDataStoreClass.class), objc.Sel("nonPersistentDataStore"))
 	return WKWebsiteDataStoreFromID(rv)
+}
+
+// Fetches an array of identifiers from existing data stores that have
+// identifiers.
+//
+// completionHandler: A block to invoke with the fetched list of unique identifiers.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/fetchAllDataStoreIdentifiers(_:)
+func (_WKWebsiteDataStoreClass WKWebsiteDataStoreClass) FetchAllDataStoreIdentifiers(completionHandler NSUUIDArrayHandler) {
+	_block0, _ := NewNSUUIDArrayBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_WKWebsiteDataStoreClass.class), objc.Sel("fetchAllDataStoreIdentifiers:"), _block0)
 }
 
 // Returns the set of all the available data types.
@@ -386,24 +449,42 @@ func (w WKWebsiteDataStore) SetProxyConfigurations(value []objectivec.Object) {
 	objc.Send[struct{}](w.ID, objc.Sel("setProxyConfigurations:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-// The local files WebKit can access when loading content.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/readAccessURL
-func (w WKWebsiteDataStore) ReadAccessURL() foundation.NSString {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("readAccessURL"))
-	return foundation.NSStringFromID(objc.ID(rv))
+// FetchAllDataStoreIdentifiersSync is a synchronous wrapper around [WKWebsiteDataStore.FetchAllDataStoreIdentifiers].
+// It blocks until the completion handler fires or the context is cancelled.
+func (wc WKWebsiteDataStoreClass) FetchAllDataStoreIdentifiersSync(ctx context.Context) ([]foundation.NSUUID, error) {
+	done := make(chan []foundation.NSUUID, 1)
+	wc.FetchAllDataStoreIdentifiers(func(val *[]foundation.NSUUID) {
+		var out []foundation.NSUUID
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }
 
-// The object you use to get and set the site’s cookies and to track the
-// cached data objects.
-//
-// See: https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/websitedatastore
-func (w WKWebsiteDataStore) WebsiteDataStore() IWKWebsiteDataStore {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("websiteDataStore"))
-	return WKWebsiteDataStoreFromID(objc.ID(rv))
-}
-func (w WKWebsiteDataStore) SetWebsiteDataStore(value IWKWebsiteDataStore) {
-	objc.Send[struct{}](w.ID, objc.Sel("setWebsiteDataStore:"), value)
+// FetchDataRecordsOfTypes is a synchronous wrapper around [WKWebsiteDataStore.FetchDataRecordsOfTypesCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (w WKWebsiteDataStore) FetchDataRecordsOfTypes(ctx context.Context, dataTypes foundation.INSSet) ([]WKWebsiteDataRecord, error) {
+	done := make(chan []WKWebsiteDataRecord, 1)
+	w.FetchDataRecordsOfTypesCompletionHandler(dataTypes, func(val *[]WKWebsiteDataRecord) {
+		var out []WKWebsiteDataRecord
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }
 
 // RemoveDataOfTypesModifiedSince is a synchronous wrapper around [WKWebsiteDataStore.RemoveDataOfTypesModifiedSinceCompletionHandler].

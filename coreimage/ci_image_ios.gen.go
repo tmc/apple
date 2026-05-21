@@ -14,6 +14,8 @@ import (
 //
 // image: An image containing the source data.
 //
+// image is a [*uikit.UIImage].
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(image:)
 func (i CIImage) InitWithImage(image objectivec.IObject) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithImage:"), image)
@@ -28,6 +30,8 @@ func (i CIImage) InitWithImage(image objectivec.IObject) CIImage {
 // options: A dictionary that contains options for creating an image object. You can
 // supply such options as a pixel format and a color space. See `Image
 // Dictionary Keys`.
+//
+// image is a [*uikit.UIImage].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(image:options:)
 func (i CIImage) InitWithImageOptions(image objectivec.IObject, options foundation.INSDictionary) CIImage {

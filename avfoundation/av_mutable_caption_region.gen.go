@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -97,6 +98,13 @@ func NewAVMutableCaptionRegion() AVMutableCaptionRegion {
 	class := getAVMutableCaptionRegionClass()
 	rv := objc.Send[AVMutableCaptionRegion](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/init(coder:)
+func NewMutableCaptionRegionWithCoder(coder foundation.INSCoder) AVMutableCaptionRegion {
+	instance := getAVMutableCaptionRegionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMutableCaptionRegionFromID(rv)
 }
 
 // Creates a caption region that has an identifier.

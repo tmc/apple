@@ -394,10 +394,10 @@ func (a AVAudioEngine) DetachNode(node IAVAudioNode) {
 //
 // # Discussion
 //
-// This method calls [ConnectToFromBusToBusFormat] using bus `0` for the
-// source audio node, and bus `0` for the destination audio node, except when
-// a destination is a mixer, in which case, the destination is the mixer’s
-// [NextAvailableInputBus].
+// This method calls [AVAudioEngine.ConnectToFromBusToBusFormat] using bus `0`
+// for the source audio node, and bus `0` for the destination audio node,
+// except when a destination is a mixer, in which case, the destination is the
+// mixer’s [AVAudioMixerNode.NextAvailableInputBus].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connect(_:to:format:)
 func (a AVAudioEngine) ConnectToFormat(node1 IAVAudioNode, node2 IAVAudioNode, format IAVAudioFormat) {
@@ -613,10 +613,10 @@ func (a AVAudioEngine) Prepare() {
 //
 // # Discussion
 //
-// This method calls the [Prepare] method if you don’t call it after
-// invoking [Stop]. It then starts the audio hardware through the
-// [AVAudioInputNode] and [AVAudioOutputNode] instances in the audio engine.
-// This method throws an error when:
+// This method calls the [AVAudioEngine.Prepare] method if you don’t call it
+// after invoking [AVAudioEngine.Stop]. It then starts the audio hardware
+// through the [AVAudioInputNode] and [AVAudioOutputNode] instances in the
+// audio engine. This method throws an error when:
 //
 // - There’s a problem in the structure of the graph, such as the input
 // can’t route to an output or to a recording tap through converter nodes. -
@@ -644,11 +644,12 @@ func (a AVAudioEngine) StartAndReturnError() (bool, error) {
 // # Discussion
 //
 // This method stops the audio engine and the audio hardware, but doesn’t
-// deallocate the resources for the [Prepare] method. When your app doesn’t
-// need to play audio, consider pausing or stopping the engine to minimize
-// power consumption.
+// deallocate the resources for the [AVAudioEngine.Prepare] method. When your
+// app doesn’t need to play audio, consider pausing or stopping the engine
+// to minimize power consumption.
 //
-// You resume the audio engine by invoking [StartAndReturnError].
+// You resume the audio engine by invoking
+// [AVAudioEngine.StartAndReturnError].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/pause()
 func (a AVAudioEngine) Pause() {
@@ -660,9 +661,9 @@ func (a AVAudioEngine) Pause() {
 // # Discussion
 //
 // This method stops the audio engine and the audio hardware, and releases any
-// allocated resources for the [Prepare] method. When your app doesn’t need
-// to play audio, consider pausing or stopping the engine to minimize power
-// consumption.
+// allocated resources for the [AVAudioEngine.Prepare] method. When your app
+// doesn’t need to play audio, consider pausing or stopping the engine to
+// minimize power consumption.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/stop()
 func (a AVAudioEngine) Stop() {
@@ -734,7 +735,8 @@ func (a AVAudioEngine) DisableManualRenderingMode() {
 //
 // One of the status codes from [AVAudioEngineManualRenderingStatus].
 // Irrespective of the returned status code, on exit, the output buffer’s
-// [FrameLength] indicates the number of PCM samples the engine renders.
+// [AVAudioPCMBuffer.FrameLength] indicates the number of PCM samples the
+// engine renders.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/renderOffline(_:to:)
 //
@@ -851,7 +853,7 @@ func (a AVAudioEngine) AttachedNodes() foundation.INSSet {
 //
 // In manual rendering mode, the input node can synchronously supply data to
 // the engine while it’s rendering. For more information, see
-// [SetManualRenderingInputPCMFormatInputBlock].
+// [AVAudioInputNode.SetManualRenderingInputPCMFormatInputBlock].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/inputNode
 //
@@ -868,7 +870,7 @@ func (a AVAudioEngine) InputNode() IAVAudioInputNode {
 // The framework performs audio output through an output node. The audio
 // engine creates a singleton on demand when first accessing this variable.
 // Connect another node to the input of the output node, or get a mixer using
-// the [MainMixerNode] property.
+// the [AVAudioEngine.MainMixerNode] property.
 //
 // When the engine renders to and from an audio device, the [AVAudioSession]
 // category and the availability of hardware determines whether an app
@@ -882,7 +884,7 @@ func (a AVAudioEngine) InputNode() IAVAudioInputNode {
 //
 // In manual rendering mode, the output node’s format determines the render
 // format of the engine. For more information about changing it, see
-// [EnableManualRenderingModeFormatMaximumFrameCountError].
+// [AVAudioEngine.EnableManualRenderingModeFormatMaximumFrameCountError].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/outputNode
 //
@@ -897,8 +899,8 @@ func (a AVAudioEngine) OutputNode() IAVAudioOutputNode {
 // # Discussion
 //
 // The audio engine constructs a singleton main mixer and connects it to the
-// [OutputNode] when first accessing this property. You can then connect
-// additional audio nodes to the mixer.
+// [AVAudioEngine.OutputNode] when first accessing this property. You can then
+// connect additional audio nodes to the mixer.
 //
 // If the client never sets the connection format between the `mainMixerNode`
 // and the `outputNode`, the engine always updates the format to track the

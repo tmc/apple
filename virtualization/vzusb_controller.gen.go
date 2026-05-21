@@ -51,7 +51,7 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 // USB controllers on a [VZVirtualMachineConfiguration] through a subclass of
 // [VZUSBControllerConfiguration]. When you create a [VZVirtualMachine] from
 // the configuration, the USB controllers are available through the
-// [VZUSBController.UsbControllers] property.
+// [VZVirtualMachine.UsbControllers] property.
 //
 // The concrete type of a [VZUSBController] corresponds to the type the
 // configuration uses. For example, a [VZXHCIControllerConfiguration] leads to
@@ -107,10 +107,6 @@ type IVZUSBController interface {
 	AttachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler)
 	// Detaches a USB device from the controller.
 	DetachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler)
-
-	// The list of runtime USB controller objects.
-	UsbControllers() IVZUSBController
-	SetUsbControllers(value IVZUSBController)
 }
 
 // Init initializes the instance.
@@ -143,9 +139,9 @@ func NewVZUSBController() VZUSBController {
 // # Discussion
 //
 // If the device successfully attaches to the controller, it appears in the
-// [UsbDevices] property, the framework sets its [UsbController] property to
-// point to the attached USB controller, and the completion handler returns
-// `nil`.
+// [VZUSBController.UsbDevices] property, the framework sets its
+// [UsbController] property to point to the attached USB controller, and the
+// completion handler returns `nil`.
 //
 // If the device has a previous attachment to the current USB controller, or
 // to another USB controller, the attach function fails with
@@ -172,8 +168,9 @@ func (u VZUSBController) AttachDeviceCompletionHandler(device VZUSBDevice, compl
 // # Discussion
 //
 // If the device successfully detaches from the controller, it disappears from
-// the [UsbDevices] property, the framework sets its [UsbController] property
-// to `nil,` and the completion handler returns `nil`.
+// the [VZUSBController.UsbDevices] property, the framework sets its
+// [UsbController] property to `nil,` and the completion handler returns
+// `nil`.
 //
 // If the device doesn’t have an attachment to the controller at the time of
 // calling the detach method, the process fails with [VZErrorDeviceNotFound].
@@ -200,17 +197,6 @@ func (u VZUSBController) UsbDevices() []objectivec.IObject {
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
-}
-
-// The list of runtime USB controller objects.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/usbcontrollers
-func (u VZUSBController) UsbControllers() IVZUSBController {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbControllers"))
-	return VZUSBControllerFromID(objc.ID(rv))
-}
-func (u VZUSBController) SetUsbControllers(value IVZUSBController) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUsbControllers:"), value)
 }
 
 // AttachDevice is a synchronous wrapper around [VZUSBController.AttachDeviceCompletionHandler].

@@ -163,12 +163,12 @@ type NSCollectionViewDecorationElementKind = string
 // NSCollectionViewDiffableDataSourceItemProvider is a closure that configures and returns an item for a collection view from its diffable data source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReferenceItemProvider
-type NSCollectionViewDiffableDataSourceItemProvider = func(NSCollectionView, objc.ID, objectivec.IObject) NSCollectionViewItem
+type NSCollectionViewDiffableDataSourceItemProvider = func(NSCollectionView, foundation.NSIndexPath, objectivec.IObject) NSCollectionViewItem
 
 // NSCollectionViewDiffableDataSourceSupplementaryViewProvider is a closure that configures and returns a collection view’s supplementary view, such as a header or footer, from a diffable data source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReferenceSupplementaryViewProvider
-type NSCollectionViewDiffableDataSourceSupplementaryViewProvider = func(NSCollectionView, string, objc.ID) NSView
+type NSCollectionViewDiffableDataSourceSupplementaryViewProvider = func(NSCollectionView, string, foundation.NSIndexPath) NSView
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/SupplementaryElementKind
 type NSCollectionViewSupplementaryElementKind = string

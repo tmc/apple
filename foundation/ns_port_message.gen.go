@@ -55,9 +55,10 @@ func (pc PortMessageClass) Alloc() PortMessage {
 // ports, which are [NSPort] objects that link the sender of the message to
 // the receiver, and the components, which form the body of the message. The
 // components are held as an [NSArray] object containing [NSData] and [NSPort]
-// objects. The [SendBeforeDate] message sends the components out through the
-// send port; any replies to the message arrive on the receive port. See the
-// [NSPort] class specification for information on handling incoming messages.
+// objects. The [NSPortMessage.SendBeforeDate] message sends the components
+// out through the send port; any replies to the message arrive on the receive
+// port. See the [NSPort] class specification for information on handling
+// incoming messages.
 //
 // An [NSPortMessage] instance can be initialized with a pair of [NSPort]
 // objects and an array of components. A port message’s body can contain
@@ -67,8 +68,9 @@ func (pc PortMessageClass) Alloc() PortMessage {
 //
 // An [NSPortMessage] object also maintains a message identifier, which can be
 // used to indicate the class of a message, such as an Objective-C method
-// invocation, a connection request, an error, and so on. Use the [Msgid] and
-// [Msgid] methods to access the identifier.
+// invocation, a connection request, an error, and so on. Use the
+// [NSPortMessage.Msgid] and [NSPortMessage.Msgid] methods to access the
+// identifier.
 //
 // # Creating Instances
 //
@@ -312,8 +314,8 @@ func (p PortMessage) ReceivePort() INSPort {
 // # Return Value
 //
 // For an outgoing message, the port the receiver will send itself through
-// when it receives a [SendBeforeDate] message. For an incoming message, the
-// port replies to the receiver should be sent through.
+// when it receives a [NSPortMessage.SendBeforeDate] message. For an incoming
+// message, the port replies to the receiver should be sent through.
 //
 // See: https://developer.apple.com/documentation/Foundation/PortMessage/sendPort
 func (p PortMessage) SendPort() INSPort {

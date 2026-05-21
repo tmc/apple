@@ -50,13 +50,15 @@ func (mc MTLCompileOptionsClass) Alloc() MTLCompileOptions {
 // You can configure the Metal compiler’s options by setting any or all of
 // an [MTLCompileOptions] instance’s properties, including the following:
 //
-// - Target previous OS releases by assigning the [MTLCompileOptions.LanguageVersion] property
-// to an [MTLLanguageVersion] case. - Set preprocessor macros for the Metal
-// compiler by assigning a dictionary to the [MTLCompileOptions.PreprocessorMacros] property. -
-// Choose what the Metal compiler’s optimizer prioritizes by setting the
-// [MTLCompileOptions.OptimizationLevel] property to an [MTLLibraryOptimizationLevel] case. -
-// Allow the compiler to optimize for floating-point arithmetic that may
-// violate the IEEE 754 standard by setting [MTLCompileOptions.MathMode] to [MTLMathModeFast].
+// - Target previous OS releases by assigning the
+// [MTLCompileOptions.LanguageVersion] property to an [MTLLanguageVersion]
+// case. - Set preprocessor macros for the Metal compiler by assigning a
+// dictionary to the [MTLCompileOptions.PreprocessorMacros] property. - Choose
+// what the Metal compiler’s optimizer prioritizes by setting the
+// [MTLCompileOptions.OptimizationLevel] property to an
+// [MTLLibraryOptimizationLevel] case. - Allow the compiler to optimize for
+// floating-point arithmetic that may violate the IEEE 754 standard by setting
+// [MTLCompileOptions.MathMode] to [MTLMathModeFast].
 //
 // You can compile a library with your compile options instance by calling an
 // [MTLDevice] instance’s [NewLibraryWithSourceOptionsError] or
@@ -255,18 +257,20 @@ func (c MTLCompileOptions) SetEnableLogging(value bool) {
 //
 // # Discussion
 //
-// This property replaces the [FastMathEnabled] property.
+// This property replaces the [MTLCompileOptions.FastMathEnabled] property.
 //
-// If [FastMathEnabled] is `true`, the system sets [MathMode] to
-// [MTLMathModeFast] and [MathFloatingPointFunctions] to
+// If [MTLCompileOptions.FastMathEnabled] is `true`, the system sets
+// [MTLCompileOptions.MathMode] to [MTLMathModeFast] and
+// [MTLCompileOptions.MathFloatingPointFunctions] to
 // [MTLMathFloatingPointFunctionsFast].
 //
-// If [FastMathEnabled] is `false`, the system sets [MathMode] to
-// [MTLMathModeSafe] and [MathFloatingPointFunctions] to
+// If [MTLCompileOptions.FastMathEnabled] is `false`, the system sets
+// [MTLCompileOptions.MathMode] to [MTLMathModeSafe] and
+// [MTLCompileOptions.MathFloatingPointFunctions] to
 // [MTLMathFloatingPointFunctionsPrecise].
 //
-// Subsequent calls to [MathMode] or [MathFloatingPointFunctions] set the
-// variables directly.
+// Subsequent calls to [MTLCompileOptions.MathMode] or
+// [MTLCompileOptions.MathFloatingPointFunctions] set the variables directly.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/mathMode
 func (c MTLCompileOptions) MathMode() MTLMathMode {

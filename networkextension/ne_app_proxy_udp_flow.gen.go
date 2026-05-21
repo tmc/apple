@@ -98,7 +98,7 @@ type INEAppProxyUDPFlow interface {
 
 	LocalFlowEndpoint() network.NWEndpoint
 
-	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler)
+	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler NSDataArrayObjectArrayErrorHandler)
 	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler)
 }
 
@@ -122,8 +122,8 @@ func NewNEAppProxyUDPFlow() NEAppProxyUDPFlow {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/readDatagramsAndFlowEndpointsWithCompletionHandler:
-func (a NEAppProxyUDPFlow) ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(completionHandler)
+func (a NEAppProxyUDPFlow) ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler NSDataArrayObjectArrayErrorHandler) {
+	_block0, _ := NewNSDataArrayObjectArrayErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("readDatagramsAndFlowEndpointsWithCompletionHandler:"), _block0)
 }
 
@@ -140,7 +140,7 @@ func (a NEAppProxyUDPFlow) WriteDatagramsSentByFlowEndpointsCompletionHandler(da
 //
 // This property may be nil if the corresponding UDP socket was not bound to a
 // port by the application and the App Proxy Provider did not set a local
-// endpoint in [OpenWithLocalEndpointCompletionHandler].
+// endpoint in [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/localEndpoint
 func (a NEAppProxyUDPFlow) LocalEndpoint() INWEndpoint {

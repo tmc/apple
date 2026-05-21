@@ -49,11 +49,12 @@ func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Alloc() VZVirtioCons
 // A [VZVirtioConsoleDeviceSerialPortConfiguration] object enables serial
 // communication between the guest operating system and host computer through
 // the Virtio interface. After you create this configuration object, configure
-// its inherited [VZVirtioConsoleDeviceSerialPortConfiguration.Attachment] property with an object that defines the type of
-// serial communication you want to enable. Use a
-// [VZFileHandleSerialPortAttachment] object to enable two-way communication
-// between the guest and host, and use a [VZFileSerialPortAttachment] object
-// to enable one-way communication from the guest to the file you designate.
+// its inherited [VZSerialPortConfiguration.Attachment] property with an
+// object that defines the type of serial communication you want to enable.
+// Use a [VZFileHandleSerialPortAttachment] object to enable two-way
+// communication between the guest and host, and use a
+// [VZFileSerialPortAttachment] object to enable one-way communication from
+// the guest to the file you designate.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceSerialPortConfiguration
 type VZVirtioConsoleDeviceSerialPortConfiguration struct {

@@ -51,9 +51,9 @@ func (gc GCDualShockGamepadClass) Alloc() GCDualShockGamepad {
 //
 // [media-3830806]
 //
-// This profile also supports motion — that is, the controller’s [GCDualShockGamepad.Motion]
-// property is non-nil. If you hold the controller in front of you, the
-// direction of the axes are:
+// This profile also supports motion — that is, the controller’s
+// [GCController.Motion] property is non-nil. If you hold the controller in
+// front of you, the direction of the axes are:
 //
 // - The positive x-axis points to your right. - The positive y-axis points
 // up. - The positive z-axis starts at the touchpad and points to you.

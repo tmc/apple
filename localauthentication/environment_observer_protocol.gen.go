@@ -3,6 +3,7 @@
 package localauthentication
 
 import (
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,6 +43,6 @@ func LAEnvironmentObserverObjectFromID(id objc.ID) LAEnvironmentObserverObject {
 // new updated state.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAEnvironment/Observer/environment(_:stateDidChangeFromOldState:)
-func (o LAEnvironmentObserverObject) EnvironmentStateDidChangeFromOldState(environment ILAEnvironment, oldState objectivec.IObject) {
+func (o LAEnvironmentObserverObject) EnvironmentStateDidChangeFromOldState(environment ILAEnvironment, oldState kernel.ID) {
 	objc.Send[struct{}](o.ID, objc.Sel("environment:stateDidChangeFromOldState:"), environment, oldState)
 }

@@ -4,9 +4,7 @@ package metal
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -92,11 +90,6 @@ type IMTLTensorReferenceType interface {
 	IndexType() MTLDataType
 	// The underlying data format of the tensor.
 	TensorDataType() MTLTensorDataType
-
-	// An error domain for errors that pertain to creating a tensor.
-	MTLTensorDomain() string
-	MTL_TENSOR_MAX_RANK() unsafe.Pointer
-	SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -130,9 +123,9 @@ func (t MTLTensorReferenceType) Access() MTLBindingAccess {
 //
 // # Discussion
 //
-// Because shader-bound tensors have dynamic extents, the [Rank] of
-// `dimensions` corresponds to the rank the shader function specifies, and
-// `MTLTensorExtents/` always returns a value of -1.
+// Because shader-bound tensors have dynamic extents, the
+// [MTLTensorExtents.Rank] of `dimensions` corresponds to the rank the shader
+// function specifies, and `MTLTensorExtents/` always returns a value of -1.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorReferenceType/dimensions
 func (t MTLTensorReferenceType) Dimensions() IMTLTensorExtents {
@@ -154,21 +147,4 @@ func (t MTLTensorReferenceType) IndexType() MTLDataType {
 func (t MTLTensorReferenceType) TensorDataType() MTLTensorDataType {
 	rv := objc.Send[MTLTensorDataType](t.ID, objc.Sel("tensorDataType"))
 	return MTLTensorDataType(rv)
-}
-
-// An error domain for errors that pertain to creating a tensor.
-//
-// See: https://developer.apple.com/documentation/metal/mtltensordomain
-func (t MTLTensorReferenceType) MTLTensorDomain() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
-func (t MTLTensorReferenceType) MTL_TENSOR_MAX_RANK() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
-	return rv
-}
-func (t MTLTensorReferenceType) SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }

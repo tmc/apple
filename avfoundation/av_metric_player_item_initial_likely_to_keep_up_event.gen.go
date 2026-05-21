@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -102,6 +103,13 @@ func NewAVMetricPlayerItemInitialLikelyToKeepUpEvent() AVMetricPlayerItemInitial
 	class := getAVMetricPlayerItemInitialLikelyToKeepUpEventClass()
 	rv := objc.Send[AVMetricPlayerItemInitialLikelyToKeepUpEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemInitialLikelyToKeepUpEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemInitialLikelyToKeepUpEvent {
+	instance := getAVMetricPlayerItemInitialLikelyToKeepUpEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemInitialLikelyToKeepUpEventFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemInitialLikelyToKeepUpEvent/contentKeyRequestEvents

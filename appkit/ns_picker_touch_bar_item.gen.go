@@ -175,8 +175,8 @@ type INSPickerTouchBarItem interface {
 
 	// Topic: Handling picker interaction
 
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 }
@@ -341,11 +341,11 @@ func (p NSPickerTouchBarItem) SetSelectionMode(value NSPickerTouchBarItemSelecti
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/action
-func (p NSPickerTouchBarItem) Action() objc.SEL {
+func (p NSPickerTouchBarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](p.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (p NSPickerTouchBarItem) SetAction(value objc.SEL) {
+func (p NSPickerTouchBarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAction:"), value)
 }
 

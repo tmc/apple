@@ -41,8 +41,8 @@ func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
 // # Return Value
 //
 // true when the delegate displayed help directly, false otherwise. When false
-// and the alert has a help anchor ([HelpAnchor]), the application’s help
-// manager displays help using the help anchor.
+// and the alert has a help anchor ([NSAlert.HelpAnchor]), the application’s
+// help manager displays help using the help anchor.
 //
 // # Discussion
 //

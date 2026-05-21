@@ -48,10 +48,10 @@ func (oc OSSystemExtensionManagerClass) Alloc() OSSystemExtensionManager {
 //
 // Create an instance of [OSSystemExtensionRequest] with the class methods on
 // that type, and submit it to the shared instance of the extension manager
-// with [OSSystemExtensionManager.SubmitRequest]. Set the [OSSystemExtensionManager.Delegate] on the request to receive the
-// result of the activation or deactivation. The delegate also receives
-// notifications if the user needs to authorize the extension or if a version
-// conflict occurs.
+// with [OSSystemExtensionManager.SubmitRequest]. Set the
+// [OSSystemExtensionRequest.Delegate] on the request to receive the result of
+// the activation or deactivation. The delegate also receives notifications if
+// the user needs to authorize the extension or if a version conflict occurs.
 //
 // # Submitting Requests
 //
@@ -86,10 +86,6 @@ type IOSSystemExtensionManager interface {
 
 	// Submits a system extension request to the manager.
 	SubmitRequest(request IOSSystemExtensionRequest)
-
-	// A delegate to receive updates about the progress of a request.
-	Delegate() OSSystemExtensionRequestDelegate
-	SetDelegate(value OSSystemExtensionRequestDelegate)
 }
 
 // Init initializes the instance.
@@ -118,17 +114,6 @@ func NewOSSystemExtensionManager() OSSystemExtensionManager {
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionManager/submitRequest(_:)
 func (o OSSystemExtensionManager) SubmitRequest(request IOSSystemExtensionRequest) {
 	objc.Send[objc.ID](o.ID, objc.Sel("submitRequest:"), request)
-}
-
-// A delegate to receive updates about the progress of a request.
-//
-// See: https://developer.apple.com/documentation/systemextensions/ossystemextensionrequest/delegate
-func (o OSSystemExtensionManager) Delegate() OSSystemExtensionRequestDelegate {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("delegate"))
-	return OSSystemExtensionRequestDelegateObjectFromID(rv)
-}
-func (o OSSystemExtensionManager) SetDelegate(value OSSystemExtensionRequestDelegate) {
-	objc.Send[struct{}](o.ID, objc.Sel("setDelegate:"), value)
 }
 
 // The shared instance of the extension manager.

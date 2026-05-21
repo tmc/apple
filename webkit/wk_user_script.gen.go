@@ -152,7 +152,7 @@ func NewWKUserScript() WKUserScript {
 // # Discussion
 //
 // This method sets the script’s content world to the object in the
-// [PageWorld] property of [WKContentWorld].
+// [WKContentWorldClass.PageWorld] property of [WKContentWorld].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserScript/init(source:injectionTime:forMainFrameOnly:)
 //
@@ -212,7 +212,7 @@ func NewUserScriptWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source s
 // # Discussion
 //
 // This method sets the script’s content world to the object in the
-// [PageWorld] property of [WKContentWorld].
+// [WKContentWorldClass.PageWorld] property of [WKContentWorld].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserScript/init(source:injectionTime:forMainFrameOnly:)
 //

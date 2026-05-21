@@ -192,9 +192,9 @@ func (m MassFormatter) StringFromValueUnit(value float64, unit NSMassFormatterUn
 // # Discussion
 //
 // This method selects the correct unit based on the formatter’s locale, the
-// magnitude of the value, and the [ForPersonMassUse] property. The value,
-// once converted into the appropriate unit, determines whether the unit
-// string is plural or singular.
+// magnitude of the value, and the [NSMassFormatter.ForPersonMassUse]
+// property. The value, once converted into the appropriate unit, determines
+// whether the unit string is plural or singular.
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/unitString(fromKilograms:usedUnit:)
 //
@@ -226,12 +226,13 @@ func (m MassFormatter) UnitStringFromValueUnit(value float64, unit NSMassFormatt
 //
 // # Discussion
 //
-// Returns true if the value passed to [StringFromKilograms] or
-// [UnitStringFromKilogramsUsedUnit] is a person’s mass; otherwise, false.
-// By default, this property returns false.
+// Returns true if the value passed to [NSMassFormatter.StringFromKilograms]
+// or [NSMassFormatter.UnitStringFromKilogramsUsedUnit] is a person’s mass;
+// otherwise, false. By default, this property returns false.
 //
 // The mass formatter uses this property when determining the best unit for a
-// given locale (for example, in the [StringFromKilograms] method).
+// given locale (for example, in the [NSMassFormatter.StringFromKilograms]
+// method).
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/isForPersonMassUse
 func (m MassFormatter) IsForPersonMassUse() bool {

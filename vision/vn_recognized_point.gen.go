@@ -101,6 +101,13 @@ func NewVNRecognizedPoint() VNRecognizedPoint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNPoint/init(coder:)
+func NewRecognizedPointWithCoder(coder foundation.INSCoder) VNRecognizedPoint {
+	instance := getVNRecognizedPointClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNRecognizedPointFromID(rv)
+}
+
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.

@@ -68,11 +68,6 @@ func (vc VNRequestClass) Alloc() VNRequest {
 //   - [VNRequest.UsesCPUOnly]: A Boolean signifying that the Vision request should execute exclusively on the CPU.
 //   - [VNRequest.SetUsesCPUOnly]
 //
-// # Configuring the Compute Device
-//
-//   - [VNRequest.SupportedComputeStageDevices]: The collection of compute devices per stage that a request supports.
-//   - [VNRequest.SetSupportedComputeStageDevices]
-//
 // # Canceling a Request
 //
 //   - [VNRequest.Cancel]: Cancels the request before it can finish executing.
@@ -109,11 +104,6 @@ func VNRequestFromID(id objc.ID) VNRequest {
 //   - [IVNRequest.UsesCPUOnly]: A Boolean signifying that the Vision request should execute exclusively on the CPU.
 //   - [IVNRequest.SetUsesCPUOnly]
 //
-// # Configuring the Compute Device
-//
-//   - [IVNRequest.SupportedComputeStageDevices]: The collection of compute devices per stage that a request supports.
-//   - [IVNRequest.SetSupportedComputeStageDevices]
-//
 // # Canceling a Request
 //
 //   - [IVNRequest.Cancel]: Cancels the request before it can finish executing.
@@ -142,12 +132,6 @@ type IVNRequest interface {
 	// A Boolean signifying that the Vision request should execute exclusively on the CPU.
 	UsesCPUOnly() bool
 	SetUsesCPUOnly(value bool)
-
-	// Topic: Configuring the Compute Device
-
-	// The collection of compute devices per stage that a request supports.
-	SupportedComputeStageDevices() unsafe.Pointer
-	SetSupportedComputeStageDevices(value unsafe.Pointer)
 
 	// Topic: Canceling a Request
 
@@ -189,7 +173,7 @@ func NewVNRequest() VNRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRequest {
@@ -206,7 +190,7 @@ func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandle
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func (r VNRequest) InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest {
@@ -250,8 +234,8 @@ func (r VNRequest) ComputeDeviceForComputeStage(computeStage VNComputeStage) cor
 //
 // Configure any compute device for a given compute stage. When performing a
 // request, the system makes a validity check. Call
-// [SupportedComputeStageDevicesAndReturnError] to get valid compute devices
-// for a request’s compute stages.
+// [VNRequest.SupportedComputeStageDevicesAndReturnError] to get valid compute
+// devices for a request’s compute stages.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/setComputeDevice:forComputeStage:
 func (r VNRequest) SetComputeDeviceForComputeStage(computeDevice coreml.MLComputeDeviceProtocol, computeStage VNComputeStage) {
@@ -284,7 +268,7 @@ func (r VNRequest) SupportedComputeStageDevicesAndReturnError() (foundation.INSD
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/completionHandler
 func (r VNRequest) CompletionHandler() VNRequestCompletionHandler {
@@ -356,17 +340,6 @@ func (r VNRequest) UsesCPUOnly() bool {
 }
 func (r VNRequest) SetUsesCPUOnly(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUsesCPUOnly:"), value)
-}
-
-// The collection of compute devices per stage that a request supports.
-//
-// See: https://developer.apple.com/documentation/vision/vnrequest/supportedcomputestagedevices
-func (r VNRequest) SupportedComputeStageDevices() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("supportedComputeStageDevices"))
-	return rv
-}
-func (r VNRequest) SetSupportedComputeStageDevices(value unsafe.Pointer) {
-	objc.Send[struct{}](r.ID, objc.Sel("setSupportedComputeStageDevices:"), value)
 }
 
 // The current revison supported by the request.

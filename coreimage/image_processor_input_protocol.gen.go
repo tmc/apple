@@ -95,7 +95,7 @@ func CIImageProcessorInputObjectFromID(id objc.ID) CIImageProcessorInputObject {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/baseAddress
 func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
-	return unsafe.Pointer(rv)
+	return rv
 }
 
 // A MTLTexture object that can be bound for input using Metal.

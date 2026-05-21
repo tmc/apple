@@ -74,16 +74,17 @@ func (nc NSClipViewClass) Alloc() NSClipView {
 //
 // There is only one background-drawing state per [NSScrollView]/[NSClipView]
 // pair. The two objects do not maintain independent and distinct
-// [NSClipView.DrawsBackground] and [NSClipView.BackgroundColor] properties; rather, the accessors
-// for these properties on [NSScrollView] largely defer to the associated
-// [NSClipView] and allow the [NSClipView] to maintain the state. Note that
-// this state is not cached by the [NSScrollView] object.
+// [NSClipView.DrawsBackground] and [NSClipView.BackgroundColor] properties;
+// rather, the accessors for these properties on [NSScrollView] largely defer
+// to the associated [NSClipView] and allow the [NSClipView] to maintain the
+// state. Note that this state is not cached by the [NSScrollView] object.
 //
-// It is also important to note that setting [NSClipView.DrawsBackground] to false in an
-// [NSScrollView] has the added effect of setting the [NSClipView] property
-// [copiesOnScroll] to false. The side effect of setting the [NSClipView.DrawsBackground]
-// property directly to the [NSClipView] is the appearance of “trails”
-// (vestiges of previous drawing) in the document view as it is scrolled.
+// It is also important to note that setting [NSClipView.DrawsBackground] to
+// false in an [NSScrollView] has the added effect of setting the [NSClipView]
+// property [copiesOnScroll] to false. The side effect of setting the
+// [NSClipView.DrawsBackground] property directly to the [NSClipView] is the
+// appearance of “trails” (vestiges of previous drawing) in the document
+// view as it is scrolled.
 //
 // # Setting the Document View
 //
@@ -317,8 +318,8 @@ func (c NSClipView) ScrollToPoint(newOrigin corefoundation.CGPoint) {
 // [constrainScroll(_:)] to this method by adjusting the origin of
 // `proposedBounds` (instead of using the `newOrigin` parameter in `-`). To
 // preserve compatibility, if a subclass overrides `-`, the default behavior
-// of [ConstrainBoundsRect] will be to use that `-` to adjust the origin of
-// `proposedBounds`, and to not change the size.
+// of [NSClipView.ConstrainBoundsRect] will be to use that `-` to adjust the
+// origin of `proposedBounds`, and to not change the size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/constrainBoundsRect(_:)
 //
@@ -328,18 +329,22 @@ func (c NSClipView) ConstrainBoundsRect(proposedBounds corefoundation.CGRect) co
 	return corefoundation.CGRect(rv)
 }
 
-// Handles an [BoundsDidChangeNotification], passed in the `aNotification`
+// Handles an [boundsDidChangeNotification], passed in the `aNotification`
 // argument, by updating a containing [NSScrollView] based on the new bounds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/viewBoundsChanged(_:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (c NSClipView) ViewBoundsChanged(notification foundation.NSNotification) {
 	objc.Send[objc.ID](c.ID, objc.Sel("viewBoundsChanged:"), notification)
 }
 
-// Handles an [FrameDidChangeNotification], passed in the `aNotification`
+// Handles an [frameDidChangeNotification], passed in the `aNotification`
 // argument, by updating a containing [NSScrollView] based on the new frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/viewFrameChanged(_:)
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (c NSClipView) ViewFrameChanged(notification foundation.NSNotification) {
 	objc.Send[objc.ID](c.ID, objc.Sel("viewFrameChanged:"), notification)
 }
@@ -349,16 +354,19 @@ func (c NSClipView) ViewFrameChanged(notification foundation.NSNotification) {
 // # Discussion
 //
 // If the clip view is contained in an [NSScrollView], you should send the
-// [NSScrollView] a [DocumentView] message instead, so it can perform whatever
-// updating it needs. Setting this property to a view removes any previous
-// document view, and sets the origin of the clip view’s bounds rectangle to
-// the origin of the new view’s frame rectangle. Doing so also registers the
-// clip view for the notifications [FrameDidChangeNotification] and
-// [BoundsDidChangeNotification], adjusts the key view loop to include the new
-// document view, and updates a parent [NSScrollView] display if needed using
-// [ReflectScrolledClipView].
+// [NSScrollView] a [NSScrollView.DocumentView] message instead, so it can
+// perform whatever updating it needs. Setting this property to a view removes
+// any previous document view, and sets the origin of the clip view’s bounds
+// rectangle to the origin of the new view’s frame rectangle. Doing so also
+// registers the clip view for the notifications [frameDidChangeNotification]
+// and [boundsDidChangeNotification], adjusts the key view loop to include the
+// new document view, and updates a parent [NSScrollView] display if needed
+// using [NSScrollView.ReflectScrolledClipView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/documentView
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (c NSClipView) DocumentView() INSView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("documentView"))
 	return NSViewFromID(objc.ID(rv))
@@ -371,17 +379,18 @@ func (c NSClipView) SetDocumentView(value INSView) {
 //
 // # Discussion
 //
-// When the enclosing scroll view’s [ContentInsets] value is nonzero (that
-// is, the value is not {0,0,0,0}), the scroll view sets the frame of its
-// content view to the scroll view’s bounds minus the scroll view’s
-// border, if it has one. (When the [ContentInsets] value is equal to zero,
-// the scroll view adjusts its `contentView.Frame()` to fit inside all the
-// other views the scroll view maintains.) When the value of
-// `contentView.AutomaticallyAdjustsContentInsets()` is true (which is the
-// default value), the header, rulers, and other views are overlaid on top of
-// the content view and the scroll view sets the correct [ContentInsets] value
-// on the [ContentView]. Note that you can animate the clip view when this
-// property changes by calling `[self animator]`.
+// When the enclosing scroll view’s [NSScrollView.ContentInsets] value is
+// nonzero (that is, the value is not {0,0,0,0}), the scroll view sets the
+// frame of its content view to the scroll view’s bounds minus the scroll
+// view’s border, if it has one. (When the [NSScrollView.ContentInsets]
+// value is equal to zero, the scroll view adjusts its `contentView.Frame()`
+// to fit inside all the other views the scroll view maintains.) When the
+// value of `contentView.AutomaticallyAdjustsContentInsets()` is true (which
+// is the default value), the header, rulers, and other views are overlaid on
+// top of the content view and the scroll view sets the correct
+// [NSScrollView.ContentInsets] value on the [NSScrollView.ContentView]. Note
+// that you can animate the clip view when this property changes by calling
+// `[self animator]`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/contentInsets
 func (c NSClipView) ContentInsets() foundation.NSEdgeInsets {
@@ -398,9 +407,9 @@ func (c NSClipView) SetContentInsets(value foundation.NSEdgeInsets) {
 // # Discussion
 //
 // When the value of this property is true, and the clip view is used as the
-// [ContentView] of an [NSScrollView], the clip view automatically accounts
-// for other scroll view subviews, such as rulers and headers. The default
-// value is true.
+// [NSScrollView.ContentView] of an [NSScrollView], the clip view
+// automatically accounts for other scroll view subviews, such as rulers and
+// headers. The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/automaticallyAdjustsContentInsets
 func (c NSClipView) AutomaticallyAdjustsContentInsets() bool {
@@ -453,7 +462,7 @@ func (c NSClipView) DocumentVisibleRect() corefoundation.CGRect {
 // The default value of this property is `nil`, unless you specify a value in
 // the xib file associated with the clip view (or scroll view). Note that the
 // clip view’s document view may specify a cursor for its enclosing scroll
-// view by setting [EnclosingScrollView].
+// view by setting [NSView.EnclosingScrollView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/documentCursor
 func (c NSClipView) DocumentCursor() INSCursor {
@@ -469,12 +478,12 @@ func (c NSClipView) SetDocumentCursor(value INSCursor) {
 // # Discussion
 //
 // If your [NSClipView] is enclosed in an [NSScrollView], you should set the
-// [DrawsBackground] property on the [NSScrollView]. Setting this property to
-// false on an [NSScrollView] has the added effect of setting the [NSClipView]
-// property [copiesOnScroll] to false. The side effect of setting the
-// [DrawsBackground] property on the [NSClipView] is the appearance of
-// “trails” (vestiges of previous drawing) in the document view as it is
-// scrolled.
+// [NSClipView.DrawsBackground] property on the [NSScrollView]. Setting this
+// property to false on an [NSScrollView] has the added effect of setting the
+// [NSClipView] property [copiesOnScroll] to false. The side effect of setting
+// the [NSClipView.DrawsBackground] property on the [NSClipView] is the
+// appearance of “trails” (vestiges of previous drawing) in the document
+// view as it is scrolled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/drawsBackground
 //
@@ -492,7 +501,7 @@ func (c NSClipView) SetDrawsBackground(value bool) {
 // # Discussion
 //
 // The default value of this property is supplied by the current
-// [ControlBackgroundColor].
+// [NSColorClass.ControlBackgroundColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView/backgroundColor
 func (c NSClipView) BackgroundColor() INSColor {
@@ -501,22 +510,4 @@ func (c NSClipView) BackgroundColor() INSColor {
 }
 func (c NSClipView) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColor:"), value)
-}
-
-// A notification that posts when the view’s bounds rectangle changes to a
-// new value independently of the frame rectangle.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/boundsdidchangenotification
-func (_NSClipViewClass NSClipViewClass) BoundsDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSClipViewClass.class), objc.Sel("NSViewBoundsDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts when the view’s frame rectangle changes to a
-// new value.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/framedidchangenotification
-func (_NSClipViewClass NSClipViewClass) FrameDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSClipViewClass.class), objc.Sel("NSViewFrameDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

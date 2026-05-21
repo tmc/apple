@@ -49,19 +49,22 @@ func (nc NSMenuItemBadgeClass) Alloc() NSMenuItemBadge {
 // # Overview
 //
 // You create a badge using an initializer or a predefined factory method, and
-// then you assign it to the [NSMenuItemBadge.Badge] property of a [NSMenuItem] for display.
+// then you assign it to the [NSMenuItem.Badge] property of a [NSMenuItem] for
+// display.
 //
 // [media-4304515]
 //
-// For example, to display a badge with a count, use the [NSMenuItemBadge.InitWithCount]
-// initalizer, passing in the value of `count` as an [Int].
+// For example, to display a badge with a count, use the
+// [NSMenuItemBadge.InitWithCount] initalizer, passing in the value of `count`
+// as an [Int].
 //
-// To display a badge with a custom string, use the [NSMenuItemBadge.InitWithString]
-// initializer, passing in the string you want to display.
+// To display a badge with a custom string, use the
+// [NSMenuItemBadge.InitWithString] initializer, passing in the string you
+// want to display.
 //
 // To display a badge using a predefined [NSMenuItemBadge.BadgeType], use a
-// factory method such as [NSMenuItemBadge.NewItemsWithCount], passing in the `count` of the
-// badge to display.
+// factory method such as [NSMenuItemBadgeClass.NewItemsWithCount], passing in
+// the `count` of the badge to display.
 //
 // The default value of this property is `nil`.
 //
@@ -127,8 +130,6 @@ type INSMenuItemBadge interface {
 	// The type of items the badge displays.
 	Type() NSMenuItemBadgeType
 
-	Badge() INSMenuItemBadge
-	SetBadge(value INSMenuItemBadge)
 	// Initializes the badge with a count and a pre-defined badge type.
 	InitWithCountType(itemCount int, type_ NSMenuItemBadgeType) NSMenuItemBadge
 }
@@ -287,13 +288,4 @@ func (m NSMenuItemBadge) StringValue() string {
 func (m NSMenuItemBadge) Type() NSMenuItemBadgeType {
 	rv := objc.Send[NSMenuItemBadgeType](m.ID, objc.Sel("type"))
 	return NSMenuItemBadgeType(rv)
-}
-
-// See: https://developer.apple.com/documentation/appkit/nsmenuitem/badge
-func (m NSMenuItemBadge) Badge() INSMenuItemBadge {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("badge"))
-	return NSMenuItemBadgeFromID(objc.ID(rv))
-}
-func (m NSMenuItemBadge) SetBadge(value INSMenuItemBadge) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBadge:"), value)
 }

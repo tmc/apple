@@ -137,7 +137,8 @@ func (g VZGenericPlatformConfiguration) SetNestedVirtualizationEnabled(value boo
 //
 // Use this property to check whether support is available for the platform.
 // As the following example shows, if the framework supports nested
-// virtualization on the host, use [NestedVirtualizationEnabled] to enable the
+// virtualization on the host, use
+// [VZGenericPlatformConfiguration.NestedVirtualizationEnabled] to enable the
 // feature:
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/isNestedVirtualizationSupported

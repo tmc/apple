@@ -98,7 +98,7 @@ type IWKNavigationResponse interface {
 	// Topic: Getting the Response Details
 
 	// The frame’s response.
-	Response() foundation.NSURLResponse
+	Response() foundation.URLResponse
 
 	// Topic: Getting Additional Response Information
 
@@ -135,9 +135,9 @@ func NewWKNavigationResponse() WKNavigationResponse {
 // causes the navigation to fail.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationResponse/response
-func (n WKNavigationResponse) Response() foundation.NSURLResponse {
+func (n WKNavigationResponse) Response() foundation.URLResponse {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("response"))
-	return foundation.NSURLResponseFromID(objc.ID(rv))
+	return foundation.URLResponseFromID(objc.ID(rv))
 }
 
 // A Boolean value that indicates whether WebKit is capable of displaying the

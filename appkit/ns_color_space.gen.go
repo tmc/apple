@@ -53,9 +53,9 @@ func (nc NSColorSpaceClass) Alloc() NSColorSpace {
 // profiles. [NSColorSpace] also has factory methods that return objects
 // representing the system color spaces.
 //
-// You can use the [ColorWithColorSpaceComponentsCount] method of the
-// [NSColor] class to create color objects using custom [NSColorSpace]
-// objects. You can also send the [ColorUsingColorSpace] message to an
+// You can use the [NSColorClass.ColorWithColorSpaceComponentsCount] method of
+// the [NSColor] class to create color objects using custom [NSColorSpace]
+// objects. You can also send the [NSColor.ColorUsingColorSpace] message to an
 // [NSColor] object to convert it between two color spaces, either of which
 // may be a custom color space.
 //
@@ -134,6 +134,7 @@ type INSColorSpace interface {
 	// The number of components, excluding alpha, the color space supports.
 	NumberOfColorComponents() int
 
+	InitWithCoder(coder foundation.INSCoder) NSColorSpace
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -171,9 +172,9 @@ func NewNSColorSpace() NSColorSpace {
 //
 // Because [NSColorSpace] might retain or copy the [CGColorSpace] object
 // depending on circumstances, you should not assume pointer equality of the
-// provided object with that returned by [CGColorSpace]. And even if the
-// pointer equality is preserved during runtime, it may not be after the
-// [NSColorSpace] object is archived and unarchived.
+// provided object with that returned by [NSColorSpace.CGColorSpace]. And even
+// if the pointer equality is preserved during runtime, it may not be after
+// the [NSColorSpace] object is archived and unarchived.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
 //
@@ -181,6 +182,13 @@ func NewNSColorSpace() NSColorSpace {
 func NewColorSpaceWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace {
 	instance := getNSColorSpaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGColorSpace:"), cgColorSpace)
+	return NSColorSpaceFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(coder:)
+func NewColorSpaceWithCoder(coder foundation.INSCoder) NSColorSpace {
+	instance := getNSColorSpaceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSColorSpaceFromID(rv)
 }
 
@@ -241,9 +249,9 @@ func NewColorSpaceWithICCProfileData(iccData foundation.NSData) NSColorSpace {
 //
 // Because [NSColorSpace] might retain or copy the [CGColorSpace] object
 // depending on circumstances, you should not assume pointer equality of the
-// provided object with that returned by [CGColorSpace]. And even if the
-// pointer equality is preserved during runtime, it may not be after the
-// [NSColorSpace] object is archived and unarchived.
+// provided object with that returned by [NSColorSpace.CGColorSpace]. And even
+// if the pointer equality is preserved during runtime, it may not be after
+// the [NSColorSpace] object is archived and unarchived.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
 //
@@ -290,6 +298,12 @@ func (c NSColorSpace) InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
 func (c NSColorSpace) InitWithICCProfileData(iccData foundation.NSData) NSColorSpace {
 	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithICCProfileData:"), iccData)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(coder:)
+func (c NSColorSpace) InitWithCoder(coder foundation.INSCoder) NSColorSpace {
+	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (c NSColorSpace) EncodeWithCoder(coder foundation.INSCoder) {

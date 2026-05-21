@@ -58,8 +58,8 @@ func NSKeyedUnarchiverDelegateObjectFromID(id objc.ID) NSKeyedUnarchiverDelegate
 // [NSInvalidUnarchiveOperationException].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiver(_:cannotDecodeObjectOfClassName:originalClasses:)
-func (o NSKeyedUnarchiverDelegateObject) UnarchiverCannotDecodeObjectOfClassNameOriginalClasses(unarchiver INSKeyedUnarchiver, name string, classNames []string) objc.Class {
-	rv := objc.Send[objc.Class](o.ID, objc.Sel("unarchiver:cannotDecodeObjectOfClassName:originalClasses:"), unarchiver, objc.String(name), objectivec.StringSliceToNSArray(classNames))
+func (o NSKeyedUnarchiverDelegateObject) UnarchiverCannotDecodeObjectOfClassNameOriginalClasses(unarchiver INSKeyedUnarchiver, name string, classNames []string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](o.ID, objc.Sel("unarchiver:cannotDecodeObjectOfClassName:originalClasses:"), unarchiver, objc.String(name), objectivec.StringSliceToNSArray(classNames))
 	return rv
 }
 

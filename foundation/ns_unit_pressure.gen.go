@@ -54,9 +54,10 @@ func (uc UnitPressureClass) Alloc() UnitPressure {
 // the pascal (Pa), which is derived as one newton of force over one square
 // meter (`1 Pa = 1 N / 1 m`2).
 //
-// The [NSUnitPressure] class defines its [BaseUnit] as
-// [NewtonsPerMetersSquared] and provides the following units, which
-// [NSUnitConverterLinear] converters initialize with the given coefficients:
+// The [NSUnitPressure] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitPressureClass.NewtonsPerMetersSquared] and provides the following
+// units, which [NSUnitConverterLinear] converters initialize with the given
+// coefficients:
 //
 // [Table data omitted]
 //

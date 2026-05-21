@@ -61,7 +61,8 @@ func (ac AVPlayerItemMetadataCollectorClass) Alloc() AVPlayerItemMetadataCollect
 // capture all `#EXT-X-DATERANGE` metadata defined in your stream. If you
 // would like to filter the output to only the metadata of interest, you can
 // create an instance to filter by identifier and/or classifying labels using
-// the [AVPlayerItemMetadataCollector.InitWithIdentifiersClassifyingLabels] initializer.
+// the [AVPlayerItemMetadataCollector.InitWithIdentifiersClassifyingLabels]
+// initializer.
 //
 // # Creating a metadata collector
 //

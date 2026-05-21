@@ -201,11 +201,13 @@ func NewMTL4AccelerationStructureCurveGeometryDescriptor() MTL4AccelerationStruc
 // # Discussion
 //
 // Control points are interpolated according to the basis function you specify
-// in [CurveBasis].
+// in [MTL4AccelerationStructureCurveGeometryDescriptor.CurveBasis].
 //
 // You are responsible for ensuring each control is in a format matching the
-// control point format [ControlPointFormat] specifies, as well as ensuring
-// that the buffer address of the range is not zero.
+// control point format
+// [MTL4AccelerationStructureCurveGeometryDescriptor.ControlPointFormat]
+// specifies, as well as ensuring that the buffer address of the range is not
+// zero.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureCurveGeometryDescriptor/controlPointBuffer
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) ControlPointBuffer() MTL4BufferRange {
@@ -346,11 +348,12 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetIndexType(value MTL
 // # Discussion
 //
 // Metal interpolates curve radii according to the basis function you specify
-// via [CurveBasis].
+// via [MTL4AccelerationStructureCurveGeometryDescriptor.CurveBasis].
 //
 // You are responsible for ensuring the type of each radius matches the type
-// property [RadiusFormat] specifies, that each radius is at least zero, and
-// that the buffer address of the range is not zero.
+// property [MTL4AccelerationStructureCurveGeometryDescriptor.RadiusFormat]
+// specifies, that each radius is at least zero, and that the buffer address
+// of the range is not zero.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureCurveGeometryDescriptor/radiusBuffer
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) RadiusBuffer() MTL4BufferRange {
@@ -381,7 +384,8 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetRadiusFormat(value 
 // # Discussion
 //
 // You are responsible for ensuring this property is set to a multiple of the
-// size corresponding to the [RadiusFormat].
+// size corresponding to the
+// [MTL4AccelerationStructureCurveGeometryDescriptor.RadiusFormat].
 //
 // This property defaults to `0` bytes, indicating that the radii are tightly
 // packed.

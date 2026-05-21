@@ -108,8 +108,8 @@ func NewAVMutableAudioMixInputParameters() AVMutableAudioMixInputParameters {
 //
 // # Return Value
 //
-// A mutable input parameters object with no volume ramps and [TrackID] set to
-// `track`’s identifier.
+// A mutable input parameters object with no volume ramps and
+// [AVMutableAudioMixInputParameters.TrackID] set to `track`’s identifier.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/init(track:)
 func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAudioMixInputParameters {
@@ -151,8 +151,9 @@ func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolum
 //
 // # Return Value
 //
-// A mutable input parameters object with no volume ramps and [TrackID]
-// initialized to [kCMPersistentTrackID_Invalid].
+// A mutable input parameters object with no volume ramps and
+// [AVMutableAudioMixInputParameters.TrackID] initialized to
+// [kCMPersistentTrackID_Invalid].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/audioMixInputParameters
 //

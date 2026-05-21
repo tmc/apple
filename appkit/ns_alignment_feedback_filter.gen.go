@@ -59,7 +59,8 @@ func (nc NSAlignmentFeedbackFilterClass) Alloc() NSAlignmentFeedbackFilter {
 //
 // To implement alignment feedback in your custom alignment controller class,
 // set up the class to receive events for tracking the movement of an object.
-// These can be events matching the [NSAlignmentFeedbackFilter.InputEventMask] value of an
+// These can be events matching the
+// [NSAlignmentFeedbackFilterClass.InputEventMask] value of an
 // [NSAlignmentFeedbackFilter] object, or events from a gesture recognizer
 // ([NSGestureRecognizer]). For each event received:
 //
@@ -68,8 +69,8 @@ func (nc NSAlignmentFeedbackFilterClass) Alloc() NSAlignmentFeedbackFilter {
 // - Inform the alignment feedback filter object about the event. To do this,
 // call one of the following methods:
 //
-// - [NSAlignmentFeedbackFilter.UpdateWithEvent]
-// - [NSAlignmentFeedbackFilter.UpdateWithPanRecognizer]
+// - [NSAlignmentFeedbackFilter.UpdateWithEvent] -
+// [NSAlignmentFeedbackFilter.UpdateWithPanRecognizer]
 //
 // - Store the location of the object before it moves in response to the
 // event. This is considered the location of the object. - Move the object to
@@ -91,8 +92,8 @@ func (nc NSAlignmentFeedbackFilterClass) Alloc() NSAlignmentFeedbackFilter {
 // - If the object will be moved vertically only to become aligned.
 //
 // - If a feedback token is successfully prepared, call
-// [NSAlignmentFeedbackFilter.PerformFeedbackPerformanceTime] to perform the haptic feedback. Then, move
-// the object to the aligned location.
+// [NSAlignmentFeedbackFilter.PerformFeedbackPerformanceTime] to perform the
+// haptic feedback. Then, move the object to the aligned location.
 //
 // If a value of `null` is returned, rather than a feedback token, then the
 // system has determined that alignment and feedback are not appropriate.
@@ -196,14 +197,15 @@ func NewNSAlignmentFeedbackFilter() NSAlignmentFeedbackFilter {
 // Informs the feedback filter about a new event.
 //
 // event: An event ([NSEvent]) to be filtered, which matches an event type returned
-// by the [InputEventMask] method.
+// by the [NSAlignmentFeedbackFilterClass.InputEventMask] method.
 //
 // # Discussion
 //
 // This method informs the feedback filter about a new event to be filtered,
-// which matches an event type returned by the [InputEventMask] method. Call
-// the “ method instead of [UpdateWithPanRecognizer] if you are using a
-// tracking loop controller for event tracking.
+// which matches an event type returned by the
+// [NSAlignmentFeedbackFilterClass.InputEventMask] method. Call the “ method
+// instead of [NSAlignmentFeedbackFilter.UpdateWithPanRecognizer] if you are
+// using a tracking loop controller for event tracking.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlignmentFeedbackFilter/update(with:)
 func (a NSAlignmentFeedbackFilter) UpdateWithEvent(event INSEvent) {
@@ -218,8 +220,9 @@ func (a NSAlignmentFeedbackFilter) UpdateWithEvent(event INSEvent) {
 // # Discussion
 //
 // This method informs the feedback filter about a new pan (drag) gesture
-// recognizer event. Call this method instead of [UpdateWithEvent] if your
-// event tracking uses gesture recognizers.
+// recognizer event. Call this method instead of
+// [NSAlignmentFeedbackFilter.UpdateWithEvent] if your event tracking uses
+// gesture recognizers.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlignmentFeedbackFilter/update(withPanRecognizer:)
 func (a NSAlignmentFeedbackFilter) UpdateWithPanRecognizer(panRecognizer INSPanGestureRecognizer) {
@@ -249,8 +252,9 @@ func (a NSAlignmentFeedbackFilter) UpdateWithPanRecognizer(panRecognizer INSPanG
 // This method requests a feedback token for the alignment of an object
 // requiring horizontal and vertical movement.
 //
-// If a feedback token is returned, call [PerformFeedbackPerformanceTime] to
-// initiate haptic feedback. Then, move the object to its aligned location.
+// If a feedback token is returned, call
+// [NSAlignmentFeedbackFilter.PerformFeedbackPerformanceTime] to initiate
+// haptic feedback. Then, move the object to its aligned location.
 //
 // If no feedback token is returned, don’t perform the alignment or request
 // haptic feedback. Even if this joint horizontal and vertical alignment
@@ -293,8 +297,9 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForMovementInViewPrevio
 // This method requests a feedback token for the alignment of an object
 // requiring horizontal movement only.
 //
-// If a feedback token is returned, call [PerformFeedbackPerformanceTime] to
-// initiate haptic feedback. Then, move the object to its aligned location.
+// If a feedback token is returned, call
+// [NSAlignmentFeedbackFilter.PerformFeedbackPerformanceTime] to initiate
+// haptic feedback. Then, move the object to its aligned location.
 //
 // If no feedback token is returned, don’t perform the horizontal alignment
 // or request haptic feedback. Even if this horizontal alignment fails, be
@@ -337,8 +342,9 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForHorizontalMovementIn
 // This method requests a feedback token for the alignment of an object
 // requiring vertical movement only.
 //
-// If a feedback token is returned, call [PerformFeedbackPerformanceTime] to
-// initiate haptic feedback. Then, move the object to its aligned location.
+// If a feedback token is returned, call
+// [NSAlignmentFeedbackFilter.PerformFeedbackPerformanceTime] to initiate
+// haptic feedback. Then, move the object to its aligned location.
 //
 // If no feedback token is returned, don’t perform the vertical alignment or
 // request haptic feedback. Even if this vertical alignment fails, be sure to
@@ -362,10 +368,10 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForVerticalMovementInVi
 //
 // alignmentFeedbackTokens: One or more feedback tokens prepared for specific alignment locations by
 // calling
-// [AlignmentFeedbackTokenForMovementInViewPreviousPointAlignedPointDefaultPoint],
-// [AlignmentFeedbackTokenForHorizontalMovementInViewPreviousXAlignedXDefaultX],
+// [NSAlignmentFeedbackFilter.AlignmentFeedbackTokenForMovementInViewPreviousPointAlignedPointDefaultPoint],
+// [NSAlignmentFeedbackFilter.AlignmentFeedbackTokenForHorizontalMovementInViewPreviousXAlignedXDefaultX],
 // or
-// [AlignmentFeedbackTokenForVerticalMovementInViewPreviousYAlignedYDefaultY].
+// [NSAlignmentFeedbackFilter.AlignmentFeedbackTokenForVerticalMovementInViewPreviousYAlignedYDefaultY].
 // Typically, no more than one feedback token per dimension
 // (horizontal/vertical) should be provided.
 //

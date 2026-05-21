@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,8 +56,8 @@ func (cc CASpringAnimationClass) Alloc() CASpringAnimation {
 // You can use a spring animation to animation properties of a layer other
 // than its position. The following code shows how to create a spring
 // animation that bounces a layer into view by animating its scale from `0` to
-// `1`. Because the spring animation can overshoot its [CASpringAnimation.ToValue], the animated
-// layer may exceed its frame.
+// `1`. Because the spring animation can overshoot its
+// [CABasicAnimation.ToValue], the animated layer may exceed its frame.
 //
 // # Configuring Physical Attributes
 //
@@ -137,21 +138,21 @@ type ICASpringAnimation interface {
 	Mass() float64
 	SetMass(value float64)
 	// The estimated duration required for the spring system to be considered at rest.
-	SettlingDuration() float64
+	SettlingDuration() corefoundation.CFTimeInterval
 	// The spring stiffness coefficient.
 	Stiffness() float64
 	SetStiffness(value float64)
 
 	// Topic: Initializers
 
-	InitWithPerceptualDurationBounce(perceptualDuration float64, bounce float64) CASpringAnimation
+	InitWithPerceptualDurationBounce(perceptualDuration corefoundation.CFTimeInterval, bounce float64) CASpringAnimation
 
 	// Topic: Instance Properties
 
 	AllowsOverdamping() bool
 	SetAllowsOverdamping(value bool)
 	Bounce() float64
-	PerceptualDuration() float64
+	PerceptualDuration() corefoundation.CFTimeInterval
 }
 
 // Init initializes the instance.
@@ -189,14 +190,14 @@ func NewSpringAnimationWithKeyPath(path string) CASpringAnimation {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/init(perceptualDuration:bounce:)
-func NewSpringAnimationWithPerceptualDurationBounce(perceptualDuration float64, bounce float64) CASpringAnimation {
+func NewSpringAnimationWithPerceptualDurationBounce(perceptualDuration corefoundation.CFTimeInterval, bounce float64) CASpringAnimation {
 	instance := getCASpringAnimationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPerceptualDuration:bounce:"), perceptualDuration, bounce)
 	return CASpringAnimationFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/init(perceptualDuration:bounce:)
-func (s CASpringAnimation) InitWithPerceptualDurationBounce(perceptualDuration float64, bounce float64) CASpringAnimation {
+func (s CASpringAnimation) InitWithPerceptualDurationBounce(perceptualDuration corefoundation.CFTimeInterval, bounce float64) CASpringAnimation {
 	rv := objc.Send[CASpringAnimation](s.ID, objc.Sel("initWithPerceptualDuration:bounce:"), perceptualDuration, bounce)
 	return rv
 }
@@ -206,12 +207,13 @@ func (s CASpringAnimation) InitWithPerceptualDurationBounce(perceptualDuration f
 //
 // # Discussion
 //
-// The default value of the [Damping] property is `10`. Reducing this value
-// reduces the energy loss with each oscillation: the animated value will
-// overshoot the [ToValue] and the [SettlingDuration] may be greater than the
-// [Duration]. Increasing the value increases the energy loss with each
-// duration: there will be fewer and smaller oscillations and the
-// [SettlingDuration] may be smaller than the duration.
+// The default value of the [CASpringAnimation.Damping] property is `10`.
+// Reducing this value reduces the energy loss with each oscillation: the
+// animated value will overshoot the [CABasicAnimation.ToValue] and the
+// [CASpringAnimation.SettlingDuration] may be greater than the [Duration].
+// Increasing the value increases the energy loss with each duration: there
+// will be fewer and smaller oscillations and the
+// [CASpringAnimation.SettlingDuration] may be smaller than the duration.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/damping
 func (s CASpringAnimation) Damping() float64 {
@@ -245,9 +247,10 @@ func (s CASpringAnimation) SetInitialVelocity(value float64) {
 //
 // The default mass is `1`. Increasing this value will increase the spring
 // effect: the attached object will be subject to more oscillations and
-// greater overshoot, resulting in an increased [SettlingDuration]. Decreasing
-// the mass will reduce the spring effect: there will be fewer oscillations
-// and a reduced overshoot, resulting in a decreased [SettlingDuration].
+// greater overshoot, resulting in an increased
+// [CASpringAnimation.SettlingDuration]. Decreasing the mass will reduce the
+// spring effect: there will be fewer oscillations and a reduced overshoot,
+// resulting in a decreased [CASpringAnimation.SettlingDuration].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/mass
 func (s CASpringAnimation) Mass() float64 {
@@ -271,28 +274,30 @@ func (s CASpringAnimation) SetMass(value float64) {
 //
 // With a damping coefficient of `5`, the settling duration is approximately
 // 2.85 seconds: the animated layer bounces around the target position several
-// times before settling. However, changing the [Damping] property to `15`
-// reduces the settling duration to just over 1 second: the animated layer
-// quickly comes to a stop as it reaches the target position.
+// times before settling. However, changing the [CASpringAnimation.Damping]
+// property to `15` reduces the settling duration to just over 1 second: the
+// animated layer quickly comes to a stop as it reaches the target position.
 //
-// All of the spring animation’s physical attributes: [Damping],
-// [InitialVelocity], [Mass] and [Stiffness], can affect the settling
-// duration.
+// All of the spring animation’s physical attributes:
+// [CASpringAnimation.Damping], [CASpringAnimation.InitialVelocity],
+// [CASpringAnimation.Mass] and [CASpringAnimation.Stiffness], can affect the
+// settling duration.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/settlingDuration
-func (s CASpringAnimation) SettlingDuration() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("settlingDuration"))
-	return rv
+func (s CASpringAnimation) SettlingDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](s.ID, objc.Sel("settlingDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The spring stiffness coefficient.
 //
 // # Discussion
 //
-// The default stiffness coefficient is `100`. Increasing the [Stiffness]
-// reduces the number of oscillations and will reduce the settling duration.
-// Decreasing the [Stiffness] increases the the number of oscillations and
-// will increase the settling duration.
+// The default stiffness coefficient is `100`. Increasing the
+// [CASpringAnimation.Stiffness] reduces the number of oscillations and will
+// reduce the settling duration. Decreasing the [CASpringAnimation.Stiffness]
+// increases the the number of oscillations and will increase the settling
+// duration.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/stiffness
 func (s CASpringAnimation) Stiffness() float64 {
@@ -319,7 +324,7 @@ func (s CASpringAnimation) Bounce() float64 {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/perceptualDuration
-func (s CASpringAnimation) PerceptualDuration() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("perceptualDuration"))
-	return rv
+func (s CASpringAnimation) PerceptualDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](s.ID, objc.Sel("perceptualDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }

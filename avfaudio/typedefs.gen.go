@@ -3,8 +3,7 @@
 package avfaudio
 
 import (
-	"unsafe"
-
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -26,7 +25,7 @@ type AVAudioConverterInputBlock = func(uint32, *AVAudioConverterInputStatus) AVA
 // AVAudioEngineManualRenderingBlock is the type that represents a block that renders the engine when operating in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineManualRenderingBlock
-type AVAudioEngineManualRenderingBlock = func(uint32, unsafe.Pointer, *int) AVAudioEngineManualRenderingStatus
+type AVAudioEngineManualRenderingBlock = func(uint32, *coreaudiotypes.AudioBufferList, *int) AVAudioEngineManualRenderingStatus
 
 // AVAudioFrameCount is a number of audio sample frames.
 //
@@ -41,7 +40,7 @@ type AVAudioFramePosition = int64
 // AVAudioIONodeInputBlock is the type that represents a block to render operation calls to get input data when in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONodeInputBlock
-type AVAudioIONodeInputBlock = func(uint32) unsafe.Pointer
+type AVAudioIONodeInputBlock = func(uint32) *coreaudiotypes.AudioBufferList
 
 // AVAudioNodeBus is the index of a bus on an audio node.
 //
@@ -81,12 +80,12 @@ type AVAudioSequencerUserCallback = func(AVMusicTrack, foundation.NSData, float6
 // AVAudioSinkNodeReceiverBlock is a block that receives audio data from an audio sink node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNodeReceiverBlock
-type AVAudioSinkNodeReceiverBlock = func(unsafe.Pointer, uint32, unsafe.Pointer) int
+type AVAudioSinkNodeReceiverBlock = func(*coreaudiotypes.AudioTimeStamp, uint32, *coreaudiotypes.AudioBufferList) int
 
 // AVAudioSourceNodeRenderBlock is a block that supplies audio data to an audio source node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNodeRenderBlock
-type AVAudioSourceNodeRenderBlock = func(*int8, unsafe.Pointer, uint32, unsafe.Pointer) int
+type AVAudioSourceNodeRenderBlock = func(*int8, *coreaudiotypes.AudioTimeStamp, uint32, *coreaudiotypes.AudioBufferList) int
 
 // AVMIDIPlayerCompletionHandler is a callback the system invokes when MIDI playback completes.
 //

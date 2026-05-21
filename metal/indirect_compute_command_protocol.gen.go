@@ -93,12 +93,14 @@ func MTLIndirectComputeCommandObjectFromID(id objc.ID) MTLIndirectComputeCommand
 // # Discussion
 //
 // You don’t need to call this method if you create an indirect command
-// buffer with its [InheritPipelineState] property equal to true. The command
-// gets the pipeline state from the parent encoder when you run the command.
+// buffer with its [MTLIndirectCommandBufferDescriptor.InheritPipelineState]
+// property equal to true. The command gets the pipeline state from the parent
+// encoder when you run the command.
 //
-// If you create an indirect command buffer with its [InheritPipelineState]
-// property equal to false, you need to set the pipeline state prior to
-// encoding a drawing command.
+// If you create an indirect command buffer with its
+// [MTLIndirectCommandBufferDescriptor.InheritPipelineState] property equal to
+// false, you need to set the pipeline state prior to encoding a drawing
+// command.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setComputePipelineState(_:)
 func (o MTLIndirectComputeCommandObject) SetComputePipelineState(pipelineState MTLComputePipelineState) {
@@ -126,9 +128,10 @@ func (o MTLIndirectComputeCommandObject) SetImageblockWidthHeight(width uint, he
 //
 // # Discussion
 //
-// If you created the indirect command buffer with [InheritBuffers] set to
-// true, don’t call this method. The command gets the arguments from the
-// parent encoder when you execute the command.
+// If you created the indirect command buffer with
+// [MTLIndirectCommandBufferDescriptor.InheritBuffers] set to true, don’t
+// call this method. The command gets the arguments from the parent encoder
+// when you execute the command.
 //
 // If you need to pass other kinds of parameters to your shader, such as
 // textures and samplers, create an argument buffer and pass it to the shader

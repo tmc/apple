@@ -85,14 +85,15 @@ func (nc NSAppleEventDescriptorClass) Alloc() NSAppleEventDescriptor {
 // any required information.
 //
 // When you work with an instance of [NSAppleEventDescriptor], you can access
-// the underlying descriptor directly, if necessary, with the [NSAppleEventDescriptor.AeDesc] method.
-// Other methods, including [NSAppleEventDescriptor.DescriptorWithDescriptorTypeBytesLength] make it
-// possible to create and initialize instances of [NSAppleEventDescriptor]
+// the underlying descriptor directly, if necessary, with the
+// [NSAppleEventDescriptor.AeDesc] method. Other methods, including
+// [NSAppleEventDescriptorClass.DescriptorWithDescriptorTypeBytesLength] make
+// it possible to create and initialize instances of [NSAppleEventDescriptor]
 // without creating temporary instances of [NSData].
 //
 // The designated initializer for [NSAppleEventDescriptor] is
-// [NSAppleEventDescriptor.InitWithAEDescNoCopy]. However, it is unlikely that you will need to
-// create a subclass of [NSAppleEventDescriptor].
+// [NSAppleEventDescriptor.InitWithAEDescNoCopy]. However, it is unlikely that
+// you will need to create a subclass of [NSAppleEventDescriptor].
 //
 // Cocoa doesn’t currently provide a mechanism for applications to directly
 // send raw Apple events (though compiling and executing an AppleScript script
@@ -368,7 +369,8 @@ func NewNSAppleEventDescriptor() NSAppleEventDescriptor {
 // # Discussion
 //
 // You can add items to the empty list descriptor with
-// [InsertDescriptorAtIndex]. The list indices are one-based.
+// [NSAppleEventDescriptor.InsertDescriptorAtIndex]. The list indices are
+// one-based.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(listDescriptor:)
 func NewAppleEventDescriptorListDescriptor() NSAppleEventDescriptor {
@@ -388,8 +390,10 @@ func NewAppleEventDescriptorListDescriptor() NSAppleEventDescriptor {
 //
 // An Apple event record is a descriptor whose data is a set of descriptors
 // keyed by four-character codes. You can add information to the descriptor
-// with methods such as [SetAttributeDescriptorForKeyword],
-// [SetDescriptorForKeyword], and [SetParamDescriptorForKeyword].
+// with methods such as
+// [NSAppleEventDescriptor.SetAttributeDescriptorForKeyword],
+// [NSAppleEventDescriptor.SetDescriptorForKeyword], and
+// [NSAppleEventDescriptor.SetParamDescriptorForKeyword].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(recordDescriptor:)
 func NewAppleEventDescriptorRecordDescriptor() NSAppleEventDescriptor {
@@ -448,7 +452,7 @@ func NewAppleEventDescriptorWithBundleIdentifier(bundleIdentifier string) NSAppl
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(coder:)
 func NewAppleEventDescriptorWithCoder(coder INSCoder) NSAppleEventDescriptor {
 	instance := getNSAppleEventDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -629,7 +633,8 @@ func NewAppleEventDescriptorWithTypeCode(typeCode uint32) NSAppleEventDescriptor
 // # Discussion
 //
 // You can add items to the empty list descriptor with
-// [InsertDescriptorAtIndex]. The list indices are one-based.
+// [NSAppleEventDescriptor.InsertDescriptorAtIndex]. The list indices are
+// one-based.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(listDescriptor:)
 func (a NSAppleEventDescriptor) InitListDescriptor() NSAppleEventDescriptor {
@@ -648,8 +653,10 @@ func (a NSAppleEventDescriptor) InitListDescriptor() NSAppleEventDescriptor {
 //
 // An Apple event record is a descriptor whose data is a set of descriptors
 // keyed by four-character codes. You can add information to the descriptor
-// with methods such as [SetAttributeDescriptorForKeyword],
-// [SetDescriptorForKeyword], and [SetParamDescriptorForKeyword].
+// with methods such as
+// [NSAppleEventDescriptor.SetAttributeDescriptorForKeyword],
+// [NSAppleEventDescriptor.SetDescriptorForKeyword], and
+// [NSAppleEventDescriptor.SetParamDescriptorForKeyword].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(recordDescriptor:)
 func (a NSAppleEventDescriptor) InitRecordDescriptor() NSAppleEventDescriptor {
@@ -1000,7 +1007,7 @@ func (a NSAppleEventDescriptor) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(coder:)
 func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescriptor {
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -1057,10 +1064,12 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) AppleEventWithEv
 //
 // A list descriptor is a descriptor whose data consists of one or more
 // descriptors. You can add items to the list by calling
-// [InsertDescriptorAtIndex] or remove them with [RemoveDescriptorAtIndex].
+// [NSAppleEventDescriptor.InsertDescriptorAtIndex] or remove them with
+// [NSAppleEventDescriptor.RemoveDescriptorAtIndex].
 //
 // Invoking this method is equivalent to allocating an instance of
-// [NSAppleEventDescriptor] and invoking [InitListDescriptor].
+// [NSAppleEventDescriptor] and invoking
+// [NSAppleEventDescriptor.InitListDescriptor].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/list()
 func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) ListDescriptor() NSAppleEventDescriptor {
@@ -1099,11 +1108,14 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) NullDescriptor()
 //
 // An Apple event record is a descriptor whose data is a set of descriptors
 // keyed by four-character codes. You can add information to the descriptor
-// with methods such as [SetAttributeDescriptorForKeyword],
-// [SetDescriptorForKeyword], and [SetParamDescriptorForKeyword].
+// with methods such as
+// [NSAppleEventDescriptor.SetAttributeDescriptorForKeyword],
+// [NSAppleEventDescriptor.SetDescriptorForKeyword], and
+// [NSAppleEventDescriptor.SetParamDescriptorForKeyword].
 //
 // Invoking this method is equivalent to allocating an instance of
-// [NSAppleEventDescriptor] and invoking [InitRecordDescriptor].
+// [NSAppleEventDescriptor] and invoking
+// [NSAppleEventDescriptor.InitRecordDescriptor].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/record()
 func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) RecordDescriptor() NSAppleEventDescriptor {
@@ -1151,8 +1163,9 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) DescriptorWithDe
 //
 // You can use this method to create a descriptor that you can build into a
 // complete Apple event by calling methods such as
-// [SetAttributeDescriptorForKeyword], [SetDescriptorForKeyword], and
-// [SetParamDescriptorForKeyword].
+// [NSAppleEventDescriptor.SetAttributeDescriptorForKeyword],
+// [NSAppleEventDescriptor.SetDescriptorForKeyword], and
+// [NSAppleEventDescriptor.SetParamDescriptorForKeyword].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/descriptorWithDescriptorType:data:
 func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) DescriptorWithDescriptorTypeData(descriptorType uint32, data INSData) NSAppleEventDescriptor {
@@ -1338,7 +1351,7 @@ func (a NSAppleEventDescriptor) ReturnID() int16 {
 //
 // The receiver must be an Apple event. Currently provides no indication if an
 // error occurs. For more information on transactions, see the description for
-// [AppleEventWithEventClassEventIDTargetDescriptorReturnIDTransactionID].
+// [NSAppleEventDescriptorClass.AppleEventWithEventClassEventIDTargetDescriptorReturnIDTransactionID].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/transactionID
 func (a NSAppleEventDescriptor) TransactionID() int32 {

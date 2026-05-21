@@ -378,7 +378,8 @@ func (m MTL4MeshRenderPipelineDescriptor) SetFragmentStaticLinkingDescriptor(val
 //
 // By default, this value is true, specifying that this pipeline rasterizes
 // primitives. Set this property to false when you don’t provide a fragment
-// shader function via function [FragmentFunctionDescriptor].
+// shader function via function
+// [MTL4MeshRenderPipelineDescriptor.FragmentFunctionDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MeshRenderPipelineDescriptor/isRasterizationEnabled
 func (m MTL4MeshRenderPipelineDescriptor) IsRasterizationEnabled() bool {

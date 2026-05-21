@@ -49,7 +49,8 @@ func (nc NSCollectionLayoutGroupCustomItemClass) Alloc() NSCollectionLayoutGroup
 //
 // You use a custom item if you want to specify a layout with a custom
 // arrangement, like a radial or diagonal layout. You use custom items within
-// a group that’s created with [CustomGroupWithLayoutSizeItemProvider].
+// a group that’s created with
+// [NSCollectionLayoutGroupClass.CustomGroupWithLayoutSizeItemProvider].
 //
 // Instead of providing a layout size for the custom item, like you do when
 // you create an [NSCollectionLayoutItem], you provide a frame instead.

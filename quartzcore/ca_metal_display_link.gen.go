@@ -55,22 +55,26 @@ func (cc CAMetalDisplayLinkClass) Alloc() CAMetalDisplayLink {
 // artifacts.
 //
 // Your app initializes a new Metal display link by providing a target
-// [CAMetalLayer]. Set this instance’s [CAMetalDisplayLink.Delegate] property to an
-// implementation that encodes the rendering work for Metal to perform. With a
-// set delegate, synchronize the display with a run loop to perform rendering
-// on by calling the [CAMetalDisplayLink.AddToRunLoopForMode] method.
+// [CAMetalLayer]. Set this instance’s [CAMetalDisplayLink.Delegate]
+// property to an implementation that encodes the rendering work for Metal to
+// perform. With a set delegate, synchronize the display with a run loop to
+// perform rendering on by calling the
+// [CAMetalDisplayLink.AddToRunLoopForMode] method.
 //
 // Once you associate the display link with a run loop, the system calls the
 // delegate’s [MetalDisplayLinkNeedsUpdate] method to request new frames.
-// This method receives update requests based on the [CAMetalDisplayLink.PreferredFrameRateRange]
-// and [CAMetalDisplayLink.PreferredFrameLatency] of the display link. The system makes a best
-// effort to make callbacks at appropriate times. Your app should complete any
-// commits to the Metal device’s [MTLCommandQueue] for rendering the display
-// layer before calling [present()] on a drawable element.
+// This method receives update requests based on the
+// [CAMetalDisplayLink.PreferredFrameRateRange] and
+// [CAMetalDisplayLink.PreferredFrameLatency] of the display link. The system
+// makes a best effort to make callbacks at appropriate times. Your app should
+// complete any commits to the Metal device’s [MTLCommandQueue] for
+// rendering the display layer before calling [present()] on a drawable
+// element.
 //
-// Your app can disable notifications by setting [CAMetalDisplayLink.Paused] to `true`. When your
-// app finishes with a display link, call [CAMetalDisplayLink.Invalidate]to remove it from all
-// run loops and the target.
+// Your app can disable notifications by setting [CAMetalDisplayLink.Paused]
+// to `true`. When your app finishes with a display link, call
+// [CAMetalDisplayLink.Invalidate]to remove it from all run loops and the
+// target.
 //
 // # Creating a Display Link
 //
@@ -171,7 +175,7 @@ type ICAMetalDisplayLink interface {
 	// Topic: Registering for Callbacks
 
 	// Registers the display link with a run loop.
-	AddToRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString)
+	AddToRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSRunLoopMode)
 
 	// Topic: Pausing Callbacks
 
@@ -182,7 +186,7 @@ type ICAMetalDisplayLink interface {
 	// Topic: Deregistering for callbacks
 
 	// Removes a mode’s display link from a run loop.
-	RemoveFromRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString)
+	RemoveFromRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSRunLoopMode)
 	// Removes the display link from all run loops for all modes.
 	Invalidate()
 }
@@ -240,13 +244,14 @@ func (m CAMetalDisplayLink) InitWithMetalLayer(layer ICAMetalLayer) CAMetalDispl
 // display link notifies its delegate when the system prepares the next frame.
 //
 // You can remove the display link from a run loop by calling
-// [RemoveFromRunLoopForMode], or from all run loops with [Invalidate].
+// [CAMetalDisplayLink.RemoveFromRunLoopForMode], or from all run loops with
+// [CAMetalDisplayLink.Invalidate].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/add(to:forMode:)
 //
 // [RunLoop]: https://developer.apple.com/documentation/Foundation/RunLoop
-func (m CAMetalDisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString) {
-	objc.Send[objc.ID](m.ID, objc.Sel("addToRunLoop:forMode:"), runloop, mode)
+func (m CAMetalDisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSRunLoopMode) {
+	objc.Send[objc.ID](m.ID, objc.Sel("addToRunLoop:forMode:"), runloop, objc.String(string(mode)))
 }
 
 // Removes a mode’s display link from a run loop.
@@ -261,8 +266,8 @@ func (m CAMetalDisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mo
 // run modes.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/remove(from:forMode:)
-func (m CAMetalDisplayLink) RemoveFromRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString) {
-	objc.Send[objc.ID](m.ID, objc.Sel("removeFromRunLoop:forMode:"), runloop, mode)
+func (m CAMetalDisplayLink) RemoveFromRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSRunLoopMode) {
+	objc.Send[objc.ID](m.ID, objc.Sel("removeFromRunLoop:forMode:"), runloop, objc.String(string(mode)))
 }
 
 // Removes the display link from all run loops for all modes.

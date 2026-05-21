@@ -247,9 +247,9 @@ func NewMTLTextureDescriptor() MTLTextureDescriptor {
 // equal to `1`.
 //
 // mipmapped: A Boolean indicating whether the resulting image should be mipmapped. If
-// true, then the [MipmapLevelCount] property in the returned descriptor is
-// computed from `width` and `height`. If false, then [MipmapLevelCount] is
-// `1`.
+// true, then the [MTLTextureDescriptor.MipmapLevelCount] property in the
+// returned descriptor is computed from `width` and `height`. If false, then
+// [MTLTextureDescriptor.MipmapLevelCount] is `1`.
 //
 // # Return Value
 //
@@ -270,9 +270,9 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) Texture2DDescriptorW
 // be greater than or equal to `1`.
 //
 // mipmapped: A Boolean indicating whether the resulting image should be mipmapped. If
-// true, then the [MipmapLevelCount] property in the returned descriptor is
-// computed from `width` and `height`. If false, then [MipmapLevelCount] is
-// `1`.
+// true, then the [MTLTextureDescriptor.MipmapLevelCount] property in the
+// returned descriptor is computed from `width` and `height`. If false, then
+// [MTLTextureDescriptor.MipmapLevelCount] is `1`.
 //
 // # Return Value
 //
@@ -409,7 +409,7 @@ func (t MTLTextureDescriptor) SetMipmapLevelCount(value uint) {
 //
 // # Discussion
 //
-// The default value is `1`. If [TextureType] is not
+// The default value is `1`. If [MTLTextureDescriptor.TextureType] is not
 // [MTLTextureType2DMultisample] or [MTLTextureType2DMultisampleArray], this
 // value needs to be `1`.
 //
@@ -459,9 +459,10 @@ func (t MTLTextureDescriptor) SetArrayLength(value uint) {
 // object, this property value is ignored, and the value of the original
 // resource is used instead.
 //
-// The value of this property aggregates the values of [StorageMode],
-// [CpuCacheMode], and [HazardTrackingMode]. If you modify this property, the
-// other properties also change, and vice versa.
+// The value of this property aggregates the values of
+// [MTLTextureDescriptor.StorageMode], [MTLTextureDescriptor.CpuCacheMode],
+// and [MTLTextureDescriptor.HazardTrackingMode]. If you modify this property,
+// the other properties also change, and vice versa.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/resourceOptions
 func (t MTLTextureDescriptor) ResourceOptions() MTLResourceOptions {
@@ -602,8 +603,8 @@ func (t MTLTextureDescriptor) SetCompressionType(value MTLTextureCompressionType
 //
 // Placement sparse textures are instances of [MTLTexture] that you assign
 // memory to using a [MTLHeap] instance of type [MTLHeapTypePlacement] and a
-// [MaxCompatiblePlacementSparsePageSize] at least as large as the
-// [MTLSparsePageSize] value you assign to this property.
+// [MTLHeapDescriptor.MaxCompatiblePlacementSparsePageSize] at least as large
+// as the [MTLSparsePageSize] value you assign to this property.
 //
 // This value is 0 by default.
 //

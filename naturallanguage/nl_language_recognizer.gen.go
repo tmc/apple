@@ -56,12 +56,14 @@ func (nc NLLanguageRecognizerClass) Alloc() NLLanguageRecognizer {
 // language itself.
 //
 // The identification obtained from an [NLLanguageRecognizer] object can be
-// either a single most likely language, access through [NLLanguageRecognizer.DominantLanguage], or
-// a set of language candidates with probabilities, using
-// [NLLanguageRecognizer.LanguageHypothesesWithMaximum]. You can reset the recognizer to its
-// initial state, to be reused for new analysis.
+// either a single most likely language, access through
+// [NLLanguageRecognizer.DominantLanguage], or a set of language candidates
+// with probabilities, using
+// [NLLanguageRecognizer.LanguageHypothesesWithMaximum]. You can reset the
+// recognizer to its initial state, to be reused for new analysis.
 //
-// Use the convenience method, [NLLanguageRecognizer.DominantLanguageForString], to get the most
+// Use the convenience method,
+// [NLLanguageRecognizerClass.DominantLanguageForString], to get the most
 // likely language without creating an [NLLanguageRecognizer].
 //
 // # Determining the language
@@ -157,7 +159,8 @@ func NewNLLanguageRecognizer() NLLanguageRecognizer {
 // # Discussion
 //
 // Use this method to process the provided text and to update the
-// [DominantLanguage] result and `languageHypotheses()` probabilities.
+// [NLLanguageRecognizer.DominantLanguage] result and `languageHypotheses()`
+// probabilities.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/processString(_:)
 func (l NLLanguageRecognizer) ProcessString(string_ string) {
@@ -214,7 +217,7 @@ func (l NLLanguageRecognizer) DominantLanguage() NLLanguage {
 // # Discussion
 //
 // This is a dictionary mapping languages to their probabilities and used by
-// [ProcessString].
+// [NLLanguageRecognizer.ProcessString].
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/languageHints-3gy00
 func (l NLLanguageRecognizer) LanguageHints() foundation.INSDictionary {

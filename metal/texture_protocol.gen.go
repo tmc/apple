@@ -582,7 +582,7 @@ func (o MTLTextureObject) NewSharedTextureHandle() IMTLSharedTextureHandle {
 //
 // The device instance that created this texture and the device instance
 // passed into this method need to have the same nonzero peer group identifier
-// ([PeerGroupID]). This texture needs to either use the private storage mode
+// ([peerGroupID]). This texture needs to either use the private storage mode
 // ([MTLStorageModePrivate]) or be backed by an [IOSurface].
 //
 // A remote view doesn’t allocate any storage for the new texture; it
@@ -595,6 +595,7 @@ func (o MTLTextureObject) NewSharedTextureHandle() IMTLSharedTextureHandle {
 //
 // [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
 // [Transferring data between connected GPUs]: https://developer.apple.com/documentation/Metal/transferring-data-between-connected-gpus
+// [peerGroupID]: https://developer.apple.com/documentation/Metal/MTLDevice/peerGroupID
 func (o MTLTextureObject) NewRemoteTextureViewForDevice(device MTLDevice) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRemoteTextureViewForDevice:"), device)
 	return MTLTextureObjectFromID(rv)

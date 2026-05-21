@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSScrollView] class.
@@ -529,7 +530,8 @@ func NewScrollViewWithFrame(frameRect corefoundation.CGRect) NSScrollView {
 //
 // Floating subviews of the document view do not scroll like the rest of the
 // document. Instead these views appear to float over the document. For
-// example, see [NSTableView] floating group rows ([FloatsGroupRows]).
+// example, see [NSTableView] floating group rows
+// ([NSTableView.FloatsGroupRows]).
 //
 // [NSScrollView] ensures that any scrolling on the non-floating axis is
 // performed visually synchronously with the document content.
@@ -577,9 +579,9 @@ func (s NSScrollView) FlashScrollers() {
 //
 // # Discussion
 //
-// The resulting magnification value is clipped to the [MinMagnification] and
-// [MaxMagnification] values. To animate the magnification, use the object’s
-// animator.
+// The resulting magnification value is clipped to the
+// [NSScrollView.MinMagnification] and [NSScrollView.MaxMagnification] values.
+// To animate the magnification, use the object’s animator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/magnify(toFit:)
 func (s NSScrollView) MagnifyToFitRect(rect corefoundation.CGRect) {
@@ -598,8 +600,8 @@ func (s NSScrollView) MagnifyToFitRect(rect corefoundation.CGRect) {
 // This method scales the content view such that the passed in point (in
 // content view space) remains at the same screen location once the scaling is
 // completed. The resulting magnification value is clipped to the
-// [MinMagnification] and [MaxMagnification] values. To animate the
-// magnification, use the object’s animator.
+// [NSScrollView.MinMagnification] and [NSScrollView.MaxMagnification] values.
+// To animate the magnification, use the object’s animator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/setMagnification(_:centeredAt:)
 func (s NSScrollView) SetMagnificationCenteredAtPoint(magnification float64, point corefoundation.CGPoint) {
@@ -668,7 +670,7 @@ func (s NSScrollView) IsFindBarVisible() bool {
 // [NSControl.ControlSize]: https://developer.apple.com/documentation/AppKit/NSControl/ControlSize-swift.enum
 // [NSMiniControlSize]: https://developer.apple.com/documentation/AppKit/NSMiniControlSize
 // [NSScroller.Style]: https://developer.apple.com/documentation/AppKit/NSScroller/Style
-func (_NSScrollViewClass NSScrollViewClass) FrameSizeForContentSizeHorizontalScrollerClassVerticalScrollerClassBorderTypeControlSizeScrollerStyle(cSize corefoundation.CGSize, horizontalScrollerClass objc.Class, verticalScrollerClass objc.Class, type_ NSBorderType, controlSize NSControlSize, scrollerStyle NSScrollerStyle) corefoundation.CGSize {
+func (_NSScrollViewClass NSScrollViewClass) FrameSizeForContentSizeHorizontalScrollerClassVerticalScrollerClassBorderTypeControlSizeScrollerStyle(cSize corefoundation.CGSize, horizontalScrollerClass objectivec.Class, verticalScrollerClass objectivec.Class, type_ NSBorderType, controlSize NSControlSize, scrollerStyle NSScrollerStyle) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](objc.ID(_NSScrollViewClass.class), objc.Sel("frameSizeForContentSize:horizontalScrollerClass:verticalScrollerClass:borderType:controlSize:scrollerStyle:"), cSize, horizontalScrollerClass, verticalScrollerClass, type_, controlSize, scrollerStyle)
 	return corefoundation.CGSize(rv)
 }
@@ -698,7 +700,8 @@ func (_NSScrollViewClass NSScrollViewClass) FrameSizeForContentSizeHorizontalScr
 //
 // # Discussion
 //
-// For an existing scroll view, you can simply use the [ContentSize] property.
+// For an existing scroll view, you can simply use the
+// [NSScrollView.ContentSize] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/contentSize(forFrameSize:horizontalScrollerClass:verticalScrollerClass:borderType:controlSize:scrollerStyle:)
 //
@@ -706,7 +709,7 @@ func (_NSScrollViewClass NSScrollViewClass) FrameSizeForContentSizeHorizontalScr
 // [NSControl.ControlSize]: https://developer.apple.com/documentation/AppKit/NSControl/ControlSize-swift.enum
 // [NSMiniControlSize]: https://developer.apple.com/documentation/AppKit/NSMiniControlSize
 // [NSScroller.Style]: https://developer.apple.com/documentation/AppKit/NSScroller/Style
-func (_NSScrollViewClass NSScrollViewClass) ContentSizeForFrameSizeHorizontalScrollerClassVerticalScrollerClassBorderTypeControlSizeScrollerStyle(fSize corefoundation.CGSize, horizontalScrollerClass objc.Class, verticalScrollerClass objc.Class, type_ NSBorderType, controlSize NSControlSize, scrollerStyle NSScrollerStyle) corefoundation.CGSize {
+func (_NSScrollViewClass NSScrollViewClass) ContentSizeForFrameSizeHorizontalScrollerClassVerticalScrollerClassBorderTypeControlSizeScrollerStyle(fSize corefoundation.CGSize, horizontalScrollerClass objectivec.Class, verticalScrollerClass objectivec.Class, type_ NSBorderType, controlSize NSControlSize, scrollerStyle NSScrollerStyle) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](objc.ID(_NSScrollViewClass.class), objc.Sel("contentSizeForFrameSize:horizontalScrollerClass:verticalScrollerClass:borderType:controlSize:scrollerStyle:"), fSize, horizontalScrollerClass, verticalScrollerClass, type_, controlSize, scrollerStyle)
 	return corefoundation.CGSize(rv)
 }
@@ -833,7 +836,7 @@ func (s NSScrollView) SetDocumentView(value INSView) {
 //
 // You can access the horizontal scroller using this property even if the
 // scroll view isn’t currently displaying it. To make sure the scroller is
-// visible, set [HasHorizontalScroller] to true.
+// visible, set [NSScrollView.HasHorizontalScroller] to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/horizontalScroller
 func (s NSScrollView) HorizontalScroller() INSScroller {
@@ -870,7 +873,7 @@ func (s NSScrollView) SetHasHorizontalScroller(value bool) {
 //
 // You can access the vertical scroller using this property even if the scroll
 // view isn’t currently displaying it. To make sure the scroller is visible,
-// set [HasVerticalScroller] to true.
+// set [NSScrollView.HasVerticalScroller] to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/verticalScroller
 func (s NSScrollView) VerticalScroller() INSScroller {
@@ -926,7 +929,8 @@ func (s NSScrollView) SetAutohidesScrollers(value bool) {
 // When the value of this method is true, the scroll view allocates a
 // horizontal ruler the first time it’s needed.
 //
-// Display of rulers is controlled using the [RulersVisible] property.
+// Display of rulers is controlled using the [NSScrollView.RulersVisible]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/hasHorizontalRuler
 func (s NSScrollView) HasHorizontalRuler() bool {
@@ -950,7 +954,8 @@ func (s NSScrollView) SetHasHorizontalRuler(value bool) {
 // to override the default ruler class set using the class method
 // `setRulerViewClass(_:)`.
 //
-// Display of rulers is controlled using the [RulersVisible] property.
+// Display of rulers is controlled using the [NSScrollView.RulersVisible]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/horizontalRulerView
 func (s NSScrollView) HorizontalRulerView() INSRulerView {
@@ -969,7 +974,8 @@ func (s NSScrollView) SetHorizontalRulerView(value INSRulerView) {
 // When the value of this method is true, the scroll view allocates a vertical
 // ruler the first time it’s needed.
 //
-// Display of rulers is controlled using the [RulersVisible] property.
+// Display of rulers is controlled using the [NSScrollView.RulersVisible]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/hasVerticalRuler
 func (s NSScrollView) HasVerticalRuler() bool {
@@ -993,7 +999,8 @@ func (s NSScrollView) SetHasVerticalRuler(value bool) {
 // to override the default ruler class set using the class method
 // `setRulerViewClass(_:)`.
 //
-// Display of rulers is controlled using the [RulersVisible] property.
+// Display of rulers is controlled using the [NSScrollView.RulersVisible]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/verticalRulerView
 func (s NSScrollView) VerticalRulerView() INSRulerView {
@@ -1027,10 +1034,10 @@ func (s NSScrollView) SetRulersVisible(value bool) {
 // # Discussion
 //
 // When the value of this property is true, the scroll view automatically sets
-// its [ContentInsets] property to account for any overlapping title or tool
-// bar. To overlap with the title or tool bar, the window style mask must
-// include [NSFullSizeContentViewWindowMask] and the title bar must not be
-// transparent.
+// its [NSScrollView.ContentInsets] property to account for any overlapping
+// title or tool bar. To overlap with the title or tool bar, the window style
+// mask must include [NSFullSizeContentViewWindowMask] and the title bar must
+// not be transparent.
 //
 // The default value of this property is true.
 //
@@ -1050,16 +1057,16 @@ func (s NSScrollView) SetAutomaticallyAdjustsContentInsets(value bool) {
 //
 // When the value of this property is equal to [NSEdgeInsetsZero], traditional
 // tiling is performed. Rulers, headers, and other subviews are tiled with the
-// [ContentView] frame filling the remaining space. When the value of this
-// property is not equal to [NSEdgeInsetsZero], the rulers, headers, and other
-// subviews are inset as specified. The [ContentView] is placed underneath
-// these sibling views and is only inset by the scroll view border and
-// non-overlay scrollers.
+// [NSScrollView.ContentView] frame filling the remaining space. When the
+// value of this property is not equal to [NSEdgeInsetsZero], the rulers,
+// headers, and other subviews are inset as specified. The
+// [NSScrollView.ContentView] is placed underneath these sibling views and is
+// only inset by the scroll view border and non-overlay scrollers.
 //
 // See [NSEdgeInsets] for possible values.
 //
-// When the value of the [AutomaticallyAdjustsContentInsets] property is true,
-// any value of this property is overridden during tiling.
+// When the value of the [NSScrollView.AutomaticallyAdjustsContentInsets]
+// property is true, any value of this property is overridden during tiling.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/contentInsets
 //
@@ -1111,7 +1118,7 @@ func (s NSScrollView) SetScrollerKnobStyle(value NSScrollerKnobStyle) {
 // This setting is automatically set at runtime, based on the user’s
 // preference setting and, if relevant, the set of connected pointing devices
 // and their configured scroll capabilities, as determined by the [NSScroller]
-// method [PreferredScrollerStyle].
+// method [NSScrollerClass.PreferredScrollerStyle].
 //
 // Setting an scroll view’s scroller style sets the style of both the
 // horizontal and vertical scrollers. If the scroll view subsequently creates
@@ -1139,12 +1146,13 @@ func (s NSScrollView) SetScrollerStyle(value NSScrollerStyle) {
 // arrows without holding down a modifier key. When displaying text in a
 // scroll view, for example, you might set this value to the height of a
 // single line of text in the default font. As part of its implementation,
-// this property accesses [VerticalLineScroll].
+// this property accesses [NSScrollView.VerticalLineScroll].
 //
 // Note that a scroll view can have two different line scroll amounts:
-// [VerticalLineScroll] and [HorizontalLineScroll]. Set this property only if
-// you can be sure they’re both the same; setting this property sets both
-// [VerticalLineScroll] and [HorizontalLineScroll] to the same value.
+// [NSScrollView.VerticalLineScroll] and [NSScrollView.HorizontalLineScroll].
+// Set this property only if you can be sure they’re both the same; setting
+// this property sets both [NSScrollView.VerticalLineScroll] and
+// [NSScrollView.HorizontalLineScroll] to the same value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/lineScroll
 func (s NSScrollView) LineScroll() float64 {
@@ -1201,7 +1209,7 @@ func (s NSScrollView) SetVerticalLineScroll(value float64) {
 // when scrolling page by page, expressed in the content view’s coordinate
 // system. This value is used when the user clicks the scroll arrows while
 // holding down the Option key. As part of its implementation, this property
-// accesses [VerticalPageScroll].
+// accesses [NSScrollView.VerticalPageScroll].
 //
 // This amount expresses the context that remains when the scroll view scrolls
 // by one page, allowing the user to orient to the new display. It differs
@@ -1212,9 +1220,10 @@ func (s NSScrollView) SetVerticalLineScroll(value float64) {
 // the document view is replaced when a page scroll occurs.
 //
 // Note that a scroll view can have two different page scroll amounts:
-// [VerticalPageScroll] and [HorizontalPageScroll]. Set this property only if
-// you can be sure they’re both the same; setting this property sets both
-// [VerticalPageScroll] and [HorizontalPageScroll] to the same value.
+// [NSScrollView.VerticalPageScroll] and [NSScrollView.HorizontalPageScroll].
+// Set this property only if you can be sure they’re both the same; setting
+// this property sets both [NSScrollView.VerticalPageScroll] and
+// [NSScrollView.HorizontalPageScroll] to the same value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/pageScroll
 func (s NSScrollView) PageScroll() float64 {
@@ -1400,9 +1409,9 @@ func (s NSScrollView) SetVerticalScrollElasticity(value NSScrollElasticity) {
 //
 // This property does not prevent the developer from manually adjusting the
 // magnification value. If magnification exceeds either the maximum or minimum
-// limits for magnification, and [AllowsMagnification] is true, the scroll
-// view temporarily animates the content magnification just past those limits
-// before returning to them. The default value is false.
+// limits for magnification, and [NSScrollView.AllowsMagnification] is true,
+// the scroll view temporarily animates the content magnification just past
+// those limits before returning to them. The default value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/allowsMagnification
 func (s NSScrollView) AllowsMagnification() bool {
@@ -1467,10 +1476,10 @@ func (s NSScrollView) SetMinMagnification(value float64) {
 // This class is normally NSRulerView.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/rulerViewClass
-func (_NSScrollViewClass NSScrollViewClass) RulerViewClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSScrollViewClass.class), objc.Sel("rulerViewClass"))
-	return rv
+func (_NSScrollViewClass NSScrollViewClass) RulerViewClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSScrollViewClass.class), objc.Sel("rulerViewClass"))
+	return objectivec.Class(rv)
 }
-func (_NSScrollViewClass NSScrollViewClass) SetRulerViewClass(value objc.Class) {
+func (_NSScrollViewClass NSScrollViewClass) SetRulerViewClass(value objectivec.Class) {
 	objc.Send[struct{}](objc.ID(_NSScrollViewClass.class), objc.Sel("setRulerViewClass:"), value)
 }

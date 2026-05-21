@@ -28,7 +28,7 @@ import (
 // The newly constructed display link retains the target.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/init(target:selector:)
-func (_CADisplayLinkClass CADisplayLinkClass) DisplayLinkWithTargetSelector(target objectivec.IObject, sel objc.SEL) CADisplayLink {
+func (_CADisplayLinkClass CADisplayLinkClass) DisplayLinkWithTargetSelector(target objectivec.IObject, sel objectivec.SEL) CADisplayLink {
 	rv := objc.Send[objc.ID](objc.ID(_CADisplayLinkClass.class), objc.Sel("displayLinkWithTarget:selector:"), target, sel)
 	return CADisplayLinkFromID(rv)
 }

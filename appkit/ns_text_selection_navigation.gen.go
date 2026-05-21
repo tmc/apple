@@ -413,7 +413,7 @@ func (t NSTextSelectionNavigation) SetAllowsNonContiguousRanges(value bool) {
 //
 // If set to `true`, the framework rotates the coordinate system for arguments
 // passed to the navigation methods such as
-// [TextSelectionsInteractingAtPointInContainerAtLocationAnchorsModifiersSelectingBounds]:
+// [NSTextSelectionNavigation.TextSelectionsInteractingAtPointInContainerAtLocationAnchorsModifiersSelectingBounds]:
 // based on the text container layout orientation. Defaults to `false`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/rotatesCoordinateSystemForLayoutOrientation

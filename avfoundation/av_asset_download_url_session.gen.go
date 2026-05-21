@@ -48,25 +48,16 @@ func (ac AVAssetDownloadURLSessionClass) Alloc() AVAssetDownloadURLSession {
 //
 //   - [AVAssetDownloadURLSession.AssetDownloadTaskWithConfiguration]: Creates a download task that uses the specified configuration.
 //
-// # Download option keys
-//
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskMinimumRequiredMediaBitrateKey]: A key that indicates the minimum bit rate of the variant to download.
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskMinimumRequiredPresentationSizeKey]: A key that indicates the minimum presentation size of the variant to download.
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskMediaSelectionKey]: A key that indicates which media selection to download.
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey]: A key that indicates whether the task downloads media selections with support for multichannel playback, when available.
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskPrefersHDRKey]: A key that indicates whether the task downloads HDR instead of SDR video, when available.
-//   - [AVAssetDownloadURLSession.AVAssetDownloadTaskPrefersLosslessAudioKey]: A key that indicates whether the task downloads media selections in lossless audio format, when available.
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadURLSession
 type AVAssetDownloadURLSession struct {
-	foundation.URLSession
+	foundation.NSURLSession
 }
 
 // AVAssetDownloadURLSessionFromID constructs a [AVAssetDownloadURLSession] from an objc.ID.
 //
 // A URL session that creates and executes asset download tasks.
 func AVAssetDownloadURLSessionFromID(id objc.ID) AVAssetDownloadURLSession {
-	return AVAssetDownloadURLSession{URLSession: foundation.URLSessionFromID(id)}
+	return AVAssetDownloadURLSession{NSURLSession: foundation.NSURLSessionFromID(id)}
 }
 
 // NOTE: AVAssetDownloadURLSession adopts protocols; skip strict compile-time interface assertion.
@@ -78,38 +69,14 @@ func AVAssetDownloadURLSessionFromID(id objc.ID) AVAssetDownloadURLSession {
 //
 //   - [IAVAssetDownloadURLSession.AssetDownloadTaskWithConfiguration]: Creates a download task that uses the specified configuration.
 //
-// # Download option keys
-//
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskMinimumRequiredMediaBitrateKey]: A key that indicates the minimum bit rate of the variant to download.
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskMinimumRequiredPresentationSizeKey]: A key that indicates the minimum presentation size of the variant to download.
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskMediaSelectionKey]: A key that indicates which media selection to download.
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey]: A key that indicates whether the task downloads media selections with support for multichannel playback, when available.
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskPrefersHDRKey]: A key that indicates whether the task downloads HDR instead of SDR video, when available.
-//   - [IAVAssetDownloadURLSession.AVAssetDownloadTaskPrefersLosslessAudioKey]: A key that indicates whether the task downloads media selections in lossless audio format, when available.
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadURLSession
 type IAVAssetDownloadURLSession interface {
-	foundation.IURLSession
+	foundation.INSURLSession
 
 	// Topic: Creating download tasks
 
 	// Creates a download task that uses the specified configuration.
 	AssetDownloadTaskWithConfiguration(downloadConfiguration IAVAssetDownloadConfiguration) IAVAssetDownloadTask
-
-	// Topic: Download option keys
-
-	// A key that indicates the minimum bit rate of the variant to download.
-	AVAssetDownloadTaskMinimumRequiredMediaBitrateKey() string
-	// A key that indicates the minimum presentation size of the variant to download.
-	AVAssetDownloadTaskMinimumRequiredPresentationSizeKey() string
-	// A key that indicates which media selection to download.
-	AVAssetDownloadTaskMediaSelectionKey() string
-	// A key that indicates whether the task downloads media selections with support for multichannel playback, when available.
-	AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey() string
-	// A key that indicates whether the task downloads HDR instead of SDR video, when available.
-	AVAssetDownloadTaskPrefersHDRKey() string
-	// A key that indicates whether the task downloads media selections in lossless audio format, when available.
-	AVAssetDownloadTaskPrefersLosslessAudioKey() string
 }
 
 // Init initializes the instance.
@@ -168,56 +135,4 @@ func NewAssetDownloadURLSessionWithConfigurationAssetDownloadDelegateDelegateQue
 func (a AVAssetDownloadURLSession) AssetDownloadTaskWithConfiguration(downloadConfiguration IAVAssetDownloadConfiguration) IAVAssetDownloadTask {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("assetDownloadTaskWithConfiguration:"), downloadConfiguration)
 	return AVAssetDownloadTaskFromID(rv)
-}
-
-// A key that indicates the minimum bit rate of the variant to download.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskminimumrequiredmediabitratekey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMinimumRequiredMediaBitrateKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMinimumRequiredMediaBitrateKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that indicates the minimum presentation size of the variant to
-// download.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskminimumrequiredpresentationsizekey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMinimumRequiredPresentationSizeKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMinimumRequiredPresentationSizeKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that indicates which media selection to download.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskmediaselectionkey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMediaSelectionKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMediaSelectionKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that indicates whether the task downloads media selections with
-// support for multichannel playback, when available.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskmediaselectionprefersmultichannelkey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that indicates whether the task downloads HDR instead of SDR video,
-// when available.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskprefershdrkey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskPrefersHDRKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskPrefersHDRKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that indicates whether the task downloads media selections in
-// lossless audio format, when available.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskpreferslosslessaudiokey
-func (a AVAssetDownloadURLSession) AVAssetDownloadTaskPrefersLosslessAudioKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskPrefersLosslessAudioKey"))
-	return foundation.NSStringFromID(rv).String()
 }

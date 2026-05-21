@@ -53,8 +53,9 @@ func (nc NSCollectionViewLayoutInvalidationContextClass) Alloc() NSCollectionVie
 // operations and must be supported explicitly by the layout object. Instead
 // of invalidating the entire layout, you can create an invalidation layout
 // object that specifies only the portions of the layout that changed. You
-// then pass that invalidation context to the [InvalidateLayoutWithContext]
-// method of the layout object.
+// then pass that invalidation context to the
+// [NSCollectionViewLayout.InvalidateLayoutWithContext] method of the layout
+// object.
 //
 // Typically, you ask the layout object to create an invalidation context for
 // you. The [NSCollectionViewLayout] class defines methods for creating a
@@ -202,8 +203,9 @@ func NewNSCollectionViewLayoutInvalidationContext() NSCollectionViewLayoutInvali
 //
 // Call this method when you want the layout object to recompute attributes
 // for a specific set of items. The items you provide are added to the
-// [InvalidatedItemIndexPaths] property. You can call this method more than
-// once to create a merged set of items.
+// [NSCollectionViewLayoutInvalidationContext.InvalidatedItemIndexPaths]
+// property. You can call this method more than once to create a merged set of
+// items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutInvalidationContext/invalidateItems(at:)
 //
@@ -226,8 +228,10 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateItemsAtIndexPaths(i
 // Call this method when you want the layout object to recompute attributes
 // for one or more supplementary views. All of the views must be of the type
 // specified by the `elementKind` parameter. The method adds the views you
-// specify to the [InvalidatedSupplementaryIndexPaths] property. You can call
-// this method more than once for the specified `elementKind` value.
+// specify to the
+// [NSCollectionViewLayoutInvalidationContext.InvalidatedSupplementaryIndexPaths]
+// property. You can call this method more than once for the specified
+// `elementKind` value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutInvalidationContext/invalidateSupplementaryElements(ofKind:at:)
 //
@@ -250,8 +254,10 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateSupplementaryElemen
 // Call this method when you want the layout object to recompute attributes
 // for one or more decoration views. All of the views must be of the type
 // specified by the `elementKind` parameter. The method adds the views you
-// specify to the [InvalidatedDecorationIndexPaths] property. You can call
-// this method more than once for the specified `elementKind` value.
+// specify to the
+// [NSCollectionViewLayoutInvalidationContext.InvalidatedDecorationIndexPaths]
+// property. You can call this method more than once for the specified
+// `elementKind` value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutInvalidationContext/invalidateDecorationElements(ofKind:at:)
 //
@@ -268,8 +274,8 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateDecorationElementsO
 // The collection view sets this property in response to specific layout
 // invalidation scenarios. For example, the collection view sets the property
 // to true when you change the current layout object, change the data source
-// of the collection view, or call the [ReloadData] method and subsequently
-// request a layout invalidation context.
+// of the collection view, or call the [NSCollectionView.ReloadData] method
+// and subsequently request a layout invalidation context.
 //
 // When this property is set to true, the layout object must throw away all
 // previous layout information and recompute it.
@@ -288,7 +294,7 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateEverything() bool {
 // The collection view sets this property in response to specific layout
 // invalidation scenarios. For example, the collection view sets the property
 // to true when you insert or delete items or call the collection view’s
-// [ReloadData] method.
+// [NSCollectionView.ReloadData] method.
 //
 // When this property is set to true, the layout object must query the data
 // source for the new number of sections and items. IT should also update its
@@ -314,6 +320,8 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateDataSourceCounts() 
 // The default value of this property is [NSZeroSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutInvalidationContext/contentOffsetAdjustment
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewLayoutInvalidationContext) ContentOffsetAdjustment() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("contentOffsetAdjustment"))
 	return corefoundation.CGPoint(rv)
@@ -335,6 +343,8 @@ func (c NSCollectionViewLayoutInvalidationContext) SetContentOffsetAdjustment(va
 // your collection view content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutInvalidationContext/contentSizeAdjustment
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewLayoutInvalidationContext) ContentSizeAdjustment() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("contentSizeAdjustment"))
 	return corefoundation.CGSize(rv)

@@ -57,12 +57,12 @@ func (nc NSComboButtonClass) Alloc() NSComboButton {
 // control, a long-press gesture displays the menu.
 //
 // After you create a combo button programmatically or in Interface Builder,
-// choose the button [NSComboButton.Style] you want and add a title or image for your
-// content. A combo button has a default action, which you specify at creation
-// time. You can also change that action later using the inherited [NSComboButton.Target]
-// and [NSComboButton.Action] properties. To specify one or more alternative actions,
-// configure a menu with those actions and assign it to the button’s [Menu]
-// property.
+// choose the button [NSComboButton.Style] you want and add a title or image
+// for your content. A combo button has a default action, which you specify at
+// creation time. You can also change that action later using the inherited
+// [NSControl.Target] and [NSControl.Action] properties. To specify one or
+// more alternative actions, configure a menu with those actions and assign it
+// to the button’s [NSComboButton.Menu] property.
 //
 // This control doesn’t use an [NSCell] object for its underlying
 // implementation. It also doesn’t support the addition of a contextual
@@ -198,7 +198,7 @@ func NewComboButtonWithFrame(frameRect corefoundation.CGRect) NSComboButton {
 //
 // # Discussion
 //
-// This method sets the [Title] property to an empty string.
+// This method sets the [NSComboButton.Title] property to an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/init(image:menu:target:action:)
 func NewComboButtonWithImageMenuTargetAction(image INSImage, menu INSMenu, target objectivec.IObject, action objc.SEL) NSComboButton {
@@ -209,7 +209,7 @@ func NewComboButtonWithImageMenuTargetAction(image INSImage, menu INSMenu, targe
 // Creates a combo button that displays both a title and image.
 //
 // title: The localized string to display in the button. Use the inherited
-// [Alignment] property to set the text alignment for the string.
+// [NSControl.Alignment] property to set the text alignment for the string.
 //
 // image: The image to display in the button.
 //
@@ -233,7 +233,7 @@ func NewComboButtonWithTitleImageMenuTargetAction(title string, image INSImage, 
 // Creates a combo button that displays a title.
 //
 // title: The localized string to display in the button. Use the inherited
-// [Alignment] property to set the text alignment for the string.
+// [NSControl.Alignment] property to set the text alignment for the string.
 //
 // menu: The menu to display when someone chooses an alternate action.
 //
@@ -248,7 +248,7 @@ func NewComboButtonWithTitleImageMenuTargetAction(title string, image INSImage, 
 //
 // # Discussion
 //
-// This method sets the [Image] property to `nil`.
+// This method sets the [NSComboButton.Image] property to `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/init(title:menu:target:action:)
 func NewComboButtonWithTitleMenuTargetAction(title string, menu INSMenu, target objectivec.IObject, action objc.SEL) NSComboButton {
@@ -292,8 +292,8 @@ func (c NSComboButton) SetTitle(value string) {
 // # Discussion
 //
 // The combo button scales the image to fit within its bounds. Use the
-// [ImageScaling] property to specify the scaling behavior to use with your
-// image.
+// [NSComboButton.ImageScaling] property to specify the scaling behavior to
+// use with your image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/image
 func (c NSComboButton) Image() INSImage {

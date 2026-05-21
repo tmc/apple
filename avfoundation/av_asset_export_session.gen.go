@@ -522,7 +522,7 @@ func (a AVAssetExportSession) SetShouldOptimizeForNetworkUse(value bool) {
 // higher quality results at the expense of longer export times. Setting this
 // property to true may also require the export session to write temporary
 // data to disk during the export. To control the location of temporary data,
-// use the property [DirectoryForTemporaryFiles].
+// use the property [AVAssetExportSession.DirectoryForTemporaryFiles].
 //
 // The default value is false. Not all export session configurations can
 // benefit from performing multiple passes over the source media. In these
@@ -639,10 +639,12 @@ func (a AVAssetExportSession) CustomVideoCompositor() AVVideoCompositing {
 // [AVAssetTrackGroupOutputHandlingPreserveAlternateTracks].
 //
 // If no audio alternate track group is present, the value of this property
-// has no effect. You can query the [TrackGroups] property of [AVAsset] to
+// has no effect. You can query the [trackGroups] property of [AVAsset] to
 // determine whether it contains audio track groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/audioTrackGroupHandling
+//
+// [trackGroups]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/trackGroups
 func (a AVAssetExportSession) AudioTrackGroupHandling() AVAssetTrackGroupOutputHandling {
 	rv := objc.Send[AVAssetTrackGroupOutputHandling](a.ID, objc.Sel("audioTrackGroupHandling"))
 	return AVAssetTrackGroupOutputHandling(rv)

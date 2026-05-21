@@ -51,7 +51,7 @@ func (nc NSTextAttachmentClass) Alloc() NSTextAttachment {
 //
 // The [NSAttributedString] class uses text attachment objects as the values
 // for attachment attributes (stored in the attributed string under the
-// [NSTextAttachment.Attachment] key).
+// [attachment] key).
 //
 // A text attachment object contains either an [NSData] object or an
 // [NSTextAttachment.FileWrapper] object, which in turn holds the contents of the attached
@@ -100,6 +100,7 @@ func (nc NSTextAttachmentClass) Alloc() NSTextAttachment {
 // [NSTextAttachment.FileWrapper]: https://developer.apple.com/documentation/Foundation/FileWrapper
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
+// [attachment]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
 type NSTextAttachment struct {
 	objectivec.Object
 }
@@ -171,8 +172,8 @@ type INSTextAttachment interface {
 	Image() INSImage
 	SetImage(value INSImage)
 	// The text attachment’s file wrapper.
-	FileWrapper() foundation.NSFileWrapper
-	SetFileWrapper(value foundation.NSFileWrapper)
+	FileWrapper() foundation.FileWrapper
+	SetFileWrapper(value foundation.FileWrapper)
 	// A Boolean value that determines whether the text attachment uses text attachment views.
 	AllowsTextAttachmentView() bool
 	SetAllowsTextAttachmentView(value bool)
@@ -185,11 +186,10 @@ type INSTextAttachment interface {
 	// Topic: Setting the attachment cell
 
 	// The object that draws the icon for the text attachment and handles mouse events.
-	AttachmentCell() NSTextAttachmentCell
-	SetAttachmentCell(value NSTextAttachmentCell)
+	AttachmentCell() INSTextAttachmentCell
+	SetAttachmentCell(value INSTextAttachmentCell)
 
-	// The attachment for the text.
-	Attachment() foundation.NSString
+	InitWithCoder(coder foundation.INSCoder) NSTextAttachment
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -212,6 +212,13 @@ func NewNSTextAttachment() NSTextAttachment {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(coder:)
+func NewTextAttachmentWithCoder(coder foundation.INSCoder) NSTextAttachment {
+	instance := getNSTextAttachmentClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextAttachmentFromID(rv)
+}
+
 // Creates a text attachment object with the specified data.
 //
 // contentData: Data to use for the text attachment contents. Can be `nil`.
@@ -231,7 +238,7 @@ func NewNSTextAttachment() NSTextAttachment {
 // When either `contentData` or `uti` is `nil`, TextKit considers the receiver
 // to be an attachment without document contents. In this case, the
 // [NSAttributedString] external file writing methods try to save the value of
-// the [Image] property instead.
+// the [NSTextAttachment.Image] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(data:ofType:)
 func NewTextAttachmentWithDataOfType(contentData foundation.NSData, uti string) NSTextAttachment {
@@ -306,7 +313,7 @@ func (t NSTextAttachment) InitWithFileWrapper(fileWrapper foundation.NSFileWrapp
 // When either `contentData` or `uti` is `nil`, TextKit considers the receiver
 // to be an attachment without document contents. In this case, the
 // [NSAttributedString] external file writing methods try to save the value of
-// the [Image] property instead.
+// the [NSTextAttachment.Image] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(data:ofType:)
 func (t NSTextAttachment) InitWithDataOfType(contentData foundation.NSData, uti string) NSTextAttachment {
@@ -367,9 +374,9 @@ func (t NSTextAttachment) AttachmentBoundsForAttributesLocationTextContainerProp
 //
 // # Return Value
 //
-// The [Bounds] rectangle of the text attachment if not [CGRectZero];
-// otherwise, the rectangle of the [size] property of the attachment’s
-// [Image] property.
+// The [NSTextAttachment.Bounds] rectangle of the text attachment if not
+// [CGRectZero]; otherwise, the rectangle of the [size] property of the
+// attachment’s [NSTextAttachment.Image] property.
 //
 // # Discussion
 //
@@ -436,14 +443,21 @@ func (t NSTextAttachment) ImageForBoundsAttributesLocationTextContainer(bounds c
 //
 // The method should return an image appropriate for the target rendering
 // context derived by arguments passed into this method. The
-// [NSTextAttachment] implementation returns the text attachment’s [Image]
-// when non-`nil`. If the image is `nil`, it returns an image based on the
-// text attachment’s [Contents] and [FileType] properties.
+// [NSTextAttachment] implementation returns the text attachment’s
+// [NSTextAttachment.Image] when non-`nil`. If the image is `nil`, it returns
+// an image based on the text attachment’s [NSTextAttachment.Contents] and
+// [NSTextAttachment.FileType] properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/image(forBounds:textContainer:characterIndex:)
 func (t NSTextAttachment) ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("imageForBounds:textContainer:characterIndex:"), imageBounds, textContainer, charIndex)
 	return NSImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(coder:)
+func (t NSTextAttachment) InitWithCoder(coder foundation.INSCoder) NSTextAttachment {
+	rv := objc.Send[NSTextAttachment](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Returns the text attachment view provider corresponding to the file type.
@@ -461,8 +475,9 @@ func (t NSTextAttachment) ImageForBoundsTextContainerCharacterIndex(imageBounds 
 // # Discussion
 //
 // The default implementation queries the text attachment view provider class
-// using the [TextAttachmentViewProviderClassForFileType] method of
-// [NSTextAttachment]. When non-`nil`, it instantiates a view, then, fills
+// using the
+// [NSTextAttachmentClass.TextAttachmentViewProviderClassForFileType] method
+// of [NSTextAttachment]. When non-`nil`, it instantiates a view, then, fills
 // properties declared in [NSTextAttachmentViewProvider] if implemented.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/viewProvider(for:location:textContainer:)
@@ -483,7 +498,7 @@ func (t NSTextAttachment) EncodeWithCoder(coder foundation.INSCoder) {
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/registerViewProviderClass(_:forFileType:)
 //
 // [String]: https://developer.apple.com/documentation/Swift/String
-func (_NSTextAttachmentClass NSTextAttachmentClass) RegisterTextAttachmentViewProviderClassForFileType(textAttachmentViewProviderClass objc.Class, fileType string) {
+func (_NSTextAttachmentClass NSTextAttachmentClass) RegisterTextAttachmentViewProviderClassForFileType(textAttachmentViewProviderClass objectivec.Class, fileType string) {
 	objc.Send[objc.ID](objc.ID(_NSTextAttachmentClass.class), objc.Sel("registerTextAttachmentViewProviderClass:forFileType:"), textAttachmentViewProviderClass, objc.String(fileType))
 }
 
@@ -500,9 +515,9 @@ func (_NSTextAttachmentClass NSTextAttachmentClass) RegisterTextAttachmentViewPr
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/textAttachmentViewProviderClass(forFileType:)
 //
 // [String]: https://developer.apple.com/documentation/Swift/String
-func (_NSTextAttachmentClass NSTextAttachmentClass) TextAttachmentViewProviderClassForFileType(fileType string) objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSTextAttachmentClass.class), objc.Sel("textAttachmentViewProviderClassForFileType:"), objc.String(fileType))
-	return rv
+func (_NSTextAttachmentClass NSTextAttachmentClass) TextAttachmentViewProviderClassForFileType(fileType string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSTextAttachmentClass.class), objc.Sel("textAttachmentViewProviderClassForFileType:"), objc.String(fileType))
+	return objectivec.Class(rv)
 }
 
 // The layout bounds of the text attachment’s graphical representation in
@@ -528,8 +543,8 @@ func (t NSTextAttachment) SetBounds(value corefoundation.CGRect) {
 //
 // # Discussion
 //
-// Modifying this property has the side effect of invalidating the [Image]
-// property.
+// Modifying this property has the side effect of invalidating the
+// [NSTextAttachment.Image] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/contents
 func (t NSTextAttachment) Contents() foundation.NSData {
@@ -544,8 +559,8 @@ func (t NSTextAttachment) SetContents(value foundation.NSData) {
 //
 // # Discussion
 //
-// Modifying this property has the side effect of invalidating the [Image]
-// property.
+// Modifying this property has the side effect of invalidating the
+// [NSTextAttachment.Image] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/fileType
 func (t NSTextAttachment) FileType() string {
@@ -582,15 +597,16 @@ func (t NSTextAttachment) SetImage(value INSImage) {
 // # Discussion
 //
 // The file wrapper holds the contents of the attached file. In iOS, modifying
-// this property has a side effect of invalidating the [Image], [Contents],
-// and [FileType] properties.
+// this property has a side effect of invalidating the
+// [NSTextAttachment.Image], [NSTextAttachment.Contents], and
+// [NSTextAttachment.FileType] properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/fileWrapper
-func (t NSTextAttachment) FileWrapper() foundation.NSFileWrapper {
+func (t NSTextAttachment) FileWrapper() foundation.FileWrapper {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("fileWrapper"))
-	return foundation.NSFileWrapperFromID(objc.ID(rv))
+	return foundation.FileWrapperFromID(objc.ID(rv))
 }
-func (t NSTextAttachment) SetFileWrapper(value foundation.NSFileWrapper) {
+func (t NSTextAttachment) SetFileWrapper(value foundation.FileWrapper) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFileWrapper:"), value)
 }
 
@@ -627,8 +643,10 @@ func (t NSTextAttachment) UsesTextAttachmentView() bool {
 //
 // The layout and rendering bounds X origin is inset by the padding value.
 // This affects the relationship between the text attachment bounds and
-// [NSLayoutManager] glyph metrics methods [LocationForGlyphAtIndex] and
-// [AttachmentSizeForGlyphAtIndex]. The default value is `0.0`.
+// [NSLayoutManager] glyph metrics methods
+// [NSLayoutManager.LocationForGlyphAtIndex] and
+// [NSLayoutManager.AttachmentSizeForGlyphAtIndex]. The default value is
+// `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/lineLayoutPadding
 func (t NSTextAttachment) LineLayoutPadding() float64 {
@@ -643,20 +661,12 @@ func (t NSTextAttachment) SetLineLayoutPadding(value float64) {
 // events.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/attachmentCell
-func (t NSTextAttachment) AttachmentCell() NSTextAttachmentCell {
+func (t NSTextAttachment) AttachmentCell() INSTextAttachmentCell {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attachmentCell"))
 	return NSTextAttachmentCellFromID(objc.ID(rv))
 }
-func (t NSTextAttachment) SetAttachmentCell(value NSTextAttachmentCell) {
+func (t NSTextAttachment) SetAttachmentCell(value INSTextAttachmentCell) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAttachmentCell:"), value)
-}
-
-// The attachment for the text.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
-func (t NSTextAttachment) Attachment() foundation.NSString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("attachment"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // Protocol methods for NSTextAttachmentContainer

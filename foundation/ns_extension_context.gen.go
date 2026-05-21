@@ -56,7 +56,6 @@ func (nc NSExtensionContextClass) Alloc() NSExtensionContext {
 //
 //   - [NSExtensionContext.CompleteRequestReturningItemsCompletionHandler]: Tells the host app to complete the app extension request with an array of result items.
 //   - [NSExtensionContext.CancelRequestWithError]: Tells the host app to cancel the app extension request, with a supplied error.
-//   - [NSExtensionContext.NSExtensionItemsAndErrorsKey]: The extension items and errors key.
 //
 // # Opening URLs
 //
@@ -83,13 +82,6 @@ func (nc NSExtensionContextClass) Alloc() NSExtensionContext {
 //   - [NSExtensionContext.PerformNotificationDefaultAction]
 //   - [NSExtensionContext.DismissNotificationContentExtension]
 //
-// # Working with notifications
-//
-//   - [NSExtensionContext.NSExtensionHostDidBecomeActive]: Posted when the extension’s host app moves from the inactive to the active state.
-//   - [NSExtensionContext.NSExtensionHostWillResignActive]: Posted when the extension’s host app moves from the active to the inactive state.
-//   - [NSExtensionContext.NSExtensionHostDidEnterBackground]: Posted when the extension’s host app begins running in the background.
-//   - [NSExtensionContext.NSExtensionHostWillEnterForeground]: Posted when the extension’s host app begins running in the foreground.
-//
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext
 type NSExtensionContext struct {
 	objectivec.Object
@@ -111,7 +103,6 @@ func NSExtensionContextFromID(id objc.ID) NSExtensionContext {
 //
 //   - [INSExtensionContext.CompleteRequestReturningItemsCompletionHandler]: Tells the host app to complete the app extension request with an array of result items.
 //   - [INSExtensionContext.CancelRequestWithError]: Tells the host app to cancel the app extension request, with a supplied error.
-//   - [INSExtensionContext.NSExtensionItemsAndErrorsKey]: The extension items and errors key.
 //
 // # Opening URLs
 //
@@ -138,13 +129,6 @@ func NSExtensionContextFromID(id objc.ID) NSExtensionContext {
 //   - [INSExtensionContext.PerformNotificationDefaultAction]
 //   - [INSExtensionContext.DismissNotificationContentExtension]
 //
-// # Working with notifications
-//
-//   - [INSExtensionContext.NSExtensionHostDidBecomeActive]: Posted when the extension’s host app moves from the inactive to the active state.
-//   - [INSExtensionContext.NSExtensionHostWillResignActive]: Posted when the extension’s host app moves from the active to the inactive state.
-//   - [INSExtensionContext.NSExtensionHostDidEnterBackground]: Posted when the extension’s host app begins running in the background.
-//   - [INSExtensionContext.NSExtensionHostWillEnterForeground]: Posted when the extension’s host app begins running in the foreground.
-//
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext
 type INSExtensionContext interface {
 	objectivec.IObject
@@ -155,8 +139,6 @@ type INSExtensionContext interface {
 	CompleteRequestReturningItemsCompletionHandler(items INSArray, completionHandler BoolHandler)
 	// Tells the host app to cancel the app extension request, with a supplied error.
 	CancelRequestWithError(error_ INSError)
-	// The extension items and errors key.
-	NSExtensionItemsAndErrorsKey() string
 
 	// Topic: Opening URLs
 
@@ -186,17 +168,6 @@ type INSExtensionContext interface {
 	SetNotificationActions(value []objectivec.IObject)
 	PerformNotificationDefaultAction()
 	DismissNotificationContentExtension()
-
-	// Topic: Working with notifications
-
-	// Posted when the extension’s host app moves from the inactive to the active state.
-	NSExtensionHostDidBecomeActive() NSNotificationName
-	// Posted when the extension’s host app moves from the active to the inactive state.
-	NSExtensionHostWillResignActive() NSNotificationName
-	// Posted when the extension’s host app begins running in the background.
-	NSExtensionHostDidEnterBackground() NSNotificationName
-	// Posted when the extension’s host app begins running in the foreground.
-	NSExtensionHostWillEnterForeground() NSNotificationName
 }
 
 // Init initializes the instance.
@@ -259,6 +230,8 @@ func (e NSExtensionContext) CompleteRequestReturningItemsCompletionHandler(items
 // [NSExtensionItem] objects and associated [NSError] instances.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/cancelRequest(withError:)
+//
+// [NSExtensionItemsAndErrorsKey]: https://developer.apple.com/documentation/Foundation/NSExtensionItemsAndErrorsKey
 func (e NSExtensionContext) CancelRequestWithError(error_ INSError) {
 	objc.Send[objc.ID](e.ID, objc.Sel("cancelRequestWithError:"), error_)
 }
@@ -345,14 +318,6 @@ func (e NSExtensionContext) DismissNotificationContentExtension() {
 	objc.Send[objc.ID](e.ID, objc.Sel("dismissNotificationContentExtension"))
 }
 
-// The extension items and errors key.
-//
-// See: https://developer.apple.com/documentation/foundation/nsextensionitemsanderrorskey
-func (e NSExtensionContext) NSExtensionItemsAndErrorsKey() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionItemsAndErrorsKey"))
-	return NSStringFromID(rv).String()
-}
-
 // The list of input [NSExtensionItem] objects associated with the context.
 //
 // # Discussion
@@ -374,40 +339,6 @@ func (e NSExtensionContext) NotificationActions() []objectivec.IObject {
 }
 func (e NSExtensionContext) SetNotificationActions(value []objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNotificationActions:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// Posted when the extension’s host app moves from the inactive to the
-// active state.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostdidbecomeactive
-func (e NSExtensionContext) NSExtensionHostDidBecomeActive() NSNotificationName {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostDidBecomeActiveNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the extension’s host app moves from the active to the
-// inactive state.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostwillresignactive
-func (e NSExtensionContext) NSExtensionHostWillResignActive() NSNotificationName {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostWillResignActiveNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the extension’s host app begins running in the background.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostdidenterbackground
-func (e NSExtensionContext) NSExtensionHostDidEnterBackground() NSNotificationName {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostDidEnterBackgroundNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the extension’s host app begins running in the foreground.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostwillenterforeground
-func (e NSExtensionContext) NSExtensionHostWillEnterForeground() NSNotificationName {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostWillEnterForegroundNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // CompleteRequestReturningItems is a synchronous wrapper around [NSExtensionContext.CompleteRequestReturningItemsCompletionHandler].

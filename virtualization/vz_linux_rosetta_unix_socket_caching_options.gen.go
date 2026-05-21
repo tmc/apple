@@ -129,8 +129,10 @@ func NewVZLinuxRosettaUnixSocketCachingOptions() VZLinuxRosettaUnixSocketCaching
 // You can optionally configure Rosetta to use cached translations from the
 // Rosetta translation daemon communicating through a UNIX domain socket.
 //
-// If `path` length exceeds [MaximumPathLength] in UTF-8 bytes, the framework
-// returns `nil` and sets the `error` value, if available.
+// If `path` length exceeds
+// [VZLinuxRosettaUnixSocketCachingOptionsClass.MaximumPathLength] in UTF-8
+// bytes, the framework returns `nil` and sets the `error` value, if
+// available.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaUnixSocketCachingOptions/initWithPath:error:
 func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxRosettaUnixSocketCachingOptions, error) {
@@ -156,8 +158,10 @@ func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxR
 // You can optionally configure Rosetta to use cached translations from the
 // Rosetta translation daemon communicating through a UNIX domain socket.
 //
-// If `path` length exceeds [MaximumPathLength] in UTF-8 bytes, the framework
-// returns `nil` and sets the `error` value, if available.
+// If `path` length exceeds
+// [VZLinuxRosettaUnixSocketCachingOptionsClass.MaximumPathLength] in UTF-8
+// bytes, the framework returns `nil` and sets the `error` value, if
+// available.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaUnixSocketCachingOptions/initWithPath:error:
 func (l VZLinuxRosettaUnixSocketCachingOptions) InitWithPathError(path string) (VZLinuxRosettaUnixSocketCachingOptions, error) {

@@ -56,11 +56,12 @@ func (nc NSLinguisticTaggerClass) Alloc() NSLinguisticTagger {
 //
 // When you create a linguistic tagger, you specify what kind of information
 // you’re interested in by passing one or more [NSLinguisticTagScheme]
-// values. Set the [String] property to the natural language text you want to
-// analyze, and the linguistic tagger processes it according to the specified
-// tag schemes. You can then enumerate over the tags in a specified range,
-// using the methods described in Enumerating Linguistic Tags, to get the
-// information requested for a given scheme and unit.
+// values. Set the [NSLinguisticTagger.String] property to the natural
+// language text you want to analyze, and the linguistic tagger processes it
+// according to the specified tag schemes. You can then enumerate over the
+// tags in a specified range, using the methods described in Enumerating
+// Linguistic Tags, to get the information requested for a given scheme and
+// unit.
 //
 // # Thread Safety
 //
@@ -209,9 +210,9 @@ func (l NSLinguisticTagger) TagSchemes() []string {
 // If you want to know the dominant language of a string that you’re
 // analyzing with a linguistic tagger (for example, identifying part of speech
 // for each word), specify the [language] tag scheme in the initializer. After
-// you set the [String] property of the linguistic tagger, the dominant
-// language can be determined with the [DominantLanguage] property, as shown
-// in this example:
+// you set the [NSLinguisticTagger.String] property of the linguistic tagger,
+// the dominant language can be determined with the
+// [NSLinguisticTagger.DominantLanguage] property, as shown in this example:
 //
 // In the example, the BCP-47 language tag “de” is returned as the
 // dominant language, indicating that the text is in German.

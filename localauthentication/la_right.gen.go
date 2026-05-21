@@ -189,8 +189,6 @@ func (r LARight) AuthorizeWithLocalizedReasonCompletion(localizedReason string, 
 
 // Performs an authorization on the right with a window context you supply.
 //
-// presentationContext is a [localauthenticationembeddedui.LAPresentationContext].
-//
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LARight/authorize(localizedReason:in:completion:)

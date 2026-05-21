@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,9 +51,10 @@ func (cc CKDiscoverUserIdentitiesOperationClass) Alloc() CKDiscoverUserIdentitie
 // information you provide, such as email addresses and phone numbers.
 //
 // Before CloudKit can return a user’s identity, you must ask for their
-// permission by calling [RequestApplicationPermissionCompletionHandler]. Do
-// this as part of any onboarding where you can highlight the benefits of
-// being discoverable within the context of your app.
+// permission by calling
+// [CKContainer.RequestApplicationPermissionCompletionHandler]. Do this as
+// part of any onboarding where you can highlight the benefits of being
+// discoverable within the context of your app.
 //
 // The operation executes the handlers you provide on an internal queue it
 // manages. You must provide handlers capable of executing on a background
@@ -69,7 +69,7 @@ func (cc CKDiscoverUserIdentitiesOperationClass) Alloc() CKDiscoverUserIdentitie
 // CloudKit operations have a default QoS of [QualityOfService.default].
 // Operations with this service level are discretionary. The system schedules
 // their execution at an optimal time according to battery level and network
-// conditions, among other factors. Use the [CKDiscoverUserIdentitiesOperation.QualityOfService] property to set
+// conditions, among other factors. Use the [qualityOfService] property to set
 // a more appropriate QoS for the operation.
 //
 // The following example shows how to create the operation, configure its
@@ -85,15 +85,11 @@ func (cc CKDiscoverUserIdentitiesOperationClass) Alloc() CKDiscoverUserIdentitie
 //   - [CKDiscoverUserIdentitiesOperation.UserIdentityDiscoveredBlock]: The closure to execute for each user identity.
 //   - [CKDiscoverUserIdentitiesOperation.SetUserIdentityDiscoveredBlock]
 //
-// # Instance Properties
-//
-//   - [CKDiscoverUserIdentitiesOperation.DiscoverUserIdentitiesResultBlock]: The closure to execute when the operation finishes.
-//   - [CKDiscoverUserIdentitiesOperation.SetDiscoverUserIdentitiesResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKDiscoverUserIdentitiesOperation
 //
 // [QualityOfService.default]: https://developer.apple.com/documentation/Foundation/QualityOfService/default
 // [discoverUserIdentitiesCompletionBlock]: https://developer.apple.com/documentation/CloudKit/CKDiscoverUserIdentitiesOperation/discoverUserIdentitiesCompletionBlock
+// [qualityOfService]: https://developer.apple.com/documentation/Foundation/Operation/qualityOfService
 type CKDiscoverUserIdentitiesOperation struct {
 	CKOperation
 }
@@ -121,11 +117,6 @@ func CKDiscoverUserIdentitiesOperationFromID(id objc.ID) CKDiscoverUserIdentitie
 //   - [ICKDiscoverUserIdentitiesOperation.UserIdentityDiscoveredBlock]: The closure to execute for each user identity.
 //   - [ICKDiscoverUserIdentitiesOperation.SetUserIdentityDiscoveredBlock]
 //
-// # Instance Properties
-//
-//   - [ICKDiscoverUserIdentitiesOperation.DiscoverUserIdentitiesResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKDiscoverUserIdentitiesOperation.SetDiscoverUserIdentitiesResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKDiscoverUserIdentitiesOperation
 type ICKDiscoverUserIdentitiesOperation interface {
 	ICKOperation
@@ -141,12 +132,6 @@ type ICKDiscoverUserIdentitiesOperation interface {
 	// The closure to execute for each user identity.
 	UserIdentityDiscoveredBlock() CKUserIdentityCKUserIdentityLookupInfoHandler
 	SetUserIdentityDiscoveredBlock(value CKUserIdentityCKUserIdentityLookupInfoHandler)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	DiscoverUserIdentitiesResultBlock() unsafe.Pointer
-	SetDiscoverUserIdentitiesResultBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -172,9 +157,10 @@ func NewCKDiscoverUserIdentitiesOperation() CKDiscoverUserIdentitiesOperation {
 // lookup infos.
 //
 // userIdentityLookupInfos: An array that contains instances of [CKUserIdentityLookupInfo]. CloudKit
-// uses this parameter as the default value for the [UserIdentityLookupInfos]
-// property. If you specify `nil`, you must assign a value to that property
-// before you execute the operation.
+// uses this parameter as the default value for the
+// [CKDiscoverUserIdentitiesOperation.UserIdentityLookupInfos] property. If
+// you specify `nil`, you must assign a value to that property before you
+// execute the operation.
 //
 // # Discussion
 //
@@ -236,15 +222,4 @@ func (c CKDiscoverUserIdentitiesOperation) SetUserIdentityDiscoveredBlock(value 
 	block, cleanup := NewCKUserIdentityCKUserIdentityLookupInfoBlock(value)
 	defer cleanup()
 	objc.Send[struct{}](c.ID, objc.Sel("setUserIdentityDiscoveredBlock:"), block)
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckdiscoveruseridentitiesoperation/discoveruseridentitiesresultblock
-func (c CKDiscoverUserIdentitiesOperation) DiscoverUserIdentitiesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("discoverUserIdentitiesResultBlock"))
-	return rv
-}
-func (c CKDiscoverUserIdentitiesOperation) SetDiscoverUserIdentitiesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDiscoverUserIdentitiesResultBlock:"), value)
 }

@@ -58,9 +58,9 @@ func (cc CATransformLayerClass) Alloc() CATransformLayer {
 // ignored, including: `filters`, `backgroundFilters`, `compositingFilter`,
 // `mask`, `masksToBounds`, and shadow style properties. - The `opacity`
 // property is applied to each sublayer individually, the transform layer does
-// not form a compositing group. - The [HitTest] method should never be called
-// on a transform layer as they do not have a 2D coordinate space into which
-// the point can be mapped.
+// not form a compositing group. - The [CALayer.HitTest] method should never
+// be called on a transform layer as they do not have a 2D coordinate space
+// into which the point can be mapped.
 //
 // # Example: Displaying layers in 3D
 //
@@ -69,8 +69,8 @@ func (cc CATransformLayerClass) Alloc() CATransformLayer {
 //
 // The following code shows three layers with different colors but identical
 // sizes added at the same position to `layer`. The blue layer is visible
-// because it has the highest [CATransformLayer.ZPosition]. Defining the layer’s transform
-// rotates the viewpoint in 3D space and, because `layer` is a
+// because it has the highest [CALayer.ZPosition]. Defining the layer’s
+// transform rotates the viewpoint in 3D space and, because `layer` is a
 // [CATransformLayer], all three layers are visible as illustrated below.
 //
 // [media-2826921]
@@ -134,7 +134,7 @@ func NewCATransformLayer() CATransformLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //

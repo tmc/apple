@@ -55,6 +55,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -64,6 +65,33 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 // Used by:
 //   - [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]
 type UNNotificationArrayHandler = func(*[]UNNotification)
+
+// NewUNNotificationArrayBlock wraps a Go [UNNotificationArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]
+func NewUNNotificationArrayBlock(handler UNNotificationArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]UNNotification
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]UNNotification, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = UNNotificationFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // UNNotificationCategorySetHandler handles The block to execute asynchronously with the results.
 //   - categories: The set of [UNNotificationCategory](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationCategory>) objects containing your registered notification types. If your app has not yet registered any categories, this parameter is an empty set.
@@ -128,6 +156,33 @@ func NewUNNotificationPresentationOptionsBlock(handler UNNotificationPresentatio
 // Used by:
 //   - [UNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler]
 type UNNotificationRequestArrayHandler = func(*[]UNNotificationRequest)
+
+// NewUNNotificationRequestArrayBlock wraps a Go [UNNotificationRequestArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [UNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler]
+func NewUNNotificationRequestArrayBlock(handler UNNotificationRequestArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]UNNotificationRequest
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]UNNotificationRequest, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = UNNotificationRequestFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // UNNotificationSettingsHandler handles The block to execute asynchronously with the results.
 //   - settings: The [UNNotificationSettings](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationSettings>) object containing the current authorization settings for your app.

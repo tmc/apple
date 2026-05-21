@@ -53,10 +53,10 @@ func (fc FSFileNameClass) Alloc() FSFileName {
 // directory enumeration.
 //
 // A filename is usually a valid UTF-8 sequence, but can be an arbitrary byte
-// sequence that doesn’t conform to that format. As a result, the [FSFileName.Data]
-// property always contains a value, but the [FSFileName.String] property may be empty.
-// An [FSModule] can receive an [FSFileName] that isn’t valid UTF-8 in two
-// cases:
+// sequence that doesn’t conform to that format. As a result, the
+// [FSFileName.Data] property always contains a value, but the
+// [FSFileName.String] property may be empty. An [FSModule] can receive an
+// [FSFileName] that isn’t valid UTF-8 in two cases:
 //
 // - A program passes erroneous data to a system call. The [FSModule] treats
 // this situation as an error. - An [FSModule] lacks the character encoding
@@ -81,6 +81,10 @@ func (fc FSFileNameClass) Alloc() FSFileName {
 //   - [FSFileName.Data]: The byte sequence of the filename, as a data object.
 //   - [FSFileName.String]: The filename, represented as a Unicode string.
 //   - [FSFileName.DebugDescription]: The filename, represented as a potentially lossy conversion to a string.
+//
+// # Initializers
+//
+//   - [FSFileName.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/FSKit/FSFileName
 //
@@ -112,6 +116,10 @@ func FSFileNameFromID(id objc.ID) FSFileName {
 //   - [IFSFileName.String]: The filename, represented as a Unicode string.
 //   - [IFSFileName.DebugDescription]: The filename, represented as a potentially lossy conversion to a string.
 //
+// # Initializers
+//
+//   - [IFSFileName.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSFileName
 type IFSFileName interface {
 	objectivec.IObject
@@ -131,6 +139,10 @@ type IFSFileName interface {
 	String() string
 	// The filename, represented as a potentially lossy conversion to a string.
 	DebugDescription() string
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) FSFileName
 
 	// Initializes a file name by copying a character sequence from a byte array.
 	InitWithBytesLength(bytes string, length uint) FSFileName
@@ -183,6 +195,13 @@ func NewFileNameWithBytesLength(bytes string, length uint) FSFileName {
 func NewFileNameWithCString(name string) FSFileName {
 	instance := getFSFileNameClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.StringData(name+"\x00")))
+	return FSFileNameFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSFileName/init(coder:)
+func NewFileNameWithCoder(coder foundation.INSCoder) FSFileName {
+	instance := getFSFileNameClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return FSFileNameFromID(rv)
 }
 
@@ -249,6 +268,12 @@ func (f FSFileName) InitWithData(name foundation.NSData) FSFileName {
 // See: https://developer.apple.com/documentation/FSKit/FSFileName/init(string:)
 func (f FSFileName) InitWithString(name string) FSFileName {
 	rv := objc.Send[FSFileName](f.ID, objc.Sel("initWithString:"), objc.String(name))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSFileName/init(coder:)
+func (f FSFileName) InitWithCoder(coder foundation.INSCoder) FSFileName {
+	rv := objc.Send[FSFileName](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -353,8 +378,8 @@ func (f FSFileName) Data() foundation.NSData {
 //
 // # Discussion
 //
-// If the value of the filename’s [Data] is not a valid UTF-8 byte sequence,
-// this property is empty.
+// If the value of the filename’s [FSFileName.Data] is not a valid UTF-8
+// byte sequence, this property is empty.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSFileName/string
 func (f FSFileName) String() string {

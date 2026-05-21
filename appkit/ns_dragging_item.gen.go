@@ -52,11 +52,11 @@ func (nc NSDraggingItemClass) Alloc() NSDraggingItem {
 // impact on the drag.
 //
 // When you call the [NSDraggingSession] method
-// [BeginDraggingSessionWithItemsEventSource], the system immediately consumes
-// the dragging items that pass to the method, and doesn’t retain them. Any
-// further changes to the dragging item associated with the returned
+// [NSView.BeginDraggingSessionWithItemsEventSource], the system immediately
+// consumes the dragging items that pass to the method, and doesn’t retain
+// them. Any further changes to the dragging item associated with the returned
 // [NSDraggingSession] must occur with the enumeration method
-// [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock].
+// [NSDraggingSession.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock].
 // When enumerating, the system creates [NSDraggingItem] instances right
 // before giving them to the enumeration block. After returning from the
 // block, the dragging item is no longer valid.
@@ -171,10 +171,10 @@ func NewNSDraggingItem() NSDraggingItem {
 // # Discussion
 //
 // When the developer creates an [NSDraggingItem] instance , it is for use
-// with the view method [BeginDraggingSessionWithItemsEventSource] During the
-// invocation of that method, the `pasteboardWriter` is placed onto the
-// dragging pasteboard for the [NSDraggingSession] that contains the dragging
-// item instance.
+// with the view method [NSView.BeginDraggingSessionWithItemsEventSource]
+// During the invocation of that method, the `pasteboardWriter` is placed onto
+// the dragging pasteboard for the [NSDraggingSession] that contains the
+// dragging item instance.
 //
 // The designated initializer.
 //
@@ -197,10 +197,10 @@ func NewDraggingItemWithPasteboardWriter(pasteboardWriter NSPasteboardWriting) N
 // # Discussion
 //
 // When the developer creates an [NSDraggingItem] instance , it is for use
-// with the view method [BeginDraggingSessionWithItemsEventSource] During the
-// invocation of that method, the `pasteboardWriter` is placed onto the
-// dragging pasteboard for the [NSDraggingSession] that contains the dragging
-// item instance.
+// with the view method [NSView.BeginDraggingSessionWithItemsEventSource]
+// During the invocation of that method, the `pasteboardWriter` is placed onto
+// the dragging pasteboard for the [NSDraggingSession] that contains the
+// dragging item instance.
 //
 // The designated initializer.
 //
@@ -213,7 +213,7 @@ func (d NSDraggingItem) InitWithPasteboardWriter(pasteboardWriter NSPasteboardWr
 // Sets the item’s dragging frame and contents.
 //
 // frame: The item content frame, which is in the same coordinate space as the value
-// of [DraggingFrame].
+// of [NSDraggingItem.DraggingFrame].
 //
 // contents: The item contents to display when dragging. Typically this is an [NSImage],
 // but a [CGImageRef] will also work.
@@ -224,19 +224,20 @@ func (d NSDraggingItem) InitWithPasteboardWriter(pasteboardWriter NSPasteboardWr
 //
 // This convenience method simplifies modifying the components of an
 // [NSDraggingItem] when there is only one component. It sets the
-// [DraggingFrame] and creates a single [NSDraggingImageComponent] instance
-// with one image corresponding to the [icon] key. You should use this method
-// only under the following conditions: the drag image for this item is
-// composed of a single image, or there are a reasonable number of dragging
-// item instances being created or enumerated.
+// [NSDraggingItem.DraggingFrame] and creates a single
+// [NSDraggingImageComponent] instance with one image corresponding to the
+// [icon] key. You should use this method only under the following conditions:
+// the drag image for this item is composed of a single image, or there are a
+// reasonable number of dragging item instances being created or enumerated.
 //
 // If your application requires the dragging of hundreds of items this method
 // would create a instance for each item when it is called. Compare this to
-// the [ImageComponentsProvider] block which is much faster to define and
-// allows AppKit to create only a subset of the items using
-// [ImageComponentsProvider].
+// the [NSDraggingItem.ImageComponentsProvider] block which is much faster to
+// define and allows AppKit to create only a subset of the items using
+// [NSDraggingItem.ImageComponentsProvider].
 //
-// This method sets the [DraggingFrame] and [ImageComponents] properties.
+// This method sets the [NSDraggingItem.DraggingFrame] and
+// [NSDraggingItem.ImageComponents] properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/setDraggingFrame(_:contents:)
 //
@@ -255,9 +256,9 @@ func (d NSDraggingItem) SetDraggingFrameContents(frame corefoundation.CGRect, co
 //
 // The exact coordinate space of this rectangle depends on where you use it.
 // Examples are the view that initiates the drag using
-// [BeginDraggingSessionWithItemsEventSource] or the view you pass to the
-// [NSDraggingSession] implementation of
-// [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock].
+// [NSView.BeginDraggingSessionWithItemsEventSource] or the view you pass to
+// the [NSDraggingSession] implementation of
+// [NSDraggingSession.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/draggingFrame
 func (d NSDraggingItem) DraggingFrame() corefoundation.CGRect {
@@ -274,7 +275,8 @@ func (d NSDraggingItem) SetDraggingFrame(value corefoundation.CGRect) {
 //
 // The array contains copies of the components. The drag does not reflect
 // changes you make to these copies. If needed, the system calls the
-// [ImageComponentsProvider] block to generate the image components.
+// [NSDraggingItem.ImageComponentsProvider] block to generate the image
+// components.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/imageComponents
 func (d NSDraggingItem) ImageComponents() []NSDraggingImageComponent {
@@ -320,12 +322,12 @@ func (d NSDraggingItem) SetImageComponentsProvider(value VoidHandler) {
 // # Discussion
 //
 // When you create an [NSDraggingItem] instance, `item` is the
-// `pasteboardWriter` passed to [InitWithPasteboardWriter].
+// `pasteboardWriter` passed to [NSDraggingItem.InitWithPasteboardWriter].
 //
 // However, when enumerating dragging items using the [NSDraggingSession]
 // method
-// [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock] or
-// the [NSDraggingInfo] method
+// [NSDraggingSession.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
+// or the [NSDraggingInfo] method
 // [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock],
 // `item` is not the original pasteboard reader or writer instance. It is an
 // instance of one of the classes provided to the enumeration method’s

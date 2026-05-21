@@ -68,11 +68,6 @@ func (vc VNGenerateOpticalFlowRequestClass) Alloc() VNGenerateOpticalFlowRequest
 //   - [VNGenerateOpticalFlowRequest.KeepNetworkOutput]: A Boolean value that indicates whether to keep the raw pixel buffer coming from the machine learning network.
 //   - [VNGenerateOpticalFlowRequest.SetKeepNetworkOutput]
 //
-// # Identifying Request Revisions
-//
-//   - [VNGenerateOpticalFlowRequest.VNGenerateOpticalFlowRequestRevision2]: A constant for specifying revision 2 of the optical flow generation request.
-//   - [VNGenerateOpticalFlowRequest.VNGenerateOpticalFlowRequestRevision1]: A constant for specifying revision 1 of the optical flow generation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest
 type VNGenerateOpticalFlowRequest struct {
 	VNTargetedImageRequest
@@ -100,11 +95,6 @@ func VNGenerateOpticalFlowRequestFromID(id objc.ID) VNGenerateOpticalFlowRequest
 //   - [IVNGenerateOpticalFlowRequest.KeepNetworkOutput]: A Boolean value that indicates whether to keep the raw pixel buffer coming from the machine learning network.
 //   - [IVNGenerateOpticalFlowRequest.SetKeepNetworkOutput]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGenerateOpticalFlowRequest.VNGenerateOpticalFlowRequestRevision2]: A constant for specifying revision 2 of the optical flow generation request.
-//   - [IVNGenerateOpticalFlowRequest.VNGenerateOpticalFlowRequestRevision1]: A constant for specifying revision 1 of the optical flow generation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest
 type IVNGenerateOpticalFlowRequest interface {
 	IVNTargetedImageRequest
@@ -120,13 +110,6 @@ type IVNGenerateOpticalFlowRequest interface {
 	// A Boolean value that indicates whether to keep the raw pixel buffer coming from the machine learning network.
 	KeepNetworkOutput() bool
 	SetKeepNetworkOutput(value bool)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 2 of the optical flow generation request.
-	VNGenerateOpticalFlowRequestRevision2() int
-	// A constant for specifying revision 1 of the optical flow generation request.
-	VNGenerateOpticalFlowRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -156,7 +139,7 @@ func NewVNGenerateOpticalFlowRequest() VNGenerateOpticalFlowRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGenerateOpticalFlowRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
@@ -624,8 +607,8 @@ func (g VNGenerateOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 // # Discussion
 //
 // The default is false. When you set this to true, the system ignores
-// [OutputPixelFormat]. Setting this for revision 1 has no effect because
-// it’s not machine learning-based.
+// [VNGenerateOpticalFlowRequest.OutputPixelFormat]. Setting this for revision
+// 1 has no effect because it’s not machine learning-based.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/keepNetworkOutput
 func (g VNGenerateOpticalFlowRequest) KeepNetworkOutput() bool {
@@ -634,22 +617,4 @@ func (g VNGenerateOpticalFlowRequest) KeepNetworkOutput() bool {
 }
 func (g VNGenerateOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setKeepNetworkOutput:"), value)
-}
-
-// A constant for specifying revision 2 of the optical flow generation
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateopticalflowrequestrevision2
-func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision2() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the optical flow generation
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateopticalflowrequestrevision1
-func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision1"))
-	return rv
 }

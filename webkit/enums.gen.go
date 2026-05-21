@@ -513,7 +513,7 @@ const (
 	WKDataDetectorTypePhoneNumber WKDataDetectorTypes = 0
 	// WKDataDetectorTypeTrackingNumber: Detect tracking numbers in text and turn them into links.
 	WKDataDetectorTypeTrackingNumber WKDataDetectorTypes = 0
-	// Deprecated.
+	// Deprecated: use WKDataDetectorTypeLookupSuggestion.
 	WKDataDetectorTypeSpotlightSuggestion WKDataDetectorTypes = 0
 )
 

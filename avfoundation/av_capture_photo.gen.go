@@ -191,13 +191,13 @@ func NewAVCapturePhoto() AVCapturePhoto {
 // # Discussion
 //
 // When you request a photo capture with the [AVCapturePhotoOutput]
-// [CapturePhotoWithSettingsDelegate] method, the [AVCapturePhotoSettings]
-// object you provide specifies image data formats (such as JPEG and HEVC) and
-// container file formats (such as JFIF and HEIF) for the resulting image
-// file. Calling this method formats and packages the image pixel buffer,
-// along with metadata and other attachments created during capture (such as
-// preview photos and depth maps), into data appropriate for writing to a file
-// of that type.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method, the
+// [AVCapturePhotoSettings] object you provide specifies image data formats
+// (such as JPEG and HEVC) and container file formats (such as JFIF and HEIF)
+// for the resulting image file. Calling this method formats and packages the
+// image pixel buffer, along with metadata and other attachments created
+// during capture (such as preview photos and depth maps), into data
+// appropriate for writing to a file of that type.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/fileDataRepresentation()
 func (c AVCapturePhoto) FileDataRepresentation() foundation.NSData {
@@ -223,11 +223,13 @@ func (c AVCapturePhoto) CGImageRepresentation() coregraphics.CGImageRef {
 //
 // # Discussion
 //
-// To determine which [CapturePhotoWithSettingsDelegate] call produced this
-// photo capture result, match this [AVCaptureResolvedPhotoSettings]
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you requested capture with. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// To determine which [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// call produced this photo capture result, match this
+// [AVCaptureResolvedPhotoSettings] object’s
+// [AVCaptureResolvedPhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// requested capture with. You can also use this object to find out which
+// values the photo output has chosen for automatic settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/resolvedSettings
 func (c AVCapturePhoto) ResolvedSettings() IAVCaptureResolvedPhotoSettings {
@@ -240,11 +242,12 @@ func (c AVCapturePhoto) ResolvedSettings() IAVCaptureResolvedPhotoSettings {
 //
 // # Discussion
 //
-// The [ExpectedPhotoCount] property of this capture result’s
-// [ResolvedSettings] object indicates the total number of images that will be
-// returned for a given capture request. When your delegate’s
-// [CaptureOutputDidFinishProcessingPhotoError] method receives a photo whose
-// [PhotoCount] value matches the [ExpectedPhotoCount] value, you know
+// The [AVCaptureResolvedPhotoSettings.ExpectedPhotoCount] property of this
+// capture result’s [AVCapturePhoto.ResolvedSettings] object indicates the
+// total number of images that will be returned for a given capture request.
+// When your delegate’s [CaptureOutputDidFinishProcessingPhotoError] method
+// receives a photo whose [AVCapturePhoto.PhotoCount] value matches the
+// [AVCaptureResolvedPhotoSettings.ExpectedPhotoCount] value, you know
 // you’ve received the last one for the given capture request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/photoCount
@@ -277,8 +280,10 @@ func (c AVCapturePhoto) Timestamp() coremedia.CMTime {
 // underlying sample buffer.
 //
 // If you requested capture in a compressed format such as JPEG or HEVC/HEIF,
-// this property’s value is `nil`. Use the [FileDataRepresentation] or
-// [CGImageRepresentation] method to obtain compressed image data.
+// this property’s value is `nil`. Use the
+// [AVCapturePhoto.FileDataRepresentation] or
+// [AVCapturePhoto.CGImageRepresentation] method to obtain compressed image
+// data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/pixelBuffer
 func (c AVCapturePhoto) PixelBuffer() corevideo.CVImageBufferRef {
@@ -299,8 +304,8 @@ func (c AVCapturePhoto) PixelBuffer() corevideo.CVImageBufferRef {
 // weights the confidence level of the central pixels more heavily than pixels
 // on the edges of the photo.
 //
-// Use [ConstantColorConfidenceMap] for more use case specific analyses of the
-// confidence level.
+// Use [AVCapturePhoto.ConstantColorConfidenceMap] for more use case specific
+// analyses of the confidence level.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/constantColorCenterWeightedMeanConfidenceLevel
 func (c AVCapturePhoto) ConstantColorCenterWeightedMeanConfidenceLevel() float32 {

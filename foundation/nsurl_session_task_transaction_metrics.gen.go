@@ -47,11 +47,16 @@ func (uc URLSessionTaskTransactionMetricsClass) Alloc() URLSessionTaskTransactio
 //
 // # Overview
 //
-// Each [NSURLSessionTaskTransactionMetrics] object consists of a [Request]
-// and [Response] property, corresponding to the request and response of the
-// corresponding task. It also contains temporal metrics, starting with
-// [FetchStartDate] and ending with [ResponseEndDate], as well as other
-// characteristics like [NetworkProtocolName] and [ResourceFetchType].
+// Each [NSURLSessionTaskTransactionMetrics] object consists of a
+// [NSURLSessionTaskTransactionMetrics.Request] and
+// [NSURLSessionTaskTransactionMetrics.Response] property, corresponding to
+// the request and response of the corresponding task. It also contains
+// temporal metrics, starting with
+// [NSURLSessionTaskTransactionMetrics.FetchStartDate] and ending with
+// [NSURLSessionTaskTransactionMetrics.ResponseEndDate], as well as other
+// characteristics like
+// [NSURLSessionTaskTransactionMetrics.NetworkProtocolName] and
+// [NSURLSessionTaskTransactionMetrics.ResourceFetchType].
 //
 // # Understanding temporal metrics
 //
@@ -65,21 +70,24 @@ func (uc URLSessionTaskTransactionMetricsClass) Alloc() URLSessionTaskTransactio
 // completed, then its corresponding end date metric is `nil`. This can happen
 // if name lookup begins, but the operation either times out, fails, or the
 // client cancels the task before the name can be resolved. In this case, the
-// [DomainLookupEndDate] property is `nil`, along with all metrics for aspects
-// that occurred afterwards.
+// [NSURLSessionTaskTransactionMetrics.DomainLookupEndDate] property is `nil`,
+// along with all metrics for aspects that occurred afterwards.
 //
 // # Measuring tasks using iCloud Private Relay
 //
 // iCloud Private Relay can change the timing and sequence of events for your
 // tasks by sending requests through a set of privacy proxies. All tasks that
-// use iCloud Private Relay set the [ProxyConnection] property in their
-// transaction metrics. In this case, the [RemoteAddress] property contains
-// the address of the proxy, and not the origin server.
+// use iCloud Private Relay set the
+// [NSURLSessionTaskTransactionMetrics.ProxyConnection] property in their
+// transaction metrics. In this case, the
+// [NSURLSessionTaskTransactionMetrics.RemoteAddress] property contains the
+// address of the proxy, and not the origin server.
 //
 // Tasks to different hosts can reuse the same transport connection, just like
 // how tasks can already share a connection when using HTTP/2. In these cases,
-// a proxied task may not report any [SecureConnectionStartDate] or
-// [SecureConnectionEndDate].
+// a proxied task may not report any
+// [NSURLSessionTaskTransactionMetrics.SecureConnectionStartDate] or
+// [NSURLSessionTaskTransactionMetrics.SecureConnectionEndDate].
 //
 // # Accessing request and response
 //
@@ -269,17 +277,8 @@ type IURLSessionTaskTransactionMetrics interface {
 	NegotiatedTLSCipherSuite() INSNumber
 	// The TLS protocol version the task negotiated with the endpoint for the connection.
 	NegotiatedTLSProtocolVersion() INSNumber
-	// The number of redirects that occurred during the execution of the task.
-	RedirectCount() int
-	SetRedirectCount(value int)
 	// The port number of the remote interface for the connection.
 	RemotePort() INSNumber
-	// The time interval between when a task is instantiated and when the task is completed.
-	TaskInterval() INSDateInterval
-	SetTaskInterval(value INSDateInterval)
-	// An array of metrics for each individual request-response transaction made during the execution of the task.
-	TransactionMetrics() INSURLSessionTaskTransactionMetrics
-	SetTransactionMetrics(value INSURLSessionTaskTransactionMetrics)
 }
 
 // Init initializes the instance.
@@ -562,8 +561,8 @@ func (u URLSessionTaskTransactionMetrics) LocalAddress() string {
 // # Discussion
 //
 // You permit or deny use of cellular interfaces with the
-// [AllowsCellularAccess] property on [NSURLSessionConfiguration] or
-// [allowsCellularAccess] on [URLRequest].
+// [NSURLSessionConfiguration.AllowsCellularAccess] property on
+// [NSURLSessionConfiguration] or [allowsCellularAccess] on [URLRequest].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isCellular
 //
@@ -582,8 +581,9 @@ func (u URLSessionTaskTransactionMetrics) IsCellular() bool {
 // The system considers an interface expensive if it’s more costly or
 // consumes more power, such as 3G or LTE as compared to ethernet or Wi-Fi.
 // You permit or deny use of expensive interfaces with the
-// [AllowsExpensiveNetworkAccess] property on [NSURLSessionConfiguration] or
-// [allowsExpensiveNetworkAccess] on [URLRequest].
+// [NSURLSessionConfiguration.AllowsExpensiveNetworkAccess] property on
+// [NSURLSessionConfiguration] or [allowsExpensiveNetworkAccess] on
+// [URLRequest].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isExpensive
 //
@@ -601,8 +601,9 @@ func (u URLSessionTaskTransactionMetrics) IsExpensive() bool {
 //
 // A constrained interface is one the user marks as constrained by selecting
 // “Low Data Mode” in the Settings app. You permit or deny use of
-// constrained interfaces with the [AllowsConstrainedNetworkAccess] property
-// on [NSURLSessionConfiguration] or [allowsConstrainedNetworkAccess] on
+// constrained interfaces with the
+// [NSURLSessionConfiguration.AllowsConstrainedNetworkAccess] property on
+// [NSURLSessionConfiguration] or [allowsConstrainedNetworkAccess] on
 // [URLRequest].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isConstrained
@@ -638,7 +639,8 @@ func (u URLSessionTaskTransactionMetrics) IsReusedConnection() bool {
 // # Discussion
 //
 // You configure the use of multipath protocols with the
-// [MultipathServiceType] property on [NSURLSessionConfiguration].
+// [NSURLSessionConfiguration.MultipathServiceType] property on
+// [NSURLSessionConfiguration].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isMultipath
 func (u URLSessionTaskTransactionMetrics) IsMultipath() bool {
@@ -708,17 +710,6 @@ func (u URLSessionTaskTransactionMetrics) NegotiatedTLSProtocolVersion() INSNumb
 	return NSNumberFromID(objc.ID(rv))
 }
 
-// The number of redirects that occurred during the execution of the task.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount
-func (u URLSessionTaskTransactionMetrics) RedirectCount() int {
-	rv := objc.Send[int](u.ID, objc.Sel("redirectCount"))
-	return rv
-}
-func (u URLSessionTaskTransactionMetrics) SetRedirectCount(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setRedirectCount:"), value)
-}
-
 // The port number of the remote interface for the connection.
 //
 // # Discussion
@@ -730,28 +721,4 @@ func (u URLSessionTaskTransactionMetrics) SetRedirectCount(value int) {
 func (u URLSessionTaskTransactionMetrics) RemotePort() INSNumber {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("remotePort"))
 	return NSNumberFromID(objc.ID(rv))
-}
-
-// The time interval between when a task is instantiated and when the task is
-// completed.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/taskinterval
-func (u URLSessionTaskTransactionMetrics) TaskInterval() INSDateInterval {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("taskInterval"))
-	return NSDateIntervalFromID(objc.ID(rv))
-}
-func (u URLSessionTaskTransactionMetrics) SetTaskInterval(value INSDateInterval) {
-	objc.Send[struct{}](u.ID, objc.Sel("setTaskInterval:"), value)
-}
-
-// An array of metrics for each individual request-response transaction made
-// during the execution of the task.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/transactionmetrics
-func (u URLSessionTaskTransactionMetrics) TransactionMetrics() INSURLSessionTaskTransactionMetrics {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("transactionMetrics"))
-	return NSURLSessionTaskTransactionMetricsFromID(objc.ID(rv))
-}
-func (u URLSessionTaskTransactionMetrics) SetTransactionMetrics(value INSURLSessionTaskTransactionMetrics) {
-	objc.Send[struct{}](u.ID, objc.Sel("setTransactionMetrics:"), value)
 }

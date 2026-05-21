@@ -57,10 +57,10 @@ func (nc NEDNSProxyManagerClass) Alloc() NEDNSProxyManager {
 // You create a DNS proxy as an app extension based on a custom subclass of
 // the [NEDNSProxyProvider] class. You enable and configure this proxy from
 // within your app using the singleton proxy manager instance provided by the
-// [NEDNSProxyManager.SharedManager] type method of the [NEDNSProxyManager] class. For example,
-// for a proxy that performs a simple redirect, you can use the proxy manager
-// to define and dynamically configure the destination IP address of the
-// redirected traffic.
+// [NEDNSProxyManagerClass.SharedManager] type method of the
+// [NEDNSProxyManager] class. For example, for a proxy that performs a simple
+// redirect, you can use the proxy manager to define and dynamically configure
+// the destination IP address of the redirected traffic.
 //
 // Instances of the proxy manager are thread safe.
 //
@@ -78,14 +78,6 @@ func (nc NEDNSProxyManagerClass) Alloc() NEDNSProxyManager {
 //   - [NEDNSProxyManager.SetProviderProtocol]
 //   - [NEDNSProxyManager.LocalizedDescription]: A description of the DNS proxy.
 //   - [NEDNSProxyManager.SetLocalizedDescription]
-//
-// # Notifications
-//
-//   - [NEDNSProxyManager.NEDNSProxyConfigurationDidChange]: A notification that is posted when the DNS proxy configuration changes.
-//
-// # Errors
-//
-//   - [NEDNSProxyManager.NEDNSProxyErrorDomain]: The DNS proxy error domain.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager
 type NEDNSProxyManager struct {
@@ -119,14 +111,6 @@ func NEDNSProxyManagerFromID(id objc.ID) NEDNSProxyManager {
 //   - [INEDNSProxyManager.LocalizedDescription]: A description of the DNS proxy.
 //   - [INEDNSProxyManager.SetLocalizedDescription]
 //
-// # Notifications
-//
-//   - [INEDNSProxyManager.NEDNSProxyConfigurationDidChange]: A notification that is posted when the DNS proxy configuration changes.
-//
-// # Errors
-//
-//   - [INEDNSProxyManager.NEDNSProxyErrorDomain]: The DNS proxy error domain.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager
 type INEDNSProxyManager interface {
 	objectivec.IObject
@@ -151,16 +135,6 @@ type INEDNSProxyManager interface {
 	// A description of the DNS proxy.
 	LocalizedDescription() string
 	SetLocalizedDescription(value string)
-
-	// Topic: Notifications
-
-	// A notification that is posted when the DNS proxy configuration changes.
-	NEDNSProxyConfigurationDidChange() foundation.NSString
-
-	// Topic: Errors
-
-	// The DNS proxy error domain.
-	NEDNSProxyErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -197,15 +171,17 @@ func NewNEDNSProxyManager() NEDNSProxyManager {
 // [Configuration Profile Reference].
 //
 // When you want to inspect or make changes to the configuration, you call the
-// proxy manager’s [LoadFromPreferencesWithCompletionHandler] method. This
+// proxy manager’s
+// [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler] method. This
 // causes the system to load the configuration into the manager’s
-// [ProviderProtocol] and [Enabled] properties.
+// [NEDNSProxyManager.ProviderProtocol] and [NEDNSProxyManager.Enabled]
+// properties.
 //
 // If you modify the configuration stored in these properties, you must then
-// call the [SaveToPreferencesWithCompletionHandler] method to make the
-// changes take effect. Saving the preferences also stores the modified
-// configuration on disk for use the next time the proxy is started or the
-// configuration is loaded.
+// call the [NEDNSProxyManager.SaveToPreferencesWithCompletionHandler] method
+// to make the changes take effect. Saving the preferences also stores the
+// modified configuration on disk for use the next time the proxy is started
+// or the configuration is loaded.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/loadFromPreferences(completionHandler:)
 //
@@ -227,10 +203,11 @@ func (d NEDNSProxyManager) LoadFromPreferencesWithCompletionHandler(completionHa
 //
 // If you alter the DNS proxy configuration that you load into the proxy
 // manager’s properties using a call to the
-// [LoadFromPreferencesWithCompletionHandler] method, you must then call the
-// [SaveToPreferencesWithCompletionHandler] method to make the changes take
-// effect. Saving also stores the modified configuration for the next time the
-// proxy is started or the configuration loaded.
+// [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler] method, you
+// must then call the
+// [NEDNSProxyManager.SaveToPreferencesWithCompletionHandler] method to make
+// the changes take effect. Saving also stores the modified configuration for
+// the next time the proxy is started or the configuration loaded.
 //
 // Trying to save preferences before loading them produces an error.
 //
@@ -256,12 +233,13 @@ func (d NEDNSProxyManager) SaveToPreferencesWithCompletionHandler(completionHand
 //
 // If you use a device without an installed configuration profile during
 // development, your app can create the DNS proxy configuration from scratch.
-// You first call the [LoadFromPreferencesWithCompletionHandler] method to
+// You first call the
+// [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler] method to
 // retrieve the empty configuration. You then make updates and call the
-// [SaveToPreferencesWithCompletionHandler] method to store them. To remove
-// the configuration, call the [RemoveFromPreferencesWithCompletionHandler]
-// method. This allows you to restore the device to a clean, unconfigured
-// state.
+// [NEDNSProxyManager.SaveToPreferencesWithCompletionHandler] method to store
+// them. To remove the configuration, call the
+// [NEDNSProxyManager.RemoveFromPreferencesWithCompletionHandler] method. This
+// allows you to restore the device to a clean, unconfigured state.
 //
 // In a production environment, however, a configuration profile placed in the
 // system by an external process typically provides the baseline DNS proxy
@@ -290,9 +268,9 @@ func (d NEDNSProxyManager) RemoveFromPreferencesWithCompletionHandler(completion
 // # Discussion
 //
 // Each app is allowed to create a single DNS proxy manager. The
-// [SharedManager] type method returns a singleton [NEDNSProxyManager]
-// instance that your app can use to manage any DNS proxy instances that it
-// creates.
+// [NEDNSProxyManagerClass.SharedManager] type method returns a singleton
+// [NEDNSProxyManager] instance that your app can use to manage any DNS proxy
+// instances that it creates.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/shared()
 func (_NEDNSProxyManagerClass NEDNSProxyManagerClass) SharedManager() NEDNSProxyManager {
@@ -329,9 +307,10 @@ func (d NEDNSProxyManager) SetEnabled(value bool) {
 //
 // Initially, you store this array in the configuration profile, as described
 // in [Configuration Profile Reference]. When you want to inspect or modify
-// this data, you call [LoadFromPreferencesWithCompletionHandler] to pull the
+// this data, you call
+// [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler] to pull the
 // configuration into memory. You access this memory through the proxy
-// manager’s [ProviderProtocol] property.
+// manager’s [NEDNSProxyManager.ProviderProtocol] property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/providerProtocol
 //
@@ -353,22 +332,6 @@ func (d NEDNSProxyManager) LocalizedDescription() string {
 }
 func (d NEDNSProxyManager) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
-}
-
-// A notification that is posted when the DNS proxy configuration changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NEDNSProxyConfigurationDidChange
-func (d NEDNSProxyManager) NEDNSProxyConfigurationDidChange() foundation.NSString {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("NEDNSProxyConfigurationDidChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The DNS proxy error domain.
-//
-// See: https://developer.apple.com/documentation/networkextension/nednsproxyerrordomain
-func (d NEDNSProxyManager) NEDNSProxyErrorDomain() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("NEDNSProxyErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // LoadFromPreferences is a synchronous wrapper around [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler].

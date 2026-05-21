@@ -215,7 +215,7 @@ func NewNSAffineTransform() NSAffineTransform {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/init(coder:)
 func NewAffineTransformWithCoder(coder INSCoder) NSAffineTransform {
 	instance := getNSAffineTransformClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -380,9 +380,10 @@ func (a NSAffineTransform) PrependTransform(transform INSAffineTransform) {
 // previous point (x,y) was transformed to (x’,y’), inverting the matrix
 // and applying it to point (x’,y’) yields the point (x,y).
 //
-// You can also use inverse matrices in conjunction with the [Concat] method
-// to remove the effects of concatenating the matrix to the current
-// transformation matrix of the current graphic context.
+// You can also use inverse matrices in conjunction with the
+// [NSAffineTransform.Concat] method to remove the effects of concatenating
+// the matrix to the current transformation matrix of the current graphic
+// context.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/invert()
 func (a NSAffineTransform) Invert() {
@@ -458,8 +459,8 @@ func (a NSAffineTransform) TransformBezierPath(path objectivec.IObject) objectiv
 // applied to subsequent drawing operations. You should use this method
 // sparingly because it removes the existing transformation matrix, which is
 // an accumulation of transformation matrices for the screen, window, and any
-// superviews. Instead use the [Concat] method to add this transformation
-// matrix to the current transformation matrix.
+// superviews. Instead use the [NSAffineTransform.Concat] method to add this
+// transformation matrix to the current transformation matrix.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/set()
 func (a NSAffineTransform) Set() {
@@ -499,7 +500,7 @@ func (a NSAffineTransform) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/init(coder:)
 func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {
 	rv := objc.Send[NSAffineTransform](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

@@ -99,7 +99,7 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToUR
 // provide an operation queue other than the main operation queue.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/operationQueue(for:)
-func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) foundation.NSOperationQueue {
+func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) foundation.OperationQueue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("operationQueueForFilePromiseProvider:"), filePromiseProvider)
 	return foundation.NSOperationQueueFromID(rv)
 }

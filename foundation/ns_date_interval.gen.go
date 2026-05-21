@@ -56,10 +56,11 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 // falls within it, as well as comparing date intervals and checking to see
 // whether they intersect.
 //
-// An [NSDateInterval] object consists of a [NSDateInterval.StartDate] and an [NSDateInterval.EndDate]. The
-// [NSDateInterval.StartDate] and [NSDateInterval.EndDate] of a date interval can be equal, in which case
-// its [NSDateInterval.Duration] is `0`. However, [NSDateInterval.EndDate] cannot occur earlier than
-// [NSDateInterval.StartDate].
+// An [NSDateInterval] object consists of a [NSDateInterval.StartDate] and an
+// [NSDateInterval.EndDate]. The [NSDateInterval.StartDate] and
+// [NSDateInterval.EndDate] of a date interval can be equal, in which case its
+// [NSDateInterval.Duration] is `0`. However, [NSDateInterval.EndDate] cannot
+// occur earlier than [NSDateInterval.StartDate].
 //
 // You can use the [NSDateIntervalFormatter] class to create string
 // representations of [NSDateInterval] objects that are suitable for display
@@ -279,30 +280,35 @@ func (d NSDateInterval) InitWithCoder(coder INSCoder) NSDateInterval {
 // Returns an [ComparisonResult] value that indicates the temporal ordering of
 // the receiver and a given date interval:
 //
-// - [NSOrderedAscending] if the receiver’s [StartDate] occurs earlier than
-// that of `dateInterval`, or both [StartDate] values are equal and the
-// [Duration] of the receiver is less than that of `dateInterval`. -
-// [NSOrderedDescending] if the receiver’s [StartDate] occurs later than
-// that of `dateInterval`, or both [StartDate] values are equal and the
-// [Duration] of the receiver is greater than that of `dateInterval`. -
-// [NSOrderedSame] if the receiver’s [StartDate] and [Duration] values are
-// equal to those of `dateInterval`.
+// - [NSOrderedAscending] if the receiver’s [NSDateInterval.StartDate]
+// occurs earlier than that of `dateInterval`, or both
+// [NSDateInterval.StartDate] values are equal and the
+// [NSDateInterval.Duration] of the receiver is less than that of
+// `dateInterval`. - [NSOrderedDescending] if the receiver’s
+// [NSDateInterval.StartDate] occurs later than that of `dateInterval`, or
+// both [NSDateInterval.StartDate] values are equal and the
+// [NSDateInterval.Duration] of the receiver is greater than that of
+// `dateInterval`. - [NSOrderedSame] if the receiver’s
+// [NSDateInterval.StartDate] and [NSDateInterval.Duration] values are equal
+// to those of `dateInterval`.
 //
 // # Discussion
 //
 // The following figure illustrates four [NSDateInterval] objects plotted on
-// an arbitrary time axis. Each date interval spans its [Duration] from left
-// to right, from its [StartDate] to its [EndDate].
+// an arbitrary time axis. Each date interval spans its
+// [NSDateInterval.Duration] from left to right, from its
+// [NSDateInterval.StartDate] to its [NSDateInterval.EndDate].
 //
 // [media-2556955]
 //
 // The result of comparing the date interval labeled with the date interval
-// labeled is [NSOrderedAscending], because has a [StartDate] that occurs
-// earlier than that of .
+// labeled is [NSOrderedAscending], because has a [NSDateInterval.StartDate]
+// that occurs earlier than that of .
 //
 // The result of comparing the date interval labeled with the date interval
 // labeled is [NSOrderedDescending], because because and have the same
-// [StartDate], and has a [Duration] greater than that of .
+// [NSDateInterval.StartDate], and has a [NSDateInterval.Duration] greater
+// than that of .
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/compare(_:)
 //
@@ -318,8 +324,8 @@ func (d NSDateInterval) Compare(dateInterval INSDateInterval) NSComparisonResult
 //
 // # Return Value
 //
-// true if the [StartDate] and [Duration] of `dateInterval` and the receiver
-// are equal. Otherwise, false.
+// true if the [NSDateInterval.StartDate] and [NSDateInterval.Duration] of
+// `dateInterval` and the receiver are equal. Otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/isEqual(to:)
 func (d NSDateInterval) IsEqualToDateInterval(dateInterval INSDateInterval) bool {
@@ -333,8 +339,8 @@ func (d NSDateInterval) IsEqualToDateInterval(dateInterval INSDateInterval) bool
 //
 // # Discussion
 //
-// See [IntersectionWithDateInterval] for more information about determining
-// whether two date intervals intersect.
+// See [NSDateInterval.IntersectionWithDateInterval] for more information
+// about determining whether two date intervals intersect.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/intersects(_:)
 func (d NSDateInterval) IntersectsDateInterval(dateInterval INSDateInterval) bool {
@@ -359,13 +365,15 @@ func (d NSDateInterval) IntersectsDateInterval(dateInterval INSDateInterval) boo
 // equal to itself.
 //
 // The following figure illustrates five [NSDateInterval] objects plotted on
-// an arbitrary time axis. Each date interval spans its [Duration] from left
-// to right, from its [StartDate] to its [EndDate].
+// an arbitrary time axis. Each date interval spans its
+// [NSDateInterval.Duration] from left to right, from its
+// [NSDateInterval.StartDate] to its [NSDateInterval.EndDate].
 //
 // [media-2556958]
 //
-// The date intervals labeled and do not intersect, because the [StartDate] of
-// occurs later than the [EndDate] of .
+// The date intervals labeled and do not intersect, because the
+// [NSDateInterval.StartDate] of occurs later than the
+// [NSDateInterval.EndDate] of .
 //
 // The date intervals labeled and do intersect. The date interval labeled
 // represents the result of calculating the intersection between and .

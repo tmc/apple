@@ -149,8 +149,9 @@ func (m AVMetadataFaceObject) FaceID() int {
 //
 // # Discussion
 //
-// If the value of this property is false, the value in the [RollAngle]
-// property is invalid and must not be accessed.
+// If the value of this property is false, the value in the
+// [AVMetadataFaceObject.RollAngle] property is invalid and must not be
+// accessed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/hasRollAngle
 func (m AVMetadataFaceObject) HasRollAngle() bool {
@@ -167,9 +168,10 @@ func (m AVMetadataFaceObject) HasRollAngle() bool {
 // level relative to the picture, whereas a value of `90` yields a face that
 // is perpendicular relative to the picture.
 //
-// You must check the value of the [HasRollAngle] property before accessing
-// this property. If the value in the [HasRollAngle] property is false,
-// reading the value in this property raises an exception.
+// You must check the value of the [AVMetadataFaceObject.HasRollAngle]
+// property before accessing this property. If the value in the
+// [AVMetadataFaceObject.HasRollAngle] property is false, reading the value in
+// this property raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/rollAngle
 func (m AVMetadataFaceObject) RollAngle() float64 {
@@ -182,8 +184,9 @@ func (m AVMetadataFaceObject) RollAngle() float64 {
 //
 // # Discussion
 //
-// If the value of this property is false, the value in the [YawAngle]
-// property is invalid and must not be accessed.
+// If the value of this property is false, the value in the
+// [AVMetadataFaceObject.YawAngle] property is invalid and must not be
+// accessed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/hasYawAngle
 func (m AVMetadataFaceObject) HasYawAngle() bool {
@@ -200,9 +203,10 @@ func (m AVMetadataFaceObject) HasYawAngle() bool {
 // whereas a yaw angle of `90` degrees yields a face whose eye line is
 // perpendicular to that of the camera.
 //
-// You must check the value of the [HasYawAngle] property before accessing
-// this property. If the value in the [HasYawAngle] property is false, reading
-// the value in this property raises an exception.
+// You must check the value of the [AVMetadataFaceObject.HasYawAngle] property
+// before accessing this property. If the value in the
+// [AVMetadataFaceObject.HasYawAngle] property is false, reading the value in
+// this property raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/yawAngle
 func (m AVMetadataFaceObject) YawAngle() float64 {

@@ -282,7 +282,8 @@ func (m MTL4RenderPipelineDescriptor) ColorAttachments() IMTL4RenderPipelineColo
 // # Discussion
 //
 // When you don’t specify a fragment function, you need to disable
-// rasterization by setting property [RasterizationEnabled] to false.
+// rasterization by setting property
+// [MTL4RenderPipelineDescriptor.RasterizationEnabled] to false.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/fragmentFunctionDescriptor
 func (m MTL4RenderPipelineDescriptor) FragmentFunctionDescriptor() IMTL4FunctionDescriptor {
@@ -327,7 +328,8 @@ func (m MTL4RenderPipelineDescriptor) SetInputPrimitiveTopology(value MTLPrimiti
 //
 // By default, this value is true, specifying that this pipeline rasterizes
 // primitives. Set this property to false when you don’t provide a fragment
-// shader function via function [FragmentFunctionDescriptor].
+// shader function via function
+// [MTL4RenderPipelineDescriptor.FragmentFunctionDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/isRasterizationEnabled
 func (m MTL4RenderPipelineDescriptor) IsRasterizationEnabled() bool {

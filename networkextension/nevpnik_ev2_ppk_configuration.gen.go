@@ -106,13 +106,6 @@ type INEVPNIKEv2PPKConfiguration interface {
 	// A Boolean value that indicates whether it’s mandatory for the VPN server to use this PPK.
 	IsMandatory() bool
 	SetIsMandatory(value bool)
-
-	// A Boolean value that indicates whether servers that don’t support post-quantum key exchanges can skip them.
-	AllowPostQuantumKeyExchangeFallback() bool
-	SetAllowPostQuantumKeyExchangeFallback(value bool)
-	// The configuration for a post-quantum pre-shared key (PPK).
-	PpkConfiguration() INEVPNIKEv2PPKConfiguration
-	SetPpkConfiguration(value INEVPNIKEv2PPKConfiguration)
 }
 
 // Init initializes the instance.
@@ -201,27 +194,4 @@ func (v NEVPNIKEv2PPKConfiguration) IsMandatory() bool {
 }
 func (v NEVPNIKEv2PPKConfiguration) SetIsMandatory(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsMandatory:"), value)
-}
-
-// A Boolean value that indicates whether servers that don’t support
-// post-quantum key exchanges can skip them.
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/allowpostquantumkeyexchangefallback
-func (v NEVPNIKEv2PPKConfiguration) AllowPostQuantumKeyExchangeFallback() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("allowPostQuantumKeyExchangeFallback"))
-	return rv
-}
-func (v NEVPNIKEv2PPKConfiguration) SetAllowPostQuantumKeyExchangeFallback(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAllowPostQuantumKeyExchangeFallback:"), value)
-}
-
-// The configuration for a post-quantum pre-shared key (PPK).
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/ppkconfiguration
-func (v NEVPNIKEv2PPKConfiguration) PpkConfiguration() INEVPNIKEv2PPKConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("ppkConfiguration"))
-	return NEVPNIKEv2PPKConfigurationFromID(objc.ID(rv))
-}
-func (v NEVPNIKEv2PPKConfiguration) SetPpkConfiguration(value INEVPNIKEv2PPKConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPpkConfiguration:"), value)
 }

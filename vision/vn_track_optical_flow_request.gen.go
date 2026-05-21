@@ -179,7 +179,7 @@ func (t VNTrackOpticalFlowRequest) SetComputationAccuracy(value VNTrackOpticalFl
 // # Discussion
 //
 // The default value is false; otherwise, the request ignores
-// [OutputPixelFormat].
+// [VNTrackOpticalFlowRequest.OutputPixelFormat].
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/keepNetworkOutput
 func (t VNTrackOpticalFlowRequest) KeepNetworkOutput() bool {

@@ -49,14 +49,15 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 //
 // Each process has a single, shared [NSProcessInfo] object known as a that
 // can return information such as arguments, environment variables, host name,
-// and process name. The [ProcessInfo] class method returns the shared agent
-// for the current process. For example, the following line returns the
-// [NSProcessInfo] object, which then provides the name of the current
-// process:
+// and process name. The [NSProcessInfoClass.ProcessInfo] class method returns
+// the shared agent for the current process. For example, the following line
+// returns the [NSProcessInfo] object, which then provides the name of the
+// current process:
 //
-// The [NSProcessInfo] class also includes the [OperatingSystemVersion]
-// property, which returns an [OperatingSystemVersion] structure identifying
-// the operating system version on which the process is executing.
+// The [NSProcessInfo] class also includes the
+// [NSProcessInfo.OperatingSystemVersion] property, which returns an
+// [OperatingSystemVersion] structure identifying the operating system version
+// on which the process is executing.
 //
 // [NSProcessInfo] objects attempt to interpret environment variables and
 // command-line arguments in the user’s default C string encoding if they
@@ -70,8 +71,9 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 // following methods to manage that give hints to the system that your
 // application has special requirements:
 //
-// - [BeginActivityWithOptionsReason] - [EndActivity] -
-// [PerformActivityWithOptionsReasonUsingBlock]
+// - [NSProcessInfo.BeginActivityWithOptionsReason] -
+// [NSProcessInfo.EndActivity] -
+// [NSProcessInfo.PerformActivityWithOptionsReasonUsingBlock]
 //
 // In response to creating an activity, the system disables some or all of the
 // heuristics so your application can finish quickly while still providing
@@ -106,11 +108,12 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 // the work to protect it from sudden termination:
 //
 // The above example is equivalent to the following code, which uses the
-// [DisableAutomaticTermination] method:
+// [NSProcessInfo.DisableAutomaticTermination] method:
 //
 // Because this API returns an object, it may be easier to pair begins and
 // ends than when using the automatic termination API. If your app deallocates
-// the object before the [EndActivity] call, the activity ends automatically.
+// the object before the [NSProcessInfo.EndActivity] call, the activity ends
+// automatically.
 //
 // This API also provides a mechanism to disable system-wide idle sleep and
 // display idle sleep. These can have a large impact on the user experience,
@@ -130,29 +133,30 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 // Alternatively, your application can manually enable and disable this
 // functionality. Creating a process assigns a counter that indicates if the
 // process is safe to terminate. You decrement and increment the counter using
-// the methods [EnableSuddenTermination] and [DisableSuddenTermination]. A
-// value of `0` enables the system to terminate the process without first
-// sending a notification or event.
+// the methods [NSProcessInfo.EnableSuddenTermination] and
+// [NSProcessInfo.DisableSuddenTermination]. A value of `0` enables the system
+// to terminate the process without first sending a notification or event.
 //
 // Your application can support sudden termination upon launch by adding a key
 // to the application’s `Info.Plist()` file. If the
 // [NSSupportsSuddenTermination] key exists in the `Info.Plist()` file and has
-// a value of true, it’s the equivalent of calling [EnableSuddenTermination]
-// during your application launch. This allows the system to terminate the
-// process immediately. You can still override this behavior by invoking
-// [DisableSuddenTermination].
+// a value of true, it’s the equivalent of calling
+// [NSProcessInfo.EnableSuddenTermination] during your application launch.
+// This allows the system to terminate the process immediately. You can still
+// override this behavior by invoking
+// [NSProcessInfo.DisableSuddenTermination].
 //
 // Typically, you disable sudden termination whenever your app defers work
 // that the app must complete before it terminates. If, for example, your app
 // defers writing data to disk and enables sudden termination, you should
-// bracket the sensitive operations with a call to [DisableSuddenTermination],
-// perform the necessary operations, and then send a balancing
-// [EnableSuddenTermination] message.
+// bracket the sensitive operations with a call to
+// [NSProcessInfo.DisableSuddenTermination], perform the necessary operations,
+// and then send a balancing [NSProcessInfo.EnableSuddenTermination] message.
 //
 // In agents or daemon executables that don’t depend on AppKit, you can
-// manually invoke [EnableSuddenTermination] right away. You can then use the
-// enable and disable methods whenever the process has work it must do before
-// it terminates.
+// manually invoke [NSProcessInfo.EnableSuddenTermination] right away. You can
+// then use the enable and disable methods whenever the process has work it
+// must do before it terminates.
 //
 // Some AppKit functionality automatically disables sudden termination on a
 // temporary basis to ensure data integrity.
@@ -171,8 +175,8 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 // As the thermal state increases, the system decreases heat by reducing the
 // speed of the processors. Optimize your app’s performance by monitoring
 // the thermal state and reducing system usage as the thermal state increases.
-// Query the current state with [ThermalState] to determine if your app needs
-// to reduce system usage. You can register the
+// Query the current state with [NSProcessInfo.ThermalState] to determine if
+// your app needs to reduce system usage. You can register the
 // [thermalStateDidChangeNotification] for notifications of a change in
 // thermal state. For recommended actions, see [ProcessInfo.ThermalState].
 //
@@ -234,10 +238,6 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 // # Determining Whether Low Power Mode is Enabled
 //
 //   - [ProcessInfo.IsLowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
-//
-// # Notifications
-//
-//   - [ProcessInfo.NSProcessInfoPowerStateDidChange]: Posts when the power state of a device changes.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo
 //
@@ -324,10 +324,6 @@ func NSProcessInfoFromID(id objc.ID) ProcessInfo { return ProcessInfoFromID(id) 
 //
 //   - [IProcessInfo.IsLowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
 //
-// # Notifications
-//
-//   - [IProcessInfo.NSProcessInfoPowerStateDidChange]: Posts when the power state of a device changes.
-//
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo
 type IProcessInfo interface {
 	objectivec.IObject
@@ -407,7 +403,7 @@ type IProcessInfo interface {
 	// Begin an activity using the given options and reason.
 	BeginActivityWithOptionsReason(options NSActivityOptions, reason string) objectivec.Object
 	// Ends the given activity.
-	EndActivity(activity objectivec.Object)
+	EndActivity(activity objectivec.NSObject)
 	// Synchronously perform an activity defined by a given block using the given options.
 	PerformActivityWithOptionsReasonUsingBlock(options NSActivityOptions, reason string, block VoidHandler)
 
@@ -420,18 +416,6 @@ type IProcessInfo interface {
 
 	// A Boolean value that indicates the current state of Low Power Mode.
 	IsLowPowerModeEnabled() bool
-
-	// Topic: Notifications
-
-	// Posts when the power state of a device changes.
-	NSProcessInfoPowerStateDidChange() NSNotificationName
-
-	// A flag to indicate the activity requires the highest amount of timer and I/O precision available.
-	LatencyCritical() NSActivityOptions
-	SetNSActivityLatencyCritical(value NSActivityOptions)
-	// A flag to indicate the app is performing a user-requested action.
-	UserInitiated() NSActivityOptions
-	SetNSActivityUserInitiated(value NSActivityOptions)
 }
 
 // Init initializes the instance.
@@ -503,10 +487,11 @@ func (p ProcessInfo) EnableSuddenTermination() {
 // example, you could pass the string `@"file transfer in progress"` if you
 // disable automatic termination before transferring a file over the network.
 // When you reenable automatic termination after the transfer is complete
-// using [EnableAutomaticTermination], you should pass the matching string. A
-// given reason can be used more than once at the same time; for example, if
-// two files were being transferred at the same time, automatic termination
-// could be disabled for each, passing the same reason string.
+// using [NSProcessInfo.EnableAutomaticTermination], you should pass the
+// matching string. A given reason can be used more than once at the same
+// time; for example, if two files were being transferred at the same time,
+// automatic termination could be disabled for each, passing the same reason
+// string.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/disableAutomaticTermination(_:)
 func (p ProcessInfo) DisableAutomaticTermination(reason string) {
@@ -527,10 +512,11 @@ func (p ProcessInfo) DisableAutomaticTermination(reason string) {
 // example, you could pass the string `@"file transfer in progress"` if you
 // disable automatic termination before transferring a file over the network.
 // When you reenable automatic termination after the transfer is complete
-// using [EnableAutomaticTermination], you should pass the matching string. A
-// given reason can be used more than once at the same time; for example, if
-// two files were being transferred at the same time, automatic termination
-// could be disabled for each, passing the same reason string.
+// using [NSProcessInfo.EnableAutomaticTermination], you should pass the
+// matching string. A given reason can be used more than once at the same
+// time; for example, if two files were being transferred at the same time,
+// automatic termination could be disabled for each, passing the same reason
+// string.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/enableAutomaticTermination(_:)
 func (p ProcessInfo) EnableAutomaticTermination(reason string) {
@@ -610,8 +596,8 @@ func (p ProcessInfo) HasPerformanceProfile(performanceProfile int) bool {
 //
 // # Discussion
 //
-// Indicate completion of the activity by calling [EndActivity] passing the
-// returned object as the argument.
+// Indicate completion of the activity by calling [NSProcessInfo.EndActivity]
+// passing the returned object as the argument.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/beginActivity(options:reason:)
 //
@@ -623,10 +609,11 @@ func (p ProcessInfo) BeginActivityWithOptionsReason(options NSActivityOptions, r
 
 // Ends the given activity.
 //
-// activity: An activity object returned by [BeginActivityWithOptionsReason].
+// activity: An activity object returned by
+// [NSProcessInfo.BeginActivityWithOptionsReason].
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/endActivity(_:)
-func (p ProcessInfo) EndActivity(activity objectivec.Object) {
+func (p ProcessInfo) EndActivity(activity objectivec.NSObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("endActivity:"), activity)
 }
 
@@ -790,12 +777,12 @@ func (p ProcessInfo) FullUserName() string {
 //
 // Without setting this property or setting the equivalent `Info.Plist()` key
 // ([NSSupportsAutomaticTermination]), the methods
-// [DisableAutomaticTermination] and [EnableAutomaticTermination] have no
-// effect, although the counter tracking automatic termination opt-outs is
-// still kept up to date to ensure correctness if this is called later.
-// Currently, setting this property to false has no effect. This property
-// should be set in the app delegate method
-// [applicationDidFinishLaunching(_:)] or earlier.
+// [NSProcessInfo.DisableAutomaticTermination] and
+// [NSProcessInfo.EnableAutomaticTermination] have no effect, although the
+// counter tracking automatic termination opt-outs is still kept up to date to
+// ensure correctness if this is called later. Currently, setting this
+// property to false has no effect. This property should be set in the app
+// delegate method [applicationDidFinishLaunching(_:)] or earlier.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/automaticTerminationSupportEnabled
 //
@@ -856,11 +843,12 @@ func (p ProcessInfo) ProcessorCount() uint {
 //
 // # Discussion
 //
-// Whereas the [ProcessorCount] property reports the number of advertised
-// processing cores, the [ActiveProcessorCount] property reflects the actual
-// number of active processing cores on the system. There are a number of
-// different factors that may cause a core to not be active, including boot
-// arguments, thermal throttling, or a manufacturing defect.
+// Whereas the [NSProcessInfo.ProcessorCount] property reports the number of
+// advertised processing cores, the [NSProcessInfo.ActiveProcessorCount]
+// property reflects the actual number of active processing cores on the
+// system. There are a number of different factors that may cause a core to
+// not be active, including boot arguments, thermal throttling, or a
+// manufacturing defect.
 //
 // This property value is equal to the result of entering the command `sysctl
 // -n hw.Logicalcpu()` on the current system.
@@ -916,19 +904,19 @@ func (p ProcessInfo) ThermalState() NSProcessInfoThermalState {
 // - Reducing CPU and GPU performance. - Reducing screen brightness. - Pausing
 // discretionary and background activities.
 //
-// Your app can query the [LowPowerModeEnabled] property at any time to
-// determine whether Low Power Mode is active.
+// Your app can query the [NSProcessInfo.LowPowerModeEnabled] property at any
+// time to determine whether Low Power Mode is active.
 //
 // Your app can also register to receive notifications when the Low Power Mode
 // state of a device changes. To register for power state notifications, send
-// the message [AddObserverSelectorNameObject] to the default notification
-// center of your app (an instance of [NSNotificationCenter]). Pass it a
-// selector to call and a notification name of
-// [NSProcessInfoPowerStateDidChange]. When your app receives a notification
-// of a power state change, query [LowPowerModeEnabled] to determine the
-// current power state. If Low Power Mode is active, take appropriate steps to
-// reduce activity in your app. Otherwise, your app can resume normal
-// operations.
+// the message [NSNotificationCenter.AddObserverSelectorNameObject] to the
+// default notification center of your app (an instance of
+// [NSNotificationCenter]). Pass it a selector to call and a notification name
+// of [NSProcessInfoPowerStateDidChange]. When your app receives a
+// notification of a power state change, query
+// [NSProcessInfo.LowPowerModeEnabled] to determine the current power state.
+// If Low Power Mode is active, take appropriate steps to reduce activity in
+// your app. Otherwise, your app can resume normal operations.
 //
 // For additional information, see [React to Low Power Mode on iPhones] in
 // [Energy Efficiency Guide for iOS Apps].
@@ -936,41 +924,11 @@ func (p ProcessInfo) ThermalState() NSProcessInfoThermalState {
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/isLowPowerModeEnabled
 //
 // [Energy Efficiency Guide for iOS Apps]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/index.html#//apple_ref/doc/uid/TP40015243
+// [NSProcessInfoPowerStateDidChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSProcessInfoPowerStateDidChange
 // [React to Low Power Mode on iPhones]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/LowPowerMode.html#//apple_ref/doc/uid/TP40015243-CH31
 func (p ProcessInfo) IsLowPowerModeEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isLowPowerModeEnabled"))
 	return rv
-}
-
-// Posts when the power state of a device changes.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsprocessinfopowerstatedidchange
-func (p ProcessInfo) NSProcessInfoPowerStateDidChange() NSNotificationName {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("NSProcessInfoPowerStateDidChangeNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// A flag to indicate the activity requires the highest amount of timer and
-// I/O precision available.
-//
-// See: https://developer.apple.com/documentation/foundation/processinfo/activityoptions/latencycritical
-func (p ProcessInfo) LatencyCritical() NSActivityOptions {
-	rv := objc.Send[NSActivityOptions](p.ID, objc.Sel("NSActivityLatencyCritical"))
-	return NSActivityOptions(rv)
-}
-func (p ProcessInfo) SetNSActivityLatencyCritical(value NSActivityOptions) {
-	objc.Send[struct{}](p.ID, objc.Sel("setNSActivityLatencyCritical:"), value)
-}
-
-// A flag to indicate the app is performing a user-requested action.
-//
-// See: https://developer.apple.com/documentation/foundation/processinfo/activityoptions/userinitiated
-func (p ProcessInfo) UserInitiated() NSActivityOptions {
-	rv := objc.Send[NSActivityOptions](p.ID, objc.Sel("NSActivityUserInitiated"))
-	return NSActivityOptions(rv)
-}
-func (p ProcessInfo) SetNSActivityUserInitiated(value NSActivityOptions) {
-	objc.Send[struct{}](p.ID, objc.Sel("setNSActivityUserInitiated:"), value)
 }
 
 // Returns the process information agent for the process.

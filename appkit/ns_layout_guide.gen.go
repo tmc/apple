@@ -82,8 +82,8 @@ func (nc NSLayoutGuideClass) Alloc() NSLayoutGuide {
 // To create a layout guide, perform the following steps:
 //
 // - Instantiate a new layout guide. - Add the layout guide to a view by
-// calling the view’s [AddLayoutGuide] method . - Define the position and
-// size of the layout guide using Auto Layout.
+// calling the view’s [NSView.AddLayoutGuide] method . - Define the position
+// and size of the layout guide using Auto Layout.
 //
 // You can use these guides to define the space between elements in your
 // layout. The following example shows how to use layout guides to define an
@@ -208,6 +208,7 @@ type INSLayoutGuide interface {
 
 	ConstraintsAffectingLayoutForOrientation(orientation NSLayoutConstraintOrientation) []NSLayoutConstraint
 
+	InitWithCoder(coder foundation.INSCoder) NSLayoutGuide
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -230,12 +231,25 @@ func NewNSLayoutGuide() NSLayoutGuide {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/init(coder:)
+func NewLayoutGuideWithCoder(coder foundation.INSCoder) NSLayoutGuide {
+	instance := getNSLayoutGuideClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSLayoutGuideFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/constraintsAffectingLayout(for:)
 func (l NSLayoutGuide) ConstraintsAffectingLayoutForOrientation(orientation NSLayoutConstraintOrientation) []NSLayoutConstraint {
 	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("constraintsAffectingLayoutForOrientation:"), orientation)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSLayoutConstraint {
 		return NSLayoutConstraintFromID(id)
 	})
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/init(coder:)
+func (l NSLayoutGuide) InitWithCoder(coder foundation.INSCoder) NSLayoutGuide {
+	rv := objc.Send[NSLayoutGuide](l.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (l NSLayoutGuide) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -269,7 +283,7 @@ func (l NSLayoutGuide) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 //
 // The layout guide defines a rectangular space in its owning view’s
 // coordinate system. This property contains a valid [CGRect] value by the
-// time its owning view’s [Layout] method is called.
+// time its owning view’s [NSView.Layout] method is called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/frame
 //
@@ -284,10 +298,10 @@ func (l NSLayoutGuide) Frame() corefoundation.CGRect {
 // # Discussion
 //
 // By default, this property is `nil`. To participate in Auto Layout, the
-// layout guide must be added to a view by calling its [AddLayoutGuide]
+// layout guide must be added to a view by calling its [NSView.AddLayoutGuide]
 // method. Do not modify this property directly. Instead, use the view’s
-// [AddLayoutGuide] and [RemoveLayoutGuide] methods, which update this
-// property as necessary.
+// [NSView.AddLayoutGuide] and [NSView.RemoveLayoutGuide] methods, which
+// update this property as necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/owningView
 func (l NSLayoutGuide) OwningView() INSView {
@@ -375,9 +389,10 @@ func (l NSLayoutGuide) HeightAnchor() INSLayoutDimension {
 //
 // Use this anchor to create constraints with the layout guide’s leading
 // edge. You can combine this anchor only with a subset of the
-// [NSLayoutXAxisAnchor] anchors. You can combine a [LeadingAnchor] with
-// another `leadingAnchor`, a `trailingAnchor`, or a `centerXAnchor`. For more
-// information, see [NSLayoutAnchor].
+// [NSLayoutXAxisAnchor] anchors. You can combine a
+// [NSLayoutGuide.LeadingAnchor] with another `leadingAnchor`, a
+// `trailingAnchor`, or a `centerXAnchor`. For more information, see
+// [NSLayoutAnchor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leadingAnchor
 //
@@ -394,9 +409,9 @@ func (l NSLayoutGuide) LeadingAnchor() INSLayoutXAxisAnchor {
 //
 // Use this anchor to create constraints with the layout guide’s left edge.
 // You can combine this anchor only with a subset of the [NSLayoutXAxisAnchor]
-// anchors. You can combine a [LeftAnchor] with another `leftAnchor`, a
-// `rightAnchor`, or a `centerXAnchor`. For more information, see
-// [NSLayoutAnchor].
+// anchors. You can combine a [NSLayoutGuide.LeftAnchor] with another
+// `leftAnchor`, a `rightAnchor`, or a `centerXAnchor`. For more information,
+// see [NSLayoutAnchor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leftAnchor
 //
@@ -413,9 +428,9 @@ func (l NSLayoutGuide) LeftAnchor() INSLayoutXAxisAnchor {
 //
 // Use this anchor to create constraints with the layout guide’s right edge.
 // You can combine this anchor only with a subset of the [NSLayoutXAxisAnchor]
-// anchors. You can combine a [RightAnchor] with another `rightAnchor`, a
-// `leftAnchor`, or a `centerXAnchor`. For more information, see
-// [NSLayoutAnchor].
+// anchors. You can combine a [NSLayoutGuide.RightAnchor] with another
+// `rightAnchor`, a `leftAnchor`, or a `centerXAnchor`. For more information,
+// see [NSLayoutAnchor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/rightAnchor
 //
@@ -450,9 +465,10 @@ func (l NSLayoutGuide) TopAnchor() INSLayoutYAxisAnchor {
 //
 // Use this anchor to create constraints with the layout guide’s trailing
 // edge. You can combine this anchor only with a subset of the
-// [NSLayoutXAxisAnchor] anchors. You can combine a [TrailingAnchor] with
-// another `trailingAnchor`, a `leadingAnchor`, or a `centerXAnchor`. For more
-// information, see [NSLayoutAnchor].
+// [NSLayoutXAxisAnchor] anchors. You can combine a
+// [NSLayoutGuide.TrailingAnchor] with another `trailingAnchor`, a
+// `leadingAnchor`, or a `centerXAnchor`. For more information, see
+// [NSLayoutAnchor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/trailingAnchor
 //

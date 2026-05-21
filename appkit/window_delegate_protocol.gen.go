@@ -116,7 +116,8 @@ func (o NSWindowDelegateObject) WindowDidEndSheet(notification foundation.NSNoti
 }
 
 // Tells the delegate that the window is being resized (whether by the user or
-// through one of the `setFrame...` methods other than [SetFrameDisplay]).
+// through one of the `setFrame...` methods other than
+// [NSWindow.SetFrameDisplay]).
 //
 // sender: The window being resized.
 //
@@ -246,8 +247,8 @@ func (o NSWindowDelegateObject) WindowDidDeminiaturize(notification foundation.N
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidDeminiaturize:"), notification)
 }
 
-// Called by [NSWindow]’s [Zoom] method while determining the frame a window
-// may be zoomed to.
+// Called by [NSWindow]’s [NSWindow.Zoom] method while determining the frame
+// a window may be zoomed to.
 //
 // window: The window whose frame size is being determined.
 //
@@ -267,9 +268,9 @@ func (o NSWindowDelegateObject) WindowDidDeminiaturize(notification foundation.N
 // account the available display or displays. For example, the best width for
 // a window that displays a word-processing document is the width of a page or
 // the width of the display, whichever is smaller. The best height can be
-// determined similarly. On return from this method, the [Zoom] method
-// modifies the returned standard frame, if necessary, to fit on the current
-// screen.
+// determined similarly. On return from this method, the [NSWindow.Zoom]
+// method modifies the returned standard frame, if necessary, to fit on the
+// current screen.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillUseStandardFrame(_:defaultFrame:)
 func (o NSWindowDelegateObject) WindowWillUseStandardFrameDefaultFrame(window INSWindow, newFrame corefoundation.CGRect) corefoundation.CGRect {
@@ -450,7 +451,7 @@ func (o NSWindowDelegateObject) CustomWindowsToEnterFullScreenForWindowOnScreen(
 // returns non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToEnterFullScreenWithDuration:)
-func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithDuration(window INSWindow, duration float64) {
+func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithDuration(window INSWindow, duration foundation.NSTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToEnterFullScreenWithDuration:"), window, duration)
 }
 
@@ -476,7 +477,7 @@ func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithD
 // are both implemented, this method is called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToEnterFullScreenOn:withDuration:)
-func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenOnScreenWithDuration(window INSWindow, screen INSScreen, duration float64) {
+func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenOnScreenWithDuration(window INSWindow, screen INSScreen, duration foundation.NSTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:"), window, screen, duration)
 }
 
@@ -543,7 +544,7 @@ func (o NSWindowDelegateObject) CustomWindowsToExitFullScreenForWindow(window IN
 // returns non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToExitFullScreenWithDuration:)
-func (o NSWindowDelegateObject) WindowStartCustomAnimationToExitFullScreenWithDuration(window INSWindow, duration float64) {
+func (o NSWindowDelegateObject) WindowStartCustomAnimationToExitFullScreenWithDuration(window INSWindow, duration foundation.NSTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToExitFullScreenWithDuration:"), window, duration)
 }
 
@@ -673,7 +674,7 @@ func (o NSWindowDelegateObject) WindowDidChangeBackingProperties(notification fo
 }
 
 // Tells the delegate that the user has attempted to close a window or the
-// window has received a [PerformClose] message.
+// window has received a [NSWindow.PerformClose] message.
 //
 // sender: The window being closed.
 //
@@ -796,7 +797,7 @@ func (o NSWindowDelegateObject) WindowWillReturnFieldEditorToObject(sender INSWi
 	return objectivec.Object{ID: rv}
 }
 
-// Tells the delegate that the window received an [Update] message.
+// Tells the delegate that the window received an [NSWindow.Update] message.
 //
 // notification: A notification named [didUpdateNotification]
 //
@@ -865,7 +866,7 @@ func (o NSWindowDelegateObject) WindowDidChangeOcclusionState(notification found
 // dragging the window’s document icon. The delegate can prohibit the drag
 // by returning false. Before returning false, the delegate can implement its
 // own dragging behavior using
-// [DragImageAtOffsetEventPasteboardSourceSlideBack].
+// [NSWindow.DragImageAtOffsetEventPasteboardSourceSlideBack].
 //
 // Alternatively, the delegate can enable a drag by returning true, for
 // example, to override the default [NSWindow] behavior of prohibiting the
@@ -896,7 +897,7 @@ func (o NSWindowDelegateObject) WindowShouldDragDocumentWithEventFromWithPastebo
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillReturnUndoManager(_:)
 //
 // [UndoManager]: https://developer.apple.com/documentation/Foundation/UndoManager
-func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) foundation.NSUndoManager {
+func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) foundation.UndoManager {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowWillReturnUndoManager:"), window)
 	return foundation.NSUndoManagerFromID(rv)
 }
@@ -929,7 +930,7 @@ func (o NSWindowDelegateObject) WindowShouldPopUpDocumentPathMenu(window INSWind
 // # Discussion
 //
 // This method is called during the window’s
-// [EncodeRestorableStateWithCoder] method.
+// [NSResponder.EncodeRestorableStateWithCoder] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:willEncodeRestorableState:)
 func (o NSWindowDelegateObject) WindowWillEncodeRestorableState(window INSWindow, state foundation.INSCoder) {
@@ -945,7 +946,8 @@ func (o NSWindowDelegateObject) WindowWillEncodeRestorableState(window INSWindow
 //
 // # Discussion
 //
-// This method is called during the window’s [RestoreStateWithCoder] method.
+// This method is called during the window’s
+// [NSResponder.RestoreStateWithCoder] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:didDecodeRestorableState:)
 func (o NSWindowDelegateObject) WindowDidDecodeRestorableState(window INSWindow, state foundation.INSCoder) {
@@ -1095,11 +1097,11 @@ type NSWindowDelegateConfig struct {
 
 	// Custom Full-Screen Presentation Animations
 	// StartCustomAnimationToEnterFullScreenWithDuration — This method is called to start the window animation into full-screen mode, including transitioning to a new space.
-	StartCustomAnimationToEnterFullScreenWithDuration func(window NSWindow, duration float64)
+	StartCustomAnimationToEnterFullScreenWithDuration func(window NSWindow, duration foundation.NSTimeInterval)
 	// DidFailToEnterFullScreen — Called if the window failed to enter full-screen mode.
 	DidFailToEnterFullScreen func(window NSWindow)
 	// StartCustomAnimationToExitFullScreenWithDuration — This method is called to start the window animation out of full-screen mode, including transitioning back to the desktop space.
-	StartCustomAnimationToExitFullScreenWithDuration func(window NSWindow, duration float64)
+	StartCustomAnimationToExitFullScreenWithDuration func(window NSWindow, duration foundation.NSTimeInterval)
 	// DidFailToExitFullScreen — Called if the window failed to exit full-screen mode.
 	DidFailToExitFullScreen func(window NSWindow)
 
@@ -1171,7 +1173,7 @@ type NSWindowDelegateConfig struct {
 
 	// Other Methods
 	// StartCustomAnimationToEnterFullScreenOnScreenWithDuration — This method is called to start the window animation into full-screen mode, including transitioning to a new space.
-	StartCustomAnimationToEnterFullScreenOnScreenWithDuration func(window NSWindow, screen NSScreen, duration float64)
+	StartCustomAnimationToEnterFullScreenOnScreenWithDuration func(window NSWindow, screen NSScreen, duration foundation.NSTimeInterval)
 	// ForSharingRequestFromWindow — Method called to get the window to share once sharing is confirmed, after a request is initiated by requestSharingOfWindowUsingPreview:title:completionHandler:. Implement this on the delegate of the requesting window
 	ForSharingRequestFromWindow func(window NSWindow) NSWindow
 }
@@ -1341,7 +1343,7 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		fn := config.StartCustomAnimationToEnterFullScreenWithDuration
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToEnterFullScreenWithDuration:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration float64) {
+			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration foundation.NSTimeInterval) {
 				window := NSWindowFromID(windowID)
 				fn(window, duration)
 			},
@@ -1352,7 +1354,7 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		fn := config.StartCustomAnimationToEnterFullScreenOnScreenWithDuration
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, screenID objc.ID, duration float64) {
+			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, screenID objc.ID, duration foundation.NSTimeInterval) {
 				window := NSWindowFromID(windowID)
 				screen := NSScreenFromID(screenID)
 				fn(window, screen, duration)
@@ -1375,7 +1377,7 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		fn := config.StartCustomAnimationToExitFullScreenWithDuration
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToExitFullScreenWithDuration:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration float64) {
+			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration foundation.NSTimeInterval) {
 				window := NSWindowFromID(windowID)
 				fn(window, duration)
 			},

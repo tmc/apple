@@ -48,7 +48,7 @@ func (nc NSFileAccessIntentClass) Alloc() NSFileAccessIntent {
 //
 // Use this class when performing asynchronous operations with a file
 // coordinator using the coordinator’s
-// [CoordinateAccessWithIntentsQueueByAccessor] method.
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor] method.
 //
 // # Accessing the Current URL
 //
@@ -119,10 +119,10 @@ func NewNSFileAccessIntent() NSFileAccessIntent {
 // # Discussion
 //
 // When calling a file coordinator’s
-// [CoordinateAccessWithIntentsQueueByAccessor] method, you pass an array of
-// file access intent objects. Each intent object represents a specific read
-// or write operation on a single document or directory. Use “ to create an
-// intent object suitable for reading.
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor] method, you
+// pass an array of file access intent objects. Each intent object represents
+// a specific read or write operation on a single document or directory. Use
+// “ to create an intent object suitable for reading.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileAccessIntent/readingIntent(with:options:)
 //
@@ -147,10 +147,10 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) ReadingIntentWithURLOpti
 // # Discussion
 //
 // When calling a file coordinator’s
-// [CoordinateAccessWithIntentsQueueByAccessor] method, you pass an array of
-// file access intent objects. Each intent object represents a specific read
-// or write operation on a single document or directory. Use “ to create an
-// intent object suitable for writing.
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor] method, you
+// pass an array of file access intent objects. Each intent object represents
+// a specific read or write operation on a single document or directory. Use
+// “ to create an intent object suitable for writing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileAccessIntent/writingIntent(with:options:)
 //
@@ -166,10 +166,10 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) WritingIntentWithURLOpti
 // # Discussion
 //
 // Always use the URL returned by this property inside the accessor block of a
-// file coordinator’s [CoordinateAccessWithIntentsQueueByAccessor] method.
-// This property’s value may be different from the original URL, because the
-// item was either moved or renamed while the file coordinator waited for
-// access.
+// file coordinator’s
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor] method. This
+// property’s value may be different from the original URL, because the item
+// was either moved or renamed while the file coordinator waited for access.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileAccessIntent/url
 func (f NSFileAccessIntent) URL() INSURL {

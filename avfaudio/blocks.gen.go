@@ -5,7 +5,6 @@ package avfaudio
 import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // AVAudioApplicationMicrophoneInjectionPermissionHandler handles completion with a primitive value.
@@ -29,31 +28,31 @@ func NewAVAudioApplicationMicrophoneInjectionPermissionBlock(handler AVAudioAppl
 	return objc.ID(block), func() { block.Release() }
 }
 
-// AVAudioUnitComponentHandler handles The block to apply to the audio unit components.
+// AVAudioUnitComponentInt8Handler handles The block to apply to the audio unit components.
 //   - comp: A block to test.
 //   - stop: A reference to a Boolean value. To stop further processing of the search, the block sets the value to [true](<doc://com.apple.documentation/documentation/Swift/true>). The stop argument is an out-only argument. Only set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
 //
 // Used by:
 //   - [AVAudioUnitComponentManager.ComponentsPassingTest]
-type AVAudioUnitComponentHandler = func(*AVAudioUnitComponent)
+type AVAudioUnitComponentInt8Handler = func(*AVAudioUnitComponent, *int8)
 
-// NewAVAudioUnitComponentBlock wraps a Go [AVAudioUnitComponentHandler] as an Objective-C block.
+// NewAVAudioUnitComponentInt8Block wraps a Go [AVAudioUnitComponentInt8Handler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
 //   - [AVAudioUnitComponentManager.ComponentsPassingTest]
-func NewAVAudioUnitComponentBlock(handler AVAudioUnitComponentHandler) (objc.ID, func()) {
+func NewAVAudioUnitComponentInt8Block(handler AVAudioUnitComponentInt8Handler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 *int8) {
 		var result *AVAudioUnitComponent
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVAudioUnitComponentFromID(resultID)
 			result = &v
 		}
-		handler(result)
+		handler(result, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -128,6 +127,27 @@ func NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler AVSpeechS
 	return objc.ID(block), func() { block.Release() }
 }
 
+// BoolBoolHandler handles A callback that the system invokes when the input mute state changes.
+//
+// Used by:
+//   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]
+type BoolBoolHandler = func(bool) bool
+
+// NewBoolBoolBlock wraps a Go [BoolBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]
+func NewBoolBoolBlock(handler BoolBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) bool {
+		return handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // BoolErrorHandler handles A completion handler the system calls asynchronously when the system completes audio routing arbitration.
 //   - defaultDeviceChanged: A Boolean value that indicates whether the system switched the AirPods to the macOS device.
 //   - error: An error object that indicates why the request failed, or [nil](<doc://com.apple.documentation/documentation/ObjectiveC/nil-227m0>) if the request succeeded.
@@ -157,7 +177,6 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [AVAudioApplication.RequestRecordPermissionWithCompletionHandler]
-//   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]
 type BoolHandler = func(bool)
 
 // NewBoolBlock wraps a Go [BoolHandler] as an Objective-C block.
@@ -165,7 +184,6 @@ type BoolHandler = func(bool)
 //
 // Used by:
 //   - [AVAudioApplication.RequestRecordPermissionWithCompletionHandler]
-//   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -209,27 +227,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// constAudioBufferListHandler handles The closure the method invokes when the resulting PCM buffer object deallocates.
-//
-// Used by:
-//   - [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator]
-type constAudioBufferListHandler = func(objectivec.IObject)
-
-// NewconstAudioBufferListBlock wraps a Go [constAudioBufferListHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator]
-func NewconstAudioBufferListBlock(handler constAudioBufferListHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
-		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

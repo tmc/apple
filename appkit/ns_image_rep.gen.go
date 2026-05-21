@@ -402,10 +402,10 @@ func (i NSImageRep) InitWithCoder(coder foundation.INSCoder) NSImageRep {
 // [NSBitmapImageRep] overrides it to return the [CGImage] that naturally
 // backs the representation. You don’t need to override the method except
 // possibly for performance, though. The [NSImageRep]-level implementation
-// will produce a [CGImage] by making a buffer and calling [Draw]. That’s
-// likely to be the best possible implementation for reps that aren’t
-// naturally [CGImage]-backed. The [Draw] method remains the only method of
-// [NSImageRep] that a subclasser really needs to override.
+// will produce a [CGImage] by making a buffer and calling [NSImageRep.Draw].
+// That’s likely to be the best possible implementation for reps that
+// aren’t naturally [CGImage]-backed. The [NSImageRep.Draw] method remains
+// the only method of [NSImageRep] that a subclasser really needs to override.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/cgImage(forProposedRect:context:hints:)
 //
@@ -439,8 +439,8 @@ func (i NSImageRep) CGImageForProposedRectContextHints(proposedDestRect *corefou
 // destination without any blending effects. Transparent (alpha) regions in
 // the source image appear black. To use other composite operations, you must
 // place the representation into an [NSImage] object and use its
-// [DrawAtPointFromRectOperationFraction] or
-// [DrawInRectFromRectOperationFraction] methods.
+// [NSImage.DrawAtPointFromRectOperationFraction] or
+// [NSImage.DrawInRectFromRectOperationFraction] methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/draw()
 func (i NSImageRep) Draw() bool {
@@ -464,7 +464,7 @@ func (i NSImageRep) Draw() bool {
 // specified point and then invokes the receiver’s `draw` method to draw the
 // image at that point. Upon completion, it restores the current coordinates
 // to their original setting. If `aPoint` is (0.0, 0.0), this method simply
-// invokes the [Draw] method.
+// invokes the [NSImageRep.Draw] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/draw(at:)
 func (i NSImageRep) DrawAtPoint(point corefoundation.CGPoint) bool {
@@ -484,11 +484,12 @@ func (i NSImageRep) DrawAtPoint(point corefoundation.CGPoint) bool {
 // # Discussion
 //
 // This method sets the origin of the current coordinate system to the origin
-// of the specified rectangle before invoking the receiver’s [Draw] method.
-// If the rectangle size is different from the image’s native size, this
-// method adjusts the coordinate transform, causing the image to be scaled
-// appropriately. After the `draw` method returns, the coordinate system
-// changes are undone, restoring the original graphics state.
+// of the specified rectangle before invoking the receiver’s
+// [NSImageRep.Draw] method. If the rectangle size is different from the
+// image’s native size, this method adjusts the coordinate transform,
+// causing the image to be scaled appropriately. After the `draw` method
+// returns, the coordinate system changes are undone, restoring the original
+// graphics state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/draw(in:)
 func (i NSImageRep) DrawInRect(rect corefoundation.CGRect) bool {
@@ -726,9 +727,9 @@ func (_NSImageRepClass NSImageRepClass) CanInitWithPasteboard(pasteboard INSPast
 // `nil` if no image representation could handle the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/class(forType:)
-func (_NSImageRepClass NSImageRepClass) ImageRepClassForType(type_ string) objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForType:"), objc.String(type_))
-	return rv
+func (_NSImageRepClass NSImageRepClass) ImageRepClassForType(type_ string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForType:"), objc.String(type_))
+	return objectivec.Class(rv)
 }
 
 // Returns the image representation subclass that handles the specified type
@@ -742,9 +743,9 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForType(type_ string) objc.
 // `nil` if no image representation could handle the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/class(for:)
-func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.NSData) objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForData:"), data)
-	return rv
+func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.NSData) objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForData:"), data)
+	return objectivec.Class(rv)
 }
 
 // Adds the specified class to the registry of available image representation
@@ -763,7 +764,7 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.NSD
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/registerClass(_:)
 //
 // [registryDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSImageRep/registryDidChangeNotification
-func (_NSImageRepClass NSImageRepClass) RegisterImageRepClass(imageRepClass objc.Class) {
+func (_NSImageRepClass NSImageRepClass) RegisterImageRepClass(imageRepClass objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("registerImageRepClass:"), imageRepClass)
 }
 
@@ -780,7 +781,7 @@ func (_NSImageRepClass NSImageRepClass) RegisterImageRepClass(imageRepClass objc
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/unregisterClass(_:)
 //
 // [registryDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSImageRep/registryDidChangeNotification
-func (_NSImageRepClass NSImageRepClass) UnregisterImageRepClass(imageRepClass objc.Class) {
+func (_NSImageRepClass NSImageRepClass) UnregisterImageRepClass(imageRepClass objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("unregisterImageRepClass:"), imageRepClass)
 }
 
@@ -882,11 +883,12 @@ func (i NSImageRep) SetAlpha(value bool) {
 // regions.
 //
 // Use this property to test whether an image representation completely covers
-// the area within the rectangle given by the [Size] property.
+// the area within the rectangle given by the [NSImageRep.Size] property.
 //
 // The property value does not indicate whether the image has an alpha channel
 // or if there is partial or complete transparency when drawing the image rep.
-// Use the [Alpha] property to determine if the image has an alpha channel.
+// Use the [NSImageRep.Alpha] property to determine if the image has an alpha
+// channel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/isOpaque
 func (i NSImageRep) IsOpaque() bool {
@@ -1012,9 +1014,9 @@ func (_NSImageRepClass NSImageRepClass) ImageUnfilteredTypes() []string {
 // subclasses.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/registeredClasses
-func (_NSImageRepClass NSImageRepClass) RegisteredImageRepClasses() []objc.Class {
+func (_NSImageRepClass NSImageRepClass) RegisteredImageRepClasses() []objectivec.Class {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("registeredImageRepClasses"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objc.Class {
-		return objc.Class(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.Class {
+		return objectivec.Class(id)
 	})
 }

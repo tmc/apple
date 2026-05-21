@@ -56,9 +56,9 @@ func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainer
 //
 // # Return Value
 //
-// The [Bounds] rectangle of the text attachment if not [CGRectZero];
-// otherwise, the rectangle of the [size] property of the attachment’s
-// [Image] property.
+// The [NSTextAttachment.Bounds] rectangle of the text attachment if not
+// [CGRectZero]; otherwise, the rectangle of the [size] property of the
+// attachment’s [NSTextAttachment.Image] property.
 //
 // # Discussion
 //
@@ -93,9 +93,10 @@ func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerPropose
 //
 // The method should return an image appropriate for the target rendering
 // context derived by arguments passed into this method. The
-// [NSTextAttachment] implementation returns the text attachment’s [Image]
-// when non-`nil`. If the image is `nil`, it returns an image based on the
-// text attachment’s [Contents] and [FileType] properties.
+// [NSTextAttachment] implementation returns the text attachment’s
+// [NSTextAttachment.Image] when non-`nil`. If the image is `nil`, it returns
+// an image based on the text attachment’s [NSTextAttachment.Contents] and
+// [NSTextAttachment.FileType] properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/image(forBounds:textContainer:characterIndex:)
 func (o NSTextAttachmentContainerObject) ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage {

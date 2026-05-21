@@ -88,16 +88,10 @@ type IAVAssetVariantVideoAttributes interface {
 	// Attributes that describe the layout of the video content.
 	VideoLayoutAttributes() []AVAssetVariantVideoLayoutAttributes
 
-	// The audio rendition attributes for the variant.
-	AudioAttributes() IAVAssetVariantAudioAttributes
-	SetAudioAttributes(value IAVAssetVariantAudioAttributes)
 	// The video sample codec types present in the variant’s renditions.
 	CodecTypes() []foundation.NSNumber
 	// The nominal frame rate of the variant’s renditions.
 	NominalFrameRate() float64
-	// The video rendition attributes for the variant.
-	VideoAttributes() IAVAssetVariantVideoAttributes
-	SetVideoAttributes(value IAVAssetVariantVideoAttributes)
 }
 
 // Init initializes the instance.
@@ -156,17 +150,6 @@ func (a AVAssetVariantVideoAttributes) VideoLayoutAttributes() []AVAssetVariantV
 	})
 }
 
-// The audio rendition attributes for the variant.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.property
-func (a AVAssetVariantVideoAttributes) AudioAttributes() IAVAssetVariantAudioAttributes {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioAttributes"))
-	return AVAssetVariantAudioAttributesFromID(objc.ID(rv))
-}
-func (a AVAssetVariantVideoAttributes) SetAudioAttributes(value IAVAssetVariantAudioAttributes) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAudioAttributes:"), value)
-}
-
 // The video sample codec types present in the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantVideoAttributes/codecTypes
@@ -183,15 +166,4 @@ func (a AVAssetVariantVideoAttributes) CodecTypes() []foundation.NSNumber {
 func (a AVAssetVariantVideoAttributes) NominalFrameRate() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("nominalFrameRate"))
 	return rv
-}
-
-// The video rendition attributes for the variant.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.property
-func (a AVAssetVariantVideoAttributes) VideoAttributes() IAVAssetVariantVideoAttributes {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoAttributes"))
-	return AVAssetVariantVideoAttributesFromID(objc.ID(rv))
-}
-func (a AVAssetVariantVideoAttributes) SetVideoAttributes(value IAVAssetVariantVideoAttributes) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVideoAttributes:"), value)
 }

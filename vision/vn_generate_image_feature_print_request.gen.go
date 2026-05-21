@@ -53,10 +53,6 @@ func (vc VNGenerateImageFeaturePrintRequestClass) Alloc() VNGenerateImageFeature
 //   - [VNGenerateImageFeaturePrintRequest.ImageCropAndScaleOption]: An optional setting that tells the algorithm how to scale an input image before generating the feature print.
 //   - [VNGenerateImageFeaturePrintRequest.SetImageCropAndScaleOption]
 //
-// # Identifying Request Revisions
-//
-//   - [VNGenerateImageFeaturePrintRequest.VNGenerateImageFeaturePrintRequestRevision1]: A constant for specifying the first revision of the feature-print request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateImageFeaturePrintRequest
 type VNGenerateImageFeaturePrintRequest struct {
 	VNImageBasedRequest
@@ -79,10 +75,6 @@ func VNGenerateImageFeaturePrintRequestFromID(id objc.ID) VNGenerateImageFeature
 //   - [IVNGenerateImageFeaturePrintRequest.ImageCropAndScaleOption]: An optional setting that tells the algorithm how to scale an input image before generating the feature print.
 //   - [IVNGenerateImageFeaturePrintRequest.SetImageCropAndScaleOption]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGenerateImageFeaturePrintRequest.VNGenerateImageFeaturePrintRequestRevision1]: A constant for specifying the first revision of the feature-print request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateImageFeaturePrintRequest
 type IVNGenerateImageFeaturePrintRequest interface {
 	IVNImageBasedRequest
@@ -92,11 +84,6 @@ type IVNGenerateImageFeaturePrintRequest interface {
 	// An optional setting that tells the algorithm how to scale an input image before generating the feature print.
 	ImageCropAndScaleOption() VNImageCropAndScaleOption
 	SetImageCropAndScaleOption(value VNImageCropAndScaleOption)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying the first revision of the feature-print request.
-	VNGenerateImageFeaturePrintRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -126,7 +113,7 @@ func NewVNGenerateImageFeaturePrintRequest() VNGenerateImageFeaturePrintRequest 
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGenerateImageFeaturePrintRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateImageFeaturePrintRequest {
@@ -156,12 +143,4 @@ func (g VNGenerateImageFeaturePrintRequest) ImageCropAndScaleOption() VNImageCro
 }
 func (g VNGenerateImageFeaturePrintRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOption) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageCropAndScaleOption:"), value)
-}
-
-// A constant for specifying the first revision of the feature-print request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateimagefeatureprintrequestrevision1
-func (g VNGenerateImageFeaturePrintRequest) VNGenerateImageFeaturePrintRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateImageFeaturePrintRequestRevision1"))
-	return rv
 }

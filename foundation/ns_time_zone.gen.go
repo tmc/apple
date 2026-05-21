@@ -53,24 +53,25 @@ func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 // Time zones represent the standard time policies for a geopolitical region.
 // Time zones have identifiers like “America/Los_Angeles” and can also be
 // identified by abbreviations, such as PST for Pacific Standard Time. You can
-// create time zone objects by ID with [NSTimeZone.InitWithName] and by abbreviation with
-// [NSTimeZone.TimeZoneWithAbbreviation].
+// create time zone objects by ID with [NSTimeZone.InitWithName] and by
+// abbreviation with [NSTimeZoneClass.TimeZoneWithAbbreviation].
 //
 // Time zones can also represent a temporal offset—either plus or
 // minus—from Greenwich Mean Time (GMT). For example, the temporal offset of
 // Pacific Standard Time is 8 hours behind Greenwich Mean Time (GMT-8). You
 // can create time zone objects with a temporal offset by using
-// [NSTimeZone.TimeZoneForSecondsFromGMT].
+// [NSTimeZoneClass.TimeZoneForSecondsFromGMT].
 //
 // You typically work with system time zones rather than creating time zones
-// by identifier or by offset. The [NSTimeZone.SystemTimeZone] class property returns the
-// time zone currently used by the system, if known. This value is cached once
-// the property is accessed and doesn’t reflect any system time zone changes
-// until you call the [NSTimeZone.ResetSystemTimeZone] method. The [NSTimeZone.LocalTimeZone] class
-// property returns an autoupdating proxy object that always returns the
-// current time zone used by the system. You can also set the
-// [NSTimeZone.DefaultTimeZone] class property to make your app run as if it were in a
-// different time zone than the system.
+// by identifier or by offset. The [NSTimeZoneClass.SystemTimeZone] class
+// property returns the time zone currently used by the system, if known. This
+// value is cached once the property is accessed and doesn’t reflect any
+// system time zone changes until you call the
+// [NSTimeZoneClass.ResetSystemTimeZone] method. The
+// [NSTimeZoneClass.LocalTimeZone] class property returns an autoupdating
+// proxy object that always returns the current time zone used by the system.
+// You can also set the [NSTimeZoneClass.DefaultTimeZone] class property to
+// make your app run as if it were in a different time zone than the system.
 //
 // [NSTimeZone] is with its Core Foundation counterpart, [CFTimeZone]. See
 // [Toll-Free Bridging] for more information on toll-free bridging.
@@ -106,10 +107,6 @@ func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 //
 //   - [NSTimeZone.LocalizedNameLocale]: Returns the localized name of the time zone.
 //   - [NSTimeZone.Description]: A textual description of the time zone including the name, abbreviation, offset from GMT, and whether or not daylight saving time is currently in effect.
-//
-// # Recognizing Notifications
-//
-//   - [NSTimeZone.NSSystemTimeZoneDidChange]: A notification posted when the time zone changes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone
 //
@@ -165,10 +162,6 @@ func NSTimeZoneFromID(id objc.ID) NSTimeZone {
 //   - [INSTimeZone.LocalizedNameLocale]: Returns the localized name of the time zone.
 //   - [INSTimeZone.Description]: A textual description of the time zone including the name, abbreviation, offset from GMT, and whether or not daylight saving time is currently in effect.
 //
-// # Recognizing Notifications
-//
-//   - [INSTimeZone.NSSystemTimeZoneDidChange]: A notification posted when the time zone changes.
-//
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone
 type INSTimeZone interface {
 	objectivec.IObject
@@ -222,11 +215,6 @@ type INSTimeZone interface {
 	LocalizedNameLocale(style NSTimeZoneNameStyle, locale INSLocale) string
 	// A textual description of the time zone including the name, abbreviation, offset from GMT, and whether or not daylight saving time is currently in effect.
 	Description() string
-
-	// Topic: Recognizing Notifications
-
-	// A notification posted when the time zone changes.
-	NSSystemTimeZoneDidChange() NSNotificationName
 }
 
 // Init initializes the instance.
@@ -293,7 +281,7 @@ func NewTimeZoneWithAbbreviation(abbreviation string) NSTimeZone {
 	return NSTimeZoneFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSTimeZone/init(coder:)
 func NewTimeZoneWithCoder(coder INSCoder) NSTimeZone {
 	instance := getNSTimeZoneClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -311,8 +299,8 @@ func NewTimeZoneWithCoder(coder INSCoder) NSTimeZone {
 //
 // # Discussion
 //
-// If `tzName` is a known identifier, this method calls [InitWithNameData]
-// with the appropriate data object.
+// If `tzName` is a known identifier, this method calls
+// [NSTimeZone.InitWithNameData] with the appropriate data object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/init(name:)
 func NewTimeZoneWithName(tzName string) NSTimeZone {
@@ -351,8 +339,8 @@ func NewTimeZoneWithNameData(tzName string, aData INSData) NSTimeZone {
 //
 // # Discussion
 //
-// If `tzName` is a known identifier, this method calls [InitWithNameData]
-// with the appropriate data object.
+// If `tzName` is a known identifier, this method calls
+// [NSTimeZone.InitWithNameData] with the appropriate data object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/init(name:)
 func (t NSTimeZone) InitWithName(tzName string) NSTimeZone {
@@ -506,20 +494,22 @@ func (t NSTimeZone) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSTimeZone/init(coder:)
 func (t NSTimeZone) InitWithCoder(coder INSCoder) NSTimeZone {
 	rv := objc.Send[NSTimeZone](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// Clears any time zone value cached for the [SystemTimeZone] property.
+// Clears any time zone value cached for the [NSTimeZoneClass.SystemTimeZone]
+// property.
 //
 // # Discussion
 //
 // If the app has cached the system time zone by accessing the
-// [SystemTimeZone] class property, this method clears that cached value. If
-// you subsequently access the [SystemTimeZone] class property, a new time
-// zone object is created and cached.
+// [NSTimeZoneClass.SystemTimeZone] class property, this method clears that
+// cached value. If you subsequently access the
+// [NSTimeZoneClass.SystemTimeZone] class property, a new time zone object is
+// created and cached.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/resetSystemTimeZone()
 func (_NSTimeZoneClass NSTimeZoneClass) ResetSystemTimeZone() {
@@ -576,7 +566,8 @@ func (t NSTimeZone) Name() string {
 //
 // # Discussion
 //
-// Invokes [AbbreviationForDate] with the current date as the argument.
+// Invokes [NSTimeZone.AbbreviationForDate] with the current date as the
+// argument.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/abbreviation
 func (t NSTimeZone) Abbreviation() string {
@@ -611,8 +602,8 @@ func (t NSTimeZone) Data() INSData {
 // # Discussion
 //
 // If true, the receiver is currently using daylight saving time, otherwise
-// false. This property invokes [IsDaylightSavingTimeForDate] with the current
-// date as the argument.
+// false. This property invokes [NSTimeZone.IsDaylightSavingTimeForDate] with
+// the current date as the argument.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/isDaylightSavingTime
 func (t NSTimeZone) IsDaylightSavingTime() bool {
@@ -654,30 +645,25 @@ func (t NSTimeZone) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-// A notification posted when the time zone changes.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nssystemtimezonedidchange
-func (t NSTimeZone) NSSystemTimeZoneDidChange() NSNotificationName {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSSystemTimeZoneDidChangeNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
 // An object that tracks the current system time zone.
 //
 // # Discussion
 //
 // Use this property when you want an object that always reflects the current
-// system time zone. Contrast this behavior with that of the [SystemTimeZone]
-// class property, which has its value cached until you manually clear it by
-// calling the [ResetSystemTimeZone] method.
+// system time zone. Contrast this behavior with that of the
+// [NSTimeZoneClass.SystemTimeZone] class property, which has its value cached
+// until you manually clear it by calling the
+// [NSTimeZoneClass.ResetSystemTimeZone] method.
 //
 // Although the time zone obtained here automatically updates with the system,
 // it provides no indication when system settings change. To receive
 // notification of time zone changes, add an observer to the
 // [NSSystemTimeZoneDidChange] notification by using the
-// [AddObserverSelectorNameObject].
+// [NSNotificationCenter.AddObserverSelectorNameObject].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/local
+//
+// [NSSystemTimeZoneDidChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSSystemTimeZoneDidChange
 func (_NSTimeZoneClass NSTimeZoneClass) LocalTimeZone() NSTimeZone {
 	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("localTimeZone"))
 	return NSTimeZoneFromID(objc.ID(rv))
@@ -690,19 +676,22 @@ func (_NSTimeZoneClass NSTimeZoneClass) LocalTimeZone() NSTimeZone {
 // If the current system time zone cannot be determined, the GMT time zone is
 // used instead.
 //
-// If you access the [SystemTimeZone] class property, its value is cached by
-// the app and doesn’t update if the user subsequently changes the system
-// time zone. In order for the [SystemTimeZone] property to reflect the new
-// time zone, you must first call the [ResetSystemTimeZone] method to clear
-// the cached value. Then, the next time you access the [SystemTimeZone]
-// property, it returns the current system time zone, and caches that value.
+// If you access the [NSTimeZoneClass.SystemTimeZone] class property, its
+// value is cached by the app and doesn’t update if the user subsequently
+// changes the system time zone. In order for the
+// [NSTimeZoneClass.SystemTimeZone] property to reflect the new time zone, you
+// must first call the [NSTimeZoneClass.ResetSystemTimeZone] method to clear
+// the cached value. Then, the next time you access the
+// [NSTimeZoneClass.SystemTimeZone] property, it returns the current system
+// time zone, and caches that value.
 //
-// If you access the [SystemTimeZone] class property, assign its value to a
-// variable, and clear the cached value for the property by calling the
-// [ResetSystemTimeZone] method, the object stored in the variable doesn’t
-// update to reflect the new system time zone. Contrast this behavior with
-// that of the [LocalTimeZone] class property, which returns a proxy object
-// that always reflects the current system time zone.
+// If you access the [NSTimeZoneClass.SystemTimeZone] class property, assign
+// its value to a variable, and clear the cached value for the property by
+// calling the [NSTimeZoneClass.ResetSystemTimeZone] method, the object stored
+// in the variable doesn’t update to reflect the new system time zone.
+// Contrast this behavior with that of the [NSTimeZoneClass.LocalTimeZone]
+// class property, which returns a proxy object that always reflects the
+// current system time zone.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/system
 func (_NSTimeZoneClass NSTimeZoneClass) SystemTimeZone() NSTimeZone {
@@ -714,21 +703,21 @@ func (_NSTimeZoneClass NSTimeZoneClass) SystemTimeZone() NSTimeZone {
 //
 // # Discussion
 //
-// If no [DefaultTimeZone] time zone has been set, the current system time
-// zone is used. If the current system time zone cannot be determined, the GMT
-// time zone is used instead.
+// If no [NSTimeZoneClass.DefaultTimeZone] time zone has been set, the current
+// system time zone is used. If the current system time zone cannot be
+// determined, the GMT time zone is used instead.
 //
-// The [DefaultTimeZone] time zone is used by the app for date and time
-// operations. You can set it to cause the app to run as if it were in a
-// different time zone. Setting the [DefaultTimeZone] property clears any
-// value that was previously set.
+// The [NSTimeZoneClass.DefaultTimeZone] time zone is used by the app for date
+// and time operations. You can set it to cause the app to run as if it were
+// in a different time zone. Setting the [NSTimeZoneClass.DefaultTimeZone]
+// property clears any value that was previously set.
 //
-// If you access the [DefaultTimeZone] class property, assign its value to a
-// variable, and set a new [DefaultTimeZone] time zone, the object stored in
-// the variable doesn’t update to reflect the new [DefaultTimeZone] time
-// zone. Contrast this behavior with that of the [LocalTimeZone] class
-// property, which returns a proxy object that always reflects the current
-// system time zone.
+// If you access the [NSTimeZoneClass.DefaultTimeZone] class property, assign
+// its value to a variable, and set a new [NSTimeZoneClass.DefaultTimeZone]
+// time zone, the object stored in the variable doesn’t update to reflect
+// the new [NSTimeZoneClass.DefaultTimeZone] time zone. Contrast this behavior
+// with that of the [NSTimeZoneClass.LocalTimeZone] class property, which
+// returns a proxy object that always reflects the current system time zone.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/default
 func (_NSTimeZoneClass NSTimeZoneClass) DefaultTimeZone() NSTimeZone {
@@ -770,8 +759,8 @@ func (_NSTimeZoneClass NSTimeZoneClass) KnownTimeZoneNames() []string {
 //
 // Note that more than one time zone may have the same abbreviation—for
 // example, US/Pacific and Canada/Pacific both use the abbreviation “PST.”
-// In these cases, [AbbreviationDictionary] chooses a single name to map the
-// abbreviation to.
+// In these cases, [NSTimeZoneClass.AbbreviationDictionary] chooses a single
+// name to map the abbreviation to.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/abbreviationDictionary
 func (_NSTimeZoneClass NSTimeZoneClass) AbbreviationDictionary() INSDictionary {

@@ -275,13 +275,15 @@ func NewRulerMarkerWithCoder(coder foundation.INSCoder) NSRulerMarker {
 // images.
 //
 // To add the new ruler marker to `aRulerView`, use either of NSRulerView’s
-// [AddMarker] or [TrackMarkerWithMouseEvent] methods. [AddMarker] immediately
-// puts the marker on the ruler, while [TrackMarkerWithMouseEvent] allows the
-// client view to intercede in the addition and placement of the marker.
+// [NSRulerView.AddMarker] or [NSRulerView.TrackMarkerWithMouseEvent] methods.
+// [NSRulerView.AddMarker] immediately puts the marker on the ruler, while
+// [NSRulerView.TrackMarkerWithMouseEvent] allows the client view to intercede
+// in the addition and placement of the marker.
 //
 // A new ruler marker can be moved on its ruler view, but not removed. Use
-// [Movable] and [Removable] to change these attributes. The new ruler marker
-// also has no represented object; use [RepresentedObject] to set one.
+// [NSRulerMarker.Movable] and [NSRulerMarker.Removable] to change these
+// attributes. The new ruler marker also has no represented object; use
+// [NSRulerMarker.RepresentedObject] to set one.
 //
 // This method is the designated initializer for the NSRulerMarker class.
 //
@@ -319,13 +321,15 @@ func NewRulerMarkerWithRulerViewMarkerLocationImageImageOrigin(ruler INSRulerVie
 // images.
 //
 // To add the new ruler marker to `aRulerView`, use either of NSRulerView’s
-// [AddMarker] or [TrackMarkerWithMouseEvent] methods. [AddMarker] immediately
-// puts the marker on the ruler, while [TrackMarkerWithMouseEvent] allows the
-// client view to intercede in the addition and placement of the marker.
+// [NSRulerView.AddMarker] or [NSRulerView.TrackMarkerWithMouseEvent] methods.
+// [NSRulerView.AddMarker] immediately puts the marker on the ruler, while
+// [NSRulerView.TrackMarkerWithMouseEvent] allows the client view to intercede
+// in the addition and placement of the marker.
 //
 // A new ruler marker can be moved on its ruler view, but not removed. Use
-// [Movable] and [Removable] to change these attributes. The new ruler marker
-// also has no represented object; use [RepresentedObject] to set one.
+// [NSRulerMarker.Movable] and [NSRulerMarker.Removable] to change these
+// attributes. The new ruler marker also has no represented object; use
+// [NSRulerMarker.RepresentedObject] to set one.
 //
 // This method is the designated initializer for the NSRulerMarker class.
 //
@@ -364,37 +368,38 @@ func (r NSRulerMarker) DrawRect(rect corefoundation.CGRect) {
 //
 // If the receiver is a new marker being added to its ruler view (`flag` is
 // true), the receiver queries the ruler view’s client before adding itself
-// to the ruler view. If the client responds to [RulerViewShouldAddMarker] and
-// that method returns false, this method immediately returns false, and the
-// new marker isn’t added.
+// to the ruler view. If the client responds to
+// [NSView.RulerViewShouldAddMarker] and that method returns false, this
+// method immediately returns false, and the new marker isn’t added.
 //
 // If the receiver is not a new marker being added to its ruler view (`flag`
 // is false), this method attempts to move or remove an existing marker, once
 // again based on responses from the ruler view’s client view. If the
 // receiver is neither movable nor removable, this method immediately returns
 // false. Further, if the ruler view’s client responds to
-// [RulerViewShouldMoveMarker] and returns false, this method returns false,
-// indicating the receiver can’t be moved.
+// [NSView.RulerViewShouldMoveMarker] and returns false, this method returns
+// false, indicating the receiver can’t be moved.
 //
 // If the receiver is being added or moved, this method queries the client
-// view using [RulerViewWillAddMarkerAtLocation] or
-// [RulerViewWillMoveMarkerToLocation], respectively. If the client responds
-// to the method, the return value is used as the receiver’s location. These
-// methods are invoked repeatedly as the receiver is dragged within the ruler
-// view.
+// view using [NSView.RulerViewWillAddMarkerAtLocation] or
+// [NSView.RulerViewWillMoveMarkerToLocation], respectively. If the client
+// responds to the method, the return value is used as the receiver’s
+// location. These methods are invoked repeatedly as the receiver is dragged
+// within the ruler view.
 //
 // If the receiver is an existing marker being removed (dragged off the
 // ruler), this method queries the client view using
-// [RulerViewShouldRemoveMarker]. If the client responds to this method and
-// returns false, the marker is pinned to the ruler view’s baseline
+// [NSView.RulerViewShouldRemoveMarker]. If the client responds to this method
+// and returns false, the marker is pinned to the ruler view’s baseline
 // (following the cursor on the baseline if it’s movable).
 //
 // When the user releases the mouse button, this method informs the client
-// view of the marker’s new status using [RulerViewDidAddMarker],
-// [RulerViewDidMoveMarker], or [RulerViewDidRemoveMarker] as appropriate. The
-// client view can use this notification to set the marker’s represented
-// object, modify its state and redisplay (for example, adjusting text layout
-// around a new tab stop), or take whatever other action it might need.
+// view of the marker’s new status using [NSView.RulerViewDidAddMarker],
+// [NSView.RulerViewDidMoveMarker], or [NSView.RulerViewDidRemoveMarker] as
+// appropriate. The client view can use this notification to set the
+// marker’s represented object, modify its state and redisplay (for example,
+// adjusting text layout around a new tab stop), or take whatever other action
+// it might need.
 //
 // If `flag` is true and the user dragged the new marker away from the ruler,
 // the marker isn’t added, no message is sent, and this method returns

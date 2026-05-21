@@ -89,12 +89,12 @@ type INSKeyValueSharedObservers interface {
 	// Topic: Initializers
 
 	// A new collection of observables for an observable object of the given class
-	InitWithObservableClass(observableClass objc.Class) NSKeyValueSharedObservers
+	InitWithObservableClass(observableClass objectivec.Class) NSKeyValueSharedObservers
 
 	// Topic: Instance Methods
 
 	// Add a new observer to the collection.
-	AddSharedObserverForKeyOptionsContext(observer objectivec.Object, key string, options uint, context unsafe.Pointer)
+	AddSharedObserverForKeyOptionsContext(observer objectivec.NSObject, key string, options uint, context unsafe.Pointer)
 	// A momentary snapshot of all observers added to the collection thus far, that can be assigned to an observable using `-[NSObject ]`
 	Snapshot() INSKeyValueSharedObserversSnapshot
 }
@@ -121,7 +121,7 @@ func NewNSKeyValueSharedObservers() NSKeyValueSharedObservers {
 // A new collection of observables for an observable object of the given class
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyValueSharedObservers/init(observableClass:)
-func NewKeyValueSharedObserversWithObservableClass(observableClass objc.Class) NSKeyValueSharedObservers {
+func NewKeyValueSharedObserversWithObservableClass(observableClass objectivec.Class) NSKeyValueSharedObservers {
 	instance := getNSKeyValueSharedObserversClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObservableClass:"), observableClass)
 	return NSKeyValueSharedObserversFromID(rv)
@@ -130,7 +130,7 @@ func NewKeyValueSharedObserversWithObservableClass(observableClass objc.Class) N
 // A new collection of observables for an observable object of the given class
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyValueSharedObservers/init(observableClass:)
-func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.Class) NSKeyValueSharedObservers {
+func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objectivec.Class) NSKeyValueSharedObservers {
 	rv := objc.Send[NSKeyValueSharedObservers](k.ID, objc.Sel("initWithObservableClass:"), observableClass)
 	return rv
 }
@@ -156,7 +156,7 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 // `setSharedObservers` is called on the observable.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyValueSharedObservers/addSharedObserver(_:forKey:options:context:)
-func (k NSKeyValueSharedObservers) AddSharedObserverForKeyOptionsContext(observer objectivec.Object, key string, options uint, context unsafe.Pointer) {
+func (k NSKeyValueSharedObservers) AddSharedObserverForKeyOptionsContext(observer objectivec.NSObject, key string, options uint, context unsafe.Pointer) {
 	objc.Send[objc.ID](k.ID, objc.Sel("addSharedObserver:forKey:options:context:"), observer, objc.String(key), options, context)
 }
 

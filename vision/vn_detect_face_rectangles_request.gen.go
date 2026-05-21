@@ -48,12 +48,6 @@ func (vc VNDetectFaceRectanglesRequestClass) Alloc() VNDetectFaceRectanglesReque
 // This request returns faces as rectangular bounding boxes with origin and
 // size.
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision3]: A constant for specifying revision 3 of the face rectangles detection request.
-//   - [VNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision2]: A constant for specifying revision 2 of the face rectangles detection request.
-//   - [VNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision1]: A constant for specifying revision 1 of the face rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceRectanglesRequest
 type VNDetectFaceRectanglesRequest struct {
 	VNImageBasedRequest
@@ -71,24 +65,9 @@ func VNDetectFaceRectanglesRequestFromID(id objc.ID) VNDetectFaceRectanglesReque
 
 // An interface definition for the [VNDetectFaceRectanglesRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision3]: A constant for specifying revision 3 of the face rectangles detection request.
-//   - [IVNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision2]: A constant for specifying revision 2 of the face rectangles detection request.
-//   - [IVNDetectFaceRectanglesRequest.VNDetectFaceRectanglesRequestRevision1]: A constant for specifying revision 1 of the face rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceRectanglesRequest
 type IVNDetectFaceRectanglesRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 3 of the face rectangles detection request.
-	VNDetectFaceRectanglesRequestRevision3() int
-	// A constant for specifying revision 2 of the face rectangles detection request.
-	VNDetectFaceRectanglesRequestRevision2() int
-	// A constant for specifying revision 1 of the face rectangles detection request.
-	VNDetectFaceRectanglesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -118,38 +97,11 @@ func NewVNDetectFaceRectanglesRequest() VNDetectFaceRectanglesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectFaceRectanglesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectFaceRectanglesRequest {
 	instance := getVNDetectFaceRectanglesRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectFaceRectanglesRequestFromID(rv)
-}
-
-// A constant for specifying revision 3 of the face rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacerectanglesrequestrevision3
-func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision3() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision3"))
-	return rv
-}
-
-// A constant for specifying revision 2 of the face rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacerectanglesrequestrevision2
-func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision2() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the face rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacerectanglesrequestrevision1
-func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision1"))
-	return rv
 }

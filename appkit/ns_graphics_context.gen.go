@@ -55,19 +55,23 @@ func (nc NSGraphicsContextClass) Alloc() NSGraphicsContext {
 //
 // The [NSGraphicsContext] class is an abstract superclass for
 // destination-specific graphics contexts. You obtain instances of concrete
-// subclasses with the class methods [NSGraphicsContext.CurrentContext],
-// [NSGraphicsContext.GraphicsContextWithAttributes], [NSGraphicsContext.GraphicsContextWithBitmapImageRep],
-// [NSGraphicsContext.GraphicsContextWithCGContextFlipped], and [init(window:)].
+// subclasses with the class methods [NSGraphicsContextClass.CurrentContext],
+// [NSGraphicsContextClass.GraphicsContextWithAttributes],
+// [NSGraphicsContextClass.GraphicsContextWithBitmapImageRep],
+// [NSGraphicsContextClass.GraphicsContextWithCGContextFlipped], and
+// [init(window:)].
 //
 // At any time there is the notion of the current context. The current context
-// for the current thread may be set using [NSGraphicsContext.CurrentContext].
+// for the current thread may be set using
+// [NSGraphicsContextClass.CurrentContext].
 //
 // Graphics contexts are maintained on a stack. You push a graphics context
-// onto the stack by sending it a [NSGraphicsContext.SaveGraphicsState] message, and pop it off
-// the stack by sending it a [NSGraphicsContext.RestoreGraphicsState] message. By sending
-// [NSGraphicsContext.RestoreGraphicsState] to a graphics context object you remove it from the
-// stack, and the next graphics context on the stack becomes the current
-// graphics context.
+// onto the stack by sending it a [NSGraphicsContext.SaveGraphicsState]
+// message, and pop it off the stack by sending it a
+// [NSGraphicsContext.RestoreGraphicsState] message. By sending
+// [NSGraphicsContext.RestoreGraphicsState] to a graphics context object you
+// remove it from the stack, and the next graphics context on the stack
+// becomes the current graphics context.
 //
 // # Managing the Current Context
 //
@@ -272,7 +276,8 @@ func NewGraphicsContextWithAttributes(attributes foundation.INSDictionary) NSGra
 // # Discussion
 //
 // This method accepts only single plane [NSBitmapImageRep] instances. It is
-// the equivalent of using [GraphicsContextWithAttributes] and passing
+// the equivalent of using
+// [NSGraphicsContextClass.GraphicsContextWithAttributes] and passing
 // `bitmapRep` as the value for the dictionary’s [destination] key.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(bitmapImageRep:)
@@ -290,7 +295,7 @@ func NewGraphicsContextWithBitmapImageRep(bitmapRep INSBitmapImageRep) NSGraphic
 // [CGContext] (opaque type) object.
 //
 // initialFlippedState: Specifies the receiver’s initial flipped state. This is the value
-// returned by [Flipped] when no view has focus.
+// returned by [NSGraphicsContext.Flipped] when no view has focus.
 //
 // # Return Value
 //
@@ -331,8 +336,9 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) RestoreGraphicsState() {
 //
 // # Discussion
 //
-// This method sends the current graphics context a [SaveGraphicsState]
-// message and pushes the context onto the per-thread stack.
+// This method sends the current graphics context a
+// [NSGraphicsContext.SaveGraphicsState] message and pushes the context onto
+// the per-thread stack.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/saveGraphicsState()-swift.type.method
 func (_NSGraphicsContextClass NSGraphicsContextClass) SaveGraphicsState() {
@@ -348,8 +354,9 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) SaveGraphicsState() {
 //
 // # Discussion
 //
-// This convenience method is equivalent to sending [DrawingToScreen] to the
-// result of [CurrentContext].
+// This convenience method is equivalent to sending
+// [NSGraphicsContext.DrawingToScreen] to the result of
+// [NSGraphicsContextClass.CurrentContext].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/currentContextDrawingToScreen()
 func (_NSGraphicsContextClass NSGraphicsContextClass) CurrentContextDrawingToScreen() bool {
@@ -373,8 +380,9 @@ func (g NSGraphicsContext) CGContext() coregraphics.CGContextRef {
 //
 // true if the drawing destination is the screen. If the value of the property
 // is false may mean that the drawing destination is a printer, but the
-// destination may also be a PDF or EPS file. You can call [Attributes] to see
-// if additional information is available about the drawing destination.
+// destination may also be a PDF or EPS file. You can call
+// [NSGraphicsContext.Attributes] to see if additional information is
+// available about the drawing destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isDrawingToScreen
 func (g NSGraphicsContext) IsDrawingToScreen() bool {
@@ -387,7 +395,7 @@ func (g NSGraphicsContext) IsDrawingToScreen() bool {
 // # Discussion
 //
 // Screen-based graphics contexts do not store attributes, even if you create
-// them using [GraphicsContextWithAttributes].
+// them using [NSGraphicsContextClass.GraphicsContextWithAttributes].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/attributes
 func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
@@ -401,8 +409,9 @@ func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
 //
 // The state is determined by sending `flipped` to the receiver’s view that
 // has focus. If no view has focus, returns false unless the receiver is
-// instantiated using [GraphicsContextWithCGContextFlipped] specifying true as
-// the `flipped` parameter.
+// instantiated using
+// [NSGraphicsContextClass.GraphicsContextWithCGContextFlipped] specifying
+// true as the `flipped` parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isFlipped
 func (g NSGraphicsContext) IsFlipped() bool {
@@ -441,7 +450,7 @@ func (g NSGraphicsContext) SetCompositingOperation(value NSCompositingOperation)
 // # Discussion
 //
 // Note that this value is not part of the graphics state, so it cannot be
-// reset using [RestoreGraphicsState].
+// reset using [NSGraphicsContext.RestoreGraphicsState].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/imageInterpolation
 func (g NSGraphicsContext) ImageInterpolation() NSImageInterpolation {
@@ -458,7 +467,7 @@ func (g NSGraphicsContext) SetImageInterpolation(value NSImageInterpolation) {
 // # Discussion
 //
 // true if the receiver uses antialiasing. This value is part of the graphics
-// state and is restored by [RestoreGraphicsState].
+// state and is restored by [NSGraphicsContext.RestoreGraphicsState].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/shouldAntialias
 func (g NSGraphicsContext) ShouldAntialias() bool {

@@ -6,12 +6,13 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 )
 
 // CGBitmapContextReleaseDataCallback is a callback function used to release data associate with the bitmap context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGBitmapContextReleaseDataCallback
-type CGBitmapContextReleaseDataCallback = func(unsafe.Pointer, unsafe.Pointer)
+type CGBitmapContextReleaseDataCallback = func(kernel.Pointer, kernel.Pointer)
 
 // CGButtonCount is represents the number of buttons being set in a synthetic mouse event.
 //
@@ -46,7 +47,7 @@ type CGContextRef uintptr
 // CGDataConsumerPutBytesCallback is copies data from a Core Graphics-supplied buffer into a data consumer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataConsumerPutBytesCallback
-type CGDataConsumerPutBytesCallback = func(unsafe.Pointer, unsafe.Pointer, uint) uint
+type CGDataConsumerPutBytesCallback = func(kernel.Pointer, kernel.Pointer, uint) uint
 
 // CGDataConsumerRef is an abstraction for data-writing tasks that eliminates the need to manage a raw memory buffer.
 //
@@ -56,22 +57,22 @@ type CGDataConsumerRef uintptr
 // CGDataConsumerReleaseInfoCallback is releases any private data or resources associated with the data consumer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataConsumerReleaseInfoCallback
-type CGDataConsumerReleaseInfoCallback = func(unsafe.Pointer)
+type CGDataConsumerReleaseInfoCallback = func(kernel.Pointer)
 
 // CGDataProviderGetBytePointerCallback is a callback function that returns a generic pointer to the provider data.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderGetBytePointerCallback
-type CGDataProviderGetBytePointerCallback = func(unsafe.Pointer) unsafe.Pointer
+type CGDataProviderGetBytePointerCallback = func(kernel.Pointer) kernel.Pointer
 
 // CGDataProviderGetBytesAtPositionCallback is a callback function that copies data from the provider into a Core Graphics buffer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderGetBytesAtPositionCallback
-type CGDataProviderGetBytesAtPositionCallback = func(unsafe.Pointer, unsafe.Pointer, int64, uint) uint
+type CGDataProviderGetBytesAtPositionCallback = func(kernel.Pointer, kernel.Pointer, int64, uint) uint
 
 // CGDataProviderGetBytesCallback is a callback function that copies from a provider data stream into a Core Graphics buffer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderGetBytesCallback
-type CGDataProviderGetBytesCallback = func(unsafe.Pointer, unsafe.Pointer, uint) uint
+type CGDataProviderGetBytesCallback = func(kernel.Pointer, kernel.Pointer, uint) uint
 
 // CGDataProviderRef is an abstraction for data-reading tasks that eliminates the need to manage a raw memory buffer.
 //
@@ -81,27 +82,27 @@ type CGDataProviderRef uintptr
 // CGDataProviderReleaseBytePointerCallback is a callback function that releases the pointer Core Graphics obtained by calling [CGDataProviderGetBytePointerCallback].
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderReleaseBytePointerCallback
-type CGDataProviderReleaseBytePointerCallback = func(unsafe.Pointer, unsafe.Pointer)
+type CGDataProviderReleaseBytePointerCallback = func(kernel.Pointer, kernel.Pointer)
 
 // CGDataProviderReleaseDataCallback is a callback function that releases data you supply to the function [init(dataInfo:data:size:releaseData:)].
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderReleaseDataCallback
-type CGDataProviderReleaseDataCallback = func(unsafe.Pointer, unsafe.Pointer, uint)
+type CGDataProviderReleaseDataCallback = func(kernel.Pointer, kernel.Pointer, uint)
 
 // CGDataProviderReleaseInfoCallback is a callback function that releases any private data or resources associated with the data provider.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderReleaseInfoCallback
-type CGDataProviderReleaseInfoCallback = func(unsafe.Pointer)
+type CGDataProviderReleaseInfoCallback = func(kernel.Pointer)
 
 // CGDataProviderRewindCallback is a callback function that moves the current position in the data stream back to the beginning.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderRewindCallback
-type CGDataProviderRewindCallback = func(unsafe.Pointer)
+type CGDataProviderRewindCallback = func(kernel.Pointer)
 
 // CGDataProviderSkipForwardCallback is a callback function that advances the current position in the data stream supplied by the provider.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderSkipForwardCallback
-type CGDataProviderSkipForwardCallback = func(unsafe.Pointer, int64) int64
+type CGDataProviderSkipForwardCallback = func(kernel.Pointer, int64) int64
 
 // CGDirectDisplayID is a unique identifier for an attached display.
 //
@@ -136,7 +137,7 @@ type CGDisplayModeRef uintptr
 // CGDisplayReconfigurationCallBack is a client-supplied callback function that’s invoked whenever the configuration of a local display is changed.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayReconfigurationCallBack
-type CGDisplayReconfigurationCallBack = func(uint, uint, unsafe.Pointer)
+type CGDisplayReconfigurationCallBack = func(uint, uint, kernel.Pointer)
 
 // CGDisplayReservationInterval is the time interval for a fade reservation.
 //
@@ -187,12 +188,12 @@ type CGEventSourceRef uintptr
 // CGEventTapCallBack is a client-supplied callback function that’s invoked whenever an associated event tap receives a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapCallBack
-type CGEventTapCallBack = func(uintptr, CGEventType, uintptr, unsafe.Pointer) uintptr
+type CGEventTapCallBack = func(uintptr, CGEventType, uintptr, kernel.Pointer) uintptr
 
 // CGEventTapInformation is defines the structure used to report information about event taps.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapInformation
-type CGEventTapInformation = unsafe.Pointer
+type CGEventTapInformation = kernel.Pointer
 
 // CGEventTapProxy is defines an opaque type that represents state within the client application that’s associated with an event tap.
 //
@@ -217,7 +218,7 @@ type CGFontRef uintptr
 // CGFunctionEvaluateCallback is performs custom operations on the supplied input data to produce output data.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFunctionEvaluateCallback
-type CGFunctionEvaluateCallback = func(unsafe.Pointer, []float64, []float64)
+type CGFunctionEvaluateCallback = func(kernel.Pointer, []float64, []float64)
 
 // CGFunctionRef is a general facility for defining and using callback functions.
 //
@@ -227,7 +228,7 @@ type CGFunctionRef uintptr
 // CGFunctionReleaseInfoCallback is performs custom clean-up tasks when Core Graphics deallocates a [CGFunctionRef] object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFunctionReleaseInfoCallback
-type CGFunctionReleaseInfoCallback = func(unsafe.Pointer)
+type CGFunctionReleaseInfoCallback = func(kernel.Pointer)
 
 // CGGammaValue is a value used to map a color generated in software to a color supported by the display hardware.
 //
@@ -270,7 +271,7 @@ type CGMutablePathRef uintptr
 type CGOpenGLDisplayMask = uint32
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFArrayApplierBlock
-type CGPDFArrayApplierBlock = func(uint32, *CGPDFObjectRef, unsafe.Pointer) bool
+type CGPDFArrayApplierBlock = func(uint32, *CGPDFObjectRef, kernel.Pointer) bool
 
 // CGPDFArrayRef is an opaque type that encapsulates a PDF array.
 //
@@ -288,12 +289,12 @@ type CGPDFBoolean = uint8
 type CGPDFContentStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryApplierBlock
-type CGPDFDictionaryApplierBlock = func(string, *CGPDFObjectRef, unsafe.Pointer) bool
+type CGPDFDictionaryApplierBlock = func(string, *CGPDFObjectRef, kernel.Pointer) bool
 
 // CGPDFDictionaryApplierFunction is performs custom processing on a key-value pair from a PDF dictionary, using optional contextual information.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryApplierFunction
-type CGPDFDictionaryApplierFunction = func(*byte, uintptr, unsafe.Pointer)
+type CGPDFDictionaryApplierFunction = func(*byte, uintptr, kernel.Pointer)
 
 // CGPDFDictionaryRef is a type that encapsulates a PDF dictionary.
 //
@@ -318,7 +319,7 @@ type CGPDFObjectRef uintptr
 // CGPDFOperatorCallback is performs custom processing for PDF operators.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFOperatorCallback
-type CGPDFOperatorCallback = func(uintptr, unsafe.Pointer)
+type CGPDFOperatorCallback = func(uintptr, kernel.Pointer)
 
 // CGPDFOperatorTableRef is a type that stores callback functions for PDF operators.
 //
@@ -356,32 +357,32 @@ type CGPDFTagProperty = corefoundation.CFStringRef
 // CGPSConverterBeginDocumentCallback is performs custom tasks at the beginning of a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterBeginDocumentCallback
-type CGPSConverterBeginDocumentCallback = func(unsafe.Pointer)
+type CGPSConverterBeginDocumentCallback = func(kernel.Pointer)
 
 // CGPSConverterBeginPageCallback is performs custom tasks at the beginning of each page in a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterBeginPageCallback
-type CGPSConverterBeginPageCallback = func(unsafe.Pointer, uint, uintptr)
+type CGPSConverterBeginPageCallback = func(kernel.Pointer, uint, uintptr)
 
 // CGPSConverterEndDocumentCallback is performs custom tasks at the end of a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterEndDocumentCallback
-type CGPSConverterEndDocumentCallback = func(unsafe.Pointer, bool)
+type CGPSConverterEndDocumentCallback = func(kernel.Pointer, bool)
 
 // CGPSConverterEndPageCallback is performs custom tasks at the end of each page of a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterEndPageCallback
-type CGPSConverterEndPageCallback = func(unsafe.Pointer, uint, uintptr)
+type CGPSConverterEndPageCallback = func(kernel.Pointer, uint, uintptr)
 
 // CGPSConverterMessageCallback is passes messages generated during a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterMessageCallback
-type CGPSConverterMessageCallback = func(unsafe.Pointer, uintptr)
+type CGPSConverterMessageCallback = func(kernel.Pointer, uintptr)
 
 // CGPSConverterProgressCallback is reports progress periodically during a PostScript conversion process.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterProgressCallback
-type CGPSConverterProgressCallback = func(unsafe.Pointer)
+type CGPSConverterProgressCallback = func(kernel.Pointer)
 
 // CGPSConverterRef is an opaque data type used to convert PostScript data to PDF data.
 //
@@ -391,12 +392,12 @@ type CGPSConverterRef uintptr
 // CGPSConverterReleaseInfoCallback is performs custom tasks when a PostScript converter is released.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPSConverterReleaseInfoCallback
-type CGPSConverterReleaseInfoCallback = func(unsafe.Pointer)
+type CGPSConverterReleaseInfoCallback = func(kernel.Pointer)
 
 // CGPathApplierFunction is defines a callback function that can view an element in a graphics path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathApplierFunction
-type CGPathApplierFunction = func(unsafe.Pointer, uintptr)
+type CGPathApplierFunction = func(kernel.Pointer, uintptr)
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathApplyBlock
 type CGPathApplyBlock = func(*CGPathElement)
@@ -409,7 +410,7 @@ type CGPathRef uintptr
 // CGPatternDrawPatternCallback is draws a pattern cell.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPatternDrawPatternCallback
-type CGPatternDrawPatternCallback = func(unsafe.Pointer, uintptr)
+type CGPatternDrawPatternCallback = func(kernel.Pointer, uintptr)
 
 // CGPatternRef is a 2D pattern to be used for drawing graphics paths.
 //
@@ -419,7 +420,7 @@ type CGPatternRef uintptr
 // CGPatternReleaseInfoCallback is release private data or resources associated with the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPatternReleaseInfoCallback
-type CGPatternReleaseInfoCallback = func(unsafe.Pointer)
+type CGPatternReleaseInfoCallback = func(kernel.Pointer)
 
 // CGRectCount is the size of an array of Quartz rectangles.
 //
@@ -437,12 +438,12 @@ type CGRenderingBufferProviderRef uintptr
 // CGScreenRefreshCallback is a client-supplied callback function that’s invoked when an area of the display is modified or refreshed.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGScreenRefreshCallback
-type CGScreenRefreshCallback = func(uint, uintptr, unsafe.Pointer)
+type CGScreenRefreshCallback = func(uint, uintptr, kernel.Pointer)
 
 // CGScreenUpdateMoveCallback is a client-supplied callback function invoked when an area of the display is moved.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGScreenUpdateMoveCallback
-type CGScreenUpdateMoveCallback = func(CGScreenUpdateMoveDelta, uint, uintptr, unsafe.Pointer)
+type CGScreenUpdateMoveCallback = func(CGScreenUpdateMoveDelta, uint, uintptr, kernel.Pointer)
 
 // CGShadingRef is a definition for a smooth transition between colors, controlled by a custom function you provide, for drawing radial and axial gradient fills.
 //

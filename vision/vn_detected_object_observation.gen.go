@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -127,6 +128,13 @@ func NewVNDetectedObjectObservation() VNDetectedObjectObservation {
 // See: https://developer.apple.com/documentation/Vision/VNDetectedObjectObservation/init(boundingBox:)
 func NewDetectedObjectObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNDetectedObjectObservation {
 	rv := objc.Send[objc.ID](objc.ID(getVNDetectedObjectObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
+	return VNDetectedObjectObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewDetectedObjectObservationWithCoder(coder foundation.INSCoder) VNDetectedObjectObservation {
+	instance := getVNDetectedObjectObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNDetectedObjectObservationFromID(rv)
 }
 

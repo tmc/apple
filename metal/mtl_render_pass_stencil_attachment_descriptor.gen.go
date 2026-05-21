@@ -137,10 +137,12 @@ func (r MTLRenderPassStencilAttachmentDescriptor) SetStencilResolveFilter(value 
 //
 // # Discussion
 //
-// If the [LoadAction] property of the attachment is set to
-// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
-// contents of the attachment with the value stored in the [ClearStencil]
-// property. Otherwise, the GPU ignores [ClearStencil].
+// If the [MTLRenderPassAttachmentDescriptor.LoadAction] property of the
+// attachment is set to [MTLLoadActionClear], then at the start of a render
+// pass, the GPU fills the contents of the attachment with the value stored in
+// the [MTLRenderPassStencilAttachmentDescriptor.ClearStencil] property.
+// Otherwise, the GPU ignores
+// [MTLRenderPassStencilAttachmentDescriptor.ClearStencil].
 //
 // The default value is `0`.
 //

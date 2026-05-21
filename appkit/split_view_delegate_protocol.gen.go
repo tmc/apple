@@ -303,11 +303,12 @@ func (o NSSplitViewDelegateObject) SplitViewConstrainMaxCoordinateOfSubviewAt(sp
 // Resize the subviews so that the sum of the sizes of the subviews plus the
 // sum of the thickness of the dividers equals the size of the new frame of
 // the [NSSplitView]. You can get the thickness of a divider through the
-// [DividerThickness] method.
+// [NSSplitView.DividerThickness] method.
 //
 // If you implement this delegate method to resize subviews on your own, the
 // [NSSplitView] doesn’t perform any error checking for you. However, you
-// can invoke [AdjustSubviews] to perform the default sizing behavior.
+// can invoke [NSSplitView.AdjustSubviews] to perform the default sizing
+// behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:resizeSubviewsWithOldSize:)
 func (o NSSplitViewDelegateObject) SplitViewResizeSubviewsWithOldSize(splitView INSSplitView, oldSize corefoundation.CGSize) {
@@ -322,15 +323,15 @@ func (o NSSplitViewDelegateObject) SplitViewResizeSubviewsWithOldSize(splitView 
 //
 // # Return Value
 //
-// If [AdjustSubviews] can change the size of the subview, true; otherwise,
-// false. By returning false, you lock the size of the split view `subview`
-// while the split view resizes.
+// If [NSSplitView.AdjustSubviews] can change the size of the subview, true;
+// otherwise, false. By returning false, you lock the size of the split view
+// `subview` while the split view resizes.
 //
 // # Discussion
 //
-// Regardless of the value that this method returns, [AdjustSubviews] may
-// change the origin of the subview. Nonresizable subviews may resize to
-// prevent an invalid subview layout.
+// Regardless of the value that this method returns,
+// [NSSplitView.AdjustSubviews] may change the origin of the subview.
+// Nonresizable subviews may resize to prevent an invalid subview layout.
 //
 // If a split view has no delegate, or if its delegate doesn’t respond to
 // this message, the split view behaves as if this method returns true.

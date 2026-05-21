@@ -366,7 +366,7 @@ func (e KAudioAggregateDeviceProperty) String() string {
 type KAudioAggregateDevicePropertyMasterSub uint
 
 const (
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDevicePropertyMainSubDevice.
 	KAudioAggregateDevicePropertyMasterSubDevice KAudioAggregateDevicePropertyMasterSub = 0
 )
 
@@ -1136,7 +1136,7 @@ const (
 	KAudioHardwarePropertyUnloadingIsAllowed                  KAudioHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
 	KAudioHardwarePropertyUserIDChanged                       KAudioHardwareProperty = 'e'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'euid'
 	KAudioHardwarePropertyUserSessionIsActiveOrHeadless       KAudioHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
-	// Deprecated.
+	// Deprecated: use KAudioHardwarePropertyProcessIsMain.
 	KAudioHardwarePropertyProcessIsMaster KAudioHardwareProperty = 0
 )
 
@@ -1384,7 +1384,7 @@ const (
 	KAudioObjectPropertyScopeOutput         KAudioObjectProperty = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
 	KAudioObjectPropertyScopePlayThrough    KAudioObjectProperty = 'p'<<24 | 't'<<16 | 'r'<<8 | 'u' // 'ptru'
 	KAudioObjectPropertySerialNumber        KAudioObjectProperty = 's'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'snum'
-	// Deprecated.
+	// Deprecated: use KAudioObjectPropertyElementMain.
 	KAudioObjectPropertyElementMaster KAudioObjectProperty = 0
 )
 
@@ -1956,15 +1956,15 @@ func (e KAudioSubDeviceClassI) String() string {
 type KAudioSubDeviceDriftCompensation uint
 
 const (
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDriftCompensationHighQuality.
 	KAudioSubDeviceDriftCompensationHighQuality KAudioSubDeviceDriftCompensation = 0
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDriftCompensationLowQuality.
 	KAudioSubDeviceDriftCompensationLowQuality KAudioSubDeviceDriftCompensation = 0
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDriftCompensationMaxQuality.
 	KAudioSubDeviceDriftCompensationMaxQuality KAudioSubDeviceDriftCompensation = 0
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDriftCompensationMediumQuality.
 	KAudioSubDeviceDriftCompensationMediumQuality KAudioSubDeviceDriftCompensation = 0
-	// Deprecated.
+	// Deprecated: use kAudioAggregateDriftCompensationMinQuality.
 	KAudioSubDeviceDriftCompensationMinQuality KAudioSubDeviceDriftCompensation = 0
 )
 

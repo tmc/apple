@@ -161,6 +161,8 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCo
 // assigning [MTLCounterDontSample] to this property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](b.ID, objc.Sel("startOfEncoderSampleIndex"))
 	return rv
@@ -182,6 +184,8 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleInde
 // assigning [MTLCounterDontSample] to this property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](b.ID, objc.Sel("endOfEncoderSampleIndex"))
 	return rv

@@ -106,6 +106,13 @@ func NewAVMetricHLSPlaylistRequestEvent() AVMetricHLSPlaylistRequestEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricHLSPlaylistRequestEventWithCoder(coder foundation.INSCoder) AVMetricHLSPlaylistRequestEvent {
+	instance := getAVMetricHLSPlaylistRequestEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricHLSPlaylistRequestEventFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSPlaylistRequestEvent/isMultivariantPlaylist
 func (m AVMetricHLSPlaylistRequestEvent) IsMultivariantPlaylist() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMultivariantPlaylist"))

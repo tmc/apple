@@ -113,10 +113,13 @@ func (nc NEFilterDataProviderClass) Alloc() NEFilterDataProvider {
 // # Methods to Override
 //
 // - [NEFilterDataProvider.HandleNewFlow] -
-// [NEFilterDataProvider.HandleInboundDataFromFlowReadBytesStartOffsetReadBytes] -
-// [NEFilterDataProvider.HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes] -
-// [NEFilterDataProvider.HandleInboundDataCompleteForFlow] - [NEFilterDataProvider.HandleOutboundDataCompleteForFlow] -
-// [NEFilterDataProvider.HandleRemediationForFlow] - [NEFilterDataProvider.HandleRulesChanged]
+// [NEFilterDataProvider.HandleInboundDataFromFlowReadBytesStartOffsetReadBytes]
+// -
+// [NEFilterDataProvider.HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes]
+// - [NEFilterDataProvider.HandleInboundDataCompleteForFlow] -
+// [NEFilterDataProvider.HandleOutboundDataCompleteForFlow] -
+// [NEFilterDataProvider.HandleRemediationForFlow] -
+// [NEFilterDataProvider.HandleRulesChanged]
 //
 // # Filtering network content
 //
@@ -390,13 +393,16 @@ func (f NEFilterDataProvider) ResumeFlowWithVerdict(flow INEFilterFlow, verdict 
 //
 // flow: The NEFilterSocketFlow to update the verdict for.
 //
-// verdict: An [NEFilterDataVerdict] instance. This must be an [AllowVerdict] or
-// [DropVerdict] verdict, or a data verdict created with the Swift initializer
-// or ObjectiveC type method, [DataVerdictWithPassBytesPeekBytes].
+// verdict: An [NEFilterDataVerdict] instance. This must be an
+// [NEFilterDataVerdictClass.AllowVerdict] or
+// [NEFilterDataVerdictClass.DropVerdict] verdict, or a data verdict created
+// with the Swift initializer or ObjectiveC type method,
+// [NEFilterDataVerdictClass.DataVerdictWithPassBytesPeekBytes].
 //
 // direction: The direction to which the verdict applies. Pass [NETrafficDirectionAny] to
 // update the verdict for both the inbound and outbound directions. This
-// parameter has no effect if the verdict is [DropVerdict].
+// parameter has no effect if the verdict is
+// [NEFilterDataVerdictClass.DropVerdict].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/update(_:using:for:)
 func (f NEFilterDataProvider) UpdateFlowUsingVerdictForDirection(flow INEFilterSocketFlow, verdict INEFilterDataVerdict, direction NETrafficDirection) {

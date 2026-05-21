@@ -67,6 +67,10 @@ func (fc FSEntityIdentifierClass) Alloc() FSEntityIdentifier {
 //   - [FSEntityIdentifier.Qualifier]: An optional piece of data to distinguish entities that otherwise share the same UUID.
 //   - [FSEntityIdentifier.SetQualifier]
 //
+// # Initializers
+//
+//   - [FSEntityIdentifier.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier
 type FSEntityIdentifier struct {
 	objectivec.Object
@@ -97,6 +101,10 @@ func FSEntityIdentifierFromID(id objc.ID) FSEntityIdentifier {
 //   - [IFSEntityIdentifier.Qualifier]: An optional piece of data to distinguish entities that otherwise share the same UUID.
 //   - [IFSEntityIdentifier.SetQualifier]
 //
+// # Initializers
+//
+//   - [IFSEntityIdentifier.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier
 type IFSEntityIdentifier interface {
 	objectivec.IObject
@@ -119,6 +127,10 @@ type IFSEntityIdentifier interface {
 	Qualifier() foundation.NSData
 	SetQualifier(value foundation.NSData)
 
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) FSEntityIdentifier
+
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -139,6 +151,13 @@ func NewFSEntityIdentifier() FSEntityIdentifier {
 	class := getFSEntityIdentifierClass()
 	rv := objc.Send[FSEntityIdentifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(coder:)
+func NewEntityIdentifierWithCoder(coder foundation.INSCoder) FSEntityIdentifier {
+	instance := getFSEntityIdentifierClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSEntityIdentifierFromID(rv)
 }
 
 // Creates an entity identifier with the given UUID.
@@ -211,6 +230,12 @@ func (e FSEntityIdentifier) InitWithUUIDData(uuid foundation.NSUUID, qualifierDa
 // See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)-9ty70
 func (e FSEntityIdentifier) InitWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSEntityIdentifier {
 	rv := objc.Send[FSEntityIdentifier](e.ID, objc.Sel("initWithUUID:qualifier:"), uuid, qualifier)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(coder:)
+func (e FSEntityIdentifier) InitWithCoder(coder foundation.INSCoder) FSEntityIdentifier {
+	rv := objc.Send[FSEntityIdentifier](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (e FSEntityIdentifier) EncodeWithCoder(coder foundation.INSCoder) {

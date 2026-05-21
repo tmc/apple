@@ -53,9 +53,9 @@ func (nc NSWorkspaceClass) Alloc() NSWorkspace {
 // # Overview
 //
 // There is one shared [NSWorkspace] object per app. You use the class method
-// [NSWorkspace.SharedWorkspace] to access it. For example, the following statement uses
-// an [NSWorkspace] object to request that a file be opened in the TextEdit
-// app:
+// [NSWorkspaceClass.SharedWorkspace] to access it. For example, the following
+// statement uses an [NSWorkspace] object to request that a file be opened in
+// the TextEdit app:
 //
 // You can use the workspace object to:
 //
@@ -268,7 +268,7 @@ type INSWorkspace interface {
 	// Topic: Accessing the Workspace Notification Center
 
 	// The notification center for workspace notifications.
-	NotificationCenter() foundation.NSNotificationCenter
+	NotificationCenter() foundation.NotificationCenter
 
 	// Topic: Opening URLs
 
@@ -967,8 +967,8 @@ func (w NSWorkspace) SetIconForFileOptions(image INSImage, fullPath string, opti
 // [NSWorkspace] object’s notification center. When it is finished, it posts
 // an [didUnmountNotification].
 //
-// Prefer the [UnmountAndEjectDeviceAtURLError] method because it provides
-// more detailed error information.
+// Prefer the [NSWorkspace.UnmountAndEjectDeviceAtURLError] method because it
+// provides more detailed error information.
 //
 // You can safely call this method from any thread of your app.
 //
@@ -1174,9 +1174,9 @@ func (w NSWorkspace) RequestAuthorizationOfTypeCompletionHandler(type_ NSWorkspa
 // and later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/notificationCenter
-func (w NSWorkspace) NotificationCenter() foundation.NSNotificationCenter {
+func (w NSWorkspace) NotificationCenter() foundation.NotificationCenter {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("notificationCenter"))
-	return foundation.NSNotificationCenterFromID(objc.ID(rv))
+	return foundation.NotificationCenterFromID(objc.ID(rv))
 }
 
 // Returns the frontmost app, which is the app that receives key events.
@@ -1267,8 +1267,8 @@ func (w NSWorkspace) FileLabels() []string {
 //
 // # Discussion
 //
-// This array has the same number of elements as [FileLabels], and the color
-// at a given index corresponds to the label at the same index.
+// This array has the same number of elements as [NSWorkspace.FileLabels], and
+// the color at a given index corresponds to the label at the same index.
 //
 // You can listen for notifications named [didChangeFileLabelsNotification] to
 // be notified when file labels change that may result in changes to the order
@@ -1299,7 +1299,7 @@ func (w NSWorkspace) FileLabelColors() []NSColor {
 // Accessibility > Display and selecting the “Differentiate without color”
 // option. To receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
-// [NotificationCenter].
+// [NSWorkspace.NotificationCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldDifferentiateWithoutColor
 //
@@ -1321,7 +1321,7 @@ func (w NSWorkspace) AccessibilityDisplayShouldDifferentiateWithoutColor() bool 
 // Accessibility > Display and selecting the “Increase contrast” option.
 // To receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
-// [NotificationCenter].
+// [NSWorkspace.NotificationCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldIncreaseContrast
 //
@@ -1343,7 +1343,7 @@ func (w NSWorkspace) AccessibilityDisplayShouldIncreaseContrast() bool {
 // Accessibility > Display and selecting the “Reduce transparency” option.
 // To receive updates when this setting changes, register to the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
-// [NotificationCenter].
+// [NSWorkspace.NotificationCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldReduceTransparency
 //
@@ -1362,7 +1362,7 @@ func (w NSWorkspace) AccessibilityDisplayShouldReduceTransparency() bool {
 // case, you may need to adjust your app’s drawing for optimal display. To
 // receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
-// [NotificationCenter].
+// [NSWorkspace.NotificationCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldInvertColors
 //
@@ -1381,7 +1381,7 @@ func (w NSWorkspace) AccessibilityDisplayShouldInvertColors() bool {
 // those that simulate the third dimension. To receive updates when this
 // setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
-// [NotificationCenter].
+// [NSWorkspace.NotificationCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldReduceMotion
 //

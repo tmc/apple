@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -53,29 +54,30 @@ func (cc CKModifyRecordsOperationClass) Alloc() CKModifyRecordsOperation {
 // permanently from a database.
 //
 // If you’re saving a record that contains a reference to another record,
-// set the reference’s [ReferenceAction] to indicate if the target
-// record’s deletion should cascade to the saved record. This helps avoid
-// orphaned records in explicit record hierarchies. When creating two new
-// records that have a reference between them, use the same operation to save
-// both records at the same time. During a save operation, CloudKit requires
-// that the target record of the [CKModifyRecordsOperation.Parent] reference, if set, exists in the
-// database or is part of the same operation; all other reference fields are
-// exempt from this requirement.
+// set the reference’s [CKReference.ReferenceAction] to indicate if the
+// target record’s deletion should cascade to the saved record. This helps
+// avoid orphaned records in explicit record hierarchies. When creating two
+// new records that have a reference between them, use the same operation to
+// save both records at the same time. During a save operation, CloudKit
+// requires that the target record of the [CKRecord.Parent] reference, if set,
+// exists in the database or is part of the same operation; all other
+// reference fields are exempt from this requirement.
 //
-// When you save records, the value in the [CKModifyRecordsOperation.SavePolicy] property determines
-// how to proceed when CloudKit detects conflicts. Because records can change
-// between the time you fetch them and the time you save them, the save policy
-// determines whether new changes overwrite existing changes. By default, the
-// operation reports an error when there’s a newer version on the server.
-// You can change the default setting to permit your changes to overwrite the
-// server values wholly or partially.
+// When you save records, the value in the
+// [CKModifyRecordsOperation.SavePolicy] property determines how to proceed
+// when CloudKit detects conflicts. Because records can change between the
+// time you fetch them and the time you save them, the save policy determines
+// whether new changes overwrite existing changes. By default, the operation
+// reports an error when there’s a newer version on the server. You can
+// change the default setting to permit your changes to overwrite the server
+// values wholly or partially.
 //
 // The handlers you assign to monitor progress of the operation execute
 // serially on an internal queue that the operation manages. You must provide
 // handlers capable of executing on a background thread, so any tasks that
 // require access to the main thread must redirect accordingly.
 //
-// If you assign a completion handler to the [CKModifyRecordsOperation.CompletionBlock] property of the
+// If you assign a completion handler to the [completionBlock] property of the
 // operation, CloudKit calls it after the operation executes and returns the
 // results. Use the completion handler to perform any housekeeping tasks for
 // the operation, but don’t use it to process the results of the operation.
@@ -102,14 +104,14 @@ func (cc CKModifyRecordsOperationClass) Alloc() CKModifyRecordsOperation {
 //
 // # Instance Properties
 //
-//   - [CKModifyRecordsOperation.ModifyRecordsResultBlock]: The closure to execute after CloudKit modifies all of the records.
-//   - [CKModifyRecordsOperation.SetModifyRecordsResultBlock]
 //   - [CKModifyRecordsOperation.PerRecordDeleteBlock]: The closure to execute when CloudKit deletes a record.
 //   - [CKModifyRecordsOperation.SetPerRecordDeleteBlock]
 //   - [CKModifyRecordsOperation.PerRecordSaveBlock]: The closure to execute when CloudKit saves a record.
 //   - [CKModifyRecordsOperation.SetPerRecordSaveBlock]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKModifyRecordsOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKModifyRecordsOperation struct {
 	CKDatabaseOperation
 }
@@ -146,8 +148,6 @@ func CKModifyRecordsOperationFromID(id objc.ID) CKModifyRecordsOperation {
 //
 // # Instance Properties
 //
-//   - [ICKModifyRecordsOperation.ModifyRecordsResultBlock]: The closure to execute after CloudKit modifies all of the records.
-//   - [ICKModifyRecordsOperation.SetModifyRecordsResultBlock]
 //   - [ICKModifyRecordsOperation.PerRecordDeleteBlock]: The closure to execute when CloudKit deletes a record.
 //   - [ICKModifyRecordsOperation.SetPerRecordDeleteBlock]
 //   - [ICKModifyRecordsOperation.PerRecordSaveBlock]: The closure to execute when CloudKit saves a record.
@@ -178,27 +178,17 @@ type ICKModifyRecordsOperation interface {
 	// Topic: Processing the Modify Record Results
 
 	// The closure to execute with progress information for individual records.
-	PerRecordProgressBlock() func(*CKRecord, float64)
-	SetPerRecordProgressBlock(value objc.ID)
+	PerRecordProgressBlock() CKRecordFloat64Handler
+	SetPerRecordProgressBlock(value CKRecordFloat64Handler)
 
 	// Topic: Instance Properties
 
-	// The closure to execute after CloudKit modifies all of the records.
-	ModifyRecordsResultBlock() unsafe.Pointer
-	SetModifyRecordsResultBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit deletes a record.
 	PerRecordDeleteBlock() unsafe.Pointer
-	SetPerRecordDeleteBlock(value unsafe.Pointer)
+	SetPerRecordDeleteBlock(value kernel.Pointer)
 	// The closure to execute when CloudKit saves a record.
 	PerRecordSaveBlock() unsafe.Pointer
-	SetPerRecordSaveBlock(value unsafe.Pointer)
-
-	// The ownership behavior for the records.
-	Action() CKReferenceAction
-	SetReferenceAction(value CKReferenceAction)
-	// A reference to the record’s parent record.
-	Parent() ICKReference
-	SetParent(value ICKReference)
+	SetPerRecordSaveBlock(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -382,33 +372,24 @@ func (c CKModifyRecordsOperation) SetSavePolicy(value CKRecordSavePolicy) {
 // CloudKit has saved the entire record.
 //
 // The modify records operation executes this closure one or more times for
-// each record in the [RecordsToSave] property. Each time the closure
-// executes, it executes serially with respect to the other progress closures
-// of the operation. You can use this closure to track the ongoing progress of
-// the operation.
+// each record in the [CKModifyRecordsOperation.RecordsToSave] property. Each
+// time the closure executes, it executes serially with respect to the other
+// progress closures of the operation. You can use this closure to track the
+// ongoing progress of the operation.
 //
 // If you intend to use this closure to process results, set it before you
 // execute the operation or add the operation to a queue.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKModifyRecordsOperation/perRecordProgressBlock
-func (c CKModifyRecordsOperation) PerRecordProgressBlock() func(*CKRecord, float64) {
+func (c CKModifyRecordsOperation) PerRecordProgressBlock() CKRecordFloat64Handler {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("perRecordProgressBlock"))
 	_ = rv
 	return nil
 }
-func (c CKModifyRecordsOperation) SetPerRecordProgressBlock(value objc.ID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordProgressBlock:"), value)
-}
-
-// The closure to execute after CloudKit modifies all of the records.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckmodifyrecordsoperation/modifyrecordsresultblock
-func (c CKModifyRecordsOperation) ModifyRecordsResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("modifyRecordsResultBlock"))
-	return rv
-}
-func (c CKModifyRecordsOperation) SetModifyRecordsResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModifyRecordsResultBlock:"), value)
+func (c CKModifyRecordsOperation) SetPerRecordProgressBlock(value CKRecordFloat64Handler) {
+	block, cleanup := NewCKRecordFloat64Block(value)
+	defer cleanup()
+	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordProgressBlock:"), block)
 }
 
 // The closure to execute when CloudKit deletes a record.
@@ -418,7 +399,7 @@ func (c CKModifyRecordsOperation) PerRecordDeleteBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordDeleteBlock"))
 	return rv
 }
-func (c CKModifyRecordsOperation) SetPerRecordDeleteBlock(value unsafe.Pointer) {
+func (c CKModifyRecordsOperation) SetPerRecordDeleteBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordDeleteBlock:"), value)
 }
 
@@ -429,28 +410,6 @@ func (c CKModifyRecordsOperation) PerRecordSaveBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordSaveBlock"))
 	return rv
 }
-func (c CKModifyRecordsOperation) SetPerRecordSaveBlock(value unsafe.Pointer) {
+func (c CKModifyRecordsOperation) SetPerRecordSaveBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordSaveBlock:"), value)
-}
-
-// The ownership behavior for the records.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/reference/action-swift.property
-func (c CKModifyRecordsOperation) Action() CKReferenceAction {
-	rv := objc.Send[CKReferenceAction](c.ID, objc.Sel("referenceAction"))
-	return CKReferenceAction(rv)
-}
-func (c CKModifyRecordsOperation) SetReferenceAction(value CKReferenceAction) {
-	objc.Send[struct{}](c.ID, objc.Sel("setReferenceAction:"), value)
-}
-
-// A reference to the record’s parent record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/parent
-func (c CKModifyRecordsOperation) Parent() ICKReference {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("parent"))
-	return CKReferenceFromID(objc.ID(rv))
-}
-func (c CKModifyRecordsOperation) SetParent(value ICKReference) {
-	objc.Send[struct{}](c.ID, objc.Sel("setParent:"), value)
 }

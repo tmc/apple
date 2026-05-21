@@ -164,9 +164,11 @@ func NewSearchToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifi
 //
 // If the system displays a compressed search field, starting the search
 // interaction expands the field to the width stored in the
-// [PreferredWidthForSearchField] property and moves the keyboard focus into
-// the search field. Use [BeginSearchInteraction] and [EndSearchInteraction]
-// to programmatically control a search.
+// [NSSearchToolbarItem.PreferredWidthForSearchField] property and moves the
+// keyboard focus into the search field. Use
+// [NSSearchToolbarItem.BeginSearchInteraction] and
+// [NSSearchToolbarItem.EndSearchInteraction] to programmatically control a
+// search.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchToolbarItem/beginSearchInteraction()
 func (s NSSearchToolbarItem) BeginSearchInteraction() {
@@ -179,8 +181,9 @@ func (s NSSearchToolbarItem) BeginSearchInteraction() {
 //
 // # Discussion
 //
-// Use [BeginSearchInteraction] and [EndSearchInteraction] to programmatically
-// control a search.
+// Use [NSSearchToolbarItem.BeginSearchInteraction] and
+// [NSSearchToolbarItem.EndSearchInteraction] to programmatically control a
+// search.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchToolbarItem/endSearchInteraction()
 func (s NSSearchToolbarItem) EndSearchInteraction() {

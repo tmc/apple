@@ -284,14 +284,16 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetVertexForm
 // # Discussion
 //
 // All keyframes share the same vertex stride. This stride needs to be a
-// multiple of the size of the vertex format you provide in the [VertexFormat]
+// multiple of the size of the vertex format you provide in the
+// [MTL4AccelerationStructureMotionTriangleGeometryDescriptor.VertexFormat]
 // property.
 //
 // Similarly, you are responsible for ensuring this stride matches the vertex
 // format data type’s alignment.
 //
 // Defaults to `0`, which signals the stride matches the size of the
-// [VertexFormat] data.
+// [MTL4AccelerationStructureMotionTriangleGeometryDescriptor.VertexFormat]
+// data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionTriangleGeometryDescriptor/vertexStride
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) VertexStride() uint {

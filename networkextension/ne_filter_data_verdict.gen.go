@@ -114,9 +114,11 @@ func NewNEFilterDataVerdict() NEFilterDataVerdict {
 //
 // peekBytes: The number of bytes after the end of the `passBytes` that the Filter Data
 // Provider expects in the next call to
-// [HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes] or
-// [HandleInboundDataFromFlowReadBytesStartOffsetReadBytes]. The Filter Data
-// Provider uses this chunk of data to make its next filtering decision.
+// [NEFilterDataProvider.HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes]
+// or
+// [NEFilterDataProvider.HandleInboundDataFromFlowReadBytesStartOffsetReadBytes].
+// The Filter Data Provider uses this chunk of data to make its next filtering
+// decision.
 //
 // To see all subsequent bytes, set this parameter to [NEFilterFlowBytesMax].
 //
@@ -125,6 +127,8 @@ func NewNEFilterDataVerdict() NEFilterDataVerdict {
 // A [NEFilterDataVerdict] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataVerdict/init(passBytes:peekBytes:)
+//
+// [NEFilterFlowBytesMax]: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlowBytesMax
 func NewFilterDataVerdictWithPassBytesPeekBytes(passBytes uint, peekBytes uint) NEFilterDataVerdict {
 	rv := objc.Send[objc.ID](objc.ID(getNEFilterDataVerdictClass().class), objc.Sel("dataVerdictWithPassBytes:peekBytes:"), passBytes, peekBytes)
 	return NEFilterDataVerdictFromID(rv)
@@ -167,7 +171,7 @@ func (_NEFilterDataVerdictClass NEFilterDataVerdictClass) DropVerdict() NEFilter
 //
 // After pausing the flow, the system doesn’t call any of the data
 // provider’s handler callbacks until you resume the flow by calling
-// [ResumeFlowWithVerdict].
+// [NEFilterDataProvider.ResumeFlowWithVerdict].
 //
 // You can pause TCP flows indefinitely. You can pause UDP flows for up to 10
 // seconds, after which the system drops the flow. Pausing a flow that’s
@@ -184,8 +188,8 @@ func (_NEFilterDataVerdictClass NEFilterDataVerdictClass) PauseVerdict() NEFilte
 // # Discussion
 //
 // This property determines the frequency at which the provider receives a
-// call to its [HandleReport] method with an [NEFilterReportEventStatistics]
-// event.
+// call to its [NEFilterProvider.HandleReport] method with an
+// [NEFilterReportEventStatistics] event.
 //
 // The default value of this property [NEFilterReportFrequencyNone], meaning
 // that the provider receives no statistics by default.

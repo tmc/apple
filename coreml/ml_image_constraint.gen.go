@@ -57,9 +57,10 @@ func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
 // uses an by creating an [MLFeatureDescription]. The feature description for
 // an image input or output has:
 //
-// - Its [MLImageConstraint.Type] property set to [MLFeatureTypeImage] - Its [ImageConstraint]
-// property set to an [MLImageConstraint] instance configured to the image
-// feature’s size and format
+// - Its [MLFeatureDescription.Type] property set to [MLFeatureTypeImage] -
+// Its [MLFeatureDescription.ImageConstraint] property set to an
+// [MLImageConstraint] instance configured to the image feature’s size and
+// format
 //
 // Image features that support additional image sizes provide a range of
 // sizes, or a list of discrete sizes, in their image constraint’s
@@ -122,12 +123,7 @@ type IMLImageConstraint interface {
 	// Additional sizes this image feature supports.
 	SizeConstraint() IMLImageSizeConstraint
 
-	// The size and format constraints for an image feature.
-	ImageConstraint() IMLImageConstraint
-	SetImageConstraint(value IMLImageConstraint)
-	// The type of this feature.
-	Type() MLFeatureType
-	SetType(value MLFeatureType)
+	InitWithCoder(coder foundation.INSCoder) MLImageConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -150,6 +146,18 @@ func NewMLImageConstraint() MLImageConstraint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/init(coder:)
+func NewImageConstraintWithCoder(coder foundation.INSCoder) MLImageConstraint {
+	instance := getMLImageConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLImageConstraintFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/init(coder:)
+func (i MLImageConstraint) InitWithCoder(coder foundation.INSCoder) MLImageConstraint {
+	rv := objc.Send[MLImageConstraint](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (i MLImageConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -184,26 +192,4 @@ func (i MLImageConstraint) PixelFormatType() uint32 {
 func (i MLImageConstraint) SizeConstraint() IMLImageSizeConstraint {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("sizeConstraint"))
 	return MLImageSizeConstraintFromID(objc.ID(rv))
-}
-
-// The size and format constraints for an image feature.
-//
-// See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
-func (i MLImageConstraint) ImageConstraint() IMLImageConstraint {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageConstraint"))
-	return MLImageConstraintFromID(objc.ID(rv))
-}
-func (i MLImageConstraint) SetImageConstraint(value IMLImageConstraint) {
-	objc.Send[struct{}](i.ID, objc.Sel("setImageConstraint:"), value)
-}
-
-// The type of this feature.
-//
-// See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/type
-func (i MLImageConstraint) Type() MLFeatureType {
-	rv := objc.Send[MLFeatureType](i.ID, objc.Sel("type"))
-	return MLFeatureType(rv)
-}
-func (i MLImageConstraint) SetType(value MLFeatureType) {
-	objc.Send[struct{}](i.ID, objc.Sel("setType:"), value)
 }

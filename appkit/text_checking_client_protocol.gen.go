@@ -25,7 +25,7 @@ type NSTextCheckingClient interface {
 	// AnnotatedSubstringForProposedRangeActualRange protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/annotatedSubstring(forProposedRange:actualRange:)
-	AnnotatedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString
+	AnnotatedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString
 
 	// CandidateListTouchBarItem protocol.
 	//
@@ -35,7 +35,7 @@ type NSTextCheckingClient interface {
 	// RemoveAnnotationRange protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/removeAnnotation(_:range:)
-	RemoveAnnotationRange(annotationName foundation.NSString, range_ foundation.NSRange)
+	RemoveAnnotationRange(annotationName foundation.NSAttributedStringKey, range_ foundation.NSRange)
 
 	// ReplaceCharactersInRangeWithAnnotatedString protocol.
 	//
@@ -55,7 +55,7 @@ type NSTextCheckingClient interface {
 	// ViewForRangeFirstRectActualRange protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/view(for:firstRect:actualRange:)
-	ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRect, actualRange foundation.NSRange) INSView
+	ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRectPointer, actualRange foundation.NSRangePointer) INSView
 }
 
 // NSTextCheckingClientObject wraps an existing Objective-C object that conforms to the NSTextCheckingClient protocol.
@@ -81,7 +81,7 @@ func (o NSTextCheckingClientObject) AddAnnotationsRange(annotations foundation.I
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/annotatedSubstring(forProposedRange:actualRange:)
-func (o NSTextCheckingClientObject) AnnotatedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
+func (o NSTextCheckingClientObject) AnnotatedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("annotatedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 }
@@ -93,8 +93,8 @@ func (o NSTextCheckingClientObject) CandidateListTouchBarItem() INSCandidateList
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/removeAnnotation(_:range:)
-func (o NSTextCheckingClientObject) RemoveAnnotationRange(annotationName foundation.NSString, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("removeAnnotation:range:"), annotationName, range_)
+func (o NSTextCheckingClientObject) RemoveAnnotationRange(annotationName foundation.NSAttributedStringKey, range_ foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("removeAnnotation:range:"), objc.String(string(annotationName)), range_)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/replaceCharacters(in:withAnnotatedString:)
@@ -113,7 +113,7 @@ func (o NSTextCheckingClientObject) SetAnnotationsRange(annotations foundation.I
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/view(for:firstRect:actualRange:)
-func (o NSTextCheckingClientObject) ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRect, actualRange foundation.NSRange) INSView {
+func (o NSTextCheckingClientObject) ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRectPointer, actualRange foundation.NSRangePointer) INSView {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewForRange:firstRect:actualRange:"), range_, firstRect, actualRange)
 	return NSViewFromID(rv)
 }
@@ -189,7 +189,7 @@ func (o NSTextCheckingClientObject) SelectedRange() foundation.NSRange {
 //
 // When `aString` is an [NSString] object, the receiver is expected to render
 // the marked text with distinguishing appearance (for example, [NSTextView]
-// renders with [MarkedTextAttributes]).
+// renders with [NSTextView.MarkedTextAttributes]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
 func (o NSTextCheckingClientObject) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
@@ -252,7 +252,7 @@ func (o NSTextCheckingClientObject) ValidAttributesForMarkedText() []string {
 // the document’s range, return `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-func (o NSTextCheckingClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
+func (o NSTextCheckingClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 }
@@ -320,7 +320,7 @@ func (o NSTextCheckingClientObject) CharacterIndexForPoint(point corefoundation.
 // width is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-func (o NSTextCheckingClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
+func (o NSTextCheckingClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
 	return rv
 }

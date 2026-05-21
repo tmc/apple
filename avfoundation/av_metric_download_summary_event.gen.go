@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -94,7 +95,7 @@ type IAVMetricDownloadSummaryEvent interface {
 	// Returns the total number of bytes downloaded by the download task.
 	BytesDownloadedCount() int
 	// Returns the total duration of the download in seconds.
-	DownloadDuration() float64
+	DownloadDuration() foundation.NSTimeInterval
 	// Returns the error event if any. If no value is available, returns nil.
 	ErrorEvent() IAVMetricErrorEvent
 	// Returns the total number of media requests performed by the download task. This includes playlist requests, media segment requests, and content key requests.
@@ -124,6 +125,13 @@ func NewAVMetricDownloadSummaryEvent() AVMetricDownloadSummaryEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricDownloadSummaryEventWithCoder(coder foundation.INSCoder) AVMetricDownloadSummaryEvent {
+	instance := getAVMetricDownloadSummaryEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricDownloadSummaryEventFromID(rv)
+}
+
 // Returns the total number of bytes downloaded by the download task.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricDownloadSummaryEvent/bytesDownloadedCount
@@ -135,9 +143,9 @@ func (m AVMetricDownloadSummaryEvent) BytesDownloadedCount() int {
 // Returns the total duration of the download in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricDownloadSummaryEvent/downloadDuration
-func (m AVMetricDownloadSummaryEvent) DownloadDuration() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("downloadDuration"))
-	return rv
+func (m AVMetricDownloadSummaryEvent) DownloadDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("downloadDuration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // Returns the error event if any. If no value is available, returns nil.

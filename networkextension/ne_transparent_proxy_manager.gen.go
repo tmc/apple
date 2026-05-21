@@ -3,6 +3,7 @@
 package networkextension
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -82,4 +83,44 @@ func NewNETransparentProxyManager() NETransparentProxyManager {
 	class := getNETransparentProxyManagerClass()
 	rv := objc.Send[NETransparentProxyManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// Loads all previously-saved transparent proxy configurations.
+//
+// completionHandler: A Swift closure or an ObjectiveC block that receives as parameters an array
+// of transparent proxy manager instances loaded from disk and an error. If
+// the error is `nil`, no error occurred.
+//
+// # Discussion
+//
+// This method asychronously reads all previously-saved transparent proxy
+// configurations associated with the calling app.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyManager/loadAllFromPreferences(completionHandler:)
+func (_NETransparentProxyManagerClass NETransparentProxyManagerClass) LoadAllFromPreferencesWithCompletionHandler(completionHandler NETransparentProxyManagerArrayErrorHandler) {
+	_block0, _ := NewNETransparentProxyManagerArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NETransparentProxyManagerClass.class), objc.Sel("loadAllFromPreferencesWithCompletionHandler:"), _block0)
+}
+
+// LoadAllFromPreferences is a synchronous wrapper around [NETransparentProxyManager.LoadAllFromPreferencesWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (tc NETransparentProxyManagerClass) LoadAllFromPreferences(ctx context.Context) ([]NETransparentProxyManager, error) {
+	type result struct {
+		val []NETransparentProxyManager
+		err error
+	}
+	done := make(chan result, 1)
+	tc.LoadAllFromPreferencesWithCompletionHandler(func(val *[]NETransparentProxyManager, err error) {
+		var out []NETransparentProxyManager
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

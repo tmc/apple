@@ -3,7 +3,7 @@
 package corevideo
 
 import (
-	"unsafe"
+	"github.com/tmc/apple/kernel"
 )
 
 // CVBufferRef is a reference to a Core Video buffer.
@@ -14,10 +14,10 @@ type CVBufferRef uintptr
 // CVDisplayLinkOutputCallback is a type for a display link callback function that the system invokes when it’s time for the app to output a video frame.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkOutputCallback
-type CVDisplayLinkOutputCallback = func(uintptr, *CVTimeStamp, *CVTimeStamp, uint64, *uint64, unsafe.Pointer) int
+type CVDisplayLinkOutputCallback = func(uintptr, *CVTimeStamp, *CVTimeStamp, uint64, *uint64, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkOutputHandler
-type CVDisplayLinkOutputHandler = func(unsafe.Pointer, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
+type CVDisplayLinkOutputHandler = func(kernel.Pointer, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
 
 // CVDisplayLinkRef is a reference to a display link object.
 //
@@ -27,7 +27,7 @@ type CVDisplayLinkRef uintptr
 // CVFillExtendedPixelsCallBack is defines a pointer to a custom extended pixel-fill function, which is called whenever the system needs to pad a buffer holding your custom pixel format.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVFillExtendedPixelsCallBack
-type CVFillExtendedPixelsCallBack = func(uintptr, unsafe.Pointer) uint8
+type CVFillExtendedPixelsCallBack = func(uintptr, kernel.Pointer) uint8
 
 // CVImageBufferRef is a reference to a Core Video image buffer.
 //
@@ -86,12 +86,12 @@ type CVPixelBufferRef uintptr
 // CVPixelBufferReleaseBytesCallback is a type that defines a release callback function.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferReleaseBytesCallback
-type CVPixelBufferReleaseBytesCallback = func(unsafe.Pointer, unsafe.Pointer)
+type CVPixelBufferReleaseBytesCallback = func(kernel.Pointer, kernel.Pointer)
 
 // CVPixelBufferReleasePlanarBytesCallback is defines a pointer to a pixel buffer release callback function, which is called when a pixel buffer created by [CVPixelBufferCreateWithPlanarBytes(_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:)] is released.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferReleasePlanarBytesCallback
-type CVPixelBufferReleasePlanarBytesCallback = func(unsafe.Pointer, unsafe.Pointer, uint, uint, unsafe.Pointer)
+type CVPixelBufferReleasePlanarBytesCallback = func(kernel.Pointer, kernel.Pointer, uint, uint, kernel.Pointer)
 
 // CVReturn is a Core Video error type return value.
 //

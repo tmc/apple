@@ -104,6 +104,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -130,10 +131,38 @@ func NewFSDirectoryVerifierErrorBlock(handler FSDirectoryVerifierErrorHandler) (
 }
 
 // FSFileNameArrayErrorHandler handles A block or closure to indicate success or failure.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [FSVolumeXattrOperations.ListXattrsOfItemReplyHandler]
 type FSFileNameArrayErrorHandler = func(*[]FSFileName, error)
+
+// NewFSFileNameArrayErrorBlock wraps a Go [FSFileNameArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [FSVolumeXattrOperations.ListXattrsOfItemReplyHandler]
+func NewFSFileNameArrayErrorBlock(handler FSFileNameArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]FSFileName
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]FSFileName, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = FSFileNameFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // FSFileNameErrorHandler handles A block or closure to indicate success or failure.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -270,10 +299,38 @@ func NewFSItemFSFileNameErrorBlock(handler FSItemFSFileNameErrorHandler) (objc.I
 }
 
 // FSModuleIdentityArrayErrorHandler handles A block or closure that executes when FSKit finishes its fetch process.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [FSClient.FetchInstalledExtensionsWithCompletionHandler]
 type FSModuleIdentityArrayErrorHandler = func(*[]FSModuleIdentity, error)
+
+// NewFSModuleIdentityArrayErrorBlock wraps a Go [FSModuleIdentityArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [FSClient.FetchInstalledExtensionsWithCompletionHandler]
+func NewFSModuleIdentityArrayErrorBlock(handler FSModuleIdentityArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]FSModuleIdentity
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]FSModuleIdentity, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = FSModuleIdentityFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // FSProbeResultErrorHandler handles A block or closure that your implementation invokes when it finishes the probe or encounters an error.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.

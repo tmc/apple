@@ -376,7 +376,7 @@ func (l NSLevelIndicator) SetCriticalValue(value float64) {
 //
 // The default alignments are [NSTickMarkBelow] and [NSTickMarkLeft]. This
 // property has no effect if no tick marks have been assigned (that is,
-// [NumberOfTickMarks] returns 0).
+// [NSLevelIndicator.NumberOfTickMarks] returns 0).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/tickMarkPosition
 func (l NSLevelIndicator) TickMarkPosition() NSTickMarkPosition {
@@ -409,10 +409,10 @@ func (l NSLevelIndicator) SetNumberOfTickMarks(value int) {
 // # Discussion
 //
 // The number of major tick marks must be less than or equal to the number of
-// tick marks returned by [NumberOfTickMarks]. For example, if the number of
-// tick marks is 11 and you specify 3 major tick marks, the resulting level
-// indicator will display 3 major tick marks alternating with 8 minor tick
-// marks, as in the example shown in [NSLevelIndicator].
+// tick marks returned by [NSLevelIndicator.NumberOfTickMarks]. For example,
+// if the number of tick marks is 11 and you specify 3 major tick marks, the
+// resulting level indicator will display 3 major tick marks alternating with
+// 8 minor tick marks, as in the example shown in [NSLevelIndicator].
 //
 // [media-1965752]
 //

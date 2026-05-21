@@ -131,7 +131,7 @@ func NewAVMediaSelection() AVMediaSelection {
 //
 // This method returns the currently selected [AVMediaSelectionOption] in the
 // specified [AVMediaSelectionGroup], but may return `nil` if media selection
-// group’s [AllowsEmptySelection] is set to true.
+// group’s [AVMediaSelectionGroup.AllowsEmptySelection] is set to true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelection/selectedMediaOption(in:)
 func (m AVMediaSelection) SelectedMediaOptionInMediaSelectionGroup(mediaSelectionGroup IAVMediaSelectionGroup) IAVMediaSelectionOption {
@@ -153,7 +153,8 @@ func (m AVMediaSelection) SelectedMediaOptionInMediaSelectionGroup(mediaSelectio
 //
 // The automatic application of media selection criteria is suspended in any
 // group in which a specific selection has been made by calling
-// [SelectMediaOptionInMediaSelectionGroup] on the current [AVPlayerItem].
+// [AVPlayerItem.SelectMediaOptionInMediaSelectionGroup] on the current
+// [AVPlayerItem].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelection/mediaSelectionCriteriaCanBeAppliedAutomatically(to:)
 func (m AVMediaSelection) MediaSelectionCriteriaCanBeAppliedAutomaticallyToMediaSelectionGroup(mediaSelectionGroup IAVMediaSelectionGroup) bool {

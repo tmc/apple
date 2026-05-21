@@ -122,8 +122,8 @@ func NewFragmentedMovieWithDataOptions(data foundation.NSData, options foundatio
 //
 // # Discussion
 //
-// Upon creation, the values of the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are `nil`.
+// Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
+// and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
 func NewFragmentedMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedMovie {

@@ -180,8 +180,8 @@ type INSProgressIndicator interface {
 	// Topic: Observing the progress bar
 
 	// The progress object to use for updating the progress view.
-	ObservedProgress() foundation.NSProgress
-	SetObservedProgress(value foundation.NSProgress)
+	ObservedProgress() foundation.Progress
+	SetObservedProgress(value foundation.Progress)
 
 	// Topic: Setting the appearance
 
@@ -294,7 +294,7 @@ func (p NSProgressIndicator) StopAnimation(sender objectivec.IObject) {
 //
 // delta: The amount by which to increment the progress bar. For example, if you want
 // to advance a progress bar from 0.0 to 100.0 in 20 steps, you would invoke
-// [IncrementBy] 20 times with a delta value of 5.0.
+// [NSProgressIndicator.IncrementBy] 20 times with a delta value of 5.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/increment(by:)
 func (p NSProgressIndicator) IncrementBy(delta float64) {
@@ -302,11 +302,12 @@ func (p NSProgressIndicator) IncrementBy(delta float64) {
 }
 
 // This action method resizes the progress indicator to an appropriate size
-// depending on the value of [Style].
+// depending on the value of [NSProgressIndicator.Style].
 //
 // # Discussion
 //
-// Use this after you use [Style] to re-size the progress indicator.
+// Use this after you use [NSProgressIndicator.Style] to re-size the progress
+// indicator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/sizeToFit()
 func (p NSProgressIndicator) SizeToFit() {
@@ -413,21 +414,22 @@ func (p NSProgressIndicator) SetMaxValue(value float64) {
 //
 // Set this property when you want the progress view to automatically update
 // its progress value using the information it receives from the [Progress]
-// object. Setting this property also modifies the [Indeterminate],
-// [MinValue], [MaxValue], and [DoubleValue] properties of the indicator. Set
-// the property to `nil` when you want to update the progress manually. The
-// default value of this property is `nil`.
+// object. Setting this property also modifies the
+// [NSProgressIndicator.Indeterminate], [NSProgressIndicator.MinValue],
+// [NSProgressIndicator.MaxValue], and [NSProgressIndicator.DoubleValue]
+// properties of the indicator. Set the property to `nil` when you want to
+// update the progress manually. The default value of this property is `nil`.
 //
 // For more information on configuring a progress object, see [Progress].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/observedProgress
 //
 // [Progress]: https://developer.apple.com/documentation/Foundation/Progress
-func (p NSProgressIndicator) ObservedProgress() foundation.NSProgress {
+func (p NSProgressIndicator) ObservedProgress() foundation.Progress {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("observedProgress"))
-	return foundation.NSProgressFromID(objc.ID(rv))
+	return foundation.ProgressFromID(objc.ID(rv))
 }
-func (p NSProgressIndicator) SetObservedProgress(value foundation.NSProgress) {
+func (p NSProgressIndicator) SetObservedProgress(value foundation.Progress) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObservedProgress:"), value)
 }
 

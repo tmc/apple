@@ -242,12 +242,15 @@ func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataBuffer(valu
 }
 
 // Sets the size, in bytes, of the data for each primitive in the primitive
-// data buffer [PrimitiveDataBuffer] references.
+// data buffer
+// [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataBuffer]
+// references.
 //
 // # Discussion
 //
-// This size needs to be at most [PrimitiveDataStride] in size and a multiple
-// of 4 bytes.
+// This size needs to be at most
+// [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataStride] in size
+// and a multiple of 4 bytes.
 //
 // This property defaults to 0 bytes.
 //
@@ -261,15 +264,18 @@ func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataElementSize
 }
 
 // Defines the stride, in bytes, between each primitive’s data in the
-// primitive data buffer [PrimitiveDataBuffer] references.
+// primitive data buffer
+// [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataBuffer]
+// references.
 //
 // # Discussion
 //
 // You are responsible for ensuring the stride is at least
-// [PrimitiveDataElementSize] in size and a multiple of 4 bytes.
+// [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize] in
+// size and a multiple of 4 bytes.
 //
 // This property defaults to `0` bytes, which indicates the stride is equal to
-// [PrimitiveDataElementSize].
+// [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataStride
 func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataStride() uint {

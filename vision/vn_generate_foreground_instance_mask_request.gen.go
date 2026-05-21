@@ -65,9 +65,6 @@ func VNGenerateForegroundInstanceMaskRequestFromID(id objc.ID) VNGenerateForegro
 // See: https://developer.apple.com/documentation/Vision/VNGenerateForegroundInstanceMaskRequest
 type IVNGenerateForegroundInstanceMaskRequest interface {
 	IVNImageBasedRequest
-
-	// A constant for specifying the first revision of the foreground instance mask request.
-	VNGenerateForegroundInstanceMaskRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -97,20 +94,11 @@ func NewVNGenerateForegroundInstanceMaskRequest() VNGenerateForegroundInstanceMa
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGenerateForegroundInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateForegroundInstanceMaskRequest {
 	instance := getVNGenerateForegroundInstanceMaskRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGenerateForegroundInstanceMaskRequestFromID(rv)
-}
-
-// A constant for specifying the first revision of the foreground instance
-// mask request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateforegroundinstancemaskrequestrevision1
-func (g VNGenerateForegroundInstanceMaskRequest) VNGenerateForegroundInstanceMaskRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateForegroundInstanceMaskRequestRevision1"))
-	return rv
 }

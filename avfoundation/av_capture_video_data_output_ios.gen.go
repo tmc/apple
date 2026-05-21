@@ -16,15 +16,15 @@ import (
 //
 // In most configurations, [AVCaptureVideoDataOutput] delivers full-resolution
 // buffers that match the video dimensions of the capture device’s
-// [ActiveFormat] property. When this property is true, the output is free to
-// scale the buffers delivered to
+// [AVCaptureDevice.ActiveFormat] property. When this property is true, the
+// output is free to scale the buffers delivered to
 // [CaptureOutputDidOutputSampleBufferFromConnection] to a size suitable for
 // preview (approximately the size of the screen).
 //
 // You can query this property to find out whether the automatic configuration
 // of output buffer dimensions is downscaling buffers to a preview size. You
-// can also query the output’s [VideoSettings] dictionary to find the
-// buffer’s exact dimensions.
+// can also query the output’s [AVCaptureVideoDataOutput.VideoSettings]
+// dictionary to find the buffer’s exact dimensions.
 //
 // The default value of this property is true.
 //
@@ -44,9 +44,11 @@ func (c AVCaptureVideoDataOutput) SetAutomaticallyConfiguresOutputBufferDimensio
 //
 // [AVCaptureVideoDataOutput] produces preview-sized buffers, which are
 // approximately the size of the screen, when its
-// [AutomaticallyConfiguresOutputBufferDimensions] property is true. If you
-// wish to manually set this property, you must first set
-// [AutomaticallyConfiguresOutputBufferDimensions] to false.
+// [AVCaptureVideoDataOutput.AutomaticallyConfiguresOutputBufferDimensions]
+// property is true. If you wish to manually set this property, you must first
+// set
+// [AVCaptureVideoDataOutput.AutomaticallyConfiguresOutputBufferDimensions] to
+// false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/deliversPreviewSizedOutputBuffers
 func (c AVCaptureVideoDataOutput) DeliversPreviewSizedOutputBuffers() bool {
@@ -67,7 +69,7 @@ func (c AVCaptureVideoDataOutput) SetDeliversPreviewSizedOutputBuffers(value boo
 // set this property `true` to allow the cellular radio to prepare for an
 // imminent network request. Enabling this property requires a lengthy
 // reconfiguration of the capture render pipeline, so you should set this
-// property to `true` before calling [StartRunning].
+// property to `true` before calling [AVCaptureSession.StartRunning].
 //
 // Using this API requires your app to adopt the entitlement
 // `com.AppleXCUIElementTypeDeveloperXCUIElementTypeAvfoundationXCUIElementTypeVideo()-data-output-prepares-cellular-radio-for-machine-readable-code-scanning`.

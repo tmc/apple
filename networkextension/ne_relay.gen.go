@@ -282,7 +282,8 @@ func (r NERelay) SetIdentityDataPassword(value string) {
 //
 // The value of this property is an address prefix, such as `192.0.2.0/24`.
 // The relay manager uses this prefix to synthesize DNS answers for apps that
-// use `getaddrinfo()` to resolve domains included in [MatchDomains].
+// use `getaddrinfo()` to resolve domains included in
+// [NERelayManager.MatchDomains].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/syntheticDNSAnswerIPv4Prefix
 func (r NERelay) SyntheticDNSAnswerIPv4Prefix() string {
@@ -299,7 +300,8 @@ func (r NERelay) SetSyntheticDNSAnswerIPv4Prefix(value string) {
 //
 // The value of this property is an address prefix, such as `2001:DB8::/32`.
 // The relay manager uses this prefix to synthesize DNS answers for apps that
-// use `getaddrinfo()` to resolve domains included in [MatchDomains].
+// use `getaddrinfo()` to resolve domains included in
+// [NERelayManager.MatchDomains].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/syntheticDNSAnswerIPv6Prefix
 func (r NERelay) SyntheticDNSAnswerIPv6Prefix() string {

@@ -210,7 +210,7 @@ func NewNSMapTable() NSMapTable {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(coder:)
 func NewMapTableWithCoder(coder INSCoder) NSMapTable {
 	instance := getNSMapTableClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -406,7 +406,8 @@ func (m NSMapTable) RemoveAllObjects() {
 // # Discussion
 //
 // The map table’s values and keys must conform to all the requirements
-// specified in [SetObjectForKey] in [NSMutableDictionary].
+// specified in [NSMutableDictionary.SetObjectForKey] in
+// [NSMutableDictionary].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/dictionaryRepresentation()
 func (m NSMapTable) DictionaryRepresentation() INSDictionary {
@@ -450,7 +451,7 @@ func (m NSMapTable) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(coder:)
 func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
 	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

@@ -203,7 +203,8 @@ func (o MTLArgumentEncoderObject) SetArgumentBufferStartOffsetArrayElement(argum
 //
 // index: The index of a buffer within the argument buffer. The value corresponds to
 // either the index ID of a declaration in Metal Shading Language (MSL) or the
-// [Index] property of an [MTLArgumentDescriptor] instance.
+// [MTLArgumentDescriptor.Index] property of an [MTLArgumentDescriptor]
+// instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setBuffer(_:offset:index:)
 func (o MTLArgumentEncoderObject) SetBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
@@ -216,7 +217,8 @@ func (o MTLArgumentEncoderObject) SetBufferOffsetAtIndex(buffer MTLBuffer, offse
 //
 // index: The index of a texture within the argument buffer. The value corresponds to
 // either the index ID of a declaration in Metal Shading Language (MSL) or the
-// [Index] property of an [MTLArgumentDescriptor] instance.
+// [MTLArgumentDescriptor.Index] property of an [MTLArgumentDescriptor]
+// instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setTexture(_:index:)
 func (o MTLArgumentEncoderObject) SetTextureAtIndex(texture MTLTexture, index uint) {
@@ -229,7 +231,8 @@ func (o MTLArgumentEncoderObject) SetTextureAtIndex(texture MTLTexture, index ui
 //
 // index: The index of a sampler within the argument buffer. The value corresponds to
 // either the index ID of a declaration in Metal Shading Language (MSL) or the
-// [Index] property of an [MTLArgumentDescriptor] instance.
+// [MTLArgumentDescriptor.Index] property of an [MTLArgumentDescriptor]
+// instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setSamplerState(_:index:)
 func (o MTLArgumentEncoderObject) SetSamplerStateAtIndex(sampler MTLSamplerState, index uint) {
@@ -242,8 +245,8 @@ func (o MTLArgumentEncoderObject) SetSamplerStateAtIndex(sampler MTLSamplerState
 //
 // index: The index of a pipeline state within the argument buffer. The value
 // corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setRenderPipelineState(_:index:)
 func (o MTLArgumentEncoderObject) SetRenderPipelineStateAtIndex(pipeline MTLRenderPipelineState, index uint) {
@@ -256,8 +259,8 @@ func (o MTLArgumentEncoderObject) SetRenderPipelineStateAtIndex(pipeline MTLRend
 //
 // index: The index of a pipeline state within the argument buffer. The value
 // corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setComputePipelineState(_:index:)
 func (o MTLArgumentEncoderObject) SetComputePipelineStateAtIndex(pipeline MTLComputePipelineState, index uint) {
@@ -269,7 +272,7 @@ func (o MTLArgumentEncoderObject) SetComputePipelineStateAtIndex(pipeline MTLCom
 //
 // index: The index of an inline, constant-data argument within the argument buffer.
 // The value corresponds to either the index ID of a declaration in Metal
-// Shading Language (MSL) or the [Index] property of an
+// Shading Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
 // [MTLArgumentDescriptor] instance.
 //
 // # Return Value
@@ -299,7 +302,7 @@ func (o MTLArgumentEncoderObject) ConstantDataAtIndex(index uint) unsafe.Pointer
 //
 // index: The index of an inline, constant-data argument within the argument buffer.
 // The value corresponds to either the index ID of a declaration in Metal
-// Shading Language (MSL) or the [Index] property of an
+// Shading Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
 // [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIndirectCommandBuffer(_:index:)
@@ -313,8 +316,8 @@ func (o MTLArgumentEncoderObject) SetIndirectCommandBufferAtIndex(indirectComman
 //
 // index: The index of an acceleration structure within the argument buffer. The
 // value corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setAccelerationStructure(_:index:)
 func (o MTLArgumentEncoderObject) SetAccelerationStructureAtIndex(accelerationStructure MTLAccelerationStructure, index uint) {
@@ -327,8 +330,8 @@ func (o MTLArgumentEncoderObject) SetAccelerationStructureAtIndex(accelerationSt
 //
 // index: The index of a visible-function table within the argument buffer. The value
 // corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setVisibleFunctionTable(_:index:)
 func (o MTLArgumentEncoderObject) SetVisibleFunctionTableAtIndex(visibleFunctionTable MTLVisibleFunctionTable, index uint) {
@@ -342,8 +345,8 @@ func (o MTLArgumentEncoderObject) SetVisibleFunctionTableAtIndex(visibleFunction
 //
 // index: An index of an intersection-function table within the argument buffer. The
 // value corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIntersectionFunctionTable(_:index:)
 func (o MTLArgumentEncoderObject) SetIntersectionFunctionTableAtIndex(intersectionFunctionTable MTLIntersectionFunctionTable, index uint) {
@@ -354,8 +357,8 @@ func (o MTLArgumentEncoderObject) SetIntersectionFunctionTableAtIndex(intersecti
 //
 // index: The index of a nested argument-buffer within the argument buffer. The value
 // corresponds to either the index ID of a declaration in Metal Shading
-// Language (MSL) or the [Index] property of an [MTLArgumentDescriptor]
-// instance.
+// Language (MSL) or the [MTLArgumentDescriptor.Index] property of an
+// [MTLArgumentDescriptor] instance.
 //
 // # Return Value
 //
@@ -390,8 +393,8 @@ func (o MTLArgumentEncoderObject) SetDepthStencilStateAtIndex(depthStencilState 
 //
 // range: A range of indices within the argument buffer for each element in
 // `buffers`. The values correspond to either the index IDs of declarations in
-// Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index] property
+// of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setBuffers:offsets:withRange:
 func (o MTLArgumentEncoderObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
@@ -405,8 +408,8 @@ func (o MTLArgumentEncoderObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer
 //
 // range: A range of indices within the argument buffer for each element in
 // `pipelines`. The values correspond to either the index IDs of declarations
-// in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// in Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index]
+// property of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setComputePipelineStates:withRange:
 func (o MTLArgumentEncoderObject) SetComputePipelineStatesWithRange(pipelines []MTLComputePipelineState, range_ foundation.NSRange) {
@@ -428,8 +431,8 @@ func (o MTLArgumentEncoderObject) SetDepthStencilStatesWithRange(depthStencilSta
 //
 // range: A range of indices within the argument buffer for each element in
 // `buffers`. The values correspond to either the index IDs of declarations in
-// Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index] property
+// of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIndirectCommandBuffers:withRange:
 func (o MTLArgumentEncoderObject) SetIndirectCommandBuffersWithRange(buffers []MTLIndirectCommandBuffer, range_ foundation.NSRange) {
@@ -443,8 +446,9 @@ func (o MTLArgumentEncoderObject) SetIndirectCommandBuffersWithRange(buffers []M
 //
 // range: A range of indices within the argument buffer for each element in
 // `intersectionFunctionTables`. The values correspond to either the index IDs
-// of declarations in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// of declarations in Metal Shading Language (MSL) or the
+// [MTLArgumentDescriptor.Index] property of [MTLArgumentDescriptor]
+// instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIntersectionFunctionTables:withRange:
 func (o MTLArgumentEncoderObject) SetIntersectionFunctionTablesWithRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange) {
@@ -458,8 +462,8 @@ func (o MTLArgumentEncoderObject) SetIntersectionFunctionTablesWithRange(interse
 //
 // range: A range of indices within the argument buffer for each element in
 // `pipelines`. The values correspond to either the index IDs of declarations
-// in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// in Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index]
+// property of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setRenderPipelineStates:withRange:
 func (o MTLArgumentEncoderObject) SetRenderPipelineStatesWithRange(pipelines []MTLRenderPipelineState, range_ foundation.NSRange) {
@@ -472,8 +476,8 @@ func (o MTLArgumentEncoderObject) SetRenderPipelineStatesWithRange(pipelines []M
 //
 // range: A range of indices within the argument buffer for each element in
 // `samplers`. The values correspond to either the index IDs of declarations
-// in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// in Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index]
+// property of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setSamplerStates:withRange:
 func (o MTLArgumentEncoderObject) SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
@@ -486,8 +490,8 @@ func (o MTLArgumentEncoderObject) SetSamplerStatesWithRange(samplers []MTLSample
 //
 // range: A range of indices within the argument buffer for each element in
 // `textures`. The values correspond to either the index IDs of declarations
-// in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// in Metal Shading Language (MSL) or the [MTLArgumentDescriptor.Index]
+// property of [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setTextures:withRange:
 func (o MTLArgumentEncoderObject) SetTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
@@ -501,8 +505,9 @@ func (o MTLArgumentEncoderObject) SetTexturesWithRange(textures []MTLTexture, ra
 //
 // range: A range of indices within the argument buffer for each element in
 // `visibleFunctionTables`. The values correspond to either the index IDs of
-// declarations in Metal Shading Language (MSL) or the [Index] property of
-// [MTLArgumentDescriptor] instances.
+// declarations in Metal Shading Language (MSL) or the
+// [MTLArgumentDescriptor.Index] property of [MTLArgumentDescriptor]
+// instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setVisibleFunctionTables:withRange:
 func (o MTLArgumentEncoderObject) SetVisibleFunctionTablesWithRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {

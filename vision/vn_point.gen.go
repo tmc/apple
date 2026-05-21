@@ -118,6 +118,7 @@ type IVNPoint interface {
 	// Returns the distance to another point.
 	DistanceToPoint(point IVNPoint) float64
 
+	InitWithCoder(coder foundation.INSCoder) VNPoint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -138,6 +139,13 @@ func NewVNPoint() VNPoint {
 	class := getVNPointClass()
 	rv := objc.Send[VNPoint](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNPoint/init(coder:)
+func NewPointWithCoder(coder foundation.INSCoder) VNPoint {
+	instance := getVNPointClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNPointFromID(rv)
 }
 
 // Creates a point object from the specified Core Graphics point.
@@ -197,6 +205,12 @@ func (p VNPoint) InitWithLocation(location corefoundation.CGPoint) VNPoint {
 // See: https://developer.apple.com/documentation/Vision/VNPoint/distance(_:)
 func (p VNPoint) DistanceToPoint(point IVNPoint) float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("distanceToPoint:"), point)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNPoint/init(coder:)
+func (p VNPoint) InitWithCoder(coder foundation.INSCoder) VNPoint {
+	rv := objc.Send[VNPoint](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (p VNPoint) EncodeWithCoder(coder foundation.INSCoder) {

@@ -32,7 +32,7 @@ func (c AVCaptureResolvedPhotoSettings) DimensionsForSemanticSegmentationMatteOf
 // # Discussion
 //
 // This property corresponds to the [AVCapturePhotoSettings] property
-// [FlashMode].
+// [AVCapturePhotoSettings.FlashMode].
 //
 // If you specify a flash mode of [AVCaptureFlashModeAuto] when requesting a
 // capture, the device automatically chooses whether to use the flash based on
@@ -81,7 +81,7 @@ func (c AVCaptureResolvedPhotoSettings) IsContentAwareDistortionCorrectionEnable
 // # Discussion
 //
 // This property corresponds to the [AVCapturePhotoSettings] property
-// [AutoStillImageStabilizationEnabled].
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled].
 //
 // When this value is true, the device automatically applies stabilization in
 // low-light conditions to counteract hand shake. Automatic stabilization
@@ -109,7 +109,7 @@ func (c AVCaptureResolvedPhotoSettings) IsStillImageStabilizationEnabled() bool 
 // # Discussion
 //
 // This property corresponds to the [AVCapturePhotoSettings] property
-// [AutoDualCameraFusionEnabled].
+// [AVCapturePhotoSettings.AutoDualCameraFusionEnabled].
 //
 // When this value is true, a dual-camera device automatically combines
 // samples from both cameras to produce a higher quality image. This property
@@ -139,9 +139,9 @@ func (c AVCaptureResolvedPhotoSettings) IsDualCameraFusionEnabled() bool {
 // # Discussion
 //
 // When the system returns an [AVCaptureDeferredPhotoProxy], the
-// [PhotoDimensions] property of this object represents the dimensions of the
-// final photo. If you don’t opt in to deferred photo delivery, this value
-// has a width and height of 0.
+// [AVCaptureResolvedPhotoSettings.PhotoDimensions] property of this object
+// represents the dimensions of the final photo. If you don’t opt in to
+// deferred photo delivery, this value has a width and height of 0.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/deferredPhotoProxyDimensions
 //
@@ -179,12 +179,12 @@ func (c AVCaptureResolvedPhotoSettings) RawPhotoDimensions() coremedia.CMVideoDi
 //
 // # Discussion
 //
-// Use the [PreviewPhotoFormat] property in your photo settings object to
-// request delivery of a preview image alongside the main photo output from
-// the capture. When you request a preview, the photo output chooses
-// dimensions that best match your requested size while preserving the aspect
-// ratio of the captured photo. Aspect ratio is determined by capture format
-// and by device orientation at the moment of capture.
+// Use the [AVCapturePhotoSettings.PreviewPhotoFormat] property in your photo
+// settings object to request delivery of a preview image alongside the main
+// photo output from the capture. When you request a preview, the photo output
+// chooses dimensions that best match your requested size while preserving the
+// aspect ratio of the captured photo. Aspect ratio is determined by capture
+// format and by device orientation at the moment of capture.
 //
 // This property provides the dimensions of the requested preview image, which
 // is delivered in the [CaptureOutputDidFinishProcessingPhotoError] method.
@@ -204,12 +204,13 @@ func (c AVCaptureResolvedPhotoSettings) PreviewDimensions() coremedia.CMVideoDim
 //
 // # Discussion
 //
-// Use the [EmbeddedThumbnailPhotoFormat] property in your photo settings
-// object to request delivery of a thumbnail image alongside the main photo
-// output from the capture. When you request a thumbnail, the photo output
-// chooses dimensions that best match your requested size while preserving the
-// aspect ratio of the captured photo. Aspect ratio is determined by capture
-// format and by device orientation at the moment of capture.
+// Use the [AVCapturePhotoSettings.EmbeddedThumbnailPhotoFormat] property in
+// your photo settings object to request delivery of a thumbnail image
+// alongside the main photo output from the capture. When you request a
+// thumbnail, the photo output chooses dimensions that best match your
+// requested size while preserving the aspect ratio of the captured photo.
+// Aspect ratio is determined by capture format and by device orientation at
+// the moment of capture.
 //
 // This property provides the dimensions of the requested thumbnail image,
 // which is delivered in the [CaptureOutputDidFinishProcessingPhotoError]
@@ -239,9 +240,9 @@ func (c AVCaptureResolvedPhotoSettings) RawEmbeddedThumbnailDimensions() coremed
 //
 // # Discussion
 //
-// Use the [LivePhotoMovieFileURL] property in your photo settings object to
-// request Live Photo capture. Live Photo movie dimensions can change
-// depending on which device camera is used for capture.
+// Use the [AVCapturePhotoSettings.LivePhotoMovieFileURL] property in your
+// photo settings object to request Live Photo capture. Live Photo movie
+// dimensions can change depending on which device camera is used for capture.
 //
 // This property provides dimensions for the movie content of the Live Photo,
 // which is delivered in the
@@ -250,7 +251,7 @@ func (c AVCaptureResolvedPhotoSettings) RawEmbeddedThumbnailDimensions() coremed
 // dimensions of the movie before delivery.
 //
 // For the dimensions of the static photo content of a Live Photo, see the
-// [PhotoDimensions] property.
+// [AVCaptureResolvedPhotoSettings.PhotoDimensions] property.
 //
 // If you do not request Live Photo capture, this property’s value has zero
 // width and zero height.

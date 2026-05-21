@@ -53,7 +53,7 @@ func (ac AVExternalStorageDeviceClass) Alloc() AVExternalStorageDevice {
 // device where the system can media assets. You can access all of the
 // currently available external storage devices with the
 // [AVExternalStorageDeviceDiscoverySession] object’s
-// [AVExternalStorageDevice.ExternalStorageDevices] property.
+// [AVExternalStorageDeviceDiscoverySession.ExternalStorageDevices] property.
 //
 // # Generating URLs for image assets
 //
@@ -121,10 +121,6 @@ type IAVExternalStorageDevice interface {
 	TotalSize() int
 	// A Boolean value that indicates whether the external storage device is suitable for camera capture.
 	IsNotRecommendedForCaptureUse() bool
-
-	// An array of external storage devices the session updates as individual devices connect or disconnect from the system.
-	ExternalStorageDevices() IAVExternalStorageDevice
-	SetExternalStorageDevices(value IAVExternalStorageDevice)
 }
 
 // Init initializes the instance.
@@ -166,8 +162,10 @@ func NewAVExternalStorageDevice() AVExternalStorageDevice {
 // # Request access to the storage device before request
 //
 // Your app can request authorization before calling the method if
-// [AuthorizationStatus] is [AVAuthorizationStatusNotDetermined] by calling
-// the [RequestAccessWithCompletionHandler] method first.
+// [AVExternalStorageDeviceClass.AuthorizationStatus] is
+// [AVAuthorizationStatusNotDetermined] by calling the
+// [AVExternalStorageDeviceClass.RequestAccessWithCompletionHandler] method
+// first.
 //
 // # Start and stop access to a URL around your code
 //
@@ -288,24 +286,13 @@ func (e AVExternalStorageDevice) IsNotRecommendedForCaptureUse() bool {
 	return rv
 }
 
-// An array of external storage devices the session updates as individual
-// devices connect or disconnect from the system.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avexternalstoragedevicediscoverysession/externalstoragedevices
-func (e AVExternalStorageDevice) ExternalStorageDevices() IAVExternalStorageDevice {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("externalStorageDevices"))
-	return AVExternalStorageDeviceFromID(objc.ID(rv))
-}
-func (e AVExternalStorageDevice) SetExternalStorageDevices(value IAVExternalStorageDevice) {
-	objc.Send[struct{}](e.ID, objc.Sel("setExternalStorageDevices:"), value)
-}
-
 // Your app’s authorization status for the external storage device.
 //
 // # Discussion
 //
 // If the value is [AVAuthorizationStatusNotDetermined], you can request
-// access by calling the [RequestAccessWithCompletionHandler] method.
+// access by calling the
+// [AVExternalStorageDeviceClass.RequestAccessWithCompletionHandler] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/authorizationStatus
 func (_AVExternalStorageDeviceClass AVExternalStorageDeviceClass) AuthorizationStatus() AVAuthorizationStatus {

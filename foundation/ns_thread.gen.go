@@ -60,14 +60,15 @@ func (tc ThreadClass) Alloc() Thread {
 // for monitoring the runtime condition of a thread. You can use these
 // semantics to cancel the execution of a thread or determine if the thread is
 // still executing or has finished its task. Canceling a thread requires
-// support from your thread code; see the description for [Cancel] for more
-// information.
+// support from your thread code; see the description for [NSThread.Cancel]
+// for more information.
 //
 // # Subclassing Notes
 //
-// You can subclass [NSThread] and override the [Main] method to implement
-// your thread’s main entry point. If you override [Main], you do not need
-// to invoke the inherited behavior by calling `super`.
+// You can subclass [NSThread] and override the [NSThread.Main] method to
+// implement your thread’s main entry point. If you override
+// [NSThread.Main], you do not need to invoke the inherited behavior by
+// calling `super`.
 //
 // # Initializing an NSThread Object
 //
@@ -95,7 +96,6 @@ func (tc ThreadClass) Alloc() Thread {
 // # Working with Thread Properties
 //
 //   - [Thread.ThreadDictionary]: The thread object’s dictionary.
-//   - [Thread.NSAssertionHandlerKey]: A key with a corresponding value in the thread dictionary.
 //   - [Thread.Name]: The name of the receiver.
 //   - [Thread.SetName]
 //   - [Thread.StackSize]: The stack size of the receiver, in bytes.
@@ -107,12 +107,6 @@ func (tc ThreadClass) Alloc() Thread {
 //   - [Thread.SetQualityOfService]
 //   - [Thread.ThreadPriority]: The receiver’s priority
 //   - [Thread.SetThreadPriority]
-//
-// # Notifications
-//
-//   - [Thread.NSDidBecomeSingleThreaded]: Not implemented.
-//   - [Thread.NSThreadWillExit]: An
-//   - [Thread.NSWillBecomeMultiThreaded]: Posted when the first thread is detached from the current thread. The
 //
 // # Initializers
 //
@@ -164,7 +158,6 @@ func NSThreadFromID(id objc.ID) Thread { return ThreadFromID(id) }
 // # Working with Thread Properties
 //
 //   - [IThread.ThreadDictionary]: The thread object’s dictionary.
-//   - [IThread.NSAssertionHandlerKey]: A key with a corresponding value in the thread dictionary.
 //   - [IThread.Name]: The name of the receiver.
 //   - [IThread.SetName]
 //   - [IThread.StackSize]: The stack size of the receiver, in bytes.
@@ -177,12 +170,6 @@ func NSThreadFromID(id objc.ID) Thread { return ThreadFromID(id) }
 //   - [IThread.ThreadPriority]: The receiver’s priority
 //   - [IThread.SetThreadPriority]
 //
-// # Notifications
-//
-//   - [IThread.NSDidBecomeSingleThreaded]: Not implemented.
-//   - [IThread.NSThreadWillExit]: An
-//   - [IThread.NSWillBecomeMultiThreaded]: Posted when the first thread is detached from the current thread. The
-//
 // # Initializers
 //
 //   - [IThread.InitWithBlock]
@@ -194,7 +181,7 @@ type IThread interface {
 	// Topic: Initializing an NSThread Object
 
 	// Returns an [NSThread] object initialized with the given arguments.
-	InitWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread
+	InitWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread
 
 	// Topic: Starting a Thread
 
@@ -226,8 +213,6 @@ type IThread interface {
 
 	// The thread object’s dictionary.
 	ThreadDictionary() INSDictionary
-	// A key with a corresponding value in the thread dictionary.
-	NSAssertionHandlerKey() string
 	// The name of the receiver.
 	Name() string
 	SetName(value string)
@@ -242,15 +227,6 @@ type IThread interface {
 	// The receiver’s priority
 	ThreadPriority() float64
 	SetThreadPriority(value float64)
-
-	// Topic: Notifications
-
-	// Not implemented.
-	NSDidBecomeSingleThreaded() NSNotificationName
-	// An
-	NSThreadWillExit() NSNotificationName
-	// Posted when the first thread is detached from the current thread. The
-	NSWillBecomeMultiThreaded() NSNotificationName
 
 	// Topic: Initializers
 
@@ -295,7 +271,7 @@ func NewThread() Thread {
 // the detached thread. They are released when the thread finally exits.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(target:selector:object:)
-func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread {
+func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread {
 	instance := getThreadClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:selector:object:"), target, selector, argument)
 	return ThreadFromID(rv)
@@ -320,7 +296,7 @@ func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objc.
 // the detached thread. They are released when the thread finally exits.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(target:selector:object:)
-func (t Thread) InitWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread {
+func (t Thread) InitWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread {
 	rv := objc.Send[Thread](t.ID, objc.Sel("initWithTarget:selector:object:"), target, selector, argument)
 	return rv
 }
@@ -330,18 +306,20 @@ func (t Thread) InitWithTargetSelectorObject(target objectivec.IObject, selector
 // # Discussion
 //
 // This method asynchronously spawns the new thread and invokes the
-// receiver’s [Main] method on the new thread. The [Executing] property
-// returns true once the thread starts executing, which may occur after the
-// [Start] method returns.
+// receiver’s [NSThread.Main] method on the new thread. The
+// [NSThread.Executing] property returns true once the thread starts
+// executing, which may occur after the [NSThread.Start] method returns.
 //
 // If you initialized the receiver with a target and selector, the default
-// [Main] method invokes that selector automatically.
+// [NSThread.Main] method invokes that selector automatically.
 //
 // If this thread is the first thread detached in the application, this method
 // posts the [NSWillBecomeMultiThreaded] with object `nil` to the default
 // notification center.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/start()
+//
+// [NSWillBecomeMultiThreaded]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSWillBecomeMultiThreaded
 func (t Thread) Start() {
 	objc.Send[objc.ID](t.ID, objc.Sel("start"))
 }
@@ -357,7 +335,7 @@ func (t Thread) Start() {
 // need to invoke `super`.
 //
 // You should never invoke this method directly. You should always start your
-// thread by invoking the [Start] method.
+// thread by invoking the [NSThread.Start] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/main()
 func (t Thread) Main() {
@@ -371,9 +349,9 @@ func (t Thread) Main() {
 //
 // The semantics of this method are the same as those used for [NSOperation].
 // This method sets state information in the receiver that is then reflected
-// by the [Cancelled] property. Threads that support cancellation should
-// periodically call the [Cancelled] method to determine if the thread has in
-// fact been cancelled, and exit if it has been.
+// by the [NSThread.Cancelled] property. Threads that support cancellation
+// should periodically call the [NSThread.Cancelled] method to determine if
+// the thread has in fact been cancelled, and exit if it has been.
 //
 // For more information about cancellation and operation objects, see
 // [NSOperation].
@@ -404,15 +382,17 @@ func (t Thread) InitWithBlock(block VoidHandler) Thread {
 //
 // The objects `aTarget` and `anArgument` are retained during the execution of
 // the detached thread, then released. The detached thread is exited (using
-// the [Exit] class method) as soon as `aTarget` has completed executing the
-// `aSelector` method.
+// the [NSThreadClass.Exit] class method) as soon as `aTarget` has completed
+// executing the `aSelector` method.
 //
 // If this thread is the first thread detached in the application, this method
 // posts the [NSWillBecomeMultiThreaded] with object `nil` to the default
 // notification center.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/detachNewThreadSelector(_:toTarget:with:)
-func (_ThreadClass ThreadClass) DetachNewThreadSelectorToTargetWithObject(selector objc.SEL, target objectivec.IObject, argument objectivec.IObject) {
+//
+// [NSWillBecomeMultiThreaded]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSWillBecomeMultiThreaded
+func (_ThreadClass ThreadClass) DetachNewThreadSelectorToTargetWithObject(selector objectivec.SEL, target objectivec.IObject, argument objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("detachNewThreadSelector:toTarget:withObject:"), selector, target, argument)
 }
 
@@ -446,10 +426,10 @@ func (_ThreadClass ThreadClass) SleepForTimeInterval(ti float64) {
 //
 // # Discussion
 //
-// This method uses the [CurrentThread] class method to access the current
-// thread. Before exiting the thread, this method posts the [NSThreadWillExit]
-// with the thread being exited to the default notification center. Because
-// notifications are delivered synchronously, all observers of
+// This method uses the [NSThreadClass.CurrentThread] class method to access
+// the current thread. Before exiting the thread, this method posts the
+// [NSThreadWillExit] with the thread being exited to the default notification
+// center. Because notifications are delivered synchronously, all observers of
 // [NSThreadWillExit] are guaranteed to receive the notification before the
 // thread exits.
 //
@@ -457,6 +437,8 @@ func (_ThreadClass ThreadClass) SleepForTimeInterval(ti float64) {
 // chance to clean up any resources it allocated during its execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/exit()
+//
+// [NSThreadWillExit]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSThreadWillExit
 func (_ThreadClass ThreadClass) Exit() {
 	objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("exit"))
 }
@@ -471,12 +453,12 @@ func (_ThreadClass ThreadClass) Exit() {
 //
 // An application is considered multithreaded if a thread was ever detached
 // from the main thread using either
-// [DetachNewThreadSelectorToTargetWithObject] or [Start]. If you detached a
-// thread in your application using a non-Cocoa API, such as the POSIX or
-// Multiprocessing Services APIs, this method could still return false. The
-// detached thread does not have to be currently running for the application
-// to be considered multithreaded—this method only indicates whether a
-// single thread has been spawned.
+// [NSThreadClass.DetachNewThreadSelectorToTargetWithObject] or
+// [NSThread.Start]. If you detached a thread in your application using a
+// non-Cocoa API, such as the POSIX or Multiprocessing Services APIs, this
+// method could still return false. The detached thread does not have to be
+// currently running for the application to be considered multithreaded—this
+// method only indicates whether a single thread has been spawned.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/isMultiThreaded()
 func (_ThreadClass ThreadClass) IsMultiThreaded() bool {
@@ -598,14 +580,6 @@ func (t Thread) ThreadDictionary() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-// A key with a corresponding value in the thread dictionary.
-//
-// See: https://developer.apple.com/documentation/foundation/nsassertionhandlerkey
-func (t Thread) NSAssertionHandlerKey() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSAssertionHandlerKey"))
-	return NSStringFromID(rv).String()
-}
-
 // The name of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/name
@@ -625,8 +599,8 @@ func (t Thread) SetName(value string) {
 //
 // To change the stack size, you must set this property before starting your
 // thread. Setting the stack size after the thread has started changes the
-// attribute size (which is reflected by the [StackSize] method), but it does
-// not affect the actual number of pages set aside for the thread.
+// attribute size (which is reflected by the [NSThread.StackSize] method), but
+// it does not affect the actual number of pages set aside for the thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/stackSize
 func (t Thread) StackSize() uint {
@@ -665,30 +639,6 @@ func (t Thread) ThreadPriority() float64 {
 }
 func (t Thread) SetThreadPriority(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setThreadPriority:"), value)
-}
-
-// Not implemented.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsdidbecomesinglethreaded
-func (t Thread) NSDidBecomeSingleThreaded() NSNotificationName {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSDidBecomeSingleThreadedNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// An
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsthreadwillexit
-func (t Thread) NSThreadWillExit() NSNotificationName {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSThreadWillExitNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the first thread is detached from the current thread. The
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nswillbecomemultithreaded
-func (t Thread) NSWillBecomeMultiThreaded() NSNotificationName {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSWillBecomeMultiThreadedNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // Returns the [NSThread] object representing the main thread.

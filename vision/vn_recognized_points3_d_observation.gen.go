@@ -111,6 +111,13 @@ func NewVNRecognizedPoints3DObservation() VNRecognizedPoints3DObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewRecognizedPoints3DObservationWithCoder(coder foundation.INSCoder) VNRecognizedPoints3DObservation {
+	instance := getVNRecognizedPoints3DObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNRecognizedPoints3DObservationFromID(rv)
+}
+
 // Returns a point for a key you specify.
 //
 // pointKey: The key of the point to retrieve.

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -107,6 +108,13 @@ func NewVNHumanObservation() VNHumanObservation {
 // See: https://developer.apple.com/documentation/Vision/VNDetectedObjectObservation/init(boundingBox:)
 func NewHumanObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNHumanObservation {
 	rv := objc.Send[objc.ID](objc.ID(getVNHumanObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
+	return VNHumanObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewHumanObservationWithCoder(coder foundation.INSCoder) VNHumanObservation {
+	instance := getVNHumanObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNHumanObservationFromID(rv)
 }
 

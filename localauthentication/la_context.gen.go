@@ -89,7 +89,6 @@ func (lc LAContextClass) Alloc() LAContext {
 //
 //   - [LAContext.TouchIDAuthenticationAllowableReuseDuration]: The duration for which Touch ID authentication reuse is allowable.
 //   - [LAContext.SetTouchIDAuthenticationAllowableReuseDuration]
-//   - [LAContext.LATouchIDAuthenticationMaximumAllowableReuseDuration]: The maximum allowable reuse duration.
 //
 // # Managing credentials
 //
@@ -150,7 +149,6 @@ func LAContextFromID(id objc.ID) LAContext {
 //
 //   - [ILAContext.TouchIDAuthenticationAllowableReuseDuration]: The duration for which Touch ID authentication reuse is allowable.
 //   - [ILAContext.SetTouchIDAuthenticationAllowableReuseDuration]
-//   - [ILAContext.LATouchIDAuthenticationMaximumAllowableReuseDuration]: The maximum allowable reuse duration.
 //
 // # Managing credentials
 //
@@ -206,10 +204,8 @@ type ILAContext interface {
 	// Topic: Reusing device unlock state
 
 	// The duration for which Touch ID authentication reuse is allowable.
-	TouchIDAuthenticationAllowableReuseDuration() float64
-	SetTouchIDAuthenticationAllowableReuseDuration(value float64)
-	// The maximum allowable reuse duration.
-	LATouchIDAuthenticationMaximumAllowableReuseDuration() float64
+	TouchIDAuthenticationAllowableReuseDuration() foundation.NSTimeInterval
+	SetTouchIDAuthenticationAllowableReuseDuration(value foundation.NSTimeInterval)
 
 	// Topic: Managing credentials
 
@@ -299,8 +295,8 @@ func (c LAContext) CanEvaluatePolicyError(policy LAPolicy) (bool, error) {
 //
 // reply: A closure that is executed when policy evaluation finishes. This is
 // evaluated on a private queue internal to the framework in an unspecified
-// threading context. You must not call [CanEvaluatePolicyError] in this
-// block, because doing so could lead to deadlock.
+// threading context. You must not call [LAContext.CanEvaluatePolicyError] in
+// this block, because doing so could lead to deadlock.
 //
 // success: true if policy evaluation succeeded, otherwise false. error: `nil`
 // if policy evaluation succeeded, an error object that should be presented to
@@ -446,9 +442,9 @@ func (c LAContext) Invalidate() {
 // example, if the value of this property is [LABiometryTypeFaceID], don’t
 // refer to Touch ID in an authentication prompt.
 //
-// This property is set only after you call the [CanEvaluatePolicyError]
-// method, and is set no matter what the call returns. The default value is
-// [LABiometryTypeNone].
+// This property is set only after you call the
+// [LAContext.CanEvaluatePolicyError] method, and is set no matter what the
+// call returns. The default value is [LABiometryTypeNone].
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAContext/biometryType
 func (c LAContext) BiometryType() LABiometryType {
@@ -460,10 +456,11 @@ func (c LAContext) BiometryType() LABiometryType {
 //
 // # Discussion
 //
-// The value of this property is non-`nil` when the [CanEvaluatePolicyError]
-// method succeeds for a biometric policy or the person successfully
-// authenticates using biometrics, following a call to
-// [EvaluatePolicyLocalizedReasonReply]. Otherwise, its value is `nil`.
+// The value of this property is non-`nil` when the
+// [LAContext.CanEvaluatePolicyError] method succeeds for a biometric policy
+// or the person successfully authenticates using biometrics, following a call
+// to [LAContext.EvaluatePolicyLocalizedReasonReply]. Otherwise, its value is
+// `nil`.
 //
 // Compare the values you get from successive calls to this property to
 // determine whether the authorized database changed. However, the value you
@@ -493,7 +490,7 @@ func (c LAContext) SetInteractionNotAllowed(value bool) {
 // # Discussion
 //
 // This property is overwritten if an authentication reason is provided in
-// [EvaluatePolicyLocalizedReasonReply].
+// [LAContext.EvaluatePolicyLocalizedReasonReply].
 //
 // The localized string you present to the user should provide a clear reason
 // for why you are requesting they authenticate themselves, and what action
@@ -523,10 +520,10 @@ func (c LAContext) SetLocalizedReason(value string) {
 // Tapping the button lets the user revert to authentication using the device
 // passcode or password instead.
 //
-// Use the [LocalizedFallbackTitle] property to set a title for the fallback
-// button. When the property is `nil`—as it is by default—the user sees an
-// appropriate default title, like “Use Passcode”. Otherwise, provide a
-// localized string that’s short and clear.
+// Use the [LAContext.LocalizedFallbackTitle] property to set a title for the
+// fallback button. When the property is `nil`—as it is by default—the
+// user sees an appropriate default title, like “Use Passcode”. Otherwise,
+// provide a localized string that’s short and clear.
 //
 // To eliminate the fallback option, set the fallback title to an empty
 // string. This hides the button from the interface.
@@ -552,9 +549,9 @@ func (c LAContext) SetLocalizedFallbackTitle(value string) {
 // prompted to try again. Either way, the user can stop trying to authenticate
 // by tapping the button.
 //
-// Use the [LocalizedCancelTitle] property to choose a title for the cancel
-// button. If you set the property to `nil`—as it is by default—or assign
-// an empty string, the system uses an appropriate default title, like
+// Use the [LAContext.LocalizedCancelTitle] property to choose a title for the
+// cancel button. If you set the property to `nil`—as it is by default—or
+// assign an empty string, the system uses an appropriate default title, like
 // “Cancel”. Otherwise, provide a localized string that’s short and
 // clear.
 //
@@ -586,20 +583,14 @@ func (c LAContext) SetLocalizedCancelTitle(value string) {
 // a value greater than this constant.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAContext/touchIDAuthenticationAllowableReuseDuration
-func (c LAContext) TouchIDAuthenticationAllowableReuseDuration() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("touchIDAuthenticationAllowableReuseDuration"))
-	return rv
-}
-func (c LAContext) SetTouchIDAuthenticationAllowableReuseDuration(value float64) {
-	objc.Send[struct{}](c.ID, objc.Sel("setTouchIDAuthenticationAllowableReuseDuration:"), value)
-}
-
-// The maximum allowable reuse duration.
 //
-// See: https://developer.apple.com/documentation/localauthentication/latouchidauthenticationmaximumallowablereuseduration
-func (c LAContext) LATouchIDAuthenticationMaximumAllowableReuseDuration() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("LATouchIDAuthenticationMaximumAllowableReuseDuration"))
-	return rv
+// [LATouchIDAuthenticationMaximumAllowableReuseDuration]: https://developer.apple.com/documentation/LocalAuthentication/LATouchIDAuthenticationMaximumAllowableReuseDuration
+func (c LAContext) TouchIDAuthenticationAllowableReuseDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](c.ID, objc.Sel("touchIDAuthenticationAllowableReuseDuration"))
+	return foundation.NSTimeInterval(rv)
+}
+func (c LAContext) SetTouchIDAuthenticationAllowableReuseDuration(value foundation.NSTimeInterval) {
+	objc.Send[struct{}](c.ID, objc.Sel("setTouchIDAuthenticationAllowableReuseDuration:"), value)
 }
 
 // Contains authentication domain state.

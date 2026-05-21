@@ -54,12 +54,13 @@ func (cc CKSyncEngineEventClass) Alloc() CKSyncEngineEvent {
 // See the documentation for each event class for more details about when and
 // why an event is posted.
 //
-// Use the [CKSyncEngineEvent.Type] property to determine the event’s proper type, and then
-// use the corresponding convenience property to retrieve a reference to the
-// event that’s downcast to the appropriate subclass. For example, when
-// CloudKit vends an event with [CKSyncEngineEvent.Type] set to
-// [CKSyncEngineEventType.stateUpdate], use the [CKSyncEngineEvent.StateUpdateEvent] property to
-// get the downcast reference.
+// Use the [CKSyncEngineEvent.Type] property to determine the event’s proper
+// type, and then use the corresponding convenience property to retrieve a
+// reference to the event that’s downcast to the appropriate subclass. For
+// example, when CloudKit vends an event with [CKSyncEngineEvent.Type] set to
+// [CKSyncEngineEventType.stateUpdate], use the
+// [CKSyncEngineEvent.StateUpdateEvent] property to get the downcast
+// reference.
 //
 // # Determining the type
 //

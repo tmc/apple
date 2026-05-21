@@ -408,10 +408,10 @@ func (u URLAuthenticationChallenge) PreviousFailureCount() int {
 // returns the most recent failed credential.
 //
 // If the proposed credential is not `nil` and returns true when you call its
-// [HasPassword] method, then the credential is ready to use as-is. If the
-// proposed credential’s [HasPassword] method returns false, then the
-// credential provides a default user name, and the client must prompt the
-// user for a corresponding password.
+// [NSURLCredential.HasPassword] method, then the credential is ready to use
+// as-is. If the proposed credential’s [NSURLCredential.HasPassword] method
+// returns false, then the credential provides a default user name, and the
+// client must prompt the user for a corresponding password.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallenge/proposedCredential
 func (u URLAuthenticationChallenge) ProposedCredential() INSURLCredential {

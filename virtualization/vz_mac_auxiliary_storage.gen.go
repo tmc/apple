@@ -53,21 +53,22 @@ func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
 // guest operating system. It’s necessary to boot a macOS guest OS.
 //
 // When creating a new VM, use
-// [VZMacAuxiliaryStorage.InitCreatingStorageAtURLHardwareModelOptionsError] to create a default
-// initialized auxiliary storage.
+// [VZMacAuxiliaryStorage.InitCreatingStorageAtURLHardwareModelOptionsError]
+// to create a default initialized auxiliary storage.
 //
 // The hardware model you use when creating the new auxiliary storage depends
 // on the restore image that you’ll use for installation. From the restore
-// image, use [VZMacAuxiliaryStorage.MostFeaturefulSupportedConfiguration] to get a supported
-// configuration. A configuration has a [VZMacHardwareModel] associated with
-// it.
+// image, use [VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration] to
+// get a supported configuration. A configuration has a [VZMacHardwareModel]
+// associated with it.
 //
 // After initializing the new auxiliary storage, set it on
-// [VZMacPlatformConfiguration].[VZMacAuxiliaryStorage.AuxiliaryStorage].
+// [VZMacPlatformConfiguration].[VZMacPlatformConfiguration.AuxiliaryStorage].
 //
-// The hardware model in [VZMacPlatformConfiguration].[VZMacAuxiliaryStorage.HardwareModel] must be
-// identical to the one used to create the empty auxiliary storage., otherwise
-// the behavior isn’t defined.
+// The hardware model in
+// [VZMacPlatformConfiguration].[VZMacPlatformConfiguration.HardwareModel]
+// must be identical to the one used to create the empty auxiliary storage.,
+// otherwise the behavior isn’t defined.
 //
 // When installing macOS, the [VZMacOSInstaller] lays out data on the
 // auxiliary storage. After installation, the macOS guest uses the auxiliary
@@ -81,8 +82,8 @@ func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
 // installation.
 //
 // When using an existing file, the hardware model of the
-// [VZMacPlatformConfiguration].[VZMacAuxiliaryStorage.HardwareModel] must match the hardware model
-// used when creating the original file.
+// [VZMacPlatformConfiguration].[VZMacPlatformConfiguration.HardwareModel]
+// must match the hardware model used when creating the original file.
 //
 // # Creating the auxiliary storage
 //
@@ -137,16 +138,6 @@ type IVZMacAuxiliaryStorage interface {
 
 	// The URL of the auxiliary storage on the local file system.
 	URL() foundation.NSURL
-
-	// The Mac auxiliary storage.
-	AuxiliaryStorage() IVZMacAuxiliaryStorage
-	SetAuxiliaryStorage(value IVZMacAuxiliaryStorage)
-	// The Mac hardware model.
-	HardwareModel() IVZMacHardwareModel
-	SetHardwareModel(value IVZMacHardwareModel)
-	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
-	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
-	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
 // Init initializes the instance.
@@ -280,38 +271,4 @@ func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError
 func (m VZMacAuxiliaryStorage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
-}
-
-// The Mac auxiliary storage.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/auxiliarystorage
-func (m VZMacAuxiliaryStorage) AuxiliaryStorage() IVZMacAuxiliaryStorage {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("auxiliaryStorage"))
-	return VZMacAuxiliaryStorageFromID(objc.ID(rv))
-}
-func (m VZMacAuxiliaryStorage) SetAuxiliaryStorage(value IVZMacAuxiliaryStorage) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAuxiliaryStorage:"), value)
-}
-
-// The Mac hardware model.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
-func (m VZMacAuxiliaryStorage) HardwareModel() IVZMacHardwareModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
-	return VZMacHardwareModelFromID(objc.ID(rv))
-}
-func (m VZMacAuxiliaryStorage) SetHardwareModel(value IVZMacHardwareModel) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
-}
-
-// This object represents the most fully featured configuration that’s
-// supported by both the current host and by this restore image.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/mostfeaturefulsupportedconfiguration
-func (m VZMacAuxiliaryStorage) MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
-	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
-}
-func (m VZMacAuxiliaryStorage) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }

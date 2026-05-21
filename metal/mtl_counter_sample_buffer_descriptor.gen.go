@@ -119,10 +119,6 @@ type IMTLCounterSampleBufferDescriptor interface {
 	// The memory storage mode for the counter sample buffers you create with the descriptor.
 	StorageMode() MTLStorageMode
 	SetStorageMode(value MTLStorageMode)
-
-	// A sentinel value that instructs an encoder to skip sampling a counter as the GPU runs the encoder’s pass.
-	MTLCounterDontSample() int
-	SetMTLCounterDontSample(value int)
 }
 
 // Init initializes the instance.
@@ -149,9 +145,11 @@ func NewMTLCounterSampleBufferDescriptor() MTLCounterSampleBufferDescriptor {
 // # Discussion
 //
 // Assign this property to one of the counter sets in an [MTLDevice]
-// instance’s [CounterSets] property.
+// instance’s [counterSets] property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBufferDescriptor/counterSet
+//
+// [counterSets]: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
 func (c MTLCounterSampleBufferDescriptor) CounterSet() MTLCounterSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("counterSet"))
 	return MTLCounterSetObjectFromID(rv)
@@ -177,8 +175,8 @@ func (c MTLCounterSampleBufferDescriptor) SetLabel(value string) {
 // # Discussion
 //
 // The counter sample buffer instances you create with the
-// [MTLCounterSampleBufferDescriptor] can store [SampleCount] instances of a
-// counter set.
+// [MTLCounterSampleBufferDescriptor] can store
+// [MTLCounterSampleBufferDescriptor.SampleCount] instances of a counter set.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBufferDescriptor/sampleCount
 func (c MTLCounterSampleBufferDescriptor) SampleCount() uint {
@@ -204,16 +202,4 @@ func (c MTLCounterSampleBufferDescriptor) StorageMode() MTLStorageMode {
 }
 func (c MTLCounterSampleBufferDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStorageMode:"), value)
-}
-
-// A sentinel value that instructs an encoder to skip sampling a counter as
-// the GPU runs the encoder’s pass.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcounterdontsample
-func (c MTLCounterSampleBufferDescriptor) MTLCounterDontSample() int {
-	rv := objc.Send[int](c.ID, objc.Sel("MTLCounterDontSample"))
-	return rv
-}
-func (c MTLCounterSampleBufferDescriptor) SetMTLCounterDontSample(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMTLCounterDontSample:"), value)
 }

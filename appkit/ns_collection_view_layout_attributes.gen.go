@@ -84,10 +84,10 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 // [isEqual(_:)] method.
 //
 // In addition to defining your [NSCollectionViewLayoutAttributes] subclass,
-// override the [NSCollectionViewLayoutAttributes.LayoutAttributesClass] method of your layout object. That
-// method is a funnel point for creating new layout attribute objects.
-// Returning your custom class from that method ensures that the correct class
-// is instantiated.
+// override the [NSCollectionViewLayoutClass.LayoutAttributesClass] method of
+// your layout object. That method is a funnel point for creating new layout
+// attribute objects. Returning your custom class from that method ensures
+// that the correct class is instantiated.
 //
 // # Identifying the Element
 //
@@ -160,8 +160,8 @@ type INSCollectionViewLayoutAttributes interface {
 	// The type of the element.
 	RepresentedElementCategory() NSCollectionElementCategory
 	// The index path of the element.
-	IndexPath() objc.ID
-	SetIndexPath(value objc.ID)
+	IndexPath() foundation.NSIndexPath
+	SetIndexPath(value foundation.NSIndexPath)
 	// The identifier for specific elements of your collection view interface.
 	RepresentedElementKind() string
 
@@ -225,7 +225,9 @@ func NewNSCollectionViewLayoutAttributes() NSCollectionViewLayoutAttributes {
 // of content that display visual adornments in your collection view
 // interface. For example, decoration views might display custom backgrounds.
 // This method uses the parameters to set the initial values of the
-// [IndexPath] and [RepresentedElementKind] properties the returned object.
+// [NSCollectionViewLayoutAttributes.IndexPath] and
+// [NSCollectionViewLayoutAttributes.RepresentedElementKind] properties the
+// returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forDecorationViewOfKind:with:)
 func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decorationViewKind NSCollectionViewDecorationElementKind, indexPath foundation.NSIndexPath) NSCollectionViewLayoutAttributes {
@@ -250,11 +252,14 @@ func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decor
 // Call this method when you need to create a layout attributes object for an
 // inter-item gap view in a collection view. Gap views are used during drag
 // and drop to indicate the area where content will drop. This method uses the
-// parameters to set the initial values of the [IndexPath] property of the
-// returned object. The [RepresentedElementKind] property is set to
-// [ElementKindInterItemGapIndicator].
+// parameters to set the initial values of the
+// [NSCollectionViewLayoutAttributes.IndexPath] property of the returned
+// object. The [NSCollectionViewLayoutAttributes.RepresentedElementKind]
+// property is set to [elementKindInterItemGapIndicator].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forInterItemGapBefore:)
+//
+// [elementKindInterItemGapIndicator]: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindInterItemGapIndicator
 func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.NSIndexPath) NSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForInterItemGapBeforeIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
@@ -278,7 +283,8 @@ func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath f
 // item in a collection view. Items are the main type of content presented by
 // a collection view. Items are grouped into sections, although a collection
 // view may have only one section. This method assigns the provided index path
-// to the [IndexPath] property of the returned object.
+// to the [NSCollectionViewLayoutAttributes.IndexPath] property of the
+// returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forItemWith:)
 func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath foundation.NSIndexPath) NSCollectionViewLayoutAttributes {
@@ -309,7 +315,8 @@ func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath foundation.
 // secondary type of content that display data related to a specific section.
 // For example, header and footer views in a grid layout implemented using
 // supplementary views. This method uses the parameters to set the initial
-// values of the [IndexPath] and [RepresentedElementKind] properties the
+// values of the [NSCollectionViewLayoutAttributes.IndexPath] and
+// [NSCollectionViewLayoutAttributes.RepresentedElementKind] properties the
 // returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forSupplementaryViewOfKind:with:)
@@ -338,14 +345,15 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementCategory() NSCollect
 //
 // Use the index path to locate information about the item in your app’s
 // data structures. For supplementary and decoration views, you must also use
-// the [RepresentedElementKind] property to identify the element.
+// the [NSCollectionViewLayoutAttributes.RepresentedElementKind] property to
+// identify the element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/indexPath
-func (c NSCollectionViewLayoutAttributes) IndexPath() objc.ID {
+func (c NSCollectionViewLayoutAttributes) IndexPath() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPath"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
-func (c NSCollectionViewLayoutAttributes) SetIndexPath(value objc.ID) {
+func (c NSCollectionViewLayoutAttributes) SetIndexPath(value foundation.NSIndexPath) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIndexPath:"), value)
 }
 
@@ -357,7 +365,8 @@ func (c NSCollectionViewLayoutAttributes) SetIndexPath(value objc.ID) {
 // between views in a given section. You also use this string to identify the
 // intended purpose of the view in your collection view interface.
 //
-// When the value of the [RepresentedElementCategory] property is
+// When the value of the
+// [NSCollectionViewLayoutAttributes.RepresentedElementCategory] property is
 // [NSCollectionElementCategoryItem], this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/representedElementKind
@@ -372,7 +381,7 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementKind() string {
 //
 // The frame rectangle is measured in points and specified in the collection
 // view’s coordinate system. Setting the value of this property also updates
-// the value in the [Size] property.
+// the value in the [NSCollectionViewLayoutAttributes.Size] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/frame
 func (c NSCollectionViewLayoutAttributes) Frame() corefoundation.CGRect {
@@ -387,8 +396,8 @@ func (c NSCollectionViewLayoutAttributes) SetFrame(value corefoundation.CGRect) 
 //
 // # Discussion
 //
-// Setting the value of this property also updates the value in the [Frame]
-// property.
+// Setting the value of this property also updates the value in the
+// [NSCollectionViewLayoutAttributes.Frame] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/size
 func (c NSCollectionViewLayoutAttributes) Size() corefoundation.CGSize {
@@ -453,40 +462,4 @@ func (c NSCollectionViewLayoutAttributes) ZIndex() int {
 }
 func (c NSCollectionViewLayoutAttributes) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
-}
-
-// The element kind string assigned to the attributes object when it
-// represents an inter-item gap.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindinteritemgapindicator
-func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) ElementKindInterItemGapIndicator() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindInterItemGapIndicator"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A supplementary view that acts as a footer for a given section.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
-func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) ElementKindSectionFooter() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A supplementary view that acts as a header for a given section.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
-func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) ElementKindSectionHeader() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the class to use for layout attribute objects
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionviewlayout/layoutattributesclass
-func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) LayoutAttributesClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("layoutAttributesClass"))
-	return rv
-}
-func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) SetLayoutAttributesClass(value objc.Class) {
-	objc.Send[struct{}](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("setLayoutAttributesClass:"), value)
 }

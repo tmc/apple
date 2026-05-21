@@ -112,6 +112,13 @@ func NewAVMetricPlayerItemVariantSwitchStartEvent() AVMetricPlayerItemVariantSwi
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemVariantSwitchStartEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemVariantSwitchStartEvent {
+	instance := getAVMetricPlayerItemVariantSwitchStartEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemVariantSwitchStartEventFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchStartEvent/fromVariant
 func (m AVMetricPlayerItemVariantSwitchStartEvent) FromVariant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fromVariant"))

@@ -80,8 +80,9 @@ func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNoti
 	objc.Send[struct{}](o.ID, objc.Sel("textDidBeginEditing:"), notification)
 }
 
-// Invoked from a text object’s implementation of [ResignFirstResponder],
-// this method requests permission for `aTextObject` to end editing.
+// Invoked from a text object’s implementation of
+// [NSResponder.ResignFirstResponder], this method requests permission for
+// `aTextObject` to end editing.
 //
 // # Discussion
 //
@@ -100,9 +101,11 @@ func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 //
 // # Discussion
 //
-// The name of `aNotification` is [DidEndEditingNotification].
+// The name of `aNotification` is [didEndEditingNotification].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
+//
+// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
 func (o NSTextDelegateObject) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
 }

@@ -13,9 +13,9 @@ import (
 //
 // # Discussion
 //
-// All ports contained in an input’s [Ports] property have the same source
-// device type, which each equal to the [DeviceType] property of the input’s
-// device.
+// All ports contained in an input’s [AVCaptureInput.Ports] property have
+// the same source device type, which each equal to the
+// [AVCaptureDevice.DeviceType] property of the input’s device.
 //
 // When working with virtual devices such as the [builtInDualCamera] in an
 // [AVCaptureMultiCamSession], it’s possible to stream media from the
@@ -23,9 +23,10 @@ import (
 // hidden ports. In the case of the [builtInDualCamera], its constituent
 // devices are the wide-angle and telephoto cameras.
 //
-// By calling [PortsWithMediaTypeSourceDeviceTypeSourceDevicePosition]:, you
-// may discover ports originating from one or more of the virtual device’s
-// constituent devices and then make connections using those ports.
+// By calling
+// [AVCaptureDeviceInput.PortsWithMediaTypeSourceDeviceTypeSourceDevicePosition]:,
+// you may discover ports originating from one or more of the virtual
+// device’s constituent devices and then make connections using those ports.
 // Constituent device ports are never present in their owning virtual device
 // input’s ports array.
 //
@@ -42,8 +43,9 @@ func (c AVCaptureInputPort) SourceDeviceType() AVCaptureDeviceType {
 //
 // # Discussion
 //
-// All ports contained in an [AVCaptureInput] object’s [Ports] array have
-// the same [SourceDevicePosition] value.
+// All ports contained in an [AVCaptureInput] object’s
+// [AVCaptureInput.Ports] array have the same
+// [AVCaptureInputPort.SourceDevicePosition] value.
 //
 // When working with a microphone input in an [AVCaptureMultiCamSession],
 // it’s possible to record multiple microphone directions simultaneously.
@@ -52,10 +54,10 @@ func (c AVCaptureInputPort) SourceDeviceType() AVCaptureDeviceType {
 // input to pair with video from the back camera.
 //
 // By calling the input’s
-// [PortsWithMediaTypeSourceDeviceTypeSourceDevicePosition] method, you may
-// discover additional hidden ports originating from the source audio device.
-// These ports represent individual microphones positioned to pick up audio
-// from one particular direction.
+// [AVCaptureDeviceInput.PortsWithMediaTypeSourceDeviceTypeSourceDevicePosition]
+// method, you may discover additional hidden ports originating from the
+// source audio device. These ports represent individual microphones
+// positioned to pick up audio from one particular direction.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/sourceDevicePosition
 //

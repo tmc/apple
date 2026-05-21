@@ -271,8 +271,8 @@ type IFileWrapper interface {
 	// Topic: Working with Icons
 
 	// The icon that represents the file wrapper.
-	Icon() objc.ID
-	SetIcon(value objc.ID)
+	Icon() objectivec.IObject
+	SetIcon(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -310,7 +310,8 @@ func NewFileWrapper() FileWrapper {
 // # Discussion
 //
 // After initialization, the file wrapper is not associated with a file-system
-// node until you save it using [WriteToURLOptionsOriginalContentsURLError].
+// node until you save it using
+// [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The receiver is initialized with open permissions: anyone can read, write,
 // or modify the directory on disk.
@@ -340,7 +341,8 @@ func NewFileWrapperDirectoryWithFileWrappers(childrenByPreferredName INSDictiona
 // # Discussion
 //
 // After initialization, the file wrapper is not associated with a file-system
-// node until you save it using [WriteToURLOptionsOriginalContentsURLError].
+// node until you save it using
+// [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The file wrapper is initialized with open permissions: anyone can write to
 // or read the file wrapper.
@@ -364,7 +366,7 @@ func NewFileWrapperRegularFileWithContents(contents INSData) FileWrapper {
 // # Discussion
 //
 // The file wrapper is not associated with a file-system node until you save
-// it using [WriteToURLOptionsOriginalContentsURLError].
+// it using [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The file wrapper is initialized with open permissions: anyone can modify or
 // read the file reference. .
@@ -388,8 +390,9 @@ func NewFileWrapperWithCoder(inCoder INSCoder) FileWrapper {
 //
 // serializeRepresentation: Serialized representation of a file wrapper in the format used for the
 // [NSFileContentsPboardType] pasteboard type. Data of this format is returned
-// by such methods as [SerializedRepresentation] and
-// [RTFDFromRangeDocumentAttributes] ([NSAttributedString]).
+// by such methods as [NSFileWrapper.SerializedRepresentation] and
+// [NSAttributedString.RTFDFromRangeDocumentAttributes]
+// ([NSAttributedString]).
 //
 // # Return Value
 //
@@ -398,7 +401,7 @@ func NewFileWrapperWithCoder(inCoder INSCoder) FileWrapper {
 // # Discussion
 //
 // The file wrapper is not associated with a file-system node until you save
-// it using [WriteToURLOptionsOriginalContentsURLError].
+// it using [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(serializedRepresentation:)
 func NewFileWrapperWithSerializedRepresentation(serializeRepresentation INSData) FileWrapper {
@@ -424,8 +427,8 @@ func NewFileWrapperWithSerializedRepresentation(serializeRepresentation INSData)
 // # Discussion
 //
 // If `url` is a directory, this method recursively creates file wrappers for
-// each node within that directory. Use the [FileWrappers] property to get the
-// file wrappers of the nodes contained by the directory.
+// each node within that directory. Use the [NSFileWrapper.FileWrappers]
+// property to get the file wrappers of the nodes contained by the directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)-70161
 //
@@ -458,8 +461,8 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 // # Discussion
 //
 // If `url` is a directory, this method recursively creates file wrappers for
-// each node within that directory. Use the [FileWrappers] property to get the
-// file wrappers of the nodes contained by the directory.
+// each node within that directory. Use the [NSFileWrapper.FileWrappers]
+// property to get the file wrappers of the nodes contained by the directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)-70161
 //
@@ -491,7 +494,8 @@ func (f FileWrapper) InitWithURLOptionsError(url INSURL, options NSFileWrapperRe
 // # Discussion
 //
 // After initialization, the file wrapper is not associated with a file-system
-// node until you save it using [WriteToURLOptionsOriginalContentsURLError].
+// node until you save it using
+// [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The receiver is initialized with open permissions: anyone can read, write,
 // or modify the directory on disk.
@@ -520,7 +524,8 @@ func (f FileWrapper) InitDirectoryWithFileWrappers(childrenByPreferredName INSDi
 // # Discussion
 //
 // After initialization, the file wrapper is not associated with a file-system
-// node until you save it using [WriteToURLOptionsOriginalContentsURLError].
+// node until you save it using
+// [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The file wrapper is initialized with open permissions: anyone can write to
 // or read the file wrapper.
@@ -543,7 +548,7 @@ func (f FileWrapper) InitRegularFileWithContents(contents INSData) FileWrapper {
 // # Discussion
 //
 // The file wrapper is not associated with a file-system node until you save
-// it using [WriteToURLOptionsOriginalContentsURLError].
+// it using [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // The file wrapper is initialized with open permissions: anyone can modify or
 // read the file reference. .
@@ -559,8 +564,9 @@ func (f FileWrapper) InitSymbolicLinkWithDestinationURL(url INSURL) FileWrapper 
 //
 // serializeRepresentation: Serialized representation of a file wrapper in the format used for the
 // [NSFileContentsPboardType] pasteboard type. Data of this format is returned
-// by such methods as [SerializedRepresentation] and
-// [RTFDFromRangeDocumentAttributes] ([NSAttributedString]).
+// by such methods as [NSFileWrapper.SerializedRepresentation] and
+// [NSAttributedString.RTFDFromRangeDocumentAttributes]
+// ([NSAttributedString]).
 //
 // # Return Value
 //
@@ -569,7 +575,7 @@ func (f FileWrapper) InitSymbolicLinkWithDestinationURL(url INSURL) FileWrapper 
 // # Discussion
 //
 // The file wrapper is not associated with a file-system node until you save
-// it using [WriteToURLOptionsOriginalContentsURLError].
+// it using [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError].
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(serializedRepresentation:)
 func (f FileWrapper) InitWithSerializedRepresentation(serializeRepresentation INSData) FileWrapper {
@@ -595,9 +601,10 @@ func (f FileWrapper) InitWithSerializedRepresentation(serializeRepresentation IN
 //
 // Use this method to add an existing file wrapper as a child of a directory
 // file wrapper. If the file wrapper does not have a preferred filename, set
-// the [PreferredFilename] property to give it one before calling
-// [AddFileWrapper]. To create a new file wrapper and add it to a directory,
-// use the [AddRegularFileWithContentsPreferredFilename] method.
+// the [NSFileWrapper.PreferredFilename] property to give it one before
+// calling [NSFileWrapper.AddFileWrapper]. To create a new file wrapper and
+// add it to a directory, use the
+// [NSFileWrapper.AddRegularFileWithContentsPreferredFilename] method.
 //
 // # Special Considerations
 //
@@ -650,9 +657,11 @@ func (f FileWrapper) RemoveFileWrapper(child INSFileWrapper) {
 // # Discussion
 //
 // This is a convenience method. The default implementation allocates a new
-// file wrapper, initializes it with [InitRegularFileWithContents], set its
-// [PreferredFilename] property, adds it to the directory with
-// [AddFileWrapper], and returns what [AddFileWrapper] returned.
+// file wrapper, initializes it with
+// [NSFileWrapper.InitRegularFileWithContents], set its
+// [NSFileWrapper.PreferredFilename] property, adds it to the directory with
+// [NSFileWrapper.AddFileWrapper], and returns what
+// [NSFileWrapper.AddFileWrapper] returned.
 //
 // # Special Considerations
 //
@@ -718,14 +727,15 @@ func (f FileWrapper) KeyForFileWrapper(child INSFileWrapper) string {
 // the files in the directory, recursively.
 //
 // Because children of directory file wrappers are not read immediately by the
-// [InitWithURLOptionsError] method unless the [NSFileWrapperReadingImmediate]
-// reading option is used, even a newly-created directory file wrapper might
-// not have the same contents as the directory on disk. You can use this
-// method to determine whether the file wrapper’s contents in memory need to
-// be updated.
+// [NSFileWrapper.InitWithURLOptionsError] method unless the
+// [NSFileWrapperReadingImmediate] reading option is used, even a
+// newly-created directory file wrapper might not have the same contents as
+// the directory on disk. You can use this method to determine whether the
+// file wrapper’s contents in memory need to be updated.
 //
-// If the file wrapper needs updating, use the [ReadFromURLOptionsError]
-// method with the [NSFileWrapperReadingImmediate] reading option.
+// If the file wrapper needs updating, use the
+// [NSFileWrapper.ReadFromURLOptionsError] method with the
+// [NSFileWrapperReadingImmediate] reading option.
 //
 // This table describes which attributes of the file wrapper and file-system
 // node are compared to determine whether the file wrapper matches the node on
@@ -782,9 +792,9 @@ func (f FileWrapper) ReadFromURLOptionsError(url INSURL, options NSFileWrapperRe
 // default implementation of this method attempts to avoid unnecessary I/O by
 // writing hard links to regular files instead of actually writing out their
 // contents when the contents have not changed. The child file wrappers must
-// return accurate values when its [Filename] property is accessed for this to
-// work. Use the [NSFileWrapperWritingWithNameUpdating] writing option to
-// increase the likelihood of that.
+// return accurate values when its [NSFileWrapper.Filename] property is
+// accessed for this to work. Use the [NSFileWrapperWritingWithNameUpdating]
+// writing option to increase the likelihood of that.
 //
 // Specify `nil` for this parameter if there is no earlier version of the
 // contents or if you want to ensure that all the contents are written to
@@ -831,8 +841,8 @@ func (f FileWrapper) EncodeWithCoder(coder INSCoder) {
 //
 // This property contains true when the file wrapper object is a regular-file
 // wrapper, otherwise it contains false. Invocations of
-// [ReadFromURLOptionsError] may change the value of this property if the type
-// of the file on disk has changed.
+// [NSFileWrapper.ReadFromURLOptionsError] may change the value of this
+// property if the type of the file on disk has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/isRegularFile
 func (f FileWrapper) IsRegularFile() bool {
@@ -862,8 +872,8 @@ func (f FileWrapper) IsDirectory() bool {
 // This property contains true when the file wrapper object is a symbolic-link
 // file wrapper, false otherwise.
 //
-// Invocations of [ReadFromURLOptionsError] may change the value contained by
-// this property, if the type of the file on disk has changed.
+// Invocations of [NSFileWrapper.ReadFromURLOptionsError] may change the value
+// contained by this property, if the type of the file on disk has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/isSymbolicLink
 func (f FileWrapper) IsSymbolicLink() bool {
@@ -881,10 +891,10 @@ func (f FileWrapper) IsSymbolicLink() bool {
 // for more information about the file-wrapper list structure.
 //
 // This property may contain `nil` if the user modifies the directory after
-// you call [ReadFromURLOptionsError] or [InitWithURLOptionsError] but before
-// [NSFileWrapper] has read the contents of the directory. Use the
-// [NSFileWrapperReadingImmediate] reading option to reduce the likelihood of
-// that problem.
+// you call [NSFileWrapper.ReadFromURLOptionsError] or
+// [NSFileWrapper.InitWithURLOptionsError] but before [NSFileWrapper] has read
+// the contents of the directory. Use the [NSFileWrapperReadingImmediate]
+// reading option to reduce the likelihood of that problem.
 //
 // # Special Considerations
 //
@@ -906,10 +916,10 @@ func (f FileWrapper) FileWrappers() INSDictionary {
 // # Discussion
 //
 // This property may contain `nil` if the user modifies the symbolic link
-// after you call [ReadFromURLOptionsError] or [InitWithURLOptionsError] but
-// before [NSFileWrapper] has read the contents of the link. Use the
-// [NSFileWrapperReadingImmediate] reading option to reduce the likelihood of
-// that problem.
+// after you call [NSFileWrapper.ReadFromURLOptionsError] or
+// [NSFileWrapper.InitWithURLOptionsError] but before [NSFileWrapper] has read
+// the contents of the link. Use the [NSFileWrapperReadingImmediate] reading
+// option to reduce the likelihood of that problem.
 //
 // # Special Considerations
 //
@@ -928,13 +938,14 @@ func (f FileWrapper) SymbolicLinkDestinationURL() INSURL {
 //
 // This property contains a data object in the format used by the
 // [fileContents] pasteboard type. This data object is also suitable for
-// passing to [InitWithSerializedRepresentation].
+// passing to [NSFileWrapper.InitWithSerializedRepresentation].
 //
 // This property may be `nil` if the user modifies the contents of the file
-// system node after you call [ReadFromURLOptionsError] or
-// [InitWithURLOptionsError], but before [NSFileWrapper] has read the contents
-// of the file. You can use the [NSFileWrapperReadingImmediate] reading option
-// to reduce the likelihood of this problem.
+// system node after you call [NSFileWrapper.ReadFromURLOptionsError] or
+// [NSFileWrapper.InitWithURLOptionsError], but before [NSFileWrapper] has
+// read the contents of the file. You can use the
+// [NSFileWrapperReadingImmediate] reading option to reduce the likelihood of
+// this problem.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/serializedRepresentation
 //
@@ -953,16 +964,17 @@ func (f FileWrapper) SerializedRepresentation() INSData {
 //
 // The filename is used for record-keeping purposes only and is set
 // automatically when the file wrapper is created from the file system using
-// [InitWithURLOptionsError] and when it’s saved to the file system using
-// [WriteToURLOptionsOriginalContentsURLError] (although this method allows
-// you to request that the filename not be updated).
+// [NSFileWrapper.InitWithURLOptionsError] and when it’s saved to the file
+// system using [NSFileWrapper.WriteToURLOptionsOriginalContentsURLError]
+// (although this method allows you to request that the filename not be
+// updated).
 //
 // The filename is usually the same as the preferred filename, but might
 // instead be a name derived from the preferred filename. You can use this
 // method to get the name of a child that’s just been read. Don’t use this
 // method to get the name of a child that’s about to be written, because the
-// name might be about to change; send [KeyForFileWrapper] to the parent
-// instead.
+// name might be about to change; send [NSFileWrapper.KeyForFileWrapper] to
+// the parent instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/filename
 func (f FileWrapper) Filename() string {
@@ -1005,7 +1017,7 @@ func (f FileWrapper) SetPreferredFilename(value string) {
 // # Discussion
 //
 // The file attributes’ dictionary is the same format as that returned by
-// [AttributesOfItemAtPathError] ([NSFileManager]).
+// [NSFileManager.AttributesOfItemAtPathError] ([NSFileManager]).
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/fileAttributes
 func (f FileWrapper) FileAttributes() INSDictionary {
@@ -1022,10 +1034,10 @@ func (f FileWrapper) SetFileAttributes(value INSDictionary) {
 // # Discussion
 //
 // This property may contain `nil` if the user modifies the file after you
-// call [ReadFromURLOptionsError] or [InitWithURLOptionsError] but before
-// [NSFileWrapper] has read the contents of the file. Use the
-// [NSFileWrapperReadingImmediate] reading option to reduce the likelihood of
-// that problem.
+// call [NSFileWrapper.ReadFromURLOptionsError] or
+// [NSFileWrapper.InitWithURLOptionsError] but before [NSFileWrapper] has read
+// the contents of the file. Use the [NSFileWrapperReadingImmediate] reading
+// option to reduce the likelihood of that problem.
 //
 // # Special Considerations
 //
@@ -1057,11 +1069,11 @@ func (f FileWrapper) RegularFileContents() INSData {
 // returned object, make a copy first and mutate the copy instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/icon
-func (f FileWrapper) Icon() objc.ID {
+func (f FileWrapper) Icon() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("icon"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
-func (f FileWrapper) SetIcon(value objc.ID) {
+func (f FileWrapper) SetIcon(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setIcon:"), value)
 }
 

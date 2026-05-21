@@ -18,7 +18,7 @@ type AVVideoCompositionInstructionProtocol interface {
 	// An identifier of a source track to pass through without compositing.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/passthroughTrackID
-	PassthroughTrackID() int32
+	PassthroughTrackID() coremedia.CMPersistentTrackID
 
 	// The identifiers of the video tracks the instruction requires to compose frames.
 	//
@@ -75,9 +75,9 @@ func AVVideoCompositionInstructionProtocolObjectFromID(id objc.ID) AVVideoCompos
 // values of the source buffer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/passthroughTrackID
-func (o AVVideoCompositionInstructionProtocolObject) PassthroughTrackID() int32 {
-	rv := objc.Send[int32](o.ID, objc.Sel("passthroughTrackID"))
-	return int32(rv)
+func (o AVVideoCompositionInstructionProtocolObject) PassthroughTrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](o.ID, objc.Sel("passthroughTrackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // The identifiers of the video tracks the instruction requires to compose
@@ -121,8 +121,9 @@ func (o AVVideoCompositionInstructionProtocolObject) RequiredSourceSampleDataTra
 //
 // A value of true indicates that rendering a frame from the same source
 // buffers and the same composition instruction at two different
-// [CompositionTime] values may yield different output frames. A value of
-// false indicates that two compositions yield the same frame.
+// [AVAsynchronousVideoCompositionRequest.CompositionTime] values may yield
+// different output frames. A value of false indicates that two compositions
+// yield the same frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
 func (o AVVideoCompositionInstructionProtocolObject) ContainsTweening() bool {

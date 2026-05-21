@@ -140,8 +140,6 @@ func NewNSXPCCoder() NSXPCCoder {
 //
 // key: A string that your app uses to reference the encoded object.
 //
-// xpcObject is a [xpc.xpc_object_t].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/encodeXPCObject(_:forKey:)
 func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
@@ -154,20 +152,20 @@ func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) 
 //
 // key: A string that your app uses to reference the decoded object.
 //
-// type is a [xpc.xpc_type_t].
-//
 // # Return Value
 //
 // An object that XPC can encode.
 //
 // # Discussion
 //
-// The [DecodeXPCObjectOfTypeForKey] method validates that the type of the
-// decoded object matches the type of the encoded object. If they don’t
-// match, the [NSXPCCoder] throws an exception in support of [NSSecureCoding].
+// The [NSXPCCoder.DecodeXPCObjectOfTypeForKey] method validates that the type
+// of the decoded object matches the type of the encoded object. If they
+// don’t match, the [NSXPCCoder] throws an exception in support of
+// [NSSecureCoding].
 //
-// Be sure to check the result against [Null] if you call an [XPC] function
-// because calling an [XPC] function on a [Null] object results in a crash.
+// Be sure to check the result against [NSNullClass.Null] if you call an [XPC]
+// function because calling an [XPC] function on a [NSNullClass.Null] object
+// results in a crash.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/decodeXPCObject(ofType:forKey:)
 //

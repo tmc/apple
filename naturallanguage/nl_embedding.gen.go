@@ -58,13 +58,14 @@ func (nc NLEmbeddingClass) Alloc() NLEmbedding {
 // similarity of any two strings, the smaller the distance is between them.
 //
 // [Natural Language] provides built-in word embeddings that you can retrieve
-// by using the [NLEmbedding.WordEmbeddingForLanguage] method. You can also compile your
-// own custom embedding into an efficient, searchable, on-disk representation.
-// Typically, you compile an embedding by using Create ML’s
-// [MLWordEmbedding] and save it as a file for your Xcode project at
+// by using the [NLEmbeddingClass.WordEmbeddingForLanguage] method. You can
+// also compile your own custom embedding into an efficient, searchable,
+// on-disk representation. Typically, you compile an embedding by using Create
+// ML’s [MLWordEmbedding] and save it as a file for your Xcode project at
 // development time. Alternatively, you can compile an embedding at runtime by
 // using Natural Language’s
-// [NLEmbedding.WriteEmbeddingForDictionaryLanguageRevisionToURLError] method.
+// [NLEmbeddingClass.WriteEmbeddingForDictionaryLanguageRevisionToURLError]
+// method.
 //
 // Your custom embedding can use any kind of string that’s useful to your
 // app, such as phrases, brand names, serial numbers, and so on. For example,
@@ -219,7 +220,7 @@ func (e NLEmbedding) DistanceBetweenStringAndStringDistanceType(firstString stri
 // Copies a vector into the given a pointer to a float array.
 //
 // vector: An array of floats the method copies the vector to. The array’s capacity
-// must be at least [Dimension].
+// must be at least [NLEmbedding.Dimension].
 //
 // string: The term to find in the word embedding.
 //

@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -68,14 +67,14 @@ func (nc NSButtonClass) Alloc() NSButton {
 //
 // Buttons can either have two states (on and off) or three states (on, off,
 // and mixed). You enable a three-state button by calling the
-// [NSButton.AllowsMixedState] method. On and off (also referred to as alternate and
-// normal) states indicate that the user clicked or didn’t click the button.
-// Mixed is typically used for checkboxes or radio buttons, which allow for an
-// additional intermediate state. For example, suppose the state of a checkbox
-// denotes whether a text field contains bold text. If all text in the text
-// field is bold, then the checkbox is on. If none of the text is bold, then
-// the checkbox is off. If some of the text is bold, then the checkbox is
-// mixed.
+// [NSButton.AllowsMixedState] method. On and off (also referred to as
+// alternate and normal) states indicate that the user clicked or didn’t
+// click the button. Mixed is typically used for checkboxes or radio buttons,
+// which allow for an additional intermediate state. For example, suppose the
+// state of a checkbox denotes whether a text field contains bold text. If all
+// text in the text field is bold, then the checkbox is on. If none of the
+// text is bold, then the checkbox is off. If some of the text is bold, then
+// the checkbox is mixed.
 //
 // For most types of buttons, the value of the button matches its state—the
 // value is `1` for on, `0` for off, or `-1` for mixed. For pressure-sensitive
@@ -260,7 +259,7 @@ type INSButton interface {
 	// Sets the button’s type, which affects its user interface and behavior when clicked.
 	SetButtonType(type_ NSButtonType)
 	// Returns by reference the delay and interval periods for a continuous button.
-	GetPeriodicDelayInterval(delay unsafe.Pointer, interval unsafe.Pointer)
+	GetPeriodicDelayInterval(delay *float32, interval *float32)
 	// Sets the message delay and interval periods for a continuous button.
 	SetPeriodicDelayInterval(delay float32, interval float32)
 	// A tint color to use for the template image and text content.
@@ -447,7 +446,7 @@ func NewButtonWithFrame(frameRect corefoundation.CGRect) NSButton {
 //
 // # Discussion
 //
-// Set the image’s [AccessibilityDescription] property to ensure
+// Set the image’s [NSImage.AccessibilityDescription] property to ensure
 // accessibility for this control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/init(image:target:action:)
@@ -499,7 +498,8 @@ func NewButtonWithTitleTargetAction(title string, target objectivec.IObject, act
 //
 // The types available are for the most common button types, which are also
 // accessible in Interface Builder. You can configure different behavior with
-// the [NSButtonCell] methods [HighlightsBy] and [ShowsStateBy].
+// the [NSButtonCell] methods [NSButtonCell.HighlightsBy] and
+// [NSButtonCell.ShowsStateBy].
 //
 // Note that there is no `-buttonType` method. The set method sets various
 // button properties that together establish the behavior of the type.
@@ -525,7 +525,7 @@ func (b NSButton) SetButtonType(type_ NSButtonType) {
 // value, `interval` defaults to 0.075 seconds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/getPeriodicDelay(_:interval:)
-func (b NSButton) GetPeriodicDelayInterval(delay unsafe.Pointer, interval unsafe.Pointer) {
+func (b NSButton) GetPeriodicDelayInterval(delay *float32, interval *float32) {
 	objc.Send[objc.ID](b.ID, objc.Sel("getPeriodicDelay:interval:"), delay, interval)
 }
 
@@ -543,8 +543,8 @@ func (b NSButton) GetPeriodicDelayInterval(delay unsafe.Pointer, interval unsafe
 // # Discussion
 //
 // The delay and interval values are used if the button is configured (by a
-// [Continuous] message) to continuously send the action message to the target
-// object while tracking the mouse.
+// [NSControl.Continuous] message) to continuously send the action message to
+// the target object while tracking the mouse.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/setPeriodicDelay(_:interval:)
 func (b NSButton) SetPeriodicDelayInterval(delay float32, interval float32) {
@@ -752,8 +752,8 @@ func (b NSButton) SetTitle(value string) {
 //
 // # Discussion
 //
-// If you don’t provide a symbol configuration, the button uses its [Font]
-// property to size and display the symbol image.
+// If you don’t provide a symbol configuration, the button uses its
+// [NSControl.Font] property to size and display the symbol image.
 //
 // The default value is `nil`.
 //
@@ -833,10 +833,10 @@ func (b NSButton) SetSpringLoaded(value bool) {
 // feedback, and an action is sent.
 //
 // You configure the number of pressure levels for a multilevel accelerator
-// button by adjusting the value of [MaxAcceleratorLevel]. For other types of
-// buttons, this property value defaults to `1`. For multilevel accelerator
-// buttons, this property value defaults to `2`, and may be set to a value
-// between `1` and `5`.
+// button by adjusting the value of [NSButton.MaxAcceleratorLevel]. For other
+// types of buttons, this property value defaults to `1`. For multilevel
+// accelerator buttons, this property value defaults to `2`, and may be set to
+// a value between `1` and `5`.
 //
 // The behavior of a multilevel accelerator button is reliant on a system that
 // supports pressure sensitivity. On a system that doesn’t support pressure
@@ -1018,8 +1018,8 @@ func (b NSButton) SetBezelColor(value INSColor) {
 // value is false if the border is displayed all the time, regardless of the
 // position of the pointer. By default, this method returns false.
 //
-// If [Bordered] is false, the border is never displayed, regardless of the
-// value of [ShowsBorderOnlyWhileMouseInside].
+// If [NSButton.Bordered] is false, the border is never displayed, regardless
+// of the value of [NSButton.ShowsBorderOnlyWhileMouseInside].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/showsBorderOnlyWhileMouseInside
 func (b NSButton) ShowsBorderOnlyWhileMouseInside() bool {
@@ -1036,13 +1036,14 @@ func (b NSButton) SetShowsBorderOnlyWhileMouseInside(value bool) {
 // # Discussion
 //
 // When the value of this property is false (the default value), the
-// button’s image is positioned according to the [ImagePosition] property at
-// the edge of the button bezel, and the title is positioned within the
-// remaining space.
+// button’s image is positioned according to the [NSButton.ImagePosition]
+// property at the edge of the button bezel, and the title is positioned
+// within the remaining space.
 //
 // When this property is true, the button’s image is positioned directly
-// adjacent to the title based on the [ImagePosition] property, and the image
-// and title are positioned within the button bezel as a single unit.
+// adjacent to the title based on the [NSButton.ImagePosition] property, and
+// the image and title are positioned within the button bezel as a single
+// unit.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/imageHugsTitle
 func (b NSButton) ImageHugsTitle() bool {
@@ -1115,28 +1116,28 @@ func (b NSButton) SetAllowsMixedState(value bool) {
 // have two or three states. If it has two, this value is either on
 // ([NSOnState]) or off ([NSOffState]). If it has three, this value is on,
 // off, or mixed ([NSMixedState]). A three-state button can be enabled by
-// calling the [AllowsMixedState] method. On and off states (also referred to
-// as alternate and normal) indicate that the button is either clicked or not
-// clicked. Mixed state is typically used for checkboxes or radio buttons,
-// which allow for an additional intermediate state. For example, suppose the
-// state of a checkbox is used to denote whether a text field contains bold
-// text. If all of the text in the text field is bold, then the checkbox
-// appears checked (on). If none of the text is bold, then the checkbox
-// appears unchecked (off). If some of the text is bold, then the checkbox
-// contains a dash (mixed).
+// calling the [NSButton.AllowsMixedState] method. On and off states (also
+// referred to as alternate and normal) indicate that the button is either
+// clicked or not clicked. Mixed state is typically used for checkboxes or
+// radio buttons, which allow for an additional intermediate state. For
+// example, suppose the state of a checkbox is used to denote whether a text
+// field contains bold text. If all of the text in the text field is bold,
+// then the checkbox appears checked (on). If none of the text is bold, then
+// the checkbox appears unchecked (off). If some of the text is bold, then the
+// checkbox contains a dash (mixed).
 //
 // Note that if the button has only two states and you set the value of
-// [State] to mixed, the button’s state changes to on. Setting this property
-// redraws the button, if necessary.
+// [NSButton.State] to mixed, the button’s state changes to on. Setting this
+// property redraws the button, if necessary.
 //
 // Although using the enumerated constants is preferred, you can also set
-// [State] to an integer value. If the button has two states, `0` is treated
-// as [NSOffState], and a nonzero value is treated as [NSOnState]. If the
-// button has three states, `0` is treated as [NSOffState]; a negative value,
-// as [NSMixedState]; and a positive value, as [NSOnState].
+// [NSButton.State] to an integer value. If the button has two states, `0` is
+// treated as [NSOffState], and a nonzero value is treated as [NSOnState]. If
+// the button has three states, `0` is treated as [NSOffState]; a negative
+// value, as [NSMixedState]; and a positive value, as [NSOnState].
 //
 // To check whether the button uses the mixed state, use the
-// [AllowsMixedState] property.
+// [NSButton.AllowsMixedState] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/state
 func (b NSButton) State() NSControlStateValue {

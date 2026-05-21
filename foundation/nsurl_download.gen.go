@@ -186,7 +186,7 @@ func (u NSURLDownload) SetDestinationAllowOverwrite(path string, allowOverwrite 
 // # Discussion
 //
 // This method deletes the partially downloaded file unless you have
-// previously called [DeletesFileUponFailure], passing false.
+// previously called [NSURLDownload.DeletesFileUponFailure], passing false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownload/cancel()
 func (u NSURLDownload) Cancel() {

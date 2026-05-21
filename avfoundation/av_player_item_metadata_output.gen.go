@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -102,8 +103,8 @@ type IAVPlayerItemMetadataOutput interface {
 	// Topic: Configuring the delegate
 
 	// The time interval, in seconds, the player item metadata output object messages its delegate earlier than normal.
-	AdvanceIntervalForDelegateInvocation() float64
-	SetAdvanceIntervalForDelegateInvocation(value float64)
+	AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval
+	SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval)
 	// The delegate object.
 	Delegate() AVPlayerItemMetadataOutputPushDelegate
 	// The dispatch queue on which messages are sent to the delegate.
@@ -200,11 +201,11 @@ func (p AVPlayerItemMetadataOutput) SetDelegateQueue(delegate AVPlayerItemMetada
 // the delegate will be invoked as soon as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataOutput/advanceIntervalForDelegateInvocation
-func (p AVPlayerItemMetadataOutput) AdvanceIntervalForDelegateInvocation() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
-	return rv
+func (p AVPlayerItemMetadataOutput) AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
+	return foundation.NSTimeInterval(rv)
 }
-func (p AVPlayerItemMetadataOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
+func (p AVPlayerItemMetadataOutput) SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
 

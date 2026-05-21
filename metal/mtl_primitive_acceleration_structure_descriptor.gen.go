@@ -166,16 +166,19 @@ func (_MTLPrimitiveAccelerationStructureDescriptorClass MTLPrimitiveAcceleration
 //
 // # Discussion
 //
-// The value of the [MotionKeyframeCount] property determines what kinds of
-// geometry descriptors you can assign to this property and how you need to
-// configure them.
+// The value of the
+// [MTLPrimitiveAccelerationStructureDescriptor.MotionKeyframeCount] property
+// determines what kinds of geometry descriptors you can assign to this
+// property and how you need to configure them.
 //
-// If the value of [MotionKeyframeCount] is greater than 1, then the geometry
-// descriptors need to be either
+// If the value of
+// [MTLPrimitiveAccelerationStructureDescriptor.MotionKeyframeCount] is
+// greater than 1, then the geometry descriptors need to be either
 // [MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor] or
 // [MTLAccelerationStructureMotionTriangleGeometryDescriptor] objects.
 // Further, you need to provide exactly that many keyframes of data when
-// creating those geometry descriptors. If [MotionKeyframeCount] is 1, use
+// creating those geometry descriptors. If
+// [MTLPrimitiveAccelerationStructureDescriptor.MotionKeyframeCount] is 1, use
 // [MTLAccelerationStructureBoundingBoxGeometryDescriptor] or
 // [MTLAccelerationStructureTriangleGeometryDescriptor] objects instead.
 //

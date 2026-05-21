@@ -174,7 +174,7 @@ func NewAVCaptureFileOutput() AVCaptureFileOutput {
 //
 // outputFileURL: An object specifying the output file URL.
 //
-// This method raises an [InvalidArgumentException] if the argument isn’t a
+// This method raises an [invalidArgumentException] if the argument isn’t a
 // valid file URL.
 //
 // delegate: A delegate object that’s notified of changes to the recording state.
@@ -189,22 +189,25 @@ func NewAVCaptureFileOutput() AVCaptureFileOutput {
 // the first samples written to the new file are those passed to the delegate
 // method.
 //
-// When you stop recording by calling [StopRecording], by changing files using
-// this method, or because of an error, the framework writes any remaining
-// file data in the background. Therefore, for the system to notify you upon
-// completion, you must adopt the
+// When you stop recording by calling [AVCaptureFileOutput.StopRecording], by
+// changing files using this method, or because of an error, the framework
+// writes any remaining file data in the background. Therefore, for the system
+// to notify you upon completion, you must adopt the
 // [CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError]
 // delegate method. The recording delegate can also optionally implement
 // methods that inform it when the output object starts writing data, when it
 // pauses or resumes recording, and when it’s about to finish recording.
 //
-// In macOS, you don’t need to call [StopRecording] before calling this
-// method while another recording is in progress. If you call this method
-// while the output object is recording, the framework preserves media samples
-// between the old file and the new file. In iOS, to avoid any errors, you
-// must call [StopRecording] before calling this method again.
+// In macOS, you don’t need to call [AVCaptureFileOutput.StopRecording]
+// before calling this method while another recording is in progress. If you
+// call this method while the output object is recording, the framework
+// preserves media samples between the old file and the new file. In iOS, to
+// avoid any errors, you must call [AVCaptureFileOutput.StopRecording] before
+// calling this method again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/startRecording(to:recordingDelegate:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (c AVCaptureFileOutput) StartRecordingToOutputFileURLRecordingDelegate(outputFileURL foundation.NSURL, delegate AVCaptureFileOutputRecordingDelegate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startRecordingToOutputFileURL:recordingDelegate:"), outputFileURL, delegate)
 }
@@ -217,15 +220,16 @@ func (c AVCaptureFileOutput) StartRecordingToOutputFileURLRecordingDelegate(outp
 // the current file, and do not want to continue recording to another file. If
 // you want to switch from one file to another, you should not call this
 // method. Instead you should simply call
-// [StartRecordingToOutputFileURLRecordingDelegate] with the new file URL.
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] with
+// the new file URL.
 //
 // When recording is stopped either by calling this method, by changing files
-// using [StartRecordingToOutputFileURLRecordingDelegate], or because of an
-// error, the remaining data that needs to be included to the file will be
-// written in the background. Therefore, before using the file, you must wait
-// until the delegate that was specified in
-// [StartRecordingToOutputFileURLRecordingDelegate] is notified when all data
-// has been written to the file using the
+// using [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate],
+// or because of an error, the remaining data that needs to be included to the
+// file will be written in the background. Therefore, before using the file,
+// you must wait until the delegate that was specified in
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] is
+// notified when all data has been written to the file using the
 // [CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError]
 // method.
 //
@@ -245,10 +249,10 @@ func (c AVCaptureFileOutput) StopRecording() {
 // # Discussion
 //
 // This method causes the receiver to stop writing captured samples to the
-// current output file returned by [OutputFileURL], but leaves the file open
-// so that samples can be written to it in the future, if [ResumeRecording] is
-// called. This allows you to record multiple media segments that are not
-// contiguous in time to a single file.
+// current output file returned by [AVCaptureFileOutput.OutputFileURL], but
+// leaves the file open so that samples can be written to it in the future, if
+// [AVCaptureFileOutput.ResumeRecording] is called. This allows you to record
+// multiple media segments that are not contiguous in time to a single file.
 //
 // In macOS, if this method is called within the
 // captureOutput:didOutputSampleBuffer:fromConnection: delegate method, the
@@ -262,14 +266,15 @@ func (c AVCaptureFileOutput) PauseRecording() {
 }
 
 // Resumes recording to the current output file after it was previously paused
-// using [PauseRecording].
+// using [AVCaptureFileOutput.PauseRecording].
 //
 // # Discussion
 //
 // This method causes the receiver to resume writing captured samples to the
-// current output file returned by [OutputFileURL], after recording was
-// previously paused using [PauseRecording]. This allows you to record
-// multiple media segments that are not contiguous in time to a single file.
+// current output file returned by [AVCaptureFileOutput.OutputFileURL], after
+// recording was previously paused using [AVCaptureFileOutput.PauseRecording].
+// This allows you to record multiple media segments that are not contiguous
+// in time to a single file.
 //
 // In macOS, if this method is called within the
 // captureOutput:didOutputSampleBuffer:fromConnection: delegate method, the
@@ -411,11 +416,12 @@ func (c AVCaptureFileOutput) IsRecording() bool {
 //
 // # Discussion
 //
-// This property indicates recording to the file returned by [OutputFileURL]
-// has been previously paused using the [PauseRecording] method. When a
-// recording is paused, captured samples are not written to the output file,
-// but new samples can be written to the same file in the future by calling
-// [ResumeRecording].
+// This property indicates recording to the file returned by
+// [AVCaptureFileOutput.OutputFileURL] has been previously paused using the
+// [AVCaptureFileOutput.PauseRecording] method. When a recording is paused,
+// captured samples are not written to the output file, but new samples can be
+// written to the same file in the future by calling
+// [AVCaptureFileOutput.ResumeRecording].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/isRecordingPaused
 func (c AVCaptureFileOutput) IsRecordingPaused() bool {

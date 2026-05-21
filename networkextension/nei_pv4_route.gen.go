@@ -103,12 +103,6 @@ type INEIPv4Route interface {
 	GatewayAddress() string
 	SetGatewayAddress(value string)
 
-	// The IPv4 network traffic that the system routes to the primary physical interface, not the TUN interface.
-	ExcludedRoutes() INEIPv4Route
-	SetExcludedRoutes(value INEIPv4Route)
-	// The IPv4 network traffic that the system routes to the TUN interface.
-	IncludedRoutes() INEIPv4Route
-	SetIncludedRoutes(value INEIPv4Route)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -222,27 +216,4 @@ func (i NEIPv4Route) GatewayAddress() string {
 }
 func (i NEIPv4Route) SetGatewayAddress(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setGatewayAddress:"), objc.String(value))
-}
-
-// The IPv4 network traffic that the system routes to the primary physical
-// interface, not the TUN interface.
-//
-// See: https://developer.apple.com/documentation/networkextension/neipv4settings/excludedroutes
-func (i NEIPv4Route) ExcludedRoutes() INEIPv4Route {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("excludedRoutes"))
-	return NEIPv4RouteFromID(objc.ID(rv))
-}
-func (i NEIPv4Route) SetExcludedRoutes(value INEIPv4Route) {
-	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), value)
-}
-
-// The IPv4 network traffic that the system routes to the TUN interface.
-//
-// See: https://developer.apple.com/documentation/networkextension/neipv4settings/includedroutes
-func (i NEIPv4Route) IncludedRoutes() INEIPv4Route {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("includedRoutes"))
-	return NEIPv4RouteFromID(objc.ID(rv))
-}
-func (i NEIPv4Route) SetIncludedRoutes(value INEIPv4Route) {
-	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), value)
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 )
@@ -120,7 +121,7 @@ type IAVCaptureScreenInput interface {
 	// Topic: Initializing a capture screen input
 
 	// Initializes a capture screen input that provides media data from the specified display.
-	InitWithDisplayID(displayID uint32) AVCaptureScreenInput
+	InitWithDisplayID(displayID coregraphics.CGDirectDisplayID) AVCaptureScreenInput
 
 	// Topic: Setting video capture options
 
@@ -177,7 +178,7 @@ func NewAVCaptureScreenInput() AVCaptureScreenInput {
 // system, for example), returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureScreenInput/init(displayID:)
-func NewCaptureScreenInputWithDisplayID(displayID uint32) AVCaptureScreenInput {
+func NewCaptureScreenInputWithDisplayID(displayID coregraphics.CGDirectDisplayID) AVCaptureScreenInput {
 	instance := getAVCaptureScreenInputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayID:"), displayID)
 	return AVCaptureScreenInputFromID(rv)
@@ -197,7 +198,7 @@ func NewCaptureScreenInputWithDisplayID(displayID uint32) AVCaptureScreenInput {
 // system, for example), returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureScreenInput/init(displayID:)
-func (c AVCaptureScreenInput) InitWithDisplayID(displayID uint32) AVCaptureScreenInput {
+func (c AVCaptureScreenInput) InitWithDisplayID(displayID coregraphics.CGDirectDisplayID) AVCaptureScreenInput {
 	rv := objc.Send[AVCaptureScreenInput](c.ID, objc.Sel("initWithDisplayID:"), displayID)
 	return rv
 }

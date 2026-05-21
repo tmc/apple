@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
@@ -234,8 +233,8 @@ type IAVAssetWriterInput interface {
 	PreferredVolume() float32
 	SetPreferredVolume(value float32)
 	// The time scale of the track in the output file.
-	MediaTimeScale() int32
-	SetMediaTimeScale(value int32)
+	MediaTimeScale() coremedia.CMTimeScale
+	SetMediaTimeScale(value coremedia.CMTimeScale)
 	// A Boolean value that indicates whether to enable a track in the output for playback and processing.
 	MarksOutputTrackAsEnabled() bool
 	SetMarksOutputTrackAsEnabled(value bool)
@@ -294,7 +293,7 @@ type IAVAssetWriterInput interface {
 	PerformsMultiPassEncodingIfSupported() bool
 	SetPerformsMultiPassEncodingIfSupported(value bool)
 	// Tells the input to invoke a callback whenever it begins a new pass.
-	RespondToEachPassDescriptionOnQueueUsingBlock(queue dispatch.Queue, block unsafe.Pointer)
+	RespondToEachPassDescriptionOnQueueUsingBlock(queue dispatch.Queue, block dispatch.DispatchBlock)
 
 	// Topic: Inspecting an input
 
@@ -341,8 +340,9 @@ func NewAVAssetWriterInput() AVAssetWriterInput {
 // to the output unaltered. However, if you’re not writing to a QuickTime
 // movie file, an asset writer only supports passing through a restricted set
 // of media types and subtypes. To pass through media data to files with a
-// type other than [Mov], pass a nonnull format hint using the
-// [InitWithMediaTypeOutputSettingsSourceFormatHint] instead.
+// type other than [mov], pass a nonnull format hint using the
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettingsSourceFormatHint]
+// instead.
 //
 // # Configuring audio settings
 //
@@ -350,7 +350,7 @@ func NewAVAssetWriterInput() AVAssetWriterInput {
 // initializer, which means you must provide values for the following keys:
 //
 // - [AVFormatIDKey]. The identifier of the audio format. For
-// [KAudioFormatLinearPCM] format, you must include values for all relevant
+// [kAudioFormatLinearPCM] format, you must include values for all relevant
 // keys with a [AVLinearPCM] prefix, and for [kAudioFormatAppleLossless], you
 // must specify a value for [AVEncoderBitDepthHintKey]. - [AVSampleRateKey].
 // The sample rate of the audio. Common values are `44100` and `48000`. -
@@ -374,12 +374,15 @@ func NewAVAssetWriterInput() AVAssetWriterInput {
 //
 // [AVChannelLayoutKey]: https://developer.apple.com/documentation/AVFAudio/AVChannelLayoutKey
 // [AVEncoderBitDepthHintKey]: https://developer.apple.com/documentation/AVFAudio/AVEncoderBitDepthHintKey
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVNumberOfChannelsKey]: https://developer.apple.com/documentation/AVFAudio/AVNumberOfChannelsKey
 // [AVSampleRateKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 // [AVVideoHeightKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoHeightKey
 // [AVVideoWidthKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoWidthKey
 // [kAudioFormatAppleLossless]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatAppleLossless
+// [kAudioFormatLinearPCM]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
+// [mov]: https://developer.apple.com/documentation/AVFoundation/AVFileType/mov
 func NewAssetWriterInputWithMediaTypeOutputSettings(mediaType AVMediaType, outputSettings foundation.INSDictionary) AVAssetWriterInput {
 	instance := getAVAssetWriterInputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMediaType:outputSettings:"), objc.String(string(mediaType)), outputSettings)
@@ -411,6 +414,7 @@ func NewAssetWriterInputWithMediaTypeOutputSettings(mediaType AVMediaType, outpu
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
 //
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	instance := getAVAssetWriterInputClass().Alloc()
@@ -434,8 +438,9 @@ func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AV
 // to the output unaltered. However, if you’re not writing to a QuickTime
 // movie file, an asset writer only supports passing through a restricted set
 // of media types and subtypes. To pass through media data to files with a
-// type other than [Mov], pass a nonnull format hint using the
-// [InitWithMediaTypeOutputSettingsSourceFormatHint] instead.
+// type other than [mov], pass a nonnull format hint using the
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettingsSourceFormatHint]
+// instead.
 //
 // # Configuring audio settings
 //
@@ -443,7 +448,7 @@ func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AV
 // initializer, which means you must provide values for the following keys:
 //
 // - [AVFormatIDKey]. The identifier of the audio format. For
-// [KAudioFormatLinearPCM] format, you must include values for all relevant
+// [kAudioFormatLinearPCM] format, you must include values for all relevant
 // keys with a [AVLinearPCM] prefix, and for [kAudioFormatAppleLossless], you
 // must specify a value for [AVEncoderBitDepthHintKey]. - [AVSampleRateKey].
 // The sample rate of the audio. Common values are `44100` and `48000`. -
@@ -467,12 +472,15 @@ func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AV
 //
 // [AVChannelLayoutKey]: https://developer.apple.com/documentation/AVFAudio/AVChannelLayoutKey
 // [AVEncoderBitDepthHintKey]: https://developer.apple.com/documentation/AVFAudio/AVEncoderBitDepthHintKey
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVNumberOfChannelsKey]: https://developer.apple.com/documentation/AVFAudio/AVNumberOfChannelsKey
 // [AVSampleRateKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 // [AVVideoHeightKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoHeightKey
 // [AVVideoWidthKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoWidthKey
 // [kAudioFormatAppleLossless]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatAppleLossless
+// [kAudioFormatLinearPCM]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
+// [mov]: https://developer.apple.com/documentation/AVFoundation/AVFileType/mov
 func (a AVAssetWriterInput) InitWithMediaTypeOutputSettings(mediaType AVMediaType, outputSettings foundation.INSDictionary) AVAssetWriterInput {
 	rv := objc.Send[AVAssetWriterInput](a.ID, objc.Sel("initWithMediaType:outputSettings:"), objc.String(string(mediaType)), outputSettings)
 	return rv
@@ -503,6 +511,7 @@ func (a AVAssetWriterInput) InitWithMediaTypeOutputSettings(mediaType AVMediaTyp
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
 //
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 func (a AVAssetWriterInput) InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	rv := objc.Send[AVAssetWriterInput](a.ID, objc.Sel("initWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
@@ -579,15 +588,16 @@ func (a AVAssetWriterInput) MarkAsFinished() {
 //
 // # Discussion
 //
-// When the value of the [CanPerformMultiplePasses] property is true, call
-// this method after you append all of your media data. After the input
-// determines if it warrants performing an additional pass, the value of
-// [CurrentPassDescription] changes (typically asynchronously) to describe how
-// to set up for the next pass. Although it’s possible to use key-value
-// observing to determine when the value of [CurrentPassDescription] changes,
-// it’s typically more convenient to call the
-// [RespondToEachPassDescriptionOnQueueUsingBlock] method to start the work
-// for each pass.
+// When the value of the [AVAssetWriterInput.CanPerformMultiplePasses]
+// property is true, call this method after you append all of your media data.
+// After the input determines if it warrants performing an additional pass,
+// the value of [AVAssetWriterInput.CurrentPassDescription] changes (typically
+// asynchronously) to describe how to set up for the next pass. Although
+// it’s possible to use key-value observing to determine when the value of
+// [AVAssetWriterInput.CurrentPassDescription] changes, it’s typically more
+// convenient to call the
+// [AVAssetWriterInput.RespondToEachPassDescriptionOnQueueUsingBlock] method
+// to start the work for each pass.
 //
 // After reappending the media data for all of the time ranges of the new
 // pass, call this method again to determine whether to reappend segments in
@@ -599,13 +609,14 @@ func (a AVAssetWriterInput) MarkAsFinished() {
 // provides a convenient way to consolidate these invocations in your code.
 //
 // After each pass, you have the option of keeping the most recent results by
-// calling [MarkAsFinished], instead of this method. If the value of
-// [CurrentPassDescription] is `nil` at the beginning of a pass, call
-// [MarkAsFinished] to tell the input to not expect any further media data.
+// calling [AVAssetWriterInput.MarkAsFinished], instead of this method. If the
+// value of [AVAssetWriterInput.CurrentPassDescription] is `nil` at the
+// beginning of a pass, call [AVAssetWriterInput.MarkAsFinished] to tell the
+// input to not expect any further media data.
 //
-// If the value of [CanPerformMultiplePasses] is false, the value of
-// [CurrentPassDescription] immediately becomes `nil` after calling this
-// method.
+// If the value of [AVAssetWriterInput.CanPerformMultiplePasses] is false, the
+// value of [AVAssetWriterInput.CurrentPassDescription] immediately becomes
+// `nil` after calling this method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/markCurrentPassAsFinished()
 //
@@ -625,23 +636,24 @@ func (a AVAssetWriterInput) MarkCurrentPassAsFinished() {
 // A typical implemementation of the callback block performs the following
 // steps:
 //
-// - Gets the value of the [CurrentPassDescription] property and configures
-// media data source accordingly. - Calls the
+// - Gets the value of the [AVAssetWriterInput.CurrentPassDescription]
+// property and configures media data source accordingly. - Calls the
 // [requestMediaDataWhenReady(on:using:)] method to begin appending data for
 // the current pass.
 //
 // After you’ve appended all media data for the current pass, call the
-// [MarkCurrentPassAsFinished] method have the system determine whether to
-// perform another pass. If it performs an additional pass the system invokes
-// the callback to begin the next pass. When it determines that it requires no
-// additional passes, the system invokes the callback one final time so the
-// client can invoke [MarkAsFinished] in response to the value of
-// [CurrentPassDescription] becoming `nil`.
+// [AVAssetWriterInput.MarkCurrentPassAsFinished] method have the system
+// determine whether to perform another pass. If it performs an additional
+// pass the system invokes the callback to begin the next pass. When it
+// determines that it requires no additional passes, the system invokes the
+// callback one final time so the client can invoke
+// [AVAssetWriterInput.MarkAsFinished] in response to the value of
+// [AVAssetWriterInput.CurrentPassDescription] becoming `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/respondToEachPassDescription(on:using:)
 //
 // [requestMediaDataWhenReady(on:using:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/requestMediaDataWhenReady(on:using:)
-func (a AVAssetWriterInput) RespondToEachPassDescriptionOnQueueUsingBlock(queue dispatch.Queue, block unsafe.Pointer) {
+func (a AVAssetWriterInput) RespondToEachPassDescriptionOnQueueUsingBlock(queue dispatch.Queue, block dispatch.DispatchBlock) {
 	objc.Send[objc.ID](a.ID, objc.Sel("respondToEachPassDescriptionOnQueue:usingBlock:"), uintptr(queue.Handle()), block)
 }
 
@@ -665,8 +677,9 @@ func (a AVAssetWriterInput) RespondToEachPassDescriptionOnQueueUsingBlock(queue 
 // to the output unaltered. However, if you’re not writing to a QuickTime
 // movie file, an asset writer only supports passing through a restricted set
 // of media types and subtypes. To pass through media data to files with a
-// type other than [Mov], pass a nonnull format hint using the
-// [InitWithMediaTypeOutputSettingsSourceFormatHint] instead.
+// type other than [mov], pass a nonnull format hint using the
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettingsSourceFormatHint]
+// instead.
 //
 // # Configuring audio settings
 //
@@ -674,7 +687,7 @@ func (a AVAssetWriterInput) RespondToEachPassDescriptionOnQueueUsingBlock(queue 
 // initializer, which means you must provide values for the following keys:
 //
 // - [AVFormatIDKey]. The identifier of the audio format. For
-// [KAudioFormatLinearPCM] format, you must include values for all relevant
+// [kAudioFormatLinearPCM] format, you must include values for all relevant
 // keys with a [AVLinearPCM] prefix, and for [kAudioFormatAppleLossless], you
 // must specify a value for [AVEncoderBitDepthHintKey]. - [AVSampleRateKey].
 // The sample rate of the audio. Common values are `44100` and `48000`. -
@@ -698,12 +711,15 @@ func (a AVAssetWriterInput) RespondToEachPassDescriptionOnQueueUsingBlock(queue 
 //
 // [AVChannelLayoutKey]: https://developer.apple.com/documentation/AVFAudio/AVChannelLayoutKey
 // [AVEncoderBitDepthHintKey]: https://developer.apple.com/documentation/AVFAudio/AVEncoderBitDepthHintKey
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVNumberOfChannelsKey]: https://developer.apple.com/documentation/AVFAudio/AVNumberOfChannelsKey
 // [AVSampleRateKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 // [AVVideoHeightKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoHeightKey
 // [AVVideoWidthKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoWidthKey
 // [kAudioFormatAppleLossless]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatAppleLossless
+// [kAudioFormatLinearPCM]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
+// [mov]: https://developer.apple.com/documentation/AVFoundation/AVFileType/mov
 func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettings(mediaType AVMediaType, outputSettings foundation.INSDictionary) AVAssetWriterInput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterInputClass.class), objc.Sel("assetWriterInputWithMediaType:outputSettings:"), objc.String(string(mediaType)), outputSettings)
 	return AVAssetWriterInputFromID(rv)
@@ -738,6 +754,7 @@ func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMedi
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/assetWriterInputWithMediaType:outputSettings:sourceFormatHint:
 //
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterInputClass.class), objc.Sel("assetWriterInputWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
@@ -816,11 +833,11 @@ func (a AVAssetWriterInput) SetPreferredVolume(value float32) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/mediaTimeScale
 //
 // [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
-func (a AVAssetWriterInput) MediaTimeScale() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("mediaTimeScale"))
-	return rv
+func (a AVAssetWriterInput) MediaTimeScale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](a.ID, objc.Sel("mediaTimeScale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (a AVAssetWriterInput) SetMediaTimeScale(value int32) {
+func (a AVAssetWriterInput) SetMediaTimeScale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMediaTimeScale:"), value)
 }
 
@@ -962,11 +979,13 @@ func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value coremedia.CMTim
 //
 // For example, setting the value of this property to
 // `///User/johnappleseed/Movies/` and appending sample buffers with the
-// [KCMSampleBufferAttachmentKey_SampleReferenceURL] attachment set to
+// [kCMSampleBufferAttachmentKey_SampleReferenceURL] attachment set to
 // `///User/johnappleseed/Movies/data/movie1.Mov()` writes a sample reference
 // of `data/movie1.Mov()` to the movie.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/sampleReferenceBaseURL
+//
+// [kCMSampleBufferAttachmentKey_SampleReferenceURL]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceURL
 func (a AVAssetWriterInput) SampleReferenceBaseURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleReferenceBaseURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
@@ -1011,18 +1030,20 @@ func (a AVAssetWriterInput) SetMediaDataLocation(value AVAssetWriterInputMediaDa
 //
 // When the value for this property is true, configure your source media data
 // for random access. After appending the media data for the current pass, as
-// specified by the [CurrentPassDescription] property, call
-// [MarkCurrentPassAsFinished] so the system can determine whether it needs to
-// perform additional passes. The system may perform only the initial pass if
-// it determines there’s no benefit to performing multiple passes.
+// specified by the [AVAssetWriterInput.CurrentPassDescription] property, call
+// [AVAssetWriterInput.MarkCurrentPassAsFinished] so the system can determine
+// whether it needs to perform additional passes. The system may perform only
+// the initial pass if it determines there’s no benefit to performing
+// multiple passes.
 //
 // When the value for this property is false, your source for media data only
 // needs to support sequential access. In this case, append all of the source
-// media one time and call [MarkAsFinished].
+// media one time and call [AVAssetWriterInput.MarkAsFinished].
 //
 // The default value is false. Currently the only way for this property to
-// become true is when the value of [PerformsMultiPassEncodingIfSupported] is
-// true. The final value is available after you call [startWriting()].
+// become true is when the value of
+// [AVAssetWriterInput.PerformsMultiPassEncodingIfSupported] is true. The
+// final value is available after you call [startWriting()].
 //
 // This property is key-value observable.
 //
@@ -1039,19 +1060,21 @@ func (a AVAssetWriterInput) CanPerformMultiplePasses() bool {
 // # Discussion
 //
 // If the value of this property is `nil`, call the asset writer input’s
-// [MarkAsFinished] method because there are no more requests to fulfill.
+// [AVAssetWriterInput.MarkAsFinished] method because there are no more
+// requests to fulfill.
 //
 // During the first pass, the request contains a single time range value, from
 // zero to positive infinity, that indicates to append all media from the
-// source. This condition is also true when [CanPerformMultiplePasses] is
-// false, in which case the asset writer only performs a single pass.
+// source. This condition is also true when
+// [AVAssetWriterInput.CanPerformMultiplePasses] is false, in which case the
+// asset writer only performs a single pass.
 //
 // The value of this property is `nil` before you call [startWriting()] on the
 // containing asset writer. It transitions to an initial non-`nil` value
 // during the call to [startWriting()], and changes only after a call to
-// [MarkCurrentPassAsFinished]. You can use the
-// [RespondToEachPassDescriptionOnQueueUsingBlock] to have the system call you
-// at the beginning of each pass.
+// [AVAssetWriterInput.MarkCurrentPassAsFinished]. You can use the
+// [AVAssetWriterInput.RespondToEachPassDescriptionOnQueueUsingBlock] to have
+// the system call you at the beginning of each pass.
 //
 // This property is key-value observable. The system doesn’t notify an
 // observer on a specific thread.
@@ -1073,9 +1096,10 @@ func (a AVAssetWriterInput) CurrentPassDescription() IAVAssetWriterInputPassDesc
 // rate by performing multiple passes over the source media. It does this by
 // analyzing the media data it appends and reencodes certain segments with
 // different parameters. To perform the reencoding, you must append the media
-// data for the segments again. See the [CurrentPassDescription] property and
-// [MarkCurrentPassAsFinished] method for the means by which the input
-// nominates segments to reappend.
+// data for the segments again. See the
+// [AVAssetWriterInput.CurrentPassDescription] property and
+// [AVAssetWriterInput.MarkCurrentPassAsFinished] method for the means by
+// which the input nominates segments to reappend.
 //
 // When the value of this property is true, the value of
 // [isReadyForMoreMediaData] for other inputs attached to the same asset
@@ -1087,15 +1111,15 @@ func (a AVAssetWriterInput) CurrentPassDescription() IAVAssetWriterInputPassDesc
 //
 // When the value of this property is true, the input may store data in one or
 // more temporary files before writing compressed samples to the output file.
-// Use the asset writer’s [DirectoryForTemporaryFiles] property if you need
-// to specify the location of temporary file writing.
+// Use the asset writer’s [AVAssetWriter.DirectoryForTemporaryFiles]
+// property if you need to specify the location of temporary file writing.
 //
 // The default value is false, which means that no additional analysis occurs
 // and it doesn’t reencode segments. Not all asset writer input
 // configurations benefit from performing multiple passes over the source
 // media. To determine whether the selected encoder can perform multiple
-// passes, query the value of [CanPerformMultiplePasses] after calling
-// [startWriting()].
+// passes, query the value of [AVAssetWriterInput.CanPerformMultiplePasses]
+// after calling [startWriting()].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/performsMultiPassEncodingIfSupported
 //

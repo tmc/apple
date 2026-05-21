@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,16 +53,16 @@ func (nc NSScreenClass) Alloc() NSScreen {
 //
 // An app may use an [NSScreen] object to retrieve information about a screen
 // and use this information to decide what to display on that screen. For
-// example, an app may use the [NSScreen.DeepestScreen] method to find out which of the
-// available screens can best represent color and then might choose to display
-// all of its windows on that screen.
+// example, an app may use the [NSScreenClass.DeepestScreen] method to find
+// out which of the available screens can best represent color and then might
+// choose to display all of its windows on that screen.
 //
 // Create the application object before you use the methods in this class, so
 // that the application object can make the necessary connection to the window
 // system. You can make sure the application object exists by invoking the
-// [SharedApplication] method of [NSApplication]. If you created your app with
-// Xcode, the application object is automatically created for you during
-// initialization.
+// [NSApplicationClass.SharedApplication] method of [NSApplication]. If you
+// created your app with Xcode, the application object is automatically
+// created for you during initialization.
 //
 // # Getting Screen Information
 //
@@ -197,7 +198,7 @@ type INSScreen interface {
 	// Topic: Converting Between Screen and Backing Coordinates
 
 	// Converts a rectangle in global screen coordinates to a pixel aligned rectangle.
-	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect
+	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect
 	// The backing store pixel scale factor for the screen.
 	BackingScaleFactor() float64
 	// Converts the rectangle from the device pixel aligned coordinates system of a screen.
@@ -228,13 +229,13 @@ type INSScreen interface {
 	// The maximum number of frames per second that the screen supports.
 	MaximumFramesPerSecond() int
 	// The shortest refresh interval that the screen supports.
-	MinimumRefreshInterval() float64
+	MinimumRefreshInterval() foundation.NSTimeInterval
 	// The largest refresh interval that the screen supports.
-	MaximumRefreshInterval() float64
+	MaximumRefreshInterval() foundation.NSTimeInterval
 	// The number of seconds between the screen’s supported update rates, for screens that support fixed update rates.
-	DisplayUpdateGranularity() float64
+	DisplayUpdateGranularity() foundation.NSTimeInterval
 	// The time of the last framebuffer update, expressed as the number of seconds since system startup.
-	LastDisplayUpdateTimestamp() float64
+	LastDisplayUpdateTimestamp() foundation.NSTimeInterval
 
 	// Topic: Synchronizing with the display’s refresh rate
 
@@ -244,7 +245,7 @@ type INSScreen interface {
 	// Topic: Instance Properties
 
 	// The CGDirectDisplayID for this screen. This will return kCGNullDirectDisplay if there isn’t one.
-	CGDirectDisplayID() uint32
+	CGDirectDisplayID() coregraphics.CGDirectDisplayID
 }
 
 // Init initializes the instance.
@@ -297,7 +298,7 @@ func (s NSScreen) CanRepresentDisplayGamut(displayGamut NSDisplayGamut) bool {
 //
 // [AlignmentOptions]: https://developer.apple.com/documentation/Foundation/AlignmentOptions
 // [NSIntegralRectWithOptions(_:_:)]: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
-func (s NSScreen) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect {
+func (s NSScreen) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
 	return corefoundation.CGRect(rv)
 }
@@ -487,7 +488,7 @@ func (s NSScreen) VisibleFrame() corefoundation.CGRect {
 //
 // If your app uses the system’s full-screen experience, you don’t need to
 // account for the safe area in your window. When you call your window’s
-// [ToggleFullScreen] method to enter full-screen mode, the system
+// [NSWindow.ToggleFullScreen] method to enter full-screen mode, the system
 // automatically positions the window’s contents within the safe area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/safeAreaInsets
@@ -521,7 +522,7 @@ func (s NSScreen) AuxiliaryTopRightArea() corefoundation.CGRect {
 // The actual maximum value might be lower than this property’s value, and
 // can change dynamically, depending on the capabilities of the display
 // hardware and other conditions. See
-// [MaximumExtendedDynamicRangeColorComponentValue].
+// [NSScreen.MaximumExtendedDynamicRangeColorComponentValue].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/maximumPotentialExtendedDynamicRangeColorComponentValue
 func (s NSScreen) MaximumPotentialExtendedDynamicRangeColorComponentValue() float64 {
@@ -560,10 +561,11 @@ func (s NSScreen) MaximumExtendedDynamicRangeColorComponentValue() float64 {
 // rendering, the value of this property is `0`.
 //
 // On reference displays, if you constrain pixel component values to values
-// between `0` and [MaximumReferenceExtendedDynamicRangeColorComponentValue],
-// the display hardware doesn’t apply any additional tone mapping to the
-// pixels before rendering them. If you use values above this range, display
-// hardware may adjust content to fit into its dynamic range.
+// between `0` and
+// [NSScreen.MaximumReferenceExtendedDynamicRangeColorComponentValue], the
+// display hardware doesn’t apply any additional tone mapping to the pixels
+// before rendering them. If you use values above this range, display hardware
+// may adjust content to fit into its dynamic range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/maximumReferenceExtendedDynamicRangeColorComponentValue
 func (s NSScreen) MaximumReferenceExtendedDynamicRangeColorComponentValue() float64 {
@@ -588,9 +590,9 @@ func (s NSScreen) MaximumFramesPerSecond() int {
 // the display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/minimumRefreshInterval
-func (s NSScreen) MinimumRefreshInterval() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("minimumRefreshInterval"))
-	return rv
+func (s NSScreen) MinimumRefreshInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("minimumRefreshInterval"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The largest refresh interval that the screen supports.
@@ -602,9 +604,9 @@ func (s NSScreen) MinimumRefreshInterval() float64 {
 // the display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/maximumRefreshInterval
-func (s NSScreen) MaximumRefreshInterval() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("maximumRefreshInterval"))
-	return rv
+func (s NSScreen) MaximumRefreshInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("maximumRefreshInterval"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The number of seconds between the screen’s supported update rates, for
@@ -613,20 +615,20 @@ func (s NSScreen) MaximumRefreshInterval() float64 {
 // # Discussion
 //
 // All screen refresh rates fall between the values in the
-// [MinimumRefreshInterval] and [MaximumRefreshInterval] properties. For
-// screens that support fixed update rates, this property contains the amount
-// of time between two successive rates. For example, if a screen supports
-// update rates between 30Hz and 120Hz with an update granularity of 5ms, the
-// screen supports additional refresh rates of approximately 35Hz, 43Hz, 55Hz,
-// and 75Hz.
+// [NSScreen.MinimumRefreshInterval] and [NSScreen.MaximumRefreshInterval]
+// properties. For screens that support fixed update rates, this property
+// contains the amount of time between two successive rates. For example, if a
+// screen supports update rates between 30Hz and 120Hz with an update
+// granularity of 5ms, the screen supports additional refresh rates of
+// approximately 35Hz, 43Hz, 55Hz, and 75Hz.
 //
 // If the value of this property is `0`, the screen supports any update rate
 // between the minimum and maximum refresh intervals.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/displayUpdateGranularity
-func (s NSScreen) DisplayUpdateGranularity() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("displayUpdateGranularity"))
-	return rv
+func (s NSScreen) DisplayUpdateGranularity() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("displayUpdateGranularity"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time of the last framebuffer update, expressed as the number of seconds
@@ -638,18 +640,18 @@ func (s NSScreen) DisplayUpdateGranularity() float64 {
 // update.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/lastDisplayUpdateTimestamp
-func (s NSScreen) LastDisplayUpdateTimestamp() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("lastDisplayUpdateTimestamp"))
-	return rv
+func (s NSScreen) LastDisplayUpdateTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("lastDisplayUpdateTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The CGDirectDisplayID for this screen. This will return
 // kCGNullDirectDisplay if there isn’t one.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/CGDirectDisplayID-7uvhw
-func (s NSScreen) CGDirectDisplayID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("CGDirectDisplayID"))
-	return rv
+func (s NSScreen) CGDirectDisplayID() coregraphics.CGDirectDisplayID {
+	rv := objc.Send[coregraphics.CGDirectDisplayID](s.ID, objc.Sel("CGDirectDisplayID"))
+	return coregraphics.CGDirectDisplayID(rv)
 }
 
 // Returns the screen object containing the window with the keyboard focus.
@@ -667,7 +669,7 @@ func (s NSScreen) CGDirectDisplayID() uint32 {
 // interacting.
 //
 // The screen containing the menu bar is always the first object (index `0`)
-// in the array returned by the [Screens] method.
+// in the array returned by the [NSScreenClass.Screens] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/main
 func (_NSScreenClass NSScreenClass) MainScreen() NSScreen {
@@ -707,8 +709,9 @@ func (_NSScreenClass NSScreenClass) DeepestScreen() NSScreen {
 // bar and whose origin is at the point `(0, 0)`. In the case of mirroring,
 // the first screen is the largest drawable display; if all screens are the
 // same size, it is the screen with the highest pixel depth. This primary
-// screen may not be the same as the one returned by the [MainScreen] method,
-// which returns the screen with the active window.
+// screen may not be the same as the one returned by the
+// [NSScreenClass.MainScreen] method, which returns the screen with the active
+// window.
 //
 // The array should not be cached. Screens can be added, removed, or
 // dynamically reconfigured at any time. When the display configuration is
@@ -738,15 +741,4 @@ func (_NSScreenClass NSScreenClass) Screens() []NSScreen {
 func (_NSScreenClass NSScreenClass) ScreensHaveSeparateSpaces() bool {
 	rv := objc.Send[bool](objc.ID(_NSScreenClass.class), objc.Sel("screensHaveSeparateSpaces"))
 	return rv
-}
-
-// Returns the application instance, creating it if it doesn’t exist yet.
-//
-// See: https://developer.apple.com/documentation/appkit/nsapplication/shared
-func (_NSScreenClass NSScreenClass) Shared() NSApplication {
-	rv := objc.Send[objc.ID](objc.ID(_NSScreenClass.class), objc.Sel("sharedApplication"))
-	return NSApplicationFromID(objc.ID(rv))
-}
-func (_NSScreenClass NSScreenClass) SetSharedApplication(value NSApplication) {
-	objc.Send[struct{}](objc.ID(_NSScreenClass.class), objc.Sel("setSharedApplication:"), value)
 }

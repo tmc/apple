@@ -50,7 +50,7 @@ func (ac AVFragmentedAssetClass) Alloc() AVFragmentedAsset {
 // By using an `mvex` box in their `moov` box, QuickTime movie files and
 // MPEG-4 files can indicate that they accommodate additional fragments. To
 // determine whether a fragmented asset can monitor the addition of fragments,
-// check the value of its [AVFragmentedAsset.CanContainFragments] property.
+// check the value of its [canContainFragments] property.
 //
 // Associate a fragmented asset with an instance of [AVFragmentedAssetMinder]
 // to know when the system appends new fragments. When it has an associated
@@ -66,6 +66,7 @@ func (ac AVFragmentedAssetClass) Alloc() AVFragmentedAsset {
 // [AVAssetContainsFragmentsDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetContainsFragmentsDidChangeNotification
 // [AVAssetDurationDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetDurationDidChangeNotification
 // [AVAssetWasDefragmentedNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetWasDefragmentedNotification
+// [canContainFragments]: https://developer.apple.com/documentation/AVFoundation/AVAsset/canContainFragments
 type AVFragmentedAsset struct {
 	AVURLAsset
 }
@@ -86,10 +87,6 @@ func AVFragmentedAssetFromID(id objc.ID) AVFragmentedAsset {
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset
 type IAVFragmentedAsset interface {
 	IAVURLAsset
-
-	// A Boolean value that indicates whether you can extend the asset by fragments.
-	CanContainFragments() bool
-	SetCanContainFragments(value bool)
 }
 
 // Init initializes the instance.
@@ -171,18 +168,6 @@ func (f AVFragmentedAsset) IsAssociatedWithFragmentMinder() bool {
 func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVFragmentedAssetClass.class), objc.Sel("fragmentedAssetWithURL:options:"), URL, options)
 	return AVFragmentedAssetFromID(rv)
-}
-
-// A Boolean value that indicates whether you can extend the asset by
-// fragments.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avasset/cancontainfragments
-func (f AVFragmentedAsset) CanContainFragments() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("canContainFragments"))
-	return rv
-}
-func (f AVFragmentedAsset) SetCanContainFragments(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setCanContainFragments:"), value)
 }
 
 // Protocol methods for AVFragmentMinding

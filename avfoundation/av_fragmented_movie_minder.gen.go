@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -94,7 +95,7 @@ type IAVFragmentedMovieMinder interface {
 	// Topic: Creating a movie minder
 
 	// Creates a movie minder and adds a movie with a minding interval.
-	InitWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval float64) AVFragmentedMovieMinder
+	InitWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval foundation.NSTimeInterval) AVFragmentedMovieMinder
 
 	// Topic: Adding and removing movies
 
@@ -138,7 +139,7 @@ func NewAVFragmentedMovieMinder() AVFragmentedMovieMinder {
 // The new fragmented asset minder.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/init(asset:mindingInterval:)
-func NewFragmentedMovieMinderWithAssetMindingInterval(asset IAVAsset, mindingInterval float64) AVFragmentedMovieMinder {
+func NewFragmentedMovieMinderWithAssetMindingInterval(asset IAVAsset, mindingInterval foundation.NSTimeInterval) AVFragmentedMovieMinder {
 	instance := getAVFragmentedMovieMinderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAsset:mindingInterval:"), asset, mindingInterval)
 	return AVFragmentedMovieMinderFromID(rv)
@@ -155,7 +156,7 @@ func NewFragmentedMovieMinderWithAssetMindingInterval(asset IAVAsset, mindingInt
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/init(movie:mindingInterval:)
-func NewFragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval float64) AVFragmentedMovieMinder {
+func NewFragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval foundation.NSTimeInterval) AVFragmentedMovieMinder {
 	instance := getAVFragmentedMovieMinderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMovie:mindingInterval:"), movie, mindingInterval)
 	return AVFragmentedMovieMinderFromID(rv)
@@ -172,7 +173,7 @@ func NewFragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, 
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/init(movie:mindingInterval:)
-func (f AVFragmentedMovieMinder) InitWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval float64) AVFragmentedMovieMinder {
+func (f AVFragmentedMovieMinder) InitWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval foundation.NSTimeInterval) AVFragmentedMovieMinder {
 	rv := objc.Send[AVFragmentedMovieMinder](f.ID, objc.Sel("initWithMovie:mindingInterval:"), movie, mindingInterval)
 	return rv
 }
@@ -206,7 +207,7 @@ func (f AVFragmentedMovieMinder) RemoveFragmentedMovie(movie IAVFragmentedMovie)
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/fragmentedMovieMinderWithMovie:mindingInterval:
-func (_AVFragmentedMovieMinderClass AVFragmentedMovieMinderClass) FragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval float64) AVFragmentedMovieMinder {
+func (_AVFragmentedMovieMinderClass AVFragmentedMovieMinderClass) FragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, mindingInterval foundation.NSTimeInterval) AVFragmentedMovieMinder {
 	rv := objc.Send[objc.ID](objc.ID(_AVFragmentedMovieMinderClass.class), objc.Sel("fragmentedMovieMinderWithMovie:mindingInterval:"), movie, mindingInterval)
 	return AVFragmentedMovieMinderFromID(rv)
 }

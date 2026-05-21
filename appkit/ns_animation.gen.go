@@ -66,14 +66,14 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 // # Subclassing Notes
 //
 // The usual usage pattern for [NSAnimation] is to make a subclass that
-// overrides (at least) the [NSAnimation.CurrentProgress] property to invoke the
-// superclass implementation and then perform whatever animation action is
-// needed. The method implementation might use the [NSAnimation.CurrentValue] property and
-// then use that value to update some drawing; as a consequence of getting the
-// current value, the method [AnimationValueForProgress] is sent to the
-// delegate (if there is a delegate that implements the method). For more
-// information on subclassing [NSAnimation], see [Animation Programming Guide
-// for Cocoa].
+// overrides (at least) the [NSAnimation.CurrentProgress] property to invoke
+// the superclass implementation and then perform whatever animation action is
+// needed. The method implementation might use the [NSAnimation.CurrentValue]
+// property and then use that value to update some drawing; as a consequence
+// of getting the current value, the method [AnimationValueForProgress] is
+// sent to the delegate (if there is a delegate that implements the method).
+// For more information on subclassing [NSAnimation], see [Animation
+// Programming Guide for Cocoa].
 //
 // # Initializing an NSAnimation Object
 //
@@ -198,7 +198,7 @@ type INSAnimation interface {
 	// Topic: Initializing an NSAnimation Object
 
 	// Returns an [NSAnimation] object initialized with the specified duration and animation-curve values.
-	InitWithDurationAnimationCurve(duration float64, animationCurve NSAnimationCurve) NSAnimation
+	InitWithDurationAnimationCurve(duration foundation.NSTimeInterval, animationCurve NSAnimationCurve) NSAnimation
 
 	// Topic: Configuring an Animation
 
@@ -211,8 +211,8 @@ type INSAnimation interface {
 	AnimationCurve() NSAnimationCurve
 	SetAnimationCurve(value NSAnimationCurve)
 	// The duration of the animation, in seconds.
-	Duration() float64
-	SetDuration(value float64)
+	Duration() foundation.NSTimeInterval
+	SetDuration(value foundation.NSTimeInterval)
 	// The number of frame updates per second to generate for the animation.
 	FrameRate() float32
 	SetFrameRate(value float32)
@@ -309,11 +309,12 @@ func NewAnimationWithCoder(coder foundation.INSCoder) NSAnimation {
 // # Discussion
 //
 // You can always later change the duration of an [NSAnimation] object by
-// changing the [Duration] property, even while the animation is running. See
-// “Constants” for descriptions of the NSAnimationCurve constants.
+// changing the [NSAnimation.Duration] property, even while the animation is
+// running. See “Constants” for descriptions of the NSAnimationCurve
+// constants.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(duration:animationCurve:)
-func NewAnimationWithDurationAnimationCurve(duration float64, animationCurve NSAnimationCurve) NSAnimation {
+func NewAnimationWithDurationAnimationCurve(duration foundation.NSTimeInterval, animationCurve NSAnimationCurve) NSAnimation {
 	instance := getNSAnimationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return NSAnimationFromID(rv)
@@ -337,11 +338,12 @@ func NewAnimationWithDurationAnimationCurve(duration float64, animationCurve NSA
 // # Discussion
 //
 // You can always later change the duration of an [NSAnimation] object by
-// changing the [Duration] property, even while the animation is running. See
-// “Constants” for descriptions of the NSAnimationCurve constants.
+// changing the [NSAnimation.Duration] property, even while the animation is
+// running. See “Constants” for descriptions of the NSAnimationCurve
+// constants.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(duration:animationCurve:)
-func (a NSAnimation) InitWithDurationAnimationCurve(duration float64, animationCurve NSAnimationCurve) NSAnimation {
+func (a NSAnimation) InitWithDurationAnimationCurve(duration foundation.NSTimeInterval, animationCurve NSAnimationCurve) NSAnimation {
 	rv := objc.Send[NSAnimation](a.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return rv
 }
@@ -351,10 +353,11 @@ func (a NSAnimation) InitWithDurationAnimationCurve(duration float64, animationC
 // # Discussion
 //
 // A strong reference to the animation is maintained until the end of the
-// animation or until its [StopAnimation] method is called. If the blocking
-// mode is [NSAnimationBlocking], this method returns after the animation has
-// completed or the delegate sends it [StopAnimation]. If the receiver has a
-// progress of `1.0`, it starts again at `0.0`.
+// animation or until its [NSAnimation.StopAnimation] method is called. If the
+// blocking mode is [NSAnimationBlocking], this method returns after the
+// animation has completed or the delegate sends it
+// [NSAnimation.StopAnimation]. If the receiver has a progress of `1.0`, it
+// starts again at `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/start()
 func (a NSAnimation) StartAnimation() {
@@ -398,7 +401,7 @@ func (a NSAnimation) AddProgressMark(progressMark NSAnimationProgress) {
 //
 // progressMark: A `float` value (typed as NSAnimationProgress) that indicates the portion
 // of the animation completed. The value should correspond to a progress mark
-// set with [AddProgressMark] or [NSAnimation].
+// set with [NSAnimation.AddProgressMark] or [NSAnimation].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/removeProgressMark(_:)
 func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
@@ -450,7 +453,7 @@ func (a NSAnimation) StopWhenAnimationReachesProgress(animation INSAnimation, st
 // # Discussion
 //
 // The linkage to the other animation is made with
-// [StartWhenAnimationReachesProgress].
+// [NSAnimation.StartWhenAnimationReachesProgress].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/clearStart()
 func (a NSAnimation) ClearStartAnimation() {
@@ -462,7 +465,7 @@ func (a NSAnimation) ClearStartAnimation() {
 // # Discussion
 //
 // The linkage to the other animation is made with
-// [StopWhenAnimationReachesProgress].
+// [NSAnimation.StopWhenAnimationReachesProgress].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/clearStop()
 func (a NSAnimation) ClearStopAnimation() {
@@ -561,11 +564,11 @@ func (a NSAnimation) SetAnimationCurve(value NSAnimationCurve) {
 // an in-progress animation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/duration
-func (a NSAnimation) Duration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("duration"))
-	return rv
+func (a NSAnimation) Duration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("duration"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a NSAnimation) SetDuration(value float64) {
+func (a NSAnimation) SetDuration(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
 

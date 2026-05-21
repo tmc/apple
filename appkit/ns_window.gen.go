@@ -341,7 +341,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Managing Window Sharing
 //
-//   - [NSWindow.TransferWindowSharingToWindowCompletionHandler]
+//   - [NSWindow.TransferWindowSharingToWindowCompletionHandler]: Attempts to move window sharing (within a SharePlay session) from this window to another window.
 //   - [NSWindow.HasActiveWindowSharingSession]: Indicates whether the receiver is the subject of an active SharePlay sharing session.
 //
 // # Handling Mouse Events
@@ -483,8 +483,6 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //   - [NSWindow.SetNSBitsPerSampleFromDepth]
 //   - [NSWindow.ColorSpaceName]: Returns the name of the color space corresponding to the passed window depth.
 //   - [NSWindow.SetNSColorSpaceFromDepth]
-//   - [NSWindow.NumberOfColorComponents]: Returns the number of color components in the specified color space.
-//   - [NSWindow.SetNSNumberOfColorComponents]
 //   - [NSWindow.IsPlanar]: Returns whether the specified window depth is planar.
 //   - [NSWindow.SetNSPlanarFromDepth]
 //   - [NSWindow.CanRepresentDisplayGamut]: A Boolean value that indicates if the window and its screen use a color space that can represent the specified display gamut.
@@ -825,7 +823,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Managing Window Sharing
 //
-//   - [INSWindow.TransferWindowSharingToWindowCompletionHandler]
+//   - [INSWindow.TransferWindowSharingToWindowCompletionHandler]: Attempts to move window sharing (within a SharePlay session) from this window to another window.
 //   - [INSWindow.HasActiveWindowSharingSession]: Indicates whether the receiver is the subject of an active SharePlay sharing session.
 //
 // # Handling Mouse Events
@@ -967,8 +965,6 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //   - [INSWindow.SetNSBitsPerSampleFromDepth]
 //   - [INSWindow.ColorSpaceName]: Returns the name of the color space corresponding to the passed window depth.
 //   - [INSWindow.SetNSColorSpaceFromDepth]
-//   - [INSWindow.NumberOfColorComponents]: Returns the number of color components in the specified color space.
-//   - [INSWindow.SetNSNumberOfColorComponents]
 //   - [INSWindow.IsPlanar]: Returns whether the specified window depth is planar.
 //   - [INSWindow.SetNSPlanarFromDepth]
 //   - [INSWindow.CanRepresentDisplayGamut]: A Boolean value that indicates if the window and its screen use a color space that can represent the specified display gamut.
@@ -1159,7 +1155,7 @@ type INSWindow interface {
 	// Sets the origin and size of the window’s frame rectangle, with optional animation, according to a given frame rectangle, thereby setting its position and size onscreen.
 	SetFrameDisplayAnimate(frameRect corefoundation.CGRect, displayFlag bool, animateFlag bool)
 	// Specifies the duration of a smooth frame-size change.
-	AnimationResizeTime(newFrame corefoundation.CGRect) float64
+	AnimationResizeTime(newFrame corefoundation.CGRect) foundation.NSTimeInterval
 	// The window’s aspect ratio, which constrains the size of its frame rectangle to integral multiples of this ratio when the user resizes it.
 	AspectRatio() corefoundation.CGSize
 	SetAspectRatio(value corefoundation.CGSize)
@@ -1412,7 +1408,7 @@ type INSWindow interface {
 	// Returns the next event matching a given mask.
 	NextEventMatchingMask(mask NSEventMask) INSEvent
 	// Forwards the message to the global application object.
-	NextEventMatchingMaskUntilDateInModeDequeue(mask NSEventMask, expiration foundation.NSDate, mode foundation.NSString, deqFlag bool) INSEvent
+	NextEventMatchingMaskUntilDateInModeDequeue(mask NSEventMask, expiration foundation.NSDate, mode foundation.NSRunLoopMode, deqFlag bool) INSEvent
 	// Forwards the message to the global application object.
 	DiscardEventsMatchingMaskBeforeEvent(mask NSEventMask, lastEvent INSEvent)
 	// Forwards the message to the global application object.
@@ -1450,6 +1446,7 @@ type INSWindow interface {
 
 	// Topic: Managing Window Sharing
 
+	// Attempts to move window sharing (within a SharePlay session) from this window to another window.
 	TransferWindowSharingToWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler)
 	// Indicates whether the receiver is the subject of an active SharePlay sharing session.
 	HasActiveWindowSharingSession() bool
@@ -1465,7 +1462,7 @@ type INSWindow interface {
 	// The current location of the pointer reckoned in the window’s base coordinate system, regardless of the current event being handled or of any events pending.
 	MouseLocationOutsideOfEventStream() corefoundation.CGPoint
 	// Tracks events that match the specified mask using the specified tracking handler until the tracking handler explicitly terminates tracking.
-	TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout float64, mode foundation.NSString, trackingHandler EventHandler)
+	TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout foundation.NSTimeInterval, mode foundation.NSRunLoopMode, trackingHandler EventBoolHandler)
 	// Starts a window drag based on the specified mouse-down event.
 	PerformWindowDragWithEvent(event INSEvent)
 
@@ -1475,8 +1472,8 @@ type INSWindow interface {
 	IsRestorable() bool
 	SetRestorable(value bool)
 	// The restoration class associated with the window.
-	RestorationClass() objc.Class
-	SetRestorationClass(value objc.Class)
+	RestorationClass() objectivec.Class
+	SetRestorationClass(value objectivec.Class)
 	// Disables snapshot restoration.
 	DisableSnapshotRestoration()
 	// Enables snapshot restoration.
@@ -1524,7 +1521,7 @@ type INSWindow interface {
 	// The backing scale factor.
 	BackingScaleFactor() float64
 	// Returns a backing store pixel-aligned rectangle in window coordinates.
-	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect
+	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect
 	// Converts a rectangle from its pixel-aligned backing store coordinate system to the window’s coordinate system.
 	ConvertRectFromBacking(rect corefoundation.CGRect) corefoundation.CGRect
 	// Converts a rectangle from the screen coordinate system to the window’s coordinate system.
@@ -1654,9 +1651,6 @@ type INSWindow interface {
 	// Returns the name of the color space corresponding to the passed window depth.
 	ColorSpaceName() NSColorSpaceName
 	SetNSColorSpaceFromDepth(value NSColorSpaceName)
-	// Returns the number of color components in the specified color space.
-	NumberOfColorComponents() int
-	SetNSNumberOfColorComponents(value int)
 	// Returns whether the specified window depth is planar.
 	IsPlanar() bool
 	SetNSPlanarFromDepth(value bool)
@@ -1711,8 +1705,6 @@ type INSWindow interface {
 	RequestSharingOfWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler)
 	RequestSharingOfWindowUsingPreviewTitleCompletionHandler(image INSImage, title string, completionHandler ErrorHandler)
 
-	// Name of an exception that occurs when you pass an invalid argument to a method, such as a `nil` pointer where a non-`nil` object is required.
-	InvalidArgumentException() foundation.NSString
 	// A Boolean value that indicates whether the window’s resize indicator is visible.
 	ShowsResizeIndicator() bool
 	SetShowsResizeIndicator(value bool)
@@ -1792,7 +1784,8 @@ func NewWindowWithCoder(coder foundation.INSCoder) NSWindow {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -1859,7 +1852,7 @@ func NewWindowWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundat
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -1874,10 +1867,10 @@ func NewWindowWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundat
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewWindowWithContentViewController(contentViewController INSViewController) NSWindow {
@@ -1948,7 +1941,8 @@ func NewWindowWithWindowRef(windowRef WindowRef) NSWindow {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -2159,9 +2153,9 @@ func (w NSWindow) DisplayLinkWithTargetSelector(target objectivec.IObject, selec
 // The window uses its current style mask in computing the content rectangle.
 // See [NSWindow.StyleMask] for a list of style mask values. The main
 // advantage of this instance-method counterpart to
-// [ContentRectForFrameRectStyleMask] is that it allows you to take toolbars
-// into account when converting between content and frame rectangles. (The
-// toolbar is not included in the content rectangle.)
+// [NSWindowClass.ContentRectForFrameRectStyleMask] is that it allows you to
+// take toolbars into account when converting between content and frame
+// rectangles. (The toolbar is not included in the content rectangle.)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentRect(forFrameRect:)
 //
@@ -2185,9 +2179,10 @@ func (w NSWindow) ContentRectForFrameRect(frameRect corefoundation.CGRect) coref
 // The window uses its current style mask in computing the frame rectangle.
 // See [NSWindow.StyleMask] for a list of style mask values. The major
 // advantage of this instance-method counterpart to
-// [FrameRectForContentRectStyleMask] is that it allows you to take toolbars
-// into account when converting between content and frame rectangles. (The
-// toolbar is included in the frame rectangle but not the content rectangle.)
+// [NSWindowClass.FrameRectForContentRectStyleMask] is that it allows you to
+// take toolbars into account when converting between content and frame
+// rectangles. (The toolbar is included in the frame rectangle but not the
+// content rectangle.)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/frameRect(forContentRect:)
 //
@@ -2353,8 +2348,8 @@ func (w NSWindow) ConstrainFrameRectToScreen(frameRect corefoundation.CGRect, sc
 // # Discussion
 //
 // The returned point can be passed to a subsequent invocation of
-// [CascadeTopLeftFromPoint] to position the next window so the title bars of
-// both windows are fully visible.
+// [NSWindow.CascadeTopLeftFromPoint] to position the next window so the title
+// bars of both windows are fully visible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/cascadeTopLeft(from:)
 //
@@ -2370,8 +2365,8 @@ func (w NSWindow) CascadeTopLeftFromPoint(topLeftPoint corefoundation.CGPoint) c
 // frameRect: The frame rectangle for the window, including the title bar.
 //
 // flag: Specifies whether the window redraws the views that need to be displayed.
-// When true the window sends a [DisplayIfNeeded] message down its view
-// hierarchy, thus redrawing all views.
+// When true the window sends a [NSWindow.DisplayIfNeeded] message down its
+// view hierarchy, thus redrawing all views.
 //
 // # Discussion
 //
@@ -2390,11 +2385,11 @@ func (w NSWindow) SetFrameDisplay(frameRect corefoundation.CGRect, flag bool) {
 // frameRect: The frame rectangle for the window, including the title bar.
 //
 // displayFlag: Specifies whether the window redraws the views that need to be displayed.
-// When true the window sends a [DisplayIfNeeded] message down its view
-// hierarchy, thus redrawing all views.
+// When true the window sends a [NSWindow.DisplayIfNeeded] message down its
+// view hierarchy, thus redrawing all views.
 //
 // animateFlag: Specifies whether the window performs a smooth resize. true to perform the
-// animation, whose duration is specified by [AnimationResizeTime].
+// animation, whose duration is specified by [NSWindow.AnimationResizeTime].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/setFrame(_:display:animate:)
 func (w NSWindow) SetFrameDisplayAnimate(frameRect corefoundation.CGRect, displayFlag bool, animateFlag bool) {
@@ -2403,7 +2398,7 @@ func (w NSWindow) SetFrameDisplayAnimate(frameRect corefoundation.CGRect, displa
 
 // Specifies the duration of a smooth frame-size change.
 //
-// newFrame: The frame rectangle specified in [SetFrameDisplayAnimate].
+// newFrame: The frame rectangle specified in [NSWindow.SetFrameDisplayAnimate].
 //
 // # Return Value
 //
@@ -2420,9 +2415,9 @@ func (w NSWindow) SetFrameDisplayAnimate(frameRect corefoundation.CGRect, displa
 // may be different in different releases of macOS).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/animationResizeTime(_:)
-func (w NSWindow) AnimationResizeTime(newFrame corefoundation.CGRect) float64 {
-	rv := objc.Send[float64](w.ID, objc.Sel("animationResizeTime:"), newFrame)
-	return rv
+func (w NSWindow) AnimationResizeTime(newFrame corefoundation.CGRect) foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](w.ID, objc.Sel("animationResizeTime:"), newFrame)
+	return foundation.NSTimeInterval(rv)
 }
 
 // This action method simulates the user clicking the zoom box by momentarily
@@ -2452,15 +2447,15 @@ func (w NSWindow) PerformZoom(sender objectivec.IObject) {
 // For more information on the standard and user states, see
 // [WindowWillUseStandardFrameDefaultFrame].
 //
-// Typically, the system invokes the [Zoom] method after a user clicks the
-// window’s zoom box, and [PerformZoom] may also invoke [Zoom]
-// programmatically. It performs the following steps:
+// Typically, the system invokes the [NSWindow.Zoom] method after a user
+// clicks the window’s zoom box, and [NSWindow.PerformZoom] may also invoke
+// [NSWindow.Zoom] programmatically. It performs the following steps:
 //
 // - Invokes the [WindowWillUseStandardFrameDefaultFrame] method, if the
 // delegate or the window class implements it, to obtain a “best fit”
 // frame for the window. If neither the delegate nor the window class
-// implements the method, [Zoom] uses a default frame. The default frame
-// nearly fills the current screen that contains the largest part of the
+// implements the method, [NSWindow.Zoom] uses a default frame. The default
+// frame nearly fills the current screen that contains the largest part of the
 // window’s current frame. - Adjusts the resulting frame, if necessary, to
 // fit on the current screen. - Compares the resulting frame to the current
 // frame to determine whether the window’s standard frame is currently
@@ -2473,11 +2468,11 @@ func (w NSWindow) PerformZoom(sender objectivec.IObject) {
 // has been no previous zoom, the size and location of the window don’t
 // change. - Determines whether the window currently allows zooming. By
 // default, zooming is allowed. If the window’s delegate implements the
-// [WindowShouldZoomToFrame] method, [Zoom] invokes that method. If the
-// delegate doesn’t implement the method but the window does, [Zoom] invokes
-// the window’s version. [WindowShouldZoomToFrame] returns false if zooming
-// isn’t currently allowed. - If the window currently allows zooming, sets
-// the new frame.
+// [WindowShouldZoomToFrame] method, [NSWindow.Zoom] invokes that method. If
+// the delegate doesn’t implement the method but the window does,
+// [NSWindow.Zoom] invokes the window’s version. [WindowShouldZoomToFrame]
+// returns false if zooming isn’t currently allowed. - If the window
+// currently allows zooming, sets the new frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/zoom(_:)
 func (w NSWindow) Zoom(sender objectivec.IObject) {
@@ -2508,15 +2503,15 @@ func (w NSWindow) SetContentSize(size corefoundation.CGSize) {
 // # Discussion
 //
 // If the window is the key or main window, the window object immediately
-// behind it is made key or main in its place. Calling [OrderOut] causes the
-// window to be removed from the screen, but does not cause it to be released.
-// See the [Close] method for information on when a window is released.
-// Calling [OrderOut] on a child window causes the window to be removed from
-// its parent window before being removed.
+// behind it is made key or main in its place. Calling [NSWindow.OrderOut]
+// causes the window to be removed from the screen, but does not cause it to
+// be released. See the [NSWindow.Close] method for information on when a
+// window is released. Calling [NSWindow.OrderOut] on a child window causes
+// the window to be removed from its parent window before being removed.
 //
 // The default animation based on the window type will be used when the window
-// is ordered out unless it has been modified by the [AnimationBehavior]
-// property.
+// is ordered out unless it has been modified by the
+// [NSWindow.AnimationBehavior] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/orderOut(_:)
 func (w NSWindow) OrderOut(sender objectivec.IObject) {
@@ -2541,8 +2536,8 @@ func (w NSWindow) OrderBack(sender objectivec.IObject) {
 // # Discussion
 //
 // The default animation based on the window type will be used when the window
-// is ordered front unless it has been modified by the [AnimationBehavior]
-// property.
+// is ordered front unless it has been modified by the
+// [NSWindow.AnimationBehavior] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/orderFront(_:)
 func (w NSWindow) OrderFront(sender objectivec.IObject) {
@@ -2612,8 +2607,8 @@ func (w NSWindow) SetFrameUsingName(name NSWindowFrameAutosaveName) bool {
 //
 // name: The name of the frame to read.
 //
-// force: true to use [SetFrameUsingName] on a non-resizable window; false to fail on
-// a non-resizable window.
+// force: true to use [NSWindow.SetFrameUsingName] on a non-resizable window; false
+// to fail on a non-resizable window.
 //
 // # Return Value
 //
@@ -2633,10 +2628,10 @@ func (w NSWindow) SetFrameUsingNameForce(name NSWindowFrameAutosaveName, force b
 //
 // # Discussion
 //
-// With the companion method [SetFrameUsingName], you can save and reset an
-// [NSWindow] object’s frame over various launches of an application. The
-// default is owned by the application and stored under the name “`NSWindow
-// Frame name`”. See [UserDefaults] for more information.
+// With the companion method [NSWindow.SetFrameUsingName], you can save and
+// reset an [NSWindow] object’s frame over various launches of an
+// application. The default is owned by the application and stored under the
+// name “`NSWindow Frame name`”. See [UserDefaults] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/saveFrame(usingName:)
 //
@@ -2648,7 +2643,7 @@ func (w NSWindow) SaveFrameUsingName(name NSWindowFrameAutosaveName) {
 // Sets the window’s frame rectangle from a given string representation.
 //
 // string: A string representation of a frame rectangle, previously accessed using
-// [StringWithSavedFrame].
+// [NSWindow.StringWithSavedFrame].
 //
 // # Discussion
 //
@@ -2700,8 +2695,8 @@ func (w NSWindow) BecomeKeyWindow() {
 //
 // # Discussion
 //
-// This method sends [ResignKeyWindow] to the window’s first responder,
-// sends [WindowDidResignKey] to the window’s delegate, and posts
+// This method sends [NSWindow.ResignKeyWindow] to the window’s first
+// responder, sends [WindowDidResignKey] to the window’s delegate, and posts
 // [didResignKeyNotification] to the default notification center.
 //
 // Never invoke this method directly.
@@ -2866,11 +2861,12 @@ func (w NSWindow) DisableKeyEquivalentForDefaultButtonCell() {
 // The field editor may be in use by some view object, so be sure to properly
 // dissociate it from that object before actually using it yourself (the
 // appropriate way to do this is illustrated in the description of
-// [EndEditingFor]). Once you retrieve the field editor, you can insert it in
-// the view hierarchy, set a delegate to interpret text events, and have it
-// perform whatever editing is needed. Then, when it sends a
+// [NSWindow.EndEditingFor]). Once you retrieve the field editor, you can
+// insert it in the view hierarchy, set a delegate to interpret text events,
+// and have it perform whatever editing is needed. Then, when it sends a
 // [TextDidEndEditing] message to the delegate, you can get its text to
-// display or store and remove the field editor using [EndEditingFor].
+// display or store and remove the field editor using
+// [NSWindow.EndEditingFor].
 //
 // The window’s delegate can substitute a custom field editor in place of
 // the window’s field editor by implementing
@@ -2879,7 +2875,8 @@ func (w NSWindow) DisableKeyEquivalentForDefaultButtonCell() {
 // particular text-displaying object (`object`). The window sends this message
 // to its delegate with itself and `object` as the arguments; if the delegate
 // returns a non-`nil` value, the window returns that object instead of its
-// field editor in [FieldEditorForObject]. However, note the following:
+// field editor in [NSWindow.FieldEditorForObject]. However, note the
+// following:
 //
 // - If the window’s delegate is identical to `object`,
 // [WindowWillReturnFieldEditorToObject] isn’t sent to the delegate. - The
@@ -2901,21 +2898,22 @@ func (w NSWindow) FieldEditorForObject(createFlag bool, object objectivec.IObjec
 // # Discussion
 //
 // If the field editor is the first responder, it’s made to resign that
-// status even if its [ResignFirstResponder] method returns false. This
-// registration forces the field editor to send a [TextDidEndEditing] message
-// to its delegate. The field editor is then removed from the view hierarchy,
-// its delegate is set to `nil`, and it’s emptied of any text it may
-// contain.
+// status even if its [NSResponder.ResignFirstResponder] method returns false.
+// This registration forces the field editor to send a [TextDidEndEditing]
+// message to its delegate. The field editor is then removed from the view
+// hierarchy, its delegate is set to `nil`, and it’s emptied of any text it
+// may contain.
 //
 // This method is typically invoked by the object using the field editor when
 // it’s finished. Other objects normally change the first responder by
-// simply using [FirstResponder], which allows a field editor or other object
-// to retain its first responder status if, for example, the user has entered
-// an invalid value. The [EndEditingFor] method should be used only as a last
-// resort if the field editor refuses to resign first responder status. Even
-// in this case, you should always allow the field editor a chance to validate
-// its text and take whatever other action it needs first. You can do this by
-// first trying to make the [NSWindow] object the first responder:
+// simply using [NSWindow.FirstResponder], which allows a field editor or
+// other object to retain its first responder status if, for example, the user
+// has entered an invalid value. The [NSWindow.EndEditingFor] method should be
+// used only as a last resort if the field editor refuses to resign first
+// responder status. Even in this case, you should always allow the field
+// editor a chance to validate its text and take whatever other action it
+// needs first. You can do this by first trying to make the [NSWindow] object
+// the first responder:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/endEditing(for:)
 func (w NSWindow) EndEditingFor(object objectivec.IObject) {
@@ -2923,7 +2921,7 @@ func (w NSWindow) EndEditingFor(object objectivec.IObject) {
 }
 
 // Reenables cursor rectangle management within the window after a
-// [DisableCursorRects] message.
+// [NSWindow.DisableCursorRects] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/enableCursorRects()
 func (w NSWindow) EnableCursorRects() {
@@ -2946,9 +2944,9 @@ func (w NSWindow) DisableCursorRects() {
 //
 // # Discussion
 //
-// This method is invoked by [ResetCursorRects] to clear out existing cursor
-// rectangles before resetting them. You shouldn’t invoke it in the code you
-// write, but you might want to override it to change its behavior.
+// This method is invoked by [NSWindow.ResetCursorRects] to clear out existing
+// cursor rectangles before resetting them. You shouldn’t invoke it in the
+// code you write, but you might want to override it to change its behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/discardCursorRects()
 func (w NSWindow) DiscardCursorRects() {
@@ -2975,13 +2973,14 @@ func (w NSWindow) InvalidateCursorRectsForView(view INSView) {
 //
 // # Discussion
 //
-// Invokes [DiscardCursorRects] to clear the window’s cursor rectangles,
-// then sends [ResetCursorRects] to every [NSView] object in the window’s
-// view hierarchy.
+// Invokes [NSWindow.DiscardCursorRects] to clear the window’s cursor
+// rectangles, then sends [NSWindow.ResetCursorRects] to every [NSView] object
+// in the window’s view hierarchy.
 //
 // This method is typically invoked by the NSApplication object when it
 // detects that the key window’s cursor rectangles are invalid. In program
-// code, it’s more efficient to invoke [InvalidateCursorRectsForView].
+// code, it’s more efficient to invoke
+// [NSWindow.InvalidateCursorRectsForView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/resetCursorRects()
 func (w NSWindow) ResetCursorRects() {
@@ -3035,8 +3034,8 @@ func (w NSWindow) InsertTitlebarAccessoryViewControllerAtIndex(childViewControll
 //
 // # Discussion
 //
-// You can also use [RemoveFromParentViewController] to remove a specific
-// title bar accessory view controller.
+// You can also use [NSViewController.RemoveFromParentViewController] to
+// remove a specific title bar accessory view controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/removeTitlebarAccessoryViewController(at:)
 func (w NSWindow) RemoveTitlebarAccessoryViewControllerAtIndex(index int) {
@@ -3113,8 +3112,9 @@ func (w NSWindow) ToggleTabOverview(sender objectivec.IObject) {
 // Returns the next event matching a given mask.
 //
 // mask: The mask that the event to return must match. Events with non-matching
-// masks are left in the queue. See [DiscardEventsMatchingMaskBeforeEvent] in
-// [NSApplication] for the list of mask values.
+// masks are left in the queue. See
+// [NSApplication.DiscardEventsMatchingMaskBeforeEvent] in [NSApplication] for
+// the list of mask values.
 //
 // # Return Value
 //
@@ -3123,11 +3123,12 @@ func (w NSWindow) ToggleTabOverview(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// This method calls the [NextEventMatchingMaskUntilDateInModeDequeue] method,
-// where the matching mask parameter is the specified `mask`, the `until`
-// (Swift) or `untilDate` (Objective-C) parameter is [distantFuture], the
-// `inMode` parameter is [NSEventTrackingRunLoopMode], and the `dequeue`
-// parameter is true.
+// This method calls the
+// [NSWindow.NextEventMatchingMaskUntilDateInModeDequeue] method, where the
+// matching mask parameter is the specified `mask`, the `until` (Swift) or
+// `untilDate` (Objective-C) parameter is [distantFuture], the `inMode`
+// parameter is [NSEventTrackingRunLoopMode], and the `dequeue` parameter is
+// true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/nextEvent(matching:)
 //
@@ -3154,8 +3155,8 @@ func (w NSWindow) NextEventMatchingMask(mask NSEventMask) INSEvent {
 // The next event whose mask matches the specified `mask`; otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/nextEvent(matching:until:inMode:dequeue:)
-func (w NSWindow) NextEventMatchingMaskUntilDateInModeDequeue(mask NSEventMask, expiration foundation.NSDate, mode foundation.NSString, deqFlag bool) INSEvent {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("nextEventMatchingMask:untilDate:inMode:dequeue:"), mask, expiration, mode, deqFlag)
+func (w NSWindow) NextEventMatchingMaskUntilDateInModeDequeue(mask NSEventMask, expiration foundation.NSDate, mode foundation.NSRunLoopMode, deqFlag bool) INSEvent {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("nextEventMatchingMask:untilDate:inMode:dequeue:"), mask, expiration, objc.String(string(mode)), deqFlag)
 	return NSEventFromID(rv)
 }
 
@@ -3191,8 +3192,8 @@ func (w NSWindow) PostEventAtStart(event INSEvent, flag bool) {
 //
 // Never invoke this method directly. A right mouse-down event in a window of
 // an inactive application isn’t delivered to the corresponding [NSWindow]
-// object. Instead, a [SendEvent] message with a window number of `0` delivers
-// it to the NSApplication object.
+// object. Instead, a [NSApplication.SendEvent] message with a window number
+// of `0` delivers it to the NSApplication object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/sendEvent(_:)
 func (w NSWindow) SendEvent(event INSEvent) {
@@ -3211,31 +3212,31 @@ func (w NSWindow) SendEvent(event INSEvent) {
 // # Discussion
 //
 // If `responder` isn’t already the first responder, this method first sends
-// a [ResignFirstResponder] message to the object that is the first responder.
-// If that object refuses to resign, it remains the first responder, and this
-// method immediately returns false. If the current first responder resigns,
-// this method sends a [BecomeFirstResponder] message to `responder`. If
-// `responder` does not accept first responder status, the [NSWindow] object
-// becomes first responder; in this case, the method returns true even if
-// `responder` refuses first responder status.
+// a [NSResponder.ResignFirstResponder] message to the object that is the
+// first responder. If that object refuses to resign, it remains the first
+// responder, and this method immediately returns false. If the current first
+// responder resigns, this method sends a [NSResponder.BecomeFirstResponder]
+// message to `responder`. If `responder` does not accept first responder
+// status, the [NSWindow] object becomes first responder; in this case, the
+// method returns true even if `responder` refuses first responder status.
 //
-// If `responder` is `nil`, this method still sends [ResignFirstResponder] to
-// the current first responder. If the current first responder refuses to
-// resign, it remains the first responder and this method immediately returns
-// false. If the current first responder returns true from
-// [ResignFirstResponder], the window is made its own first responder and this
-// method returns true.
+// If `responder` is `nil`, this method still sends
+// [NSResponder.ResignFirstResponder] to the current first responder. If the
+// current first responder refuses to resign, it remains the first responder
+// and this method immediately returns false. If the current first responder
+// returns true from [NSResponder.ResignFirstResponder], the window is made
+// its own first responder and this method returns true.
 //
 // The Application Kit framework uses this method to alter the first responder
 // in response to mouse-down events; you can also use it to explicitly set the
 // first responder from within your program. The `responder` object is
 // typically an [NSView] object in the window’s view hierarchy. If this
-// method is called explicitly, first send [AcceptsFirstResponder] to
-// `responder`, and do not call [FirstResponder] if [AcceptsFirstResponder]
-// returns false.
+// method is called explicitly, first send [NSResponder.AcceptsFirstResponder]
+// to `responder`, and do not call [NSWindow.FirstResponder] if
+// [NSResponder.AcceptsFirstResponder] returns false.
 //
-// Use [InitialFirstResponder] to the set the first responder to be used when
-// the window is brought onscreen for the first time.
+// Use [NSWindow.InitialFirstResponder] to the set the first responder to be
+// used when the window is brought onscreen for the first time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/makeFirstResponder(_:)
 func (w NSWindow) MakeFirstResponder(responder INSResponder) bool {
@@ -3249,9 +3250,9 @@ func (w NSWindow) MakeFirstResponder(responder INSResponder) bool {
 //
 // # Discussion
 //
-// Sends the [PreviousValidKeyView] message to `view` and, if that message
-// returns an [NSView] object, invokes [FirstResponder] with the returned
-// object.
+// Sends the [NSView.PreviousValidKeyView] message to `view` and, if that
+// message returns an [NSView] object, invokes [NSWindow.FirstResponder] with
+// the returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/selectKeyView(preceding:)
 func (w NSWindow) SelectKeyViewPrecedingView(view INSView) {
@@ -3264,8 +3265,9 @@ func (w NSWindow) SelectKeyViewPrecedingView(view INSView) {
 //
 // # Discussion
 //
-// Sends the [NextValidKeyView] message to `view` and, if that message returns
-// an [NSView] object, invokes [FirstResponder] with the returned object.
+// Sends the [NSView.NextValidKeyView] message to `view` and, if that message
+// returns an [NSView] object, invokes [NSWindow.FirstResponder] with the
+// returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/selectKeyView(following:)
 func (w NSWindow) SelectKeyViewFollowingView(view INSView) {
@@ -3283,11 +3285,11 @@ func (w NSWindow) SelectKeyViewFollowingView(view INSView) {
 // this order):
 //
 // - The current first responder’s previous valid key view, which the
-// [PreviousValidKeyView] method of [NSView] returns - The
-// [InitialFirstResponder] designates as the window’s initial first
-// responder if it returns true to an [AcceptsFirstResponder] message -
-// Otherwise, the initial first responder’s previous valid key view, which
-// may be `nil`
+// [NSView.PreviousValidKeyView] method of [NSView] returns - The
+// [NSWindow.InitialFirstResponder] designates as the window’s initial first
+// responder if it returns true to an [NSResponder.AcceptsFirstResponder]
+// message - Otherwise, the initial first responder’s previous valid key
+// view, which may be `nil`
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/selectPreviousKeyView(_:)
 func (w NSWindow) SelectPreviousKeyView(sender objectivec.IObject) {
@@ -3305,11 +3307,11 @@ func (w NSWindow) SelectPreviousKeyView(sender objectivec.IObject) {
 // this order):
 //
 // - The current first responder’s next valid key view, which the
-// [NextValidKeyView] method of [NSView] returns - The object
-// [InitialFirstResponder] designates as the window’s initial first
-// responder if it returns true to an [AcceptsFirstResponder] message -
-// Otherwise, the initial first responder’s next valid key view, which may
-// be `nil`
+// [NSView.NextValidKeyView] method of [NSView] returns - The object
+// [NSWindow.InitialFirstResponder] designates as the window’s initial first
+// responder if it returns true to an [NSResponder.AcceptsFirstResponder]
+// message - Otherwise, the initial first responder’s next valid key view,
+// which may be `nil`
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/selectNextKeyView(_:)
 func (w NSWindow) SelectNextKeyView(sender objectivec.IObject) {
@@ -3329,15 +3331,26 @@ func (w NSWindow) SelectNextKeyView(sender objectivec.IObject) {
 // [NSWindow] calls this method automatically if your window doesn’t have a
 // key view loop already established. If you add or remove views later, you
 // can call this method manually to update the window’s key view loop. You
-// can also set the [AutorecalculatesKeyViewLoop] property to have the window
-// recalculate the loop automatically.
+// can also set the [NSWindow.AutorecalculatesKeyViewLoop] property to have
+// the window recalculate the loop automatically.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/recalculateKeyViewLoop()
 func (w NSWindow) RecalculateKeyViewLoop() {
 	objc.Send[objc.ID](w.ID, objc.Sel("recalculateKeyViewLoop"))
 }
 
+// Attempts to move window sharing (within a SharePlay session) from this
+// window to another window.
+//
+// window: Another window to replace this window in representing the user’s current
+// activity.
+//
+// completionHandler: A completion block that is called after the request finishes.
+//
 // # Discussion
+//
+// In response to this request, the user may choose to transfer sharing to the
+// new window, or simply stop sharing the content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/transferWindowSharing(to:completionHandler:)
 func (w NSWindow) TransferWindowSharingToWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler) {
@@ -3374,11 +3387,12 @@ func (w NSWindow) TransferWindowSharingToWindowCompletionHandler(window INSWindo
 // the tracking handler is called with a `nil` event (a negative timeout is
 // interpreted as `0`). Use [NSEventDurationForever] to prevent timing out.
 // Tracking continues until you set `stop` to true. Note that calls to
-// [NextEventMatchingMask] are allowed inside the `trackingHandler` block.
+// [NSWindow.NextEventMatchingMask] are allowed inside the `trackingHandler`
+// block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/trackEvents(matching:timeout:mode:handler:)
-func (w NSWindow) TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout float64, mode foundation.NSString, trackingHandler EventHandler) {
-	_block3, _ := NewEventBlock(trackingHandler)
+func (w NSWindow) TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout foundation.NSTimeInterval, mode foundation.NSRunLoopMode, trackingHandler EventBoolHandler) {
+	_block3, _ := NewEventBoolBlock(trackingHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("trackEventsMatchingMask:timeout:mode:handler:"), mask, timeout, mode, _block3)
 }
 
@@ -3475,7 +3489,7 @@ func (w NSWindow) DisplayIfNeeded() {
 // An [NSWindow] object is automatically sent an `update` message on every
 // pass through the event loop and before it’s displayed onscreen. You can
 // manually cause an `update` message to be sent to all visible [NSWindow]
-// objects through the [NSApplication] [UpdateWindows] method.
+// objects through the [NSApplication] [NSApplication.UpdateWindows] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/update()
 //
@@ -3533,7 +3547,7 @@ func (w NSWindow) UnregisterDraggedTypes() {
 //
 // [AlignmentOptions]: https://developer.apple.com/documentation/Foundation/AlignmentOptions
 // [NSIntegralRectWithOptions(_:_:)]: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
-func (w NSWindow) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect {
+func (w NSWindow) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
 	return corefoundation.CGRect(rv)
 }
@@ -3679,12 +3693,12 @@ func (w NSWindow) SetTitleWithRepresentedFilename(filename string) {
 // The window is placed exactly in the center horizontally and somewhat above
 // center vertically. Such a placement carries a certain visual immediacy and
 // importance. This method doesn’t put the window onscreen, however; use
-// [KeyAndOrderFront] to do that.
+// [NSWindow.KeyAndOrderFront] to do that.
 //
 // You typically use this method to place a window—most likely an alert
 // dialog—where the user can’t miss it. This method is invoked
 // automatically when a panel is placed on the screen by the
-// [RunModalForWindow] method of the [NSApplication] class.
+// [NSApplication.RunModalForWindow] method of the [NSApplication] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/center()
 func (w NSWindow) Center() {
@@ -3704,7 +3718,7 @@ func (w NSWindow) Center() {
 // the window implement the method, the delegate receives the message. If the
 // [WindowShouldClose] method returns false, the window doesn’t close. If
 // neither the window nor the delegate implement [WindowShouldClose], or it
-// returns true, this method invokes [Close] to close the window.
+// returns true, this method invokes [NSWindow.Close] to close the window.
 //
 // If the window doesn’t have a close button or can’t close (for example,
 // if the delegate replies false to a [WindowShouldClose] message), the system
@@ -3723,7 +3737,7 @@ func (w NSWindow) PerformClose(sender objectivec.IObject) {
 // sent to the object after the current event is completed. For an [NSWindow]
 // object, the default is to be released on closing, while for an [NSPanel]
 // object, the default is not to be released. You can use the
-// [ReleasedWhenClosed] property to change the default behavior.
+// [NSWindow.ReleasedWhenClosed] property to change the default behavior.
 //
 // A window doesn’t have to be visible to receive the close message. For
 // example, when the application terminates, it sends the close message to all
@@ -3732,14 +3746,14 @@ func (w NSWindow) PerformClose(sender objectivec.IObject) {
 // The close method posts a [willCloseNotification] notification to the
 // default notification center.
 //
-// The close method differs in two important ways from the [PerformClose]
-// method:
+// The close method differs in two important ways from the
+// [NSWindow.PerformClose] method:
 //
 // - It does not attempt to send a [WindowShouldClose] message to the window
 // or its delegate. - It does not simulate the user clicking the close button
 // by momentarily highlighting the button.
 //
-// Use [PerformClose] if you need these features.
+// Use [NSWindow.PerformClose] if you need these features.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/close()
 //
@@ -3865,9 +3879,9 @@ func (w NSWindow) UpdateConstraintsIfNeeded() {
 // Before displaying a window that uses constraints-based layout the system
 // invokes this method to ensure that the layout of all views is up to date.
 // This method updates the layout if needed, first invoking
-// [UpdateConstraintsIfNeeded] to ensure that all constraints are up to date.
-// This method is called automatically by the system, but may be invoked
-// manually if you need to examine the most up to date layout.
+// [NSWindow.UpdateConstraintsIfNeeded] to ensure that all constraints are up
+// to date. This method is called automatically by the system, but may be
+// invoked manually if you need to examine the most up to date layout.
 //
 // Subclasses should not override this method.
 //
@@ -3885,7 +3899,7 @@ func (w NSWindow) LayoutIfNeeded() {
 //
 // The constraints to visualize are typically discovered by identifying a view
 // whose layout is unexpected and then calling
-// [ConstraintsAffectingLayoutForOrientation] on that view.
+// [NSView.ConstraintsAffectingLayoutForOrientation] on that view.
 //
 // This method should only be used for debugging constraint-based layout. No
 // application should ship with calls to this method as part of its operation.
@@ -4242,7 +4256,7 @@ func (_NSWindowClass NSWindowClass) WindowNumbersWithOptions(options NSWindowNum
 // # Discussion
 //
 // When a [NSWindow] instance is available, you should use
-// [ContentRectForFrameRect] instead of this method.
+// [NSWindow.ContentRectForFrameRect] instead of this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentRect(forFrameRect:styleMask:)
 //
@@ -4268,7 +4282,7 @@ func (_NSWindowClass NSWindowClass) ContentRectForFrameRectStyleMask(fRect coref
 // # Discussion
 //
 // When a [NSWindow] instance is available, you should use
-// [FrameRectForContentRect] instead of this method.
+// [NSWindow.FrameRectForContentRect] instead of this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/frameRect(forContentRect:styleMask:)
 //
@@ -4425,19 +4439,19 @@ func (w NSWindow) SetDelegate(value NSWindowDelegate) {
 // # Discussion
 //
 // The value of this property provides the content view of the window. Setting
-// this value removes the existing value of [ContentView] and makes the
-// `contentViewController.View()` the main content view for the window. By
+// this value removes the existing value of [NSWindow.ContentView] and makes
+// the `contentViewController.View()` the main content view for the window. By
 // default, the value of this property is `nil`.
 //
-// The content view controller controls only the [ContentView] object, and not
-// the title of the window. The window title can easily be bound to the
-// [ContentViewController] object using code such as: `[window NSTitleBinding
-// contentViewController @"title" nil]`. Setting [ContentViewController]
-// causes the window to resize based on the current size of the
-// [ContentViewController]; to restrict the size of the window, use Auto
-// Layout (note that the value of this property is encoded in the NIB).
-// Directly assigning a [ContentView] value clears out the root view
-// controller.
+// The content view controller controls only the [NSWindow.ContentView]
+// object, and not the title of the window. The window title can easily be
+// bound to the [NSWindow.ContentViewController] object using code such as:
+// `[window NSTitleBinding contentViewController @"title" nil]`. Setting
+// [NSWindow.ContentViewController] causes the window to resize based on the
+// current size of the [NSWindow.ContentViewController]; to restrict the size
+// of the window, use Auto Layout (note that the value of this property is
+// encoded in the NIB). Directly assigning a [NSWindow.ContentView] value
+// clears out the root view controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentViewController
 func (w NSWindow) ContentViewController() INSViewController {
@@ -4477,10 +4491,10 @@ func (w NSWindow) SetContentView(value INSView) {
 //
 // # Discussion
 //
-// The [StyleMask] is settable on macOS 10.6 and later. Setting this property
-// has the same restrictions as the `styleMask` parameter of
-// [InitWithContentRectStyleMaskBackingDefer]. Changing the style mask may
-// cause the view hierarchy to be rebuilt.
+// The [NSWindow.StyleMask] is settable on macOS 10.6 and later. Setting this
+// property has the same restrictions as the `styleMask` parameter of
+// [NSWindow.InitWithContentRectStyleMaskBackingDefer]. Changing the style
+// mask may cause the view hierarchy to be rebuilt.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/styleMask-swift.property
 func (w NSWindow) StyleMask() NSWindowStyleMask {
@@ -4685,6 +4699,8 @@ func (w NSWindow) SetPreventsApplicationTerminationWhenModal(value bool) {
 // window or specific view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/appearanceSource
+//
+// [NSApp]: https://developer.apple.com/documentation/AppKit/NSApp
 func (w NSWindow) AppearanceSource() objectivec.Object {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("appearanceSource"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -4724,10 +4740,10 @@ func (w NSWindow) SetDepthLimit(value NSWindowDepth) {
 // # Discussion
 //
 // The value of this property is true when the window has a dynamic depth
-// limit; otherwise, false. When the value of [HasDynamicDepthLimit] is false,
-// the window uses either its preset depth limit or the default depth limit. A
-// different, and non-dynamic, depth limit can be set using the [DepthLimit]
-// property.
+// limit; otherwise, false. When the value of [NSWindow.HasDynamicDepthLimit]
+// is false, the window uses either its preset depth limit or the default
+// depth limit. A different, and non-dynamic, depth limit can be set using the
+// [NSWindow.DepthLimit] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/hasDynamicDepthLimit
 func (w NSWindow) HasDynamicDepthLimit() bool {
@@ -4742,7 +4758,7 @@ func (w NSWindow) HasDynamicDepthLimit() bool {
 // Each window device in an application is given a unique window number—note
 // that this isn’t the same as the global window number assigned by the
 // window server. This number can be used to identify the window device with
-// the [OrderWindowRelativeTo] method and in the AppKit function
+// the [NSWindow.OrderWindowRelativeTo] method and in the AppKit function
 // [NSWindowList].
 //
 // If the window doesn’t have a window device, the value of this property is
@@ -4874,8 +4890,8 @@ func (w NSWindow) IsSheet() bool {
 // The window object in this property refers to the window to which the sheet
 // is logically attached, regardless of appearance. The parent window–sheet
 // relationship begins with the beginning of the sheet (for example, through
-// [BeginSheetCompletionHandler]) and ends with the sheet’s dismissal (for
-// example, through [EndSheet]).
+// [NSWindow.BeginSheetCompletionHandler]) and ends with the sheet’s
+// dismissal (for example, through [NSWindow.EndSheet]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/sheetParent
 func (w NSWindow) SheetParent() INSWindow {
@@ -4921,10 +4937,12 @@ func (w NSWindow) Frame() corefoundation.CGRect {
 // An [NSWindow] object’s aspect ratio and its resize increments are
 // mutually exclusive attributes. In fact, setting one attribute cancels the
 // setting of the other. For example, to cancel an established aspect ratio
-// setting for an [NSWindow] object, you can set the [ResizeIncrements]
-// property with the width and height set to `1.0`:
+// setting for an [NSWindow] object, you can set the
+// [NSWindow.ResizeIncrements] property with the width and height set to
+// `1.0`:
 //
-// The [ContentAspectRatio] property takes precedence over this property.
+// The [NSWindow.ContentAspectRatio] property takes precedence over this
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/aspectRatio
 func (w NSWindow) AspectRatio() corefoundation.CGSize {
@@ -4941,8 +4959,8 @@ func (w NSWindow) SetAspectRatio(value corefoundation.CGSize) {
 // # Discussion
 //
 // The minimum size constraint is enforced for resizing by the user as well as
-// for the `setFrame...` methods other than [SetFrameDisplay] and
-// [SetFrameDisplayAnimate].
+// for the `setFrame...` methods other than [NSWindow.SetFrameDisplay] and
+// [NSWindow.SetFrameDisplayAnimate].
 //
 // The [NSWindow] method takes precedence over this property.
 //
@@ -4961,16 +4979,16 @@ func (w NSWindow) SetMinSize(value corefoundation.CGSize) {
 // # Discussion
 //
 // The maximum size constraint is enforced for resizing by the user as well as
-// for the `setFrame...` methods other than [SetFrameDisplay] and
-// [SetFrameDisplayAnimate]. Note that the window server limits window sizes
-// to 10,000.
+// for the `setFrame...` methods other than [NSWindow.SetFrameDisplay] and
+// [NSWindow.SetFrameDisplayAnimate]. Note that the window server limits
+// window sizes to 10,000.
 //
 // The default maximum size of a window is `{FLT_MAX, FLT_MAX}` (`FLT_MAX` is
 // defined in `/usr/include/float.H()`). When the maximum size of a window has
 // been set, there is no way to reset it other than by specifying this default
 // maximum size.
 //
-// The [ContentMaxSize] property takes precedence over this property.
+// The [NSWindow.ContentMaxSize] property takes precedence over this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/maxSize
 func (w NSWindow) MaxSize() corefoundation.CGSize {
@@ -4992,15 +5010,15 @@ func (w NSWindow) SetMaxSize(value corefoundation.CGSize) {
 //
 // - If the delegate or the window class implements
 // [WindowWillUseStandardFrameDefaultFrame], it is invoked to obtain the
-// zoomed frame of the window. The value of [Zoomed] is then determined by
-// whether or not the current window frame is equal to the zoomed frame. - If
-// the neither the delegate nor the window class implements
+// zoomed frame of the window. The value of [NSWindow.Zoomed] is then
+// determined by whether or not the current window frame is equal to the
+// zoomed frame. - If the neither the delegate nor the window class implements
 // [WindowWillUseStandardFrameDefaultFrame], a default frame that nearly fits
 // the screen is chosen. If the delegate or window class implements
 // [WindowWillUseStandardFrameDefaultFrame], it is invoked to validate the
 // proposed zoomed frame. After the zoomed frame is validated, the value of
-// [Zoomed] is determined by whether or not the current window frame is equal
-// to the zoomed frame.
+// [NSWindow.Zoomed] is determined by whether or not the current window frame
+// is equal to the zoomed frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isZoomed
 func (w NSWindow) IsZoomed() bool {
@@ -5015,8 +5033,8 @@ func (w NSWindow) IsZoomed() bool {
 //
 // The value of this property is a mask indicating which of the modifier keys
 // was held down when the mouse-down event occurred. The flags are listed in
-// [NSEvent] class’s [ModifierFlags] method description. The property is
-// valid only while the window is being resized.
+// [NSEvent] class’s [NSEvent.ModifierFlags] method description. The
+// property is valid only while the window is being resized.
 //
 // You can use this property to constrain the direction or amount of resizing.
 // Because of its limited validity, this property should only be accessed from
@@ -5041,9 +5059,10 @@ func (w NSWindow) ResizeFlags() NSEventModifierFlags {
 // height and width programmatically.
 //
 // Resize increments and aspect ratio are mutually exclusive attributes. For
-// more information, see [AspectRatio].
+// more information, see [NSWindow.AspectRatio].
 //
-// The [ContentResizeIncrements] property takes precedence over this property.
+// The [NSWindow.ContentResizeIncrements] property takes precedence over this
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/resizeIncrements
 func (w NSWindow) ResizeIncrements() corefoundation.CGSize {
@@ -5071,7 +5090,7 @@ func (w NSWindow) SetResizeIncrements(value corefoundation.CGSize) {
 // the optimization for the window prevents it from checking each view to see
 // if the optimization is supported.
 //
-// See [PreservesContentDuringLiveResize] in [NSView] for additional
+// See [NSView.PreservesContentDuringLiveResize] in [NSView] for additional
 // information on how to support this optimization.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/preservesContentDuringLiveResize
@@ -5106,7 +5125,7 @@ func (w NSWindow) InLiveResize() bool {
 // dimensions of its content rectangle are constrained to integral multiples
 // of that ratio when users resize it. You can set a window’s content view
 // to any size programmatically, regardless of its aspect ratio. The value of
-// this property takes precedence over [AspectRatio].
+// this property takes precedence over [NSWindow.AspectRatio].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentAspectRatio
 func (w NSWindow) ContentAspectRatio() corefoundation.CGSize {
@@ -5123,9 +5142,10 @@ func (w NSWindow) SetContentAspectRatio(value corefoundation.CGSize) {
 // # Discussion
 //
 // The minimum size constraint is enforced for resizing by the user as well as
-// for the [SetContentSize] method and the `setFrame...` methods other than
-// [SetFrameDisplay] and [SetFrameDisplayAnimate]. This method takes
-// precedence over the [MinSize] property.
+// for the [NSWindow.SetContentSize] method and the `setFrame...` methods
+// other than [NSWindow.SetFrameDisplay] and
+// [NSWindow.SetFrameDisplayAnimate]. This method takes precedence over the
+// [NSWindow.MinSize] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentMinSize
 func (w NSWindow) ContentMinSize() corefoundation.CGSize {
@@ -5142,9 +5162,10 @@ func (w NSWindow) SetContentMinSize(value corefoundation.CGSize) {
 // # Discussion
 //
 // The maximum size constraint is enforced for resizing by the user as well as
-// for the [SetContentSize] method and the `setFrame...` methods other than
-// [SetFrameDisplay] and [SetFrameDisplayAnimate]. This method takes
-// precedence over the [MaxSize] property.
+// for the [NSWindow.SetContentSize] method and the `setFrame...` methods
+// other than [NSWindow.SetFrameDisplay] and
+// [NSWindow.SetFrameDisplayAnimate]. This method takes precedence over the
+// [NSWindow.MaxSize] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentMaxSize
 func (w NSWindow) ContentMaxSize() corefoundation.CGSize {
@@ -5165,7 +5186,8 @@ func (w NSWindow) SetContentMaxSize(value corefoundation.CGSize) {
 // its content view changes by integral multiples of
 // `contentResizeIncrements.Width()` and `contentResizeIncrements.Height()`.
 // However, you can set a window’s size to any width and height
-// programmatically. This property takes precedence over [ResizeIncrements].
+// programmatically. This property takes precedence over
+// [NSWindow.ResizeIncrements].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentResizeIncrements
 func (w NSWindow) ContentResizeIncrements() corefoundation.CGSize {
@@ -5177,7 +5199,7 @@ func (w NSWindow) SetContentResizeIncrements(value corefoundation.CGSize) {
 }
 
 // A value used by Auto Layout constraints to automatically bind to the value
-// of [ContentLayoutRect].
+// of [NSWindow.ContentLayoutRect].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentLayoutGuide
 func (w NSWindow) ContentLayoutGuide() objectivec.IObject {
@@ -5191,11 +5213,11 @@ func (w NSWindow) ContentLayoutGuide() objectivec.IObject {
 // # Discussion
 //
 // Typically, the area represented by this property is the same as the frame
-// of the [ContentView]. However, for windows with
+// of the [NSWindow.ContentView]. However, for windows with
 // [NSFullSizeContentViewWindowMask] set, there needs to be a way to determine
-// the portion that is not under the toolbar. The [ContentLayoutRect] property
-// contains the portion of the layout that is not obscured under the toolbar.
-// This property is KVO compliant.
+// the portion that is not under the toolbar. The [NSWindow.ContentLayoutRect]
+// property contains the portion of the layout that is not obscured under the
+// toolbar. This property is KVO compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/contentLayoutRect
 //
@@ -5212,14 +5234,15 @@ func (w NSWindow) ContentLayoutRect() corefoundation.CGRect {
 //
 // By default, the system uses Auto Layout to determine the maximum size, so
 // applications that don’t change window content upon entering full screen
-// should not need to set the value of [MaxFullScreenContentSize]. (If Auto
-// Layout is not used, the system queries [ContentMinSize] and
-// [ContentMaxSize].) If an application does significant rework of the user
-// interface in full screen, then it may be necessary to set the value of
-// [MaxFullScreenContentSize]. You can use this property even if the window
-// does not support full screen, but can be implicitly opted into supporting a
-// full screen tile based on resizing behavior and window properties (for more
-// information, see the [CollectionBehavior] property).
+// should not need to set the value of [NSWindow.MaxFullScreenContentSize].
+// (If Auto Layout is not used, the system queries [NSWindow.ContentMinSize]
+// and [NSWindow.ContentMaxSize].) If an application does significant rework
+// of the user interface in full screen, then it may be necessary to set the
+// value of [NSWindow.MaxFullScreenContentSize]. You can use this property
+// even if the window does not support full screen, but can be implicitly
+// opted into supporting a full screen tile based on resizing behavior and
+// window properties (for more information, see the
+// [NSWindow.CollectionBehavior] property).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/maxFullScreenContentSize
 func (w NSWindow) MaxFullScreenContentSize() corefoundation.CGSize {
@@ -5237,14 +5260,15 @@ func (w NSWindow) SetMaxFullScreenContentSize(value corefoundation.CGSize) {
 //
 // By default, the system uses Auto Layout to determine the minimum size, so
 // applications that don’t change window content upon entering full screen
-// should not need to set the value of [MinFullScreenContentSize]. (If Auto
-// Layout is not used, the system queries [ContentMinSize] and
-// [ContentMaxSize].) If an application does significant rework of the user
-// interface in full screen, then it may be necessary to set the value of
-// [MinFullScreenContentSize]. You can use this property even if the window
-// does not support full screen, but can be implicitly opted into supporting a
-// full screen tile based on resizing behavior and window properties (for more
-// information, see the [CollectionBehavior] property).
+// should not need to set the value of [NSWindow.MinFullScreenContentSize].
+// (If Auto Layout is not used, the system queries [NSWindow.ContentMinSize]
+// and [NSWindow.ContentMaxSize].) If an application does significant rework
+// of the user interface in full screen, then it may be necessary to set the
+// value of [NSWindow.MinFullScreenContentSize]. You can use this property
+// even if the window does not support full screen, but can be implicitly
+// opted into supporting a full screen tile based on resizing behavior and
+// window properties (for more information, see the
+// [NSWindow.CollectionBehavior] property).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/minFullScreenContentSize
 func (w NSWindow) MinFullScreenContentSize() corefoundation.CGSize {
@@ -5322,7 +5346,7 @@ func (w NSWindow) FrameAutosaveName() NSWindowFrameAutosaveName {
 // # Discussion
 //
 // The value of this property is a string that can be used in a later call to
-// [SetFrameFromString].
+// [NSWindow.SetFrameFromString].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/frameDescriptor
 func (w NSWindow) StringWithSavedFrame() NSWindowPersistableFrameDescriptor {
@@ -5427,8 +5451,8 @@ func (w NSWindow) ChildWindows() []NSWindow {
 // This property should be set from a subclass when it is overridden by a
 // subclass’s implementation. It should not be set otherwise.
 //
-// Note that calling [OrderOut] on a child window causes the window to be
-// removed from its parent window before it is itself removed.
+// Note that calling [NSWindow.OrderOut] on a child window causes the window
+// to be removed from its parent window before it is itself removed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/parent
 func (w NSWindow) ParentWindow() INSWindow {
@@ -5576,7 +5600,8 @@ func (w NSWindow) SetTitlebarSeparatorStyle(value NSTitlebarSeparatorStyle) {
 // primary system language is right to left. The layout direction may be right
 // to left even in applications that don’t have a right to left language
 // localization. Refer to this value if the application uses
-// [TitlebarAppearsTransparent] and places controls under the title bar.
+// [NSWindow.TitlebarAppearsTransparent] and places controls under the title
+// bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/windowTitlebarLayoutDirection
 func (w NSWindow) WindowTitlebarLayoutDirection() NSUserInterfaceLayoutDirection {
@@ -5631,8 +5656,8 @@ func (w NSWindow) SetTabbingIdentifier(value NSWindowTabbingIdentifier) {
 //
 // Set this to the desired tabbing mode before displaying a window. The
 // default value is [NSWindowTabbingModeAutomatic]. When the value is
-// [NSWindowTabbingModeAutomatic], the system uses [UserTabbingPreference] to
-// determine tabbing behavior.
+// [NSWindowTabbingModeAutomatic], the system uses
+// [NSWindowClass.UserTabbingPreference] to determine tabbing behavior.
 //
 // For a list of possible values, see [NSWindow.TabbingMode].
 //
@@ -5693,7 +5718,7 @@ func (w NSWindow) SetAllowsToolTipsWhenApplicationIsInactive(value bool) {
 // # Discussion
 //
 // The value of this property is given by calling by invoking the
-// [NSApplication] method [CurrentEvent].
+// [NSApplication] method [NSApplication.CurrentEvent].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/currentEvent
 func (w NSWindow) CurrentEvent() INSEvent {
@@ -5721,11 +5746,11 @@ func (w NSWindow) SetInitialFirstResponder(value INSView) {
 // receive an event or action message. In most cases, the first responder is a
 // view object that the user selects or activates with the mouse or keyboard.
 //
-// You can use the [FirstResponder] property in custom subclasses of responder
-// classes ([NSWindow], [NSApplication], [NSView], and subclasses) to
-// determine if an instance of the subclass is currently the first responder.
-// You can also use it to help locate a text field that currently has
-// first-responder status. For more on this subject, see [Event Handling
+// You can use the [NSWindow.FirstResponder] property in custom subclasses of
+// responder classes ([NSWindow], [NSApplication], [NSView], and subclasses)
+// to determine if an instance of the subclass is currently the first
+// responder. You can also use it to help locate a text field that currently
+// has first-responder status. For more on this subject, see [Event Handling
 // Basics]. This property is key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/firstResponder
@@ -5758,9 +5783,9 @@ func (w NSWindow) KeyViewSelectionDirection() NSSelectionDirection {
 //
 // The value of this property is true if the window automatically recalculates
 // the key view loop when views are added; otherwise, false. If
-// [AutorecalculatesKeyViewLoop] is false, the client code must update the key
-// view loop manually or call [RecalculateKeyViewLoop] to have the window
-// recalculate it.
+// [NSWindow.AutorecalculatesKeyViewLoop] is false, the client code must
+// update the key view loop manually or call [NSWindow.RecalculateKeyViewLoop]
+// to have the window recalculate it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/autorecalculatesKeyViewLoop
 func (w NSWindow) AutorecalculatesKeyViewLoop() bool {
@@ -5822,7 +5847,7 @@ func (w NSWindow) SetIgnoresMouseEvents(value bool) {
 // # Discussion
 //
 // For the same information in screen coordinates, use [NSEvent]’s
-// [MouseLocation].
+// [NSEventClass.MouseLocation].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/mouseLocationOutsideOfEventStream
 func (w NSWindow) MouseLocationOutsideOfEventStream() corefoundation.CGPoint {
@@ -5837,7 +5862,7 @@ func (w NSWindow) MouseLocationOutsideOfEventStream() corefoundation.CGPoint {
 //
 // Set this property to true if you want the window to be preserved or false
 // if you do not want it preserved. By default, the value of this property is
-// true if the window’s [StyleMask] property includes the
+// true if the window’s [NSWindow.StyleMask] property includes the
 // [NSTitledWindowMask] flag. For other windows, the value is false. Setting a
 // value explicitly overrides the default values.
 //
@@ -5848,7 +5873,8 @@ func (w NSWindow) MouseLocationOutsideOfEventStream() corefoundation.CGPoint {
 // the system.
 //
 // If you enable preservation for a given window, you should also specify a
-// restoration class for the window using the [RestorationClass] property.
+// restoration class for the window using the [NSWindow.RestorationClass]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isRestorable
 //
@@ -5888,11 +5914,11 @@ func (w NSWindow) SetRestorable(value bool) {
 // windows, you must set the restoration class explicitly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/restorationClass
-func (w NSWindow) RestorationClass() objc.Class {
-	rv := objc.Send[objc.Class](w.ID, objc.Sel("restorationClass"))
-	return rv
+func (w NSWindow) RestorationClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("restorationClass"))
+	return objectivec.Class(rv)
 }
-func (w NSWindow) SetRestorationClass(value objc.Class) {
+func (w NSWindow) SetRestorationClass(value objectivec.Class) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRestorationClass:"), value)
 }
 
@@ -5903,8 +5929,8 @@ func (w NSWindow) SetRestorationClass(value objc.Class) {
 //
 // The value of this property is true when any of the window’s views need to
 // be displayed; otherwise, false. You should rarely need to set this
-// property; the [NSView] method [NeedsDisplay] and similar methods set it
-// automatically.
+// property; the [NSView] method [NSView.NeedsDisplay] and similar methods set
+// it automatically.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/viewsNeedDisplay
 func (w NSWindow) ViewsNeedDisplay() bool {
@@ -5937,7 +5963,7 @@ func (w NSWindow) SetAllowsConcurrentViewDrawing(value bool) {
 // # Discussion
 //
 // This property controls the automatic window animation behavior used when
-// the [OrderFront] or [OrderOut] methods are called. See
+// the [NSWindow.OrderFront] or [NSWindow.OrderOut] methods are called. See
 // [NSWindow.AnimationBehavior] for the possible values of this property.
 //
 // By default, a window’s animation behavior is set to
@@ -5973,12 +5999,12 @@ func (w NSWindow) SetAnimationBehavior(value NSWindowAnimationBehavior) {
 // edited; otherwise, false. Initially, by default, [NSWindow] objects are in
 // the “not edited” state.
 //
-// You should set [DocumentEdited] to true every time the window’s document
-// changes in such a way that it needs to be saved. Conversely, when the
-// document is saved, you should set the property to true when the window’s
-// document has been edited; otherwise, false. Then, before closing the window
-// you can examine the value of the property to determine whether to allow the
-// user a chance to save the document.
+// You should set [NSWindow.DocumentEdited] to true every time the window’s
+// document changes in such a way that it needs to be saved. Conversely, when
+// the document is saved, you should set the property to true when the
+// window’s document has been edited; otherwise, false. Then, before closing
+// the window you can examine the value of the property to determine whether
+// to allow the user a chance to save the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isDocumentEdited
 func (w NSWindow) IsDocumentEdited() bool {
@@ -6017,9 +6043,9 @@ func (w NSWindow) BackingScaleFactor() float64 {
 //
 // # Discussion
 //
-// If the title has been set using [SetTitleWithRepresentedFilename], this
-// property contains the file’s path. Setting this property also sets the
-// title of the window’s miniaturized window.
+// If the title has been set using [NSWindow.SetTitleWithRepresentedFilename],
+// this property contains the file’s path. Setting this property also sets
+// the title of the window’s miniaturized window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/title
 func (w NSWindow) Title() string {
@@ -6179,17 +6205,17 @@ func (w NSWindow) SetMovableByWindowBackground(value bool) {
 // The value of this property is true if the window can be moved by the user;
 // otherwise, false.
 //
-// When a window’s [Movable] property is false, the value of the
-// [MovableByWindowBackground] property is ignored. When the value of
-// [Movable] is false, the window can only be dragged between spaces in F8
-// mode, and its relative screen position is always preserved. Note that a
-// resizable window may still be resized, and the window frame may be changed
-// programmatically. A nonmovable window will not be moved or resized by the
-// system in response to a display reconfiguration. Applications may choose to
-// enable application-controlled window dragging after disabling
+// When a window’s [NSWindow.Movable] property is false, the value of the
+// [NSWindow.MovableByWindowBackground] property is ignored. When the value of
+// [NSWindow.Movable] is false, the window can only be dragged between spaces
+// in F8 mode, and its relative screen position is always preserved. Note that
+// a resizable window may still be resized, and the window frame may be
+// changed programmatically. A nonmovable window will not be moved or resized
+// by the system in response to a display reconfiguration. Applications may
+// choose to enable application-controlled window dragging after disabling
 // user-initiating dragging by handling the
-// [MouseDown]/[MouseDragged]/[MouseUp] sequence in [SendEvent] in an
-// [NSWindow] subclass.
+// [NSResponder.MouseDown]/[NSResponder.MouseDragged]/[NSResponder.MouseUp]
+// sequence in [NSWindow.SendEvent] in an [NSWindow] subclass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMovable
 func (w NSWindow) IsMovable() bool {
@@ -6244,10 +6270,10 @@ func (w NSWindow) IsMiniaturized() bool {
 // window is minimized. If you did not assign a custom image to the window,
 // the value of this property is `nil`.
 //
-// When the user minimizes the window, the Dock displays [MiniwindowImage] in
-// the corresponding Dock tile, scaling it as needed to fit in the tile. If
-// you do not specify a custom image using this property, the Dock creates one
-// for you automatically.
+// When the user minimizes the window, the Dock displays
+// [NSWindow.MiniwindowImage] in the corresponding Dock tile, scaling it as
+// needed to fit in the tile. If you do not specify a custom image using this
+// property, the Dock creates one for you automatically.
 //
 // You can also set this property as needed to change the minimized window
 // image. Typically, you would specify a custom image immediately prior to a
@@ -6279,9 +6305,9 @@ func (w NSWindow) SetMiniwindowImage(value INSImage) {
 // A minimized window’s title usually reflects that of its full-size
 // counterpart, abbreviated to fit if necessary. Although this property allows
 // you to set the minimized window’s title explicitly, changing the
-// full-size [NSWindow] object’s title (through [Title] or
-// [SetTitleWithRepresentedFilename]) automatically changes the minimized
-// window’s title as well.
+// full-size [NSWindow] object’s title (through [NSWindow.Title] or
+// [NSWindow.SetTitleWithRepresentedFilename]) automatically changes the
+// minimized window’s title as well.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/miniwindowTitle
 func (w NSWindow) MiniwindowTitle() string {
@@ -6332,17 +6358,6 @@ func (w NSWindow) ColorSpaceName() NSColorSpaceName {
 }
 func (w NSWindow) SetNSColorSpaceFromDepth(value NSColorSpaceName) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSColorSpaceFromDepth:"), objc.String(string(value)))
-}
-
-// Returns the number of color components in the specified color space.
-//
-// See: https://developer.apple.com/documentation/appkit/nscolorspacename/numberofcolorcomponents
-func (w NSWindow) NumberOfColorComponents() int {
-	rv := objc.Send[int](w.ID, objc.Sel("NSNumberOfColorComponents"))
-	return rv
-}
-func (w NSWindow) SetNSNumberOfColorComponents(value int) {
-	objc.Send[struct{}](w.ID, objc.Sel("setNSNumberOfColorComponents:"), value)
 }
 
 // Returns whether the specified window depth is planar.
@@ -6461,15 +6476,6 @@ func (w NSWindow) CascadingReferenceFrame() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-// Name of an exception that occurs when you pass an invalid argument to a
-// method, such as a `nil` pointer where a non-`nil` object is required.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
-func (w NSWindow) InvalidArgumentException() foundation.NSString {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("invalidArgumentException"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
 // A Boolean value that indicates whether the window’s resize indicator is
 // visible.
 //
@@ -6547,28 +6553,2584 @@ func (_NSWindowClass NSWindowClass) UserTabbingPreference() NSWindowUserTabbingP
 	return NSWindowUserTabbingPreference(rv)
 }
 
-// The longest time duration possible.
+// Protocol methods for NSAccessibilityElementProtocol
+
+// Returns the accessibility element’s frame in screen coordinates.
 //
-// See: https://developer.apple.com/documentation/appkit/nsevent/foreverduration
-func (_NSWindowClass NSWindowClass) ForeverDuration() float64 {
-	rv := objc.Send[float64](objc.ID(_NSWindowClass.class), objc.Sel("NSEventDurationForever"))
+// # Return Value
+//
+// The element’s frame in screen coordinates.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityFrame] property. This method is called whenever accessibility
+// clients request the [size] or [position] attributes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
+//
+// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
+// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
+func (o NSWindow) AccessibilityFrame() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 }
 
-// An
+// Returns the accessibility element’s parent in the accessibility
+// hierarchy.
 //
-// See: https://developer.apple.com/documentation/appkit/nswindow/oldcolorspaceuserinfokey
-func (_NSWindowClass NSWindowClass) OldColorSpaceUserInfoKey() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSWindowClass.class), objc.Sel("NSBackingPropertyOldColorSpaceKey"))
+// # Return Value
+//
+// The element’s parent in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityParent] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
+//
+// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+func (o NSWindow) AccessibilityParent() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
+	return objectivec.Object{ID: rv}
+}
+
+// Returns the accessibility element’s identity.
+//
+// # Return Value
+//
+// Returns the unique ID for the accessibility element. It is often used in
+// automated testing.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityIdentifier] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
+//
+// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+func (o NSWindow) AccessibilityIdentifier() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 
-// An NSNumber containing the old scale factor.
+// Returns a Boolean value that indicates whether the accessibility element
+// has the keyboard focus.
 //
-// See: https://developer.apple.com/documentation/appkit/nswindow/oldscalefactoruserinfokey
-func (_NSWindowClass NSWindowClass) OldScaleFactorUserInfoKey() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSWindowClass.class), objc.Sel("NSBackingPropertyOldScaleFactorKey"))
+// # Return Value
+//
+// true if this element has the keyboard focus; otherwise, false.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityFocused] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
+//
+// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+func (o NSWindow) IsAccessibilityFocused() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
+	return rv
+}
+
+// Protocol methods for NSAccessibilityProtocol
+
+// Returns a Boolean value that determines whether the accessibility element
+// participates in the accessibility hierarchy.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityElement()
+func (o NSWindow) IsAccessibilityElement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// responds to user events.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEnabled()
+func (o NSWindow) IsAccessibilityEnabled() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
+	return rv
+}
+
+// Returns a Boolean value that indicates whether assistive apps can invoke
+// the specified selector on the accessibility element.
+//
+// selector: The selector to check.
+//
+// # Return Value
+//
+// true, if accessibility clients can call the selector; otherwise, false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
+func (o NSWindow) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelectorAllowed:"), selector)
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// contains protected content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityProtectedContent()
+func (o NSWindow) IsAccessibilityProtectedContent() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// is currently in a selected state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelected()
+func (o NSWindow) IsAccessibilitySelected() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// must have content for successful submission of a form.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityRequired()
+func (o NSWindow) IsAccessibilityRequired() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
+	return rv
+}
+
+// Returns the substring for the specified range.
+//
+// range: A range of characters contained by the element.
+//
+// # Return Value
+//
+// The substring specified by the given range.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityString(for:)
+func (o NSWindow) AccessibilityStringForRange(range_ foundation.NSRange) string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityStringForRange:"), range_)
 	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns the attributed substring for the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// An attributed string representing the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedString(for:)
+func (o NSWindow) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
+// Returns the rich text format (RTF) data that describes the specified range
+// of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// A data object containing an RTF representation of the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
+func (o NSWindow) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRTFForRange:"), range_)
+	return foundation.NSDataFromID(rv)
+}
+
+// Returns the rectangle that encloses the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// The rectangle that encloses the specified characters.
+//
+// # Discussion
+//
+// If the range crosses a line boundary, the returned rectangle fully encloses
+// all the lines of characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame(for:)
+func (o NSWindow) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrameForRange:"), range_)
+	return rv
+}
+
+// Returns the line number for the line that contains the specified character
+// index.
+//
+// index: The index for a character.
+//
+// # Return Value
+//
+// The line number for the line holding the specified character index.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLine(for:)
+func (o NSWindow) AccessibilityLineForIndex(index int) int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityLineForIndex:"), index)
+	return rv
+}
+
+// Returns the range of characters for the glyph that includes the specified
+// character.
+//
+// index: The specified character.
+//
+// # Return Value
+//
+// The range of characters for the glyph.
+//
+// # Discussion
+//
+// This value always includes the specified character but may include
+// additional characters if that character is part of a multicharacter glyph.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-6kv3
+func (o NSWindow) AccessibilityRangeForIndex(index int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForIndex:"), index)
+	return rv
+}
+
+// Returns a range of characters that all have the same style as the specified
+// character.
+//
+// index: The index of the specified character.
+//
+// # Return Value
+//
+// A range of characters with the same style as the specified character.
+//
+// # Discussion
+//
+// This method returns a range of characters that meet two conditions: The
+// range must include the specified character, and all the other characters in
+// the range must match the specified character’s style. If none of the
+// adjacent characters match the specified character’s style, the method
+// returns only the specified character.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityStyleRange(for:)
+func (o NSWindow) AccessibilityStyleRangeForIndex(index int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityStyleRangeForIndex:"), index)
+	return rv
+}
+
+// Returns the range of characters in the specified line.
+//
+// line: The line number to be examined.
+//
+// # Return Value
+//
+// The range of characters for the specified line number. If the line ends
+// with a newline character, including the newline is preferred.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(forLine:)
+func (o NSWindow) AccessibilityRangeForLine(line int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForLine:"), line)
+	return rv
+}
+
+// Returns the range of characters for the glyph at the specified point.
+//
+// point: A point in screen coordinates.
+//
+// # Return Value
+//
+// The range of characters that make up the glyph at the given point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
+func (o NSWindow) AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForPosition:"), point)
+	return rv
+}
+
+// Returns the Boolean value that determines whether the accessibility
+// element’s alternative UI is currently visible.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityAlternateUIVisible()
+func (o NSWindow) IsAccessibilityAlternateUIVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the window is the app’s
+// main window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMain()
+func (o NSWindow) IsAccessibilityMain() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
+	return rv
+}
+
+// Returns the Boolean value that determines whether the window is in a
+// minimized state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMinimized()
+func (o NSWindow) IsAccessibilityMinimized() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the window is modal.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
+func (o NSWindow) IsAccessibilityModal() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the app is the frontmost
+// app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFrontmost()
+func (o NSWindow) IsAccessibilityFrontmost() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the app is in a hidden
+// state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityHidden()
+func (o NSWindow) IsAccessibilityHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility
+// element’s grid is in row major order or in column major order.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityOrderedByRow()
+func (o NSWindow) IsAccessibilityOrderedByRow() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// is in an expanded state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityExpanded()
+func (o NSWindow) IsAccessibilityExpanded() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the row is disclosing other
+// rows.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityDisclosed()
+func (o NSWindow) IsAccessibilityDisclosed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
+	return rv
+}
+
+// Returns the cell at the specified column and row.
+//
+// column: The column index.
+//
+// row: The row index.
+//
+// # Return Value
+//
+// The cell specified by the column and row indexes.
+//
+// # Discussion
+//
+// This property is required for all elements that function as cell-based
+// tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCell(forColumn:row:)
+func (o NSWindow) AccessibilityCellForColumnRow(column int, row int) objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCellForColumn:row:"), column, row)
+	return objectivec.Object{ID: rv}
+}
+
+// Converts the provided point in screen coordinates to a point in the layout
+// area’s coordinate system.
+//
+// point: A point in the screen’s coordinate system.
+//
+// # Return Value
+//
+// A point in the layout area’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutPoint(forScreenPoint:)
+func (o NSWindow) AccessibilityLayoutPointForScreenPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityLayoutPointForScreenPoint:"), point)
+	return rv
+}
+
+// Converts the provided size in screen coordinates to a size in the layout
+// area’s coordinate system.
+//
+// size: A size in the screen’s coordinate system.
+//
+// # Return Value
+//
+// A size in the layout area’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutSize(forScreenSize:)
+func (o NSWindow) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityLayoutSizeForScreenSize:"), size)
+	return rv
+}
+
+// Converts the provided point in the layout area’s coordinates to a point
+// in the screen’s coordinate system.
+//
+// point: A point in the layout area’s coordinate system.
+//
+// # Return Value
+//
+// A point in the screen’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenPoint(forLayoutPoint:)
+func (o NSWindow) AccessibilityScreenPointForLayoutPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityScreenPointForLayoutPoint:"), point)
+	return rv
+}
+
+// Converts the provided size in the layout area’s coordinates to a size in
+// the screen’s coordinate system.
+//
+// size: A size in the layout area’s coordinate system.
+//
+// # Return Value
+//
+// A size in the screen’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
+func (o NSWindow) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityScreenSizeForLayoutSize:"), size)
+	return rv
+}
+
+// Returns a Boolean value that indicates whether the accessibility element is
+// in an edited state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEdited()
+func (o NSWindow) IsAccessibilityEdited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
+	return rv
+}
+
+// Cancels the current operation.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformCancel()
+func (o NSWindow) AccessibilityPerformCancel() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformCancel"))
+	return rv
+}
+
+// Simulates pressing Return in the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that take keyboard input, such as a text field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformConfirm()
+func (o NSWindow) AccessibilityPerformConfirm() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformConfirm"))
+	return rv
+}
+
+// Selects the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on selectable elements, such as a menu item.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPick()
+func (o NSWindow) AccessibilityPerformPick() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPick"))
+	return rv
+}
+
+// Simulates clicking the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that behave like buttons.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPress()
+func (o NSWindow) AccessibilityPerformPress() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
+	return rv
+}
+
+// Displays the accessibility element’s alternative UI.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method to trigger changes to the UI due to a mouse-hover or
+// similar event.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowAlternateUI()
+func (o NSWindow) AccessibilityPerformShowAlternateUI() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowAlternateUI"))
+	return rv
+}
+
+// Returns to the accessibility element’s original UI.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Call this method after successfully calling
+// [AccessibilityPerformShowAlternateUI] to return to the original UI.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowDefaultUI()
+func (o NSWindow) AccessibilityPerformShowDefaultUI() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowDefaultUI"))
+	return rv
+}
+
+// Displays the menu accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method to display the contextual menu for the element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowMenu()
+func (o NSWindow) AccessibilityPerformShowMenu() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowMenu"))
+	return rv
+}
+
+// Brings the window to the front.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// The window behaves as if you had clicked on the window’s title bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformRaise()
+func (o NSWindow) AccessibilityPerformRaise() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformRaise"))
+	return rv
+}
+
+// Increments the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that have an adjustable [accessibilityValue]
+// property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSWindow) AccessibilityPerformIncrement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
+	return rv
+}
+
+// Decrements the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that have an adjustable [accessibilityValue]
+// property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDecrement()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSWindow) AccessibilityPerformDecrement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
+	return rv
+}
+
+// Deletes the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements with values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDelete()
+func (o NSWindow) AccessibilityPerformDelete() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDelete"))
+	return rv
+}
+
+// The activation point for the user interface element.
+//
+// # Discussion
+//
+// The activation point in screen coordinates.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityActivationPoint
+func (o NSWindow) AccessibilityActivationPoint() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
+	return corefoundation.CGPoint(rv)
+}
+
+func (o NSWindow) SetAccessibilityActivationPoint(value corefoundation.CGPoint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), value)
+}
+
+// The allowed values for the slider accessibility element.
+//
+// # Discussion
+//
+// Use this property if the slider can be set only to predefined values (for
+// example, if the slider’s level indicator automatically snaps to the
+// closest integer values between 0 and 100).
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAllowedValues
+func (o NSWindow) AccessibilityAllowedValues() []foundation.NSNumber {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
+	result := make([]foundation.NSNumber, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSNumberFromID(id)
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilityAllowedValues(value []foundation.NSNumber) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// A Boolean value that determines whether the accessibility element’s
+// alternative UI is currently visible.
+//
+// # Discussion
+//
+// Use this property for elements that present an alternative UI—for
+// example, when the pointer hovers over an interface element for a few
+// seconds.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
+func (o NSWindow) AccessibilityAlternateUIVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityAlternateUIVisible(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), value)
+}
+
+// The child accessibility element with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityApplicationFocusedUIElement
+func (o NSWindow) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityApplicationFocusedUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAttributedUserInputLabels
+func (o NSWindow) AccessibilityAttributedUserInputLabels() []foundation.NSAttributedString {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
+	result := make([]foundation.NSAttributedString, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSAttributedStringFromID(id)
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilityAttributedUserInputLabels(value []foundation.NSAttributedString) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The child accessibility element that represents the window’s cancel
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCancelButton
+func (o NSWindow) AccessibilityCancelButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityCancelButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), value)
+}
+
+// The child accessibility elements in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property contains references to child elements in the accessibility
+// hierarchy. If you create an [NSView] subclass, you don’t typically need
+// to set this value. The system automatically populates the
+// `accessibilityChildren` property with descendants in the view hierarchy
+// that are also in the accessibility hierarchy. If you use an
+// [NSAccessibilityElement] subclass to represent an interface element that is
+// not backed by a view, you can either set the `accessibilityChildren`
+// property or you can call the
+// [NSAccessibilityElement.AccessibilityAddChildElement] convenience method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSWindow) AccessibilityChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), value)
+}
+
+// An array of child accessibility elements in order for linear navigation.
+//
+// # Discussion
+//
+// The array should match all elements found in [accessibilityChildren],
+// rearranged in an easily navigable order.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildrenInNavigationOrder
+//
+// [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSWindow) AccessibilityChildrenInNavigationOrder() []objectivec.IObject {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilityChildrenInNavigationOrder(value []objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The clear button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityClearButton
+func (o NSWindow) AccessibilityClearButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityClearButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), value)
+}
+
+// The child accessibility element that represents the window’s close
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCloseButton
+func (o NSWindow) AccessibilityCloseButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityCloseButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), value)
+}
+
+// The number of columns in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnCount
+func (o NSWindow) AccessibilityColumnCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityColumnCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), value)
+}
+
+// The column header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
+func (o NSWindow) AccessibilityColumnHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityColumnHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), value)
+}
+
+// The column index range of the cell.
+//
+// # Discussion
+//
+// This property contains the column’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnIndexRange
+func (o NSWindow) AccessibilityColumnIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSWindow) SetAccessibilityColumnIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), value)
+}
+
+// The column titles for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnTitles
+func (o NSWindow) AccessibilityColumnTitles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityColumnTitles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), value)
+}
+
+// The column accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
+func (o NSWindow) AccessibilityColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), value)
+}
+
+// The contents of the current accessibility element.
+//
+// # Discussion
+//
+// This property is used by container elements. It holds an array of the
+// container’s contents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityContents
+func (o NSWindow) AccessibilityContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), value)
+}
+
+// The critical value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a critical stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCriticalValue
+func (o NSWindow) AccessibilityCriticalValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityCriticalValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), value)
+}
+
+// The custom actions of the current accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomActions
+func (o NSWindow) AccessibilityCustomActions() []NSAccessibilityCustomAction {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
+	result := make([]NSAccessibilityCustomAction, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomActionFromID(id)
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilityCustomActions(value []NSAccessibilityCustomAction) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The custom rotors of the current accessibility element.
+//
+// # Discussion
+//
+// Custom rotors are lists of items of a specific category. For example, a
+// “headings” rotor returns a list of headings a given document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomRotors
+func (o NSWindow) AccessibilityCustomRotors() []NSAccessibilityCustomRotor {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
+	result := make([]NSAccessibilityCustomRotor, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomRotorFromID(id)
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilityCustomRotors(value []NSAccessibilityCustomRotor) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The decrement button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDecrementButton
+func (o NSWindow) AccessibilityDecrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityDecrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), value)
+}
+
+// The child accessibility element that represents the window’s default
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDefaultButton
+func (o NSWindow) AccessibilityDefaultButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityDefaultButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), value)
+}
+
+// A Boolean value that determines whether the row is disclosing other rows.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
+func (o NSWindow) AccessibilityDisclosed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityDisclosed(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), value)
+}
+
+// The row disclosing the current row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedByRow
+func (o NSWindow) AccessibilityDisclosedByRow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityDisclosedByRow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), value)
+}
+
+// The rows that the current row discloses.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedRows
+func (o NSWindow) AccessibilityDisclosedRows() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityDisclosedRows(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), value)
+}
+
+// The indention level for the row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosureLevel
+func (o NSWindow) AccessibilityDisclosureLevel() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityDisclosureLevel(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), value)
+}
+
+// The URL for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDocument
+func (o NSWindow) AccessibilityDocument() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityDocument(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(value))
+}
+
+// A Boolean value that indicates whether the accessibility element is in an
+// edited state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
+func (o NSWindow) AccessibilityEdited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityEdited(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element
+// participates in the accessibility hierarchy.
+//
+// # Discussion
+//
+// Use this property to expose this object to accessibility clients as a
+// functional interface element. For example, when you place a button in a
+// window, the system typically creates a button cell inside a button control
+// inside a container view inside a window. Users, however, don’t care about
+// the view hierarchy details. They should only be told that there’s a
+// button in a window.
+//
+// If this property is set to false, accessibility clients ignore this
+// element. By default, [NSView] and its subclasses set this value to false;
+// however, if your [NSView] subclass adopts one of the accessibility
+// protocols, the system changes the default value to true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
+func (o NSWindow) AccessibilityElement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityElement(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element responds
+// to user events.
+//
+// # Discussion
+//
+// Returns YES if the element is enabled; otherwise, NO. Enabled elements
+// respond to user events.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
+func (o NSWindow) AccessibilityEnabled() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityEnabled(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is in an
+// expanded state.
+//
+// # Discussion
+//
+// Use this property on elements that can expand to reveal additional
+// information, such as outline rows and combo boxes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
+func (o NSWindow) AccessibilityExpanded() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityExpanded(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), value)
+}
+
+// The icon for the app’s menu bar extra.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExtrasMenuBar
+func (o NSWindow) AccessibilityExtrasMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityExtrasMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), value)
+}
+
+// The filename for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFilename
+func (o NSWindow) AccessibilityFilename() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityFilename(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the accessibility element has the
+// keyboard focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+func (o NSWindow) AccessibilityFocused() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityFocused(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), value)
+}
+
+// The child window with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocusedWindow
+func (o NSWindow) AccessibilityFocusedWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityFocusedWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), value)
+}
+
+// The accessibility element’s frame in screen coordinates.
+//
+// # Discussion
+//
+// This property is accessed by the system whenever an accessibility client
+// requests the element’s size or position.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+func (o NSWindow) SetAccessibilityFrame(value corefoundation.CGRect) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), value)
+}
+
+// A Boolean value that determines whether the app is the frontmost app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
+func (o NSWindow) AccessibilityFrontmost() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityFrontmost(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), value)
+}
+
+// The child accessibility element that represents the window’s full-screen
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFullScreenButton
+func (o NSWindow) AccessibilityFullScreenButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityFullScreenButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), value)
+}
+
+// The child accessibility element that represents the window’s grow area.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityGrowArea
+func (o NSWindow) AccessibilityGrowArea() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityGrowArea(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), value)
+}
+
+// The drag handle accessibility elements for the layout item element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHandles
+func (o NSWindow) AccessibilityHandles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityHandles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), value)
+}
+
+// The header for the table view.
+//
+// # Discussion
+//
+// Use this property on a table view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHeader
+func (o NSWindow) AccessibilityHeader() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityHeader(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), value)
+}
+
+// The help text for the accessibility element.
+//
+// # Discussion
+//
+// Use this property only when the results of activating this element are not
+// obvious from the element’s label. This string functions as a tooltip. For
+// example, VoiceOver reads this string when you pause over a control. To help
+// ensure that accessibility clients like VoiceOver read the help text with
+// the proper inflection, begin this string with a verb, capitalize the first
+// letter, and end the string with a period. Always localize this string. The
+// default value is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHelp
+func (o NSWindow) AccessibilityHelp() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityHelp(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the app is in a hidden state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
+func (o NSWindow) AccessibilityHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityHidden(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), value)
+}
+
+// The horizontal scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalScrollBar
+func (o NSWindow) AccessibilityHorizontalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityHorizontalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), value)
+}
+
+// A description of the layout area’s horizontal units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnitDescription
+func (o NSWindow) AccessibilityHorizontalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityHorizontalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for horizontal values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSWindow) AccessibilityHorizontalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSWindow) SetAccessibilityHorizontalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), value)
+}
+
+// The accessibility element’s identity.
+//
+// # Discussion
+//
+// This property holds the unique ID for the accessibility element. It is
+// often used in automated testing.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+func (o NSWindow) SetAccessibilityIdentifier(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(value))
+}
+
+// The increment button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIncrementButton
+func (o NSWindow) AccessibilityIncrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityIncrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), value)
+}
+
+// The index of the row or column that the accessibility element represents.
+//
+// # Discussion
+//
+// Use this property for any element that can be accessed through an index:
+// cells, rows, columns, and so forth.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
+func (o NSWindow) AccessibilityIndex() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityIndex(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), value)
+}
+
+// The line number that contains the insertion point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityInsertionPointLineNumber
+func (o NSWindow) AccessibilityInsertionPointLineNumber() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityInsertionPointLineNumber(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), value)
+}
+
+// A short description of the accessibility element.
+//
+// # Discussion
+//
+// Do not include the accessibility element’s type in the label (for
+// example, write [Play], not `Play button`.). If possible, use a single word.
+// To help ensure that accessibility clients such as VoiceOver read the label
+// with the correct intonation, start this label with a capital letter. Do not
+// put a period at the end. Always localize the label.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
+func (o NSWindow) AccessibilityLabel() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityLabel(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(value))
+}
+
+// The child label elements for the slider accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelUIElements
+func (o NSWindow) AccessibilityLabelUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityLabelUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), value)
+}
+
+// The value of the label accessibility element.
+//
+// # Discussion
+//
+// Use this property on a slider element’s labels.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelValue
+func (o NSWindow) AccessibilityLabelValue() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("accessibilityLabelValue"))
+	return float32(rv)
+}
+
+func (o NSWindow) SetAccessibilityLabelValue(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), value)
+}
+
+// The elements that have links with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to define a relationship between different user interface
+// elements. For example, use this property to link a list item with contents
+// displayed in another pane or window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLinkedUIElements
+func (o NSWindow) AccessibilityLinkedUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityLinkedUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), value)
+}
+
+// A Boolean value that determines whether the window is the app’s main
+// window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
+func (o NSWindow) AccessibilityMain() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityMain(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), value)
+}
+
+// The app’s main window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMainWindow
+func (o NSWindow) AccessibilityMainWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMainWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), value)
+}
+
+// The user interface element that functions as a marker group for the ruler
+// accessibility element.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerGroupUIElement
+func (o NSWindow) AccessibilityMarkerGroupUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMarkerGroupUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), value)
+}
+
+// A human-readable description of the marker type.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerTypeDescription
+func (o NSWindow) AccessibilityMarkerTypeDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityMarkerTypeDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(value))
+}
+
+// An array of marker accessibility elements for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerUIElements
+func (o NSWindow) AccessibilityMarkerUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityMarkerUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), value)
+}
+
+// The marker values for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerValues
+func (o NSWindow) AccessibilityMarkerValues() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMarkerValues(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), value)
+}
+
+// The maximum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// maximum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMaxValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSWindow) AccessibilityMaxValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMaxValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), value)
+}
+
+// The app’s menu bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMenuBar
+func (o NSWindow) AccessibilityMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), value)
+}
+
+// The minimum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// minimum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSWindow) AccessibilityMinValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMinValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), value)
+}
+
+// The child accessibility element that represents the window’s minimize
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimizeButton
+func (o NSWindow) AccessibilityMinimizeButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityMinimizeButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), value)
+}
+
+// A Boolean value that determines whether this window is in a minimized
+// state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
+func (o NSWindow) AccessibilityMinimized() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityMinimized(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), value)
+}
+
+// A Boolean value that determines whether the window is modal.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
+func (o NSWindow) AccessibilityModal() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityModal(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), value)
+}
+
+// The contents that follow the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNextContents
+func (o NSWindow) AccessibilityNextContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityNextContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), value)
+}
+
+// The number of characters in the text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNumberOfCharacters
+func (o NSWindow) AccessibilityNumberOfCharacters() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityNumberOfCharacters(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element’s grid
+// is in row major order or in column major order.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+// Set the property to true if the grid is ordered row major; otherwise, set
+// to false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
+func (o NSWindow) AccessibilityOrderedByRow() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityOrderedByRow(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), value)
+}
+
+// The orientation of the accessibility element.
+//
+// # Discussion
+//
+// This property can hold either the [NSAccessibilityOrientationHorizontal]
+// value or the [NSAccessibilityOrientationVertical] value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrientation
+func (o NSWindow) AccessibilityOrientation() NSAccessibilityOrientation {
+	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
+	return NSAccessibilityOrientation(rv)
+}
+
+func (o NSWindow) SetAccessibilityOrientation(value NSAccessibilityOrientation) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), value)
+}
+
+// The overflow button for the toolbar.
+//
+// # Discussion
+//
+// Use this property on a toolbar element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOverflowButton
+func (o NSWindow) AccessibilityOverflowButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityOverflowButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), value)
+}
+
+// The accessibility element’s parent in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property must contain a reference to another element in the
+// accessibility hierarchy. If you create an [NSView] subclass, you don’t
+// typically need to set this value. The system automatically sets the parent
+// to the nearest ancestor in the view hierarchy that is also in the
+// accessibility hierarchy. If you use an [NSAccessibilityElement] subclass to
+// represent an interface element that is not backed by a view, you can either
+// set the parent property or you can call the
+// [NSAccessibilityElementClass.AccessibilityElementWithRoleFrameLabelParent]
+// convenience method, which sets it automatically.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+func (o NSWindow) SetAccessibilityParent(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), value)
+}
+
+// The placeholder value for the accessibility element.
+//
+// # Discussion
+//
+// Use this property for accessibility elements that support placeholder
+// values, such as text fields.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPlaceholderValue
+func (o NSWindow) AccessibilityPlaceholderValue() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityPlaceholderValue(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(value))
+}
+
+// The contents that precede the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPreviousContents
+func (o NSWindow) AccessibilityPreviousContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityPreviousContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element contains
+// protected content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
+func (o NSWindow) AccessibilityProtectedContent() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityProtectedContent(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), value)
+}
+
+// The child accessibility element that represents the window’s proxy icon.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProxy
+func (o NSWindow) AccessibilityProxy() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityProxy(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element must have
+// content for successful submission of a form.
+//
+// # Discussion
+//
+// Returns YES if the element is required to have content; otherwise, NO.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
+func (o NSWindow) AccessibilityRequired() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilityRequired(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), value)
+}
+
+// The type of interface element that the accessibility element represents.
+//
+// # Discussion
+//
+// This property contains a nonlocalized string that defines the element’s
+// role in the app. For a list of possible roles, see [Roles]. This property
+// is set automatically when you adopt one of the accessibility protocols.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSWindow) AccessibilityRole() NSAccessibilityRole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
+	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSWindow) SetAccessibilityRole(value NSAccessibilityRole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(value)))
+}
+
+// A localized, human-intelligible description of the accessibility
+// element’s role, such as .
+//
+// # Discussion
+//
+// This property is set automatically based on the value of the
+// [accessibilityRole] property; however, you can customize the value of this
+// property to better describe your element’s role. Keep role descriptions
+// short. If possible, use a single word. These descriptions should be noun
+// phrases, all lowercase, with no period at the end.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
+//
+// [accessibilityRole]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSWindow) AccessibilityRoleDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityRoleDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(value))
+}
+
+// The number of rows in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowCount
+func (o NSWindow) AccessibilityRowCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
+	return int(rv)
+}
+
+func (o NSWindow) SetAccessibilityRowCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), value)
+}
+
+// The row header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
+func (o NSWindow) AccessibilityRowHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityRowHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), value)
+}
+
+// The row index range of the cell.
+//
+// # Discussion
+//
+// This property contains the row’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowIndexRange
+func (o NSWindow) AccessibilityRowIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSWindow) SetAccessibilityRowIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), value)
+}
+
+// The row accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
+func (o NSWindow) AccessibilityRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), value)
+}
+
+// The type of markers for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of marker types,
+// see [NSAccessibilityRulerMarkerType].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRulerMarkerType
+//
+// [NSAccessibilityRulerMarkerType]: https://developer.apple.com/documentation/AppKit/NSAccessibilityRulerMarkerType
+func (o NSWindow) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
+	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
+	return NSAccessibilityRulerMarkerType(rv)
+}
+
+func (o NSWindow) SetAccessibilityRulerMarkerType(value NSAccessibilityRulerMarkerType) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), value)
+}
+
+// The search button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchButton
+func (o NSWindow) AccessibilitySearchButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilitySearchButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), value)
+}
+
+// The search menu for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchMenu
+func (o NSWindow) AccessibilitySearchMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilitySearchMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is
+// currently in a selected state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
+func (o NSWindow) AccessibilitySelected() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
+	return bool(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelected(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), value)
+}
+
+// The currently selected cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
+func (o NSWindow) AccessibilitySelectedCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelectedCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), value)
+}
+
+// The accessibility element’s currently selected children.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
+func (o NSWindow) AccessibilitySelectedChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelectedChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), value)
+}
+
+// The currently selected columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
+func (o NSWindow) AccessibilitySelectedColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelectedColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), value)
+}
+
+// The currently selected rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+func (o NSWindow) AccessibilitySelectedRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelectedRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), value)
+}
+
+// The currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedText
+func (o NSWindow) AccessibilitySelectedText() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilitySelectedText(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(value))
+}
+
+// The range of the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRange
+func (o NSWindow) AccessibilitySelectedTextRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSWindow) SetAccessibilitySelectedTextRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), value)
+}
+
+// An array of ranges for the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRanges
+func (o NSWindow) AccessibilitySelectedTextRanges() []foundation.NSValue {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
+	result := make([]foundation.NSValue, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSValueFromID(id)
+	}
+	return result
+}
+
+func (o NSWindow) SetAccessibilitySelectedTextRanges(value []foundation.NSValue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The list of elements that the accessibility element is a title for.
+//
+// # Discussion
+//
+// Use on a static text label to associate that label with one or more user
+// interface elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityServesAsTitleForUIElements
+func (o NSWindow) AccessibilityServesAsTitleForUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityServesAsTitleForUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), value)
+}
+
+// The range of characters that the accessibility element displays.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedCharacterRange
+func (o NSWindow) AccessibilitySharedCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSWindow) SetAccessibilitySharedCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), value)
+}
+
+// An array of elements that shares the keyboard focus with the accessibility
+// element.
+//
+// # Discussion
+//
+// Use this property to manage elements that share the keyboard focus—for
+// example, a search field with completion menu below it.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedFocusElements
+func (o NSWindow) AccessibilitySharedFocusElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySharedFocusElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), value)
+}
+
+// Other elements that share text with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedTextUIElements
+func (o NSWindow) AccessibilitySharedTextUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySharedTextUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), value)
+}
+
+// The menu currently displaying for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityShownMenu
+func (o NSWindow) AccessibilityShownMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityShownMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), value)
+}
+
+// The accessibility element’s sort direction.
+//
+// # Discussion
+//
+// Used by an element with an [button] role and an
+// [NSAccessibilitySortButtonRole] subrole. For a list of possible sort
+// directions, see [NSAccessibilitySortDirection].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySortDirection
+//
+// [NSAccessibilitySortButtonRole]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortButtonRole
+// [NSAccessibilitySortDirection]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortDirection
+// [button]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/button
+func (o NSWindow) AccessibilitySortDirection() NSAccessibilitySortDirection {
+	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
+	return NSAccessibilitySortDirection(rv)
+}
+
+func (o NSWindow) SetAccessibilitySortDirection(value NSAccessibilitySortDirection) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), value)
+}
+
+// An array that contains the views and splitter bar from the split view.
+//
+// # Discussion
+//
+// Use this property on a split view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySplitters
+func (o NSWindow) AccessibilitySplitters() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilitySplitters(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), value)
+}
+
+// The specialized interface element type that the accessibility element
+// represents.
+//
+// # Discussion
+//
+// For a list of possible subroles, see [Subroles].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySubrole
+func (o NSWindow) AccessibilitySubrole() NSAccessibilitySubrole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
+	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSWindow) SetAccessibilitySubrole(value NSAccessibilitySubrole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(value)))
+}
+
+// The tab accessibility elements for the tab view.
+//
+// # Discussion
+//
+// Use this property on a tab view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTabs
+func (o NSWindow) AccessibilityTabs() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityTabs(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), value)
+}
+
+// The title of the accessibility element—for example, a button’s visible
+// text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitle
+func (o NSWindow) AccessibilityTitle() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityTitle(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(value))
+}
+
+// A static text element that represents the accessibility element’s title.
+//
+// # Discussion
+//
+// Use this property to associate a static text label with another
+// element—for example, to associate a label with its corresponding text
+// field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitleUIElement
+func (o NSWindow) AccessibilityTitleUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityTitleUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), value)
+}
+
+// The child accessibility element that represents the window’s toolbar
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityToolbarButton
+func (o NSWindow) AccessibilityToolbarButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityToolbarButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), value)
+}
+
+// The top-level element that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTopLevelUIElement
+func (o NSWindow) AccessibilityTopLevelUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityTopLevelUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), value)
+}
+
+// The URL for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityURL
+func (o NSWindow) AccessibilityURL() foundation.NSURL {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
+	return foundation.NSURLFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityURL(value foundation.NSURL) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), value)
+}
+
+// A human-readable description of the ruler’s units.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnitDescription
+func (o NSWindow) AccessibilityUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(value))
+}
+
+// The units for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of units, see
+// [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSWindow) AccessibilityUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSWindow) SetAccessibilityUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUserInputLabels
+func (o NSWindow) AccessibilityUserInputLabels() []string {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
+	return objc.ConvertSliceToStrings(rvIDs)
+}
+
+func (o NSWindow) SetAccessibilityUserInputLabels(value []string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), objectivec.StringSliceToNSArray(value))
+}
+
+// The accessibility element’s value.
+//
+// # Discussion
+//
+// The accessibility protocols for roles that support values typically
+// redefine this property to take a more specific value type. For example, the
+// [staticText] protocol uses [NSString] values, and the [progressIndicator]
+// protocol uses [NSNumber] values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [progressIndicator]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/progressIndicator
+// [staticText]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/staticText
+func (o NSWindow) AccessibilityValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), value)
+}
+
+// A human-readable description of the accessibility element’s value.
+//
+// # Discussion
+//
+// Use this property to provide a more useful description of the accessibility
+// element’s raw value. For example, you might set the value to `600`, but
+// set the description to `10 minutes`. Always localize this description.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValueDescription
+func (o NSWindow) AccessibilityValueDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityValueDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(value))
+}
+
+// The vertical scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalScrollBar
+func (o NSWindow) AccessibilityVerticalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityVerticalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), value)
+}
+
+// A description of the layout area’s vertical units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnitDescription
+func (o NSWindow) AccessibilityVerticalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSWindow) SetAccessibilityVerticalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for vertical values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSWindow) AccessibilityVerticalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSWindow) SetAccessibilityVerticalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), value)
+}
+
+// The visible cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
+func (o NSWindow) AccessibilityVisibleCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityVisibleCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), value)
+}
+
+// The range of visible characters in the document.
+//
+// # Discussion
+//
+// Use this property to store the range for entire lines. Characters that are
+// horizontally clipped are included in this range.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
+func (o NSWindow) AccessibilityVisibleCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSWindow) SetAccessibilityVisibleCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), value)
+}
+
+// The accessibility element’s visible child accessibility elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleChildren
+func (o NSWindow) AccessibilityVisibleChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityVisibleChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), value)
+}
+
+// The visible columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
+func (o NSWindow) AccessibilityVisibleColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityVisibleColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), value)
+}
+
+// The visible rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
+func (o NSWindow) AccessibilityVisibleRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityVisibleRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), value)
+}
+
+// The warning value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a warning stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWarningValue
+func (o NSWindow) AccessibilityWarningValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityWarningValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), value)
+}
+
+// The window that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindow
+func (o NSWindow) AccessibilityWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), value)
+}
+
+// An array that contains all the app’s windows.
+//
+// # Discussion
+//
+// Use on the app element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindows
+func (o NSWindow) AccessibilityWindows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSWindow) SetAccessibilityWindows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), value)
+}
+
+// The child accessibility element that represents the window’s zoom button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityZoomButton
+func (o NSWindow) AccessibilityZoomButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSWindow) SetAccessibilityZoomButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), value)
 }
 
 // Protocol methods for NSAppearanceCustomization

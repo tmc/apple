@@ -141,6 +141,7 @@ type INSTextTab interface {
 	// The text tab’s type of tab stop.
 	TabStopType() NSTextTabType
 
+	InitWithCoder(coder foundation.INSCoder) NSTextTab
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -161,6 +162,13 @@ func NewNSTextTab() NSTextTab {
 	class := getNSTextTabClass()
 	rv := objc.Send[NSTextTab](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(coder:)
+func NewTextTabWithCoder(coder foundation.INSCoder) NSTextTab {
+	instance := getNSTextTabClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextTabFromID(rv)
 }
 
 // Initializes a text tab with the specified text alignment, location, and
@@ -250,6 +258,12 @@ func (t NSTextTab) InitWithTextAlignmentLocationOptions(alignment NSTextAlignmen
 // [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func (t NSTextTab) InitWithTypeLocation(type_ NSTextTabType, loc float64) NSTextTab {
 	rv := objc.Send[NSTextTab](t.ID, objc.Sel("initWithType:location:"), type_, loc)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(coder:)
+func (t NSTextTab) InitWithCoder(coder foundation.INSCoder) NSTextTab {
+	rv := objc.Send[NSTextTab](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (t NSTextTab) EncodeWithCoder(coder foundation.INSCoder) {

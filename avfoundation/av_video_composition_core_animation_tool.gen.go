@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
@@ -50,16 +51,19 @@ func (ac AVVideoCompositionCoreAnimationToolClass) Alloc() AVVideoCompositionCor
 // Any animations will be interpreted on the video’s timeline, not
 // real-time, so you should:
 //
-// - Set animations’ [AVVideoCompositionCoreAnimationTool.BeginTime] property to
-// [AVVideoCompositionCoreAnimationTool.AVCoreAnimationBeginTimeAtZero] rather than `0` (which CoreAnimation
-// replaces with [CACurrentMediaTime()]); - Set [AVVideoCompositionCoreAnimationTool.IsRemovedOnCompletion] to
+// - Set animations’ [beginTime] property to
+// [AVCoreAnimationBeginTimeAtZero] rather than `0` (which CoreAnimation
+// replaces with [CACurrentMediaTime()]); - Set [isRemovedOnCompletion] to
 // false on animations so they are not automatically removed; - Avoid using
 // layers that are associated with [UIView] objects.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionCoreAnimationTool
 //
+// [AVCoreAnimationBeginTimeAtZero]: https://developer.apple.com/documentation/AVFoundation/AVCoreAnimationBeginTimeAtZero
 // [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
 // [UIView]: https://developer.apple.com/documentation/UIKit/UIView
+// [beginTime]: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
+// [isRemovedOnCompletion]: https://developer.apple.com/documentation/QuartzCore/CAAnimation/isRemovedOnCompletion
 type AVVideoCompositionCoreAnimationTool struct {
 	objectivec.Object
 }
@@ -79,15 +83,6 @@ func AVVideoCompositionCoreAnimationToolFromID(id objc.ID) AVVideoCompositionCor
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionCoreAnimationTool
 type IAVVideoCompositionCoreAnimationTool interface {
 	objectivec.IObject
-
-	// A value that sets an animation begin time to
-	AVCoreAnimationBeginTimeAtZero() float64
-	// Specifies the begin time of the receiver in relation to its parent object, if applicable.
-	BeginTime() float64
-	SetBeginTime(value float64)
-	// Determines if the animation is removed from the target layer’s animations upon completion.
-	IsRemovedOnCompletion() bool
-	SetIsRemovedOnCompletion(value bool)
 }
 
 // Init initializes the instance.
@@ -130,7 +125,7 @@ func NewAVVideoCompositionCoreAnimationTool() AVVideoCompositionCoreAnimationToo
 // rendered animation should be included.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionCoreAnimationTool/init(additionalLayer:asTrackID:)
-func NewVideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID(layer quartzcore.CALayer, trackID int32) AVVideoCompositionCoreAnimationTool {
+func NewVideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID(layer quartzcore.CALayer, trackID coremedia.CMPersistentTrackID) AVVideoCompositionCoreAnimationTool {
 	rv := objc.Send[objc.ID](objc.ID(getAVVideoCompositionCoreAnimationToolClass().class), objc.Sel("videoCompositionCoreAnimationToolWithAdditionalLayer:asTrackID:"), layer, trackID)
 	return AVVideoCompositionCoreAnimationToolFromID(rv)
 }
@@ -159,36 +154,4 @@ func NewVideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID(layer quar
 func NewVideoCompositionCoreAnimationToolWithPostProcessingAsVideoLayersInLayer(videoLayers []quartzcore.CALayer, animationLayer quartzcore.CALayer) AVVideoCompositionCoreAnimationTool {
 	rv := objc.Send[objc.ID](objc.ID(getAVVideoCompositionCoreAnimationToolClass().class), objc.Sel("videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayers:inLayer:"), objectivec.IObjectSliceToNSArray(videoLayers), animationLayer)
 	return AVVideoCompositionCoreAnimationToolFromID(rv)
-}
-
-// A value that sets an animation begin time to
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcoreanimationbegintimeatzero
-func (v AVVideoCompositionCoreAnimationTool) AVCoreAnimationBeginTimeAtZero() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("AVCoreAnimationBeginTimeAtZero"))
-	return rv
-}
-
-// Specifies the begin time of the receiver in relation to its parent object,
-// if applicable.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (v AVVideoCompositionCoreAnimationTool) BeginTime() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("beginTime"))
-	return rv
-}
-func (v AVVideoCompositionCoreAnimationTool) SetBeginTime(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBeginTime:"), value)
-}
-
-// Determines if the animation is removed from the target layer’s animations
-// upon completion.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/isRemovedOnCompletion
-func (v AVVideoCompositionCoreAnimationTool) IsRemovedOnCompletion() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isRemovedOnCompletion"))
-	return rv
-}
-func (v AVVideoCompositionCoreAnimationTool) SetIsRemovedOnCompletion(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIsRemovedOnCompletion:"), value)
 }

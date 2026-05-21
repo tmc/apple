@@ -44,8 +44,9 @@ func WKNavigationDelegateObjectFromID(id objc.ID) WKNavigationDelegateObject {
 // navigationAction: Details about the action that triggered the navigation request.
 //
 // preferences: The default preferences to use when displaying the new webpage. Specify the
-// default preferences for pages using the [DefaultWebpagePreferences]
-// property of [WKWebViewConfiguration] when you create your web view.
+// default preferences for pages using the
+// [WKWebViewConfiguration.DefaultWebpagePreferences] property of
+// [WKWebViewConfiguration] when you create your web view.
 //
 // decisionHandler: A completion handler block to call with the results about whether to allow
 // or cancel the navigation. This handler has no return value and takes the
@@ -72,7 +73,7 @@ func WKNavigationDelegateObjectFromID(id objc.ID) WKNavigationDelegateObject {
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:decidePolicyFor:preferences:decisionHandler:)
 //
 // [WKNavigationActionPolicy]: https://developer.apple.com/documentation/WebKit/WKNavigationActionPolicy
-func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler(webView IWKWebView, navigationAction IWKNavigationAction, preferences IWKWebpagePreferences, decisionHandler WKWebpagePreferencesHandler) {
+func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler(webView IWKWebView, navigationAction IWKNavigationAction, preferences IWKWebpagePreferences, decisionHandler IntWKWebpagePreferencesHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationAction:preferences:decisionHandler:"), webView, navigationAction, preferences, decisionHandler)
 }
 
@@ -228,7 +229,7 @@ func (o WKNavigationDelegateObject) WebViewDidFinishNavigation(webView IWKWebVie
 // [URLSession.AuthChallengeDisposition.useCredential]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition/useCredential
 // [URLSession.AuthChallengeDisposition]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition
 // [URLSession.AuthChallengeDisposition.rejectProtectionSpace]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition/rejectProtectionSpace
-func (o WKNavigationDelegateObject) WebViewDidReceiveAuthenticationChallengeCompletionHandler(webView IWKWebView, challenge foundation.NSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
+func (o WKNavigationDelegateObject) WebViewDidReceiveAuthenticationChallengeCompletionHandler(webView IWKWebView, challenge foundation.NSURLAuthenticationChallenge, completionHandler IntURLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:didReceiveAuthenticationChallenge:completionHandler:"), webView, challenge, completionHandler)
 }
 

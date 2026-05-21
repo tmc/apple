@@ -290,8 +290,9 @@ func NewMTLSamplerDescriptor() MTLSamplerDescriptor {
 //
 // - The [MTLSamplerAddressModeClampToEdge] or
 // [MTLSamplerAddressModeClampToZero] address mode. - The
-// [MTLSamplerMipFilterNotMipmapped] mipmap filtering option. - [MinFilter]
-// and [MagFilter] need to be equal to each other. - [MaxAnisotropy] needs to
+// [MTLSamplerMipFilterNotMipmapped] mipmap filtering option. -
+// [MTLSamplerDescriptor.MinFilter] and [MTLSamplerDescriptor.MagFilter] need
+// to be equal to each other. - [MTLSamplerDescriptor.MaxAnisotropy] needs to
 // be `1`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/normalizedCoordinates
@@ -520,8 +521,9 @@ func (s MTLSamplerDescriptor) SetCompareFunction(value MTLCompareFunction) {
 // Each unique configuration of an [MTLSamplerDescriptor] instance’s
 // properties creates a unique [MTLSamplerState] instance. For example, you
 // can create unique samplers with the same [MTLSamplerDescriptor] instance by
-// changing one or more values of its properties, such as [MinFilter] or
-// [MagFilter] before creating another instance.
+// changing one or more values of its properties, such as
+// [MTLSamplerDescriptor.MinFilter] or [MTLSamplerDescriptor.MagFilter] before
+// creating another instance.
 //
 // Conversely, creating secondary sampler instances with the same descriptor
 // property values doesn’t create any additional, unique samplers. Instead,
@@ -580,11 +582,14 @@ func (s MTLSamplerDescriptor) SetLodBias(value float32) {
 // The sampler ignores this property if any of the following property values
 // are equal to a specific value:
 //
-// - The sampler’s [MipFilter] property is equal to
-// [MTLSamplerMipFilterNotMipmapped]. - The sampler’s [MipFilter] property
-// is equal to [MTLSamplerMipFilterNearest]. - The sampler’s [MinFilter]
-// property is equal to [MTLSamplerMinMagFilterNearest]. - The sampler’s
-// [MagFilter] property is equal to [MTLSamplerMinMagFilterNearest].
+// - The sampler’s [MTLSamplerDescriptor.MipFilter] property is equal to
+// [MTLSamplerMipFilterNotMipmapped]. - The sampler’s
+// [MTLSamplerDescriptor.MipFilter] property is equal to
+// [MTLSamplerMipFilterNearest]. - The sampler’s
+// [MTLSamplerDescriptor.MinFilter] property is equal to
+// [MTLSamplerMinMagFilterNearest]. - The sampler’s
+// [MTLSamplerDescriptor.MagFilter] property is equal to
+// [MTLSamplerMinMagFilterNearest].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/reductionMode
 func (s MTLSamplerDescriptor) ReductionMode() MTLSamplerReductionMode {

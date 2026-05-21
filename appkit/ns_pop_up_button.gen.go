@@ -422,7 +422,7 @@ func NewPopUpButtonWithFramePullsDown(buttonFrame corefoundation.CGRect, flag bo
 //
 // # Discussion
 //
-// Set the image’s [AccessibilityDescription] property to ensure
+// Set the image’s [NSImage.AccessibilityDescription] property to ensure
 // accessibility for this control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/init(image:target:action:)
@@ -487,10 +487,11 @@ func (p NSPopUpButton) InitWithFramePullsDown(buttonFrame corefoundation.CGRect,
 //
 // # Discussion
 //
-// If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
-// explicitly and then send this method. After adding the item, this method
-// calls the [SynchronizeTitleAndSelectedItem] method to make sure the item
-// being displayed matches the currently selected item.
+// If you want to move an item, it’s better to invoke
+// [NSPopUpButton.RemoveItemWithTitle] explicitly and then send this method.
+// After adding the item, this method calls the
+// [NSPopUpButton.SynchronizeTitleAndSelectedItem] method to make sure the
+// item being displayed matches the currently selected item.
 //
 // Since this method searches for duplicate items, it should not be used if
 // you are adding an item to an already populated menu with more than a few
@@ -510,10 +511,11 @@ func (p NSPopUpButton) AddItemWithTitle(title string) {
 //
 // # Discussion
 //
-// If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
-// explicitly and then send this method. After adding the items, this method
-// uses the [SynchronizeTitleAndSelectedItem] method to make sure the item
-// being displayed matches the currently selected item.
+// If you want to move an item, it’s better to invoke
+// [NSPopUpButton.RemoveItemWithTitle] explicitly and then send this method.
+// After adding the items, this method uses the
+// [NSPopUpButton.SynchronizeTitleAndSelectedItem] method to make sure the
+// item being displayed matches the currently selected item.
 //
 // Since this method searches for duplicate items, it should not be used if
 // you are adding items to an already populated menu with more than a few
@@ -534,10 +536,11 @@ func (p NSPopUpButton) AddItemsWithTitles(itemTitles []string) {
 //
 // # Discussion
 //
-// If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
-// explicitly and then send this method. After adding the item, this method
-// uses the [SynchronizeTitleAndSelectedItem] method to make sure the item
-// displayed matches the currently selected item.
+// If you want to move an item, it’s better to invoke
+// [NSPopUpButton.RemoveItemWithTitle] explicitly and then send this method.
+// After adding the item, this method uses the
+// [NSPopUpButton.SynchronizeTitleAndSelectedItem] method to make sure the
+// item displayed matches the currently selected item.
 //
 // Since this method searches for duplicate items, it should not be used if
 // you are adding an item to an already populated menu with more than a few
@@ -553,7 +556,7 @@ func (p NSPopUpButton) InsertItemWithTitleAtIndex(title string, index int) {
 // # Discussion
 //
 // After removing the items, this method uses the
-// [SynchronizeTitleAndSelectedItem] method to refresh the menu.
+// [NSPopUpButton.SynchronizeTitleAndSelectedItem] method to refresh the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/removeAllItems()
 func (p NSPopUpButton) RemoveAllItems() {
@@ -568,7 +571,8 @@ func (p NSPopUpButton) RemoveAllItems() {
 // # Discussion
 //
 // This method removes the first item it finds with the specified name. This
-// method then uses [SynchronizeTitleAndSelectedItem] to refresh the menu.
+// method then uses [NSPopUpButton.SynchronizeTitleAndSelectedItem] to refresh
+// the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/removeItem(withTitle:)
 func (p NSPopUpButton) RemoveItemWithTitle(title string) {
@@ -583,8 +587,8 @@ func (p NSPopUpButton) RemoveItemWithTitle(title string) {
 // # Discussion
 //
 // After removing the item, this method uses the
-// [SynchronizeTitleAndSelectedItem] method to make sure the title displayed
-// matches the currently selected item.
+// [NSPopUpButton.SynchronizeTitleAndSelectedItem] method to make sure the
+// title displayed matches the currently selected item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/removeItem(at:)
 func (p NSPopUpButton) RemoveItemAtIndex(index int) {

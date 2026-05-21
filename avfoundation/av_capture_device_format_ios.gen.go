@@ -29,6 +29,8 @@ func (c AVCaptureDeviceFormat) IsVideoStabilizationModeSupported(videoStabilizat
 // Indicates the horizontal field of view for an aspect ratio, either
 // uncorrected or corrected for geometric distortion.
 //
+// aspectRatio is a [avfoundation.AVCaptureAspectRatio].
+//
 // # Discussion
 //
 // A float indicating the field of view for the corresponding
@@ -74,10 +76,11 @@ func (c AVCaptureDeviceFormat) IsVideoHDRSupported() bool {
 // # Discussion
 //
 // When performing single-camera capture using [AVCaptureSession], you may set
-// any of the device’s formats as its [ActiveFormat]. However, when using
-// [AVCaptureMultiCamSession], you may only set the device’s format to one
-// in which [MultiCamSupported] is true. Only this limited subset of capture
-// formats can run sustainably in a multi-camera capture scenario.
+// any of the device’s formats as its [AVCaptureDevice.ActiveFormat].
+// However, when using [AVCaptureMultiCamSession], you may only set the
+// device’s format to one in which [AVCaptureDeviceFormat.MultiCamSupported]
+// is true. Only this limited subset of capture formats can run sustainably in
+// a multi-camera capture scenario.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isMultiCamSupported
 //
@@ -92,17 +95,17 @@ func (c AVCaptureDeviceFormat) IsMultiCamSupported() bool {
 //
 // # Discussion
 //
-// As a rule, capture formats with a given [MediaType] are available for use
-// with all [AVCaptureOutput] subclasses that accept that media type. However,
-// this isn’t always the case. For example, formats for high-resolution
-// photo capture may not support the [AVCaptureMovieFileOutput] class due to
-// bandwidth limitations.
+// As a rule, capture formats with a given [AVCaptureDeviceFormat.MediaType]
+// are available for use with all [AVCaptureOutput] subclasses that accept
+// that media type. However, this isn’t always the case. For example,
+// formats for high-resolution photo capture may not support the
+// [AVCaptureMovieFileOutput] class due to bandwidth limitations.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/unsupportedCaptureOutputClasses
-func (c AVCaptureDeviceFormat) UnsupportedCaptureOutputClasses() []objc.Class {
+func (c AVCaptureDeviceFormat) UnsupportedCaptureOutputClasses() []objectivec.Class {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("unsupportedCaptureOutputClasses"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objc.Class {
-		return objc.Class(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.Class {
+		return objectivec.Class(id)
 	})
 }
 
@@ -125,7 +128,7 @@ func (c AVCaptureDeviceFormat) VideoFieldOfView() float32 {
 //
 // If the capture device doesn’t support geometric distortion correction
 // (GDC), the value of this property is equal to the value of
-// [VideoFieldOfView].
+// [AVCaptureDeviceFormat.VideoFieldOfView].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/geometricDistortionCorrectedVideoFieldOfView
 func (c AVCaptureDeviceFormat) GeometricDistortionCorrectedVideoFieldOfView() float32 {
@@ -140,8 +143,8 @@ func (c AVCaptureDeviceFormat) GeometricDistortionCorrectedVideoFieldOfView() fl
 //
 // The simplest way to capture the highest quality photos is to set [photo] as
 // your session’s preset. If you’re instead manually setting the capture
-// device’s [ActiveFormat] value, select the format whose
-// [HighestPhotoQualitySupported] property is true.
+// device’s [AVCaptureDevice.ActiveFormat] value, select the format whose
+// [AVCaptureDeviceFormat.HighestPhotoQualitySupported] property is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isHighestPhotoQualitySupported
 //
@@ -266,9 +269,10 @@ func (c AVCaptureDeviceFormat) IsPortraitEffectsMatteStillImageDeliverySupported
 // # Discussion
 //
 // Depth data capture requires a compatible pairing of video format and depth
-// data format. After you set a capture device’s [ActiveFormat] property to
-// this format, you can set the device’s [ActiveDepthDataFormat] property to
-// one of the formats in this array.
+// data format. After you set a capture device’s
+// [AVCaptureDevice.ActiveFormat] property to this format, you can set the
+// device’s [AVCaptureDevice.ActiveDepthDataFormat] property to one of the
+// formats in this array.
 //
 // Supported depth data formats always match the aspect ratio of their
 // corresponding video format.
@@ -286,8 +290,9 @@ func (c AVCaptureDeviceFormat) SupportedDepthDataFormats() []AVCaptureDeviceForm
 // # Discussion
 //
 // Normally, the [AVCaptureStillImageOutput] class emits images with the same
-// dimensions as the source [AVCaptureDevice] instance’s [ActiveFormat].
-// However, if you set `highResolutionStillImageOutputEnabled` to true,
+// dimensions as the source [AVCaptureDevice] instance’s
+// [AVCaptureDevice.ActiveFormat]. However, if you set
+// `highResolutionStillImageOutputEnabled` to true,
 // [AVCaptureStillImageOutput] emits still images with its source
 // [AVCaptureDevice] instance’s
 // `activeFormat.HighResolutionStillImageDimensions()` dimensions.
@@ -318,11 +323,12 @@ func (c AVCaptureDeviceFormat) SupportedVideoZoomFactorsForDepthDataDelivery() [
 // Depth data capture requires coordinating the zoom factors of the two
 // cameras on a dual-camera device. Therefore, when you enable depth data
 // delivery for a capture format using the [AVCaptureDepthDataOutput] class,
-// the range of available values for the device’s [VideoZoomFactor] property
-// is reduced.
+// the range of available values for the device’s
+// [AVCaptureDevice.VideoZoomFactor] property is reduced.
 //
 // If this format doesn’t support depth capture, this property’s value is
-// the same as that of the [VideoMaxZoomFactor] property.
+// the same as that of the [AVCaptureDeviceFormat.VideoMaxZoomFactor]
+// property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/videoMaxZoomFactorForDepthDataDelivery
 //
@@ -340,8 +346,8 @@ func (c AVCaptureDeviceFormat) VideoMaxZoomFactorForDepthDataDelivery() float64 
 // Depth data capture requires coordinating the zoom factors of the two
 // cameras on a dual-camera device. Therefore, when you enable depth data
 // delivery for a capture format using the [AVCaptureDepthDataOutput] class,
-// the range of available values for the device’s [VideoZoomFactor] property
-// is reduced.
+// the range of available values for the device’s
+// [AVCaptureDevice.VideoZoomFactor] property is reduced.
 //
 // If this format doesn’t support depth capture, this property’s value is
 // `1.0`.

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -100,6 +101,13 @@ func NewAVMetricPlayerItemRateChangeEvent() AVMetricPlayerItemRateChangeEvent {
 	class := getAVMetricPlayerItemRateChangeEventClass()
 	rv := objc.Send[AVMetricPlayerItemRateChangeEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemRateChangeEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemRateChangeEvent {
+	instance := getAVMetricPlayerItemRateChangeEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemRateChangeEventFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemRateChangeEvent/previousRate

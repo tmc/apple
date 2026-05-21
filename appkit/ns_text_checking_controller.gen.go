@@ -134,7 +134,7 @@ type INSTextCheckingController interface {
 
 	ChangeSpelling(sender objectivec.IObject)
 	CheckSpelling(sender objectivec.IObject)
-	CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary)
+	CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary)
 	CheckTextInDocument(sender objectivec.IObject)
 	CheckTextInSelection(sender objectivec.IObject)
 	ConsiderTextCheckingForRange(range_ foundation.NSRange)
@@ -143,7 +143,7 @@ type INSTextCheckingController interface {
 	IgnoreSpelling(sender objectivec.IObject)
 	InsertedTextInRange(range_ foundation.NSRange)
 	Invalidate()
-	MenuAtIndexClickedOnSelectionEffectiveRange(location uint, clickedOnSelection bool, effectiveRange foundation.NSRange) INSMenu
+	MenuAtIndexClickedOnSelectionEffectiveRange(location uint, clickedOnSelection bool, effectiveRange foundation.NSRangePointer) INSMenu
 	OrderFrontSubstitutionsPanel(sender objectivec.IObject)
 	ShowGuessPanel(sender objectivec.IObject)
 	UpdateCandidates()
@@ -193,7 +193,7 @@ func (t NSTextCheckingController) CheckSpelling(sender objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/checkText(in:types:options:)
-func (t NSTextCheckingController) CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary) {
+func (t NSTextCheckingController) CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkTextInRange:types:options:"), range_, checkingTypes, options)
 }
 
@@ -238,7 +238,7 @@ func (t NSTextCheckingController) Invalidate() {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/menu(at:clickedOnSelection:effectiveRange:)
-func (t NSTextCheckingController) MenuAtIndexClickedOnSelectionEffectiveRange(location uint, clickedOnSelection bool, effectiveRange foundation.NSRange) INSMenu {
+func (t NSTextCheckingController) MenuAtIndexClickedOnSelectionEffectiveRange(location uint, clickedOnSelection bool, effectiveRange foundation.NSRangePointer) INSMenu {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("menuAtIndex:clickedOnSelection:effectiveRange:"), location, clickedOnSelection, effectiveRange)
 	return NSMenuFromID(rv)
 }

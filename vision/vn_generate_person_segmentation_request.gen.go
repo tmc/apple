@@ -64,10 +64,6 @@ func (vc VNGeneratePersonSegmentationRequestClass) Alloc() VNGeneratePersonSegme
 //
 //   - [VNGeneratePersonSegmentationRequest.SupportedOutputPixelFormatsAndReturnError]: Returns a list of output pixel formats that the request supports.
 //
-// # Identifying Request Revisions
-//
-//   - [VNGeneratePersonSegmentationRequest.VNGeneratePersonSegmentationRequestRevision1]: A constant for specifying revision 1 of the person segmentation generation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest
 type VNGeneratePersonSegmentationRequest struct {
 	VNStatefulRequest
@@ -97,10 +93,6 @@ func VNGeneratePersonSegmentationRequestFromID(id objc.ID) VNGeneratePersonSegme
 //
 //   - [IVNGeneratePersonSegmentationRequest.SupportedOutputPixelFormatsAndReturnError]: Returns a list of output pixel formats that the request supports.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGeneratePersonSegmentationRequest.VNGeneratePersonSegmentationRequestRevision1]: A constant for specifying revision 1 of the person segmentation generation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest
 type IVNGeneratePersonSegmentationRequest interface {
 	IVNStatefulRequest
@@ -118,11 +110,6 @@ type IVNGeneratePersonSegmentationRequest interface {
 
 	// Returns a list of output pixel formats that the request supports.
 	SupportedOutputPixelFormatsAndReturnError() ([]foundation.NSNumber, error)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the person segmentation generation request.
-	VNGeneratePersonSegmentationRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -225,13 +212,4 @@ func (g VNGeneratePersonSegmentationRequest) QualityLevel() VNGeneratePersonSegm
 }
 func (g VNGeneratePersonSegmentationRequest) SetQualityLevel(value VNGeneratePersonSegmentationRequestQualityLevel) {
 	objc.Send[struct{}](g.ID, objc.Sel("setQualityLevel:"), value)
-}
-
-// A constant for specifying revision 1 of the person segmentation generation
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vngeneratepersonsegmentationrequestrevision1
-func (g VNGeneratePersonSegmentationRequest) VNGeneratePersonSegmentationRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonSegmentationRequestRevision1"))
-	return rv
 }

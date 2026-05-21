@@ -51,7 +51,7 @@ func (wc WKContentRuleListClass) Alloc() WKContentRuleList {
 // modifying how a webpage loads content. You don’t create a
 // [WKContentRuleList] directly. Instead, you specify your rules in JSON
 // format and compile them using the
-// [CompileContentRuleListForIdentifierEncodedContentRuleListCompletionHandler]
+// [WKContentRuleListStore.CompileContentRuleListForIdentifierEncodedContentRuleListCompletionHandler]
 // method of [WKContentRuleListStore]. That method compiles your rules into an
 // efficient byte format and returns them in an instance of this class.
 //
@@ -120,7 +120,7 @@ func NewWKContentRuleList() WKContentRuleList {
 // # Discussion
 //
 // You specify the identifier for your rule lists at compile time in the
-// [CompileContentRuleListForIdentifierEncodedContentRuleListCompletionHandler]
+// [WKContentRuleListStore.CompileContentRuleListForIdentifierEncodedContentRuleListCompletionHandler]
 // method of [WKContentRuleListStore]. You also use this identifier to look up
 // the rules list later.
 //

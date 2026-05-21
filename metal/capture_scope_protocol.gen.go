@@ -110,8 +110,8 @@ func (o MTLCaptureScopeObject) Device() MTLDevice {
 // # Discussion
 //
 // This value is only available if you created the capture scope by calling
-// the [NewCaptureScopeWithMTL4CommandQueue] method. Otherwise, the value is
-// `nil`.
+// the [MTLCaptureManager.NewCaptureScopeWithMTL4CommandQueue] method.
+// Otherwise, the value is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/commandQueue
 func (o MTLCaptureScopeObject) CommandQueue() MTLCommandQueue {

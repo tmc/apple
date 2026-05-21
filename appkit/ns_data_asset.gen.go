@@ -66,9 +66,9 @@ func (nc NSDataAssetClass) Alloc() NSDataAsset {
 //
 // # Access the data
 //
-// You access the data file by using the [NSDataAsset.Data] property. Because the property
-// is of type [NSData] it provides methods for accessing the raw data only as
-// bytes and ranges of bytes.
+// You access the data file by using the [NSDataAsset.Data] property. Because
+// the property is of type [NSData] it provides methods for accessing the raw
+// data only as bytes and ranges of bytes.
 //
 // To access structured data, convert the bytes into the appropriate format.
 // The system can convert some data types for you. One example is XML data

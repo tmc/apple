@@ -58,8 +58,8 @@ func NSPopoverDelegateObjectFromID(id objc.ID) NSPopoverDelegateObject {
 // detachable window.
 //
 // The popover will animate to appear as though it morphs into the detachable
-// window (unless the popover’s [Animates] property is set to false). The
-// exact animation used is not guaranteed.
+// window (unless the popover’s [NSPopover.Animates] property is set to
+// false). The exact animation used is not guaranteed.
 //
 // If there is no delegate, the delegate does not implement this method, or
 // the delegate returns nil, the popup will not be displayed detached.
@@ -185,11 +185,12 @@ func (o NSPopoverDelegateObject) PopoverDidDetach(popover INSPopover) {
 // If you don’t implement this method, it returns false by default. If you
 // return true from this method, but you don’t implement
 // [DetachableWindowForPopover] or you implement it to return `nil`, a
-// detachable window is created with the popover’s [ContentViewController].
+// detachable window is created with the popover’s
+// [NSPopover.ContentViewController].
 //
 // An automatically created window has the same appearance as the detached
-// popover. For example, if the popover’s [ContentViewController] has a
-// title, it will be bound to and displayed as the title of the detached
+// popover. For example, if the popover’s [NSPopover.ContentViewController]
+// has a title, it will be bound to and displayed as the title of the detached
 // window. When a popover is released in a detached state, it calls
 // [PopoverDidDetach] on the delegate. When a detached popover is closed,
 // calls to [PopoverShouldClose], [PopoverWillClose], and [PopoverDidClose],

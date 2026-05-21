@@ -49,8 +49,8 @@ func (ac AVVideoCompositionInstructionClass) Alloc() AVVideoCompositionInstructi
 //
 // # Overview
 //
-// An [AVVideoComposition] object maintains an array of [AVVideoCompositionInstruction.Instructions] to
-// perform its composition.
+// An [AVVideoComposition] object maintains an array of
+// [AVVideoComposition.Instructions] to perform its composition.
 //
 // # Inspecting the instruction
 //
@@ -90,9 +90,7 @@ type IAVVideoCompositionInstruction interface {
 	// Instructions that specify how to layer and compose video frames from source tracks.
 	LayerInstructions() []AVVideoCompositionLayerInstruction
 
-	// The video composition instructions.
-	Instructions() objc.ID
-	SetInstructions(value objc.ID)
+	InitWithCoder(coder foundation.INSCoder) AVVideoCompositionInstruction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -115,6 +113,18 @@ func NewAVVideoCompositionInstruction() AVVideoCompositionInstruction {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/init(coder:)
+func NewVideoCompositionInstructionWithCoder(coder foundation.INSCoder) AVVideoCompositionInstruction {
+	instance := getAVVideoCompositionInstructionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVVideoCompositionInstructionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/init(coder:)
+func (v AVVideoCompositionInstruction) InitWithCoder(coder foundation.INSCoder) AVVideoCompositionInstruction {
+	rv := objc.Send[AVVideoCompositionInstruction](v.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (v AVVideoCompositionInstruction) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -170,9 +180,10 @@ func (v AVVideoCompositionInstruction) LayerInstructions() []AVVideoCompositionL
 // # Discussion
 //
 // If the time range is invalid, the video compositor will ignore it. See also
-// the requirements of the [TimeRange] property in the array of objects
-// implementing the [AVVideoCompositionInstructionProtocol] protocol as
-// described in the [AVVideoComposition] class’s [Instructions] property.
+// the requirements of the [AVVideoCompositionInstruction.TimeRange] property
+// in the array of objects implementing the
+// [AVVideoCompositionInstructionProtocol] protocol as described in the
+// [AVVideoComposition] class’s [AVVideoComposition.Instructions] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/timeRange
 func (v AVVideoCompositionInstruction) TimeRange() coremedia.CMTimeRange {
@@ -230,20 +241,9 @@ func (v AVVideoCompositionInstruction) RequiredSourceSampleDataTrackIDs() []foun
 // computed from the layer instructions
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/passthroughTrackID
-func (v AVVideoCompositionInstruction) PassthroughTrackID() int32 {
-	rv := objc.Send[int32](v.ID, objc.Sel("passthroughTrackID"))
-	return rv
-}
-
-// The video composition instructions.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/instructions
-func (v AVVideoCompositionInstruction) Instructions() objc.ID {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("instructions"))
-	return rv
-}
-func (v AVVideoCompositionInstruction) SetInstructions(value objc.ID) {
-	objc.Send[struct{}](v.ID, objc.Sel("setInstructions:"), value)
+func (v AVVideoCompositionInstruction) PassthroughTrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](v.ID, objc.Sel("passthroughTrackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // Protocol methods for AVVideoCompositionInstructionProtocol
@@ -254,8 +254,9 @@ func (v AVVideoCompositionInstruction) SetInstructions(value objc.ID) {
 //
 // A value of true indicates that rendering a frame from the same source
 // buffers and the same composition instruction at two different
-// [CompositionTime] values may yield different output frames. A value of
-// false indicates that two compositions yield the same frame.
+// [AVAsynchronousVideoCompositionRequest.CompositionTime] values may yield
+// different output frames. A value of false indicates that two compositions
+// yield the same frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
 func (o AVVideoCompositionInstruction) ContainsTweening() bool {

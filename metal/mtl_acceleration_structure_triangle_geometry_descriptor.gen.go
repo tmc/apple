@@ -277,8 +277,9 @@ func (a MTLAccelerationStructureTriangleGeometryDescriptor) SetIndexBufferOffset
 // # Discussion
 //
 // Set this property to a value that represents the pixel format of the data
-// you assign to the [VertexBuffer] property. The property’s default is
-// [MTLAttributeFormatFloat3].
+// you assign to the
+// [MTLAccelerationStructureTriangleGeometryDescriptor.VertexBuffer] property.
+// The property’s default is [MTLAttributeFormatFloat3].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureTriangleGeometryDescriptor/vertexFormat
 func (a MTLAccelerationStructureTriangleGeometryDescriptor) VertexFormat() MTLAttributeFormat {
@@ -293,9 +294,9 @@ func (a MTLAccelerationStructureTriangleGeometryDescriptor) SetVertexFormat(valu
 //
 // # Discussion
 //
-// The [VertexFormat] property defines the format of each vertex position in
-// the buffer. You need to set a vertex buffer before creating the
-// acceleration structure.
+// The [MTLAccelerationStructureTriangleGeometryDescriptor.VertexFormat]
+// property defines the format of each vertex position in the buffer. You need
+// to set a vertex buffer before creating the acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureTriangleGeometryDescriptor/vertexBuffer
 func (a MTLAccelerationStructureTriangleGeometryDescriptor) VertexBuffer() MTLBuffer {

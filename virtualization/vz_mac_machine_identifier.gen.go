@@ -52,8 +52,9 @@ func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
 //
 // When serializing the VM to disk, you can preserve the identifier in a
 // binary representation by serializing the data in the
-// [VZMacMachineIdentifier].[VZMacMachineIdentifier.DataRepresentation] property. Conversely, you can
-// recreate the identifier with [VZMacMachineIdentifier.InitWithDataRepresentation] from the binary
+// [VZMacMachineIdentifier].[VZMacHardwareModel.DataRepresentation] property.
+// Conversely, you can recreate the identifier with
+// [VZMacMachineIdentifier.InitWithDataRepresentation] from the binary
 // representation.
 //
 // You can compare the contents of two identifiers with [isEqual(to:)].
@@ -153,7 +154,7 @@ func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation fo
 // # Discussion
 //
 // You can use this to recreate the same machine identifier with
-// [InitWithDataRepresentation].
+// [VZMacMachineIdentifier.InitWithDataRepresentation].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/dataRepresentation
 func (m VZMacMachineIdentifier) DataRepresentation() foundation.NSData {

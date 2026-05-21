@@ -173,8 +173,10 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBuf
 //
 // # Discussion
 //
-// The offset needs to be a multiple of [BoundingBoxStride]. Check the [Metal
-// feature set tables (PDF)] for potential alignment restrictions.
+// The offset needs to be a multiple of
+// [MTLAccelerationStructureBoundingBoxGeometryDescriptor.BoundingBoxStride].
+// Check the [Metal feature set tables (PDF)] for potential alignment
+// restrictions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/boundingBoxBufferOffset
 //

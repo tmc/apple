@@ -112,8 +112,8 @@ type IAVMetricEventStream interface {
 	// Topic: Subscribing to events
 
 	SubscribeToAllMetricEvents()
-	SubscribeToMetricEvent(metricEventClass objc.Class)
-	SubscribeToMetricEvents(metricEventClasses []objc.Class)
+	SubscribeToMetricEvent(metricEventClass objectivec.Class)
+	SubscribeToMetricEvents(metricEventClasses []objectivec.Class)
 
 	// Topic: Setting a subscriber
 
@@ -151,12 +151,12 @@ func (m AVMetricEventStream) SubscribeToAllMetricEvents() {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/subscribeToMetricEvent:
-func (m AVMetricEventStream) SubscribeToMetricEvent(metricEventClass objc.Class) {
+func (m AVMetricEventStream) SubscribeToMetricEvent(metricEventClass objectivec.Class) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscribeToMetricEvent:"), metricEventClass)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/subscribeToMetricEvents:
-func (m AVMetricEventStream) SubscribeToMetricEvents(metricEventClasses []objc.Class) {
+func (m AVMetricEventStream) SubscribeToMetricEvents(metricEventClasses []objectivec.Class) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscribeToMetricEvents:"), objectivec.ClassSliceToNSArray(metricEventClasses))
 }
 

@@ -60,10 +60,12 @@ func (nc NSClassDescriptionClass) Alloc() NSClassDescription {
 // ([NSClassDescription] provides only the implementation for the class
 // methods that maintain the cache of registered class descriptions.) Once
 // created, you must register a class description with the
-// [NSClassDescription] method [NSClassDescription.RegisterClassDescriptionForClass].
+// [NSClassDescription] method
+// [NSClassDescriptionClass.RegisterClassDescriptionForClass].
 //
 // You can use the [NSString] objects in the arrays returned by methods such
-// as [NSClassDescription.AttributeKeys] and [NSClassDescription.ToManyRelationshipKeys] to access—using key-value
+// as [NSClassDescription.AttributeKeys] and
+// [NSClassDescription.ToManyRelationshipKeys] to access—using key-value
 // coding—the properties of an instance of the class to which a class
 // description object corresponds. For more about attributes and
 // relationships, see Cocoa Fundamentals Guide. For more about key-value
@@ -82,10 +84,6 @@ func (nc NSClassDescriptionClass) Alloc() NSClassDescription {
 //   - [NSClassDescription.InverseForRelationshipKey]: Overridden by subclasses to return the name of the inverse relationship from a relationship specified by a given key.
 //   - [NSClassDescription.ToManyRelationshipKeys]: Overridden by subclasses to return the keys for the to-many relationship properties of instances of the described class.
 //   - [NSClassDescription.ToOneRelationshipKeys]: Overridden by subclasses to return the keys for the to-one relationship properties of instances of the described class.
-//
-// # Notifications
-//
-//   - [NSClassDescription.NSClassDescriptionNeededForClass]: Posted by
 //
 // See: https://developer.apple.com/documentation/Foundation/NSClassDescription
 //
@@ -117,10 +115,6 @@ func NSClassDescriptionFromID(id objc.ID) NSClassDescription {
 //   - [INSClassDescription.ToManyRelationshipKeys]: Overridden by subclasses to return the keys for the to-many relationship properties of instances of the described class.
 //   - [INSClassDescription.ToOneRelationshipKeys]: Overridden by subclasses to return the keys for the to-one relationship properties of instances of the described class.
 //
-// # Notifications
-//
-//   - [INSClassDescription.NSClassDescriptionNeededForClass]: Posted by
-//
 // See: https://developer.apple.com/documentation/Foundation/NSClassDescription
 type INSClassDescription interface {
 	objectivec.IObject
@@ -138,11 +132,6 @@ type INSClassDescription interface {
 	ToManyRelationshipKeys() []string
 	// Overridden by subclasses to return the keys for the to-one relationship properties of instances of the described class.
 	ToOneRelationshipKeys() []string
-
-	// Topic: Notifications
-
-	// Posted by
-	NSClassDescriptionNeededForClass() NSNotificationName
 }
 
 // Init initializes the instance.
@@ -188,7 +177,7 @@ func NewNSClassDescription() NSClassDescription {
 // See: https://developer.apple.com/documentation/Foundation/NSClassDescription/init(for:)
 //
 // [classDescription]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/classDescription
-func NewClassDescriptionForClass(aClass objc.Class) NSClassDescription {
+func NewClassDescriptionForClass(aClass objectivec.Class) NSClassDescription {
 	rv := objc.Send[objc.ID](objc.ID(getNSClassDescriptionClass().class), objc.Sel("classDescriptionForClass:"), aClass)
 	return NSClassDescriptionFromID(rv)
 }
@@ -249,7 +238,7 @@ func (_NSClassDescriptionClass NSClassDescriptionClass) InvalidateClassDescripti
 // You should rarely need to directly invoke this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSClassDescription/register(_:for:)
-func (_NSClassDescriptionClass NSClassDescriptionClass) RegisterClassDescriptionForClass(description INSClassDescription, aClass objc.Class) {
+func (_NSClassDescriptionClass NSClassDescriptionClass) RegisterClassDescriptionForClass(description INSClassDescription, aClass objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_NSClassDescriptionClass.class), objc.Sel("registerClassDescription:forClass:"), description, aClass)
 }
 
@@ -321,12 +310,4 @@ func (c NSClassDescription) ToManyRelationshipKeys() []string {
 func (c NSClassDescription) ToOneRelationshipKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("toOneRelationshipKeys"))
 	return objc.ConvertSliceToStrings(rv)
-}
-
-// Posted by
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsclassdescriptionneededforclass
-func (c NSClassDescription) NSClassDescriptionNeededForClass() NSNotificationName {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("NSClassDescriptionNeededForClassNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }

@@ -91,6 +91,7 @@ type IVNRecognizedText interface {
 
 	// Calculates the bounding box around the characters in the range of a string.
 	BoundingBoxForRangeError(range_ foundation.NSRange) (IVNRectangleObservation, error)
+	InitWithCoder(coder foundation.INSCoder) VNRecognizedText
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -113,6 +114,13 @@ func NewVNRecognizedText() VNRecognizedText {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNRecognizedText/init(coder:)
+func NewRecognizedTextWithCoder(coder foundation.INSCoder) VNRecognizedText {
+	instance := getVNRecognizedTextClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNRecognizedTextFromID(rv)
+}
+
 // Calculates the bounding box around the characters in the range of a string.
 //
 // range: The range of the characters in the text string to draw a bounding box
@@ -128,7 +136,7 @@ func NewVNRecognizedText() VNRecognizedText {
 // their contents for image processing.
 //
 // The bounding box that returns from this method differs based on the value
-// of [RecognitionLevel], as follows:
+// of [VNRecognizeTextRequest.RecognitionLevel], as follows:
 //
 // [Table data omitted]
 //
@@ -142,6 +150,12 @@ func (r VNRecognizedText) BoundingBoxForRangeError(range_ foundation.NSRange) (I
 	}
 	return VNRectangleObservationFromID(rv), nil
 
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNRecognizedText/init(coder:)
+func (r VNRecognizedText) InitWithCoder(coder foundation.INSCoder) VNRecognizedText {
+	rv := objc.Send[VNRecognizedText](r.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // The revision of the [VNRequest] subclass used to generate the implementing

@@ -131,6 +131,13 @@ func NewCIQRCodeDescriptor() CIQRCodeDescriptor {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func NewQRCodeDescriptorWithCoder(coder foundation.INSCoder) CIQRCodeDescriptor {
+	instance := getCIQRCodeDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIQRCodeDescriptorFromID(rv)
+}
+
 // Initializes a QR code descriptor for the given payload and parameters.
 //
 // errorCorrectedPayload: The data to encode in the QR code symbol.

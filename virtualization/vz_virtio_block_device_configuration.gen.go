@@ -59,9 +59,9 @@ func (vc VZVirtioBlockDeviceConfigurationClass) Alloc() VZVirtioBlockDeviceConfi
 // attachment object that implements the underlying storage. For example,
 // specify a [VZDiskImageStorageDeviceAttachment] object to configure the
 // storage device using a disk image in the local file system. Assign your
-// configuration object to the [VZVirtioBlockDeviceConfiguration.StorageDevices] property of your
-// [VZVirtualMachineConfiguration] object before creating your virtual
-// machine.
+// configuration object to the [VZVirtualMachineConfiguration.StorageDevices]
+// property of your [VZVirtualMachineConfiguration] object before creating
+// your virtual machine.
 //
 // # Creating the configuration object
 //
@@ -113,10 +113,6 @@ type IVZVirtioBlockDeviceConfiguration interface {
 	// The string that identifies the VIRTIO block device.
 	BlockDeviceIdentifier() string
 	SetBlockDeviceIdentifier(value string)
-
-	// The array of storage devices that you expose to the guest operating system.
-	StorageDevices() IVZStorageDeviceConfiguration
-	SetStorageDevices(value IVZStorageDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -183,9 +179,11 @@ func (v VZVirtioBlockDeviceConfiguration) InitWithAttachment(attachment IVZStora
 //
 // # Discussion
 //
-// Use [ValidateBlockDeviceIdentifierError] to validate an identifier string
-// before trying to set the [BlockDeviceIdentifier] property. The identifier
-// must be an ASCII encodable string of 20 bytes or less.
+// Use
+// [VZVirtioBlockDeviceConfigurationClass.ValidateBlockDeviceIdentifierError]
+// to validate an identifier string before trying to set the
+// [VZVirtioBlockDeviceConfiguration.BlockDeviceIdentifier] property. The
+// identifier must be an ASCII encodable string of 20 bytes or less.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioBlockDeviceConfiguration/validateBlockDeviceIdentifier(_:)
 func (_VZVirtioBlockDeviceConfigurationClass VZVirtioBlockDeviceConfigurationClass) ValidateBlockDeviceIdentifierError(blockDeviceIdentifier string) (bool, error) {
@@ -210,7 +208,8 @@ func (_VZVirtioBlockDeviceConfigurationClass VZVirtioBlockDeviceConfigurationCla
 // in the Linux guest. The identifier must be an ASCII encodable string of 20
 // bytes or less.
 //
-// Validate the identifier string using [ValidateBlockDeviceIdentifierError]
+// Validate the identifier string using
+// [VZVirtioBlockDeviceConfigurationClass.ValidateBlockDeviceIdentifierError]
 // before attempting to set this property, for example:
 //
 // In a Linux guest, device identifiers are visible in the `/dev/disk/by-id/`
@@ -223,15 +222,4 @@ func (v VZVirtioBlockDeviceConfiguration) BlockDeviceIdentifier() string {
 }
 func (v VZVirtioBlockDeviceConfiguration) SetBlockDeviceIdentifier(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBlockDeviceIdentifier:"), objc.String(value))
-}
-
-// The array of storage devices that you expose to the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/storagedevices
-func (v VZVirtioBlockDeviceConfiguration) StorageDevices() IVZStorageDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("storageDevices"))
-	return VZStorageDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioBlockDeviceConfiguration) SetStorageDevices(value IVZStorageDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStorageDevices:"), value)
 }

@@ -2,15 +2,17 @@
 
 // Package dispatch provides Go bindings for the Dispatch framework.
 //
-// Execute code concurrently on multicore hardware by submitting work to dispatch queues managed by the system.
+// Execute code concurrently on multicore hardware by submitting work to
+// dispatch queues managed by the system.
 //
-// Dispatch, also known as Grand Central Dispatch (GCD), contains language features, runtime libraries, and system enhancements that provide systemic, comprehensive improvements to the support for concurrent code execution on multicore hardware in macOS, iOS, watchOS, and tvOS.
+// Dispatch, also known as Grand Central Dispatch (GCD), contains language
+// features, runtime libraries, and system enhancements that provide systemic,
+// comprehensive improvements to the support for concurrent code execution on
+// multicore hardware in macOS, iOS, watchOS, and tvOS.
 //
 // # Notes
 //
 //   - High-level wrappers (Queue, Group, Semaphore) are provided alongside generated interop types.
-//
-// [Dispatch Documentation]: https://developer.apple.com/documentation/Dispatch
 package dispatch
 
 import (

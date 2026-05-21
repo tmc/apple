@@ -4,7 +4,6 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -58,7 +57,7 @@ func (cc CAMetalLayerClass) Alloc() CAMetalLayer {
 // provides a higher-level abstraction.
 //
 // If you’re using UIKit, to create a view that uses a [CAMetalLayer],
-// create a subclass of [UIView] and override its [CAMetalLayer.LayerClass] class method to
+// create a subclass of [UIView] and override its [layerClass] class method to
 // return a [CAMetalLayer]:
 //
 // If you’re using AppKit, configure an [NSView] object to use a backing
@@ -75,9 +74,9 @@ func (cc CAMetalLayerClass) Alloc() CAMetalLayer {
 // the layer for a drawable object, render into it, and then update the
 // layer’s contents to point to the new drawable.
 //
-// Call the layer’s [CAMetalLayer.NextDrawable] method to obtain a drawable object. Get
-// the drawable object’s texture and create a render pass that renders to
-// that texture, as shown in the code below:
+// Call the layer’s [CAMetalLayer.NextDrawable] method to obtain a drawable
+// object. Get the drawable object’s texture and create a render pass that
+// renders to that texture, as shown in the code below:
 //
 // To change the layer’s contents to the new drawable, call the
 // [present(_:)] method (or one of its variants) on the command buffer
@@ -88,18 +87,18 @@ func (cc CAMetalLayerClass) Alloc() CAMetalLayer {
 //
 // The layer reuses a drawable only if it isn’t onscreen and there are no
 // strong references to it. Further, if a drawable isn’t available when you
-// call [CAMetalLayer.NextDrawable], the system waits for one to become available. To avoid
-// stalls in your app, request a new drawable only when you need it, and
-// release any references to it as quickly as possible after you’re done
-// with it.
+// call [CAMetalLayer.NextDrawable], the system waits for one to become
+// available. To avoid stalls in your app, request a new drawable only when
+// you need it, and release any references to it as quickly as possible after
+// you’re done with it.
 //
 // For example, before retrieving a new drawable, you might perform other work
 // on the CPU or submit commands to the GPU that don’t require the drawable.
 // Then, obtain the drawable and encode a command buffer to render into it, as
 // described above. After you commit this command buffer, release all strong
 // references to the drawable. If you don’t release drawables correctly, the
-// layer runs out of drawables, and future calls to [CAMetalLayer.NextDrawable] return
-// `nil`.
+// layer runs out of drawables, and future calls to
+// [CAMetalLayer.NextDrawable] return `nil`.
 //
 // # Releasing the Drawable
 //
@@ -161,6 +160,7 @@ func (cc CAMetalLayerClass) Alloc() CAMetalLayer {
 // [MTKView]: https://developer.apple.com/documentation/MetalKit/MTKView
 // [NSView]: https://developer.apple.com/documentation/AppKit/NSView
 // [UIView]: https://developer.apple.com/library/archive/releasenotes/iPhone/RN-iPhoneSDK/index.html#//apple_ref/doc/uid/TP40007428-CH1-SW18
+// [layerClass]: https://developer.apple.com/documentation/UIKit/UIView/layerClass
 // [present(_:)]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:)
 type CAMetalLayer struct {
 	CALayer
@@ -240,7 +240,7 @@ type ICAMetalLayer interface {
 	// Topic: Configuring the Layer’s Drawable Objects
 
 	// The pixel format of the layer’s textures.
-	PixelFormat() unsafe.Pointer
+	PixelFormat() metal.MTLPixelFormat
 	SetPixelFormat(value metal.MTLPixelFormat)
 	// The color space of the rendered content.
 	Colorspace() coregraphics.CGColorSpaceRef
@@ -287,13 +287,6 @@ type ICAMetalLayer interface {
 	// Topic: Instance Properties
 
 	ResidencySet() metal.MTLResidencySet
-
-	// A positive integer that identifies the drawable.
-	DrawableID() int
-	SetDrawableID(value int)
-	// The host time, in seconds, when the drawable was displayed onscreen.
-	PresentedTime() float64
-	SetPresentedTime(value float64)
 }
 
 // Init initializes the instance.
@@ -326,7 +319,7 @@ func NewCAMetalLayer() CAMetalLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -358,11 +351,11 @@ func NewMetalLayerWithLayer(layer objectivec.IObject) CAMetalLayer {
 // displaying layer content, each wrapped in a [CAMetalDrawable] object. Use
 // this method to retrieve the next available drawable from the pool. If all
 // drawables are in use, the layer waits up to one second for one to become
-// available, after which it returns `nil`. The [AllowsNextDrawableTimeout]
-// property affects this behavior.
+// available, after which it returns `nil`. The
+// [CAMetalLayer.AllowsNextDrawableTimeout] property affects this behavior.
 //
-// This method returns `nil` if the layer’s [PixelFormat] or other
-// properties are invalid.
+// This method returns `nil` if the layer’s [CAMetalLayer.PixelFormat] or
+// other properties are invalid.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/nextDrawable()
 //
@@ -404,9 +397,9 @@ func (m CAMetalLayer) SetDevice(value metal.MTLDevice) {
 // GPU, this method returns the [MTLDevice] that was last used to composite
 // and present the [CAMetalLayer]. This device object usually corresponds to
 // the GPU associated with the screen that’s displaying the layer. If you
-// set the layer’s [Device] property to this device object, you reduce the
-// number of cross-GPU texture copies that Core Animation must perform to
-// present the layer’s contents onscreen.
+// set the layer’s [CAMetalLayer.Device] property to this device object, you
+// reduce the number of cross-GPU texture copies that Core Animation must
+// perform to present the layer’s contents onscreen.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/preferredDevice
 //
@@ -442,9 +435,9 @@ func (m CAMetalLayer) PreferredDevice() metal.MTLDevice {
 // [MTLPixelFormat.bgra8Unorm_srgb]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/bgra8Unorm_srgb
 // [MTLPixelFormat.rgb10a2Unorm]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/rgb10a2Unorm
 // [MTLPixelFormat.rgba16Float]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/rgba16Float
-func (m CAMetalLayer) PixelFormat() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("pixelFormat"))
-	return rv
+func (m CAMetalLayer) PixelFormat() metal.MTLPixelFormat {
+	rv := objc.Send[metal.MTLPixelFormat](m.ID, objc.Sel("pixelFormat"))
+	return metal.MTLPixelFormat(rv)
 }
 func (m CAMetalLayer) SetPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelFormat:"), value)
@@ -499,8 +492,8 @@ func (m CAMetalLayer) SetFramebufferOnly(value bool) {
 // # Discussion
 //
 // By default, a layer creates textures sized to match its content—that is,
-// this property’s value is the layer’s [Bounds] size multiplied by its
-// [ContentsScale] factor.
+// this property’s value is the layer’s [CALayer.Bounds] size multiplied
+// by its [CALayer.ContentsScale] factor.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/drawableSize
 func (m CAMetalLayer) DrawableSize() corefoundation.CGSize {
@@ -571,7 +564,7 @@ func (m CAMetalLayer) SetDisplaySyncEnabled(value bool) {
 //
 // # Discussion
 //
-// You must set this property before calling [NextDrawable].
+// You must set this property before calling [CAMetalLayer.NextDrawable].
 //
 // The default value is `nil`, which means that the system doesn’t perform
 // any tone mapping of data prior to passing it on to the display. Values
@@ -580,9 +573,9 @@ func (m CAMetalLayer) SetDisplaySyncEnabled(value bool) {
 //
 // If non-`nil`, the system uses the metadata provided to tone map values to
 // the display, based on the display’s current characteristics. You must
-// also set [PixelFormat] to a pixel format that supports pixel values greater
-// than `1.0` (such as [MTLPixelFormat.rgba16Float]) and [colorspace] to a
-// color space that supports a linear transfer function.
+// also set [CAMetalLayer.PixelFormat] to a pixel format that supports pixel
+// values greater than `1.0` (such as [MTLPixelFormat.rgba16Float]) and
+// [colorspace] to a color space that supports a linear transfer function.
 //
 // The tone mapping process requires significant amounts of memory and GPU
 // processing.
@@ -624,9 +617,10 @@ func (m CAMetalLayer) SetMaximumDrawableCount(value uint) {
 //
 // # Discussion
 //
-// If true, the [NextDrawable] method returns nil if it can’t provide a
-// drawable object within one second. If false, the [NextDrawable] method
-// waits indefinitely for a drawable to become available.
+// If true, the [CAMetalLayer.NextDrawable] method returns nil if it can’t
+// provide a drawable object within one second. If false, the
+// [CAMetalLayer.NextDrawable] method waits indefinitely for a drawable to
+// become available.
 //
 // The default value is true.
 //
@@ -659,37 +653,4 @@ func (m CAMetalLayer) SetDeveloperHUDProperties(value foundation.INSDictionary) 
 func (m CAMetalLayer) ResidencySet() metal.MTLResidencySet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("residencySet"))
 	return metal.MTLResidencySetObjectFromID(rv)
-}
-
-// A positive integer that identifies the drawable.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
-func (m CAMetalLayer) DrawableID() int {
-	rv := objc.Send[int](m.ID, objc.Sel("drawableID"))
-	return rv
-}
-func (m CAMetalLayer) SetDrawableID(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDrawableID:"), value)
-}
-
-// The host time, in seconds, when the drawable was displayed onscreen.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDrawable/presentedTime
-func (m CAMetalLayer) PresentedTime() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("presentedTime"))
-	return rv
-}
-func (m CAMetalLayer) SetPresentedTime(value float64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPresentedTime:"), value)
-}
-
-// Returns the class used to create the layer for instances of this class.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIView/layerClass
-func (_CAMetalLayerClass CAMetalLayerClass) LayerClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_CAMetalLayerClass.class), objc.Sel("layerClass"))
-	return rv
-}
-func (_CAMetalLayerClass CAMetalLayerClass) SetLayerClass(value objc.Class) {
-	objc.Send[struct{}](objc.ID(_CAMetalLayerClass.class), objc.Sel("setLayerClass:"), value)
 }

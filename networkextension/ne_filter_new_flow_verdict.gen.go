@@ -134,7 +134,8 @@ func (_NEFilterNewFlowVerdictClass NEFilterNewFlowVerdictClass) DropVerdict() NE
 // # Discussion
 //
 // Once paused, the system doesn’t call any of the data provider’s handler
-// callbacks until you resume the flow by calling [ResumeFlowWithVerdict].
+// callbacks until you resume the flow by calling
+// [NEFilterDataProvider.ResumeFlowWithVerdict].
 //
 // You can pause TCP flows indefinitely. You can pause UDP flows for up to 10
 // seconds, after which the system drops the flow. Pausing a flow that’s
@@ -176,8 +177,9 @@ func (_NEFilterNewFlowVerdictClass NEFilterNewFlowVerdictClass) FilterDataVerdic
 // # Discussion
 //
 // This property determines the frequency at which the system calls the data
-// provider’s [HandleReport] method with an [NEFilterReport] instance that
-// contains an [NEFilterReportEventStatistics] [Event].
+// provider’s [NEFilterProvider.HandleReport] method with an
+// [NEFilterReport] instance that contains an [NEFilterReportEventStatistics]
+// [NEFilterReport.Event].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterNewFlowVerdict/statisticsReportFrequency
 func (f NEFilterNewFlowVerdict) StatisticsReportFrequency() NEFilterReportFrequency {

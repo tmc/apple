@@ -48,12 +48,12 @@ func (mc MTLStructTypeClass) Alloc() MTLStructType {
 // [MTLStructType] is part of the reflection API that allows Metal framework
 // code to query details of a struct that is passed as an argument of a Metal
 // shading language function. Don’t create [MTLStructType] instances
-// directly; instead query the [MTLStructType.BufferStructType] property of an [MTLArgument]
-// instance, or call the [StructType] method for an [MTLStructMember]
-// instance. To examine the details of the struct, you can recursively drill
-// down the [MTLStructType.Members] property of the [MTLStructType] instance, which contains
-// details about struct members, each of which is represented by an
-// [MTLStructMember] instance.
+// directly; instead query the [bufferStructType] property of an [MTLArgument]
+// instance, or call the [MTLStructMember.StructType] method for an
+// [MTLStructMember] instance. To examine the details of the struct, you can
+// recursively drill down the [MTLStructType.Members] property of the
+// [MTLStructType] instance, which contains details about struct members, each
+// of which is represented by an [MTLStructMember] instance.
 //
 // # Obtaining information about struct members
 //
@@ -63,6 +63,7 @@ func (mc MTLStructTypeClass) Alloc() MTLStructType {
 // See: https://developer.apple.com/documentation/Metal/MTLStructType
 //
 // [MTLArgument]: https://developer.apple.com/documentation/Metal/MTLArgument
+// [bufferStructType]: https://developer.apple.com/documentation/Metal/MTLArgument/bufferStructType
 type MTLStructType struct {
 	MTLType
 }
@@ -94,10 +95,6 @@ type IMTLStructType interface {
 	Members() []MTLStructMember
 	// Provides a representation of a struct member.
 	MemberByName(name string) IMTLStructMember
-
-	// A description of the structure data of a buffer argument.
-	BufferStructType() IMTLStructType
-	SetBufferStructType(value IMTLStructType)
 }
 
 // Init initializes the instance.
@@ -138,8 +135,8 @@ func (s MTLStructType) MemberByName(name string) IMTLStructMember {
 //
 // # Discussion
 //
-// Each array element in [Members] is an [MTLStructMember] instance that
-// corresponds to one of the fields in the struct.
+// Each array element in [MTLStructType.Members] is an [MTLStructMember]
+// instance that corresponds to one of the fields in the struct.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructType/members
 func (s MTLStructType) Members() []MTLStructMember {
@@ -147,15 +144,4 @@ func (s MTLStructType) Members() []MTLStructMember {
 	return objc.ConvertSlice(rv, func(id objc.ID) MTLStructMember {
 		return MTLStructMemberFromID(id)
 	})
-}
-
-// A description of the structure data of a buffer argument.
-//
-// See: https://developer.apple.com/documentation/metal/mtlargument/bufferstructtype
-func (s MTLStructType) BufferStructType() IMTLStructType {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bufferStructType"))
-	return MTLStructTypeFromID(objc.ID(rv))
-}
-func (s MTLStructType) SetBufferStructType(value IMTLStructType) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBufferStructType:"), value)
 }

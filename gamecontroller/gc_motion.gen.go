@@ -49,8 +49,8 @@ func (gc GCMotionClass) Alloc() GCMotion {
 // The motion controller profile provides attitude and rotation data, as well
 // as acceleration and sensor information. Use this profile to get motion
 // input from a controller that measures acceleration and rotation rate. If
-// the controller’s [GCMotion.Motion] property is a [GCMotion] object, the controller
-// supports motion.
+// the controller’s [GCController.Motion] property is a [GCMotion] object,
+// the controller supports motion.
 //
 // This illustration shows the direction of the x, y, and z axes of an iPhone
 // when held upright.
@@ -198,10 +198,6 @@ type IGCMotion interface {
 
 	// Copies the input values from a specified motion profile to a snapshot of a motion profile.
 	SetStateFromMotion(motion IGCMotion)
-
-	// The motion input profile.
-	Motion() IGCMotion
-	SetMotion(value IGCMotion)
 }
 
 // Init initializes the instance.
@@ -376,15 +372,4 @@ func (g GCMotion) SensorsActive() bool {
 }
 func (g GCMotion) SetSensorsActive(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setSensorsActive:"), value)
-}
-
-// The motion input profile.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/motion
-func (g GCMotion) Motion() IGCMotion {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("motion"))
-	return GCMotionFromID(objc.ID(rv))
-}
-func (g GCMotion) SetMotion(value IGCMotion) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMotion:"), value)
 }

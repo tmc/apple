@@ -64,9 +64,9 @@ func (nc NSDiffableDataSourceSnapshotClass) Alloc() NSDiffableDataSourceSnapshot
 // You can create and configure a snapshot in one of these ways:
 //
 // - Create an empty snapshot, then append sections and items to it. - Get the
-// current snapshot by calling the diffable data source’s [Snapshot] method,
-// then modify that snapshot to reflect the new state of the data that you
-// want to display.
+// current snapshot by calling the diffable data source’s
+// [NSCollectionViewDiffableDataSource.Snapshot] method, then modify that
+// snapshot to reflect the new state of the data that you want to display.
 //
 // For example, the following code creates an empty snapshot, and populates it
 // with a single section with three items. Then, it applies the snapshot,

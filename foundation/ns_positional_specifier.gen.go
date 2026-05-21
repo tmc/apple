@@ -222,9 +222,11 @@ func (p NSPositionalSpecifier) SetInsertionClassDescription(classDescription INS
 //
 // # Discussion
 //
-// Calling [InsertionContainer], [InsertionKey], [InsertionIndex], or
-// [InsertionReplaces] also causes the receiver to be evaluated, if it
-// hasn’t already been evaluated.
+// Calling [NSPositionalSpecifier.InsertionContainer],
+// [NSPositionalSpecifier.InsertionKey],
+// [NSPositionalSpecifier.InsertionIndex], or
+// [NSPositionalSpecifier.InsertionReplaces] also causes the receiver to be
+// evaluated, if it hasn’t already been evaluated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/evaluate()
 func (p NSPositionalSpecifier) Evaluate() {

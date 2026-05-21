@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/diskarbitration"
 	"github.com/tmc/apple/dispatch"
@@ -4469,10 +4468,10 @@ func CompositeIconRef(backgroundIconRef IconRef, foregroundIconRef IconRef, comp
 	return result
 }
 
-var _convertFromPStringToUnicode func(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16) int32
+var _convertFromPStringToUnicode func(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 uint16) int32
 var _convertFromPStringToUnicodeErr error
 
-func tryConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16) (int32, error) {
+func tryConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 uint16) (int32, error) {
 	if _convertFromPStringToUnicode == nil {
 		return 0, symbolCallError("ConvertFromPStringToUnicode", "10.0", _convertFromPStringToUnicodeErr)
 	}
@@ -4482,7 +4481,7 @@ func tryConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer,
 // ConvertFromPStringToUnicode converts a Pascal string in a Mac OS text encoding toa Unicode string.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433483-convertfrompstringtounicode
-func ConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16) int32 {
+func ConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 uint16) int32 {
 	result, callErr := tryConvertFromPStringToUnicode(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -4490,31 +4489,10 @@ func ConvertFromPStringToUnicode(arg0 TextToUnicodeInfo, arg1 unsafe.Pointer, ar
 	return result
 }
 
-var _convertFromTextToUnicode func(arg0 TextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 uint16) int32
-var _convertFromTextToUnicodeErr error
-
-func tryConvertFromTextToUnicode(arg0 TextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 uint16) (int32, error) {
-	if _convertFromTextToUnicode == nil {
-		return 0, symbolCallError("ConvertFromTextToUnicode", "10.0", _convertFromTextToUnicodeErr)
-	}
-	return _convertFromTextToUnicode(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11), nil
-}
-
-// ConvertFromTextToUnicode converts a string from any encoding to Unicode.
-//
-// See: https://developer.apple.com/documentation/coreservices/1433517-convertfromtexttounicode
-func ConvertFromTextToUnicode(arg0 TextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 uint16) int32 {
-	result, callErr := tryConvertFromTextToUnicode(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _convertFromUnicodeToPString func(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 unsafe.Pointer) int32
+var _convertFromUnicodeToPString func(arg0 UnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 unsafe.Pointer) int32
 var _convertFromUnicodeToPStringErr error
 
-func tryConvertFromUnicodeToPString(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 unsafe.Pointer) (int32, error) {
+func tryConvertFromUnicodeToPString(arg0 UnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 unsafe.Pointer) (int32, error) {
 	if _convertFromUnicodeToPString == nil {
 		return 0, symbolCallError("ConvertFromUnicodeToPString", "10.0", _convertFromUnicodeToPStringErr)
 	}
@@ -4524,71 +4502,8 @@ func tryConvertFromUnicodeToPString(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint
 // ConvertFromUnicodeToPString converts a Unicode string to Pascal in a Mac OS text encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433581-convertfromunicodetopstring
-func ConvertFromUnicodeToPString(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 unsafe.Pointer) int32 {
+func ConvertFromUnicodeToPString(arg0 UnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryConvertFromUnicodeToPString(arg0, arg1, arg2, arg3)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _convertFromUnicodeToScriptCodeRun func(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 ScriptCodeRun) int32
-var _convertFromUnicodeToScriptCodeRunErr error
-
-func tryConvertFromUnicodeToScriptCodeRun(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 ScriptCodeRun) (int32, error) {
-	if _convertFromUnicodeToScriptCodeRun == nil {
-		return 0, symbolCallError("ConvertFromUnicodeToScriptCodeRun", "10.0", _convertFromUnicodeToScriptCodeRunErr)
-	}
-	return _convertFromUnicodeToScriptCodeRun(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14), nil
-}
-
-// ConvertFromUnicodeToScriptCodeRun converts a string from Unicode to one or more scripts.
-//
-// See: https://developer.apple.com/documentation/coreservices/1433662-convertfromunicodetoscriptcoderu
-func ConvertFromUnicodeToScriptCodeRun(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 ScriptCodeRun) int32 {
-	result, callErr := tryConvertFromUnicodeToScriptCodeRun(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _convertFromUnicodeToText func(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer) int32
-var _convertFromUnicodeToTextErr error
-
-func tryConvertFromUnicodeToText(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer) (int32, error) {
-	if _convertFromUnicodeToText == nil {
-		return 0, symbolCallError("ConvertFromUnicodeToText", "10.0", _convertFromUnicodeToTextErr)
-	}
-	return _convertFromUnicodeToText(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11), nil
-}
-
-// ConvertFromUnicodeToText converts a Unicode text string to the destination encodingyou specify.
-//
-// See: https://developer.apple.com/documentation/coreservices/1433542-convertfromunicodetotext
-func ConvertFromUnicodeToText(arg0 UnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer) int32 {
-	result, callErr := tryConvertFromUnicodeToText(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _convertFromUnicodeToTextRun func(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 TextEncodingRun) int32
-var _convertFromUnicodeToTextRunErr error
-
-func tryConvertFromUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 TextEncodingRun) (int32, error) {
-	if _convertFromUnicodeToTextRun == nil {
-		return 0, symbolCallError("ConvertFromUnicodeToTextRun", "10.0", _convertFromUnicodeToTextRunErr)
-	}
-	return _convertFromUnicodeToTextRun(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14), nil
-}
-
-// ConvertFromUnicodeToTextRun converts a string from Unicode to one or more encodings.
-//
-// See: https://developer.apple.com/documentation/coreservices/1433511-convertfromunicodetotextrun
-func ConvertFromUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 int32, arg6 uint, arg7 int32, arg8 uint, arg9 uint, arg10 uint, arg11 unsafe.Pointer, arg12 uint, arg13 uint, arg14 TextEncodingRun) int32 {
-	result, callErr := tryConvertFromUnicodeToTextRun(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -4618,10 +4533,10 @@ func CopyCollection(arg0 Collection, arg1 Collection) Collection {
 	return result
 }
 
-var _coreEndianFlipData func(arg0 uint32, arg1 uint32, arg2 int16, arg3 uint, arg4 bool) int32
+var _coreEndianFlipData func(arg0 uint32, arg1 uint32, arg2 int16, arg3 unsafe.Pointer, arg4 bool) int32
 var _coreEndianFlipDataErr error
 
-func tryCoreEndianFlipData(arg0 uint32, arg1 uint32, arg2 int16, arg3 uint, arg4 bool) (int32, error) {
+func tryCoreEndianFlipData(arg0 uint32, arg1 uint32, arg2 int16, arg3 unsafe.Pointer, arg4 bool) (int32, error) {
 	if _coreEndianFlipData == nil {
 		return 0, symbolCallError("CoreEndianFlipData", "10.3", _coreEndianFlipDataErr)
 	}
@@ -4633,7 +4548,7 @@ func tryCoreEndianFlipData(arg0 uint32, arg1 uint32, arg2 int16, arg3 uint, arg4
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1575610-coreendianflipdata
-func CoreEndianFlipData(arg0 uint32, arg1 uint32, arg2 int16, arg3 uint, arg4 bool) int32 {
+func CoreEndianFlipData(arg0 uint32, arg1 uint32, arg2 int16, arg3 unsafe.Pointer, arg4 bool) int32 {
 	result, callErr := tryCoreEndianFlipData(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -4917,10 +4832,10 @@ func CountTypes() ResourceCount {
 	return result
 }
 
-var _countUnicodeMappings func(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint) int32
+var _countUnicodeMappings func(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer) int32
 var _countUnicodeMappingsErr error
 
-func tryCountUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint) (int32, error) {
+func tryCountUnicodeMappings(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer) (int32, error) {
 	if _countUnicodeMappings == nil {
 		return 0, symbolCallError("CountUnicodeMappings", "10.0", _countUnicodeMappingsErr)
 	}
@@ -4930,7 +4845,7 @@ func tryCountUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnic
 // CountUnicodeMappings counts available mappings that meet the specified matchingcriteria.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433665-countunicodemappings
-func CountUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint) int32 {
+func CountUnicodeMappings(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryCountUnicodeMappings(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -5171,10 +5086,10 @@ func CreateUnicodeToTextInfoByEncoding(arg0 TextEncoding, arg1 UnicodeToTextInfo
 	return result
 }
 
-var _createUnicodeToTextRunInfo func(arg0 uint, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) int32
+var _createUnicodeToTextRunInfo func(arg0 unsafe.Pointer, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) int32
 var _createUnicodeToTextRunInfoErr error
 
-func tryCreateUnicodeToTextRunInfo(arg0 uint, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) (int32, error) {
+func tryCreateUnicodeToTextRunInfo(arg0 unsafe.Pointer, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) (int32, error) {
 	if _createUnicodeToTextRunInfo == nil {
 		return 0, symbolCallError("CreateUnicodeToTextRunInfo", "10.0", _createUnicodeToTextRunInfoErr)
 	}
@@ -5184,7 +5099,7 @@ func tryCreateUnicodeToTextRunInfo(arg0 uint, arg1 UnicodeMapping, arg2 UnicodeT
 // CreateUnicodeToTextRunInfo creates and returns a Unicode converter object containingthe information required for converting a Unicode text string tostrings in one or more non-Unicode encodings.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433632-createunicodetotextruninfo
-func CreateUnicodeToTextRunInfo(arg0 uint, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) int32 {
+func CreateUnicodeToTextRunInfo(arg0 unsafe.Pointer, arg1 UnicodeMapping, arg2 UnicodeToTextRunInfo) int32 {
 	result, callErr := tryCreateUnicodeToTextRunInfo(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -5192,10 +5107,10 @@ func CreateUnicodeToTextRunInfo(arg0 uint, arg1 UnicodeMapping, arg2 UnicodeToTe
 	return result
 }
 
-var _createUnicodeToTextRunInfoByEncoding func(arg0 uint, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) int32
+var _createUnicodeToTextRunInfoByEncoding func(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) int32
 var _createUnicodeToTextRunInfoByEncodingErr error
 
-func tryCreateUnicodeToTextRunInfoByEncoding(arg0 uint, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) (int32, error) {
+func tryCreateUnicodeToTextRunInfoByEncoding(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) (int32, error) {
 	if _createUnicodeToTextRunInfoByEncoding == nil {
 		return 0, symbolCallError("CreateUnicodeToTextRunInfoByEncoding", "10.0", _createUnicodeToTextRunInfoByEncodingErr)
 	}
@@ -5205,7 +5120,7 @@ func tryCreateUnicodeToTextRunInfoByEncoding(arg0 uint, arg1 TextEncoding, arg2 
 // CreateUnicodeToTextRunInfoByEncoding based on the given text encoding specifications for theconverted text runs, creates and returns a Unicode converter objectcontaining information required for converting strings from Unicodeto one or more specified non-Unicode encodings.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433651-createunicodetotextruninfobyenco
-func CreateUnicodeToTextRunInfoByEncoding(arg0 uint, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) int32 {
+func CreateUnicodeToTextRunInfoByEncoding(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 UnicodeToTextRunInfo) int32 {
 	result, callErr := tryCreateUnicodeToTextRunInfoByEncoding(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -5213,10 +5128,10 @@ func CreateUnicodeToTextRunInfoByEncoding(arg0 uint, arg1 TextEncoding, arg2 Uni
 	return result
 }
 
-var _createUnicodeToTextRunInfoByScriptCode func(arg0 uint, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) int32
+var _createUnicodeToTextRunInfoByScriptCode func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) int32
 var _createUnicodeToTextRunInfoByScriptCodeErr error
 
-func tryCreateUnicodeToTextRunInfoByScriptCode(arg0 uint, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) (int32, error) {
+func tryCreateUnicodeToTextRunInfoByScriptCode(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) (int32, error) {
 	if _createUnicodeToTextRunInfoByScriptCode == nil {
 		return 0, symbolCallError("CreateUnicodeToTextRunInfoByScriptCode", "10.0", _createUnicodeToTextRunInfoByScriptCodeErr)
 	}
@@ -5226,7 +5141,7 @@ func tryCreateUnicodeToTextRunInfoByScriptCode(arg0 uint, arg1 unsafe.Pointer, a
 // CreateUnicodeToTextRunInfoByScriptCode based on the given script codes for the converted textruns, creates and returns a Unicode converter object containinginformation required for converting strings from Unicode to oneor more specified non-Unicode encodings.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433657-createunicodetotextruninfobyscri
-func CreateUnicodeToTextRunInfoByScriptCode(arg0 uint, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) int32 {
+func CreateUnicodeToTextRunInfoByScriptCode(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 UnicodeToTextRunInfo) int32 {
 	result, callErr := tryCreateUnicodeToTextRunInfoByScriptCode(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -5549,10 +5464,10 @@ func DetachResourceFile(arg0 ResFileRefNum) int16 {
 	return result
 }
 
-var _determineIfPathIsEnclosedByFolder func(arg0 int16, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16
+var _determineIfPathIsEnclosedByFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16
 var _determineIfPathIsEnclosedByFolderErr error
 
-func tryDetermineIfPathIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) (int16, error) {
+func tryDetermineIfPathIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) (int16, error) {
 	if _determineIfPathIsEnclosedByFolder == nil {
 		return 0, symbolCallError("DetermineIfPathIsEnclosedByFolder", "10.4", _determineIfPathIsEnclosedByFolderErr)
 	}
@@ -5564,7 +5479,7 @@ func tryDetermineIfPathIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 uint8, a
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389166-determineifpathisenclosedbyfolde
-func DetermineIfPathIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16 {
+func DetermineIfPathIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16 {
 	result, callErr := tryDetermineIfPathIsEnclosedByFolder(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -6756,10 +6671,10 @@ func FNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 FSRef) int32 {
 	return result
 }
 
-var _fNNotify func(arg0 FSRef, arg1 FNMessage, arg2 applicationservices.OptionBits) int32
+var _fNNotify func(arg0 FSRef, arg1 FNMessage, arg2 uint32) int32
 var _fNNotifyErr error
 
-func tryFNNotify(arg0 FSRef, arg1 FNMessage, arg2 applicationservices.OptionBits) (int32, error) {
+func tryFNNotify(arg0 FSRef, arg1 FNMessage, arg2 uint32) (int32, error) {
 	if _fNNotify == nil {
 		return 0, symbolCallError("FNNotify", "10.0", _fNNotifyErr)
 	}
@@ -6771,7 +6686,7 @@ func tryFNNotify(arg0 FSRef, arg1 FNMessage, arg2 applicationservices.OptionBits
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565421-fnnotify
-func FNNotify(arg0 FSRef, arg1 FNMessage, arg2 applicationservices.OptionBits) int32 {
+func FNNotify(arg0 FSRef, arg1 FNMessage, arg2 uint32) int32 {
 	result, callErr := tryFNNotify(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -6779,10 +6694,10 @@ func FNNotify(arg0 FSRef, arg1 FNMessage, arg2 applicationservices.OptionBits) i
 	return result
 }
 
-var _fNNotifyAll func(arg0 FNMessage, arg1 applicationservices.OptionBits) int32
+var _fNNotifyAll func(arg0 FNMessage, arg1 uint32) int32
 var _fNNotifyAllErr error
 
-func tryFNNotifyAll(arg0 FNMessage, arg1 applicationservices.OptionBits) (int32, error) {
+func tryFNNotifyAll(arg0 FNMessage, arg1 uint32) (int32, error) {
 	if _fNNotifyAll == nil {
 		return 0, symbolCallError("FNNotifyAll", "10.0", _fNNotifyAllErr)
 	}
@@ -6794,7 +6709,7 @@ func tryFNNotifyAll(arg0 FNMessage, arg1 applicationservices.OptionBits) (int32,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565760-fnnotifyall
-func FNNotifyAll(arg0 FNMessage, arg1 applicationservices.OptionBits) int32 {
+func FNNotifyAll(arg0 FNMessage, arg1 uint32) int32 {
 	result, callErr := tryFNNotifyAll(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -6802,10 +6717,10 @@ func FNNotifyAll(arg0 FNMessage, arg1 applicationservices.OptionBits) int32 {
 	return result
 }
 
-var _fNNotifyByPath func(arg0 uint8, arg1 FNMessage, arg2 applicationservices.OptionBits) int32
+var _fNNotifyByPath func(arg0 uint8, arg1 FNMessage, arg2 uint32) int32
 var _fNNotifyByPathErr error
 
-func tryFNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 applicationservices.OptionBits) (int32, error) {
+func tryFNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 uint32) (int32, error) {
 	if _fNNotifyByPath == nil {
 		return 0, symbolCallError("FNNotifyByPath", "10.0", _fNNotifyByPathErr)
 	}
@@ -6817,7 +6732,7 @@ func tryFNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 applicationservices.Opti
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566346-fnnotifybypath
-func FNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 applicationservices.OptionBits) int32 {
+func FNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 uint32) int32 {
 	result, callErr := tryFNNotifyByPath(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -6825,10 +6740,10 @@ func FNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 applicationservices.OptionB
 	return result
 }
 
-var _fNSubscribe func(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) int32
+var _fNSubscribe func(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) int32
 var _fNSubscribeErr error
 
-func tryFNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) (int32, error) {
+func tryFNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) (int32, error) {
 	if _fNSubscribe == nil {
 		return 0, symbolCallError("FNSubscribe", "10.1", _fNSubscribeErr)
 	}
@@ -6840,7 +6755,7 @@ func tryFNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 applicationservices
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565373-fnsubscribe
-func FNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) int32 {
+func FNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) int32 {
 	result, callErr := tryFNSubscribe(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -6848,10 +6763,10 @@ func FNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 applicationservices.Op
 	return result
 }
 
-var _fNSubscribeByPath func(arg0 uint8, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) int32
+var _fNSubscribeByPath func(arg0 uint8, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) int32
 var _fNSubscribeByPathErr error
 
-func tryFNSubscribeByPath(arg0 uint8, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) (int32, error) {
+func tryFNSubscribeByPath(arg0 uint8, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) (int32, error) {
 	if _fNSubscribeByPath == nil {
 		return 0, symbolCallError("FNSubscribeByPath", "10.1", _fNSubscribeByPathErr)
 	}
@@ -6863,7 +6778,7 @@ func tryFNSubscribeByPath(arg0 uint8, arg1 FNSubscriptionUPP, arg2 applicationse
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566843-fnsubscribebypath
-func FNSubscribeByPath(arg0 uint8, arg1 FNSubscriptionUPP, arg2 applicationservices.OptionBits, arg3 FNSubscriptionRef) int32 {
+func FNSubscribeByPath(arg0 uint8, arg1 FNSubscriptionUPP, arg2 uint32, arg3 FNSubscriptionRef) int32 {
 	result, callErr := tryFNSubscribeByPath(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -6940,10 +6855,10 @@ func FSCancelVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return result
 }
 
-var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 uint, arg3 uint, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16
+var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16
 var _fSCatalogSearchErr error
 
-func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 uint, arg3 uint, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) (int16, error) {
+func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) (int16, error) {
 	if _fSCatalogSearch == nil {
 		return 0, symbolCallError("FSCatalogSearch", "10.0", _fSCatalogSearchErr)
 	}
@@ -6955,7 +6870,7 @@ func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 uint, arg3 ui
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565862-fscatalogsearch
-func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 uint, arg3 uint, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16 {
+func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16 {
 	result, callErr := tryFSCatalogSearch(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
 	if callErr != nil {
 		panic(callErr)
@@ -7032,10 +6947,10 @@ func FSCompareFSRefs(arg0 FSRef, arg1 FSRef) int16 {
 	return result
 }
 
-var _fSCopyDADiskForVolume func(arg0 int16, arg1 diskarbitration.DADiskRef) int32
+var _fSCopyDADiskForVolume func(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) int32
 var _fSCopyDADiskForVolumeErr error
 
-func tryFSCopyDADiskForVolume(arg0 int16, arg1 diskarbitration.DADiskRef) (int32, error) {
+func tryFSCopyDADiskForVolume(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) (int32, error) {
 	if _fSCopyDADiskForVolume == nil {
 		return 0, symbolCallError("FSCopyDADiskForVolume", "10.4", _fSCopyDADiskForVolumeErr)
 	}
@@ -7047,7 +6962,7 @@ func tryFSCopyDADiskForVolume(arg0 int16, arg1 diskarbitration.DADiskRef) (int32
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565813-fscopydadiskforvolume
-func FSCopyDADiskForVolume(arg0 int16, arg1 diskarbitration.DADiskRef) int32 {
+func FSCopyDADiskForVolume(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) int32 {
 	result, callErr := tryFSCopyDADiskForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7055,10 +6970,10 @@ func FSCopyDADiskForVolume(arg0 int16, arg1 diskarbitration.DADiskRef) int32 {
 	return result
 }
 
-var _fSCopyDiskIDForVolume func(arg0 int16, arg1 corefoundation.CFStringRef) int32
+var _fSCopyDiskIDForVolume func(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) int32
 var _fSCopyDiskIDForVolumeErr error
 
-func tryFSCopyDiskIDForVolume(arg0 int16, arg1 corefoundation.CFStringRef) (int32, error) {
+func tryFSCopyDiskIDForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) (int32, error) {
 	if _fSCopyDiskIDForVolume == nil {
 		return 0, symbolCallError("FSCopyDiskIDForVolume", "10.2", _fSCopyDiskIDForVolumeErr)
 	}
@@ -7070,7 +6985,7 @@ func tryFSCopyDiskIDForVolume(arg0 int16, arg1 corefoundation.CFStringRef) (int3
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565655-fscopydiskidforvolume
-func FSCopyDiskIDForVolume(arg0 int16, arg1 corefoundation.CFStringRef) int32 {
+func FSCopyDiskIDForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSCopyDiskIDForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7078,10 +6993,10 @@ func FSCopyDiskIDForVolume(arg0 int16, arg1 corefoundation.CFStringRef) int32 {
 	return result
 }
 
-var _fSCopyObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSCopyObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSCopyObjectAsyncErr error
 
-func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSCopyObjectAsync == nil {
 		return 0, symbolCallError("FSCopyObjectAsync", "10.4", _fSCopyObjectAsyncErr)
 	}
@@ -7093,7 +7008,7 @@ func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566285-fscopyobjectasync
-func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSCopyObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -7101,10 +7016,10 @@ func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 cor
 	return result
 }
 
-var _fSCopyObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) int32
+var _fSCopyObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) int32
 var _fSCopyObjectSyncErr error
 
-func tryFSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) (int32, error) {
+func tryFSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) (int32, error) {
 	if _fSCopyObjectSync == nil {
 		return 0, symbolCallError("FSCopyObjectSync", "10.4", _fSCopyObjectSyncErr)
 	}
@@ -7116,7 +7031,7 @@ func tryFSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565258-fscopyobjectsync
-func FSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) int32 {
+func FSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) int32 {
 	result, callErr := tryFSCopyObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -7124,10 +7039,10 @@ func FSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, a
 	return result
 }
 
-var _fSCopyURLForVolume func(arg0 int16, arg1 corefoundation.CFURLRef) int32
+var _fSCopyURLForVolume func(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) int32
 var _fSCopyURLForVolumeErr error
 
-func tryFSCopyURLForVolume(arg0 int16, arg1 corefoundation.CFURLRef) (int32, error) {
+func tryFSCopyURLForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) (int32, error) {
 	if _fSCopyURLForVolume == nil {
 		return 0, symbolCallError("FSCopyURLForVolume", "10.3", _fSCopyURLForVolumeErr)
 	}
@@ -7139,7 +7054,7 @@ func tryFSCopyURLForVolume(arg0 int16, arg1 corefoundation.CFURLRef) (int32, err
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566159-fscopyurlforvolume
-func FSCopyURLForVolume(arg0 int16, arg1 corefoundation.CFURLRef) int32 {
+func FSCopyURLForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) int32 {
 	result, callErr := tryFSCopyURLForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7399,10 +7314,10 @@ func FSDeleteObject(arg0 FSRef) int16 {
 	return result
 }
 
-var _fSDetermineIfRefIsEnclosedByFolder func(arg0 int16, arg1 uint32, arg2 FSRef, arg3 bool) int16
+var _fSDetermineIfRefIsEnclosedByFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) int16
 var _fSDetermineIfRefIsEnclosedByFolderErr error
 
-func tryFSDetermineIfRefIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 FSRef, arg3 bool) (int16, error) {
+func tryFSDetermineIfRefIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) (int16, error) {
 	if _fSDetermineIfRefIsEnclosedByFolder == nil {
 		return 0, symbolCallError("FSDetermineIfRefIsEnclosedByFolder", "10.4", _fSDetermineIfRefIsEnclosedByFolderErr)
 	}
@@ -7414,7 +7329,7 @@ func tryFSDetermineIfRefIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 FSRef, 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389228-fsdetermineifrefisenclosedbyfold
-func FSDetermineIfRefIsEnclosedByFolder(arg0 int16, arg1 uint32, arg2 FSRef, arg3 bool) int16 {
+func FSDetermineIfRefIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) int16 {
 	result, callErr := tryFSDetermineIfRefIsEnclosedByFolder(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -7445,10 +7360,10 @@ func FSDisposeVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return result
 }
 
-var _fSEjectVolumeAsync func(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
+var _fSEjectVolumeAsync func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
 var _fSEjectVolumeAsyncErr error
 
-func tryFSEjectVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
+func tryFSEjectVolumeAsync(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
 	if _fSEjectVolumeAsync == nil {
 		return 0, symbolCallError("FSEjectVolumeAsync", "10.2", _fSEjectVolumeAsyncErr)
 	}
@@ -7460,7 +7375,7 @@ func tryFSEjectVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566919-fsejectvolumeasync
-func FSEjectVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
+func FSEjectVolumeAsync(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSEjectVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -7468,10 +7383,10 @@ func FSEjectVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 FS
 	return result
 }
 
-var _fSEjectVolumeSync func(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) int32
+var _fSEjectVolumeSync func(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) int32
 var _fSEjectVolumeSyncErr error
 
-func tryFSEjectVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) (int32, error) {
+func tryFSEjectVolumeSync(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) (int32, error) {
 	if _fSEjectVolumeSync == nil {
 		return 0, symbolCallError("FSEjectVolumeSync", "10.2", _fSEjectVolumeSyncErr)
 	}
@@ -7483,7 +7398,7 @@ func tryFSEjectVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566031-fsejectvolumesync
-func FSEjectVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) int32 {
+func FSEjectVolumeSync(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) int32 {
 	result, callErr := tryFSEjectVolumeSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8410,10 +8325,10 @@ func FSFileSecuritySetOwnerUUID(arg0 FSFileSecurityRef, arg1 corefoundation.CFUU
 	return result
 }
 
-var _fSFindFolder func(arg0 int16, arg1 uint32, arg2 bool, arg3 FSRef) int16
+var _fSFindFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) int16
 var _fSFindFolderErr error
 
-func tryFSFindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 FSRef) (int16, error) {
+func tryFSFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) (int16, error) {
 	if _fSFindFolder == nil {
 		return 0, symbolCallError("FSFindFolder", "10.0", _fSFindFolderErr)
 	}
@@ -8425,7 +8340,7 @@ func tryFSFindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 FSRef) (int16, err
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389059-fsfindfolder
-func FSFindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 FSRef) int16 {
+func FSFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) int16 {
 	result, callErr := tryFSFindFolder(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8456,10 +8371,10 @@ func FSFlushFork(arg0 FSIORefNum) int16 {
 	return result
 }
 
-var _fSFlushVolume func(arg0 int16) int32
+var _fSFlushVolume func(arg0 FSVolumeRefNum) int32
 var _fSFlushVolumeErr error
 
-func tryFSFlushVolume(arg0 int16) (int32, error) {
+func tryFSFlushVolume(arg0 FSVolumeRefNum) (int32, error) {
 	if _fSFlushVolume == nil {
 		return 0, symbolCallError("FSFlushVolume", "10.5", _fSFlushVolumeErr)
 	}
@@ -8471,7 +8386,7 @@ func tryFSFlushVolume(arg0 int16) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565506-fsflushvolume
-func FSFlushVolume(arg0 int16) int32 {
+func FSFlushVolume(arg0 FSVolumeRefNum) int32 {
 	result, callErr := tryFSFlushVolume(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -8479,10 +8394,10 @@ func FSFlushVolume(arg0 int16) int32 {
 	return result
 }
 
-var _fSGetAsyncEjectStatus func(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 int16, arg4 int32) int32
+var _fSGetAsyncEjectStatus func(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32
 var _fSGetAsyncEjectStatusErr error
 
-func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 int16, arg4 int32) (int32, error) {
+func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) (int32, error) {
 	if _fSGetAsyncEjectStatus == nil {
 		return 0, symbolCallError("FSGetAsyncEjectStatus", "10.2", _fSGetAsyncEjectStatusErr)
 	}
@@ -8494,7 +8409,7 @@ func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 i
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565993-fsgetasyncejectstatus
-func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 int16, arg4 int32) int32 {
+func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32 {
 	result, callErr := tryFSGetAsyncEjectStatus(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -8502,10 +8417,10 @@ func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int3
 	return result
 }
 
-var _fSGetAsyncMountStatus func(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 int16) int32
+var _fSGetAsyncMountStatus func(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) int32
 var _fSGetAsyncMountStatusErr error
 
-func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 int16) (int32, error) {
+func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) (int32, error) {
 	if _fSGetAsyncMountStatus == nil {
 		return 0, symbolCallError("FSGetAsyncMountStatus", "10.2", _fSGetAsyncMountStatusErr)
 	}
@@ -8517,7 +8432,7 @@ func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 i
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566519-fsgetasyncmountstatus
-func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 int16) int32 {
+func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetAsyncMountStatus(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8525,10 +8440,10 @@ func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int3
 	return result
 }
 
-var _fSGetAsyncUnmountStatus func(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 int16, arg4 int32) int32
+var _fSGetAsyncUnmountStatus func(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32
 var _fSGetAsyncUnmountStatusErr error
 
-func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 int16, arg4 int32) (int32, error) {
+func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) (int32, error) {
 	if _fSGetAsyncUnmountStatus == nil {
 		return 0, symbolCallError("FSGetAsyncUnmountStatus", "10.2", _fSGetAsyncUnmountStatusErr)
 	}
@@ -8540,7 +8455,7 @@ func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, ar
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565808-fsgetasyncunmountstatus
-func FSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 int16, arg4 int32) int32 {
+func FSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32 {
 	result, callErr := tryFSGetAsyncUnmountStatus(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -8571,10 +8486,10 @@ func FSGetDataForkName(arg0 unsafe.Pointer) int16 {
 	return result
 }
 
-var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 int16, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) int16
+var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) int16
 var _fSGetForkCBInfoErr error
 
-func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 int16, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) (int16, error) {
+func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) (int16, error) {
 	if _fSGetForkCBInfo == nil {
 		return 0, symbolCallError("FSGetForkCBInfo", "10.0", _fSGetForkCBInfoErr)
 	}
@@ -8586,7 +8501,7 @@ func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 int16, arg2 int16, arg3 FSIORefNum
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565345-fsgetforkcbinfo
-func FSGetForkCBInfo(arg0 FSIORefNum, arg1 int16, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) int16 {
+func FSGetForkCBInfo(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 unsafe.Pointer) int16 {
 	result, callErr := tryFSGetForkCBInfo(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -8686,10 +8601,10 @@ func FSGetResourceForkName(arg0 unsafe.Pointer) int16 {
 	return result
 }
 
-var _fSGetTemporaryDirectoryForReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) int32
+var _fSGetTemporaryDirectoryForReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 uint32) int32
 var _fSGetTemporaryDirectoryForReplaceObjectErr error
 
-func tryFSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) (int32, error) {
+func tryFSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 uint32) (int32, error) {
 	if _fSGetTemporaryDirectoryForReplaceObject == nil {
 		return 0, symbolCallError("FSGetTemporaryDirectoryForReplaceObject", "10.5", _fSGetTemporaryDirectoryForReplaceObjectErr)
 	}
@@ -8701,7 +8616,7 @@ func tryFSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 app
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566436-fsgettemporarydirectoryforreplac
-func FSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) int32 {
+func FSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 uint32) int32 {
 	result, callErr := tryFSGetTemporaryDirectoryForReplaceObject(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8709,10 +8624,10 @@ func FSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 applic
 	return result
 }
 
-var _fSGetVolumeForDADisk func(arg0 diskarbitration.DADiskRef, arg1 int16) int32
+var _fSGetVolumeForDADisk func(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) int32
 var _fSGetVolumeForDADiskErr error
 
-func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 int16) (int32, error) {
+func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSGetVolumeForDADisk == nil {
 		return 0, symbolCallError("FSGetVolumeForDADisk", "10.4", _fSGetVolumeForDADiskErr)
 	}
@@ -8724,7 +8639,7 @@ func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 int16) (int32,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566612-fsgetvolumefordadisk
-func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 int16) int32 {
+func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetVolumeForDADisk(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8732,10 +8647,10 @@ func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 int16) int32 {
 	return result
 }
 
-var _fSGetVolumeForDiskID func(arg0 corefoundation.CFStringRef, arg1 int16) int32
+var _fSGetVolumeForDiskID func(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) int32
 var _fSGetVolumeForDiskIDErr error
 
-func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 int16) (int32, error) {
+func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSGetVolumeForDiskID == nil {
 		return 0, symbolCallError("FSGetVolumeForDiskID", "10.4", _fSGetVolumeForDiskIDErr)
 	}
@@ -8747,7 +8662,7 @@ func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 int16) (int32
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565529-fsgetvolumefordiskid
-func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 int16) int32 {
+func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetVolumeForDiskID(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8755,10 +8670,10 @@ func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 int16) int32 {
 	return result
 }
 
-var _fSGetVolumeInfo func(arg0 int16, arg1 uint, arg2 int16, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) int16
+var _fSGetVolumeInfo func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) int16
 var _fSGetVolumeInfoErr error
 
-func tryFSGetVolumeInfo(arg0 int16, arg1 uint, arg2 int16, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) (int16, error) {
+func tryFSGetVolumeInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) (int16, error) {
 	if _fSGetVolumeInfo == nil {
 		return 0, symbolCallError("FSGetVolumeInfo", "10.0", _fSGetVolumeInfoErr)
 	}
@@ -8770,7 +8685,7 @@ func tryFSGetVolumeInfo(arg0 int16, arg1 uint, arg2 int16, arg3 FSVolumeInfoBitm
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566350-fsgetvolumeinfo
-func FSGetVolumeInfo(arg0 int16, arg1 uint, arg2 int16, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) int16 {
+func FSGetVolumeInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 FSRef) int16 {
 	result, callErr := tryFSGetVolumeInfo(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -8778,10 +8693,10 @@ func FSGetVolumeInfo(arg0 int16, arg1 uint, arg2 int16, arg3 FSVolumeInfoBitmap,
 	return result
 }
 
-var _fSGetVolumeMountInfo func(arg0 int16, arg1 unsafe.Pointer, arg2 uint, arg3 uint) int32
+var _fSGetVolumeMountInfo func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _fSGetVolumeMountInfoErr error
 
-func tryFSGetVolumeMountInfo(arg0 int16, arg1 unsafe.Pointer, arg2 uint, arg3 uint) (int32, error) {
+func tryFSGetVolumeMountInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeMountInfo == nil {
 		return 0, symbolCallError("FSGetVolumeMountInfo", "10.5", _fSGetVolumeMountInfoErr)
 	}
@@ -8793,7 +8708,7 @@ func tryFSGetVolumeMountInfo(arg0 int16, arg1 unsafe.Pointer, arg2 uint, arg3 ui
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565587-fsgetvolumemountinfo
-func FSGetVolumeMountInfo(arg0 int16, arg1 unsafe.Pointer, arg2 uint, arg3 uint) int32 {
+func FSGetVolumeMountInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeMountInfo(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8801,10 +8716,10 @@ func FSGetVolumeMountInfo(arg0 int16, arg1 unsafe.Pointer, arg2 uint, arg3 uint)
 	return result
 }
 
-var _fSGetVolumeMountInfoSize func(arg0 int16, arg1 uint) int32
+var _fSGetVolumeMountInfoSize func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) int32
 var _fSGetVolumeMountInfoSizeErr error
 
-func tryFSGetVolumeMountInfoSize(arg0 int16, arg1 uint) (int32, error) {
+func tryFSGetVolumeMountInfoSize(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeMountInfoSize == nil {
 		return 0, symbolCallError("FSGetVolumeMountInfoSize", "10.5", _fSGetVolumeMountInfoSizeErr)
 	}
@@ -8816,7 +8731,7 @@ func tryFSGetVolumeMountInfoSize(arg0 int16, arg1 uint) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566473-fsgetvolumemountinfosize
-func FSGetVolumeMountInfoSize(arg0 int16, arg1 uint) int32 {
+func FSGetVolumeMountInfoSize(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeMountInfoSize(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8824,10 +8739,10 @@ func FSGetVolumeMountInfoSize(arg0 int16, arg1 uint) int32 {
 	return result
 }
 
-var _fSGetVolumeParms func(arg0 int16, arg1 GetVolParmsInfoBuffer, arg2 uint) int32
+var _fSGetVolumeParms func(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32
 var _fSGetVolumeParmsErr error
 
-func tryFSGetVolumeParms(arg0 int16, arg1 GetVolParmsInfoBuffer, arg2 uint) (int32, error) {
+func tryFSGetVolumeParms(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeParms == nil {
 		return 0, symbolCallError("FSGetVolumeParms", "10.5", _fSGetVolumeParmsErr)
 	}
@@ -8839,7 +8754,7 @@ func tryFSGetVolumeParms(arg0 int16, arg1 GetVolParmsInfoBuffer, arg2 uint) (int
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565147-fsgetvolumeparms
-func FSGetVolumeParms(arg0 int16, arg1 GetVolParmsInfoBuffer, arg2 uint) int32 {
+func FSGetVolumeParms(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeParms(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8939,10 +8854,10 @@ func FSMakeFSRefUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, a
 	return result
 }
 
-var _fSMountLocalVolumeAsync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 applicationservices.OptionBits, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) int32
+var _fSMountLocalVolumeAsync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 uint32, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) int32
 var _fSMountLocalVolumeAsyncErr error
 
-func tryFSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 applicationservices.OptionBits, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) (int32, error) {
+func tryFSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 uint32, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) (int32, error) {
 	if _fSMountLocalVolumeAsync == nil {
 		return 0, symbolCallError("FSMountLocalVolumeAsync", "10.2", _fSMountLocalVolumeAsyncErr)
 	}
@@ -8954,7 +8869,7 @@ func tryFSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefounda
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565530-fsmountlocalvolumeasync
-func FSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 applicationservices.OptionBits, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) int32 {
+func FSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeOperation, arg3 uint32, arg4 FSVolumeMountUPP, arg5 corefoundation.CFRunLoopRef, arg6 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSMountLocalVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -8962,10 +8877,10 @@ func FSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundatio
 	return result
 }
 
-var _fSMountLocalVolumeSync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 int16, arg3 applicationservices.OptionBits) int32
+var _fSMountLocalVolumeSync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 uint32) int32
 var _fSMountLocalVolumeSyncErr error
 
-func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 int16, arg3 applicationservices.OptionBits) (int32, error) {
+func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 uint32) (int32, error) {
 	if _fSMountLocalVolumeSync == nil {
 		return 0, symbolCallError("FSMountLocalVolumeSync", "10.2", _fSMountLocalVolumeSyncErr)
 	}
@@ -8977,7 +8892,7 @@ func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundat
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566302-fsmountlocalvolumesync
-func FSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 int16, arg3 applicationservices.OptionBits) int32 {
+func FSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 uint32) int32 {
 	result, callErr := tryFSMountLocalVolumeSync(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8985,10 +8900,10 @@ func FSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation
 	return result
 }
 
-var _fSMountServerVolumeAsync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 applicationservices.OptionBits, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) int32
+var _fSMountServerVolumeAsync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 uint32, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) int32
 var _fSMountServerVolumeAsyncErr error
 
-func tryFSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 applicationservices.OptionBits, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) (int32, error) {
+func tryFSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 uint32, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) (int32, error) {
 	if _fSMountServerVolumeAsync == nil {
 		return 0, symbolCallError("FSMountServerVolumeAsync", "10.2", _fSMountServerVolumeAsyncErr)
 	}
@@ -9000,7 +8915,7 @@ func tryFSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundati
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565318-fsmountservervolumeasync
-func FSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 applicationservices.OptionBits, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) int32 {
+func FSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeOperation, arg5 uint32, arg6 FSVolumeMountUPP, arg7 corefoundation.CFRunLoopRef, arg8 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSMountServerVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if callErr != nil {
 		panic(callErr)
@@ -9008,10 +8923,10 @@ func FSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.
 	return result
 }
 
-var _fSMountServerVolumeSync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int16, arg5 applicationservices.OptionBits) int32
+var _fSMountServerVolumeSync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 uint32) int32
 var _fSMountServerVolumeSyncErr error
 
-func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int16, arg5 applicationservices.OptionBits) (int32, error) {
+func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 uint32) (int32, error) {
 	if _fSMountServerVolumeSync == nil {
 		return 0, symbolCallError("FSMountServerVolumeSync", "10.2", _fSMountServerVolumeSyncErr)
 	}
@@ -9023,7 +8938,7 @@ func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundatio
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565166-fsmountservervolumesync
-func FSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int16, arg5 applicationservices.OptionBits) int32 {
+func FSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 uint32) int32 {
 	result, callErr := tryFSMountServerVolumeSync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9054,10 +8969,10 @@ func FSMoveObject(arg0 FSRef, arg1 FSRef, arg2 FSRef) int16 {
 	return result
 }
 
-var _fSMoveObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSMoveObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSMoveObjectAsyncErr error
 
-func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSMoveObjectAsync == nil {
 		return 0, symbolCallError("FSMoveObjectAsync", "10.4", _fSMoveObjectAsyncErr)
 	}
@@ -9069,7 +8984,7 @@ func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566762-fsmoveobjectasync
-func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSMoveObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -9077,10 +8992,10 @@ func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 cor
 	return result
 }
 
-var _fSMoveObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) int32
+var _fSMoveObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) int32
 var _fSMoveObjectSyncErr error
 
-func tryFSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) (int32, error) {
+func tryFSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) (int32, error) {
 	if _fSMoveObjectSync == nil {
 		return 0, symbolCallError("FSMoveObjectSync", "10.4", _fSMoveObjectSyncErr)
 	}
@@ -9092,7 +9007,7 @@ func tryFSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566525-fsmoveobjectsync
-func FSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 applicationservices.OptionBits) int32 {
+func FSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 uint32) int32 {
 	result, callErr := tryFSMoveObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9100,10 +9015,10 @@ func FSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, a
 	return result
 }
 
-var _fSMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
+var _fSMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
 var _fSMoveObjectToTrashAsyncErr error
 
-func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
+func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
 	if _fSMoveObjectToTrashAsync == nil {
 		return 0, symbolCallError("FSMoveObjectToTrashAsync", "10.5", _fSMoveObjectToTrashAsyncErr)
 	}
@@ -9115,7 +9030,7 @@ func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 appli
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565854-fsmoveobjecttotrashasync
-func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
+func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSMoveObjectToTrashAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9123,10 +9038,10 @@ func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 applicat
 	return result
 }
 
-var _fSMoveObjectToTrashSync func(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) int32
+var _fSMoveObjectToTrashSync func(arg0 FSRef, arg1 FSRef, arg2 uint32) int32
 var _fSMoveObjectToTrashSyncErr error
 
-func tryFSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) (int32, error) {
+func tryFSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 uint32) (int32, error) {
 	if _fSMoveObjectToTrashSync == nil {
 		return 0, symbolCallError("FSMoveObjectToTrashSync", "10.5", _fSMoveObjectToTrashSyncErr)
 	}
@@ -9138,7 +9053,7 @@ func tryFSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 applicationservices
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566651-fsmoveobjecttotrashsync
-func FSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 applicationservices.OptionBits) int32 {
+func FSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 uint32) int32 {
 	result, callErr := tryFSMoveObjectToTrashSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9261,10 +9176,10 @@ func FSOpenResourceFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 ResF
 	return result
 }
 
-var _fSPathCopyObjectAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSPathCopyObjectAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSPathCopyObjectAsyncErr error
 
-func tryFSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSPathCopyObjectAsync == nil {
 		return 0, symbolCallError("FSPathCopyObjectAsync", "10.4", _fSPathCopyObjectAsyncErr)
 	}
@@ -9276,7 +9191,7 @@ func tryFSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566056-fspathcopyobjectasync
-func FSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSPathCopyObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -9284,10 +9199,10 @@ func FSPathCopyObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 c
 	return result
 }
 
-var _fSPathCopyObjectSync func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) int32
+var _fSPathCopyObjectSync func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) int32
 var _fSPathCopyObjectSyncErr error
 
-func tryFSPathCopyObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) (int32, error) {
+func tryFSPathCopyObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) (int32, error) {
 	if _fSPathCopyObjectSync == nil {
 		return 0, symbolCallError("FSPathCopyObjectSync", "10.4", _fSPathCopyObjectSyncErr)
 	}
@@ -9299,7 +9214,7 @@ func tryFSPathCopyObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringR
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565384-fspathcopyobjectsync
-func FSPathCopyObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) int32 {
+func FSPathCopyObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) int32 {
 	result, callErr := tryFSPathCopyObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9330,10 +9245,10 @@ func FSPathFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 int8, arg2 FSFi
 	return result
 }
 
-var _fSPathGetTemporaryDirectoryForReplaceObject func(arg0 int8, arg1 int8, arg2 uint32, arg3 applicationservices.OptionBits) int32
+var _fSPathGetTemporaryDirectoryForReplaceObject func(arg0 int8, arg1 int8, arg2 uint32, arg3 uint32) int32
 var _fSPathGetTemporaryDirectoryForReplaceObjectErr error
 
-func tryFSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 uint32, arg3 applicationservices.OptionBits) (int32, error) {
+func tryFSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 uint32, arg3 uint32) (int32, error) {
 	if _fSPathGetTemporaryDirectoryForReplaceObject == nil {
 		return 0, symbolCallError("FSPathGetTemporaryDirectoryForReplaceObject", "10.5", _fSPathGetTemporaryDirectoryForReplaceObjectErr)
 	}
@@ -9345,7 +9260,7 @@ func tryFSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 u
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566163-fspathgettemporarydirectoryforre
-func FSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 uint32, arg3 applicationservices.OptionBits) int32 {
+func FSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 uint32, arg3 uint32) int32 {
 	result, callErr := tryFSPathGetTemporaryDirectoryForReplaceObject(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -9376,10 +9291,10 @@ func FSPathMakeRef(arg0 uint8, arg1 FSRef, arg2 bool) int32 {
 	return result
 }
 
-var _fSPathMakeRefWithOptions func(arg0 uint8, arg1 applicationservices.OptionBits, arg2 FSRef, arg3 bool) int32
+var _fSPathMakeRefWithOptions func(arg0 uint8, arg1 uint32, arg2 FSRef, arg3 bool) int32
 var _fSPathMakeRefWithOptionsErr error
 
-func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 applicationservices.OptionBits, arg2 FSRef, arg3 bool) (int32, error) {
+func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 uint32, arg2 FSRef, arg3 bool) (int32, error) {
 	if _fSPathMakeRefWithOptions == nil {
 		return 0, symbolCallError("FSPathMakeRefWithOptions", "10.4", _fSPathMakeRefWithOptionsErr)
 	}
@@ -9391,7 +9306,7 @@ func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 applicationservices.OptionBits
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566339-fspathmakerefwithoptions
-func FSPathMakeRefWithOptions(arg0 uint8, arg1 applicationservices.OptionBits, arg2 FSRef, arg3 bool) int32 {
+func FSPathMakeRefWithOptions(arg0 uint8, arg1 uint32, arg2 FSRef, arg3 bool) int32 {
 	result, callErr := tryFSPathMakeRefWithOptions(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -9399,10 +9314,10 @@ func FSPathMakeRefWithOptions(arg0 uint8, arg1 applicationservices.OptionBits, a
 	return result
 }
 
-var _fSPathMoveObjectAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSPathMoveObjectAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSPathMoveObjectAsyncErr error
 
-func tryFSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSPathMoveObjectAsync == nil {
 		return 0, symbolCallError("FSPathMoveObjectAsync", "10.4", _fSPathMoveObjectAsyncErr)
 	}
@@ -9414,7 +9329,7 @@ func tryFSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566169-fspathmoveobjectasync
-func FSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 applicationservices.OptionBits, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 corefoundation.CFStringRef, arg4 uint32, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSPathMoveObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -9422,10 +9337,10 @@ func FSPathMoveObjectAsync(arg0 FSFileOperationRef, arg1 int8, arg2 int8, arg3 c
 	return result
 }
 
-var _fSPathMoveObjectSync func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) int32
+var _fSPathMoveObjectSync func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) int32
 var _fSPathMoveObjectSyncErr error
 
-func tryFSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) (int32, error) {
+func tryFSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) (int32, error) {
 	if _fSPathMoveObjectSync == nil {
 		return 0, symbolCallError("FSPathMoveObjectSync", "10.4", _fSPathMoveObjectSyncErr)
 	}
@@ -9437,7 +9352,7 @@ func tryFSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringR
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566022-fspathmoveobjectsync
-func FSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 applicationservices.OptionBits) int32 {
+func FSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 int8, arg4 uint32) int32 {
 	result, callErr := tryFSPathMoveObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9445,10 +9360,10 @@ func FSPathMoveObjectSync(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef,
 	return result
 }
 
-var _fSPathMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
+var _fSPathMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 int8, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
 var _fSPathMoveObjectToTrashAsyncErr error
 
-func tryFSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
+func tryFSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
 	if _fSPathMoveObjectToTrashAsync == nil {
 		return 0, symbolCallError("FSPathMoveObjectToTrashAsync", "10.5", _fSPathMoveObjectToTrashAsyncErr)
 	}
@@ -9460,7 +9375,7 @@ func tryFSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 ap
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565270-fspathmoveobjecttotrashasync
-func FSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
+func FSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 uint32, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSPathMoveObjectToTrashAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9468,10 +9383,10 @@ func FSPathMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 int8, arg2 appli
 	return result
 }
 
-var _fSPathMoveObjectToTrashSync func(arg0 int8, arg1 int8, arg2 applicationservices.OptionBits) int32
+var _fSPathMoveObjectToTrashSync func(arg0 int8, arg1 int8, arg2 uint32) int32
 var _fSPathMoveObjectToTrashSyncErr error
 
-func tryFSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 applicationservices.OptionBits) (int32, error) {
+func tryFSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 uint32) (int32, error) {
 	if _fSPathMoveObjectToTrashSync == nil {
 		return 0, symbolCallError("FSPathMoveObjectToTrashSync", "10.5", _fSPathMoveObjectToTrashSyncErr)
 	}
@@ -9483,7 +9398,7 @@ func tryFSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 applicationservic
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566818-fspathmoveobjecttotrashsync
-func FSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 applicationservices.OptionBits) int32 {
+func FSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 uint32) int32 {
 	result, callErr := tryFSPathMoveObjectToTrashSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9491,10 +9406,10 @@ func FSPathMoveObjectToTrashSync(arg0 int8, arg1 int8, arg2 applicationservices.
 	return result
 }
 
-var _fSPathReplaceObject func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 applicationservices.OptionBits) int32
+var _fSPathReplaceObject func(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 uint32) int32
 var _fSPathReplaceObjectErr error
 
-func tryFSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 applicationservices.OptionBits) (int32, error) {
+func tryFSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 uint32) (int32, error) {
 	if _fSPathReplaceObject == nil {
 		return 0, symbolCallError("FSPathReplaceObject", "10.5", _fSPathReplaceObjectErr)
 	}
@@ -9506,7 +9421,7 @@ func tryFSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566463-fspathreplaceobject
-func FSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 applicationservices.OptionBits) int32 {
+func FSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 int8, arg5 uint32) int32 {
 	result, callErr := tryFSPathReplaceObject(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9514,10 +9429,10 @@ func FSPathReplaceObject(arg0 int8, arg1 int8, arg2 corefoundation.CFStringRef, 
 	return result
 }
 
-var _fSReadFork func(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) int16
+var _fSReadFork func(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int16
 var _fSReadForkErr error
 
-func tryFSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) (int16, error) {
+func tryFSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) (int16, error) {
 	if _fSReadFork == nil {
 		return 0, symbolCallError("FSReadFork", "10.0", _fSReadForkErr)
 	}
@@ -9529,7 +9444,7 @@ func tryFSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uin
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565997-fsreadfork
-func FSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) int16 {
+func FSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int16 {
 	result, callErr := tryFSReadFork(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9583,10 +9498,10 @@ func FSRenameUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4
 	return result
 }
 
-var _fSReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 applicationservices.OptionBits, arg6 FSRef) int32
+var _fSReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 uint32, arg6 FSRef) int32
 var _fSReplaceObjectErr error
 
-func tryFSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 applicationservices.OptionBits, arg6 FSRef) (int32, error) {
+func tryFSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 uint32, arg6 FSRef) (int32, error) {
 	if _fSReplaceObject == nil {
 		return 0, symbolCallError("FSReplaceObject", "10.5", _fSReplaceObjectErr)
 	}
@@ -9598,7 +9513,7 @@ func tryFSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566736-fsreplaceobject
-func FSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 applicationservices.OptionBits, arg6 FSRef) int32 {
+func FSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 uint32, arg6 FSRef) int32 {
 	result, callErr := tryFSReplaceObject(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -9606,10 +9521,10 @@ func FSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, ar
 	return result
 }
 
-var _fSResolveNodeID func(arg0 int16, arg1 uint32, arg2 FSRefPtr) int32
+var _fSResolveNodeID func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) int32
 var _fSResolveNodeIDErr error
 
-func tryFSResolveNodeID(arg0 int16, arg1 uint32, arg2 FSRefPtr) (int32, error) {
+func tryFSResolveNodeID(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) (int32, error) {
 	if _fSResolveNodeID == nil {
 		return 0, symbolCallError("FSResolveNodeID", "10.5", _fSResolveNodeIDErr)
 	}
@@ -9621,7 +9536,7 @@ func tryFSResolveNodeID(arg0 int16, arg1 uint32, arg2 FSRefPtr) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565623-fsresolvenodeid
-func FSResolveNodeID(arg0 int16, arg1 uint32, arg2 FSRefPtr) int32 {
+func FSResolveNodeID(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) int32 {
 	result, callErr := tryFSResolveNodeID(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9721,10 +9636,10 @@ func FSSetForkSize(arg0 FSIORefNum, arg1 uint16, arg2 int64) int16 {
 	return result
 }
 
-var _fSSetVolumeInfo func(arg0 int16, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16
+var _fSSetVolumeInfo func(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16
 var _fSSetVolumeInfoErr error
 
-func tryFSSetVolumeInfo(arg0 int16, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) (int16, error) {
+func tryFSSetVolumeInfo(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) (int16, error) {
 	if _fSSetVolumeInfo == nil {
 		return 0, symbolCallError("FSSetVolumeInfo", "10.0", _fSSetVolumeInfoErr)
 	}
@@ -9736,7 +9651,7 @@ func tryFSSetVolumeInfo(arg0 int16, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565574-fssetvolumeinfo
-func FSSetVolumeInfo(arg0 int16, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16 {
+func FSSetVolumeInfo(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16 {
 	result, callErr := tryFSSetVolumeInfo(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9790,10 +9705,10 @@ func FSUnlockRange(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint64, arg4 u
 	return result
 }
 
-var _fSUnmountVolumeAsync func(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
+var _fSUnmountVolumeAsync func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
 var _fSUnmountVolumeAsyncErr error
 
-func tryFSUnmountVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
+func tryFSUnmountVolumeAsync(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
 	if _fSUnmountVolumeAsync == nil {
 		return 0, symbolCallError("FSUnmountVolumeAsync", "10.2", _fSUnmountVolumeAsyncErr)
 	}
@@ -9805,7 +9720,7 @@ func tryFSUnmountVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, ar
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566587-fsunmountvolumeasync
-func FSUnmountVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
+func FSUnmountVolumeAsync(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSUnmountVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9813,10 +9728,10 @@ func FSUnmountVolumeAsync(arg0 int16, arg1 applicationservices.OptionBits, arg2 
 	return result
 }
 
-var _fSUnmountVolumeSync func(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) int32
+var _fSUnmountVolumeSync func(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) int32
 var _fSUnmountVolumeSyncErr error
 
-func tryFSUnmountVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) (int32, error) {
+func tryFSUnmountVolumeSync(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) (int32, error) {
 	if _fSUnmountVolumeSync == nil {
 		return 0, symbolCallError("FSUnmountVolumeSync", "10.2", _fSUnmountVolumeSyncErr)
 	}
@@ -9828,7 +9743,7 @@ func tryFSUnmountVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566764-fsunmountvolumesync
-func FSUnmountVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 int32) int32 {
+func FSUnmountVolumeSync(arg0 FSVolumeRefNum, arg1 uint32, arg2 int32) int32 {
 	result, callErr := tryFSUnmountVolumeSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9836,10 +9751,10 @@ func FSUnmountVolumeSync(arg0 int16, arg1 applicationservices.OptionBits, arg2 i
 	return result
 }
 
-var _fSVolumeMount func(arg0 unsafe.Pointer, arg1 int16) int32
+var _fSVolumeMount func(arg0 unsafe.Pointer, arg1 FSVolumeRefNum) int32
 var _fSVolumeMountErr error
 
-func tryFSVolumeMount(arg0 unsafe.Pointer, arg1 int16) (int32, error) {
+func tryFSVolumeMount(arg0 unsafe.Pointer, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSVolumeMount == nil {
 		return 0, symbolCallError("FSVolumeMount", "10.5", _fSVolumeMountErr)
 	}
@@ -9851,7 +9766,7 @@ func tryFSVolumeMount(arg0 unsafe.Pointer, arg1 int16) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566510-fsvolumemount
-func FSVolumeMount(arg0 unsafe.Pointer, arg1 int16) int32 {
+func FSVolumeMount(arg0 unsafe.Pointer, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSVolumeMount(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -9859,10 +9774,10 @@ func FSVolumeMount(arg0 unsafe.Pointer, arg1 int16) int32 {
 	return result
 }
 
-var _fSWriteFork func(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) int16
+var _fSWriteFork func(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int16
 var _fSWriteForkErr error
 
-func tryFSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) (int16, error) {
+func tryFSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) (int16, error) {
 	if _fSWriteFork == nil {
 		return 0, symbolCallError("FSWriteFork", "10.0", _fSWriteForkErr)
 	}
@@ -9874,7 +9789,7 @@ func tryFSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 ui
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565526-fswritefork
-func FSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint) int16 {
+func FSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int16 {
 	result, callErr := tryFSWriteFork(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9882,10 +9797,10 @@ func FSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint, arg4 uint)
 	return result
 }
 
-var _findFolder func(arg0 int16, arg1 uint32, arg2 bool, arg3 int16, arg4 int32) int16
+var _findFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) int16
 var _findFolderErr error
 
-func tryFindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 int16, arg4 int32) (int16, error) {
+func tryFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) (int16, error) {
 	if _findFolder == nil {
 		return 0, symbolCallError("FindFolder", "10.0", _findFolderErr)
 	}
@@ -9897,7 +9812,7 @@ func tryFindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 int16, arg4 int32) (
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389175-findfolder
-func FindFolder(arg0 int16, arg1 uint32, arg2 bool, arg3 int16, arg4 int32) int16 {
+func FindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) int16 {
 	result, callErr := tryFindFolder(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9928,10 +9843,10 @@ func FindNextComponent(arg0 Component, arg1 ComponentDescription) Component {
 	return result
 }
 
-var _fix2Frac func(arg0 int32) unsafe.Pointer
+var _fix2Frac func(arg0 unsafe.Pointer) unsafe.Pointer
 var _fix2FracErr error
 
-func tryFix2Frac(arg0 int32) (unsafe.Pointer, error) {
+func tryFix2Frac(arg0 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _fix2Frac == nil {
 		return nil, symbolCallError("Fix2Frac", "10.0", _fix2FracErr)
 	}
@@ -9943,7 +9858,7 @@ func tryFix2Frac(arg0 int32) (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409219-fix2frac
-func Fix2Frac(arg0 int32) unsafe.Pointer {
+func Fix2Frac(arg0 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFix2Frac(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -9951,10 +9866,10 @@ func Fix2Frac(arg0 int32) unsafe.Pointer {
 	return result
 }
 
-var _fix2Long func(arg0 int32) int32
+var _fix2Long func(arg0 unsafe.Pointer) int32
 var _fix2LongErr error
 
-func tryFix2Long(arg0 int32) (int32, error) {
+func tryFix2Long(arg0 unsafe.Pointer) (int32, error) {
 	if _fix2Long == nil {
 		return 0, symbolCallError("Fix2Long", "10.0", _fix2LongErr)
 	}
@@ -9966,7 +9881,7 @@ func tryFix2Long(arg0 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409214-fix2long
-func Fix2Long(arg0 int32) int32 {
+func Fix2Long(arg0 unsafe.Pointer) int32 {
 	result, callErr := tryFix2Long(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -9974,10 +9889,10 @@ func Fix2Long(arg0 int32) int32 {
 	return result
 }
 
-var _fix2X func(arg0 int32) float64
+var _fix2X func(arg0 unsafe.Pointer) float64
 var _fix2XErr error
 
-func tryFix2X(arg0 int32) (float64, error) {
+func tryFix2X(arg0 unsafe.Pointer) (float64, error) {
 	if _fix2X == nil {
 		return 0.0, symbolCallError("Fix2X", "10.0", _fix2XErr)
 	}
@@ -9989,7 +9904,7 @@ func tryFix2X(arg0 int32) (float64, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409225-fix2x
-func Fix2X(arg0 int32) float64 {
+func Fix2X(arg0 unsafe.Pointer) float64 {
 	result, callErr := tryFix2X(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -9997,12 +9912,12 @@ func Fix2X(arg0 int32) float64 {
 	return result
 }
 
-var _fixATan2 func(arg0 int32, arg1 int32) int32
+var _fixATan2 func(arg0 int32, arg1 int32) unsafe.Pointer
 var _fixATan2Err error
 
-func tryFixATan2(arg0 int32, arg1 int32) (int32, error) {
+func tryFixATan2(arg0 int32, arg1 int32) (unsafe.Pointer, error) {
 	if _fixATan2 == nil {
-		return 0, symbolCallError("FixATan2", "10.0", _fixATan2Err)
+		return nil, symbolCallError("FixATan2", "10.0", _fixATan2Err)
 	}
 	return _fixATan2(arg0, arg1), nil
 }
@@ -10012,7 +9927,7 @@ func tryFixATan2(arg0 int32, arg1 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409269-fixatan2
-func FixATan2(arg0 int32, arg1 int32) int32 {
+func FixATan2(arg0 int32, arg1 int32) unsafe.Pointer {
 	result, callErr := tryFixATan2(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -10020,12 +9935,12 @@ func FixATan2(arg0 int32, arg1 int32) int32 {
 	return result
 }
 
-var _fixDiv func(arg0 int32, arg1 int32) int32
+var _fixDiv func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
 var _fixDivErr error
 
-func tryFixDiv(arg0 int32, arg1 int32) (int32, error) {
+func tryFixDiv(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _fixDiv == nil {
-		return 0, symbolCallError("FixDiv", "10.0", _fixDivErr)
+		return nil, symbolCallError("FixDiv", "10.0", _fixDivErr)
 	}
 	return _fixDiv(arg0, arg1), nil
 }
@@ -10035,7 +9950,7 @@ func tryFixDiv(arg0 int32, arg1 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409285-fixdiv
-func FixDiv(arg0 int32, arg1 int32) int32 {
+func FixDiv(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFixDiv(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -10043,12 +9958,12 @@ func FixDiv(arg0 int32, arg1 int32) int32 {
 	return result
 }
 
-var _fixMul func(arg0 int32, arg1 int32) int32
+var _fixMul func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
 var _fixMulErr error
 
-func tryFixMul(arg0 int32, arg1 int32) (int32, error) {
+func tryFixMul(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _fixMul == nil {
-		return 0, symbolCallError("FixMul", "10.0", _fixMulErr)
+		return nil, symbolCallError("FixMul", "10.0", _fixMulErr)
 	}
 	return _fixMul(arg0, arg1), nil
 }
@@ -10058,7 +9973,7 @@ func tryFixMul(arg0 int32, arg1 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409241-fixmul
-func FixMul(arg0 int32, arg1 int32) int32 {
+func FixMul(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFixMul(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -10066,12 +9981,12 @@ func FixMul(arg0 int32, arg1 int32) int32 {
 	return result
 }
 
-var _fixRatio func(arg0 int16, arg1 int16) int32
+var _fixRatio func(arg0 int16, arg1 int16) unsafe.Pointer
 var _fixRatioErr error
 
-func tryFixRatio(arg0 int16, arg1 int16) (int32, error) {
+func tryFixRatio(arg0 int16, arg1 int16) (unsafe.Pointer, error) {
 	if _fixRatio == nil {
-		return 0, symbolCallError("FixRatio", "10.0", _fixRatioErr)
+		return nil, symbolCallError("FixRatio", "10.0", _fixRatioErr)
 	}
 	return _fixRatio(arg0, arg1), nil
 }
@@ -10081,7 +9996,7 @@ func tryFixRatio(arg0 int16, arg1 int16) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409283-fixratio
-func FixRatio(arg0 int16, arg1 int16) int32 {
+func FixRatio(arg0 int16, arg1 int16) unsafe.Pointer {
 	result, callErr := tryFixRatio(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -10089,10 +10004,10 @@ func FixRatio(arg0 int16, arg1 int16) int32 {
 	return result
 }
 
-var _fixRound func(arg0 int32) int16
+var _fixRound func(arg0 unsafe.Pointer) int16
 var _fixRoundErr error
 
-func tryFixRound(arg0 int32) (int16, error) {
+func tryFixRound(arg0 unsafe.Pointer) (int16, error) {
 	if _fixRound == nil {
 		return 0, symbolCallError("FixRound", "10.0", _fixRoundErr)
 	}
@@ -10104,7 +10019,7 @@ func tryFixRound(arg0 int32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409274-fixround
-func FixRound(arg0 int32) int16 {
+func FixRound(arg0 unsafe.Pointer) int16 {
 	result, callErr := tryFixRound(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -10181,12 +10096,12 @@ func FlattenPartialCollection(arg0 Collection, arg1 CollectionFlattenUPP, arg2 i
 	return result
 }
 
-var _frac2Fix func(arg0 unsafe.Pointer) int32
+var _frac2Fix func(arg0 unsafe.Pointer) unsafe.Pointer
 var _frac2FixErr error
 
-func tryFrac2Fix(arg0 unsafe.Pointer) (int32, error) {
+func tryFrac2Fix(arg0 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _frac2Fix == nil {
-		return 0, symbolCallError("Frac2Fix", "10.0", _frac2FixErr)
+		return nil, symbolCallError("Frac2Fix", "10.0", _frac2FixErr)
 	}
 	return _frac2Fix(arg0), nil
 }
@@ -10196,7 +10111,7 @@ func tryFrac2Fix(arg0 unsafe.Pointer) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409286-frac2fix
-func Frac2Fix(arg0 unsafe.Pointer) int32 {
+func Frac2Fix(arg0 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFrac2Fix(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -10227,10 +10142,10 @@ func Frac2X(arg0 unsafe.Pointer) float64 {
 	return result
 }
 
-var _fracCos func(arg0 int32) unsafe.Pointer
+var _fracCos func(arg0 unsafe.Pointer) unsafe.Pointer
 var _fracCosErr error
 
-func tryFracCos(arg0 int32) (unsafe.Pointer, error) {
+func tryFracCos(arg0 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _fracCos == nil {
 		return nil, symbolCallError("FracCos", "10.0", _fracCosErr)
 	}
@@ -10242,7 +10157,7 @@ func tryFracCos(arg0 int32) (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409257-fraccos
-func FracCos(arg0 int32) unsafe.Pointer {
+func FracCos(arg0 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFracCos(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -10296,10 +10211,10 @@ func FracMul(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
 	return result
 }
 
-var _fracSin func(arg0 int32) unsafe.Pointer
+var _fracSin func(arg0 unsafe.Pointer) unsafe.Pointer
 var _fracSinErr error
 
-func tryFracSin(arg0 int32) (unsafe.Pointer, error) {
+func tryFracSin(arg0 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _fracSin == nil {
 		return nil, symbolCallError("FracSin", "10.0", _fracSinErr)
 	}
@@ -10311,7 +10226,7 @@ func tryFracSin(arg0 int32) (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409243-fracsin
-func FracSin(arg0 int32) unsafe.Pointer {
+func FracSin(arg0 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryFracSin(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -10594,12 +10509,12 @@ func GetCollectionItemInfo(arg0 Collection, arg1 CollectionTag, arg2 int32, arg3
 	return result
 }
 
-var _getCollectionRetainCount func(arg0 Collection) uint
+var _getCollectionRetainCount func(arg0 Collection) unsafe.Pointer
 var _getCollectionRetainCountErr error
 
-func tryGetCollectionRetainCount(arg0 Collection) (uint, error) {
+func tryGetCollectionRetainCount(arg0 Collection) (unsafe.Pointer, error) {
 	if _getCollectionRetainCount == nil {
-		return 0, symbolCallError("GetCollectionRetainCount", "10.1", _getCollectionRetainCountErr)
+		return nil, symbolCallError("GetCollectionRetainCount", "10.1", _getCollectionRetainCountErr)
 	}
 	return _getCollectionRetainCount(arg0), nil
 }
@@ -10609,7 +10524,7 @@ func tryGetCollectionRetainCount(arg0 Collection) (uint, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1551403-getcollectionretaincount
-func GetCollectionRetainCount(arg0 Collection) uint {
+func GetCollectionRetainCount(arg0 Collection) unsafe.Pointer {
 	result, callErr := tryGetCollectionRetainCount(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -10985,10 +10900,10 @@ func GetDefaultThreadStackSize(arg0 ThreadStyle, arg1 corefoundation.CGSize) int
 	return result
 }
 
-var _getFolderNameUnicode func(arg0 int16, arg1 uint32, arg2 int16, arg3 unsafe.Pointer) int32
+var _getFolderNameUnicode func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) int32
 var _getFolderNameUnicodeErr error
 
-func tryGetFolderNameUnicode(arg0 int16, arg1 uint32, arg2 int16, arg3 unsafe.Pointer) (int32, error) {
+func tryGetFolderNameUnicode(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) (int32, error) {
 	if _getFolderNameUnicode == nil {
 		return 0, symbolCallError("GetFolderNameUnicode", "10.5", _getFolderNameUnicodeErr)
 	}
@@ -11000,7 +10915,7 @@ func tryGetFolderNameUnicode(arg0 int16, arg1 uint32, arg2 int16, arg3 unsafe.Po
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389375-getfoldernameunicode
-func GetFolderNameUnicode(arg0 int16, arg1 uint32, arg2 int16, arg3 unsafe.Pointer) int32 {
+func GetFolderNameUnicode(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryGetFolderNameUnicode(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -11753,10 +11668,10 @@ func GetTextEncodingFromScriptInfo(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg
 	return result
 }
 
-var _getTextEncodingName func(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) int32
+var _getTextEncodingName func(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) int32
 var _getTextEncodingNameErr error
 
-func tryGetTextEncodingName(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) (int32, error) {
+func tryGetTextEncodingName(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) (int32, error) {
 	if _getTextEncodingName == nil {
 		return 0, symbolCallError("GetTextEncodingName", "10.0", _getTextEncodingNameErr)
 	}
@@ -11766,7 +11681,7 @@ func tryGetTextEncodingName(arg0 TextEncoding, arg1 TextEncodingNameSelector, ar
 // GetTextEncodingName returns the localized name for a specified text encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/1399645-gettextencodingname
-func GetTextEncodingName(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) int32 {
+func GetTextEncodingName(arg0 TextEncoding, arg1 TextEncodingNameSelector, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncoding, arg8 TextPtr) int32 {
 	result, callErr := tryGetTextEncodingName(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if callErr != nil {
 		panic(callErr)
@@ -12111,10 +12026,10 @@ func HomeResFile(arg0 unsafe.Pointer) ResFileRefNum {
 	return result
 }
 
-var _identifyFolder func(arg0 int16, arg1 int32, arg2 FolderType) int16
+var _identifyFolder func(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) int16
 var _identifyFolderErr error
 
-func tryIdentifyFolder(arg0 int16, arg1 int32, arg2 FolderType) (int16, error) {
+func tryIdentifyFolder(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) (int16, error) {
 	if _identifyFolder == nil {
 		return 0, symbolCallError("IdentifyFolder", "10.0", _identifyFolderErr)
 	}
@@ -12126,7 +12041,7 @@ func tryIdentifyFolder(arg0 int16, arg1 int32, arg2 FolderType) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389047-identifyfolder
-func IdentifyFolder(arg0 int16, arg1 int32, arg2 FolderType) int16 {
+func IdentifyFolder(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) int16 {
 	result, callErr := tryIdentifyFolder(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -12361,10 +12276,10 @@ func InstallXTimeTask(arg0 QElemPtr) int16 {
 	return result
 }
 
-var _invalidateFolderDescriptorCache func(arg0 int16, arg1 int32) int16
+var _invalidateFolderDescriptorCache func(arg0 FSVolumeRefNum, arg1 int32) int16
 var _invalidateFolderDescriptorCacheErr error
 
-func tryInvalidateFolderDescriptorCache(arg0 int16, arg1 int32) (int16, error) {
+func tryInvalidateFolderDescriptorCache(arg0 FSVolumeRefNum, arg1 int32) (int16, error) {
 	if _invalidateFolderDescriptorCache == nil {
 		return 0, symbolCallError("InvalidateFolderDescriptorCache", "10.0", _invalidateFolderDescriptorCacheErr)
 	}
@@ -12376,7 +12291,7 @@ func tryInvalidateFolderDescriptorCache(arg0 int16, arg1 int32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389097-invalidatefolderdescriptorcache
-func InvalidateFolderDescriptorCache(arg0 int16, arg1 int32) int16 {
+func InvalidateFolderDescriptorCache(arg0 FSVolumeRefNum, arg1 int32) int16 {
 	result, callErr := tryInvalidateFolderDescriptorCache(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -12715,10 +12630,10 @@ func InvokeExceptionHandlerUPP(arg0 ExceptionInformation, arg1 ExceptionHandlerU
 	return result
 }
 
-var _invokeFNSubscriptionUPP func(arg0 FNMessage, arg1 applicationservices.OptionBits, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP)
+var _invokeFNSubscriptionUPP func(arg0 FNMessage, arg1 uint32, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP)
 var _invokeFNSubscriptionUPPErr error
 
-func tryInvokeFNSubscriptionUPP(arg0 FNMessage, arg1 applicationservices.OptionBits, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP) error {
+func tryInvokeFNSubscriptionUPP(arg0 FNMessage, arg1 uint32, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP) error {
 	if _invokeFNSubscriptionUPP == nil {
 		return symbolCallError("InvokeFNSubscriptionUPP", "10.1", _invokeFNSubscriptionUPPErr)
 	}
@@ -12731,16 +12646,16 @@ func tryInvokeFNSubscriptionUPP(arg0 FNMessage, arg1 applicationservices.OptionB
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565242-invokefnsubscriptionupp
-func InvokeFNSubscriptionUPP(arg0 FNMessage, arg1 applicationservices.OptionBits, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP) {
+func InvokeFNSubscriptionUPP(arg0 FNMessage, arg1 uint32, arg2 FNSubscriptionRef, arg3 FNSubscriptionUPP) {
 	if callErr := tryInvokeFNSubscriptionUPP(arg0, arg1, arg2, arg3); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeFSVolumeEjectUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeEjectUPP)
+var _invokeFSVolumeEjectUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP)
 var _invokeFSVolumeEjectUPPErr error
 
-func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeEjectUPP) error {
+func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP) error {
 	if _invokeFSVolumeEjectUPP == nil {
 		return symbolCallError("InvokeFSVolumeEjectUPP", "10.2", _invokeFSVolumeEjectUPPErr)
 	}
@@ -12753,16 +12668,16 @@ func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, a
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565652-invokefsvolumeejectupp
-func InvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeEjectUPP) {
+func InvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP) {
 	if callErr := tryInvokeFSVolumeEjectUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeFSVolumeMountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 FSVolumeMountUPP)
+var _invokeFSVolumeMountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP)
 var _invokeFSVolumeMountUPPErr error
 
-func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 FSVolumeMountUPP) error {
+func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP) error {
 	if _invokeFSVolumeMountUPP == nil {
 		return symbolCallError("InvokeFSVolumeMountUPP", "10.2", _invokeFSVolumeMountUPPErr)
 	}
@@ -12775,16 +12690,16 @@ func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, a
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566167-invokefsvolumemountupp
-func InvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 FSVolumeMountUPP) {
+func InvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP) {
 	if callErr := tryInvokeFSVolumeMountUPP(arg0, arg1, arg2, arg3); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeFSVolumeUnmountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeUnmountUPP)
+var _invokeFSVolumeUnmountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP)
 var _invokeFSVolumeUnmountUPPErr error
 
-func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeUnmountUPP) error {
+func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP) error {
 	if _invokeFSVolumeUnmountUPP == nil {
 		return symbolCallError("InvokeFSVolumeUnmountUPP", "10.2", _invokeFSVolumeUnmountUPPErr)
 	}
@@ -12797,7 +12712,7 @@ func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565842-invokefsvolumeunmountupp
-func InvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 int16, arg3 int32, arg4 FSVolumeUnmountUPP) {
+func InvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP) {
 	if callErr := tryInvokeFSVolumeUnmountUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
 		panic(callErr)
 	}
@@ -13263,10 +13178,10 @@ func InvokeTimerUPP(arg0 TMTaskPtr, arg1 TimerUPP) {
 	}
 }
 
-var _invokeUnicodeToTextFallbackUPP func(arg0 uint16, arg1 uint, arg2 uint, arg3 TextPtr, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) int32
+var _invokeUnicodeToTextFallbackUPP func(arg0 uint16, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 TextPtr, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) int32
 var _invokeUnicodeToTextFallbackUPPErr error
 
-func tryInvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 uint, arg2 uint, arg3 TextPtr, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) (int32, error) {
+func tryInvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 TextPtr, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) (int32, error) {
 	if _invokeUnicodeToTextFallbackUPP == nil {
 		return 0, symbolCallError("InvokeUnicodeToTextFallbackUPP", "10.0", _invokeUnicodeToTextFallbackUPPErr)
 	}
@@ -13276,7 +13191,7 @@ func tryInvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 uint, arg2 uint, arg3 T
 // InvokeUnicodeToTextFallbackUPP calls your Unicode-to-text fallback callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433599-invokeunicodetotextfallbackupp
-func InvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 uint, arg2 uint, arg3 TextPtr, arg4 uint, arg5 uint, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) int32 {
+func InvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 TextPtr, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 ConstUnicodeMappingPtr, arg8 UnicodeToTextFallbackUPP) int32 {
 	result, callErr := tryInvokeUnicodeToTextFallbackUPP(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if callErr != nil {
 		panic(callErr)
@@ -15712,10 +15627,10 @@ func LoadResource(arg0 unsafe.Pointer) {
 	}
 }
 
-var _localeCountNames func(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint) int32
+var _localeCountNames func(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer) int32
 var _localeCountNamesErr error
 
-func tryLocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint) (int32, error) {
+func tryLocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer) (int32, error) {
 	if _localeCountNames == nil {
 		return 0, symbolCallError("LocaleCountNames", "10.0", _localeCountNamesErr)
 	}
@@ -15727,7 +15642,7 @@ func tryLocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 Local
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580255-localecountnames
-func LocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint) int32 {
+func LocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryLocaleCountNames(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -15735,10 +15650,10 @@ func LocaleCountNames(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNa
 	return result
 }
 
-var _localeGetIndName func(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) int32
+var _localeGetIndName func(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) int32
 var _localeGetIndNameErr error
 
-func tryLocaleGetIndName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) (int32, error) {
+func tryLocaleGetIndName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) (int32, error) {
 	if _localeGetIndName == nil {
 		return 0, symbolCallError("LocaleGetIndName", "10.0", _localeGetIndNameErr)
 	}
@@ -15750,7 +15665,7 @@ func tryLocaleGetIndName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 Local
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580265-localegetindname
-func LocaleGetIndName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 uint, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) int32 {
+func LocaleGetIndName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameMask, arg3 unsafe.Pointer, arg4 uint, arg5 uint, arg6 uint16, arg7 LocaleRef) int32 {
 	result, callErr := tryLocaleGetIndName(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -15781,10 +15696,10 @@ func LocaleGetName(arg0 LocaleRef, arg1 LocaleOperationVariant, arg2 LocaleNameM
 	return result
 }
 
-var _localeOperationCountLocales func(arg0 LocaleOperationClass, arg1 uint) int32
+var _localeOperationCountLocales func(arg0 LocaleOperationClass, arg1 unsafe.Pointer) int32
 var _localeOperationCountLocalesErr error
 
-func tryLocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 uint) (int32, error) {
+func tryLocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 unsafe.Pointer) (int32, error) {
 	if _localeOperationCountLocales == nil {
 		return 0, symbolCallError("LocaleOperationCountLocales", "10.0", _localeOperationCountLocalesErr)
 	}
@@ -15796,7 +15711,7 @@ func tryLocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 uint) (int32
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580264-localeoperationcountlocales
-func LocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 uint) int32 {
+func LocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryLocaleOperationCountLocales(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -15804,10 +15719,10 @@ func LocaleOperationCountLocales(arg0 LocaleOperationClass, arg1 uint) int32 {
 	return result
 }
 
-var _localeOperationCountNames func(arg0 LocaleOperationClass, arg1 uint) int32
+var _localeOperationCountNames func(arg0 LocaleOperationClass, arg1 unsafe.Pointer) int32
 var _localeOperationCountNamesErr error
 
-func tryLocaleOperationCountNames(arg0 LocaleOperationClass, arg1 uint) (int32, error) {
+func tryLocaleOperationCountNames(arg0 LocaleOperationClass, arg1 unsafe.Pointer) (int32, error) {
 	if _localeOperationCountNames == nil {
 		return 0, symbolCallError("LocaleOperationCountNames", "10.0", _localeOperationCountNamesErr)
 	}
@@ -15817,7 +15732,7 @@ func tryLocaleOperationCountNames(arg0 LocaleOperationClass, arg1 uint) (int32, 
 // LocaleOperationCountNames.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580257-localeoperationcountnames
-func LocaleOperationCountNames(arg0 LocaleOperationClass, arg1 uint) int32 {
+func LocaleOperationCountNames(arg0 LocaleOperationClass, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryLocaleOperationCountNames(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -15825,10 +15740,10 @@ func LocaleOperationCountNames(arg0 LocaleOperationClass, arg1 uint) int32 {
 	return result
 }
 
-var _localeOperationGetIndName func(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) int32
+var _localeOperationGetIndName func(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) int32
 var _localeOperationGetIndNameErr error
 
-func tryLocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) (int32, error) {
+func tryLocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) (int32, error) {
 	if _localeOperationGetIndName == nil {
 		return 0, symbolCallError("LocaleOperationGetIndName", "10.0", _localeOperationGetIndNameErr)
 	}
@@ -15838,7 +15753,7 @@ func tryLocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 uint, arg2 uin
 // LocaleOperationGetIndName.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580260-localeoperationgetindname
-func LocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) int32 {
+func LocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 uint, arg3 uint, arg4 uint16, arg5 LocaleRef) int32 {
 	result, callErr := tryLocaleOperationGetIndName(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -15846,10 +15761,10 @@ func LocaleOperationGetIndName(arg0 LocaleOperationClass, arg1 uint, arg2 uint, 
 	return result
 }
 
-var _localeOperationGetLocales func(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 LocaleAndVariant) int32
+var _localeOperationGetLocales func(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 LocaleAndVariant) int32
 var _localeOperationGetLocalesErr error
 
-func tryLocaleOperationGetLocales(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 LocaleAndVariant) (int32, error) {
+func tryLocaleOperationGetLocales(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 LocaleAndVariant) (int32, error) {
 	if _localeOperationGetLocales == nil {
 		return 0, symbolCallError("LocaleOperationGetLocales", "10.0", _localeOperationGetLocalesErr)
 	}
@@ -15861,7 +15776,7 @@ func tryLocaleOperationGetLocales(arg0 LocaleOperationClass, arg1 uint, arg2 uin
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580279-localeoperationgetlocales
-func LocaleOperationGetLocales(arg0 LocaleOperationClass, arg1 uint, arg2 uint, arg3 LocaleAndVariant) int32 {
+func LocaleOperationGetLocales(arg0 LocaleOperationClass, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 LocaleAndVariant) int32 {
 	result, callErr := tryLocaleOperationGetLocales(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -15932,10 +15847,10 @@ func LocaleRefFromLocaleString(arg0 int8, arg1 LocaleRef) int32 {
 	return result
 }
 
-var _localeRefGetPartString func(arg0 LocaleRef, arg1 LocalePartMask, arg2 uint, arg3 int8) int32
+var _localeRefGetPartString func(arg0 LocaleRef, arg1 LocalePartMask, arg2 unsafe.Pointer, arg3 int8) int32
 var _localeRefGetPartStringErr error
 
-func tryLocaleRefGetPartString(arg0 LocaleRef, arg1 LocalePartMask, arg2 uint, arg3 int8) (int32, error) {
+func tryLocaleRefGetPartString(arg0 LocaleRef, arg1 LocalePartMask, arg2 unsafe.Pointer, arg3 int8) (int32, error) {
 	if _localeRefGetPartString == nil {
 		return 0, symbolCallError("LocaleRefGetPartString", "10.0", _localeRefGetPartStringErr)
 	}
@@ -15945,7 +15860,7 @@ func tryLocaleRefGetPartString(arg0 LocaleRef, arg1 LocalePartMask, arg2 uint, a
 // LocaleRefGetPartString.
 //
 // See: https://developer.apple.com/documentation/coreservices/1580273-localerefgetpartstring
-func LocaleRefGetPartString(arg0 LocaleRef, arg1 LocalePartMask, arg2 uint, arg3 int8) int32 {
+func LocaleRefGetPartString(arg0 LocaleRef, arg1 LocalePartMask, arg2 unsafe.Pointer, arg3 int8) int32 {
 	result, callErr := tryLocaleRefGetPartString(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -15974,12 +15889,12 @@ func LocaleStringToLangAndRegionCodes(arg0 int8, arg1 unsafe.Pointer, arg2 unsaf
 	return result
 }
 
-var _long2Fix func(arg0 int32) int32
+var _long2Fix func(arg0 int32) unsafe.Pointer
 var _long2FixErr error
 
-func tryLong2Fix(arg0 int32) (int32, error) {
+func tryLong2Fix(arg0 int32) (unsafe.Pointer, error) {
 	if _long2Fix == nil {
-		return 0, symbolCallError("Long2Fix", "10.0", _long2FixErr)
+		return nil, symbolCallError("Long2Fix", "10.0", _long2FixErr)
 	}
 	return _long2Fix(arg0), nil
 }
@@ -15989,7 +15904,7 @@ func tryLong2Fix(arg0 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409235-long2fix
-func Long2Fix(arg0 int32) int32 {
+func Long2Fix(arg0 int32) unsafe.Pointer {
 	result, callErr := tryLong2Fix(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -16887,7 +16802,7 @@ func tryMDQuerySetCreateValueFunction(query MDQueryRef, func_ MDQueryCreateValue
 	if _mDQuerySetCreateValueFunction == nil {
 		return symbolCallError("MDQuerySetCreateValueFunction", "10.4", _mDQuerySetCreateValueFunctionErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 MDQueryRef, blockArg1 corefoundation.CFString, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer) unsafe.Pointer {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 MDQueryRef, blockArg1 corefoundation.CFString, blockArg2 corefoundation.CFTypeRef, blockArg3 unsafe.Pointer) unsafe.Pointer {
 		return func_(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -16945,10 +16860,10 @@ func MDQuerySetMaxCount(query MDQueryRef, size int) {
 	}
 }
 
-var _mDQuerySetSearchScope func(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions applicationservices.OptionBits)
+var _mDQuerySetSearchScope func(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions uint32)
 var _mDQuerySetSearchScopeErr error
 
-func tryMDQuerySetSearchScope(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions applicationservices.OptionBits) error {
+func tryMDQuerySetSearchScope(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions uint32) error {
 	if _mDQuerySetSearchScope == nil {
 		return symbolCallError("MDQuerySetSearchScope", "10.4", _mDQuerySetSearchScopeErr)
 	}
@@ -16959,7 +16874,7 @@ func tryMDQuerySetSearchScope(query MDQueryRef, scopeDirectories corefoundation.
 // MDQuerySetSearchScope sets the search scope for a query instance.
 //
 // See: https://developer.apple.com/documentation/coreservices/1413048-mdquerysetsearchscope
-func MDQuerySetSearchScope(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions applicationservices.OptionBits) {
+func MDQuerySetSearchScope(query MDQueryRef, scopeDirectories corefoundation.CFArrayRef, scopeOptions uint32) {
 	if callErr := tryMDQuerySetSearchScope(query, scopeDirectories, scopeOptions); callErr != nil {
 		panic(callErr)
 	}
@@ -17178,10 +17093,10 @@ func MDSchemaCopyMetaAttributesForAttribute(name corefoundation.CFStringRef) cor
 	return result
 }
 
-var _mPAllocateAligned func(arg0 uint, arg1 uint8, arg2 applicationservices.OptionBits) unsafe.Pointer
+var _mPAllocateAligned func(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) unsafe.Pointer
 var _mPAllocateAlignedErr error
 
-func tryMPAllocateAligned(arg0 uint, arg1 uint8, arg2 applicationservices.OptionBits) (unsafe.Pointer, error) {
+func tryMPAllocateAligned(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) (unsafe.Pointer, error) {
 	if _mPAllocateAligned == nil {
 		return nil, symbolCallError("MPAllocateAligned", "10.0", _mPAllocateAlignedErr)
 	}
@@ -17193,7 +17108,7 @@ func tryMPAllocateAligned(arg0 uint, arg1 uint8, arg2 applicationservices.Option
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585774-mpallocatealigned
-func MPAllocateAligned(arg0 uint, arg1 uint8, arg2 applicationservices.OptionBits) unsafe.Pointer {
+func MPAllocateAligned(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) unsafe.Pointer {
 	result, callErr := tryMPAllocateAligned(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -17224,10 +17139,10 @@ func MPAllocateTaskStorageIndex(arg0 TaskStorageIndex) int32 {
 	return result
 }
 
-var _mPArmTimer func(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 applicationservices.OptionBits) int32
+var _mPArmTimer func(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 uint32) int32
 var _mPArmTimerErr error
 
-func tryMPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 applicationservices.OptionBits) (int32, error) {
+func tryMPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 uint32) (int32, error) {
 	if _mPArmTimer == nil {
 		return 0, symbolCallError("MPArmTimer", "10.0", _mPArmTimerErr)
 	}
@@ -17239,7 +17154,7 @@ func tryMPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 applicationservices
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585612-mparmtimer
-func MPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 applicationservices.OptionBits) int32 {
+func MPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 uint32) int32 {
 	result, callErr := tryMPArmTimer(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -17247,10 +17162,10 @@ func MPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 applicationservices.Op
 	return result
 }
 
-var _mPBlockClear func(arg0 unsafe.Pointer, arg1 uint)
+var _mPBlockClear func(arg0 unsafe.Pointer, arg1 unsafe.Pointer)
 var _mPBlockClearErr error
 
-func tryMPBlockClear(arg0 unsafe.Pointer, arg1 uint) error {
+func tryMPBlockClear(arg0 unsafe.Pointer, arg1 unsafe.Pointer) error {
 	if _mPBlockClear == nil {
 		return symbolCallError("MPBlockClear", "10.0", _mPBlockClearErr)
 	}
@@ -17263,16 +17178,16 @@ func tryMPBlockClear(arg0 unsafe.Pointer, arg1 uint) error {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585642-mpblockclear
-func MPBlockClear(arg0 unsafe.Pointer, arg1 uint) {
+func MPBlockClear(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
 	if callErr := tryMPBlockClear(arg0, arg1); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _mPBlockCopy func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint)
+var _mPBlockCopy func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer)
 var _mPBlockCopyErr error
 
-func tryMPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint) error {
+func tryMPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) error {
 	if _mPBlockCopy == nil {
 		return symbolCallError("MPBlockCopy", "10.0", _mPBlockCopyErr)
 	}
@@ -17285,7 +17200,7 @@ func tryMPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint) error {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585707-mpblockcopy
-func MPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint) {
+func MPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
 	if callErr := tryMPBlockCopy(arg0, arg1, arg2); callErr != nil {
 		panic(callErr)
 	}
@@ -17452,10 +17367,10 @@ func MPCreateSemaphore(arg0 MPSemaphoreCount, arg1 MPSemaphoreCount, arg2 MPSema
 	return result
 }
 
-var _mPCreateTask func(arg0 unsafe.Pointer, arg1 uint, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) int32
+var _mPCreateTask func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) int32
 var _mPCreateTaskErr error
 
-func tryMPCreateTask(arg0 unsafe.Pointer, arg1 uint, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) (int32, error) {
+func tryMPCreateTask(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) (int32, error) {
 	if _mPCreateTask == nil {
 		return 0, symbolCallError("MPCreateTask", "10.0", _mPCreateTaskErr)
 	}
@@ -17467,7 +17382,7 @@ func tryMPCreateTask(arg0 unsafe.Pointer, arg1 uint, arg2 MPQueueID, arg3 MPTask
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585779-mpcreatetask
-func MPCreateTask(arg0 unsafe.Pointer, arg1 uint, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) int32 {
+func MPCreateTask(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 MPQueueID, arg3 MPTaskOptions, arg4 MPTaskID) int32 {
 	result, callErr := tryMPCreateTask(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -17705,10 +17620,10 @@ func MPDeleteTimer(arg0 MPTimerID) int32 {
 	return result
 }
 
-var _mPDisposeTaskException func(arg0 MPTaskID, arg1 applicationservices.OptionBits) int32
+var _mPDisposeTaskException func(arg0 MPTaskID, arg1 uint32) int32
 var _mPDisposeTaskExceptionErr error
 
-func tryMPDisposeTaskException(arg0 MPTaskID, arg1 applicationservices.OptionBits) (int32, error) {
+func tryMPDisposeTaskException(arg0 MPTaskID, arg1 uint32) (int32, error) {
 	if _mPDisposeTaskException == nil {
 		return 0, symbolCallError("MPDisposeTaskException", "10.0", _mPDisposeTaskExceptionErr)
 	}
@@ -17720,7 +17635,7 @@ func tryMPDisposeTaskException(arg0 MPTaskID, arg1 applicationservices.OptionBit
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585607-mpdisposetaskexception
-func MPDisposeTaskException(arg0 MPTaskID, arg1 applicationservices.OptionBits) int32 {
+func MPDisposeTaskException(arg0 MPTaskID, arg1 uint32) int32 {
 	result, callErr := tryMPDisposeTaskException(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -17841,12 +17756,12 @@ func MPFree(arg0 unsafe.Pointer) {
 	}
 }
 
-var _mPGetAllocatedBlockSize func(arg0 unsafe.Pointer) uint
+var _mPGetAllocatedBlockSize func(arg0 unsafe.Pointer) unsafe.Pointer
 var _mPGetAllocatedBlockSizeErr error
 
-func tryMPGetAllocatedBlockSize(arg0 unsafe.Pointer) (uint, error) {
+func tryMPGetAllocatedBlockSize(arg0 unsafe.Pointer) (unsafe.Pointer, error) {
 	if _mPGetAllocatedBlockSize == nil {
-		return 0, symbolCallError("MPGetAllocatedBlockSize", "10.0", _mPGetAllocatedBlockSizeErr)
+		return nil, symbolCallError("MPGetAllocatedBlockSize", "10.0", _mPGetAllocatedBlockSizeErr)
 	}
 	return _mPGetAllocatedBlockSize(arg0), nil
 }
@@ -17856,7 +17771,7 @@ func tryMPGetAllocatedBlockSize(arg0 unsafe.Pointer) (uint, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585717-mpgetallocatedblocksize
-func MPGetAllocatedBlockSize(arg0 unsafe.Pointer) uint {
+func MPGetAllocatedBlockSize(arg0 unsafe.Pointer) unsafe.Pointer {
 	result, callErr := tryMPGetAllocatedBlockSize(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -18002,12 +17917,12 @@ func MPNotifyQueue(arg0 MPQueueID) int32 {
 	return result
 }
 
-var _mPProcessors func() uint
+var _mPProcessors func() unsafe.Pointer
 var _mPProcessorsErr error
 
-func tryMPProcessors() (uint, error) {
+func tryMPProcessors() (unsafe.Pointer, error) {
 	if _mPProcessors == nil {
-		return 0, symbolCallError("MPProcessors", "10.0", _mPProcessorsErr)
+		return nil, symbolCallError("MPProcessors", "10.0", _mPProcessorsErr)
 	}
 	return _mPProcessors(), nil
 }
@@ -18017,7 +17932,7 @@ func tryMPProcessors() (uint, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585778-mpprocessors
-func MPProcessors() uint {
+func MPProcessors() unsafe.Pointer {
 	result, callErr := tryMPProcessors()
 	if callErr != nil {
 		panic(callErr)
@@ -18025,12 +17940,12 @@ func MPProcessors() uint {
 	return result
 }
 
-var _mPProcessorsScheduled func() uint
+var _mPProcessorsScheduled func() unsafe.Pointer
 var _mPProcessorsScheduledErr error
 
-func tryMPProcessorsScheduled() (uint, error) {
+func tryMPProcessorsScheduled() (unsafe.Pointer, error) {
 	if _mPProcessorsScheduled == nil {
-		return 0, symbolCallError("MPProcessorsScheduled", "10.0", _mPProcessorsScheduledErr)
+		return nil, symbolCallError("MPProcessorsScheduled", "10.0", _mPProcessorsScheduledErr)
 	}
 	return _mPProcessorsScheduled(), nil
 }
@@ -18040,7 +17955,7 @@ func tryMPProcessorsScheduled() (uint, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585777-mpprocessorsscheduled
-func MPProcessorsScheduled() uint {
+func MPProcessorsScheduled() unsafe.Pointer {
 	result, callErr := tryMPProcessorsScheduled()
 	if callErr != nil {
 		panic(callErr)
@@ -18163,10 +18078,10 @@ func MPSetExceptionHandler(arg0 MPTaskID, arg1 MPQueueID) int32 {
 	return result
 }
 
-var _mPSetQueueReserve func(arg0 MPQueueID, arg1 uint) int32
+var _mPSetQueueReserve func(arg0 MPQueueID, arg1 unsafe.Pointer) int32
 var _mPSetQueueReserveErr error
 
-func tryMPSetQueueReserve(arg0 MPQueueID, arg1 uint) (int32, error) {
+func tryMPSetQueueReserve(arg0 MPQueueID, arg1 unsafe.Pointer) (int32, error) {
 	if _mPSetQueueReserve == nil {
 		return 0, symbolCallError("MPSetQueueReserve", "10.0", _mPSetQueueReserveErr)
 	}
@@ -18178,7 +18093,7 @@ func tryMPSetQueueReserve(arg0 MPQueueID, arg1 uint) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585671-mpsetqueuereserve
-func MPSetQueueReserve(arg0 MPQueueID, arg1 uint) int32 {
+func MPSetQueueReserve(arg0 MPQueueID, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryMPSetQueueReserve(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -19374,7 +19289,7 @@ func tryNewIndexToUCStringUPP(userRoutine IndexToUCStringProcPtr) (IndexToUCStri
 	if _newIndexToUCStringUPP == nil {
 		return *new(IndexToUCStringUPP), symbolCallError("NewIndexToUCStringUPP", "10.4", _newIndexToUCStringUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) unsafe.Pointer {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) kernel.Pointer {
 		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
@@ -22044,10 +21959,10 @@ func PurgeCollectionTag(arg0 Collection, arg1 CollectionTag) {
 	}
 }
 
-var _queryUnicodeMappings func(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint, arg3 uint, arg4 UnicodeMapping) int32
+var _queryUnicodeMappings func(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 UnicodeMapping) int32
 var _queryUnicodeMappingsErr error
 
-func tryQueryUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint, arg3 uint, arg4 UnicodeMapping) (int32, error) {
+func tryQueryUnicodeMappings(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 UnicodeMapping) (int32, error) {
 	if _queryUnicodeMappings == nil {
 		return 0, symbolCallError("QueryUnicodeMappings", "10.0", _queryUnicodeMappingsErr)
 	}
@@ -22057,7 +21972,7 @@ func tryQueryUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnic
 // QueryUnicodeMappings returns a list of the conversion mappings available onthe system that meet specified matching criteria and returns thenumber of mappings found.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433630-queryunicodemappings
-func QueryUnicodeMappings(arg0 applicationservices.OptionBits, arg1 ConstUnicodeMappingPtr, arg2 uint, arg3 uint, arg4 UnicodeMapping) int32 {
+func QueryUnicodeMappings(arg0 uint32, arg1 ConstUnicodeMappingPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 UnicodeMapping) int32 {
 	result, callErr := tryQueryUnicodeMappings(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -22338,10 +22253,10 @@ func ReleaseCollection(arg0 Collection) int32 {
 	return result
 }
 
-var _releaseFolder func(arg0 int16, arg1 uint32) int16
+var _releaseFolder func(arg0 FSVolumeRefNum, arg1 uint32) int16
 var _releaseFolderErr error
 
-func tryReleaseFolder(arg0 int16, arg1 uint32) (int16, error) {
+func tryReleaseFolder(arg0 FSVolumeRefNum, arg1 uint32) (int16, error) {
 	if _releaseFolder == nil {
 		return 0, symbolCallError("ReleaseFolder", "10.0", _releaseFolderErr)
 	}
@@ -22353,7 +22268,7 @@ func tryReleaseFolder(arg0 int16, arg1 uint32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.3.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389109-releasefolder
-func ReleaseFolder(arg0 int16, arg1 uint32) int16 {
+func ReleaseFolder(arg0 FSVolumeRefNum, arg1 uint32) int16 {
 	result, callErr := tryReleaseFolder(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -24812,10 +24727,10 @@ func SetDefaultComponent(arg0 Component, arg1 int16) int16 {
 	return result
 }
 
-var _setFallbackUnicodeToText func(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) int32
+var _setFallbackUnicodeToText func(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) int32
 var _setFallbackUnicodeToTextErr error
 
-func trySetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) (int32, error) {
+func trySetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) (int32, error) {
 	if _setFallbackUnicodeToText == nil {
 		return 0, symbolCallError("SetFallbackUnicodeToText", "10.0", _setFallbackUnicodeToTextErr)
 	}
@@ -24825,7 +24740,7 @@ func trySetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallb
 // SetFallbackUnicodeToText specifies a fallback handler to be used for convertinga Unicode text segment to another encoding when the Unicode Convertercannot convert the text using the mapping table specified by theUnicode converter object.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433614-setfallbackunicodetotext
-func SetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) int32 {
+func SetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) int32 {
 	result, callErr := trySetFallbackUnicodeToText(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -24833,10 +24748,10 @@ func SetFallbackUnicodeToText(arg0 UnicodeToTextInfo, arg1 UnicodeToTextFallback
 	return result
 }
 
-var _setFallbackUnicodeToTextRun func(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) int32
+var _setFallbackUnicodeToTextRun func(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) int32
 var _setFallbackUnicodeToTextRunErr error
 
-func trySetFallbackUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) (int32, error) {
+func trySetFallbackUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) (int32, error) {
 	if _setFallbackUnicodeToTextRun == nil {
 		return 0, symbolCallError("SetFallbackUnicodeToTextRun", "10.0", _setFallbackUnicodeToTextRunErr)
 	}
@@ -24846,7 +24761,7 @@ func trySetFallbackUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTex
 // SetFallbackUnicodeToTextRun specifies a fallback handler to be used for convertinga Unicode text segment to another encoding when the Unicode Convertercannot convert the text using the mapping table specified by a Unicodeconverter object.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433644-setfallbackunicodetotextrun
-func SetFallbackUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 applicationservices.OptionBits, arg3 unsafe.Pointer) int32 {
+func SetFallbackUnicodeToTextRun(arg0 UnicodeToTextRunInfo, arg1 UnicodeToTextFallbackUPP, arg2 uint32, arg3 unsafe.Pointer) int32 {
 	result, callErr := trySetFallbackUnicodeToTextRun(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -25392,10 +25307,10 @@ func TECClearSnifferContextInfo(arg0 TECSnifferObjectRef) int32 {
 	return result
 }
 
-var _tECConvertText func(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint) int32
+var _tECConvertText func(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32
 var _tECConvertTextErr error
 
-func tryTECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint) (int32, error) {
+func tryTECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer) (int32, error) {
 	if _tECConvertText == nil {
 		return 0, symbolCallError("TECConvertText", "10.0", _tECConvertTextErr)
 	}
@@ -25405,7 +25320,7 @@ func tryTECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uin
 // TECConvertText converts a stream of text from a source encoding to adestination encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571824-tecconverttext
-func TECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint) int32 {
+func TECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32 {
 	result, callErr := tryTECConvertText(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -25413,10 +25328,10 @@ func TECConvertText(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, 
 	return result
 }
 
-var _tECConvertTextToMultipleEncodings func(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint, arg7 TextEncodingRun, arg8 uint, arg9 uint) int32
+var _tECConvertTextToMultipleEncodings func(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncodingRun, arg8 unsafe.Pointer, arg9 unsafe.Pointer) int32
 var _tECConvertTextToMultipleEncodingsErr error
 
-func tryTECConvertTextToMultipleEncodings(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint, arg7 TextEncodingRun, arg8 uint, arg9 uint) (int32, error) {
+func tryTECConvertTextToMultipleEncodings(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncodingRun, arg8 unsafe.Pointer, arg9 unsafe.Pointer) (int32, error) {
 	if _tECConvertTextToMultipleEncodings == nil {
 		return 0, symbolCallError("TECConvertTextToMultipleEncodings", "10.0", _tECConvertTextToMultipleEncodingsErr)
 	}
@@ -25426,7 +25341,7 @@ func tryTECConvertTextToMultipleEncodings(arg0 TECObjectRef, arg1 ConstTextPtr, 
 // TECConvertTextToMultipleEncodings converts text in the source encoding to runs of text inmultiple destination encodings.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571849-tecconverttexttomultipleencoding
-func TECConvertTextToMultipleEncodings(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 uint, arg4 TextPtr, arg5 uint, arg6 uint, arg7 TextEncodingRun, arg8 uint, arg9 uint) int32 {
+func TECConvertTextToMultipleEncodings(arg0 TECObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextPtr, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 TextEncodingRun, arg8 unsafe.Pointer, arg9 unsafe.Pointer) int32 {
 	result, callErr := tryTECConvertTextToMultipleEncodings(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
 	if callErr != nil {
 		panic(callErr)
@@ -25455,10 +25370,10 @@ func TECCopyTextEncodingInternetNameAndMIB(arg0 TextEncoding, arg1 TECInternetNa
 	return result
 }
 
-var _tECCountAvailableSniffers func(arg0 uint) int32
+var _tECCountAvailableSniffers func(arg0 unsafe.Pointer) int32
 var _tECCountAvailableSniffersErr error
 
-func tryTECCountAvailableSniffers(arg0 uint) (int32, error) {
+func tryTECCountAvailableSniffers(arg0 unsafe.Pointer) (int32, error) {
 	if _tECCountAvailableSniffers == nil {
 		return 0, symbolCallError("TECCountAvailableSniffers", "10.0", _tECCountAvailableSniffersErr)
 	}
@@ -25468,7 +25383,7 @@ func tryTECCountAvailableSniffers(arg0 uint) (int32, error) {
 // TECCountAvailableSniffers counts and returns the number of sniffers available inall installed plug-ins.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571795-teccountavailablesniffers
-func TECCountAvailableSniffers(arg0 uint) int32 {
+func TECCountAvailableSniffers(arg0 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountAvailableSniffers(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -25476,10 +25391,10 @@ func TECCountAvailableSniffers(arg0 uint) int32 {
 	return result
 }
 
-var _tECCountAvailableTextEncodings func(arg0 uint) int32
+var _tECCountAvailableTextEncodings func(arg0 unsafe.Pointer) int32
 var _tECCountAvailableTextEncodingsErr error
 
-func tryTECCountAvailableTextEncodings(arg0 uint) (int32, error) {
+func tryTECCountAvailableTextEncodings(arg0 unsafe.Pointer) (int32, error) {
 	if _tECCountAvailableTextEncodings == nil {
 		return 0, symbolCallError("TECCountAvailableTextEncodings", "10.0", _tECCountAvailableTextEncodingsErr)
 	}
@@ -25489,7 +25404,7 @@ func tryTECCountAvailableTextEncodings(arg0 uint) (int32, error) {
 // TECCountAvailableTextEncodings counts and returns the number of text encodings currentlyconfigured in the Text Encoding Converter.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571853-teccountavailabletextencodings
-func TECCountAvailableTextEncodings(arg0 uint) int32 {
+func TECCountAvailableTextEncodings(arg0 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountAvailableTextEncodings(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -25497,10 +25412,10 @@ func TECCountAvailableTextEncodings(arg0 uint) int32 {
 	return result
 }
 
-var _tECCountDestinationTextEncodings func(arg0 TextEncoding, arg1 uint) int32
+var _tECCountDestinationTextEncodings func(arg0 TextEncoding, arg1 unsafe.Pointer) int32
 var _tECCountDestinationTextEncodingsErr error
 
-func tryTECCountDestinationTextEncodings(arg0 TextEncoding, arg1 uint) (int32, error) {
+func tryTECCountDestinationTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer) (int32, error) {
 	if _tECCountDestinationTextEncodings == nil {
 		return 0, symbolCallError("TECCountDestinationTextEncodings", "10.0", _tECCountDestinationTextEncodingsErr)
 	}
@@ -25510,7 +25425,7 @@ func tryTECCountDestinationTextEncodings(arg0 TextEncoding, arg1 uint) (int32, e
 // TECCountDestinationTextEncodings counts and returns the number of destination encodingsto which a specified source encoding can be converted in one step.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571805-teccountdestinationtextencodings
-func TECCountDestinationTextEncodings(arg0 TextEncoding, arg1 uint) int32 {
+func TECCountDestinationTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountDestinationTextEncodings(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -25518,10 +25433,10 @@ func TECCountDestinationTextEncodings(arg0 TextEncoding, arg1 uint) int32 {
 	return result
 }
 
-var _tECCountDirectTextEncodingConversions func(arg0 uint) int32
+var _tECCountDirectTextEncodingConversions func(arg0 unsafe.Pointer) int32
 var _tECCountDirectTextEncodingConversionsErr error
 
-func tryTECCountDirectTextEncodingConversions(arg0 uint) (int32, error) {
+func tryTECCountDirectTextEncodingConversions(arg0 unsafe.Pointer) (int32, error) {
 	if _tECCountDirectTextEncodingConversions == nil {
 		return 0, symbolCallError("TECCountDirectTextEncodingConversions", "10.0", _tECCountDirectTextEncodingConversionsErr)
 	}
@@ -25531,7 +25446,7 @@ func tryTECCountDirectTextEncodingConversions(arg0 uint) (int32, error) {
 // TECCountDirectTextEncodingConversions counts and returns the number of direct conversions currentlyconfigured in the Text Encoding Converter.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571822-teccountdirecttextencodingconver
-func TECCountDirectTextEncodingConversions(arg0 uint) int32 {
+func TECCountDirectTextEncodingConversions(arg0 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountDirectTextEncodingConversions(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -25539,10 +25454,10 @@ func TECCountDirectTextEncodingConversions(arg0 uint) int32 {
 	return result
 }
 
-var _tECCountMailTextEncodings func(arg0 unsafe.Pointer, arg1 uint) int32
+var _tECCountMailTextEncodings func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32
 var _tECCountMailTextEncodingsErr error
 
-func tryTECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 uint) (int32, error) {
+func tryTECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int32, error) {
 	if _tECCountMailTextEncodings == nil {
 		return 0, symbolCallError("TECCountMailTextEncodings", "10.0", _tECCountMailTextEncodingsErr)
 	}
@@ -25552,7 +25467,7 @@ func tryTECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 uint) (int32, error)
 // TECCountMailTextEncodings counts and returns the number of currently supported e-mailencodings for a specified region.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571826-teccountmailtextencodings
-func TECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 uint) int32 {
+func TECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountMailTextEncodings(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -25560,10 +25475,10 @@ func TECCountMailTextEncodings(arg0 unsafe.Pointer, arg1 uint) int32 {
 	return result
 }
 
-var _tECCountSubTextEncodings func(arg0 TextEncoding, arg1 uint) int32
+var _tECCountSubTextEncodings func(arg0 TextEncoding, arg1 unsafe.Pointer) int32
 var _tECCountSubTextEncodingsErr error
 
-func tryTECCountSubTextEncodings(arg0 TextEncoding, arg1 uint) (int32, error) {
+func tryTECCountSubTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer) (int32, error) {
 	if _tECCountSubTextEncodings == nil {
 		return 0, symbolCallError("TECCountSubTextEncodings", "10.0", _tECCountSubTextEncodingsErr)
 	}
@@ -25573,7 +25488,7 @@ func tryTECCountSubTextEncodings(arg0 TextEncoding, arg1 uint) (int32, error) {
 // TECCountSubTextEncodings counts and returns the number of subencodings a text encodingsupports.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571820-teccountsubtextencodings
-func TECCountSubTextEncodings(arg0 TextEncoding, arg1 uint) int32 {
+func TECCountSubTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountSubTextEncodings(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -25581,10 +25496,10 @@ func TECCountSubTextEncodings(arg0 TextEncoding, arg1 uint) int32 {
 	return result
 }
 
-var _tECCountWebTextEncodings func(arg0 unsafe.Pointer, arg1 uint) int32
+var _tECCountWebTextEncodings func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32
 var _tECCountWebTextEncodingsErr error
 
-func tryTECCountWebTextEncodings(arg0 unsafe.Pointer, arg1 uint) (int32, error) {
+func tryTECCountWebTextEncodings(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int32, error) {
 	if _tECCountWebTextEncodings == nil {
 		return 0, symbolCallError("TECCountWebTextEncodings", "10.0", _tECCountWebTextEncodingsErr)
 	}
@@ -25594,7 +25509,7 @@ func tryTECCountWebTextEncodings(arg0 unsafe.Pointer, arg1 uint) (int32, error) 
 // TECCountWebTextEncodings counts and returns the number of currently supported textencodings for a region code.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571837-teccountwebtextencodings
-func TECCountWebTextEncodings(arg0 unsafe.Pointer, arg1 uint) int32 {
+func TECCountWebTextEncodings(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryTECCountWebTextEncodings(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -25623,10 +25538,10 @@ func TECCreateConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 TextEncoding)
 	return result
 }
 
-var _tECCreateConverterFromPath func(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint) int32
+var _tECCreateConverterFromPath func(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) int32
 var _tECCreateConverterFromPathErr error
 
-func tryTECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint) (int32, error) {
+func tryTECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) (int32, error) {
 	if _tECCreateConverterFromPath == nil {
 		return 0, symbolCallError("TECCreateConverterFromPath", "10.0", _tECCreateConverterFromPathErr)
 	}
@@ -25636,7 +25551,7 @@ func tryTECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 ui
 // TECCreateConverterFromPath creates a converter object for a specific conversion path—froma source encoding through intermediate encodings to a destinationencoding—and returns a pointer to it.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571829-teccreateconverterfrompath
-func TECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint) int32 {
+func TECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECCreateConverterFromPath(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25644,10 +25559,10 @@ func TECCreateConverterFromPath(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint)
 	return result
 }
 
-var _tECCreateOneToManyConverter func(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint, arg3 TextEncoding) int32
+var _tECCreateOneToManyConverter func(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 TextEncoding) int32
 var _tECCreateOneToManyConverterErr error
 
-func tryTECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint, arg3 TextEncoding) (int32, error) {
+func tryTECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 TextEncoding) (int32, error) {
 	if _tECCreateOneToManyConverter == nil {
 		return 0, symbolCallError("TECCreateOneToManyConverter", "10.0", _tECCreateOneToManyConverterErr)
 	}
@@ -25657,7 +25572,7 @@ func tryTECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 u
 // TECCreateOneToManyConverter determines a conversion path for the source encoding anddestinations encodings you specify, creates a text encoding converterobject, and returns a reference to it.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571794-teccreateonetomanyconverter
-func TECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint, arg3 TextEncoding) int32 {
+func TECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 TextEncoding) int32 {
 	result, callErr := tryTECCreateOneToManyConverter(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -25665,10 +25580,10 @@ func TECCreateOneToManyConverter(arg0 TECObjectRef, arg1 TextEncoding, arg2 uint
 	return result
 }
 
-var _tECCreateSniffer func(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 uint) int32
+var _tECCreateSniffer func(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) int32
 var _tECCreateSnifferErr error
 
-func tryTECCreateSniffer(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 uint) (int32, error) {
+func tryTECCreateSniffer(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) (int32, error) {
 	if _tECCreateSniffer == nil {
 		return 0, symbolCallError("TECCreateSniffer", "10.0", _tECCreateSnifferErr)
 	}
@@ -25678,7 +25593,7 @@ func tryTECCreateSniffer(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 uint)
 // TECCreateSniffer creates a sniffer object and returns a reference to it.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571832-teccreatesniffer
-func TECCreateSniffer(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 uint) int32 {
+func TECCreateSniffer(arg0 TECSnifferObjectRef, arg1 TextEncoding, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECCreateSniffer(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25728,10 +25643,10 @@ func TECDisposeSniffer(arg0 TECSnifferObjectRef) int32 {
 	return result
 }
 
-var _tECFlushMultipleEncodings func(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint, arg4 TextEncodingRun, arg5 uint, arg6 uint) int32
+var _tECFlushMultipleEncodings func(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextEncodingRun, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32
 var _tECFlushMultipleEncodingsErr error
 
-func tryTECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint, arg4 TextEncodingRun, arg5 uint, arg6 uint) (int32, error) {
+func tryTECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextEncodingRun, arg5 unsafe.Pointer, arg6 unsafe.Pointer) (int32, error) {
 	if _tECFlushMultipleEncodings == nil {
 		return 0, symbolCallError("TECFlushMultipleEncodings", "10.0", _tECFlushMultipleEncodingsErr)
 	}
@@ -25741,7 +25656,7 @@ func tryTECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, ar
 // TECFlushMultipleEncodings flushes out any encodings that may be stored in a converterobject’s temporary buffers and shifts encodings back to theirdefault state, if any.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571842-tecflushmultipleencodings
-func TECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint, arg4 TextEncodingRun, arg5 uint, arg6 uint) int32 {
+func TECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 TextEncodingRun, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32 {
 	result, callErr := tryTECFlushMultipleEncodings(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -25749,10 +25664,10 @@ func TECFlushMultipleEncodings(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 
 	return result
 }
 
-var _tECFlushText func(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint) int32
+var _tECFlushText func(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _tECFlushTextErr error
 
-func tryTECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint) (int32, error) {
+func tryTECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _tECFlushText == nil {
 		return 0, symbolCallError("TECFlushText", "10.0", _tECFlushTextErr)
 	}
@@ -25762,7 +25677,7 @@ func tryTECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint) (int
 // TECFlushText flushes out any data in a converter object’s temporarybuffers and resets the converter object.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571848-tecflushtext
-func TECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint) int32 {
+func TECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryTECFlushText(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -25770,10 +25685,10 @@ func TECFlushText(arg0 TECObjectRef, arg1 TextPtr, arg2 uint, arg3 uint) int32 {
 	return result
 }
 
-var _tECGetAvailableSniffers func(arg0 TextEncoding, arg1 uint, arg2 uint) int32
+var _tECGetAvailableSniffers func(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
 var _tECGetAvailableSniffersErr error
 
-func tryTECGetAvailableSniffers(arg0 TextEncoding, arg1 uint, arg2 uint) (int32, error) {
+func tryTECGetAvailableSniffers(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
 	if _tECGetAvailableSniffers == nil {
 		return 0, symbolCallError("TECGetAvailableSniffers", "10.0", _tECGetAvailableSniffersErr)
 	}
@@ -25783,7 +25698,7 @@ func tryTECGetAvailableSniffers(arg0 TextEncoding, arg1 uint, arg2 uint) (int32,
 // TECGetAvailableSniffers returns the list of sniffers available in all installedplug-ins.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571841-tecgetavailablesniffers
-func TECGetAvailableSniffers(arg0 TextEncoding, arg1 uint, arg2 uint) int32 {
+func TECGetAvailableSniffers(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetAvailableSniffers(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25791,10 +25706,10 @@ func TECGetAvailableSniffers(arg0 TextEncoding, arg1 uint, arg2 uint) int32 {
 	return result
 }
 
-var _tECGetAvailableTextEncodings func(arg0 TextEncoding, arg1 uint, arg2 uint) int32
+var _tECGetAvailableTextEncodings func(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
 var _tECGetAvailableTextEncodingsErr error
 
-func tryTECGetAvailableTextEncodings(arg0 TextEncoding, arg1 uint, arg2 uint) (int32, error) {
+func tryTECGetAvailableTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
 	if _tECGetAvailableTextEncodings == nil {
 		return 0, symbolCallError("TECGetAvailableTextEncodings", "10.0", _tECGetAvailableTextEncodingsErr)
 	}
@@ -25804,7 +25719,7 @@ func tryTECGetAvailableTextEncodings(arg0 TextEncoding, arg1 uint, arg2 uint) (i
 // TECGetAvailableTextEncodings returns the text encoding specifications currently configuredin the Text Encoding Converter.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571819-tecgetavailabletextencodings
-func TECGetAvailableTextEncodings(arg0 TextEncoding, arg1 uint, arg2 uint) int32 {
+func TECGetAvailableTextEncodings(arg0 TextEncoding, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetAvailableTextEncodings(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25812,10 +25727,10 @@ func TECGetAvailableTextEncodings(arg0 TextEncoding, arg1 uint, arg2 uint) int32
 	return result
 }
 
-var _tECGetDestinationTextEncodings func(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) int32
+var _tECGetDestinationTextEncodings func(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _tECGetDestinationTextEncodingsErr error
 
-func tryTECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) (int32, error) {
+func tryTECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _tECGetDestinationTextEncodings == nil {
 		return 0, symbolCallError("TECGetDestinationTextEncodings", "10.0", _tECGetDestinationTextEncodingsErr)
 	}
@@ -25825,7 +25740,7 @@ func tryTECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg
 // TECGetDestinationTextEncodings returns the encoding specifications for all the destinationtext encodings to which the Text Encoding Converter can directlyconvert the specified source encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571808-tecgetdestinationtextencodings
-func TECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) int32 {
+func TECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetDestinationTextEncodings(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -25833,10 +25748,10 @@ func TECGetDestinationTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 u
 	return result
 }
 
-var _tECGetDirectTextEncodingConversions func(arg0 TECConversionInfo, arg1 uint, arg2 uint) int32
+var _tECGetDirectTextEncodingConversions func(arg0 TECConversionInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
 var _tECGetDirectTextEncodingConversionsErr error
 
-func tryTECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 uint, arg2 uint) (int32, error) {
+func tryTECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
 	if _tECGetDirectTextEncodingConversions == nil {
 		return 0, symbolCallError("TECGetDirectTextEncodingConversions", "10.0", _tECGetDirectTextEncodingConversionsErr)
 	}
@@ -25846,7 +25761,7 @@ func tryTECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 uint, a
 // TECGetDirectTextEncodingConversions returns the types of direct conversions currently configuredin the Text Encoding Converter.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571834-tecgetdirecttextencodingconversi
-func TECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 uint, arg2 uint) int32 {
+func TECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetDirectTextEncodingConversions(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25854,10 +25769,10 @@ func TECGetDirectTextEncodingConversions(arg0 TECConversionInfo, arg1 uint, arg2
 	return result
 }
 
-var _tECGetEncodingList func(arg0 TECObjectRef, arg1 uint, arg2 unsafe.Pointer) int32
+var _tECGetEncodingList func(arg0 TECObjectRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
 var _tECGetEncodingListErr error
 
-func tryTECGetEncodingList(arg0 TECObjectRef, arg1 uint, arg2 unsafe.Pointer) (int32, error) {
+func tryTECGetEncodingList(arg0 TECObjectRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
 	if _tECGetEncodingList == nil {
 		return 0, symbolCallError("TECGetEncodingList", "10.0", _tECGetEncodingListErr)
 	}
@@ -25867,7 +25782,7 @@ func tryTECGetEncodingList(arg0 TECObjectRef, arg1 uint, arg2 unsafe.Pointer) (i
 // TECGetEncodingList gets the list of destination encodings from a converterobject.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571830-tecgetencodinglist
-func TECGetEncodingList(arg0 TECObjectRef, arg1 uint, arg2 unsafe.Pointer) int32 {
+func TECGetEncodingList(arg0 TECObjectRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetEncodingList(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -25896,10 +25811,10 @@ func TECGetInfo(arg0 TECInfoHandle) int32 {
 	return result
 }
 
-var _tECGetMailTextEncodings func(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) int32
+var _tECGetMailTextEncodings func(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _tECGetMailTextEncodingsErr error
 
-func tryTECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) (int32, error) {
+func tryTECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _tECGetMailTextEncodings == nil {
 		return 0, symbolCallError("TECGetMailTextEncodings", "10.0", _tECGetMailTextEncodingsErr)
 	}
@@ -25909,7 +25824,7 @@ func tryTECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uin
 // TECGetMailTextEncodings returns the currently supported mail encoding specificationsfor a region code.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571845-tecgetmailtextencodings
-func TECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) int32 {
+func TECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetMailTextEncodings(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -25917,10 +25832,10 @@ func TECGetMailTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, 
 	return result
 }
 
-var _tECGetSubTextEncodings func(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) int32
+var _tECGetSubTextEncodings func(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _tECGetSubTextEncodingsErr error
 
-func tryTECGetSubTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) (int32, error) {
+func tryTECGetSubTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _tECGetSubTextEncodings == nil {
 		return 0, symbolCallError("TECGetSubTextEncodings", "10.0", _tECGetSubTextEncodingsErr)
 	}
@@ -25930,7 +25845,7 @@ func tryTECGetSubTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, 
 // TECGetSubTextEncodings returns the text encoding specifications for the subencodingsthe encoding scheme supports.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571796-tecgetsubtextencodings
-func TECGetSubTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 uint, arg3 uint) int32 {
+func TECGetSubTextEncodings(arg0 TextEncoding, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetSubTextEncodings(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -26001,10 +25916,10 @@ func TECGetTextEncodingInternetName(arg0 TextEncoding, arg1 unsafe.Pointer) int3
 	return result
 }
 
-var _tECGetWebTextEncodings func(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) int32
+var _tECGetWebTextEncodings func(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _tECGetWebTextEncodingsErr error
 
-func tryTECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) (int32, error) {
+func tryTECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _tECGetWebTextEncodings == nil {
 		return 0, symbolCallError("TECGetWebTextEncodings", "10.0", _tECGetWebTextEncodingsErr)
 	}
@@ -26014,7 +25929,7 @@ func tryTECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint
 // TECGetWebTextEncodings returns the currently supported text encoding specificationsfor a region code.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571798-tecgetwebtextencodings
-func TECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, arg3 uint) int32 {
+func TECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryTECGetWebTextEncodings(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -26022,10 +25937,10 @@ func TECGetWebTextEncodings(arg0 unsafe.Pointer, arg1 TextEncoding, arg2 uint, a
 	return result
 }
 
-var _tECSetBasicOptions func(arg0 TECObjectRef, arg1 applicationservices.OptionBits) int32
+var _tECSetBasicOptions func(arg0 TECObjectRef, arg1 uint32) int32
 var _tECSetBasicOptionsErr error
 
-func tryTECSetBasicOptions(arg0 TECObjectRef, arg1 applicationservices.OptionBits) (int32, error) {
+func tryTECSetBasicOptions(arg0 TECObjectRef, arg1 uint32) (int32, error) {
 	if _tECSetBasicOptions == nil {
 		return 0, symbolCallError("TECSetBasicOptions", "10.3", _tECSetBasicOptionsErr)
 	}
@@ -26035,7 +25950,7 @@ func tryTECSetBasicOptions(arg0 TECObjectRef, arg1 applicationservices.OptionBit
 // TECSetBasicOptions.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571847-tecsetbasicoptions
-func TECSetBasicOptions(arg0 TECObjectRef, arg1 applicationservices.OptionBits) int32 {
+func TECSetBasicOptions(arg0 TECObjectRef, arg1 uint32) int32 {
 	result, callErr := tryTECSetBasicOptions(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -26043,10 +25958,10 @@ func TECSetBasicOptions(arg0 TECObjectRef, arg1 applicationservices.OptionBits) 
 	return result
 }
 
-var _tECSniffTextEncoding func(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 uint, arg7 uint, arg8 uint) int32
+var _tECSniffTextEncoding func(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 unsafe.Pointer, arg8 unsafe.Pointer) int32
 var _tECSniffTextEncodingErr error
 
-func tryTECSniffTextEncoding(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 uint, arg7 uint, arg8 uint) (int32, error) {
+func tryTECSniffTextEncoding(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 unsafe.Pointer, arg8 unsafe.Pointer) (int32, error) {
 	if _tECSniffTextEncoding == nil {
 		return 0, symbolCallError("TECSniffTextEncoding", "10.0", _tECSniffTextEncodingErr)
 	}
@@ -26056,7 +25971,7 @@ func tryTECSniffTextEncoding(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 u
 // TECSniffTextEncoding analyzes a text stream and returns the probable encodingsin a ranked list, based on an array of possible encodings you supply.It also returns the number of errors and features for each encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/1571836-tecsnifftextencoding
-func TECSniffTextEncoding(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 uint, arg3 TextEncoding, arg4 uint, arg5 uint, arg6 uint, arg7 uint, arg8 uint) int32 {
+func TECSniffTextEncoding(arg0 TECSnifferObjectRef, arg1 ConstTextPtr, arg2 unsafe.Pointer, arg3 TextEncoding, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer, arg7 unsafe.Pointer, arg8 unsafe.Pointer) int32 {
 	result, callErr := tryTECSniffTextEncoding(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if callErr != nil {
 		panic(callErr)
@@ -26179,10 +26094,10 @@ func ThreadBeginCritical() int16 {
 	return result
 }
 
-var _threadCurrentStackSpace func(arg0 ThreadID, arg1 uint) int16
+var _threadCurrentStackSpace func(arg0 ThreadID, arg1 unsafe.Pointer) int16
 var _threadCurrentStackSpaceErr error
 
-func tryThreadCurrentStackSpace(arg0 ThreadID, arg1 uint) (int16, error) {
+func tryThreadCurrentStackSpace(arg0 ThreadID, arg1 unsafe.Pointer) (int16, error) {
 	if _threadCurrentStackSpace == nil {
 		return 0, symbolCallError("ThreadCurrentStackSpace", "10.0", _threadCurrentStackSpaceErr)
 	}
@@ -26194,7 +26109,7 @@ func tryThreadCurrentStackSpace(arg0 ThreadID, arg1 uint) (int16, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1574269-threadcurrentstackspace
-func ThreadCurrentStackSpace(arg0 ThreadID, arg1 uint) int16 {
+func ThreadCurrentStackSpace(arg0 ThreadID, arg1 unsafe.Pointer) int16 {
 	result, callErr := tryThreadCurrentStackSpace(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -26248,10 +26163,10 @@ func TickCount() uint32 {
 	return result
 }
 
-var _truncateForTextToUnicode func(arg0 ConstTextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 uint, arg4 uint) int32
+var _truncateForTextToUnicode func(arg0 ConstTextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32
 var _truncateForTextToUnicodeErr error
 
-func tryTruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 uint, arg4 uint) (int32, error) {
+func tryTruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 unsafe.Pointer) (int32, error) {
 	if _truncateForTextToUnicode == nil {
 		return 0, symbolCallError("TruncateForTextToUnicode", "10.0", _truncateForTextToUnicodeErr)
 	}
@@ -26261,7 +26176,7 @@ func tryTruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 uint, arg2 un
 // TruncateForTextToUnicode identifies where your application can safely break a multibytestring to be converted to Unicode so that the string is not brokenin the middle of a multibyte character.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433518-truncatefortexttounicode
-func TruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 uint, arg2 unsafe.Pointer, arg3 uint, arg4 uint) int32 {
+func TruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32 {
 	result, callErr := tryTruncateForTextToUnicode(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -26269,10 +26184,10 @@ func TruncateForTextToUnicode(arg0 ConstTextToUnicodeInfo, arg1 uint, arg2 unsaf
 	return result
 }
 
-var _truncateForUnicodeToText func(arg0 ConstUnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 uint) int32
+var _truncateForUnicodeToText func(arg0 ConstUnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 uint32, arg4 unsafe.Pointer, arg5 unsafe.Pointer) int32
 var _truncateForUnicodeToTextErr error
 
-func tryTruncateForUnicodeToText(arg0 ConstUnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 uint) (int32, error) {
+func tryTruncateForUnicodeToText(arg0 ConstUnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 uint32, arg4 unsafe.Pointer, arg5 unsafe.Pointer) (int32, error) {
 	if _truncateForUnicodeToText == nil {
 		return 0, symbolCallError("TruncateForUnicodeToText", "10.0", _truncateForUnicodeToTextErr)
 	}
@@ -26282,7 +26197,7 @@ func tryTruncateForUnicodeToText(arg0 ConstUnicodeToTextInfo, arg1 uint, arg2 ui
 // TruncateForUnicodeToText identifies where your application can safely break a Unicodestring to be converted to any encoding so that the string is brokenin a way that preserves the text element integrity.
 //
 // See: https://developer.apple.com/documentation/coreservices/1433649-truncateforunicodetotext
-func TruncateForUnicodeToText(arg0 ConstUnicodeToTextInfo, arg1 uint, arg2 uint16, arg3 applicationservices.OptionBits, arg4 uint, arg5 uint) int32 {
+func TruncateForUnicodeToText(arg0 ConstUnicodeToTextInfo, arg1 unsafe.Pointer, arg2 uint16, arg3 uint32, arg4 unsafe.Pointer, arg5 unsafe.Pointer) int32 {
 	result, callErr := tryTruncateForUnicodeToText(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -26901,10 +26816,10 @@ func UCGetCollationKey(collatorRef CollatorRef, textPtr *uint16, textLength unsa
 	return result
 }
 
-var _uCKeyTranslate func(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions applicationservices.OptionBits, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) int32
+var _uCKeyTranslate func(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions uint32, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) int32
 var _uCKeyTranslateErr error
 
-func tryUCKeyTranslate(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions applicationservices.OptionBits, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) (int32, error) {
+func tryUCKeyTranslate(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions uint32, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) (int32, error) {
 	if _uCKeyTranslate == nil {
 		return 0, symbolCallError("UCKeyTranslate", "10.0", _uCKeyTranslateErr)
 	}
@@ -26914,7 +26829,7 @@ func tryUCKeyTranslate(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAc
 // UCKeyTranslate converts a combination of a virtual key code, a modifier key state, and a dead-key state into a string of one or more Unicode characters.
 //
 // See: https://developer.apple.com/documentation/coreservices/1390584-uckeytranslate
-func UCKeyTranslate(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions applicationservices.OptionBits, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) int32 {
+func UCKeyTranslate(keyLayoutPtr unsafe.Pointer, virtualKeyCode uint16, keyAction uint16, modifierKeyState uint32, keyboardType uint32, keyTranslateOptions uint32, deadKeyState *uint32, maxStringLength unsafe.Pointer, actualStringLength unsafe.Pointer, unicodeString *uint16) int32 {
 	result, callErr := tryUCKeyTranslate(keyLayoutPtr, virtualKeyCode, keyAction, modifierKeyState, keyboardType, keyTranslateOptions, deadKeyState, maxStringLength, actualStringLength, unicodeString)
 	if callErr != nil {
 		panic(callErr)
@@ -28636,12 +28551,12 @@ func WriteResource(arg0 unsafe.Pointer) {
 	}
 }
 
-var _x2Fix func(arg0 float64) int32
+var _x2Fix func(arg0 float64) unsafe.Pointer
 var _x2FixErr error
 
-func tryX2Fix(arg0 float64) (int32, error) {
+func tryX2Fix(arg0 float64) (unsafe.Pointer, error) {
 	if _x2Fix == nil {
-		return 0, symbolCallError("X2Fix", "10.0", _x2FixErr)
+		return nil, symbolCallError("X2Fix", "10.0", _x2FixErr)
 	}
 	return _x2Fix(arg0), nil
 }
@@ -28651,7 +28566,7 @@ func tryX2Fix(arg0 float64) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409237-x2fix
-func X2Fix(arg0 float64) int32 {
+func X2Fix(arg0 float64) unsafe.Pointer {
 	result, callErr := tryX2Fix(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -29534,11 +29449,7 @@ func init() {
 	registerFunc(&_compareAndSwap, &_compareAndSwapErr, frameworkHandle, "CompareAndSwap", "10.0")
 	registerFunc(&_compositeIconRef, &_compositeIconRefErr, frameworkHandle, "CompositeIconRef", "10.0")
 	registerFunc(&_convertFromPStringToUnicode, &_convertFromPStringToUnicodeErr, frameworkHandle, "ConvertFromPStringToUnicode", "10.0")
-	registerFunc(&_convertFromTextToUnicode, &_convertFromTextToUnicodeErr, frameworkHandle, "ConvertFromTextToUnicode", "10.0")
 	registerFunc(&_convertFromUnicodeToPString, &_convertFromUnicodeToPStringErr, frameworkHandle, "ConvertFromUnicodeToPString", "10.0")
-	registerFunc(&_convertFromUnicodeToScriptCodeRun, &_convertFromUnicodeToScriptCodeRunErr, frameworkHandle, "ConvertFromUnicodeToScriptCodeRun", "10.0")
-	registerFunc(&_convertFromUnicodeToText, &_convertFromUnicodeToTextErr, frameworkHandle, "ConvertFromUnicodeToText", "10.0")
-	registerFunc(&_convertFromUnicodeToTextRun, &_convertFromUnicodeToTextRunErr, frameworkHandle, "ConvertFromUnicodeToTextRun", "10.0")
 	registerFunc(&_copyCollection, &_copyCollectionErr, frameworkHandle, "CopyCollection", "10.0")
 	registerFunc(&_coreEndianFlipData, &_coreEndianFlipDataErr, frameworkHandle, "CoreEndianFlipData", "10.3")
 	registerFunc(&_coreEndianGetFlipper, &_coreEndianGetFlipperErr, frameworkHandle, "CoreEndianGetFlipper", "10.3")

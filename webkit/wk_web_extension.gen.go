@@ -227,7 +227,7 @@ func NewWKWebExtension() WKWebExtension {
 // This icon serves as a default and should be used to represent the extension
 // in contexts like action sheets or toolbars prior to the extension being
 // loaded into an extension context. Once the extension is loaded, use the
-// [ActionForTab] API to get the tab-specific icon.
+// [WKWebExtensionContext.ActionForTab] API to get the tab-specific icon.
 //
 // The returned image will be the best match for the specified size that is
 // available in the extension’s action icon set. If no matching icon is
@@ -345,7 +345,7 @@ func (w WKWebExtension) DefaultLocale() foundation.NSLocale {
 // This label serves as a default and should be used to represent the
 // extension in contexts like action sheets or toolbars prior to the extension
 // being loaded into an extension context. Once the extension is loaded, use
-// the [ActionForTab] API to get the tab-specific label.
+// the [WKWebExtensionContext.ActionForTab] API to get the tab-specific label.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/displayActionLabel
 func (w WKWebExtension) DisplayActionLabel() string {
@@ -440,8 +440,9 @@ func (w WKWebExtension) HasBackgroundContent() bool {
 // If this property is [YES], the extension contains one or more commands that
 // can be performed by the user. These commands should be accessible via
 // keyboard shortcuts, menu items, or other user interface elements provided
-// by the app. The list of commands can be accessed via [Commands] on an
-// extension context, and invoked via [PerformCommand].
+// by the app. The list of commands can be accessed via
+// [WKWebExtensionContext.Commands] on an extension context, and invoked via
+// [WKWebExtensionContext.PerformCommand].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/hasCommands
 func (w WKWebExtension) HasCommands() bool {
@@ -479,7 +480,7 @@ func (w WKWebExtension) HasInjectedContent() bool {
 // If this property is [YES], the extension includes a dedicated options page
 // where users can customize settings. The app should provide access to this
 // page through a user interface element, which can be accessed via
-// [OptionsPageURL] on an extension context.
+// [WKWebExtensionContext.OptionsPageURL] on an extension context.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/hasOptionsPage
 func (w WKWebExtension) HasOptionsPage() bool {
@@ -496,7 +497,7 @@ func (w WKWebExtension) HasOptionsPage() bool {
 // be displayed when a new tab is opened in the app, instead of the default
 // new tab page. The app should prompt the user for permission to use the
 // extension’s new tab page as the default, which can be accessed via
-// [OverrideNewTabPageURL] on an extension context.
+// [WKWebExtensionContext.OverrideNewTabPageURL] on an extension context.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/hasOverrideNewTabPage
 func (w WKWebExtension) HasOverrideNewTabPage() bool {
@@ -592,7 +593,7 @@ func (w WKWebExtension) Version() string {
 
 // ExtensionWithAppExtensionBundle is a synchronous wrapper around [WKWebExtension.ExtensionWithAppExtensionBundleCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (wc WKWebExtensionClass) ExtensionWithAppExtensionBundle(ctx context.Context, appExtensionBundle foundation.NSBundle) (*WKWebExtension, error) {
+func (wc WKWebExtensionClass) ExtensionWithAppExtensionBundle(ctx context.Context, appExtensionBundle foundation.Bundle) (*WKWebExtension, error) {
 	type result struct {
 		val *WKWebExtension
 		err error

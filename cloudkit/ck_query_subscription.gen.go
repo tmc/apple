@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -59,12 +60,12 @@ func (cc CKQuerySubscriptionClass) Alloc() CKQuerySubscription {
 // Query subscriptions execute whenever a change occurs in a database that
 // matches the predicate and options you specify. You scope a query
 // subscription to an individual record type that you provide during
-// initialization. You can set the subscription’s [CKQuerySubscription.ZoneID] property to
-// further specialize the subscription to a specific record zone in the
-// database. This limits the scope of the subscription to only track changes
-// in that record zone and reduces the number of notifications it generates.
-// For more information about defining CloudKit-compatible predicates, see
-// [CKQuery].
+// initialization. You can set the subscription’s
+// [CKQuerySubscription.ZoneID] property to further specialize the
+// subscription to a specific record zone in the database. This limits the
+// scope of the subscription to only track changes in that record zone and
+// reduces the number of notifications it generates. For more information
+// about defining CloudKit-compatible predicates, see [CKQuery].
 //
 // Create any subscriptions on your app’s first launch. After you initialize
 // a subscription, save it to the server using
@@ -73,16 +74,17 @@ func (cc CKQuerySubscriptionClass) Alloc() CKQuerySubscription {
 // state on subsequent launches to prevent unnecessary trips to the server.
 //
 // To configure the notification the subscription generates, set the
-// subscription’s [CKQuerySubscription.NotificationInfo] property. Because the system coalesces
-// notifications, don’t rely on them for specific changes. CloudKit can omit
-// data to keep the payload size under the APNs size limit. Consider
-// notifications an indication of remote changes and use [CKQueryOperation] to
-// fetch the changed records. Create the operation with an instance of
-// [CKQuery] that you configure with the same record type and predicate as the
-// subscription. If you limit the subscription to a specific record zone, set
-// the operation’s [CKQuerySubscription.ZoneID] property to that record zone’s ID. Because
-// [CKQueryOperation] doesn’t employ server change tokens, dispose of any
-// records you cache on-device and use the query’s results instead.
+// subscription’s [CKSubscription.NotificationInfo] property. Because the
+// system coalesces notifications, don’t rely on them for specific changes.
+// CloudKit can omit data to keep the payload size under the APNs size limit.
+// Consider notifications an indication of remote changes and use
+// [CKQueryOperation] to fetch the changed records. Create the operation with
+// an instance of [CKQuery] that you configure with the same record type and
+// predicate as the subscription. If you limit the subscription to a specific
+// record zone, set the operation’s [CKQueryOperation.ZoneID] property to
+// that record zone’s ID. Because [CKQueryOperation] doesn’t employ server
+// change tokens, dispose of any records you cache on-device and use the
+// query’s results instead.
 //
 // The example below shows how to create a query subscription in the user’s
 // private database, configure the notifications it generates — in this
@@ -148,7 +150,7 @@ type ICKQuerySubscription interface {
 
 	// The type of record that the subscription queries.
 	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
+	SetRecordType(value kernel.Pointer)
 	// The ID of the record zone that the subscription queries.
 	ZoneID() ICKRecordZoneID
 	SetZoneID(value ICKRecordZoneID)
@@ -190,13 +192,13 @@ func NewCKQuerySubscriptionWithCoder(aDecoder foundation.INSCoder) CKQuerySubscr
 //
 // A query-based subscription uses its search predicate to identify potential
 // matches for records. It combines the predicate information with the value
-// in the [QuerySubscriptionOptions] property to determine when to send a push
-// notification to the app.
+// in the [CKQuerySubscription.QuerySubscriptionOptions] property to determine
+// when to send a push notification to the app.
 //
 // The search predicate defines the records that the subscription object
 // monitors for changes. The system only uses the property’s value when the
-// [SubscriptionType] property is [CKSubscription.SubscriptionType.query].
-// Otherwise, the system ignores it.
+// [CKSubscription.SubscriptionType] property is
+// [CKSubscription.SubscriptionType.query]. Otherwise, the system ignores it.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKQuerySubscription/predicate
 //
@@ -235,7 +237,7 @@ func (c CKQuerySubscription) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKQuerySubscription) SetRecordType(value unsafe.Pointer) {
+func (c CKQuerySubscription) SetRecordType(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }
 

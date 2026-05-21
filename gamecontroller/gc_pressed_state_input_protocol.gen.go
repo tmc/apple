@@ -27,12 +27,12 @@ type GCPressedStateInput interface {
 	// The time of the most recent press state change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
-	LastPressedStateTimestamp() float64
+	LastPressedStateTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the last press state change and the current time.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
-	LastPressedStateLatency() float64
+	LastPressedStateLatency() foundation.NSTimeInterval
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -81,9 +81,9 @@ func (o GCPressedStateInputObject) Pressed() bool {
 // between changes, subtract a previous value from the current value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
-func (o GCPressedStateInputObject) LastPressedStateTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateTimestamp"))
-	return float64(rv)
+func (o GCPressedStateInputObject) LastPressedStateTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastPressedStateTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the last press state change and the current
@@ -95,9 +95,9 @@ func (o GCPressedStateInputObject) LastPressedStateTimestamp() float64 {
 // that accrues on the device or when it transmits the event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
-func (o GCPressedStateInputObject) LastPressedStateLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateLatency"))
-	return float64(rv)
+func (o GCPressedStateInputObject) LastPressedStateLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastPressedStateLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

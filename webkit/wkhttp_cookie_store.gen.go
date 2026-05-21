@@ -61,6 +61,7 @@ func (wc WKHTTPCookieStoreClass) Alloc() WKHTTPCookieStore {
 //
 // # Managing cookies
 //
+//   - [WKHTTPCookieStore.GetAllCookies]: Fetches all stored cookies asynchronously and delivers them to the specified completion handler.
 //   - [WKHTTPCookieStore.SetCookieCompletionHandler]: Adds a cookie to the cookie store.
 //   - [WKHTTPCookieStore.DeleteCookieCompletionHandler]: Deletes the specified cookie.
 //
@@ -98,6 +99,7 @@ func WKHTTPCookieStoreFromID(id objc.ID) WKHTTPCookieStore {
 //
 // # Managing cookies
 //
+//   - [IWKHTTPCookieStore.GetAllCookies]: Fetches all stored cookies asynchronously and delivers them to the specified completion handler.
 //   - [IWKHTTPCookieStore.SetCookieCompletionHandler]: Adds a cookie to the cookie store.
 //   - [IWKHTTPCookieStore.DeleteCookieCompletionHandler]: Deletes the specified cookie.
 //
@@ -121,6 +123,8 @@ type IWKHTTPCookieStore interface {
 
 	// Topic: Managing cookies
 
+	// Fetches all stored cookies asynchronously and delivers them to the specified completion handler.
+	GetAllCookies(completionHandler NSHTTPCookieArrayHandler)
 	// Adds a cookie to the cookie store.
 	SetCookieCompletionHandler(cookie foundation.NSHTTPCookie, completionHandler VoidHandler)
 	// Deletes the specified cookie.
@@ -143,9 +147,6 @@ type IWKHTTPCookieStore interface {
 	// Topic: Instance Methods
 
 	SetCookiesCompletionHandler(cookies []foundation.NSHTTPCookie, completionHandler VoidHandler)
-
-	// The local files WebKit can access when loading content.
-	ReadAccessURL() foundation.NSString
 }
 
 // Init initializes the instance.
@@ -165,6 +166,29 @@ func NewWKHTTPCookieStore() WKHTTPCookieStore {
 	class := getWKHTTPCookieStoreClass()
 	rv := objc.Send[WKHTTPCookieStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// Fetches all stored cookies asynchronously and delivers them to the
+// specified completion handler.
+//
+// completionHandler: A completion handler block to execute asynchronously with the results. This
+// block has no return value and takes the following parameter:
+//
+// cookieArray: An array of [HTTPCookie] objects. If the store contains no
+// cookies, this parameter contains an empty array.
+//
+// # Discussion
+//
+// Use this method to get the set of cookies currently associated with your
+// web view. Iterate over the contents of the provided array to retrieve the
+// specific cookie you need for your code.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKHTTPCookieStore/getAllCookies(_:)
+//
+// [HTTPCookie]: https://developer.apple.com/documentation/Foundation/HTTPCookie
+func (h WKHTTPCookieStore) GetAllCookies(completionHandler NSHTTPCookieArrayHandler) {
+	_block0, _ := NewNSHTTPCookieArrayBlock(completionHandler)
+	objc.Send[objc.ID](h.ID, objc.Sel("getAllCookies:"), _block0)
 }
 
 // Adds a cookie to the cookie store.
@@ -260,17 +284,28 @@ func (h WKHTTPCookieStore) SetCookiesCompletionHandler(cookies []foundation.NSHT
 	objc.Send[objc.ID](h.ID, objc.Sel("setCookies:completionHandler:"), cookies, _block1)
 }
 
-// The local files WebKit can access when loading content.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/readAccessURL
-func (h WKHTTPCookieStore) ReadAccessURL() foundation.NSString {
-	rv := objc.Send[objc.ID](h.ID, objc.Sel("readAccessURL"))
-	return foundation.NSStringFromID(objc.ID(rv))
+// GetAllCookiesSync is a synchronous wrapper around [WKHTTPCookieStore.GetAllCookies].
+// It blocks until the completion handler fires or the context is cancelled.
+func (h WKHTTPCookieStore) GetAllCookiesSync(ctx context.Context) ([]foundation.NSHTTPCookie, error) {
+	done := make(chan []foundation.NSHTTPCookie, 1)
+	h.GetAllCookies(func(val *[]foundation.NSHTTPCookie) {
+		var out []foundation.NSHTTPCookie
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }
 
 // SetCookie is a synchronous wrapper around [WKHTTPCookieStore.SetCookieCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.NSHTTPCookie) error {
+func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.HTTPCookie) error {
 	done := make(chan struct{}, 1)
 	h.SetCookieCompletionHandler(cookie, func() {
 		done <- struct{}{}
@@ -285,7 +320,7 @@ func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.NSHT
 
 // DeleteCookie is a synchronous wrapper around [WKHTTPCookieStore.DeleteCookieCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (h WKHTTPCookieStore) DeleteCookie(ctx context.Context, cookie foundation.NSHTTPCookie) error {
+func (h WKHTTPCookieStore) DeleteCookie(ctx context.Context, cookie foundation.HTTPCookie) error {
 	done := make(chan struct{}, 1)
 	h.DeleteCookieCompletionHandler(cookie, func() {
 		done <- struct{}{}

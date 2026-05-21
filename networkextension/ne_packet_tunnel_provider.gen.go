@@ -49,10 +49,10 @@ func (nc NEPacketTunnelProviderClass) Alloc() NEPacketTunnelProvider {
 // # Overview
 //
 // The [NEPacketTunnelProvider] class gives its subclasses access to a virtual
-// network interface via the [NEPacketTunnelProvider.PacketFlow] property. Use the
-// [SetTunnelNetworkSettingsCompletionHandler] method in the Packet Tunnel
-// Provider to specify that the following network settings be associated with
-// the virtual interface:
+// network interface via the [NEPacketTunnelProvider.PacketFlow] property. Use
+// the [NETunnelProvider.SetTunnelNetworkSettingsCompletionHandler] method in
+// the Packet Tunnel Provider to specify that the following network settings
+// be associated with the virtual interface:
 //
 // - Virtual IP address - DNS resolver configuration - HTTP proxy
 // configuration - IP destination networks to be routed through the tunnel -
@@ -61,11 +61,13 @@ func (nc NEPacketTunnelProviderClass) Alloc() NEPacketTunnelProvider {
 // By specifying IP destination networks, the Packet Tunnel Provider can
 // dictate what IP destinations will be routed to the virtual interface. IP
 // packets with matching destination addresses will then be diverted to Packet
-// Tunnel Provider and can be read using the [NEPacketTunnelProvider.PacketFlow] property. The Packet
-// Tunnel Provider can then encapsulate the IP packets per a custom tunneling
-// protocol and send them to a tunnel server. When the Packet Tunnel Provider
-// decapsulates IP packets received from the tunnel server, it can use the
-// [NEPacketTunnelProvider.PacketFlow] property to inject the packets into the networking stack.
+// Tunnel Provider and can be read using the
+// [NEPacketTunnelProvider.PacketFlow] property. The Packet Tunnel Provider
+// can then encapsulate the IP packets per a custom tunneling protocol and
+// send them to a tunnel server. When the Packet Tunnel Provider decapsulates
+// IP packets received from the tunnel server, it can use the
+// [NEPacketTunnelProvider.PacketFlow] property to inject the packets into the
+// networking stack.
 //
 // # Creating a Packet Tunnel Provider Extension
 //
@@ -215,8 +217,8 @@ func NewNEPacketTunnelProvider() NEPacketTunnelProvider {
 // When the Packet Tunnel Provider executes the completionHandler block with a
 // nil error parameter, it signals to the system that it is ready to begin
 // handling network data. Therefore, the Packet Tunnel Provider should call
-// [SetTunnelNetworkSettingsCompletionHandler] and wait for it to complete
-// before executing the completionHandler block.
+// [NETunnelProvider.SetTunnelNetworkSettingsCompletionHandler] and wait for
+// it to complete before executing the completionHandler block.
 //
 // The domain and code of the [NSError] object passed to the
 // `completionHandler` block are defined by the Packet Tunnel Provider.

@@ -143,9 +143,10 @@ func NewVZLinuxRosettaDirectoryShare() VZLinuxRosettaDirectoryShare {
 //
 // # Discussion
 //
-// Check the status of Rosetta by examining the [Availability] class property
-// before creating a new Rosetta directory share to ensure the capability is
-// both supported and available on host Mac. For complete instructions on
+// Check the status of Rosetta by examining the
+// [VZLinuxRosettaDirectoryShareClass.Availability] class property before
+// creating a new Rosetta directory share to ensure the capability is both
+// supported and available on host Mac. For complete instructions on
 // installing Rosetta see [Running Intel Binaries in Linux VMs with Rosetta].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/init()
@@ -167,9 +168,10 @@ func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, err
 //
 // # Discussion
 //
-// Check the status of Rosetta by examining the [Availability] class property
-// before creating a new Rosetta directory share to ensure the capability is
-// both supported and available on host Mac. For complete instructions on
+// Check the status of Rosetta by examining the
+// [VZLinuxRosettaDirectoryShareClass.Availability] class property before
+// creating a new Rosetta directory share to ensure the capability is both
+// supported and available on host Mac. For complete instructions on
 // installing Rosetta see [Running Intel Binaries in Linux VMs with Rosetta].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/init()

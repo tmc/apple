@@ -53,8 +53,8 @@ func (ac AVCaptionRendererSceneClass) Alloc() AVCaptionRendererScene {
 // animation effects. Your app can request time ranges where visual
 // differences exist and use these time ranges to optimize drawing
 // performance, like drawing once per scene. Alternatively, it can ignore
-// scenes, and instead call [RenderInContextForTime] repeatedly, but this may
-// have additional performance impact.
+// scenes, and instead call [AVCaptionRenderer.RenderInContextForTime]
+// repeatedly, but this may have additional performance impact.
 //
 // # Inspecting the scene
 //

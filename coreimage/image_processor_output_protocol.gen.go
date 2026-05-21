@@ -88,7 +88,7 @@ func CIImageProcessorOutputObjectFromID(id objc.ID) CIImageProcessorOutputObject
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/baseAddress
 func (o CIImageProcessorOutputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
-	return unsafe.Pointer(rv)
+	return rv
 }
 
 // A Metal texture object that can be bound for output using Metal.

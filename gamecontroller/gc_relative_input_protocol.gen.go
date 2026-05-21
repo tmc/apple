@@ -32,12 +32,12 @@ type GCRelativeInput interface {
 	// A timestamp for when the profile reports the delta value.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/lastDeltaTimestamp
-	LastDeltaTimestamp() float64
+	LastDeltaTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the current and the previous delta values.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/lastDeltaLatency
-	LastDeltaLatency() float64
+	LastDeltaLatency() foundation.NSTimeInterval
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -94,9 +94,9 @@ func (o GCRelativeInputObject) Delta() float32 {
 // between delta values, subtract a previous value from the current value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRelativeInput/lastDeltaTimestamp
-func (o GCRelativeInputObject) LastDeltaTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastDeltaTimestamp"))
-	return float64(rv)
+func (o GCRelativeInputObject) LastDeltaTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastDeltaTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the current and the previous delta values.
@@ -107,9 +107,9 @@ func (o GCRelativeInputObject) LastDeltaTimestamp() float64 {
 // that accrues on the device or when it transmits the event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRelativeInput/lastDeltaLatency
-func (o GCRelativeInputObject) LastDeltaLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastDeltaLatency"))
-	return float64(rv)
+func (o GCRelativeInputObject) LastDeltaLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastDeltaLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

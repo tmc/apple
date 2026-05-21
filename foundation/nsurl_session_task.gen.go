@@ -4,7 +4,6 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,28 +51,29 @@ func (uc URLSessionTaskClass) Alloc() URLSessionTask {
 // task creation methods on a [NSURLSession] instance. The method you call
 // determines the type of task.
 //
-// - Use [NSURLSession]‘s [DataTaskWithRequest] and related methods to
-// create [NSURLSessionDataTask] instances. Data tasks request a resource,
-// returning the server’s response as one or more [NSData] objects in
-// memory. They are supported in default, ephemeral, and shared sessions, but
-// are not supported in background sessions. - Use [NSURLSession]‘s
-// [UploadTaskWithRequestFromData] and related methods to create
+// - Use [NSURLSession]‘s [NSURLSession.DataTaskWithRequest] and related
+// methods to create [NSURLSessionDataTask] instances. Data tasks request a
+// resource, returning the server’s response as one or more [NSData] objects
+// in memory. They are supported in default, ephemeral, and shared sessions,
+// but are not supported in background sessions. - Use [NSURLSession]‘s
+// [NSURLSession.UploadTaskWithRequestFromData] and related methods to create
 // [NSURLSessionUploadTask] instances. Upload tasks are like data tasks,
 // except that they make it easier to provide a request body so you can upload
 // data before retrieving the server’s response. Additionally, upload tasks
 // are supported in background sessions. - Use [NSURLSession]’s
-// [DownloadTaskWithRequest] and related methods to create
+// [NSURLSession.DownloadTaskWithRequest] and related methods to create
 // [NSURLSessionDownloadTask] instances. Download tasks download a resource
 // directly to a file on disk. Download tasks are supported in any type of
-// session. - Use [NSURLSession]’s [StreamTaskWithHostNamePort] or
-// [StreamTaskWithNetService] to create [NSURLSessionStreamTask] instances.
-// Stream tasks establish a TCP/IP connection from a host name and port or a
-// net service object.
+// session. - Use [NSURLSession]’s [NSURLSession.StreamTaskWithHostNamePort]
+// or [NSURLSession.StreamTaskWithNetService] to create
+// [NSURLSessionStreamTask] instances. Stream tasks establish a TCP/IP
+// connection from a host name and port or a net service object.
 //
-// After you create a task, you start it by calling its [Resume] method. The
-// session then maintains a strong reference to the task until the request
-// finishes or fails; you don’t need to maintain a reference to the task
-// unless it’s useful for your app’s internal bookkeeping.
+// After you create a task, you start it by calling its
+// [NSURLSessionTask.Resume] method. The session then maintains a strong
+// reference to the task until the request finishes or fails; you don’t need
+// to maintain a reference to the task unless it’s useful for your app’s
+// internal bookkeeping.
 //
 // # Controlling the task state
 //
@@ -90,7 +90,6 @@ func (uc URLSessionTaskClass) Alloc() URLSessionTask {
 //   - [URLSessionTask.CountOfBytesReceived]: The number of bytes that the task has received from the server in the response body.
 //   - [URLSessionTask.CountOfBytesExpectedToSend]: The number of bytes that the task expects to send in the request body.
 //   - [URLSessionTask.CountOfBytesSent]: The number of bytes that the task has sent to the server in the request body.
-//   - [URLSessionTask.NSURLSessionTransferSizeUnknown]: The total size of the transfer cannot be determined.
 //
 // # Obtaining general task information
 //
@@ -156,7 +155,6 @@ func NSURLSessionTaskFromID(id objc.ID) URLSessionTask { return URLSessionTaskFr
 //   - [IURLSessionTask.CountOfBytesReceived]: The number of bytes that the task has received from the server in the response body.
 //   - [IURLSessionTask.CountOfBytesExpectedToSend]: The number of bytes that the task expects to send in the request body.
 //   - [IURLSessionTask.CountOfBytesSent]: The number of bytes that the task has sent to the server in the request body.
-//   - [IURLSessionTask.NSURLSessionTransferSizeUnknown]: The total size of the transfer cannot be determined.
 //
 // # Obtaining general task information
 //
@@ -215,8 +213,6 @@ type IURLSessionTask interface {
 	CountOfBytesExpectedToSend() int64
 	// The number of bytes that the task has sent to the server in the request body.
 	CountOfBytesSent() int64
-	// The total size of the transfer cannot be determined.
-	NSURLSessionTransferSizeUnknown() unsafe.Pointer
 
 	// Topic: Obtaining general task information
 
@@ -294,6 +290,7 @@ func NewURLSessionTask() URLSessionTask {
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/cancel()
 //
 // [NSURLErrorCancelled]: https://developer.apple.com/documentation/Foundation/NSURLErrorCancelled-swift.var
+// [NSURLErrorDomain]: https://developer.apple.com/documentation/Foundation/NSURLErrorDomain
 func (u URLSessionTask) Cancel() {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancel"))
 }
@@ -315,7 +312,7 @@ func (u URLSessionTask) Resume() {
 // # Discussion
 //
 // A task, while suspended, produces no network traffic and isn’t subject to
-// timeouts. Call [Resume] to resume data transfer.
+// timeouts. Call [NSURLSessionTask.Resume] to resume data transfer.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/suspend()
 func (u URLSessionTask) Suspend() {
@@ -380,6 +377,8 @@ func (u URLSessionTask) Progress() INSProgress {
 // [NSURLSessionTransferSizeUnknown].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/countOfBytesExpectedToReceive
+//
+// [NSURLSessionTransferSizeUnknown]: https://developer.apple.com/documentation/Foundation/NSURLSessionTransferSizeUnknown
 func (u URLSessionTask) CountOfBytesExpectedToReceive() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesExpectedToReceive"))
 	return rv
@@ -418,6 +417,8 @@ func (u URLSessionTask) CountOfBytesReceived() int64 {
 // provided a stream or body data object, or zero (`0`) if you did not.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/countOfBytesExpectedToSend
+//
+// [NSURLSessionTransferSizeUnknown]: https://developer.apple.com/documentation/Foundation/NSURLSessionTransferSizeUnknown
 func (u URLSessionTask) CountOfBytesExpectedToSend() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesExpectedToSend"))
 	return rv
@@ -445,9 +446,9 @@ func (u URLSessionTask) CountOfBytesSent() int64 {
 //
 // # Discussion
 //
-// This value is typically the same as the initial request ([OriginalRequest])
-// except when the server has responded to the initial request with a redirect
-// to a different URL.
+// This value is typically the same as the initial request
+// ([NSURLSessionTask.OriginalRequest]) except when the server has responded
+// to the initial request with a redirect to a different URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/currentRequest
 func (u URLSessionTask) CurrentRequest() INSURLRequest {
@@ -460,8 +461,8 @@ func (u URLSessionTask) CurrentRequest() INSURLRequest {
 // # Discussion
 //
 // This value is typically the same as the currently active request
-// ([CurrentRequest]) except when the server has responded to the initial
-// request with a redirect to a different URL.
+// ([NSURLSessionTask.CurrentRequest]) except when the server has responded to
+// the initial request with a redirect to a different URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/originalRequest
 func (u URLSessionTask) OriginalRequest() INSURLRequest {
@@ -506,7 +507,7 @@ func (u URLSessionTask) SetTaskDescription(value string) {
 // # Discussion
 //
 // This value is unique only within the context of a single session; tasks in
-// other sessions may have the same [TaskIdentifier] value.
+// other sessions may have the same [NSURLSessionTask.TaskIdentifier] value.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/taskIdentifier
 func (u URLSessionTask) TaskIdentifier() uint {
@@ -558,9 +559,9 @@ func (u URLSessionTask) SetPrefersIncrementalDelivery(value bool) {
 // # Discussion
 //
 // This task-specific delegate receives messages from the task before the
-// session’s [Delegate] receives them. This is similar to the behavior of
-// the `delegate` parameter used by the asychronous methods in [NSURLSession]
-// like [bytes(for:delegate:)] and [data(for:delegate:)].
+// session’s [NSURLSession.Delegate] receives them. This is similar to the
+// behavior of the `delegate` parameter used by the asychronous methods in
+// [NSURLSession] like [bytes(for:delegate:)] and [data(for:delegate:)].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/delegate
 //
@@ -587,6 +588,8 @@ func (u URLSessionTask) SetDelegate(value NSURLSessionTaskDelegate) {
 // or an exact byte count, if possible, rather than accept the default.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/countOfBytesClientExpectsToReceive
+//
+// [NSURLSessionTransferSizeUnknown]: https://developer.apple.com/documentation/Foundation/NSURLSessionTransferSizeUnknown
 func (u URLSessionTask) CountOfBytesClientExpectsToReceive() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesClientExpectsToReceive"))
 	return rv
@@ -607,20 +610,14 @@ func (u URLSessionTask) SetCountOfBytesClientExpectsToReceive(value int64) {
 // count, if possible, rather than accept the default.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/countOfBytesClientExpectsToSend
+//
+// [NSURLSessionTransferSizeUnknown]: https://developer.apple.com/documentation/Foundation/NSURLSessionTransferSizeUnknown
 func (u URLSessionTask) CountOfBytesClientExpectsToSend() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesClientExpectsToSend"))
 	return rv
 }
 func (u URLSessionTask) SetCountOfBytesClientExpectsToSend(value int64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCountOfBytesClientExpectsToSend:"), value)
-}
-
-// The total size of the transfer cannot be determined.
-//
-// See: https://developer.apple.com/documentation/foundation/nsurlsessiontransfersizeunknown
-func (u URLSessionTask) NSURLSessionTransferSizeUnknown() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("NSURLSessionTransferSizeUnknown"))
-	return rv
 }
 
 // The earliest date at which the network load should begin.

@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,26 +44,29 @@ func AVCapturePhotoCaptureDelegateObjectFromID(id objc.ID) AVCapturePhotoCapture
 // output: The photo output performing the capture.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // # Discussion
 //
 // The photo output calls this method when it has committed to a choice of
 // settings and will soon begin the capture process. This call occurs as early
-// as possible after your call to the [CapturePhotoWithSettingsDelegate]
-// method, letting you know what to expect for other delegate method calls
-// related to the same capture.
+// as possible after your call to the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method, letting you
+// know what to expect for other delegate method calls related to the same
+// capture.
 //
 // Use this method and the [AVCaptureResolvedPhotoSettings] it provides to
 // find out at the earliest possible opportunity which values the photo output
 // has chosen for automatic settings, and what the output dimensions for
 // captured images and movies will be. For example, if you requested capture
-// with the [FlashMode] property set to [AVCaptureFlashModeAuto], the resolved
-// photo settings’ [FlashEnabled] property indicates whether the flash will
-// fire during capture.
+// with the [AVCapturePhotoSettings.FlashMode] property set to
+// [AVCaptureFlashModeAuto], the resolved photo settings’
+// [AVCaptureResolvedPhotoSettings.FlashEnabled] property indicates whether
+// the flash will fire during capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:willBeginCaptureFor:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillBeginCaptureForResolvedSettings(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings) {
@@ -74,10 +78,11 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillBeginCaptureForRes
 // output: The photo output performing the capture.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // # Discussion
 //
@@ -95,10 +100,11 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillCapturePhotoForRes
 // output: The photo output performing the capture.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // # Discussion
 //
@@ -115,10 +121,11 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidCapturePhotoForReso
 // output: The photo output performing the capture.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // error: If the capture process did not complete successfully, an error object
 // describing the failure; otherwise, `nil`.
@@ -174,10 +181,11 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPho
 // outputFileURL: The file URL at which the Live Photo movie will be written.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // # Discussion
 //
@@ -214,10 +222,11 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // Photo corresponds.
 //
 // resolvedSettings: An object describing the settings used for this capture. Match this
-// object’s [UniqueID] value to the [UniqueID] property of the photo
-// settings object you initiated capture with to determine which capture
-// request this delegate call corresponds to. You can also use this object to
-// find out which values the photo output has chosen for automatic settings.
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
 //
 // error: If the capture process could not proceed successfully, an error object
 // describing the failure; otherwise, `nil`.
@@ -254,7 +263,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 //
 // # Discussion
 //
-// You can use the output’s [FileDataRepresentation] with
+// You can use the output’s [AVCapturePhoto.FileDataRepresentation] with
 // [PHAssetCreationRequest] to eventually produce the final, processed photo
 // into the user’s Photo Library. Add the in-memory proxy file data
 // representation to the photo library as quickly as possible after this call
@@ -264,15 +273,16 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 // deferred photo processing APIs.
 //
 // Your delegate implementation must adopt this method to opt into deferred
-// photo processing, otherwise calling [CapturePhotoWithSettingsDelegate]
-// throws an exception.
+// photo processing, otherwise calling
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] throws an
+// exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishCapturingDeferredPhotoProxy:error:)
 //
 // [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 // [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.NSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy kernel.ID, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"), output, deferredPhotoProxy, error_)
 }
 

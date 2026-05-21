@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,11 +59,12 @@ func (nc NSMutableAttributedStringClass) Alloc() NSMutableAttributedString {
 // [NSMutableAttributedString] adds two primitive methods to those of
 // [NSAttributedString]. These primitive methods provide the basis for all the
 // other methods in its class. The primitive
-// [NSMutableAttributedString.ReplaceCharactersInRangeWithAttributedString] method replaces a range of
-// characters with those from a string, leaving all attribute information
-// outside that range intact. The primitive [NSMutableAttributedString.SetAttributesRange] method sets
-// attributes and values for a given range of characters, replacing any
-// previous attributes and values for that range.
+// [NSMutableAttributedString.ReplaceCharactersInRangeWithAttributedString]
+// method replaces a range of characters with those from a string, leaving all
+// attribute information outside that range intact. The primitive
+// [NSMutableAttributedString.SetAttributesRange] method sets attributes and
+// values for a given range of characters, replacing any previous attributes
+// and values for that range.
 //
 // In macOS, AppKit also uses [NSParagraphStyle] and its subclass
 // [NSMutableParagraphStyle] to encapsulate the paragraph or ruler attributes
@@ -357,7 +359,7 @@ func NewMutableAttributedStringWithAttributedString(attrStr INSAttributedString)
 	return NSMutableAttributedStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(coder:)
 func NewMutableAttributedStringWithCoder(coder INSCoder) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -406,10 +408,10 @@ func NewMutableAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLErro
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
-// files. Specify the [defaultAttributes] key to apply document attributes to
-// the returned string. If you specify an empty dictionary, the method
-// identifies the data format from the data itself.
+// scaling behaviors. Specify the [NSAttributedString.CharacterEncoding]
+// attribute for plain-text files. Specify the [defaultAttributes] key to
+// apply document attributes to the returned string. If you specify an empty
+// dictionary, the method identifies the data format from the data itself.
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
@@ -478,9 +480,9 @@ func NewMutableAttributedStringWithDocFormatDocumentAttributes(data INSData, dic
 // url: An [NSURL] object specifying the document to load.
 //
 // options: Document attributes for interpreting the document contents. [documentType],
-// [CharacterEncoding], and [defaultAttributes] are supported option keys. If
-// not specified, the method examines the data to attempt to determine the
-// appropriate attributes.
+// [NSAttributedString.CharacterEncoding], and [defaultAttributes] are
+// supported option keys. If not specified, the method examines the data to
+// attempt to determine the appropriate attributes.
 //
 // dict: If non-[NULL], returns a dictionary with various document-wide attributes
 // accessible via document attribute keys.
@@ -570,7 +572,7 @@ func NewMutableAttributedStringWithFormatOptionsLocale(format INSAttributedStrin
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:arguments:
 //
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-func NewMutableAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, arguments unsafe.Pointer) NSMutableAttributedString {
+func NewMutableAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, arguments kernel.VaList) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
 	return NSMutableAttributedStringFromID(rv)
@@ -632,7 +634,7 @@ func NewMutableAttributedStringWithFormatOptionsLocaleContext(format INSAttribut
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:arguments:
 //
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-func NewMutableAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSMutableAttributedString {
+func NewMutableAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments kernel.VaList) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
 	return NSMutableAttributedStringFromID(rv)
@@ -899,10 +901,10 @@ func NewMutableAttributedStringWithStringAttributes(str string, attrs INSDiction
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
-// files. Specify the [defaultAttributes] key to apply document attributes to
-// the returned string. If you specify an empty dictionary, the method
-// identifies the data format from the data itself.
+// scaling behaviors. Specify the [NSAttributedString.CharacterEncoding]
+// attribute for plain-text files. Specify the [defaultAttributes] key to
+// apply document attributes to the returned string. If you specify an empty
+// dictionary, the method identifies the data format from the data itself.
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
@@ -964,10 +966,12 @@ func NewMutableAttributedStringWithURLOptionsDocumentAttributesError(url INSURL,
 // the attributes of the character preceding `range` if it has any, otherwise
 // of the character following `range`.
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/replaceCharacters(in:with:)-6oq9r
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) ReplaceCharactersInRangeWithString(range_ NSRange, str string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceCharactersInRange:withString:"), range_, objc.String(str))
 }
@@ -979,10 +983,12 @@ func (m NSMutableAttributedString) ReplaceCharactersInRangeWithString(range_ NSR
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/deleteCharacters(in:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) DeleteCharactersInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("deleteCharactersInRange:"), range_)
 }
@@ -1000,7 +1006,7 @@ func (m NSMutableAttributedString) DeleteCharactersInRange(range_ NSRange) {
 // # Discussion
 //
 // These new attributes replace any attributes previously associated with the
-// characters in `range`. Raises an [RangeException] if any part of `range`
+// characters in `range`. Raises an [rangeException] if any part of `range`
 // lies beyond the end of the receiver’s characters.
 //
 // To set attributes for a zero-length [NSMutableAttributedString] displayed
@@ -1008,6 +1014,7 @@ func (m NSMutableAttributedString) DeleteCharactersInRange(range_ NSRange) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setAttributes(_:range:)
 //
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [typingAttributes]: https://developer.apple.com/documentation/AppKit/NSTextView/typingAttributes
 func (m NSMutableAttributedString) SetAttributesRange(attrs INSDictionary, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAttributes:range:"), attrs, range_)
@@ -1029,11 +1036,14 @@ func (m NSMutableAttributedString) SetAttributesRange(attrs INSDictionary, range
 // # Discussion
 //
 // You may assign any `name`/`value` pair you wish to a range of characters.
-// Raises an [InvalidArgumentException] if `name` or `value` is `nil` and an
-// [RangeException] if any part of `range` lies beyond the end of the
+// Raises an [invalidArgumentException] if `name` or `value` is `nil` and an
+// [rangeException] if any part of `range` lies beyond the end of the
 // receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/addAttribute(_:value:range:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) AddAttributeValueRange(name NSAttributedStringKey, value objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addAttribute:value:range:"), objc.String(string(name)), value, range_)
 }
@@ -1051,11 +1061,14 @@ func (m NSMutableAttributedString) AddAttributeValueRange(name NSAttributedStrin
 // # Discussion
 //
 // You may assign any name/value pair you wish to a range of characters.
-// Raises an [InvalidArgumentException] if `attrs` is `nil` and an
-// [RangeException] if any part of `range` lies beyond the end of the
+// Raises an [invalidArgumentException] if `attrs` is `nil` and an
+// [rangeException] if any part of `range` lies beyond the end of the
 // receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/addAttributes(_:range:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) AddAttributesRange(attrs INSDictionary, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addAttributes:range:"), attrs, range_)
 }
@@ -1071,10 +1084,12 @@ func (m NSMutableAttributedString) AddAttributesRange(attrs INSDictionary, range
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/removeAttribute(_:range:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringKey, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAttribute:range:"), objc.String(string(name)), range_)
 }
@@ -1088,12 +1103,13 @@ func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringK
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/applyFontTraits(_:range:)
 //
 // [NSFontManager]: https://developer.apple.com/documentation/AppKit/NSFontManager
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask uint, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyFontTraits:range:"), traitMask, range_)
 }
@@ -1108,10 +1124,12 @@ func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask uint, range_ N
 // # Discussion
 //
 // When attribute fixing takes place, this change will affect only paragraphs
-// whose first character was included in `range`. Raises an [RangeException]
+// whose first character was included in `range`. Raises an [rangeException]
 // if any part of `range` lies beyond the end of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setAlignment(_:range:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) SetAlignmentRange(alignment uint, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAlignment:range:"), alignment, range_)
 }
@@ -1135,10 +1153,12 @@ func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/subscriptRange(_:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) SubscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscriptRange:"), range_)
 }
@@ -1150,10 +1170,12 @@ func (m NSMutableAttributedString) SubscriptRange(range_ NSRange) {
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/superscriptRange(_:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) SuperscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("superscriptRange:"), range_)
 }
@@ -1165,10 +1187,12 @@ func (m NSMutableAttributedString) SuperscriptRange(range_ NSRange) {
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/unscriptRange(_:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) UnscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("unscriptRange:"), range_)
 }
@@ -1194,10 +1218,12 @@ func (m NSMutableAttributedString) AppendAttributedString(attrString INSAttribut
 //
 // The new characters and attributes begin at the given index and the existing
 // characters and attributes from the index to the end of the receiver are
-// shifted by the length of the attributed string. Raises an [RangeException]
+// shifted by the length of the attributed string. Raises an [rangeException]
 // if `loc` lies beyond the end of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/insert(_:at:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) InsertAttributedStringAtIndex(attrString INSAttributedString, loc uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertAttributedString:atIndex:"), attrString, loc)
 }
@@ -1212,10 +1238,12 @@ func (m NSMutableAttributedString) InsertAttributedStringAtIndex(attrString INSA
 //
 // # Discussion
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/replaceCharacters(in:with:)-1uaw7
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) ReplaceCharactersInRangeWithAttributedString(range_ NSRange, attrString INSAttributedString) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceCharactersInRange:withAttributedString:"), range_, attrString)
 }
@@ -1238,10 +1266,11 @@ func (m NSMutableAttributedString) SetAttributedString(attrString INSAttributedS
 //
 // Override this method in a subclass to buffer or optimize a series of
 // changes to the string’s characters or attributes. The string continues to
-// buffer text until you call [EndEditing], at which time it consolidates the
-// changes and notifies observers.
+// buffer text until you call [NSMutableAttributedString.EndEditing], at which
+// time it consolidates the changes and notifies observers.
 //
-// You can nest pairs of [BeginEditing] and [EndEditing] messages.
+// You can nest pairs of [NSMutableAttributedString.BeginEditing] and
+// [NSMutableAttributedString.EndEditing] messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/beginEditing()
 func (m NSMutableAttributedString) BeginEditing() {
@@ -1253,8 +1282,8 @@ func (m NSMutableAttributedString) BeginEditing() {
 // # Discussion
 //
 // Override this method in a subclass to consolidate changes made since a
-// previous call to [BeginEditing]. When you call this method, the string
-// notifies observers of the changes.
+// previous call to [NSMutableAttributedString.BeginEditing]. When you call
+// this method, the string notifies observers of the changes.
 //
 // The default implementation of this method does nothing. Subclasses such as
 // [NSTextStorage] override this method and use it to tell the layout manager
@@ -1281,32 +1310,36 @@ func (m NSMutableAttributedString) UpdateAttachmentsFromPath(path string) {
 // range.
 //
 // range: The character range within which to fix attributes. Raises an
-// [RangeException] if any part of `range` lies beyond the end of the
+// [rangeException] if any part of `range` lies beyond the end of the
 // receiver’s characters.
 //
 // # Discussion
 //
 // Removes attachment attributes assigned to characters other than
-// doc://com.apple.documentation/documentation/appkit/nstextattachment/character,
-// assigns default fonts to characters with illegal fonts for their scripts
-// and otherwise corrects font attribute assignments, and assigns the first
-// paragraph style attribute value in each paragraph to all characters of the
-// paragraph.
+// [character], assigns default fonts to characters with illegal fonts for
+// their scripts and otherwise corrects font attribute assignments, and
+// assigns the first paragraph style attribute value in each paragraph to all
+// characters of the paragraph.
 //
 // This method extends the range as needed to cover the last paragraph
 // partially contained.
 //
-// Raises an [RangeException] if any part of aRange lies beyond the end of the
+// Raises an [rangeException] if any part of aRange lies beyond the end of the
 // receiver’s characters.
 //
 // [NSTextStorage] subclasses that return true from the
 // [fixesAttributesLazily] method should avoid directly calling
-// [FixAttributesInRange] or else bracket such calls with [BeginEditing] and
-// [EndEditing] messages.
+// [NSMutableAttributedString.FixAttributesInRange] or else bracket such calls
+// with [NSMutableAttributedString.BeginEditing] and
+// [NSMutableAttributedString.EndEditing] messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/fixAttributes(in:)
 //
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// [character]: https://developer.apple.com/documentation/AppKit/NSTextAttachment/character
 // [fixesAttributesLazily]: https://developer.apple.com/documentation/AppKit/NSTextStorage/fixesAttributesLazily
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) FixAttributesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixAttributesInRange:"), range_)
 }
@@ -1319,12 +1352,14 @@ func (m NSMutableAttributedString) FixAttributesInRange(range_ NSRange) {
 //
 // # Discussion
 //
-// The method preserves the attachment attribute on the
-// doc://com.apple.documentation/documentation/appkit/nstextattachment/character
-// special character. The method raises a [RangeException] if any part of
-// `range` lies beyond the end of the string’s characters.
+// The method preserves the attachment attribute on the [character] special
+// character. The method raises a [rangeException] if any part of `range` lies
+// beyond the end of the string’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/fixAttachmentAttribute(in:)
+//
+// [character]: https://developer.apple.com/documentation/AppKit/NSTextAttachment/character
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) FixAttachmentAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixAttachmentAttributeInRange:"), range_)
 }
@@ -1339,10 +1374,12 @@ func (m NSMutableAttributedString) FixAttachmentAttributeInRange(range_ NSRange)
 // This method assigns default fonts to characters with illegal fonts for
 // their scripts and corrects other font attribute assignments. For example,
 // Kanji characters assigned a Latin font are reassigned an appropriate Kanji
-// font. Raises an [RangeException] if any part of `range` lies beyond the end
+// font. Raises an [rangeException] if any part of `range` lies beyond the end
 // of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/fixFontAttribute(in:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) FixFontAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixFontAttributeInRange:"), range_)
 }
@@ -1363,10 +1400,12 @@ func (m NSMutableAttributedString) FixFontAttributeInRange(range_ NSRange) {
 // - U+000D (`\r` or CR) - U+000A (`\n` or LF) - U+2029 (Unicode paragraph
 // separator) `\r\n`, in that order (also known as CRLF)
 //
-// Raises an [RangeException] if any part of `range` lies beyond the end of
+// Raises an [rangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/fixParagraphStyleAttribute(in:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (m NSMutableAttributedString) FixParagraphStyleAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixParagraphStyleAttributeInRange:"), range_)
 }

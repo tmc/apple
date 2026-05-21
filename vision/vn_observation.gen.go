@@ -102,6 +102,7 @@ type IVNObservation interface {
 	// The level of confidence in the observation’s accuracy.
 	Confidence() VNConfidence
 
+	InitWithCoder(coder foundation.INSCoder) VNObservation
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -121,6 +122,19 @@ func (o VNObservation) Autorelease() VNObservation {
 func NewVNObservation() VNObservation {
 	class := getVNObservationClass()
 	rv := objc.Send[VNObservation](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewObservationWithCoder(coder foundation.INSCoder) VNObservation {
+	instance := getVNObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func (o VNObservation) InitWithCoder(coder foundation.INSCoder) VNObservation {
+	rv := objc.Send[VNObservation](o.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 

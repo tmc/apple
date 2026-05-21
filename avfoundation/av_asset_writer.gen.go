@@ -278,8 +278,8 @@ type IAVAssetWriter interface {
 	OverallDurationHint() coremedia.CMTime
 	SetOverallDurationHint(value coremedia.CMTime)
 	// The time scale of the movie.
-	MovieTimeScale() int32
-	SetMovieTimeScale(value int32)
+	MovieTimeScale() coremedia.CMTimeScale
+	SetMovieTimeScale(value coremedia.CMTimeScale)
 
 	// Topic: Managing writing sessions
 
@@ -493,8 +493,9 @@ func (a AVAssetWriter) CanAddInputGroup(inputGroup IAVAssetWriterInputGroup) boo
 // container format supports mutually exclusive relationships among tracks.
 //
 // When you add an input group to an asset writer, the system sets the value
-// of the default input’s [MarksOutputTrackAsEnabled] property to true and
-// sets the values of the group’s other inputs to false.
+// of the default input’s [AVAssetWriterInput.MarksOutputTrackAsEnabled]
+// property to true and sets the values of the group’s other inputs to
+// false.
 //
 // You can’t add input groups after writing starts.
 //
@@ -524,8 +525,8 @@ func (a AVAssetWriter) AddInputGroup(inputGroup IAVAssetWriterInputGroup) {
 // inserts an empty edit to preserve synchronization between tracks of the
 // output asset.
 //
-// To end a session, call [EndSessionAtSourceTime]or
-// [FinishWritingWithCompletionHandler]
+// To end a session, call [AVAssetWriter.EndSessionAtSourceTime]or
+// [AVAssetWriter.FinishWritingWithCompletionHandler]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/startSession(atSourceTime:)
 //
@@ -542,7 +543,7 @@ func (a AVAssetWriter) StartSessionAtSourceTime(startTime coremedia.CMTime) {
 // # Discussion
 //
 // Call this method to complete a session that you started with
-// [StartSessionAtSourceTime].
+// [AVAssetWriter.StartSessionAtSourceTime].
 //
 // The end time defines the moment on the timeline of source samples at which
 // the session ends. In the case of the QuickTime movie file format, each
@@ -557,9 +558,10 @@ func (a AVAssetWriter) StartSessionAtSourceTime(startTime coremedia.CMTime) {
 // empty edit of the prescribed duration.
 //
 // If you don’t explicitly call this method, the system invokes it
-// automatically when you call [FinishWritingWithCompletionHandler]. In that
-// case, the session’s effective end time is the timestamp of the last
-// sample you append.
+// automatically when you call
+// [AVAssetWriter.FinishWritingWithCompletionHandler]. In that case, the
+// session’s effective end time is the timestamp of the last sample you
+// append.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/endSession(atSourceTime:)
 func (a AVAssetWriter) EndSessionAtSourceTime(endTime coremedia.CMTime) {
@@ -571,7 +573,7 @@ func (a AVAssetWriter) EndSessionAtSourceTime(endTime coremedia.CMTime) {
 //
 // handler: A completion handler the system invokes when it finishes writing. Determine
 // the success or failure of the writing session by querying the asset
-// writer’s [Status] property value.
+// writer’s [AVAssetWriter.Status] property value.
 //
 // # Discussion
 //
@@ -609,8 +611,9 @@ func (a AVAssetWriter) CancelWriting() {
 //
 // # Discussion
 //
-// Call this method only when the [PreferredOutputSegmentInterval] property
-// value is [indefinite].
+// Call this method only when the
+// [AVAssetWriter.PreferredOutputSegmentInterval] property value is
+// [indefinite].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/flushSegment()
 //
@@ -673,7 +676,8 @@ func (a AVAssetWriter) AvailableMediaTypes() []string {
 //
 // # Discussion
 //
-// Add input groups to the asset writer using its [AddInputGroup] method.
+// Add input groups to the asset writer using its
+// [AVAssetWriter.AddInputGroup] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/inputGroups
 func (a AVAssetWriter) InputGroups() []AVAssetWriterInputGroup {
@@ -774,12 +778,12 @@ func (a AVAssetWriter) SetMovieFragmentInterval(value coremedia.CMTime) {
 // the interval at which to write the initial fragment.
 //
 // The default value is [invalid], which indicates to use the interval set in
-// the [MovieFragmentInterval] property. The [MovieFragmentInterval] property
-// is typically set to 10 seconds, so if an error occurs before writing the
-// first fragment, the movie file won’t be playable. To avoid this case,
-// your app may want to set a shorter interval, such as 1 second, to write the
-// initial fragment, and then use a 10 second interval for subsequent
-// fragments.
+// the [AVAssetWriter.MovieFragmentInterval] property. The
+// [AVAssetWriter.MovieFragmentInterval] property is typically set to 10
+// seconds, so if an error occurs before writing the first fragment, the movie
+// file won’t be playable. To avoid this case, your app may want to set a
+// shorter interval, such as 1 second, to write the initial fragment, and then
+// use a 10 second interval for subsequent fragments.
 //
 // You can’t set this property after writing starts.
 //
@@ -865,11 +869,11 @@ func (a AVAssetWriter) SetOverallDurationHint(value coremedia.CMTime) {
 // You can’t set this property value after writing starts.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/movieTimeScale
-func (a AVAssetWriter) MovieTimeScale() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("movieTimeScale"))
-	return rv
+func (a AVAssetWriter) MovieTimeScale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](a.ID, objc.Sel("movieTimeScale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (a AVAssetWriter) SetMovieTimeScale(value int32) {
+func (a AVAssetWriter) SetMovieTimeScale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMovieTimeScale:"), value)
 }
 
@@ -911,7 +915,7 @@ func (a AVAssetWriter) SetDelegate(value AVAssetWriterDelegate) {
 // The default value is [invalid], which indicates that the asset writer
 // chooses an appropriate default value. You may also set a positive numeric
 // or [indefinite] time. When the value is [indefinite], each call you make to
-// [FlushSegment] outputs a segment data.
+// [AVAssetWriter.FlushSegment] outputs a segment data.
 //
 // You can’t change this value after writing starts.
 //
@@ -931,9 +935,9 @@ func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value coremedia.CMTime)
 //
 // # Discussion
 //
-// This value is relevant only when the [PreferredOutputSegmentInterval]
-// property value is positive numeric, in which case you must set a numeric
-// time.
+// This value is relevant only when the
+// [AVAssetWriter.PreferredOutputSegmentInterval] property value is positive
+// numeric, in which case you must set a numeric time.
 //
 // You can’t change this value after writing starts.
 //

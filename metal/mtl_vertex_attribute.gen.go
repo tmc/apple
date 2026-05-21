@@ -49,7 +49,7 @@ func (mc MTLVertexAttributeClass) Alloc() MTLVertexAttribute {
 //
 // An [MTLVertexAttribute] instance represents an attribute for per-vertex
 // input in a vertex function. You use vertex attribute instances to inspect
-// the inputs of a vertex function by examining the [MTLVertexAttribute.VertexAttributes]
+// the inputs of a vertex function by examining the [VertexAttributes]
 // property of the corresponding [MTLFunction] instance.
 //
 // # Describing the attribute
@@ -105,10 +105,6 @@ type IMTLVertexAttribute interface {
 	IsPatchControlPointData() bool
 	// A Boolean value that indicates whether this vertex attribute represents patch data.
 	IsPatchData() bool
-
-	// An array that describes the vertex input attributes to a vertex function.
-	VertexAttributes() IMTLVertexAttribute
-	SetVertexAttributes(value IMTLVertexAttribute)
 }
 
 // Init initializes the instance.
@@ -192,15 +188,4 @@ func (v MTLVertexAttribute) IsPatchControlPointData() bool {
 func (v MTLVertexAttribute) IsPatchData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchData"))
 	return rv
-}
-
-// An array that describes the vertex input attributes to a vertex function.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunction/vertexattributes
-func (v MTLVertexAttribute) VertexAttributes() IMTLVertexAttribute {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("vertexAttributes"))
-	return MTLVertexAttributeFromID(objc.ID(rv))
-}
-func (v MTLVertexAttribute) SetVertexAttributes(value IMTLVertexAttribute) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVertexAttributes:"), value)
 }

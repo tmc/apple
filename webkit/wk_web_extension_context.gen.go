@@ -966,8 +966,9 @@ func (w WKWebExtensionContext) PermissionStatusForMatchPatternInTab(pattern IWKW
 //
 // # Discussion
 //
-// This method will update [GrantedPermissions] and [DeniedPermissions]. Use
-// this method for changing a single permission’s status.
+// This method will update [WKWebExtensionContext.GrantedPermissions] and
+// [WKWebExtensionContext.DeniedPermissions]. Use this method for changing a
+// single permission’s status.
 //
 // Only [WKWebExtensionContextPermissionStatusDeniedExplicitly],
 // [WKWebExtensionContextPermissionStatusUnknown], and
@@ -988,8 +989,9 @@ func (w WKWebExtensionContext) SetPermissionStatusForPermission(status WKWebExte
 // # Discussion
 //
 // The URL is converted into a match pattern and will update
-// [GrantedPermissionMatchPatterns] and [DeniedPermissionMatchPatterns]. Use
-// this method for changing a single URL’s status. Only
+// [WKWebExtensionContext.GrantedPermissionMatchPatterns] and
+// [WKWebExtensionContext.DeniedPermissionMatchPatterns]. Use this method for
+// changing a single URL’s status. Only
 // [WKWebExtensionContextPermissionStatusDeniedExplicitly],
 // [WKWebExtensionContextPermissionStatusUnknown], and
 // [WKWebExtensionContextPermissionStatusGrantedExplicitly] states are allowed
@@ -1008,9 +1010,10 @@ func (w WKWebExtensionContext) SetPermissionStatusForURL(status WKWebExtensionCo
 //
 // # Discussion
 //
-// This method will update [GrantedPermissionMatchPatterns] and
-// [DeniedPermissionMatchPatterns]. Use this method for changing a single
-// match pattern’s status. Only
+// This method will update
+// [WKWebExtensionContext.GrantedPermissionMatchPatterns] and
+// [WKWebExtensionContext.DeniedPermissionMatchPatterns]. Use this method for
+// changing a single match pattern’s status. Only
 // [WKWebExtensionContextPermissionStatusDeniedExplicitly],
 // [WKWebExtensionContextPermissionStatusUnknown], and
 // [WKWebExtensionContextPermissionStatusGrantedExplicitly] states are allowed
@@ -1033,9 +1036,10 @@ func (w WKWebExtensionContext) SetPermissionStatusForMatchPattern(status WKWebEx
 // # Discussion
 //
 // The URL is converted into a match pattern and will update
-// [GrantedPermissionMatchPatterns] and [DeniedPermissionMatchPatterns]. Use
-// this method for changing a single URL’s status. Passing a `nil`
-// expiration date will be treated as a distant future date. Only
+// [WKWebExtensionContext.GrantedPermissionMatchPatterns] and
+// [WKWebExtensionContext.DeniedPermissionMatchPatterns]. Use this method for
+// changing a single URL’s status. Passing a `nil` expiration date will be
+// treated as a distant future date. Only
 // [WKWebExtensionContextPermissionStatusDeniedExplicitly],
 // [WKWebExtensionContextPermissionStatusUnknown], and
 // [WKWebExtensionContextPermissionStatusGrantedExplicitly] states are allowed
@@ -1057,8 +1061,9 @@ func (w WKWebExtensionContext) SetPermissionStatusForURLExpirationDate(status WK
 //
 // # Discussion
 //
-// This method will update [GrantedPermissions] and [DeniedPermissions]. Use
-// this method for changing a single permission’s status.
+// This method will update [WKWebExtensionContext.GrantedPermissions] and
+// [WKWebExtensionContext.DeniedPermissions]. Use this method for changing a
+// single permission’s status.
 //
 // Passing a `nil` expiration date will be treated as a distant future date.
 // Only [WKWebExtensionContextPermissionStatusDeniedExplicitly],
@@ -1082,9 +1087,10 @@ func (w WKWebExtensionContext) SetPermissionStatusForPermissionExpirationDate(st
 //
 // # Discussion
 //
-// This method will update [GrantedPermissionMatchPatterns] and
-// [DeniedPermissionMatchPatterns]. Use this method for changing a single
-// match pattern’s status.
+// This method will update
+// [WKWebExtensionContext.GrantedPermissionMatchPatterns] and
+// [WKWebExtensionContext.DeniedPermissionMatchPatterns]. Use this method for
+// changing a single match pattern’s status.
 //
 // Passing a `nil` expiration date will be treated as a distant future date.
 // Only [WKWebExtensionContextPermissionStatusDeniedExplicitly],
@@ -1109,7 +1115,8 @@ func (w WKWebExtensionContext) SetPermissionStatusForMatchPatternExpirationDate(
 //
 // This enables the extension to be aware of the user gesture, potentially
 // granting it access to features that require user interaction, such as
-// `activeTab`. Not required if using [PerformActionForTab].
+// `activeTab`. Not required if using
+// [WKWebExtensionContext.PerformActionForTab].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/userGesturePerformed(in:)
 func (w WKWebExtensionContext) UserGesturePerformedInTab(tab WKWebExtensionTab) {
@@ -1311,7 +1318,7 @@ func (w WKWebExtensionContext) Errors() []foundation.NSError {
 // # Discussion
 //
 // Provides the window that currently has focus, as set by the
-// [DidFocusWindow] method.
+// [WKWebExtensionContext.DidFocusWindow] method.
 //
 // It will be `nil` if no window has focus or if a window has focus that is
 // not visible to the extension. Initially populated by the window returned by
@@ -1387,7 +1394,7 @@ func (w WKWebExtensionContext) HasAccessToAllHosts() bool {
 // # Discussion
 //
 // This does not check for any `*` host patterns. In most cases you should use
-// the broader [HasAccessToAllHosts].
+// the broader [WKWebExtensionContext.HasAccessToAllHosts].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/hasAccessToAllURLs
 func (w WKWebExtensionContext) HasAccessToAllURLs() bool {
@@ -1511,8 +1518,8 @@ func (w WKWebExtensionContext) IsLoaded() bool {
 // # Discussion
 //
 // Provides a set of tabs in all open windows that are visible to the
-// extension, as updated by the [DidOpenTab] and [DidCloseTabWindowIsClosing]
-// methods.
+// extension, as updated by the [WKWebExtensionContext.DidOpenTab] and
+// [WKWebExtensionContext.DidCloseTabWindowIsClosing] methods.
 //
 // Initially populated by the tabs in the windows returned by the extension
 // controller delegate method
@@ -1529,7 +1536,8 @@ func (w WKWebExtensionContext) OpenTabs() foundation.INSSet {
 // # Discussion
 //
 // Provides the windows that are open and visible to the extension, as updated
-// by the [DidOpenWindow] and [DidCloseWindow] methods.
+// by the [WKWebExtensionContext.DidOpenWindow] and
+// [WKWebExtensionContext.DidCloseWindow] methods.
 //
 // Initially populated by the windows returned by the extension controller
 // delegate method [WebExtensionControllerOpenWindowsForExtensionContext].

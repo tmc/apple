@@ -378,8 +378,8 @@ type IURLSessionConfiguration interface {
 	// Topic: Supporting custom protocols
 
 	// An array of extra protocol subclasses that handle requests in a session.
-	ProtocolClasses() []objc.Class
-	SetProtocolClasses(value []objc.Class)
+	ProtocolClasses() []objectivec.Class
+	SetProtocolClasses(value []objectivec.Class)
 
 	// Topic: Setting HTTP policy and proxy properties
 
@@ -409,9 +409,6 @@ type IURLSessionConfiguration interface {
 	EnablesEarlyData() bool
 	SetEnablesEarlyData(value bool)
 
-	// A copy of the configuration object for this session.
-	Configuration() INSURLSessionConfiguration
-	SetConfiguration(value INSURLSessionConfiguration)
 	// An array of proxy configuration objects containing information about the proxies to use within this session.
 	ProxyConfigurations() []objectivec.Object
 	SetProxyConfigurations(value []objectivec.Object)
@@ -467,10 +464,11 @@ func NewURLSessionConfiguration() URLSessionConfiguration {
 // transfers can begin again.
 //
 // You can configure an background session to schedule transfers at the
-// discretion of the system for optimal performance using the [Discretionary]
-// property. When transferring large amounts of data, you are encouraged to
-// set the value of this property to true. For an example of using the
-// background configuration, see [Downloading files in the background].
+// discretion of the system for optimal performance using the
+// [NSURLSessionConfiguration.Discretionary] property. When transferring large
+// amounts of data, you are encouraged to set the value of this property to
+// true. For an example of using the background configuration, see
+// [Downloading files in the background].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/background(withIdentifier:)
 //
@@ -485,12 +483,12 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) BackgroundSess
 // # Discussion
 //
 // The value of this property is set only when you use the
-// [BackgroundSessionConfigurationWithIdentifier] method to create the
-// configuration object. The string uniquely identifies a background session
-// object. In iOS, you use this string in cases where the app was terminated
-// while transfers were occurring in the background. When the app relaunches,
-// it uses the string to recreate the configuration and session objects
-// associated with the transfers.
+// [NSURLSessionConfigurationClass.BackgroundSessionConfigurationWithIdentifier]
+// method to create the configuration object. The string uniquely identifies a
+// background session object. In iOS, you use this string in cases where the
+// app was terminated while transfers were occurring in the background. When
+// the app relaunches, it uses the string to recreate the configuration and
+// session objects associated with the transfers.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/identifier
 func (u URLSessionConfiguration) Identifier() string {
@@ -675,9 +673,10 @@ func (u URLSessionConfiguration) SetUsesClassicLoadingMode(value bool) {
 // [HTTPCookie.AcceptPolicy] enumerated type.
 //
 // If you want more direct control over what cookies are accepted, set this
-// value to [NSHTTPCookieAcceptPolicyNever] and then use the [AllHeaderFields]
-// and [CookiesWithResponseHeaderFieldsForURL] methods to extract cookies from
-// the URL response object yourself.
+// value to [NSHTTPCookieAcceptPolicyNever] and then use the
+// [NSHTTPURLResponse.AllHeaderFields] and
+// [NSHTTPCookieClass.CookiesWithResponseHeaderFieldsForURL] methods to
+// extract cookies from the URL response object yourself.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/httpCookieAcceptPolicy
 //
@@ -701,8 +700,8 @@ func (u URLSessionConfiguration) SetHTTPCookieAcceptPolicy(value NSHTTPCookieAcc
 //
 // If you want to provide cookies yourself, set this value to false and
 // provide a [Cookie] header either through the session’s
-// [HTTPAdditionalHeaders] property or on a per-request level using a custom
-// [NSURLRequest] object.
+// [NSURLSessionConfiguration.HTTPAdditionalHeaders] property or on a
+// per-request level using a custom [NSURLRequest] object.
 //
 // The default value is true.
 //
@@ -725,11 +724,11 @@ func (u URLSessionConfiguration) SetHTTPShouldSetCookies(value bool) {
 // To disable cookie storage, set this property to `nil`.
 //
 // For default and background sessions, the default value is the
-// [SharedHTTPCookieStorage] cookie storage object.
+// [NSHTTPCookieStorageClass.SharedHTTPCookieStorage] cookie storage object.
 //
-// For [EphemeralSessionConfiguration] sessions, the default value is a
-// private cookie storage object that stores data in memory only, and is
-// destroyed when you invalidate the session.
+// For [NSURLSessionConfigurationClass.EphemeralSessionConfiguration]
+// sessions, the default value is a private cookie storage object that stores
+// data in memory only, and is destroyed when you invalidate the session.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/httpCookieStorage
 func (u URLSessionConfiguration) HTTPCookieStorage() INSHTTPCookieStorage {
@@ -774,11 +773,13 @@ func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocolVersion(value uin
 // If you don’t want to use a credential store, set this property to `nil`.
 //
 // For default and background sessions, the default value is the
-// [SharedCredentialStorage] credential store object.
+// [NSURLCredentialStorageClass.SharedCredentialStorage] credential store
+// object.
 //
-// For [EphemeralSessionConfiguration] sessions, the default value is a
-// private credential store object that stores data in memory only, and is
-// destroyed when you invalidate the session.
+// For [NSURLSessionConfigurationClass.EphemeralSessionConfiguration]
+// sessions, the default value is a private credential store object that
+// stores data in memory only, and is destroyed when you invalidate the
+// session.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/urlCredentialStorage
 func (u URLSessionConfiguration) URLCredentialStorage() INSURLCredentialStorage {
@@ -891,9 +892,10 @@ func (u URLSessionConfiguration) SetRequestCachePolicy(value NSURLRequestCachePo
 // # Discussion
 //
 // For configuration objects created using the
-// [BackgroundSessionConfigurationWithIdentifier] method, you can use this
-// property to control the launching behavior for an iOS app. This property is
-// ignored for configuration objects created using other methods.
+// [NSURLSessionConfigurationClass.BackgroundSessionConfigurationWithIdentifier]
+// method, you can use this property to control the launching behavior for an
+// iOS app. This property is ignored for configuration objects created using
+// other methods.
 //
 // The default value of this property is true. When the value of this property
 // is true, the system automatically wakes up or launches the iOS app in the
@@ -922,9 +924,10 @@ func (u URLSessionConfiguration) SetSessionSendsLaunchEvents(value bool) {
 // # Discussion
 //
 // For configuration objects created using the
-// [BackgroundSessionConfigurationWithIdentifier] method, use this property to
-// give the system control over when transfers should occur. This property is
-// ignored for configuration objects created using other methods.
+// [NSURLSessionConfigurationClass.BackgroundSessionConfigurationWithIdentifier]
+// method, use this property to give the system control over when transfers
+// should occur. This property is ignored for configuration objects created
+// using other methods.
 //
 // When transferring large amounts of data, you are encouraged to set the
 // value of this property to true. Doing so lets the system schedule those
@@ -979,20 +982,20 @@ func (u URLSessionConfiguration) SetShouldUseExtendedBackgroundIdleMode(value bo
 // Prior to handling a request, the [NSURLSession] object searches the default
 // protocols first and then checks your custom protocols until it finds one
 // capable of handling the specified request. It uses the protocol whose
-// [CanInitWithTask] class method returns true, indicating that the class is
-// capable of handling the specified request.
+// [NSURLProtocolClass.CanInitWithTask] class method returns true, indicating
+// that the class is capable of handling the specified request.
 //
 // The default value is an empty array.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/protocolClasses
-func (u URLSessionConfiguration) ProtocolClasses() []objc.Class {
+func (u URLSessionConfiguration) ProtocolClasses() []objectivec.Class {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("protocolClasses"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objc.Class {
-		return objc.Class(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.Class {
+		return objectivec.Class(id)
 	})
 }
-func (u URLSessionConfiguration) SetProtocolClasses(value []objc.Class) {
-	objc.Send[struct{}](u.ID, objc.Sel("setProtocolClasses:"), value)
+func (u URLSessionConfiguration) SetProtocolClasses(value []objectivec.Class) {
+	objc.Send[struct{}](u.ID, objc.Sel("setProtocolClasses:"), objectivec.ClassSliceToNSArray(value))
 }
 
 // The maximum number of simultaneous connections to make to a given host.
@@ -1072,10 +1075,10 @@ func (u URLSessionConfiguration) SetConnectionProxyDictionary(value INSDictionar
 //
 // Connectivity might be temporarily unavailable for several reasons. For
 // example, a device might only have a cellular connection when
-// [AllowsCellularAccess] is set to `false`, or the device might require a VPN
-// connection but none is available. If the value of this property is `true`
-// and sufficient connectivity is unavailable, the session calls the
-// [URLSessionTaskIsWaitingForConnectivity] method of
+// [NSURLSessionConfiguration.AllowsCellularAccess] is set to `false`, or the
+// device might require a VPN connection but none is available. If the value
+// of this property is `true` and sufficient connectivity is unavailable, the
+// session calls the [URLSessionTaskIsWaitingForConnectivity] method of
 // [NSURLSessionTaskDelegate] and waits for connectivity. When connectivity
 // becomes available, the task begins its work and ultimately calls the
 // delegate or completion handler as usual.
@@ -1116,17 +1119,19 @@ func (u URLSessionConfiguration) SetWaitsForConnectivity(value bool) {
 // Data Mode to reduce your app’s network data usage. This property controls
 // a URL session’s behavior when the user turns on Low Data Mode. If there
 // are no nonconstrained network interfaces available and the session’s
-// [AllowsConstrainedNetworkAccess] property is false, any task created from
-// the session fails. In this case, the error provided when the task fails has
-// a [networkUnavailableReason] property whose value is
-// [NSURLErrorNetworkUnavailableReasonConstrained].
+// [NSURLSessionConfiguration.AllowsConstrainedNetworkAccess] property is
+// false, any task created from the session fails. In this case, the error
+// provided when the task fails has a [networkUnavailableReason] property
+// whose value is [NSURLErrorNetworkUnavailableReasonConstrained].
 //
 // Limit your app’s of use of constrained network access to user-initiated
 // tasks, and put off discretionary tasks until a nonconstrained interface
-// becomes available. To do this, set [AllowsConstrainedNetworkAccess] (and
-// [AllowsExpensiveNetworkAccess]) to false and [WaitsForConnectivity] to
-// true. This way, your [NSURLSessionTask] waits for a suitable interface to
-// become available before sending or receiving data.
+// becomes available. To do this, set
+// [NSURLSessionConfiguration.AllowsConstrainedNetworkAccess] (and
+// [NSURLSessionConfiguration.AllowsExpensiveNetworkAccess]) to false and
+// [NSURLSessionConfiguration.WaitsForConnectivity] to true. This way, your
+// [NSURLSessionTask] waits for a suitable interface to become available
+// before sending or receiving data.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/allowsConstrainedNetworkAccess
 //
@@ -1148,17 +1153,19 @@ func (u URLSessionConfiguration) SetAllowsConstrainedNetworkAccess(value bool) {
 // of the network interface and other factors. iOS 13 considers most cellular
 // networks and personal hotspots expensive. If there are no nonexpensive
 // network interfaces available and the session’s
-// [AllowsExpensiveNetworkAccess] property is false, any task created from the
-// session fails. In this case, the error provided when the task fails has a
-// [networkUnavailableReason] property whose value is
-// [NSURLErrorNetworkUnavailableReasonExpensive].
+// [NSURLSessionConfiguration.AllowsExpensiveNetworkAccess] property is false,
+// any task created from the session fails. In this case, the error provided
+// when the task fails has a [networkUnavailableReason] property whose value
+// is [NSURLErrorNetworkUnavailableReasonExpensive].
 //
 // You can limit your app’s of use of expensive network access to
 // user-initiated tasks, and put off discretionary tasks until a nonexpensive
-// interface becomes available. To do this, set [AllowsExpensiveNetworkAccess]
-// (and [AllowsConstrainedNetworkAccess]) to false and [WaitsForConnectivity]
-// to true. This way, your [NSURLSessionTask] waits for a suitable interface
-// to become available before sending or receiving data.
+// interface becomes available. To do this, set
+// [NSURLSessionConfiguration.AllowsExpensiveNetworkAccess] (and
+// [NSURLSessionConfiguration.AllowsConstrainedNetworkAccess]) to false and
+// [NSURLSessionConfiguration.WaitsForConnectivity] to true. This way, your
+// [NSURLSessionTask] waits for a suitable interface to become available
+// before sending or receiving data.
 //
 // To test the behavior of this property, you can override the device’s
 // current values for cellular and Wi-Fi cost in Settings > Developer >
@@ -1182,17 +1189,6 @@ func (u URLSessionConfiguration) AllowsUltraConstrainedNetworkAccess() bool {
 }
 func (u URLSessionConfiguration) SetAllowsUltraConstrainedNetworkAccess(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAllowsUltraConstrainedNetworkAccess:"), value)
-}
-
-// A copy of the configuration object for this session.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsession/configuration
-func (u URLSessionConfiguration) Configuration() INSURLSessionConfiguration {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("configuration"))
-	return NSURLSessionConfigurationFromID(objc.ID(rv))
-}
-func (u URLSessionConfiguration) SetConfiguration(value INSURLSessionConfiguration) {
-	objc.Send[struct{}](u.ID, objc.Sel("setConfiguration:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/enablesEarlyData
@@ -1253,11 +1249,12 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) DefaultSession
 // # Discussion
 //
 // An ephemeral session configuration object is similar to a default session
-// configuration (see [DefaultSessionConfiguration]), except that the
-// corresponding session object doesn’t store caches, credential stores, or
-// any session-related data to disk. Instead, session-related data is stored
-// in RAM. The only time an ephemeral session writes data to disk is when you
-// tell it to write the contents of a URL to a file.
+// configuration (see
+// [NSURLSessionConfigurationClass.DefaultSessionConfiguration]), except that
+// the corresponding session object doesn’t store caches, credential stores,
+// or any session-related data to disk. Instead, session-related data is
+// stored in RAM. The only time an ephemeral session writes data to disk is
+// when you tell it to write the contents of a URL to a file.
 //
 // # Privacy and performance considerations
 //

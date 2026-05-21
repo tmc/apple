@@ -54,8 +54,9 @@ func (cc CKSyncEngineStateUpdateEventClass) Alloc() CKSyncEngineStateUpdateEvent
 //
 // The sync engine does not persist this state to disk, so you need to persist
 // it in alongside your own local data. The next time your process launches,
-// use this latest state serialization in [CKSyncEngineStateUpdateEvent.StateSerialization] to initialize
-// your sync engine.
+// use this latest state serialization in
+// [CKSyncEngineConfiguration.StateSerialization] to initialize your sync
+// engine.
 //
 // This state is directly tied to the changes you fetch and send with the sync
 // engine. You should persist this state alongside any changes fetched prior

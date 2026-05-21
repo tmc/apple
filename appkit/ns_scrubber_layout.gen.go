@@ -307,6 +307,8 @@ func (s NSScrubberLayout) VisibleRect() corefoundation.CGRect {
 // The base implementation returns [NSZeroSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayout/scrubberContentSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (s NSScrubberLayout) ScrubberContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("scrubberContentSize"))
 	return corefoundation.CGSize(rv)
@@ -376,7 +378,7 @@ func (s NSScrubberLayout) AutomaticallyMirrorsInRightToLeftLayout() bool {
 // you wish to use a custom layout attributes subclass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayout/layoutAttributesClass
-func (_NSScrubberLayoutClass NSScrubberLayoutClass) LayoutAttributesClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSScrubberLayoutClass.class), objc.Sel("layoutAttributesClass"))
-	return rv
+func (_NSScrubberLayoutClass NSScrubberLayoutClass) LayoutAttributesClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSScrubberLayoutClass.class), objc.Sel("layoutAttributesClass"))
+	return objectivec.Class(rv)
 }

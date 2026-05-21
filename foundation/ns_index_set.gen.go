@@ -4,8 +4,8 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,8 +65,10 @@ func (nc NSIndexSetClass) Alloc() NSIndexSet {
 // more efficient than storing a collection of individual integers. It also
 // means that each index value can only appear once in the index set.
 //
-// The designated initializers of the [NSIndexSet] class are: [NSIndexSet.InitWithIndex],
-// [NSIndexSet.InitWithIndexesInRange], and [NSIndexSet.InitWithIndexSet].
+// The designated initializers of the [NSIndexSet] class are:
+// [NSMutableIndexSet.InitWithIndex],
+// [NSMutableIndexSet.InitWithIndexesInRange], and
+// [NSMutableIndexSet.InitWithIndexSet].
 //
 // You must not subclass the [NSIndexSet] class.
 //
@@ -230,11 +232,11 @@ type INSIndexSet interface {
 	// Topic: Enumerating Index Set Content
 
 	// Enumerates over the ranges in the range of objects using the block
-	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(unsafe.Pointer, *bool))
+	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(kernel.Pointer, *bool))
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesUsingBlock(block func(unsafe.Pointer, *bool))
+	EnumerateRangesUsingBlock(block func(kernel.Pointer, *bool))
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(unsafe.Pointer, *bool))
+	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(kernel.Pointer, *bool))
 
 	// Topic: Comparing Index Sets
 
@@ -256,7 +258,7 @@ type INSIndexSet interface {
 	// Returns either the closest index in the index set that is greater than a specific index or the not-found indicator.
 	IndexGreaterThanIndex(value uint) uint
 	// The index set fills an index buffer with the indexes contained both in the index set and in an index range, returning the number of indexes copied.
-	GetIndexesMaxCountInIndexRange(indexBuffer unsafe.Pointer, bufferSize uint, range_ NSRangePointer) uint
+	GetIndexesMaxCountInIndexRange(indexBuffer *uint, bufferSize uint, range_ NSRangePointer) uint
 
 	// Topic: Enumerating Indexes
 
@@ -287,7 +289,7 @@ func NewNSIndexSet() NSIndexSet {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(coder:)
 func NewIndexSetWithCoder(coder INSCoder) NSIndexSet {
 	instance := getNSIndexSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -338,16 +340,19 @@ func NewIndexSetWithIndexSet(indexSet INSIndexSet) NSIndexSet {
 //
 // # Discussion
 //
-// This method raises an [RangeException] when `indexRange` would add an index
+// This method raises an [rangeException] when `indexRange` would add an index
 // that exceeds the maximum allowed value for unsigned integers.
 //
-// The resulting index set has a [FirstIndex] equal to the `location` of
-// `indexRange`, and a [Count] equal to the `length` of `indexRange`.
-// Specifying a zero-length range results in an empty index set.
+// The resulting index set has a [NSIndexSet.FirstIndex] equal to the
+// `location` of `indexRange`, and a [NSIndexSet.Count] equal to the `length`
+// of `indexRange`. Specifying a zero-length range results in an empty index
+// set.
 //
 // This method is a designated initializer for [NSIndexSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(indexesIn:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func NewIndexSetWithIndexesInRange(range_ NSRange) NSIndexSet {
 	instance := getNSIndexSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexesInRange:"), range_)
@@ -378,16 +383,19 @@ func (i NSIndexSet) InitWithIndex(value uint) NSIndexSet {
 //
 // # Discussion
 //
-// This method raises an [RangeException] when `indexRange` would add an index
+// This method raises an [rangeException] when `indexRange` would add an index
 // that exceeds the maximum allowed value for unsigned integers.
 //
-// The resulting index set has a [FirstIndex] equal to the `location` of
-// `indexRange`, and a [Count] equal to the `length` of `indexRange`.
-// Specifying a zero-length range results in an empty index set.
+// The resulting index set has a [NSIndexSet.FirstIndex] equal to the
+// `location` of `indexRange`, and a [NSIndexSet.Count] equal to the `length`
+// of `indexRange`. Specifying a zero-length range results in an empty index
+// set.
 //
 // This method is a designated initializer for [NSIndexSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(indexesIn:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (i NSIndexSet) InitWithIndexesInRange(range_ NSRange) NSIndexSet {
 	rv := objc.Send[NSIndexSet](i.ID, objc.Sel("initWithIndexesInRange:"), range_)
 	return rv
@@ -707,8 +715,8 @@ func (i NSIndexSet) IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnum
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(in:options:using:)
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(unsafe.Pointer, *bool)) {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(kernel.Pointer, *bool)) {
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block2.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesInRange:options:usingBlock:"), range_, opts, objc.ID(_block2))
 }
@@ -732,8 +740,8 @@ func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(_:)
-func (i NSIndexSet) EnumerateRangesUsingBlock(block func(unsafe.Pointer, *bool)) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesUsingBlock(block func(kernel.Pointer, *bool)) {
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block0.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesUsingBlock:"), objc.ID(_block0))
 }
@@ -766,8 +774,8 @@ func (i NSIndexSet) EnumerateRangesUsingBlock(block func(unsafe.Pointer, *bool))
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(options:using:)
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(unsafe.Pointer, *bool)) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(kernel.Pointer, *bool)) {
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block1.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesWithOptions:usingBlock:"), opts, objc.ID(_block1))
 }
@@ -887,7 +895,7 @@ func (i NSIndexSet) IndexGreaterThanIndex(value uint) uint {
 // range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/getIndexes(_:maxCount:inIndexRange:)
-func (i NSIndexSet) GetIndexesMaxCountInIndexRange(indexBuffer unsafe.Pointer, bufferSize uint, range_ NSRangePointer) uint {
+func (i NSIndexSet) GetIndexesMaxCountInIndexRange(indexBuffer *uint, bufferSize uint, range_ NSRangePointer) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("getIndexes:maxCount:inIndexRange:"), indexBuffer, bufferSize, range_)
 	return rv
 }
@@ -983,7 +991,7 @@ func (i NSIndexSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(coder:)
 func (i NSIndexSet) InitWithCoder(coder INSCoder) NSIndexSet {
 	rv := objc.Send[NSIndexSet](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -1025,9 +1033,10 @@ func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndex(value uint) NSIndexSet
 //
 // # Discussion
 //
-// The resulting index set has a [FirstIndex] equal to the `location` of
-// `indexRange`, and a [Count] equal to the `length` of `indexRange`.
-// Specifying a zero-length range results in an empty index set.
+// The resulting index set has a [NSIndexSet.FirstIndex] equal to the
+// `location` of `indexRange`, and a [NSIndexSet.Count] equal to the `length`
+// of `indexRange`. Specifying a zero-length range results in an empty index
+// set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexSetWithIndexesInRange:
 func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndexesInRange(range_ NSRange) NSIndexSet {

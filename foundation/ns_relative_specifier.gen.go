@@ -157,9 +157,9 @@ func NewRelativeSpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 }
 
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and
-// initializes the relative position and base specifier to `relPos` and
-// `baseSpecifier`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and initializes the relative position and base specifier to `relPos`
+// and `baseSpecifier`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/init(containerClassDescription:containerSpecifier:key:relativePosition:baseSpecifier:)
 func NewRelativeSpecifierWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, relPos NSRelativePosition, baseSpecifier INSScriptObjectSpecifier) NSRelativeSpecifier {
@@ -188,9 +188,9 @@ func NewRelativeSpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 }
 
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and
-// initializes the relative position and base specifier to `relPos` and
-// `baseSpecifier`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and initializes the relative position and base specifier to `relPos`
+// and `baseSpecifier`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/init(containerClassDescription:containerSpecifier:key:relativePosition:baseSpecifier:)
 func (r NSRelativeSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, relPos NSRelativePosition, baseSpecifier INSScriptObjectSpecifier) NSRelativeSpecifier {

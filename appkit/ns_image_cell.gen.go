@@ -49,10 +49,10 @@ func (nc NSImageCellClass) Alloc() NSImageCell {
 // # Overview
 //
 // The object value of an [NSImageCell] object must be an [NSImage] object, so
-// if you use the [NSImageCell.ObjectValue] method of [NSCell], be sure to supply an
-// [NSImage] object as an argument. Because an [NSImage] object does not need
-// to be converted for display, do not use the [NSCell] methods relating to
-// formatters.
+// if you use the [NSCell.ObjectValue] method of [NSCell], be sure to supply
+// an [NSImage] object as an argument. Because an [NSImage] object does not
+// need to be converted for display, do not use the [NSCell] methods relating
+// to formatters.
 //
 // An [NSImageCell] object is usually associated with some kind of control
 // object. For example, an [NSMatrix] or an [NSTableView].
@@ -60,8 +60,9 @@ func (nc NSImageCellClass) Alloc() NSImageCell {
 // # Designated Initializers
 //
 // When subclassing [NSImageCell] you must implement all of the designated
-// initializers. Those methods are: init, [NSImageCell.InitWithCoder], [NSImageCell.InitTextCell], and
-// [NSImageCell.InitImageCell].
+// initializers. Those methods are: init,
+// [NSTextAttachmentCell.InitWithCoder], [NSTextAttachmentCell.InitTextCell],
+// and [NSTokenFieldCell.InitImageCell].
 //
 // # Aligning and Scaling the Image
 //

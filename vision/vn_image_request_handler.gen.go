@@ -56,7 +56,8 @@ func (vc VNImageRequestHandlerClass) Alloc() VNImageRequestHandler {
 //
 // Instantiate this handler to perform Vision requests on a single image. You
 // specify the image and, optionally, a completion handler at the time of
-// creation, and call [VNImageRequestHandler.PerformRequestsError] to begin executing the request.
+// creation, and call [VNImageRequestHandler.PerformRequestsError] to begin
+// executing the request.
 //
 // # Creating a Request Handler
 //
@@ -325,7 +326,7 @@ func NewImageRequestHandlerWithCMSampleBufferOrientationOptions(sampleBuffer cor
 	return VNImageRequestHandlerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)-3mj2d
+// See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(CVPixelBuffer:depthData:orientation:options:)-3u960
 func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
@@ -550,7 +551,7 @@ func (i VNImageRequestHandler) InitWithCVPixelBufferOrientationOptions(pixelBuff
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)-3mj2d
+// See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(CVPixelBuffer:depthData:orientation:options:)-3u960
 func (i VNImageRequestHandler) InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return rv

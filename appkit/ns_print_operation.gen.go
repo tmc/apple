@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -59,7 +60,7 @@ func (nc NSPrintOperationClass) Alloc() NSPrintOperation {
 // [NSPrintOperation] object. All changes should be made to the print info
 // before passing to the methods of this class. The only method in
 // [NSPrintOperation] which does not copy the [NSPrintInfo] instance is
-// [PrintInfo].
+// [NSPrintOperation.PrintInfo].
 //
 // # Determining the Type of Operation
 //
@@ -219,7 +220,7 @@ type INSPrintOperation interface {
 	// Runs the print operation on the current thread.
 	RunOperation() bool
 	// Runs the print operation, calling your custom delegate method upon completion.
-	RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr)
+	RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Called at the end of a print operation to remove the print operation as the current operation.
 	CleanUpOperation()
 	// Delivers the results of the print operation to the intended destination.
@@ -346,9 +347,9 @@ func NewPrintOperationWithViewPrintInfo(view INSView, printInfo INSPrintInfo) NS
 //
 // The operation runs to completion in the current thread, blocking the
 // application. A separate thread is not spawned, even if
-// [CanSpawnSeparateThread] is true. Use
-// [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] to use
-// document-modal sheets and to allow a separate thread to perform the
+// [NSPrintOperation.CanSpawnSeparateThread] is true. Use
+// [NSPrintOperation.RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
+// to use document-modal sheets and to allow a separate thread to perform the
 // operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/run()
@@ -377,13 +378,14 @@ func (p NSPrintOperation) RunOperation() bool {
 // The value of `success` is true if the print operation ran to completion
 // without cancellation or error, and false otherwise.
 //
-// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
-// an argument of true, then the delegate specified in a subsequent invocation
-// of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] may be
-// messaged in that spawned, non-main thread.
+// If you send [NSPrintOperation.CanSpawnSeparateThread] to an
+// [NSPrintOperation] object with an argument of true, then the delegate
+// specified in a subsequent invocation of
+// [NSPrintOperation.RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
+// may be messaged in that spawned, non-main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/runModal(for:delegate:didRun:contextInfo:)
-func (p NSPrintOperation) RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
+func (p NSPrintOperation) RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](p.ID, objc.Sel("runOperationModalForWindow:delegate:didRunSelector:contextInfo:"), docWindow, delegate, didRunSelector, contextInfo)
 }
 
@@ -696,7 +698,7 @@ func (p NSPrintOperation) PreferredRenderingQuality() NSPrintRenderingQuality {
 // # Discussion
 //
 // This method does not affect the display of a progress panel; that operation
-// is controlled by the [ShowsProgressPanel] method.
+// is controlled by the [NSPrintOperation.ShowsProgressPanel] method.
 //
 // Operations that generate EPS or PDF data do no display a progress panel,
 // regardless of the value in the `flag` parameter.
@@ -716,7 +718,7 @@ func (p NSPrintOperation) SetShowsPrintPanel(value bool) {
 // # Discussion
 //
 // This method does not affect the display of a print panel; that operation is
-// controlled by the [ShowsPrintPanel] method.
+// controlled by the [NSPrintOperation.ShowsPrintPanel] method.
 //
 // Operations that generate EPS or PDF data do no display a progress panel,
 // regardless of the value in the `flag` parameter.
@@ -735,7 +737,7 @@ func (p NSPrintOperation) SetShowsProgressPanel(value bool) {
 // # Discussion
 //
 // Assigning a title with this method overrides the job title provided by the
-// printing view’s [PrintJobTitle] method. Specifying `nil` for the
+// printing view’s [NSView.PrintJobTitle] method. Specifying `nil` for the
 // `jobTitle` parameter causes the receiver to once again take its title from
 // the printing view.
 //
@@ -831,14 +833,15 @@ func (p NSPrintOperation) SetPageOrder(value NSPrintingPageOrder) {
 // displayed). The new thread performs the print operation, so that control
 // can return to your application. A thread is detached only if the print
 // operation is run using the
-// [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] method. If
-// `canSpawnSeparateThread` is false, the operation runs on the current
-// thread, blocking the application until the operation completes.
+// [NSPrintOperation.RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
+// method. If `canSpawnSeparateThread` is false, the operation runs on the
+// current thread, blocking the application until the operation completes.
 //
-// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
-// an argument of true, then the delegate specified in a subsequent invocation
-// of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] may be
-// messaged in that spawned, non-main thread.
+// If you send [NSPrintOperation.CanSpawnSeparateThread] to an
+// [NSPrintOperation] object with an argument of true, then the delegate
+// specified in a subsequent invocation of
+// [NSPrintOperation.RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
+// may be messaged in that spawned, non-main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/canSpawnSeparateThread
 func (p NSPrintOperation) CanSpawnSeparateThread() bool {

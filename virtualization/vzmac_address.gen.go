@@ -4,7 +4,6 @@ package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -53,10 +52,10 @@ func (vc VZMACAddressClass) Alloc() VZMACAddress {
 // interface. Every network device has a unique 48-bit MAC address that the
 // system uses to route network packets to that device.
 //
-// Call the [VZMACAddress.RandomLocallyAdministeredAddress] method to get a local MAC
-// address suitable for use with your network interfaces. Alternatively, you
-// can create a [VZMACAddress] object yourself from a string or `ether_addr_t`
-// structure.
+// Call the [VZMACAddressClass.RandomLocallyAdministeredAddress] method to get
+// a local MAC address suitable for use with your network interfaces.
+// Alternatively, you can create a [VZMACAddress] object yourself from a
+// string or `ether_addr_t` structure.
 //
 // # Creating a MAC address
 //
@@ -121,7 +120,7 @@ type IVZMACAddress interface {
 	// Creates a MAC address object from a specially formatted string.
 	InitWithString(string_ string) VZMACAddress
 	// Creates a MAC address from the specified 48-bit Ethernet address.
-	InitWithEthernetAddress(ethernetAddress unsafe.Pointer) VZMACAddress
+	InitWithEthernetAddress(ethernetAddress [6]byte) VZMACAddress
 
 	// Topic: Getting the address
 
@@ -172,7 +171,7 @@ func NewVZMACAddress() VZMACAddress {
 // A MAC address object with the specified Ethernet address.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMACAddress/init(ethernetAddress:)
-func NewMACAddressWithEthernetAddress(ethernetAddress unsafe.Pointer) VZMACAddress {
+func NewMACAddressWithEthernetAddress(ethernetAddress [6]byte) VZMACAddress {
 	instance := getVZMACAddressClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEthernetAddress:"), ethernetAddress)
 	return VZMACAddressFromID(rv)
@@ -224,7 +223,7 @@ func (m VZMACAddress) InitWithString(string_ string) VZMACAddress {
 // A MAC address object with the specified Ethernet address.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMACAddress/init(ethernetAddress:)
-func (m VZMACAddress) InitWithEthernetAddress(ethernetAddress unsafe.Pointer) VZMACAddress {
+func (m VZMACAddress) InitWithEthernetAddress(ethernetAddress [6]byte) VZMACAddress {
 	rv := objc.Send[VZMACAddress](m.ID, objc.Sel("initWithEthernetAddress:"), ethernetAddress)
 	return rv
 }

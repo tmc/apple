@@ -3,6 +3,7 @@
 package quartzcore
 
 import (
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -17,14 +18,14 @@ type CAMediaTiming interface {
 	// Specifies the begin time of the receiver in relation to its parent object, if applicable.
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-	BeginTime() float64
-	SetBeginTime(value float64)
+	BeginTime() corefoundation.CFTimeInterval
+	SetBeginTime(value corefoundation.CFTimeInterval)
 
 	// Specifies an additional time offset in active local time.
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-	TimeOffset() float64
-	SetTimeOffset(value float64)
+	TimeOffset() corefoundation.CFTimeInterval
+	SetTimeOffset(value corefoundation.CFTimeInterval)
 
 	// Determines the number of times the animation will repeat.
 	//
@@ -35,14 +36,14 @@ type CAMediaTiming interface {
 	// Determines how many seconds the animation will repeat for.
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-	RepeatDuration() float64
-	SetRepeatDuration(value float64)
+	RepeatDuration() corefoundation.CFTimeInterval
+	SetRepeatDuration(value corefoundation.CFTimeInterval)
 
 	// Specifies the basic duration of the animation, in seconds.
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-	Duration() float64
-	SetDuration(value float64)
+	Duration() corefoundation.CFTimeInterval
+	SetDuration(value corefoundation.CFTimeInterval)
 
 	// Specifies how time is mapped to receiver’s time space from the parent time space.
 	//
@@ -88,12 +89,12 @@ func CAMediaTimingObjectFromID(id objc.ID) CAMediaTimingObject {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (o CAMediaTimingObject) BeginTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("beginTime"))
-	return float64(rv)
+func (o CAMediaTimingObject) BeginTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("beginTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
-func (o CAMediaTimingObject) SetBeginTime(value float64) {
+func (o CAMediaTimingObject) SetBeginTime(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBeginTime:"), value)
 }
 
@@ -104,12 +105,12 @@ func (o CAMediaTimingObject) SetBeginTime(value float64) {
 // Defaults to 0. .
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (o CAMediaTimingObject) TimeOffset() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("timeOffset"))
-	return float64(rv)
+func (o CAMediaTimingObject) TimeOffset() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("timeOffset"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
-func (o CAMediaTimingObject) SetTimeOffset(value float64) {
+func (o CAMediaTimingObject) SetTimeOffset(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTimeOffset:"), value)
 }
 
@@ -144,12 +145,12 @@ func (o CAMediaTimingObject) SetRepeatCount(value float32) {
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (o CAMediaTimingObject) RepeatDuration() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("repeatDuration"))
-	return float64(rv)
+func (o CAMediaTimingObject) RepeatDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("repeatDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
-func (o CAMediaTimingObject) SetRepeatDuration(value float64) {
+func (o CAMediaTimingObject) SetRepeatDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRepeatDuration:"), value)
 }
 
@@ -160,12 +161,12 @@ func (o CAMediaTimingObject) SetRepeatDuration(value float64) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (o CAMediaTimingObject) Duration() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("duration"))
-	return float64(rv)
+func (o CAMediaTimingObject) Duration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("duration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
-func (o CAMediaTimingObject) SetDuration(value float64) {
+func (o CAMediaTimingObject) SetDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDuration:"), value)
 }
 

@@ -218,17 +218,18 @@ func (c AVCaptureOutput) TransformedMetadataObjectForMetadataObjectConnection(me
 //
 // # Discussion
 //
-// An [AVCaptureMetadataOutput] object expresses its [RectOfInterest] as a
-// [CGRect] where 0,0 represents the top-left of the picture area, and 1,1
-// represents the bottom-right on an unrotated picture. This convenience
-// method converts a rectangle in the coordinate space of the output to a
-// rectangle of interest in the coordinate space of a metadata output whose
-// capture device provides input to the output. The conversion takes
-// orientation, mirroring, and scaling into consideration.
+// An [AVCaptureMetadataOutput] object expresses its
+// [AVCaptureMetadataOutput.RectOfInterest] as a [CGRect] where 0,0 represents
+// the top-left of the picture area, and 1,1 represents the bottom-right on an
+// unrotated picture. This convenience method converts a rectangle in the
+// coordinate space of the output to a rectangle of interest in the coordinate
+// space of a metadata output whose capture device provides input to the
+// output. The conversion takes orientation, mirroring, and scaling into
+// consideration.
 //
-// See [TransformedMetadataObjectForMetadataObjectConnection] for a full
-// discussion of how the system applies orientation and mirroring to sample
-// buffers passing through the output.
+// See [AVCaptureOutput.TransformedMetadataObjectForMetadataObjectConnection]
+// for a full discussion of how the system applies orientation and mirroring
+// to sample buffers passing through the output.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/metadataOutputRectConverted(fromOutputRect:)
 //
@@ -282,24 +283,25 @@ func (c AVCaptureOutput) Connections() []AVCaptureConnection {
 // # Discussion
 //
 // When this value is `true`, the session doesn’t prepare the output’s
-// resources until some time after [StartRunning] returns. You can start the
-// visual parts of your user interface prior to other parts, such as photo or
-// movie capture, metadata output, and so on, to improve startup performance.
-// Set this value to `false` for outputs that your app needs for startup, and
-// `true` for the ones that it doesn’t need to start immediately. For
-// example, an [AVCaptureVideoDataOutput] that you intend to use for
-// displaying preview should set this value to `false`, so that the frames are
-// available as soon as possible.
+// resources until some time after [AVCaptureSession.StartRunning] returns.
+// You can start the visual parts of your user interface prior to other parts,
+// such as photo or movie capture, metadata output, and so on, to improve
+// startup performance. Set this value to `false` for outputs that your app
+// needs for startup, and `true` for the ones that it doesn’t need to start
+// immediately. For example, an [AVCaptureVideoDataOutput] that you intend to
+// use for displaying preview should set this value to `false`, so that the
+// frames are available as soon as possible.
 //
 // For apps that are linked on or after iOS 26, this property value is `true`
 // for [AVCapturePhotoOutput] and [AVCaptureFileOutput] subclasses if
 // supported, and `false` otherwise. When set to `true` for
 // [AVCapturePhotoOutput], if you want to support multiple capture requests
-// before running deferred start, set [ResponsiveCaptureEnabled] to `true` on
-// that output.
+// before running deferred start, set
+// [AVCapturePhotoOutput.ResponsiveCaptureEnabled] to `true` on that output.
 //
-// If [DeferredStartSupported] is `false`, setting this property value to
-// `true` results in the system throwing an invalid argument exception.
+// If [AVCaptureOutput.DeferredStartSupported] is `false`, setting this
+// property value to `true` results in the system throwing an invalid argument
+// exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/isDeferredStartEnabled
 func (c AVCaptureOutput) IsDeferredStartEnabled() bool {
@@ -314,8 +316,8 @@ func (c AVCaptureOutput) SetDeferredStartEnabled(value bool) {
 //
 // # Discussion
 //
-// You can only set the [DeferredStartEnabled] property value to `true` if the
-// output supports deferred start.
+// You can only set the [AVCaptureOutput.DeferredStartEnabled] property value
+// to `true` if the output supports deferred start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/isDeferredStartSupported
 func (c AVCaptureOutput) IsDeferredStartSupported() bool {

@@ -46,8 +46,9 @@ func (gc GCDeviceCursorClass) Alloc() GCDeviceCursor {
 // # Overview
 //
 // This controller element allows you to use the cursor as a directional pad
-// with the values of the [GCDeviceCursor.XAxis] and [GCDeviceCursor.YAxis] elements scaled to the width and
-// height of the screen, not ranging from `-1` to `1`.
+// with the values of the [GCControllerDirectionPad.XAxis] and
+// [GCControllerDirectionPad.YAxis] elements scaled to the width and height of
+// the screen, not ranging from `-1` to `1`.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDeviceCursor
 type GCDeviceCursor struct {

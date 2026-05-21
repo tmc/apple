@@ -58,11 +58,12 @@ func (cc CKShareParticipantClass) Alloc() CKShareParticipant {
 // available in the participant’s shared database. The records remain
 // accessible for as long as the participant’s status is `accepted`.
 //
-// You don’t create participants. Use the share’s [CKShareParticipant.Participants] property
-// to access its existing participants. Use [UICloudSharingController] to
-// manage the share’s participants and their permissions. Alternatively, you
-// can generate participants using [CKFetchShareParticipantsOperation].
-// Participants must have an active iCloud account.
+// You don’t create participants. Use the share’s [CKShare.Participants]
+// property to access its existing participants. Use
+// [UICloudSharingController] to manage the share’s participants and their
+// permissions. Alternatively, you can generate participants using
+// [CKFetchShareParticipantsOperation]. Participants must have an active
+// iCloud account.
 //
 // Anyone with the URL of a public share can become a participant in that
 // share. Participants of a public share assume the `publicUser` role. For
@@ -70,7 +71,7 @@ func (cc CKShareParticipantClass) Alloc() CKShareParticipant {
 // participant with the `owner` role. A participant of a private share can’t
 // accept the share unless the owner adds them first. Private share
 // participants assume the `privateUser` role. CloudKit removes any pending
-// participants if the owner changes the share’s [CKShareParticipant.PublicPermission].
+// participants if the owner changes the share’s [CKShare.PublicPermission].
 // CloudKit removes all participants if the new permission is `none`.
 //
 // Participants with write permissions can modify or delete any record that
@@ -98,8 +99,6 @@ func (cc CKShareParticipantClass) Alloc() CKShareParticipant {
 //
 //   - [CKShareParticipant.DateAddedToShare]: The date and time when the participant was added to the share.
 //   - [CKShareParticipant.IsApprovedRequester]: Indicates whether the participant was originally a requester who was approved to join the share.
-//   - [CKShareParticipant.ParticipantID]
-//   - [CKShareParticipant.SetParticipantID]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Participant
 //
@@ -139,8 +138,6 @@ func CKShareParticipantFromID(id objc.ID) CKShareParticipant {
 //
 //   - [ICKShareParticipant.DateAddedToShare]: The date and time when the participant was added to the share.
 //   - [ICKShareParticipant.IsApprovedRequester]: Indicates whether the participant was originally a requester who was approved to join the share.
-//   - [ICKShareParticipant.ParticipantID]
-//   - [ICKShareParticipant.SetParticipantID]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Participant
 type ICKShareParticipant interface {
@@ -171,15 +168,7 @@ type ICKShareParticipant interface {
 	DateAddedToShare() foundation.NSDate
 	// Indicates whether the participant was originally a requester who was approved to join the share.
 	IsApprovedRequester() bool
-	ParticipantID() string
-	SetParticipantID(value string)
 
-	// An array that contains the share’s participants.
-	Participants() ICKShareParticipant
-	SetParticipants(value ICKShareParticipant)
-	// The permission for anyone with access to the share’s URL.
-	PublicPermission() CKShareParticipantPermission
-	SetPublicPermission(value CKShareParticipantPermission)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -212,15 +201,15 @@ func (c CKShareParticipant) EncodeWithCoder(coder foundation.INSCoder) {
 // # Discussion
 //
 // When a participant’s email address / phone number / userRecordID isn’t
-// known up-front, a [OneTimeURLParticipant] can be added to the share. Once
-// the share is saved, a custom invitation link or one-time URL is available
-// for the added participant via [oneTimeURLForParticipantID:]. This custom
-// link can be used by any recipient user to fetch share metadata and accept
-// the share.
+// known up-front, a [CKShareParticipantClass.OneTimeURLParticipant] can be
+// added to the share. Once the share is saved, a custom invitation link or
+// one-time URL is available for the added participant via
+// [oneTimeURLForParticipantID:]. This custom link can be used by any
+// recipient user to fetch share metadata and accept the share.
 //
 // Note that a one-time URL participant in the
 // [CKShare.ParticipantAcceptanceStatus.pending] state has empty
-// [NameComponents] and a nil [LookupInfo].
+// [CKUserIdentity.NameComponents] and a nil [CKUserIdentity.LookupInfo].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Participant/oneTimeURLParticipant()
 //
@@ -308,35 +297,4 @@ func (c CKShareParticipant) DateAddedToShare() foundation.NSDate {
 func (c CKShareParticipant) IsApprovedRequester() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isApprovedRequester"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/participant/participantid
-func (c CKShareParticipant) ParticipantID() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("participantID"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKShareParticipant) SetParticipantID(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setParticipantID:"), objc.String(value))
-}
-
-// An array that contains the share’s participants.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/participants
-func (c CKShareParticipant) Participants() ICKShareParticipant {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("participants"))
-	return CKShareParticipantFromID(objc.ID(rv))
-}
-func (c CKShareParticipant) SetParticipants(value ICKShareParticipant) {
-	objc.Send[struct{}](c.ID, objc.Sel("setParticipants:"), value)
-}
-
-// The permission for anyone with access to the share’s URL.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/publicpermission
-func (c CKShareParticipant) PublicPermission() CKShareParticipantPermission {
-	rv := objc.Send[CKShareParticipantPermission](c.ID, objc.Sel("publicPermission"))
-	return CKShareParticipantPermission(rv)
-}
-func (c CKShareParticipant) SetPublicPermission(value CKShareParticipantPermission) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPublicPermission:"), value)
 }

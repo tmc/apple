@@ -14,19 +14,19 @@ const (
 	KCGBitmapByteOrderInfoMask   CGBitmapInfo = 0x7000
 	KCGBitmapComponentInfoMask   CGBitmapInfo = 0xf00
 	KCGBitmapPixelFormatInfoMask CGBitmapInfo = 0xf0000
-	// Deprecated.
+	// Deprecated: use CGImageByteOrderInfo.order16Big.
 	KCGBitmapByteOrder16Big CGBitmapInfo = 12288
-	// Deprecated.
+	// Deprecated: use CGImageByteOrderInfo.order16Little.
 	KCGBitmapByteOrder16Little CGBitmapInfo = 4096
-	// Deprecated.
-	KCGBitmapByteOrder32Big CGBitmapInfo = 12289
-	// Deprecated.
+	// Deprecated: use CGImageByteOrderInfo.order32Big.
+	KCGBitmapByteOrder32Big CGBitmapInfo = 16384
+	// Deprecated: use CGImageByteOrderInfo.order32Little.
 	KCGBitmapByteOrder32Little CGBitmapInfo = 8192
-	// Deprecated.
+	// Deprecated: use CGImageByteOrderInfo.orderDefault.
 	KCGBitmapByteOrderDefault CGBitmapInfo = 0
 	// Deprecated.
 	KCGBitmapByteOrderMask CGBitmapInfo = 28672
-	// Deprecated.
+	// Deprecated: use CGImageComponentInfo.float.
 	KCGBitmapFloatComponents CGBitmapInfo = 256
 	// Deprecated.
 	KCGBitmapFloatInfoMask CGBitmapInfo = 3840
@@ -1339,7 +1339,7 @@ const (
 	KCGImageByteOrder32Host   CGImageByteOrderInfo = 8192
 	KCGImageByteOrder32Little CGImageByteOrderInfo = 8192
 	KCGImageByteOrderDefault  CGImageByteOrderInfo = 0
-	// Deprecated.
+	// Deprecated: use CGBitmapInfo.__byteOrderInfoMask.
 	KCGImageByteOrderMask CGImageByteOrderInfo = 0
 )
 
@@ -1388,7 +1388,7 @@ const (
 	KCGImagePixelFormatRGB555    CGImagePixelFormatInfo = 65536
 	KCGImagePixelFormatRGB565    CGImagePixelFormatInfo = 131072
 	KCGImagePixelFormatRGBCIF10  CGImagePixelFormatInfo = 262144
-	// Deprecated.
+	// Deprecated: use CGBitmapInfo.__pixelFormatInfoMask.
 	KCGImagePixelFormatMask CGImagePixelFormatInfo = 0
 )
 

@@ -70,7 +70,7 @@ func (nc NSShadowClass) Alloc() NSShadow {
 // You can use an [NSShadow] object in one of two ways. First, you can set it,
 // like a color or a font, where [NSShadow] attributes apply to everything you
 // draw until you apply another shadow or restore a previous graphics state.
-// Second, you can use an [NSShadow] instance as the value for the [Shadow]
+// Second, you can use an [NSShadow] instance as the value for the [shadow]
 // text attribute, so the system applies the shadow to the glyphs
 // corresponding to the characters bearing this attribute.
 //
@@ -91,6 +91,7 @@ func (nc NSShadowClass) Alloc() NSShadow {
 //
 // [CGSize]: https://developer.apple.com/documentation/CoreFoundation/CGSize
 // [NSSize]: https://developer.apple.com/documentation/Foundation/NSSize
+// [shadow]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/shadow
 type NSShadow struct {
 	objectivec.Object
 }
@@ -142,8 +143,7 @@ type INSShadow interface {
 	// Sets the shadow of subsequent drawing operations to the current shadow.
 	Set()
 
-	// The shadow of the text.
-	Shadow() foundation.NSString
+	InitWithCoder(coder foundation.INSCoder) NSShadow
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -166,6 +166,13 @@ func NewNSShadow() NSShadow {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSShadow/init(coder:)
+func NewShadowWithCoder(coder foundation.INSCoder) NSShadow {
+	instance := getNSShadowClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSShadowFromID(rv)
+}
+
 // Sets the shadow of subsequent drawing operations to the current shadow.
 //
 // # Discussion
@@ -176,6 +183,12 @@ func NewNSShadow() NSShadow {
 // See: https://developer.apple.com/documentation/AppKit/NSShadow/set()
 func (s NSShadow) Set() {
 	objc.Send[objc.ID](s.ID, objc.Sel("set"))
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSShadow/init(coder:)
+func (s NSShadow) InitWithCoder(coder foundation.INSCoder) NSShadow {
+	rv := objc.Send[NSShadow](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (s NSShadow) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -234,12 +247,4 @@ func (s NSShadow) ShadowColor() INSColor {
 }
 func (s NSShadow) SetShadowColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowColor:"), value)
-}
-
-// The shadow of the text.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/shadow
-func (s NSShadow) Shadow() foundation.NSString {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shadow"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

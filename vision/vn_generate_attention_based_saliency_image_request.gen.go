@@ -44,10 +44,6 @@ func (vc VNGenerateAttentionBasedSaliencyImageRequestClass) Alloc() VNGenerateAt
 // An object that produces a heat map that identifies the parts of an image
 // most likely to draw attention.
 //
-// # Identifying Request Revisions
-//
-//   - [VNGenerateAttentionBasedSaliencyImageRequest.VNGenerateAttentionBasedSaliencyImageRequestRevision1]: A constant for specifying revision 1 of the image saliency request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateAttentionBasedSaliencyImageRequest
 type VNGenerateAttentionBasedSaliencyImageRequest struct {
 	VNImageBasedRequest
@@ -66,18 +62,9 @@ func VNGenerateAttentionBasedSaliencyImageRequestFromID(id objc.ID) VNGenerateAt
 
 // An interface definition for the [VNGenerateAttentionBasedSaliencyImageRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGenerateAttentionBasedSaliencyImageRequest.VNGenerateAttentionBasedSaliencyImageRequestRevision1]: A constant for specifying revision 1 of the image saliency request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGenerateAttentionBasedSaliencyImageRequest
 type IVNGenerateAttentionBasedSaliencyImageRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the image saliency request.
-	VNGenerateAttentionBasedSaliencyImageRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -107,19 +94,11 @@ func NewVNGenerateAttentionBasedSaliencyImageRequest() VNGenerateAttentionBasedS
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGenerateAttentionBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateAttentionBasedSaliencyImageRequest {
 	instance := getVNGenerateAttentionBasedSaliencyImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGenerateAttentionBasedSaliencyImageRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the image saliency request.
-//
-// See: https://developer.apple.com/documentation/vision/vngenerateattentionbasedsaliencyimagerequestrevision1
-func (g VNGenerateAttentionBasedSaliencyImageRequest) VNGenerateAttentionBasedSaliencyImageRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateAttentionBasedSaliencyImageRequestRevision1"))
-	return rv
 }

@@ -59,9 +59,9 @@ func (jc JSONSerializationClass) Alloc() JSONSerialization {
 // dictionary keys are instances of [NSString]. - Numbers are neither [NaN]
 // nor infinity.
 //
-// Other rules may apply. Calling [IsValidJSONObject] or attempting a
-// conversion are the definitive ways to tell if the [NSJSONSerialization]
-// class can convert given object to JSON data.
+// Other rules may apply. Calling [NSJSONSerializationClass.IsValidJSONObject]
+// or attempting a conversion are the definitive ways to tell if the
+// [NSJSONSerialization] class can convert given object to JSON data.
 //
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization
 type JSONSerialization struct {
@@ -86,10 +86,6 @@ func NSJSONSerializationFromID(id objc.ID) JSONSerialization { return JSONSerial
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization
 type IJSONSerialization interface {
 	objectivec.IObject
-
-	// Specifies that the parser should allow top-level objects that aren’t arrays or dictionaries.
-	FragmentsAllowed() NSJSONWritingOptions
-	SetNSJSONWritingFragmentsAllowed(value NSJSONWritingOptions)
 }
 
 // Init initializes the instance.
@@ -201,7 +197,7 @@ func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithStreamOption
 // exception. This exception occurs prior to parsing and represents a
 // programming error, not an internal error. Before calling this method, you
 // should check whether the input can produce valid JSON by using
-// [IsValidJSONObject].
+// [NSJSONSerializationClass.IsValidJSONObject].
 //
 // Setting the [NSJSONWritingPrettyPrinted] option generates JSON with white
 // space designed to make the output more readable. If this option isn’t
@@ -243,6 +239,7 @@ func (_JSONSerializationClass JSONSerializationClass) DataWithJSONObjectOptionsE
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/writeJSONObject(_:to:options:error:)
 //
 // [JSONSerialization.WritingOptions]: https://developer.apple.com/documentation/Foundation/JSONSerialization/WritingOptions
+// [NSPropertyListWriteInvalidError]: https://developer.apple.com/documentation/Foundation/NSPropertyListWriteInvalidError-swift.var
 func (_JSONSerializationClass JSONSerializationClass) WriteJSONObjectToStreamOptionsError(obj objectivec.IObject, stream INSOutputStream, opt NSJSONWritingOptions) (int, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int](objc.ID(_JSONSerializationClass.class), objc.Sel("writeJSONObject:toStream:options:error:"), obj, stream, opt, unsafe.Pointer(&errorPtr))
@@ -267,16 +264,4 @@ func (_JSONSerializationClass JSONSerializationClass) WriteJSONObjectToStreamOpt
 func (_JSONSerializationClass JSONSerializationClass) IsValidJSONObject(obj objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_JSONSerializationClass.class), objc.Sel("isValidJSONObject:"), obj)
 	return rv
-}
-
-// Specifies that the parser should allow top-level objects that aren’t
-// arrays or dictionaries.
-//
-// See: https://developer.apple.com/documentation/foundation/jsonserialization/writingoptions/fragmentsallowed
-func (j JSONSerialization) FragmentsAllowed() NSJSONWritingOptions {
-	rv := objc.Send[NSJSONWritingOptions](j.ID, objc.Sel("NSJSONWritingFragmentsAllowed"))
-	return NSJSONWritingOptions(rv)
-}
-func (j JSONSerialization) SetNSJSONWritingFragmentsAllowed(value NSJSONWritingOptions) {
-	objc.Send[struct{}](j.ID, objc.Sel("setNSJSONWritingFragmentsAllowed:"), value)
 }

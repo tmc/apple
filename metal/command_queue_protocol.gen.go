@@ -89,9 +89,10 @@ func MTLCommandQueueObjectFromID(id objc.ID) MTLCommandQueueObject {
 // Use this method to create a command buffer that you configure with a
 // descriptor. You can configure whether the command buffer retains references
 // to resources that its commands refer to by setting the `descriptor`
-// parameter’s [RetainedReferences] property. You can also configure whether
-// the command buffer saves extra error information, which is useful during
-// development, by setting the descriptor’s [ErrorOptions] property.
+// parameter’s [MTLCommandBufferDescriptor.RetainedReferences] property. You
+// can also configure whether the command buffer saves extra error
+// information, which is useful during development, by setting the
+// descriptor’s [MTLCommandBufferDescriptor.ErrorOptions] property.
 //
 // Each command queue has a fixed number of command buffers for its lifetime
 // (see [NewCommandQueueWithMaxCommandBufferCount]). This method blocks the

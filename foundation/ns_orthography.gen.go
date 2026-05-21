@@ -67,9 +67,11 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 //
 // # Subclassing Notes
 //
-// Subclasses must override the [NSOrthography.DominantScript] and [NSOrthography.LanguageMap] properties.
-// These properties are set using [NSOrthography.InitWithDominantScriptLanguageMap] or
-// [NSOrthography.OrthographyWithDominantScriptLanguageMap] in Objective-C.
+// Subclasses must override the [NSOrthography.DominantScript] and
+// [NSOrthography.LanguageMap] properties. These properties are set using
+// [NSOrthography.InitWithDominantScriptLanguageMap] or
+// [NSOrthographyClass.OrthographyWithDominantScriptLanguageMap] in
+// Objective-C.
 //
 // # Creating Orthography Objects
 //
@@ -189,10 +191,10 @@ func NewOrthographyWithCoder(coder INSCoder) NSOrthography {
 //
 // # Discussion
 //
-// You typically use the [DefaultOrthographyForLanguage] method to create
-// orthography objects with automatic language mapping. Use this initializer
-// only if you need to override the script associated with one or more
-// languages.
+// You typically use the [NSOrthographyClass.DefaultOrthographyForLanguage]
+// method to create orthography objects with automatic language mapping. Use
+// this initializer only if you need to override the script associated with
+// one or more languages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(dominantScript:languageMap:)
 func NewOrthographyWithDominantScriptLanguageMap(script string, map_ INSDictionary) NSOrthography {
@@ -216,10 +218,10 @@ func NewOrthographyWithDominantScriptLanguageMap(script string, map_ INSDictiona
 //
 // # Discussion
 //
-// You typically use the [DefaultOrthographyForLanguage] method to create
-// orthography objects with automatic language mapping. Use this initializer
-// only if you need to override the script associated with one or more
-// languages.
+// You typically use the [NSOrthographyClass.DefaultOrthographyForLanguage]
+// method to create orthography objects with automatic language mapping. Use
+// this initializer only if you need to override the script associated with
+// one or more languages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(dominantScript:languageMap:)
 func (o NSOrthography) InitWithDominantScriptLanguageMap(script string, map_ INSDictionary) NSOrthography {
@@ -306,10 +308,10 @@ func (_NSOrthographyClass NSOrthographyClass) DefaultOrthographyForLanguage(lang
 //
 // # Discussion
 //
-// You typically use the [DefaultOrthographyForLanguage] method to create
-// orthography objects with automatic language mapping. Use this initializer
-// only if you need to override the script associated with one or more
-// languages.
+// You typically use the [NSOrthographyClass.DefaultOrthographyForLanguage]
+// method to create orthography objects with automatic language mapping. Use
+// this initializer only if you need to override the script associated with
+// one or more languages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/orthographyWithDominantScript:languageMap:
 func (_NSOrthographyClass NSOrthographyClass) OrthographyWithDominantScriptLanguageMap(script string, map_ INSDictionary) NSOrthography {

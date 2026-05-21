@@ -59,9 +59,10 @@ func AVCaptureFileOutputRecordingDelegateObjectFromID(id objc.ID) AVCaptureFileO
 //
 // This method is called when the file output has finished writing all data to
 // a file whose recording was stopped, either because
-// [StartRecordingToOutputFileURLRecordingDelegate] or [StopRecording] were
-// called, or because an error (described by the error parameter) occurred (if
-// no error occurred, the error parameter is `nil`).
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] or
+// [AVCaptureFileOutput.StopRecording] were called, or because an error
+// (described by the error parameter) occurred (if no error occurred, the
+// error parameter is `nil`).
 //
 // This method is always called for each recording request, even if no data is
 // successfully written to the file.
@@ -148,10 +149,11 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordi
 // # Discussion
 //
 // This method is called when the file output will stop recording new samples
-// to the file at [OutputFileURL], either because
-// [StartRecordingToOutputFileURLRecordingDelegate] or [StopRecording] was
-// called, or because an error (described by the error parameter) occurred (if
-// no error occurred, the error parameter is `nil`).
+// to the file at [AVCaptureFileOutput.OutputFileURL], either because
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] or
+// [AVCaptureFileOutput.StopRecording] was called, or because an error
+// (described by the error parameter) occurred (if no error occurred, the
+// error parameter is `nil`).
 //
 // This method is always called for each recording request, even if no data is
 // successfully written to the file.
@@ -211,8 +213,8 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidPauseRecordi
 // It is safe for delegates to change what the file output is currently doing
 // (starting a new file, for example) from within this method. If recording to
 // a file is stopped, either manually or due to an error, this method is not
-// guaranteed to be called, even if a previous call to [ResumeRecording] was
-// made.
+// guaranteed to be called, even if a previous call to
+// [AVCaptureFileOutput.ResumeRecording] was made.
 //
 // You should not assume that this method will be called on a specific thread,
 // and should make this method as efficient as possible.

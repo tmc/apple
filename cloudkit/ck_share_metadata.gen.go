@@ -54,8 +54,8 @@ func (cc CKShareMetadataClass) Alloc() CKShareMetadata {
 // the share.
 //
 // You don’t create metadata. CloudKit provides it to your app when the user
-// taps or clicks a share’s [URL], such as in an email or a message. The
-// method CloudKit calls varies by platform and app configuration, and
+// taps or clicks a share’s [CKShare.URL], such as in an email or a message.
+// The method CloudKit calls varies by platform and app configuration, and
 // includes the following:
 //
 // - For a scene-based iOS app in a running or suspended state, CloudKit calls
@@ -64,7 +64,7 @@ func (cc CKShareMetadataClass) Alloc() CKShareMetadata {
 // system launches your app in response to the tap or click, and calls the
 // [scene(_:willConnectTo:options:)] method on your scene delegate. The
 // `connectionOptions` parameter contains the metadata. Use its
-// [CKShareMetadata.CloudKitShareMetadata] property to access it. - For an iOS app that
+// [cloudKitShareMetadata] property to access it. - For an iOS app that
 // doesn’t use scenes, CloudKit calls your app delegate’s
 // [application(_:userDidAcceptCloudKitShareWith:)] method. - For a macOS app,
 // CloudKit calls your app delegate’s
@@ -72,21 +72,23 @@ func (cc CKShareMetadataClass) Alloc() CKShareMetadata {
 // app, CloudKit calls the [userDidAcceptCloudKitShare(with:)] method on your
 // watch extension delegate.
 //
-// Respond by checking the [CKShareMetadata.ParticipantStatus] of the provided metadata. If
-// the status is `pending`, use [CKAcceptSharesOperation] to accept
-// participation in the share. You can also fetch metadata independent of this
-// flow using [CKFetchShareMetadataOperation].
+// Respond by checking the [CKShareMetadata.ParticipantStatus] of the provided
+// metadata. If the status is `pending`, use [CKAcceptSharesOperation] to
+// accept participation in the share. You can also fetch metadata independent
+// of this flow using [CKFetchShareMetadataOperation].
 //
-// For a shared record hierarchy, the [CKShareMetadata.HierarchicalRootRecordID] property
-// contains the ID of the share’s root record. When using
-// [CKFetchShareMetadataOperation] to fetch metadata, you can include the
-// entire root record by setting the operation’s [CKShareMetadata.ShouldFetchRootRecord]
-// property to true. CloudKit then populates the [CKShareMetadata.RootRecord] property before
-// it returns the metadata. You can further customize this behavior using the
-// operation’s [CKShareMetadata.RootRecordDesiredKeys] property to specify which fields to
-// return. This functionality isn’t applicable for a shared record zone
-// because, unlike a shared record hierarchy, it doesn’t have a nominated
-// root record.
+// For a shared record hierarchy, the
+// [CKShareMetadata.HierarchicalRootRecordID] property contains the ID of the
+// share’s root record. When using [CKFetchShareMetadataOperation] to fetch
+// metadata, you can include the entire root record by setting the
+// operation’s [CKFetchShareMetadataOperation.ShouldFetchRootRecord]
+// property to true. CloudKit then populates the [CKShareMetadata.RootRecord]
+// property before it returns the metadata. You can further customize this
+// behavior using the operation’s
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] property to specify
+// which fields to return. This functionality isn’t applicable for a shared
+// record zone because, unlike a shared record hierarchy, it doesn’t have a
+// nominated root record.
 //
 // The participant properties provide the current user’s acceptance status,
 // permissions, and role. Use these values to determine what functionality to
@@ -114,6 +116,7 @@ func (cc CKShareMetadataClass) Alloc() CKShareMetadata {
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata
 //
 // [application(_:userDidAcceptCloudKitShareWith:)]: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:userDidAcceptCloudKitShareWith:)
+// [cloudKitShareMetadata]: https://developer.apple.com/documentation/UIKit/UIScene/ConnectionOptions/cloudKitShareMetadata
 // [scene(_:willConnectTo:options:)]: https://developer.apple.com/documentation/UIKit/UISceneDelegate/scene(_:willConnectTo:options:)
 // [userDidAcceptCloudKitShare(with:)]: https://developer.apple.com/documentation/WatchKit/WKExtensionDelegate/userDidAcceptCloudKitShare(with:)
 // [windowScene(_:userDidAcceptCloudKitShareWith:)]: https://developer.apple.com/documentation/UIKit/UIWindowSceneDelegate/windowScene(_:userDidAcceptCloudKitShareWith:)
@@ -182,18 +185,6 @@ type ICKShareMetadata interface {
 	// The share’s participation type for the user who retrieves the metadata.
 	ParticipantType() unsafe.Pointer
 
-	// Information about the CloudKit data that’s now available to the app.
-	CloudKitShareMetadata() ICKShareMetadata
-	SetCloudKitShareMetadata(value ICKShareMetadata)
-	// The fields to return when fetching the root record.
-	RootRecordDesiredKeys() string
-	SetRootRecordDesiredKeys(value string)
-	// A Boolean value that indicates whether to retrieve the root record.
-	ShouldFetchRootRecord() bool
-	SetShouldFetchRootRecord(value bool)
-	// The Uniform Resource Locator (URL) for inviting participants to the share.
-	Url() foundation.NSURL
-	SetURL(value foundation.NSURL)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -264,14 +255,16 @@ func (c CKShareMetadata) HierarchicalRootRecordID() ICKRecordID {
 // # Discussion
 //
 // This property contains the root record of the shared record hierarchy if
-// you set the [ShouldFetchRootRecord] property of the operation that fetches
-// the metadata to true. You can specify which fields CloudKit returns by
-// setting the same operation’s [RootRecordDesiredKeys] property.
+// you set the [CKFetchShareMetadataOperation.ShouldFetchRootRecord] property
+// of the operation that fetches the metadata to true. You can specify which
+// fields CloudKit returns by setting the same operation’s
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] property.
 //
-// The operation ignores the [ShouldFetchRootRecord] and
-// [RootRecordDesiredKeys] properties when fetching a shared record zone’s
-// metadata because, unlike a shared record hierarchy, a record zone doesn’t
-// have a nominated root record.
+// The operation ignores the
+// [CKFetchShareMetadataOperation.ShouldFetchRootRecord] and
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] properties when
+// fetching a shared record zone’s metadata because, unlike a shared record
+// hierarchy, a record zone doesn’t have a nominated root record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/rootRecord
 func (c CKShareMetadata) RootRecord() ICKRecord {
@@ -309,48 +302,4 @@ func (c CKShareMetadata) ParticipantStatus() CKShareParticipantAcceptanceStatus 
 func (c CKShareMetadata) ParticipantType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("participantType"))
 	return rv
-}
-
-// Information about the CloudKit data that’s now available to the app.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIScene/ConnectionOptions/cloudKitShareMetadata
-func (c CKShareMetadata) CloudKitShareMetadata() ICKShareMetadata {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("cloudKitShareMetadata"))
-	return CKShareMetadataFromID(objc.ID(rv))
-}
-func (c CKShareMetadata) SetCloudKitShareMetadata(value ICKShareMetadata) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCloudKitShareMetadata:"), value)
-}
-
-// The fields to return when fetching the root record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/rootrecorddesiredkeys-3xrex
-func (c CKShareMetadata) RootRecordDesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("rootRecordDesiredKeys"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKShareMetadata) SetRootRecordDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), objc.String(value))
-}
-
-// A Boolean value that indicates whether to retrieve the root record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/shouldfetchrootrecord
-func (c CKShareMetadata) ShouldFetchRootRecord() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("shouldFetchRootRecord"))
-	return rv
-}
-func (c CKShareMetadata) SetShouldFetchRootRecord(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setShouldFetchRootRecord:"), value)
-}
-
-// The Uniform Resource Locator (URL) for inviting participants to the share.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckshare/url
-func (c CKShareMetadata) Url() foundation.NSURL {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
-}
-func (c CKShareMetadata) SetURL(value foundation.NSURL) {
-	objc.Send[struct{}](c.ID, objc.Sel("setURL:"), value)
 }

@@ -293,7 +293,7 @@ func (t NSToolbarItemGroup) SetSubitems(value []NSToolbarItem) {
 // index of the most recently selected subitem.
 //
 // To determine if a specific subitem of a grouped toolbar item is selected,
-// use the [IsSelectedAtIndex] method.
+// use the [NSToolbarItemGroup.IsSelectedAtIndex] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/selectedIndex
 func (t NSToolbarItemGroup) SelectedIndex() int {

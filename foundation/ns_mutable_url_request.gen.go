@@ -59,9 +59,9 @@ func (nc NSMutableURLRequestClass) Alloc() NSMutableURLRequest {
 // Classes that create a network operation based on a request make a deep copy
 // of that request. Thus, changing the request after creating a network
 // operation has no effect on the ongoing operation. For example, if you use
-// [DataTaskWithRequestCompletionHandler] to create a data task from a
-// request, and then later change the request, the data task continues using
-// the original request.
+// [NSURLSession.DataTaskWithRequestCompletionHandler] to create a data task
+// from a request, and then later change the request, the data task continues
+// using the original request.
 //
 // # Accessing header fields
 //

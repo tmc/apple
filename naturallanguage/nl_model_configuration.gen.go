@@ -87,9 +87,7 @@ type INLModelConfiguration interface {
 	// The natural language model type of the model.
 	Type() NLModelType
 
-	// A configuration describing the natural language model.
-	Configuration() INLModelConfiguration
-	SetConfiguration(value INLModelConfiguration)
+	InitWithCoder(coder foundation.INSCoder) NLModelConfiguration
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -112,6 +110,18 @@ func NewNLModelConfiguration() NLModelConfiguration {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/init(coder:)
+func NewModelConfigurationWithCoder(coder foundation.INSCoder) NLModelConfiguration {
+	instance := getNLModelConfigurationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NLModelConfigurationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/init(coder:)
+func (m NLModelConfiguration) InitWithCoder(coder foundation.INSCoder) NLModelConfiguration {
+	rv := objc.Send[NLModelConfiguration](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m NLModelConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -162,15 +172,4 @@ func (m NLModelConfiguration) Revision() uint {
 func (m NLModelConfiguration) Type() NLModelType {
 	rv := objc.Send[NLModelType](m.ID, objc.Sel("type"))
 	return NLModelType(rv)
-}
-
-// A configuration describing the natural language model.
-//
-// See: https://developer.apple.com/documentation/naturallanguage/nlmodel/configuration
-func (m NLModelConfiguration) Configuration() INLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
-	return NLModelConfigurationFromID(objc.ID(rv))
-}
-func (m NLModelConfiguration) SetConfiguration(value INLModelConfiguration) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }

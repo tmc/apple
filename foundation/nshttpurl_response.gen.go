@@ -285,7 +285,7 @@ func (_HTTPURLResponseClass HTTPURLResponseClass) LocalizedStringForStatusCode(s
 //
 // When using Swift, this property is a standard dictionary, so its keys are
 // case-sensitive. To perform a case-insensitive header lookup, use the
-// [ValueForHTTPHeaderField] method instead.
+// [NSHTTPURLResponse.ValueForHTTPHeaderField] method instead.
 //
 // In Objective-C, the returned dictionary of headers is case-preserving
 // during the set operation (unless the key already exists with a different

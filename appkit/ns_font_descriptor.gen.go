@@ -51,17 +51,20 @@ func (nc NSFontDescriptorClass) Alloc() NSFontDescriptor {
 // system provides a font matching capability, so that you can partially
 // describe a font by creating a font descriptor with, for example, just a
 // family name. You can then find all the available fonts on the system with a
-// matching family name using [NSFontDescriptor.MatchingFontDescriptorsWithMandatoryKeys].
+// matching family name using
+// [NSFontDescriptor.MatchingFontDescriptorsWithMandatoryKeys].
 //
 // There are several ways to create a new [NSFontDescriptor] object. You can
 // use `alloc` and [NSFontDescriptor.InitWithFontAttributes],
-// [NSFontDescriptor.FontDescriptorWithFontAttributes], [NSFontDescriptor.FontDescriptorWithNameMatrix], or
-// [NSFontDescriptor.FontDescriptorWithNameSize]. to create a font descriptor based on either
-// your custom attributes dictionary or on a specific font’s name and size.
-// Alternatively you can use one of the `fontDescriptor…` instance methods
-// (such as [NSFontDescriptor.FontDescriptorWithFace]) to create a modified version of an
-// existing descriptor. The latter methods are useful if you have an existing
-// descriptor and simply want to change one aspect.
+// [NSFontDescriptorClass.FontDescriptorWithFontAttributes],
+// [NSFontDescriptorClass.FontDescriptorWithNameMatrix], or
+// [NSFontDescriptorClass.FontDescriptorWithNameSize]. to create a font
+// descriptor based on either your custom attributes dictionary or on a
+// specific font’s name and size. Alternatively you can use one of the
+// `fontDescriptor…` instance methods (such as
+// [NSFontDescriptor.FontDescriptorWithFace]) to create a modified version of
+// an existing descriptor. The latter methods are useful if you have an
+// existing descriptor and simply want to change one aspect.
 //
 // All attributes in the attributes dictionary are optional.
 //
@@ -91,8 +94,6 @@ func (nc NSFontDescriptorClass) Alloc() NSFontDescriptor {
 //   - [NSFontDescriptor.Matrix]: The current transform matrix of the receiver.
 //   - [NSFontDescriptor.PointSize]: The point size of the receiver.
 //   - [NSFontDescriptor.PostscriptName]: The PostScript name of the receiver.
-//   - [NSFontDescriptor.NSFontFamilyClassMask]: Constant you use to access
-//   - [NSFontDescriptor.SetNSFontFamilyClassMask]
 //
 // # Getting the Font Traits
 //
@@ -145,8 +146,6 @@ func NSFontDescriptorFromID(id objc.ID) NSFontDescriptor {
 //   - [INSFontDescriptor.Matrix]: The current transform matrix of the receiver.
 //   - [INSFontDescriptor.PointSize]: The point size of the receiver.
 //   - [INSFontDescriptor.PostscriptName]: The PostScript name of the receiver.
-//   - [INSFontDescriptor.NSFontFamilyClassMask]: Constant you use to access
-//   - [INSFontDescriptor.SetNSFontFamilyClassMask]
 //
 // # Getting the Font Traits
 //
@@ -201,9 +200,6 @@ type INSFontDescriptor interface {
 	PointSize() float64
 	// The PostScript name of the receiver.
 	PostscriptName() string
-	// Constant you use to access
-	NSFontFamilyClassMask() uint32
-	SetNSFontFamilyClassMask(value uint32)
 
 	// Topic: Getting the Font Traits
 
@@ -214,6 +210,7 @@ type INSFontDescriptor interface {
 
 	RequiresFontAssetRequest() bool
 
+	InitWithCoder(coder foundation.INSCoder) NSFontDescriptor
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -234,6 +231,13 @@ func NewNSFontDescriptor() NSFontDescriptor {
 	class := getNSFontDescriptorClass()
 	rv := objc.Send[NSFontDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/init(coder:)
+func NewFontDescriptorWithCoder(coder foundation.INSCoder) NSFontDescriptor {
+	instance := getNSFontDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSFontDescriptorFromID(rv)
 }
 
 // Initializes and returns a new font descriptor with the specified
@@ -457,7 +461,7 @@ func (f NSFontDescriptor) MatchingFontDescriptorsWithMandatoryKeys(mandatoryKeys
 // [NSFontFaceAttribute]] attributes, the list of font descriptors is filtered
 // by the other mandatory keys, if any, and the top result that is returned is
 // the same as the first element returned from
-// [MatchingFontDescriptorsWithMandatoryKeys].
+// [NSFontDescriptor.MatchingFontDescriptorsWithMandatoryKeys].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/matchingFontDescriptor(withMandatoryKeys:)
 func (f NSFontDescriptor) MatchingFontDescriptorWithMandatoryKeys(mandatoryKeys foundation.INSSet) INSFontDescriptor {
@@ -478,6 +482,12 @@ func (f NSFontDescriptor) MatchingFontDescriptorWithMandatoryKeys(mandatoryKeys 
 func (f NSFontDescriptor) ObjectForKey(attribute NSFontDescriptorAttributeName) objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("objectForKey:"), objc.String(string(attribute)))
 	return objectivec.Object{ID: rv}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/init(coder:)
+func (f NSFontDescriptor) InitWithCoder(coder foundation.INSCoder) NSFontDescriptor {
+	rv := objc.Send[NSFontDescriptor](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (f NSFontDescriptor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -552,17 +562,6 @@ func (f NSFontDescriptor) PointSize() float64 {
 func (f NSFontDescriptor) PostscriptName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("postscriptName"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// Constant you use to access
-//
-// See: https://developer.apple.com/documentation/appkit/nsfontfamilyclassmask
-func (f NSFontDescriptor) NSFontFamilyClassMask() uint32 {
-	rv := objc.Send[uint32](f.ID, objc.Sel("NSFontFamilyClassMask"))
-	return rv
-}
-func (f NSFontDescriptor) SetNSFontFamilyClassMask(value uint32) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNSFontFamilyClassMask:"), value)
 }
 
 // A bit mask that describes the traits of the receiver.

@@ -102,7 +102,7 @@ type IAVMutableComposition interface {
 	// Returns a composition track into which you can insert any time range of the specified asset track.
 	MutableTrackCompatibleWithTrack(track IAVAssetTrack) IAVMutableCompositionTrack
 	// Adds an empty track to a composition.
-	AddMutableTrackWithMediaTypePreferredTrackID(mediaType AVMediaType, preferredTrackID int32) IAVMutableCompositionTrack
+	AddMutableTrackWithMediaTypePreferredTrackID(mediaType AVMediaType, preferredTrackID coremedia.CMPersistentTrackID) IAVMutableCompositionTrack
 	// Removes a specified track from the composition.
 	RemoveTrack(track IAVCompositionTrack)
 
@@ -116,7 +116,7 @@ type IAVMutableComposition interface {
 	InsertEmptyTimeRange(timeRange coremedia.CMTimeRange)
 
 	// Adds a group of empty tracks associated with a cinematic asset to a mutable composition.
-	AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID int32) unsafe.Pointer
+	AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID coremedia.CMPersistentTrackID) unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -179,7 +179,7 @@ func NewMutableCompositionWithURLAssetInitializationOptions(URLAssetInitializati
 //
 // If there’s no compatible track available, you can create a new track of
 // the same media type as `track` using
-// [AddMutableTrackWithMediaTypePreferredTrackID].
+// [AVMutableComposition.AddMutableTrackWithMediaTypePreferredTrackID].
 //
 // This method is the counterpart to [compatibleTrack(for:)] on [AVAsset].
 //
@@ -207,7 +207,7 @@ func (m AVMutableComposition) MutableTrackCompatibleWithTrack(track IAVAssetTrac
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/addMutableTrack(withMediaType:preferredTrackID:)
 //
 // [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
-func (m AVMutableComposition) AddMutableTrackWithMediaTypePreferredTrackID(mediaType AVMediaType, preferredTrackID int32) IAVMutableCompositionTrack {
+func (m AVMutableComposition) AddMutableTrackWithMediaTypePreferredTrackID(mediaType AVMediaType, preferredTrackID coremedia.CMPersistentTrackID) IAVMutableCompositionTrack {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addMutableTrackWithMediaType:preferredTrackID:"), objc.String(string(mediaType)), preferredTrackID)
 	return AVMutableCompositionTrackFromID(rv)
 }
@@ -278,8 +278,6 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRan
 // Adds a group of empty tracks associated with a cinematic asset to a mutable
 // composition.
 //
-// assetInfo is a [*cinematic.CNAssetInfo].
-//
 // # Return Value
 //
 // Information about the composition tracks added to the mutable composition.
@@ -287,7 +285,7 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRan
 // range of cinematic asset you’d like in the composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/addTracksForCinematicAssetInfo:preferredStartingTrackID:
-func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID int32) unsafe.Pointer {
+func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID coremedia.CMPersistentTrackID) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTracksForCinematicAssetInfo:preferredStartingTrackID:"), assetInfo, preferredStartingTrackID)
 	return rv
 }

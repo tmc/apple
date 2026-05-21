@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [GCRacingWheelInput] class.
@@ -92,9 +93,9 @@ type IGCRacingWheelInput interface {
 	NextInputState() IGCRacingWheelInputState
 
 	// A block that the profile calls when an element’s value changes.
-	ElementValueDidChangeHandler() func(objc.ID)
+	ElementValueDidChangeHandler() func(objectivec.IObject)
 	// The block that the profile calls when Game Controller adds an input state to the queue.
-	InputStateAvailableHandler() func(objc.ID)
+	InputStateAvailableHandler() func(objectivec.IObject)
 	// The maximum number of input values that the queue stores.
 	InputStateQueueDepth() int
 	// The dispatch queue that the system uses for callbacks.
@@ -157,7 +158,7 @@ func (g GCRacingWheelInput) NextInputState() IGCRacingWheelInputState {
 // A block that the profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-func (g GCRacingWheelInput) ElementValueDidChangeHandler() func(objc.ID) {
+func (g GCRacingWheelInput) ElementValueDidChangeHandler() func(objectivec.IObject) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementValueDidChangeHandler"))
 	_ = rv
 	return nil
@@ -167,7 +168,7 @@ func (g GCRacingWheelInput) ElementValueDidChangeHandler() func(objc.ID) {
 // to the queue.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-func (g GCRacingWheelInput) InputStateAvailableHandler() func(objc.ID) {
+func (g GCRacingWheelInput) InputStateAvailableHandler() func(objectivec.IObject) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputStateAvailableHandler"))
 	_ = rv
 	return nil

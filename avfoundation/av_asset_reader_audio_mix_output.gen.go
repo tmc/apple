@@ -164,6 +164,7 @@ func NewAVAssetReaderAudioMixOutput() AVAssetReaderAudioMixOutput {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/init(audioTracks:audioSettings:)
 //
 // [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [AVSampleRateConverterAudioQualityKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
 // [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func NewAssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {
@@ -189,6 +190,7 @@ func NewAssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAs
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/init(audioTracks:audioSettings:)
 //
 // [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [AVSampleRateConverterAudioQualityKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
 // [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func (a AVAssetReaderAudioMixOutput) InitWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {
@@ -217,6 +219,7 @@ func (a AVAssetReaderAudioMixOutput) InitWithAudioTracksAudioSettings(audioTrack
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/assetReaderAudioMixOutputWithAudioTracks:audioSettings:
 //
 // [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [AVSampleRateConverterAudioQualityKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
 // [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func (_AVAssetReaderAudioMixOutputClass AVAssetReaderAudioMixOutputClass) AssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {

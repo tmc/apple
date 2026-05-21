@@ -134,7 +134,7 @@ func NewNSExtensionItem() NSExtensionItem {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSExtensionItem/init(coder:)
 func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 	instance := getNSExtensionItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -150,7 +150,7 @@ func (e NSExtensionItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSExtensionItem/init(coder:)
 func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
 	rv := objc.Send[NSExtensionItem](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

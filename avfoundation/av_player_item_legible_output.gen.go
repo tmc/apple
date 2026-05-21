@@ -121,8 +121,8 @@ type IAVPlayerItemLegibleOutput interface {
 	// Sets the receiver’s delegate and a dispatch queue on which the delegate is called.
 	SetDelegateQueue(delegate AVPlayerItemLegibleOutputPushDelegate, delegateQueue dispatch.Queue)
 	// The time interval, in seconds, that a player item legible output object messages its delegate earlier than normal.
-	AdvanceIntervalForDelegateInvocation() float64
-	SetAdvanceIntervalForDelegateInvocation(value float64)
+	AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval
+	SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval)
 	// The dispatch queue on which the delegate is called.
 	DelegateQueue() dispatch.Queue
 }
@@ -245,7 +245,7 @@ func (p AVPlayerItemLegibleOutput) SetDelegateQueue(delegate AVPlayerItemLegible
 // # Discussion
 //
 // Valid values are described in `Text Style Settings`. An exception
-// ([InvalidArgumentException]) is raised if this property is set to any other
+// ([invalidArgumentException]) is raised if this property is set to any other
 // value.
 //
 // The default value is [default], which indicates that attributed strings
@@ -255,6 +255,7 @@ func (p AVPlayerItemLegibleOutput) SetDelegateQueue(delegate AVPlayerItemLegible
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/textStylingResolution-swift.property
 //
 // [default]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/TextStylingResolution-swift.struct/default
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (p AVPlayerItemLegibleOutput) TextStylingResolution() AVPlayerItemLegibleOutputTextStylingResolution {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("textStylingResolution"))
 	return AVPlayerItemLegibleOutputTextStylingResolution(foundation.NSStringFromID(rv).String())
@@ -292,11 +293,11 @@ func (p AVPlayerItemLegibleOutput) Delegate() AVPlayerItemLegibleOutputPushDeleg
 // possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/advanceIntervalForDelegateInvocation
-func (p AVPlayerItemLegibleOutput) AdvanceIntervalForDelegateInvocation() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
-	return rv
+func (p AVPlayerItemLegibleOutput) AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
+	return foundation.NSTimeInterval(rv)
 }
-func (p AVPlayerItemLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
+func (p AVPlayerItemLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
 

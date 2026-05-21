@@ -6,27 +6,27 @@
 //
 // # Views
 //
-//   - PDFView: An object that encapsulates the functionality of PDF Kit into a single widget that you can add to your application using Interface Builder. ([PDFViewDelegate])
-//   - PDFThumbnailView: An object that contains a set of thumbnails, each of which represents a page in a PDF document.
+//   - [PDFView]: An object that encapsulates the functionality of PDF Kit into a single widget that you can add to your application using Interface Builder. ([PDFViewDelegate])
+//   - [PDFThumbnailView]: An object that contains a set of thumbnails, each of which represents a page in a PDF document.
 //
 // # Content Model
 //
-//   - PDFDocument: An object that represents PDF data or a PDF file and defines methods for writing, searching, and selecting PDF data. ([PDFDocumentDelegate], [PDFDocumentPermissions], [PDFDocumentAttribute], [PDFDocumentWriteOption])
-//   - PDFPage: , a subclass of , defines methods used to render PDF pages and work with annotations, text, and selections. ([PDFDisplayBox], [PDFDisplayDirection])
-//   - PDFOutline: A  object is an element in a tree-structured hierarchy that can represent the structure of a PDF document.
-//   - PDFSelection: A  object identifies a contiguous or noncontiguous selection of text in a PDF document.
+//   - [PDFDocument]: An object that represents PDF data or a PDF file and defines methods for writing, searching, and selecting PDF data. ([PDFDocumentDelegate], [PDFDocumentPermissions], [PDFDocumentAttribute], [PDFDocumentWriteOption])
+//   - [PDFPage]: , a subclass of , defines methods used to render PDF pages and work with annotations, text, and selections. ([PDFDisplayBox], [PDFDisplayDirection])
+//   - [PDFOutline]: A object is an element in a tree-structured hierarchy that can represent the structure of a PDF document.
+//   - [PDFSelection]: A object identifies a contiguous or noncontiguous selection of text in a PDF document.
 //
 // # Annotations
 //
-//   - Adding Widgets to a PDF Document: Add text, button, and choice widgets to a PDF document.
-//   - Adding Custom Graphics to a PDF: Create and add custom annotation and page graphics to your PDF document.
-//   - Custom Graphics: Demonstrates adding a watermark to a PDF page.
-//   - PDF Widgets: Demonstrates adding widgets—interactive form elements—to a PDF document.
-//   - PDFAnnotation: An annotation in a PDF document. ([PDFAnnotationSubtype], [PDFAction], [PDFDestination], [PDFAnnotationKey], [PDFBorder])
+//   - [Adding Widgets to a PDF Document]: Add text, button, and choice widgets to a PDF document.
+//   - [Adding Custom Graphics to a PDF]: Create and add custom annotation and page graphics to your PDF document.
+//   - [Custom Graphics]: Demonstrates adding a watermark to a PDF page.
+//   - [PDF Widgets]: Demonstrates adding widgets—interactive form elements—to a PDF document.
+//   - [PDFAnnotation]: An annotation in a PDF document. ([PDFAnnotationSubtype], [PDFAction], [PDFDestination], [PDFAnnotationKey], [PDFBorder])
 //
 // # Protocols
 //
-//   - PDFPageOverlayViewProvider
+//   - [PDFPageOverlayViewProvider]//
 //
 // # Key Types
 //
@@ -35,13 +35,16 @@
 //   - [PDFDocument] - An object that represents PDF data or a PDF file and defines methods for writing, searching, and selecting PDF data.
 //   - [PDFPage] - [PDFPage], a subclass of [NSObject], defines methods used to render PDF pages and work with annotations, text, and selections.
 //   - [PDFSelection] - A [PDFSelection] object identifies a contiguous or noncontiguous selection of text in a PDF document.
-//   - [PDFBorder] - An optional border for an annotation that lies completely within the annotation rectangle.
-//   - [PDFAppearanceCharacteristics] - An object that represents appearance characteristics of a widget annotation.
 //   - [PDFOutline] - A [PDFOutline] object is an element in a tree-structured hierarchy that can represent the structure of a PDF document.
-//   - [PDFDestination] - A [PDFDestination] object describes a point on a PDF page.
 //   - [PDFThumbnailView] - An object that contains a set of thumbnails, each of which represents a page in a PDF document.
+//   - [PDFAppearanceCharacteristics] - An object that represents appearance characteristics of a widget annotation.
+//   - [PDFBorder] - An optional border for an annotation that lies completely within the annotation rectangle.
+//   - [PDFDestination] - A [PDFDestination] object describes a point on a PDF page.
 //
-// [PDFKit Documentation]: https://developer.apple.com/documentation/PDFKit
+// [Adding Custom Graphics to a PDF]: https://developer.apple.com/documentation/pdfkit/adding-custom-graphics-to-a-pdf
+// [Adding Widgets to a PDF Document]: https://developer.apple.com/documentation/pdfkit/adding-widgets-to-a-pdf-document
+// [Custom Graphics]: https://developer.apple.com/documentation/pdfkit/custom-graphics
+// [PDF Widgets]: https://developer.apple.com/documentation/pdfkit/pdf-widgets
 package pdfkit
 
 import (

@@ -106,22 +106,6 @@ type IAVPlayerItemSegment interface {
 	StartDate() foundation.NSDate
 	// The associated interstitial event for this segment.
 	InterstitialEvent() IAVPlayerInterstitialEvent
-
-	// The current date on the integrated timeline when the system created the snapshot.
-	CurrentDate() foundation.NSDate
-	SetCurrentDate(value foundation.NSDate)
-	// The currently playing segment.
-	CurrentSegment() IAVPlayerItemSegment
-	SetCurrentSegment(value IAVPlayerItemSegment)
-	// The current time on the integrated timeline when the system created the snapshot.
-	CurrentTime() coremedia.CMTime
-	SetCurrentTime(value coremedia.CMTime)
-	// The total duration of the primary item and scheduled interstitial events.
-	Duration() coremedia.CMTime
-	SetDuration(value coremedia.CMTime)
-	// The segments for this snapshot.
-	Segments() IAVPlayerItemSegment
-	SetSegments(value IAVPlayerItemSegment)
 }
 
 // Init initializes the instance.
@@ -206,61 +190,4 @@ func (p AVPlayerItemSegment) StartDate() foundation.NSDate {
 func (p AVPlayerItemSegment) InterstitialEvent() IAVPlayerInterstitialEvent {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("interstitialEvent"))
 	return AVPlayerInterstitialEventFromID(objc.ID(rv))
-}
-
-// The current date on the integrated timeline when the system created the
-// snapshot.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/currentdate
-func (p AVPlayerItemSegment) CurrentDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (p AVPlayerItemSegment) SetCurrentDate(value foundation.NSDate) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCurrentDate:"), value)
-}
-
-// The currently playing segment.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/currentsegment
-func (p AVPlayerItemSegment) CurrentSegment() IAVPlayerItemSegment {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentSegment"))
-	return AVPlayerItemSegmentFromID(objc.ID(rv))
-}
-func (p AVPlayerItemSegment) SetCurrentSegment(value IAVPlayerItemSegment) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCurrentSegment:"), value)
-}
-
-// The current time on the integrated timeline when the system created the
-// snapshot.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/currenttime
-func (p AVPlayerItemSegment) CurrentTime() coremedia.CMTime {
-	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("currentTime"))
-	return coremedia.CMTime(rv)
-}
-func (p AVPlayerItemSegment) SetCurrentTime(value coremedia.CMTime) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCurrentTime:"), value)
-}
-
-// The total duration of the primary item and scheduled interstitial events.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/duration
-func (p AVPlayerItemSegment) Duration() coremedia.CMTime {
-	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("duration"))
-	return coremedia.CMTime(rv)
-}
-func (p AVPlayerItemSegment) SetDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](p.ID, objc.Sel("setDuration:"), value)
-}
-
-// The segments for this snapshot.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/segments
-func (p AVPlayerItemSegment) Segments() IAVPlayerItemSegment {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("segments"))
-	return AVPlayerItemSegmentFromID(objc.ID(rv))
-}
-func (p AVPlayerItemSegment) SetSegments(value IAVPlayerItemSegment) {
-	objc.Send[struct{}](p.ID, objc.Sel("setSegments:"), value)
 }

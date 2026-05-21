@@ -56,23 +56,23 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 // - Memory management of top-level objects similar to that performed by the
 // [NSWindowController] class, taking the same care to prevent reference
 // cycles when controls are bound to the nib file’s owner. - Declaring a
-// generic [View] property, to make it easy to establish bindings in the nib
-// to an object that isn’t yet known at nib-loading time or readily
-// available to the code that’s doing the nib loading. - Implementing the
-// key-value binding NSEditor informal protocol, so that apps using a view
-// controller can easily make bound controls in the views commit or discard
-// changes by the user.
+// generic [NSViewController.View] property, to make it easy to establish
+// bindings in the nib to an object that isn’t yet known at nib-loading time
+// or readily available to the code that’s doing the nib loading. -
+// Implementing the key-value binding NSEditor informal protocol, so that apps
+// using a view controller can easily make bound controls in the views commit
+// or discard changes by the user.
 //
 // In macOS 10.10 and later, a view controller offers a full set of life cycle
 // methods, allowing you to manage the content of a window in a way that is on
 // a par with iOS view controller management. These methods, presented in
 // order here to reflect a typical cycle, are:
 //
-// - [NSViewController.ViewDidLoad]
-// - [NSViewController.ViewWillAppear]
-// - [NSViewController.ViewDidAppear]
+// - [NSViewController.ViewDidLoad] - [NSViewController.ViewWillAppear] -
+// [NSViewController.ViewDidAppear]
 //
-// - [NSViewController.UpdateViewConstraints] - [NSViewController.ViewWillLayout] - [NSViewController.ViewDidLayout] -
+// - [NSViewController.UpdateViewConstraints] -
+// [NSViewController.ViewWillLayout] - [NSViewController.ViewDidLayout] -
 // [NSViewController.ViewWillDisappear] - [NSViewController.ViewDidDisappear]
 //
 // In addition, in macOS 10.10 and later, a view controller participates in
@@ -81,31 +81,33 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 // view proceed up the responder chain and are handled by those methods.
 //
 // Prior to OS X v10.10, a typical usage pattern for loading a nib file was to
-// subclass [NSViewController] and override its [NSViewController.LoadView] method to call
-// `[super loadView]`. But in macOS 10.10 and later, the [NSViewController.LoadView] method
-// automatically looks for a nib file with the same name as the view
-// controller. To take advantage of this behavior, name a nib file after its
-// corresponding view controller and pass `nil` to both parameters of the
-// [NSViewController.InitWithNibNameBundle] method.
+// subclass [NSViewController] and override its [NSViewController.LoadView]
+// method to call `[super loadView]`. But in macOS 10.10 and later, the
+// [NSViewController.LoadView] method automatically looks for a nib file with
+// the same name as the view controller. To take advantage of this behavior,
+// name a nib file after its corresponding view controller and pass `nil` to
+// both parameters of the [NSViewController.InitWithNibNameBundle] method.
 //
 // A view controller employs lazy loading of its view: Immediately after a
-// view controller is loaded into memory, the value of its [NSViewController.ViewLoaded]
-// property is false. The value changes to true after the [NSViewController.LoadView] method
-// returns and just before the system calls the [NSViewController.ViewDidLoad] method.
+// view controller is loaded into memory, the value of its
+// [NSViewController.ViewLoaded] property is false. The value changes to true
+// after the [NSViewController.LoadView] method returns and just before the
+// system calls the [NSViewController.ViewDidLoad] method.
 //
 // A view controller is meant to be highly reusable, such as for dynamically
-// representing various objects. For example, the [AddAccessoryController]
-// methods of the [NSPageLayout] and [NSPrintPanel] classes take an
-// [NSViewController] instance as the argument, and set the
-// [NSViewController.RepresentedObject] property to the [NSPrintInfo] object that is to be
-// shown to the user. This allows a developer to easily create new printing
-// accessory views using bindings and the [NSPrintInfo] class’s key-value
-// coding and key-value observing compliance. When the user dismisses a
-// printing dialog, the [NSPageLayout] and [NSPrintPanel] classes each send
-// NSEditor messages to each accessory view controller to ensure that the
-// user’s changes have been committed or discarded properly. The titles of
-// the accessories are retrieved from the view controllers and shown to the
-// user in menus that the user can choose from.
+// representing various objects. For example, the
+// [NSPageLayout.AddAccessoryController] methods of the [NSPageLayout] and
+// [NSPrintPanel] classes take an [NSViewController] instance as the argument,
+// and set the [NSViewController.RepresentedObject] property to the
+// [NSPrintInfo] object that is to be shown to the user. This allows a
+// developer to easily create new printing accessory views using bindings and
+// the [NSPrintInfo] class’s key-value coding and key-value observing
+// compliance. When the user dismisses a printing dialog, the [NSPageLayout]
+// and [NSPrintPanel] classes each send NSEditor messages to each accessory
+// view controller to ensure that the user’s changes have been committed or
+// discarded properly. The titles of the accessories are retrieved from the
+// view controllers and shown to the user in menus that the user can choose
+// from.
 //
 // # Creating A View Controller
 //
@@ -321,7 +323,7 @@ type INSViewController interface {
 	// Topic: Nib Properties
 
 	// The nib bundle to be loaded to instantiate the receiver’s primary view.
-	NibBundle() foundation.NSBundle
+	NibBundle() foundation.Bundle
 	// The name of the nib file to be loaded to instantiate the receiver’s primary view.
 	NibName() NSNibName
 
@@ -337,7 +339,7 @@ type INSViewController interface {
 	// Topic: NSEditor Conformance
 
 	// Attempt to commit any currently edited results of the receiver.
-	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Returns whether the receiver was able to commit any pending edits.
 	CommitEditing() bool
 	// Causes the receiver to discard any changes, restoring the previous values.
@@ -484,9 +486,10 @@ func NewViewControllerWithCoder(coder foundation.INSCoder) NSViewController {
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController {
@@ -517,9 +520,10 @@ func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController {
@@ -527,45 +531,46 @@ func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundl
 	return rv
 }
 
-// Instantiates a view from a nib file and sets the value of the [View]
-// property.
+// Instantiates a view from a nib file and sets the value of the
+// [NSViewController.View] property.
 //
 // # Discussion
 //
-// This method connects an instantiated view from a nib file to the [View]
-// property of the view controller. This method is called by the system, and
-// is exposed in this class so you can override it to add behavior immediately
-// before or after nib loading.
+// This method connects an instantiated view from a nib file to the
+// [NSViewController.View] property of the view controller. This method is
+// called by the system, and is exposed in this class so you can override it
+// to add behavior immediately before or after nib loading.
 //
 // Do not call this method. If you require this method to be called, access
-// the [View] property.
+// the [NSViewController.View] property.
 //
 // Do not invoke this method from other objects unless you take care to avoid
-// redundant invocations. The default implementation of the [LoadView] method
-// handles redundant invocations correctly, but a view controller subclass
-// might not. To be safe, other objects should instead access a view
-// controller’s [View] property.
+// redundant invocations. The default implementation of the
+// [NSViewController.LoadView] method handles redundant invocations correctly,
+// but a view controller subclass might not. To be safe, other objects should
+// instead access a view controller’s [NSViewController.View] property.
 //
-// The [LoadView] method first obtains the values of the view controller’s
-// [NibName] and [NibBundle] properties. It then employs the [NSNib] class to
-// instantiate the specified nib file via the
-// [InstantiateWithOwnerTopLevelObjects] method, providing the view controller
-// object as the `owner` parameter.
+// The [NSViewController.LoadView] method first obtains the values of the view
+// controller’s [NSViewController.NibName] and [NSViewController.NibBundle]
+// properties. It then employs the [NSNib] class to instantiate the specified
+// nib file via the [NSNib.InstantiateWithOwnerTopLevelObjects] method,
+// providing the view controller object as the `owner` parameter.
 //
 // For this method to work correctly, you need to have specified the file’s
 // owner of the nib file, in Interface Builder, to be [NSViewController]. You
 // also need to have correctly connected the `view` outlet of the file’s
 // owner to the intended view in the nib file. Then, at runtime, the nib
-// loading machinery sets the value of the view controller’s [View] property
-// to the nib file’s instantiated view.
+// loading machinery sets the value of the view controller’s
+// [NSViewController.View] property to the nib file’s instantiated view.
 //
-// Prior to OS X v10.10, the [LoadView] method did not provide well-defined
-// behavior if the [NibName] property’s value was `nil`. In macOS 10.10 and
-// later, however, you get correct behavior without specifying a nib name as
-// long as the nib file’s name is the same as that of the view controller.
-// For example, if you have a view controller subclass called
-// [MyViewController] and a nib file with the same name, you can employ the
-// convenient initialization pattern `[[MyViewController alloc] init]`.
+// Prior to OS X v10.10, the [NSViewController.LoadView] method did not
+// provide well-defined behavior if the [NSViewController.NibName]
+// property’s value was `nil`. In macOS 10.10 and later, however, you get
+// correct behavior without specifying a nib name as long as the nib file’s
+// name is the same as that of the view controller. For example, if you have a
+// view controller subclass called [MyViewController] and a nib file with the
+// same name, you can employ the convenient initialization pattern
+// `[[MyViewController alloc] init]`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/loadView()
 func (v NSViewController) LoadView() {
@@ -595,22 +600,22 @@ func (v NSViewController) LoadView() {
 // If an error occurs while attempting to commit, for example if key-value
 // coding validation fails, an implementation of this method should typically
 // send the receiver’s view
-// a[PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo] message,
-// specifying the view’s containing window.
+// a[NSResponder.PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo]
+// message, specifying the view’s containing window.
 //
 // You may find this method useful in some situations when you want to ensure
 // that pending changes are applied before a change in user interface state.
 // For example, you may need to ensure that changes pending in a text field
-// are applied before a window is closed. See also [CommitEditing] which
-// performs a similar function but which allows you to handle any errors
-// directly, although it provides no information beyond simple
-// success/failure.
+// are applied before a window is closed. See also
+// [NSViewController.CommitEditing] which performs a similar function but
+// which allows you to handle any errors directly, although it provides no
+// information beyond simple success/failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/commitEditing(withDelegate:didCommit:contextInfo:)
 //
 // [objectDidBeginEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidBeginEditing:
 // [objectDidEndEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidEndEditing:
-func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
+func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
 
@@ -651,7 +656,7 @@ func (v NSViewController) DismissController(sender objectivec.IObject) {
 // # Discussion
 //
 // You can override this method to perform tasks to immediately follow the
-// setting of the [View] property.
+// setting of the [NSViewController.View] property.
 //
 // Typically, your override would perform one-time instantiation and
 // initialization of the contents of the view controller’s view. If you
@@ -659,9 +664,9 @@ func (v NSViewController) DismissController(sender objectivec.IObject) {
 // implementation in case a superclass also overrides this method.
 //
 // For a view controller originating in a nib file, this method is called
-// immediately after the [View] property is set. For a view controller created
-// programmatically, this method is called immediately after the [LoadView]
-// method completes.
+// immediately after the [NSViewController.View] property is set. For a view
+// controller created programmatically, this method is called immediately
+// after the [NSViewController.LoadView] method completes.
 //
 // The default implementation of this method does nothing.
 //
@@ -726,8 +731,8 @@ func (v NSViewController) ViewDidAppear() {
 //
 // You can override this method to perform tasks that are to precede the
 // disappearance of the view controller’s view, such as stopping a
-// continuous animation that you started in response to the [ViewDidAppear]
-// method call. This method is called when:
+// continuous animation that you started in response to the
+// [NSViewController.ViewDidAppear] method call. This method is called when:
 //
 // - The view is about to be removed from the view hierarchy of the window -
 // The view is about to be hidden or obscured, such as in the case of a view
@@ -771,16 +776,16 @@ func (v NSViewController) ViewDidDisappear() {
 //
 // This method gets called, for example, when the user interacts with a view
 // in a way that causes the layout to change. When called, the default
-// implementation of this method in turn calls the [UpdateConstraints] method
-// on the view controller’s view.
+// implementation of this method in turn calls the [NSView.UpdateConstraints]
+// method on the view controller’s view.
 //
 // You can override this method to update custom view constraints, as an
 // alternative to subclassing the view controller’s view and overriding its
-// [UpdateConstraints] method.
+// [NSView.UpdateConstraints] method.
 //
 // If you override this method, you must call this method on `super` at some
-// point in your implementation or call the [UpdateConstraints] method on the
-// view controller’s view.
+// point in your implementation or call the [NSView.UpdateConstraints] method
+// on the view controller’s view.
 //
 // This method is called only for apps that link against macOS 10.10 or later.
 //
@@ -789,8 +794,8 @@ func (v NSViewController) UpdateViewConstraints() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateViewConstraints"))
 }
 
-// Called just before the [Layout] method of the view controller’s view is
-// called.
+// Called just before the [NSView.Layout] method of the view controller’s
+// view is called.
 //
 // # Discussion
 //
@@ -806,8 +811,8 @@ func (v NSViewController) ViewWillLayout() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillLayout"))
 }
 
-// Called immediately after the [Layout] method of the view controller’s
-// view is called.
+// Called immediately after the [NSView.Layout] method of the view
+// controller’s view is called.
 //
 // # Discussion
 //
@@ -824,10 +829,10 @@ func (v NSViewController) ViewDidLayout() {
 }
 
 // A convenience method for adding a child view controller at the end of the
-// [ChildViewControllers] array.
+// [NSViewController.ChildViewControllers] array.
 //
-// childViewController: The view controller to be added to the end of the [ChildViewControllers]
-// array.
+// childViewController: The view controller to be added to the end of the
+// [NSViewController.ChildViewControllers] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/addChild(_:)
 func (v NSViewController) AddChildViewController(childViewController INSViewController) {
@@ -861,8 +866,8 @@ func (v NSViewController) AddChildViewController(childViewController INSViewCont
 // to allow this method to add and remove these views.
 //
 // To create a parent/child relationship between view controllers, use the
-// [AddChildViewController] method or the [InsertChildViewControllerAtIndex]
-// method.
+// [NSViewController.AddChildViewController] method or the
+// [NSViewController.InsertChildViewControllerAtIndex] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/transition(from:to:options:completionHandler:)
 //
@@ -872,24 +877,25 @@ func (v NSViewController) TransitionFromViewControllerToViewControllerOptionsCom
 	objc.Send[objc.ID](v.ID, objc.Sel("transitionFromViewController:toViewController:options:completionHandler:"), fromViewController, toViewController, options, _block3)
 }
 
-// Inserts a specified child view controller into the [ChildViewControllers]
-// array at a specified position.
+// Inserts a specified child view controller into the
+// [NSViewController.ChildViewControllers] array at a specified position.
 //
-// childViewController: The child view controller to add to the [ChildViewControllers] array.
+// childViewController: The child view controller to add to the
+// [NSViewController.ChildViewControllers] array.
 //
-// index: The index in the [ChildViewControllers] array at which to insert the child
-// view controller. This value must not be greater than the count of elements
-// in the array.
+// index: The index in the [NSViewController.ChildViewControllers] array at which to
+// insert the child view controller. This value must not be greater than the
+// count of elements in the array.
 //
 // # Discussion
 //
-// You should instead use the [AddChildViewController] method unless you want
-// to perform work on child view controllers as you add them. In that case,
-// override this method to perform that work.
+// You should instead use the [NSViewController.AddChildViewController] method
+// unless you want to perform work on child view controllers as you add them.
+// In that case, override this method to perform that work.
 //
 // If a child view controller has a different parent when you call this
 // method, the child is first be removed from its existing parent by calling
-// the child’s [RemoveFromParentViewController] method.
+// the child’s [NSViewController.RemoveFromParentViewController] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/insertChild(_:at:)
 func (v NSViewController) InsertChildViewControllerAtIndex(childViewController INSViewController, index int) {
@@ -898,8 +904,8 @@ func (v NSViewController) InsertChildViewControllerAtIndex(childViewController I
 
 // Removes a specified child controller from the view controller.
 //
-// index: The index in the [ChildViewControllers] array for the child view controller
-// you want to remove.
+// index: The index in the [NSViewController.ChildViewControllers] array for the
+// child view controller you want to remove.
 //
 // # Discussion
 //
@@ -908,7 +914,7 @@ func (v NSViewController) InsertChildViewControllerAtIndex(childViewController I
 // implementation call this method on `super`.
 //
 // If you just want to remove a child view controller, instead use the
-// [RemoveFromParentViewController] method
+// [NSViewController.RemoveFromParentViewController] method
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/removeChild(at:)
 func (v NSViewController) RemoveChildViewControllerAtIndex(index int) {
@@ -921,22 +927,25 @@ func (v NSViewController) RemoveChildViewControllerAtIndex(index int) {
 //
 // Use this method to remove a child view controller from its parent view
 // controller, unless you want to perform work during the removal. In that
-// case, instead override the [RemoveChildViewControllerAtIndex] method to
-// perform that work and call that method.
+// case, instead override the
+// [NSViewController.RemoveChildViewControllerAtIndex] method to perform that
+// work and call that method.
 //
 // This is a convenience method that calls the
-// [RemoveChildViewControllerAtIndex] method, automatically supplying the
-// appropriate index value as an argument.
+// [NSViewController.RemoveChildViewControllerAtIndex] method, automatically
+// supplying the appropriate index value as an argument.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/removeFromParent()
 func (v NSViewController) RemoveFromParentViewController() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeFromParentViewController"))
 }
 
-// Called when there is a change in value of the [PreferredContentSize]
-// property of a child view controller or a presented view controller.
+// Called when there is a change in value of the
+// [NSViewController.PreferredContentSize] property of a child view controller
+// or a presented view controller.
 //
-// viewController: The view controller whose [PreferredContentSize] property value changed.
+// viewController: The view controller whose [NSViewController.PreferredContentSize] property
+// value changed.
 //
 // # Discussion
 //
@@ -955,8 +964,8 @@ func (v NSViewController) PreferredContentSizeDidChangeForViewController(viewCon
 //
 // animator: The animation delegate to employ for presentation and dismissal of the
 // other view controller. The animator that you specify is retained until the
-// [DismissViewController] method is called and the dismissal animation
-// completes.
+// [NSViewController.DismissViewController] method is called and the dismissal
+// animation completes.
 //
 // # Discussion
 //
@@ -964,8 +973,10 @@ func (v NSViewController) PreferredContentSizeDidChangeForViewController(viewCon
 // one of the standard animators to present another view controller, instead
 // call one of the dedicated presentation methods:
 //
-// - [PresentViewControllerAsPopoverRelativeToRectOfViewPreferredEdgeBehavior]
-// - [PresentViewControllerAsModalWindow] - [PresentViewControllerAsSheet]
+// -
+// [NSViewController.PresentViewControllerAsPopoverRelativeToRectOfViewPreferredEdgeBehavior]
+// - [NSViewController.PresentViewControllerAsModalWindow] -
+// [NSViewController.PresentViewControllerAsSheet]
 //
 // Each of these methods calls this method in turn. User interaction is
 // blocked during presentation and dismissal.
@@ -997,7 +1008,7 @@ func (v NSViewController) DismissViewController(viewController INSViewController
 // positioningRect: The content size of the popover.
 //
 // positioningView: The view relative to which the popover should be positioned. Must not be
-// `nil`, or else the view controller raises an [InvalidArgumentException]
+// `nil`, or else the view controller raises an [invalidArgumentException]
 // exception.
 //
 // preferredEdge: The edge of `positioningView` that the popover should prefer to be anchored
@@ -1007,18 +1018,20 @@ func (v NSViewController) DismissViewController(viewController INSViewController
 //
 // # Discussion
 //
-// This method calls the [PresentViewControllerAnimator] method on `self` (the
-// presenting view controller), and passes a popover animator to that method.
+// This method calls the [NSViewController.PresentViewControllerAnimator]
+// method on `self` (the presenting view controller), and passes a popover
+// animator to that method.
 //
 // The presented view controller is the delegate and the content view
 // controller of the popover. You can use [NSPopoverDelegate] methods to
 // customize the popover.
 //
-// To dismiss the popover, call the [DismissViewController] method on `self`
-// (the presenting view controller).
+// To dismiss the popover, call the [NSViewController.DismissViewController]
+// method on `self` (the presenting view controller).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/present(_:asPopoverRelativeTo:of:preferredEdge:behavior:)
 //
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 // [NSPopover.Behavior]: https://developer.apple.com/documentation/AppKit/NSPopover/Behavior-swift.enum
 func (v NSViewController) PresentViewControllerAsPopoverRelativeToRectOfViewPreferredEdgeBehavior(viewController INSViewController, positioningRect corefoundation.CGRect, positioningView INSView, preferredEdge foundation.NSRectEdge, behavior NSPopoverBehavior) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewController:asPopoverRelativeToRect:ofView:preferredEdge:behavior:"), viewController, positioningRect, positioningView, preferredEdge, behavior)
@@ -1035,16 +1048,17 @@ func (v NSViewController) PresentViewControllerAsPopoverRelativeToRectOfViewPref
 //
 // # Discussion
 //
-// This method calls the [PresentViewControllerAnimator] method on `self` (the
-// presenting view controller), and passes a modal window animator to that
-// method.
+// This method calls the [NSViewController.PresentViewControllerAnimator]
+// method on `self` (the presenting view controller), and passes a modal
+// window animator to that method.
 //
 // The presented view controller is the delegate and the content view
 // controller of its window. You can use [NSWindowDelegate] methods to prevent
 // the closing of the modal window, if needed.
 //
-// To dismiss the modal window, call the [DismissViewController] method on
-// `self` (the presenting view controller).
+// To dismiss the modal window, call the
+// [NSViewController.DismissViewController] method on `self` (the presenting
+// view controller).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/presentAsModalWindow(_:)
 func (v NSViewController) PresentViewControllerAsModalWindow(viewController INSViewController) {
@@ -1057,14 +1071,15 @@ func (v NSViewController) PresentViewControllerAsModalWindow(viewController INSV
 //
 // # Discussion
 //
-// This method calls the [PresentViewControllerAnimator] method on `self` (the
-// presenting view controller), and passes a sheet animator to that method.
+// This method calls the [NSViewController.PresentViewControllerAnimator]
+// method on `self` (the presenting view controller), and passes a sheet
+// animator to that method.
 //
 // The presented view controller is the delegate and the content view
 // controller of its sheet.
 //
-// To dismiss the sheet, call the [DismissViewController] method on `self`
-// (the presenting view controller).
+// To dismiss the sheet, call the [NSViewController.DismissViewController]
+// method on `self` (the presenting view controller).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/presentAsSheet(_:)
 func (v NSViewController) PresentViewControllerAsSheet(viewController INSViewController) {
@@ -1201,10 +1216,10 @@ func (v NSViewController) ShouldPerformSegueWithIdentifierSender(identifier NSSt
 // words, a view controller has a relationship with its represented object and
 // does not own it as an attribute.
 //
-// The [RepresentedObject] property is key-value coding and key-value
-// observing compliant. When you use the represented object as the file’s
-// owner of a nib file, you can bind controls to the file’s owner using key
-// paths that start with the string `representedObject`.
+// The [NSViewController.RepresentedObject] property is key-value coding and
+// key-value observing compliant. When you use the represented object as the
+// file’s owner of a nib file, you can bind controls to the file’s owner
+// using key paths that start with the string `representedObject`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/representedObject
 func (v NSViewController) RepresentedObject() objectivec.IObject {
@@ -1220,12 +1235,12 @@ func (v NSViewController) SetRepresentedObject(value objectivec.IObject) {
 // # Discussion
 //
 // This property’s value is the bundle you provide to the `nibBundleOrNil`
-// parameter in the [InitWithNibNameBundle] method.
+// parameter in the [NSViewController.InitWithNibNameBundle] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/nibBundle
-func (v NSViewController) NibBundle() foundation.NSBundle {
+func (v NSViewController) NibBundle() foundation.Bundle {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibBundle"))
-	return foundation.NSBundleFromID(objc.ID(rv))
+	return foundation.BundleFromID(objc.ID(rv))
 }
 
 // The name of the nib file to be loaded to instantiate the receiver’s
@@ -1234,7 +1249,7 @@ func (v NSViewController) NibBundle() foundation.NSBundle {
 // # Discussion
 //
 // This property’s value is the name you provide to the `nibNameOrNil`
-// parameter in the [InitWithNibNameBundle] method.
+// parameter in the [NSViewController.InitWithNibNameBundle] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/nibName
 func (v NSViewController) NibName() NSNibName {
@@ -1247,9 +1262,9 @@ func (v NSViewController) NibName() NSNibName {
 // # Discussion
 //
 // If this property’s value is not already set when you access it, the view
-// controller invokes the [LoadView] method. That method, in turn, sets the
-// view from the nib file identified by the view controller’s [NibName] and
-// [NibBundle] properties.
+// controller invokes the [NSViewController.LoadView] method. That method, in
+// turn, sets the view from the nib file identified by the view controller’s
+// [NSViewController.NibName] and [NSViewController.NibBundle] properties.
 //
 // If you want to set a view controller’s view directly, set this
 // property’s value immediately after creating the view controller.
@@ -1267,12 +1282,13 @@ func (v NSViewController) SetView(value INSView) {
 //
 // # Discussion
 //
-// You can employ the [Title] property as needed for your app’s user
-// interface, such as to enable a user to choose among multiple named views in
-// a menu or other affordance. The [NSViewController] class does not use this
-// property for its own purposes.
+// You can employ the [NSViewController.Title] property as needed for your
+// app’s user interface, such as to enable a user to choose among multiple
+// named views in a menu or other affordance. The [NSViewController] class
+// does not use this property for its own purposes.
 //
-// The [Title] property is key-value coding and key-value observing compliant.
+// The [NSViewController.Title] property is key-value coding and key-value
+// observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/title
 func (v NSViewController) Title() string {
@@ -1334,8 +1350,9 @@ func (v NSViewController) SetPreferredContentSize(value corefoundation.CGSize) {
 // # Discussion
 //
 // You can add or remove child view controllers by using this property. When
-// you do, the [AddChildViewController] or [RemoveFromParentViewController]
-// method gets called accordingly.
+// you do, the [NSViewController.AddChildViewController] or
+// [NSViewController.RemoveFromParentViewController] method gets called
+// accordingly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/children
 func (v NSViewController) ChildViewControllers() []NSViewController {
@@ -1368,8 +1385,8 @@ func (v NSViewController) ParentViewController() INSViewController {
 // # Discussion
 //
 // There is a one-to-many relationship between the view controller whose
-// [PresentedViewControllers] property you are accessing, and the view
-// controllers it is currently presenting.
+// [NSViewController.PresentedViewControllers] property you are accessing, and
+// the view controllers it is currently presenting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/presentedViewControllers
 func (v NSViewController) PresentedViewControllers() []NSViewController {
@@ -1385,7 +1402,8 @@ func (v NSViewController) PresentedViewControllers() []NSViewController {
 // # Discussion
 //
 // The is the one that is ultimately responsible for presenting the view
-// controller whose [PresentingViewController] property you are accessing.
+// controller whose [NSViewController.PresentingViewController] property you
+// are accessing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/presentingViewController
 func (v NSViewController) PresentingViewController() INSViewController {
@@ -1401,7 +1419,7 @@ func (v NSViewController) PresentingViewController() INSViewController {
 // Set this property to position the lower-left corner of the app
 // extension’s primary view in screen space. To specify the desired primary
 // view size for an app extension’s view controller, use the
-// [PreferredContentSize] property.
+// [NSViewController.PreferredContentSize] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/preferredScreenOrigin
 func (v NSViewController) PreferredScreenOrigin() corefoundation.CGPoint {

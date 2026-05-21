@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"context"
 	"sync"
 
 	"github.com/tmc/apple/foundation"
@@ -100,7 +99,7 @@ type INSFontAssetRequest interface {
 
 	// Topic: Getting the Download Progress
 
-	Progress() foundation.NSProgress
+	Progress() foundation.Progress
 }
 
 // Init initializes the instance.
@@ -150,22 +149,7 @@ func (f NSFontAssetRequest) DownloadedFontDescriptors() []NSFontDescriptor {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/progress
-func (f NSFontAssetRequest) Progress() foundation.NSProgress {
+func (f NSFontAssetRequest) Progress() foundation.Progress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
-	return foundation.NSProgressFromID(objc.ID(rv))
-}
-
-// DownloadFontAssets is a synchronous wrapper around [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (f NSFontAssetRequest) DownloadFontAssets(ctx context.Context) error {
-	done := make(chan error, 1)
-	f.DownloadFontAssetsWithCompletionHandler(func(err error) {
-		done <- err
-	})
-	select {
-	case err := <-done:
-		return err
-	case <-ctx.Done():
-		return ctx.Err()
-	}
+	return foundation.ProgressFromID(objc.ID(rv))
 }

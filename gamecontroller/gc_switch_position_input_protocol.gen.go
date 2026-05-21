@@ -42,12 +42,12 @@ type GCSwitchPositionInput interface {
 	// A timestamp for when the profile reports the last position.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionTimestamp
-	LastPositionTimestamp() float64
+	LastPositionTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the current and previous positions.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionLatency
-	LastPositionLatency() float64
+	LastPositionLatency() foundation.NSTimeInterval
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -130,9 +130,9 @@ func (o GCSwitchPositionInputObject) Position() int {
 // between positions, subtract a previous value from the current value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionTimestamp
-func (o GCSwitchPositionInputObject) LastPositionTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastPositionTimestamp"))
-	return float64(rv)
+func (o GCSwitchPositionInputObject) LastPositionTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastPositionTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the current and previous positions.
@@ -143,9 +143,9 @@ func (o GCSwitchPositionInputObject) LastPositionTimestamp() float64 {
 // that accrues on the device or when it transmits the event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionLatency
-func (o GCSwitchPositionInputObject) LastPositionLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastPositionLatency"))
-	return float64(rv)
+func (o GCSwitchPositionInputObject) LastPositionLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastPositionLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

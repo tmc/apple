@@ -48,10 +48,11 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 //
 // # Overview
 //
-// [NSPredicateEditor] provides an [NSPredicate] property—[NSPredicateEditor.ObjectValue]
-// (inherited from [NSControl])—that you can get and set directly, and that
-// you can bind using Cocoa bindings (you typically configure a predicate
-// editor in Interface Builder). [NSPredicateEditor] depends on another class,
+// [NSPredicateEditor] provides an [NSPredicate]
+// property—[NSControl.ObjectValue] (inherited from [NSControl])—that you
+// can get and set directly, and that you can bind using Cocoa bindings (you
+// typically configure a predicate editor in Interface Builder).
+// [NSPredicateEditor] depends on another class,
 // [NSPredicateEditorRowTemplate], that describes the available predicates and
 // how to display them.
 //
@@ -62,8 +63,8 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 // for mapping back and forth between the displayed view values and various
 // predicates.
 //
-// [NSPredicateEditor] exposes one property, [NSPredicateEditor.RowTemplates], which is an array
-// of [NSPredicateEditorRowTemplate] objects.
+// [NSPredicateEditor] exposes one property, [NSPredicateEditor.RowTemplates],
+// which is an array of [NSPredicateEditorRowTemplate] objects.
 //
 // # Managing Row Templates
 //

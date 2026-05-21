@@ -114,8 +114,8 @@ func NewContentKeyResponseWithAuthorizationTokenData(authorizationTokenData foun
 //
 // Use the results of this initializer when the content key session creates a
 // key request using the [clearKey] parameter. The results are then passed to
-// the [ProcessContentKeyResponse] method to supply the decrypter with key
-// data.
+// the [AVContentKeyRequest.ProcessContentKeyResponse] method to supply the
+// decrypter with key data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(clearKeyData:initializationVector:)
 //
@@ -138,8 +138,8 @@ func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundatio
 //
 // Use the results of this initializer when the content key session creates a
 // key request using the [fairPlayStreaming] parameter. The results are then
-// passed to the [ProcessContentKeyResponse] method to supply the decrypter
-// with key data.
+// passed to the [AVContentKeyRequest.ProcessContentKeyResponse] method to
+// supply the decrypter with key data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(fairPlayStreamingKeyResponseData:)
 //

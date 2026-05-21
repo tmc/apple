@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,8 +46,8 @@ func (ac AVMutableVideoCompositionInstructionClass) Alloc() AVMutableVideoCompos
 //
 // # Overview
 //
-// An [AVVideoComposition] object maintains an array of [AVMutableVideoCompositionInstruction.Instructions] to
-// perform its composition.
+// An [AVVideoComposition] object maintains an array of
+// [AVVideoComposition.Instructions] to perform its composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionInstruction
 type AVMutableVideoCompositionInstruction struct {
@@ -87,6 +88,13 @@ func NewAVMutableVideoCompositionInstruction() AVMutableVideoCompositionInstruct
 	class := getAVMutableVideoCompositionInstructionClass()
 	rv := objc.Send[AVMutableVideoCompositionInstruction](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/init(coder:)
+func NewMutableVideoCompositionInstructionWithCoder(coder foundation.INSCoder) AVMutableVideoCompositionInstruction {
+	instance := getAVMutableVideoCompositionInstructionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMutableVideoCompositionInstructionFromID(rv)
 }
 
 // Returns a new mutable video composition instruction.

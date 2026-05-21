@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -64,9 +65,9 @@ func (cc CKDatabaseSubscriptionClass) Alloc() CKDatabaseSubscription {
 // in database subscriptions.
 //
 // You can further specialize a database subscription by setting its
-// [CKDatabaseSubscription.RecordType] property to a specific record type. This limits the scope of
-// the subscription to only track changes to records of that type and reduces
-// the number of notifications it generates.
+// [CKDatabaseSubscription.RecordType] property to a specific record type.
+// This limits the scope of the subscription to only track changes to records
+// of that type and reduces the number of notifications it generates.
 //
 // Create any subscriptions on your app’s first launch. After you initialize
 // a subscription, save it to the server using
@@ -76,10 +77,10 @@ func (cc CKDatabaseSubscriptionClass) Alloc() CKDatabaseSubscription {
 // server.
 //
 // To configure the notification that the subscription generates, set the
-// subscription’s [CKDatabaseSubscription.NotificationInfo] property. Because the system coalesces
-// notifications, don’t rely on them for specific changes. CloudKit can omit
-// data to keep the payload size under the APNs size limit. Consider
-// notifications an indication of remote changes, and use
+// subscription’s [CKSubscription.NotificationInfo] property. Because the
+// system coalesces notifications, don’t rely on them for specific changes.
+// CloudKit can omit data to keep the payload size under the APNs size limit.
+// Consider notifications an indication of remote changes, and use
 // [CKFetchDatabaseChangesOperation] to fetch the record zones that contain
 // those changes. After you have the record zones, use
 // [CKFetchRecordZoneChangesOperation] to fetch the changed records in each
@@ -129,7 +130,7 @@ type ICKDatabaseSubscription interface {
 
 	// The type of record that the subscription queries.
 	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
+	SetRecordType(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -169,6 +170,6 @@ func (c CKDatabaseSubscription) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKDatabaseSubscription) SetRecordType(value unsafe.Pointer) {
+func (c CKDatabaseSubscription) SetRecordType(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }

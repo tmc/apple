@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -73,11 +72,11 @@ func (o NSTokenFieldDelegateObject) TokenFieldDisplayStringForRepresentedObject(
 // # Discussion
 //
 // If the delegate implements this method and returns an
-// [NSTokenField.TokenStyle] that differs from the style set by [TokenStyle],
-// the value the delegate returns is preferred.
+// [NSTokenField.TokenStyle] that differs from the style set by
+// [NSTokenField.TokenStyle], the value the delegate returns is preferred.
 //
 // If the delegate does not implement this method, the token field’s
-// [TokenStyle] is used.
+// [NSTokenField.TokenStyle] is used.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:styleForRepresentedObject:)
 //
@@ -110,7 +109,7 @@ func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenFie
 // provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
-func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
+func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex *int) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenField, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
 }
@@ -427,10 +426,10 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 // selected initially.
 //
 // The actual means of presentation of the potential completions is determined
-// by the [Complete] method of [NSTextView].
+// by the [NSTextView.Complete] method of [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
-func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }

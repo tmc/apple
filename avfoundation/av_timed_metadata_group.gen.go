@@ -110,7 +110,7 @@ type IAVTimedMetadataGroup interface {
 	// Topic: Creating a format description
 
 	// Creates a format description based on the receiver’s items.
-	CopyFormatDescription() coremedia.CMFormatDescriptionRef
+	CopyFormatDescription() coremedia.CMMetadataFormatDescriptionRef
 }
 
 // Init initializes the instance.
@@ -184,9 +184,9 @@ func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, tim
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/copyFormatDescription()
 //
 // [CMMetadataFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescription
-func (t AVTimedMetadataGroup) CopyFormatDescription() coremedia.CMFormatDescriptionRef {
-	rv := objc.Send[coremedia.CMFormatDescriptionRef](t.ID, objc.Sel("copyFormatDescription"))
-	return coremedia.CMFormatDescriptionRef(rv)
+func (t AVTimedMetadataGroup) CopyFormatDescription() coremedia.CMMetadataFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMMetadataFormatDescriptionRef](t.ID, objc.Sel("copyFormatDescription"))
+	return coremedia.CMMetadataFormatDescriptionRef(rv)
 }
 
 // The time range for the timed metadata.

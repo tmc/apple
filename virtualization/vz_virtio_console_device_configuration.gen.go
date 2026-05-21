@@ -85,10 +85,6 @@ type IVZVirtioConsoleDeviceConfiguration interface {
 
 	// The list of Virtio port configurations.
 	Ports() IVZVirtioConsolePortConfigurationArray
-
-	// The array of console devices that you expose to the guest operating system.
-	ConsoleDevices() IVZConsoleDeviceConfiguration
-	SetConsoleDevices(value IVZConsoleDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -116,15 +112,4 @@ func NewVZVirtioConsoleDeviceConfiguration() VZVirtioConsoleDeviceConfiguration 
 func (v VZVirtioConsoleDeviceConfiguration) Ports() IVZVirtioConsolePortConfigurationArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ports"))
 	return VZVirtioConsolePortConfigurationArrayFromID(objc.ID(rv))
-}
-
-// The array of console devices that you expose to the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/consoledevices
-func (v VZVirtioConsoleDeviceConfiguration) ConsoleDevices() IVZConsoleDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("consoleDevices"))
-	return VZConsoleDeviceConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioConsoleDeviceConfiguration) SetConsoleDevices(value IVZConsoleDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), value)
 }

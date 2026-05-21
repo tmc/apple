@@ -61,8 +61,9 @@ func (nc NSMutableDictionaryClass) Alloc() NSMutableDictionary {
 //
 // # Setting Values Using Subscripting
 //
-// In addition to the provided instance methods, such as [NSMutableDictionary.SetObjectForKey],
-// you can access [NSDictionary] values by their keys using .
+// In addition to the provided instance methods, such as
+// [NSMutableDictionary.SetObjectForKey], you can access [NSDictionary] values
+// by their keys using .
 //
 // # Subclassing Notes
 //
@@ -74,8 +75,8 @@ func (nc NSMutableDictionaryClass) Alloc() NSMutableDictionary {
 //
 // In a subclass, you must override both of its primitive methods:
 //
-// - [NSMutableDictionary.SetObjectForKey]
-// - [NSMutableDictionary.RemoveObjectForKey]
+// - [NSMutableDictionary.SetObjectForKey] -
+// [NSMutableDictionary.RemoveObjectForKey]
 //
 // You must also override the primitive methods of the [NSDictionary] class.
 //
@@ -285,6 +286,46 @@ func NewMutableDictionaryWithCoder(coder INSCoder) NSMutableDictionary {
 	return NSMutableDictionaryFromID(rv)
 }
 
+// Initializes a newly allocated dictionary using the keys and values found at
+// a given URL.
+//
+// url: A URL that identifies a resource containing a string representation of a
+// property list whose root object is a dictionary.
+//
+// error: On failure, a reference to the error that occurred.
+//
+// # Return Value
+//
+// An initialized dictionary that contains the dictionary at `url`, or `nil`
+// if there is an error or if the contents of the resource are an invalid
+// representation of a dictionary.
+//
+// # Discussion
+//
+// The dictionary representation in the file identified by `url` must contain
+// only property list objects ([NSString], [NSData], [NSDate], [NSNumber],
+// [NSArray], or [NSDictionary] objects). For more details, see [Property List
+// Programming Guide]. The objects contained by this dictionary are immutable,
+// even if the dictionary is mutable.
+//
+// In Swift, this initializer throws if there is an error loading the URL, or
+// if the contents of the resource are an invalid representation of a
+// dictionary.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(contentsOfURL:error:)
+//
+// [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
+func NewMutableDictionaryWithContentsOfURLError(url INSURL) (NSMutableDictionary, error) {
+	var errorPtr objc.ID
+	instance := getNSMutableDictionaryClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSMutableDictionary{}, NSErrorFrom(errorPtr)
+	}
+	return NSMutableDictionaryFromID(rv), nil
+}
+
 // Initializes a newly allocated dictionary by placing in it the keys and
 // values contained in another given dictionary.
 //
@@ -360,11 +401,11 @@ func NewMutableDictionaryWithOBEXHeadersDataHeadersDataSize(inHeadersData unsafe
 //
 // object: The value corresponding to `aKey`.
 //
-// If this value is `nil`, an [InvalidArgumentException] is raised.
+// If this value is `nil`, an [invalidArgumentException] is raised.
 //
 // key: The key for `anObject`.
 //
-// If this value is `nil`, an [InvalidArgumentException] is raised.
+// If this value is `nil`, an [invalidArgumentException] is raised.
 //
 // # Return Value
 //
@@ -372,6 +413,10 @@ func NewMutableDictionaryWithOBEXHeadersDataHeadersDataSize(inHeadersData unsafe
 // `aKey`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(object:forKey:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func NewMutableDictionaryWithObjectForKey(object objectivec.IObject, key NSCopying) NSMutableDictionary {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableDictionaryClass().class), objc.Sel("dictionaryWithObject:forKey:"), object, key)
 	return NSMutableDictionaryFromID(rv)
@@ -386,14 +431,16 @@ func NewMutableDictionaryWithObjectForKey(object objectivec.IObject, key NSCopyi
 //
 // After the `firstObject` value, pass the key for `firstObject`, then a
 // null-terminated list of alternating values and keys. If any key is `nil`,
-// an [InvalidArgumentException] is raised.
+// an [invalidArgumentException] is raised.
 //
-// This method is similar to [InitWithObjectsForKeys], differing only in the
-// way in which the key-value pairs are specified.
+// This method is similar to [NSMutableDictionary.InitWithObjectsForKeys],
+// differing only in the way in which the key-value pairs are specified.
 //
 // For example:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/initWithObjectsAndKeys:
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func NewMutableDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSMutableDictionary {
 	instance := getNSMutableDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjectsAndKeys:"), firstObject)
@@ -489,8 +536,8 @@ func (m NSMutableDictionary) AddEntriesFromDictionary(otherDictionary INSDiction
 // # Discussion
 //
 // All entries are removed from the receiving dictionary (with
-// [RemoveAllObjects]), then each entry from `otherDictionary` added into the
-// receiving dictionary.
+// [NSMutableDictionary.RemoveAllObjects]), then each entry from
+// `otherDictionary` added into the receiving dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/setDictionary(_:)
 func (m NSMutableDictionary) SetDictionary(otherDictionary INSDictionary) {
@@ -680,7 +727,8 @@ func (m NSMutableDictionary) GetHeaderBytes() INSMutableData {
 //
 // # Discussion
 //
-// This method has the same behavior as the [SetObjectForKey] method.
+// This method has the same behavior as the
+// [NSMutableDictionary.SetObjectForKey] method.
 //
 // You shouldn’t need to call this method directly. Instead, this method is
 // called when setting an object for a key using subscripting.
@@ -694,7 +742,7 @@ func (m NSMutableDictionary) SetObjectForKeyedSubscript(obj objectivec.IObject, 
 // set of keys.
 //
 // keyset: The `keyset`, created by the [NSDictionary] class method
-// [SharedKeySetForKeys].
+// [NSDictionaryClass.SharedKeySetForKeys].
 //
 // # Return Value
 //

@@ -59,8 +59,9 @@ func (uc UNNotificationSettingsClass) Alloc() UNNotificationSettings {
 // interactions from occurring.
 //
 // You don’t create instances of this class directly. Instead, call the
-// [GetNotificationSettingsWithCompletionHandler] method of your app’s
-// [UNUserNotificationCenter] object to get the current settings.
+// [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler]
+// method of your app’s [UNUserNotificationCenter] object to get the current
+// settings.
 //
 // For more information about requesting authorization for user interactions,
 // see [UNUserNotificationCenter].
@@ -206,15 +207,18 @@ func (u UNNotificationSettings) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // When the value of this property is [UNAuthorizationStatusAuthorized], your
 // app is allowed to schedule and receive local and remote notifications. When
-// authorized, use the [AlertSetting], [BadgeSetting], and [SoundSetting]
-// properties to specify which types of interactions are allowed. When the
-// value of the property is [UNAuthorizationStatusDenied], the system
-// doesn’t deliver notifications to your app, and the system ignores any
-// attempts to schedule local notifications.
+// authorized, use the [UNNotificationSettings.AlertSetting],
+// [UNNotificationSettings.BadgeSetting], and
+// [UNNotificationSettings.SoundSetting] properties to specify which types of
+// interactions are allowed. When the value of the property is
+// [UNAuthorizationStatusDenied], the system doesn’t deliver notifications
+// to your app, and the system ignores any attempts to schedule local
+// notifications.
 //
 // The value of this property is [UNAuthorizationStatusNotDetermined] if your
 // app has never requested authorization using the
-// [RequestAuthorizationWithOptionsCompletionHandler] method.
+// [UNUserNotificationCenter.RequestAuthorizationWithOptionsCompletionHandler]
+// method.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/authorizationStatus
 func (u UNNotificationSettings) AuthorizationStatus() UNAuthorizationStatus {
@@ -256,13 +260,14 @@ func (u UNNotificationSettings) LockScreenSetting() UNNotificationSetting {
 // When the value of this property is [UNNotificationSettingEnabled], the app
 // is authorized to display alerts. Authorization does not guarantee that
 // alerts always appear on the user’s screen. When a device is unlocked, the
-// [AlertStyle] property determines the presentation style for the alert,
-// which can include not displaying the alert at all.
+// [UNNotificationSettings.AlertStyle] property determines the presentation
+// style for the alert, which can include not displaying the alert at all.
 //
-// The system tries to display an alert when the [Title], [Subtitle], or
-// [Body] properties of a [UNNotificationContent] object contain values, or
-// when the `aps` dictionary in a remote notification contains the `alert`
-// key.
+// The system tries to display an alert when the
+// [UNNotificationContent.Title], [UNNotificationContent.Subtitle], or
+// [UNNotificationContent.Body] properties of a [UNNotificationContent] object
+// contain values, or when the `aps` dictionary in a remote notification
+// contains the `alert` key.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/alertSetting
 func (u UNNotificationSettings) AlertSetting() UNNotificationSetting {
@@ -276,9 +281,9 @@ func (u UNNotificationSettings) AlertSetting() UNNotificationSetting {
 //
 // When the value of this property is [UNNotificationSettingEnabled], the app
 // is authorized to badge its icon. The system tries to badge your app’s
-// icon when the [Badge] property of a [UNNotificationContent] object contain
-// a value, or when the `aps` dictionary in a remote notification contains the
-// `badge` key.
+// icon when the [UNNotificationContent.Badge] property of a
+// [UNNotificationContent] object contain a value, or when the `aps`
+// dictionary in a remote notification contains the `badge` key.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/badgeSetting
 func (u UNNotificationSettings) BadgeSetting() UNNotificationSetting {
@@ -292,9 +297,9 @@ func (u UNNotificationSettings) BadgeSetting() UNNotificationSetting {
 //
 // When the value of this property is [UNNotificationSettingEnabled], the
 // system authorizes the app to play sounds. The system tries to play a sound
-// when the [Sound] property of the [UNNotificationContent] object contains a
-// value, or when the `aps` dictionary in a remote notification contains the
-// `sound` key.
+// when the [UNNotificationContent.Sound] property of the
+// [UNNotificationContent] object contains a value, or when the `aps`
+// dictionary in a remote notification contains the `sound` key.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/soundSetting
 func (u UNNotificationSettings) SoundSetting() UNNotificationSetting {
@@ -311,9 +316,10 @@ func (u UNNotificationSettings) SoundSetting() UNNotificationSetting {
 // switch.
 //
 // For local notifications, the system attempts to play a critical sound when
-// the [Sound] property of the [UNNotificationContent] object contains an
-// object returned by the [DefaultCriticalSound] property, the
-// [CriticalSoundNamed] method, or a related method.
+// the [UNNotificationContent.Sound] property of the [UNNotificationContent]
+// object contains an object returned by the
+// [UNNotificationSoundClass.DefaultCriticalSound] property, the
+// [UNNotificationSoundClass.CriticalSoundNamed] method, or a related method.
 //
 // For remote notifications, the system attempts to play a critical sound when
 // the notification’s payload contains a `sound` directory that contains the

@@ -52,8 +52,9 @@ func (vc VZVirtioFileSystemDeviceClass) Alloc() VZVirtioFileSystemDevice {
 // Create this device by instantiating a
 // [VZVirtioFileSystemDeviceConfiguration] in a
 // [VZVirtualMachineConfiguration]. The file system device is available in the
-// [VZVirtualMachine].[VZVirtioFileSystemDevice.DirectorySharingDevices] property. The guest can use
-// the [VZVirtioFileSystemDevice.Tag] label to mount and access the host resources.
+// [VZVirtualMachine].[VZVirtualMachine.DirectorySharingDevices] property. The
+// guest can use the [VZVirtioFileSystemDevice.Tag] label to mount and access
+// the host resources.
 //
 // With [VZVirtioFileSystemDevice], the framework enforces several permissions
 // policies for shared directories:
@@ -105,10 +106,6 @@ type IVZVirtioFileSystemDevice interface {
 	SetShare(value IVZDirectoryShare)
 	// A string that identifies the device.
 	Tag() string
-
-	// The list of configured directory-sharing devices on the VM.
-	DirectorySharingDevices() IVZDirectorySharingDevice
-	SetDirectorySharingDevices(value IVZDirectorySharingDevice)
 }
 
 // Init initializes the instance.
@@ -152,15 +149,4 @@ func (v VZVirtioFileSystemDevice) SetShare(value IVZDirectoryShare) {
 func (v VZVirtioFileSystemDevice) Tag() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("tag"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The list of configured directory-sharing devices on the VM.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/directorysharingdevices
-func (v VZVirtioFileSystemDevice) DirectorySharingDevices() IVZDirectorySharingDevice {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("directorySharingDevices"))
-	return VZDirectorySharingDeviceFromID(objc.ID(rv))
-}
-func (v VZVirtioFileSystemDevice) SetDirectorySharingDevices(value IVZDirectorySharingDevice) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDirectorySharingDevices:"), value)
 }

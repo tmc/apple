@@ -53,19 +53,21 @@ func (nc NSFontClass) Alloc() NSFont {
 // [NSFont] objects represent fonts to an app, providing access to
 // characteristics of the font and assistance in laying out glyphs relative to
 // one another. Font objects are also used to establish the current font for
-// drawing text directly into a graphics context, using the [NSFont.Set] method.
+// drawing text directly into a graphics context, using the [NSFont.Set]
+// method.
 //
 // You don’t create [NSFont] objects using the `alloc` and `init` methods.
-// Instead, you use either [NSFont.FontWithDescriptorSize] or [NSFont.FontWithNameSize] to
-// look up an available font and alter its size or matrix to your needs. These
-// methods check for an existing font object with the specified
-// characteristics, returning it if there is one. Otherwise, they look up the
-// font data requested and create the appropriate object. [NSFont] also
-// defines a number of methods for getting standard system fonts, such as
-// [NSFont.SystemFontOfSize], [NSFont.UserFontOfSize], and [NSFont.MessageFontOfSize]. To request
-// the default size for these standard fonts, pass a negative number or `0` as
-// the font size. See [macOS Human Interface Guidelines] for more information
-// about system fonts.
+// Instead, you use either [NSFontClass.FontWithDescriptorSize] or
+// [NSFontClass.FontWithNameSize] to look up an available font and alter its
+// size or matrix to your needs. These methods check for an existing font
+// object with the specified characteristics, returning it if there is one.
+// Otherwise, they look up the font data requested and create the appropriate
+// object. [NSFont] also defines a number of methods for getting standard
+// system fonts, such as [NSFontClass.SystemFontOfSize],
+// [NSFontClass.UserFontOfSize], and [NSFontClass.MessageFontOfSize]. To
+// request the default size for these standard fonts, pass a negative number
+// or `0` as the font size. See [macOS Human Interface Guidelines] for more
+// information about system fonts.
 //
 // # Using a Font to Draw
 //
@@ -83,10 +85,6 @@ func (nc NSFontClass) Alloc() NSFont {
 // # Getting Information About Glyphs
 //
 //   - [NSFont.NumberOfGlyphs]: The number of glyphs in the font.
-//   - [NSFont.NSControlGlyph]: The reserved code for a control glyph.
-//   - [NSFont.SetNSControlGlyph]
-//   - [NSFont.NSNullGlyph]: The reserved code for a null glyph.
-//   - [NSFont.SetNSNullGlyph]
 //
 // # Getting Font Names
 //
@@ -151,10 +149,6 @@ func NSFontFromID(id objc.ID) NSFont {
 // # Getting Information About Glyphs
 //
 //   - [INSFont.NumberOfGlyphs]: The number of glyphs in the font.
-//   - [INSFont.NSControlGlyph]: The reserved code for a control glyph.
-//   - [INSFont.SetNSControlGlyph]
-//   - [INSFont.NSNullGlyph]: The reserved code for a null glyph.
-//   - [INSFont.SetNSNullGlyph]
 //
 // # Getting Font Names
 //
@@ -206,18 +200,12 @@ type INSFont interface {
 	// A Boolean value indicating whether all glyphs in the font have the same advancement.
 	IsFixedPitch() bool
 	// The string encoding that works best with the font.
-	MostCompatibleStringEncoding() uint
+	MostCompatibleStringEncoding() foundation.NSStringEncoding
 
 	// Topic: Getting Information About Glyphs
 
 	// The number of glyphs in the font.
 	NumberOfGlyphs() uint
-	// The reserved code for a control glyph.
-	NSControlGlyph() int
-	SetNSControlGlyph(value int)
-	// The reserved code for a null glyph.
-	NSNullGlyph() int
-	SetNSNullGlyph(value int)
 
 	// Topic: Getting Font Names
 
@@ -251,11 +239,11 @@ type INSFont interface {
 	// Returns the bounding rectangle for the specified glyph, scaled to the receiver’s size.
 	BoundingRectForGlyph(glyph uint32) corefoundation.CGRect
 	// Returns an array of the advancements for the specified glyphs rendered by the receiver.
-	GetAdvancementsForGlyphsCount(advancements foundation.NSSize, glyphs []NSGlyph, glyphCount uint)
+	GetAdvancementsForGlyphsCount(advancements foundation.NSSizeArray, glyphs []uint32, glyphCount uint)
 	// Returns an array of the advancements for the specified packed glyphs and rendered by the receiver.
-	GetAdvancementsForPackedGlyphsLength(advancements foundation.NSSize, packedGlyphs unsafe.Pointer, length uint)
+	GetAdvancementsForPackedGlyphsLength(advancements foundation.NSSizeArray, packedGlyphs unsafe.Pointer, length uint)
 	// Returns an array of the bounding rectangles for the specified glyphs rendered by the receiver.
-	GetBoundingRectsForGlyphsCount(bounds foundation.NSRect, glyphs []NSGlyph, glyphCount uint)
+	GetBoundingRectsForGlyphsCount(bounds foundation.NSRectArray, glyphs []uint32, glyphCount uint)
 	// Returns the named encoded glyph, or –1 if the receiver contains no such glyph.
 	GlyphWithName(name string) NSGlyph
 	// Returns a bitmapped screen font, when sent to a font object representing a scalable PostScript font, with the specified rendering mode, matching the receiver in typeface and matrix (or size), or `nil` if such a font can’t be found.
@@ -287,13 +275,14 @@ type INSFont interface {
 	// The x-height of the font.
 	XHeight() float64
 	// Returns the nominal spacing for the given glyph—the distance the current point moves after showing the glyph—accounting for the receiver’s size.
-	AdvancementForCGGlyph(glyph coregraphics.CGFontIndex) corefoundation.CGSize
+	AdvancementForCGGlyph(glyph coregraphics.CGGlyph) corefoundation.CGSize
 	// Returns the bounding rectangle for the specified glyph, scaled to the receiver’s size.
-	BoundingRectForCGGlyph(glyph coregraphics.CGFontIndex) corefoundation.CGRect
+	BoundingRectForCGGlyph(glyph coregraphics.CGGlyph) corefoundation.CGRect
 	// Returns an array of the advancements for the specified glyphs rendered by the receiver.
-	GetAdvancementsForCGGlyphsCount(advancements foundation.NSSize, glyphs []coregraphics.CGFontIndex, glyphCount uint)
+	GetAdvancementsForCGGlyphsCount(advancements foundation.NSSizeArray, glyphs []coregraphics.CGGlyph, glyphCount uint)
 	// Returns an array of the bounding rectangles for the specified glyphs rendered by the receiver.
-	GetBoundingRectsForCGGlyphsCount(bounds foundation.NSRect, glyphs []coregraphics.CGFontIndex, glyphCount uint)
+	GetBoundingRectsForCGGlyphsCount(bounds foundation.NSRectArray, glyphs []coregraphics.CGGlyph, glyphCount uint)
+	InitWithCoder(coder foundation.INSCoder) NSFont
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -316,6 +305,13 @@ func NewNSFont() NSFont {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSFont/init(coder:)
+func NewFontWithCoder(coder foundation.INSCoder) NSFont {
+	instance := getNSFontClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSFontFromID(rv)
+}
+
 // Returns a font object for the specified font descriptor and font size.
 //
 // fontDescriptor: A font descriptor object.
@@ -328,8 +324,8 @@ func NewNSFont() NSFont {
 //
 // # Discussion
 //
-// In most cases, you can simply use [FontWithNameSize] to create standard
-// scaled fonts.
+// In most cases, you can simply use [NSFontClass.FontWithNameSize] to create
+// standard scaled fonts.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/init(descriptor:size:)
 func NewFontWithDescriptorSize(fontDescriptor INSFontDescriptor, fontSize float64) NSFont {
@@ -349,9 +345,9 @@ func NewFontWithDescriptorSize(fontDescriptor INSFontDescriptor, fontSize float6
 //
 // # Discussion
 //
-// In most cases, you can simply use [FontWithNameSize] to create standard
-// scaled fonts. If `textTransform` is non-nil, it has precedence over
-// [NSFontMatrixAttribute] in `fontDescriptor`.
+// In most cases, you can simply use [NSFontClass.FontWithNameSize] to create
+// standard scaled fonts. If `textTransform` is non-nil, it has precedence
+// over [NSFontMatrixAttribute] in `fontDescriptor`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/init(descriptor:textTransform:)
 func NewFontWithDescriptorTextTransform(fontDescriptor INSFontDescriptor, textTransform foundation.NSAffineTransform) NSFont {
@@ -375,15 +371,15 @@ func NewFontWithDescriptorTextTransform(fontDescriptor INSFontDescriptor, textTr
 // Helvetica-BoldOblique or Times-Roman (not a name as shown in the Font
 // Panel). The `fontMatrix` is a standard 6-element transformation matrix as
 // used in the PostScript language, specifically with the `makefont` operator.
-// In most cases, you can simply use [FontWithNameSize] to create standard
-// scaled fonts.
+// In most cases, you can simply use [NSFontClass.FontWithNameSize] to create
+// standard scaled fonts.
 //
 // You can use the defined value [NSFontIdentityMatrix] for [1 0 0 1 0 0].
 // Fonts created with a matrix other than [NSFontIdentityMatrix] don’t
 // automatically flip themselves in flipped views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/init(name:matrix:)
-func NewFontWithNameMatrix(fontName string, fontMatrix unsafe.Pointer) NSFont {
+func NewFontWithNameMatrix(fontName string, fontMatrix *float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(getNSFontClass().class), objc.Sel("fontWithName:matrix:"), objc.String(fontName), fontMatrix)
 	return NSFontFromID(rv)
 }
@@ -406,8 +402,8 @@ func NewFontWithNameMatrix(fontName string, fontMatrix unsafe.Pointer) NSFont {
 // Font Info panel.)
 //
 // Specifying `fontSize` is equivalent to using a font matrix of [`fontSize` 0
-// 0 `fontSize` 0 0] with [FontWithDescriptorSize]. If you use a `fontSize` of
-// 0.0, this method uses the default User Font size.
+// 0 `fontSize` 0 0] with [NSFontClass.FontWithDescriptorSize]. If you use a
+// `fontSize` of 0.0, this method uses the default User Font size.
 //
 // Fonts created with this method automatically flip themselves in flipped
 // views. This method is the preferred means for creating fonts.
@@ -492,7 +488,7 @@ func (f NSFont) BoundingRectForGlyph(glyph uint32) corefoundation.CGRect {
 // specify the count of glyphs passed in `glyphs`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/getAdvancements(_:forGlyphs:count:)
-func (f NSFont) GetAdvancementsForGlyphsCount(advancements foundation.NSSize, glyphs []NSGlyph, glyphCount uint) {
+func (f NSFont) GetAdvancementsForGlyphsCount(advancements foundation.NSSizeArray, glyphs []uint32, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forGlyphs:count:"), advancements, objc.CArray(glyphs), glyphCount)
 }
 
@@ -506,7 +502,7 @@ func (f NSFont) GetAdvancementsForGlyphsCount(advancements foundation.NSSize, gl
 // `glyphCount` must specify the count of glyphs passed in `packedGlyphs`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/getAdvancements(_:forPackedGlyphs:length:)
-func (f NSFont) GetAdvancementsForPackedGlyphsLength(advancements foundation.NSSize, packedGlyphs unsafe.Pointer, length uint) {
+func (f NSFont) GetAdvancementsForPackedGlyphsLength(advancements foundation.NSSizeArray, packedGlyphs unsafe.Pointer, length uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forPackedGlyphs:length:"), advancements, packedGlyphs, length)
 }
 
@@ -520,7 +516,7 @@ func (f NSFont) GetAdvancementsForPackedGlyphsLength(advancements foundation.NSS
 // specify the count of glyphs passed in `glyphs`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/getBoundingRects(_:forGlyphs:count:)
-func (f NSFont) GetBoundingRectsForGlyphsCount(bounds foundation.NSRect, glyphs []NSGlyph, glyphCount uint) {
+func (f NSFont) GetBoundingRectsForGlyphsCount(bounds foundation.NSRectArray, glyphs []uint32, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getBoundingRects:forGlyphs:count:"), bounds, objc.CArray(glyphs), glyphCount)
 }
 
@@ -593,7 +589,7 @@ func (f NSFont) FontWithSize(fontSize float64) NSFont {
 // is either strictly horizontal or strictly vertical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/advancement(forCGGlyph:)
-func (f NSFont) AdvancementForCGGlyph(glyph coregraphics.CGFontIndex) corefoundation.CGSize {
+func (f NSFont) AdvancementForCGGlyph(glyph coregraphics.CGGlyph) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](f.ID, objc.Sel("advancementForCGGlyph:"), glyph)
 	return corefoundation.CGSize(rv)
 }
@@ -609,7 +605,7 @@ func (f NSFont) AdvancementForCGGlyph(glyph coregraphics.CGFontIndex) corefounda
 // font instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/boundingRect(forCGGlyph:)
-func (f NSFont) BoundingRectForCGGlyph(glyph coregraphics.CGFontIndex) corefoundation.CGRect {
+func (f NSFont) BoundingRectForCGGlyph(glyph coregraphics.CGGlyph) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("boundingRectForCGGlyph:"), glyph)
 	return corefoundation.CGRect(rv)
 }
@@ -624,7 +620,7 @@ func (f NSFont) BoundingRectForCGGlyph(glyph coregraphics.CGFontIndex) corefound
 // must specify the count of glyphs passed in `glyphs`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/getAdvancements(_:forCGGlyphs:count:)
-func (f NSFont) GetAdvancementsForCGGlyphsCount(advancements foundation.NSSize, glyphs []coregraphics.CGFontIndex, glyphCount uint) {
+func (f NSFont) GetAdvancementsForCGGlyphsCount(advancements foundation.NSSizeArray, glyphs []coregraphics.CGGlyph, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forCGGlyphs:count:"), advancements, objc.CArray(glyphs), glyphCount)
 }
 
@@ -638,8 +634,14 @@ func (f NSFont) GetAdvancementsForCGGlyphsCount(advancements foundation.NSSize, 
 // must specify the count of glyphs passed in `glyphs`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/getBoundingRects(_:forCGGlyphs:count:)
-func (f NSFont) GetBoundingRectsForCGGlyphsCount(bounds foundation.NSRect, glyphs []coregraphics.CGFontIndex, glyphCount uint) {
+func (f NSFont) GetBoundingRectsForCGGlyphsCount(bounds foundation.NSRectArray, glyphs []coregraphics.CGGlyph, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getBoundingRects:forCGGlyphs:count:"), bounds, objc.CArray(glyphs), glyphCount)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSFont/init(coder:)
+func (f NSFont) InitWithCoder(coder foundation.INSCoder) NSFont {
+	rv := objc.Send[NSFont](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (f NSFont) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -875,7 +877,7 @@ func (_NSFontClass NSFontClass) LabelFontOfSize(fontSize float64) NSFont {
 // # Discussion
 //
 // If `fontSize` is 0 or negative, returns this font at the default size. This
-// method is equivalent to [SystemFontOfSize].
+// method is equivalent to [NSFontClass.SystemFontOfSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/messageFont(ofSize:)
 func (_NSFontClass NSFontClass) MessageFontOfSize(fontSize float64) NSFont {
@@ -952,7 +954,7 @@ func (_NSFontClass NSFontClass) ControlContentFontOfSize(fontSize float64) NSFon
 // # Discussion
 //
 // If `fontSize` is 0 or negative, returns the title bar font at the default
-// size. This method is equivalent to [BoldSystemFontOfSize].
+// size. This method is equivalent to [NSFontClass.BoldSystemFontOfSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/titleBarFont(ofSize:)
 func (_NSFontClass NSFontClass) TitleBarFontOfSize(fontSize float64) NSFont {
@@ -1139,9 +1141,9 @@ func (f NSFont) IsFixedPitch() bool {
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [data(using:)]: https://developer.apple.com/documentation/Foundation/NSString/data(using:)
 // [data(using:allowLossyConversion:)]: https://developer.apple.com/documentation/Foundation/NSString/data(using:allowLossyConversion:)
-func (f NSFont) MostCompatibleStringEncoding() uint {
-	rv := objc.Send[uint](f.ID, objc.Sel("mostCompatibleStringEncoding"))
-	return rv
+func (f NSFont) MostCompatibleStringEncoding() foundation.NSStringEncoding {
+	rv := objc.Send[foundation.NSStringEncoding](f.ID, objc.Sel("mostCompatibleStringEncoding"))
+	return foundation.NSStringEncoding(rv)
 }
 
 // The number of glyphs in the font.
@@ -1154,28 +1156,6 @@ func (f NSFont) MostCompatibleStringEncoding() uint {
 func (f NSFont) NumberOfGlyphs() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("numberOfGlyphs"))
 	return rv
-}
-
-// The reserved code for a control glyph.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrolglyph
-func (f NSFont) NSControlGlyph() int {
-	rv := objc.Send[int](f.ID, objc.Sel("NSControlGlyph"))
-	return rv
-}
-func (f NSFont) SetNSControlGlyph(value int) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNSControlGlyph:"), value)
-}
-
-// The reserved code for a null glyph.
-//
-// See: https://developer.apple.com/documentation/appkit/nsnullglyph
-func (f NSFont) NSNullGlyph() int {
-	rv := objc.Send[int](f.ID, objc.Sel("NSNullGlyph"))
-	return rv
-}
-func (f NSFont) SetNSNullGlyph(value int) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNSNullGlyph:"), value)
 }
 
 // The name of the font, including family and face names, to use when
@@ -1200,7 +1180,7 @@ func (f NSFont) DisplayName() string {
 //
 // The value in this property is intended for an application’s internal
 // usage and not for display. To get a name that you can display to the user,
-// use the [DisplayName] property instead.
+// use the [NSFont.DisplayName] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/familyName
 func (f NSFont) FamilyName() string {
@@ -1215,7 +1195,7 @@ func (f NSFont) FamilyName() string {
 //
 // The value in this property is intended for an application’s internal
 // usage and not for display. To get a name that you can display to the user,
-// use the [DisplayName] property instead.
+// use the [NSFont.DisplayName] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/fontName
 func (f NSFont) FontName() string {
@@ -1244,8 +1224,8 @@ func (f NSFont) IsVertical() bool {
 // the value in the property is `self`.
 //
 // A vertical font applies appropriate rotation to the text matrix in
-// [SetInContext], returns vertical metrics, and enables the vertical glyph
-// substitution feature by default.
+// [NSFont.SetInContext], returns vertical metrics, and enables the vertical
+// glyph substitution feature by default.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/vertical-6ym79
 func (f NSFont) VerticalFont() NSFont {
@@ -1485,12 +1465,4 @@ func (_NSFontClass NSFontClass) SmallSystemFontSize() float64 {
 func (_NSFontClass NSFontClass) LabelFontSize() float64 {
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("labelFontSize"))
 	return rv
-}
-
-// Posted after the threshold for antialiasing changes.
-//
-// See: https://developer.apple.com/documentation/appkit/nsfont/antialiasthresholdchangednotification
-func (_NSFontClass NSFontClass) AntialiasThresholdChangedNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("NSAntialiasThresholdChangedNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

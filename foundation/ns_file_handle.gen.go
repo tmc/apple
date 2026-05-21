@@ -58,9 +58,9 @@ func (fc FileHandleClass) Alloc() FileHandle {
 // handle object both creates the file descriptor and is responsible for
 // closing it later, usually when the system deallocates the file handle
 // object. If you want to use a file handle object with a file descriptor that
-// you created, use the [InitWithFileDescriptor] method or use the
-// [InitWithFileDescriptorCloseOnDealloc] method and pass false for the `flag`
-// parameter.
+// you created, use the [NSFileHandle.InitWithFileDescriptor] method or use
+// the [NSFileHandle.InitWithFileDescriptorCloseOnDealloc] method and pass
+// false for the `flag` parameter.
 //
 // # Run Loop Considerations
 //
@@ -81,11 +81,6 @@ func (fc FileHandleClass) Alloc() FileHandle {
 // # Getting a File Descriptor
 //
 //   - [FileHandle.FileDescriptor]: The POSIX file descriptor associated with the receiver.
-//
-// # Reading from a File Handle Asynchronously
-//
-//   - [FileHandle.Bytes]: The file’s contents, as an asynchronous sequence of bytes.
-//   - [FileHandle.SetBytes]
 //
 // # Reading from a File Handle Synchronously
 //
@@ -119,16 +114,9 @@ func (fc FileHandleClass) Alloc() FileHandle {
 //   - [FileHandle.WriteabilityHandler]: The block to use for writing the contents of the file handle asynchronously.
 //   - [FileHandle.SetWriteabilityHandler]
 //
-// # Notifications
-//
-//   - [FileHandle.NSFileHandleConnectionAccepted]: Posted when a file handle object establishes a socket connection between two processes, creates a file handle object for one end of the connection, and makes this object available to observers.
-//   - [FileHandle.NSFileHandleDataAvailable]: Posted when the file handle determines that data is currently available for reading in a file or at a communications channel.
-//   - [FileHandle.NSFileHandleReadToEndOfFileCompletion]: Posted when the file handle reads all data in the file or, in a communications channel, until the other process signals the end of data.
-//
 // # Deprecated
 //
 //   - [FileHandle.OffsetInFile]: The position of the file pointer within the file represented by the file handle.
-//   - [FileHandle.NSFileHandleNotificationMonitorModes]: Currently unused.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle
 type FileHandle struct {
@@ -158,11 +146,6 @@ func NSFileHandleFromID(id objc.ID) FileHandle { return FileHandleFromID(id) }
 // # Getting a File Descriptor
 //
 //   - [IFileHandle.FileDescriptor]: The POSIX file descriptor associated with the receiver.
-//
-// # Reading from a File Handle Asynchronously
-//
-//   - [IFileHandle.Bytes]: The file’s contents, as an asynchronous sequence of bytes.
-//   - [IFileHandle.SetBytes]
 //
 // # Reading from a File Handle Synchronously
 //
@@ -196,16 +179,9 @@ func NSFileHandleFromID(id objc.ID) FileHandle { return FileHandleFromID(id) }
 //   - [IFileHandle.WriteabilityHandler]: The block to use for writing the contents of the file handle asynchronously.
 //   - [IFileHandle.SetWriteabilityHandler]
 //
-// # Notifications
-//
-//   - [IFileHandle.NSFileHandleConnectionAccepted]: Posted when a file handle object establishes a socket connection between two processes, creates a file handle object for one end of the connection, and makes this object available to observers.
-//   - [IFileHandle.NSFileHandleDataAvailable]: Posted when the file handle determines that data is currently available for reading in a file or at a communications channel.
-//   - [IFileHandle.NSFileHandleReadToEndOfFileCompletion]: Posted when the file handle reads all data in the file or, in a communications channel, until the other process signals the end of data.
-//
 // # Deprecated
 //
 //   - [IFileHandle.OffsetInFile]: The position of the file pointer within the file represented by the file handle.
-//   - [IFileHandle.NSFileHandleNotificationMonitorModes]: Currently unused.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle
 type IFileHandle interface {
@@ -223,12 +199,6 @@ type IFileHandle interface {
 
 	// The POSIX file descriptor associated with the receiver.
 	FileDescriptor() int
-
-	// Topic: Reading from a File Handle Asynchronously
-
-	// The file’s contents, as an asynchronous sequence of bytes.
-	Bytes() unsafe.Pointer
-	SetBytes(value unsafe.Pointer)
 
 	// Topic: Reading from a File Handle Synchronously
 
@@ -277,21 +247,10 @@ type IFileHandle interface {
 	WriteabilityHandler() FileHandleHandler
 	SetWriteabilityHandler(value FileHandleHandler)
 
-	// Topic: Notifications
-
-	// Posted when a file handle object establishes a socket connection between two processes, creates a file handle object for one end of the connection, and makes this object available to observers.
-	NSFileHandleConnectionAccepted() NSNotificationName
-	// Posted when the file handle determines that data is currently available for reading in a file or at a communications channel.
-	NSFileHandleDataAvailable() NSNotificationName
-	// Posted when the file handle reads all data in the file or, in a communications channel, until the other process signals the end of data.
-	NSFileHandleReadToEndOfFileCompletion() NSNotificationName
-
 	// Topic: Deprecated
 
 	// The position of the file pointer within the file represented by the file handle.
 	OffsetInFile() uint64
-	// Currently unused.
-	NSFileHandleNotificationMonitorModes() string
 
 	// Get the current position of the file pointer within the file.
 	GetOffsetError() (uint64, error)
@@ -337,7 +296,8 @@ func NewFileHandle() FileHandle {
 //
 // The system sets the file pointer to the beginning of the file. You can’t
 // write data to the returned file handle object. Use the
-// [ReadDataToEndOfFile] or [ReadDataOfLength] methods to read data from it.
+// [NSFileHandle.ReadDataToEndOfFile] or [NSFileHandle.ReadDataOfLength]
+// methods to read data from it.
 //
 // When using this method to create a file handle object, the file handle owns
 // its associated file descriptor and is responsible for closing it.
@@ -348,7 +308,26 @@ func NewFileHandleForReadingAtPath(path string) FileHandle {
 	return FileHandleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forReadingFrom:)
+// Returns a file handle initialized for reading the file, device, or named
+// socket at the specified URL.
+//
+// url: The URL of the file, device, or named socket to access.
+//
+// # Return Value
+//
+// The initialized file handle object or `nil` if no file exists at `url`.
+//
+// # Discussion
+//
+// The file pointer is set to the beginning of the file. You cannot write data
+// to the returned file handle object. Use the
+// [NSFileHandle.ReadDataToEndOfFile] or [NSFileHandle.ReadDataOfLength]
+// methods to read data from it.
+//
+// When using this method to create a file handle object, the file handle owns
+// its associated file descriptor and is responsible for closing it.
+//
+// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forReadingFromURL:)
 func NewFileHandleForReadingFromURLError(url INSURL) (FileHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForReadingFromURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -371,7 +350,7 @@ func NewFileHandleForReadingFromURLError(url INSURL) (FileHandle, error) {
 // # Discussion
 //
 // The file pointer is set to the beginning of the file. The returned object
-// responds to both `read...` messages and [WriteData].
+// responds to both `read...` messages and [NSFileHandle.WriteData].
 //
 // When using this method to create a file handle object, the file handle owns
 // its associated file descriptor and is responsible for closing it.
@@ -382,7 +361,25 @@ func NewFileHandleForUpdatingAtPath(path string) FileHandle {
 	return FileHandleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forUpdating:)
+// Returns a file handle initialized for reading and writing to the file,
+// device, or named socket at the specified URL.
+//
+// url: The URL of the file, device, or named socket to access.
+//
+// # Return Value
+//
+// The initialized file handle object or `nil` if no file exists at `url`.
+//
+// # Discussion
+//
+// The file pointer is set to the beginning of the file. The returned object
+// responds to both `NSFileHandle“read...` messages and
+// [NSFileHandle.WriteData].
+//
+// When using this method to create a file handle object, the file handle owns
+// its associated file descriptor and is responsible for closing it.
+//
+// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forUpdatingURL:)
 func NewFileHandleForUpdatingURLError(url INSURL) (FileHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForUpdatingURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -405,8 +402,8 @@ func NewFileHandleForUpdatingURLError(url INSURL) (FileHandle, error) {
 // # Discussion
 //
 // The file pointer is set to the beginning of the file. You cannot read data
-// from the returned file handle object. Use the [WriteData] method to write
-// data to the file handle.
+// from the returned file handle object. Use the [NSFileHandle.WriteData]
+// method to write data to the file handle.
 //
 // When using this method to create a file handle object, the file handle owns
 // its associated file descriptor and is responsible for closing it.
@@ -417,7 +414,24 @@ func NewFileHandleForWritingAtPath(path string) FileHandle {
 	return FileHandleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forWritingTo:)
+// Returns a file handle initialized for writing to the file, device, or named
+// socket at the specified URL.
+//
+// url: The URL of the file, device, or named socket to access.
+//
+// # Return Value
+//
+// The initialized file handle object or `nil` if no file exists at `url`.
+//
+// # Discussion
+//
+// The file pointer is set to the beginning of the file. The returned object
+// responds only to [NSFileHandle.WriteData].
+//
+// When using this method to create a file handle object, the file handle owns
+// its associated file descriptor and is responsible for closing it.
+//
+// See: https://developer.apple.com/documentation/Foundation/FileHandle/init(forWritingToURL:)
 func NewFileHandleForWritingToURLError(url INSURL) (FileHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForWritingToURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -572,20 +586,23 @@ func (f FileHandle) InitWithCoder(coder INSCoder) FileHandle {
 //
 // # Special Considerations
 //
-// The receiver must be created by an [InitWithFileDescriptor] message that
-// takes as an argument a stream-type socket created by the appropriate system
-// routine, . In other words, you must `bind()` the socket, and ensure that
-// the socket has a connection backlog defined by `listen()`.
+// The receiver must be created by an [NSFileHandle.InitWithFileDescriptor]
+// message that takes as an argument a stream-type socket created by the
+// appropriate system routine, . In other words, you must `bind()` the socket,
+// and ensure that the socket has a connection backlog defined by `listen()`.
 //
 // The object that will write data to the returned file handle must add itself
 // as an observer of [NSFileHandleConnectionAccepted].
 //
 // Note that this method does not continue to listen for connection requests
 // after it posts [NSFileHandleConnectionAccepted]. If you want to keep
-// getting notified, you need to call [AcceptConnectionInBackgroundAndNotify]
-// again in your observer method.
+// getting notified, you need to call
+// [NSFileHandle.AcceptConnectionInBackgroundAndNotify] again in your observer
+// method.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/acceptConnectionInBackgroundAndNotify()
+//
+// [NSFileHandleConnectionAccepted]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleConnectionAccepted
 func (f FileHandle) AcceptConnectionInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("acceptConnectionInBackgroundAndNotify"))
 }
@@ -599,14 +616,17 @@ func (f FileHandle) AcceptConnectionInBackgroundAndNotify() {
 //
 // # Discussion
 //
-// See [AcceptConnectionInBackgroundAndNotify] for details of how this method
-// operates. This method differs from [AcceptConnectionInBackgroundAndNotify]
-// in that `modes` specifies the run-loop mode (or modes) in which
+// See [NSFileHandle.AcceptConnectionInBackgroundAndNotify] for details of how
+// this method operates. This method differs from
+// [NSFileHandle.AcceptConnectionInBackgroundAndNotify] in that `modes`
+// specifies the run-loop mode (or modes) in which
 // [NSFileHandleConnectionAccepted] can be posted.
 //
 // You must call this method from a thread that has an active run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/acceptConnectionInBackgroundAndNotify(forModes:)
+//
+// [NSFileHandleConnectionAccepted]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleConnectionAccepted
 func (f FileHandle) AcceptConnectionInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("acceptConnectionInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
@@ -616,10 +636,11 @@ func (f FileHandle) AcceptConnectionInBackgroundAndNotifyForModes(modes []string
 //
 // # Discussion
 //
-// This method performs an asynchronous [AvailableData] operation on a file or
-// communications channel and posts an [readCompletionNotification]
-// notification on the current thread when that operation is complete. You
-// must call this method from a thread that has an active run loop.
+// This method performs an asynchronous [NSFileHandle.AvailableData] operation
+// on a file or communications channel and posts an
+// [readCompletionNotification] notification on the current thread when that
+// operation is complete. You must call this method from a thread that has an
+// active run loop.
 //
 // The length of the data is limited to the buffer size of the underlying
 // operating system. The notification includes a `userInfo` dictionary that
@@ -633,10 +654,11 @@ func (f FileHandle) AcceptConnectionInBackgroundAndNotifyForModes(modes []string
 //
 // Note that this method does not cause a continuous stream of notifications
 // to be sent. If you wish to keep getting notified, you’ll also need to
-// call [ReadInBackgroundAndNotify] in your observer method.
+// call [NSFileHandle.ReadInBackgroundAndNotify] in your observer method.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/readInBackgroundAndNotify()
 //
+// [NSFileHandleConnectionAccepted]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleConnectionAccepted
 // [readCompletionNotification]: https://developer.apple.com/documentation/Foundation/FileHandle/readCompletionNotification
 func (f FileHandle) ReadInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("readInBackgroundAndNotify"))
@@ -649,9 +671,9 @@ func (f FileHandle) ReadInBackgroundAndNotify() {
 //
 // # Discussion
 //
-// See [ReadInBackgroundAndNotify] for details of how this method operates.
-// This method differs from [ReadInBackgroundAndNotify] in that `modes`
-// specifies the run-loop mode (or modes) in which
+// See [NSFileHandle.ReadInBackgroundAndNotify] for details of how this method
+// operates. This method differs from [NSFileHandle.ReadInBackgroundAndNotify]
+// in that `modes` specifies the run-loop mode (or modes) in which
 // [readCompletionNotification] can be posted.
 //
 // You must call this method from a thread that has an active run loop.
@@ -682,6 +704,9 @@ func (f FileHandle) ReadInBackgroundAndNotifyForModes(modes []string) {
 // `userInfo` dictionary of [NSFileHandleConnectionAccepted].
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/readToEndOfFileInBackgroundAndNotify()
+//
+// [NSFileHandleConnectionAccepted]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleConnectionAccepted
+// [NSFileHandleReadToEndOfFileCompletion]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleReadToEndOfFileCompletion
 func (f FileHandle) ReadToEndOfFileInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("readToEndOfFileInBackgroundAndNotify"))
 }
@@ -693,14 +718,17 @@ func (f FileHandle) ReadToEndOfFileInBackgroundAndNotify() {
 //
 // # Discussion
 //
-// See [ReadToEndOfFileInBackgroundAndNotify] for details of this method’s
-// operation. The method differs from [ReadToEndOfFileInBackgroundAndNotify]
-// in that `modes` specifies the run-loop mode (or modes) in which
+// See [NSFileHandle.ReadToEndOfFileInBackgroundAndNotify] for details of this
+// method’s operation. The method differs from
+// [NSFileHandle.ReadToEndOfFileInBackgroundAndNotify] in that `modes`
+// specifies the run-loop mode (or modes) in which
 // [NSFileHandleReadToEndOfFileCompletion] can be posted.
 //
 // You must call this method from a thread that has an active run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/readToEndOfFileInBackgroundAndNotify(forModes:)
+//
+// [NSFileHandleReadToEndOfFileCompletion]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleReadToEndOfFileCompletion
 func (f FileHandle) ReadToEndOfFileInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("readToEndOfFileInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
@@ -715,6 +743,8 @@ func (f FileHandle) ReadToEndOfFileInBackgroundAndNotifyForModes(modes []string)
 // You must call this method from a thread that has an active run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/waitForDataInBackgroundAndNotify()
+//
+// [NSFileHandleDataAvailable]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleDataAvailable
 func (f FileHandle) WaitForDataInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("waitForDataInBackgroundAndNotify"))
 }
@@ -727,13 +757,15 @@ func (f FileHandle) WaitForDataInBackgroundAndNotify() {
 //
 // When the data becomes available, this method posts a
 // [NSFileHandleDataAvailable] notification on the current thread. This method
-// differs from [WaitForDataInBackgroundAndNotify] in that `modes` specifies
-// the run-loop mode (or modes) in which [NSFileHandleDataAvailable] can be
-// posted.
+// differs from [NSFileHandle.WaitForDataInBackgroundAndNotify] in that
+// `modes` specifies the run-loop mode (or modes) in which
+// [NSFileHandleDataAvailable] can be posted.
 //
 // You must call this method from a thread that has an active run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/waitForDataInBackgroundAndNotify(forModes:)
+//
+// [NSFileHandleDataAvailable]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSFileHandleDataAvailable
 func (f FileHandle) WaitForDataInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("waitForDataInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
@@ -766,10 +798,10 @@ func (f FileHandle) SeekToOffsetError(offset uint64) (bool, error) {
 //
 // If the file handle object owns its file descriptor, it automatically closes
 // that descriptor when deallocated. If you initialized the file handle object
-// using the [InitWithFileDescriptor] method, or you initialized it using the
-// [InitWithFileDescriptorCloseOnDealloc] and passed false for the `flag`
-// parameter, you can use this method to close the file descriptor; otherwise,
-// you must close the file descriptor yourself.
+// using the [NSFileHandle.InitWithFileDescriptor] method, or you initialized
+// it using the [NSFileHandle.InitWithFileDescriptorCloseOnDealloc] and passed
+// false for the `flag` parameter, you can use this method to close the file
+// descriptor; otherwise, you must close the file descriptor yourself.
 //
 // After calling this method, you may still use the file handle object, but
 // you must not attempt to read or write data or use the object to operate on
@@ -897,7 +929,8 @@ func (f FileHandle) GetOffsetError() (uint64, error) {
 //
 // # Discussion
 //
-// This method invokes [ReadDataOfLength] as part of its implementation.
+// This method invokes [NSFileHandle.ReadDataOfLength] as part of its
+// implementation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileHandle/readDataToEndOfFileAndReturnError:
 func (f FileHandle) ReadDataToEndOfFileAndReturnError() (INSData, error) {
@@ -1025,25 +1058,15 @@ func (f FileHandle) WriteDataError(data INSData) (bool, error) {
 //
 // You can use this method to retrieve the file descriptor while it is open.
 // If the file handle object owns the file descriptor, you must not close it
-// yourself. However, you can use the [CloseFile] method to close the file
-// descriptor programmatically. If you do call the [CloseFile] method,
-// subsequent calls to this method raise an exception.
+// yourself. However, you can use the [NSFileHandle.CloseFile] method to close
+// the file descriptor programmatically. If you do call the
+// [NSFileHandle.CloseFile] method, subsequent calls to this method raise an
+// exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/fileDescriptor
 func (f FileHandle) FileDescriptor() int {
 	rv := objc.Send[int](f.ID, objc.Sel("fileDescriptor"))
 	return rv
-}
-
-// The file’s contents, as an asynchronous sequence of bytes.
-//
-// See: https://developer.apple.com/documentation/foundation/filehandle/bytes
-func (f FileHandle) Bytes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("bytes"))
-	return rv
-}
-func (f FileHandle) SetBytes(value unsafe.Pointer) {
-	objc.Send[struct{}](f.ID, objc.Sel("setBytes:"), value)
 }
 
 // The data currently available in the receiver.
@@ -1136,34 +1159,6 @@ func (f FileHandle) SetWriteabilityHandler(value FileHandleHandler) {
 	objc.Send[struct{}](f.ID, objc.Sel("setWriteabilityHandler:"), block)
 }
 
-// Posted when a file handle object establishes a socket connection between
-// two processes, creates a file handle object for one end of the connection,
-// and makes this object available to observers.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsfilehandleconnectionaccepted
-func (f FileHandle) NSFileHandleConnectionAccepted() NSNotificationName {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleConnectionAcceptedNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the file handle determines that data is currently available for
-// reading in a file or at a communications channel.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsfilehandledataavailable
-func (f FileHandle) NSFileHandleDataAvailable() NSNotificationName {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleDataAvailableNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the file handle reads all data in the file or, in a
-// communications channel, until the other process signals the end of data.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsfilehandlereadtoendoffilecompletion
-func (f FileHandle) NSFileHandleReadToEndOfFileCompletion() NSNotificationName {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleReadToEndOfFileCompletionNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
 // The position of the file pointer within the file represented by the file
 // handle.
 //
@@ -1178,14 +1173,6 @@ func (f FileHandle) NSFileHandleReadToEndOfFileCompletion() NSNotificationName {
 func (f FileHandle) OffsetInFile() uint64 {
 	rv := objc.Send[uint64](f.ID, objc.Sel("offsetInFile"))
 	return rv
-}
-
-// Currently unused.
-//
-// See: https://developer.apple.com/documentation/foundation/nsfilehandlenotificationmonitormodes
-func (f FileHandle) NSFileHandleNotificationMonitorModes() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleNotificationMonitorModes"))
-	return NSStringFromID(rv).String()
 }
 
 // The file handle associated with the standard error file.
@@ -1264,8 +1251,9 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardOutput() NSFileHan
 // and other errors resulting from messages being sent to invalid file
 // handles. Read messages sent to a null-device file handle return an
 // end-of-file indicator (an empty [NSData] object) rather than raise an
-// exception. Write messages are no-ops, whereas [FileDescriptor] returns an
-// illegal value. Other methods are no-ops or return “sensible” values.
+// exception. Write messages are no-ops, whereas [NSFileHandle.FileDescriptor]
+// returns an illegal value. Other methods are no-ops or return “sensible”
+// values.
 //
 // When using this method to create a file handle object, the file handle owns
 // its associated file descriptor and is responsible for closing it.

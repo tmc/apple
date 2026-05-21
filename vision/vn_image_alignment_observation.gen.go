@@ -5,6 +5,7 @@ package vision
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -92,4 +93,11 @@ func NewVNImageAlignmentObservation() VNImageAlignmentObservation {
 	class := getVNImageAlignmentObservationClass()
 	rv := objc.Send[VNImageAlignmentObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewImageAlignmentObservationWithCoder(coder foundation.INSCoder) VNImageAlignmentObservation {
+	instance := getVNImageAlignmentObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNImageAlignmentObservationFromID(rv)
 }

@@ -182,6 +182,7 @@ type ICIColor interface {
 	// Returns a formatted string with the unpremultiplied color and alpha components of the color.
 	StringRepresentation() string
 
+	InitWithCoder(coder foundation.INSCoder) CIColor
 	// Initialize a Core Image color object in the sRGB color space with the specified red, green, and blue component values.
 	InitWithRedGreenBlue(red float64, green float64, blue float64) CIColor
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -216,6 +217,13 @@ func NewCIColor() CIColor {
 func NewColorWithCGColor(color coregraphics.CGColorRef) CIColor {
 	instance := getCIColorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGColor:"), color)
+	return CIColorFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(coder:)
+func NewColorWithCoder(coder foundation.INSCoder) CIColor {
+	instance := getCIColorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return CIColorFromID(rv)
 }
 
@@ -455,6 +463,12 @@ func (c CIColor) InitWithRedGreenBlueColorSpace(red float64, green float64, blue
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(red:green:blue:alpha:colorSpace:)
 func (c CIColor) InitWithRedGreenBlueAlphaColorSpace(red float64, green float64, blue float64, alpha float64, colorSpace coregraphics.CGColorSpaceRef) CIColor {
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithRed:green:blue:alpha:colorSpace:"), red, green, blue, alpha, colorSpace)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(coder:)
+func (c CIColor) InitWithCoder(coder foundation.INSCoder) CIColor {
+	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -704,7 +718,7 @@ func (c CIColor) Alpha() float64 {
 // [Table data omitted]
 //
 // To create a [CIColor] instance from a string representation, use the
-// [ColorWithString] method.
+// [CIColorClass.ColorWithString] method.
 //
 // If the [CIColor] was initialized with a [CGColor] in a non-RGB
 // [CGColorSpace] then it will be converted to sRGB to get the red, green, and

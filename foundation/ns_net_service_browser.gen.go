@@ -58,24 +58,27 @@ func (nc NetServiceBrowserClass) Alloc() NetServiceBrowser {
 // current run loop to execute the search in the background. Results from a
 // search are returned through the associated delegate object, which your
 // client application must provide. Searching proceeds in the background until
-// the object receives a [Stop] message.
+// the object receives a [NSNetServiceBrowser.Stop] message.
 //
 // To use an [NSNetServiceBrowser] object to search for services, allocate it,
 // initialize it, and assign a delegate. (If you wish, you can also use the
-// [ScheduleInRunLoopForMode] and [RemoveFromRunLoopForMode] methods to
-// execute searches on a run loop other than the current one.) Once your
-// object is ready, you begin by gathering the list of accessible domains
-// using either the [SearchForRegistrationDomains] or
-// [SearchForBrowsableDomains] methods. From the list of returned domains, you
-// can pick one and use the [SearchForServicesOfTypeInDomain] method to search
-// for services in that domain.
+// [NSNetServiceBrowser.ScheduleInRunLoopForMode] and
+// [NSNetServiceBrowser.RemoveFromRunLoopForMode] methods to execute searches
+// on a run loop other than the current one.) Once your object is ready, you
+// begin by gathering the list of accessible domains using either the
+// [NSNetServiceBrowser.SearchForRegistrationDomains] or
+// [NSNetServiceBrowser.SearchForBrowsableDomains] methods. From the list of
+// returned domains, you can pick one and use the
+// [NSNetServiceBrowser.SearchForServicesOfTypeInDomain] method to search for
+// services in that domain.
 //
 // The [NSNetServiceBrowser] class provides two ways to search for domains. In
-// most cases, your client should use the [SearchForRegistrationDomains]
-// method to search only for local domains to which the host machine has
-// registration authority. This is the preferred method for accessing domains
-// as it guarantees that the host machine can connect to services in the
-// returned domains. Access to domains outside this list may be more limited.
+// most cases, your client should use the
+// [NSNetServiceBrowser.SearchForRegistrationDomains] method to search only
+// for local domains to which the host machine has registration authority.
+// This is the preferred method for accessing domains as it guarantees that
+// the host machine can connect to services in the returned domains. Access to
+// domains outside this list may be more limited.
 //
 // # Configuring Network Service Browsers
 //

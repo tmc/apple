@@ -57,8 +57,8 @@ func (cc CKRecordZoneIDClass) Alloc() CKRecordZoneID {
 // objects, you can use names that have more meaning to your app or to the
 // user, providing each zone name is unique within the specified database. The
 // owner name must be either the current user name or the name of another
-// user. Get the current user name from [CKRecordZoneID.CKCurrentUserDefaultName] or by
-// calling [FetchUserRecordIDWithCompletionHandler].
+// user. Get the current user name from [CKCurrentUserDefaultName] or by
+// calling [CKContainer.FetchUserRecordIDWithCompletionHandler].
 //
 // When creating new record zones, make the name string in the record zone ID
 // unique in the target database. Public databases don’t support custom
@@ -89,8 +89,8 @@ func (cc CKRecordZoneIDClass) Alloc() CKRecordZoneID {
 //
 // To fetch a record zone from the database, use a
 // [CKFetchRecordZonesOperation] object or the
-// [FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase]. Both
-// techniques accept a record zone ID that you provide and retrieve the
+// [CKDatabase.FetchRecordZoneWithIDCompletionHandler] method of [CKDatabase].
+// Both techniques accept a record zone ID that you provide and retrieve the
 // corresponding record zone object asynchronously. If you use the operation
 // object, you can retrieve multiple record zones at the same time.
 //
@@ -99,12 +99,9 @@ func (cc CKRecordZoneIDClass) Alloc() CKRecordZoneID {
 //   - [CKRecordZoneID.ZoneName]: The unique name of the record zone.
 //   - [CKRecordZoneID.OwnerName]: The ID of the user who owns the record zone.
 //
-// # Accessing the Default Zone
-//
-//   - [CKRecordZoneID.Default]: The default zone ID.
-//   - [CKRecordZoneID.DefaultZoneName]: The name of the default zone.
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/ID
+//
+// [CKCurrentUserDefaultName]: https://developer.apple.com/documentation/CloudKit/CKCurrentUserDefaultName
 type CKRecordZoneID struct {
 	objectivec.Object
 }
@@ -126,11 +123,6 @@ func CKRecordZoneIDFromID(id objc.ID) CKRecordZoneID {
 //   - [ICKRecordZoneID.ZoneName]: The unique name of the record zone.
 //   - [ICKRecordZoneID.OwnerName]: The ID of the user who owns the record zone.
 //
-// # Accessing the Default Zone
-//
-//   - [ICKRecordZoneID.Default]: The default zone ID.
-//   - [ICKRecordZoneID.DefaultZoneName]: The name of the default zone.
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/ID
 type ICKRecordZoneID interface {
 	objectivec.IObject
@@ -142,15 +134,6 @@ type ICKRecordZoneID interface {
 	// The ID of the user who owns the record zone.
 	OwnerName() string
 
-	// Topic: Accessing the Default Zone
-
-	// The default zone ID.
-	Default() ICKRecordZoneID
-	// The name of the default zone.
-	DefaultZoneName() string
-
-	// A constant that provides the current user’s default name.
-	CKCurrentUserDefaultName() string
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -190,29 +173,5 @@ func (c CKRecordZoneID) ZoneName() string {
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZone/ID/ownerName
 func (c CKRecordZoneID) OwnerName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("ownerName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The default zone ID.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecordzone/id/default
-func (c CKRecordZoneID) Default() ICKRecordZoneID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("default"))
-	return CKRecordZoneIDFromID(objc.ID(rv))
-}
-
-// The name of the default zone.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecordzone/id/defaultzonename
-func (c CKRecordZoneID) DefaultZoneName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("defaultZoneName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A constant that provides the current user’s default name.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckcurrentuserdefaultname
-func (c CKRecordZoneID) CKCurrentUserDefaultName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKCurrentUserDefaultName"))
 	return foundation.NSStringFromID(rv).String()
 }

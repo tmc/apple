@@ -58,14 +58,16 @@ func (sc SMAppServiceClass) Alloc() SMAppService {
 // the type of service your helper executable provides:
 //
 // - For [SMAppServices] initialized as [LoginItems], the
-// [SMAppService.RegisterAndReturnError] and [SMAppService.UnregisterAndReturnError] APIs provide a
-// replacement for [SMLoginItemSetEnabled(_:_:)]. - For [SMAppServices]
-// initialized as [LaunchAgents], the [SMAppService.RegisterAndReturnError] and
-// [SMAppService.UnregisterAndReturnError] methods provide a replacement for installing
-// property lists in `~/Library/LaunchAgents` or `/Library/LaunchAgents`. -
-// For [SMAppServices] initialized as [LaunchDaemons], the
-// [SMAppService.RegisterAndReturnError] and [SMAppService.UnregisterAndReturnError] methods provide a
-// replacement for installing property lists in `/Library/LaunchDaemons`.
+// [SMAppService.RegisterAndReturnError] and
+// [SMAppService.UnregisterAndReturnError] APIs provide a replacement for
+// [SMLoginItemSetEnabled(_:_:)]. - For [SMAppServices] initialized as
+// [LaunchAgents], the [SMAppService.RegisterAndReturnError] and
+// [SMAppService.UnregisterAndReturnError] methods provide a replacement for
+// installing property lists in `~/Library/LaunchAgents` or
+// `/Library/LaunchAgents`. - For [SMAppServices] initialized as
+// [LaunchDaemons], the [SMAppService.RegisterAndReturnError] and
+// [SMAppService.UnregisterAndReturnError] methods provide a replacement for
+// installing property lists in `/Library/LaunchDaemons`.
 //
 // # Registering services
 //
@@ -191,7 +193,7 @@ func (a SMAppService) RegisterAndReturnError() (bool, error) {
 //
 // # Discussion
 //
-// This is the opposite operation of [RegisterAndReturnError].
+// This is the opposite operation of [SMAppService.RegisterAndReturnError].
 //
 // If the service corresponds to a LoginItem, LaunchAgent, or LaunchDaemon and
 // the service is currently running it, the system terminates it. If the

@@ -205,9 +205,9 @@ func (m MTL4TileRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 // # Discussion
 //
 // This value is typically optional, except in the cases where the tile
-// function that [TileFunctionDescriptor] references uses
-// [CooperativeTensors]. In this case, you need to provide a non-zero value to
-// this property.
+// function that [MTL4TileRenderPipelineDescriptor.TileFunctionDescriptor]
+// references uses [CooperativeTensors]. In this case, you need to provide a
+// non-zero value to this property.
 //
 // Additionally, when you set this value, the `threadsPerTile` argument of any
 // tile dispatch needs to match it.

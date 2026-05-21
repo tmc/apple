@@ -68,7 +68,8 @@ func (nc NSSpecifierTestClass) Alloc() NSSpecifierTest {
 //
 // The test object is compared, using the selector, against each object in the
 // container. Specifiers in these tests usually have
-// [NSSpecifierTest.ContainerIsObjectBeingTested] invoked on their topmost container.
+// [NSScriptObjectSpecifier.ContainerIsObjectBeingTested] invoked on their
+// topmost container.
 //
 // You should rarely need to subclass [NSSpecifierTest].
 //
@@ -108,10 +109,6 @@ type INSSpecifierTest interface {
 
 	// Returns a specifier test initialized to evaluate a test object against an object specified by an object specifier using a given comparison operation.
 	InitWithObjectSpecifierComparisonOperatorTestObject(obj1 INSScriptObjectSpecifier, compOp NSTestComparisonOperation, obj2 objectivec.IObject) NSSpecifierTest
-
-	// Sets whether the receiver’s container should be an object involved in a filter reference or the top-level object.
-	ContainerIsObjectBeingTested() bool
-	SetContainerIsObjectBeingTested(value bool)
 }
 
 // Init initializes the instance.
@@ -179,16 +176,4 @@ func NewSpecifierTestWithObjectSpecifierComparisonOperatorTestObject(obj1 INSScr
 func (s NSSpecifierTest) InitWithObjectSpecifierComparisonOperatorTestObject(obj1 INSScriptObjectSpecifier, compOp NSTestComparisonOperation, obj2 objectivec.IObject) NSSpecifierTest {
 	rv := objc.Send[NSSpecifierTest](s.ID, objc.Sel("initWithObjectSpecifier:comparisonOperator:testObject:"), obj1, compOp, obj2)
 	return rv
-}
-
-// Sets whether the receiver’s container should be an object involved in a
-// filter reference or the top-level object.
-//
-// See: https://developer.apple.com/documentation/foundation/nsscriptobjectspecifier/containerisobjectbeingtested
-func (s NSSpecifierTest) ContainerIsObjectBeingTested() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("containerIsObjectBeingTested"))
-	return rv
-}
-func (s NSSpecifierTest) SetContainerIsObjectBeingTested(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setContainerIsObjectBeingTested:"), value)
 }

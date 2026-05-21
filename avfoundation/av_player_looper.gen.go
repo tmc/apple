@@ -174,8 +174,8 @@ func NewAVPlayerLooper() AVPlayerLooper {
 // # Discussion
 //
 // Creating an instance of this class using this method is equivalent to
-// calling [InitWithPlayerTemplateItemTimeRange] and passing a value of
-// [invalid] for the `timeRange` parameter.
+// calling [AVPlayerLooper.InitWithPlayerTemplateItemTimeRange] and passing a
+// value of [invalid] for the `timeRange` parameter.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:)
 //
@@ -208,20 +208,21 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 // item after initialization will not be reflected in the replicas. If you
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
-// [LoopingPlayerItems] property.
+// [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
-// configuration of the player prior to playback, you should set its [Rate] to
-// `0.0`, perform the required configuration, and then begin playback once the
-// configuration is complete.
+// configuration of the player prior to playback, you should set its
+// [AVPlayer.Rate] to `0.0`, perform the required configuration, and then
+// begin playback once the configuration is complete.
 //
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
 // parameter. Time range looping will be accomplished by seeking to the time
-// range’s start time and setting player item’s [ForwardPlaybackEndTime]
-// property on the looping item replicas.
+// range’s start time and setting player item’s
+// [AVPlayerItem.ForwardPlaybackEndTime] property on the looping item
+// replicas.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
 //
@@ -319,20 +320,21 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 // item after initialization will not be reflected in the replicas. If you
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
-// [LoopingPlayerItems] property.
+// [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
-// configuration of the player prior to playback, you should set its [Rate] to
-// `0.0`, perform the required configuration, and then begin playback once the
-// configuration is complete.
+// configuration of the player prior to playback, you should set its
+// [AVPlayer.Rate] to `0.0`, perform the required configuration, and then
+// begin playback once the configuration is complete.
 //
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
 // parameter. Time range looping will be accomplished by seeking to the time
-// range’s start time and setting player item’s [ForwardPlaybackEndTime]
-// property on the looping item replicas.
+// range’s start time and setting player item’s
+// [AVPlayerItem.ForwardPlaybackEndTime] property on the looping item
+// replicas.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
 //
@@ -351,7 +353,7 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRange(player IAVQueuePlaye
 //
 // The player looper will stop performing player queue operations for looping
 // and let the current looping item replica play to the end. The player’s
-// original [ActionAtItemEnd] property will be restored afterwards.
+// original [AVPlayer.ActionAtItemEnd] property will be restored afterwards.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/disableLooping()
 func (p AVPlayerLooper) DisableLooping() {
@@ -381,20 +383,21 @@ func (p AVPlayerLooper) DisableLooping() {
 // item after initialization will not be reflected in the replicas. If you
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
-// [LoopingPlayerItems] property.
+// [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
-// configuration of the player prior to playback, you should set its [Rate] to
-// `0.0`, perform the required configuration, and then begin playback once the
-// configuration is complete.
+// configuration of the player prior to playback, you should set its
+// [AVPlayer.Rate] to `0.0`, perform the required configuration, and then
+// begin playback once the configuration is complete.
 //
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
 // parameter. Time range looping will be accomplished by seeking to the time
-// range’s start time and setting player item’s [ForwardPlaybackEndTime]
-// property on the looping item replicas.
+// range’s start time and setting player item’s
+// [AVPlayerItem.ForwardPlaybackEndTime] property on the looping item
+// replicas.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/playerLooperWithPlayer:templateItem:timeRange:
 //
@@ -470,10 +473,10 @@ func (p AVPlayerLooper) Status() AVPlayerLooperStatus {
 //
 // # Discussion
 //
-// The value of this property is `nil` unless the looper’s [Status] changes
-// to [AVPlayerLooperStatusFailed]. If this occurs, this property value
-// contains an error object that provides the details of the error that
-// prevented looping.
+// The value of this property is `nil` unless the looper’s
+// [AVPlayerLooper.Status] changes to [AVPlayerLooperStatusFailed]. If this
+// occurs, this property value contains an error object that provides the
+// details of the error that prevented looping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/error
 func (p AVPlayerLooper) Error() foundation.NSError {

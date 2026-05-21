@@ -56,7 +56,7 @@ func (rc RunLoopClass) Alloc() RunLoop {
 // objects. The system creates a [NSRunLoop] object as needed for each
 // [NSThread] object, including the application’s main thread. If you need
 // to access the current thread’s run loop, use the class method
-// [CurrentRunLoop].
+// [NSRunLoopClass.CurrentRunLoop].
 //
 // Note that from the perspective of [NSRunLoop], [NSTimer] objects aren’t
 // “input”—they’re a special type, and they don’t cause the run loop
@@ -185,9 +185,9 @@ type IRunLoop interface {
 	// Schedules a block that the run loop invokes when it’s running in any of the specified modes.
 	PerformInModesBlock(modes []string, block VoidHandler)
 	// Schedules the sending of a message on the receiver.
-	PerformSelectorTargetArgumentOrderModes(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject, order uint, modes []string)
+	PerformSelectorTargetArgumentOrderModes(aSelector objectivec.SEL, target objectivec.IObject, arg objectivec.IObject, order uint, modes []string)
 	// Cancels the sending of a previously scheduled message.
-	CancelPerformSelectorTargetArgument(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject)
+	CancelPerformSelectorTargetArgument(aSelector objectivec.SEL, target objectivec.IObject, arg objectivec.IObject)
 	// Cancels all outstanding ordered performs scheduled with a given target.
 	CancelPerformSelectorsWithTarget(target objectivec.IObject)
 }
@@ -268,7 +268,7 @@ func (r RunLoop) GetCFRunLoop() corefoundation.CFRunLoopRef {
 // routine, which is a selector on a designated object.
 //
 // The receiver retains `aTimer`. To remove a timer from all run loop modes on
-// which it is installed, send an [Invalidate] message to the timer.
+// which it is installed, send an [NSTimer.Invalidate] message to the timer.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/add(_:forMode:)-392ag
 func (r RunLoop) AddTimerForMode(timer INSTimer, mode NSRunLoopMode) {
@@ -318,9 +318,10 @@ func (r RunLoop) RemovePortForMode(aPort INSPort, mode NSRunLoopMode) {
 //
 // If no input sources or timers are attached to the run loop, this method
 // exits immediately; otherwise, it runs the receiver in the
-// [NSDefaultRunLoopMode] by repeatedly invoking [RunModeBeforeDate]. In other
-// words, this method effectively begins an infinite loop that processes data
-// from the run loop’s input sources and timers.
+// [NSDefaultRunLoopMode] by repeatedly invoking
+// [NSRunLoop.RunModeBeforeDate]. In other words, this method effectively
+// begins an infinite loop that processes data from the run loop’s input
+// sources and timers.
 //
 // Manually removing all known input sources and timers from the run loop is
 // not a guarantee that the run loop will exit. macOS can install and remove
@@ -379,8 +380,8 @@ func (r RunLoop) RunModeBeforeDate(mode NSRunLoopMode, limitDate INSDate) bool {
 //
 // If no input sources or timers are attached to the run loop, this method
 // exits immediately; otherwise, it runs the receiver in the
-// [NSDefaultRunLoopMode] by repeatedly invoking [RunModeBeforeDate] until the
-// specified expiration date.
+// [NSDefaultRunLoopMode] by repeatedly invoking [NSRunLoop.RunModeBeforeDate]
+// until the specified expiration date.
 //
 // Manually removing all known input sources and timers from the run loop is
 // not a guarantee that the run loop will exit. macOS can install and remove
@@ -478,7 +479,7 @@ func (r RunLoop) PerformInModesBlock(modes []string, block VoidHandler) {
 // in a certain order.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/perform(_:target:argument:order:modes:)
-func (r RunLoop) PerformSelectorTargetArgumentOrderModes(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject, order uint, modes []string) {
+func (r RunLoop) PerformSelectorTargetArgumentOrderModes(aSelector objectivec.SEL, target objectivec.IObject, arg objectivec.IObject, order uint, modes []string) {
 	objc.Send[objc.ID](r.ID, objc.Sel("performSelector:target:argument:order:modes:"), aSelector, target, arg, order, objectivec.StringSliceToNSArray(modes))
 }
 
@@ -493,13 +494,13 @@ func (r RunLoop) PerformSelectorTargetArgumentOrderModes(aSelector objc.SEL, tar
 // # Discussion
 //
 // You can use this method to cancel a message previously scheduled using the
-// [PerformSelectorTargetArgumentOrderModes] method. The parameters identify
-// the message you want to cancel and must match those originally specified
-// when the selector was scheduled. This method removes the perform request
-// from all modes of the run loop.
+// [NSRunLoop.PerformSelectorTargetArgumentOrderModes] method. The parameters
+// identify the message you want to cancel and must match those originally
+// specified when the selector was scheduled. This method removes the perform
+// request from all modes of the run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/cancelPerform(_:target:argument:)
-func (r RunLoop) CancelPerformSelectorTargetArgument(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject) {
+func (r RunLoop) CancelPerformSelectorTargetArgument(aSelector objectivec.SEL, target objectivec.IObject, arg objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("cancelPerformSelector:target:argument:"), aSelector, target, arg)
 }
 
@@ -511,9 +512,10 @@ func (r RunLoop) CancelPerformSelectorTargetArgument(aSelector objc.SEL, target 
 //
 // This method cancels the previously scheduled messages associated with the
 // target, ignoring the selector and argument of the scheduled operation. This
-// is in contrast to [CancelPerformSelectorTargetArgument], which requires you
-// to match the selector and argument as well as the target. This method
-// removes the perform requests for the object from all modes of the run loop.
+// is in contrast to [NSRunLoop.CancelPerformSelectorTargetArgument], which
+// requires you to match the selector and argument as well as the target. This
+// method removes the perform requests for the object from all modes of the
+// run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/cancelPerformSelectors(withTarget:)
 func (r RunLoop) CancelPerformSelectorsWithTarget(target objectivec.IObject) {
@@ -528,7 +530,7 @@ func (r RunLoop) CancelPerformSelectorsWithTarget(target objectivec.IObject) {
 // mode while the receiver is running; otherwise, it returns `nil`.
 //
 // The current mode is set by the methods that run the run loop, such as
-// [AcceptInputForModeBeforeDate] and [RunModeBeforeDate].
+// [NSRunLoop.AcceptInputForModeBeforeDate] and [NSRunLoop.RunModeBeforeDate].
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/currentMode
 func (r RunLoop) CurrentMode() NSRunLoopMode {

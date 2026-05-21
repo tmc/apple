@@ -184,7 +184,8 @@ func NewAVSampleBufferRenderSynchronizer() AVSampleBufferRenderSynchronizer {
 //
 // # Discussion
 //
-// This method can be called while [Rate] is not `0.0`.
+// This method can be called while [AVSampleBufferRenderSynchronizer.Rate] is
+// not `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addRenderer(_:)
 func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBufferRendering) {
@@ -206,7 +207,8 @@ func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBuf
 //
 // This method removes the renderer asynchronously. The method can be called
 // more than once, with a subsequent scheduled removal replacing a previously
-// scheduled removal. This method can be called while [Rate] is not `0.0`.
+// scheduled removal. This method can be called while
+// [AVSampleBufferRenderSynchronizer.Rate] is not `0.0`.
 //
 // Clients may provide an optional `completionHandler` to be notified when the
 // scheduled removal is complete. If provided, the completion handler will
@@ -298,7 +300,8 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, ti
 //
 // An object that conforms to [NSObject]. You must retain this value as long
 // as you want the time observer to be invoked by the synchronizer. Pass this
-// object to [RemoveTimeObserver] to cancel time observation.
+// object to [AVSampleBufferRenderSynchronizer.RemoveTimeObserver] to cancel
+// time observation.
 //
 // # Discussion
 //
@@ -311,9 +314,10 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, ti
 // the block often enough for the client to update indications of the current
 // time appropriately in its end-user interface.
 //
-// Always pair a call to this method with a call to [RemoveTimeObserver].
-// Releasing the observer without calling `removeTimeObserver(_:)` results in
-// undefined behavior.
+// Always pair a call to this method with a call to
+// [AVSampleBufferRenderSynchronizer.RemoveTimeObserver]. Releasing the
+// observer without calling `removeTimeObserver(_:)` results in undefined
+// behavior.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addPeriodicTimeObserver(forInterval:queue:using:)
 //
@@ -340,13 +344,15 @@ func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueu
 //
 // An object that conforms to [NSObject]. You must retain this value as long
 // as you want the time observer to be invoked by the synchronizer. Pass this
-// object to [RemoveTimeObserver] to cancel time observation.
+// object to [AVSampleBufferRenderSynchronizer.RemoveTimeObserver] to cancel
+// time observation.
 //
 // # Discussion
 //
-// Always pair a call to this method with a call to [RemoveTimeObserver].
-// Releasing the observer without calling `removeTimeObserver(_:)` results in
-// undefined behavior.
+// Always pair a call to this method with a call to
+// [AVSampleBufferRenderSynchronizer.RemoveTimeObserver]. Releasing the
+// observer without calling `removeTimeObserver(_:)` results in undefined
+// behavior.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addBoundaryTimeObserver(forTimes:queue:using:)
 //
@@ -364,8 +370,9 @@ func (s AVSampleBufferRenderSynchronizer) AddBoundaryTimeObserverForTimesQueueUs
 // # Discussion
 //
 // Use this method to explicitly cancel time observers added using
-// [AddPeriodicTimeObserverForIntervalQueueUsingBlock] or
-// [AddBoundaryTimeObserverForTimesQueueUsingBlock]
+// [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
+// or
+// [AVSampleBufferRenderSynchronizer.AddBoundaryTimeObserverForTimesQueueUsingBlock]
 //
 // Upon return, the caller is guaranteed that no new time observer blocks will
 // begin executing. Depending on the calling thread and the queue used to add

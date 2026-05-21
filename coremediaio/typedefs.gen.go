@@ -3,7 +3,7 @@
 package coremediaio
 
 import (
-	"unsafe"
+	"github.com/tmc/apple/kernel"
 )
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOClassID
@@ -13,7 +13,7 @@ type CMIOClassID = uint32
 type CMIOControlID = string
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIODeviceGetSMPTETimeProc
-type CMIODeviceGetSMPTETimeProc = func(unsafe.Pointer, *uint64, *byte, *uint) int
+type CMIODeviceGetSMPTETimeProc = func(kernel.Pointer, *uint64, *byte, *uint) int
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIODeviceID
 type CMIODeviceID = string
@@ -22,7 +22,7 @@ type CMIODeviceID = string
 type CMIODevicePropertyID = string
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIODeviceStreamQueueAlteredProc
-type CMIODeviceStreamQueueAlteredProc = func(uint, unsafe.Pointer, unsafe.Pointer)
+type CMIODeviceStreamQueueAlteredProc = func(uint, kernel.Pointer, kernel.Pointer)
 
 // CMIOExtensionProperty is a structure that defines the properties that providers, devices, and streams support.
 //
@@ -45,7 +45,7 @@ type CMIOObjectPropertyElement = uint32
 type CMIOObjectPropertyListenerBlock = func(uint32, *CMIOObjectPropertyAddress)
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOObjectPropertyListenerProc
-type CMIOObjectPropertyListenerProc = func(uint, uint, uintptr, unsafe.Pointer) int
+type CMIOObjectPropertyListenerProc = func(uint, uint, uintptr, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOObjectPropertyScope
 type CMIOObjectPropertyScope = uint32
@@ -57,4 +57,4 @@ type CMIOObjectPropertySelector = uint32
 type CMIOStreamID = string
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamScheduledOutputNotificationProc
-type CMIOStreamScheduledOutputNotificationProc = func(uint64, uint64, unsafe.Pointer)
+type CMIOStreamScheduledOutputNotificationProc = func(uint64, uint64, kernel.Pointer)

@@ -55,9 +55,10 @@ func (uc UnitVolumeClass) Alloc() UnitVolume {
 // decimeter (1 dm3). Volume is also commonly expressed in terms of cubic
 // meters (m3), gallons (gal), and cups (cup).
 //
-// The [NSUnitVolume] class defines its [BaseUnit] as [Liters], and provides
-// the following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitVolume] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitVolumeClass.Liters], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

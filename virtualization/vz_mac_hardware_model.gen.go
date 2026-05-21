@@ -55,28 +55,30 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 // the host may also only provide certain hardware models based on the version
 // of macOS and the underlying hardware.
 //
-// The [VZMacHardwareModel.Supported] property allows you to discover if the current host
-// supports a particular hardware model.
+// The [VZMacHardwareModel.Supported] property allows you to discover if the
+// current host supports a particular hardware model.
 //
 // Choosing the hardware model starts from a restore image with
 // [VZMacOSRestoreImage]. A restore image describes its supported
 // configuration requirements through its
-// [VZMacHardwareModel.MostFeaturefulSupportedConfiguration] property.
+// [VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration] property.
 //
 // A configuration requirements object has a corresponding hardware model that
 // you can use to configure a VM that meets the requirements. After obtaining
-// the hardware model, use the platform configuration’s [VZMacHardwareModel.HardwareModel] to
-// configure the Mac platform object and use
-// [InitCreatingStorageAtURLHardwareModelOptionsError] to create its auxiliary
-// storage.
+// the hardware model, use the platform configuration’s
+// [VZMacPlatformConfiguration.HardwareModel] to configure the Mac platform
+// object and use
+// [VZMacAuxiliaryStorage.InitCreatingStorageAtURLHardwareModelOptionsError]
+// to create its auxiliary storage.
 //
 // After creating the VM, use [VZMacOSInstaller] to install macOS on it.
 //
 // If you serialize the VM on disk, preserve the hardware model used for
-// installation for subsequent boots. The [VZMacHardwareModel.DataRepresentation] property
-// provides a unique binary representation that you serialize to the file
-// system. You can recreate the hardware model from the serialized binary
-// representation with [VZMacHardwareModel.InitWithDataRepresentation].
+// installation for subsequent boots. The
+// [VZMacHardwareModel.DataRepresentation] property provides a unique binary
+// representation that you serialize to the file system. You can recreate the
+// hardware model from the serialized binary representation with
+// [VZMacHardwareModel.InitWithDataRepresentation].
 //
 // # Creating the hardware model
 //
@@ -129,13 +131,6 @@ type IVZMacHardwareModel interface {
 	DataRepresentation() foundation.NSData
 	// A Boolean value that indicates whether the host supports this hardware model.
 	IsSupported() bool
-
-	// The Mac hardware model.
-	HardwareModel() IVZMacHardwareModel
-	SetHardwareModel(value IVZMacHardwareModel)
-	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
-	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
-	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
 // Init initializes the instance.
@@ -185,7 +180,7 @@ func (m VZMacHardwareModel) InitWithDataRepresentation(dataRepresentation founda
 // # Discussion
 //
 // You can use this to recreate the same hardware model with
-// [InitWithDataRepresentation].
+// [VZMacHardwareModel.InitWithDataRepresentation].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/dataRepresentation
 func (m VZMacHardwareModel) DataRepresentation() foundation.NSData {
@@ -208,27 +203,4 @@ func (m VZMacHardwareModel) DataRepresentation() foundation.NSData {
 func (m VZMacHardwareModel) IsSupported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
-}
-
-// The Mac hardware model.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
-func (m VZMacHardwareModel) HardwareModel() IVZMacHardwareModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
-	return VZMacHardwareModelFromID(objc.ID(rv))
-}
-func (m VZMacHardwareModel) SetHardwareModel(value IVZMacHardwareModel) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
-}
-
-// This object represents the most fully featured configuration that’s
-// supported by both the current host and by this restore image.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/mostfeaturefulsupportedconfiguration
-func (m VZMacHardwareModel) MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
-	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
-}
-func (m VZMacHardwareModel) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }

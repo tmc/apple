@@ -23,5 +23,5 @@ import (
 // See: https://developer.apple.com/documentation/Foundation/NSString/sr_sensorForDeletionRecordsFromSensor()
 func (s NSString) Sr_sensorForDeletionRecordsFromSensor() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sr_sensorForDeletionRecordsFromSensor"))
-	return unsafe.Pointer(rv)
+	return rv
 }

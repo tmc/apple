@@ -60,8 +60,8 @@ func (nc NSInflectionRuleClass) Alloc() NSInflectionRule {
 // you use an inflection rule to indicate to the system what portions of a
 // string should be automatically edited, and what to match. Add the attribute
 // [inflectionRule] with an [NSInflectionRule] on an [NSAttributedString],
-// then call [AttributedStringByInflectingString] to perform the grammar
-// agreement and produce an edited string.
+// then call [NSAttributedString.AttributedStringByInflectingString] to
+// perform the grammar agreement and produce an edited string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRule
 //

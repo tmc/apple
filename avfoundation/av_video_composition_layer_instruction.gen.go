@@ -94,17 +94,18 @@ type IAVVideoCompositionLayerInstruction interface {
 	// Topic: Getting the track ID
 
 	// The track identifier of the source track to which the compositor will apply the instruction.
-	TrackID() int32
+	TrackID() coremedia.CMPersistentTrackID
 
 	// Topic: Getting opacity, transform, and cropping ramps
 
 	// Obtains the crop rectangle ramp that includes the specified time.
-	GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange objectivec.IObject) bool
+	GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange *coremedia.CMTimeRange) bool
 	// Obtains the opacity ramp that includes a specified time.
-	GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool)
+	GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool)
 	// Obtains the transform ramp that includes a specified time.
-	GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange objectivec.IObject) bool
+	GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange *coremedia.CMTimeRange) bool
 
+	InitWithCoder(coder foundation.INSCoder) AVVideoCompositionLayerInstruction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -125,6 +126,13 @@ func NewAVVideoCompositionLayerInstruction() AVVideoCompositionLayerInstruction 
 	class := getAVVideoCompositionLayerInstructionClass()
 	rv := objc.Send[AVVideoCompositionLayerInstruction](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/init(coder:)
+func NewVideoCompositionLayerInstructionWithCoder(coder foundation.INSCoder) AVVideoCompositionLayerInstruction {
+	instance := getAVVideoCompositionLayerInstructionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVVideoCompositionLayerInstructionFromID(rv)
 }
 
 // Obtains the crop rectangle ramp that includes the specified time.
@@ -155,7 +163,7 @@ func NewAVVideoCompositionLayerInstruction() AVVideoCompositionLayerInstruction 
 // last crop rectangle ramp that has been set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getCropRectangleRamp(for:startCropRectangle:endCropRectangle:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange objectivec.IObject) bool {
+func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange *coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("getCropRectangleRampForTime:startCropRectangle:endCropRectangle:timeRange:"), time, startCropRectangle, endCropRectangle, timeRange)
 	return rv
 }
@@ -188,7 +196,7 @@ func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCrop
 // been set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getOpacityRamp(for:startOpacity:endOpacity:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool) {
+func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
 	var startOpacity float32
 	var endOpacity float32
 	rv := objc.Send[bool](v.ID, objc.Sel("getOpacityRampForTime:startOpacity:endOpacity:timeRange:"), time, unsafe.Pointer(&startOpacity), unsafe.Pointer(&endOpacity), timeRange)
@@ -224,8 +232,14 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 // has been set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getTransformRamp(for:start:end:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange objectivec.IObject) bool {
+func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange *coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("getTransformRampForTime:startTransform:endTransform:timeRange:"), time, startTransform, endTransform, timeRange)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/init(coder:)
+func (v AVVideoCompositionLayerInstruction) InitWithCoder(coder foundation.INSCoder) AVVideoCompositionLayerInstruction {
+	rv := objc.Send[AVVideoCompositionLayerInstruction](v.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (v AVVideoCompositionLayerInstruction) EncodeWithCoder(coder foundation.INSCoder) {
@@ -244,7 +258,7 @@ func (_AVVideoCompositionLayerInstructionClass AVVideoCompositionLayerInstructio
 // the instruction.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/trackID
-func (v AVVideoCompositionLayerInstruction) TrackID() int32 {
-	rv := objc.Send[int32](v.ID, objc.Sel("trackID"))
-	return rv
+func (v AVVideoCompositionLayerInstruction) TrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](v.ID, objc.Sel("trackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }

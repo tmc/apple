@@ -91,16 +91,18 @@ func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(do
 // download.
 //
 // The delegate can determine the number of previous authentication challenges
-// by sending the message [PreviousFailureCount] to `challenge`.
+// by sending the message [NSURLAuthenticationChallenge.PreviousFailureCount]
+// to `challenge`.
 //
 // If the previous failure count is 0 and the value returned by
-// [ProposedCredential] is `nil`, the delegate can create a new
-// NSURLCredential object, providing information specific to the type of
-// credential, and send a [UseCredentialForAuthenticationChallenge] message to
-// `[challenge sender]`, passing the credential and `challenge` as parameters.
-// If [ProposedCredential] is not `nil`, the value is a credential from the
-// URL or the shared credential storage that can be provided to the user as
-// feedback.
+// [NSURLAuthenticationChallenge.ProposedCredential] is `nil`, the delegate
+// can create a new NSURLCredential object, providing information specific to
+// the type of credential, and send a
+// [UseCredentialForAuthenticationChallenge] message to `[challenge sender]`,
+// passing the credential and `challenge` as parameters. If
+// [NSURLAuthenticationChallenge.ProposedCredential] is not `nil`, the value
+// is a credential from the URL or the shared credential storage that can be
+// provided to the user as feedback.
 //
 // The delegate may decide to abandon further attempts at authentication at
 // any time by sending `[challenge sender]` a
@@ -160,7 +162,7 @@ func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download
 // The suggested filename is either derived from the last path component of
 // the URL and the MIME type or, if the download was encoded, from the
 // encoding. If the delegate wishes to modify the path, it should send
-// [SetDestinationAllowOverwrite] to `download`.
+// [NSURLDownload.SetDestinationAllowOverwrite] to `download`.
 //
 // # Special Considerations
 //
@@ -286,12 +288,12 @@ func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(down
 // # Discussion
 //
 // If the delegate wishes to cancel the redirect, it should call the
-// `download` object’s [Cancel] method. Alternatively, the delegate method
-// can return `nil` to cancel the redirect, and the download will continue to
-// process. This has special relevance in the case where `redirectResponse` is
-// not `nil`. In this case, any data that is loaded for the download will be
-// sent to the delegate, and the delegate will receive a [DownloadDidFinish]
-// or [DownloadDidFailWithError] message, as appropriate.
+// `download` object’s [NSURLDownload.Cancel] method. Alternatively, the
+// delegate method can return `nil` to cancel the redirect, and the download
+// will continue to process. This has special relevance in the case where
+// `redirectResponse` is not `nil`. In this case, any data that is loaded for
+// the download will be sent to the delegate, and the delegate will receive a
+// [DownloadDidFinish] or [DownloadDidFailWithError] message, as appropriate.
 //
 // # Special Considerations
 //

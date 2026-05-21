@@ -55,6 +55,10 @@ func (gc GCColorClass) Alloc() GCColor {
 //   - [GCColor.Green]: The normalized value of the green component ranging from 0 to 1.
 //   - [GCColor.Blue]: The normalized value of the blue component ranging from 0 to 1.
 //
+// # Initializers
+//
+//   - [GCColor.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/GameController/GCColor
 type GCColor struct {
 	objectivec.Object
@@ -82,6 +86,10 @@ func GCColorFromID(id objc.ID) GCColor {
 //   - [IGCColor.Green]: The normalized value of the green component ranging from 0 to 1.
 //   - [IGCColor.Blue]: The normalized value of the blue component ranging from 0 to 1.
 //
+// # Initializers
+//
+//   - [IGCColor.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/GameController/GCColor
 type IGCColor interface {
 	objectivec.IObject
@@ -100,9 +108,10 @@ type IGCColor interface {
 	// The normalized value of the blue component ranging from 0 to 1.
 	Blue() float32
 
-	// The color of a device’s light.
-	Color() IGCColor
-	SetColor(value IGCColor)
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) GCColor
+
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -123,6 +132,13 @@ func NewGCColor() GCColor {
 	class := getGCColorClass()
 	rv := objc.Send[GCColor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/GameController/GCColor/init(coder:)
+func NewGCColorWithCoder(coder foundation.INSCoder) GCColor {
+	instance := getGCColorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return GCColorFromID(rv)
 }
 
 // Creates a color with the specified red, green, and blue values.
@@ -153,6 +169,12 @@ func (g GCColor) InitWithRedGreenBlue(red float32, green float32, blue float32) 
 	rv := objc.Send[GCColor](g.ID, objc.Sel("initWithRed:green:blue:"), red, green, blue)
 	return rv
 }
+
+// See: https://developer.apple.com/documentation/GameController/GCColor/init(coder:)
+func (g GCColor) InitWithCoder(coder foundation.INSCoder) GCColor {
+	rv := objc.Send[GCColor](g.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (g GCColor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -179,15 +201,4 @@ func (g GCColor) Green() float32 {
 func (g GCColor) Blue() float32 {
 	rv := objc.Send[float32](g.ID, objc.Sel("blue"))
 	return rv
-}
-
-// The color of a device’s light.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcdevicelight/color
-func (g GCColor) Color() IGCColor {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("color"))
-	return GCColorFromID(objc.ID(rv))
-}
-func (g GCColor) SetColor(value IGCColor) {
-	objc.Send[struct{}](g.ID, objc.Sel("setColor:"), value)
 }

@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -59,12 +58,12 @@ func NSTableViewDelegateObjectFromID(id objc.ID) NSTableViewDelegateObject {
 // be mixed within the same table view.
 //
 // It’s recommended that the implementation of this method first call the
-// [NSTableView] method [ViewWithIdentifierOwner] passing, respectively, the
-// `tableColumn` parameter’s identifier and `self` as the owner to attempt
-// to reuse a view that is no longer visible or automatically unarchive an
-// associated prototype view for that identifier. The `frame` of the view
-// returned by this method is not important, and it will be automatically set
-// by the table.
+// [NSTableView] method [NSTableView.ViewWithIdentifierOwner] passing,
+// respectively, the `tableColumn` parameter’s identifier and `self` as the
+// owner to attempt to reuse a view that is no longer visible or automatically
+// unarchive an associated prototype view for that identifier. The `frame` of
+// the view returned by this method is not important, and it will be
+// automatically set by the table.
 //
 // The view’s properties should be properly set up before returning the
 // result.
@@ -75,11 +74,11 @@ func NSTableViewDelegateObjectFromID(id objc.ID) NSTableViewDelegateObject {
 // column. An easy way to achieve this is to use the Automatic identifier
 // setting in Interface Builder.) If this method isn’t implemented, the
 // table will automatically call the [NSTableView] method
-// [ViewWithIdentifierOwner] with the `tableColumn` parameter’s identifier
-// and the table view’s `delegate` as parameters, to attempt to reuse a
-// previous view, or automatically unarchive a prototype associated with the
-// table view. If this method is implemented, you can set up properties that
-// aren’t using bindings.
+// [NSTableView.ViewWithIdentifierOwner] with the `tableColumn` parameter’s
+// identifier and the table view’s `delegate` as parameters, to attempt to
+// reuse a previous view, or automatically unarchive a prototype associated
+// with the table view. If this method is implemented, you can set up
+// properties that aren’t using bindings.
 //
 // The autoresizing mask of the returned view will automatically be set to
 // [NSViewHeightSizable] to resize properly on row height changes.
@@ -172,7 +171,8 @@ func (o NSTableViewDelegateObject) TableViewDidRemoveRowViewForRow(tableView INS
 // cell.
 //
 // Group rows in [NSView]-based table views can be made to visually
-// “float” by setting the table view method [FloatsGroupRows] to true.
+// “float” by setting the table view method [NSTableView.FloatsGroupRows]
+// to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:isGroupRow:)
 func (o NSTableViewDelegateObject) TableViewIsGroupRow(tableView INSTableView, row int) bool {
@@ -225,7 +225,7 @@ func (o NSTableViewDelegateObject) TableViewWillDisplayCellForTableColumnRow(tab
 // cell).
 //
 // If `tableColumn` is non-`nil`, you should return a cell (generally as the
-// result of sending `tableColumn` a [DataCellForRow] message).
+// result of sending `tableColumn` a [NSTableColumn.DataCellForRow] message).
 //
 // While each row is being drawn, this method is first called with a
 // `tableColumn` value of `nil` to allow you to return a group cell—that is,
@@ -295,7 +295,7 @@ func (o NSTableViewDelegateObject) TableViewShouldShowCellExpansionForTableColum
 // `[cell cellFrame]`. Note that tooltips are also known as help tags.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:toolTipFor:rect:tableColumn:row:mouseLocation:)
-func (o NSTableViewDelegateObject) TableViewToolTipForCellRectTableColumnRowMouseLocation(tableView INSTableView, cell INSCell, rect foundation.NSRect, tableColumn INSTableColumn, row int, mouseLocation corefoundation.CGPoint) string {
+func (o NSTableViewDelegateObject) TableViewToolTipForCellRectTableColumnRowMouseLocation(tableView INSTableView, cell INSCell, rect foundation.NSRectPointer, tableColumn INSTableColumn, row int, mouseLocation corefoundation.CGPoint) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:toolTipForCell:rect:tableColumn:row:mouseLocation:"), tableView, cell, rect, tableColumn, row, mouseLocation)
 	return foundation.NSStringFromID(rv).String()
 }
@@ -342,13 +342,13 @@ func (o NSTableViewDelegateObject) TableViewShouldEditTableColumnRow(tableView I
 // Although table views may cache the returned values, you should ensure that
 // this method is efficient. When you change a row’s height you must
 // invalidate the existing row height by calling
-// [NoteHeightOfRowsWithIndexesChanged]. [NSTableView] automatically
-// invalidates its entire row height cache in response to calls to
-// [ReloadData] or [NoteNumberOfRowsChanged].
+// [NSTableView.NoteHeightOfRowsWithIndexesChanged]. [NSTableView]
+// automatically invalidates its entire row height cache in response to calls
+// to [NSTableView.ReloadData] or [NSTableView.NoteNumberOfRowsChanged].
 //
-// If you call [ViewAtColumnRowMakeIfNecessary] or
-// [RowViewAtRowMakeIfNecessary] within your implementation of this method,
-// the table view throws an exception.
+// If you call [NSTableView.ViewAtColumnRowMakeIfNecessary] or
+// [NSTableView.RowViewAtRowMakeIfNecessary] within your implementation of
+// this method, the table view throws an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:heightOfRow:)
 func (o NSTableViewDelegateObject) TableViewHeightOfRow(tableView INSTableView, row int) float64 {
@@ -370,8 +370,8 @@ func (o NSTableViewDelegateObject) TableViewHeightOfRow(tableView INSTableView, 
 // # Discussion
 //
 // By default, [NSTableView] iterates every row in the table, accesses a cell
-// via [preparedCell(atColumn:row:)], and requests the [CellSize] to find the
-// appropriate largest width to use.
+// via [preparedCell(atColumn:row:)], and requests the [NSCell.CellSize] to
+// find the appropriate largest width to use.
 //
 // For accurate results and performance, it’s recommended that this method
 // is implemented when using large tables. By default, large tables use a
@@ -617,7 +617,7 @@ func (o NSTableViewDelegateObject) TableViewNextTypeSelectMatchFromRowToRowForSt
 // new location.
 //
 // The actual [NSTableColumn] instance can be retrieved from the
-// [TableColumns] array.
+// [NSTableView.TableColumns] array.
 //
 // If this method isn’t implemented, all columns are considered reorderable.
 //
@@ -784,9 +784,10 @@ func (o NSTableViewDelegateObject) TableViewRowActionsForRowEdge(tableView INSTa
 // allows users to show or hide table columns.
 //
 // To change a column’s visibility, ensure the column has a title. Further,
-// setting the [Menu] property on the table view [HeaderView] or, subclassing
-// [NSTableHeaderView] and overriding the [Menu] property also prevents the
-// column visibility from changing.
+// setting the [NSResponder.Menu] property on the table view
+// [NSTableView.HeaderView] or, subclassing [NSTableHeaderView] and overriding
+// the [NSResponder.Menu] property also prevents the column visibility from
+// changing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:userCanChangeVisibilityOf:)
 func (o NSTableViewDelegateObject) TableViewUserCanChangeVisibilityOfTableColumn(tableView INSTableView, column INSTableColumn) bool {
@@ -969,10 +970,10 @@ func (o NSTableViewDelegateObject) ControlTextShouldEndEditing(control INSContro
 // selected initially.
 //
 // The actual means of presentation of the potential completions is determined
-// by the [Complete] method of [NSTextView].
+// by the [NSTextView.Complete] method of [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
-func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }

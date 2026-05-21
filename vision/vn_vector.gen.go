@@ -120,6 +120,7 @@ type IVNVector interface {
 	// A signed projection that indicates the vector’s direction on the y-axis.
 	Y() float64
 
+	InitWithCoder(coder foundation.INSCoder) VNVector
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -177,6 +178,13 @@ func NewVectorByMultiplyingVectorByScalar(vector IVNVector, scalar float64) VNVe
 // See: https://developer.apple.com/documentation/Vision/VNVector/init(bySubtracting:from:)
 func NewVectorBySubtractingVectorFromVector(v1 IVNVector, v2 IVNVector) VNVector {
 	rv := objc.Send[objc.ID](objc.ID(getVNVectorClass().class), objc.Sel("vectorBySubtractingVector:fromVector:"), v1, v2)
+	return VNVectorFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNVector/init(coder:)
+func NewVectorWithCoder(coder foundation.INSCoder) VNVector {
+	instance := getVNVectorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNVectorFromID(rv)
 }
 
@@ -254,6 +262,12 @@ func (v VNVector) InitWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector 
 // See: https://developer.apple.com/documentation/Vision/VNVector/init(xComponent:yComponent:)-3p5k3
 func (v VNVector) InitWithXComponentYComponent(x float64, y float64) VNVector {
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithXComponent:yComponent:"), x, y)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNVector/init(coder:)
+func (v VNVector) InitWithCoder(coder foundation.INSCoder) VNVector {
+	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (v VNVector) EncodeWithCoder(coder foundation.INSCoder) {

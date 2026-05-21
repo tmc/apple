@@ -48,8 +48,9 @@ func (ac AVSpeechSynthesisProviderVoiceClass) Alloc() AVSpeechSynthesisProviderV
 // # Overview
 //
 // This is a voice that an [AVSpeechSynthesisProviderAudioUnit] provides to
-// the system, distinct from [AVSpeechSynthesisVoice]. Use [AVSpeechSynthesisProviderVoice.SpeechVoices] to
-// access the underlying [AVSpeechSynthesisVoice] in the voice quality
+// the system, distinct from [AVSpeechSynthesisVoice]. Use
+// [AVSpeechSynthesisProviderAudioUnit.SpeechVoices] to access the underlying
+// [AVSpeechSynthesisVoice] in the voice quality
 // [AVSpeechSynthesisVoiceQualityEnhanced].
 //
 // # Creating a voice
@@ -139,9 +140,7 @@ type IAVSpeechSynthesisProviderVoice interface {
 	VoiceSize() int64
 	SetVoiceSize(value int64)
 
-	// A list of voices the audio unit provides to the system.
-	SpeechVoices() IAVSpeechSynthesisProviderVoice
-	SetSpeechVoices(value IAVSpeechSynthesisProviderVoice)
+	InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -162,6 +161,13 @@ func NewAVSpeechSynthesisProviderVoice() AVSpeechSynthesisProviderVoice {
 	class := getAVSpeechSynthesisProviderVoiceClass()
 	rv := objc.Send[AVSpeechSynthesisProviderVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/init(coder:)
+func NewSpeechSynthesisProviderVoiceWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice {
+	instance := getAVSpeechSynthesisProviderVoiceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVSpeechSynthesisProviderVoiceFromID(rv)
 }
 
 // Creates a voice with a name, an identifier, and language information.
@@ -194,6 +200,12 @@ func NewSpeechSynthesisProviderVoiceWithNameIdentifierPrimaryLanguagesSupportedL
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/init(name:identifier:primaryLanguages:supportedLanguages:)
 func (s AVSpeechSynthesisProviderVoice) InitWithNameIdentifierPrimaryLanguagesSupportedLanguages(name string, identifier string, primaryLanguages []string, supportedLanguages []string) AVSpeechSynthesisProviderVoice {
 	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("initWithName:identifier:primaryLanguages:supportedLanguages:"), objc.String(name), objc.String(identifier), objectivec.StringSliceToNSArray(primaryLanguages), objectivec.StringSliceToNSArray(supportedLanguages))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/init(coder:)
+func (s AVSpeechSynthesisProviderVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice {
+	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s AVSpeechSynthesisProviderVoice) EncodeWithCoder(coder foundation.INSCoder) {
@@ -263,10 +275,11 @@ func (s AVSpeechSynthesisProviderVoice) Name() string {
 // # Discussion
 //
 // These languages are what a voice primarily supports. For example, if the
-// primary language is `zh-CN —` with no additional [SupportedLanguages] —
-// the system may switch voices to speak a phrase that contains other
-// languages. Changing voices depends on user preferences and what
-// accessibility feature is using the voice.
+// primary language is `zh-CN —` with no additional
+// [AVSpeechSynthesisProviderVoice.SupportedLanguages] — the system may
+// switch voices to speak a phrase that contains other languages. Changing
+// voices depends on user preferences and what accessibility feature is using
+// the voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/primaryLanguages
 func (s AVSpeechSynthesisProviderVoice) PrimaryLanguages() []string {
@@ -319,15 +332,4 @@ func (s AVSpeechSynthesisProviderVoice) VoiceSize() int64 {
 }
 func (s AVSpeechSynthesisProviderVoice) SetVoiceSize(value int64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVoiceSize:"), value)
-}
-
-// A list of voices the audio unit provides to the system.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisprovideraudiounit/speechvoices
-func (s AVSpeechSynthesisProviderVoice) SpeechVoices() IAVSpeechSynthesisProviderVoice {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("speechVoices"))
-	return AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
-}
-func (s AVSpeechSynthesisProviderVoice) SetSpeechVoices(value IAVSpeechSynthesisProviderVoice) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSpeechVoices:"), value)
 }

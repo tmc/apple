@@ -63,9 +63,9 @@ func (o AVCaptureSessionDeferredStartDelegateObject) SessionDidRunDeferredStart(
 //
 // Delegates receive this message when the session has finished the deferred
 // start. This message will be sent regardless of whether the session’s
-// [AutomaticallyRunsDeferredStart] property is set. See
-// [SetDeferredStartDelegateDeferredStartDelegateCallbackQueue] documentation
-// for more information.
+// [AVCaptureSession.AutomaticallyRunsDeferredStart] property is set. See
+// [AVCaptureSession.SetDeferredStartDelegateDeferredStartDelegateCallbackQueue]
+// documentation for more information.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionDeferredStartDelegate/sessionWillRunDeferredStart(_:)
 func (o AVCaptureSessionDeferredStartDelegateObject) SessionWillRunDeferredStart(session IAVCaptureSession) {

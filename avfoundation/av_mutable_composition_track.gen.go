@@ -207,7 +207,7 @@ func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange coremedia.CMTi
 //
 // The time range you insert presents at its natural duration and rate. If
 // necessary, you can scale it to a different duration by calling the
-// [ScaleTimeRangeToDuration] method.
+// [AVMutableCompositionTrack.ScaleTimeRangeToDuration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/insertTimeRange(_:of:at:)
 func (m AVMutableCompositionTrack) InsertTimeRangeOfTrackAtTimeError(timeRange coremedia.CMTimeRange, track IAVAssetTrack, startTime coremedia.CMTime) (bool, error) {

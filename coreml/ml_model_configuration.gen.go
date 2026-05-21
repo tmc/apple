@@ -55,9 +55,9 @@ func (mc MLModelConfigurationClass) Alloc() MLModelConfiguration {
 // computational device category, such as a CPU.
 //
 // You typically use a model configuration instance to configure an [MLModel]
-// instance as you create it with [ModelWithContentsOfURLConfigurationError]
-// or create an [MLUpdateTask]. See [Personalizing a Model with On-Device
-// Updates].
+// instance as you create it with
+// [MLModelClass.ModelWithContentsOfURLConfigurationError] or create an
+// [MLUpdateTask]. See [Personalizing a Model with On-Device Updates].
 //
 // Configure your model parameters by setting values for each relevant
 // [MLParameterKey] in the [MLModelConfiguration.Parameters] property.
@@ -170,6 +170,7 @@ type IMLModelConfiguration interface {
 	OptimizationHints() IMLOptimizationHints
 	SetOptimizationHints(value IMLOptimizationHints)
 
+	InitWithCoder(coder foundation.INSCoder) MLModelConfiguration
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -192,6 +193,18 @@ func NewMLModelConfiguration() MLModelConfiguration {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/init(coder:)
+func NewModelConfigurationWithCoder(coder foundation.INSCoder) MLModelConfiguration {
+	instance := getMLModelConfigurationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLModelConfigurationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/init(coder:)
+func (m MLModelConfiguration) InitWithCoder(coder foundation.INSCoder) MLModelConfiguration {
+	rv := objc.Send[MLModelConfiguration](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m MLModelConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -244,8 +257,8 @@ func (m MLModelConfiguration) SetParameters(value foundation.INSDictionary) {
 //
 // # Discussion
 //
-// If [PreferredMetalDevice] is `nil`, the default value, Core ML chooses a
-// metal device for you.
+// If [MLModelConfiguration.PreferredMetalDevice] is `nil`, the default value,
+// Core ML chooses a metal device for you.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/preferredMetalDevice
 func (m MLModelConfiguration) PreferredMetalDevice() metal.MTLDevice {

@@ -64,7 +64,8 @@ func (cc CKSyncEngineClass) Alloc() CKSyncEngine {
 // charge, an active network connection, a signed-in iCloud account, and so on
 // — the engine’s sync schedule is indeterminate. If you need to sync
 // immediately, like when your app requires it has the most recent changes
-// before continuing, use the [CKSyncEngine.FetchChangesWithOptionsCompletionHandler] and
+// before continuing, use the
+// [CKSyncEngine.FetchChangesWithOptionsCompletionHandler] and
 // [CKSyncEngine.SendChangesWithOptionsCompletionHandler] methods.
 //
 // The sync engine uses an opaque type to track its internal state, and it’s
@@ -80,13 +81,13 @@ func (cc CKSyncEngineClass) Alloc() CKSyncEngine {
 // # Send changes to iCloud
 //
 // A sync engine requires you to tell it about any changes to send, which you
-// do by invoking the [AddPendingDatabaseChanges] and
-// [AddPendingRecordZoneChanges] methods on the engine’s [CKSyncEngine.State] property.
-// If there are no scheduled sync operations when you invoke these methods,
-// the engine automatically schedules one. Database changes don’t require
-// any additional input, but the sync engine does expect you to provide the
-// individual record zone changes — in batches — and return them from your
-// delegate’s implementation of
+// do by invoking the [CKSyncEngineState.AddPendingDatabaseChanges] and
+// [CKSyncEngineState.AddPendingRecordZoneChanges] methods on the engine’s
+// [CKSyncEngine.State] property. If there are no scheduled sync operations
+// when you invoke these methods, the engine automatically schedules one.
+// Database changes don’t require any additional input, but the sync engine
+// does expect you to provide the individual record zone changes — in
+// batches — and return them from your delegate’s implementation of
 // [SyncEngineNextRecordZoneChangeBatchForContext]. After the engine sends the
 // changes, it notifies your delegate about their success (or failure) by
 // dispatching events of type [CKSyncEngineSentDatabaseChangesEvent] and
@@ -125,10 +126,10 @@ func (cc CKSyncEngineClass) Alloc() CKSyncEngine {
 //
 // There may be some cases where you want to manually trigger a sync. For
 // example, if you have a pull-to-refresh UI, you can call
-// [CKSyncEngine.FetchChangesWithOptionsCompletionHandler] to tell the sync engine to fetch
-// immediately. Or, if you have a “backup now” UI, you can call
-// [CKSyncEngine.SendChangesWithOptionsCompletionHandler] to send to the server
-// immediately.
+// [CKSyncEngine.FetchChangesWithOptionsCompletionHandler] to tell the sync
+// engine to fetch immediately. Or, if you have a “backup now” UI, you can
+// call [CKSyncEngine.SendChangesWithOptionsCompletionHandler] to send to the
+// server immediately.
 //
 // # Error Handling
 //

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -150,6 +151,13 @@ func NewTextObservationRectangleObservationWithRequestRevisionTopLeftTopRightBot
 // See: https://developer.apple.com/documentation/Vision/VNDetectedObjectObservation/init(boundingBox:)
 func NewTextObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNTextObservation {
 	rv := objc.Send[objc.ID](objc.ID(getVNTextObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
+	return VNTextObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewTextObservationWithCoder(coder foundation.INSCoder) VNTextObservation {
+	instance := getVNTextObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNTextObservationFromID(rv)
 }
 

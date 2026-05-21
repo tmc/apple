@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -48,8 +47,6 @@ func (ac AVRenderedCaptionImageClass) Alloc() AVRenderedCaptionImage {
 //
 // # Inspecting the image
 //
-//   - [AVRenderedCaptionImage.ReadOnlyPixelBuffer]: A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
-//   - [AVRenderedCaptionImage.SetReadOnlyPixelBuffer]
 //   - [AVRenderedCaptionImage.Position]: A point that defines the position, in pixels, of the rendered caption image relative to the video frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRenderedCaptionImage
@@ -71,8 +68,6 @@ func AVRenderedCaptionImageFromID(id objc.ID) AVRenderedCaptionImage {
 //
 // # Inspecting the image
 //
-//   - [IAVRenderedCaptionImage.ReadOnlyPixelBuffer]: A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
-//   - [IAVRenderedCaptionImage.SetReadOnlyPixelBuffer]
 //   - [IAVRenderedCaptionImage.Position]: A point that defines the position, in pixels, of the rendered caption image relative to the video frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRenderedCaptionImage
@@ -81,9 +76,6 @@ type IAVRenderedCaptionImage interface {
 
 	// Topic: Inspecting the image
 
-	// A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
-	ReadOnlyPixelBuffer() unsafe.Pointer
-	SetReadOnlyPixelBuffer(value unsafe.Pointer)
 	// A point that defines the position, in pixels, of the rendered caption image relative to the video frame.
 	Position() corefoundation.CGPoint
 }
@@ -105,17 +97,6 @@ func NewAVRenderedCaptionImage() AVRenderedCaptionImage {
 	class := getAVRenderedCaptionImageClass()
 	rv := objc.Send[AVRenderedCaptionImage](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
-//
-// See: https://developer.apple.com/documentation/avfoundation/avrenderedcaptionimage/readonlypixelbuffer
-func (r AVRenderedCaptionImage) ReadOnlyPixelBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("readOnlyPixelBuffer"))
-	return rv
-}
-func (r AVRenderedCaptionImage) SetReadOnlyPixelBuffer(value unsafe.Pointer) {
-	objc.Send[struct{}](r.ID, objc.Sel("setReadOnlyPixelBuffer:"), value)
 }
 
 // A point that defines the position, in pixels, of the rendered caption image

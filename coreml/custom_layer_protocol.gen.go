@@ -23,7 +23,7 @@ type MLCustomLayer interface {
 	// Calculates the shapes of the output of this layer for the given input shapes.
 	//
 	// See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
-	OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error)
+	OutputShapesForInputShapesError(inputShapes []foundation.INSArray) ([]foundation.INSArray, error)
 
 	// Evaluates the custom layer with the given inputs.
 	//
@@ -89,7 +89,8 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 //
 // Implement this method to define the layer’s interface with the rest of
 // the network. It will be called at least once at load time and any time the
-// size of the inputs changes in a call to [PredictionFromFeaturesError].
+// size of the inputs changes in a call to
+// [MLModel.PredictionFromFeaturesError].
 //
 // This method consumes and returns arrays of shapes, for inputs and outputs
 // of the custom layer, respectively. See the [Core ML Neural Network
@@ -98,12 +99,12 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
 //
 // [Core ML Neural Network specification]: https://mlmodel.readme.io/reference/neuralnetwork
-func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error) {
-	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), objectivec.IObjectSliceToNSArray(inputShapes))
+func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.INSArray) ([]foundation.INSArray, error) {
+	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), inputShapes)
 	if err != nil {
 		return nil, err
 	}
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSArray {
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.INSArray {
 		return foundation.NSArrayFromID(id)
 	}), nil
 }

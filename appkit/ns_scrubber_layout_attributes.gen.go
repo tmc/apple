@@ -52,7 +52,7 @@ func (nc NSScrubberLayoutAttributesClass) Alloc() NSScrubberLayoutAttributes {
 //
 // If you require model attributes in addition to those provided by this
 // class, create a subclass and add appropriate attributes. Subclasses must
-// implement [isEqual(_:)], [NSScrubberLayoutAttributes.Hash] and the [NSCopying] protocol.
+// implement [isEqual(_:)], [hash] and the [NSCopying] protocol.
 //
 // # Controlling the layout
 //
@@ -66,6 +66,7 @@ func (nc NSScrubberLayoutAttributesClass) Alloc() NSScrubberLayoutAttributes {
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes
 //
 // [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
+// [hash]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
 // [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSScrubberLayoutAttributes struct {
 	objectivec.Object
@@ -107,10 +108,6 @@ type INSScrubberLayoutAttributes interface {
 	// The index of the scrubber item that is represented by the item’s layout attributes.
 	ItemIndex() int
 	SetItemIndex(value int)
-
-	// Returns an integer that can be used as a table address in a hash table structure.
-	Hash() int
-	SetHash(value int)
 }
 
 // Init initializes the instance.
@@ -180,16 +177,4 @@ func (s NSScrubberLayoutAttributes) ItemIndex() int {
 }
 func (s NSScrubberLayoutAttributes) SetItemIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
-}
-
-// Returns an integer that can be used as a table address in a hash table
-// structure.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
-func (s NSScrubberLayoutAttributes) Hash() int {
-	rv := objc.Send[int](s.ID, objc.Sel("hash"))
-	return rv
-}
-func (s NSScrubberLayoutAttributes) SetHash(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setHash:"), value)
 }

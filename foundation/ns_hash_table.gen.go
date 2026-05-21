@@ -57,7 +57,8 @@ func (nc NSHashTableClass) Alloc() NSHashTable {
 // You can configure an [NSHashTable] instance to operate on arbitrary
 // pointers and not just objects, although typically you are encouraged to use
 // the C function API for void * pointers. The object-based API (such as
-// [NSHashTable.AddObject]) will not work for non-object pointers without type-casting.
+// [NSHashTable.AddObject]) will not work for non-object pointers without
+// type-casting.
 //
 // Because of its options, [NSHashTable] is not a set because it can behave
 // differently (for example, if pointer equality is specified two “ strings
@@ -248,7 +249,7 @@ func NewNSHashTable() NSHashTable {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSHashTable/init(coder:)
 func NewHashTableWithCoder(coder INSCoder) NSHashTable {
 	instance := getNSHashTableClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -607,7 +608,7 @@ func (h NSHashTable) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSHashTable/init(coder:)
 func (h NSHashTable) InitWithCoder(coder INSCoder) NSHashTable {
 	rv := objc.Send[NSHashTable](h.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

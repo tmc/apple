@@ -91,7 +91,8 @@ func (o AVVideoCompositingObject) RenderContextChanged(newRenderContext IAVVideo
 //
 // The custom compositor is expected to invoke, either subsequently or
 // immediately, the `asyncVideoCompositionRequest` object’s
-// [finish(withComposedVideoFrame:)] or [FinishWithError] methods.
+// [finish(withComposedVideoFrame:)] or
+// [AVAsynchronousVideoCompositionRequest.FinishWithError] methods.
 //
 // If you intend to finish rendering the frame after handling of this message
 // returns, you must retain `asyncVideoCompositionRequest` until after
@@ -130,11 +131,13 @@ func (o AVVideoCompositingObject) StartVideoCompositionRequest(asyncVideoComposi
 // every frame duration. It allows the custom compositor to load and unload a
 // composition resource such as overlay images at an appropriate time.
 //
-// In forward playback, the render hint’s [StartCompositionTime] is less
-// than its [EndCompositionTime]. In reverse playback, its
-// [EndCompositionTime] is less than its [StartCompositionTime]. For seeking,
-// the two values are equivalent, which means the upcoming composition request
-// time range is unknown.
+// In forward playback, the render hint’s
+// [AVVideoCompositionRenderHint.StartCompositionTime] is less than its
+// [AVVideoCompositionRenderHint.EndCompositionTime]. In reverse playback, its
+// [AVVideoCompositionRenderHint.EndCompositionTime] is less than its
+// [AVVideoCompositionRenderHint.StartCompositionTime]. For seeking, the two
+// values are equivalent, which means the upcoming composition request time
+// range is unknown.
 //
 // This method is guaranteed to be called before
 // [StartVideoCompositionRequest] for a given composition time.
@@ -180,10 +183,10 @@ func (o AVVideoCompositingObject) PrerollForRenderingUsingHint(renderHint IAVVid
 //
 // Upon receiving this message, a custom video compositor must block until it
 // has either cancelled all pending frame requests, and called the
-// [FinishCancelledRequest] method for each of them. If cancellation is not
-// possible, the method must block until it has finished processing of all the
-// frames and called the [finish(withComposedVideoFrame:)] method for each of
-// them.
+// [AVAsynchronousVideoCompositionRequest.FinishCancelledRequest] method for
+// each of them. If cancellation is not possible, the method must block until
+// it has finished processing of all the frames and called the
+// [finish(withComposedVideoFrame:)] method for each of them.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/cancelAllPendingVideoCompositionRequests()
 //
@@ -207,9 +210,9 @@ func (o AVVideoCompositingObject) CancelAllPendingVideoCompositionRequests() {
 //
 // If the custom compositor is meant to be used with an
 // [AVVideoCompositionCoreAnimationTool] created using the
-// [VideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID] method,
-// [KCVPixelFormatType_32BGRA] should be included as one of the supported
-// pixel format types.
+// [AVVideoCompositionCoreAnimationToolClass.VideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID]
+// method, [kCVPixelFormatType_32BGRA] should be included as one of the
+// supported pixel format types.
 //
 // Missing attributes will be set by the composition engine to values allowing
 // the best performance.
@@ -220,6 +223,7 @@ func (o AVVideoCompositingObject) CancelAllPendingVideoCompositionRequests() {
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/sourcePixelBufferAttributes
 //
 // [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+// [kCVPixelFormatType_32BGRA]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32BGRA
 func (o AVVideoCompositingObject) SourcePixelBufferAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sourcePixelBufferAttributes"))
 	return foundation.NSDictionaryFromID(rv)

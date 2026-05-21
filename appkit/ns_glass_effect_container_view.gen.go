@@ -159,8 +159,9 @@ func NewGlassEffectContainerViewWithFrame(frameRect corefoundation.CGRect) NSGla
 //
 // - Elevates the z-order of descendants of `contentView` to position them
 // above the `contentView`. - Merges descendants together if the views are
-// sufficiently similar and within the proximity specified in [Spacing]. -
-// Processes similar glass effect views as a batch to improve performance.
+// sufficiently similar and within the proximity specified in
+// [NSGlassEffectContainerView.Spacing]. - Processes similar glass effect
+// views as a batch to improve performance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlassEffectContainerView/contentView
 func (g NSGlassEffectContainerView) ContentView() INSView {

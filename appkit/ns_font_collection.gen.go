@@ -110,6 +110,7 @@ type INSFontCollection interface {
 	// A list of query font descriptors whose matching results are excluded from the list of matching descriptors.
 	ExclusionDescriptors() []NSFontDescriptor
 
+	InitWithCoder(coder foundation.INSCoder) NSFontCollection
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -130,6 +131,13 @@ func NewNSFontCollection() NSFontCollection {
 	class := getNSFontCollectionClass()
 	rv := objc.Send[NSFontCollection](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(coder:)
+func NewFontCollectionWithCoder(coder foundation.INSCoder) NSFontCollection {
+	instance := getNSFontCollectionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSFontCollectionFromID(rv)
 }
 
 // Returns a font collection matching the given descriptors.
@@ -197,7 +205,7 @@ func NewFontCollectionWithNameVisibility(name NSFontCollectionName, visibility N
 //
 // # Return Value
 //
-// The [MatchingDescriptors] for the given family.
+// The [NSFontCollection.MatchingDescriptors] for the given family.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(forFamily:)
 func (f NSFontCollection) MatchingDescriptorsForFamily(family string) []NSFontDescriptor {
@@ -217,7 +225,8 @@ func (f NSFontCollection) MatchingDescriptorsForFamily(family string) []NSFontDe
 //
 // # Return Value
 //
-// The [MatchingDescriptors] for the given family and options.
+// The [NSFontCollection.MatchingDescriptors] for the given family and
+// options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(forFamily:options:)
 func (f NSFontCollection) MatchingDescriptorsForFamilyOptions(family string, options foundation.INSDictionary) []NSFontDescriptor {
@@ -235,7 +244,7 @@ func (f NSFontCollection) MatchingDescriptorsForFamilyOptions(family string, opt
 //
 // # Return Value
 //
-// The [MatchingDescriptors] for the given options.
+// The [NSFontCollection.MatchingDescriptors] for the given options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(options:)
 func (f NSFontCollection) MatchingDescriptorsWithOptions(options foundation.INSDictionary) []NSFontDescriptor {
@@ -243,6 +252,12 @@ func (f NSFontCollection) MatchingDescriptorsWithOptions(options foundation.INSD
 	return objc.ConvertSlice(rv, func(id objc.ID) NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(coder:)
+func (f NSFontCollection) InitWithCoder(coder foundation.INSCoder) NSFontCollection {
+	rv := objc.Send[NSFontCollection](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (f NSFontCollection) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -348,8 +363,8 @@ func (f NSFontCollection) MatchingDescriptors() []NSFontDescriptor {
 //
 // # Discussion
 //
-// The font descriptors matching [ExclusionDescriptors] are removed from
-// [MatchingDescriptors]
+// The font descriptors matching [NSFontCollection.ExclusionDescriptors] are
+// removed from [NSFontCollection.MatchingDescriptors]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/queryDescriptors
 func (f NSFontCollection) QueryDescriptors() []NSFontDescriptor {

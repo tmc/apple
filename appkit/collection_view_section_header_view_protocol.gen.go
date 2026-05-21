@@ -48,10 +48,11 @@ func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewS
 // performance of a collection view. Instead of creating all views from
 // scratch, the collection view recycles views and view controllers that move
 // offscreen. When your app subsequently calls the
-// [ItemWithIdentifierForIndexPath] or
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
-// view retrieves a recycled object from the appropriate storage, calls this
-// method, and then returns the object to your app.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] or
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath]
+// method, the collection view retrieves a recycled object from the
+// appropriate storage, calls this method, and then returns the object to your
+// app.
 //
 // Implement this method when you need to delete old data or when you want to
 // restore your recycled views to a standard initial state prior to their
@@ -172,7 +173,7 @@ func (o NSCollectionViewSectionHeaderViewObject) Identifier() NSUserInterfaceIte
 // users control the collapsing of a section so that the collection view can
 // show and hide the button appropriately, based on whether the section’s
 // items can be displayed in the available space. The collection view uses its
-// [ToggleSectionCollapse] property to access this button.
+// [NSCollectionView.ToggleSectionCollapse] property to access this button.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
 func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButton {

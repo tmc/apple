@@ -393,8 +393,8 @@ func (t NSToolbarItem) InitWithItemIdentifier(itemIdentifier NSToolbarItemIdenti
 //
 // If the toolbar item has a custom view, subclass [NSToolbarItem] and
 // override this method to perform the validation yourself. After you validate
-// your custom toolbar item, update the [Enabled] property. You don’t need
-// to call `super` in your implementation.
+// your custom toolbar item, update the [NSToolbarItem.Enabled] property. You
+// don’t need to call `super` in your implementation.
 //
 // If you disable automatic validation, toolbar items remain enabled and
 // clickable, including when someone switches to another app or window.
@@ -490,9 +490,9 @@ func (t NSToolbarItem) SetLabel(value string) {
 //
 // If you support toolbar customizations, you must provide palette labels for
 // your items. In most cases, you can apply the same value to this property
-// and the [Label] property. However, you might use this property to offer a
-// more descriptive string, or to provide a label string when the [Label]
-// property contains an empty string.
+// and the [NSToolbarItem.Label] property. However, you might use this
+// property to offer a more descriptive string, or to provide a label string
+// when the [NSToolbarItem.Label] property contains an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/paletteLabel
 func (t NSToolbarItem) PaletteLabel() string {
@@ -508,10 +508,10 @@ func (t NSToolbarItem) SetPaletteLabel(value string) {
 // # Discussion
 //
 // If you assign a custom view to the toolbar item, modifying this property
-// updates the [Title] property of the view if one exists. If the toolbar item
-// contains a button, modifying this property updates the button title. If the
-// item doesn’t contain a custom view, the toolbar item manages the content
-// directly.
+// updates the [NSToolbarItem.Title] property of the view if one exists. If
+// the toolbar item contains a button, modifying this property updates the
+// button title. If the item doesn’t contain a custom view, the toolbar item
+// manages the content directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/title
 func (t NSToolbarItem) Title() string {
@@ -611,11 +611,11 @@ func (t NSToolbarItem) SetTarget(value objectivec.IObject) {
 // manages the action directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/action
-func (t NSToolbarItem) Action() objc.SEL {
+func (t NSToolbarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](t.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (t NSToolbarItem) SetAction(value objc.SEL) {
+func (t NSToolbarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAction:"), value)
 }
 
@@ -676,8 +676,8 @@ func (t NSToolbarItem) SetHidden(value bool) {
 // # Discussion
 //
 // If your toolbar item displays a custom view, modifying this property
-// applies the image to the view’s [Bordered] property, if one exists. The
-// default value of this property is false.
+// applies the image to the view’s [NSToolbarItem.Bordered] property, if one
+// exists. The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isBordered
 func (t NSToolbarItem) IsBordered() bool {
@@ -715,9 +715,9 @@ func (t NSToolbarItem) SetNavigational(value bool) {
 // # Discussion
 //
 // If the value of this property is true, the item is enabled. If the
-// [Autovalidates] property is true, changing the value of this property has
-// no effect. Instead, the validation process enables and disables the toolbar
-// item as appropriate.
+// [NSToolbarItem.Autovalidates] property is true, changing the value of this
+// property has no effect. Instead, the validation process enables and
+// disables the toolbar item as appropriate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isEnabled
 func (t NSToolbarItem) IsEnabled() bool {

@@ -53,19 +53,20 @@ func (nc NSTitlebarAccessoryViewControllerClass) Alloc() NSTitlebarAccessoryView
 // blur behind the accessory view and the size and location changes for the
 // content of the view when a window goes in and out of full screen mode. If
 // you’re currently using [NSToolbar] fullscreen accessory APIs, such as
-// [NSTitlebarAccessoryViewController.FullScreenAccessoryView], you should use
+// [fullScreenAccessoryView], you should use
 // [NSTitlebarAccessoryViewController] APIs instead.
 //
 // Typically, you create an [NSTitlebarAccessoryViewController] object, give
-// it your custom view, set the [NSTitlebarAccessoryViewController.LayoutAttribute] property to ensure that it
-// displays correctly in relation to the title bar, and add the view
+// it your custom view, set the
+// [NSTitlebarAccessoryViewController.LayoutAttribute] property to ensure that
+// it displays correctly in relation to the title bar, and add the view
 // controller to your window. For more information about [NSWindow] methods
 // you can use to add and remove a title bar accessory view controller, see
 // Managing Title Bars.
 //
 // Don’t override the `view` property in your
 // [NSTitlebarAccessoryViewController] subclass. Instead, you can override
-// [LoadView], and set the `view` property in that method.
+// [NSViewController.LoadView], and set the `view` property in that method.
 //
 // # Configuring a title bar accessory view controller
 //
@@ -87,6 +88,8 @@ func (nc NSTitlebarAccessoryViewControllerClass) Alloc() NSTitlebarAccessoryView
 //   - [NSTitlebarAccessoryViewController.SetHidden]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController
+//
+// [fullScreenAccessoryView]: https://developer.apple.com/documentation/AppKit/NSToolbar/fullScreenAccessoryView
 type NSTitlebarAccessoryViewController struct {
 	NSViewController
 }
@@ -150,9 +153,6 @@ type INSTitlebarAccessoryViewController interface {
 	IsHidden() bool
 	SetHidden(value bool)
 
-	// The toolbar’s full screen accessory view.
-	FullScreenAccessoryView() INSView
-	SetFullScreenAccessoryView(value INSView)
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Sets the option dictionary that maps event trigger keys to animation objects.
@@ -209,9 +209,10 @@ func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTi
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSTitlebarAccessoryViewController {
@@ -263,8 +264,8 @@ func (t NSTitlebarAccessoryViewController) AnimationDidReachProgressMark(animati
 //
 // # Discussion
 //
-// An [NSAnimation] object stops running when it receives a [StopAnimation]
-// message.
+// An [NSAnimation] object stops running when it receives a
+// [NSAnimation.StopAnimation] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidStop(_:)
 func (t NSTitlebarAccessoryViewController) AnimationDidStop(animation INSAnimation) {
@@ -314,8 +315,8 @@ func (t NSTitlebarAccessoryViewController) AnimationForKey(key NSAnimatablePrope
 // # Discussion
 //
 // The delegate is sent this message just after `animation` receives a
-// [StartAnimation] message. The delegate can use this method to prepare
-// objects and resources for the effect.
+// [NSAnimation.StartAnimation] message. The delegate can use this method to
+// prepare objects and resources for the effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationShouldStart(_:)
 func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAnimation) bool {
@@ -341,13 +342,14 @@ func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAni
 // [NSAnimation] computes the current curve value.
 //
 // The animation:valueForProgress: message is sent to the delegate when an
-// [NSAnimation] object receives a [CurrentValue] message. The value the
-// delegate returns is used as the value of [CurrentValue]; if there is no
-// delegate, or it doesn’t implement animation:valueForProgress:,
-// [NSAnimation] computes and returns the current value. [NSAnimation] does
-// not invoke [CurrentValue]itself, but subclasses might.
+// [NSAnimation] object receives a [NSAnimation.CurrentValue] message. The
+// value the delegate returns is used as the value of
+// [NSAnimation.CurrentValue]; if there is no delegate, or it doesn’t
+// implement animation:valueForProgress:, [NSAnimation] computes and returns
+// the current value. [NSAnimation] does not invoke
+// [NSAnimation.CurrentValue]itself, but subclasses might.
 //
-// See the description of [CurrentValue] for more information.
+// See the description of [NSAnimation.CurrentValue] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
 func (t NSTitlebarAccessoryViewController) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {
@@ -436,9 +438,10 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 //
 // # Discussion
 //
-// The [FullScreenMinHeight] property applies only to an
-// [NSTitlebarAccessoryViewController] object in which [LayoutAttribute] is
-// set to [NSLayoutConstraint.Attribute.bottom]. The minimum height you set
+// The [NSTitlebarAccessoryViewController.FullScreenMinHeight] property
+// applies only to an [NSTitlebarAccessoryViewController] object in which
+// [NSTitlebarAccessoryViewController.LayoutAttribute] is set to
+// [NSLayoutConstraint.Attribute.bottom]. The minimum height you set
 // determines how much of your accessory view is visible when the menu bar is
 // hidden during full screen mode. By default, the minimum height is `0`,
 // which means that the accessory view is hidden when the menu bar is hidden.
@@ -447,8 +450,8 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 //
 // To persistently show a portion of the accessory view, set this property to
 // a value greater than `0`. For example, if you have a fixed height accessory
-// view, you can set [FullScreenMinHeight] to
-// `view.FrameXCUIElementTypeSizeXCUIElementTypeHeight()` to show the view
+// view, you can set [NSTitlebarAccessoryViewController.FullScreenMinHeight]
+// to `view.FrameXCUIElementTypeSizeXCUIElementTypeHeight()` to show the view
 // regardless of whether the menu bar is hidden. Note that the view’s height
 // is never actually changed when it is hidden or revealed; instead, it is
 // automatically clipped by an internal clip view.
@@ -521,17 +524,6 @@ func (t NSTitlebarAccessoryViewController) IsHidden() bool {
 }
 func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
-}
-
-// The toolbar’s full screen accessory view.
-//
-// See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview
-func (t NSTitlebarAccessoryViewController) FullScreenAccessoryView() INSView {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("fullScreenAccessoryView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (t NSTitlebarAccessoryViewController) SetFullScreenAccessoryView(value INSView) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenAccessoryView:"), value)
 }
 
 // Protocol methods for NSAnimationDelegate

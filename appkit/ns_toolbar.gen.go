@@ -352,7 +352,7 @@ func NewNSToolbar() NSToolbar {
 // # Discussion
 //
 // `identifier` is never seen by users and should not be localized. See the
-// [Identifier] property for important information.
+// [NSToolbar.Identifier] property for important information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/init(identifier:)
 func NewToolbarWithIdentifier(identifier NSToolbarIdentifier) NSToolbar {
@@ -372,7 +372,7 @@ func NewToolbarWithIdentifier(identifier NSToolbarIdentifier) NSToolbar {
 // # Discussion
 //
 // `identifier` is never seen by users and should not be localized. See the
-// [Identifier] property for important information.
+// [NSToolbar.Identifier] property for important information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/init(identifier:)
 func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar {
@@ -393,7 +393,7 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 // you want to appear. After that, you let the user customize the toolbar.
 //
 // Any changes you make to the toolbar appear in all [NSToolbar] objects with
-// the same [Identifier] value. If a toolbar item with the specified
+// the same [NSToolbar.Identifier] value. If a toolbar item with the specified
 // identifier isn’t available, the toolbar calls the
 // [ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar] method of its
 // delegate to get the item. This method does not trigger a call to your
@@ -415,9 +415,9 @@ func (t NSToolbar) InsertItemWithItemIdentifierAtIndex(itemIdentifier NSToolbarI
 // you want to appear. After that, you let the user customize the toolbar.
 //
 // Any changes you make to the toolbar appear in all [NSToolbar] objects with
-// the same [Identifier] value. This method does not trigger a call to your
-// delegate’s [ToolbarItemIdentifierCanBeInsertedAtIndex] method for the
-// removal of the item.
+// the same [NSToolbar.Identifier] value. This method does not trigger a call
+// to your delegate’s [ToolbarItemIdentifierCanBeInsertedAtIndex] method for
+// the removal of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/removeItem(at:)
 func (t NSToolbar) RemoveItemAtIndex(index int) {
@@ -444,10 +444,10 @@ func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 // # Discussion
 //
 // Typically, you override this method and use it to customize the validation
-// process. The default implementation calls the [Validate] method of each
-// visible item in the toolbar, including items that have their
-// [Autovalidates] property set to false. If you override this method, call
-// `super` at some point during your implementation.
+// process. The default implementation calls the [NSToolbarItem.Validate]
+// method of each visible item in the toolbar, including items that have their
+// [NSToolbarItem.Autovalidates] property set to false. If you override this
+// method, call `super` at some point during your implementation.
 //
 // The toolbar doesn’t validate its content for some events, including
 // [NSLeftMouseDragged], [NSRightMouseDragged], [NSOtherMouseDragged],
@@ -458,7 +458,7 @@ func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 // sequence of key events doesn’t trigger any validation.
 //
 // To trigger validation for all toolbars, call the app’s
-// [SetWindowsNeedUpdate] method with a value of true.
+// [NSApplication.SetWindowsNeedUpdate] method with a value of true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/validateVisibleItems()
 //
@@ -594,8 +594,8 @@ func (t NSToolbar) SetShowsBaselineSeparator(value bool) {
 // You can change the value of this property at any time to change your
 // toolbar’s customization behavior. For example, you might prevent toolbar
 // customizations while your app processes some other event. If you set this
-// property to true, set the [AutosavesConfiguration] property to true to
-// persist any customizations.
+// property to true, set the [NSToolbar.AutosavesConfiguration] property to
+// true to persist any customizations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/allowsUserCustomization
 func (t NSToolbar) AllowsUserCustomization() bool {
@@ -723,7 +723,7 @@ func (t NSToolbar) SetAutosavesConfiguration(value bool) {
 // Use this property to retrieve the toolbar’s configuration details so you
 // can save them to disk yourself. The dictionary in this property contains
 // the identifiers of the current toolbar items and the values of important
-// properties such as [DisplayMode] and [Visible].
+// properties such as [NSToolbar.DisplayMode] and [NSToolbar.Visible].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/configuration
 func (t NSToolbar) ConfigurationDictionary() foundation.INSDictionary {

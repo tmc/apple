@@ -260,12 +260,13 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(nam
 //
 // # Discussion
 //
-// This method is analogous to the [CIFilter] method [ApplyArgumentsOptions],
-// but it does not require construction of a [CIFilter] object, and it allows
-// you to specify a callback for determining the kernel’s region of interest
-// as a block or closure. As with the similar [CIFilter] method, calling this
-// method does not execute the kernel code—filters and their kernel code are
-// evaluated only when rendering a final output image.
+// This method is analogous to the [CIFilter] method
+// [CIFilter.ApplyArgumentsOptions], but it does not require construction of a
+// [CIFilter] object, and it allows you to specify a callback for determining
+// the kernel’s region of interest as a block or closure. As with the
+// similar [CIFilter] method, calling this method does not execute the kernel
+// code—filters and their kernel code are evaluated only when rendering a
+// final output image.
 //
 // When applying a filter kernel, the region of interest (ROI) is the area of
 // source image pixels that must be processed to produce a given area of
@@ -284,6 +285,6 @@ func (w CIWarpKernel) ApplyWithExtentRoiCallbackInputImageArguments(extent coref
 		return callback(arg0, arg1)
 	})
 	// _block1 intentionally not released: "applyWithExtent:roiCallback:inputImage:arguments:" retains the block past return.
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, objc.ID(_block1), image, args)
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, objc.ID(_block1), image, objectivec.IObjectSliceToNSArray(args))
 	return CIImageFromID(rv)
 }

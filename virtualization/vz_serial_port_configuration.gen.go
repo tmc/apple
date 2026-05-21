@@ -48,8 +48,9 @@ func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
 //
 // Don’t create a [VZSerialPortConfiguration] object directly. Instead,
 // instantiate a concrete instance of one of its subclasses, such as
-// [VZVirtioConsoleDeviceConfiguration]. Use the [VZSerialPortConfiguration.Attachment] property of this
-// class to configure the medium through which serial communication happens.
+// [VZVirtioConsoleDeviceConfiguration]. Use the
+// [VZSerialPortConfiguration.Attachment] property of this class to configure
+// the medium through which serial communication happens.
 //
 // # Configuring the Attachment Point
 //

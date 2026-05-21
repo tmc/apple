@@ -67,21 +67,21 @@ func (nc NSBoxClass) Alloc() NSBox {
 //
 // # Methods to Override
 //
-// You must override the [DrawRect] method (inherited from [NSView]) if you
-// want to customize the appearance of your [NSBox] objects. Depending on the
-// visual effect you’re trying to achieve, you may have to invoke
+// You must override the [NSView.DrawRect] method (inherited from [NSView]) if
+// you want to customize the appearance of your [NSBox] objects. Depending on
+// the visual effect you’re trying to achieve, you may have to invoke
 // `super`‘s implementation first. For example, if you are compositing a
 // small image in a corner of the box, you would invoke the superclass
 // implementation first. If you’re adding a new style of line, you would
 // provide a way to store a request for this line type (such as a boolean
-// instance variable and related accessor methods). Then, in [DrawRect], if a
-// request for this line type exists, you would draw the entire view yourself
-// (that is, without calling `super`). Otherwise, you would invoke the
-// superclass implementation.
+// instance variable and related accessor methods). Then, in
+// [NSView.DrawRect], if a request for this line type exists, you would draw
+// the entire view yourself (that is, without calling `super`). Otherwise, you
+// would invoke the superclass implementation.
 //
 // If you wish to change grouping behavior or other behavioral characteristics
-// of the [NSBox] class, consider overriding [NSBox.ContentView], [NSBox.SizeToFit], or
-// [AddSubview] (inherited from [NSView]).
+// of the [NSBox] class, consider overriding [NSBox.ContentView],
+// [NSBox.SizeToFit], or [NSView.AddSubview] (inherited from [NSView]).
 //
 // # Special Considerations
 //
@@ -398,9 +398,10 @@ func (b NSBox) SetTitle(value string) {
 // # Discussion
 //
 // By default, the title is drawn using the small system font (obtained using
-// ([SmallSystemFontSize] as the parameter of [SystemFontOfSize], both
-// [NSFont] class methods). If the size of the new font is different from that
-// of the old font, the content view is resized to absorb the difference.
+// ([NSFontClass.SmallSystemFontSize] as the parameter of
+// [NSFontClass.SystemFontOfSize], both [NSFont] class methods). If the size
+// of the new font is different from that of the old font, the content view is
+// resized to absorb the difference.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleFont
 func (b NSBox) TitleFont() NSFont {
@@ -458,8 +459,8 @@ func (b NSBox) TitleRect() corefoundation.CGRect {
 //
 // # Special Considerations
 //
-// Functional only when the receiver’s box type ([BoxType]) is [NSBoxCustom]
-// and its border type ([borderType]) is [NSLineBorder].
+// Functional only when the receiver’s box type ([NSBox.BoxType]) is
+// [NSBoxCustom] and its border type ([borderType]) is [NSLineBorder].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/borderColor
 //
@@ -482,8 +483,8 @@ func (b NSBox) SetBorderColor(value INSColor) {
 //
 // # Special Considerations
 //
-// Functional only when the receiver’s box type ([BoxType]) is [NSBoxCustom]
-// and its border type ([borderType]) is [NSLineBorder].
+// Functional only when the receiver’s box type ([NSBox.BoxType]) is
+// [NSBoxCustom] and its border type ([borderType]) is [NSLineBorder].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/borderWidth
 //
@@ -506,8 +507,8 @@ func (b NSBox) SetBorderWidth(value float64) {
 //
 // # Special Considerations
 //
-// Functional only when the receiver’s box type ([BoxType]) is [NSBoxCustom]
-// and its border type ([borderType]) is [NSLineBorder].
+// Functional only when the receiver’s box type ([NSBox.BoxType]) is
+// [NSBoxCustom] and its border type ([borderType]) is [NSLineBorder].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/cornerRadius
 //
@@ -530,8 +531,8 @@ func (b NSBox) SetCornerRadius(value float64) {
 //
 // # Special Considerations
 //
-// Functional only when the receiver’s box type ([BoxType]) is [NSBoxCustom]
-// and its border type ([borderType]) is [NSLineBorder].
+// Functional only when the receiver’s box type ([NSBox.BoxType]) is
+// [NSBoxCustom] and its border type ([borderType]) is [NSLineBorder].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/fillColor
 //
@@ -574,9 +575,9 @@ func (b NSBox) SetContentView(value INSView) {
 //
 // Unlike changing a box’s other attributes, such as its title position or
 // border type, changing the offsets doesn’t automatically resize the
-// content view. In general, you should send a [SizeToFit] message to the box
-// after changing the size of its offsets. This message causes the content
-// view to remain unchanged while the box is sized to fit around it.
+// content view. In general, you should send a [NSBox.SizeToFit] message to
+// the box after changing the size of its offsets. This message causes the
+// content view to remain unchanged while the box is sized to fit around it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/contentViewMargins
 func (b NSBox) ContentViewMargins() corefoundation.CGSize {

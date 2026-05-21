@@ -47,9 +47,10 @@ func (nc NSMenuToolbarItemClass) Alloc() NSMenuToolbarItem {
 //
 // If you set an action on an [NSMenuToolbarItem] control item, the user
 // invokes the action when clicking on the item through pressing and holding
-// to display the menu. If you set an action on the item and [NSMenuToolbarItem.ShowsIndicator]
-// to true, the system displays the indicator as a separate segment so the
-// user can invoke the menu with a click on that segment.
+// to display the menu. If you set an action on the item and
+// [NSMenuToolbarItem.ShowsIndicator] to true, the system displays the
+// indicator as a separate segment so the user can invoke the menu with a
+// click on that segment.
 //
 // If you don’t set an action on the [NSMenuToolbarItem], a simple click
 // invokes the menu, and the indicator is purely decorative.

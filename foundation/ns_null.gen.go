@@ -76,10 +76,6 @@ func NSNullFromID(id objc.ID) NSNull {
 type INSNull interface {
 	objectivec.IObject
 	NSSecureCoding
-
-	// A value indicating that a requested item couldn’t be found or doesn’t exist.
-	NSNotFound() int
-	SetNSNotFound(value int)
 }
 
 // Init initializes the instance.
@@ -101,7 +97,7 @@ func NewNSNull() NSNull {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSNull/init(coder:)
 func NewNullWithCoder(coder INSCoder) NSNull {
 	instance := getNSNullClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -117,7 +113,7 @@ func (n NSNull) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSNull/init(coder:)
 func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
 	rv := objc.Send[NSNull](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -135,18 +131,6 @@ func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
 func (_NSNullClass NSNullClass) Null() NSNull {
 	rv := objc.Send[objc.ID](objc.ID(_NSNullClass.class), objc.Sel("null"))
 	return NSNullFromID(rv)
-}
-
-// A value indicating that a requested item couldn’t be found or doesn’t
-// exist.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotfound-4qp9h
-func (n NSNull) NSNotFound() int {
-	rv := objc.Send[int](n.ID, objc.Sel("NSNotFound"))
-	return rv
-}
-func (n NSNull) SetNSNotFound(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNSNotFound:"), value)
 }
 
 // Protocol methods for NSCopying

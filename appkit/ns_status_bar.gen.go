@@ -178,8 +178,9 @@ func (s NSStatusBar) RemoveStatusItem(item INSStatusItem) {
 // # Discussion
 //
 // When the value of this property is true, the status bar has a vertical
-// orientation. The status bar returned by the [SystemStatusBar] method is
-// horizontal and has the value false for this property.
+// orientation. The status bar returned by the
+// [NSStatusBarClass.SystemStatusBar] method is horizontal and has the value
+// false for this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar/isVertical
 func (s NSStatusBar) IsVertical() bool {
@@ -192,8 +193,8 @@ func (s NSStatusBar) IsVertical() bool {
 // # Discussion
 //
 // The default value of this property is `20.0`. The status bar returned by
-// the [SystemStatusBar] has a thickness of 22 pixels, which corresponds to
-// the thickness of the menu bar.
+// the [NSStatusBarClass.SystemStatusBar] has a thickness of 22 pixels, which
+// corresponds to the thickness of the menu bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar/thickness
 func (s NSStatusBar) Thickness() float64 {

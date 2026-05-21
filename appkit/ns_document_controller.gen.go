@@ -119,6 +119,7 @@ func (nc NSDocumentControllerClass) Alloc() NSDocumentController {
 //
 // # Managing the Open Dialog
 //
+//   - [NSDocumentController.BeginOpenPanelWithCompletionHandler]: Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
 //   - [NSDocumentController.BeginOpenPanelForTypesCompletionHandler]: Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
 //   - [NSDocumentController.RunModalOpenPanelForTypes]: Presents a modal Open dialog and limits selection to specific file types.
 //   - [NSDocumentController.CurrentDirectory]: The directory path to use as the starting point in the Open dialog.
@@ -212,6 +213,7 @@ func NSDocumentControllerFromID(id objc.ID) NSDocumentController {
 //
 // # Managing the Open Dialog
 //
+//   - [INSDocumentController.BeginOpenPanelWithCompletionHandler]: Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
 //   - [INSDocumentController.BeginOpenPanelForTypesCompletionHandler]: Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
 //   - [INSDocumentController.RunModalOpenPanelForTypes]: Presents a modal Open dialog and limits selection to specific file types.
 //   - [INSDocumentController.CurrentDirectory]: The directory path to use as the starting point in the Open dialog.
@@ -253,7 +255,7 @@ type INSDocumentController interface {
 	// Creates a new document by reading the contents for the document from another URL, presents its user interface, and returns the document if successful.
 	DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.NSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error)
 	// Opens a document located by a URL, optionally presents its user interface, and calls the passed-in completion handler.
-	OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler)
+	OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentBoolErrorHandler)
 	// Creates a new untitled document, presents its user interface if `displayDocument` is `true`, and returns the document if successful.
 	OpenUntitledDocumentAndDisplayError(displayDocument bool) (INSDocument, error)
 	// Instantiates a document located by a URL, of a specified type, but by reading the contents for the document from another URL, and returns it if successful.
@@ -263,7 +265,7 @@ type INSDocumentController interface {
 	// Instantiates a new untitled document of the specified type and returns it if successful.
 	MakeUntitledDocumentOfTypeError(typeName string) (INSDocument, error)
 	// Reopens a document, optionally located by a URL, by reading the contents for the document from another URL, optionally presents its user interface, and calls the passed-in completion handler.
-	ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler)
+	ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentBoolErrorHandler)
 
 	// Topic: Managing Documents
 
@@ -287,7 +289,7 @@ type INSDocumentController interface {
 	// Returns the name of the document type that should be used when creating new documents.
 	DefaultType() string
 	// Returns the [NSDocument] subclass associated with a given document type.
-	DocumentClassForType(typeName string) objc.Class
+	DocumentClassForType(typeName string) objectivec.Class
 	// Returns the descriptive name for the specified document type, which is used in the File Format pop-up menu of the Save As dialog.
 	DisplayNameForType(typeName string) string
 	// Returns, for a specified URL, the document type identifier to use when opening the document at that location, if successful.
@@ -296,15 +298,15 @@ type INSDocumentController interface {
 	// Topic: Autosaving
 
 	// The time interval (in seconds) for periodic autosaving.
-	AutosavingDelay() float64
-	SetAutosavingDelay(value float64)
+	AutosavingDelay() foundation.NSTimeInterval
+	SetAutosavingDelay(value foundation.NSTimeInterval)
 
 	// Topic: Closing Documents
 
 	// Iterates through all the open documents and tries to close them one by one using the specified delegate.
-	CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo uintptr)
+	CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Displays an alert asking if the user wants to review unsaved documents, quit regardless of unsaved documents, or cancel the save operation.
-	ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo uintptr)
+	ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo unsafe.Pointer)
 
 	// Topic: Responding to Action Messages
 
@@ -317,6 +319,8 @@ type INSDocumentController interface {
 
 	// Topic: Managing the Open Dialog
 
+	// Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
+	BeginOpenPanelWithCompletionHandler(completionHandler NSURLArrayHandler)
 	// Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
 	BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler IntHandler)
 	// Presents a modal Open dialog and limits selection to specific file types.
@@ -351,7 +355,7 @@ type INSDocumentController interface {
 	// Presents an error alert to the user as a modal panel.
 	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a modal panel.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
 	// Indicates an error condition and provides the opportunity to return the same or a different error.
 	WillPresentError(error_ foundation.NSError) foundation.NSError
 
@@ -439,21 +443,22 @@ func (d NSDocumentController) DocumentForURL(url foundation.NSURL) INSDocument {
 //
 // The default implementation of this method copies the file if specified,
 // determines the type of the document, calls
-// [DocumentForURLWithContentsOfURLOfTypeError] to instantiate it, sends the
-// document “ to name it if `displayNameOrNil` is not `nil`, calls
-// [AddDocument] to record its opening, and sends the document
-// [WindowControllers] and [ShowWindows] messages.
+// [NSDocumentController.DocumentForURLWithContentsOfURLOfTypeError] to
+// instantiate it, sends the document “ to name it if `displayNameOrNil` is
+// not `nil`, calls [NSDocumentController.AddDocument] to record its opening,
+// and sends the document [NSDocument.WindowControllers] and
+// [NSDocument.ShowWindows] messages.
 //
 // The default implementation of this method uses the file coordination
 // mechanism introduced in OS X v10.7. It passes the document to the
 // [NSFileCoordinator] method [addFilePresenter(_:)] immediately after calling
-// the [AddDocument] method. (The balancing invocation of the
-// [NSFileCoordinator] method [removeFilePresenter(_:)] is in the [NSDocument]
-// method [Close].)
+// the [NSDocumentController.AddDocument] method. (The balancing invocation of
+// the [NSFileCoordinator] method [removeFilePresenter(_:)] is in the
+// [NSDocument] method [NSDocument.Close].)
 //
 // You can override this method to customize how documents are duplicated. It
-// is called by the [NSDocument] method [DuplicateAndReturnError]. It may also
-// be called from other places in AppKit.
+// is called by the [NSDocument] method [NSDocument.DuplicateAndReturnError].
+// It may also be called from other places in AppKit.
 //
 // In most cases, an app does not need to call this method directly.
 //
@@ -496,23 +501,25 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 //
 // The default implementation of this method checks to see if the document is
 // already open or being opened, and if it is not determines the type of the
-// document, calls [DocumentWithContentsOfURLOfTypeError] to instantiate it,
-// and calls [AddDocument] to record its opening. If `displayDocument` is true
-// and the document is not already open, the default implementation calls
-// [WindowControllers] and [ShowWindows]. If the document is already open, the
-// implementation just calls [ShowWindows] if `displayDocument` is true. If
-// the relevant document class returns true when sent
-// [CanConcurrentlyReadDocumentsOfType] then the invocation of
-// [DocumentWithContentsOfURLOfTypeError] is done on a thread other than the
-// main one, and when that has returned, the rest of the operation is done on
-// the main thread.
+// document, calls [NSDocumentController.DocumentWithContentsOfURLOfTypeError]
+// to instantiate it, and calls [NSDocumentController.AddDocument] to record
+// its opening. If `displayDocument` is true and the document is not already
+// open, the default implementation calls [NSDocument.WindowControllers] and
+// [NSDocument.ShowWindows]. If the document is already open, the
+// implementation just calls [NSDocument.ShowWindows] if `displayDocument` is
+// true. If the relevant document class returns true when sent
+// [NSDocumentClass.CanConcurrentlyReadDocumentsOfType] then the invocation of
+// [NSDocumentController.DocumentWithContentsOfURLOfTypeError] is done on a
+// thread other than the main one, and when that has returned, the rest of the
+// operation is done on the main thread.
 //
 // The default implementation of this method uses the file coordination
 // mechanism that was added to the Foundation framework in OS X v10.7. All of
 // the work it does is one big coordinated read, and it passes the document to
 // the [NSFileCoordinator] method [addFilePresenter(_:)] right after calling
-// [AddDocument]. (The balancing invocation of the [NSFileCoordinator] method
-// [removeFilePresenter(_:)] is in the [NSDocument] method [Close].)
+// [NSDocumentController.AddDocument]. (The balancing invocation of the
+// [NSFileCoordinator] method [removeFilePresenter(_:)] is in the [NSDocument]
+// method [NSDocument.Close].)
 //
 // You can override this method to customize how documents are opened. Its
 // implementation, however, is somewhat complex, so you should generally
@@ -522,9 +529,9 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 // `super` with a custom completion handler that performs additional work
 // before calling the original completion handler. If you do override this
 // method you should investigate whether you should also override
-// [ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler] to apply
-// the same customization. In either case, take care to always call the
-// completion handler on the main thread.
+// [NSDocumentController.ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler]
+// to apply the same customization. In either case, take care to always call
+// the completion handler on the main thread.
 //
 // You can call this method to open a document.
 //
@@ -534,15 +541,16 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 // implementation of this method calls `[self url displayDocument &anError]`
 // if that method or the even older [openDocumentWithContentsOfFile:display:]
 // method is overridden and this one is not, instead of calling
-// [DocumentWithContentsOfURLOfTypeError] and all the rest.
+// [NSDocumentController.DocumentWithContentsOfURLOfTypeError] and all the
+// rest.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocument(withContentsOf:display:completionHandler:)
 //
 // [addFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/addFilePresenter(_:)
 // [openDocumentWithContentsOfFile:display:]: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocumentWithContentsOfFile:display:
 // [removeFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/removeFilePresenter(_:)
-func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-	_block2, _ := NewDocumentErrorBlock(completionHandler)
+func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentBoolErrorHandler) {
+	_block2, _ := NewDocumentBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
 }
 
@@ -561,14 +569,15 @@ func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHand
 //
 // # Discussion
 //
-// The default implementation of this method calls [DefaultType] to determine
-// the type of new document to create, calls [UntitledDocumentOfTypeError] to
-// create it, then calls [AddDocument] to record its opening.
+// The default implementation of this method calls
+// [NSDocumentController.DefaultType] to determine the type of new document to
+// create, calls [NSDocumentController.UntitledDocumentOfTypeError] to create
+// it, then calls [NSDocumentController.AddDocument] to record its opening.
 //
 // When `displayDocument` is true, this method sends the new document
-// [WindowControllers] and [ShowWindows] messages. In this scenario,
-// [ShowWindows] shows only the window controllers that have been assigned to
-// the document.
+// [NSDocument.WindowControllers] and [NSDocument.ShowWindows] messages. In
+// this scenario, [NSDocument.ShowWindows] shows only the window controllers
+// that have been assigned to the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openUntitledDocumentAndDisplay(_:)
 func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocument bool) (INSDocument, error) {
@@ -604,9 +613,10 @@ func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocumen
 // not successful, the method returns `nil` after setting `outError` to point
 // to an [NSError] object that encapsulates the reason why the document could
 // not be instantiated. The default implementation of this method calls
-// [DocumentClassForType] to find out the class of document to instantiate,
-// allocates a document object, and initializes it by sending it an
-// [InitForURLWithContentsOfURLOfTypeError] message.
+// [NSDocumentController.DocumentClassForType] to find out the class of
+// document to instantiate, allocates a document object, and initializes it by
+// sending it an [NSPersistentDocument.InitForURLWithContentsOfURLOfTypeError]
+// message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(for:withContentsOf:ofType:)
 func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (INSDocument, error) {
@@ -638,9 +648,10 @@ func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(url
 // If not successful, the method returns `nil` after setting `outError` to
 // point to an NSError that encapsulates the reason why the document could not
 // be instantiated. The default implementation of this method calls
-// [DocumentClassForType] to find out the class of document to instantiate,
-// allocates a document object, and initializes it by sending it an
-// [InitWithContentsOfURLOfTypeError] message.
+// [NSDocumentController.DocumentClassForType] to find out the class of
+// document to instantiate, allocates a document object, and initializes it by
+// sending it an [NSPersistentDocument.InitWithContentsOfURLOfTypeError]
+// message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(withContentsOf:ofType:)
 func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (INSDocument, error) {
@@ -665,9 +676,9 @@ func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url found
 // returns `nil` after setting `outError` to point to an [NSError] object that
 // encapsulates the reason why a new untitled document could not be
 // instantiated. The default implementation of this method calls
-// [DocumentClassForType] to find out the class of document to instantiate,
-// then allocates and initializes a document by sending it
-// [InitWithTypeError].
+// [NSDocumentController.DocumentClassForType] to find out the class of
+// document to instantiate, then allocates and initializes a document by
+// sending it [NSPersistentDocument.InitWithTypeError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeUntitledDocument(ofType:)
 func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (INSDocument, error) {
@@ -686,8 +697,8 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 // and calls the passed-in completion handler.
 //
 // urlOrNil: The URL locating the reopened document, unless `nil`. A `nil` parameter
-// value indicates that the reopened document is to have no [FileURL], like an
-// untitled document.
+// value indicates that the reopened document is to have no
+// [NSDocument.FileURL], like an untitled document.
 //
 // contentsURL: The URL (which may or may not be different from the URL of the reopened
 // document) of the document from which the contents are read.
@@ -709,9 +720,10 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 // # Discussion
 //
 // The default implementation of this method is very similar to
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], the primary
-// difference being that it calls [DocumentForURLWithContentsOfURLOfTypeError]
-// instead of [DocumentWithContentsOfURLOfTypeError].
+// [NSDocumentController.OpenDocumentWithContentsOfURLDisplayCompletionHandler],
+// the primary difference being that it calls
+// [NSDocumentController.DocumentForURLWithContentsOfURLOfTypeError] instead
+// of [NSDocumentController.DocumentWithContentsOfURLOfTypeError].
 //
 // You can override this method to customize how documents are reopened during
 // application launching by the restorable state mechanism introduced in OS X
@@ -727,11 +739,12 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 // For backward binary compatibility with OS X v10.6 and earlier, the default
 // implementation of this method calls `[self url contentsURL &anError]` if
 // that method is overridden and this one is not, instead of calling
-// [DocumentForURLWithContentsOfURLOfTypeError] and all the rest.
+// [NSDocumentController.DocumentForURLWithContentsOfURLOfTypeError] and all
+// the rest.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reopenDocument(for:withContentsOf:display:completionHandler:)
-func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-	_block3, _ := NewDocumentErrorBlock(completionHandler)
+func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentBoolErrorHandler) {
+	_block3, _ := NewDocumentBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
 }
 
@@ -741,8 +754,9 @@ func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayComple
 //
 // # Discussion
 //
-// The `open...` methods automatically call [AddDocument]. This method is
-// mostly provided for subclasses that want to know when documents arrive.
+// The `open...` methods automatically call
+// [NSDocumentController.AddDocument]. This method is mostly provided for
+// subclasses that want to know when documents arrive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/addDocument(_:)
 func (d NSDocumentController) AddDocument(document INSDocument) {
@@ -772,9 +786,9 @@ func (d NSDocumentController) DocumentForWindow(window INSWindow) INSDocument {
 //
 // # Discussion
 //
-// A document will automatically call [RemoveDocument] when it closes. This
-// method is mostly provided for subclasses that want to know when documents
-// close.
+// A document will automatically call [NSDocumentController.RemoveDocument]
+// when it closes. This method is mostly provided for subclasses that want to
+// know when documents close.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/removeDocument(_:)
 func (d NSDocumentController) RemoveDocument(document INSDocument) {
@@ -794,9 +808,9 @@ func (d NSDocumentController) RemoveDocument(document INSDocument) {
 // the class cannot be found, returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/documentClass(forType:)
-func (d NSDocumentController) DocumentClassForType(typeName string) objc.Class {
-	rv := objc.Send[objc.Class](d.ID, objc.Sel("documentClassForType:"), objc.String(typeName))
-	return rv
+func (d NSDocumentController) DocumentClassForType(typeName string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](d.ID, objc.Sel("documentClassForType:"), objc.String(typeName))
+	return objectivec.Class(rv)
 }
 
 // Returns the descriptive name for the specified document type, which is used
@@ -868,9 +882,10 @@ func (d NSDocumentController) TypeForContentsOfURLError(url foundation.NSURL) (s
 // # Discussion
 //
 // Each [NSDocument] object is sent
-// [CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo], which, if the
-// document is dirty, gives it a chance to refuse to close or to save itself
-// first. This method may ask whether to save or to perform a save.
+// [NSDocument.CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo],
+// which, if the document is dirty, gives it a chance to refuse to close or to
+// save itself first. This method may ask whether to save or to perform a
+// save.
 //
 // The `didCloseAllSelector` callback method is called with true if all
 // documents are closed, and false otherwise. Pass the `contextInfo` object
@@ -878,7 +893,7 @@ func (d NSDocumentController) TypeForContentsOfURLError(url foundation.NSURL) (s
 // the following signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/closeAllDocuments(withDelegate:didCloseAllSelector:contextInfo:)
-func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](d.ID, objc.Sel("closeAllDocumentsWithDelegate:didCloseAllSelector:contextInfo:"), delegate, didCloseAllSelector, contextInfo)
 }
 
@@ -900,16 +915,16 @@ func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorCo
 // Assigns `delegate` to the panel. Calls `didReviewAllSelector` with true if
 // quit without saving is chosen or if there are no dirty documents, and false
 // otherwise. If the user selects the “Review Unsaved” option,
-// [CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo] is called.
-// This method is called when the user chooses the Quit menu command, and also
-// when the computer power is being turned off. Note that `title` is ignored.
-// Pass the `contextInfo` object with the callback.
+// [NSDocumentController.CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo]
+// is called. This method is called when the user chooses the Quit menu
+// command, and also when the computer power is being turned off. Note that
+// `title` is ignored. Pass the `contextInfo` object with the callback.
 //
 // The `didReviewAllSelector` callback method should have the following
 // signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reviewUnsavedDocuments(withAlertTitle:cancellable:delegate:didReviewAllSelector:contextInfo:)
-func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](d.ID, objc.Sel("reviewUnsavedDocumentsWithAlertTitle:cancellable:delegate:didReviewAllSelector:contextInfo:"), objc.String(title), cancellable, delegate, didReviewAllSelector, contextInfo)
 }
 
@@ -919,7 +934,8 @@ func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDel
 //
 // # Discussion
 //
-// This method calls [OpenUntitledDocumentAndDisplayError].
+// This method calls
+// [NSDocumentController.OpenUntitledDocumentAndDisplayError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/newDocument(_:)
 func (d NSDocumentController) NewDocument(sender objectivec.IObject) {
@@ -934,8 +950,8 @@ func (d NSDocumentController) NewDocument(sender objectivec.IObject) {
 //
 // The method adds the newly created objects to the list of [NSDocument]
 // objects managed by the document controller. This method calls
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], which actually
-// creates the [NSDocument] objects.
+// [NSDocumentController.OpenDocumentWithContentsOfURLDisplayCompletionHandler],
+// which actually creates the [NSDocument] objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocument(_:)
 func (d NSDocumentController) OpenDocument(sender objectivec.IObject) {
@@ -948,6 +964,58 @@ func (d NSDocumentController) OpenDocument(sender objectivec.IObject) {
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/saveAllDocuments(_:)
 func (d NSDocumentController) SaveAllDocuments(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveAllDocuments:"), sender)
+}
+
+// Presents an Open dialog and delivers the results to a completion handler as
+// an array of URLs for the chosen files, or nil.
+//
+// completionHandler: The completion handler that is called when the user clicks the OK or Cancel
+// button in the open panel.
+//
+// # Discussion
+//
+// This method presents either a modal or nonmodal open panel, depending on
+// which methods are overridden. Although you can call this method in other
+// circumstances, this method is most commonly called by
+// [NSDocumentController.OpenDocument] in response to the user choosing
+// Open… from the File menu.
+//
+// If you override [NSDocumentController.OpenDocument], you should typically
+// call this method instead of calling
+// [NSDocumentController.BeginOpenPanelForTypesCompletionHandler] or
+// [NSDocumentController.URLsFromRunningOpenPanel] directly, because this
+// method runs the modal panel in a way that is backwards compatible with
+// subclasses that override [NSDocumentController.RunModalOpenPanelForTypes]
+// without overriding
+// [NSDocumentController.BeginOpenPanelForTypesCompletionHandler]. Also, its
+// completion handler determines which button the user pressed (to determine
+// whether to return the array or `nil`) and orders out the open panel.
+//
+// You can override this method to change the open panel presentation (adding
+// an accessory view, for example) or change the UTI array that limits which
+// files are selectable.
+//
+// The default implementation of this method calls either
+// [NSDocumentController.URLsFromRunningOpenPanel] to run a modal open panel
+// or [NSDocumentController.BeginOpenPanelForTypesCompletionHandler] to begin
+// a nonmodal open panel. If the user chooses to open files, the default
+// implementation calls the completion handler with a `nil` array parameter.
+// If the user cancels the Open dialog, the default implementation calls the
+// completion handler with a `nil` array parameter.
+//
+// If you override this method, your method should typically call the
+// underlying method on `super` because of the additional code that it
+// provides for free. Specifically, this method runs the modal panel in a way
+// that is backwards compatible with subclasses that override
+// [NSDocumentController.RunModalOpenPanelForTypes] without overriding
+// [NSDocumentController.BeginOpenPanelForTypesCompletionHandler]. Also, its
+// completion handler determines which button the user pressed (to determine
+// whether to return the array or `nil`) and orders out the open panel.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(completionHandler:)
+func (d NSDocumentController) BeginOpenPanelWithCompletionHandler(completionHandler NSURLArrayHandler) {
+	_block0, _ := NewNSURLArrayBlock(completionHandler)
+	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanelWithCompletionHandler:"), _block0)
 }
 
 // Presents a nonmodal Open dialog that displays files you can open from a
@@ -967,7 +1035,8 @@ func (d NSDocumentController) SaveAllDocuments(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// [OpenDocument] and [BeginOpenPanelWithCompletionHandler] call this method
+// [NSDocumentController.OpenDocument] and
+// [NSDocumentController.BeginOpenPanelWithCompletionHandler] call this method
 // to do the actual work. You typically don’t call this method directly.
 // Override this method as necessary to customize the Open dialog or to alter
 // the list of UTIs in the `inTypes` parameter.
@@ -993,11 +1062,12 @@ func (d NSDocumentController) BeginOpenPanelForTypesCompletionHandler(openPanel 
 //
 // # Discussion
 //
-// This method is called by the [URLsFromRunningOpenPanel] method. It calls
-// the [NSOpenPanel] [runModalForTypes:] method, passing the `openPanel`
-// object and the file extensions associated with a document type. The
-// `extensions` parameter may also contain encoded HFS file types as well as
-// filename extensions.
+// This method is called by the
+// [NSDocumentController.URLsFromRunningOpenPanel] method. It calls the
+// [NSOpenPanel] [runModalForTypes:] method, passing the `openPanel` object
+// and the file extensions associated with a document type. The `extensions`
+// parameter may also contain encoded HFS file types as well as filename
+// extensions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/runModalOpenPanel(_:forTypes:)
 //
@@ -1013,10 +1083,10 @@ func (d NSDocumentController) RunModalOpenPanelForTypes(openPanel INSOpenPanel, 
 // # Discussion
 //
 // Accessing this property creates an [NSOpenPanel] object and runs it using
-// the [RunModalOpenPanelForTypes] method. When the user dismisses the panel,
-// the returned value is an array of URLs corresponding to the files chosen by
-// the user. The value is `nil` if the user cancels the Open panel or makes no
-// selection.
+// the [NSDocumentController.RunModalOpenPanelForTypes] method. When the user
+// dismisses the panel, the returned value is an array of URLs corresponding
+// to the files chosen by the user. The value is `nil` if the user cancels the
+// Open panel or makes no selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/urlsFromRunningOpenPanel()
 func (d NSDocumentController) URLsFromRunningOpenPanel() []foundation.NSURL {
@@ -1064,9 +1134,10 @@ func (d NSDocumentController) NoteNewRecentDocumentURL(url foundation.NSURL) {
 //
 // # Discussion
 //
-// This method constructs a URL and calls [NoteNewRecentDocumentURL].
-// Subclasses might override this method to prevent certain documents or kinds
-// of documents from getting into the list.
+// This method constructs a URL and calls
+// [NSDocumentController.NoteNewRecentDocumentURL]. Subclasses might override
+// this method to prevent certain documents or kinds of documents from getting
+// into the list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/noteNewRecentDocument(_:)
 func (d NSDocumentController) NoteNewRecentDocument(document INSDocument) {
@@ -1104,7 +1175,8 @@ func (d NSDocumentController) ValidateUserInterfaceItem(item NSValidatedUserInte
 // # Discussion
 //
 // Use this method to perform custom placement of the Share menu if your
-// [NSDocument] subclass returns `false` for [AllowsAutomaticShareMenu].
+// [NSDocument] subclass returns `false` for
+// [NSDocumentController.AllowsAutomaticShareMenu].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/standardShareMenuItem()
 func (d NSDocumentController) StandardShareMenuItem() INSMenuItem {
@@ -1134,9 +1206,10 @@ func (d NSDocumentController) StandardShareMenuItem() INSMenuItem {
 // messages to it.) The default implementations of several
 // [NSDocumentController] methods call this method.
 //
-// The default implementation of this method calls [WillPresentError] to give
-// subclasses an opportunity to customize error presentation. You should not
-// override this method but should instead override [WillPresentError].
+// The default implementation of this method calls
+// [NSDocumentController.WillPresentError] to give subclasses an opportunity
+// to customize error presentation. You should not override this method but
+// should instead override [NSDocumentController.WillPresentError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/presentError(_:)
 func (d NSDocumentController) PresentError(error_ foundation.NSError) bool {
@@ -1170,12 +1243,13 @@ func (d NSDocumentController) PresentError(error_ foundation.NSError) bool {
 // [NSDocumentController] instance as the next responder and forwards these
 // messages to it.)
 //
-// The default implementation of this method calls [WillPresentError] to give
-// subclasses an opportunity to customize error presentation. You should not
-// override this method but should instead override [WillPresentError].
+// The default implementation of this method calls
+// [NSDocumentController.WillPresentError] to give subclasses an opportunity
+// to customize error presentation. You should not override this method but
+// should instead override [NSDocumentController.WillPresentError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/presentError(_:modalFor:delegate:didPresent:contextInfo:)
-func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -1368,15 +1442,15 @@ func (d NSDocumentController) DefaultType() string {
 // The [NSDocumentController] object uses this number as the amount of time to
 // wait between detecting that a document has unautosaved changes and sending
 // the document an
-// [AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo] message. The
-// default value is `0`.
+// [NSDocument.AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo]
+// message. The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/autosavingDelay
-func (d NSDocumentController) AutosavingDelay() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("autosavingDelay"))
-	return rv
+func (d NSDocumentController) AutosavingDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](d.ID, objc.Sel("autosavingDelay"))
+	return foundation.NSTimeInterval(rv)
 }
-func (d NSDocumentController) SetAutosavingDelay(value float64) {
+func (d NSDocumentController) SetAutosavingDelay(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutosavingDelay:"), value)
 }
 
@@ -1435,11 +1509,11 @@ func (d NSDocumentController) RecentDocumentURLs() []foundation.NSURL {
 //
 // # Discussion
 //
-// If your application has any [NSDocument] subclasses with [AutosavesInPlace]
-// set to `true`, the system defaults `allowsAutomaticShareMenu` to `true`. To
-// disable the Share menu entirely, or to enable custom placement or
-// construction of the share menu, override this property to return `false` in
-// your app.
+// If your application has any [NSDocument] subclasses with
+// [NSDocumentClass.AutosavesInPlace] set to `true`, the system defaults
+// `allowsAutomaticShareMenu` to `true`. To disable the Share menu entirely,
+// or to enable custom placement or construction of the share menu, override
+// this property to return `false` in your app.
 //
 // The system may not insert a Share menu if `allowsAutomaticShareMenu` is
 // `true` and [NSDocumentController] detects that the app has a Share menu.
@@ -1479,6 +1553,25 @@ func (_NSDocumentControllerClass NSDocumentControllerClass) SharedDocumentContro
 // Protocol methods for NSUserInterfaceValidations
 
 // Protocol methods for NSWindowRestoration
+
+// BeginOpenPanel is a synchronous wrapper around [NSDocumentController.BeginOpenPanelWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDocumentController) BeginOpenPanel(ctx context.Context) ([]foundation.NSURL, error) {
+	done := make(chan []foundation.NSURL, 1)
+	d.BeginOpenPanelWithCompletionHandler(func(val *[]foundation.NSURL) {
+		var out []foundation.NSURL
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
 
 // RestoreWindowWithIdentifierState is a synchronous wrapper around [NSDocumentController.RestoreWindowWithIdentifierStateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

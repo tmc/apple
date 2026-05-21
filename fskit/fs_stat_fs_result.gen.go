@@ -52,11 +52,12 @@ func (fc FSStatFSResultClass) Alloc() FSStatFSResult {
 // numeric properties default to `0`. Override these values, unless a given
 // property has no meaningful value to provide.
 //
-// For the read-only [FSStatFSResult.FileSystemTypeName], set this value with the designated
-// initializer.
+// For the read-only [FSStatFSResult.FileSystemTypeName], set this value with
+// the designated initializer.
 //
 // # Initializers
 //
+//   - [FSStatFSResult.InitWithCoder]
 //   - [FSStatFSResult.InitWithFileSystemTypeName]: Creates an statistics result instance, using the given file system type name.
 //
 // # Instance Properties
@@ -108,6 +109,7 @@ func FSStatFSResultFromID(id objc.ID) FSStatFSResult {
 //
 // # Initializers
 //
+//   - [IFSStatFSResult.InitWithCoder]
 //   - [IFSStatFSResult.InitWithFileSystemTypeName]: Creates an statistics result instance, using the given file system type name.
 //
 // # Instance Properties
@@ -146,6 +148,7 @@ type IFSStatFSResult interface {
 
 	// Topic: Initializers
 
+	InitWithCoder(coder foundation.INSCoder) FSStatFSResult
 	// Creates an statistics result instance, using the given file system type name.
 	InitWithFileSystemTypeName(fileSystemTypeName string) FSStatFSResult
 
@@ -193,12 +196,6 @@ type IFSStatFSResult interface {
 	UsedBytes() uint64
 	SetUsedBytes(value uint64)
 
-	// A property that provides the supported capabilities of the volume.
-	SupportedVolumeCapabilities() IFSVolumeSupportedCapabilities
-	SetSupportedVolumeCapabilities(value IFSVolumeSupportedCapabilities)
-	// A property that provides up-to-date statistics of the volume.
-	VolumeStatistics() IFSStatFSResult
-	SetVolumeStatistics(value IFSStatFSResult)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -221,6 +218,13 @@ func NewFSStatFSResult() FSStatFSResult {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSStatFSResult/init(coder:)
+func NewStatFSResultWithCoder(coder foundation.INSCoder) FSStatFSResult {
+	instance := getFSStatFSResultClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSStatFSResultFromID(rv)
+}
+
 // Creates an statistics result instance, using the given file system type
 // name.
 //
@@ -229,6 +233,12 @@ func NewStatFSResultWithFileSystemTypeName(fileSystemTypeName string) FSStatFSRe
 	instance := getFSStatFSResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileSystemTypeName:"), objc.String(fileSystemTypeName))
 	return FSStatFSResultFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSStatFSResult/init(coder:)
+func (s FSStatFSResult) InitWithCoder(coder foundation.INSCoder) FSStatFSResult {
+	rv := objc.Send[FSStatFSResult](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Creates an statistics result instance, using the given file system type
@@ -352,7 +362,7 @@ func (s FSStatFSResult) SetFreeFiles(value uint64) {
 // # Discussion
 //
 // For best performance, specify an `ioSize` that’s an even multiple of
-// [BlockSize].
+// [FSStatFSResult.BlockSize].
 //
 // See: https://developer.apple.com/documentation/FSKit/FSStatFSResult/ioSize
 func (s FSStatFSResult) IoSize() int {
@@ -416,26 +426,4 @@ func (s FSStatFSResult) UsedBytes() uint64 {
 }
 func (s FSStatFSResult) SetUsedBytes(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUsedBytes:"), value)
-}
-
-// A property that provides the supported capabilities of the volume.
-//
-// See: https://developer.apple.com/documentation/fskit/fsvolume/operations/supportedvolumecapabilities
-func (s FSStatFSResult) SupportedVolumeCapabilities() IFSVolumeSupportedCapabilities {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedVolumeCapabilities"))
-	return FSVolumeSupportedCapabilitiesFromID(objc.ID(rv))
-}
-func (s FSStatFSResult) SetSupportedVolumeCapabilities(value IFSVolumeSupportedCapabilities) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSupportedVolumeCapabilities:"), value)
-}
-
-// A property that provides up-to-date statistics of the volume.
-//
-// See: https://developer.apple.com/documentation/fskit/fsvolume/operations/volumestatistics
-func (s FSStatFSResult) VolumeStatistics() IFSStatFSResult {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("volumeStatistics"))
-	return FSStatFSResultFromID(objc.ID(rv))
-}
-func (s FSStatFSResult) SetVolumeStatistics(value IFSStatFSResult) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVolumeStatistics:"), value)
 }

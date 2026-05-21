@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -47,8 +48,9 @@ func (vc VNImageHomographicAlignmentObservationClass) Alloc() VNImageHomographic
 // # Overview
 //
 // This type of observation results from a
-// [VNHomographicImageRegistrationRequest], informing the [VNImageHomographicAlignmentObservation.WarpTransform]
-// performed to align the input images.
+// [VNHomographicImageRegistrationRequest], informing the
+// [VNImageHomographicAlignmentObservation.WarpTransform] performed to align
+// the input images.
 //
 // # Accessing the Transform
 //
@@ -102,6 +104,13 @@ func NewVNImageHomographicAlignmentObservation() VNImageHomographicAlignmentObse
 	class := getVNImageHomographicAlignmentObservationClass()
 	rv := objc.Send[VNImageHomographicAlignmentObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewImageHomographicAlignmentObservationWithCoder(coder foundation.INSCoder) VNImageHomographicAlignmentObservation {
+	instance := getVNImageHomographicAlignmentObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNImageHomographicAlignmentObservationFromID(rv)
 }
 
 // The warp transform matrix to morph the floating image into the reference

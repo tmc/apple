@@ -89,11 +89,11 @@ func (o MTLTensorBindingObject) Type() MTLBindingType {
 // # Discussion
 //
 // Because shader-bound tensors have dynamic extents, if this tensor is shader
-// bound, the [Rank] of `dimensions` corresponds to the rank the shader
-// function specifies, and `MTLTensorExtents/` always returns a value of -1.
-// In the case of functions used with machine learning pipelines, `dimensions`
-// corresponds to the default shape, if you provide one. Otherwise, it’s
-// `nil` in the case of an undefined shape.
+// bound, the [MTLTensorExtents.Rank] of `dimensions` corresponds to the rank
+// the shader function specifies, and `MTLTensorExtents/` always returns a
+// value of -1. In the case of functions used with machine learning pipelines,
+// `dimensions` corresponds to the default shape, if you provide one.
+// Otherwise, it’s `nil` in the case of an undefined shape.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/dimensions
 func (o MTLTensorBindingObject) Dimensions() IMTLTensorExtents {

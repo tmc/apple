@@ -179,11 +179,6 @@ func (cc CIImageClass) Alloc() CIImage {
 //   - [CIImage.PortraitEffectsMatte]: The portrait effects matte associated with the image.
 //   - [CIImage.SemanticSegmentationMatte]
 //
-// # Deprecated
-//
-//   - [CIImage.TextureTarget]: The key for an OpenGL texture target.
-//   - [CIImage.TextureFormat]: The key for an OpenGL texture format.
-//
 // # Instance Properties
 //
 //   - [CIImage.ContentHeadroom]: Returns the content headroom of the image.
@@ -314,11 +309,6 @@ func CIImageFromID(id objc.ID) CIImage {
 //   - [ICIImage.DepthData]: Depth data associated with the image.
 //   - [ICIImage.PortraitEffectsMatte]: The portrait effects matte associated with the image.
 //   - [ICIImage.SemanticSegmentationMatte]
-//
-// # Deprecated
-//
-//   - [ICIImage.TextureTarget]: The key for an OpenGL texture target.
-//   - [ICIImage.TextureFormat]: The key for an OpenGL texture format.
 //
 // # Instance Properties
 //
@@ -485,13 +475,6 @@ type ICIImage interface {
 	PortraitEffectsMatte() objectivec.IObject
 	SemanticSegmentationMatte() objectivec.IObject
 
-	// Topic: Deprecated
-
-	// The key for an OpenGL texture target.
-	TextureTarget() CIImageOption
-	// The key for an OpenGL texture format.
-	TextureFormat() CIImageOption
-
 	// Topic: Instance Properties
 
 	// Returns the content headroom of the image.
@@ -515,6 +498,7 @@ type ICIImage interface {
 	// Create an image by changing the receiver’s contentHeadroom property.
 	ImageBySettingContentHeadroom(headroom float32) ICIImage
 
+	InitWithCoder(coder foundation.INSCoder) CIImage
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -716,6 +700,13 @@ func NewImageWithCVPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIImage {
 func NewImageWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:options:"), pixelBuffer, options)
+	return CIImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(coder:)
+func NewImageWithCoder(coder foundation.INSCoder) CIImage {
+	instance := getCIImageClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return CIImageFromID(rv)
 }
 
@@ -937,9 +928,10 @@ func NewImageWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IO
 // # Discussion
 //
 // To render the image using Metal, use this image with a Metal-based
-// [CIContext] object created with the [ContextWithMTLDevice] method, and call
-// the [RenderToMTLTextureCommandBufferBoundsColorSpace] method to create an
-// output image in another Metal texture object.
+// [CIContext] object created with the [CIContextClass.ContextWithMTLDevice]
+// method, and call the
+// [CIContext.RenderToMTLTextureCommandBufferBoundsColorSpace] method to
+// create an output image in another Metal texture object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(mtlTexture:options:)-67uvj
 func NewImageWithMTLTextureOptions(texture metal.MTLTexture, options foundation.INSDictionary) CIImage {
@@ -1316,9 +1308,10 @@ func (i CIImage) InitWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBuffe
 // # Discussion
 //
 // To render the image using Metal, use this image with a Metal-based
-// [CIContext] object created with the [ContextWithMTLDevice] method, and call
-// the [RenderToMTLTextureCommandBufferBoundsColorSpace] method to create an
-// output image in another Metal texture object.
+// [CIContext] object created with the [CIContextClass.ContextWithMTLDevice]
+// method, and call the
+// [CIContext.RenderToMTLTextureCommandBufferBoundsColorSpace] method to
+// create an output image in another Metal texture object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(mtlTexture:options:)-67uvj
 func (i CIImage) InitWithMTLTextureOptions(texture metal.MTLTexture, options foundation.INSDictionary) CIImage {
@@ -1368,7 +1361,7 @@ func (i CIImage) InitWithIOSurfaceOptions(surface iosurface.IOSurfaceRef, option
 // the specified name and parameters.
 //
 // filterName: The name of the filter to apply, as used when creating a [CIFilter]
-// instance with the [FilterWithName] method.
+// instance with the [CIRAWFilterClass.FilterWithName] method.
 //
 // params: A dictionary whose key-value pairs are set as input values to the filter.
 // Each key is a constant that specifies the name of an input parameter for
@@ -1386,8 +1379,8 @@ func (i CIImage) InitWithIOSurfaceOptions(surface iosurface.IOSurfaceRef, option
 //
 // - Creating a [CIFilter] instance - Setting the original image as the
 // filter’s `inputImage` parameter - Setting the remaining filter parameters
-// from the `params` dictionary - Retrieving the [OutputImage] object from the
-// filter
+// from the `params` dictionary - Retrieving the [CIFilter.OutputImage] object
+// from the filter
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/applyingFilter(_:parameters:)
 //
@@ -1403,7 +1396,7 @@ func (i CIImage) ImageByApplyingFilterWithInputParameters(filterName string, par
 //
 // A convenience method for applying a single filter to the method receiver
 // and returning the output image. Identical to
-// [ImageByApplyingFilterWithInputParameters] with default parameters.
+// [CIImage.ImageByApplyingFilterWithInputParameters] with default parameters.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/applyingFilter(_:)
 func (i CIImage) ImageByApplyingFilter(filterName string) ICIImage {
@@ -1448,14 +1441,15 @@ func (i CIImage) ImageByApplyingTransformHighQualityDownsample(matrix corefounda
 //
 // Due to Core Image’s coordinate system mismatch with [UIKit], this
 // filtering approach may yield unexpected results when displayed in a
-// [UIImageView] with [contentMode]. Be sure to back it with a [CGImage] so
-// that it handles [contentMode] properly.
+// [UIImageView] with [contentMode]. Be sure to back it with a
+// [CIImage.CGImage] so that it handles [contentMode] properly.
 //
 // If you are displaying or processing your image primarily as a [CGImage] or
 // [UIImage], with no additional Core Image application, consider cropping in
 // Core Graphics using the [cropping(to:)] function to save processing
 // overhead from conversion of images to [CIImage]. It makes most sense to use
-// [ImageByCroppingToRect] when you already have [CIImage] in your pipeline.
+// [CIImage.ImageByCroppingToRect] when you already have [CIImage] in your
+// pipeline.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/cropped(to:)
 //
@@ -1486,7 +1480,7 @@ func (i CIImage) ImageByCroppingToRect(rect corefoundation.CGRect) ICIImage {
 // This method determines and then applies the transformation needed to
 // reorient the image to the specified orientation. If you plan to also apply
 // other transformations, you can retrieve the transformation this method
-// would use by calling the [ImageTransformForOrientation] method.
+// would use by calling the [CIImage.ImageTransformForOrientation] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/oriented(forExifOrientation:)
 //
@@ -1520,9 +1514,9 @@ func (i CIImage) ImageByApplyingOrientation(orientation int) ICIImage {
 // image blur into the transparent pixels outside the image’s extent.
 // Applying a clamp effect before the blur filter avoids edge softening by
 // making the original image opaque in all directions. (However, the blurred
-// image will also have infinite extent. Use the [ImageByCroppingToRect]
-// method to return to the original image’s dimensions while retaining hard
-// edges.)
+// image will also have infinite extent. Use the
+// [CIImage.ImageByCroppingToRect] method to return to the original image’s
+// dimensions while retaining hard edges.)
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/clampedToExtent()
 //
@@ -1545,10 +1539,10 @@ func (i CIImage) ImageByClampingToExtent() ICIImage {
 // # Discussion
 //
 // Calling this method is equivalent to cropping the image (with the
-// [ImageByCroppingToRect] method or the [CICrop] filter), then using the
-// [ImageByClampingToExtent] method (or the [CIAffineClamp] filter), which
-// creates an image of infinite extent by repeating pixel colors from the
-// edges of the cropped image.
+// [CIImage.ImageByCroppingToRect] method or the [CICrop] filter), then using
+// the [CIImage.ImageByClampingToExtent] method (or the [CIAffineClamp]
+// filter), which creates an image of infinite extent by repeating pixel
+// colors from the edges of the cropped image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/clamped(to:)
 //
@@ -1718,8 +1712,8 @@ func (i CIImage) ImageByApplyingGaussianBlurWithSigma(sigma float64) ICIImage {
 // # Discussion
 //
 // When you create an image, Core Image sets an image’s properties to a
-// metadata dictionary as described here: [Properties]. Use this method to
-// override an image’s metadata properties with new values.
+// metadata dictionary as described here: [CIImage.Properties]. Use this
+// method to override an image’s metadata properties with new values.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/settingProperties(_:)
 func (i CIImage) ImageBySettingProperties(properties foundation.INSDictionary) ICIImage {
@@ -1747,9 +1741,9 @@ func (i CIImage) ImageByInsertingIntermediate() ICIImage {
 
 // Create an image that inserts a intermediate that is cacheable.
 //
-// cache: Controls if Core Image caches the returned image. * [YES] : This
-// intermediate will be cacheable even if [cacheIntermediates] is false. *
-// [NO] : the intermediate will be not be cached if [cacheIntermediates] is
+// cache: Controls if Core Image caches the returned image. If `true`, this
+// intermediate will be cacheable even if [cacheIntermediates] is false. If
+// `false`, the intermediate will be not be cached if [cacheIntermediates] is
 // false.
 //
 // # Return Value
@@ -1795,9 +1789,9 @@ func (i CIImage) InitWithColor(color ICIColor) CIImage {
 // This method determines the transformation needed to match the specified
 // orientation, but does not apply that transformation to the image. To apply
 // the transformation (possibly after concatenating it with other
-// transformations), use the [ImageByApplyingTransform] method or the
+// transformations), use the [CIImage.ImageByApplyingTransform] method or the
 // [CIAffineTransform] filter. To determine and apply the transformation in a
-// single step, use the [ImageByApplyingOrientation] method.
+// single step, use the [CIImage.ImageByApplyingOrientation] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/orientationTransform(forExifOrientation:)
 //
@@ -2020,8 +2014,8 @@ func (i CIImage) ImageBySamplingLinear() ICIImage {
 // [NSURL]/[NSData] and setting the [auxiliaryHDRGainMap] option set to
 // `@YES`.
 //
-// If the gain map [CIImage] instance doesn’t have the needed [Properties]
-// metadata, the received image will be returned as-is.
+// If the gain map [CIImage] instance doesn’t have the needed
+// [CIImage.Properties] metadata, the received image will be returned as-is.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/applyingGainMap(_:)
 //
@@ -2081,7 +2075,7 @@ func (i CIImage) ImageByInsertingTiledIntermediate() ICIImage {
 // [CISystemToneMap] filters.
 //
 // - If the value is set to 0.0 or less then the returned image’s
-// [ContentAverageLightLevel] is unknown.
+// [CIImage.ContentAverageLightLevel] is unknown.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/settingContentAverageLightLevel(_:)
 func (i CIImage) ImageBySettingContentAverageLightLevel(average float32) ICIImage {
@@ -2109,6 +2103,12 @@ func (i CIImage) ImageBySettingContentAverageLightLevel(average float32) ICIImag
 func (i CIImage) ImageBySettingContentHeadroom(headroom float32) ICIImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageBySettingContentHeadroom:"), headroom)
 	return CIImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(coder:)
+func (i CIImage) InitWithCoder(coder foundation.INSCoder) CIImage {
+	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (i CIImage) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -2450,9 +2450,9 @@ func (_CIImageClass CIImageClass) ImageWithImageProviderSizeFormatColorSpaceOpti
 // # Discussion
 //
 // To also render using Metal, use this image with a Metal-based [CIContext]
-// object created with the [ContextWithMTLDevice] method, and call the
-// [RenderToMTLTextureCommandBufferBoundsColorSpace] method to create an
-// output image in another Metal texture object.
+// object created with the [CIContextClass.ContextWithMTLDevice] method, and
+// call the [CIContext.RenderToMTLTextureCommandBufferBoundsColorSpace] method
+// to create an output image in another Metal texture object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithMTLTexture:options:
 func (_CIImageClass CIImageClass) ImageWithMTLTextureOptions(texture metal.MTLTexture, options foundation.INSDictionary) CIImage {
@@ -2544,8 +2544,8 @@ func (i CIImage) Properties() foundation.INSDictionary {
 // # Discussion
 //
 // A URL is available only if the image object was created with a URL (such as
-// with the [InitWithContentsOfURL] method or related methods). Otherwise,
-// this property’s value is `nil`.
+// with the [CIImage.InitWithContentsOfURL] method or related methods).
+// Otherwise, this property’s value is `nil`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/url
 func (i CIImage) Url() foundation.NSURL {
@@ -2570,12 +2570,12 @@ func (i CIImage) ColorSpace() coregraphics.CGColorSpaceRef {
 //
 // # Discussion
 //
-// If this image was created using the [InitWithCGImage] or
-// [InitWithContentsOfURL] initializer, this property’s value is the
+// If this image was created using the [CIImage.InitWithCGImage] or
+// [CIImage.InitWithContentsOfURL] initializer, this property’s value is the
 // [CGImage] object that provides the image’s underlying image data.
 // Otherwise, this property’s value is `nil`—in this case you can obtain a
 // CoreGraphics image by rendering the image with the [CIContext]
-// [CreateCGImageFromRect] method.
+// [CIContext.CreateCGImageFromRect] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/cgImage
 //
@@ -2589,14 +2589,14 @@ func (i CIImage) CGImage() coregraphics.CGImageRef {
 //
 // # Discussion
 //
-// If this image was create using the [InitWithCVPixelBuffer] initializer,
-// this property’s value is the [CVPixelBuffer] object that provides the
-// image’s underlying image data. Do not modify the contents of this pixel
-// buffer; doing so will cause undefined rendering results.
+// If this image was create using the [CIImage.InitWithCVPixelBuffer]
+// initializer, this property’s value is the [CVPixelBuffer] object that
+// provides the image’s underlying image data. Do not modify the contents of
+// this pixel buffer; doing so will cause undefined rendering results.
 //
 // Otherwise, this property’s value is `nil`—in this case you can obtain a
 // pixel buffer by rendering the image with the [CIContext]
-// [RenderToCVPixelBuffer] method.
+// [CIContext.RenderToCVPixelBuffer] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/pixelBuffer
 //
@@ -2610,9 +2610,9 @@ func (i CIImage) PixelBuffer() corevideo.CVImageBufferRef {
 //
 // # Discussion
 //
-// Returns an [AVDepthData] if the [CIImage] was created with [ImageWithData]
-// or [ImageWithContentsOfURL] and one of the options [auxiliaryDepth] or
-// [auxiliaryDisparity], otherwise nil.
+// Returns an [AVDepthData] if the [CIImage] was created with
+// [CIImageClass.ImageWithData] or [CIImageClass.ImageWithContentsOfURL] and
+// one of the options [auxiliaryDepth] or [auxiliaryDisparity], otherwise nil.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/depthData
 //
@@ -2642,22 +2642,6 @@ func (i CIImage) PortraitEffectsMatte() objectivec.IObject {
 func (i CIImage) SemanticSegmentationMatte() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("semanticSegmentationMatte"))
 	return objectivec.Object{ID: rv}
-}
-
-// The key for an OpenGL texture target.
-//
-// See: https://developer.apple.com/documentation/coreimage/ciimageoption/texturetarget
-func (i CIImage) TextureTarget() CIImageOption {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("kCIImageTextureTarget"))
-	return CIImageOption(foundation.NSStringFromID(rv).String())
-}
-
-// The key for an OpenGL texture format.
-//
-// See: https://developer.apple.com/documentation/coreimage/ciimageoption/textureformat
-func (i CIImage) TextureFormat() CIImageOption {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("kCIImageTextureFormat"))
-	return CIImageOption(foundation.NSStringFromID(rv).String())
 }
 
 // Returns the content headroom of the image.

@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -154,8 +155,8 @@ type ICAReplicatorLayer interface {
 	InstanceCount() int
 	SetInstanceCount(value int)
 	// Specifies the delay, in seconds, between replicated copies. Animatable.
-	InstanceDelay() float64
-	SetInstanceDelay(value float64)
+	InstanceDelay() corefoundation.CFTimeInterval
+	SetInstanceDelay(value corefoundation.CFTimeInterval)
 	// The transform matrix applied to the previous instance to produce the current instance. Animatable.
 	InstanceTransform() CATransform3D
 	SetInstanceTransform(value CATransform3D)
@@ -215,7 +216,7 @@ func NewCAReplicatorLayer() CAReplicatorLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -266,11 +267,11 @@ func (r CAReplicatorLayer) SetInstanceCount(value int) {
 // [media-2776911]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceDelay
-func (r CAReplicatorLayer) InstanceDelay() float64 {
-	rv := objc.Send[float64](r.ID, objc.Sel("instanceDelay"))
-	return rv
+func (r CAReplicatorLayer) InstanceDelay() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](r.ID, objc.Sel("instanceDelay"))
+	return corefoundation.CFTimeInterval(rv)
 }
-func (r CAReplicatorLayer) SetInstanceDelay(value float64) {
+func (r CAReplicatorLayer) SetInstanceDelay(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceDelay:"), value)
 }
 

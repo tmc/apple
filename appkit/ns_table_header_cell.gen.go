@@ -49,8 +49,9 @@ func (nc NSTableHeaderCellClass) Alloc() NSTableHeaderCell {
 // # Overview
 //
 // Subclasses of the [NSTableHeaderCell] class can override the
-// [DrawInteriorWithFrameInView], [EditWithFrameInViewEditorDelegateEvent],
-// and [HighlightWithFrameInView] methods to change the way headers appear.
+// [NSCell.DrawInteriorWithFrameInView],
+// [NSCell.EditWithFrameInViewEditorDelegateEvent], and
+// [NSCell.HighlightWithFrameInView] methods to change the way headers appear.
 // This specific subclass is responsible for drawing the sort indicators. See
 // the [NSCell] class specification for information on overriding these
 // methods.

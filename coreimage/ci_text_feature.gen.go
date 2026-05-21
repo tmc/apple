@@ -53,7 +53,7 @@ func (cc CITextFeatureClass) Alloc() CITextFeature {
 // polygon in the image. The properties of a [CITextFeature] object identify
 // its four corners in image coordinates.
 //
-// To detect text in an image or video, choose the [CITextFeature.CIDetectorTypeText] type
+// To detect text in an image or video, choose the [CIDetectorTypeText] type
 // when initializing a [CIDetector] object, and use the
 // [CIDetectorImageOrientation] option to specify the desired orientation for
 // finding upright text.
@@ -70,6 +70,8 @@ func (cc CITextFeatureClass) Alloc() CITextFeature {
 //   - [CITextFeature.TopRight]: The image coordinate of the upper-right corner of the detected text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature
+//
+// [CIDetectorTypeText]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeText
 type CITextFeature struct {
 	CIFeature
 }
@@ -116,9 +118,6 @@ type ICITextFeature interface {
 	TopLeft() corefoundation.CGPoint
 	// The image coordinate of the upper-right corner of the detected text.
 	TopRight() corefoundation.CGPoint
-
-	// A detector that searches for text in a still image or video, returning
-	CIDetectorTypeText() string
 }
 
 // Init initializes the instance.
@@ -190,12 +189,4 @@ func (t CITextFeature) TopLeft() corefoundation.CGPoint {
 func (t CITextFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
-}
-
-// A detector that searches for text in a still image or video, returning
-//
-// See: https://developer.apple.com/documentation/coreimage/cidetectortypetext
-func (t CITextFeature) CIDetectorTypeText() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("CIDetectorTypeText"))
-	return foundation.NSStringFromID(rv).String()
 }

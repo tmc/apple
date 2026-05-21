@@ -111,6 +111,13 @@ func NewVNHumanBodyPoseObservation() VNHumanBodyPoseObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewHumanBodyPoseObservationWithCoder(coder foundation.INSCoder) VNHumanBodyPoseObservation {
+	instance := getVNHumanBodyPoseObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNHumanBodyPoseObservationFromID(rv)
+}
+
 // Retrieves the recognized point for a joint name.
 //
 // jointName: The joint name of the point to retrieve.

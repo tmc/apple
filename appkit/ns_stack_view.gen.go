@@ -66,8 +66,8 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // constraints as needed, according to the stack view’s configuration. The
 // new checkbox gains dynamic layout configuration from the stack view.
 //
-// Stack views are nestable: a stack view is a valid element in the [NSStackView.Views]
-// array of another stack view.
+// Stack views are nestable: a stack view is a valid element in the
+// [NSStackView.Views] array of another stack view.
 //
 // For more information on [NSStackView], see [Organize Your User Interface
 // with a Stack View].
@@ -77,15 +77,16 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // A stack view has three so-called that each identify a section of the stack
 // view’s layout. A horizontal stack view, which is the default type, has a
 // leading, a center, and a trailing gravity area. The ordering of these areas
-// depends on the value of the stack view’s [NSStackView.UserInterfaceLayoutDirection]
-// property (inherited from the [NSView] class). In a left to right language,
-// the leading gravity area in a horizontal stack view is on the left. To
-// enforce a left to right layout independently of language, explicitly set
-// the layout direction by calling the inherited
-// [NSStackView.UserInterfaceLayoutDirection] method on your stack view instance.
+// depends on the value of the stack view’s
+// [NSView.UserInterfaceLayoutDirection] property (inherited from the [NSView]
+// class). In a left to right language, the leading gravity area in a
+// horizontal stack view is on the left. To enforce a left to right layout
+// independently of language, explicitly set the layout direction by calling
+// the inherited [NSView.UserInterfaceLayoutDirection] method on your stack
+// view instance.
 //
-// To specify vertical layout, use the [NSStackView.Orientation] property and the
-// [NSUserInterfaceLayoutOrientationVertical] constant from the
+// To specify vertical layout, use the [NSStackView.Orientation] property and
+// the [NSUserInterfaceLayoutOrientationVertical] constant from the
 // [NSUserInterfaceLayoutOrientation] enumeration. In a vertical stack view,
 // the gravity areas always are top, center, and bottom.
 //
@@ -100,7 +101,7 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // Layout, but it is not visible and doesn’t receive input events.
 //
 // To allow views to detach, set the so-called for a stack view to a value
-// lower than its default of [NSStackView.Required]. See the
+// lower than its default of [required]. See the
 // [NSStackView.SetClippingResistancePriorityForOrientation] method.
 //
 // You can influence which views detach first (and reattach last). Do this by
@@ -111,12 +112,12 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // [NSStackView.SetVisibilityPriorityForView] method.
 //
 // To explicitly detach a view from a stack view, call the
-// [NSStackView.SetVisibilityPriorityForView] method with a value of [notVisible]. To
-// explicitly reattach a view to a stack view, call the same method with a
-// value of [mustHold]. If you hide a view that belongs to a stack view (by
-// setting the view’s [Hidden] property to true), the view detaches from the
-// stack view by default. Use the [NSStackView.DetachesHiddenViews] property to change the
-// default behavior.
+// [NSStackView.SetVisibilityPriorityForView] method with a value of
+// [notVisible]. To explicitly reattach a view to a stack view, call the same
+// method with a value of [mustHold]. If you hide a view that belongs to a
+// stack view (by setting the view’s [NSView.Hidden] property to true), the
+// view detaches from the stack view by default. Use the
+// [NSStackView.DetachesHiddenViews] property to change the default behavior.
 //
 // The system calls a stack view delegate method when a view is about to be
 // detached and when a view has been reattached, giving you the opportunity to
@@ -183,6 +184,7 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // [Organize Your User Interface with a Stack View]: https://developer.apple.com/documentation/AppKit/organize-your-user-interface-with-a-stack-view
 // [mustHold]: https://developer.apple.com/documentation/AppKit/NSStackView/VisibilityPriority/mustHold
 // [notVisible]: https://developer.apple.com/documentation/AppKit/NSStackView/VisibilityPriority/notVisible
+// [required]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Priority-swift.struct/required
 type NSStackView struct {
 	NSView
 }
@@ -337,11 +339,6 @@ type INSStackView interface {
 	SetClippingResistancePriorityForOrientation(clippingResistancePriority NSLayoutPriority, orientation NSLayoutConstraintOrientation)
 	// Sets the Auto Layout priority for the stack view to minimize its size, for a specified user interface axis.
 	SetHuggingPriorityForOrientation(huggingPriority NSLayoutPriority, orientation NSLayoutConstraintOrientation)
-
-	// A Boolean value indicating whether the view is hidden.
-	IsHidden() bool
-	// A required constraint.
-	Required() NSLayoutPriority
 }
 
 // Init initializes the instance.
@@ -411,9 +408,9 @@ func NewStackViewWithFrame(frameRect corefoundation.CGRect) NSStackView {
 // # Discussion
 //
 // The returned stack view has horizontal layout direction and its
-// [TranslatesAutoresizingMaskIntoConstraints] property is set to the Boolean
-// value false. The views you provide in the `views` parameter are placed into
-// the stack view’s leading gravity area.
+// [NSView.TranslatesAutoresizingMaskIntoConstraints] property is set to the
+// Boolean value false. The views you provide in the `views` parameter are
+// placed into the stack view’s leading gravity area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/init(views:)
 func NewStackViewWithViews(views []NSView) NSStackView {
@@ -435,9 +432,10 @@ func NewStackViewWithViews(views []NSView) NSStackView {
 //
 // - : A newly added view appears at the trailing edge of the specified
 // gravity area, as determined by the value of the inherited
-// [UserInterfaceLayoutDirection] property of the stack view. For a left to
-// right language, a new view appears at the right side of the gravity area. -
-// : A newly added view appears at the bottom of the specified gravity area.
+// [NSView.UserInterfaceLayoutDirection] property of the stack view. For a
+// left to right language, a new view appears at the right side of the gravity
+// area. - : A newly added view appears at the bottom of the specified gravity
+// area.
 //
 // Calling this method updates the stack view’s layout, which can change the
 // stack view size. As a result, views could detach or clip according to the
@@ -447,7 +445,7 @@ func NewStackViewWithViews(views []NSView) NSStackView {
 // A view in a detached state is not present in the stack view’s view
 // hierarchy, but it still consumes memory. To respond to detachment and
 // reattachment of views, implement an [NSStackViewDelegate] object and assign
-// it to the [Delegate] property.
+// it to the [NSStackView.Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/addView(_:in:)
 //
@@ -465,12 +463,13 @@ func (s NSStackView) AddViewInGravity(view INSView, gravity NSStackViewGravity) 
 // horizontal stack view, on the user interface layout direction:
 //
 // - : The `0` index for a gravity area is at the leading side, as determined
-// by the value of the inherited [UserInterfaceLayoutDirection] property of
-// the stack view. For a left to right language, index `0` is at the left of
-// the gravity area. - : The `0` index for a gravity area is at the top.
+// by the value of the inherited [NSView.UserInterfaceLayoutDirection]
+// property of the stack view. For a left to right language, index `0` is at
+// the left of the gravity area. - : The `0` index for a gravity area is at
+// the top.
 //
-// See the [UserInterfaceLayoutDirection] property and the
-// [UserInterfaceLayoutDirection] method.
+// See the [NSApplication.UserInterfaceLayoutDirection] property and the
+// [NSView.UserInterfaceLayoutDirection] method.
 //
 // gravity: The gravity area that you are adding the specified view to. Valid values
 // are those in the [NSStackView.Gravity] enumeration.
@@ -485,7 +484,7 @@ func (s NSStackView) AddViewInGravity(view INSView, gravity NSStackViewGravity) 
 // A view in a detached state is not present in the stack view’s view
 // hierarchy, but it still consumes memory. To respond to detachment and
 // reattachment of views, implement an [NSStackViewDelegate] object and assign
-// it to the [Delegate] property.
+// it to the [NSStackView.Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/insertView(_:at:in:)
 //
@@ -513,7 +512,7 @@ func (s NSStackView) InsertViewAtIndexInGravity(view INSView, index uint, gravit
 // A view in a detached state is not present in the stack view’s view
 // hierarchy, but it still consumes memory. To respond to detachment and
 // reattachment of views, implement an [NSStackViewDelegate] object and assign
-// it to the [Delegate] property.
+// it to the [NSStackView.Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/setViews(_:in:)
 //
@@ -541,14 +540,15 @@ func (s NSStackView) RemoveView(view INSView) {
 
 // Adds the specified view to the end of the arranged subviews list.
 //
-// view: The view to add to the end of the [ArrangedSubviews] array.
+// view: The view to add to the end of the [NSStackView.ArrangedSubviews] array.
 //
 // # Discussion
 //
-// The stack view ensures that the [ArrangedSubviews] array is always a subset
-// of its [Subviews] array. This method automatically adds the provided view
-// as a subview of the stack view, if it is not already. If the view is
-// already a subview, this operation does not alter the subview ordering.
+// The stack view ensures that the [NSStackView.ArrangedSubviews] array is
+// always a subset of its [NSView.Subviews] array. This method automatically
+// adds the provided view as a subview of the stack view, if it is not
+// already. If the view is already a subview, this operation does not alter
+// the subview ordering.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/addArrangedSubview(_:)
 func (s NSStackView) AddArrangedSubview(view INSView) {
@@ -560,24 +560,25 @@ func (s NSStackView) AddArrangedSubview(view INSView) {
 //
 // view: The view to be added to the array of arranged views managed by the stack.
 //
-// index: The index where the stack inserts the new view in its [ArrangedSubviews]
-// array. This value must not be greater than the number of views currently in
-// this array. If the index is out of bounds, this method throws an
-// [internalInconsistencyException] exception.
+// index: The index where the stack inserts the new view in its
+// [NSStackView.ArrangedSubviews] array. This value must not be greater than
+// the number of views currently in this array. If the index is out of bounds,
+// this method throws an [internalInconsistencyException] exception.
 //
 // # Discussion
 //
 // If index is already occupied, the stack view increases the size of the
-// [ArrangedSubviews] array and shifts all of its contents at the index and
-// above to the next higher space in the array. Then the stack view stores the
-// provided view at the index.
+// [NSStackView.ArrangedSubviews] array and shifts all of its contents at the
+// index and above to the next higher space in the array. Then the stack view
+// stores the provided view at the index.
 //
-// The stack view also ensures that the [ArrangedSubviews] array is always a
-// subset of its [Subviews] array. This method automatically adds the provided
-// view as a subview of the stack view, if it is not already. When adding
-// subviews, the stack view appends the view to the end of its [Subviews]
-// array. The index only affects the order of views in the [ArrangedSubviews]
-// array. It does not affect the ordering of views in the [Subviews] array.
+// The stack view also ensures that the [NSStackView.ArrangedSubviews] array
+// is always a subset of its [NSView.Subviews] array. This method
+// automatically adds the provided view as a subview of the stack view, if it
+// is not already. When adding subviews, the stack view appends the view to
+// the end of its [NSView.Subviews] array. The index only affects the order of
+// views in the [NSStackView.ArrangedSubviews] array. It does not affect the
+// ordering of views in the [NSView.Subviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/insertArrangedSubview(_:at:)
 //
@@ -592,15 +593,15 @@ func (s NSStackView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 //
 // # Discussion
 //
-// This method removes the provided view from the stack’s [ArrangedSubviews]
-// array. After calling this method, the stack view no longer manages the
-// view’s position and size. However, this method does not remove the
-// provided view from the stack’s [Subviews] array; therefore, the view
-// still appears in the view hierarchy.
+// This method removes the provided view from the stack’s
+// [NSStackView.ArrangedSubviews] array. After calling this method, the stack
+// view no longer manages the view’s position and size. However, this method
+// does not remove the provided view from the stack’s [NSView.Subviews]
+// array; therefore, the view still appears in the view hierarchy.
 //
 // To prevent the view from appearing on screen after calling this method,
-// explicitly call the view’s [RemoveFromSuperview] method, or set its
-// [Hidden] property to true.
+// explicitly call the view’s [NSView.RemoveFromSuperview] method, or set
+// its [NSView.Hidden] property to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/removeArrangedSubview(_:)
 func (s NSStackView) RemoveArrangedSubview(view INSView) {
@@ -649,7 +650,8 @@ func (s NSStackView) ViewsInGravity(gravity NSStackViewGravity) []NSView {
 // # Discussion
 //
 // For an explanation of clipping resistance and how to use it for a stack
-// view, see the [SetClippingResistancePriorityForOrientation] method.
+// view, see the [NSStackView.SetClippingResistancePriorityForOrientation]
+// method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/clippingResistancePriority(for:)
 func (s NSStackView) ClippingResistancePriorityForOrientation(orientation NSLayoutConstraintOrientation) NSLayoutPriority {
@@ -690,9 +692,9 @@ func (s NSStackView) HuggingPriorityForOrientation(orientation NSLayoutConstrain
 //
 // # Discussion
 //
-// If you set custom spacing for a view using the [SetCustomSpacingAfterView]
-// method, it overrides the stack view’s default spacing as set in the
-// [Spacing] property.
+// If you set custom spacing for a view using the
+// [NSStackView.SetCustomSpacingAfterView] method, it overrides the stack
+// view’s default spacing as set in the [NSStackView.Spacing] property.
 //
 // A stack view retains custom spacing across layout updates. Custom spacing
 // for a view is lost if you remove the view from the stack view or specify a
@@ -719,12 +721,13 @@ func (s NSStackView) CustomSpacingAfterView(view INSView) float64 {
 //
 // For a horizontal stack view, this method sets custom spacing between a
 // specified view and the view to its right when the user interface direction
-// is left to right. (See the inherited [UserInterfaceLayoutDirection]
+// is left to right. (See the inherited [NSView.UserInterfaceLayoutDirection]
 // property for information on layout direction.) For a vertical stack view,
 // this method sets custom spacing below a specified view.
 //
 // If you set custom spacing for a view, it overrides the stack view’s
-// default spacing for that view, as set in the [Spacing] property.
+// default spacing for that view, as set in the [NSStackView.Spacing]
+// property.
 //
 // A stack view retains custom spacing across layout updates. Custom spacing
 // for a view is lost if you remove the view from the stack view or specify a
@@ -800,7 +803,7 @@ func (s NSStackView) SetVisibilityPriorityForView(priority NSStackViewVisibility
 // view when Auto Layout attempts to reduce the stack view’s size.
 //
 // clippingResistancePriority: The clipping resistance Auto Layout priority you want to apply to the stack
-// view for a given user interface axis. The default value is [Required],
+// view for a given user interface axis. The default value is [required],
 // which disallows clipping. Other valid values are those in the
 // [NSLayoutPriority] enumeration.
 //
@@ -822,7 +825,7 @@ func (s NSStackView) SetVisibilityPriorityForView(priority NSStackViewVisibility
 // the stack view’s views to [mustHold].
 //
 // To ensure that views detach rather than clip, lower the clipping resistance
-// for the stack view to a value less than the default of [Required] and set
+// for the stack view to a value less than the default of [required] and set
 // the visibility priority for at least one view to a value less than
 // [mustHold].
 //
@@ -834,8 +837,11 @@ func (s NSStackView) SetVisibilityPriorityForView(priority NSStackViewVisibility
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/setClippingResistancePriority(_:for:)
 //
+// [required]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Priority-swift.struct/required
 // [NSLayoutConstraint.Orientation]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Orientation
 // [mustHold]: https://developer.apple.com/documentation/AppKit/NSStackView/VisibilityPriority/mustHold
+//
+// [required]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Priority-swift.struct/required
 func (s NSStackView) SetClippingResistancePriorityForOrientation(clippingResistancePriority NSLayoutPriority, orientation NSLayoutConstraintOrientation) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setClippingResistancePriority:forOrientation:"), clippingResistancePriority, orientation)
 }
@@ -876,8 +882,8 @@ func (s NSStackView) SetClippingResistancePriorityForOrientation(clippingResista
 // view that are lower than the hugging priority.
 //
 // The value of the hugging priority also affects spacing between views and
-// between gravity areas, as described in the discussion for the [Spacing]
-// property.
+// between gravity areas, as described in the discussion for the
+// [NSStackView.Spacing] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/setHuggingPriority(_:for:)
 //
@@ -911,7 +917,7 @@ func (s NSStackView) SetDelegate(value NSStackViewDelegate) {
 // # Discussion
 //
 // The stack view ensures that the contents of this array are always a subset
-// of its [Subviews] array.
+// of its [NSView.Subviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/arrangedSubviews
 func (s NSStackView) ArrangedSubviews() []NSView {
@@ -1007,38 +1013,39 @@ func (s NSStackView) SetAlignment(value NSLayoutAttribute) {
 //
 // A stack view uses this property to define the minimum distance between
 // views within a gravity area and between neighboring views in adjacent
-// gravity areas. The default value for the [Spacing] property is `8.0`
-// points.
+// gravity areas. The default value for the [NSStackView.Spacing] property is
+// `8.0` points.
 //
-// The automatically applied Auto Layout constraints for [Spacing] are shown
-// in the table below.
+// The automatically applied Auto Layout constraints for [NSStackView.Spacing]
+// are shown in the table below.
 //
 // [Table data omitted]
 //
 // The first row indicates that inter-view spacing is constrained to equal the
-// value of the [Spacing] property with a priority of at least [defaultHigh];
-// you can increase this by setting a higher stack view hugging priority with
-// the [SetHuggingPriorityForOrientation] method.
+// value of the [NSStackView.Spacing] property with a priority of at least
+// [defaultHigh]; you can increase this by setting a higher stack view hugging
+// priority with the [NSStackView.SetHuggingPriorityForOrientation] method.
 //
 // The second row indicates that the spacing between adjacent views in
 // neighboring gravity areas is constrained to equal the value of the
-// [Spacing] property with the priority of the stack view’s hugging
-// priority.
+// [NSStackView.Spacing] property with the priority of the stack view’s
+// hugging priority.
 //
 // The third row indicates that inter-view spacing is allowed to grow larger
-// than the value of the [Spacing] property with a priority of
+// than the value of the [NSStackView.Spacing] property with a priority of
 // NSLayoutPriorityRequired.
 //
 // In combination, these constraints result in the following typical stack
 // view behavior: In a stack view whose [hasEqualSpacing] property is set to
 // false (the default) and whose hugging priority is left at [defaultLow] (the
 // default), views within a gravity area remain a fixed distance from each
-// other (equal to the value of the [Spacing] property), and the distance
-// between gravity areas grows and shrinks as the stack view grows and shrinks
-// along its layout direction axis. If you set the [hasEqualSpacing] property
-// to true and use the default hugging priority, then the distance between all
-// adjacent views, including adjacent views in neighboring gravity areas,
-// grows and shrinks as the stack view grows and shrinks.
+// other (equal to the value of the [NSStackView.Spacing] property), and the
+// distance between gravity areas grows and shrinks as the stack view grows
+// and shrinks along its layout direction axis. If you set the
+// [hasEqualSpacing] property to true and use the default hugging priority,
+// then the distance between all adjacent views, including adjacent views in
+// neighboring gravity areas, grows and shrinks as the stack view grows and
+// shrinks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/spacing
 //
@@ -1059,8 +1066,8 @@ func (s NSStackView) SetSpacing(value float64) {
 // # Discussion
 //
 // The default value is `(0, 0, 0, 0)`. Edge insets remain as they are if you
-// change the value of a stack view’s [Orientation] property or the value of
-// its inherited [UserInterfaceLayoutDirection] property.
+// change the value of a stack view’s [NSStackView.Orientation] property or
+// the value of its inherited [NSView.UserInterfaceLayoutDirection] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/edgeInsets
 func (s NSStackView) EdgeInsets() foundation.NSEdgeInsets {
@@ -1092,13 +1099,13 @@ func (s NSStackView) SetDistribution(value NSStackViewDistribution) {
 //
 // # Discussion
 //
-// When the value of this property is true, setting the [Hidden] property of a
-// view to true causes the stack view to remove hidden views from its view
-// hierarchy and put them in the [DetachedViews] property. Changing the
-// view’s [Hidden] property to false causes the stack view to add the view
-// back to the view hierarchy. When the value of this property is false, views
-// remain in the view hierarchy, even when they are hidden. The default value
-// of this property is true.
+// When the value of this property is true, setting the [NSView.Hidden]
+// property of a view to true causes the stack view to remove hidden views
+// from its view hierarchy and put them in the [NSStackView.DetachedViews]
+// property. Changing the view’s [NSView.Hidden] property to false causes
+// the stack view to add the view back to the view hierarchy. When the value
+// of this property is false, views remain in the view hierarchy, even when
+// they are hidden. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/detachesHiddenViews
 func (s NSStackView) DetachesHiddenViews() bool {
@@ -1107,23 +1114,4 @@ func (s NSStackView) DetachesHiddenViews() bool {
 }
 func (s NSStackView) SetDetachesHiddenViews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDetachesHiddenViews:"), value)
-}
-
-// A Boolean value indicating whether the view is hidden.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/ishidden
-func (s NSStackView) IsHidden() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hidden"))
-	return rv
-}
-func (s NSStackView) SetHidden(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setHidden:"), value)
-}
-
-// A required constraint.
-//
-// See: https://developer.apple.com/documentation/appkit/nslayoutconstraint/priority-swift.struct/required
-func (s NSStackView) Required() NSLayoutPriority {
-	rv := objc.Send[NSLayoutPriority](s.ID, objc.Sel("NSLayoutPriorityRequired"))
-	return NSLayoutPriority(rv)
 }

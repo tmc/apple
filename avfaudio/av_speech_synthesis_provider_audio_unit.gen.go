@@ -51,8 +51,8 @@ func (ac AVSpeechSynthesisProviderAudioUnitClass) Alloc() AVSpeechSynthesisProvi
 // [AVSpeechSynthesisProviderRequest] as input, and extracts audio buffers
 // through the render block.
 //
-// Use [AVSpeechSynthesisProviderAudioUnit.SpeechSynthesisOutputMetadataBlock] to provide metadata as an array of
-// [AVSpeechSynthesisMarker].
+// Use [AVSpeechSynthesisProviderAudioUnit.SpeechSynthesisOutputMetadataBlock]
+// to provide metadata as an array of [AVSpeechSynthesisMarker].
 //
 // The system scans and loads voices for audio unit extensions of this type,
 // and the voices it provides are available for use in [AVSpeechSynthesizer]

@@ -81,8 +81,6 @@ type IMTL4CommandAllocatorDescriptor interface {
 	// An optional label you can assign to the command allocator to aid debugging.
 	Label() string
 	SetLabel(value string)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -113,10 +111,4 @@ func (m MTL4CommandAllocatorDescriptor) Label() string {
 }
 func (m MTL4CommandAllocatorDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4CommandAllocatorDescriptor) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

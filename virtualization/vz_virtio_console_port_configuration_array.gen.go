@@ -48,10 +48,10 @@ func (vc VZVirtioConsolePortConfigurationArrayClass) Alloc() VZVirtioConsolePort
 //
 // This array stores a collection of port configurations for a
 // [VZVirtioConsoleDeviceConfiguration]. The index in the array corresponds to
-// the port index that the VM uses. You can set a [VZVirtioConsolePortConfigurationArray.MaximumPortCount] value,
-// but the value must be larger than the highest indexed port. If there’s no
-// `maximumPortCount` value set, the framework uses the value the highest
-// indexed port.
+// the port index that the VM uses. You can set a
+// [VZVirtioConsolePortArray.MaximumPortCount] value, but the value must be
+// larger than the highest indexed port. If there’s no `maximumPortCount`
+// value set, the framework uses the value the highest indexed port.
 //
 // # Determining the number of ports
 //

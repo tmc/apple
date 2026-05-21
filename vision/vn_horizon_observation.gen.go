@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -47,7 +48,8 @@ func (vc VNHorizonObservationClass) Alloc() VNHorizonObservation {
 // # Overview
 //
 // Instances of this class result from invoking a [VNDetectHorizonRequest],
-// and report the [VNHorizonObservation.Angle] and [VNHorizonObservation.Transform] of the horizon in an image.
+// and report the [VNHorizonObservation.Angle] and
+// [VNHorizonObservation.Transform] of the horizon in an image.
 //
 // # Evaluating the Horizon
 //
@@ -109,6 +111,13 @@ func NewVNHorizonObservation() VNHorizonObservation {
 	class := getVNHorizonObservationClass()
 	rv := objc.Send[VNHorizonObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewHorizonObservationWithCoder(coder foundation.INSCoder) VNHorizonObservation {
+	instance := getVNHorizonObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNHorizonObservationFromID(rv)
 }
 
 // Creates an affine transform for the specified image width and height.

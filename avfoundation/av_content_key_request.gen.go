@@ -52,10 +52,6 @@ func (ac AVContentKeyRequestClass) Alloc() AVContentKeyRequest {
 // # Getting content key request data
 //
 //   - [AVContentKeyRequest.MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler]: Obtains encrypted key request data for a specific combination of app and content.
-//   - [AVContentKeyRequest.AVContentKeyRequestProtocolVersionsKey]: A key that specifies the versions of the content protection protocol supported by the application.
-//   - [AVContentKeyRequest.AVContentKeyRequestRequiresValidationDataInSecureTokenKey]: A key that requires the secure token to have extended validation data.
-//   - [AVContentKeyRequest.AVContentKeyRequestRandomDeviceIdentifierSeedKey]: Value is an NSData containing a 16-byte seed to randomize the user’s deviceID contained in the SPC blob during FairPlay key exchange
-//   - [AVContentKeyRequest.AVContentKeyRequestShouldRandomizeDeviceIdentifierKey]: Value is an Boolean indicating whether the user’s deviceID contained in the SPC blob during FairPlay key exchange should be randomized using a system generated seed
 //
 // # Responding to the content key request
 //
@@ -103,10 +99,6 @@ func AVContentKeyRequestFromID(id objc.ID) AVContentKeyRequest {
 // # Getting content key request data
 //
 //   - [IAVContentKeyRequest.MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler]: Obtains encrypted key request data for a specific combination of app and content.
-//   - [IAVContentKeyRequest.AVContentKeyRequestProtocolVersionsKey]: A key that specifies the versions of the content protection protocol supported by the application.
-//   - [IAVContentKeyRequest.AVContentKeyRequestRequiresValidationDataInSecureTokenKey]: A key that requires the secure token to have extended validation data.
-//   - [IAVContentKeyRequest.AVContentKeyRequestRandomDeviceIdentifierSeedKey]: Value is an NSData containing a 16-byte seed to randomize the user’s deviceID contained in the SPC blob during FairPlay key exchange
-//   - [IAVContentKeyRequest.AVContentKeyRequestShouldRandomizeDeviceIdentifierKey]: Value is an Boolean indicating whether the user’s deviceID contained in the SPC blob during FairPlay key exchange should be randomized using a system generated seed
 //
 // # Responding to the content key request
 //
@@ -141,14 +133,6 @@ type IAVContentKeyRequest interface {
 
 	// Obtains encrypted key request data for a specific combination of app and content.
 	MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.NSData, contentIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler)
-	// A key that specifies the versions of the content protection protocol supported by the application.
-	AVContentKeyRequestProtocolVersionsKey() string
-	// A key that requires the secure token to have extended validation data.
-	AVContentKeyRequestRequiresValidationDataInSecureTokenKey() string
-	// Value is an NSData containing a 16-byte seed to randomize the user’s deviceID contained in the SPC blob during FairPlay key exchange
-	AVContentKeyRequestRandomDeviceIdentifierSeedKey() string
-	// Value is an Boolean indicating whether the user’s deviceID contained in the SPC blob during FairPlay key exchange should be randomized using a system generated seed
-	AVContentKeyRequestShouldRandomizeDeviceIdentifierKey() string
 
 	// Topic: Responding to the content key request
 
@@ -234,6 +218,8 @@ func NewAVContentKeyRequest() AVContentKeyRequest {
 // `options` parameter, the default protocol of `1` is used.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/makeStreamingContentKeyRequestData(forApp:contentIdentifier:options:completionHandler:)
+//
+// [AVContentKeyRequestProtocolVersionsKey]: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequestProtocolVersionsKey
 func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.NSData, contentIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler) {
 	_block3, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeStreamingContentKeyRequestDataForApp:contentIdentifier:options:completionHandler:"), appIdentifier, contentIdentifier, options, _block3)
@@ -247,7 +233,7 @@ func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIden
 // # Discussion
 //
 // After receiving a content key request and calling
-// [StreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler]
+// [AVContentKeyRequest.StreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler]
 // on that request, you must obtain a response to the request in accordance
 // with the protocol used by the entity that controls the use of the media
 // data. Use this method to provide the content key response, to make
@@ -298,42 +284,6 @@ func (c AVContentKeyRequest) RespondByRequestingPersistableContentKeyRequestAndR
 	}
 	return rv, nil
 
-}
-
-// A key that specifies the versions of the content protection protocol
-// supported by the application.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcontentkeyrequestprotocolversionskey
-func (c AVContentKeyRequest) AVContentKeyRequestProtocolVersionsKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVContentKeyRequestProtocolVersionsKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that requires the secure token to have extended validation data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcontentkeyrequestrequiresvalidationdatainsecuretokenkey
-func (c AVContentKeyRequest) AVContentKeyRequestRequiresValidationDataInSecureTokenKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVContentKeyRequestRequiresValidationDataInSecureTokenKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Value is an NSData containing a 16-byte seed to randomize the user’s
-// deviceID contained in the SPC blob during FairPlay key exchange
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcontentkeyrequestrandomdeviceidentifierseedkey
-func (c AVContentKeyRequest) AVContentKeyRequestRandomDeviceIdentifierSeedKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVContentKeyRequestRandomDeviceIdentifierSeedKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Value is an Boolean indicating whether the user’s deviceID contained in
-// the SPC blob during FairPlay key exchange should be randomized using a
-// system generated seed
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcontentkeyrequestshouldrandomizedeviceidentifierkey
-func (c AVContentKeyRequest) AVContentKeyRequestShouldRandomizeDeviceIdentifierKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("AVContentKeyRequestShouldRandomizeDeviceIdentifierKey"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // The identifier for the content key.
@@ -388,12 +338,13 @@ func (c AVContentKeyRequest) OriginatingRecipient() AVContentKeyRecipient {
 // is provided to the content key session’s delegate via the
 // [ContentKeySessionDidProvidePersistableContentKeyRequest] method. When this
 // property is set to [YES], the
-// [PersistableContentKeyFromKeyVendorResponseOptionsError] method can be used
-// to create a persistable content key from the response.
+// [AVPersistableContentKeyRequest.PersistableContentKeyFromKeyVendorResponseOptionsError]
+// method can be used to create a persistable content key from the response.
 //
 // When this property is set to [NO] and there is a request for a persistable
 // content key, send the
-// [RespondByRequestingPersistableContentKeyRequestAndReturnError] method.
+// [AVContentKeyRequest.RespondByRequestingPersistableContentKeyRequestAndReturnError]
+// method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/canProvidePersistableContentKey
 func (c AVContentKeyRequest) CanProvidePersistableContentKey() bool {

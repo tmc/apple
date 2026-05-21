@@ -52,13 +52,15 @@ func (ac AVAssetTrackGroupClass) Alloc() AVAssetTrackGroup {
 // variations of the same content, like subtitles in multiple translations.
 //
 // You can inspect an asset’s track groups by loading the value of its
-// [AVAssetTrackGroup.TrackGroups] property.
+// [trackGroups] property.
 //
 // # Getting track ID values
 //
 //   - [AVAssetTrackGroup.TrackIDs]: The IDs of the tracks in the group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackGroup
+//
+// [trackGroups]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/trackGroups
 type AVAssetTrackGroup struct {
 	objectivec.Object
 }
@@ -87,10 +89,6 @@ type IAVAssetTrackGroup interface {
 
 	// The IDs of the tracks in the group.
 	TrackIDs() []foundation.NSNumber
-
-	// The track groups an asset contains.
-	TrackGroups() IAVAssetTrackGroup
-	SetTrackGroups(value IAVAssetTrackGroup)
 }
 
 // Init initializes the instance.
@@ -128,15 +126,4 @@ func (a AVAssetTrackGroup) TrackIDs() []foundation.NSNumber {
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
-}
-
-// The track groups an asset contains.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avpartialasyncproperty/trackgroups
-func (a AVAssetTrackGroup) TrackGroups() IAVAssetTrackGroup {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("trackGroups"))
-	return AVAssetTrackGroupFromID(objc.ID(rv))
-}
-func (a AVAssetTrackGroup) SetTrackGroups(value IAVAssetTrackGroup) {
-	objc.Send[struct{}](a.ID, objc.Sel("setTrackGroups:"), value)
 }

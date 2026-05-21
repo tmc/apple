@@ -65,10 +65,10 @@ func (cc CALayerClass) Alloc() CALayer {
 // If the layer object was created by a view, the view typically assigns
 // itself as the layer’s delegate automatically, and you should not change
 // that relationship. For layers you create yourself, you can assign a
-// [CALayer.Delegate] object and use that object to provide the contents of the layer
-// dynamically and perform other tasks. A layer may also have a layout manager
-// object (assigned to the [CALayer.LayoutManager] property) to manage the layout of
-// subviews separately.
+// [CALayer.Delegate] object and use that object to provide the contents of
+// the layer dynamically and perform other tasks. A layer may also have a
+// layout manager object (assigned to the [CALayer.LayoutManager] property) to
+// manage the layout of subviews separately.
 //
 // # Creating a layer
 //
@@ -826,9 +826,9 @@ type ICALayer interface {
 	// Converts the rectangle from the receiver’s coordinate system to the specified layer’s coordinate system.
 	ConvertRectToLayer(r corefoundation.CGRect, l ICALayer) corefoundation.CGRect
 	// Converts the time interval from the specified layer’s time space to the receiver’s time space.
-	ConvertTimeFromLayer(t float64, l ICALayer) float64
+	ConvertTimeFromLayer(t corefoundation.CFTimeInterval, l ICALayer) corefoundation.CFTimeInterval
 	// Converts the time interval from the receiver’s time space to the specified layer’s time space
-	ConvertTimeToLayer(t float64, l ICALayer) float64
+	ConvertTimeToLayer(t corefoundation.CFTimeInterval, l ICALayer) corefoundation.CFTimeInterval
 
 	// Topic: Hit testing
 
@@ -913,7 +913,7 @@ func NewCALayer() CALayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -950,7 +950,7 @@ func NewLayerWithRemoteClientId(client_id uint32) CALayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -981,11 +981,11 @@ func (l CALayer) InitWithLayer(layer objectivec.IObject) CALayer {
 // in progress, you can retrieve this object and use it to get the current
 // values for those animations.
 //
-// The [Sublayers], [Mask], and [Superlayer] properties of the returned layer
-// return the corresponding objects from the presentation tree (not the model
-// tree). This pattern also applies to any read-only layer methods. For
-// example, the [HitTest] method of the returned object queries the layer
-// objects in the presentation tree.
+// The [CALayer.Sublayers], [CALayer.Mask], and [CALayer.Superlayer]
+// properties of the returned layer return the corresponding objects from the
+// presentation tree (not the model tree). This pattern also applies to any
+// read-only layer methods. For example, the [CALayer.HitTest] method of the
+// returned object queries the layer objects in the presentation tree.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/presentation()
 func (l CALayer) PresentationLayer() ICALayer {
@@ -1022,13 +1022,13 @@ func (l CALayer) ModelLayer() ICALayer {
 // delegate object, this method attempts to call the delegate’s
 // [DisplayLayer] method, which the delegate can use to update the layer’s
 // contents. If the delegate does not implement the [DisplayLayer] method,
-// this method creates a backing store and calls the layer’s [DrawInContext]
-// method to fill that backing store with content. The new backing store
-// replaces the previous contents of the layer.
+// this method creates a backing store and calls the layer’s
+// [CALayer.DrawInContext] method to fill that backing store with content. The
+// new backing store replaces the previous contents of the layer.
 //
 // Subclasses can override this method and use it to set the layer’s
-// [Contents] property directly. You might do this if your custom layer
-// subclass handles layer updates differently.
+// [CALayer.Contents] property directly. You might do this if your custom
+// layer subclass handles layer updates differently.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/display()
 func (l CALayer) Display() {
@@ -1074,9 +1074,9 @@ func (l CALayer) DrawInContext(ctx coregraphics.CGContextRef) {
 //
 // If the layer needs to flip its content, it returns true from this method
 // and applies a y-flip transform to the graphics context before passing it to
-// the layer’s [DrawInContext] method. Similarly, the layer converts any
-// rectangles passed to its [SetNeedsDisplayInRect] into the flipped
-// coordinate space.
+// the layer’s [CALayer.DrawInContext] method. Similarly, the layer converts
+// any rectangles passed to its [CALayer.SetNeedsDisplayInRect] into the
+// flipped coordinate space.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsAreFlipped()
 func (l CALayer) ContentsAreFlipped() bool {
@@ -1093,10 +1093,10 @@ func (l CALayer) ContentsAreFlipped() bool {
 // This method renders directly from the layer tree, ignoring any animations
 // added to the render tree. Renders in the coordinate space of the layer.
 //
-// The following code shows how you can use [RenderInContext] to create a
-// [UIImage] from a [CAShapeLayer] with a [Path] that describes a circle.
-// After creating the layer, the code creates a [CGContext] into which the
-// circle is rendered. After rendering,
+// The following code shows how you can use [CALayer.RenderInContext] to
+// create a [UIImage] from a [CAShapeLayer] with a [CAShapeLayer.Path] that
+// describes a circle. After creating the layer, the code creates a
+// [CGContext] into which the circle is rendered. After rendering,
 // [UIGraphicsGetImageFromCurrentImageContext()] generates the image.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/render(in:)
@@ -1113,7 +1113,7 @@ func (l CALayer) RenderInContext(ctx coregraphics.CGContextRef) {
 // # Return Value
 //
 // The affine transform structure that corresponds to the value in the
-// layer’s [Transform] property.
+// layer’s [CALayer.Transform] property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/affineTransform()
 func (l CALayer) AffineTransform() corefoundation.CGAffineTransform {
@@ -1150,7 +1150,7 @@ func (l CALayer) AddSublayer(layer ICALayer) {
 //
 // You can use this method to remove a layer (and all of its sublayers) from a
 // layer hierarchy. This method updates both the superlayer’s list of
-// sublayers and sets this layer’s [Superlayer] property to `nil`.
+// sublayers and sets this layer’s [CALayer.Superlayer] property to `nil`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/removeFromSuperlayer()
 func (l CALayer) RemoveFromSuperlayer() {
@@ -1163,7 +1163,7 @@ func (l CALayer) RemoveFromSuperlayer() {
 // layer: The sublayer to be inserted into the current layer.
 //
 // idx: The index at which to insert `aLayer`. This value must be a valid 0-based
-// index into the [Sublayers] array.
+// index into the [CALayer.Sublayers] array.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/insertSublayer(_:at:)
 func (l CALayer) InsertSublayerAtIndex(layer ICALayer, idx uint32) {
@@ -1176,13 +1176,13 @@ func (l CALayer) InsertSublayerAtIndex(layer ICALayer, idx uint32) {
 // layer: The sublayer to be inserted into the current layer.
 //
 // sibling: An existing sublayer in the current layer. The layer in `aLayer` is
-// inserted before this layer in the [Sublayers] array, and thus appears
-// behind it visually.
+// inserted before this layer in the [CALayer.Sublayers] array, and thus
+// appears behind it visually.
 //
 // # Discussion
 //
-// If `sublayer` is not in the receiver’s [Sublayers] array, this method
-// raises an exception.
+// If `sublayer` is not in the receiver’s [CALayer.Sublayers] array, this
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/insertSublayer(_:below:)
 func (l CALayer) InsertSublayerBelow(layer ICALayer, sibling ICALayer) {
@@ -1195,13 +1195,13 @@ func (l CALayer) InsertSublayerBelow(layer ICALayer, sibling ICALayer) {
 // layer: The sublayer to be inserted into the current layer.
 //
 // sibling: An existing sublayer in the current layer. The layer in `aLayer` is
-// inserted after this layer in the [Sublayers] array, and thus appears in
-// front of it visually.
+// inserted after this layer in the [CALayer.Sublayers] array, and thus
+// appears in front of it visually.
 //
 // # Discussion
 //
-// If `sublayer` is not in the receiver’s [Sublayers] array, this method
-// raises an exception.
+// If `sublayer` is not in the receiver’s [CALayer.Sublayers] array, this
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/insertSublayer(_:above:)
 func (l CALayer) InsertSublayerAbove(layer ICALayer, sibling ICALayer) {
@@ -1216,8 +1216,8 @@ func (l CALayer) InsertSublayerAbove(layer ICALayer, sibling ICALayer) {
 //
 // # Discussion
 //
-// If `oldLayer` is not in the receiver’s [Sublayers] array, the behavior of
-// this method is undefined.
+// If `oldLayer` is not in the receiver’s [CALayer.Sublayers] array, the
+// behavior of this method is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/replaceSublayer(_:with:)
 func (l CALayer) ReplaceSublayerWith(oldLayer ICALayer, newLayer ICALayer) {
@@ -1231,7 +1231,8 @@ func (l CALayer) ReplaceSublayerWith(oldLayer ICALayer, newLayer ICALayer) {
 // Calling this method causes the layer to recache its content. This results
 // in the layer potentially calling either the [DisplayLayer] or
 // [DrawLayerInContext] method of its delegate. The existing content in the
-// layer’s [Contents] property is removed to make way for the new content.
+// layer’s [CALayer.Contents] property is removed to make way for the new
+// content.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/setNeedsDisplay()
 func (l CALayer) SetNeedsDisplay() {
@@ -1256,8 +1257,8 @@ func (l CALayer) SetNeedsDisplayInRect(r corefoundation.CGRect) {
 // You can call this method as needed to force an update to your layer’s
 // contents outside of the normal update cycle. Doing so is generally not
 // needed, though. The preferred way to update a layer is to call
-// [SetNeedsDisplay] and let the system update the layer during the next
-// cycle.
+// [CALayer.SetNeedsDisplay] and let the system update the layer during the
+// next cycle.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/displayIfNeeded()
 func (l CALayer) DisplayIfNeeded() {
@@ -1305,8 +1306,8 @@ func (l CALayer) AddAnimationForKey(anim ICAAnimation, key string) {
 // Returns the animation object with the specified identifier.
 //
 // key: A string that specifies the identifier of the animation. This string
-// corresponds to the identifier string you passed to the [AddAnimationForKey]
-// method.
+// corresponds to the identifier string you passed to the
+// [CALayer.AddAnimationForKey] method.
 //
 // # Return Value
 //
@@ -1368,12 +1369,12 @@ func (l CALayer) AnimationKeys() []string {
 // You can call this method to indicate that the layout of a layer’s
 // sublayers has changed and must be updated. The system typically calls this
 // method automatically when the layer’s bounds change or when sublayers are
-// added or removed. In macOS, if your layer’s [LayoutManager] property
-// contains an object that implements the `invalidateLayout()` method in Swift
-// or the “ method in Objective-C, the system calls that method too.
+// added or removed. In macOS, if your layer’s [CALayer.LayoutManager]
+// property contains an object that implements the `invalidateLayout()` method
+// in Swift or the “ method in Objective-C, the system calls that method too.
 //
-// During the next update cycle, the system calls the [LayoutSublayers] method
-// of any layers requiring layout updates.
+// During the next update cycle, the system calls the
+// [CALayer.LayoutSublayers] method of any layers requiring layout updates.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/setNeedsLayout()
 func (l CALayer) SetNeedsLayout() {
@@ -1392,7 +1393,8 @@ func (l CALayer) SetNeedsLayout() {
 // method in Swift or “ method in Objective-C of the layer’s delegate
 // object. If there is no delegate object, or the delegate does not implement
 // that method, this method calls the `layoutSublayers()` method in Swift or
-// “ method in Objective-C of the object in the [LayoutManager] property.
+// “ method in Objective-C of the object in the [CALayer.LayoutManager]
+// property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/layoutSublayers()
 func (l CALayer) LayoutSublayers() {
@@ -1431,12 +1433,12 @@ func (l CALayer) NeedsLayout() bool {
 //
 // # Discussion
 //
-// When the [AutoresizingMask] property is used for resizing and the bounds of
-// a layer change, that layer calls this method on each of its sublayers.
-// Sublayers use this method to adjust their own frame rectangles to reflect
-// the new superlayer bounds, which can be retrieved directly from the
-// superlayer. The old size of the superlayer is passed to this method so that
-// the sublayer has that information for any calculations it must make.
+// When the [CALayer.AutoresizingMask] property is used for resizing and the
+// bounds of a layer change, that layer calls this method on each of its
+// sublayers. Sublayers use this method to adjust their own frame rectangles
+// to reflect the new superlayer bounds, which can be retrieved directly from
+// the superlayer. The old size of the superlayer is passed to this method so
+// that the sublayer has that information for any calculations it must make.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/resize(withOldSuperlayerSize:)
 func (l CALayer) ResizeWithOldSuperlayerSize(size corefoundation.CGSize) {
@@ -1449,11 +1451,11 @@ func (l CALayer) ResizeWithOldSuperlayerSize(size corefoundation.CGSize) {
 //
 // # Discussion
 //
-// When the [AutoresizingMask] property is used for resizing and the bounds of
-// this layer change, the layer calls this method. The default implementation
-// calls the [ResizeWithOldSuperlayerSize] method of each sublayer to let it
-// know its superlayer’s bounds changed. You should not need to call or
-// override this method directly.
+// When the [CALayer.AutoresizingMask] property is used for resizing and the
+// bounds of this layer change, the layer calls this method. The default
+// implementation calls the [CALayer.ResizeWithOldSuperlayerSize] method of
+// each sublayer to let it know its superlayer’s bounds changed. You should
+// not need to call or override this method directly.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/resizeSublayers(withOldSize:)
 func (l CALayer) ResizeSublayersWithOldSize(size corefoundation.CGSize) {
@@ -1471,10 +1473,10 @@ func (l CALayer) ResizeSublayersWithOldSize(size corefoundation.CGSize) {
 //
 // In macOS, the default implementation of this method calls the
 // `preferredSize()` method in Swift or the “ method in Objective-C of its
-// layout manager—that is, the object in its [LayoutManager] property. If
-// that object does not exist or does not implement that method, this method
-// returns the size of the layer’s current [Bounds] rectangle mapped into
-// the coordinate space of its [Superlayer].
+// layout manager—that is, the object in its [CALayer.LayoutManager]
+// property. If that object does not exist or does not implement that method,
+// this method returns the size of the layer’s current [CALayer.Bounds]
+// rectangle mapped into the coordinate space of its [CALayer.Superlayer].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/preferredFrameSize()
 func (l CALayer) PreferredFrameSize() corefoundation.CGSize {
@@ -1492,8 +1494,8 @@ func (l CALayer) PreferredFrameSize() corefoundation.CGSize {
 // In macOS, you typically add constraints to a layer to manage the size and
 // position of that layer’s sublayers. Before constraints can be applied,
 // you must also assign a [CAConstraintLayoutManager] object to the
-// [LayoutManager] property of the layer. For more information about managing
-// layer-based constraints, see [Core Animation Programming Guide].
+// [CALayer.LayoutManager] property of the layer. For more information about
+// managing layer-based constraints, see [Core Animation Programming Guide].
 //
 // iOS apps do not support layer-based constraints.
 //
@@ -1533,10 +1535,11 @@ func (l CALayer) AddConstraint(c ICAConstraint) {
 // - Return the action object for the given key. - Return the [NSNull] object
 // if it does not handle the action.
 //
-// - The layer looks in the layer’s [Actions] dictionary for a matching
-// key/action pair. - The layer looks in the [Style] dictionary for an
-// [Actions] dictionary for a matching key/action pair. - The layer calls the
-// [DefaultActionForKey] class method to look for any class-defined actions.
+// - The layer looks in the layer’s [CALayer.Actions] dictionary for a
+// matching key/action pair. - The layer looks in the [CALayer.Style]
+// dictionary for an [CALayer.Actions] dictionary for a matching key/action
+// pair. - The layer calls the [CALayerClass.DefaultActionForKey] class method
+// to look for any class-defined actions.
 //
 // If any of the above steps returns an instance of [NSNull], it is converted
 // to `nil` before continuing.
@@ -1717,9 +1720,9 @@ func (l_ CALayer) ConvertRectToLayer(r corefoundation.CGRect, l ICALayer) corefo
 // time space of `offsetSlowMoLayer`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/convertTime(_:from:)
-func (l_ CALayer) ConvertTimeFromLayer(t float64, l ICALayer) float64 {
-	rv := objc.Send[float64](l_.ID, objc.Sel("convertTime:fromLayer:"), t, l)
-	return rv
+func (l_ CALayer) ConvertTimeFromLayer(t corefoundation.CFTimeInterval, l ICALayer) corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l_.ID, objc.Sel("convertTime:fromLayer:"), t, l)
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Converts the time interval from the receiver’s time space to the
@@ -1743,9 +1746,9 @@ func (l_ CALayer) ConvertTimeFromLayer(t float64, l ICALayer) float64 {
 // time space of `offsetSlowMoLayer`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/convertTime(_:to:)
-func (l_ CALayer) ConvertTimeToLayer(t float64, l ICALayer) float64 {
-	rv := objc.Send[float64](l_.ID, objc.Sel("convertTime:toLayer:"), t, l)
-	return rv
+func (l_ CALayer) ConvertTimeToLayer(t corefoundation.CFTimeInterval, l ICALayer) corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l_.ID, objc.Sel("convertTime:toLayer:"), t, l)
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Returns the farthest descendant of the receiver in the layer hierarchy
@@ -1840,17 +1843,17 @@ func (l CALayer) Autoreverses() bool {
 // if applicable.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (l CALayer) BeginTime() float64 {
-	rv := objc.Send[float64](l.ID, objc.Sel("beginTime"))
-	return rv
+func (l CALayer) BeginTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l.ID, objc.Sel("beginTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Specifies the basic duration of the animation, in seconds.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (l CALayer) Duration() float64 {
-	rv := objc.Send[float64](l.ID, objc.Sel("duration"))
-	return rv
+func (l CALayer) Duration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l.ID, objc.Sel("duration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Determines if the receiver’s presentation is frozen or removed once its
@@ -1873,9 +1876,9 @@ func (l CALayer) RepeatCount() float32 {
 // Determines how many seconds the animation will repeat for.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (l CALayer) RepeatDuration() float64 {
-	rv := objc.Send[float64](l.ID, objc.Sel("repeatDuration"))
-	return rv
+func (l CALayer) RepeatDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l.ID, objc.Sel("repeatDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Specifies how time is mapped to receiver’s time space from the parent
@@ -1890,9 +1893,9 @@ func (l CALayer) Speed() float32 {
 // Specifies an additional time offset in active local time.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (l CALayer) TimeOffset() float64 {
-	rv := objc.Send[float64](l.ID, objc.Sel("timeOffset"))
-	return rv
+func (l CALayer) TimeOffset() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](l.ID, objc.Sel("timeOffset"))
+	return corefoundation.CFTimeInterval(rv)
 }
 func (l CALayer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -2092,21 +2095,22 @@ func (l CALayer) SetContentsRect(value corefoundation.CGRect) {
 //
 // You can use this property to subdivide the layer’s content into a 3x3
 // grid. The value in this property specifies the location and size of the
-// center rectangle in that grid. If the layer’s [ContentsGravity] property
-// is set to one of the resizing modes, resizing the layer causes scaling to
-// occur differently in each rectangle of the grid. The center rectangle is
-// stretched in both dimensions, the top-center and bottom-center rectangles
-// are stretched only horizontally, the left-center and right-center
-// rectangles are stretched only vertically, and the four corner rectangles
-// are not stretched at all. Therefore, you can use this technique to
-// implement stretchable backgrounds or images using a three-part or nine-part
-// image.
+// center rectangle in that grid. If the layer’s [CALayer.ContentsGravity]
+// property is set to one of the resizing modes, resizing the layer causes
+// scaling to occur differently in each rectangle of the grid. The center
+// rectangle is stretched in both dimensions, the top-center and bottom-center
+// rectangles are stretched only horizontally, the left-center and
+// right-center rectangles are stretched only vertically, and the four corner
+// rectangles are not stretched at all. Therefore, you can use this technique
+// to implement stretchable backgrounds or images using a three-part or
+// nine-part image.
 //
 // The value in this property is set to the unit rectangle `(0.0,0.0)
 // (1.0,1.0)` by default, which causes the entire image to scale in both
 // dimensions. If you specify a rectangle that extends outside the unit
 // rectangle, the result is undefined. The rectangle you specify is applied
-// only after the [ContentsRect] property has been applied to the image.
+// only after the [CALayer.ContentsRect] property has been applied to the
+// image.
 //
 // The following code shows how you can create a [CALayer] with the button
 // image shown in the following figure set as its contents. The corner radii
@@ -2114,9 +2118,9 @@ func (l CALayer) SetContentsRect(value corefoundation.CGRect) {
 //
 // [media-2852114]
 //
-// By setting the layer’s [ContentsCenter] to `(0.25,0.25) (0.5,0.5)`, the
-// button’s corner radius remains unchanged, whatever size the layer is set
-// to.
+// By setting the layer’s [CALayer.ContentsCenter] to `(0.25,0.25)
+// (0.5,0.5)`, the button’s corner radius remains unchanged, whatever size
+// the layer is set to.
 //
 // The following figure shows the layer created in the previous code resized
 // to 400 x 400, 200 x 200 and 100 x 100 points.
@@ -2124,8 +2128,8 @@ func (l CALayer) SetContentsRect(value corefoundation.CGRect) {
 // [media-2852112]
 //
 // The following figure shows the layer at the same sizes but without
-// explicitly setting the layer’s [ContentsCenter]: the entire button image
-// is scaled, including the rounded corners.
+// explicitly setting the layer’s [CALayer.ContentsCenter]: the entire
+// button image is scaled, including the rounded corners.
 //
 // [media-2852113]
 //
@@ -2149,13 +2153,14 @@ func (l CALayer) SetContentsCenter(value corefoundation.CGRect) {
 // The default value of this property is [resize].
 //
 // [Figure 1] shows four examples of the effect of setting different values
-// for a layer’s [ContentsGravity] property.
+// for a layer’s [CALayer.ContentsGravity] property.
 //
 // [media-2851774]
 //
 // - Contents gravity is [resize] - the default - Contents gravity is [center]
-// - Contents gravity is [ContentsAreFlipped] `?` [top] : [bottom] - Contents
-// gravity is [ContentsAreFlipped] `?` [bottomLeft] : [topLeft]
+// - Contents gravity is [CALayer.ContentsAreFlipped] `?` [top] : [bottom] -
+// Contents gravity is [CALayer.ContentsAreFlipped] `?` [bottomLeft] :
+// [topLeft]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsGravity
 //
@@ -2213,8 +2218,8 @@ func (l CALayer) SetHidden(value bool) {
 //
 // When the value of this property is true, Core Animation creates an implicit
 // clipping mask that matches the bounds of the layer and includes any corner
-// radius effects. If a value for the [Mask] property is also specified, the
-// two masks are multiplied to get the final mask value.
+// radius effects. If a value for the [CALayer.Mask] property is also
+// specified, the two masks are multiplied to get the final mask value.
 //
 // The default value of this property is false.
 //
@@ -2279,10 +2284,10 @@ func (l CALayer) SetDoubleSided(value bool) {
 //
 // Setting the radius to a value greater than `0.0` causes the layer to begin
 // drawing rounded corners on its background. By default, the corner radius
-// does not apply to the image in the layer’s [Contents] property; it
-// applies only to the background color and border of the layer. However,
-// setting the [MasksToBounds] property to true causes the content to be
-// clipped to the rounded corners.
+// does not apply to the image in the layer’s [CALayer.Contents] property;
+// it applies only to the background color and border of the layer. However,
+// setting the [CALayer.MasksToBounds] property to true causes the content to
+// be clipped to the rounded corners.
 //
 // The default value of this property is `0.0`.
 //
@@ -2309,10 +2314,10 @@ func (l CALayer) SetMaskedCorners(value CACornerMask) {
 // # Discussion
 //
 // When this value is greater than 0.0, the layer draws a border using the
-// current [BorderColor] value. The border is drawn inset from the
+// current [CALayer.BorderColor] value. The border is drawn inset from the
 // receiver’s bounds by the value specified in this property. It is
 // composited above the receiver’s contents and sublayers and includes the
-// effects of the [CornerRadius] property.
+// effects of the [CALayer.CornerRadius] property.
 //
 // The default value of this property is `0.0`.
 //
@@ -2501,8 +2506,8 @@ func (l CALayer) SetShadowPath(value coregraphics.CGPathRef) {
 // “style.someValue” takes precedence over “style.style.someValue”.
 //
 // If the style dictionary does not define a value for an attribute, the
-// receiver’s [DefaultValueForKey] method is called. The default value of
-// this property is `nil`.
+// receiver’s [CALayerClass.DefaultValueForKey] method is called. The
+// default value of this property is `nil`.
 //
 // The style dictionary is not consulted for the following keys: `bounds`,
 // `frame`.
@@ -2522,10 +2527,10 @@ func (l CALayer) SetStyle(value foundation.INSDictionary) {
 // # Discussion
 //
 // When the value is true, the layer is allowed to antialias its edges, as
-// requested by the value in the layer’s [EdgeAntialiasingMask] property.
-// The default value is read from the boolean [UIViewEdgeAntialiasing]
-// property in the main bundle’s `Info.Plist()` file. If no value is found,
-// the default value is false.
+// requested by the value in the layer’s [CALayer.EdgeAntialiasingMask]
+// property. The default value is read from the boolean
+// [UIViewEdgeAntialiasing] property in the main bundle’s `Info.Plist()`
+// file. If no value is found, the default value is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/allowsEdgeAntialiasing
 func (l CALayer) AllowsEdgeAntialiasing() bool {
@@ -2675,21 +2680,22 @@ func (l CALayer) SetCompositingFilter(value objectivec.IObject) {
 // example, to change the `inputRadius` parameter of the filter, you could use
 // code similar to the following:
 //
-// You use the layer’s [MasksToBounds] to control the extent of its
+// You use the layer’s [CALayer.MasksToBounds] to control the extent of its
 // background filter’s effect.
 //
 // The following code shows how to create two overlapping text layers,
 // `background` and `foreground`. A Gaussian blur filter is added to the
-// foreground layer’s [BackgroundFilters] array and its [MasksToBounds] is
-// set to true:
+// foreground layer’s [CALayer.BackgroundFilters] array and its
+// [CALayer.MasksToBounds] is set to true:
 //
 // The following figure shows the result: the background layer is only blurred
 // where it is overlapped by the foreground layer.
 //
 // [media-2851423]
 //
-// However, if the foreground layer’s [MasksToBounds] is set to false, the
-// entire background layer is blurred as illustrated in the following figure.
+// However, if the foreground layer’s [CALayer.MasksToBounds] is set to
+// false, the entire background layer is blurred as illustrated in the
+// following figure.
 //
 // [media-2851424]
 //
@@ -2734,7 +2740,7 @@ func (l CALayer) SetMinificationFilter(value CALayerContentsFilter) {
 //
 // # Discussion
 //
-// This value is used by the [MinificationFilter] when it is set to
+// This value is used by the [CALayer.MinificationFilter] when it is set to
 // [trilinear].
 //
 // The default value of this property is `0.0`.
@@ -2795,8 +2801,8 @@ func (l CALayer) SetMagnificationFilter(value CALayerContentsFilter) {
 //
 // Setting this property affects only the backing store managed by Core
 // Animation. If you assign an image with an alpha channel to the layer’s
-// [Contents] property, that image retains its alpha channel regardless of the
-// value of this property.
+// [CALayer.Contents] property, that image retains its alpha channel
+// regardless of the value of this property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/isOpaque
 func (l CALayer) IsOpaque() bool {
@@ -2883,11 +2889,11 @@ func (l CALayer) SetDrawsAsynchronously(value bool) {
 //
 // When the value of this property is true, the layer is rendered as a bitmap
 // in its local coordinate space and then composited to the destination with
-// any other content. Shadow effects and any filters in the [Filters] property
-// are rasterized and included in the bitmap. However, the current opacity of
-// the layer is not rasterized. If the rasterized bitmap requires scaling
-// during compositing, the filters in the [MinificationFilter] and
-// [MagnificationFilter] properties are applied as needed.
+// any other content. Shadow effects and any filters in the [CALayer.Filters]
+// property are rasterized and included in the bitmap. However, the current
+// opacity of the layer is not rasterized. If the rasterized bitmap requires
+// scaling during compositing, the filters in the [CALayer.MinificationFilter]
+// and [CALayer.MagnificationFilter] properties are applied as needed.
 //
 // When the value of this property is false, the layer is composited directly
 // into the destination whenever possible. The layer may still be rasterized
@@ -2910,11 +2916,11 @@ func (l CALayer) SetShouldRasterize(value bool) {
 //
 // # Discussion
 //
-// When the value in the [ShouldRasterize] property is true, the layer uses
-// this property to determine whether to scale the rasterized content (and by
-// how much). The default value of this property is `1.0`, which indicates
-// that the layer should be rasterized at its current size. Larger values
-// magnify the content and smaller values shrink it.
+// When the value in the [CALayer.ShouldRasterize] property is true, the layer
+// uses this property to determine whether to scale the rasterized content
+// (and by how much). The default value of this property is `1.0`, which
+// indicates that the layer should be rasterized at its current size. Larger
+// values magnify the content and smaller values shrink it.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/rasterizationScale
 func (l CALayer) RasterizationScale() float64 {
@@ -2953,18 +2959,18 @@ func (l CALayer) SetContentsFormat(value CALayerContentsFormat) {
 //
 // The frame rectangle is position and size of the layer specified in the
 // superlayer’s coordinate space. For layers, the frame rectangle is a
-// computed property that is derived from the values in the[Bounds],
-// [AnchorPoint] and [Position] properties. When you assign a new value to
-// this property, the layer changes its [Position] and [Bounds] properties to
-// match the rectangle you specified. The values of each coordinate in the
-// rectangle are measured in points.
+// computed property that is derived from the values in the[CALayer.Bounds],
+// [CALayer.AnchorPoint] and [CALayer.Position] properties. When you assign a
+// new value to this property, the layer changes its [CALayer.Position] and
+// [CALayer.Bounds] properties to match the rectangle you specified. The
+// values of each coordinate in the rectangle are measured in points.
 //
-// Do not set the frame if the [Transform] property applies a rotation
+// Do not set the frame if the [CALayer.Transform] property applies a rotation
 // transform that is not a multiple of 90 degrees.
 //
-// For more information about the relationship between the [Frame], [Bounds],
-// [AnchorPoint] and [Position] properties, see [Core Animation Programming
-// Guide].
+// For more information about the relationship between the [CALayer.Frame],
+// [CALayer.Bounds], [CALayer.AnchorPoint] and [CALayer.Position] properties,
+// see [Core Animation Programming Guide].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/frame
 //
@@ -2987,9 +2993,9 @@ func (l CALayer) SetFrame(value corefoundation.CGRect) {
 // the layer. The values of each coordinate in the rectangle are measured in
 // points.
 //
-// For more information about the relationship between the [Frame], [Bounds],
-// [AnchorPoint] and [Position] properties, see [Core Animation Programming
-// Guide].
+// For more information about the relationship between the [CALayer.Frame],
+// [CALayer.Bounds], [CALayer.AnchorPoint] and [CALayer.Position] properties,
+// see [Core Animation Programming Guide].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/bounds
 //
@@ -3007,13 +3013,13 @@ func (l CALayer) SetBounds(value corefoundation.CGRect) {
 // # Discussion
 //
 // The value of this property is specified in points and is always specified
-// relative to the value in the [AnchorPoint] property. For new standalone
-// layers, the default position is set to (0.0, 0.0). Changing the [Frame]
-// property also updates the value in this property.
+// relative to the value in the [CALayer.AnchorPoint] property. For new
+// standalone layers, the default position is set to (0.0, 0.0). Changing the
+// [CALayer.Frame] property also updates the value in this property.
 //
-// For more information about the relationship between the [Frame], [Bounds],
-// [AnchorPoint] and [Position] properties, see [Core Animation Programming
-// Guide].
+// For more information about the relationship between the [CALayer.Frame],
+// [CALayer.Bounds], [CALayer.AnchorPoint] and [CALayer.Position] properties,
+// see [Core Animation Programming Guide].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/position
 //
@@ -3081,9 +3087,9 @@ func (l CALayer) SetAnchorPointZ(value float64) {
 // rotate around its center. Changing the anchor point to a different location
 // would cause the layer to rotate around that new point.
 //
-// For more information about the relationship between the [Frame], [Bounds],
-// [AnchorPoint] and [Position] properties, see [Core Animation Programming
-// Guide].
+// For more information about the relationship between the [CALayer.Frame],
+// [CALayer.Bounds], [CALayer.AnchorPoint] and [CALayer.Position] properties,
+// see [Core Animation Programming Guide].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/anchorPoint
 //
@@ -3168,9 +3174,10 @@ func (l CALayer) SetSublayerTransform(value CATransform3D) {
 //
 // # Special Considerations
 //
-// When setting the [Sublayers] property to an array populated with layer
-// objects, each layer in the array must not already have a superlayer—that
-// is, its [Superlayer] property must currently be `nil`.
+// When setting the [CALayer.Sublayers] property to an array populated with
+// layer objects, each layer in the array must not already have a
+// superlayer—that is, its [CALayer.Superlayer] property must currently be
+// `nil`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/sublayers
 func (l CALayer) Sublayers() []CALayer {
@@ -3201,8 +3208,8 @@ func (l CALayer) Superlayer() ICALayer {
 // # Discussion
 //
 // When this property is set to true, the layer automatically calls its
-// [SetNeedsDisplay] method whenever its [Bounds] property changes. The
-// default value of this property is false.
+// [CALayer.SetNeedsDisplay] method whenever its [CALayer.Bounds] property
+// changes. The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/needsDisplayOnBoundsChange
 func (l CALayer) NeedsDisplayOnBoundsChange() bool {
@@ -3266,8 +3273,8 @@ func (l CALayer) SetAutoresizingMask(value CAAutoresizingMask) {
 //
 // macOS apps can use this property to access their layer-based constraints.
 // Before constraints can be applied, you must also assign a
-// [CAConstraintLayoutManager] object to the [LayoutManager] property of the
-// layer.
+// [CAConstraintLayoutManager] object to the [CALayer.LayoutManager] property
+// of the layer.
 //
 // iOS apps do not support layer-based constraints.
 //
@@ -3288,8 +3295,8 @@ func (l CALayer) SetConstraints(value []CAConstraint) {
 //
 // The default value of this property is `nil`. You can use this dictionary to
 // store custom actions for your layer. The contents of this dictionary
-// searched as part of the standard implementation of the [ActionForKey]
-// method.
+// searched as part of the standard implementation of the
+// [CALayer.ActionForKey] method.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/actions
 func (l CALayer) Actions() foundation.INSDictionary {
@@ -3383,7 +3390,7 @@ func (l CALayer) SetToneMapMode(value CAToneMapMode) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (o CALayer) SetBeginTime(value float64) {
+func (o CALayer) SetBeginTime(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBeginTime:"), value)
 }
 
@@ -3394,7 +3401,7 @@ func (o CALayer) SetBeginTime(value float64) {
 // Defaults to 0. .
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (o CALayer) SetTimeOffset(value float64) {
+func (o CALayer) SetTimeOffset(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTimeOffset:"), value)
 }
 
@@ -3424,7 +3431,7 @@ func (o CALayer) SetRepeatCount(value float32) {
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (o CALayer) SetRepeatDuration(value float64) {
+func (o CALayer) SetRepeatDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRepeatDuration:"), value)
 }
 
@@ -3435,7 +3442,7 @@ func (o CALayer) SetRepeatDuration(value float64) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (o CALayer) SetDuration(value float64) {
+func (o CALayer) SetDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDuration:"), value)
 }
 

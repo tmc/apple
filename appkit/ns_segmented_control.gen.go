@@ -63,12 +63,12 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 // control or individual segments can be enabled or disabled. - Segmented
 // controls have four tracking modes, described in
 // [NSSegmentedControl.SwitchTracking]. You use these modes with the
-// [NSSegmentedControl.TrackingMode] property. - Each segment can be either a fixed width or
-// autosized to fit the contents. - If a segment has text and is marked as
-// autosizing, then the text may be truncated so that the control completely
-// fits. - If an image is too large to fit in a segment, it is clipped. - If
-// Full Keyboard Access is enabled in System Preferences > Keyboard, the
-// keyboard may be used to move between and select segments.
+// [NSSegmentedControl.TrackingMode] property. - Each segment can be either a
+// fixed width or autosized to fit the contents. - If a segment has text and
+// is marked as autosizing, then the text may be truncated so that the control
+// completely fits. - If an image is too large to fit in a segment, it is
+// clipped. - If Full Keyboard Access is enabled in System Preferences >
+// Keyboard, the keyboard may be used to move between and select segments.
 //
 // # Specifying the segment behavior
 //
@@ -384,12 +384,49 @@ func NewSegmentedControlWithFrame(frameRect corefoundation.CGRect) NSSegmentedCo
 	return NSSegmentedControlFromID(rv)
 }
 
+// Creates a standard segmented control containing one segment for each of the
+// provided images.
+//
+// images: An array of image objects to use for the control’s segments.
+//
+// trackingMode: The selection mode for the control. The NSSegmentSwitchTracking enum
+// describes the possible values and their effects.
+//
+// target: The target object that receives action messages from the control.
+//
+// action: The action message sent by the control.
+//
+// # Return Value
+//
+// An initialized segmented control.
+//
+// # Discussion
+//
+// To ensure accessibility for this control, set the
+// `accessibilityDescription` property on each of the provided images.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(images:trackingMode:target:action:)
 func NewSegmentedControlWithImagesTrackingModeTargetAction(images []NSImage, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
 	rv := objc.Send[objc.ID](objc.ID(getNSSegmentedControlClass().class), objc.Sel("segmentedControlWithImages:trackingMode:target:action:"), objectivec.IObjectSliceToNSArray(images), trackingMode, target, action)
 	return NSSegmentedControlFromID(rv)
 }
 
+// Creates a standard segmented control containing one segment for each of the
+// provided labels.
+//
+// labels: An array of localized label strings to use for the control’s segments.
+//
+// trackingMode: The selection mode for the control. The NSSegmentSwitchTracking enum
+// describes the possible values and their effects.
+//
+// target: The target object that receives action messages from the control.
+//
+// action: The action message sent by the control.
+//
+// # Return Value
+//
+// An initialized segmented control.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(labels:trackingMode:target:action:)
 func NewSegmentedControlWithLabelsTrackingModeTargetAction(labels []string, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
 	rv := objc.Send[objc.ID](objc.ID(getNSSegmentedControlClass().class), objc.Sel("segmentedControlWithLabels:trackingMode:target:action:"), objectivec.StringSliceToNSArray(labels), trackingMode, target, action)
@@ -593,7 +630,7 @@ func (s NSSegmentedControl) SelectSegmentWithTag(tag int) bool {
 // If the control allows only a single selection, this method deselects any
 // other selected segments.
 //
-// If the [TrackingMode] property of the segment is set to
+// If the [NSSegmentedControl.TrackingMode] property of the segment is set to
 // [NSSegmentSwitchTrackingMomentary], then attempting to set the selected
 // state of the segment will have no effect.
 //

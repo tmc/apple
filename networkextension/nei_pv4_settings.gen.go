@@ -48,8 +48,8 @@ func (nc NEIPv4SettingsClass) Alloc() NEIPv4Settings {
 // # Overview
 //
 // To specify the IPv4 settings of a packet tunnel, set its
-// [NEPacketTunnelNetworkSettings].[IPv4Settings] property to an instance of
-// this class.
+// [NEPacketTunnelNetworkSettings].[NEPacketTunnelNetworkSettings.IPv4Settings]
+// property to an instance of this class.
 //
 // # Initializing IPv4 settings
 //
@@ -132,18 +132,6 @@ type INEIPv4Settings interface {
 	ExcludedRoutes() []NEIPv4Route
 	SetExcludedRoutes(value []NEIPv4Route)
 
-	// The tunnel IP version 4 settings.
-	Ipv4Settings() INEIPv4Settings
-	SetIPv4Settings(value INEIPv4Settings)
-	// The tunnel IP version 6 settings.
-	Ipv6Settings() INEIPv6Settings
-	SetIPv6Settings(value INEIPv6Settings)
-	// The size of the maximum trasnmission unit, in bytes.
-	Mtu() foundation.NSNumber
-	SetMTU(value foundation.NSNumber)
-	// The number of bytes added to each tunneled packet for storing tunneling protocol headers.
-	TunnelOverheadBytes() foundation.NSNumber
-	SetTunnelOverheadBytes(value foundation.NSNumber)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -286,8 +274,8 @@ func (i NEIPv4Settings) SetIncludedRoutes(value []NEIPv4Route) {
 // # Discussion
 //
 // This property excludes routes that the system might otherwise include from
-// the [IncludedRoutes] property. The system automatically excludes the IP
-// address of the tunnel server.
+// the [NEIPv4Settings.IncludedRoutes] property. The system automatically
+// excludes the IP address of the tunnel server.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/excludedRoutes
 func (i NEIPv4Settings) ExcludedRoutes() []NEIPv4Route {
@@ -298,49 +286,4 @@ func (i NEIPv4Settings) ExcludedRoutes() []NEIPv4Route {
 }
 func (i NEIPv4Settings) SetExcludedRoutes(value []NEIPv4Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The tunnel IP version 4 settings.
-//
-// See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv4settings
-func (i NEIPv4Settings) Ipv4Settings() INEIPv4Settings {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("IPv4Settings"))
-	return NEIPv4SettingsFromID(objc.ID(rv))
-}
-func (i NEIPv4Settings) SetIPv4Settings(value INEIPv4Settings) {
-	objc.Send[struct{}](i.ID, objc.Sel("setIPv4Settings:"), value)
-}
-
-// The tunnel IP version 6 settings.
-//
-// See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv6settings
-func (i NEIPv4Settings) Ipv6Settings() INEIPv6Settings {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("IPv6Settings"))
-	return NEIPv6SettingsFromID(objc.ID(rv))
-}
-func (i NEIPv4Settings) SetIPv6Settings(value INEIPv6Settings) {
-	objc.Send[struct{}](i.ID, objc.Sel("setIPv6Settings:"), value)
-}
-
-// The size of the maximum trasnmission unit, in bytes.
-//
-// See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/mtu
-func (i NEIPv4Settings) Mtu() foundation.NSNumber {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("MTU"))
-	return foundation.NSNumberFromID(objc.ID(rv))
-}
-func (i NEIPv4Settings) SetMTU(value foundation.NSNumber) {
-	objc.Send[struct{}](i.ID, objc.Sel("setMTU:"), value)
-}
-
-// The number of bytes added to each tunneled packet for storing tunneling
-// protocol headers.
-//
-// See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/tunneloverheadbytes
-func (i NEIPv4Settings) TunnelOverheadBytes() foundation.NSNumber {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("tunnelOverheadBytes"))
-	return foundation.NSNumberFromID(objc.ID(rv))
-}
-func (i NEIPv4Settings) SetTunnelOverheadBytes(value foundation.NSNumber) {
-	objc.Send[struct{}](i.ID, objc.Sel("setTunnelOverheadBytes:"), value)
 }

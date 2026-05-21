@@ -65,13 +65,6 @@ func AVAssetVariantQualifierFromID(id objc.ID) AVAssetVariantQualifier {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantQualifier
 type IAVAssetVariantQualifier interface {
 	objectivec.IObject
-
-	// The media selections of an asset that a task downloads.
-	MediaSelections() IAVMediaSelection
-	SetMediaSelections(value IAVMediaSelection)
-	// The variant qualifiers for this configuration.
-	VariantQualifiers() IAVAssetVariantQualifier
-	SetVariantQualifiers(value IAVAssetVariantQualifier)
 }
 
 // Init initializes the instance.
@@ -363,26 +356,4 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) AssetVariantQu
 func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) AssetVariantQualifierForMinimumValueInKeyPath(keyPath string) AVAssetVariantQualifier {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("assetVariantQualifierForMinimumValueInKeyPath:"), objc.String(keyPath))
 	return AVAssetVariantQualifierFromID(rv)
-}
-
-// The media selections of an asset that a task downloads.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadcontentconfiguration/mediaselections
-func (a AVAssetVariantQualifier) MediaSelections() IAVMediaSelection {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mediaSelections"))
-	return AVMediaSelectionFromID(objc.ID(rv))
-}
-func (a AVAssetVariantQualifier) SetMediaSelections(value IAVMediaSelection) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMediaSelections:"), value)
-}
-
-// The variant qualifiers for this configuration.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadcontentconfiguration/variantqualifiers
-func (a AVAssetVariantQualifier) VariantQualifiers() IAVAssetVariantQualifier {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("variantQualifiers"))
-	return AVAssetVariantQualifierFromID(objc.ID(rv))
-}
-func (a AVAssetVariantQualifier) SetVariantQualifiers(value IAVAssetVariantQualifier) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVariantQualifiers:"), value)
 }

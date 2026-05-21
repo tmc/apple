@@ -63,7 +63,7 @@ func (nc NSPathControlClass) Alloc() NSPathControl {
 //
 // [NSPathControl] automatically supports drag and drop, which can be further
 // customized via delegate methods. To accept drag and drop, [NSPathControl]
-// calls [RegisterForDraggedTypes] with [NSFilenamesPboardType] and
+// calls [NSView.RegisterForDraggedTypes] with [NSFilenamesPboardType] and
 // [NSURLPboardType]. When the URL value in the [NSPathControl] object changes
 // because of an automatic drag and drop operation or the user selecting a new
 // path via the open panel, the action is sent. In OS X v10.5 the value
@@ -197,8 +197,8 @@ type INSPathControl interface {
 	// Topic: Setting the Double-Click Action
 
 	// The receiver’s double-click action method.
-	DoubleAction() objc.SEL
-	SetDoubleAction(value objc.SEL)
+	DoubleAction() objectivec.SEL
+	SetDoubleAction(value objectivec.SEL)
 
 	// Topic: Setting the Path
 
@@ -339,11 +339,11 @@ func (p NSPathControl) SetBackgroundColor(value INSColor) {
 // The receiver’s double-click action method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/doubleAction
-func (p NSPathControl) DoubleAction() objc.SEL {
+func (p NSPathControl) DoubleAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](p.ID, objc.Sel("doubleAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (p NSPathControl) SetDoubleAction(value objc.SEL) {
+func (p NSPathControl) SetDoubleAction(value objectivec.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleAction:"), value)
 }
 

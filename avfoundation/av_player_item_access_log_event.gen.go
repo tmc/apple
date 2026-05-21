@@ -154,7 +154,7 @@ type IAVPlayerItemAccessLogEvent interface {
 	// The number of network read requests over a WWAN.
 	MediaRequestsWWAN() int
 	// The accumulated duration, in seconds, of active network transfer of bytes.
-	TransferDuration() float64
+	TransferDuration() foundation.NSTimeInterval
 	// The accumulated number of bytes transferred by the item.
 	NumberOfBytesTransferred() int64
 	// The number of media read requests from the server to this client.
@@ -167,19 +167,19 @@ type IAVPlayerItemAccessLogEvent interface {
 	// A GUID that identifies the playback session.
 	PlaybackSessionID() string
 	// The offset, in seconds, in the playlist where the last uninterrupted period of playback began.
-	PlaybackStartOffset() float64
+	PlaybackStartOffset() foundation.NSTimeInterval
 	// The playback type.
 	PlaybackType() string
 	// The accumulated duration, in seconds, until the player item is ready to play.
-	StartupTime() float64
+	StartupTime() foundation.NSTimeInterval
 	// The accumulated duration, in seconds, of the media played.
-	DurationWatched() float64
+	DurationWatched() foundation.NSTimeInterval
 	// The total number of dropped video frames
 	NumberOfDroppedVideoFrames() int
 	// The total number of playback stalls encountered.
 	NumberOfStalls() int
 	// The accumulated duration, in seconds, of the media segments downloaded.
-	SegmentsDownloadedDuration() float64
+	SegmentsDownloadedDuration() foundation.NSTimeInterval
 	// The total number of times that downloading the segments took too long.
 	DownloadOverdue() int
 
@@ -297,9 +297,9 @@ func (p AVPlayerItemAccessLogEvent) MediaRequestsWWAN() int {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/transferDuration
-func (p AVPlayerItemAccessLogEvent) TransferDuration() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("transferDuration"))
-	return rv
+func (p AVPlayerItemAccessLogEvent) TransferDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("transferDuration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The accumulated number of bytes transferred by the item.
@@ -384,9 +384,9 @@ func (p AVPlayerItemAccessLogEvent) PlaybackSessionID() string {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackStartOffset
-func (p AVPlayerItemAccessLogEvent) PlaybackStartOffset() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("playbackStartOffset"))
-	return rv
+func (p AVPlayerItemAccessLogEvent) PlaybackStartOffset() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("playbackStartOffset"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The playback type.
@@ -418,9 +418,9 @@ func (p AVPlayerItemAccessLogEvent) PlaybackType() string {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/startupTime
-func (p AVPlayerItemAccessLogEvent) StartupTime() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("startupTime"))
-	return rv
+func (p AVPlayerItemAccessLogEvent) StartupTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("startupTime"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The accumulated duration, in seconds, of the media played.
@@ -434,9 +434,9 @@ func (p AVPlayerItemAccessLogEvent) StartupTime() float64 {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/durationWatched
-func (p AVPlayerItemAccessLogEvent) DurationWatched() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("durationWatched"))
-	return rv
+func (p AVPlayerItemAccessLogEvent) DurationWatched() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("durationWatched"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The total number of dropped video frames
@@ -482,9 +482,9 @@ func (p AVPlayerItemAccessLogEvent) NumberOfStalls() int {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/segmentsDownloadedDuration
-func (p AVPlayerItemAccessLogEvent) SegmentsDownloadedDuration() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("segmentsDownloadedDuration"))
-	return rv
+func (p AVPlayerItemAccessLogEvent) SegmentsDownloadedDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("segmentsDownloadedDuration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The total number of times that downloading the segments took too long.

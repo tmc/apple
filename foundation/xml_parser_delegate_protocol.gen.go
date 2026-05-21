@@ -106,7 +106,8 @@ func (o NSXMLParserDelegateObject) ParserDidEndElementNamespaceURIQualifiedName(
 // # Discussion
 //
 // The parser object sends this message only when namespace-prefix reporting
-// is turned on through the [ShouldReportNamespacePrefixes] method.
+// is turned on through the [NSXMLParser.ShouldReportNamespacePrefixes]
+// method.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didStartMappingPrefix:toURI:)
 func (o NSXMLParserDelegateObject) ParserDidStartMappingPrefixToURI(parser INSXMLParser, prefix string, namespaceURI string) {
@@ -123,7 +124,7 @@ func (o NSXMLParserDelegateObject) ParserDidStartMappingPrefixToURI(parser INSXM
 // # Discussion
 //
 // The parser sends this message only when namespace-prefix reporting is
-// turned on through the [ShouldReportNamespacePrefixes] method.
+// turned on through the [NSXMLParser.ShouldReportNamespacePrefixes] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didEndMappingPrefix:)
 func (o NSXMLParserDelegateObject) ParserDidEndMappingPrefix(parser INSXMLParser, prefix string) {
@@ -166,10 +167,10 @@ func (o NSXMLParserDelegateObject) ParserResolveExternalEntityNameSystemID(parse
 //
 // When this method is invoked, parsing is stopped. For further information
 // about the error, you can query `parseError` or you can send the `parser` a
-// [ParserError] message. You can also send the parser [LineNumber] and
-// [ColumnNumber] messages to further isolate where the error occurred.
-// Typically you implement this method to display information about the error
-// to the user.
+// [NSXMLParser.ParserError] message. You can also send the parser
+// [NSXMLParser.LineNumber] and [NSXMLParser.ColumnNumber] messages to further
+// isolate where the error occurred. Typically you implement this method to
+// display information about the error to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:parseErrorOccurred:)
 func (o NSXMLParserDelegateObject) ParserParseErrorOccurred(parser INSXMLParser, parseError INSError) {
@@ -271,7 +272,7 @@ func (o NSXMLParserDelegateObject) ParserFoundComment(parser INSXMLParser, comme
 // its delegate in an [NSData] object. The CDATA block is character data that
 // is ignored by the parser. The encoding of the character data is UTF-8. To
 // convert the data object to a string object, use the [NSString] method
-// [InitWithDataEncoding].
+// [NSString.InitWithDataEncoding].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundCDATA:)
 func (o NSXMLParserDelegateObject) ParserFoundCDATA(parser INSXMLParser, CDATABlock INSData) {

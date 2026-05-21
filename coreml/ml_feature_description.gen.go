@@ -152,15 +152,7 @@ type IMLFeatureDescription interface {
 	// The constraints for a sequence feature.
 	SequenceConstraint() IMLSequenceConstraint
 
-	// A dictionary of input feature descriptions, which the model keys by the input’s name.
-	InputDescriptionsByName() IMLFeatureDescription
-	SetInputDescriptionsByName(value IMLFeatureDescription)
-	// A dictionary of output feature descriptions, which the model keys by the output’s name.
-	OutputDescriptionsByName() IMLFeatureDescription
-	SetOutputDescriptionsByName(value IMLFeatureDescription)
-	// Description of the state features.
-	StateDescriptionsByName() IMLFeatureDescription
-	SetStateDescriptionsByName(value IMLFeatureDescription)
+	InitWithCoder(coder foundation.INSCoder) MLFeatureDescription
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -183,6 +175,13 @@ func NewMLFeatureDescription() MLFeatureDescription {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/init(coder:)
+func NewFeatureDescriptionWithCoder(coder foundation.INSCoder) MLFeatureDescription {
+	instance := getMLFeatureDescriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLFeatureDescriptionFromID(rv)
+}
+
 // Checks whether the model will accept an input feature value.
 //
 // value: Given the [MLFeatureValue], is it compatible with the [MLFeatureType] of
@@ -196,6 +195,12 @@ func NewMLFeatureDescription() MLFeatureDescription {
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/isAllowedValue(_:)
 func (f MLFeatureDescription) IsAllowedValue(value IMLFeatureValue) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isAllowedValue:"), value)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/init(coder:)
+func (f MLFeatureDescription) InitWithCoder(coder foundation.INSCoder) MLFeatureDescription {
+	rv := objc.Send[MLFeatureDescription](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (f MLFeatureDescription) EncodeWithCoder(coder foundation.INSCoder) {
@@ -273,39 +278,4 @@ func (f MLFeatureDescription) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (f MLFeatureDescription) SequenceConstraint() IMLSequenceConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceConstraint"))
 	return MLSequenceConstraintFromID(objc.ID(rv))
-}
-
-// A dictionary of input feature descriptions, which the model keys by the
-// input’s name.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/inputdescriptionsbyname
-func (f MLFeatureDescription) InputDescriptionsByName() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("inputDescriptionsByName"))
-	return MLFeatureDescriptionFromID(objc.ID(rv))
-}
-func (f MLFeatureDescription) SetInputDescriptionsByName(value IMLFeatureDescription) {
-	objc.Send[struct{}](f.ID, objc.Sel("setInputDescriptionsByName:"), value)
-}
-
-// A dictionary of output feature descriptions, which the model keys by the
-// output’s name.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/outputdescriptionsbyname
-func (f MLFeatureDescription) OutputDescriptionsByName() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("outputDescriptionsByName"))
-	return MLFeatureDescriptionFromID(objc.ID(rv))
-}
-func (f MLFeatureDescription) SetOutputDescriptionsByName(value IMLFeatureDescription) {
-	objc.Send[struct{}](f.ID, objc.Sel("setOutputDescriptionsByName:"), value)
-}
-
-// Description of the state features.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/statedescriptionsbyname
-func (f MLFeatureDescription) StateDescriptionsByName() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("stateDescriptionsByName"))
-	return MLFeatureDescriptionFromID(objc.ID(rv))
-}
-func (f MLFeatureDescription) SetStateDescriptionsByName(value IMLFeatureDescription) {
-	objc.Send[struct{}](f.ID, objc.Sel("setStateDescriptionsByName:"), value)
 }

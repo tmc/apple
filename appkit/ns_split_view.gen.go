@@ -53,9 +53,9 @@ func (nc NSSplitViewClass) Alloc() NSSplitView {
 // horizontal orientation so that the split view arranges its panes vertically
 // from top to bottom.
 //
-// Divider indices are zero-based. If the [NSSplitView.Vertical] property is false, which
-// is the default value, the top divider has an index of `0`. If [NSSplitView.Vertical] is
-// true, the leading divider has an index of `0`.
+// Divider indices are zero-based. If the [NSSplitView.Vertical] property is
+// false, which is the default value, the top divider has an index of `0`. If
+// [NSSplitView.Vertical] is true, the leading divider has an index of `0`.
 //
 // # Customizing the Split View Behavior
 //
@@ -295,7 +295,7 @@ func NewSplitViewWithFrame(frameRect corefoundation.CGRect) NSSplitView {
 // # Discussion
 //
 // If the view isn’t a subview of the split view, calling this method adds
-// it to the split view’s [Subviews] array.
+// it to the split view’s [NSView.Subviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/addArrangedSubview(_:)
 func (s NSSplitView) AddArrangedSubview(view INSView) {
@@ -307,11 +307,12 @@ func (s NSSplitView) AddArrangedSubview(view INSView) {
 // # Discussion
 //
 // If the view is already an arranged view, calling this method moves the view
-// to the specified index in the [ArrangedSubviews] array. This change
-// doesn’t affect the view’s index in the split view’s [Subviews] array.
+// to the specified index in the [NSSplitView.ArrangedSubviews] array. This
+// change doesn’t affect the view’s index in the split view’s
+// [NSView.Subviews] array.
 //
 // If the view isn’t a subview of the split view, calling this method adds
-// it to the split view’s [Subviews] array.
+// it to the split view’s [NSView.Subviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/insertArrangedSubview(_:at:)
 func (s NSSplitView) InsertArrangedSubviewAtIndex(view INSView, index int) {
@@ -322,13 +323,14 @@ func (s NSSplitView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 //
 // # Discussion
 //
-// If the value of [ArrangesAllSubviews] is false, calling this method
-// doesn’t remove the view as a subview; it remains in the split view’s
-// [Subviews] array.
+// If the value of [NSSplitView.ArrangesAllSubviews] is false, calling this
+// method doesn’t remove the view as a subview; it remains in the split
+// view’s [NSView.Subviews] array.
 //
-// If you remove a view as a subview (either by calling [RemoveFromSuperview]
-// or removing it from the split view’s [Subviews] array), the system
-// automatically removes the view as an arranged subview.
+// If you remove a view as a subview (either by calling
+// [NSView.RemoveFromSuperview] or removing it from the split view’s
+// [NSView.Subviews] array), the system automatically removes the view as an
+// arranged subview.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/removeArrangedSubview(_:)
 func (s NSSplitView) RemoveArrangedSubview(view INSView) {
@@ -454,13 +456,14 @@ func (s NSSplitView) DrawDividerInRect(rect corefoundation.CGRect) {
 // delegate apply constraints to the possible positions.
 //
 // You can invoke this method to determine the range of values that you can
-// pass to [SetPositionOfDividerAtIndex]. You can also invoke it from delegate
-// methods like [SplitViewConstrainSplitPositionOfSubviewAt] to implement
-// relatively complex behaviors that depend on the current state of the split
-// view.
+// pass to [NSSplitView.SetPositionOfDividerAtIndex]. You can also invoke it
+// from delegate methods like [SplitViewConstrainSplitPositionOfSubviewAt] to
+// implement relatively complex behaviors that depend on the current state of
+// the split view.
 //
 // The result of invoking this method when you haven’t invoked
-// [AdjustSubviews], and the subview frames are invalid, is undefined.
+// [NSSplitView.AdjustSubviews], and the subview frames are invalid, is
+// undefined.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/minPossiblePositionOfDivider(at:)
 //
@@ -486,13 +489,14 @@ func (s NSSplitView) MinPossiblePositionOfDividerAtIndex(dividerIndex int) float
 // delegate apply constraints to the possible positions.
 //
 // You can invoke this method to determine the range of values that you can
-// pass to [SetPositionOfDividerAtIndex]. You can also invoke it from delegate
-// methods like [SplitViewConstrainSplitPositionOfSubviewAt] to implement
-// relatively complex behaviors that depend on the current state of the split
-// view.
+// pass to [NSSplitView.SetPositionOfDividerAtIndex]. You can also invoke it
+// from delegate methods like [SplitViewConstrainSplitPositionOfSubviewAt] to
+// implement relatively complex behaviors that depend on the current state of
+// the split view.
 //
 // The result of invoking this method when you haven’t invoked
-// [AdjustSubviews], and the subview frames are invalid, is undefined.
+// [NSSplitView.AdjustSubviews], and the subview frames are invalid, is
+// undefined.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/maxPossiblePositionOfDivider(at:)
 //
@@ -540,19 +544,20 @@ func (s NSSplitView) SetDelegate(value NSSplitViewDelegate) {
 // # Discussion
 //
 // If the value of this property is true, the split view arranges all of its
-// subviews automatically. The [ArrangedSubviews] array is identical to the
-// split view’s [Subviews] array, so any change to [Subviews] reflects in
-// the [ArrangedSubviews] array. The default value of this property is true.
+// subviews automatically. The [NSSplitView.ArrangedSubviews] array is
+// identical to the split view’s [NSView.Subviews] array, so any change to
+// [NSView.Subviews] reflects in the [NSSplitView.ArrangedSubviews] array. The
+// default value of this property is true.
 //
 // If the value of this property is false, you must explicitly add a view as
 // an arranged subview to arrange it as a split pane. You add an arranged
-// subview using [AddArrangedSubview].
+// subview using [NSSplitView.AddArrangedSubview].
 //
 // When you change the value of this property from true to false, all existing
-// subviews stay as arranged subviews in [ArrangedSubviews]. When you change
-// the value of this property from false to true, all existing subviews become
-// arranged subviews, and the value of the [Subviews] array becomes the
-// [ArrangedSubviews] array.
+// subviews stay as arranged subviews in [NSSplitView.ArrangedSubviews]. When
+// you change the value of this property from false to true, all existing
+// subviews become arranged subviews, and the value of the [NSView.Subviews]
+// array becomes the [NSSplitView.ArrangedSubviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/arrangesAllSubviews
 func (s NSSplitView) ArrangesAllSubviews() bool {
@@ -567,12 +572,12 @@ func (s NSSplitView) SetArrangesAllSubviews(value bool) {
 //
 // # Discussion
 //
-// This array contains a subset of the views in the split view’s [Subviews]
-// property. The views in this array may appear in a different order than in
-// the [Subviews] array.
+// This array contains a subset of the views in the split view’s
+// [NSView.Subviews] property. The views in this array may appear in a
+// different order than in the [NSView.Subviews] array.
 //
-// If the value of [ArrangesAllSubviews] is true, this array is identical to
-// the [Subviews] array.
+// If the value of [NSSplitView.ArrangesAllSubviews] is true, this array is
+// identical to the [NSView.Subviews] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/arrangedSubviews
 func (s NSSplitView) ArrangedSubviews() []NSView {
@@ -625,11 +630,12 @@ func (s NSSplitView) SetDividerStyle(value NSSplitViewDividerStyle) {
 //
 // # Discussion
 //
-// The default implementation of this method returns [ClearColor] when the
-// split view’s [DividerStyle] is [NSSplitViewDividerStyleThick], or when
-// [DividerStyle] is [NSSplitViewDividerStylePaneSplitter] and the split view
-// is in a textured window. The system draws all other thin dividers with a
-// color that provides appropriate contrast between two white panes.
+// The default implementation of this method returns [NSColorClass.ClearColor]
+// when the split view’s [NSSplitView.DividerStyle] is
+// [NSSplitViewDividerStyleThick], or when [NSSplitView.DividerStyle] is
+// [NSSplitViewDividerStylePaneSplitter] and the split view is in a textured
+// window. The system draws all other thin dividers with a color that provides
+// appropriate contrast between two white panes.
 //
 // You can subclass [NSSplitView] and override this method to change the color
 // of dividers.

@@ -293,7 +293,7 @@ func (m NSMorphology) SetPronounType(value NSGrammaticalPronounType) {
 // # Discussion
 //
 // If the user hasn’t specified preferences, or chose not to share them with
-// this app, the [Unspecified] property is `true`.
+// this app, the [NSMorphology.Unspecified] property is `true`.
 //
 // This value doesn’t change throughout the lifetime of the process.
 //

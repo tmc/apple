@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -22,12 +23,12 @@ type MTL4CommitFeedback interface {
 	// The host time, in seconds, when the GPU finishes execution of the committed command buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuEndTime
-	GPUEndTime() float64
+	GPUEndTime() corefoundation.CFTimeInterval
 
 	// The host time, in seconds, when the GPU starts execution of the committed command buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuStartTime
-	GPUStartTime() float64
+	GPUStartTime() corefoundation.CFTimeInterval
 }
 
 // MTL4CommitFeedbackObject wraps an existing Objective-C object that conforms to the MTL4CommitFeedback protocol.
@@ -60,16 +61,16 @@ func (o MTL4CommitFeedbackObject) Error() foundation.NSError {
 // command buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuEndTime
-func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
-	return float64(rv)
+func (o MTL4CommitFeedbackObject) GPUEndTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("GPUEndTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The host time, in seconds, when the GPU starts execution of the committed
 // command buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuStartTime
-func (o MTL4CommitFeedbackObject) GPUStartTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
-	return float64(rv)
+func (o MTL4CommitFeedbackObject) GPUStartTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("GPUStartTime"))
+	return corefoundation.CFTimeInterval(rv)
 }

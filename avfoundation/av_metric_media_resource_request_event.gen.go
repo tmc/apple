@@ -95,7 +95,7 @@ type IAVMetricMediaResourceRequestEvent interface {
 
 	ByteRange() foundation.NSRange
 	ErrorEvent() IAVMetricErrorEvent
-	NetworkTransactionMetrics() foundation.NSURLSessionTaskMetrics
+	NetworkTransactionMetrics() foundation.URLSessionTaskMetrics
 	RequestEndTime() foundation.NSDate
 	RequestStartTime() foundation.NSDate
 	ResponseEndTime() foundation.NSDate
@@ -124,6 +124,13 @@ func NewAVMetricMediaResourceRequestEvent() AVMetricMediaResourceRequestEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricMediaResourceRequestEventWithCoder(coder foundation.INSCoder) AVMetricMediaResourceRequestEvent {
+	instance := getAVMetricMediaResourceRequestEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricMediaResourceRequestEventFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/byteRange
 func (m AVMetricMediaResourceRequestEvent) ByteRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](m.ID, objc.Sel("byteRange"))
@@ -137,9 +144,9 @@ func (m AVMetricMediaResourceRequestEvent) ErrorEvent() IAVMetricErrorEvent {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/networkTransactionMetrics
-func (m AVMetricMediaResourceRequestEvent) NetworkTransactionMetrics() foundation.NSURLSessionTaskMetrics {
+func (m AVMetricMediaResourceRequestEvent) NetworkTransactionMetrics() foundation.URLSessionTaskMetrics {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("networkTransactionMetrics"))
-	return foundation.NSURLSessionTaskMetricsFromID(objc.ID(rv))
+	return foundation.URLSessionTaskMetricsFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/requestEndTime

@@ -83,6 +83,7 @@ type IMLStateConstraint interface {
 	// The data type of scalars in the state buffer.
 	DataType() MLMultiArrayDataType
 
+	InitWithCoder(coder foundation.INSCoder) MLStateConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -105,6 +106,18 @@ func NewMLStateConstraint() MLStateConstraint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/init(coder:)
+func NewStateConstraintWithCoder(coder foundation.INSCoder) MLStateConstraint {
+	instance := getMLStateConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLStateConstraintFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/init(coder:)
+func (s MLStateConstraint) InitWithCoder(coder foundation.INSCoder) MLStateConstraint {
+	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s MLStateConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }

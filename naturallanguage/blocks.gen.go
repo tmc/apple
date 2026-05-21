@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// NLContextualEmbeddingAssetsResultErrorHandler handles A completion handler the system calls after it finishes the request.
+// NLContextualEmbeddingAssetsResultErrorHandler handles A closure that notifies your app when the asset request completes.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -28,15 +28,6 @@ func NewNLContextualEmbeddingAssetsResultErrorBlock(handler NLContextualEmbeddin
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-// NLDistanceHandler handles A block with the following parameters:
-//
-// Used by:
-//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountDistanceTypeUsingBlock]
-//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock]
-//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock]
-//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock]
-type NLDistanceHandler = func(*string)
 
 // NLTaggerAssetsResultErrorHandler handles A closure the framework uses to notify your app when the tag scheme request has completed.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -60,30 +51,74 @@ func NewNLTaggerAssetsResultErrorBlock(handler NLTaggerAssetsResultErrorHandler)
 	return objc.ID(block), func() { block.Release() }
 }
 
-// RangeHandler handles The closure to call after each token; return false if processing should stop.
+// NSNumberArrayNSRangeBoolHandler handles A block that contains each token’s embedding vector and its corresponding character range in the string.
+//
+// Used by:
+//   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
+type NSNumberArrayNSRangeBoolHandler = func(*[]foundation.NSNumber, foundation.NSRange, bool)
+
+// NewNSNumberArrayNSRangeBoolBlock wraps a Go [NSNumberArrayNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
+func NewNSNumberArrayNSRangeBoolBlock(handler NSNumberArrayNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 foundation.NSRange, extra1 bool) {
+		var result *[]foundation.NSNumber
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]foundation.NSNumber, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = foundation.NSNumberFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSRangeNLTokenizerAttributesBoolHandler handles The closure to call after each token; return false if processing should stop.
+//
+// Used by:
+//   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
+type NSRangeNLTokenizerAttributesBoolHandler = func(foundation.NSRange, NLTokenizerAttributes, bool)
+
+// NewNSRangeNLTokenizerAttributesBoolBlock wraps a Go [NSRangeNLTokenizerAttributesBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
+func NewNSRangeNLTokenizerAttributesBoolBlock(handler NSRangeNLTokenizerAttributesBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive foundation.NSRange, extra0 NLTokenizerAttributes, extra1 bool) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// StringNLDistanceBoolHandler handles A block with the following parameters:
+//
+// Used by:
+//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock]
+type StringNLDistanceBoolHandler = func(*string, *NLDistance, *bool)
+
+// StringNSRangeBoolHandler handles The block this method uses to iterate over the tagger’s string property.
 //   - tag: The tag of the token.
 //   - tokenRange: The range of the token.
 //   - stop: A reference to a Boolean value. The block can set the value to `true` to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to `true` within the block.
 //
 // Used by:
-//   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
 //   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-//   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
-type RangeHandler = func(foundation.NSRange)
-
-// NewRangeBlock wraps a Go [RangeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
-//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-//   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
-func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSRange) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type StringNSRangeBoolHandler = func(*string, *foundation.NSRange, *bool)

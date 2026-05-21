@@ -152,6 +152,8 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetSampleBuffer(va
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfEncoderSampleIndex"))
 	return rv
@@ -173,6 +175,8 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetStartOfEncoderS
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
+//
+// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfEncoderSampleIndex"))
 	return rv

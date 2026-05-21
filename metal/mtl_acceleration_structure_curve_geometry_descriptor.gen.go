@@ -227,8 +227,9 @@ func (_MTLAccelerationStructureCurveGeometryDescriptorClass MTLAccelerationStruc
 // # Discussion
 //
 // You provide control points in the format that matches the
-// [ControlPointFormat] property. This property needs to have a non-nil value
-// when you build an acceleration structure.
+// [MTLAccelerationStructureCurveGeometryDescriptor.ControlPointFormat]
+// property. This property needs to have a non-nil value when you build an
+// acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointBuffer
 func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointBuffer() MTLBuffer {
@@ -244,8 +245,10 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointBuffer(v
 // # Discussion
 //
 // The offset needs to be a multiple of the format element size you configure
-// with the [ControlPointFormat] property. You also need to align the offset
-// to the platform’s buffer alignment requirement.
+// with the
+// [MTLAccelerationStructureCurveGeometryDescriptor.ControlPointFormat]
+// property. You also need to align the offset to the platform’s buffer
+// alignment requirement.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointBufferOffset
 func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointBufferOffset() uint {
@@ -287,9 +290,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointFormat(v
 // # Discussion
 //
 // The stride needs to be a multiple of the format element size you configure
-// with the [ControlPointFormat] property, and at least the format’s size.
-// The default value is `0`, which indicates that the control point elements
-// in the buffer have zero bytes of padding between them.
+// with the
+// [MTLAccelerationStructureCurveGeometryDescriptor.ControlPointFormat]
+// property, and at least the format’s size. The default value is `0`, which
+// indicates that the control point elements in the buffer have zero bytes of
+// padding between them.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointStride
 func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointStride() uint {
@@ -367,8 +372,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexBuffer(value MT
 // # Discussion
 //
 // The offset needs to be a multiple of the index data type you configure with
-// the [IndexType] property. You also need to align the offset to both the
-// index type’s size and the platform’s buffer alignment requirement.
+// the [MTLAccelerationStructureCurveGeometryDescriptor.IndexType] property.
+// You also need to align the offset to both the index type’s size and the
+// platform’s buffer alignment requirement.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/indexBufferOffset
 func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexBufferOffset() uint {
@@ -384,8 +390,8 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexBufferOffset(va
 // # Discussion
 //
 // Set this property to a value that reflects the size of the indices in the
-// [IndexBuffer] property, such as [MTLIndexTypeUInt16] or
-// [MTLIndexTypeUInt32].
+// [MTLAccelerationStructureCurveGeometryDescriptor.IndexBuffer] property,
+// such as [MTLIndexTypeUInt16] or [MTLIndexTypeUInt32].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/indexType
 func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexType() MTLIndexType {
@@ -401,8 +407,10 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexType(value MTLI
 // # Discussion
 //
 // The buffer contains values that are greater than or equal to `0.0` in the
-// format you configure with the [RadiusFormat] property. This property needs
-// to have a non-nil value when you build an acceleration structure.
+// format you configure with the
+// [MTLAccelerationStructureCurveGeometryDescriptor.RadiusFormat] property.
+// This property needs to have a non-nil value when you build an acceleration
+// structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/radiusBuffer
 func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusBuffer() MTLBuffer {
@@ -418,8 +426,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusBuffer(value M
 // # Discussion
 //
 // The offset needs to be a multiple of the radius format you configure with
-// the [RadiusFormat] property. You also need to align the offset to both the
-// radius format’s size and the platform’s buffer alignment requirement.
+// the [MTLAccelerationStructureCurveGeometryDescriptor.RadiusFormat]
+// property. You also need to align the offset to both the radius format’s
+// size and the platform’s buffer alignment requirement.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/radiusBufferOffset
 func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusBufferOffset() uint {
@@ -450,9 +459,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusFormat(value M
 // # Discussion
 //
 // The stride needs to be a multiple of the radius format size you configure
-// with the [RadiusFormat] property. The default value is `0`, which indicates
-// that the radius elements in the buffer have zero bytes of padding between
-// them.
+// with the [MTLAccelerationStructureCurveGeometryDescriptor.RadiusFormat]
+// property. The default value is `0`, which indicates that the radius
+// elements in the buffer have zero bytes of padding between them.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/radiusStride
 func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusStride() uint {

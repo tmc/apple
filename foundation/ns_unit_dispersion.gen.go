@@ -55,7 +55,8 @@ func (uc UnitDispersionClass) Alloc() UnitDispersion {
 // that is commonly expressed in “parts-per” notation, such as “parts
 // per million” (ppm), to describe small relative quantities.
 //
-// The [NSUnitDispersion] class defines its [BaseUnit] as [PartsPerMillion].
+// The [NSUnitDispersion] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitDispersionClass.PartsPerMillion].
 //
 // [Table data omitted]
 //

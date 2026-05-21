@@ -72,10 +72,6 @@ func MTLFunctionStitchingAttributeAlwaysInlineFromID(id objc.ID) MTLFunctionStit
 type IMTLFunctionStitchingAttributeAlwaysInline interface {
 	objectivec.IObject
 	MTLFunctionStitchingAttribute
-
-	// A list of attributes to configure how the Metal device object generates the new stitched function.
-	Attributes() MTLFunctionStitchingAttribute
-	SetAttributes(value MTLFunctionStitchingAttribute)
 }
 
 // Init initializes the instance.
@@ -95,18 +91,6 @@ func NewMTLFunctionStitchingAttributeAlwaysInline() MTLFunctionStitchingAttribut
 	class := getMTLFunctionStitchingAttributeAlwaysInlineClass()
 	rv := objc.Send[MTLFunctionStitchingAttributeAlwaysInline](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// A list of attributes to configure how the Metal device object generates the
-// new stitched function.
-//
-// See: https://developer.apple.com/documentation/metal/mtlfunctionstitchinggraph/attributes
-func (f MTLFunctionStitchingAttributeAlwaysInline) Attributes() MTLFunctionStitchingAttribute {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("attributes"))
-	return MTLFunctionStitchingAttributeObjectFromID(rv)
-}
-func (f MTLFunctionStitchingAttributeAlwaysInline) SetAttributes(value MTLFunctionStitchingAttribute) {
-	objc.Send[struct{}](f.ID, objc.Sel("setAttributes:"), value)
 }
 
 // Protocol methods for MTLFunctionStitchingAttribute

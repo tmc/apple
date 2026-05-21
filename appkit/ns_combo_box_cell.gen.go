@@ -347,7 +347,7 @@ func NewComboBoxCellWithCoder(coder foundation.INSCoder) NSComboBoxCell {
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/addItems(withObjectValues:)
 func (c NSComboBoxCell) AddItemsWithObjectValues(objects foundation.INSArray) {
@@ -360,7 +360,7 @@ func (c NSComboBoxCell) AddItemsWithObjectValues(objects foundation.INSArray) {
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/addItem(withObjectValue:)
 func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
@@ -377,7 +377,7 @@ func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/insertItem(withObjectValue:at:)
 func (c NSComboBoxCell) InsertItemWithObjectValueAtIndex(object objectivec.IObject, index int) {
@@ -388,7 +388,7 @@ func (c NSComboBoxCell) InsertItemWithObjectValueAtIndex(object objectivec.IObje
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeAllItems()
 func (c NSComboBoxCell) RemoveAllItems() {
@@ -405,7 +405,7 @@ func (c NSComboBoxCell) RemoveAllItems() {
 //
 // The removed object receives a `release` message. This method raises an
 // [NSRangeException] if `index` is beyond the end of the list and logs a
-// warning if [UsesDataSource] is true.
+// warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeItem(at:)
 func (c NSComboBoxCell) RemoveItemAtIndex(index int) {
@@ -420,7 +420,7 @@ func (c NSComboBoxCell) RemoveItemAtIndex(index int) {
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeItem(withObjectValue:)
 func (c NSComboBoxCell) RemoveItemWithObjectValue(object objectivec.IObject) {
@@ -437,11 +437,12 @@ func (c NSComboBoxCell) RemoveItemWithObjectValue(object objectivec.IObject) {
 // The lowest index whose corresponding value is equal to `anObject`. Objects
 // are considered equal if they have the same id or if “ returns true. If
 // none of the objects in the combo box’s internal item list is equal to
-// `anObject`, [IndexOfItemWithObjectValue] returns [NSNotFound].
+// `anObject`, [NSComboBoxCell.IndexOfItemWithObjectValue] returns
+// [NSNotFound].
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/indexOfItem(withObjectValue:)
 func (c NSComboBoxCell) IndexOfItemWithObjectValue(object objectivec.IObject) int {
@@ -461,7 +462,7 @@ func (c NSComboBoxCell) IndexOfItemWithObjectValue(object objectivec.IObject) in
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/itemObjectValue(at:)
 func (c NSComboBoxCell) ItemObjectValueAtIndex(index int) objectivec.IObject {
@@ -567,11 +568,11 @@ func (c NSComboBoxCell) SelectItemAtIndex(index int) {
 //
 // # Discussion
 //
-// This method logs a warning if [UsesDataSource] is true. Posts an
-// [selectionDidChangeNotification] to the default notification center if the
-// selection does in fact change. Note that this method doesn’t alter the
-// contents of the combo box cell’s text field—see [Setting the Combo
-// Box’s Value] for more information.
+// This method logs a warning if [NSComboBoxCell.UsesDataSource] is true.
+// Posts an [selectionDidChangeNotification] to the default notification
+// center if the selection does in fact change. Note that this method
+// doesn’t alter the contents of the combo box cell’s text field—see
+// [Setting the Combo Box’s Value] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/selectItem(withObjectValue:)
 //
@@ -623,9 +624,9 @@ func (c NSComboBoxCell) CompletedString(string_ string) string {
 //
 // If you set this property to false and the combo box cell has more list
 // items (either in its internal item list or from its data source) than are
-// allowed by [NumberOfVisibleItems], only a subset are displayed. The
-// [NSComboBoxCell] `scroll...` methods can be used to position this subset
-// within the pop-up list.
+// allowed by [NSComboBoxCell.NumberOfVisibleItems], only a subset are
+// displayed. The [NSComboBoxCell] `scroll...` methods can be used to position
+// this subset within the pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/hasVerticalScroller
 func (c NSComboBoxCell) HasVerticalScroller() bool {
@@ -704,12 +705,13 @@ func (c NSComboBoxCell) SetNumberOfVisibleItems(value int) {
 //
 // The value of this property should be an object that implements the
 // appropriate methods of the NSComboBoxCellDataSource informal protocol. Note
-// that setting this property doesn’t automatically set [UsesDataSource] to
-// false and in fact logs a warning if [UsesDataSource] is false. If you set
-// this property to an object that doesn’t respond to either
-// numberOfItemsInComboBoxCell: or comboBoxCell:objectValueForItemAtIndex:, a
-// warning is logged if [UsesDataSource] is false. See the class description
-// and the NSComboBoxCellDataSource informal protocol specification for more
+// that setting this property doesn’t automatically set
+// [NSComboBoxCell.UsesDataSource] to false and in fact logs a warning if
+// [NSComboBoxCell.UsesDataSource] is false. If you set this property to an
+// object that doesn’t respond to either numberOfItemsInComboBoxCell: or
+// comboBoxCell:objectValueForItemAtIndex:, a warning is logged if
+// [NSComboBoxCell.UsesDataSource] is false. See the class description and the
+// NSComboBoxCellDataSource informal protocol specification for more
 // information on combo box cell data source objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/dataSource
@@ -743,7 +745,8 @@ func (c NSComboBoxCell) SetUsesDataSource(value bool) {
 //
 // # Discussion
 //
-// Accessing this property logs a warning if [UsesDataSource] is true.
+// Accessing this property logs a warning if [NSComboBoxCell.UsesDataSource]
+// is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/objectValues
 func (c NSComboBoxCell) ObjectValues() foundation.INSArray {
@@ -782,7 +785,8 @@ func (c NSComboBoxCell) IndexOfSelectedItem() int {
 // `nil` if no item is selected.
 //
 // Note that nothing is initially selected in a newly initialized combo box
-// cell. Accessing this property logs a warning if [UsesDataSource] is true.
+// cell. Accessing this property logs a warning if
+// [NSComboBoxCell.UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/objectValueOfSelectedItem
 func (c NSComboBoxCell) ObjectValueOfSelectedItem() objectivec.IObject {
@@ -798,13 +802,13 @@ func (c NSComboBoxCell) ObjectValueOfSelectedItem() objectivec.IObject {
 // When the value of this property is true, the combo box tries to complete
 // what the user types in the text field and every time the user adds
 // characters to the end of the text field, the combo box calls
-// [CompletedString]; when it is false, it does not.
+// [NSComboBoxCell.CompletedString]; when it is false, it does not.
 //
-// If [CompletedString] returns a string that’s longer than the existing
-// string, the combo box replaces the existing string with the returned string
-// and selects the additional characters. If the user is deleting characters
-// or adds characters somewhere besides the end of the string, the combo box
-// does not try to complete it.
+// If [NSComboBoxCell.CompletedString] returns a string that’s longer than
+// the existing string, the combo box replaces the existing string with the
+// returned string and selects the additional characters. If the user is
+// deleting characters or adds characters somewhere besides the end of the
+// string, the combo box does not try to complete it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/completes
 func (c NSComboBoxCell) Completes() bool {

@@ -110,13 +110,6 @@ type IAVAudioUnitEQFilterParameters interface {
 	// The gain of the equalizer filter, in decibels.
 	Gain() float32
 	SetGain(value float32)
-
-	// An array of equalizer filter parameters.
-	Bands() IAVAudioUnitEQFilterParameters
-	SetBands(value IAVAudioUnitEQFilterParameters)
-	// The overall gain adjustment that the audio unit applies to the signal, in decibels.
-	GlobalGain() float32
-	SetGlobalGain(value float32)
 }
 
 // Init initializes the instance.
@@ -212,27 +205,4 @@ func (a AVAudioUnitEQFilterParameters) Gain() float32 {
 }
 func (a AVAudioUnitEQFilterParameters) SetGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGain:"), value)
-}
-
-// An array of equalizer filter parameters.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiouniteq/bands
-func (a AVAudioUnitEQFilterParameters) Bands() IAVAudioUnitEQFilterParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("bands"))
-	return AVAudioUnitEQFilterParametersFromID(objc.ID(rv))
-}
-func (a AVAudioUnitEQFilterParameters) SetBands(value IAVAudioUnitEQFilterParameters) {
-	objc.Send[struct{}](a.ID, objc.Sel("setBands:"), value)
-}
-
-// The overall gain adjustment that the audio unit applies to the signal, in
-// decibels.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiouniteq/globalgain
-func (a AVAudioUnitEQFilterParameters) GlobalGain() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("globalGain"))
-	return rv
-}
-func (a AVAudioUnitEQFilterParameters) SetGlobalGain(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setGlobalGain:"), value)
 }

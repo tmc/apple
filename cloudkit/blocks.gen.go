@@ -59,23 +59,23 @@ func NewCKRecordErrorBlock(handler CKRecordErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// CKRecordHandler is the signature for a completion handler block.
-type CKRecordHandler = func(*CKRecord)
+// CKRecordFloat64Handler is the signature for a completion handler block.
+type CKRecordFloat64Handler = func(*CKRecord, float64)
 
-// NewCKRecordBlock wraps a Go [CKRecordHandler] as an Objective-C block.
+// NewCKRecordFloat64Block wraps a Go [CKRecordFloat64Handler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
-func NewCKRecordBlock(handler CKRecordHandler) (objc.ID, func()) {
+func NewCKRecordFloat64Block(handler CKRecordFloat64Handler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 float64) {
 		var result *CKRecord
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := CKRecordFromID(resultID)
 			result = &v
 		}
-		handler(result)
+		handler(result, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -110,6 +110,27 @@ func NewCKRecordIDErrorBlock(handler CKRecordIDErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CKRecordIDFloat64Handler is the signature for a completion handler block.
+type CKRecordIDFloat64Handler = func(*CKRecordID, float64)
+
+// NewCKRecordIDFloat64Block wraps a Go [CKRecordIDFloat64Handler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKRecordIDFloat64Block(handler CKRecordIDFloat64Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 float64) {
+		var result *CKRecordID
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := CKRecordIDFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // CKRecordIDHandler handles A block that returns the record for the specified record identifier.
 //
 // Used by:
@@ -138,10 +159,38 @@ func NewCKRecordIDBlock(handler CKRecordIDHandler) (objc.ID, func()) {
 }
 
 // CKRecordZoneArrayErrorHandler handles The closure to execute with the fetch results.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [CKDatabase.FetchAllRecordZonesWithCompletionHandler]
 type CKRecordZoneArrayErrorHandler = func(*[]CKRecordZone, error)
+
+// NewCKRecordZoneArrayErrorBlock wraps a Go [CKRecordZoneArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [CKDatabase.FetchAllRecordZonesWithCompletionHandler]
+func NewCKRecordZoneArrayErrorBlock(handler CKRecordZoneArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]CKRecordZone
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]CKRecordZone, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = CKRecordZoneFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // CKRecordZoneErrorHandler handles The closure to execute with the fetch results.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -365,10 +414,38 @@ func NewCKShareParticipantErrorBlock(handler CKShareParticipantErrorHandler) (ob
 }
 
 // CKSubscriptionArrayErrorHandler handles The closure to execute with the fetch results.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [CKDatabase.FetchAllSubscriptionsWithCompletionHandler]
 type CKSubscriptionArrayErrorHandler = func(*[]CKSubscription, error)
+
+// NewCKSubscriptionArrayErrorBlock wraps a Go [CKSubscriptionArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [CKDatabase.FetchAllSubscriptionsWithCompletionHandler]
+func NewCKSubscriptionArrayErrorBlock(handler CKSubscriptionArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]CKSubscription
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]CKSubscription, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = CKSubscriptionFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // CKSubscriptionErrorHandler handles The closure to execute after CloudKit saves the subscription.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -399,10 +476,38 @@ func NewCKSubscriptionErrorBlock(handler CKSubscriptionErrorHandler) (objc.ID, f
 }
 
 // CKUserIdentityArrayErrorHandler handles The handler to execute with the fetch results.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [CKContainer.DiscoverAllIdentitiesWithCompletionHandler]
 type CKUserIdentityArrayErrorHandler = func(*[]CKUserIdentity, error)
+
+// NewCKUserIdentityArrayErrorBlock wraps a Go [CKUserIdentityArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [CKContainer.DiscoverAllIdentitiesWithCompletionHandler]
+func NewCKUserIdentityArrayErrorBlock(handler CKUserIdentityArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]CKUserIdentity
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]CKUserIdentity, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = CKUserIdentityFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // CKUserIdentityCKUserIdentityLookupInfoHandler is the signature for a completion handler block.
 type CKUserIdentityCKUserIdentityLookupInfoHandler = func(*CKUserIdentity, *CKUserIdentityLookupInfo)
@@ -513,6 +618,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 

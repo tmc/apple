@@ -242,7 +242,7 @@ func (p AVPlayerLayer) StopShowingCaptionPreview() {
 //
 // The size and position of a rectangle depends on the aspect ratio of the
 // media (16:9 or 4:3), the layer’s [bounds], and the value of its
-// [VideoGravity] property.
+// [AVPlayerLayer.VideoGravity] property.
 //
 // This property is key-value observable.
 //
@@ -291,8 +291,8 @@ func (p AVPlayerLayer) SetVideoGravity(value AVLayerVideoGravity) {
 // view. You can display a player layer while this property value is false,
 // but the layer doesn’t present any content until the value becomes true.
 //
-// This property remains false for a player when its [CurrentItem] contains no
-// enabled video tracks.
+// This property remains false for a player when its [AVPlayer.CurrentItem]
+// contains no enabled video tracks.
 //
 // This property is key-value observable.
 //

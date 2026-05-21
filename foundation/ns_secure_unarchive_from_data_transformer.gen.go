@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSSecureUnarchiveFromDataTransformer] class.
@@ -48,13 +49,14 @@ func (nc NSSecureUnarchiveFromDataTransformerClass) Alloc() NSSecureUnarchiveFro
 //
 // This class provides a default [NSValueTransformer] implementation for
 // secure decoding. This class attempts to decode data into the classes listed
-// within [NSSecureUnarchiveFromDataTransformer.AllowedTopLevelClasses], which includes [NSArray], [NSDictionary],
-// [NSSet], [NSString], [NSNumber], [NSDate], [NSData], [NSURL], [NSUUID], and
-// [NSNull].
+// within [NSSecureUnarchiveFromDataTransformerClass.AllowedTopLevelClasses],
+// which includes [NSArray], [NSDictionary], [NSSet], [NSString], [NSNumber],
+// [NSDate], [NSData], [NSURL], [NSUUID], and [NSNull].
 //
 // To archive or unarchive other classes that support [NSSecureCoding], create
-// a subclass and override [NSSecureUnarchiveFromDataTransformer.AllowedTopLevelClasses] to list the classes to
-// transform.
+// a subclass and override
+// [NSSecureUnarchiveFromDataTransformerClass.AllowedTopLevelClasses] to list
+// the classes to transform.
 //
 // To use [NSSecureUnarchiveFromDataTransformer] with [Core Data], use the
 // name of this class, or the name of a subclass you implement, as the name of
@@ -118,18 +120,19 @@ func NewNSSecureUnarchiveFromDataTransformer() NSSecureUnarchiveFromDataTransfor
 //
 // # Discussion
 //
-// This property contains the value of [TransformedValueClass] if that value
-// isn’t `nil`. Otherwise, it holds a list of the top level classes that it
-// decodes, which includes [NSArray], [NSDictionary], [NSSet], [NSString],
-// [NSNumber], [NSDate], [NSData], [NSURL], [NSUUID], and [NSNull].
+// This property contains the value of
+// [NSValueTransformerClass.TransformedValueClass] if that value isn’t
+// `nil`. Otherwise, it holds a list of the top level classes that it decodes,
+// which includes [NSArray], [NSDictionary], [NSSet], [NSString], [NSNumber],
+// [NSDate], [NSData], [NSURL], [NSUUID], and [NSNull].
 //
 // Override this property in subclasses to provide an expanded or different
 // set of allowed transformation classes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSecureUnarchiveFromDataTransformer/allowedTopLevelClasses
-func (_NSSecureUnarchiveFromDataTransformerClass NSSecureUnarchiveFromDataTransformerClass) AllowedTopLevelClasses() []objc.Class {
+func (_NSSecureUnarchiveFromDataTransformerClass NSSecureUnarchiveFromDataTransformerClass) AllowedTopLevelClasses() []objectivec.Class {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSSecureUnarchiveFromDataTransformerClass.class), objc.Sel("allowedTopLevelClasses"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objc.Class {
-		return objc.Class(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.Class {
+		return objectivec.Class(id)
 	})
 }

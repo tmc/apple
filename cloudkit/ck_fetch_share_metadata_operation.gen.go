@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,12 +55,13 @@ func (cc CKFetchShareMetadataOperationClass) Alloc() CKFetchShareMetadataOperati
 // participation in a share using [CKAcceptSharesOperation].
 //
 // For a shared record hierarchy, the fetched metadata includes the record ID
-// of the share’s root record. Set [CKFetchShareMetadataOperation.ShouldFetchRootRecord] to true to fetch
-// the entire root record. You can further customize this behavior using
-// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] to specify which fields you want to include in your
-// fetch. This functionality isn’t applicable for a shared record zone
-// because, unlike a shared record hierarchy, it doesn’t have a nominated
-// root record.
+// of the share’s root record. Set
+// [CKFetchShareMetadataOperation.ShouldFetchRootRecord] to true to fetch the
+// entire root record. You can further customize this behavior using
+// [CKFetchShareMetadataOperation.RootRecordDesiredKeys] to specify which
+// fields you want to include in your fetch. This functionality isn’t
+// applicable for a shared record zone because, unlike a shared record
+// hierarchy, it doesn’t have a nominated root record.
 //
 // To run the operation, add it to any container’s operation queue. Returned
 // metadata includes the ID of the container that stores the share. The
@@ -68,12 +70,12 @@ func (cc CKFetchShareMetadataOperationClass) Alloc() CKFetchShareMetadataOperati
 // The operation calls [perShareMetadataBlock] once for each URL you provide,
 // and CloudKit returns the metadata, or an error if the fetch fails. CloudKit
 // also batches per-URL errors. If the operation completes with errors, it
-// returns a [CKFetchShareMetadataOperation.PartialFailure] error. The error stores individual errors in its
-// [CKFetchShareMetadataOperation.UserInfo] dictionary. Use the [CKFetchShareMetadataOperation.CKPartialErrorsByItemIDKey] key to extract
+// returns a [partialFailure] error. The error stores individual errors in its
+// [userInfo] dictionary. Use the [CKPartialErrorsByItemIDKey] key to extract
 // them.
 //
 // When all of the following conditions are true, CloudKit returns a
-// [CKFetchShareMetadataOperation.ParticipantMayNeedVerification] error:
+// [participantMayNeedVerification] error:
 //
 // - There are pending participants that don’t have matched iCloud accounts.
 // - The current user has an active iCloud account and isn’t an existing
@@ -98,17 +100,17 @@ func (cc CKFetchShareMetadataOperationClass) Alloc() CKFetchShareMetadataOperati
 //
 // # Instance Properties
 //
-//   - [CKFetchShareMetadataOperation.FetchShareMetadataResultBlock]: The closure to execute when the operation finishes.
-//   - [CKFetchShareMetadataOperation.SetFetchShareMetadataResultBlock]
-//   - [CKFetchShareMetadataOperation.PerShareMetadataResultBlock]: The closure to execute as the operation fetches individual shares.
-//   - [CKFetchShareMetadataOperation.SetPerShareMetadataResultBlock]
 //   - [CKFetchShareMetadataOperation.RootRecordDesiredKeys]: The fields to return when fetching the root record.
 //   - [CKFetchShareMetadataOperation.SetRootRecordDesiredKeys]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchShareMetadataOperation
 //
+// [CKPartialErrorsByItemIDKey]: https://developer.apple.com/documentation/CloudKit/CKPartialErrorsByItemIDKey
 // [open(_:options:completionHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplication/open(_:options:completionHandler:)
+// [partialFailure]: https://developer.apple.com/documentation/CloudKit/CKError/partialFailure
+// [participantMayNeedVerification]: https://developer.apple.com/documentation/CloudKit/CKError/participantMayNeedVerification
 // [perShareMetadataBlock]: https://developer.apple.com/documentation/CloudKit/CKFetchShareMetadataOperation/perShareMetadataBlock
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSError/userInfo
 type CKFetchShareMetadataOperation struct {
 	CKOperation
 }
@@ -138,10 +140,6 @@ func CKFetchShareMetadataOperationFromID(id objc.ID) CKFetchShareMetadataOperati
 //
 // # Instance Properties
 //
-//   - [ICKFetchShareMetadataOperation.FetchShareMetadataResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKFetchShareMetadataOperation.SetFetchShareMetadataResultBlock]
-//   - [ICKFetchShareMetadataOperation.PerShareMetadataResultBlock]: The closure to execute as the operation fetches individual shares.
-//   - [ICKFetchShareMetadataOperation.SetPerShareMetadataResultBlock]
 //   - [ICKFetchShareMetadataOperation.RootRecordDesiredKeys]: The fields to return when fetching the root record.
 //   - [ICKFetchShareMetadataOperation.SetRootRecordDesiredKeys]
 //
@@ -165,27 +163,9 @@ type ICKFetchShareMetadataOperation interface {
 
 	// Topic: Instance Properties
 
-	// The closure to execute when the operation finishes.
-	FetchShareMetadataResultBlock() unsafe.Pointer
-	SetFetchShareMetadataResultBlock(value unsafe.Pointer)
-	// The closure to execute as the operation fetches individual shares.
-	PerShareMetadataResultBlock() unsafe.Pointer
-	SetPerShareMetadataResultBlock(value unsafe.Pointer)
 	// The fields to return when fetching the root record.
-	RootRecordDesiredKeys() string
-	SetRootRecordDesiredKeys(value string)
-
-	// The key to retrieve partial errors.
-	CKPartialErrorsByItemIDKey() string
-	// An error that occurs when an operation completes with partial failures.
-	PartialFailure() CKErrorCode
-	SetPartialFailure(value CKErrorCode)
-	// An error that occurs when the user isn’t a participant of the share.
-	ParticipantMayNeedVerification() CKErrorCode
-	SetParticipantMayNeedVerification(value CKErrorCode)
-	// The user info dictionary.
-	UserInfo() string
-	SetUserInfo(value string)
+	RootRecordDesiredKeys() unsafe.Pointer
+	SetRootRecordDesiredKeys(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -210,7 +190,8 @@ func NewCKFetchShareMetadataOperation() CKFetchShareMetadataOperation {
 // Creates an operation for fetching the metadata for the specified shares.
 //
 // shareURLs: The URLs of the shares. If you specify `nil`, you must assign a value to
-// the [ShareURLs] property before you execute the operation.
+// the [CKFetchShareMetadataOperation.ShareURLs] property before you execute
+// the operation.
 //
 // # Discussion
 //
@@ -229,7 +210,8 @@ func NewCKFetchShareMetadataOperationWithShareURLs(shareURLs []foundation.NSURL)
 // Creates an operation for fetching the metadata for the specified shares.
 //
 // shareURLs: The URLs of the shares. If you specify `nil`, you must assign a value to
-// the [ShareURLs] property before you execute the operation.
+// the [CKFetchShareMetadataOperation.ShareURLs] property before you execute
+// the operation.
 //
 // # Discussion
 //
@@ -283,76 +265,13 @@ func (c CKFetchShareMetadataOperation) SetShouldFetchRootRecord(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShouldFetchRootRecord:"), value)
 }
 
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/fetchsharemetadataresultblock
-func (c CKFetchShareMetadataOperation) FetchShareMetadataResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchShareMetadataResultBlock"))
-	return rv
-}
-func (c CKFetchShareMetadataOperation) SetFetchShareMetadataResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchShareMetadataResultBlock:"), value)
-}
-
-// The closure to execute as the operation fetches individual shares.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/persharemetadataresultblock
-func (c CKFetchShareMetadataOperation) PerShareMetadataResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perShareMetadataResultBlock"))
-	return rv
-}
-func (c CKFetchShareMetadataOperation) SetPerShareMetadataResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerShareMetadataResultBlock:"), value)
-}
-
 // The fields to return when fetching the root record.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/rootrecorddesiredkeys-3xrex
-func (c CKFetchShareMetadataOperation) RootRecordDesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("rootRecordDesiredKeys"))
-	return foundation.NSStringFromID(rv).String()
+func (c CKFetchShareMetadataOperation) RootRecordDesiredKeys() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("rootRecordDesiredKeys"))
+	return rv
 }
-func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), objc.String(value))
-}
-
-// The key to retrieve partial errors.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckpartialerrorsbyitemidkey
-func (c CKFetchShareMetadataOperation) CKPartialErrorsByItemIDKey() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKPartialErrorsByItemIDKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An error that occurs when an operation completes with partial failures.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckerror/partialfailure
-func (c CKFetchShareMetadataOperation) PartialFailure() CKErrorCode {
-	rv := objc.Send[CKErrorCode](c.ID, objc.Sel("partialFailure"))
-	return CKErrorCode(rv)
-}
-func (c CKFetchShareMetadataOperation) SetPartialFailure(value CKErrorCode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPartialFailure:"), value)
-}
-
-// An error that occurs when the user isn’t a participant of the share.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckerror/participantmayneedverification
-func (c CKFetchShareMetadataOperation) ParticipantMayNeedVerification() CKErrorCode {
-	rv := objc.Send[CKErrorCode](c.ID, objc.Sel("participantMayNeedVerification"))
-	return CKErrorCode(rv)
-}
-func (c CKFetchShareMetadataOperation) SetParticipantMayNeedVerification(value CKErrorCode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setParticipantMayNeedVerification:"), value)
-}
-
-// The user info dictionary.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSError/userInfo
-func (c CKFetchShareMetadataOperation) UserInfo() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userInfo"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKFetchShareMetadataOperation) SetUserInfo(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserInfo:"), objc.String(value))
+func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), value)
 }

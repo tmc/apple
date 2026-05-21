@@ -115,7 +115,7 @@ func NewNEDNSProxyProviderProtocol() NEDNSProxyProviderProtocol {
 //
 // This dictionary is passed as-is through the `options` parameter when the
 // framework starts a DNS proxy by calling the proxy’s
-// [StartProxyWithOptionsCompletionHandler] function.
+// [NEDNSProxyProvider.StartProxyWithOptionsCompletionHandler] function.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProviderProtocol/providerConfiguration
 func (d NEDNSProxyProviderProtocol) ProviderConfiguration() foundation.INSDictionary {

@@ -106,10 +106,6 @@ type IVZVirtioGraphicsScanoutConfiguration interface {
 	// An integer value that describes the width of the graphics device in pixels.
 	WidthInPixels() int
 	SetWidthInPixels(value int)
-
-	// The array of output devices.
-	Scanouts() IVZVirtioGraphicsScanoutConfiguration
-	SetScanouts(value IVZVirtioGraphicsScanoutConfiguration)
 }
 
 // Init initializes the instance.
@@ -177,15 +173,4 @@ func (v VZVirtioGraphicsScanoutConfiguration) WidthInPixels() int {
 }
 func (v VZVirtioGraphicsScanoutConfiguration) SetWidthInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthInPixels:"), value)
-}
-
-// The array of output devices.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtiographicsdeviceconfiguration/scanouts
-func (v VZVirtioGraphicsScanoutConfiguration) Scanouts() IVZVirtioGraphicsScanoutConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("scanouts"))
-	return VZVirtioGraphicsScanoutConfigurationFromID(objc.ID(rv))
-}
-func (v VZVirtioGraphicsScanoutConfiguration) SetScanouts(value IVZVirtioGraphicsScanoutConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setScanouts:"), value)
 }

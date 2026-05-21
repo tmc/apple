@@ -50,15 +50,15 @@ func (ac AVCapturePhotoOutputReadinessCoordinatorClass) Alloc() AVCapturePhotoOu
 // a [AVCapturePhotoOutput] that runs on a background queue. Adopt the
 // [AVCapturePhotoOutputReadinessCoordinatorDelegate] protocol in your app and
 // set its implementation as the coordinator’s delegate object to receive
-// callbacks as the associated photo output’s [AVCapturePhotoOutputReadinessCoordinator.CaptureReadiness] state
-// changes.
+// callbacks as the associated photo output’s
+// [AVCapturePhotoOutput.CaptureReadiness] state changes.
 //
 // You can track additional capture requests with this object by calling its
-// [AVCapturePhotoOutputReadinessCoordinator.StartTrackingCaptureRequestUsingPhotoSettings] method. You can use it to
-// synchronously update shutter button availability and appearance and on the
-// main thread while calling the photo output’s
-// [CapturePhotoWithSettingsDelegate] method asynchronously on a background
-// queue.
+// [AVCapturePhotoOutputReadinessCoordinator.StartTrackingCaptureRequestUsingPhotoSettings]
+// method. You can use it to synchronously update shutter button availability
+// and appearance and on the main thread while calling the photo output’s
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method
+// asynchronously on a background queue.
 //
 // # Creating a coordinator
 //
@@ -185,8 +185,9 @@ func (c AVCapturePhotoOutputReadinessCoordinator) InitWithPhotoOutput(photoOutpu
 
 // Tracks a capture request that uses the specified photo settings.
 //
-// settings: A settings object that the system passes [CapturePhotoWithSettingsDelegate]
-// for this capture request.
+// settings: A settings object that the system passes
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] for this capture
+// request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutputReadinessCoordinator/startTrackingCaptureRequest(using:)
 func (c AVCapturePhotoOutputReadinessCoordinator) StartTrackingCaptureRequestUsingPhotoSettings(settings IAVCapturePhotoSettings) {
@@ -196,7 +197,8 @@ func (c AVCapturePhotoOutputReadinessCoordinator) StartTrackingCaptureRequestUsi
 // Stop tracking the capture request represented by the specified photo
 // setting’s unique identifier.
 //
-// settingsUniqueID: The [UniqueID] value of the related photo settings object.
+// settingsUniqueID: The [AVCapturePhotoSettings.UniqueID] value of the related photo settings
+// object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutputReadinessCoordinator/stopTrackingCaptureRequest(using:)
 func (c AVCapturePhotoOutputReadinessCoordinator) StopTrackingCaptureRequestUsingPhotoSettingsUniqueID(settingsUniqueID int64) {
@@ -229,10 +231,11 @@ func (c AVCapturePhotoOutputReadinessCoordinator) SetDelegate(value AVCapturePho
 //
 // # Discussion
 //
-// The value incorporates the photo output’s [CaptureReadiness] property
-// value and any requests registered by calling the
-// [StartTrackingCaptureRequestUsingPhotoSettings] method. The system updates
-// this value before calling the
+// The value incorporates the photo output’s
+// [AVCapturePhotoOutput.CaptureReadiness] property value and any requests
+// registered by calling the
+// [AVCapturePhotoOutputReadinessCoordinator.StartTrackingCaptureRequestUsingPhotoSettings]
+// method. The system updates this value before calling the
 // [ReadinessCoordinatorCaptureReadinessDidChange] method.
 //
 // This property is key-value observable.

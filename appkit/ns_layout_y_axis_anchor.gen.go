@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -126,6 +127,13 @@ func NewNSLayoutYAxisAnchor() NSLayoutYAxisAnchor {
 	class := getNSLayoutYAxisAnchorClass()
 	rv := objc.Send[NSLayoutYAxisAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/init(coder:)
+func NewLayoutYAxisAnchorWithCoder(coder foundation.INSCoder) NSLayoutYAxisAnchor {
+	instance := getNSLayoutYAxisAnchorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSLayoutYAxisAnchorFromID(rv)
 }
 
 // Returns a constraint that defines the specific distance at which the

@@ -52,8 +52,6 @@ func (cc CKFetchRecordZoneChangesConfigurationClass) Alloc() CKFetchRecordZoneCh
 //   - [CKFetchRecordZoneChangesConfiguration.SetPreviousServerChangeToken]
 //   - [CKFetchRecordZoneChangesConfiguration.ResultsLimit]: The maximum number of records that CloudKit retrieves when fetching zone changes.
 //   - [CKFetchRecordZoneChangesConfiguration.SetResultsLimit]
-//   - [CKFetchRecordZoneChangesConfiguration.DesiredKeys]: An array of the record keys to retrieve.
-//   - [CKFetchRecordZoneChangesConfiguration.SetDesiredKeys]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordZoneChangesOperation/ZoneConfiguration
 type CKFetchRecordZoneChangesConfiguration struct {
@@ -79,8 +77,6 @@ func CKFetchRecordZoneChangesConfigurationFromID(id objc.ID) CKFetchRecordZoneCh
 //   - [ICKFetchRecordZoneChangesConfiguration.SetPreviousServerChangeToken]
 //   - [ICKFetchRecordZoneChangesConfiguration.ResultsLimit]: The maximum number of records that CloudKit retrieves when fetching zone changes.
 //   - [ICKFetchRecordZoneChangesConfiguration.SetResultsLimit]
-//   - [ICKFetchRecordZoneChangesConfiguration.DesiredKeys]: An array of the record keys to retrieve.
-//   - [ICKFetchRecordZoneChangesConfiguration.SetDesiredKeys]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordZoneChangesOperation/ZoneConfiguration
 type ICKFetchRecordZoneChangesConfiguration interface {
@@ -94,19 +90,7 @@ type ICKFetchRecordZoneChangesConfiguration interface {
 	// The maximum number of records that CloudKit retrieves when fetching zone changes.
 	ResultsLimit() uint
 	SetResultsLimit(value uint)
-	// An array of the record keys to retrieve.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
 
-	// A dictionary of configurations for fetching change operations by zone identifier.
-	ConfigurationsByRecordZoneID() ICKFetchRecordZoneChangesConfiguration
-	SetConfigurationsByRecordZoneID(value ICKFetchRecordZoneChangesConfiguration)
-	// A Boolean value that indicates whether to send repeated requests to the server.
-	FetchAllChanges() bool
-	SetFetchAllChanges(value bool)
-	// The IDs of the record zones that contain the records to fetch.
-	RecordZoneIDs() ICKRecordZoneID
-	SetRecordZoneIDs(value ICKRecordZoneID)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -154,50 +138,4 @@ func (c CKFetchRecordZoneChangesConfiguration) ResultsLimit() uint {
 }
 func (c CKFetchRecordZoneChangesConfiguration) SetResultsLimit(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setResultsLimit:"), value)
-}
-
-// An array of the record keys to retrieve.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonechangesoperation/zoneconfiguration/desiredkeys
-func (c CKFetchRecordZoneChangesConfiguration) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKFetchRecordZoneChangesConfiguration) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
-}
-
-// A dictionary of configurations for fetching change operations by zone
-// identifier.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonechangesoperation/configurationsbyrecordzoneid
-func (c CKFetchRecordZoneChangesConfiguration) ConfigurationsByRecordZoneID() ICKFetchRecordZoneChangesConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("configurationsByRecordZoneID"))
-	return CKFetchRecordZoneChangesConfigurationFromID(objc.ID(rv))
-}
-func (c CKFetchRecordZoneChangesConfiguration) SetConfigurationsByRecordZoneID(value ICKFetchRecordZoneChangesConfiguration) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConfigurationsByRecordZoneID:"), value)
-}
-
-// A Boolean value that indicates whether to send repeated requests to the
-// server.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonechangesoperation/fetchallchanges
-func (c CKFetchRecordZoneChangesConfiguration) FetchAllChanges() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("fetchAllChanges"))
-	return rv
-}
-func (c CKFetchRecordZoneChangesConfiguration) SetFetchAllChanges(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchAllChanges:"), value)
-}
-
-// The IDs of the record zones that contain the records to fetch.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonechangesoperation/recordzoneids
-func (c CKFetchRecordZoneChangesConfiguration) RecordZoneIDs() ICKRecordZoneID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordZoneIDs"))
-	return CKRecordZoneIDFromID(objc.ID(rv))
-}
-func (c CKFetchRecordZoneChangesConfiguration) SetRecordZoneIDs(value ICKRecordZoneID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordZoneIDs:"), value)
 }

@@ -125,6 +125,13 @@ func NewVNRecognizedPointsObservation() VNRecognizedPointsObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewRecognizedPointsObservationWithCoder(coder foundation.INSCoder) VNRecognizedPointsObservation {
+	instance := getVNRecognizedPointsObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNRecognizedPointsObservationFromID(rv)
+}
+
 // Retrieves a recognized point for a key.
 //
 // pointKey: The key of the point to retrieve.

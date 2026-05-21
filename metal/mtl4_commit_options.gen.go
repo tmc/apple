@@ -5,7 +5,6 @@ package metal
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -86,8 +85,6 @@ type IMTL4CommitOptions interface {
 
 	// Registers a commit feedback handler that Metal calls with feedback data when available.
 	AddFeedbackHandler(block MTL4CommitFeedbackHandler)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -119,10 +116,4 @@ func (m MTL4CommitOptions) AddFeedbackHandler(block MTL4CommitFeedbackHandler) {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTL4CommitFeedbackObjectFromID(arg0)) })
 	// _block0 intentionally not released: "addFeedbackHandler:" retains the block past return.
 	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), objc.ID(_block0))
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4CommitOptions) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

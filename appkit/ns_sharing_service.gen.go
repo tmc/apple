@@ -275,8 +275,8 @@ func NewSharingServiceNamed(serviceName NSSharingServiceName) NSSharingService {
 // delegate method.
 //
 // When implementing this method, consider subclassing [NSSharingService] so
-// the [CanPerformWithItems] and [sharingServices(forItems:)] can provide
-// accurate results.
+// the [NSSharingService.CanPerformWithItems] and [sharingServices(forItems:)]
+// can provide accurate results.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/init(title:image:alternateImage:handler:)
 //
@@ -374,8 +374,8 @@ func (s NSSharingService) Title() string {
 //
 // # Discussion
 //
-// By default, this title is the same as the value of the [Title] property.
-// Your app can modify this value.
+// By default, this title is the same as the value of the
+// [NSSharingService.Title] property. Your app can modify this value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/menuItemTitle
 func (s NSSharingService) MenuItemTitle() string {

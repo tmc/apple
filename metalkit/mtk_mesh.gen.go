@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -111,7 +112,7 @@ type IMTKMesh interface {
 	// Topic: Initialization
 
 	// Initializes a MetalKit mesh and its submeshes from a Model I/O mesh.
-	InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error)
+	InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error)
 
 	// Topic: Submeshes
 
@@ -125,7 +126,7 @@ type IMTKMesh interface {
 	// The number of vertices in the vertex buffers.
 	VertexCount() uint
 	// A Model I/O vertex descriptor specifying the data layout in the vertex buffers.
-	VertexDescriptor() objc.ID
+	VertexDescriptor() objectivec.IObject
 
 	// Topic: Identifying Properties
 
@@ -181,7 +182,7 @@ func NewMTKMesh() MTKMesh {
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
+func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	instance := getMTKMeshClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
@@ -197,6 +198,8 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 // mesh: The source Model I/O mesh from which to create this MetalKit mesh.
 //
 // device: The Metal device on which to create MetalKit mesh resources.
+//
+// mesh is a [*modelio.MDLMesh].
 //
 // # Return Value
 //
@@ -220,7 +223,7 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
+func (m MTKMesh) InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -275,9 +278,9 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [MDLMesh]: https://developer.apple.com/documentation/ModelIO/MDLMesh
-func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
+func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []kernel.ID) ([]MTKMesh, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, objectivec.IDSliceToNSArray(sourceMeshes), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, sourceMeshes, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -331,15 +334,15 @@ func (m MTKMesh) VertexCount() uint {
 // descriptor, but your application may use this object to determine rendering
 // state or create a [MTLVertexDescriptor] object to build a
 // [MTLRenderPipelineState] object capable of interpreting the data in
-// [VertexBuffers].
+// [MTKMesh.VertexBuffers].
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexDescriptor
 //
 // [MTLRenderPipelineState]: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState
 // [MTLVertexDescriptor]: https://developer.apple.com/documentation/Metal/MTLVertexDescriptor
-func (m MTKMesh) VertexDescriptor() objc.ID {
+func (m MTKMesh) VertexDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("vertexDescriptor"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // The name of the mesh.

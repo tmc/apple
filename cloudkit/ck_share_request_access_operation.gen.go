@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -50,10 +49,6 @@ func (cc CKShareRequestAccessOperationClass) Alloc() CKShareRequestAccessOperati
 //
 // # Instance Properties
 //
-//   - [CKShareRequestAccessOperation.PerShareAccessRequestResultBlock]: The closure to execute when CloudKit processes a share access request.
-//   - [CKShareRequestAccessOperation.SetPerShareAccessRequestResultBlock]
-//   - [CKShareRequestAccessOperation.ShareAccessRequestResultBlock]: The closure to execute after CloudKit processes each share access request.
-//   - [CKShareRequestAccessOperation.SetShareAccessRequestResultBlock]
 //   - [CKShareRequestAccessOperation.ShareURLs]: The URLs of the shares to request access to.
 //   - [CKShareRequestAccessOperation.SetShareURLs]
 //
@@ -78,10 +73,6 @@ func CKShareRequestAccessOperationFromID(id objc.ID) CKShareRequestAccessOperati
 //
 // # Instance Properties
 //
-//   - [ICKShareRequestAccessOperation.PerShareAccessRequestResultBlock]: The closure to execute when CloudKit processes a share access request.
-//   - [ICKShareRequestAccessOperation.SetPerShareAccessRequestResultBlock]
-//   - [ICKShareRequestAccessOperation.ShareAccessRequestResultBlock]: The closure to execute after CloudKit processes each share access request.
-//   - [ICKShareRequestAccessOperation.SetShareAccessRequestResultBlock]
 //   - [ICKShareRequestAccessOperation.ShareURLs]: The URLs of the shares to request access to.
 //   - [ICKShareRequestAccessOperation.SetShareURLs]
 //
@@ -96,12 +87,6 @@ type ICKShareRequestAccessOperation interface {
 
 	// Topic: Instance Properties
 
-	// The closure to execute when CloudKit processes a share access request.
-	PerShareAccessRequestResultBlock() unsafe.Pointer
-	SetPerShareAccessRequestResultBlock(value unsafe.Pointer)
-	// The closure to execute after CloudKit processes each share access request.
-	ShareAccessRequestResultBlock() unsafe.Pointer
-	SetShareAccessRequestResultBlock(value unsafe.Pointer)
 	// The URLs of the shares to request access to.
 	ShareURLs() []foundation.NSURL
 	SetShareURLs(value []foundation.NSURL)
@@ -155,28 +140,6 @@ func NewCKShareRequestAccessOperationWithShareURLs(shareURLs []foundation.NSURL)
 func (c CKShareRequestAccessOperation) InitWithShareURLs(shareURLs []foundation.NSURL) CKShareRequestAccessOperation {
 	rv := objc.Send[CKShareRequestAccessOperation](c.ID, objc.Sel("initWithShareURLs:"), objectivec.IObjectSliceToNSArray(shareURLs))
 	return rv
-}
-
-// The closure to execute when CloudKit processes a share access request.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksharerequestaccessoperation/pershareaccessrequestresultblock
-func (c CKShareRequestAccessOperation) PerShareAccessRequestResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perShareAccessRequestResultBlock"))
-	return rv
-}
-func (c CKShareRequestAccessOperation) SetPerShareAccessRequestResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerShareAccessRequestResultBlock:"), value)
-}
-
-// The closure to execute after CloudKit processes each share access request.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cksharerequestaccessoperation/shareaccessrequestresultblock
-func (c CKShareRequestAccessOperation) ShareAccessRequestResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("shareAccessRequestResultBlock"))
-	return rv
-}
-func (c CKShareRequestAccessOperation) SetShareAccessRequestResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setShareAccessRequestResultBlock:"), value)
 }
 
 // The URLs of the shares to request access to.

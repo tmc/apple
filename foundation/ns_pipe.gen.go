@@ -137,11 +137,11 @@ func (_PipeClass PipeClass) Pipe() NSPipe {
 // is automatically deallocated when the receiver is deallocated.
 //
 // You use the returned file handle to read from the pipe using
-// [NSFileHandle]’s read methods—[AvailableData], [ReadDataToEndOfFile],
-// and [ReadDataOfLength].
+// [NSFileHandle]’s read methods—[NSFileHandle.AvailableData],
+// [NSFileHandle.ReadDataToEndOfFile], and [NSFileHandle.ReadDataOfLength].
 //
-// You don’t need to send [CloseFile] to this object or explicitly release
-// the object after you have finished using it.
+// You don’t need to send [NSFileHandle.CloseFile] to this object or
+// explicitly release the object after you have finished using it.
 //
 // See: https://developer.apple.com/documentation/Foundation/Pipe/fileHandleForReading
 func (p Pipe) FileHandleForReading() INSFileHandle {
@@ -156,10 +156,10 @@ func (p Pipe) FileHandleForReading() INSFileHandle {
 // This object is automatically deallocated when the receiver is deallocated.
 //
 // You use the returned file handle to write to the pipe using
-// [NSFileHandle]’s [WriteData] method. When you are finished writing data
-// to this object, send it a [CloseFile] message to delete the descriptor.
-// Deleting the descriptor causes the reading process to receive an
-// end-of-data signal (an empty [NSData] object).
+// [NSFileHandle]’s [NSFileHandle.WriteData] method. When you are finished
+// writing data to this object, send it a [NSFileHandle.CloseFile] message to
+// delete the descriptor. Deleting the descriptor causes the reading process
+// to receive an end-of-data signal (an empty [NSData] object).
 //
 // See: https://developer.apple.com/documentation/Foundation/Pipe/fileHandleForWriting
 func (p Pipe) FileHandleForWriting() INSFileHandle {

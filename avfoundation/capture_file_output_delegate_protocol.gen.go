@@ -55,20 +55,20 @@ func AVCaptureFileOutputDelegateObjectFromID(id objc.ID) AVCaptureFileOutputDele
 // In apps linked before OS X Mountain Lion, delegates that implement the
 // [CaptureOutputDidOutputSampleBufferFromConnection] method can ensure that
 // starting and stopping a recording is frame accurate by calling
-// [StartRecordingToOutputFileURLRecordingDelegate] or [StopRecording] from
-// within the callback. Frame accurate recording requires the capture output
-// to apply outputSettings when the session starts running, so it is ready to
-// start and/or stop recording on any given frame boundary. Applying
-// compression settings for the entire length of the session has power,
-// thermal, and CPU implications.
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] or
+// [AVCaptureFileOutput.StopRecording] from within the callback. Frame
+// accurate recording requires the capture output to apply outputSettings when
+// the session starts running, so it is ready to start and/or stop recording
+// on any given frame boundary. Applying compression settings for the entire
+// length of the session has power, thermal, and CPU implications.
 //
 // In apps linked on or after OS X Mountain Lion, delegates must implement
 // this method to indicate whether frame accurate recording is required. The
 // capture file output calls this method only once when the delegate is added
 // and never again. If your delegate returns false, the capture file output
 // applies compression settings only when
-// [StartRecordingToOutputFileURLRecordingDelegate] is called and disables
-// these settings once the recording stops.
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] is
+// called and disables these settings once the recording stops.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutputShouldProvideSampleAccurateRecordingStart(_:)
 func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccurateRecordingStart(output IAVCaptureOutput) bool {
@@ -94,11 +94,12 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // connection. This gives delegates an opportunity to start and stop recording
 // or change output files at an exact sample boundary. If called from within
 // this method, the file output’s
-// [StartRecordingToOutputFileURLRecordingDelegate] and [ResumeRecording]
-// methods are guaranteed to include the received sample buffer in the new
-// file, whereas calls to [StopRecording] and [PauseRecording] are guaranteed
-// to include all samples leading up to those in the current sample buffer in
-// the existing file.
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate] and
+// [AVCaptureFileOutput.ResumeRecording] methods are guaranteed to include the
+// received sample buffer in the new file, whereas calls to
+// [AVCaptureFileOutput.StopRecording] and
+// [AVCaptureFileOutput.PauseRecording] are guaranteed to include all samples
+// leading up to those in the current sample buffer in the existing file.
 //
 // You can gather information particular to the samples by inspecting the
 // [CMSampleBuffer] object. Sample buffers always contain a single frame of

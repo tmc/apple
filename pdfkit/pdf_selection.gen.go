@@ -312,7 +312,8 @@ func (p PDFSelection) ExtendSelectionAtStart(precede int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("extendSelectionAtStart:"), precede)
 }
 
-// Calls [DrawForPageWithBoxActive] with a default value for box parameter.
+// Calls [PDFSelection.DrawForPageWithBoxActive] with a default value for box
+// parameter.
 //
 // # Discussion
 //

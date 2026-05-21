@@ -65,8 +65,6 @@ func (nc NEVPNConnectionClass) Alloc() NEVPNConnection {
 //
 //   - [NEVPNConnection.StartVPNTunnelAndReturnError]: Start the process of connecting the VPN.
 //   - [NEVPNConnection.StartVPNTunnelWithOptionsAndReturnError]: Start the process of connecting the VPN.
-//   - [NEVPNConnection.NEVPNConnectionStartOptionUsername]
-//   - [NEVPNConnection.NEVPNConnectionStartOptionPassword]
 //   - [NEVPNConnection.StopVPNTunnel]: Start the process of disconnecting the VPN.
 //
 // # Getting VPN connection status
@@ -75,14 +73,9 @@ func (nc NEVPNConnectionClass) Alloc() NEVPNConnection {
 //   - [NEVPNConnection.Status]: The current status of the VPN connection.
 //   - [NEVPNConnection.ConnectedDate]: The date and time when the connection status changed to [NEVPNStatusConnected].
 //
-// # Notifications
-//
-//   - [NEVPNConnection.NEVPNStatusDidChange]: Posted when the status of the VPN connection changes.
-//
 // # Handling errors
 //
 //   - [NEVPNConnection.FetchLastDisconnectErrorWithCompletionHandler]: Retrives the most recent error that caused the VPN to disconnect.
-//   - [NEVPNConnection.NEVPNConnectionErrorDomain]: The domain for errors resulting from VPN connection calls.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection
 type NEVPNConnection struct {
@@ -105,8 +98,6 @@ func NEVPNConnectionFromID(id objc.ID) NEVPNConnection {
 //
 //   - [INEVPNConnection.StartVPNTunnelAndReturnError]: Start the process of connecting the VPN.
 //   - [INEVPNConnection.StartVPNTunnelWithOptionsAndReturnError]: Start the process of connecting the VPN.
-//   - [INEVPNConnection.NEVPNConnectionStartOptionUsername]
-//   - [INEVPNConnection.NEVPNConnectionStartOptionPassword]
 //   - [INEVPNConnection.StopVPNTunnel]: Start the process of disconnecting the VPN.
 //
 // # Getting VPN connection status
@@ -115,14 +106,9 @@ func NEVPNConnectionFromID(id objc.ID) NEVPNConnection {
 //   - [INEVPNConnection.Status]: The current status of the VPN connection.
 //   - [INEVPNConnection.ConnectedDate]: The date and time when the connection status changed to [NEVPNStatusConnected].
 //
-// # Notifications
-//
-//   - [INEVPNConnection.NEVPNStatusDidChange]: Posted when the status of the VPN connection changes.
-//
 // # Handling errors
 //
 //   - [INEVPNConnection.FetchLastDisconnectErrorWithCompletionHandler]: Retrives the most recent error that caused the VPN to disconnect.
-//   - [INEVPNConnection.NEVPNConnectionErrorDomain]: The domain for errors resulting from VPN connection calls.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection
 type INEVPNConnection interface {
@@ -134,8 +120,6 @@ type INEVPNConnection interface {
 	StartVPNTunnelAndReturnError() (bool, error)
 	// Start the process of connecting the VPN.
 	StartVPNTunnelWithOptionsAndReturnError(options foundation.INSDictionary) (bool, error)
-	NEVPNConnectionStartOptionUsername() string
-	NEVPNConnectionStartOptionPassword() string
 	// Start the process of disconnecting the VPN.
 	StopVPNTunnel()
 
@@ -147,17 +131,10 @@ type INEVPNConnection interface {
 	// The date and time when the connection status changed to [NEVPNStatusConnected].
 	ConnectedDate() foundation.NSDate
 
-	// Topic: Notifications
-
-	// Posted when the status of the VPN connection changes.
-	NEVPNStatusDidChange() foundation.NSString
-
 	// Topic: Handling errors
 
 	// Retrives the most recent error that caused the VPN to disconnect.
 	FetchLastDisconnectErrorWithCompletionHandler(handler ErrorHandler)
-	// The domain for errors resulting from VPN connection calls.
-	NEVPNConnectionErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -266,22 +243,11 @@ func (v NEVPNConnection) StopVPNTunnel() {
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection/fetchLastDisconnectError(completionHandler:)
 //
+// [NEVPNConnectionErrorDomain]: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnectionErrorDomain
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (v NEVPNConnection) FetchLastDisconnectErrorWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("fetchLastDisconnectErrorWithCompletionHandler:"), _block0)
-}
-
-// See: https://developer.apple.com/documentation/networkextension/nevpnconnectionstartoptionusername
-func (v NEVPNConnection) NEVPNConnectionStartOptionUsername() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNConnectionStartOptionUsername"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// See: https://developer.apple.com/documentation/networkextension/nevpnconnectionstartoptionpassword
-func (v NEVPNConnection) NEVPNConnectionStartOptionPassword() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNConnectionStartOptionPassword"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection/manager
@@ -312,22 +278,6 @@ func (v NEVPNConnection) Status() NEVPNStatus {
 func (v NEVPNConnection) ConnectedDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("connectedDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
-}
-
-// Posted when the status of the VPN connection changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NEVPNStatusDidChange
-func (v NEVPNConnection) NEVPNStatusDidChange() foundation.NSString {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNStatusDidChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The domain for errors resulting from VPN connection calls.
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnconnectionerrordomain
-func (v NEVPNConnection) NEVPNConnectionErrorDomain() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNConnectionErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // FetchLastDisconnectError is a synchronous wrapper around [NEVPNConnection.FetchLastDisconnectErrorWithCompletionHandler].

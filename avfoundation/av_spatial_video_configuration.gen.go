@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -117,31 +116,6 @@ type IAVSpatialVideoConfiguration interface {
 	// Specifies horizontal field of view in thousandths of a degree. Can be nil if the value is unknown.
 	HorizontalFieldOfView() foundation.NSNumber
 	SetHorizontalFieldOfView(value foundation.NSNumber)
-
-	// A video composition tool to use with Core Animation in offline rendering.
-	AnimationTool() IAVVideoCompositionCoreAnimationTool
-	SetAnimationTool(value IAVVideoCompositionCoreAnimationTool)
-	// The color primaries used for video composition.
-	ColorPrimaries() string
-	SetColorPrimaries(value string)
-	// The transfer function used for video composition.
-	ColorTransferFunction() string
-	SetColorTransferFunction(value string)
-	// The YCbCr matrix used for video composition.
-	ColorYCbCrMatrix() string
-	SetColorYCbCrMatrix(value string)
-	// A custom compositor class to use.
-	CustomVideoCompositorClass() AVVideoCompositing
-	SetCustomVideoCompositorClass(value AVVideoCompositing)
-	// A time interval for which the video composition should render composed video frames.
-	FrameDuration() coremedia.CMTime
-	SetFrameDuration(value coremedia.CMTime)
-	// The scale at which the video composition should render.
-	RenderScale() float32
-	SetRenderScale(value float32)
-	// The size at which the video composition should render.
-	RenderSize() corefoundation.CGSize
-	SetRenderSize(value corefoundation.CGSize)
 }
 
 // Init initializes the instance.
@@ -267,93 +241,4 @@ func (s AVSpatialVideoConfiguration) HorizontalFieldOfView() foundation.NSNumber
 }
 func (s AVSpatialVideoConfiguration) SetHorizontalFieldOfView(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalFieldOfView:"), value)
-}
-
-// A video composition tool to use with Core Animation in offline rendering.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/animationtool
-func (s AVSpatialVideoConfiguration) AnimationTool() IAVVideoCompositionCoreAnimationTool {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("animationTool"))
-	return AVVideoCompositionCoreAnimationToolFromID(objc.ID(rv))
-}
-func (s AVSpatialVideoConfiguration) SetAnimationTool(value IAVVideoCompositionCoreAnimationTool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAnimationTool:"), value)
-}
-
-// The color primaries used for video composition.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colorprimaries
-func (s AVSpatialVideoConfiguration) ColorPrimaries() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("colorPrimaries"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (s AVSpatialVideoConfiguration) SetColorPrimaries(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setColorPrimaries:"), objc.String(value))
-}
-
-// The transfer function used for video composition.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colortransferfunction
-func (s AVSpatialVideoConfiguration) ColorTransferFunction() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("colorTransferFunction"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (s AVSpatialVideoConfiguration) SetColorTransferFunction(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setColorTransferFunction:"), objc.String(value))
-}
-
-// The YCbCr matrix used for video composition.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colorycbcrmatrix
-func (s AVSpatialVideoConfiguration) ColorYCbCrMatrix() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("colorYCbCrMatrix"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (s AVSpatialVideoConfiguration) SetColorYCbCrMatrix(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setColorYCbCrMatrix:"), objc.String(value))
-}
-
-// A custom compositor class to use.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/customvideocompositorclass
-func (s AVSpatialVideoConfiguration) CustomVideoCompositorClass() AVVideoCompositing {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("customVideoCompositorClass"))
-	return AVVideoCompositingObjectFromID(rv)
-}
-func (s AVSpatialVideoConfiguration) SetCustomVideoCompositorClass(value AVVideoCompositing) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCustomVideoCompositorClass:"), value)
-}
-
-// A time interval for which the video composition should render composed
-// video frames.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/frameduration
-func (s AVSpatialVideoConfiguration) FrameDuration() coremedia.CMTime {
-	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("frameDuration"))
-	return coremedia.CMTime(rv)
-}
-func (s AVSpatialVideoConfiguration) SetFrameDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFrameDuration:"), value)
-}
-
-// The scale at which the video composition should render.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/renderscale
-func (s AVSpatialVideoConfiguration) RenderScale() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("renderScale"))
-	return rv
-}
-func (s AVSpatialVideoConfiguration) SetRenderScale(value float32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRenderScale:"), value)
-}
-
-// The size at which the video composition should render.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/rendersize
-func (s AVSpatialVideoConfiguration) RenderSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("renderSize"))
-	return corefoundation.CGSize(rv)
-}
-func (s AVSpatialVideoConfiguration) SetRenderSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRenderSize:"), value)
 }

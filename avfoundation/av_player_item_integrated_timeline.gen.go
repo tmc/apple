@@ -246,15 +246,6 @@ func (p AVPlayerItemIntegratedTimeline) CurrentDate() foundation.NSDate {
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 
-// A notification the system posts when the snapshot objects provided by this
-// timeline become out of sync with the current timeline state.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimeline/snapshotsoutofsyncnotification
-func (_AVPlayerItemIntegratedTimelineClass AVPlayerItemIntegratedTimelineClass) SnapshotsOutOfSyncNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_AVPlayerItemIntegratedTimelineClass.class), objc.Sel("AVPlayerIntegratedTimelineSnapshotsOutOfSyncNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
 // SeekToTimeToleranceBeforeToleranceAfter is a synchronous wrapper around [AVPlayerItemIntegratedTimeline.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Context, time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime) (bool, error) {

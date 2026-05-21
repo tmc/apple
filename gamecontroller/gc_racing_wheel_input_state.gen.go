@@ -53,19 +53,6 @@ func (gc GCRacingWheelInputStateClass) Alloc() GCRacingWheelInputState {
 //   - [GCRacingWheelInputState.ClutchPedal]: The controller’s clutch element.
 //   - [GCRacingWheelInputState.Shifter]: The controller’s gear shift element.
 //
-// # Accessing elements by name
-//
-//   - [GCRacingWheelInputState.GCInputSteeringWheel]: The name of the steering wheel element.
-//   - [GCRacingWheelInputState.SetGCInputSteeringWheel]
-//   - [GCRacingWheelInputState.GCInputShifter]: The name of the shifter element.
-//   - [GCRacingWheelInputState.SetGCInputShifter]
-//   - [GCRacingWheelInputState.GCInputPedalClutch]: The name of the clutch element.
-//   - [GCRacingWheelInputState.SetGCInputPedalClutch]
-//   - [GCRacingWheelInputState.GCInputPedalAccelerator]: The name of the accelerator element.
-//   - [GCRacingWheelInputState.SetGCInputPedalAccelerator]
-//   - [GCRacingWheelInputState.GCInputPedalBrake]: The name of the brake element.
-//   - [GCRacingWheelInputState.SetGCInputPedalBrake]
-//
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheelInputState
 type GCRacingWheelInputState struct {
 	objectivec.Object
@@ -91,19 +78,6 @@ func GCRacingWheelInputStateFromID(id objc.ID) GCRacingWheelInputState {
 //   - [IGCRacingWheelInputState.ClutchPedal]: The controller’s clutch element.
 //   - [IGCRacingWheelInputState.Shifter]: The controller’s gear shift element.
 //
-// # Accessing elements by name
-//
-//   - [IGCRacingWheelInputState.GCInputSteeringWheel]: The name of the steering wheel element.
-//   - [IGCRacingWheelInputState.SetGCInputSteeringWheel]
-//   - [IGCRacingWheelInputState.GCInputShifter]: The name of the shifter element.
-//   - [IGCRacingWheelInputState.SetGCInputShifter]
-//   - [IGCRacingWheelInputState.GCInputPedalClutch]: The name of the clutch element.
-//   - [IGCRacingWheelInputState.SetGCInputPedalClutch]
-//   - [IGCRacingWheelInputState.GCInputPedalAccelerator]: The name of the accelerator element.
-//   - [IGCRacingWheelInputState.SetGCInputPedalAccelerator]
-//   - [IGCRacingWheelInputState.GCInputPedalBrake]: The name of the brake element.
-//   - [IGCRacingWheelInputState.SetGCInputPedalBrake]
-//
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheelInputState
 type IGCRacingWheelInputState interface {
 	objectivec.IObject
@@ -120,24 +94,6 @@ type IGCRacingWheelInputState interface {
 	ClutchPedal() GCButtonElement
 	// The controller’s gear shift element.
 	Shifter() IGCGearShifterElement
-
-	// Topic: Accessing elements by name
-
-	// The name of the steering wheel element.
-	GCInputSteeringWheel() string
-	SetGCInputSteeringWheel(value string)
-	// The name of the shifter element.
-	GCInputShifter() string
-	SetGCInputShifter(value string)
-	// The name of the clutch element.
-	GCInputPedalClutch() string
-	SetGCInputPedalClutch(value string)
-	// The name of the accelerator element.
-	GCInputPedalAccelerator() string
-	SetGCInputPedalAccelerator(value string)
-	// The name of the brake element.
-	GCInputPedalBrake() string
-	SetGCInputPedalBrake(value string)
 }
 
 // Init initializes the instance.
@@ -170,17 +126,17 @@ func (g GCRacingWheelInputState) Device() GCDevice {
 // The time in seconds between the last event and the current time.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventLatency
-func (g GCRacingWheelInputState) LastEventLatency() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("lastEventLatency"))
-	return rv
+func (g GCRacingWheelInputState) LastEventLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](g.ID, objc.Sel("lastEventLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time of the most recent event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventTimestamp
-func (g GCRacingWheelInputState) LastEventTimestamp() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("lastEventTimestamp"))
-	return rv
+func (g GCRacingWheelInputState) LastEventTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](g.ID, objc.Sel("lastEventTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // Returns the element that the key specifies.
@@ -235,61 +191,6 @@ func (g GCRacingWheelInputState) ClutchPedal() GCButtonElement {
 func (g GCRacingWheelInputState) Shifter() IGCGearShifterElement {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shifter"))
 	return GCGearShifterElementFromID(objc.ID(rv))
-}
-
-// The name of the steering wheel element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcinputsteeringwheel-26283
-func (g GCRacingWheelInputState) GCInputSteeringWheel() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCInputSteeringWheel"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (g GCRacingWheelInputState) SetGCInputSteeringWheel(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGCInputSteeringWheel:"), objc.String(value))
-}
-
-// The name of the shifter element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcinputshifter-6miga
-func (g GCRacingWheelInputState) GCInputShifter() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCInputShifter"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (g GCRacingWheelInputState) SetGCInputShifter(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGCInputShifter:"), objc.String(value))
-}
-
-// The name of the clutch element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcinputpedalclutch-82gwe
-func (g GCRacingWheelInputState) GCInputPedalClutch() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCInputPedalClutch"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (g GCRacingWheelInputState) SetGCInputPedalClutch(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGCInputPedalClutch:"), objc.String(value))
-}
-
-// The name of the accelerator element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcinputpedalaccelerator-6kg6u
-func (g GCRacingWheelInputState) GCInputPedalAccelerator() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCInputPedalAccelerator"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (g GCRacingWheelInputState) SetGCInputPedalAccelerator(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGCInputPedalAccelerator:"), objc.String(value))
-}
-
-// The name of the brake element.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcinputpedalbrake-6wpdc
-func (g GCRacingWheelInputState) GCInputPedalBrake() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCInputPedalBrake"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (g GCRacingWheelInputState) SetGCInputPedalBrake(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGCInputPedalBrake:"), objc.String(value))
 }
 
 // Protocol methods for GCDevicePhysicalInputState

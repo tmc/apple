@@ -4,8 +4,8 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -117,8 +117,8 @@ type ICATextLayer interface {
 	// Topic: Text Visual Properties
 
 	// The font used to render the receiver’s text.
-	Font() unsafe.Pointer
-	SetFont(value unsafe.Pointer)
+	Font() corefoundation.CFTypeRef
+	SetFont(value corefoundation.CFTypeRef)
 	// The font size used to render the receiver’s text. Animatable.
 	FontSize() float64
 	SetFontSize(value float64)
@@ -172,7 +172,7 @@ func NewCATextLayer() CATextLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -198,19 +198,19 @@ func NewTextLayerWithLayer(layer objectivec.IObject) CATextLayer {
 // or a string naming the font. In iOS, you cannot assign a [UIFont] object to
 // this property. Defaults to Helvetica.
 //
-// The `font` property is only used when the [String] property is not an
-// [NSAttributedString].
+// The `font` property is only used when the [CATextLayer.String] property is
+// not an [NSAttributedString].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/font
 //
 // [CGFont]: https://developer.apple.com/documentation/CoreGraphics/CGFont
 // [CTFont]: https://developer.apple.com/documentation/CoreText/CTFont
 // [UIFont]: https://developer.apple.com/documentation/UIKit/UIFont
-func (t CATextLayer) Font() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("font"))
-	return rv
+func (t CATextLayer) Font() corefoundation.CFTypeRef {
+	rv := objc.Send[corefoundation.CFTypeRef](t.ID, objc.Sel("font"))
+	return corefoundation.CFTypeRef(rv)
 }
-func (t CATextLayer) SetFont(value unsafe.Pointer) {
+func (t CATextLayer) SetFont(value corefoundation.CFTypeRef) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
 
@@ -220,8 +220,8 @@ func (t CATextLayer) SetFont(value unsafe.Pointer) {
 //
 // Defaults to 36.0.
 //
-// The `fontSize` property is only used when the [String] property is not an
-// [NSAttributedString].
+// The `fontSize` property is only used when the [CATextLayer.String] property
+// is not an [NSAttributedString].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/fontSize
 func (t CATextLayer) FontSize() float64 {
@@ -238,8 +238,8 @@ func (t CATextLayer) SetFontSize(value float64) {
 //
 // Defaults to opaque white.
 //
-// The `foregroundColor` property is only used when the [String] property is
-// not an [NSAttributedString].
+// The `foregroundColor` property is only used when the [CATextLayer.String]
+// property is not an [NSAttributedString].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/foregroundColor
 func (t CATextLayer) ForegroundColor() coregraphics.CGColorRef {

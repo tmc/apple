@@ -36,9 +36,9 @@ func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelega
 //
 // # Discussion
 //
-// `command` is one of the strings from the array passed to [Commands]. The
-// delegate typically evaluates which command was recognized and performs the
-// related action.
+// `command` is one of the strings from the array passed to
+// [NSSpeechRecognizer.Commands]. The delegate typically evaluates which
+// command was recognized and performs the related action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechRecognizerDelegate/speechRecognizer(_:didRecognizeCommand:)
 func (o NSSpeechRecognizerDelegateObject) SpeechRecognizerDidRecognizeCommand(sender INSSpeechRecognizer, command string) {

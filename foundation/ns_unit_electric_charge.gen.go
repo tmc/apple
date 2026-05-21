@@ -56,9 +56,10 @@ func (uc UnitElectricChargeClass) Alloc() UnitElectricCharge {
 // charge carried by a current of one ampere in one second (1C = 1A · 1s).
 // Charge is also commonly expressed in terms of ampere hours (Ah).
 //
-// The [NSUnitElectricCharge] class defines its [BaseUnit] as [Coulombs], and
-// provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitElectricCharge] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitElectricChargeClass.Coulombs], and provides the following units,
+// which are initialized using [NSUnitConverterLinear] converters with the
+// specified coefficients:
 //
 // [Table data omitted]
 //

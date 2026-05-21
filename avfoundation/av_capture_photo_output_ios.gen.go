@@ -41,18 +41,20 @@ import (
 // `completionHandler` block when it has finished preparing (and possibly
 // reclaiming) needed resources. To provide an early hint as to which capture
 // features you intend to use, you can call this method even before calling
-// the [StartRunning] method on your capture session.
+// the [AVCaptureSession.StartRunning] method on your capture session.
 //
 // Preparation for photo capture is always optional. You may call the
-// [CapturePhotoWithSettingsDelegate] method without first calling this
-// method—however, some of your photo captures may execute slowly as the
-// capture system allocates additional resources on a just-in-time basis.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method without
+// first calling this method—however, some of your photo captures may
+// execute slowly as the capture system allocates additional resources on a
+// just-in-time basis.
 //
 // If you call this method while your capture session is not running, your
 // `completionHandler` block is not immediately called. The photo output calls
-// your completion handler only after you’ve called the [StartRunning]
-// method on your capture session and the needed resources have actually been
-// prepared. If you call the [SetPreparedPhotoSettingsArrayCompletionHandler]
+// your completion handler only after you’ve called the
+// [AVCaptureSession.StartRunning] method on your capture session and the
+// needed resources have actually been prepared. If you call the
+// [AVCapturePhotoOutput.SetPreparedPhotoSettingsArrayCompletionHandler]
 // method with an array of settings, and then call it a second time, the first
 // call’s completion handler fires immediately with a `prepared` argument of
 // false.
@@ -60,15 +62,16 @@ import (
 // Prepared settings persist across session starts/stops and committed
 // configuration changes and participate in the deferred work behavior defined
 // by the [AVCaptureSession] class. That is, if you call your capture
-// session’s [BeginConfiguration] method, change your session’s
-// input/output topology, and then call this method, the capture session
-// defers any preparation work until you call the [CommitConfiguration]
-// method. This pattern lets you atomically commit a new configuration as well
-// as prepare to take photos in that new configuration.
+// session’s [AVCaptureSession.BeginConfiguration] method, change your
+// session’s input/output topology, and then call this method, the capture
+// session defers any preparation work until you call the
+// [AVCaptureSession.CommitConfiguration] method. This pattern lets you
+// atomically commit a new configuration as well as prepare to take photos in
+// that new configuration.
 //
 // After you call this method and your `completionHandler` block has fired,
-// the [PreparedPhotoSettingsArray] property lists the photo settings for
-// which the capture system has prepared resources.
+// the [AVCapturePhotoOutput.PreparedPhotoSettingsArray] property lists the
+// photo settings for which the capture system has prepared resources.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/setPreparedPhotoSettingsArray(_:completionHandler:)
 func (c AVCapturePhotoOutput) SetPreparedPhotoSettingsArrayCompletionHandler(preparedPhotoSettingsArray []AVCapturePhotoSettings, completionHandler BoolErrorHandler) {
@@ -99,9 +102,10 @@ func (c AVCapturePhotoOutput) SupportedRawPhotoCodecTypesForRawPhotoPixelFormatT
 // producing output files containing that data. However, each file type
 // supports only a specific set of image data types.
 //
-// After choosing a file type from the [AvailableRawPhotoFileTypes] array, use
-// this method to find a compatible image data format before creating a photo
-// settings object.
+// After choosing a file type from the
+// [AVCapturePhotoOutput.AvailableRawPhotoFileTypes] array, use this method to
+// find a compatible image data format before creating a photo settings
+// object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/supportedRawPhotoPixelFormatTypesForFileType:
 func (c AVCapturePhotoOutput) SupportedRawPhotoPixelFormatTypesForFileType(fileType AVFileType) []foundation.NSNumber {
@@ -147,11 +151,12 @@ func (_AVCapturePhotoOutputClass AVCapturePhotoOutputClass) IsBayerRAWPixelForma
 // # Discussion
 //
 // Changing this value requires a lengthy reconfiguration of the capture
-// pipeline, so you should set this property before calling [StartRunning] on
-// the capture session.
+// pipeline, so you should set this property before calling
+// [AVCaptureSession.StartRunning] on the capture session.
 //
 // Setting this property to true throws an invalid argument exception the
-// value of [AutoDeferredPhotoDeliverySupported] is false.
+// value of [AVCapturePhotoOutput.AutoDeferredPhotoDeliverySupported] is
+// false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAutoDeferredPhotoDeliveryEnabled
 func (c AVCapturePhotoOutput) IsAutoDeferredPhotoDeliveryEnabled() bool {
@@ -176,11 +181,11 @@ func (c AVCapturePhotoOutput) IsAutoDeferredPhotoDeliverySupported() bool {
 // # Discussion
 //
 // To capture a photo in RAW format, use the
-// [PhotoSettingsWithRawPixelFormatType] or
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer to create
-// your photo settings object. The value for that initializer’s
-// `rawPixelFormatType` parameter must be one of the Bayer RAW format
-// identifiers listed in this array.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType] or
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer to create your photo settings object. The value for that
+// initializer’s `rawPixelFormatType` parameter must be one of the Bayer RAW
+// format identifiers listed in this array.
 //
 // This property supports key-value observing.
 //
@@ -203,8 +208,9 @@ func (c AVCapturePhotoOutput) AvailableRawPhotoPixelFormatTypes() []foundation.N
 // supports only a specific set of image data types.
 //
 // After choosing an output file type, use the
-// [SupportedRawPhotoPixelFormatTypesForFileType] method to choose an
-// appropriate data format before creating a photo settings object.
+// [AVCapturePhotoOutput.SupportedRawPhotoPixelFormatTypesForFileType] method
+// to choose an appropriate data format before creating a photo settings
+// object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availableRawPhotoFileTypes
 func (c AVCapturePhotoOutput) AvailableRawPhotoFileTypes() []string {
@@ -230,17 +236,18 @@ func (c AVCapturePhotoOutput) IsAppleProRAWSupported() bool {
 //
 // # Discussion
 //
-// If [AppleProRAWSupported] returns true, you can enable Apple ProRAW capture
-// by setting this property to true. Compared to photos taken in Bayer RAW
-// format, the system demosaics and partially processes Apple ProRAW photos.
-// They’re still scene-referred, however, and allow capturing RAW photos in
-// modes that don’t have a traditional Bayer RAW format available, such as
-// modes that rely on fusing multiple captures.
+// If [AVCapturePhotoOutput.AppleProRAWSupported] returns true, you can enable
+// Apple ProRAW capture by setting this property to true. Compared to photos
+// taken in Bayer RAW format, the system demosaics and partially processes
+// Apple ProRAW photos. They’re still scene-referred, however, and allow
+// capturing RAW photos in modes that don’t have a traditional Bayer RAW
+// format available, such as modes that rely on fusing multiple captures.
 //
 // Apple ProRAW formats aren’t supported on all platforms and devices. You
 // can determine the pixel formats the system supports by querying the
 // [availableRawPhotoPixelFormatTypes] property. Use the
-// [IsBayerRAWPixelFormat] or [IsAppleProRAWPixelFormat] method to determine
+// [AVCapturePhotoOutputClass.IsBayerRAWPixelFormat] or
+// [AVCapturePhotoOutputClass.IsAppleProRAWPixelFormat] method to determine
 // whether the pixel format is Bayer RAW or Apple ProRAW, respectively.
 //
 // This property is key-value observable.
@@ -271,7 +278,8 @@ func (c AVCapturePhotoOutput) SetAppleProRAWEnabled(value bool) {
 //
 // Switching cameras or formats, or enabling depth data delivery, may result
 // in a change to this property value. When the property changes from true to
-// false, [ContentAwareDistortionCorrectionEnabled] also reverts to false.
+// false, [AVCapturePhotoOutput.ContentAwareDistortionCorrectionEnabled] also
+// reverts to false.
 //
 // This property is key-value observable.
 //
@@ -287,7 +295,8 @@ func (c AVCapturePhotoOutput) IsContentAwareDistortionCorrectionSupported() bool
 // # Discussion
 //
 // You can set this value to true only if
-// [ContentAwareDistortionCorrectionSupported] returns true.
+// [AVCapturePhotoOutput.ContentAwareDistortionCorrectionSupported] returns
+// true.
 //
 // Applying distortion correction to preserve natural-looking content may
 // result in a small change in the field of view compared to what you see in
@@ -295,8 +304,8 @@ func (c AVCapturePhotoOutput) IsContentAwareDistortionCorrectionSupported() bool
 // and varies from photo to photo.
 //
 // Enabling this property requires a lengthy reconfiguration of the capture
-// render pipeline, so set this property to true before calling [StartRunning]
-// on the capture session.
+// render pipeline, so set this property to true before calling
+// [AVCaptureSession.StartRunning] on the capture session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isContentAwareDistortionCorrectionEnabled
 func (c AVCapturePhotoOutput) IsContentAwareDistortionCorrectionEnabled() bool {
@@ -380,8 +389,8 @@ func (c AVCapturePhotoOutput) IsAutoRedEyeReductionSupported() bool {
 // control in your app’s camera UI, indicating to the user that the scene is
 // dark enough that enabling the flash might be desirable.
 //
-// If the photo capture output’s [SupportedFlashModes] value is
-// [AVCaptureFlashModeOff], this property’s value is always false.
+// If the photo capture output’s [AVCapturePhotoOutput.SupportedFlashModes]
+// value is [AVCaptureFlashModeOff], this property’s value is always false.
 //
 // This property supports key-value observing.
 //
@@ -396,28 +405,30 @@ func (c AVCapturePhotoOutput) IsFlashScene() bool {
 //
 // # Discussion
 //
-// Set the [FlashMode] and [AutoStillImageStabilizationEnabled] properties of
+// Set the [AVCapturePhotoSettings.FlashMode] and
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled] properties of
 // this photo settings object to influence the values of the photo output’s
-// scene monitoring properties ([IsFlashScene] and
-// [IsStillImageStabilizationScene]). For example, if you set the [FlashMode]
-// property of this photo settings object to [AVCaptureFlashModeOff], the
-// photo output’s [IsFlashScene] property reports false regardless of
+// scene monitoring properties ([AVCapturePhotoOutput.IsFlashScene] and
+// [AVCapturePhotoOutput.IsStillImageStabilizationScene]). For example, if you
+// set the [AVCapturePhotoSettings.FlashMode] property of this photo settings
+// object to [AVCaptureFlashModeOff], the photo output’s
+// [AVCapturePhotoOutput.IsFlashScene] property reports false regardless of
 // lighting conditions in the visible scene. If you set this photo settings
-// object’s [FlashMode] property to [AVCaptureFlashModeAuto] or
-// [AVCaptureFlashModeOn], the photo output’s [IsFlashScene] property
-// reverts to its default behavior of returning true or false based on the
-// visible light level.
+// object’s [AVCapturePhotoSettings.FlashMode] property to
+// [AVCaptureFlashModeAuto] or [AVCaptureFlashModeOn], the photo output’s
+// [AVCapturePhotoOutput.IsFlashScene] property reverts to its default
+// behavior of returning true or false based on the visible light level.
 //
 // The default value is an [AVCapturePhotoSettings] object with the following
 // settings:
 //
-// - [FlashMode]: [AVCaptureFlashModeAuto] -
-// [AutoStillImageStabilizationEnabled]: true
+// - [AVCapturePhotoSettings.FlashMode]: [AVCaptureFlashModeAuto] -
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled]: true
 //
 // The photo output ignores all other properties of this photo settings
 // object. To control other photo settings when requesting capture, create a
-// photo settings object to pass to the [CapturePhotoWithSettingsDelegate]
-// method.
+// photo settings object to pass to the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/photoSettingsForSceneMonitoring
 func (c AVCapturePhotoOutput) PhotoSettingsForSceneMonitoring() IAVCapturePhotoSettings {
@@ -438,14 +449,16 @@ func (c AVCapturePhotoOutput) SetPhotoSettingsForSceneMonitoring(value IAVCaptur
 // such as the Photos app.
 //
 // Not all devices and capture formats support Live Photo capture. This
-// property’s value can change if the [SessionPreset] property of the
-// current capture session or the [ActiveFormat] property of the underlying
-// capture device changes.
+// property’s value can change if the [AVCaptureSession.SessionPreset]
+// property of the current capture session or the
+// [AVCaptureDevice.ActiveFormat] property of the underlying capture device
+// changes.
 //
-// When this value changes to false, the [LivePhotoCaptureEnabled]
-// property’s value also changes to false. If you previously opted in for
-// Live Photo capture and then change configurations, you may need to set
-// [LivePhotoCaptureEnabled] to true again.
+// When this value changes to false, the
+// [AVCapturePhotoOutput.LivePhotoCaptureEnabled] property’s value also
+// changes to false. If you previously opted in for Live Photo capture and
+// then change configurations, you may need to set
+// [AVCapturePhotoOutput.LivePhotoCaptureEnabled] to true again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureSupported
 func (c AVCapturePhotoOutput) IsLivePhotoCaptureSupported() bool {
@@ -461,15 +474,16 @@ func (c AVCapturePhotoOutput) IsLivePhotoCaptureSupported() bool {
 // This value defaults to false. Changing this value while your session is
 // running requires a lengthy reconfiguration of the capture render pipeline.
 // If you intend to take any Live Photo captures, set this value to true
-// before calling [AVCaptureSession] [StartRunning]. If you change this
-// property while the session is running, in-progress Live Photo captures end
-// immediately, unfulfilled photo requests cancel, and the video preview
-// temporarily freezes.
+// before calling [AVCaptureSession] [AVCaptureSession.StartRunning]. If you
+// change this property while the session is running, in-progress Live Photo
+// captures end immediately, unfulfilled photo requests cancel, and the video
+// preview temporarily freezes.
 //
 // You must enable this option before initiating a photo capture with the
-// [LivePhotoMovieFileURL] property of your photo settings object set to
-// non-`nil`. However, after you’ve enabled this option, you can issue photo
-// capture requests for both Live Photo captures and still photos.
+// [AVCapturePhotoSettings.LivePhotoMovieFileURL] property of your photo
+// settings object set to non-`nil`. However, after you’ve enabled this
+// option, you can issue photo capture requests for both Live Photo captures
+// and still photos.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureEnabled
 func (c AVCapturePhotoOutput) IsLivePhotoCaptureEnabled() bool {
@@ -498,8 +512,8 @@ func (c AVCapturePhotoOutput) SetLivePhotoCaptureEnabled(value bool) {
 //
 // By default, this property resets to false when the [AVCaptureSession]
 // stops. You can prevent this behavior by setting
-// [PreservesLivePhotoCaptureSuspendedOnSessionStop] to true before stopping
-// the session.
+// [AVCapturePhotoOutput.PreservesLivePhotoCaptureSuspendedOnSessionStop] to
+// true before stopping the session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureSuspended
 func (c AVCapturePhotoOutput) IsLivePhotoCaptureSuspended() bool {
@@ -515,7 +529,8 @@ func (c AVCapturePhotoOutput) SetLivePhotoCaptureSuspended(value bool) {
 //
 // # Discussion
 //
-// This value defaults to true when [LivePhotoCaptureSupported] is true.
+// This value defaults to true when
+// [AVCapturePhotoOutput.LivePhotoCaptureSupported] is true.
 //
 // Use this option to enable the same automatic trimming behavior found in the
 // Camera app. By default, a Live Photo capture is about three seconds in
@@ -526,9 +541,10 @@ func (c AVCapturePhotoOutput) SetLivePhotoCaptureSuspended(value bool) {
 // Changing this value while your session is running requires a lengthy
 // reconfiguration of the session. If you intend to take any Live Photo
 // captures, set this value to true before calling [AVCaptureSession]
-// [StartRunning]. If you change this property while the session is running,
-// in-progress Live Photo captures end immediately, unfulfilled photo requests
-// cancel, and the video preview temporarily freezes.
+// [AVCaptureSession.StartRunning]. If you change this property while the
+// session is running, in-progress Live Photo captures end immediately,
+// unfulfilled photo requests cancel, and the video preview temporarily
+// freezes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoAutoTrimmingEnabled
 func (c AVCapturePhotoOutput) IsLivePhotoAutoTrimmingEnabled() bool {
@@ -545,8 +561,8 @@ func (c AVCapturePhotoOutput) SetLivePhotoAutoTrimmingEnabled(value bool) {
 //
 // By default, Live Photo capture encodes the movie portion of a Live Photo
 // using the H.264 codec. To use a different codec, set the
-// [LivePhotoVideoCodecType] property of your photo settings object to one of
-// the values in this array.
+// [AVCapturePhotoSettings.LivePhotoVideoCodecType] property of your photo
+// settings object to one of the values in this array.
 //
 // The system always presents its default video codec first. If you haven’t
 // added the photo output to an [AVCaptureSession] with a video source, no
@@ -572,10 +588,11 @@ func (c AVCapturePhotoOutput) AvailableLivePhotoVideoCodecTypes() []string {
 // performing computer vision tasks.
 //
 // Not all devices and capture formats support depth capture. This
-// property’s value can change if the [SessionPreset] property of the
-// current capture session or the [ActiveFormat] property of the underlying
-// capture device changes. If a camera or format change causes this
-// property’s value to become false, the [DepthDataDeliveryEnabled]
+// property’s value can change if the [AVCaptureSession.SessionPreset]
+// property of the current capture session or the
+// [AVCaptureDevice.ActiveFormat] property of the underlying capture device
+// changes. If a camera or format change causes this property’s value to
+// become false, the [AVCapturePhotoOutput.DepthDataDeliveryEnabled]
 // property’s value also becomes false.
 //
 // This property is key-value observable.
@@ -600,15 +617,16 @@ func (c AVCapturePhotoOutput) IsDepthDataDeliverySupported() bool {
 // Capturing depth data requires that a capture session set up its internal
 // rendering pipeline differently. If you intend to capture depth data at all,
 // set this property to true before calling the [AVCaptureSession]
-// [StartRunning] method. Changing this property while the session is running
-// requires a lengthy reconfiguration of the capture render pipeline: Live
-// Photo captures in progress will end immediately, unfulfilled photo requests
-// will abort, and video preview will temporarily freeze.
+// [AVCaptureSession.StartRunning] method. Changing this property while the
+// session is running requires a lengthy reconfiguration of the capture render
+// pipeline: Live Photo captures in progress will end immediately, unfulfilled
+// photo requests will abort, and video preview will temporarily freeze.
 //
 // You must enable this option before initiating a photo capture with the
-// [DepthDataDeliveryEnabled] property of your photo settings object set to
-// true. However, after you’ve enabled this option, you are free to issue
-// photo capture requests both with and without depth data.
+// [AVCapturePhotoSettings.DepthDataDeliveryEnabled] property of your photo
+// settings object set to true. However, after you’ve enabled this option,
+// you are free to issue photo capture requests both with and without depth
+// data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDepthDataDeliveryEnabled
 func (c AVCapturePhotoOutput) IsDepthDataDeliveryEnabled() bool {
@@ -682,7 +700,8 @@ func (c AVCapturePhotoOutput) SetCameraSensorOrientationCompensationEnabled(valu
 // its constituent cameras to improve image quality.
 //
 // If the current configuration doesn’t support virtual device fusion, your
-// capture requests always resolve [VirtualDeviceFusionEnabled] to false.
+// capture requests always resolve
+// [AVCaptureResolvedPhotoSettings.VirtualDeviceFusionEnabled] to false.
 //
 // This property is key-value observable.
 //
@@ -702,7 +721,8 @@ func (c AVCapturePhotoOutput) IsVirtualDeviceFusionSupported() bool {
 //
 // When switching cameras or formats, this property may change. When this
 // property changes from true to false,
-// [VirtualDeviceConstituentPhotoDeliveryEnabled] also reverts to false.
+// [AVCapturePhotoOutput.VirtualDeviceConstituentPhotoDeliveryEnabled] also
+// reverts to false.
 //
 // This property is key-value observable.
 //
@@ -718,7 +738,8 @@ func (c AVCapturePhotoOutput) IsVirtualDeviceConstituentPhotoDeliverySupported()
 // # Discussion
 //
 // You can only set this value to true when
-// [VirtualDeviceConstituentPhotoDeliverySupported] is true.
+// [AVCapturePhotoOutput.VirtualDeviceConstituentPhotoDeliverySupported] is
+// true.
 //
 // The default value is false.
 //
@@ -740,10 +761,10 @@ func (c AVCapturePhotoOutput) SetVirtualDeviceConstituentPhotoDeliveryEnabled(va
 // require the photo output to allocate additional buffers or prepare other
 // resources. To prevent photo capture requests from executing slowly due to
 // lazy resource allocation, you may call the
-// [SetPreparedPhotoSettingsArrayCompletionHandler] method with an array of
-// settings objects representative of the types of capture you will be
-// performing (such as settings for a bracketed capture, RAW capture, or
-// capture with still image stabilization).
+// [AVCapturePhotoOutput.SetPreparedPhotoSettingsArrayCompletionHandler]
+// method with an array of settings objects representative of the types of
+// capture you will be performing (such as settings for a bracketed capture,
+// RAW capture, or capture with still image stabilization).
 //
 // By default, the photo output prepares sufficient resources to capture
 // photos with default settings (as defined by the [AVCapturePhotoSettings]
@@ -780,7 +801,7 @@ func (c AVCapturePhotoOutput) AvailableSemanticSegmentationMatteTypes() []string
 //
 // Set this property value to the array of matte types you’d like delivered
 // with your primary photos. The array may only contain values present in
-// [AvailableSemanticSegmentationMatteTypes].
+// [AVCapturePhotoOutput.AvailableSemanticSegmentationMatteTypes].
 //
 // The default value of this property is an empty array.
 //
@@ -799,10 +820,12 @@ func (c AVCapturePhotoOutput) SetEnabledSemanticSegmentationMatteTypes(value []s
 // # Discussion
 //
 // A photo output can deliver camera calibration data only when it’s
-// [VirtualDeviceConstituentPhotoDeliveryEnabled] property is `true` and its
-// [ContentAwareDistortionCorrectionEnabled] property is `false`.
-// Additionally, the source capture device’s
-// [GeometricDistortionCorrectionEnabled] property must be `false`.
+// [AVCapturePhotoOutput.VirtualDeviceConstituentPhotoDeliveryEnabled]
+// property is `true` and its
+// [AVCapturePhotoOutput.ContentAwareDistortionCorrectionEnabled] property is
+// `false`. Additionally, the source capture device’s
+// [AVCaptureDevice.GeometricDistortionCorrectionEnabled] property must be
+// `false`.
 //
 // This property is key-value observable.
 //
@@ -830,15 +853,17 @@ func (c AVCapturePhotoOutput) AvailableRawPhotoCodecTypes() []string {
 // Dual photo delivery requires that a capture session set up its internal
 // rendering pipeline differently. If you intend to capture with dual photo
 // delivery at all, set this property to true before calling the
-// [AVCaptureSession] [StartRunning] method. Changing this property while the
-// session is running requires a lengthy reconfiguration of the capture render
-// pipeline: Live Photo captures in progress will end immediately, unfulfilled
-// photo requests will abort, and video preview will temporarily freeze.
+// [AVCaptureSession] [AVCaptureSession.StartRunning] method. Changing this
+// property while the session is running requires a lengthy reconfiguration of
+// the capture render pipeline: Live Photo captures in progress will end
+// immediately, unfulfilled photo requests will abort, and video preview will
+// temporarily freeze.
 //
 // You must enable this option before initiating a photo capture with the
-// [DualCameraDualPhotoDeliveryEnabled] property of your photo settings object
-// set to true. However, after you’ve enabled this option, you are free to
-// issue photo capture requests both with and without dual photo delivery.
+// [AVCapturePhotoSettings.DualCameraDualPhotoDeliveryEnabled] property of
+// your photo settings object set to true. However, after you’ve enabled
+// this option, you are free to issue photo capture requests both with and
+// without dual photo delivery.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDualCameraDualPhotoDeliveryEnabled
 func (c AVCapturePhotoOutput) IsDualCameraDualPhotoDeliveryEnabled() bool {
@@ -855,11 +880,12 @@ func (c AVCapturePhotoOutput) SetDualCameraDualPhotoDeliveryEnabled(value bool) 
 // # Discussion
 //
 // Not all devices and capture formats support dual camera capture. This
-// property’s value can change if the [SessionPreset] property of the
-// current capture session or the [ActiveFormat] property of the underlying
-// capture device changes. If a camera or format change causes this
-// property’s value to become false, the
-// [DualCameraDualPhotoDeliveryEnabled] property’s value also becomes false.
+// property’s value can change if the [AVCaptureSession.SessionPreset]
+// property of the current capture session or the
+// [AVCaptureDevice.ActiveFormat] property of the underlying capture device
+// changes. If a camera or format change causes this property’s value to
+// become false, the [AVCapturePhotoOutput.DualCameraDualPhotoDeliveryEnabled]
+// property’s value also becomes false.
 //
 // This property is key-value observable.
 //
@@ -877,11 +903,13 @@ func (c AVCapturePhotoOutput) IsDualCameraDualPhotoDeliverySupported() bool {
 // On devices equipped with a dual camera, image fusion combines samples from
 // both cameras to produce a higher quality image.
 //
-// To capture a photo with image fusion, set the [AutoDualCameraFusionEnabled]
-// property of your photo settings object. If a device does not support image
-// fusion, setting the [AutoDualCameraFusionEnabled] property has no effect
-// (that is, the resolved [DualCameraFusionEnabled] setting will always be
-// false).
+// To capture a photo with image fusion, set the
+// [AVCapturePhotoSettings.AutoDualCameraFusionEnabled] property of your photo
+// settings object. If a device does not support image fusion, setting the
+// [AVCapturePhotoSettings.AutoDualCameraFusionEnabled] property has no effect
+// (that is, the resolved
+// [AVCaptureResolvedPhotoSettings.DualCameraFusionEnabled] setting will
+// always be false).
 //
 // This property supports key-value observing.
 //
@@ -902,8 +930,9 @@ func (c AVCapturePhotoOutput) IsDualCameraFusionSupported() bool {
 // user that the scene is dark enough that enabling image stabilization might
 // be desirable.
 //
-// If the photo capture output’s [StillImageStabilizationSupported] value is
-// false, this property’s value is always false.
+// If the photo capture output’s
+// [AVCapturePhotoOutput.StillImageStabilizationSupported] value is false,
+// this property’s value is always false.
 //
 // This property supports key-value observing.
 //
@@ -919,13 +948,15 @@ func (c AVCapturePhotoOutput) IsStillImageStabilizationScene() bool {
 // # Discussion
 //
 // To capture a photo with image stabilization, set the
-// [AutoStillImageStabilizationEnabled] property of your photo settings
-// object. Automatic stabilization always includes digital image
-// stabilization, and may also include optical lens stabilization, based on
-// the current device. If a device does not support still image stabilization,
-// set the [AutoStillImageStabilizationEnabled] property has no effect (that
-// is, the resolved [StillImageStabilizationEnabled] setting will always be
-// false).
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled] property of
+// your photo settings object. Automatic stabilization always includes digital
+// image stabilization, and may also include optical lens stabilization, based
+// on the current device. If a device does not support still image
+// stabilization, set the
+// [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled] property has no
+// effect (that is, the resolved
+// [AVCaptureResolvedPhotoSettings.StillImageStabilizationEnabled] setting
+// will always be false).
 //
 // This property supports key-value observing.
 //

@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -48,8 +49,8 @@ func (nc NSCollectionViewUpdateItemClass) Alloc() NSCollectionViewUpdateItem {
 //
 // You do not create instances of this class directly. When updating its
 // content, the collection view object creates them and passes them to the
-// layout object’s [PrepareForCollectionViewUpdates] method, which can use
-// them to prepare for the upcoming changes.
+// layout object’s [NSCollectionViewLayout.PrepareForCollectionViewUpdates]
+// method, which can use them to prepare for the upcoming changes.
 //
 // # Accessing the Item Changes
 //
@@ -87,9 +88,9 @@ type INSCollectionViewUpdateItem interface {
 	// Topic: Accessing the Item Changes
 
 	// The index path of the item before the update.
-	IndexPathBeforeUpdate() objc.ID
+	IndexPathBeforeUpdate() foundation.NSIndexPath
 	// The index path of the item after the update.
-	IndexPathAfterUpdate() objc.ID
+	IndexPathAfterUpdate() foundation.NSIndexPath
 	// The action being performed on the item.
 	UpdateAction() NSCollectionUpdateAction
 }
@@ -121,9 +122,9 @@ func NewNSCollectionViewUpdateItem() NSCollectionViewUpdateItem {
 // [NSCollectionUpdateActionInsert].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewUpdateItem/indexPathBeforeUpdate
-func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() objc.ID {
+func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathBeforeUpdate"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
 
 // The index path of the item after the update.
@@ -134,9 +135,9 @@ func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() objc.ID {
 // [NSCollectionUpdateActionDelete].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewUpdateItem/indexPathAfterUpdate
-func (c NSCollectionViewUpdateItem) IndexPathAfterUpdate() objc.ID {
+func (c NSCollectionViewUpdateItem) IndexPathAfterUpdate() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathAfterUpdate"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
 
 // The action being performed on the item.

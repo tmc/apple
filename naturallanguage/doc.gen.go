@@ -4,41 +4,45 @@
 //
 // Analyze natural language text and deduce its language-specific metadata.
 //
-// The Natural Language framework provides a variety of natural language processing (NLP) functionality with support for many different languages and scripts. Use this framework to segment natural language text into paragraphs, sentences, or words, and tag information about those segments, such as part of speech, lexical class, lemma, script, and language.
+// The Natural Language framework provides a variety of natural language
+// processing (NLP) functionality with support for many different languages
+// and scripts. Use this framework to segment natural language text into
+// paragraphs, sentences, or words, and tag information about those segments,
+// such as part of speech, lexical class, lemma, script, and language.
 //
 // # Tokenization
 //
-//   - Tokenizing natural language text: Enumerate the words in a string.
-//   - NLTokenizer: A tokenizer that segments natural language text into semantic units.
+//   - [Tokenizing natural language text]: Enumerate the words in a string.
+//   - [NLTokenizer]: A tokenizer that segments natural language text into semantic units.
 //
 // # Language identification
 //
-//   - Identifying the language in text: Detect the language in a piece of text by using a language recognizer.
-//   - NLLanguageRecognizer: The language of a body of text.
-//   - NLLanguage: The languages that the Natural Language framework supports.
+//   - [Identifying the language in text]: Detect the language in a piece of text by using a language recognizer.
+//   - [NLLanguageRecognizer]: The language of a body of text.
+//   - [NLLanguage]: The languages that the Natural Language framework supports.
 //
 // # Linguistic tags
 //
-//   - Identifying parts of speech: Classify nouns, verbs, adjectives, and other parts of speech in a string.
-//   - Identifying people, places, and organizations: Use a linguistic tagger to perform named entity recognition on a string.
-//   - NLTagger: A tagger that analyzes natural language text. ([NLTagScheme], [NLTag], [NLTokenUnit], [NLGazetteer])
+//   - [Identifying parts of speech]: Classify nouns, verbs, adjectives, and other parts of speech in a string.
+//   - [Identifying people, places, and organizations]: Use a linguistic tagger to perform named entity recognition on a string.
+//   - [NLTagger]: A tagger that analyzes natural language text. ([NLTagScheme], [NLTag], [NLTokenUnit], [NLGazetteer])
 //
 // # Text embedding
 //
-//   - Finding similarities between pieces of text: Calculate the semantic distance between words or sentences.
-//   - NLEmbedding: A map of strings to vectors, which locates neighboring, similar strings. ([NLDistance])
+//   - [Finding similarities between pieces of text]: Calculate the semantic distance between words or sentences.
+//   - [NLEmbedding]: A map of strings to vectors, which locates neighboring, similar strings. ([NLDistance])
 //
 // # Contextual embedding
 //
-//   - NLContextualEmbedding: A model that computes sequences of embedding vectors for natural language utterances. ([NLContextualEmbeddingResult])
-//   - NLContextualEmbeddingKey: This class defines properties that you can filter or search for contextual embeddings.
-//   - NLScript: The writing scripts that the Natural Language framework supports.
+//   - [NLContextualEmbedding]: A model that computes sequences of embedding vectors for natural language utterances. ([NLContextualEmbeddingResult])
+//   - [NLContextualEmbeddingKey]: This class defines properties that you can filter or search for contextual embeddings.
+//   - [NLScript]: The writing scripts that the Natural Language framework supports.
 //
 // # Natural language models
 //
-//   - Creating a text classifier model: Train a machine learning model to classify natural language text.
-//   - Creating a word tagger model: Train a machine learning model to tag individual words in natural language text.
-//   - NLModel: A custom model trained to classify or tag natural language text. ([NLModelConfiguration])
+//   - [Creating a text classifier model]: Train a machine learning model to classify natural language text.
+//   - [Creating a word tagger model]: Train a machine learning model to tag individual words in natural language text.
+//   - [NLModel]: A custom model trained to classify or tag natural language text. ([NLModelConfiguration])//
 //
 // # Key Types
 //
@@ -52,7 +56,13 @@
 //   - [NLModelConfiguration] - The configuration parameters of a natural language model.
 //   - [NLContextualEmbeddingResult] - An object that represents the embedding vector result from applying a contextual embedding to a string.
 //
-// [NaturalLanguage Documentation]: https://developer.apple.com/documentation/NaturalLanguage
+// [Creating a text classifier model]: https://developer.apple.com/documentation/CreateML/creating-a-text-classifier-model
+// [Creating a word tagger model]: https://developer.apple.com/documentation/CreateML/creating-a-word-tagger-model
+// [Finding similarities between pieces of text]: https://developer.apple.com/documentation/naturallanguage/finding-similarities-between-pieces-of-text
+// [Identifying parts of speech]: https://developer.apple.com/documentation/naturallanguage/identifying-parts-of-speech
+// [Identifying people, places, and organizations]: https://developer.apple.com/documentation/naturallanguage/identifying-people-places-and-organizations
+// [Identifying the language in text]: https://developer.apple.com/documentation/naturallanguage/identifying-the-language-in-text
+// [Tokenizing natural language text]: https://developer.apple.com/documentation/naturallanguage/tokenizing-natural-language-text
 package naturallanguage
 
 import (

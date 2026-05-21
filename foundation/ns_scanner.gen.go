@@ -62,9 +62,9 @@ func (sc ScannerClass) Alloc() Scanner {
 // will result, merely as scanners).
 //
 // To set a [NSScanner] object to ignore a set of characters as it scans the
-// string, use the [CharactersToBeSkipped] property. Characters in the skip
-// set are skipped over before the target is scanned. The default set of
-// characters to skip is the whitespace and newline character set.
+// string, use the [NSScanner.CharactersToBeSkipped] property. Characters in
+// the skip set are skipped over before the target is scanned. The default set
+// of characters to skip is the whitespace and newline character set.
 //
 // To retrieve the unscanned remainder of the string, use
 // `scanner.StringXCUIElementTypeSubstring(scanner.ScanLocation())`.
@@ -98,11 +98,6 @@ func (sc ScannerClass) Alloc() Scanner {
 // # Monitoring Scanner Progress
 //
 //   - [Scanner.IsAtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
-//
-// # Instance Properties
-//
-//   - [Scanner.CurrentIndex]
-//   - [Scanner.SetCurrentIndex]
 //
 // See: https://developer.apple.com/documentation/Foundation/Scanner
 //
@@ -158,11 +153,6 @@ func NSScannerFromID(id objc.ID) Scanner { return ScannerFromID(id) }
 //
 //   - [IScanner.IsAtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
 //
-// # Instance Properties
-//
-//   - [IScanner.CurrentIndex]
-//   - [IScanner.SetCurrentIndex]
-//
 // See: https://developer.apple.com/documentation/Foundation/Scanner
 type IScanner interface {
 	objectivec.IObject
@@ -208,15 +198,6 @@ type IScanner interface {
 
 	// Flag that indicates whether the receiver has exhausted all significant characters.
 	IsAtEnd() bool
-
-	// Topic: Instance Properties
-
-	CurrentIndex() int32
-	SetCurrentIndex(value int32)
-
-	// A value indicating that a requested item couldn’t be found or doesn’t exist.
-	NSNotFound() int
-	SetNSNotFound(value int)
 }
 
 // Init initializes the instance.
@@ -450,8 +431,8 @@ func (s Scanner) ScanUnsignedLongLong() (uint64, bool) {
 //
 // # Discussion
 //
-// Sets the string to scan by invoking [InitWithString] with `aString`. The
-// locale is set with [NSScanner].
+// Sets the string to scan by invoking [NSScanner.InitWithString] with
+// `aString`. The locale is set with [NSScanner].
 //
 // See: https://developer.apple.com/documentation/Foundation/Scanner/localizedScanner(with:)
 func (_ScannerClass ScannerClass) LocalizedScannerWithString(string_ string) objectivec.IObject {
@@ -469,7 +450,8 @@ func (_ScannerClass ScannerClass) LocalizedScannerWithString(string_ string) obj
 //
 // # Discussion
 //
-// Sets the string to scan by invoking [InitWithString] with `aString`.
+// Sets the string to scan by invoking [NSScanner.InitWithString] with
+// `aString`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScanner/scannerWithString:
 func (_ScannerClass ScannerClass) ScannerWithString(string_ string) Scanner {
@@ -571,27 +553,6 @@ func (s Scanner) SetLocale(value objectivec.IObject) {
 func (s Scanner) IsAtEnd() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAtEnd"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/foundation/scanner/currentindex
-func (s Scanner) CurrentIndex() int32 {
-	rv := objc.Send[int32](s.ID, objc.Sel("currentIndex"))
-	return rv
-}
-func (s Scanner) SetCurrentIndex(value int32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCurrentIndex:"), value)
-}
-
-// A value indicating that a requested item couldn’t be found or doesn’t
-// exist.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotfound-4qp9h
-func (s Scanner) NSNotFound() int {
-	rv := objc.Send[int](s.ID, objc.Sel("NSNotFound"))
-	return rv
-}
-func (s Scanner) SetNSNotFound(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setNSNotFound:"), value)
 }
 
 // Protocol methods for NSCopying

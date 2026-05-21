@@ -131,6 +131,13 @@ func NewCIAztecCodeDescriptor() CIAztecCodeDescriptor {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func NewAztecCodeDescriptorWithCoder(coder foundation.INSCoder) CIAztecCodeDescriptor {
+	instance := getCIAztecCodeDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIAztecCodeDescriptorFromID(rv)
+}
+
 // Initializes an Aztec code descriptor for the given payload and parameters.
 //
 // errorCorrectedPayload: The data to encode in the Aztec code symbol.
@@ -231,9 +238,9 @@ func (a CIAztecCodeDescriptor) IsCompact() bool {
 //
 // # Discussion
 //
-// Combined with [IsCompact], the number of data layers determines the number
-// of modules in the Aztec Code symbol. Valid values range from 1 to 32.
-// Compact symbols can have up to 4 data layers.
+// Combined with [CIAztecCodeDescriptor.IsCompact], the number of data layers
+// determines the number of modules in the Aztec Code symbol. Valid values
+// range from 1 to 32. Compact symbols can have up to 4 data layers.
 //
 // The number of data layers also determines the number of bits in each data
 // codeword of the message carried by the Aztec Code symbol.

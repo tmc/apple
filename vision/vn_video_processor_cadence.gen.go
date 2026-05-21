@@ -64,10 +64,6 @@ func VNVideoProcessorCadenceFromID(id objc.ID) VNVideoProcessorCadence {
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/Cadence
 type IVNVideoProcessorCadence interface {
 	objectivec.IObject
-
-	// The cadence the video processor maintains to process the request.
-	Cadence() IVNVideoProcessorCadence
-	SetCadence(value IVNVideoProcessorCadence)
 }
 
 // Init initializes the instance.
@@ -87,15 +83,4 @@ func NewVNVideoProcessorCadence() VNVideoProcessorCadence {
 	class := getVNVideoProcessorCadenceClass()
 	rv := objc.Send[VNVideoProcessorCadence](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The cadence the video processor maintains to process the request.
-//
-// See: https://developer.apple.com/documentation/vision/vnvideoprocessor/requestprocessingoptions/cadence
-func (v VNVideoProcessorCadence) Cadence() IVNVideoProcessorCadence {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("cadence"))
-	return VNVideoProcessorCadenceFromID(objc.ID(rv))
-}
-func (v VNVideoProcessorCadence) SetCadence(value IVNVideoProcessorCadence) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCadence:"), value)
 }

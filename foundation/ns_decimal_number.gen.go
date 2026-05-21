@@ -293,7 +293,7 @@ func NewDecimalNumberWithMantissaExponentIsNegative(mantissa uint64, exponent in
 // [E] or `e`, to indicate the exponent of a number in scientific notation;
 // and a single decimal separator character to divide the fractional from the
 // integral part of the number. For a listing of acceptable and unacceptable
-// strings, see [InitWithStringLocale].
+// strings, see [NSDecimalNumber.InitWithStringLocale].
 //
 // # Discussion
 //
@@ -303,10 +303,11 @@ func NewDecimalNumberWithMantissaExponentIsNegative(mantissa uint64, exponent in
 // comma in others (such as France).
 //
 // To parse a numeric string with a fractional part, use
-// [InitWithStringLocale] instead. When working with numeric representations
-// with a known format, pass a fixed locale to ensure consistent results
-// independent of the user’s current device settings. For localized parsing
-// that uses the user’s current device settings, pass [CurrentLocale].
+// [NSDecimalNumber.InitWithStringLocale] instead. When working with numeric
+// representations with a known format, pass a fixed locale to ensure
+// consistent results independent of the user’s current device settings. For
+// localized parsing that uses the user’s current device settings, pass
+// [NSLocaleClass.CurrentLocale].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/init(string:)
 func NewDecimalNumberWithString(numberValue string) NSDecimalNumber {
@@ -407,7 +408,7 @@ func (d NSDecimalNumber) InitWithMantissaExponentIsNegative(mantissa uint64, exp
 // [E] or `e`, to indicate the exponent of a number in scientific notation;
 // and a single decimal separator character to divide the fractional from the
 // integral part of the number. For a listing of acceptable and unacceptable
-// strings, see [InitWithStringLocale].
+// strings, see [NSDecimalNumber.InitWithStringLocale].
 //
 // # Discussion
 //
@@ -417,10 +418,11 @@ func (d NSDecimalNumber) InitWithMantissaExponentIsNegative(mantissa uint64, exp
 // comma in others (such as France).
 //
 // To parse a numeric string with a fractional part, use
-// [InitWithStringLocale] instead. When working with numeric representations
-// with a known format, pass a fixed locale to ensure consistent results
-// independent of the user’s current device settings. For localized parsing
-// that uses the user’s current device settings, pass [CurrentLocale].
+// [NSDecimalNumber.InitWithStringLocale] instead. When working with numeric
+// representations with a known format, pass a fixed locale to ensure
+// consistent results independent of the user’s current device settings. For
+// localized parsing that uses the user’s current device settings, pass
+// [NSLocaleClass.CurrentLocale].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/init(string:)
 func (d NSDecimalNumber) InitWithString(numberValue string) NSDecimalNumber {
@@ -657,8 +659,9 @@ func (d NSDecimalNumber) DecimalNumberByMultiplyingByPowerOf10WithBehavior(power
 //
 // # Discussion
 //
-// For a description of the different ways of rounding, see the [RoundingMode]
-// method in the [NSDecimalNumberBehaviors] protocol specification.
+// For a description of the different ways of rounding, see the
+// [NSNumberFormatter.RoundingMode] method in the [NSDecimalNumberBehaviors]
+// protocol specification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/rounding(accordingToBehavior:)
 func (d NSDecimalNumber) DecimalNumberByRoundingAccordingToBehavior(behavior NSDecimalNumberBehaviors) INSDecimalNumber {
@@ -721,7 +724,7 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithMantissaExpon
 // [E] or `e`, to indicate the exponent of a number in scientific notation;
 // and a single decimal separator character to divide the fractional from the
 // integral part of the number. For a listing of acceptable and unacceptable
-// strings, see [DecimalNumberWithStringLocale].
+// strings, see [NSDecimalNumberClass.DecimalNumberWithStringLocale].
 //
 // # Discussion
 //
@@ -731,11 +734,11 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithMantissaExpon
 // comma in others (such as France).
 //
 // To parse a numeric string with a fractional part, use
-// [DecimalNumberWithStringLocale] instead. When working with numeric
-// representations with a known format, pass a fixed locale to ensure
-// consistent results independent of the user’s current device settings. For
-// localized parsing that uses the user’s current device settings, pass
-// [CurrentLocale].
+// [NSDecimalNumberClass.DecimalNumberWithStringLocale] instead. When working
+// with numeric representations with a known format, pass a fixed locale to
+// ensure consistent results independent of the user’s current device
+// settings. For localized parsing that uses the user’s current device
+// settings, pass [NSLocaleClass.CurrentLocale].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/decimalNumberWithString:
 func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithString(numberValue string) NSDecimalNumber {
@@ -814,8 +817,8 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) Zero() NSDecimalNumber {
 //
 // # Discussion
 //
-// Any arithmetic method receiving [NotANumber] as an argument returns
-// [NotANumber].
+// Any arithmetic method receiving [NSDecimalNumberClass.NotANumber] as an
+// argument returns [NSDecimalNumberClass.NotANumber].
 //
 // This value can be a useful way of handling non-numeric data in an input
 // file. This method can also be a useful response to calculation errors. For
@@ -841,9 +844,9 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) NotANumber() NSDecimalNumber {
 //
 // If this default behavior doesn’t suit your application, you should use
 // methods that let you specify the behavior, like
-// [DecimalNumberByAddingWithBehavior]. If you find yourself using a
-// particular behavior consistently, you can specify a different default
-// behavior with `setDefaultBehavior(_:)`.
+// [NSDecimalNumber.DecimalNumberByAddingWithBehavior]. If you find yourself
+// using a particular behavior consistently, you can specify a different
+// default behavior with `setDefaultBehavior(_:)`.
 //
 // The default behavior is maintained separately for each thread in your app.
 //

@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
@@ -158,9 +157,9 @@ type IAVSampleCursor interface {
 	// Topic: Navigating samples
 
 	// Moves the cursor by a given delta time on the decode timeline.
-	StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime
+	StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned *bool) coremedia.CMTime
 	// Moves the cursor by a given delta time on the presentation timeline.
-	StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime
+	StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned *bool) coremedia.CMTime
 	// Moves the cursor a given number of samples in decode order.
 	StepInDecodeOrderByCount(stepCount int64) int64
 	// Moves the cursor a given number of samples in presentation order.
@@ -247,7 +246,7 @@ func NewAVSampleCursor() AVSampleCursor {
 // be equal to the specified time delta even if the cursor wasn’t pinned.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/step(byDecodeTime:wasPinned:)
-func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime {
+func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned *bool) coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("stepByDecodeTime:wasPinned:"), deltaDecodeTime, outWasPinned)
 	return coremedia.CMTime(rv)
 }
@@ -268,7 +267,7 @@ func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTi
 // pinned.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/step(byPresentationTime:wasPinned:)
-func (s AVSampleCursor) StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime {
+func (s AVSampleCursor) StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned *bool) coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("stepByPresentationTime:wasPinned:"), deltaPresentationTime, outWasPinned)
 	return coremedia.CMTime(rv)
 }

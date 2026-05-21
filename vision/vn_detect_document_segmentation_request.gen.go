@@ -50,10 +50,6 @@ func (vc VNDetectDocumentSegmentationRequestClass) Alloc() VNDetectDocumentSegme
 // request generates contains the four corner points of a document’s
 // quadrilateral and saliency mask.
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectDocumentSegmentationRequest.VNDetectDocumentSegmentationRequestRevision1]: A constant for specifying revision 1 of the document segmentation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectDocumentSegmentationRequest
 type VNDetectDocumentSegmentationRequest struct {
 	VNImageBasedRequest
@@ -72,18 +68,9 @@ func VNDetectDocumentSegmentationRequestFromID(id objc.ID) VNDetectDocumentSegme
 
 // An interface definition for the [VNDetectDocumentSegmentationRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectDocumentSegmentationRequest.VNDetectDocumentSegmentationRequestRevision1]: A constant for specifying revision 1 of the document segmentation request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectDocumentSegmentationRequest
 type IVNDetectDocumentSegmentationRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the document segmentation request.
-	VNDetectDocumentSegmentationRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -113,19 +100,11 @@ func NewVNDetectDocumentSegmentationRequest() VNDetectDocumentSegmentationReques
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectDocumentSegmentationRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectDocumentSegmentationRequest {
 	instance := getVNDetectDocumentSegmentationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectDocumentSegmentationRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the document segmentation request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectdocumentsegmentationrequestrevision1
-func (d VNDetectDocumentSegmentationRequest) VNDetectDocumentSegmentationRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectDocumentSegmentationRequestRevision1"))
-	return rv
 }

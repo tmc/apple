@@ -3,10 +3,8 @@
 package appkit
 
 import (
-	"context"
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -111,8 +109,8 @@ type INSStepperTouchBarItem interface {
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 	// The action-message selector associated with the stepper.
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 
 	// Topic: Managing the stepper’s value
 
@@ -169,15 +167,28 @@ func NewStepperTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 	return NSStepperTouchBarItemFromID(rv)
 }
 
+// Creates a [NSStepperTouchBarItem] with a `formatter` to display the
+// stepper’s value as text.
+//
+// formatter: A formatter used to display a textual representation of the stepper’s
+// value
+//
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:formatter:)
 func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIdentifier, formatter foundation.NSFormatter) NSStepperTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSStepperTouchBarItemClass().class), objc.Sel("stepperTouchBarItemWithIdentifier:formatter:"), objc.String(string(identifier)), formatter)
 	return NSStepperTouchBarItemFromID(rv)
 }
 
+// Creates a [NSStepperTouchBarItem] using the result of `drawingHandler` to
+// display the stepper’s value as an image.
+//
+// drawingHandler: A block that draws a graphical representation of the stepper’s value in
+// the specified rectangle. The coordinates of this rectangle are specified in
+// points.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:drawingHandler:)
-func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler RectHandler) NSStepperTouchBarItem {
-	_block1, _ := NewRectBlock(drawingHandler)
+func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler CGRectFloat64Handler) NSStepperTouchBarItem {
+	_block1, _ := NewCGRectFloat64Block(drawingHandler)
 	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, _block1)
 	return NSStepperTouchBarItemFromID(rv)
 }
@@ -194,11 +205,11 @@ func (s NSStepperTouchBarItem) SetTarget(value objectivec.IObject) {
 // The action-message selector associated with the stepper.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/action
-func (s NSStepperTouchBarItem) Action() objc.SEL {
+func (s NSStepperTouchBarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (s NSStepperTouchBarItem) SetAction(value objc.SEL) {
+func (s NSStepperTouchBarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAction:"), value)
 }
 
@@ -242,19 +253,4 @@ func (s NSStepperTouchBarItem) Increment() float64 {
 }
 func (s NSStepperTouchBarItem) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
-}
-
-// StepperTouchBarItemWithIdentifierDrawingHandlerSync is a synchronous wrapper around [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (sc NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandlerSync(ctx context.Context, identifier NSTouchBarItemIdentifier) (corefoundation.CGRect, error) {
-	done := make(chan corefoundation.CGRect, 1)
-	sc.StepperTouchBarItemWithIdentifierDrawingHandler(identifier, func(val corefoundation.CGRect) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return corefoundation.CGRect{}, ctx.Err()
-	}
 }

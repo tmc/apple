@@ -394,8 +394,8 @@ func (p PersonNameComponentsFormatter) PersonNameComponentsFromString(string_ st
 // This method is a convenience for formatting name components without
 // creating an instance of [NSPersonNameComponentsFormatter]. For greater
 // customizability, you can create an instance of
-// [NSPersonNameComponentsFormatter] and use [StringFromPersonNameComponents]
-// instead.
+// [NSPersonNameComponentsFormatter] and use
+// [NSPersonNameComponentsFormatter.StringFromPersonNameComponents] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/PersonNameComponentsFormatter/localizedString(from:style:options:)
 //

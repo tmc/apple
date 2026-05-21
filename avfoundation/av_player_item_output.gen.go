@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/objc"
@@ -100,7 +101,7 @@ type IAVPlayerItemOutput interface {
 	// Topic: Time conversion
 
 	// Converts a host time, specified in seconds, to the item’s timebase.
-	ItemTimeForHostTime(hostTimeInSeconds float64) coremedia.CMTime
+	ItemTimeForHostTime(hostTimeInSeconds corefoundation.CFTimeInterval) coremedia.CMTime
 	// Converts a Mach host time to the item’s timebase.
 	ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) coremedia.CMTime
 	// Converts a Core Video timestamp to the item’s timebase.
@@ -156,7 +157,7 @@ func NewAVPlayerItemOutput() AVPlayerItemOutput {
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 //
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
-func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) coremedia.CMTime {
+func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds corefoundation.CFTimeInterval) coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
 	return coremedia.CMTime(rv)
 }

@@ -50,8 +50,8 @@ func (nc NEDNSSettingsManagerClass) Alloc() NEDNSSettingsManager {
 //
 // When your app starts up, access the shared instance of the DNS settings
 // manager, and load existing settings from the preferences using
-// [NEDNSSettingsManager.LoadFromPreferencesWithCompletionHandler]. You can define your DNS server
-// configuration, and persist it by calling
+// [NEDNSSettingsManager.LoadFromPreferencesWithCompletionHandler]. You can
+// define your DNS server configuration, and persist it by calling
 // [NEDNSSettingsManager.SaveToPreferencesWithCompletionHandler].
 //
 // In order to use your DNS settings, the user needs to enable it in the
@@ -72,10 +72,6 @@ func (nc NEDNSSettingsManagerClass) Alloc() NEDNSSettingsManager {
 //   - [NEDNSSettingsManager.SetLocalizedDescription]
 //   - [NEDNSSettingsManager.OnDemandRules]: A list of ordered rules that defines the networks on which the DNS settings will apply.
 //   - [NEDNSSettingsManager.SetOnDemandRules]
-//
-// # Handling errors
-//
-//   - [NEDNSSettingsManager.NEDNSSettingsErrorDomain]: The domain for errors resulting from calls to the DNS settings manager.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager
 type NEDNSSettingsManager struct {
@@ -110,10 +106,6 @@ func NEDNSSettingsManagerFromID(id objc.ID) NEDNSSettingsManager {
 //   - [INEDNSSettingsManager.OnDemandRules]: A list of ordered rules that defines the networks on which the DNS settings will apply.
 //   - [INEDNSSettingsManager.SetOnDemandRules]
 //
-// # Handling errors
-//
-//   - [INEDNSSettingsManager.NEDNSSettingsErrorDomain]: The domain for errors resulting from calls to the DNS settings manager.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager
 type INEDNSSettingsManager interface {
 	objectivec.IObject
@@ -140,11 +132,6 @@ type INEDNSSettingsManager interface {
 	// A list of ordered rules that defines the networks on which the DNS settings will apply.
 	OnDemandRules() []NEOnDemandRule
 	SetOnDemandRules(value []NEOnDemandRule)
-
-	// Topic: Handling errors
-
-	// The domain for errors resulting from calls to the DNS settings manager.
-	NEDNSSettingsErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -177,8 +164,8 @@ func NewNEDNSSettingsManager() NEDNSSettingsManager {
 // # Discussion
 //
 // You must call this method at least once before calling
-// [SaveToPreferencesWithCompletionHandler] for the first time after your app
-// launches.
+// [NEDNSSettingsManager.SaveToPreferencesWithCompletionHandler] for the first
+// time after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager/loadFromPreferences(completionHandler:)
 //
@@ -197,8 +184,9 @@ func (d NEDNSSettingsManager) LoadFromPreferencesWithCompletionHandler(completio
 //
 // # Discussion
 //
-// You must call [LoadFromPreferencesWithCompletionHandler] at least once
-// before calling this method the first time after your app launches.
+// You must call
+// [NEDNSSettingsManager.LoadFromPreferencesWithCompletionHandler] at least
+// once before calling this method the first time after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager/saveToPreferences(completionHandler:)
 //
@@ -220,8 +208,8 @@ func (d NEDNSSettingsManager) SaveToPreferencesWithCompletionHandler(completionH
 //
 // After you remove your configuration, the [NEDNSSettingsManager] object
 // still contains the configuration parameters. Calling
-// [LoadFromPreferencesWithCompletionHandler] clears out the configuration
-// parameters from the [NEDNSSettingsManager] object.
+// [NEDNSSettingsManager.LoadFromPreferencesWithCompletionHandler] clears out
+// the configuration parameters from the [NEDNSSettingsManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager/removeFromPreferences(completionHandler:)
 //
@@ -314,14 +302,6 @@ func (d NEDNSSettingsManager) OnDemandRules() []NEOnDemandRule {
 }
 func (d NEDNSSettingsManager) SetOnDemandRules(value []NEOnDemandRule) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOnDemandRules:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The domain for errors resulting from calls to the DNS settings manager.
-//
-// See: https://developer.apple.com/documentation/networkextension/nednssettingserrordomain
-func (d NEDNSSettingsManager) NEDNSSettingsErrorDomain() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("NEDNSSettingsErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // LoadFromPreferences is a synchronous wrapper around [NEDNSSettingsManager.LoadFromPreferencesWithCompletionHandler].

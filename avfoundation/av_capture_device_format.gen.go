@@ -322,15 +322,6 @@ type IAVCaptureDeviceFormat interface {
 	// Indicates whether the format supports the Edge Light feature.
 	IsEdgeLightSupported() bool
 
-	// The currently active depth data format of the capture device.
-	ActiveDepthDataFormat() IAVCaptureDeviceFormat
-	SetActiveDepthDataFormat(value IAVCaptureDeviceFormat)
-	// The capture format in use by the device.
-	ActiveFormat() IAVCaptureDeviceFormat
-	SetActiveFormat(value IAVCaptureDeviceFormat)
-	// The capture formats a device supports.
-	Formats() IAVCaptureDeviceFormat
-	SetFormats(value IAVCaptureDeviceFormat)
 	// The zoom factors at which this device transitions to secondary native resolution modes.
 	SecondaryNativeResolutionZoomFactors() []foundation.NSNumber
 	// The list of color spaces the format supports for image and video capture.
@@ -343,9 +334,6 @@ type IAVCaptureDeviceFormat interface {
 	SystemRecommendedExposureBiasRange() IAVExposureBiasRange
 	// The system’s recommended zoom range for this device format.
 	SystemRecommendedVideoZoomRange() IAVZoomRange
-	// A value that controls the cropping and enlargement of images captured by the device.
-	VideoZoomFactor() float64
-	SetVideoZoomFactor(value float64)
 }
 
 // Init initializes the instance.
@@ -406,7 +394,7 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForBackgroundReplacement() IAV
 // # Discussion
 //
 // This property determines whether you can enable a capture device’s
-// [AutoVideoFrameRateEnabled] property.
+// [AVCaptureDevice.AutoVideoFrameRateEnabled] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isAutoVideoFrameRateSupported
 func (c AVCaptureDeviceFormat) IsAutoVideoFrameRateSupported() bool {
@@ -434,7 +422,7 @@ func (c AVCaptureDeviceFormat) VideoSupportedFrameRateRanges() []AVFrameRateRang
 //
 // # Discussion
 //
-// See [ReactionEffectsEnabled] for more information.
+// See [AVCaptureDeviceClass.ReactionEffectsEnabled] for more information.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/reactionEffectsSupported
 func (c AVCaptureDeviceFormat) ReactionEffectsSupported() bool {
@@ -505,7 +493,8 @@ func (c AVCaptureDeviceFormat) FormatDescription() coremedia.CMFormatDescription
 // app links against iOS 15 or later.
 //
 // Formats that don’t support high photo quality produce the same image
-// quality regardless of the current [PhotoQualityPrioritization] setting.
+// quality regardless of the current
+// [AVCapturePhotoSettings.PhotoQualityPrioritization] setting.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isHighPhotoQualitySupported
 func (c AVCaptureDeviceFormat) IsHighPhotoQualitySupported() bool {
@@ -592,8 +581,9 @@ func (c AVCaptureDeviceFormat) MaxSimulatedAperture() float32 {
 	return rv
 }
 
-// Indicates the maximum zoom factor available for the [VideoZoomFactor]
-// property when Cinematic Video capture is enabled on the device input.
+// Indicates the maximum zoom factor available for the
+// [AVCaptureDevice.VideoZoomFactor] property when Cinematic Video capture is
+// enabled on the device input.
 //
 // # Discussion
 //
@@ -607,8 +597,9 @@ func (c AVCaptureDeviceFormat) VideoMaxZoomFactorForCinematicVideo() float64 {
 	return rv
 }
 
-// Indicates the minimum zoom factor available for the [VideoZoomFactor]
-// property when Cinematic Video capture is enabled on the device input.
+// Indicates the minimum zoom factor available for the
+// [AVCaptureDevice.VideoZoomFactor] property when Cinematic Video capture is
+// enabled on the device input.
 //
 // # Discussion
 //
@@ -644,9 +635,10 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForCinematicVideo() IAVFrameRa
 // This property returns `true` if the session’s current configuration
 // supports lens smudge detection. When switching cameras or formats, this
 // property may change. When this property changes from `true` to `false`,
-// [CameraLensSmudgeDetectionEnabled] also reverts to `false`. If you opt in
-// for lens smudge detection and then change configurations, you should set
-// [CameraLensSmudgeDetectionEnabled] to `true` again.
+// [AVCaptureDevice.CameraLensSmudgeDetectionEnabled] also reverts to `false`.
+// If you opt in for lens smudge detection and then change configurations, you
+// should set [AVCaptureDevice.CameraLensSmudgeDetectionEnabled] to `true`
+// again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isCameraLensSmudgeDetectionSupported
 func (c AVCaptureDeviceFormat) IsCameraLensSmudgeDetectionSupported() bool {
@@ -697,7 +689,8 @@ func (c AVCaptureDeviceFormat) VideoMinZoomFactorForCenterStage() float64 {
 // # Discussion
 //
 // Devices support a limited zoom range when Center Stage is active. If the
-// device doesn’t support Center Stage, the value is [VideoMaxZoomFactor].
+// device doesn’t support Center Stage, the value is
+// [AVCaptureDeviceFormat.VideoMaxZoomFactor].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/videoMaxZoomFactorForCenterStage
 func (c AVCaptureDeviceFormat) VideoMaxZoomFactorForCenterStage() float64 {
@@ -711,8 +704,9 @@ func (c AVCaptureDeviceFormat) VideoMaxZoomFactorForCenterStage() float64 {
 // # Discussion
 //
 // Enabling a Portrait Effect applies a shallow depth-of-field effect to
-// objects in the background. See the [PortraitEffectEnabled] property of
-// [AVCaptureDevice] for more information.
+// objects in the background. See the
+// [AVCaptureDeviceClass.PortraitEffectEnabled] property of [AVCaptureDevice]
+// for more information.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isPortraitEffectSupported
 func (c AVCaptureDeviceFormat) IsPortraitEffectSupported() bool {
@@ -738,7 +732,8 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForPortraitEffect() IAVFrameRa
 //
 // # Discussion
 //
-// See [StudioLightEnabled] for more information on the Studio Light feature.
+// See [AVCaptureDeviceClass.StudioLightEnabled] for more information on the
+// Studio Light feature.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isStudioLightSupported
 func (c AVCaptureDeviceFormat) IsStudioLightSupported() bool {
@@ -771,39 +766,6 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForStudioLight() IAVFrameRateR
 func (c AVCaptureDeviceFormat) IsEdgeLightSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEdgeLightSupported"))
 	return rv
-}
-
-// The currently active depth data format of the capture device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activedepthdataformat
-func (c AVCaptureDeviceFormat) ActiveDepthDataFormat() IAVCaptureDeviceFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeDepthDataFormat"))
-	return AVCaptureDeviceFormatFromID(objc.ID(rv))
-}
-func (c AVCaptureDeviceFormat) SetActiveDepthDataFormat(value IAVCaptureDeviceFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveDepthDataFormat:"), value)
-}
-
-// The capture format in use by the device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activeformat
-func (c AVCaptureDeviceFormat) ActiveFormat() IAVCaptureDeviceFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeFormat"))
-	return AVCaptureDeviceFormatFromID(objc.ID(rv))
-}
-func (c AVCaptureDeviceFormat) SetActiveFormat(value IAVCaptureDeviceFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveFormat:"), value)
-}
-
-// The capture formats a device supports.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/formats
-func (c AVCaptureDeviceFormat) Formats() IAVCaptureDeviceFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("formats"))
-	return AVCaptureDeviceFormatFromID(objc.ID(rv))
-}
-func (c AVCaptureDeviceFormat) SetFormats(value IAVCaptureDeviceFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFormats:"), value)
 }
 
 // The zoom factors at which this device transitions to secondary native
@@ -839,7 +801,7 @@ func (c AVCaptureDeviceFormat) SecondaryNativeResolutionZoomFactors() []foundati
 // color gamut). By default, a capture session automatically enables
 // wide-gamut capture for supported devices and capture workflows (for
 // details, see the [AVCaptureSession] property
-// [AutomaticallyConfiguresCaptureDeviceForWideColor]).
+// [AVCaptureSession.AutomaticallyConfiguresCaptureDeviceForWideColor]).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceFormat/supportedColorSpaces
 //
@@ -875,8 +837,9 @@ func (c AVCaptureDeviceFormat) SupportedMaxPhotoDimensions() []foundation.NSValu
 // # Discussion
 //
 // Virtual devices support limited zoom ranges when delivering depth data to
-// any output. If a device format has no [SupportedDepthDataFormats] values,
-// this property value is an empty array.
+// any output. If a device format has no
+// [AVCaptureDeviceFormat.SupportedDepthDataFormats] values, this property
+// value is an empty array.
 //
 // The presence of one or more ranges where the minimum and maximum zoom
 // factors aren’t equal means the system supports continuous zoom with
@@ -891,9 +854,9 @@ func (c AVCaptureDeviceFormat) SupportedMaxPhotoDimensions() []foundation.NSValu
 // resumes depth data delivery.
 //
 // When you enable depth data delivery, the effective
-// [VideoZoomFactorUpscaleThreshold] is `1.0`, which means that all zoom
-// factors that aren’t native zoom factors (see
-// [VirtualDeviceSwitchOverVideoZoomFactors] and
+// [AVCaptureDeviceFormat.VideoZoomFactorUpscaleThreshold] is `1.0`, which
+// means that all zoom factors that aren’t native zoom factors (see
+// [AVCaptureDevice.VirtualDeviceSwitchOverVideoZoomFactors] and
 // [secondaryNativeResolutionZoomFactors]) result in digital upscaling.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceFormat/supportedVideoZoomRangesForDepthDataDelivery
@@ -929,24 +892,12 @@ func (c AVCaptureDeviceFormat) SystemRecommendedExposureBiasRange() IAVExposureB
 // recommendation isn’t available, this property returns `nil`.
 //
 // Apps can key-value observe a capture device’s
-// [MinAvailableVideoZoomFactor] and [MaxAvailableVideoZoomFactor] property
-// values to know when a device limits its supported zoom to the recommended
-// range.
+// [AVCaptureDevice.MinAvailableVideoZoomFactor] and
+// [AVCaptureDevice.MaxAvailableVideoZoomFactor] property values to know when
+// a device limits its supported zoom to the recommended range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceFormat/systemRecommendedVideoZoomRange
 func (c AVCaptureDeviceFormat) SystemRecommendedVideoZoomRange() IAVZoomRange {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("systemRecommendedVideoZoomRange"))
 	return AVZoomRangeFromID(objc.ID(rv))
-}
-
-// A value that controls the cropping and enlargement of images captured by
-// the device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/videozoomfactor
-func (c AVCaptureDeviceFormat) VideoZoomFactor() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("videoZoomFactor"))
-	return rv
-}
-func (c AVCaptureDeviceFormat) SetVideoZoomFactor(value float64) {
-	objc.Send[struct{}](c.ID, objc.Sel("setVideoZoomFactor:"), value)
 }

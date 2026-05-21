@@ -59,7 +59,7 @@ const (
 	// BNNSActivationFunctionHardSigmoid: An activation function that returns the hard sigmoid function of its input.
 	BNNSActivationFunctionHardSigmoid BNNSActivationFunction = 15
 	// BNNSActivationFunctionHardSwish: An activation function that returns the hard swish function of its input.
-	BNNSActivationFunctionHardSwish BNNSActivationFunction = 31
+	BNNSActivationFunctionHardSwish BNNSActivationFunction = 30
 	// BNNSActivationFunctionIdentity: An activation function that returns its input.
 	BNNSActivationFunctionIdentity BNNSActivationFunction = 0
 	// BNNSActivationFunctionIntegerLinearSaturate: An activation function that returns an arithmetic shift, preserving sign.
@@ -135,8 +135,6 @@ func (e BNNSActivationFunction) String() string {
 		return "BNNSActivationFunctionHardShrink"
 	case BNNSActivationFunctionHardSigmoid:
 		return "BNNSActivationFunctionHardSigmoid"
-	case BNNSActivationFunctionHardSwish:
-		return "BNNSActivationFunctionHardSwish"
 	case BNNSActivationFunctionIdentity:
 		return "BNNSActivationFunctionIdentity"
 	case BNNSActivationFunctionIntegerLinearSaturate:
@@ -163,6 +161,8 @@ func (e BNNSActivationFunction) String() string {
 		return "BNNSActivationFunctionSELU"
 	case BNNSActivationFunctionScaledTanh:
 		return "BNNSActivationFunctionScaledTanh"
+	case BNNSActivationFunctionSiLU:
+		return "BNNSActivationFunctionSiLU"
 	case BNNSActivationFunctionSigmoid:
 		return "BNNSActivationFunctionSigmoid"
 	case BNNSActivationFunctionSoftShrink:
@@ -1030,7 +1030,7 @@ const (
 	// BNNSPoolingFunctionUnMax: A function for pooling that’s the partial inverse of max pooling and sets all nonmaximal values to zero.
 	BNNSPoolingFunctionUnMax BNNSPoolingFunction = 3
 	// Deprecated.
-	BNNSPoolingFunctionAverage BNNSPoolingFunction = 5
+	BNNSPoolingFunctionAverage BNNSPoolingFunction = 1
 )
 
 func (e BNNSPoolingFunction) String() string {
@@ -1045,8 +1045,6 @@ func (e BNNSPoolingFunction) String() string {
 		return "BNNSPoolingFunctionMax"
 	case BNNSPoolingFunctionUnMax:
 		return "BNNSPoolingFunctionUnMax"
-	case BNNSPoolingFunctionAverage:
-		return "BNNSPoolingFunctionAverage"
 	default:
 		return fmt.Sprintf("BNNSPoolingFunction(%d)", e)
 	}
@@ -1092,9 +1090,9 @@ type BNNSReduceFunction uint
 
 const (
 	// BNNSReduceFunctionAll: An alias of the logical AND reduction function.
-	BNNSReduceFunctionAll BNNSReduceFunction = 18
+	BNNSReduceFunctionAll BNNSReduceFunction = 11
 	// BNNSReduceFunctionAny: An alias of the logical OR reduction function.
-	BNNSReduceFunctionAny BNNSReduceFunction = 17
+	BNNSReduceFunctionAny BNNSReduceFunction = 10
 	// BNNSReduceFunctionArgMax: A reduction function that computes the index of the maximum value.
 	BNNSReduceFunctionArgMax BNNSReduceFunction = 2
 	// BNNSReduceFunctionArgMin: A reduction function that computes the index of the minimum value.
@@ -1148,10 +1146,6 @@ func (e BNNSReduceFunction) String() string {
 		return "BNNSReduceFunctionLogSum"
 	case BNNSReduceFunctionLogSumExp:
 		return "BNNSReduceFunctionLogSumExp"
-	case BNNSReduceFunctionLogicalAnd:
-		return "BNNSReduceFunctionLogicalAnd"
-	case BNNSReduceFunctionLogicalOr:
-		return "BNNSReduceFunctionLogicalOr"
 	case BNNSReduceFunctionMax:
 		return "BNNSReduceFunctionMax"
 	case BNNSReduceFunctionMean:

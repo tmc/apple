@@ -17,7 +17,7 @@ type NSTextSelectionDataSource interface {
 	// Enumerates all the insertion point caret offsets from left to right in visual order.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
-	EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block NSTextLocationHandler)
+	EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler)
 
 	// Returns a new location using the location and offset you specify.
 	//
@@ -84,7 +84,7 @@ func NSTextSelectionDataSourceObjectFromID(id objc.ID) NSTextSelectionDataSource
 // the left, and on the right for right-to-left characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
-func (o NSTextSelectionDataSourceObject) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block NSTextLocationHandler) {
+func (o NSTextSelectionDataSourceObject) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, block)
 }
 
@@ -194,7 +194,7 @@ func (o NSTextSelectionDataSourceObject) BaseWritingDirectionAtLocation(location
 // this layout functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
-func (o NSTextSelectionDataSourceObject) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationHandler) {
+func (o NSTextSelectionDataSourceObject) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationBoolHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, block)
 }
 

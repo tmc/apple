@@ -228,7 +228,8 @@ func (c AVCaptionRenderer) SetCaptions(value []AVCaption) {
 // # Discussion
 //
 // Set this property value before drawing. The renderer uses the value in each
-// call to [RenderInContextForTime], until you change it to a new value.
+// call to [AVCaptionRenderer.RenderInContextForTime], until you change it to
+// a new value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/bounds
 func (c AVCaptionRenderer) Bounds() corefoundation.CGRect {

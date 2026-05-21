@@ -58,9 +58,9 @@ func (wc WKUserContentControllerClass) Alloc() WKUserContentController {
 // content.
 //
 // Create and configure a [WKUserContentController] object as part of your
-// overall web view setup. Assign the object to the [UserContentController]
-// property of your [WKWebViewConfiguration] object before creating your web
-// view.
+// overall web view setup. Assign the object to the
+// [WKWebViewConfiguration.UserContentController] property of your
+// [WKWebViewConfiguration] object before creating your web view.
 //
 // # Adding and Removing Custom Scripts
 //
@@ -163,9 +163,7 @@ type IWKUserContentController interface {
 	// Removes all rules lists from the content controller.
 	RemoveAllContentRuleLists()
 
-	// The object that coordinates interactions between your app’s native code and the webpage’s scripts and other content.
-	UserContentController() IWKUserContentController
-	SetUserContentController(value IWKUserContentController)
+	InitWithCoder(coder foundation.INSCoder) WKUserContentController
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -186,6 +184,13 @@ func NewWKUserContentController() WKUserContentController {
 	class := getWKUserContentControllerClass()
 	rv := objc.Send[WKUserContentController](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/WebKit/WKUserContentController/init(coder:)
+func NewUserContentControllerWithCoder(coder foundation.INSCoder) WKUserContentController {
+	instance := getWKUserContentControllerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return WKUserContentControllerFromID(rv)
 }
 
 // Injects the specified script into the webpage’s content.
@@ -228,8 +233,8 @@ func (u WKUserContentController) RemoveAllUserScripts() {
 // content controller packages that value into an appropriate type and
 // delivers it to your content handler’s delegate method.
 //
-// This method uses the content world from the [PageWorld] property of
-// [WKContentWorld].
+// This method uses the content world from the [WKContentWorldClass.PageWorld]
+// property of [WKContentWorld].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserContentController/add(_:name:)
 func (u WKUserContentController) AddScriptMessageHandlerName(scriptMessageHandler WKScriptMessageHandler, name string) {
@@ -312,9 +317,10 @@ func (u WKUserContentController) AddScriptMessageHandlerWithReplyContentWorldNam
 // # Discussion
 //
 // Use this method to remove a message handler that you previously installed
-// using the [AddScriptMessageHandlerName] method. This method removes the
-// message handler from the page content world — that is, the content world
-// available from the [PageWorld] property of [WKContentWorld]. If you
+// using the [WKUserContentController.AddScriptMessageHandlerName] method.
+// This method removes the message handler from the page content world —
+// that is, the content world available from the
+// [WKContentWorldClass.PageWorld] property of [WKContentWorld]. If you
 // installed the message handler in a different content world, this method
 // doesn’t remove it.
 //
@@ -408,6 +414,12 @@ func (u WKUserContentController) RemoveContentRuleList(contentRuleList IWKConten
 func (u WKUserContentController) RemoveAllContentRuleLists() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllContentRuleLists"))
 }
+
+// See: https://developer.apple.com/documentation/WebKit/WKUserContentController/init(coder:)
+func (u WKUserContentController) InitWithCoder(coder foundation.INSCoder) WKUserContentController {
+	rv := objc.Send[WKUserContentController](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u WKUserContentController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -420,16 +432,4 @@ func (u WKUserContentController) UserScripts() []WKUserScript {
 	return objc.ConvertSlice(rv, func(id objc.ID) WKUserScript {
 		return WKUserScriptFromID(id)
 	})
-}
-
-// The object that coordinates interactions between your app’s native code
-// and the webpage’s scripts and other content.
-//
-// See: https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/usercontentcontroller
-func (u WKUserContentController) UserContentController() IWKUserContentController {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("userContentController"))
-	return WKUserContentControllerFromID(objc.ID(rv))
-}
-func (u WKUserContentController) SetUserContentController(value IWKUserContentController) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUserContentController:"), value)
 }

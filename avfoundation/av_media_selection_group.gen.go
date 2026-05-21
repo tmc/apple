@@ -151,7 +151,7 @@ func NewAVMediaSelectionGroup() AVMediaSelectionGroup {
 // Returns the media selection options that match the given property list.
 //
 // plist: A property list previously obtained from an option in the group using
-// [PropertyList] ([AVMediaSelectionOption]).
+// [AVMediaSelectionOption.PropertyList] ([AVMediaSelectionOption]).
 //
 // # Return Value
 //
@@ -329,7 +329,7 @@ func (m AVMediaSelectionGroup) DefaultOption() IAVMediaSelectionOption {
 // If the value of this property is true, you can deselect all of the
 // available media options in the group by passing `nil` as the specified
 // [AVMediaSelectionOption] object to
-// [SelectMediaOptionInMediaSelectionGroup].
+// [AVPlayerItem.SelectMediaOptionInMediaSelectionGroup].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionGroup/allowsEmptySelection
 func (m AVMediaSelectionGroup) AllowsEmptySelection() bool {

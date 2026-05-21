@@ -176,7 +176,7 @@ func (l VZLinuxRosettaAbstractSocketCachingOptions) Name() string {
 // # Discussion
 //
 // The `sockaddr_un` structure in Linux defines the maximum length for the
-// path [Name].
+// path [VZLinuxRosettaAbstractSocketCachingOptions.Name].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAbstractSocketCachingOptions/maximumNameLength
 func (_VZLinuxRosettaAbstractSocketCachingOptionsClass VZLinuxRosettaAbstractSocketCachingOptionsClass) MaximumNameLength() uint {

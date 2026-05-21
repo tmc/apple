@@ -59,12 +59,6 @@ func (vc VNDetectBarcodesRequestClass) Alloc() VNDetectBarcodesRequest {
 //   - [VNDetectBarcodesRequest.CoalesceCompositeSymbologies]: A Boolean value that indicates whether to coalesce multiple codes based on the symbology.
 //   - [VNDetectBarcodesRequest.SetCoalesceCompositeSymbologies]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectBarcodesRequest.VNDetectBarcodesRequestRevision3]: A constant for specifying revision 3 of the barcode detection request.
-//   - [VNDetectBarcodesRequest.VNDetectBarcodesRequestRevision2]: A constant for specifying revision 2 of the barcode detection request.
-//   - [VNDetectBarcodesRequest.VNDetectBarcodesRequestRevision1]: A constant for specifying revision 1 of the barcode detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequest
 type VNDetectBarcodesRequest struct {
 	VNImageBasedRequest
@@ -90,12 +84,6 @@ func VNDetectBarcodesRequestFromID(id objc.ID) VNDetectBarcodesRequest {
 //   - [IVNDetectBarcodesRequest.CoalesceCompositeSymbologies]: A Boolean value that indicates whether to coalesce multiple codes based on the symbology.
 //   - [IVNDetectBarcodesRequest.SetCoalesceCompositeSymbologies]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectBarcodesRequest.VNDetectBarcodesRequestRevision3]: A constant for specifying revision 3 of the barcode detection request.
-//   - [IVNDetectBarcodesRequest.VNDetectBarcodesRequestRevision2]: A constant for specifying revision 2 of the barcode detection request.
-//   - [IVNDetectBarcodesRequest.VNDetectBarcodesRequestRevision1]: A constant for specifying revision 1 of the barcode detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequest
 type IVNDetectBarcodesRequest interface {
 	IVNImageBasedRequest
@@ -110,15 +98,6 @@ type IVNDetectBarcodesRequest interface {
 	// A Boolean value that indicates whether to coalesce multiple codes based on the symbology.
 	CoalesceCompositeSymbologies() bool
 	SetCoalesceCompositeSymbologies(value bool)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 3 of the barcode detection request.
-	VNDetectBarcodesRequestRevision3() int
-	// A constant for specifying revision 2 of the barcode detection request.
-	VNDetectBarcodesRequestRevision2() int
-	// A constant for specifying revision 1 of the barcode detection request.
-	VNDetectBarcodesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -148,7 +127,7 @@ func NewVNDetectBarcodesRequest() VNDetectBarcodesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectBarcodesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectBarcodesRequest {
@@ -201,28 +180,4 @@ func (d VNDetectBarcodesRequest) CoalesceCompositeSymbologies() bool {
 }
 func (d VNDetectBarcodesRequest) SetCoalesceCompositeSymbologies(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoalesceCompositeSymbologies:"), value)
-}
-
-// A constant for specifying revision 3 of the barcode detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision3
-func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision3() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision3"))
-	return rv
-}
-
-// A constant for specifying revision 2 of the barcode detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision2
-func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision2() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the barcode detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision1
-func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision1"))
-	return rv
 }

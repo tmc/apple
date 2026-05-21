@@ -3,9 +3,8 @@
 package network
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -234,7 +233,7 @@ func NWEstablishmentReportFromID(id objc.ID) NWEstablishmentReport {
 // NWEthernetAddress is a 48-bit Ethernet address.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ethernet_address_t
-type NWEthernetAddress = unsafe.Pointer
+type NWEthernetAddress = kernel.Pointer
 
 // NWEthernetChannelReceiveHandler is a handler that delivers inbound Ethernet frames.
 //
@@ -279,7 +278,7 @@ type NWFramerInputHandler = func(objectivec.Object) uint64
 // NWFramerMessageDisposeValue is a handler that’s invoked when your custom value needs to be released due to a message being released or the value being replaced.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_message_dispose_value_t
-type NWFramerMessageDisposeValue = func(unsafe.Pointer)
+type NWFramerMessageDisposeValue = func(kernel.Pointer)
 
 // NWFramerMessage is a message for a custom protocol, in which you can store arbitrary key-value pairs.
 //

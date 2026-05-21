@@ -5,7 +5,8 @@ package dispatch
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/objectivec"
 )
 
 type Dispatch_autorelease_frequency_t = DispatchAutoreleaseFrequency
@@ -20,7 +21,7 @@ type Dispatch_block_t = func()
 // Dispatch_data_applier_t is a block to invoke for every contiguous memory region in a data object.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_data_applier_t
-type Dispatch_data_applier_t = func(objc.ID, uint32, unsafe.Pointer, uint32) bool
+type Dispatch_data_applier_t = func(objectivec.Object, uint32, kernel.Pointer, uint32) bool
 
 // Dispatch_data_t is an immutable object representing a contiguous or sparse region of memory.
 //
@@ -50,7 +51,7 @@ type Dispatch_io_close_flags_t = uint
 // Dispatch_io_handler_t is a handler block used to process operations on a dispatch I/O channel.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_io_handler_t
-type Dispatch_io_handler_t = func(bool, objc.ID, int)
+type Dispatch_io_handler_t = func(bool, objectivec.Object, int)
 
 // Dispatch_io_interval_flags_t is the desired delivery behavior for interval events.
 //

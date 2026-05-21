@@ -80,16 +80,6 @@ type IAVAssetWriterInputPassDescription interface {
 
 	// An array of time ranges.
 	SourceTimeRanges() []foundation.NSValue
-
-	// A Boolean value that indicates whether the input may perform multiple passes over appended media data.
-	CanPerformMultiplePasses() bool
-	SetCanPerformMultiplePasses(value bool)
-	// An object that describes the requirements for the current pass.
-	CurrentPassDescription() IAVAssetWriterInputPassDescription
-	SetCurrentPassDescription(value IAVAssetWriterInputPassDescription)
-	// A Boolean value that indicates whether the input attempts to encode the source media data using multiple passes.
-	PerformsMultiPassEncodingIfSupported() bool
-	SetPerformsMultiPassEncodingIfSupported(value bool)
 }
 
 // Init initializes the instance.
@@ -130,39 +120,4 @@ func (a AVAssetWriterInputPassDescription) SourceTimeRanges() []foundation.NSVal
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
-}
-
-// A Boolean value that indicates whether the input may perform multiple
-// passes over appended media data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetwriterinput/canperformmultiplepasses
-func (a AVAssetWriterInputPassDescription) CanPerformMultiplePasses() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("canPerformMultiplePasses"))
-	return rv
-}
-func (a AVAssetWriterInputPassDescription) SetCanPerformMultiplePasses(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCanPerformMultiplePasses:"), value)
-}
-
-// An object that describes the requirements for the current pass.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetwriterinput/currentpassdescription
-func (a AVAssetWriterInputPassDescription) CurrentPassDescription() IAVAssetWriterInputPassDescription {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentPassDescription"))
-	return AVAssetWriterInputPassDescriptionFromID(objc.ID(rv))
-}
-func (a AVAssetWriterInputPassDescription) SetCurrentPassDescription(value IAVAssetWriterInputPassDescription) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPassDescription:"), value)
-}
-
-// A Boolean value that indicates whether the input attempts to encode the
-// source media data using multiple passes.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetwriterinput/performsmultipassencodingifsupported
-func (a AVAssetWriterInputPassDescription) PerformsMultiPassEncodingIfSupported() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("performsMultiPassEncodingIfSupported"))
-	return rv
-}
-func (a AVAssetWriterInputPassDescription) SetPerformsMultiPassEncodingIfSupported(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPerformsMultiPassEncodingIfSupported:"), value)
 }

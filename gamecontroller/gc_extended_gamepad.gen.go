@@ -55,14 +55,15 @@ func (gc GCExtendedGamepadClass) Alloc() GCExtendedGamepad {
 // [media-3850406]
 //
 // If a [GCController] object supports this type of profile, get the input
-// values of the elements from the controller’s [GCExtendedGamepad.ExtendedGamepad] property
-// or use the profile’s [GCExtendedGamepad.ValueChangedHandler] method to receive a callback
-// when the input values change. Alternatively, use the [saveSnapshot()]
-// method to capture the input values at a moment in time.
+// values of the elements from the controller’s
+// [GCController.ExtendedGamepad] property or use the profile’s
+// [GCExtendedGamepad.ValueChangedHandler] method to receive a callback when
+// the input values change. Alternatively, use the [saveSnapshot()] method to
+// capture the input values at a moment in time.
 //
-// If the controller’s [GCExtendedGamepad.ExtendedGamepad] property is `nil`, the controller
-// doesn’t support this type of profile. See [GCController] for other
-// profiles you can use.
+// If the controller’s [GCController.ExtendedGamepad] property is `nil`, the
+// controller doesn’t support this type of profile. See [GCController] for
+// other profiles you can use.
 //
 // # Getting the controller
 //

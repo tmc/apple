@@ -5,6 +5,7 @@ package appkit
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -23,27 +24,42 @@ type NSWritingToolsCoordinatorDelegate interface {
 	// Tells the delegate that there are text changes to incorporate into the view.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:replace:in:proposedText:reason:animationParameters:completion:)
-	WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters objectivec.IObject, completion AttributedStringHandler)
+	WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters kernel.ID, completion AttributedStringHandler)
 
 	// Asks the delegate to update your view’s current text selection.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:select:in:completion:)
-	WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context objectivec.IObject, completion VoidHandler)
+	WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context kernel.ID, completion VoidHandler)
+
+	// Asks the delegate for a preview image and layout information for the specified text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:of:in:completion:)
+	WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion NSTextPreviewArrayHandler)
 
 	// Asks the delegate for a preview image and layout information for the specified text.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:in:completion:)
-	WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context objectivec.IObject, completion TextPreviewHandler)
+	WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context kernel.ID, completion TextPreviewHandler)
 
 	// Prepare for animations for the content that Writing Tools is evaluating.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:prepareFor:for:in:completion:)
-	WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler)
+	WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler)
 
 	// Asks the delegate to clean up any state related to the specified Writing Tools animation.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:finish:for:in:completion:)
-	WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler)
+	WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler)
+
+	// Asks the delegate to provide the bounding paths for the specified text in your view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsBoundingBezierPathsFor:in:completion:)
+	WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler)
+
+	// Asks the delegate to provide an underline shape for the specified text during a proofreading session.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsUnderlinePathsFor:in:completion:)
+	WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler)
 }
 
 // NSWritingToolsCoordinatorDelegateObject wraps an existing Objective-C object that conforms to the NSWritingToolsCoordinatorDelegate protocol.
@@ -101,7 +117,8 @@ func NSWritingToolsCoordinatorDelegateObjectFromID(id objc.ID) NSWritingToolsCoo
 // sentence, to evaluate ways to rewrite that sentence. It’s best to include
 // the text up to the nearest paragraph boundary before and after the
 // selection. If you include extra text in your context object, set the
-// [Range] property to the range of the selected text.
+// [NSWritingToolsCoordinatorContext.Range] property to the range of the
+// selected text.
 //
 // Pass the context objects you create to the provided completion handler
 // before your method returns. Writing Tools waits for you to call the
@@ -173,7 +190,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // animations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:replace:in:proposedText:reason:animationParameters:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters objectivec.IObject, completion AttributedStringHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters kernel.ID, completion AttributedStringHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:"), writingToolsCoordinator, range_, context, replacementText, reason, animationParameters, completion)
 }
 
@@ -205,8 +222,65 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceR
 // you’re finished.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:select:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context objectivec.IObject, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context kernel.ID, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:selectRanges:inContext:completion:"), writingToolsCoordinator, objectivec.IObjectSliceToNSArray(ranges), context, completion)
+}
+
+// Asks the delegate for a preview image and layout information for the
+// specified text.
+//
+// writingToolsCoordinator: The coordinator object notifying you that animations are about to begin.
+//
+// textAnimation: The type of animation Writing Tools is preparing.
+//
+// range: The range of text that requires a preview image. This range is relative to
+// the text in your context object, and it’s your responsibility to match
+// that location to the correct location in your text storage. If you
+// initialized the context object with the entire contents of your view’s
+// text storage, you can use `range` as-is to access that text storage.
+// However, if you initialized the context object with only a portion of your
+// view’s text, add the starting location of your context object’s text to
+// this value to get the correct range for that text storage.
+//
+// context: The context object that contains the original text. Use this object to
+// fetch the current text, and to match that text to your underlying text
+// storage.
+//
+// completion: A completion handler to execute when you are done. The handler has no
+// return value and takes an [NSTextPreview] object as a parameter. You must
+// call this handler at some point during your implementation.
+//
+// # Discussion
+//
+// During an interactive evaluation of your view’s text, Writing Tools
+// creates different animations to provide feedback on what’s happening. As
+// part of the preparation for those animations, Writing Tools asks you to
+// provide a preview of the affected content in your view. Writing Tools uses
+// this preview to build and execute the animations in the view stored in the
+// [NSWritingToolsCoordinator.EffectContainerView] property of the coordinator
+// object.
+//
+// To build a preview of your content in macOS, render the specified range of
+// text into an image with a transparent background and use that image to
+// create your [NSTextPreview] object directly. Set the
+// [NSTextPreview.PresentationFrame] property to the rectangle in your
+// view’s coordinate space that contains the text you captured. Set the
+// [NSTextPreview.CandidateRects] property to the selection rectangles for the
+// text, which you get from your view’s layout manager. Writing Tools uses
+// this information to place your image directly above the text in your view.
+//
+// For a single animation type, the system calls the
+// [WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion]
+// method, followed sequentially by this method and then the
+// [WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion]
+// method. Each method executes asynchronously, but the system calls the next
+// method in the sequence only after you call the completion handler of the
+// previous method. However, multiple animations can run simultaneously, so
+// check the `textAnimation` parameter to differentiate sequences.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:of:in:completion:)
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion NSTextPreviewArrayHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsPreviewForTextAnimation:ofRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
 }
 
 // Asks the delegate for a preview image and layout information for the
@@ -232,15 +306,17 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRa
 // part of the preparation for those animations, Writing Tools asks you to
 // provide a preview of the affected content in your view. Writing Tools uses
 // this preview to build and execute the animations in the view stored in the
-// [EffectContainerView] property of the coordinator object.
+// [NSWritingToolsCoordinator.EffectContainerView] property of the coordinator
+// object.
 //
 // To build a preview of your content in macOS, render the requested portion
 // of your view into an image with a transparent background and use that image
-// to create your [NSTextPreview] object directly. Set the [PresentationFrame]
-// property to the specified rectangle. Set the [CandidateRects] property to
-// the selection rectangles for the associated text, which you get from your
-// view’s layout manager. Writing Tools uses this information to place your
-// image directly above the text in your view.
+// to create your [NSTextPreview] object directly. Set the
+// [NSTextPreview.PresentationFrame] property to the specified rectangle. Set
+// the [NSTextPreview.CandidateRects] property to the selection rectangles for
+// the associated text, which you get from your view’s layout manager.
+// Writing Tools uses this information to place your image directly above the
+// text in your view.
 //
 // For a single animation type, the system calls the
 // [WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion]
@@ -252,7 +328,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRa
 // check the `textAnimation` parameter to differentiate sequences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context objectivec.IObject, completion TextPreviewHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context kernel.ID, completion TextPreviewHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsPreviewForRect:inContext:completion:"), writingToolsCoordinator, rect, context, completion)
 }
 
@@ -309,7 +385,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // sequences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:prepareFor:for:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:prepareForTextAnimation:forRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
 }
 
@@ -352,8 +428,103 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareF
 // don’t interfere with other in-flight animations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:finish:for:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:finishTextAnimation:forRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
+}
+
+// Asks the delegate to provide the bounding paths for the specified text in
+// your view.
+//
+// writingToolsCoordinator: The coordinator object requesting information from your custom view.
+//
+// range: The range of text to evaluate. This range is relative to the text in your
+// context object, and it’s your responsibility to match that location to
+// the correct location in your text storage. If you initialized the context
+// object with the entire contents of your view’s text storage, you can use
+// `range` as-is to access that text storage. However, if you initialized the
+// context object with only a portion of your view’s text, add the starting
+// location of your context object’s text to this value to get the correct
+// range for that text storage.
+//
+// context: The context object with the target text. Use this object to find the text
+// in your view’s text storage.
+//
+// completion: A handler to execute with the required information. The handler has no
+// return value and takes an array of Bezier paths as a parameter. You must
+// call this handler at some point during your method’s implementation.
+//
+// # Discussion
+//
+// After applying proofreading marks to your view’s text, Writing Tools lets
+// the person accept or reject individual suggestions. To facilitate
+// interactions, the coordinator asks your delegate to provide one or more
+// Bezier paths that surround those proofreading suggestions. For each
+// distinct range of text with a suggestion, it calls this method to get the
+// Bezier paths that surround the corresponding text.
+//
+// After you determine the location of the specified range of text in your
+// view’s text storage, find the rectangle around that text. If you’re
+// using TextKit, call the
+// [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
+// method of your view’s [NSTextLayoutManager] to compute the selection
+// rectangles for that text. That method finds the text segments that contain
+// the text and returns the frame rectangle for each one. Create a Bezier path
+// for each rectangle, and convert the coordinates of each path to the
+// coordinate space of the view in your coordinator’s
+// [NSWritingToolsCoordinator.DecorationContainerView] property. Pass the
+// resulting paths to the completion handler.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsBoundingBezierPathsFor:in:completion:)
+//
+// [NSTextLayoutManager]: https://developer.apple.com/documentation/UIKit/NSTextLayoutManager
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsBoundingBezierPathsForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
+}
+
+// Asks the delegate to provide an underline shape for the specified text
+// during a proofreading session.
+//
+// writingToolsCoordinator: The coordinator object requesting information from your custom view.
+//
+// range: The range of text to evaluate. This range is relative to the text in your
+// context object, and it’s your responsibility to match that location to
+// the correct location in your text storage. If you initialized the context
+// object with the entire contents of your view’s text storage, you can use
+// `range` as-is to access that text storage. However, if you initialized the
+// context object with only a portion of your view’s text, add the starting
+// location of your context object’s text to this value to get the correct
+// range for that text storage.
+//
+// context: The context object with the target text. Use this object to find the text
+// in your view’s text storage.
+//
+// completion: A handler to execute with the required information. The handler has no
+// return value and takes an array of Bezier paths as a parameter. You must
+// call this handler at some point during your method’s implementation.
+//
+// # Discussion
+//
+// When applying proofreading marks to your view’s content, the coordinator
+// calls this method to retrieve a shape to draw under the specified text. You
+// provide the shape using one or more Bezier paths, and the coordinator draws
+// and animates that shape during the proofreading session.
+//
+// After you determine the location of the specified range of text in your
+// view’s text storage, find the rectangle around that text. If you’re
+// using TextKit, you can call the
+// [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
+// method of your view’s [NSTextLayoutManager] to get the rectangles for a
+// range of text. Convert the coordinates of each rectangle to the coordinate
+// space of the view in your coordinator’s
+// [NSWritingToolsCoordinator.DecorationContainerView] property. Use those
+// rectangles to create the Bezier paths for your text. For example, you might
+// create a path with a straight or wavy line at the bottom of the rectangle.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsUnderlinePathsFor:in:completion:)
+//
+// [NSTextLayoutManager]: https://developer.apple.com/documentation/UIKit/NSTextLayoutManager
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsUnderlinePathsForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }
 
 // Notifies your delegate of relevant state changes when Writing Tools is
@@ -378,6 +549,62 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTe
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:willChangeTo:completion:)
 func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorWillChangeToStateCompletion(writingToolsCoordinator INSWritingToolsCoordinator, newState NSWritingToolsCoordinatorState, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:willChangeToState:completion:"), writingToolsCoordinator, newState, completion)
+}
+
+// Asks the delegate to divide the specified range of text into the separate
+// containers that render that text.
+//
+// writingToolsCoordinator: The coordinator object requesting information from your custom view.
+//
+// range: The range of text to consider in the specified `context` object. The
+// location value of this range is relative to the beginning of the text in
+// your context object, and it’s your responsibility to match that location
+// to the correct location in your text storage. If you initialized the
+// context object with the entire contents of your view’s text storage, you
+// can use `range` as-is to access that text storage. However, if you
+// initialized the context object with only a portion of your view’s text,
+// add the starting location of your context object’s text to this value to
+// get the correct range for that text storage.
+//
+// context: The context object that contains the text to consider. Use this object to
+// locate the appropriate text storage object for your view.
+//
+// completion: A completion handler to execute when you are done. The handler has no
+// return value and takes an array of [NSValue] types, each of which contains
+// an [NSRange]. The union of the ranges you pass to this handler must equal
+// all of the text in `range`. The order of the ranges in the array must be
+// sequential, with each new range’s starting location coming after the
+// previous one. There must also not be any gaps or overlap between ranges.
+// You must call this handler at some point during your implementation.
+//
+// # Discussion
+//
+// If your view uses multiple [NSTextContainer] objects to draw text in
+// different regions, use this method to tell Writing Tools about the
+// containers that display the specified text. In your implementation,
+// subdivide `range` to create one new range for each portion of text that
+// resides in a different container object. For example, if the text in
+// `range` is split between two containers, provide two new [NSRange] types
+// that reflect the portion of the total text in each container. If `range`
+// resides completely within one container, call the completion handler with
+// `range` as the only value in the array.
+//
+// When configuring animations for your view, Writing Tools asks your delegate
+// to provide separate previews for each of your view’s container object.
+// Specifically, it calls your delegate’s
+// [WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion]
+// method separately for each range of text you return in the completion
+// handler. Your implementation of that method must create a preview suitable
+// for animating the content from the underlying text container.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsSingleContainerSubrangesOf:in:completion:)
+//
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
+// [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
+//
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSValueArrayHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsSingleContainerSubrangesOfRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }
 
 // Asks the delegate to provide a decoration view for the specified range of
@@ -415,10 +642,10 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorWillChan
 // any proofreading marks for the specified range of text.
 //
 // If your view has only one text container, use the coordinator’s
-// [DecorationContainerView] property to specify the view to use for
-// proofreading marks.
+// [NSWritingToolsCoordinator.DecorationContainerView] property to specify the
+// view to use for proofreading marks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsDecorationContainerViewFor:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion ViewHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion ViewHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsDecorationContainerViewForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }

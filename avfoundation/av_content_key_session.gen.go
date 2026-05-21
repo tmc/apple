@@ -219,10 +219,12 @@ func NewAVContentKeySession() AVContentKeySession {
 //
 // The [AVContentKeySession] instance returned is capable of managing a
 // collection of content decryption keys that correspond to the input key
-// system. An [InvalidArgumentException] is raised when the value of
+// system. An [invalidArgumentException] is raised when the value of
 // `keySystem` is unsupported.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/init(keySystem:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func NewContentKeySessionWithKeySystem(keySystem AVContentKeySystem) AVContentKeySession {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeySessionClass().class), objc.Sel("contentKeySessionWithKeySystem:"), objc.String(string(keySystem)))
 	return AVContentKeySessionFromID(rv)
@@ -246,10 +248,12 @@ func NewContentKeySessionWithKeySystem(keySystem AVContentKeySystem) AVContentKe
 //
 // The [AVContentKeySession] instance returned is capable of managing a
 // collection of content decryption keys that correspond to the input key
-// system. An [InvalidArgumentException] is raised when the value of
+// system. An [invalidArgumentException] is raised when the value of
 // `keySystem` is unsupported.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/init(keySystem:storageDirectoryAt:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func NewContentKeySessionWithKeySystemStorageDirectoryAtURL(keySystem AVContentKeySystem, storageURL foundation.NSURL) AVContentKeySession {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeySessionClass().class), objc.Sel("contentKeySessionWithKeySystem:storageDirectoryAtURL:"), objc.String(string(keySystem)), storageURL)
 	return AVContentKeySessionFromID(rv)
@@ -450,7 +454,8 @@ func (c AVContentKeySession) StorageURL() foundation.NSURL {
 //
 // # Discussion
 //
-// Set the session’s delegate using the [SetDelegateQueue] method.
+// Set the session’s delegate using the
+// [AVContentKeySession.SetDelegateQueue] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/delegate
 func (c AVContentKeySession) Delegate() AVContentKeySessionDelegate {

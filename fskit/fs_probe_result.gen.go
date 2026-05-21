@@ -47,10 +47,11 @@ func (fc FSProbeResultClass) Alloc() FSProbeResult {
 //
 // # Overview
 //
-// For any [FSProbeResult.Result] value other than [FSMatchResultNotRecognized], ensure the
-// [FSProbeResult.Name] and [FSProbeResult.ContainerID] values are non-`nil`. When a container or volume
-// format doesn’t use a name, return an empty string. Also use an empty
-// string in the case in which the format supports a name, but the value
+// For any [FSProbeResult.Result] value other than
+// [FSMatchResultNotRecognized], ensure the [FSProbeResult.Name] and
+// [FSProbeResult.ContainerID] values are non-`nil`. When a container or
+// volume format doesn’t use a name, return an empty string. Also use an
+// empty string in the case in which the format supports a name, but the value
 // isn’t set yet.
 //
 // Some container or volume formats may lack a durable UUID on which to base a
@@ -67,6 +68,10 @@ func (fc FSProbeResultClass) Alloc() FSProbeResult {
 //   - [FSProbeResult.ContainerID]: The container identifier, as found during the probe operation.
 //   - [FSProbeResult.Name]: The resource name, as found during the probe operation.
 //   - [FSProbeResult.Result]: The match result, representing the recognition and usability of a probed resource.
+//
+// # Initializers
+//
+//   - [FSProbeResult.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult
 type FSProbeResult struct {
@@ -91,6 +96,10 @@ func FSProbeResultFromID(id objc.ID) FSProbeResult {
 //   - [IFSProbeResult.Name]: The resource name, as found during the probe operation.
 //   - [IFSProbeResult.Result]: The match result, representing the recognition and usability of a probed resource.
 //
+// # Initializers
+//
+//   - [IFSProbeResult.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult
 type IFSProbeResult interface {
 	objectivec.IObject
@@ -103,6 +112,10 @@ type IFSProbeResult interface {
 	Name() string
 	// The match result, representing the recognition and usability of a probed resource.
 	Result() FSMatchResult
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) FSProbeResult
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -126,6 +139,18 @@ func NewFSProbeResult() FSProbeResult {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSProbeResult/init(coder:)
+func NewProbeResultWithCoder(coder foundation.INSCoder) FSProbeResult {
+	instance := getFSProbeResultClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSProbeResultFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/FSKit/FSProbeResult/init(coder:)
+func (p FSProbeResult) InitWithCoder(coder foundation.INSCoder) FSProbeResult {
+	rv := objc.Send[FSProbeResult](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p FSProbeResult) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -192,7 +217,7 @@ func (p FSProbeResult) ContainerID() IFSContainerIdentifier {
 //
 // # Discussion
 //
-// This value is non-`nil` unless the [Result] is
+// This value is non-`nil` unless the [FSProbeResult.Result] is
 // “FSMatchResult/notRecognized`. For formats that lack a name, this value
 // may be an empty string. This value can also be an empty string if the
 // format supports a name, but the value isn’t set yet.
@@ -217,8 +242,9 @@ func (p FSProbeResult) Result() FSMatchResult {
 //
 // # Discussion
 //
-// This kind of probe result lacks the [Name], [ContainerID], or both. Don’t
-// return this result from probing a resource that isn’t limited.
+// This kind of probe result lacks the [FSProbeResult.Name],
+// [FSProbeResult.ContainerID], or both. Don’t return this result from
+// probing a resource that isn’t limited.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult/usableButLimited
 func (_FSProbeResultClass FSProbeResultClass) UsableButLimitedProbeResult() FSProbeResult {
@@ -230,8 +256,8 @@ func (_FSProbeResultClass FSProbeResultClass) UsableButLimitedProbeResult() FSPr
 //
 // # Discussion
 //
-// An unrecognized probe result contains `nil` for its [Name] and
-// [ContainerID] properties.
+// An unrecognized probe result contains `nil` for its [FSProbeResult.Name]
+// and [FSProbeResult.ContainerID] properties.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult/notRecognized
 func (_FSProbeResultClass FSProbeResultClass) NotRecognizedProbeResult() FSProbeResult {

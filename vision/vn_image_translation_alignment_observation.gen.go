@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -48,15 +49,12 @@ func (vc VNImageTranslationAlignmentObservationClass) Alloc() VNImageTranslation
 //
 // This type of observation results from a
 // [VNTranslationalImageRegistrationRequest], informing the
-// [VNImageTranslationAlignmentObservation.AlignmentTransform] performed to align the input images.
+// [VNImageTranslationAlignmentObservation.AlignmentTransform] performed to
+// align the input images.
 //
 // # Determining Alignment
 //
 //   - [VNImageTranslationAlignmentObservation.AlignmentTransform]: The alignment transform to align the floating image with the reference image.
-//
-// # Identifying Request Revisions
-//
-//   - [VNImageTranslationAlignmentObservation.VNTranslationalImageRegistrationRequestRevision1]: A constant for specifying revision 1 of the translational image registration request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageTranslationAlignmentObservation
 type VNImageTranslationAlignmentObservation struct {
@@ -79,10 +77,6 @@ func VNImageTranslationAlignmentObservationFromID(id objc.ID) VNImageTranslation
 //
 //   - [IVNImageTranslationAlignmentObservation.AlignmentTransform]: The alignment transform to align the floating image with the reference image.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNImageTranslationAlignmentObservation.VNTranslationalImageRegistrationRequestRevision1]: A constant for specifying revision 1 of the translational image registration request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageTranslationAlignmentObservation
 type IVNImageTranslationAlignmentObservation interface {
 	IVNImageAlignmentObservation
@@ -91,11 +85,6 @@ type IVNImageTranslationAlignmentObservation interface {
 
 	// The alignment transform to align the floating image with the reference image.
 	AlignmentTransform() corefoundation.CGAffineTransform
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the translational image registration request.
-	VNTranslationalImageRegistrationRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -117,6 +106,13 @@ func NewVNImageTranslationAlignmentObservation() VNImageTranslationAlignmentObse
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewImageTranslationAlignmentObservationWithCoder(coder foundation.INSCoder) VNImageTranslationAlignmentObservation {
+	instance := getVNImageTranslationAlignmentObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNImageTranslationAlignmentObservationFromID(rv)
+}
+
 // The alignment transform to align the floating image with the reference
 // image.
 //
@@ -124,13 +120,4 @@ func NewVNImageTranslationAlignmentObservation() VNImageTranslationAlignmentObse
 func (i VNImageTranslationAlignmentObservation) AlignmentTransform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("alignmentTransform"))
 	return corefoundation.CGAffineTransform(rv)
-}
-
-// A constant for specifying revision 1 of the translational image
-// registration request.
-//
-// See: https://developer.apple.com/documentation/vision/vntranslationalimageregistrationrequestrevision1
-func (i VNImageTranslationAlignmentObservation) VNTranslationalImageRegistrationRequestRevision1() int {
-	rv := objc.Send[int](i.ID, objc.Sel("VNTranslationalImageRegistrationRequestRevision1"))
-	return rv
 }

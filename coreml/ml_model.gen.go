@@ -61,11 +61,13 @@ func (mc MLModelClass) Alloc() MLModel {
 // With the [MLModel] interface, you can:
 //
 // - Make a prediction with your app’s custom [MLFeatureProvider] by calling
-// [MLModel.PredictionFromFeaturesError] or [MLModel.PredictionFromFeaturesOptionsError]. -
-// Make multiple predictions with your app’s custom [MLBatchProvider] by
-// calling [MLModel.PredictionsFromBatchError] or [MLModel.PredictionsFromBatchOptionsError].
-// - Inspect your model’s [MLModel.Metadata] and [MLFeatureDescription] instances
-// through [ModelDescription].
+// [MLModel.PredictionFromFeaturesError] or
+// [MLModel.PredictionFromFeaturesOptionsError]. - Make multiple predictions
+// with your app’s custom [MLBatchProvider] by calling
+// [MLModel.PredictionsFromBatchError] or
+// [MLModel.PredictionsFromBatchOptionsError]. - Inspect your model’s
+// [MLModelDescription.Metadata] and [MLFeatureDescription] instances through
+// [MLModel.ModelDescription].
 //
 // If your app downloads and compiles a model on the user’s device, you must
 // use the [MLModel] class directly to make predictions. See [Downloading and
@@ -149,9 +151,6 @@ type IMLModel interface {
 	// Returns a model parameter value for a key.
 	ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObject, error)
 
-	// A dictionary of the model’s creation information, such as its description, author, version, and license.
-	Metadata() MLModelMetadataKey
-	SetMetadata(value MLModelMetadataKey)
 	// Creates a new state object.
 	NewState() IMLState
 	// Generates a prediction asynchronously from the feature values within the input feature provider.
@@ -185,7 +184,8 @@ func NewMLModel() MLModel {
 // configuration.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [CompileModelAtURLError] returns.
+// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
+// returns.
 //
 // configuration: The runtime settings for the new model instance.
 //
@@ -220,7 +220,8 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.NSURL, configura
 // Creates a Core ML model instance from a compiled model file.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [CompileModelAtURLError] returns.
+// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
+// returns.
 //
 // # Discussion
 //
@@ -527,23 +528,12 @@ func (_MLModelClass MLModelClass) CompileModelAtURLCompletionHandler(modelURL fo
 	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:completionHandler:"), modelURL, _block1)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)
-func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.NSURL) (foundation.NSURL, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:error:"), modelURL, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return foundation.NSURL{}, foundation.NSErrorFrom(errorPtr)
-	}
-	return foundation.NSURLFromID(rv), nil
-
-}
-
 // Creates a Core ML model instance asynchronously from a compiled model file,
 // a custom configuration, and a completion handler.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [CompileModelAtURLError] returns.
+// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
+// returns.
 //
 // configuration: The runtime settings for the new model instance.
 //
@@ -588,18 +578,6 @@ func (m MLModel) Configuration() IMLModelConfiguration {
 func (m MLModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
-}
-
-// A dictionary of the model’s creation information, such as its
-// description, author, version, and license.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/metadata
-func (m MLModel) Metadata() MLModelMetadataKey {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
-	return MLModelMetadataKey(foundation.NSStringFromID(rv).String())
-}
-func (m MLModel) SetMetadata(value MLModelMetadataKey) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), objc.String(string(value)))
 }
 
 // The list of available compute devices that the model’s prediction can

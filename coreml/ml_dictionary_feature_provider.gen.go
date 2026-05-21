@@ -104,6 +104,7 @@ type IMLDictionaryFeatureProvider interface {
 	// The backing dictionary.
 	Dictionary() foundation.INSDictionary
 
+	InitWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -124,6 +125,13 @@ func NewMLDictionaryFeatureProvider() MLDictionaryFeatureProvider {
 	class := getMLDictionaryFeatureProviderClass()
 	rv := objc.Send[MLDictionaryFeatureProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/init(coder:)
+func NewDictionaryFeatureProviderWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider {
+	instance := getMLDictionaryFeatureProviderClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLDictionaryFeatureProviderFromID(rv)
 }
 
 // Creates the feature provider based on a dictionary.
@@ -187,6 +195,12 @@ func (d MLDictionaryFeatureProvider) FeatureNames() foundation.INSSet {
 func (d MLDictionaryFeatureProvider) FeatureValueForName(featureName string) IMLFeatureValue {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("featureValueForName:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/init(coder:)
+func (d MLDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider {
+	rv := objc.Send[MLDictionaryFeatureProvider](d.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (d MLDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)

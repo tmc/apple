@@ -56,7 +56,8 @@ func (uc UnitElectricResistanceClass) Alloc() UnitElectricResistance {
 // current between two points in conductor with one volt of electric potential
 // difference (1Ω = 1V/1A).
 //
-// The [NSUnitElectricResistance] class defines its [BaseUnit] as [Ohms], and
+// The [NSUnitElectricResistance] class defines its
+// [NSDimensionClass.BaseUnit] as [NSUnitElectricResistanceClass.Ohms], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
 //

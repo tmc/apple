@@ -4,9 +4,9 @@ package naturallanguage
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,8 +51,8 @@ func (nc NLTokenizerClass) Alloc() NLTokenizer {
 // [NLTokenizer] creates individual units from natural language text. Define
 // the desired unit (word, sentence, paragraph, or document as declared in the
 // [NLTokenUnit]) for tokenization, and then assign a string to tokenize. The
-// [NLTokenizer.EnumerateTokensInRangeUsingBlock] method provides the ranges of the tokens
-// in the string based on the tokenization unit.
+// [NLTokenizer.EnumerateTokensInRangeUsingBlock] method provides the ranges
+// of the tokens in the string based on the tokenization unit.
 //
 // For more information, see [Tokenizing natural language text].
 //
@@ -118,7 +118,7 @@ type INLTokenizer interface {
 	Unit() NLTokenUnit
 
 	// Enumerates over a given range of the string and calls the specified block for each token.
-	EnumerateTokensInRangeUsingBlock(range_ foundation.NSRange, block func(unsafe.Pointer, uint64, *bool))
+	EnumerateTokensInRangeUsingBlock(range_ foundation.NSRange, block func(kernel.Pointer, uint64, *bool))
 	// Finds the range of the token at the given index.
 	TokenRangeAtIndex(characterIndex uint) foundation.NSRange
 	// Finds the entire range of all tokens contained completely or partially within the specified range.
@@ -183,8 +183,8 @@ func (t NLTokenizer) SetLanguage(language NLLanguage) {
 // stop.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/enumerateTokensInRange:usingBlock:
-func (t NLTokenizer) EnumerateTokensInRangeUsingBlock(range_ foundation.NSRange, block func(unsafe.Pointer, uint64, *bool)) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64, arg2 *bool) { block(arg0, arg1, arg2) })
+func (t NLTokenizer) EnumerateTokensInRangeUsingBlock(range_ foundation.NSRange, block func(kernel.Pointer, uint64, *bool)) {
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64, arg2 *bool) { block(arg0, arg1, arg2) })
 	defer _block1.Release()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTokensInRange:usingBlock:"), range_, objc.ID(_block1))
 }
@@ -211,7 +211,8 @@ func (t NLTokenizer) TokenRangeAtIndex(characterIndex uint) foundation.NSRange {
 // The smallest possible range that contains all of the tokens within the
 // range specified in `range`. This result includes a token’s entire range
 // if any part of that token is included within `range`. If the length of
-// `range` is 0, this return value is equivalent to [TokenRangeAtIndex].
+// `range` is 0, this return value is equivalent to
+// [NLTokenizer.TokenRangeAtIndex].
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/tokenRangeForRange:
 func (t NLTokenizer) TokenRangeForRange(range_ foundation.NSRange) foundation.NSRange {

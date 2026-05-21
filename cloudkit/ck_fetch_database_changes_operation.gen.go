@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -68,11 +67,13 @@ func (cc CKFetchDatabaseChangesOperationClass) Alloc() CKFetchDatabaseChangesOpe
 // It’s not necessary to perform a fetch each time your app launches, or to
 // schedule fetches at regular intervals.
 //
-// The operation calls [CKFetchDatabaseChangesOperation.RecordZoneWithIDChangedBlock] for each zone that
-// contains record changes. It also calls it for new and modified record
-// zones. Store the IDs that CloudKit provides to this callback. Use those IDs
-// with [CKFetchRecordZoneChangesOperation] to fetch the corresponding
-// changes. There are similar callbacks for deleted and purged record zones.
+// The operation calls
+// [CKFetchDatabaseChangesOperation.RecordZoneWithIDChangedBlock] for each
+// zone that contains record changes. It also calls it for new and modified
+// record zones. Store the IDs that CloudKit provides to this callback. Use
+// those IDs with [CKFetchRecordZoneChangesOperation] to fetch the
+// corresponding changes. There are similar callbacks for deleted and purged
+// record zones.
 //
 // To run the operation, add it to the corresponding database’s operation
 // queue. The operation executes its callbacks on a private serial queue.
@@ -106,11 +107,6 @@ func (cc CKFetchDatabaseChangesOperationClass) Alloc() CKFetchDatabaseChangesOpe
 //   - [CKFetchDatabaseChangesOperation.SetRecordZoneWithIDWasPurgedBlock]
 //   - [CKFetchDatabaseChangesOperation.ChangeTokenUpdatedBlock]: The closure to execute when the change token updates.
 //   - [CKFetchDatabaseChangesOperation.SetChangeTokenUpdatedBlock]
-//
-// # Instance Properties
-//
-//   - [CKFetchDatabaseChangesOperation.FetchDatabaseChangesResultBlock]: The closure to execute when the operation finishes.
-//   - [CKFetchDatabaseChangesOperation.SetFetchDatabaseChangesResultBlock]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchDatabaseChangesOperation
 //
@@ -157,11 +153,6 @@ func CKFetchDatabaseChangesOperationFromID(id objc.ID) CKFetchDatabaseChangesOpe
 //   - [ICKFetchDatabaseChangesOperation.ChangeTokenUpdatedBlock]: The closure to execute when the change token updates.
 //   - [ICKFetchDatabaseChangesOperation.SetChangeTokenUpdatedBlock]
 //
-// # Instance Properties
-//
-//   - [ICKFetchDatabaseChangesOperation.FetchDatabaseChangesResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKFetchDatabaseChangesOperation.SetFetchDatabaseChangesResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchDatabaseChangesOperation
 type ICKFetchDatabaseChangesOperation interface {
 	ICKDatabaseOperation
@@ -200,12 +191,6 @@ type ICKFetchDatabaseChangesOperation interface {
 	// The closure to execute when the change token updates.
 	ChangeTokenUpdatedBlock() CKServerChangeTokenHandler
 	SetChangeTokenUpdatedBlock(value CKServerChangeTokenHandler)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	FetchDatabaseChangesResultBlock() unsafe.Pointer
-	SetFetchDatabaseChangesResultBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -287,7 +272,8 @@ func (c CKFetchDatabaseChangesOperation) InitWithPreviousServerChangeToken(previ
 //
 // If true, the operation sends repeat requests to the server until it fetches
 // all changes. CloudKit executes the handler you set on the
-// [ChangeTokenUpdatedBlock] property with a change token after each request.
+// [CKFetchDatabaseChangesOperation.ChangeTokenUpdatedBlock] property with a
+// change token after each request.
 //
 // The default value is true.
 //
@@ -386,9 +372,9 @@ func (c CKFetchDatabaseChangesOperation) SetRecordZoneWithIDWasDeletedBlock(valu
 // record zone’s ID.
 //
 // The operation executes this closure, instead of
-// [RecordZoneWithIDWasDeletedBlock], after a user action causes CloudKit to
-// delete the record zone. Reupload any locally cached data to iCloud to
-// minimize data loss.
+// [CKFetchDatabaseChangesOperation.RecordZoneWithIDWasDeletedBlock], after a
+// user action causes CloudKit to delete the record zone. Reupload any locally
+// cached data to iCloud to minimize data loss.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchDatabaseChangesOperation/recordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock
 func (c CKFetchDatabaseChangesOperation) RecordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock() CKRecordZoneIDHandler {
@@ -440,15 +426,4 @@ func (c CKFetchDatabaseChangesOperation) SetChangeTokenUpdatedBlock(value CKServ
 	block, cleanup := NewCKServerChangeTokenBlock(value)
 	defer cleanup()
 	objc.Send[struct{}](c.ID, objc.Sel("setChangeTokenUpdatedBlock:"), block)
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchdatabasechangesoperation/fetchdatabasechangesresultblock
-func (c CKFetchDatabaseChangesOperation) FetchDatabaseChangesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchDatabaseChangesResultBlock"))
-	return rv
-}
-func (c CKFetchDatabaseChangesOperation) SetFetchDatabaseChangesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchDatabaseChangesResultBlock:"), value)
 }

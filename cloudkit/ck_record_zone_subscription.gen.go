@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -58,10 +59,10 @@ func (cc CKRecordZoneSubscriptionClass) Alloc() CKRecordZoneSubscription {
 //
 // Record zone subscriptions execute whenever a change happens in the record
 // zone you specify when you create the subscription. You can further
-// specialize the subscription by setting its [CKRecordZoneSubscription.RecordType] property to a
-// specific record type. This limits the scope of the subscription to only
-// track changes to records of that type and reduces the number of
-// notifications it generates.
+// specialize the subscription by setting its
+// [CKDatabaseSubscription.RecordType] property to a specific record type.
+// This limits the scope of the subscription to only track changes to records
+// of that type and reduces the number of notifications it generates.
 //
 // Create any subscriptions on your app’s first launch. After you initialize
 // a subscription, save it to the server using
@@ -70,10 +71,10 @@ func (cc CKRecordZoneSubscriptionClass) Alloc() CKRecordZoneSubscription {
 // state on subsequent launches to prevent unnecessary trips to the server.
 //
 // To configure the notification that the subscription generates, set the
-// subscription’s [CKRecordZoneSubscription.NotificationInfo] property. Because the system coalesces
-// notifications, don’t rely on them for specific changes. CloudKit can omit
-// data to keep the payload size under the APNs size limit. Consider
-// notifications an indication of remote changes and use
+// subscription’s [CKSubscription.NotificationInfo] property. Because the
+// system coalesces notifications, don’t rely on them for specific changes.
+// CloudKit can omit data to keep the payload size under the APNs size limit.
+// Consider notifications an indication of remote changes and use
 // [CKFetchRecordZoneChangesOperation] to fetch the changed records. Server
 // change tokens allow you to limit the fetch results to just the changes
 // since your previous fetch.
@@ -85,6 +86,8 @@ func (cc CKRecordZoneSubscriptionClass) Alloc() CKRecordZoneSubscription {
 //
 // # Accessing the Subscription Metadata
 //
+//   - [CKRecordZoneSubscription.RecordType]: The type of record that the subscription queries.
+//   - [CKRecordZoneSubscription.SetRecordType]
 //   - [CKRecordZoneSubscription.ZoneID]: The ID of the record zone that the subscription queries.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZoneSubscription
@@ -109,6 +112,8 @@ func CKRecordZoneSubscriptionFromID(id objc.ID) CKRecordZoneSubscription {
 //
 // # Accessing the Subscription Metadata
 //
+//   - [ICKRecordZoneSubscription.RecordType]: The type of record that the subscription queries.
+//   - [ICKRecordZoneSubscription.SetRecordType]
 //   - [ICKRecordZoneSubscription.ZoneID]: The ID of the record zone that the subscription queries.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecordZoneSubscription
@@ -117,12 +122,11 @@ type ICKRecordZoneSubscription interface {
 
 	// Topic: Accessing the Subscription Metadata
 
-	// The ID of the record zone that the subscription queries.
-	ZoneID() ICKRecordZoneID
-
 	// The type of record that the subscription queries.
 	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
+	SetRecordType(value kernel.Pointer)
+	// The ID of the record zone that the subscription queries.
+	ZoneID() ICKRecordZoneID
 }
 
 // Init initializes the instance.
@@ -155,6 +159,17 @@ func NewCKRecordZoneSubscriptionWithCoder(aDecoder foundation.INSCoder) CKRecord
 	return CKRecordZoneSubscriptionFromID(rv)
 }
 
+// The type of record that the subscription queries.
+//
+// See: https://developer.apple.com/documentation/cloudkit/ckrecordzonesubscription/recordtype-1fuqo
+func (c CKRecordZoneSubscription) RecordType() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
+	return rv
+}
+func (c CKRecordZoneSubscription) SetRecordType(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
+}
+
 // The ID of the record zone that the subscription queries.
 //
 // # Discussion
@@ -175,15 +190,4 @@ func NewCKRecordZoneSubscriptionWithCoder(aDecoder foundation.INSCoder) CKRecord
 func (c CKRecordZoneSubscription) ZoneID() ICKRecordZoneID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("zoneID"))
 	return CKRecordZoneIDFromID(objc.ID(rv))
-}
-
-// The type of record that the subscription queries.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckdatabasesubscription/recordtype-46v7a
-func (c CKRecordZoneSubscription) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
-}
-func (c CKRecordZoneSubscription) SetRecordType(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }

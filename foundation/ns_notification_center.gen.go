@@ -54,26 +54,26 @@ func (nc NotificationCenterClass) Alloc() NotificationCenter {
 // - [NSNotification] objects, when working in Objective-C or with frameworks
 // that only support [NSNotification]. Objects register with a notification
 // center to receive notifications ([NSNotification] objects) using the
-// [AddObserverSelectorNameObject] or
-// [AddObserverForNameObjectQueueUsingBlock] methods, specifying a
-// notification name and optionally a source object. When a caller adds itself
-// as an observer, it specifies which notifications it should receive. -
-// [NotificationCenter.MainActorMessage] and [NotificationCenter.AsyncMessage]
-// instances for use with Swift code, providing strong typing, appropriate
-// actor isolation, and a more idiomatic Swift experience. Callers register
-// with the notification center using the various flavors of the
-// `addObserver()` method, specifying either a message type or a convenience
-// [NotificationCenter.MessageIdentifier] to identify the notification
-// messages to receive. See [Notification center messages] for more
-// information about this API.
+// [NSNotificationCenter.AddObserverSelectorNameObject] or
+// [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock] methods,
+// specifying a notification name and optionally a source object. When a
+// caller adds itself as an observer, it specifies which notifications it
+// should receive. - [NotificationCenter.MainActorMessage] and
+// [NotificationCenter.AsyncMessage] instances for use with Swift code,
+// providing strong typing, appropriate actor isolation, and a more idiomatic
+// Swift experience. Callers register with the notification center using the
+// various flavors of the `addObserver()` method, specifying either a message
+// type or a convenience [NotificationCenter.MessageIdentifier] to identify
+// the notification messages to receive. See [Notification center messages]
+// for more information about this API.
 //
 // Callers may add observers for many different notifications, or even the
 // same notification name or message type as produced by different source
 // objects.
 //
-// Each running app has a [DefaultCenter] notification center, and you can
-// create new notification centers to organize communications in particular
-// contexts.
+// Each running app has a [NSNotificationCenterClass.DefaultCenter]
+// notification center, and you can create new notification centers to
+// organize communications in particular contexts.
 //
 // A notification center can deliver notifications only within a single
 // program. On macOS, if you want to post a notification to other processes or
@@ -141,7 +141,7 @@ type INotificationCenter interface {
 	// Adds an entry to the notification center to receive notifications that passed to the provided block.
 	AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object
 	// Adds an entry to the notification center to call the provided selector with the notification.
-	AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject)
+	AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objectivec.SEL, aName NSNotificationName, anObject objectivec.IObject)
 	// Removes matching entries from the notification center’s dispatch table.
 	RemoveObserverNameObject(observer objectivec.IObject, aName NSNotificationName, anObject objectivec.IObject)
 	// Removes all entries specifying an observer from the notification center’s dispatch table.
@@ -215,18 +215,19 @@ func NewNotificationCenter() NotificationCenter {
 //
 // The following example shows how you can register to receive locale change
 // notifications. It stores the return value from
-// [AddObserverForNameObjectQueueUsingBlock] in an instance property called
-// `localeChangeObserver`.
+// [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock] in an
+// instance property called `localeChangeObserver`.
 //
 // Unregister an observer to stop receiving notifications. To unregister an
 // observer, use `NotificationCenter/removeObserver(_:)` or
-// [RemoveObserverNameObject] with the most specific detail possible. For
-// example, if you used a name and object to register the observer, use the
-// name and object to remove it.
+// [NSNotificationCenter.RemoveObserverNameObject] with the most specific
+// detail possible. For example, if you used a name and object to register the
+// observer, use the name and object to remove it.
 //
 // You must invoke `NotificationCenter/removeObserver(_:)` or
-// [RemoveObserverNameObject] before the system deallocates any object that
-// [AddObserverForNameObjectQueueUsingBlock] specifies.
+// [NSNotificationCenter.RemoveObserverNameObject] before the system
+// deallocates any object that
+// [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock] specifies.
 //
 // Another common practice is to create a one-time notification by removing
 // the observer from within the observation block, as in the following
@@ -270,9 +271,9 @@ func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotif
 // Unregister an observer to stop receiving notifications.
 //
 // To unregister an observer, use `NotificationCenter/removeObserver(_:)` or
-// [RemoveObserverNameObject] with the most specific detail possible. For
-// example, if you used a name and object to register the observer, use the
-// name and object to remove it.
+// [NSNotificationCenter.RemoveObserverNameObject] with the most specific
+// detail possible. For example, if you used a name and object to register the
+// observer, use the name and object to remove it.
 //
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, you do not
 // need to unregister an observer that you created with this function. If you
@@ -280,7 +281,7 @@ func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotif
 // time it would have posted to it.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/addObserver(_:selector:name:object:)
-func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject) {
+func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objectivec.SEL, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("addObserver:selector:name:object:"), observer, aSelector, objc.String(string(aName)), anObject)
 }
 
@@ -302,19 +303,21 @@ func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IO
 //
 // Removing the observer stops it from receiving notifications.
 //
-// If you used [AddObserverForNameObjectQueueUsingBlock] to create your
-// observer, you should call this method or
+// If you used [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock]
+// to create your observer, you should call this method or
 // `NotificationCenter/removeObserver(_:)` before the system deallocates any
-// object that [AddObserverForNameObjectQueueUsingBlock] specifies.
+// object that [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock]
+// specifies.
 //
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, and you
-// used [AddObserverSelectorNameObject] to create your observer, you do not
-// need to unregister the observer. If you forget or are unable to remove the
-// observer, the system cleans up the next time it would have posted to it.
+// used [NSNotificationCenter.AddObserverSelectorNameObject] to create your
+// observer, you do not need to unregister the observer. If you forget or are
+// unable to remove the observer, the system cleans up the next time it would
+// have posted to it.
 //
 // When unregistering an observer, use the most specific detail possible. For
 // example, if you used a name and object to register the observer, use
-// [RemoveObserverNameObject] with the name and object.
+// [NSNotificationCenter.RemoveObserverNameObject] with the name and object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/removeObserver(_:name:object:)
 func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject, aName NSNotificationName, anObject objectivec.IObject) {
@@ -331,24 +334,26 @@ func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject
 //
 // Removing the observer stops it from receiving notifications.
 //
-// If you used [AddObserverForNameObjectQueueUsingBlock] to create your
-// observer, you should call this method or [RemoveObserverNameObject] before
-// the system deallocates any object that
-// [AddObserverForNameObjectQueueUsingBlock] specifies.
+// If you used [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock]
+// to create your observer, you should call this method or
+// [NSNotificationCenter.RemoveObserverNameObject] before the system
+// deallocates any object that
+// [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock] specifies.
 //
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, and you
-// used [AddObserverSelectorNameObject], you do not need to unregister the
-// observer. If you forget or are unable to remove the observer, the system
-// cleans up the next time it would have posted to it.
+// used [NSNotificationCenter.AddObserverSelectorNameObject], you do not need
+// to unregister the observer. If you forget or are unable to remove the
+// observer, the system cleans up the next time it would have posted to it.
 //
 // When removing an observer, remove it with the most specific detail
 // possible. For example, if you used a name and object to register the
-// observer, use [RemoveObserverNameObject] with the name and object.
+// observer, use [NSNotificationCenter.RemoveObserverNameObject] with the name
+// and object.
 //
 // The following example illustrates how to unregister `someObserver` for all
 // previously registered notifications. This is safe to do in the [dealloc]
 // method, but you shouldn’t use it otherwise (use
-// [RemoveObserverNameObject] instead).
+// [NSNotificationCenter.RemoveObserverNameObject] instead).
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/removeObserver(_:)-2yciv
 //
@@ -390,7 +395,8 @@ func (n NotificationCenter) PostNotificationNameObjectUserInfo(aName NSNotificat
 // # Discussion
 //
 // This is a convenience method for calling
-// [PostNotificationNameObjectUserInfo] and passing `nil` to `aUserInfo`.
+// [NSNotificationCenter.PostNotificationNameObjectUserInfo] and passing `nil`
+// to `aUserInfo`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/post(name:object:)
 func (n NotificationCenter) PostNotificationNameObject(aName NSNotificationName, anObject objectivec.IObject) {
@@ -401,17 +407,18 @@ func (n NotificationCenter) PostNotificationNameObject(aName NSNotificationName,
 //
 // # Discussion
 //
-// All system notifications sent to an app are posted to the [DefaultCenter]
-// notification center. You can also post your own notifications there.
+// All system notifications sent to an app are posted to the
+// [NSNotificationCenterClass.DefaultCenter] notification center. You can also
+// post your own notifications there.
 //
 // If your app uses notifications extensively, you may want to create and post
 // to your own notification centers rather than posting only to the
-// [DefaultCenter] notification center. When a notification is posted to a
-// notification center, the notification center scans through the list of
-// registered observers, which may slow down your app. By organizing
-// notifications functionally around one or more notification centers, less
-// work is done each time a notification is posted, which can improve
-// performance throughout your app.
+// [NSNotificationCenterClass.DefaultCenter] notification center. When a
+// notification is posted to a notification center, the notification center
+// scans through the list of registered observers, which may slow down your
+// app. By organizing notifications functionally around one or more
+// notification centers, less work is done each time a notification is posted,
+// which can improve performance throughout your app.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/default
 func (_NotificationCenterClass NotificationCenterClass) DefaultCenter() NSNotificationCenter {

@@ -5,7 +5,7 @@ package vision
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -48,11 +48,11 @@ func (vc VNFaceLandmarks2DClass) Alloc() VNFaceLandmarks2D {
 //
 // This class represents the set of all detectable 2D face landmarks and
 // regions, exposed as properties. The coordinates of the face landmarks are
-// normalized to the dimensions of the face observation’s [VNFaceLandmarks2D.BoundingBox],
-// with the origin at the bounding box’s lower-left corner. Use the
-// [VNImagePointForFaceLandmarkPoint] function to convert normalized face
-// landmark points into absolute points within the image’s coordinate
-// system.
+// normalized to the dimensions of the face observation’s
+// [VNDetectedObjectObservation.BoundingBox], with the origin at the bounding
+// box’s lower-left corner. Use the [VNImagePointForFaceLandmarkPoint]
+// function to convert normalized face landmark points into absolute points
+// within the image’s coordinate system.
 //
 // # Face Landmark Points
 //
@@ -135,10 +135,6 @@ type IVNFaceLandmarks2D interface {
 	LeftPupil() IVNFaceLandmarkRegion2D
 	// The region containing the point where the right pupil is located.
 	RightPupil() IVNFaceLandmarkRegion2D
-
-	// The bounding box of the object that the request detects.
-	BoundingBox() corefoundation.CGRect
-	SetBoundingBox(value corefoundation.CGRect)
 }
 
 // Init initializes the instance.
@@ -158,6 +154,13 @@ func NewVNFaceLandmarks2D() VNFaceLandmarks2D {
 	class := getVNFaceLandmarks2DClass()
 	rv := objc.Send[VNFaceLandmarks2D](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks/init(coder:)
+func NewFaceLandmarks2DWithCoder(coder foundation.INSCoder) VNFaceLandmarks2D {
+	instance := getVNFaceLandmarks2DClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNFaceLandmarks2DFromID(rv)
 }
 
 // The region containing all face landmark points.
@@ -272,15 +275,4 @@ func (f VNFaceLandmarks2D) LeftPupil() IVNFaceLandmarkRegion2D {
 func (f VNFaceLandmarks2D) RightPupil() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("rightPupil"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
-}
-
-// The bounding box of the object that the request detects.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectedobjectobservation/boundingbox
-func (f VNFaceLandmarks2D) BoundingBox() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("boundingBox"))
-	return corefoundation.CGRect(rv)
-}
-func (f VNFaceLandmarks2D) SetBoundingBox(value corefoundation.CGRect) {
-	objc.Send[struct{}](f.ID, objc.Sel("setBoundingBox:"), value)
 }

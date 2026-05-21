@@ -125,6 +125,13 @@ func NewVNFaceLandmarkRegion2D() VNFaceLandmarkRegion2D {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion/init(coder:)
+func NewFaceLandmarkRegion2DWithCoder(coder foundation.INSCoder) VNFaceLandmarkRegion2D {
+	instance := getVNFaceLandmarkRegion2DClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNFaceLandmarkRegion2DFromID(rv)
+}
+
 // A buffer in memory containing landmark points in the coordinate space of
 // the specified image size.
 //

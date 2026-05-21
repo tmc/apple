@@ -160,8 +160,9 @@ func (v VNVideoProcessor) InitWithURL(videoURL foundation.NSURL) VNVideoProcesso
 //
 // # Discussion
 //
-// Call this method either before calling [AnalyzeTimeRangeError] or from
-// within the completion handler of an already associated request.
+// Call this method either before calling
+// [VNVideoProcessor.AnalyzeTimeRangeError] or from within the completion
+// handler of an already associated request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/addRequest(_:processingOptions:)
 func (v VNVideoProcessor) AddRequestProcessingOptionsError(request IVNRequest, processingOptions IVNVideoProcessorRequestProcessingOptions) (bool, error) {

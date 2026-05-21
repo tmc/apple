@@ -60,9 +60,10 @@ func (nc NSTextContentStorageClass) Alloc() NSTextContentStorage {
 // store the text for your view. [NSTextContentStorage] works with an
 // associated [NSTextLayoutManager] to lay out your view’s text. When
 // someone inserts new text or edits the existing text, call the
-// [PerformEditingTransactionUsingBlock] method and use a block to modify the
-// contents of the [NSTextContentStorage.AttributedString] property. Wrapping your edits in an edit
-// transaction lets the rest of the text system respond to those changes.
+// [NSTextContentManager.PerformEditingTransactionUsingBlock] method and use a
+// block to modify the contents of the [NSTextContentStorage.AttributedString]
+// property. Wrapping your edits in an edit transaction lets the rest of the
+// text system respond to those changes.
 //
 // TextKit uses the abstract [NSTextLocation] protocol to identify locations
 // within text. [NSTextContentStorage] manager provides its own implementation
@@ -242,11 +243,11 @@ func (t NSTextContentStorage) TextStorage() NSTextStorage {
 // The default value of this property is an [NSTextStorage] object. When you
 // need to change the text in your view, fetch this string and make your
 // changes to it. When making changes, place them in a block and pass them to
-// the [PerformEditingTransactionUsingBlock] method. Wrapping changes in an
-// edit transaction gives the rest of the text system an opportunity to
-// respond to those changes. For example, the layout manager uses edit
-// transactions to update the text layout for any content in the visible
-// portion of your view.
+// the [NSTextContentManager.PerformEditingTransactionUsingBlock] method.
+// Wrapping changes in an edit transaction gives the rest of the text system
+// an opportunity to respond to those changes. For example, the layout manager
+// uses edit transactions to update the text layout for any content in the
+// visible portion of your view.
 //
 // If you assign a new value to this property, the object replaces the current
 // string with the one you provide. Don’t set the value of this property to

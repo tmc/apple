@@ -77,14 +77,6 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 //
 //   - [NEVPNManager.Connection]: An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 //
-// # Errors
-//
-//   - [NEVPNManager.NEVPNErrorDomain]
-//
-// # Notifications
-//
-//   - [NEVPNManager.NEVPNConfigurationChange]: Posted after the VPN configuration stored in the Network Extension preferences changes.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager
 type NEVPNManager struct {
 	objectivec.Object
@@ -125,14 +117,6 @@ func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 //
 //   - [INEVPNManager.Connection]: An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 //
-// # Errors
-//
-//   - [INEVPNManager.NEVPNErrorDomain]
-//
-// # Notifications
-//
-//   - [INEVPNManager.NEVPNConfigurationChange]: Posted after the VPN configuration stored in the Network Extension preferences changes.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager
 type INEVPNManager interface {
 	objectivec.IObject
@@ -168,15 +152,6 @@ type INEVPNManager interface {
 
 	// An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 	Connection() INEVPNConnection
-
-	// Topic: Errors
-
-	NEVPNErrorDomain() string
-
-	// Topic: Notifications
-
-	// Posted after the VPN configuration stored in the Network Extension preferences changes.
-	NEVPNConfigurationChange() foundation.NSString
 }
 
 // Init initializes the instance.
@@ -233,8 +208,9 @@ func (v NEVPNManager) LoadFromPreferencesWithCompletionHandler(completionHandler
 //
 // # Discussion
 //
-// You must call [LoadFromPreferencesWithCompletionHandler]: at least once
-// before calling this method the first time after your app launches.
+// You must call [NEVPNManager.LoadFromPreferencesWithCompletionHandler]: at
+// least once before calling this method the first time after your app
+// launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/saveToPreferences(completionHandler:)
 //
@@ -258,7 +234,7 @@ func (v NEVPNManager) SaveToPreferencesWithCompletionHandler(completionHandler E
 //
 // After the configuration is removed from the preferences the [NEVPNManager]
 // object will still contain the configuration parameters. Calling
-// [LoadFromPreferencesWithCompletionHandler]: will clear out the
+// [NEVPNManager.LoadFromPreferencesWithCompletionHandler]: will clear out the
 // configuration parameters from the [NEVPNManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/removeFromPreferences(completionHandler:)
@@ -363,9 +339,10 @@ func (v NEVPNManager) SetOnDemandEnabled(value bool) {
 //
 // The VPN configuration can optionally be configured to connect automatically
 // based on a variety of criteria specified in [NEOnDemandRule] objects. The
-// [OnDemandRules] property contains the current set of Connect On Demand
-// rules for the VPN configuration. Each rule is evaluated in order, and the
-// first rule that matches all criteria on the current network is applied.
+// [NEVPNManager.OnDemandRules] property contains the current set of Connect
+// On Demand rules for the VPN configuration. Each rule is evaluated in order,
+// and the first rule that matches all criteria on the current network is
+// applied.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/onDemandRules
 func (v NEVPNManager) OnDemandRules() []NEOnDemandRule {
@@ -392,21 +369,6 @@ func (v NEVPNManager) SetOnDemandRules(value []NEOnDemandRule) {
 func (v NEVPNManager) Connection() INEVPNConnection {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("connection"))
 	return NEVPNConnectionFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/networkextension/nevpnerrordomain
-func (v NEVPNManager) NEVPNErrorDomain() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Posted after the VPN configuration stored in the Network Extension
-// preferences changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NEVPNConfigurationChange
-func (v NEVPNManager) NEVPNConfigurationChange() foundation.NSString {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNConfigurationChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // LoadFromPreferences is a synchronous wrapper around [NEVPNManager.LoadFromPreferencesWithCompletionHandler].

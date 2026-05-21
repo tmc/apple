@@ -3,8 +3,7 @@
 package coreaudio
 
 import (
-	"unsafe"
-
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -18,7 +17,7 @@ type AudioDeviceID = uint32
 type AudioDeviceIOBlock = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject)
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOProc
-type AudioDeviceIOProc = func(uint, uintptr, uintptr, uintptr, uintptr, uintptr, unsafe.Pointer) int
+type AudioDeviceIOProc = func(uint, uintptr, uintptr, uintptr, uintptr, uintptr, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOProcID
 type AudioDeviceIOProcID = string
@@ -27,7 +26,7 @@ type AudioDeviceIOProcID = string
 type AudioDevicePropertyID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDevicePropertyListenerProc
-type AudioDevicePropertyListenerProc = func(uint, uint, uint8, uint, unsafe.Pointer) int
+type AudioDevicePropertyListenerProc = func(uint, uint, uint8, uint, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInDevicePropertyChangedProc
 type AudioDriverPlugInDevicePropertyChangedProc = func(uint, uint, uint8, uint) int
@@ -39,7 +38,7 @@ type AudioDriverPlugInStreamPropertyChangedProc = func(uint, uint, uint, uint) i
 type AudioHardwarePropertyID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwarePropertyListenerProc
-type AudioHardwarePropertyListenerProc = func(uint, unsafe.Pointer) int
+type AudioHardwarePropertyListenerProc = func(uint, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectID
 type AudioObjectID = uint32
@@ -51,7 +50,7 @@ type AudioObjectPropertyElement = uint32
 type AudioObjectPropertyListenerBlock = func(uint32, *AudioObjectPropertyAddress)
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyListenerProc
-type AudioObjectPropertyListenerProc = func(uint, uint, uintptr, unsafe.Pointer) int
+type AudioObjectPropertyListenerProc = func(uint, uint, uintptr, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyScope
 type AudioObjectPropertyScope = uint32
@@ -74,4 +73,4 @@ type AudioServerPlugInHostRef = *AudioServerPlugInHostInterface
 type AudioStreamID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamPropertyListenerProc
-type AudioStreamPropertyListenerProc = func(uint, uint, uint, unsafe.Pointer) int
+type AudioStreamPropertyListenerProc = func(uint, uint, uint, kernel.Pointer) int

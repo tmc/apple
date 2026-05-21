@@ -184,7 +184,7 @@ func NewNSColorPicker() NSColorPicker {
 // mask: The color picker mask.
 //
 // owningColorPanel: The [NSColorPanel] that owns the color picker. This value is cached so it
-// can be accessed using the [ColorPanel] property.
+// can be accessed using the [NSColorPicker.ColorPanel] property.
 //
 // # Return Value
 //
@@ -209,7 +209,7 @@ func NewColorPickerWithPickerMaskColorPanel(mask uint, owningColorPanel INSColor
 // mask: The color picker mask.
 //
 // owningColorPanel: The [NSColorPanel] that owns the color picker. This value is cached so it
-// can be accessed using the [ColorPanel] property.
+// can be accessed using the [NSColorPicker.ColorPanel] property.
 //
 // # Return Value
 //
@@ -301,8 +301,8 @@ func (c NSColorPicker) ViewSizeChanged(sender objectivec.IObject) {
 // [NSColorPanel] is added or removed; you never invoke this method directly.
 //
 // If the color picker has its own opacity controls, it should hide or display
-// them, depending on whether the sender’s [ShowsAlpha] method returns false
-// or true.
+// them, depending on whether the sender’s [NSColorPanel.ShowsAlpha] method
+// returns false or true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
 func (c NSColorPicker) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
@@ -323,10 +323,11 @@ func (c NSColorPicker) ColorPanel() INSColorPanel {
 //
 // The image placed on the mode button the user uses to select this color
 // picker. This is the same image the color panel uses as an argument when
-// sending the [InsertNewButtonImageIn] message. Override this property’s
-// getter method to provide a custom button image. The default implementation
-// looks in the color picker’s bundle for a TIFF file named after the color
-// picker’s class, with the extension “`XCUIElementTypeTiff`”.
+// sending the [NSColorPicker.InsertNewButtonImageIn] message. Override this
+// property’s getter method to provide a custom button image. The default
+// implementation looks in the color picker’s bundle for a TIFF file named
+// after the color picker’s class, with the extension
+// “`XCUIElementTypeTiff`”.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPicker/provideNewButtonImage
 func (c NSColorPicker) ProvideNewButtonImage() INSImage {

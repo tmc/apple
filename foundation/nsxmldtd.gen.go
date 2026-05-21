@@ -49,7 +49,7 @@ func (xc XMLDTDClass) Alloc() XMLDTD {
 //
 // An instance of the [NSXMLDTD] class is held as a property of an
 // [NSXMLDocument] instance, accessed through the [NSXMLDocument] property
-// [DTD].
+// [NSXMLDocument.DTD].
 //
 // In the data model, an [NSXMLDTD] object is conceptually similar to
 // namespace and attribute nodes: it is not considered to be a child of the
@@ -187,10 +187,6 @@ type IXMLDTD interface {
 	EntityDeclarationForName(name string) INSXMLDTDNode
 	// Returns the DTD node representing the notation declaration identified by the specified notation name.
 	NotationDeclarationForName(name string) INSXMLDTDNode
-
-	// Returns an
-	Dtd() INSXMLDTD
-	SetDTD(value INSXMLDTD)
 }
 
 // Init initializes the instance.
@@ -231,8 +227,8 @@ func NewXMLDTD() XMLDTD {
 //
 // You use this method to create a stand-alone DTD which you can thereafter
 // query and use for validation. You can associate the DTD created through
-// this message with a document by setting the [DTD] property on an
-// [NSXMLDocument] object.
+// this message with a document by setting the [NSXMLDocument.DTD] property on
+// an [NSXMLDocument] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(contentsOf:options:)
 func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (XMLDTD, error) {
@@ -266,7 +262,8 @@ func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (
 // This method is the designated initializer for the [NSXMLDTD] class. You use
 // this method to create a stand-alone DTD which you can thereafter query and
 // use for validation. You can associate the DTD created through this message
-// with a document by setting the [DTD] property on an [NSXMLDocument] object.
+// with a document by setting the [NSXMLDocument.DTD] property on an
+// [NSXMLDocument] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(data:options:)
 func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD, error) {
@@ -294,13 +291,13 @@ func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD,
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -337,8 +334,8 @@ func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLD
 //
 // You use this method to create a stand-alone DTD which you can thereafter
 // query and use for validation. You can associate the DTD created through
-// this message with a document by setting the [DTD] property on an
-// [NSXMLDocument] object.
+// this message with a document by setting the [NSXMLDocument.DTD] property on
+// an [NSXMLDocument] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(contentsOf:options:)
 func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (XMLDTD, error) {
@@ -372,7 +369,8 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 // This method is the designated initializer for the [NSXMLDTD] class. You use
 // this method to create a stand-alone DTD which you can thereafter query and
 // use for validation. You can associate the DTD created through this message
-// with a document by setting the [DTD] property on an [NSXMLDocument] object.
+// with a document by setting the [NSXMLDocument.DTD] property on an
+// [NSXMLDocument] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(data:options:)
 func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD, error) {
@@ -566,15 +564,4 @@ func (x XMLDTD) SystemID() string {
 }
 func (x XMLDTD) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
-}
-
-// Returns an
-//
-// See: https://developer.apple.com/documentation/foundation/xmldocument/dtd
-func (x XMLDTD) Dtd() INSXMLDTD {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("DTD"))
-	return NSXMLDTDFromID(objc.ID(rv))
-}
-func (x XMLDTD) SetDTD(value INSXMLDTD) {
-	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }

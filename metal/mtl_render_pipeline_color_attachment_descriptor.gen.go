@@ -50,26 +50,33 @@ func (mc MTLRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLRenderPipel
 // An [MTLRenderPipelineColorAttachmentDescriptor] instance defines the
 // configuration of a color attachment associated with a rendering pipeline.
 //
-// The [MTLRenderPipelineColorAttachmentDescriptor.PixelFormat] property needs to be specified for the rendering pipeline
-// state at the color attachment.
+// The [MTLRenderPipelineColorAttachmentDescriptor.PixelFormat] property needs
+// to be specified for the rendering pipeline state at the color attachment.
 //
 // Blend operations determine how a source fragment is combined with a
 // destination value in a color attachment to determine the pixel value to be
 // written. The following properties define whether and how blending is
 // performed:
 //
-// - The [MTLRenderPipelineColorAttachmentDescriptor.BlendingEnabled] property enables blending. The default value is
-// false. - The [MTLRenderPipelineColorAttachmentDescriptor.WriteMask] property identifies which color channels are
-// blended. The default value is [MTLColorWriteMaskAll], which allows all
-// color channels to be blended. - The [MTLRenderPipelineColorAttachmentDescriptor.RgbBlendOperation] and
-// [MTLRenderPipelineColorAttachmentDescriptor.AlphaBlendOperation] properties assign the blend operations for RGB and
-// alpha pixel data. The default value for both properties is
-// [MTLBlendOperationAdd]. - The [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor],
-// [MTLRenderPipelineColorAttachmentDescriptor.SourceAlphaBlendFactor], [MTLRenderPipelineColorAttachmentDescriptor.DestinationRGBBlendFactor], and
-// [MTLRenderPipelineColorAttachmentDescriptor.DestinationAlphaBlendFactor] properties assign the source and destination
-// blend factors. The default value for [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor] and
-// [MTLRenderPipelineColorAttachmentDescriptor.SourceAlphaBlendFactor] is [MTLBlendFactorOne]. The default value for
-// [MTLRenderPipelineColorAttachmentDescriptor.DestinationRGBBlendFactor] and [MTLRenderPipelineColorAttachmentDescriptor.DestinationAlphaBlendFactor] is
+// - The [MTLRenderPipelineColorAttachmentDescriptor.BlendingEnabled] property
+// enables blending. The default value is false. - The
+// [MTLRenderPipelineColorAttachmentDescriptor.WriteMask] property identifies
+// which color channels are blended. The default value is
+// [MTLColorWriteMaskAll], which allows all color channels to be blended. -
+// The [MTLRenderPipelineColorAttachmentDescriptor.RgbBlendOperation] and
+// [MTLRenderPipelineColorAttachmentDescriptor.AlphaBlendOperation] properties
+// assign the blend operations for RGB and alpha pixel data. The default value
+// for both properties is [MTLBlendOperationAdd]. - The
+// [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor],
+// [MTLRenderPipelineColorAttachmentDescriptor.SourceAlphaBlendFactor],
+// [MTLRenderPipelineColorAttachmentDescriptor.DestinationRGBBlendFactor], and
+// [MTLRenderPipelineColorAttachmentDescriptor.DestinationAlphaBlendFactor]
+// properties assign the source and destination blend factors. The default
+// value for [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor]
+// and [MTLRenderPipelineColorAttachmentDescriptor.SourceAlphaBlendFactor] is
+// [MTLBlendFactorOne]. The default value for
+// [MTLRenderPipelineColorAttachmentDescriptor.DestinationRGBBlendFactor] and
+// [MTLRenderPipelineColorAttachmentDescriptor.DestinationAlphaBlendFactor] is
 // [MTLBlendFactorZero].
 //
 // # Configuring render pipeline states
@@ -183,10 +190,6 @@ type IMTLRenderPipelineColorAttachmentDescriptor interface {
 	// The source blend factor (SBF) used by the RGB blend operation.
 	SourceRGBBlendFactor() MTLBlendFactor
 	SetSourceRGBBlendFactor(value MTLBlendFactor)
-
-	// All color channels are enabled.
-	All() MTLColorWriteMask
-	SetMTLColorWriteMaskAll(value MTLColorWriteMask)
 }
 
 // Init initializes the instance.
@@ -355,15 +358,4 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SourceRGBBlendFactor() MTLBl
 }
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetSourceRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSourceRGBBlendFactor:"), value)
-}
-
-// All color channels are enabled.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcolorwritemask/all
-func (r MTLRenderPipelineColorAttachmentDescriptor) All() MTLColorWriteMask {
-	rv := objc.Send[MTLColorWriteMask](r.ID, objc.Sel("MTLColorWriteMaskAll"))
-	return MTLColorWriteMask(rv)
-}
-func (r MTLRenderPipelineColorAttachmentDescriptor) SetMTLColorWriteMaskAll(value MTLColorWriteMask) {
-	objc.Send[struct{}](r.ID, objc.Sel("setMTLColorWriteMaskAll:"), value)
 }

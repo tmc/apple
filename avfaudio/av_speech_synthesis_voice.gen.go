@@ -50,15 +50,11 @@ func (ac AVSpeechSynthesisVoiceClass) Alloc() AVSpeechSynthesisVoice {
 // The primary factors that distinguish a voice in speech synthesis are
 // language, locale, and quality. Create an instance of
 // [AVSpeechSynthesisVoice] to select a voice that’s appropriate for the
-// text and the language, and set it as the value of the [AVSpeechSynthesisVoice.Voice] property on
-// an [AVSpeechUtterance] instance. The voice may optionally reflect a local
-// variant of the language, such as Australian or South African English. For a
-// complete list of supported languages, see [Languages Supported by
-// VoiceOver].
-//
-// # Obtaining voices
-//
-//   - [AVSpeechSynthesisVoice.AVSpeechSynthesisVoiceIdentifierAlex]: The voice that the system identifies as Alex.
+// text and the language, and set it as the value of the
+// [AVSpeechUtterance.Voice] property on an [AVSpeechUtterance] instance. The
+// voice may optionally reflect a local variant of the language, such as
+// Australian or South African English. For a complete list of supported
+// languages, see [Languages Supported by VoiceOver].
 //
 // # Inspecting voices
 //
@@ -92,10 +88,6 @@ func AVSpeechSynthesisVoiceFromID(id objc.ID) AVSpeechSynthesisVoice {
 
 // An interface definition for the [AVSpeechSynthesisVoice] class.
 //
-// # Obtaining voices
-//
-//   - [IAVSpeechSynthesisVoice.AVSpeechSynthesisVoiceIdentifierAlex]: The voice that the system identifies as Alex.
-//
 // # Inspecting voices
 //
 //   - [IAVSpeechSynthesisVoice.Identifier]: The unique identifier of a voice.
@@ -112,11 +104,6 @@ func AVSpeechSynthesisVoiceFromID(id objc.ID) AVSpeechSynthesisVoice {
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice
 type IAVSpeechSynthesisVoice interface {
 	objectivec.IObject
-
-	// Topic: Obtaining voices
-
-	// The voice that the system identifies as Alex.
-	AVSpeechSynthesisVoiceIdentifierAlex() string
 
 	// Topic: Inspecting voices
 
@@ -138,9 +125,7 @@ type IAVSpeechSynthesisVoice interface {
 	// A BCP 47 code that contains the voice’s language and locale.
 	Language() string
 
-	// The voice the speech synthesizer uses when speaking the utterance.
-	Voice() IAVSpeechSynthesisVoice
-	SetVoice(value IAVSpeechSynthesisVoice)
+	InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisVoice
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -161,6 +146,13 @@ func NewAVSpeechSynthesisVoice() AVSpeechSynthesisVoice {
 	class := getAVSpeechSynthesisVoiceClass()
 	rv := objc.Send[AVSpeechSynthesisVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/init(coder:)
+func NewSpeechSynthesisVoiceWithCoder(coder foundation.INSCoder) AVSpeechSynthesisVoice {
+	instance := getAVSpeechSynthesisVoiceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVSpeechSynthesisVoiceFromID(rv)
 }
 
 // Retrieves a voice for the identifier you specify.
@@ -201,6 +193,11 @@ func NewSpeechSynthesisVoiceWithLanguage(languageCode string) AVSpeechSynthesisV
 	return AVSpeechSynthesisVoiceFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/init(coder:)
+func (s AVSpeechSynthesisVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisVoice {
+	rv := objc.Send[AVSpeechSynthesisVoice](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s AVSpeechSynthesisVoice) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -213,8 +210,8 @@ func (s AVSpeechSynthesisVoice) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // # Discussion
 //
-// Use the [Language] property to identify each voice by its language and
-// locale.
+// Use the [AVSpeechSynthesisVoice.Language] property to identify each voice
+// by its language and locale.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/speechVoices()
 func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoices() []AVSpeechSynthesisVoice {
@@ -239,14 +236,6 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoices() [
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/currentLanguageCode()
 func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CurrentLanguageCode() string {
 	rv := objc.Send[objc.ID](objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("currentLanguageCode"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The voice that the system identifies as Alex.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisvoiceidentifieralex
-func (s AVSpeechSynthesisVoice) AVSpeechSynthesisVoiceIdentifierAlex() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSpeechSynthesisVoiceIdentifierAlex"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -325,15 +314,4 @@ func (s AVSpeechSynthesisVoice) AudioFileSettings() foundation.INSDictionary {
 func (s AVSpeechSynthesisVoice) Language() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The voice the speech synthesizer uses when speaking the utterance.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechutterance/voice
-func (s AVSpeechSynthesisVoice) Voice() IAVSpeechSynthesisVoice {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("voice"))
-	return AVSpeechSynthesisVoiceFromID(objc.ID(rv))
-}
-func (s AVSpeechSynthesisVoice) SetVoice(value IAVSpeechSynthesisVoice) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVoice:"), value)
 }

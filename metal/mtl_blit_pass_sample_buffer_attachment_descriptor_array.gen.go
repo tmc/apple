@@ -48,13 +48,15 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLBlitP
 // # Overview
 //
 // The number of elements in the array is at least the number of elements in
-// an [MTLDevice] instance’s [MTLBlitPassSampleBufferAttachmentDescriptorArray.CounterSets] property.
+// an [MTLDevice] instance’s [counterSets] property.
 //
 // # Accessing a sample buffer attachment descriptor
 //
 //   - [MTLBlitPassSampleBufferAttachmentDescriptorArray.ObjectAtIndexedSubscript]: Accesses one of the array’s blit pass sample buffer attachment descriptor instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptorArray
+//
+// [counterSets]: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
 type MTLBlitPassSampleBufferAttachmentDescriptorArray struct {
 	objectivec.Object
 }
@@ -85,9 +87,6 @@ type IMTLBlitPassSampleBufferAttachmentDescriptorArray interface {
 	// Accesses one of the array’s blit pass sample buffer attachment descriptor instances.
 	ObjectAtIndexedSubscript(attachmentIndex uint) IMTLBlitPassSampleBufferAttachmentDescriptor
 
-	// The counter sets supported by the device object.
-	CounterSets() MTLCounterSet
-	SetCounterSets(value MTLCounterSet)
 	// Copies the properties of a blit pass sample buffer attachment descriptor instance to the properties of one of the array’s instances.
 	SetObjectAtIndexedSubscript(attachment IMTLBlitPassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
@@ -142,15 +141,4 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubscri
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLBlitPassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
-}
-
-// The counter sets supported by the device object.
-//
-// See: https://developer.apple.com/documentation/metal/mtldevice/countersets
-func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCounterSet {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("counterSets"))
-	return MTLCounterSetObjectFromID(rv)
-}
-func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
-	objc.Send[struct{}](b.ID, objc.Sel("setCounterSets:"), value)
 }

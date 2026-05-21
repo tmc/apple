@@ -74,6 +74,7 @@ func CIBarcodeDescriptorFromID(id objc.ID) CIBarcodeDescriptor {
 type ICIBarcodeDescriptor interface {
 	objectivec.IObject
 
+	InitWithCoder(coder foundation.INSCoder) CIBarcodeDescriptor
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -96,6 +97,18 @@ func NewCIBarcodeDescriptor() CIBarcodeDescriptor {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func NewBarcodeDescriptorWithCoder(coder foundation.INSCoder) CIBarcodeDescriptor {
+	instance := getCIBarcodeDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIBarcodeDescriptorFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func (b CIBarcodeDescriptor) InitWithCoder(coder foundation.INSCoder) CIBarcodeDescriptor {
+	rv := objc.Send[CIBarcodeDescriptor](b.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (b CIBarcodeDescriptor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
 }

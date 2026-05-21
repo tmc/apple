@@ -4,7 +4,6 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,16 +51,17 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 // the property to compare and the order of the sort (ascending or
 // descending). Optionally, you can also specify a selector to use to perform
 // the comparison, which allows you to specify other comparison selectors,
-// such as [LocalizedStandardCompare] and [LocalizedCaseInsensitiveCompare].
-// Sorting raises an exception if the objects don’t respond to the sort
-// descriptor’s comparison selector.
+// such as [NSString.LocalizedStandardCompare] and
+// [NSString.LocalizedCaseInsensitiveCompare]. Sorting raises an exception if
+// the objects don’t respond to the sort descriptor’s comparison selector.
 //
 // You can use sort descriptors for the following:
 //
 // - Sorting an array (an instance of [NSArray] or [NSMutableArray] — see
-// [SortedArrayUsingSelector] and [SortUsingSelector]) - Comparing two objects
-// directly (see [NSSortDescriptor.CompareObjectToObject]) - Specifying the order of objects
-// that return from a Core Data fetch request (see [NSSortDescriptor.SortDescriptors])
+// [NSArray.SortedArrayUsingSelector] and [NSMutableArray.SortUsingSelector])
+// - Comparing two objects directly (see
+// [NSSortDescriptor.CompareObjectToObject]) - Specifying the order of objects
+// that return from a Core Data fetch request (see [sortDescriptors])
 //
 // # Creating a Sort Descriptor
 //
@@ -73,8 +73,6 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 //
 //   - [NSSortDescriptor.Ascending]: A Boolean value that indicates whether the receiver specifies sorting in ascending order.
 //   - [NSSortDescriptor.Key]: The key that specifies the property to compare during sorting.
-//   - [NSSortDescriptor.KeyPath]: The key path that specifies the property to compare during sorting.
-//   - [NSSortDescriptor.SetKeyPath]
 //   - [NSSortDescriptor.Selector]: The selector for comparing objects.
 //   - [NSSortDescriptor.Comparator]: The comparator for the sort descriptor.
 //
@@ -85,6 +83,8 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 //   - [NSSortDescriptor.AllowEvaluation]: Forces a securely decoded sort descriptor to allow evaluation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor
+//
+// [sortDescriptors]: https://developer.apple.com/documentation/CoreData/NSFetchRequest/sortDescriptors
 type NSSortDescriptor struct {
 	objectivec.Object
 }
@@ -112,8 +112,6 @@ func NSSortDescriptorFromID(id objc.ID) NSSortDescriptor {
 //
 //   - [INSSortDescriptor.Ascending]: A Boolean value that indicates whether the receiver specifies sorting in ascending order.
 //   - [INSSortDescriptor.Key]: The key that specifies the property to compare during sorting.
-//   - [INSSortDescriptor.KeyPath]: The key path that specifies the property to compare during sorting.
-//   - [INSSortDescriptor.SetKeyPath]
 //   - [INSSortDescriptor.Selector]: The selector for comparing objects.
 //   - [INSSortDescriptor.Comparator]: The comparator for the sort descriptor.
 //
@@ -133,7 +131,7 @@ type INSSortDescriptor interface {
 	// Creates a sort descriptor with a specified string key path and sort order.
 	InitWithKeyAscending(key string, ascending bool) NSSortDescriptor
 	// Creates a sort descriptor with a specified string key path, ordering, and comparison selector.
-	InitWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor
+	InitWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor
 	// Creates a sort descriptor with a specified string key path and ordering, and a comparator block.
 	InitWithKeyAscendingComparator(key string, ascending bool, cmptr NSComparator) NSSortDescriptor
 
@@ -143,11 +141,8 @@ type INSSortDescriptor interface {
 	Ascending() bool
 	// The key that specifies the property to compare during sorting.
 	Key() string
-	// The key path that specifies the property to compare during sorting.
-	KeyPath() unsafe.Pointer
-	SetKeyPath(value unsafe.Pointer)
 	// The selector for comparing objects.
-	Selector() objc.SEL
+	Selector() objectivec.SEL
 	// The comparator for the sort descriptor.
 	Comparator() NSComparator
 
@@ -159,10 +154,6 @@ type INSSortDescriptor interface {
 	ReversedSortDescriptor() objectivec.IObject
 	// Forces a securely decoded sort descriptor to allow evaluation.
 	AllowEvaluation()
-
-	// The sort descriptors of the fetch request.
-	SortDescriptors() INSSortDescriptor
-	SetSortDescriptors(value INSSortDescriptor)
 }
 
 // Init initializes the instance.
@@ -256,8 +247,8 @@ func NewSortDescriptorWithKeyAscendingComparator(key string, ascending bool, cmp
 // false.
 //
 // selector: The method to use when comparing the properties of objects, such as
-// [LocalizedStandardCompare]. The selector must specify a method that you
-// implement according to the value of the property that the key path
+// [NSString.LocalizedStandardCompare]. The selector must specify a method
+// that you implement according to the value of the property that the key path
 // identifies. Pass the selector a single parameter, the object to compare
 // against, and it returns the appropriate [ComparisonResult] constant.
 //
@@ -270,7 +261,7 @@ func NewSortDescriptorWithKeyAscendingComparator(key string, ascending bool, cmp
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func NewSortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
+func NewSortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
 	instance := getNSSortDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return NSSortDescriptorFromID(rv)
@@ -310,8 +301,8 @@ func (s NSSortDescriptor) InitWithKeyAscending(key string, ascending bool) NSSor
 // false.
 //
 // selector: The method to use when comparing the properties of objects, such as
-// [LocalizedStandardCompare]. The selector must specify a method that you
-// implement according to the value of the property that the key path
+// [NSString.LocalizedStandardCompare]. The selector must specify a method
+// that you implement according to the value of the property that the key path
 // identifies. Pass the selector a single parameter, the object to compare
 // against, and it returns the appropriate [ComparisonResult] constant.
 //
@@ -324,7 +315,7 @@ func (s NSSortDescriptor) InitWithKeyAscending(key string, ascending bool) NSSor
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSSortDescriptor) InitWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
+func (s NSSortDescriptor) InitWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
 	rv := objc.Send[NSSortDescriptor](s.ID, objc.Sel("initWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return rv
 }
@@ -372,10 +363,10 @@ func (s NSSortDescriptor) InitWithCoder(coder INSCoder) NSSortDescriptor {
 // objects.
 //
 // object1: The object to compare with `object2`. This object must have a property
-// accessible using the key-path specified by [Key].
+// accessible using the key-path specified by [NSSortDescriptor.Key].
 //
 // object2: The object to compare with `object1`. This object must have a property
-// accessible using the key-path specified by [Key].
+// accessible using the key-path specified by [NSSortDescriptor.Key].
 //
 // # Return Value
 //
@@ -385,8 +376,9 @@ func (s NSSortDescriptor) InitWithCoder(coder INSCoder) NSSortDescriptor {
 //
 // # Discussion
 //
-// The ordering is determined by comparing the values specified by [Key] of
-// `object1` and `object2` using the selector specified by [Selector].
+// The ordering is determined by comparing the values specified by
+// [NSSortDescriptor.Key] of `object1` and `object2` using the selector
+// specified by [NSSortDescriptor.Selector].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/compare(_:to:)
 func (s NSSortDescriptor) CompareObjectToObject(object1 objectivec.IObject, object2 objectivec.IObject) NSComparisonResult {
@@ -405,7 +397,8 @@ func (s NSSortDescriptor) CompareObjectToObject(object1 objectivec.IObject, obje
 // Before you enable evaluation, you should validate key paths, selectors, and
 // related properties to ensure no erroneous or malicious code will be
 // executed. Once you’ve preflighted the sort descriptor, you can enable the
-// sort descriptor for evaluation by calling [AllowEvaluation].
+// sort descriptor for evaluation by calling
+// [NSSortDescriptor.AllowEvaluation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/allowEvaluation()
 func (s NSSortDescriptor) AllowEvaluation() {
@@ -484,10 +477,11 @@ func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendi
 // false.
 //
 // selector: The method to use when comparing the properties of objects, for example
-// [LocalizedStandardCompare]. The selector must specify a method implemented
-// by the value of the property identified by the key path. The selector used
-// for the comparison is passed a single parameter, the object to compare
-// against, and it returns the appropriate [ComparisonResult] constant.
+// [NSString.LocalizedStandardCompare]. The selector must specify a method
+// implemented by the value of the property identified by the key path. The
+// selector used for the comparison is passed a single parameter, the object
+// to compare against, and it returns the appropriate [ComparisonResult]
+// constant.
 //
 // # Return Value
 //
@@ -498,7 +492,7 @@ func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendi
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
+func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_NSSortDescriptorClass.class), objc.Sel("sortDescriptorWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return NSSortDescriptorFromID(rv)
 }
@@ -524,23 +518,12 @@ func (s NSSortDescriptor) Key() string {
 	return NSStringFromID(rv).String()
 }
 
-// The key path that specifies the property to compare during sorting.
-//
-// See: https://developer.apple.com/documentation/foundation/nssortdescriptor/keypath
-func (s NSSortDescriptor) KeyPath() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("keyPath"))
-	return rv
-}
-func (s NSSortDescriptor) SetKeyPath(value unsafe.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setKeyPath:"), value)
-}
-
 // The selector for comparing objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/selector
-func (s NSSortDescriptor) Selector() objc.SEL {
-	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selector"))
-	return rv
+func (s NSSortDescriptor) Selector() objectivec.SEL {
+	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selector"))
+	return objectivec.SEL(rv)
 }
 
 // The comparator for the sort descriptor.
@@ -548,7 +531,7 @@ func (s NSSortDescriptor) Selector() objc.SEL {
 // # Discussion
 //
 // Call this property only for sort descriptors initialized with
-// [InitWithKeyAscendingComparator].
+// [NSSortDescriptor.InitWithKeyAscendingComparator].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/comparator
 func (s NSSortDescriptor) Comparator() NSComparator {
@@ -562,17 +545,6 @@ func (s NSSortDescriptor) Comparator() NSComparator {
 func (s NSSortDescriptor) ReversedSortDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("reversedSortDescriptor"))
 	return objectivec.Object{ID: rv}
-}
-
-// The sort descriptors of the fetch request.
-//
-// See: https://developer.apple.com/documentation/CoreData/NSFetchRequest/sortDescriptors
-func (s NSSortDescriptor) SortDescriptors() INSSortDescriptor {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sortDescriptors"))
-	return NSSortDescriptorFromID(objc.ID(rv))
-}
-func (s NSSortDescriptor) SetSortDescriptors(value INSSortDescriptor) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSortDescriptors:"), value)
 }
 
 // Protocol methods for NSCopying

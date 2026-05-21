@@ -4,7 +4,6 @@ package webkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -155,6 +154,32 @@ func (o WKUIDelegateObject) WebViewShowLockdownModeFirstUseMessageCompletionHand
 	objc.Send[struct{}](o.ID, objc.Sel("webView:showLockdownModeFirstUseMessage:completionHandler:"), webView, objc.String(message), completionHandler)
 }
 
+// Displays a file upload panel.
+//
+// webView: The web view that invokes the delegate method.
+//
+// parameters: The parameters that describe the file upload control.
+//
+// frame: The frame with the file upload control that initiates the call.
+//
+// completionHandler: The completion handler the system calls after a person dismisses the open
+// panel. Pass the selected URLs if the person selects “OK”, otherwise
+// pass `nil`.
+//
+// # Discussion
+//
+// Implement this method to customize the upload panel. To disable file
+// uploads, implement this method to return `nil`.
+//
+// - By default on macOS, file uploads are disabled if you don’t implement
+// this method. - By default on iOS, file uploads are enabled if you don’t
+// implement this method.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runOpenPanelWith:initiatedByFrame:completionHandler:)
+func (o WKUIDelegateObject) WebViewRunOpenPanelWithParametersInitiatedByFrameCompletionHandler(webView IWKWebView, parameters IWKOpenPanelParameters, frame IWKFrameInfo, completionHandler NSURLArrayHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runOpenPanelWithParameters:initiatedByFrame:completionHandler:"), webView, parameters, frame, completionHandler)
+}
+
 // Tells the delegate that a contextual menu interaction began.
 //
 // webView: The web view in which the interaction occurred.
@@ -173,7 +198,7 @@ func (o WKUIDelegateObject) WebViewShowLockdownModeFirstUseMessageCompletionHand
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:contextMenuConfigurationForElement:completionHandler:)
 //
 // [UIContextMenuConfiguration]: https://developer.apple.com/documentation/UIKit/UIContextMenuConfiguration
-func (o WKUIDelegateObject) WebViewContextMenuConfigurationForElementCompletionHandler(webView IWKWebView, elementInfo unsafe.Pointer, completionHandler UIContextMenuConfigurationHandler) {
+func (o WKUIDelegateObject) WebViewContextMenuConfigurationForElementCompletionHandler(webView IWKWebView, elementInfo *uintptr, completionHandler UIContextMenuConfigurationHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuConfigurationForElement:completionHandler:"), webView, elementInfo, completionHandler)
 }
 
@@ -189,7 +214,7 @@ func (o WKUIDelegateObject) WebViewContextMenuConfigurationForElementCompletionH
 // appearance of the contextual menu.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:contextMenuForElement:willCommitWithAnimator:)
-func (o WKUIDelegateObject) WebViewContextMenuForElementWillCommitWithAnimator(webView IWKWebView, elementInfo unsafe.Pointer, animator objectivec.IObject) {
+func (o WKUIDelegateObject) WebViewContextMenuForElementWillCommitWithAnimator(webView IWKWebView, elementInfo *uintptr, animator objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuForElement:willCommitWithAnimator:"), webView, elementInfo, animator)
 }
 
@@ -202,7 +227,7 @@ func (o WKUIDelegateObject) WebViewContextMenuForElementWillCommitWithAnimator(w
 // interaction.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:contextMenuWillPresentForElement:)
-func (o WKUIDelegateObject) WebViewContextMenuWillPresentForElement(webView IWKWebView, elementInfo unsafe.Pointer) {
+func (o WKUIDelegateObject) WebViewContextMenuWillPresentForElement(webView IWKWebView, elementInfo *uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuWillPresentForElement:"), webView, elementInfo)
 }
 
@@ -215,7 +240,7 @@ func (o WKUIDelegateObject) WebViewContextMenuWillPresentForElement(webView IWKW
 // interaction.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:contextMenuDidEndForElement:)
-func (o WKUIDelegateObject) WebViewContextMenuDidEndForElement(webView IWKWebView, elementInfo unsafe.Pointer) {
+func (o WKUIDelegateObject) WebViewContextMenuDidEndForElement(webView IWKWebView, elementInfo *uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuDidEndForElement:"), webView, elementInfo)
 }
 

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -89,10 +90,6 @@ type IVNTrajectoryObservation interface {
 	EquationCoefficients() unsafe.Pointer
 	// The moving average radius of the object the request is tracking.
 	MovingAverageRadius() float64
-
-	// The array of detected trajectory observations.
-	Results() IVNTrajectoryObservation
-	SetResults(value IVNTrajectoryObservation)
 }
 
 // Init initializes the instance.
@@ -112,6 +109,13 @@ func NewVNTrajectoryObservation() VNTrajectoryObservation {
 	class := getVNTrajectoryObservationClass()
 	rv := objc.Send[VNTrajectoryObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewTrajectoryObservationWithCoder(coder foundation.INSCoder) VNTrajectoryObservation {
+	instance := getVNTrajectoryObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNTrajectoryObservationFromID(rv)
 }
 
 // The centroid points of the detected contour along the trajectory.
@@ -167,15 +171,4 @@ func (t VNTrajectoryObservation) EquationCoefficients() unsafe.Pointer {
 func (t VNTrajectoryObservation) MovingAverageRadius() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("movingAverageRadius"))
 	return rv
-}
-
-// The array of detected trajectory observations.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequest/results
-func (t VNTrajectoryObservation) Results() IVNTrajectoryObservation {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("results"))
-	return VNTrajectoryObservationFromID(objc.ID(rv))
-}
-func (t VNTrajectoryObservation) SetResults(value IVNTrajectoryObservation) {
-	objc.Send[struct{}](t.ID, objc.Sel("setResults:"), value)
 }

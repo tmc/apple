@@ -52,9 +52,9 @@ func (mc MTLStitchedLibraryDescriptorClass) Alloc() MTLStitchedLibraryDescriptor
 //
 // Configure a stitched library descriptor by assigning an array of one or
 // more [MTLFunctionStitchingGraph] instances, each describing a stitched
-// function, to the [MTLStitchedLibraryDescriptor.FunctionGraphs] property. Then assign an [MTLFunction]
-// array that includes all the functions the graphs depend on to the
-// [MTLStitchedLibraryDescriptor.Functions] property.
+// function, to the [MTLStitchedLibraryDescriptor.FunctionGraphs] property.
+// Then assign an [MTLFunction] array that includes all the functions the
+// graphs depend on to the [MTLStitchedLibraryDescriptor.Functions] property.
 //
 // Create a stitched library from the descriptor by passing it to the
 // [NewLibraryWithStitchedDescriptorError] method of an [MTLDevice]. You can

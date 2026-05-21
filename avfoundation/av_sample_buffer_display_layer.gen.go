@@ -69,11 +69,6 @@ func (ac AVSampleBufferDisplayLayerClass) Alloc() AVSampleBufferDisplayLayer {
 //   - [AVSampleBufferDisplayLayer.PreventsDisplaySleepDuringVideoPlayback]: A Boolean value that indicates whether the layer prevents the system from sleeping during video playback.
 //   - [AVSampleBufferDisplayLayer.SetPreventsDisplaySleepDuringVideoPlayback]
 //
-// # Handling errors
-//
-//   - [AVSampleBufferDisplayLayer.AVSampleBufferDisplayLayerFailedToDecode]: A notification the system posts when a sample buffer display layer fails to decode.
-//   - [AVSampleBufferDisplayLayer.AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey]: The key for the corresponding error.
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer
 type AVSampleBufferDisplayLayer struct {
 	quartzcore.CALayer
@@ -114,11 +109,6 @@ func AVSampleBufferDisplayLayerFromID(id objc.ID) AVSampleBufferDisplayLayer {
 //   - [IAVSampleBufferDisplayLayer.PreventsDisplaySleepDuringVideoPlayback]: A Boolean value that indicates whether the layer prevents the system from sleeping during video playback.
 //   - [IAVSampleBufferDisplayLayer.SetPreventsDisplaySleepDuringVideoPlayback]
 //
-// # Handling errors
-//
-//   - [IAVSampleBufferDisplayLayer.AVSampleBufferDisplayLayerFailedToDecode]: A notification the system posts when a sample buffer display layer fails to decode.
-//   - [IAVSampleBufferDisplayLayer.AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey]: The key for the corresponding error.
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer
 type IAVSampleBufferDisplayLayer interface {
 	quartzcore.ICALayer
@@ -153,13 +143,6 @@ type IAVSampleBufferDisplayLayer interface {
 	// A Boolean value that indicates whether the layer prevents the system from sleeping during video playback.
 	PreventsDisplaySleepDuringVideoPlayback() bool
 	SetPreventsDisplaySleepDuringVideoPlayback(value bool)
-
-	// Topic: Handling errors
-
-	// A notification the system posts when a sample buffer display layer fails to decode.
-	AVSampleBufferDisplayLayerFailedToDecode() foundation.NSString
-	// The key for the corresponding error.
-	AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey() string
 
 	// The error that caused the failure.
 	Error() foundation.NSError
@@ -300,23 +283,6 @@ func (s AVSampleBufferDisplayLayer) SetPreventsDisplaySleepDuringVideoPlayback(v
 	objc.Send[struct{}](s.ID, objc.Sel("setPreventsDisplaySleepDuringVideoPlayback:"), value)
 }
 
-// A notification the system posts when a sample buffer display layer fails to
-// decode.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/AVSampleBufferDisplayLayerFailedToDecode
-func (s AVSampleBufferDisplayLayer) AVSampleBufferDisplayLayerFailedToDecode() foundation.NSString {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSampleBufferDisplayLayerFailedToDecode"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The key for the corresponding error.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avsamplebufferdisplaylayerfailedtodecodenotificationerrorkey
-func (s AVSampleBufferDisplayLayer) AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The error that caused the failure.
 //
 // # Discussion
@@ -339,7 +305,7 @@ func (s AVSampleBufferDisplayLayer) Error() foundation.NSError {
 //
 // Apple discourages the use of this symbol in iOS 17, tvOS 17, and macOS 14
 // and later. Use [HasSufficientMediaDataForReliablePlaybackStart] on the
-// [SampleBufferRenderer] instead.
+// [AVSampleBufferDisplayLayer.SampleBufferRenderer] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/hasSufficientMediaDataForReliablePlaybackStart
 func (s AVSampleBufferDisplayLayer) HasSufficientMediaDataForReliablePlaybackStart() bool {
@@ -353,8 +319,8 @@ func (s AVSampleBufferDisplayLayer) HasSufficientMediaDataForReliablePlaybackSta
 // # Discussion
 //
 // Apple discourages the use of this symbol in iOS 17, tvOS 17, and macOS 14
-// and later. Use [RequiresFlushToResumeDecoding] on the
-// [SampleBufferRenderer] instead.
+// and later. Use [AVSampleBufferVideoRenderer.RequiresFlushToResumeDecoding]
+// on the [AVSampleBufferDisplayLayer.SampleBufferRenderer] instead.
 //
 // When an app enters a state where use of video decoder resources isn’t
 // permissible, the value of this property changes to true and the display
@@ -364,7 +330,7 @@ func (s AVSampleBufferDisplayLayer) HasSufficientMediaDataForReliablePlaybackSta
 // To resume rendering sample buffers using the display layer after this
 // property’s value is true, apps must first reset the display layer’s
 // status to [AVQueuedSampleBufferRenderingStatusUnknown], which you do by
-// calling the layer’s [Flush] method.
+// calling the layer’s [AVSampleBufferDisplayLayer.Flush] method.
 //
 // This property isn’t key-value observable. Instead, observe changes to
 // this property value by observing notifications of type
@@ -383,7 +349,8 @@ func (s AVSampleBufferDisplayLayer) RequiresFlushToResumeDecoding() bool {
 // # Discussion
 //
 // Apple discourages the use of this symbol in iOS 17, tvOS 17, and macOS 14
-// and later. Use [Status] on [SampleBufferRenderer] instead.
+// and later. Use [AVSampleBufferVideoRenderer.Status] on
+// [AVSampleBufferDisplayLayer.SampleBufferRenderer] instead.
 //
 // The value of this property is an [AVQueuedSampleBufferRenderingStatus] that
 // indicates whether the receiver can be used for enqueuing sample buffers.
@@ -391,8 +358,8 @@ func (s AVSampleBufferDisplayLayer) RequiresFlushToResumeDecoding() bool {
 // When the value of this property is
 // [AVQueuedSampleBufferRenderingStatusFailed], the receiver can no longer be
 // used and a new instance needs to be created in its place. When this
-// happens, clients can check the value of the [Error] property to determine
-// the failure.
+// happens, clients can check the value of the
+// [AVSampleBufferDisplayLayer.Error] property to determine the failure.
 //
 // This property supports key-value observing.
 //
@@ -410,7 +377,8 @@ func (s AVSampleBufferDisplayLayer) Status() AVQueuedSampleBufferRenderingStatus
 // # Discussion
 //
 // Apple discourages the use of this symbol in iOS 17, tvOS 17, and macOS 14
-// and later. Use [Timebase] on the [SampleBufferRenderer] instead.
+// and later. Use [Timebase] on the
+// [AVSampleBufferDisplayLayer.SampleBufferRenderer] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/timebase
 func (s AVSampleBufferDisplayLayer) Timebase() coremedia.CMTimebaseRef {

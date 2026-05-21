@@ -126,8 +126,8 @@ type INSButtonTouchBarItem interface {
 
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 }
 
 // Init initializes the instance.
@@ -236,10 +236,10 @@ func (b NSButtonTouchBarItem) SetTarget(value objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/action
-func (b NSButtonTouchBarItem) Action() objc.SEL {
+func (b NSButtonTouchBarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](b.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (b NSButtonTouchBarItem) SetAction(value objc.SEL) {
+func (b NSButtonTouchBarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAction:"), value)
 }

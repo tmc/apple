@@ -54,7 +54,7 @@ func (cc CKUserIdentityLookupInfoClass) Alloc() CKUserIdentityLookupInfo {
 // You create individual instances by providing an email address, phone
 // number, or user record ID. Alternatively, create an array of objects all at
 // once by using one of the convenience methods, such as
-// [CKUserIdentityLookupInfo.LookupInfosWithEmails].
+// [CKUserIdentityLookupInfoClass.LookupInfosWithEmails].
 //
 // # Creating a Lookup Info
 //

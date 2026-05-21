@@ -70,10 +70,6 @@ func VZMacTrackpadConfigurationFromID(id objc.ID) VZMacTrackpadConfiguration {
 // See: https://developer.apple.com/documentation/Virtualization/VZMacTrackpadConfiguration
 type IVZMacTrackpadConfiguration interface {
 	IVZPointingDeviceConfiguration
-
-	// The list of pointing devices.
-	PointingDevices() IVZPointingDeviceConfiguration
-	SetPointingDevices(value IVZPointingDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -93,15 +89,4 @@ func NewVZMacTrackpadConfiguration() VZMacTrackpadConfiguration {
 	class := getVZMacTrackpadConfigurationClass()
 	rv := objc.Send[VZMacTrackpadConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The list of pointing devices.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/pointingdevices
-func (m VZMacTrackpadConfiguration) PointingDevices() IVZPointingDeviceConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pointingDevices"))
-	return VZPointingDeviceConfigurationFromID(objc.ID(rv))
-}
-func (m VZMacTrackpadConfiguration) SetPointingDevices(value IVZPointingDeviceConfiguration) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPointingDevices:"), value)
 }

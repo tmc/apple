@@ -440,10 +440,11 @@ func (p NSPopUpButtonCell) AddItemWithTitle(title string) {
 // you can change these using the setAction: and setTarget: methods of the
 // corresponding [NSMenuItem] object.
 //
-// If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
-// explicitly and then call this method. After adding the items, this method
-// uses the [SynchronizeTitleAndSelectedItem] method to make sure the item
-// being displayed matches the currently selected item.
+// If you want to move an item, it’s better to invoke
+// [NSPopUpButtonCell.RemoveItemWithTitle] explicitly and then call this
+// method. After adding the items, this method uses the
+// [NSPopUpButtonCell.SynchronizeTitleAndSelectedItem] method to make sure the
+// item being displayed matches the currently selected item.
 //
 // Because this method searches for duplicate items, it should not be used if
 // you are adding items to an already populated menu with more than a few
@@ -642,8 +643,8 @@ func (p NSPopUpButtonCell) ItemWithTitle(title string) INSMenuItem {
 // By default, selecting or deselecting a menu item from a pop-up menu changes
 // its state. Selecting a menu item from a pull-down menu does not
 // automatically alter the state of the item. To disassociate the current
-// selection from the state of menu items, set the [AltersStateOfSelectedItem]
-// property to false.
+// selection from the state of menu items, set the
+// [NSPopUpButtonCell.AltersStateOfSelectedItem] property to false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/select(_:)
 func (p NSPopUpButtonCell) SelectItem(item INSMenuItem) {
@@ -660,8 +661,8 @@ func (p NSPopUpButtonCell) SelectItem(item INSMenuItem) {
 // By default, selecting or deselecting a menu item from a pop-up menu changes
 // its state. Selecting a menu item from a pull-down menu does not
 // automatically alter the state of the item. To disassociate the current
-// selection from the state of menu items, set the [AltersStateOfSelectedItem]
-// property to false.
+// selection from the state of menu items, set the
+// [NSPopUpButtonCell.AltersStateOfSelectedItem] property to false.
 //
 // Subclassers can override this method to catch all select calls.
 //
@@ -702,7 +703,7 @@ func (p NSPopUpButtonCell) SelectItemWithTag(tag int) bool {
 //
 // By default, selecting or deselecting a menu item changes its state. To
 // disassociate the current selection from the state of menu items, set the
-// [AltersStateOfSelectedItem] property to false.
+// [NSPopUpButtonCell.AltersStateOfSelectedItem] property to false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/selectItem(withTitle:)
 func (p NSPopUpButtonCell) SelectItemWithTitle(title string) {
@@ -756,8 +757,9 @@ func (p NSPopUpButtonCell) ItemTitleAtIndex(index int) string {
 // # Discussion
 //
 // This call sets up the popup button cell to display a menu, which occurs in
-// [PerformClickWithFrameInView]. This method sets the cell’s control view
-// and then highlights and redraws the cell. It does not show the menu.
+// [NSPopUpButtonCell.PerformClickWithFrameInView]. This method sets the
+// cell’s control view and then highlights and redraws the cell. It does not
+// show the menu.
 //
 // This method also posts an [willPopUpNotification]. (The [NSPopUpButton]
 // object sends a corresponding [willPopUpNotification].)
@@ -885,7 +887,7 @@ func (p NSPopUpButtonCell) SetAutoenablesItems(value bool) {
 // and [NSMaxXEdge].
 //
 // The exact location of the arrow is determined by examining the value of
-// this property and [ArrowPosition].
+// this property and [NSPopUpButtonCell.ArrowPosition].
 //
 // - If the arrow position is [NSPopUpArrowAtCenter], the arrow stays in the
 // center of the button and the value of this property determines which edge
@@ -922,7 +924,8 @@ func (p NSPopUpButtonCell) SetPreferredEdge(value foundation.NSRectEdge) {
 // the first menu item, and a pop-up menu uses the title of the currently
 // selected menu (if no menu item is selected, the pop-up button displays no
 // item and is drawn empty). When the value is false, the menu item set with
-// [MenuItem] ([NSMenuItem]) is always displayed. The default value is true.
+// [NSMenuItemCell.MenuItem] ([NSMenuItem]) is always displayed. The default
+// value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/usesItemFromMenu
 func (p NSPopUpButtonCell) UsesItemFromMenu() bool {
@@ -965,8 +968,8 @@ func (p NSPopUpButtonCell) SetAltersStateOfSelectedItem(value bool) {
 // When the value of this property is [NSPopUpNoArrow], the control displays
 // no arrow. [NSPopUpArrowAtCenter] displays the arrow centered horizontally
 // within the cell and [NSPopUpArrowAtBottom] displays the arrow at the edge
-// of the cell. This property is used with [PreferredEdge] to determine the
-// exact location and orientation of the arrow.
+// of the cell. This property is used with [NSPopUpButtonCell.PreferredEdge]
+// to determine the exact location and orientation of the arrow.
 //
 // This property applies to only bezel style and borderless pop-up buttons.
 //

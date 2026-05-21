@@ -590,21 +590,6 @@ func (t NSTextContentManager) SynchronizeTextLayoutManagersSync(ctx context.Cont
 	}
 }
 
-// EnumerateTextElementsFromLocationOptionsUsingBlockSync is a synchronous wrapper around [NSTextContentManager.EnumerateTextElementsFromLocationOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlockSync(ctx context.Context, textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions) (*NSTextElement, error) {
-	done := make(chan *NSTextElement, 1)
-	t.EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation, options, func(val *NSTextElement) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
 // SynchronizeToBackingStoreSync is a synchronous wrapper around [NSTextContentManager.SynchronizeToBackingStore].
 // It blocks until the completion handler fires or the context is cancelled.
 func (t NSTextContentManager) SynchronizeToBackingStoreSync(ctx context.Context) error {

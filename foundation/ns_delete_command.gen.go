@@ -153,7 +153,7 @@ func NewDeleteCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 // # Discussion
 //
 // Note that this may be different than the specifier or specifiers set by
-// [SetReceiversSpecifier].
+// [NSDeleteCommand.SetReceiversSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDeleteCommand/keySpecifier
 func (d NSDeleteCommand) KeySpecifier() INSScriptObjectSpecifier {

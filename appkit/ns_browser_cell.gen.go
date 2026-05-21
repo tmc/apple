@@ -279,7 +279,7 @@ func (_NSBrowserCellClass NSBrowserCellClass) BranchImage() NSImage {
 //
 // The default image used for branch [NSBrowserCell] objects that are
 // highlighted. This is a lighter version of the image returned by
-// [BranchImage].
+// [NSBrowserCellClass.BranchImage].
 //
 // # Discussion
 //

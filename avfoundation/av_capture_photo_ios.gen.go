@@ -55,9 +55,9 @@ func (c AVCapturePhoto) PreviewCGImageRepresentation() coregraphics.CGImageRef {
 // # Discussion
 //
 // If you requested one or more semantic segmentation mattes by calling
-// [EnabledSemanticSegmentationMatteTypes] with a nonempty array of types,
-// this property offers access to the resulting [AVSemanticSegmentationMatte]
-// objects.
+// [AVCapturePhotoSettings.EnabledSemanticSegmentationMatteTypes] with a
+// nonempty array of types, this property offers access to the resulting
+// [AVSemanticSegmentationMatte] objects.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/semanticSegmentationMatte(for:)
 func (c AVCapturePhoto) SemanticSegmentationMatteForType(semanticSegmentationMatteType AVSemanticSegmentationMatteType) IAVSemanticSegmentationMatte {
@@ -90,10 +90,11 @@ func (c AVCapturePhoto) IsRawPhoto() bool {
 // See [Video settings] for possible keys and values.
 //
 // If you requested an embedded thumbnail image by specifying the
-// [EmbeddedThumbnailPhotoFormat] property of your photo settings when
-// requesting capture, this property’s value is the resolved video settings
-// dictionary for the embedded thumbnail image. If you did not request an
-// embedded thumbnail image, this property’s value is `nil`.
+// [AVCapturePhotoSettings.EmbeddedThumbnailPhotoFormat] property of your
+// photo settings when requesting capture, this property’s value is the
+// resolved video settings dictionary for the embedded thumbnail image. If you
+// did not request an embedded thumbnail image, this property’s value is
+// `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/embeddedThumbnailPhotoFormat
 //
@@ -107,11 +108,12 @@ func (c AVCapturePhoto) EmbeddedThumbnailPhotoFormat() foundation.INSDictionary 
 //
 // # Discussion
 //
-// If you requested a preview image by specifying the [PreviewPhotoFormat]
-// property of your photo settings when requesting capture, this property
-// offers access to the resulting preview image pixel data. The pixel buffer
-// contains only the minimal attachments required for correct display. If you
-// did not request a preview image, this property’s value is `nil`.
+// If you requested a preview image by specifying the
+// [AVCapturePhotoSettings.PreviewPhotoFormat] property of your photo settings
+// when requesting capture, this property offers access to the resulting
+// preview image pixel data. The pixel buffer contains only the minimal
+// attachments required for correct display. If you did not request a preview
+// image, this property’s value is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/previewPixelBuffer
 func (c AVCapturePhoto) PreviewPixelBuffer() corevideo.CVImageBufferRef {
@@ -124,9 +126,9 @@ func (c AVCapturePhoto) PreviewPixelBuffer() corevideo.CVImageBufferRef {
 // # Discussion
 //
 // To request capture of depth data alongside a photo (on supported devices),
-// set the [DepthDataDeliveryEnabled] property of your photo settings object
-// to true when requesting photo capture. If you did not request depth data
-// delivery, this property’s value is `nil`.
+// set the [AVCapturePhotoSettings.DepthDataDeliveryEnabled] property of your
+// photo settings object to true when requesting photo capture. If you did not
+// request depth data delivery, this property’s value is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/depthData
 func (c AVCapturePhoto) DepthData() IAVDepthData {
@@ -139,10 +141,11 @@ func (c AVCapturePhoto) DepthData() IAVDepthData {
 // # Discussion
 //
 // Camera calibration data is present only if you specified the
-// [CameraCalibrationDataDeliveryEnabled] and
-// [DualCameraDualPhotoDeliveryEnabled] settings when requesting capture. For
-// camera calibration data in a capture that includes depth data, see the
-// [AVDepthData] [CameraCalibrationData] property.
+// [AVCapturePhotoSettings.CameraCalibrationDataDeliveryEnabled] and
+// [AVCapturePhotoSettings.DualCameraDualPhotoDeliveryEnabled] settings when
+// requesting capture. For camera calibration data in a capture that includes
+// depth data, see the [AVDepthData] [AVDepthData.CameraCalibrationData]
+// property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/cameraCalibrationData
 func (c AVCapturePhoto) CameraCalibrationData() IAVCameraCalibrationData {
@@ -155,13 +158,13 @@ func (c AVCapturePhoto) CameraCalibrationData() IAVCameraCalibrationData {
 // # Discussion
 //
 // When you capture dual photos with a [builtInDualCamera] device and the
-// [DualCameraDualPhotoDeliveryEnabled] setting, use this property to
-// determine which of the two resulting photo objects is from the
-// [builtInWideAngleCamera] or [builtInTelephotoCamera] device.
+// [AVCapturePhotoSettings.DualCameraDualPhotoDeliveryEnabled] setting, use
+// this property to determine which of the two resulting photo objects is from
+// the [builtInWideAngleCamera] or [builtInTelephotoCamera] device.
 //
 // For all other captures, this property’s value is equal to the
-// [DeviceType] property of the capture device to which the photo output is
-// connected.
+// [AVCaptureDevice.DeviceType] property of the capture device to which the
+// photo output is connected.
 //
 // This property’s value can be `nil` if the [AVCapturePhoto] object did not
 // come from an [AVCaptureDevice] capture.
@@ -214,9 +217,9 @@ func (c AVCapturePhoto) PortraitEffectsMatte() IAVPortraitEffectsMatte {
 //
 // [AVCaptureBracketedStillImageSettings]: https://developer.apple.com/documentation/AVFoundation/AVCaptureBracketedStillImageSettings
 // [AVCapturePhotoBracketSettings]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoBracketSettings
-func (c AVCapturePhoto) BracketSettings() objc.ID {
+func (c AVCapturePhoto) BracketSettings() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("bracketSettings"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // The 1-based index of this photo in a bracketed capture sequence.

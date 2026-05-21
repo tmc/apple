@@ -51,8 +51,6 @@ func (ac AVPlayerVideoOutputConfigurationClass) Alloc() AVPlayerVideoOutputConfi
 // # Inspecting the configuration
 //
 //   - [AVPlayerVideoOutputConfiguration.SourcePlayerItem]: The player item that’s the source of this configuration.
-//   - [AVPlayerVideoOutputConfiguration.DataChannelDescription]: An array of data channels selected for this configuration.
-//   - [AVPlayerVideoOutputConfiguration.SetDataChannelDescription]
 //   - [AVPlayerVideoOutputConfiguration.ActivationTime]: The host time this configuration became active on its associated player object.
 //   - [AVPlayerVideoOutputConfiguration.PreferredTransform]: The preferred transform of the visual media.
 //
@@ -77,8 +75,6 @@ func AVPlayerVideoOutputConfigurationFromID(id objc.ID) AVPlayerVideoOutputConfi
 // # Inspecting the configuration
 //
 //   - [IAVPlayerVideoOutputConfiguration.SourcePlayerItem]: The player item that’s the source of this configuration.
-//   - [IAVPlayerVideoOutputConfiguration.DataChannelDescription]: An array of data channels selected for this configuration.
-//   - [IAVPlayerVideoOutputConfiguration.SetDataChannelDescription]
 //   - [IAVPlayerVideoOutputConfiguration.ActivationTime]: The host time this configuration became active on its associated player object.
 //   - [IAVPlayerVideoOutputConfiguration.PreferredTransform]: The preferred transform of the visual media.
 //
@@ -90,9 +86,6 @@ type IAVPlayerVideoOutputConfiguration interface {
 
 	// The player item that’s the source of this configuration.
 	SourcePlayerItem() IAVPlayerItem
-	// An array of data channels selected for this configuration.
-	DataChannelDescription() coremedia.CMTag
-	SetDataChannelDescription(value coremedia.CMTag)
 	// The host time this configuration became active on its associated player object.
 	ActivationTime() coremedia.CMTime
 	// The preferred transform of the visual media.
@@ -127,17 +120,6 @@ func NewAVPlayerVideoOutputConfiguration() AVPlayerVideoOutputConfiguration {
 func (p AVPlayerVideoOutputConfiguration) SourcePlayerItem() IAVPlayerItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sourcePlayerItem"))
 	return AVPlayerItemFromID(objc.ID(rv))
-}
-
-// An array of data channels selected for this configuration.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayervideooutput/configuration/datachanneldescription
-func (p AVPlayerVideoOutputConfiguration) DataChannelDescription() coremedia.CMTag {
-	rv := objc.Send[coremedia.CMTag](p.ID, objc.Sel("dataChannelDescription"))
-	return coremedia.CMTag(rv)
-}
-func (p AVPlayerVideoOutputConfiguration) SetDataChannelDescription(value coremedia.CMTag) {
-	objc.Send[struct{}](p.ID, objc.Sel("setDataChannelDescription:"), value)
 }
 
 // The host time this configuration became active on its associated player

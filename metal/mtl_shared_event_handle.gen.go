@@ -87,6 +87,7 @@ type IMTLSharedEventHandle interface {
 	// A string that identifies the shareable event.
 	Label() string
 
+	InitWithCoder(coder foundation.INSCoder) MTLSharedEventHandle
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -109,6 +110,18 @@ func NewMTLSharedEventHandle() MTLSharedEventHandle {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLSharedEventHandle/init(coder:)
+func NewSharedEventHandleWithCoder(coder foundation.INSCoder) MTLSharedEventHandle {
+	instance := getMTLSharedEventHandleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MTLSharedEventHandleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLSharedEventHandle/init(coder:)
+func (s MTLSharedEventHandle) InitWithCoder(coder foundation.INSCoder) MTLSharedEventHandle {
+	rv := objc.Send[MTLSharedEventHandle](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s MTLSharedEventHandle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }

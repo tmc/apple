@@ -157,6 +157,33 @@ func NewURLCredential() URLCredential {
 	return rv
 }
 
+// Creates a URL credential instance for server trust authentication with a
+// given accepted trust.
+//
+// trust: The accepted trust.
+//
+// # Return Value
+//
+// A new URL credential object, containing the accepted server trust.
+//
+// # Discussion
+//
+// Before creating a server trust credential, it is the responsibility of the
+// delegate of an [NSURLConnection] instance or an [NSURLDownload] instance to
+// evaluate the trust. Do this by calling [SecTrustEvaluate(_:_:)], passing it
+// the trust obtained from the `serverTrust` method of the server’s
+// [NSURLProtectionSpace] instance. If the trust is invalid, the
+// authentication challenge should be cancelled with
+// [CancelAuthenticationChallenge].
+//
+// See: https://developer.apple.com/documentation/Foundation/URLCredential/init(forTrust:)
+//
+// [SecTrustEvaluate(_:_:)]: https://developer.apple.com/documentation/Security/SecTrustEvaluate(_:_:)
+func NewURLCredentialForTrust(trust objectivec.IObject) URLCredential {
+	rv := objc.Send[objc.ID](objc.ID(getURLCredentialClass().class), objc.Sel("credentialForTrust:"), trust)
+	return URLCredentialFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLCredentialWithCoder(coder INSCoder) URLCredential {
 	instance := getURLCredentialClass().Alloc()
@@ -218,11 +245,13 @@ func NewURLCredentialWithIdentityCertificatesPersistence(identity objectivec.IOb
 // Before your implementation of
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] uses this initializer
 // to create a server trust credential, you are responsible for evaluating the
-// received [SecTrust] instance. You get this [ServerTrust] from the
-// [ProtectionSpace] of the [NSURLAuthenticationChallenge] parameter that is
-// passed to your delegate method. Pass the trust instance to
-// [SecTrustEvaluate(_:_:)] to evaluate it. If this call indicates the trust
-// is invalid, you should cancel the challenge by passing the
+// received [SecTrust] instance. You get this
+// [NSURLProtectionSpace.ServerTrust] from the
+// [NSURLAuthenticationChallenge.ProtectionSpace] of the
+// [NSURLAuthenticationChallenge] parameter that is passed to your delegate
+// method. Pass the trust instance to [SecTrustEvaluate(_:_:)] to evaluate it.
+// If this call indicates the trust is invalid, you should cancel the
+// challenge by passing the
 // [NSURLSessionAuthChallengeCancelAuthenticationChallenge] disposition to the
 // completion handler.
 //
@@ -321,11 +350,13 @@ func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectiv
 // Before your implementation of
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] uses this initializer
 // to create a server trust credential, you are responsible for evaluating the
-// received [SecTrust] instance. You get this [ServerTrust] from the
-// [ProtectionSpace] of the [NSURLAuthenticationChallenge] parameter that is
-// passed to your delegate method. Pass the trust instance to
-// [SecTrustEvaluate(_:_:)] to evaluate it. If this call indicates the trust
-// is invalid, you should cancel the challenge by passing the
+// received [SecTrust] instance. You get this
+// [NSURLProtectionSpace.ServerTrust] from the
+// [NSURLAuthenticationChallenge.ProtectionSpace] of the
+// [NSURLAuthenticationChallenge] parameter that is passed to your delegate
+// method. Pass the trust instance to [SecTrustEvaluate(_:_:)] to evaluate it.
+// If this call indicates the trust is invalid, you should cancel the
+// challenge by passing the
 // [NSURLSessionAuthChallengeCancelAuthenticationChallenge] disposition to the
 // completion handler.
 //
@@ -382,21 +413,6 @@ func (u URLCredential) EncodeWithCoder(coder INSCoder) {
 func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
-}
-
-// # Return Value
-//
-// # The new autoreleased NSURLCredential
-//
-// # Discussion
-//
-// Create a new NSURLCredential which specifies that a handshake has been
-// trusted.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialForTrust:
-func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objectivec.IObject) NSURLCredential {
-	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialForTrust:"), trust)
-	return NSURLCredentialFromID(rv)
 }
 
 // Creates a URL credential instance for resolving a client certificate
@@ -504,8 +520,8 @@ func (u URLCredential) Certificates() INSArray {
 // This method does not attempt to retrieve the password.
 //
 // If this credential’s password is stored in the user’s keychain,
-// [Password] may return `nil` even if this method returns true—getting the
-// password may fail, or the user may refuse access.
+// [NSURLCredential.Password] may return `nil` even if this method returns
+// true—getting the password may fail, or the user may refuse access.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/hasPassword
 func (u URLCredential) HasPassword() bool {
@@ -518,9 +534,10 @@ func (u URLCredential) HasPassword() bool {
 // # Discussion
 //
 // You should only access this property if you need the actual password value.
-// If you only need to know if there is a password, use [HasPassword].
-// Accessing this property may result in prompting the user for access—for
-// example, if the password is stored in the user’s keychain.
+// If you only need to know if there is a password, use
+// [NSURLCredential.HasPassword]. Accessing this property may result in
+// prompting the user for access—for example, if the password is stored in
+// the user’s keychain.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/password
 func (u URLCredential) Password() string {

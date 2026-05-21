@@ -116,33 +116,7 @@ type IPDFBorder interface {
 	// Draws the border.
 	DrawInRect(rect corefoundation.CGRect)
 
-	// The alignment of the free text and text widget annotation’s text content.
-	Alignment() uint
-	SetAlignment(value uint)
-	// Sets the border style for the annotation.
-	Border() IPDFBorder
-	SetBorder(value IPDFBorder)
-	// Returns the bounding box for the annotation in page space.
-	Bounds() corefoundation.CGRect
-	SetBounds(value corefoundation.CGRect)
-	// Sets the stroke color for the annotation.
-	Color() objc.ID
-	SetColor(value objc.ID)
-	// Returns the textual content (if any) associated with the annotation.
-	Contents() string
-	SetContents(value string)
-	// The font the annotation uses to display text.
-	Font() objectivec.IObject
-	SetFont(value objectivec.IObject)
-	// The font color the annotation uses to display text.
-	FontColor() objc.ID
-	SetFontColor(value objc.ID)
-	// Returns a Boolean value that indicates whether the annotation has an appearance stream associated with it.
-	HasAppearanceStream() bool
-	SetHasAppearanceStream(value bool)
-	// A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
-	IsHighlighted() bool
-	SetHighlighted(value bool)
+	InitWithCoder(coder foundation.INSCoder) PDFBorder
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -165,11 +139,24 @@ func NewPDFBorder() PDFBorder {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/PDFKit/PDFBorder/init(coder:)
+func NewPDFBorderWithCoder(coder foundation.INSCoder) PDFBorder {
+	instance := getPDFBorderClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return PDFBorderFromID(rv)
+}
+
 // Draws the border.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFBorder/draw(in:)
 func (p PDFBorder) DrawInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](p.ID, objc.Sel("drawInRect:"), rect)
+}
+
+// See: https://developer.apple.com/documentation/PDFKit/PDFBorder/init(coder:)
+func (p PDFBorder) InitWithCoder(coder foundation.INSCoder) PDFBorder {
+	rv := objc.Send[PDFBorder](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (p PDFBorder) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -222,105 +209,4 @@ func (p PDFBorder) SetDashPattern(value foundation.INSArray) {
 func (p PDFBorder) BorderKeyValues() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("borderKeyValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The alignment of the free text and text widget annotation’s text content.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/alignment
-func (p PDFBorder) Alignment() uint {
-	rv := objc.Send[uint](p.ID, objc.Sel("alignment"))
-	return rv
-}
-func (p PDFBorder) SetAlignment(value uint) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAlignment:"), value)
-}
-
-// Sets the border style for the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/border
-func (p PDFBorder) Border() IPDFBorder {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("border"))
-	return PDFBorderFromID(objc.ID(rv))
-}
-func (p PDFBorder) SetBorder(value IPDFBorder) {
-	objc.Send[struct{}](p.ID, objc.Sel("setBorder:"), value)
-}
-
-// Returns the bounding box for the annotation in page space.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/bounds
-func (p PDFBorder) Bounds() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("bounds"))
-	return corefoundation.CGRect(rv)
-}
-func (p PDFBorder) SetBounds(value corefoundation.CGRect) {
-	objc.Send[struct{}](p.ID, objc.Sel("setBounds:"), value)
-}
-
-// Sets the stroke color for the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/color
-func (p PDFBorder) Color() objc.ID {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("color"))
-	return rv
-}
-func (p PDFBorder) SetColor(value objc.ID) {
-	objc.Send[struct{}](p.ID, objc.Sel("setColor:"), value)
-}
-
-// Returns the textual content (if any) associated with the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/contents
-func (p PDFBorder) Contents() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("contents"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFBorder) SetContents(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setContents:"), objc.String(value))
-}
-
-// The font the annotation uses to display text.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/font
-func (p PDFBorder) Font() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("font"))
-	return objectivec.Object{ID: rv}
-}
-func (p PDFBorder) SetFont(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFont:"), value)
-}
-
-// The font color the annotation uses to display text.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/fontcolor
-func (p PDFBorder) FontColor() objc.ID {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("fontColor"))
-	return rv
-}
-func (p PDFBorder) SetFontColor(value objc.ID) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFontColor:"), value)
-}
-
-// Returns a Boolean value that indicates whether the annotation has an
-// appearance stream associated with it.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/hasappearancestream
-func (p PDFBorder) HasAppearanceStream() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("hasAppearanceStream"))
-	return rv
-}
-func (p PDFBorder) SetHasAppearanceStream(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHasAppearanceStream:"), value)
-}
-
-// A Boolean value that indicates whether the annotation is in a highlighted
-// state, such as when the mouse is down on a link annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/ishighlighted
-func (p PDFBorder) IsHighlighted() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("highlighted"))
-	return rv
-}
-func (p PDFBorder) SetHighlighted(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHighlighted:"), value)
 }

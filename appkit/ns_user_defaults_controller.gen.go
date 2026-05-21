@@ -118,7 +118,7 @@ type INSUserDefaultsController interface {
 	// Topic: Managing user defaults values
 
 	// Returns the instance of NSUserDefaults in use by the receiver.
-	Defaults() foundation.NSUserDefaults
+	Defaults() foundation.UserDefaults
 	// Returns a dictionary containing the receiver’s initial default values.
 	InitialValues() foundation.INSDictionary
 	SetInitialValues(value foundation.INSDictionary)
@@ -206,8 +206,8 @@ func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults foundat
 // The receiver invokes [discardEditing] on any currently registered editors.
 // The `sender` is typically the object that invoked this method.
 //
-// If [AppliesImmediately] is true, this method only causes any bound editors
-// with uncommitted changes to discard their edits.
+// If [NSUserDefaultsController.AppliesImmediately] is true, this method only
+// causes any bound editors with uncommitted changes to discard their edits.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/revert(_:)
 //
@@ -218,7 +218,7 @@ func (u NSUserDefaultsController) Revert(sender objectivec.IObject) {
 
 // Causes the receiver to discard all edits and replace the values of all the
 // user default properties with any corresponding values in the
-// [InitialValues] dictionary.
+// [NSUserDefaultsController.InitialValues] dictionary.
 //
 // # Discussion
 //
@@ -236,7 +236,8 @@ func (u NSUserDefaultsController) RevertToInitialValues(sender objectivec.IObjec
 //
 // # Discussion
 //
-// This method has no effect if [AppliesImmediately] returns true.
+// This method has no effect if [NSUserDefaultsController.AppliesImmediately]
+// returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/save(_:)
 func (u NSUserDefaultsController) Save(sender objectivec.IObject) {
@@ -250,9 +251,9 @@ func (u NSUserDefaultsController) Save(sender objectivec.IObject) {
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/defaults
-func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
+func (u NSUserDefaultsController) Defaults() foundation.UserDefaults {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaults"))
-	return foundation.NSUserDefaultsFromID(objc.ID(rv))
+	return foundation.UserDefaultsFromID(objc.ID(rv))
 }
 
 // Returns a dictionary containing the receiver’s initial default values.
@@ -260,7 +261,7 @@ func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
 // # Discussion
 //
 // These values are used when is no value found for the bound property in
-// [Defaults].
+// [NSUserDefaultsController.Defaults].
 //
 // This property is observable using key-value observing.
 //
@@ -309,8 +310,9 @@ func (u NSUserDefaultsController) SetAppliesImmediately(value bool) {
 //
 // # Discussion
 //
-// If present the value for the property in [Defaults] is returned, otherwise
-// a corresponding value in [InitialValues] is returned.
+// If present the value for the property in
+// [NSUserDefaultsController.Defaults] is returned, otherwise a corresponding
+// value in [NSUserDefaultsController.InitialValues] is returned.
 //
 // This property is observable using key-value observing.
 //

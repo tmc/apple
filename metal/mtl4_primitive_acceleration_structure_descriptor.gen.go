@@ -143,10 +143,12 @@ func NewMTL4PrimitiveAccelerationStructureDescriptor() MTL4PrimitiveAcceleration
 //
 // # Discussion
 //
-// If you enable keyframe motion by setting property [MotionKeyframeCount] to
-// a value greater than `1`, then all geometry descriptors this array
-// references need to be motion geometry descriptors and have a number of
-// primitive buffers equals to [MotionKeyframeCount].
+// If you enable keyframe motion by setting property
+// [MTL4PrimitiveAccelerationStructureDescriptor.MotionKeyframeCount] to a
+// value greater than `1`, then all geometry descriptors this array references
+// need to be motion geometry descriptors and have a number of primitive
+// buffers equals to
+// [MTL4PrimitiveAccelerationStructureDescriptor.MotionKeyframeCount].
 //
 // Example of motion geometry descriptors include:
 // [MTL4AccelerationStructureMotionTriangleGeometryDescriptor],
@@ -169,7 +171,8 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetGeometryDescriptors(val
 // # Discussion
 //
 // This property controls what happens if Metal samples the acceleration
-// structure after [MotionEndTime].
+// structure after
+// [MTL4PrimitiveAccelerationStructureDescriptor.MotionEndTime].
 //
 // Its default value is [MTLMotionBorderModeClamp].
 //
@@ -219,7 +222,7 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionKeyframeCount(val
 //
 // Use this property to control the behavior when the ray-tracing system
 // samples the acceleration structure at a time prior to the one you set for
-// [MotionStartTime].
+// [MTL4PrimitiveAccelerationStructureDescriptor.MotionStartTime].
 //
 // The default value of this property is [MTLMotionBorderModeClamp].
 //

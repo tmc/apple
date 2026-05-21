@@ -3,7 +3,6 @@
 package coreimage
 
 import (
-	"context"
 	"sync"
 	"unsafe"
 
@@ -246,8 +245,9 @@ func NewCIRenderDestination() CIRenderDestination {
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIImage.ColorSpace] property will default to a
+// [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(bitmapData:width:height:bytesPerRow:format:)
 //
@@ -284,8 +284,9 @@ func NewRenderDestinationWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.
 // Rendering to a [GLTexture]-backed [CIRenderDestination] is supported by
 // only [GLContext]-backed [CIContext].
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
 //
@@ -309,8 +310,9 @@ func NewRenderDestinationWithGLTextureTargetWidthHeight(texture uint32, target u
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created by querying the [IOSurface] object’s attributes.
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created by querying the [IOSurface] object’s
+// attributes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
 //
@@ -339,8 +341,9 @@ func NewRenderDestinationWithIOSurface(surface objectivec.IObject) CIRenderDesti
 // only [MTLTexture]-backed [CIContext] objects. The texture must have
 // [MTLTextureType] of [MTLTextureType.type2D].
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
 //
@@ -373,8 +376,9 @@ func NewRenderDestinationWithMTLTextureCommandBuffer(texture metal.MTLTexture, c
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created by querying the [CVPixelBuffer] object’s attributes.
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created by querying the [CVPixelBuffer] object’s
+// attributes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(pixelBuffer:)
 //
@@ -399,8 +403,9 @@ func NewRenderDestinationWithPixelBuffer(pixelBuffer corevideo.CVImageBufferRef)
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created by querying the [CVPixelBuffer] object’s attributes.
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created by querying the [CVPixelBuffer] object’s
+// attributes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(pixelBuffer:)
 //
@@ -424,8 +429,9 @@ func (r CIRenderDestination) InitWithPixelBuffer(pixelBuffer corevideo.CVImageBu
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created by querying the [IOSurface] object’s attributes.
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created by querying the [IOSurface] object’s
+// attributes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
 //
@@ -453,8 +459,9 @@ func (r CIRenderDestination) InitWithIOSurface(surface objectivec.IObject) CIRen
 // only [MTLTexture]-backed [CIContext] objects. The texture must have
 // [MTLTextureType] of [MTLTextureType.type2D].
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
 //
@@ -497,8 +504,9 @@ func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture metal.MTLTe
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(width:height:pixelFormat:commandBuffer:mtlTextureProvider:)
 //
@@ -543,8 +551,9 @@ func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextu
 // Rendering to a [GLTexture]-backed [CIRenderDestination] is supported by
 // only [GLContext]-backed [CIContext].
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIRenderDestination.ColorSpace] property will default
+// to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
 //
@@ -577,8 +586,9 @@ func (r CIRenderDestination) InitWithGLTextureTargetWidthHeight(texture uint32, 
 //
 // # Discussion
 //
-// The destination’s [ColorSpace] property will default to a [CGColorSpace]
-// created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
+// The destination’s [CIImage.ColorSpace] property will default to a
+// [CGColorSpace] created with [sRGB], [extendedSRGB], or
+// [genericGrayGamma2_2].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(bitmapData:width:height:bytesPerRow:format:)
 //
@@ -705,19 +715,4 @@ func (r CIRenderDestination) CaptureTraceURL() foundation.NSURL {
 }
 func (r CIRenderDestination) SetCaptureTraceURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCaptureTraceURL:"), value)
-}
-
-// InitWithWidthHeightPixelFormatCommandBufferMtlTextureProviderSync is a synchronous wrapper around [CIRenderDestination.InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider].
-// It blocks until the completion handler fires or the context is cancelled.
-func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProviderSync(ctx context.Context, width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer) error {
-	done := make(chan struct{}, 1)
-	r.InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width, height, pixelFormat, commandBuffer, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
 }

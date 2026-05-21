@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -65,14 +64,15 @@ func (nc NSPasteboardClass) Alloc() NSPasteboard {
 // without an intermediary object. Your custom classes can also implement
 // these protocols for use with the pasteboard.
 //
-// Writing methods such as [NSPasteboard.SetDataForType] provide a convenient means of
-// writing to the first pasteboard item, without having to create the first
-// pasteboard item. You can use code like this, for example:
+// Writing methods such as [NSPasteboard.SetDataForType] provide a convenient
+// means of writing to the first pasteboard item, without having to create the
+// first pasteboard item. You can use code like this, for example:
 //
-// The general pasteboard, available by way of the [NSPasteboard.GeneralPasteboard] class
-// method, automatically participates with the Universal Clipboard feature in
-// macOS 10.12 and later and in iOS 10.0 and later. There is no macOS API for
-// interacting with this feature.
+// The general pasteboard, available by way of the
+// [NSPasteboardClass.GeneralPasteboard] class method, automatically
+// participates with the Universal Clipboard feature in macOS 10.12 and later
+// and in iOS 10.0 and later. There is no macOS API for interacting with this
+// feature.
 //
 // # Creating and releasing a pasteboard
 //
@@ -229,7 +229,7 @@ type INSPasteboard interface {
 	// Topic: Reading data
 
 	// Reads from the receiver objects that best match the specified array of classes.
-	ReadObjectsForClassesOptions(classArray []objc.Class, options foundation.INSDictionary) foundation.INSArray
+	ReadObjectsForClassesOptions(classArray []objectivec.Class, options foundation.INSDictionary) foundation.INSArray
 	// An array that contains all the items held by the pasteboard.
 	PasteboardItems() []NSPasteboardItem
 	// Returns the index of the specified pasteboard item.
@@ -248,7 +248,7 @@ type INSPasteboard interface {
 	// Returns a Boolean value that indicates whether the receiver contains any items that conform to the specified UTIs.
 	CanReadItemWithDataConformingToTypes(types []string) bool
 	// Returns a Boolean value that indicates whether the receiver contains any items that can be represented as an instance of any class in a given array.
-	CanReadObjectForClassesOptions(classArray []objc.Class, options foundation.INSDictionary) bool
+	CanReadObjectForClassesOptions(classArray []objectivec.Class, options foundation.INSDictionary) bool
 	// An array of the receiver’s supported data types.
 	Types() []string
 
@@ -280,7 +280,7 @@ type INSPasteboard interface {
 	// Reads data representing a file’s contents from the receiver and writes it to the specified file.
 	ReadFileContentsTypeToFile(type_ NSPasteboardType, filename string) string
 	// Reads data representing a file’s contents from the receiver and returns it as a file wrapper.
-	ReadFileWrapper() foundation.NSFileWrapper
+	ReadFileWrapper() foundation.FileWrapper
 
 	// An array of calendar events that the data detection system identifies.
 	CalendarEvents() objectivec.IObject
@@ -298,8 +298,8 @@ type INSPasteboard interface {
 	Links() objectivec.IObject
 	SetLinks(value objectivec.IObject)
 	// A set of key paths that represent metadata types that the data detection system identifies.
-	MetadataTypes() unsafe.Pointer
-	SetMetadataTypes(value unsafe.Pointer)
+	MetadataTypes() foundation.NSSet
+	SetMetadataTypes(value foundation.NSSet)
 	// An array of money amounts and currencies that the data detection system identifies.
 	MoneyAmounts() objectivec.IObject
 	SetMoneyAmounts(value objectivec.IObject)
@@ -307,8 +307,8 @@ type INSPasteboard interface {
 	Number() float64
 	SetNumber(value float64)
 	// A set of key paths that represent patterns that the data detection system identifies.
-	Patterns() unsafe.Pointer
-	SetPatterns(value unsafe.Pointer)
+	Patterns() foundation.NSSet
+	SetPatterns(value foundation.NSSet)
 	// An array of phone numbers that the data detection system identifies.
 	PhoneNumbers() objectivec.IObject
 	SetPhoneNumbers(value objectivec.IObject)
@@ -491,7 +491,7 @@ func (p NSPasteboard) WriteObjects(objects []objectivec.IObject) bool {
 // data: The data to write to the pasteboard.
 //
 // dataType: The type of data in the `data` parameter. The type must have been declared
-// by a previous [DeclareTypesOwner] message.
+// by a previous [NSPasteboard.DeclareTypesOwner] message.
 //
 // # Return Value
 //
@@ -511,7 +511,8 @@ func (p NSPasteboard) SetDataForType(data foundation.NSData, dataType NSPasteboa
 // plist: The property list data to write to the pasteboard.
 //
 // dataType: The type of property-list data in the `propertyList` parameter. The type
-// must have been declared by a previous [DeclareTypesOwner] message.
+// must have been declared by a previous [NSPasteboard.DeclareTypesOwner]
+// message.
 //
 // # Return Value
 //
@@ -521,8 +522,8 @@ func (p NSPasteboard) SetDataForType(data foundation.NSData, dataType NSPasteboa
 //
 // # Discussion
 //
-// This method invokes [SetDataForType] with a serialized property list
-// parameter.
+// This method invokes [NSPasteboard.SetDataForType] with a serialized
+// property list parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/setPropertyList(_:forType:)
 func (p NSPasteboard) SetPropertyListForType(plist objectivec.IObject, dataType NSPasteboardType) bool {
@@ -536,7 +537,7 @@ func (p NSPasteboard) SetPropertyListForType(plist objectivec.IObject, dataType 
 // string: The string to write to the pasteboard.
 //
 // dataType: The type of string data. The type must have been declared by a previous
-// [DeclareTypesOwner] message.
+// [NSPasteboard.DeclareTypesOwner] message.
 //
 // # Return Value
 //
@@ -546,7 +547,7 @@ func (p NSPasteboard) SetPropertyListForType(plist objectivec.IObject, dataType 
 //
 // # Discussion
 //
-// This method invokes [SetDataForType] to perform the write.
+// This method invokes [NSPasteboard.SetDataForType] to perform the write.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/setString(_:forType:)
 func (p NSPasteboard) SetStringForType(string_ string, dataType NSPasteboardType) bool {
@@ -601,7 +602,7 @@ func (p NSPasteboard) SetStringForType(string_ string, dataType NSPasteboardType
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/readObjects(forClasses:options:)
-func (p NSPasteboard) ReadObjectsForClassesOptions(classArray []objc.Class, options foundation.INSDictionary) foundation.INSArray {
+func (p NSPasteboard) ReadObjectsForClassesOptions(classArray []objectivec.Class, options foundation.INSDictionary) foundation.INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("readObjectsForClasses:options:"), objectivec.ClassSliceToNSArray(classArray), options)
 	return foundation.NSArrayFromID(rv)
 }
@@ -633,7 +634,8 @@ func (p NSPasteboard) IndexOfPasteboardItem(pasteboardItem INSPasteboardItem) ui
 // that contains the type.
 //
 // dataType: The type of data you want to read from the pasteboard. This value should be
-// one of the types returned by [Types] or [AvailableTypeFromArray].
+// one of the types returned by [NSPasteboard.Types] or
+// [NSPasteboard.AvailableTypeFromArray].
 //
 // # Return Value
 //
@@ -654,9 +656,9 @@ func (p NSPasteboard) IndexOfPasteboardItem(pasteboardItem INSPasteboardItem) ui
 //
 // If `nil` is returned, the application should put up a panel informing the
 // user that it was unable to carry out the paste operation. Note that sending
-// [Types] or [AvailableTypeFromArray] before invoking [DataForType] can help
-// you determine whether a `nil` result from a reading method is due to
-// something like a pasteboard timeout.
+// [NSPasteboard.Types] or [NSPasteboard.AvailableTypeFromArray] before
+// invoking [NSPasteboard.DataForType] can help you determine whether a `nil`
+// result from a reading method is due to something like a pasteboard timeout.
 //
 // # Special Considerations
 //
@@ -685,12 +687,13 @@ func (p NSPasteboard) DataForType(dataType NSPasteboardType) foundation.NSData {
 //
 // # Discussion
 //
-// This method invokes the [DataForType] method.
+// This method invokes the [NSPasteboard.DataForType] method.
 //
 // # Special Considerations
 //
-// It’s a good idea to check [Types] or call [AvailableTypeFromArray] before
-// invoking [PropertyListForType]. Although performing this check isn’t
+// It’s a good idea to check [NSPasteboard.Types] or call
+// [NSPasteboard.AvailableTypeFromArray] before invoking
+// [NSPasteboard.PropertyListForType]. Although performing this check isn’t
 // required, doing so can help you determine if a `nil` result from a reading
 // method is due to something like a pasteboard timeout.
 //
@@ -715,9 +718,10 @@ func (p NSPasteboard) PropertyListForType(dataType NSPasteboardType) objectivec.
 //
 // # Discussion
 //
-// This method invokes [DataForType] to obtain the string. If the string
-// cannot be obtained, [StringForType] returns `nil`. See [DataForType] for a
-// description of what will cause `nil` to be returned.
+// This method invokes [NSPasteboard.DataForType] to obtain the string. If the
+// string cannot be obtained, [NSPasteboard.StringForType] returns `nil`. See
+// [NSPasteboard.DataForType] for a description of what will cause `nil` to be
+// returned.
 //
 // In macOS 10.6 and later, if the receiver contains multiple items that can
 // provide string, RTF, or RTFD data, the text data from each item is returned
@@ -725,10 +729,11 @@ func (p NSPasteboard) PropertyListForType(dataType NSPasteboardType) objectivec.
 //
 // # Special Considerations
 //
-// It’s a good idea to check [Types] or call [AvailableTypeFromArray] before
-// invoking [StringForType]. Although performing this check isn’t required,
-// doing so can help you determine if a `nil` result from a reading method is
-// due to something like a pasteboard timeout.
+// It’s a good idea to check [NSPasteboard.Types] or call
+// [NSPasteboard.AvailableTypeFromArray] before invoking
+// [NSPasteboard.StringForType]. Although performing this check isn’t
+// required, doing so can help you determine if a `nil` result from a reading
+// method is due to something like a pasteboard timeout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/string(forType:)
 func (p NSPasteboard) StringForType(dataType NSPasteboardType) string {
@@ -756,10 +761,11 @@ func (p NSPasteboard) StringForType(dataType NSPasteboardType) string {
 // contain [NSRTFPboardType]. If the pasteboard contains none of the types in
 // `supportedTypes`, then `bestType` would be `nil`.
 //
-// You must send a [Types] or [AvailableTypeFromArray] message before reading
-// any data from an [NSPasteboard] object. If you need to see if a type in the
-// returned array matches a type string you have stored locally, use the
-// [isEqual(to:)] method to perform the comparison.
+// You must send a [NSPasteboard.Types] or
+// [NSPasteboard.AvailableTypeFromArray] message before reading any data from
+// an [NSPasteboard] object. If you need to see if a type in the returned
+// array matches a type string you have stored locally, use the [isEqual(to:)]
+// method to perform the comparison.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/availableType(from:)
 //
@@ -802,7 +808,7 @@ func (p NSPasteboard) CanReadItemWithDataConformingToTypes(types []string) bool 
 // instance of a class specified in `classArray`, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/canReadObject(forClasses:options:)
-func (p NSPasteboard) CanReadObjectForClassesOptions(classArray []objc.Class, options foundation.INSDictionary) bool {
+func (p NSPasteboard) CanReadObjectForClassesOptions(classArray []objectivec.Class, options foundation.INSDictionary) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("canReadObjectForClasses:options:"), objectivec.ClassSliceToNSArray(classArray), options)
 	return rv
 }
@@ -835,16 +841,17 @@ func (p NSPasteboard) PrepareForNewContentsWithOptions(options NSPasteboardConte
 //
 // # Discussion
 //
-// This method is the equivalent of invoking [ClearContents], implicitly
-// writing the first pasteboard item, and then calling [AddTypesOwner] to
-// promise types for the first pasteboard item.
+// This method is the equivalent of invoking [NSPasteboard.ClearContents],
+// implicitly writing the first pasteboard item, and then calling
+// [NSPasteboard.AddTypesOwner] to promise types for the first pasteboard
+// item.
 //
 // # Special Considerations
 //
-// In general, you should not use this method with [WriteObjects], since
-// [WriteObjects] will always write additional items to the pasteboard, and
-// will not affect items already on the pasteboard, including the item
-// implicitly created by this method.
+// In general, you should not use this method with
+// [NSPasteboard.WriteObjects], since [NSPasteboard.WriteObjects] will always
+// write additional items to the pasteboard, and will not affect items already
+// on the pasteboard, including the item implicitly created by this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/declareTypes(_:owner:)
 func (p NSPasteboard) DeclareTypesOwner(newTypes []string, newOwner objectivec.IObject) int {
@@ -876,7 +883,8 @@ func (p NSPasteboard) DeclareTypesOwner(newTypes []string, newOwner objectivec.I
 //
 // You use this methods to declare additional types of data for the first
 // pasteboard item in the receiver. You can also use it to replace existing
-// types added by a previous [DeclareTypesOwner] or [AddTypesOwner] message.
+// types added by a previous [NSPasteboard.DeclareTypesOwner] or
+// [NSPasteboard.AddTypesOwner] message.
 //
 // The `newTypes` parameter specifies the types of data you are promising to
 // the pasteboard. The types should be ordered according to the preference of
@@ -964,8 +972,9 @@ func (p NSPasteboard) WriteFileWrapper(wrapper foundation.NSFileWrapper) bool {
 //
 // # Special Considerations
 //
-// You must send an [AvailableTypeFromArray] or [Types] message before
-// invoking [ReadFileContentsTypeToFile].
+// You must send an [NSPasteboard.AvailableTypeFromArray] or
+// [NSPasteboard.Types] message before invoking
+// [NSPasteboard.ReadFileContentsTypeToFile].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/readFileContentsType(_:toFile:)
 func (p NSPasteboard) ReadFileContentsTypeToFile(type_ NSPasteboardType, filename string) string {
@@ -989,7 +998,7 @@ func (p NSPasteboard) ReadFileContentsTypeToFile(type_ NSPasteboardType, filenam
 // its contents now replaces this functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/readFileWrapper()
-func (p NSPasteboard) ReadFileWrapper() foundation.NSFileWrapper {
+func (p NSPasteboard) ReadFileWrapper() foundation.FileWrapper {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("readFileWrapper"))
 	return foundation.NSFileWrapperFromID(rv)
 }
@@ -1006,8 +1015,8 @@ func (p NSPasteboard) ReadFileWrapper() foundation.NSFileWrapper {
 // This method is useful for apps that implement their own interprocess
 // communication using pasteboards. Because the lifetime of a unique
 // pasteboard is not related to the lifetime of the creating app, you must
-// release a unique pasteboard by calling [ReleaseGlobally] to avoid possible
-// leaks.
+// release a unique pasteboard by calling [NSPasteboard.ReleaseGlobally] to
+// avoid possible leaks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/withUniqueName()
 func (_NSPasteboardClass NSPasteboardClass) PasteboardWithUniqueName() NSPasteboard {
@@ -1064,13 +1073,14 @@ func (p NSPasteboard) PasteboardItems() []NSPasteboardItem {
 //
 // # Discussion
 //
-// The [Types] array is an array of [NSString] objects containing the union of
-// the types of data declared for all the pasteboard items on the receiver.
-// The returned types are listed in the order they were declared. It’s a
-// good idea to check the value of [Types] (or call [AvailableTypeFromArray])
-// before reading any data from an [NSPasteboard] object. If you need to see
-// if a type in the [Types] array matches a type string you have stored
-// locally, use the [isEqual(to:)] method to perform the comparison.
+// The [NSPasteboard.Types] array is an array of [NSString] objects containing
+// the union of the types of data declared for all the pasteboard items on the
+// receiver. The returned types are listed in the order they were declared.
+// It’s a good idea to check the value of [NSPasteboard.Types] (or call
+// [NSPasteboard.AvailableTypeFromArray]) before reading any data from an
+// [NSPasteboard] object. If you need to see if a type in the
+// [NSPasteboard.Types] array matches a type string you have stored locally,
+// use the [isEqual(to:)] method to perform the comparison.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/types
 //
@@ -1097,10 +1107,11 @@ func (p NSPasteboard) Name() NSPasteboardName {
 // becomes the first owner. The change count subsequently increments each time
 // the pasteboard ownership changes.
 //
-// The change count is also returned from [ClearContents] and
-// [DeclareTypesOwner]. You can therefore record the value of `changeCount` at
-// the time that you take ownership of the pasteboard and compare it with a
-// later value to determine whether you still have ownership.
+// The change count is also returned from [NSPasteboard.ClearContents] and
+// [NSPasteboard.DeclareTypesOwner]. You can therefore record the value of
+// `changeCount` at the time that you take ownership of the pasteboard and
+// compare it with a later value to determine whether you still have
+// ownership.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/changeCount
 func (p NSPasteboard) ChangeCount() int {
@@ -1168,11 +1179,11 @@ func (p NSPasteboard) SetLinks(value objectivec.IObject) {
 // system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedmetadata/metadatatypes
-func (p NSPasteboard) MetadataTypes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("metadataTypes"))
-	return rv
+func (p NSPasteboard) MetadataTypes() foundation.NSSet {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("metadataTypes"))
+	return foundation.NSSetFromID(objc.ID(rv))
 }
-func (p NSPasteboard) SetMetadataTypes(value unsafe.Pointer) {
+func (p NSPasteboard) SetMetadataTypes(value foundation.NSSet) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMetadataTypes:"), value)
 }
 
@@ -1203,11 +1214,11 @@ func (p NSPasteboard) SetNumber(value float64) {
 // identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/patterns
-func (p NSPasteboard) Patterns() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("patterns"))
-	return rv
+func (p NSPasteboard) Patterns() foundation.NSSet {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("patterns"))
+	return foundation.NSSetFromID(objc.ID(rv))
 }
-func (p NSPasteboard) SetPatterns(value unsafe.Pointer) {
+func (p NSPasteboard) SetPatterns(value foundation.NSSet) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPatterns:"), value)
 }
 
@@ -1277,7 +1288,7 @@ func (p NSPasteboard) SetShipmentTrackingNumbers(value objectivec.IObject) {
 //
 // # Discussion
 //
-// Invokes [PasteboardWithName] to obtain the pasteboard.
+// Invokes [NSPasteboardClass.PasteboardWithName] to obtain the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/general
 func (_NSPasteboardClass NSPasteboardClass) GeneralPasteboard() NSPasteboard {

@@ -41,10 +41,11 @@ func NSCollectionViewElementObjectFromID(id objc.ID) NSCollectionViewElementObje
 // performance of a collection view. Instead of creating all views from
 // scratch, the collection view recycles views and view controllers that move
 // offscreen. When your app subsequently calls the
-// [ItemWithIdentifierForIndexPath] or
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
-// view retrieves a recycled object from the appropriate storage, calls this
-// method, and then returns the object to your app.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] or
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath]
+// method, the collection view retrieves a recycled object from the
+// appropriate storage, calls this method, and then returns the object to your
+// app.
 //
 // Implement this method when you need to delete old data or when you want to
 // restore your recycled views to a standard initial state prior to their

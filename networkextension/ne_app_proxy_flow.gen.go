@@ -5,7 +5,6 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/network"
@@ -52,13 +51,15 @@ func (nc NEAppProxyFlowClass) Alloc() NEAppProxyFlow {
 //
 // App Proxy Providers receive network connections to be proxied in the form
 // of [NEAppProxyFlow] objects, which are passed to the App Proxy Provider via
-// the [HandleNewFlow] method.
+// the [NEAppProxyProvider.HandleNewFlow] method.
 //
 // [NEAppProxyFlow] objects are initially in an unopened state. Before they
 // can be used to transmit network data, they must be opened using the
-// [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler] method. When you are finished with
-// a flow, you should call [NEAppProxyFlow.CloseReadWithError] and [NEAppProxyFlow.CloseWriteWithError], and
-// then release the [NEAppProxyFlow] object.
+// [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler] method. When you
+// are finished with a flow, you should call
+// [NEAppProxyFlow.CloseReadWithError] and
+// [NEAppProxyFlow.CloseWriteWithError], and then release the [NEAppProxyFlow]
+// object.
 //
 // # Managing the flow life cycle
 //
@@ -73,15 +74,6 @@ func (nc NEAppProxyFlowClass) Alloc() NEAppProxyFlow {
 //   - [NEAppProxyFlow.NetworkInterface]: The network interface, if any, used by this flow.
 //   - [NEAppProxyFlow.SetNetworkInterface]
 //   - [NEAppProxyFlow.RemoteHostname]: The remote host name for flows created from a hostname.
-//
-// # Errors
-//
-//   - [NEAppProxyFlow.NEAppProxyErrorDomain]: The domain used for app proxy errors.
-//
-// # Instance Properties
-//
-//   - [NEAppProxyFlow.Interface]
-//   - [NEAppProxyFlow.SetInterface]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow
 type NEAppProxyFlow struct {
@@ -114,15 +106,6 @@ func NEAppProxyFlowFromID(id objc.ID) NEAppProxyFlow {
 //   - [INEAppProxyFlow.SetNetworkInterface]
 //   - [INEAppProxyFlow.RemoteHostname]: The remote host name for flows created from a hostname.
 //
-// # Errors
-//
-//   - [INEAppProxyFlow.NEAppProxyErrorDomain]: The domain used for app proxy errors.
-//
-// # Instance Properties
-//
-//   - [INEAppProxyFlow.Interface]
-//   - [INEAppProxyFlow.SetInterface]
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow
 type INEAppProxyFlow interface {
 	objectivec.IObject
@@ -147,16 +130,6 @@ type INEAppProxyFlow interface {
 	SetNetworkInterface(value network.NWInterface)
 	// The remote host name for flows created from a hostname.
 	RemoteHostname() string
-
-	// Topic: Errors
-
-	// The domain used for app proxy errors.
-	NEAppProxyErrorDomain() string
-
-	// Topic: Instance Properties
-
-	Interface() unsafe.Pointer
-	SetInterface(value unsafe.Pointer)
 
 	OpenWithLocalFlowEndpointCompletionHandler(localEndpoint network.NWEndpoint, completionHandler ErrorHandler)
 }
@@ -243,9 +216,9 @@ func (a NEAppProxyFlow) MetaData() INEFlowMetaData {
 //
 // # Discussion
 //
-// When a binding exists, this value is true, and the [NetworkInterface]
-// property indicates the bound interface. If the flow isn’t bound to an
-// interface, this value is false.
+// When a binding exists, this value is true, and the
+// [NEAppProxyFlow.NetworkInterface] property indicates the bound interface.
+// If the flow isn’t bound to an interface, this value is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/isBound
 func (a NEAppProxyFlow) IsBound() bool {
@@ -283,23 +256,6 @@ func (a NEAppProxyFlow) SetNetworkInterface(value network.NWInterface) {
 func (a NEAppProxyFlow) RemoteHostname() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteHostname"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The domain used for app proxy errors.
-//
-// See: https://developer.apple.com/documentation/networkextension/neappproxyerrordomain
-func (a NEAppProxyFlow) NEAppProxyErrorDomain() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("NEAppProxyErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// See: https://developer.apple.com/documentation/networkextension/neappproxyflow/interface
-func (a NEAppProxyFlow) Interface() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("interface"))
-	return rv
-}
-func (a NEAppProxyFlow) SetInterface(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setInterface:"), value)
 }
 
 // OpenWithLocalFlowEndpoint is a synchronous wrapper around [NEAppProxyFlow.OpenWithLocalFlowEndpointCompletionHandler].

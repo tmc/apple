@@ -270,10 +270,10 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 //
 // # Discussion
 //
-// This method invokes the [NSCell] method [ImageRectForBounds], passing it
-// `cellFrame`, to calculate the rectangle in which to draw the image. The
-// cell invokes this method before invoking the methods to draw the other menu
-// item components.
+// This method invokes the [NSCell] method [NSCell.ImageRectForBounds],
+// passing it `cellFrame`, to calculate the rectangle in which to draw the
+// image. The cell invokes this method before invoking the methods to draw the
+// other menu item components.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/drawBorderAndBackground(withFrame:in:)
 func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
@@ -288,11 +288,11 @@ func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefou
 //
 // # Discussion
 //
-// This method invokes [KeyEquivalentRectForBounds], passing it `cellFrame`,
-// to calculate the rectangle in which to draw the key equivalent. This method
-// is invoked by the cell’s “ method. You should not need to invoke it
-// directly. Subclasses may override this method to control the drawing of the
-// key equivalent.
+// This method invokes [NSMenuItemCell.KeyEquivalentRectForBounds], passing it
+// `cellFrame`, to calculate the rectangle in which to draw the key
+// equivalent. This method is invoked by the cell’s “ method. You should
+// not need to invoke it directly. Subclasses may override this method to
+// control the drawing of the key equivalent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/drawKeyEquivalent(withFrame:in:)
 func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
@@ -328,11 +328,11 @@ func (m NSMenuItemCell) DrawSeparatorItemWithFrameInView(cellFrame corefoundatio
 //
 // # Discussion
 //
-// This method invokes [StateImageRectForBounds], passing it `cellFrame`, to
-// calculate the rectangle in which to draw the state image. This method is
-// invoked by the cell’s “ method. You should not need to invoke it
-// directly. Subclasses may override this method to control the drawing of the
-// state image.
+// This method invokes [NSMenuItemCell.StateImageRectForBounds], passing it
+// `cellFrame`, to calculate the rectangle in which to draw the state image.
+// This method is invoked by the cell’s “ method. You should not need to
+// invoke it directly. Subclasses may override this method to control the
+// drawing of the state image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/drawStateImage(withFrame:in:)
 func (m NSMenuItemCell) DrawStateImageWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
@@ -356,9 +356,9 @@ func (m NSMenuItemCell) SetMenuItem(value INSMenuItem) {
 // # Discussion
 //
 // When the value of this property is true, the next attempt to obtain size
-// information about the menu cause the [CalcSize] method to be called. When
-// the value of the property is false, the size information is obtained from
-// the currently cached values.
+// information about the menu cause the [NSMenuItemCell.CalcSize] method to be
+// called. When the value of the property is false, the size information is
+// obtained from the currently cached values.
 //
 // Subclasses that drastically change the way a menu item is drawn can change
 // the value of this property to update the menu item information. Other parts
@@ -404,8 +404,8 @@ func (m NSMenuItemCell) TitleWidth() float64 {
 //
 // # Discussion
 //
-// To set the menu item’s key equivalent, use the [KeyEquivalent] property
-// of [NSMenuItem].
+// To set the menu item’s key equivalent, use the [NSMenuItem.KeyEquivalent]
+// property of [NSMenuItem].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/keyEquivalentWidth
 func (m NSMenuItemCell) KeyEquivalentWidth() float64 {

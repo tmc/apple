@@ -82,7 +82,7 @@ type ILAEnvironment interface {
 	// Topic: Instance Properties
 
 	// The environment state information.
-	State() objc.ID
+	State() objectivec.IObject
 
 	// Topic: Instance Methods
 
@@ -135,9 +135,9 @@ func (e LAEnvironment) RemoveObserver(observer LAEnvironmentObserver) {
 // The environment state information.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAEnvironment/state-swift.property
-func (e LAEnvironment) State() objc.ID {
+func (e LAEnvironment) State() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("state"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // Environment of the current user.

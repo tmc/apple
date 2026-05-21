@@ -98,7 +98,7 @@ func NewNSXPCListenerEndpoint() NSXPCListenerEndpoint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint/init(coder:)
 func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 	instance := getNSXPCListenerEndpointClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -114,7 +114,7 @@ func (x NSXPCListenerEndpoint) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint/init(coder:)
 func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 	rv := objc.Send[NSXPCListenerEndpoint](x.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

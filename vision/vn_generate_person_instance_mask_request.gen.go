@@ -44,10 +44,6 @@ func (vc VNGeneratePersonInstanceMaskRequestClass) Alloc() VNGeneratePersonInsta
 // An object that produces a mask of individual people it finds in the input
 // image.
 //
-// # Identifying Request Revisions
-//
-//   - [VNGeneratePersonInstanceMaskRequest.VNGeneratePersonInstanceMaskRequestRevision1]: A constant for specifying revision 1 of the person instance mask request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonInstanceMaskRequest
 type VNGeneratePersonInstanceMaskRequest struct {
 	VNImageBasedRequest
@@ -66,18 +62,9 @@ func VNGeneratePersonInstanceMaskRequestFromID(id objc.ID) VNGeneratePersonInsta
 
 // An interface definition for the [VNGeneratePersonInstanceMaskRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNGeneratePersonInstanceMaskRequest.VNGeneratePersonInstanceMaskRequestRevision1]: A constant for specifying revision 1 of the person instance mask request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonInstanceMaskRequest
 type IVNGeneratePersonInstanceMaskRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the person instance mask request.
-	VNGeneratePersonInstanceMaskRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -107,19 +94,11 @@ func NewVNGeneratePersonInstanceMaskRequest() VNGeneratePersonInstanceMaskReques
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewGeneratePersonInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGeneratePersonInstanceMaskRequest {
 	instance := getVNGeneratePersonInstanceMaskRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGeneratePersonInstanceMaskRequestFromID(rv)
-}
-
-// A constant for specifying revision 1 of the person instance mask request.
-//
-// See: https://developer.apple.com/documentation/vision/vngeneratepersoninstancemaskrequestrevision1
-func (g VNGeneratePersonInstanceMaskRequest) VNGeneratePersonInstanceMaskRequestRevision1() int {
-	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonInstanceMaskRequestRevision1"))
-	return rv
 }

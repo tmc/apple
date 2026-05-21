@@ -55,9 +55,10 @@ func (uc UnitAngleClass) Alloc() UnitAngle {
 // is equal in length to the radius of a circle. Angle is also commonly
 // expressed in terms of degrees (°) and revolutions (rev).
 //
-// The [NSUnitAngle] class defines its [BaseUnit] as [Degrees], and provides
-// the following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitAngle] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitAngleClass.Degrees], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

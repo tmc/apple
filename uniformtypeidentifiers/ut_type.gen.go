@@ -74,13 +74,6 @@ func (uc UTTypeClass) Alloc() UTType {
 //   - [UTType.IsSubtypeOfType]: Returns a Boolean value that indicates whether a type is higher in a hierarchy than the type.
 //   - [UTType.IsSupertypeOfType]: Returns a Boolean value that indicates whether a type is lower in a hierarchy than the type.
 //
-// # Type Properties
-//
-//   - [UTType.ShazamCustomCatalog]: A type that represents a custom catalog.
-//   - [UTType.SetShazamCustomCatalog]
-//   - [UTType.ShazamSignature]: A type that represents a signature.
-//   - [UTType.SetShazamSignature]
-//
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference
 //
 // [Defining file and data types for your app]: https://developer.apple.com/documentation/UniformTypeIdentifiers/defining-file-and-data-types-for-your-app
@@ -115,13 +108,6 @@ func UTTypeFromID(id objc.ID) UTType {
 //   - [IUTType.IsSubtypeOfType]: Returns a Boolean value that indicates whether a type is higher in a hierarchy than the type.
 //   - [IUTType.IsSupertypeOfType]: Returns a Boolean value that indicates whether a type is lower in a hierarchy than the type.
 //
-// # Type Properties
-//
-//   - [IUTType.ShazamCustomCatalog]: A type that represents a custom catalog.
-//   - [IUTType.SetShazamCustomCatalog]
-//   - [IUTType.ShazamSignature]: A type that represents a signature.
-//   - [IUTType.SetShazamSignature]
-//
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference
 type IUTType interface {
 	objectivec.IObject
@@ -143,15 +129,6 @@ type IUTType interface {
 	IsSubtypeOfType(type_ IUTType) bool
 	// Returns a Boolean value that indicates whether a type is lower in a hierarchy than the type.
 	IsSupertypeOfType(type_ IUTType) bool
-
-	// Topic: Type Properties
-
-	// A type that represents a custom catalog.
-	ShazamCustomCatalog() IUTType
-	SetShazamCustomCatalog(value IUTType)
-	// A type that represents a signature.
-	ShazamSignature() IUTType
-	SetShazamSignature(value IUTType)
 
 	// The string that represents the type.
 	Identifier() string
@@ -470,28 +447,6 @@ func (t UTType) IsDynamic() bool {
 func (t UTType) IsPublicType() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPublicType"))
 	return rv
-}
-
-// A type that represents a custom catalog.
-//
-// See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamcustomcatalog
-func (t UTType) ShazamCustomCatalog() IUTType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("shazamCustomCatalog"))
-	return UTTypeFromID(objc.ID(rv))
-}
-func (t UTType) SetShazamCustomCatalog(value IUTType) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShazamCustomCatalog:"), value)
-}
-
-// A type that represents a signature.
-//
-// See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamsignature
-func (t UTType) ShazamSignature() IUTType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("shazamSignature"))
-	return UTTypeFromID(objc.ID(rv))
-}
-func (t UTType) SetShazamSignature(value IUTType) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShazamSignature:"), value)
 }
 
 // The string that represents the type.

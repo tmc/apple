@@ -4,8 +4,10 @@ package cloudkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -55,14 +57,15 @@ func (cc CKSubscriptionClass) Alloc() CKSubscription {
 // Subscriptions don’t become active until you save them to the server and
 // the server has time to index them. To save a subscription, use an instance
 // of [CKModifySubscriptionsOperation] or the
-// [SaveSubscriptionCompletionHandler] method of [CKDatabase]. To cancel a
-// subscription, delete the corresponding subscription from the server.
+// [CKDatabase.SaveSubscriptionCompletionHandler] method of [CKDatabase]. To
+// cancel a subscription, delete the corresponding subscription from the
+// server.
 //
 // Most of a subscription’s configuration happens at initialization time.
 // You must, however, specify how to deliver push notifications to the
-// user’s device. Use the [CKSubscription.NotificationInfo] property to configure the
-// delivery options. You must save the subscription before the changes take
-// effect.
+// user’s device. Use the [CKSubscription.NotificationInfo] property to
+// configure the delivery options. You must save the subscription before the
+// changes take effect.
 //
 // # Handling the Resulting Push Notifications
 //
@@ -78,8 +81,9 @@ func (cc CKSubscriptionClass) Alloc() CKSubscription {
 //
 // In addition to sending a record ID with a push notification, you can ask
 // the server to send a limited amount of data from the record that triggers
-// the notification. Use the [CKSubscription.DesiredKeys] property of the object you assign
-// to [CKSubscription.NotificationInfo] to specify the keys to include.
+// the notification. Use the [CKSubscription.DesiredKeys] property of the
+// object you assign to [CKSubscription.NotificationInfo] to specify the keys
+// to include.
 //
 // APNs limits the size of a push notification’s payload and CloudKit may
 // omit keys and other pieces of data to keep the payload’s size under that
@@ -99,6 +103,10 @@ func (cc CKSubscriptionClass) Alloc() CKSubscription {
 //   - [CKSubscription.SubscriptionID]: The subscription’s unique identifier.
 //   - [CKSubscription.SetSubscriptionID]
 //   - [CKSubscription.SubscriptionType]: The behavior that a subscription provides.
+//
+// # Initializers
+//
+//   - [CKSubscription.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSubscription
 //
@@ -130,6 +138,10 @@ func CKSubscriptionFromID(id objc.ID) CKSubscription {
 //   - [ICKSubscription.SetSubscriptionID]
 //   - [ICKSubscription.SubscriptionType]: The behavior that a subscription provides.
 //
+// # Initializers
+//
+//   - [ICKSubscription.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CloudKit/CKSubscription
 type ICKSubscription interface {
 	objectivec.IObject
@@ -143,14 +155,18 @@ type ICKSubscription interface {
 	// Topic: Accessing the Subscription Metadata
 
 	// The subscription’s unique identifier.
-	SubscriptionID() string
-	SetSubscriptionID(value string)
+	SubscriptionID() CKSubscriptionID
+	SetSubscriptionID(value CKSubscriptionID)
 	// The behavior that a subscription provides.
 	SubscriptionType() CKSubscriptionType
 
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKSubscription
+
 	// The names of fields to include in the push notification’s payload.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
+	DesiredKeys() unsafe.Pointer
+	SetDesiredKeys(value kernel.Pointer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -173,6 +189,18 @@ func NewCKSubscription() CKSubscription {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKSubscription/init(coder:)
+func NewCKSubscriptionWithCoder(coder foundation.INSCoder) CKSubscription {
+	instance := getCKSubscriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKSubscriptionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKSubscription/init(coder:)
+func (c CKSubscription) InitWithCoder(coder foundation.INSCoder) CKSubscription {
+	rv := objc.Send[CKSubscription](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (c CKSubscription) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -204,12 +232,12 @@ func (c CKSubscription) SetNotificationInfo(value ICKNotificationInfo) {
 // The subscription’s unique identifier.
 //
 // See: https://developer.apple.com/documentation/cloudkit/cksubscription/subscriptionid-6fp3j
-func (c CKSubscription) SubscriptionID() string {
+func (c CKSubscription) SubscriptionID() CKSubscriptionID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("subscriptionID"))
-	return foundation.NSStringFromID(rv).String()
+	return CKSubscriptionID(foundation.NSStringFromID(rv).String())
 }
-func (c CKSubscription) SetSubscriptionID(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionID:"), objc.String(value))
+func (c CKSubscription) SetSubscriptionID(value CKSubscriptionID) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionID:"), objc.String(string(value)))
 }
 
 // The behavior that a subscription provides.
@@ -223,10 +251,10 @@ func (c CKSubscription) SubscriptionType() CKSubscriptionType {
 // The names of fields to include in the push notification’s payload.
 //
 // See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/desiredkeys
-func (c CKSubscription) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
+func (c CKSubscription) DesiredKeys() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
+	return rv
 }
-func (c CKSubscription) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
+func (c CKSubscription) SetDesiredKeys(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
 }

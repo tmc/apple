@@ -36,7 +36,7 @@ type NSObject interface {
 	// Returns a Boolean value that indicates whether the receiver conforms to a given protocol.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/conforms(to:)
-	ConformsToProtocol(aProtocol unsafe.Pointer) bool
+	ConformsToProtocol(aProtocol *Protocol) bool
 
 	// Returns a Boolean value that indicates whether the receiver does not descend from [NSObject](<doc://com.apple.objectivec/documentation/ObjectiveC/NSObject-swift.class>).
 	//
@@ -269,7 +269,7 @@ func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 //
 // [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
 // [conforms(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/conforms(to:)
-func (o NSObjectObject) ConformsToProtocol(aProtocol unsafe.Pointer) bool {
+func (o NSObjectObject) ConformsToProtocol(aProtocol *Protocol) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol)
 	return rv
 }

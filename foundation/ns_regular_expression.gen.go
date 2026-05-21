@@ -57,8 +57,9 @@ func (nc NSRegularExpressionClass) Alloc() NSRegularExpression {
 //
 // An individual match is represented by an instance of the
 // [NSTextCheckingResult] class, which carries information about the overall
-// matched range (via its [NSRegularExpression.Range] property), and the range of each individual
-// capture group (via the [RangeAtIndex] method). For basic
+// matched range (via its [NSTextCheckingResult.Range] property), and the
+// range of each individual capture group (via the
+// [NSTextCheckingResult.RangeAtIndex] method). For basic
 // [NSRegularExpression] objects, these match results will be of type
 // [NSTextCheckingTypeRegularExpression], but subclasses may use other types.
 //
@@ -74,25 +75,27 @@ func (nc NSRegularExpressionClass) Alloc() NSRegularExpression {
 // that matches will be case-insensitive, so this will match “BC”,
 // “aD”, and so forth, as well as their lower-case equivalents.
 //
-// The [NSRegularExpression.NumberOfMatchesInStringOptionsRange] method provides a simple
-// mechanism for counting the number of matches in a given range of a string.
+// The [NSRegularExpression.NumberOfMatchesInStringOptionsRange] method
+// provides a simple mechanism for counting the number of matches in a given
+// range of a string.
 //
 // If you are interested only in the overall range of the first match, the
-// [NSRegularExpression.RangeOfFirstMatchInStringOptionsRange] method provides it for you. Some
-// regular expressions (though not the example pattern) can successfully match
-// a zero-length range, so the comparison of the resulting range with
-// `{NSNotFound, 0}` is the most reliable way to determine whether there was a
-// match or not.
+// [NSRegularExpression.RangeOfFirstMatchInStringOptionsRange] method provides
+// it for you. Some regular expressions (though not the example pattern) can
+// successfully match a zero-length range, so the comparison of the resulting
+// range with `{NSNotFound, 0}` is the most reliable way to determine whether
+// there was a match or not.
 //
 // The example regular expression contains two capture groups, corresponding
 // to the two sets of parentheses, one for the first letter, and one for the
 // second. If you are interested in more than just the overall matched range,
 // you want to obtain an [NSTextCheckingResult] object corresponding to a
 // given match. This object provides information about the overall matched
-// range, via its [NSRegularExpression.Range] property, and also supplies the capture group
-// ranges, via the [RangeAtIndex] method. The first capture group range is
-// given by `[result 1]`, the second by `[result 2]`. Sending a result the
-// [RangeAtIndex] message and passing `0` is equivalent to `[result range]`.
+// range, via its [NSTextCheckingResult.Range] property, and also supplies the
+// capture group ranges, via the [NSTextCheckingResult.RangeAtIndex] method.
+// The first capture group range is given by `[result 1]`, the second by
+// `[result 2]`. Sending a result the [NSTextCheckingResult.RangeAtIndex]
+// message and passing `0` is equivalent to `[result range]`.
 //
 // If the result returned is non-`nil`, then `[result range]` will always be a
 // valid range, so it is not necessary to compare it against `{NSNotFound,
@@ -101,18 +104,20 @@ func (nc NSRegularExpressionClass) Alloc() NSRegularExpression {
 // capture group does not participate in a given match, then `[result idx]`
 // will return `{NSNotFound, 0}`.
 //
-// The [NSRegularExpression.MatchesInStringOptionsRange] returns all the matching results.
+// The [NSRegularExpression.MatchesInStringOptionsRange] returns all the
+// matching results.
 //
-// The [NSRegularExpression.FirstMatchInStringOptionsRange] method is similar to
-// [NSRegularExpression.MatchesInStringOptionsRange] but it returns only the first match.
+// The [NSRegularExpression.FirstMatchInStringOptionsRange] method is similar
+// to [NSRegularExpression.MatchesInStringOptionsRange] but it returns only
+// the first match.
 //
 // The Block enumeration method
-// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock] is the most general and
-// flexible of the matching methods of [NSRegularExpression]. It allows you to
-// iterate through matches in a string, performing arbitrary actions on each
-// as specified by the code in the Block and to stop partway through if
-// desired. In the following example case, the iteration is stopped after a
-// certain number of matches have been found.
+// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock] is the
+// most general and flexible of the matching methods of [NSRegularExpression].
+// It allows you to iterate through matches in a string, performing arbitrary
+// actions on each as specified by the code in the Block and to stop partway
+// through if desired. In the following example case, the iteration is stopped
+// after a certain number of matches have been found.
 //
 // If neither of the special options [NSMatchingReportProgress] or
 // [NSMatchingReportCompletion] is specified, then the result argument to the
@@ -334,7 +339,7 @@ type INSRegularExpression interface {
 	// Returns the number of matches of the regular expression within the specified range of the string.
 	NumberOfMatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) uint
 	// Enumerates the string allowing the Block to handle each regular expression match.
-	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block MatchingFlagsHandler)
+	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultNSMatchingFlagsBoolHandler)
 	// Returns an array containing all the matches of the regular expression in the string.
 	MatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) []NSTextCheckingResult
 	// Returns the first match of the regular expression within the specified range of the string.
@@ -354,15 +359,6 @@ type INSRegularExpression interface {
 	// Used to perform template substitution for a single result for clients implementing their own replace functionality.
 	ReplacementStringForResultInStringOffsetTemplate(result INSTextCheckingResult, string_ string, offset int, templ string) string
 
-	// A value indicating that a requested item couldn’t be found or doesn’t exist.
-	NSNotFound() int
-	SetNSNotFound(value int)
-	// Returns the range of the result that the receiver represents.
-	Range() NSRange
-	SetRange(value NSRange)
-	// Matches a regular expression.
-	RegularExpression() NSTextCheckingType
-	SetNSTextCheckingTypeRegularExpression(value NSTextCheckingType)
 	// Call the Block once after the completion of any matching. This option has no effect for methods other than
 	ReportCompletion() NSMatchingOptions
 	SetNSMatchingReportCompletion(value NSMatchingOptions)
@@ -390,7 +386,7 @@ func NewNSRegularExpression() NSRegularExpression {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/init(coder:)
 func NewRegularExpressionWithCoder(coder INSCoder) NSRegularExpression {
 	instance := getNSRegularExpressionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -472,7 +468,7 @@ func (r NSRegularExpression) InitWithPatternOptionsError(pattern string, options
 // # Discussion
 //
 // This is a convenience method that calls
-// [EnumerateMatchesInStringOptionsRangeUsingBlock].
+// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/numberOfMatches(in:options:range:)
 //
@@ -497,15 +493,15 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 // The block takes three arguments:
 //
 // result: An [NSTextCheckingResult] specifying the match. This result gives
-// the overall matched range via its [Range] property, and the range of each
-// individual capture group via its [RangeAtIndex] method. The range
-// {[NSNotFound], 0} is returned if one of the capture groups did not
-// participate in this particular match. flags: The current state of the
-// matching progress. See [NSRegularExpression.MatchingFlags] for the possible
-// values. stop: A reference to a Boolean value. The Block can set the value
-// to true to stop further processing of the array. The stop argument is an
-// out-only argument. You should only ever set this Boolean to true within the
-// Block.
+// the overall matched range via its [NSTextCheckingResult.Range] property,
+// and the range of each individual capture group via its
+// [NSTextCheckingResult.RangeAtIndex] method. The range {[NSNotFound], 0} is
+// returned if one of the capture groups did not participate in this
+// particular match. flags: The current state of the matching progress. See
+// [NSRegularExpression.MatchingFlags] for the possible values. stop: A
+// reference to a Boolean value. The Block can set the value to true to stop
+// further processing of the array. The stop argument is an out-only argument.
+// You should only ever set this Boolean to true within the Block.
 //
 // The Block returns void.
 //
@@ -551,8 +547,8 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 //
 // The [NSMatchingAnchored], [NSMatchingWithTransparentBounds], and
 // [NSMatchingWithoutAnchoringBounds] regular expression options, specified in
-// the [Options] property specified when the regular expression instance is
-// created, can apply to any match or replace method.
+// the [NSRegularExpression.Options] property specified when the regular
+// expression instance is created, can apply to any match or replace method.
 //
 // If [NSMatchingAnchored] matching option is specified, matches are limited
 // to those at the start of the search range.
@@ -575,8 +571,8 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 // [NSRegularExpression.MatchingFlags]: https://developer.apple.com/documentation/Foundation/NSRegularExpression/MatchingFlags
 //
 // [NSRegularExpression.MatchingFlags]: https://developer.apple.com/documentation/Foundation/NSRegularExpression/MatchingFlags
-func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block MatchingFlagsHandler) {
-	_block3, _ := NewMatchingFlagsBlock(block)
+func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultNSMatchingFlagsBoolHandler) {
+	_block3, _ := NewTextCheckingResultNSMatchingFlagsBoolBlock(block)
 	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, _block3)
 }
 
@@ -593,16 +589,17 @@ func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(stri
 // # Return Value
 //
 // An array of [NSTextCheckingResult] objects. Each result gives the overall
-// matched range via its [Range] property, and the range of each individual
-// capture group via its [RangeAtIndex] method. The range {[NSNotFound], 0} is
+// matched range via its [NSTextCheckingResult.Range] property, and the range
+// of each individual capture group via its
+// [NSTextCheckingResult.RangeAtIndex] method. The range {[NSNotFound], 0} is
 // returned if one of the capture groups did not participate in this
 // particular match.
 //
 // # Discussion
 //
 // This is a convenience method that calls
-// [EnumerateMatchesInStringOptionsRangeUsingBlock] passing the appropriate
-// string, options, and range.
+// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
+// passing the appropriate string, options, and range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/matches(in:options:range:)
 //
@@ -627,15 +624,15 @@ func (r NSRegularExpression) MatchesInStringOptionsRange(string_ string, options
 // # Return Value
 //
 // An [NSTextCheckingResult] object. This result gives the overall matched
-// range via its [Range] property, and the range of each individual capture
-// group via its [RangeAtIndex] method. The range {[NSNotFound], 0} is
-// returned if one of the capture groups did not participate in this
-// particular match.
+// range via its [NSTextCheckingResult.Range] property, and the range of each
+// individual capture group via its [NSTextCheckingResult.RangeAtIndex]
+// method. The range {[NSNotFound], 0} is returned if one of the capture
+// groups did not participate in this particular match.
 //
 // # Discussion
 //
 // This is a convenience method that calls
-// [EnumerateMatchesInStringOptionsRangeUsingBlock].
+// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/firstMatch(in:options:range:)
 //
@@ -663,7 +660,7 @@ func (r NSRegularExpression) FirstMatchInStringOptionsRange(string_ string, opti
 // # Discussion
 //
 // This is a convenience method that calls
-// [EnumerateMatchesInStringOptionsRangeUsingBlock].
+// [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/rangeOfFirstMatch(in:options:range:)
 //
@@ -772,7 +769,7 @@ func (r NSRegularExpression) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/init(coder:)
 func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
 	rv := objc.Send[NSRegularExpression](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -908,40 +905,6 @@ func (r NSRegularExpression) Options() NSRegularExpressionOptions {
 func (r NSRegularExpression) NumberOfCaptureGroups() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("numberOfCaptureGroups"))
 	return rv
-}
-
-// A value indicating that a requested item couldn’t be found or doesn’t
-// exist.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotfound-4qp9h
-func (r NSRegularExpression) NSNotFound() int {
-	rv := objc.Send[int](r.ID, objc.Sel("NSNotFound"))
-	return rv
-}
-func (r NSRegularExpression) SetNSNotFound(value int) {
-	objc.Send[struct{}](r.ID, objc.Sel("setNSNotFound:"), value)
-}
-
-// Returns the range of the result that the receiver represents.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/range
-func (r NSRegularExpression) Range() NSRange {
-	rv := objc.Send[NSRange](r.ID, objc.Sel("range"))
-	return NSRange(rv)
-}
-func (r NSRegularExpression) SetRange(value NSRange) {
-	objc.Send[struct{}](r.ID, objc.Sel("setRange:"), value)
-}
-
-// Matches a regular expression.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/regularexpression
-func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
-	rv := objc.Send[NSTextCheckingType](r.ID, objc.Sel("NSTextCheckingTypeRegularExpression"))
-	return NSTextCheckingType(rv)
-}
-func (r NSRegularExpression) SetNSTextCheckingTypeRegularExpression(value NSTextCheckingType) {
-	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
 }
 
 // Call the Block once after the completion of any matching. This option has

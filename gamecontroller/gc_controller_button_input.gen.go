@@ -177,11 +177,12 @@ func (g GCControllerButtonInput) IsPressed() bool {
 //
 // # Discussion
 //
-// If the user applies pressure to the button, the [Pressed] property is true
-// and this property indicates the amount of pressure. The framework
-// normalizes the value to a number between `0.0` (minimum) and `1.0`
-// (maximum). If the user isn’t pressing the button, the [Pressed] property
-// is false and this property is `0.0`.
+// If the user applies pressure to the button, the
+// [GCControllerButtonInput.Pressed] property is true and this property
+// indicates the amount of pressure. The framework normalizes the value to a
+// number between `0.0` (minimum) and `1.0` (maximum). If the user isn’t
+// pressing the button, the [GCControllerButtonInput.Pressed] property is
+// false and this property is `0.0`.
 //
 // For axis buttons, such as thumbsticks and touchpads, the location on the
 // positive or negative axis of the element simulates the pressure.
@@ -214,7 +215,8 @@ func (g GCControllerButtonInput) SetTouchedChangedHandler(value GCControllerButt
 // # Discussion
 //
 // Set this handler when you only want to know when the user presses or
-// releases the button — that is, when the [Pressed] property changes.
+// releases the button — that is, when the [GCControllerButtonInput.Pressed]
+// property changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/pressedChangedHandler
 func (g GCControllerButtonInput) PressedChangedHandler() GCControllerButtonValueChangedHandler {

@@ -83,9 +83,6 @@ type IMTLAttributeDescriptorArray interface {
 	// Returns the state of the specified attribute.
 	ObjectAtIndexedSubscript(index uint) IMTLAttributeDescriptor
 
-	// The organization of input and output data for the next kernel call.
-	StageInputDescriptor() IMTLStageInputOutputDescriptor
-	SetStageInputDescriptor(value IMTLStageInputOutputDescriptor)
 	// Sets state for the specified attribute.
 	SetObjectAtIndexedSubscript(attributeDesc IMTLAttributeDescriptor, index uint)
 }
@@ -132,15 +129,4 @@ func (a MTLAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) IMTLAt
 // See: https://developer.apple.com/documentation/Metal/MTLAttributeDescriptorArray/setObject:atIndexedSubscript:
 func (a MTLAttributeDescriptorArray) SetObjectAtIndexedSubscript(attributeDesc IMTLAttributeDescriptor, index uint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setObject:atIndexedSubscript:"), attributeDesc, index)
-}
-
-// The organization of input and output data for the next kernel call.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
-func (a MTLAttributeDescriptorArray) StageInputDescriptor() IMTLStageInputOutputDescriptor {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("stageInputDescriptor"))
-	return MTLStageInputOutputDescriptorFromID(objc.ID(rv))
-}
-func (a MTLAttributeDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStageInputDescriptor:"), value)
 }

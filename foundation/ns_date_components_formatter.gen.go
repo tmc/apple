@@ -234,9 +234,9 @@ func NewDateComponentsFormatterWithCoder(coder INSCoder) DateComponentsFormatter
 // information.
 //
 // components: A date components object containing the date and time information to
-// format. The [AllowedUnits] property determines which date components are
-// actually used to generate the string. All other date components are
-// ignored. This parameter must not be `nil`.
+// format. The [NSDateComponentsFormatter.AllowedUnits] property determines
+// which date components are actually used to generate the string. All other
+// date components are ignored. This parameter must not be `nil`.
 //
 // # Return Value
 //
@@ -374,9 +374,9 @@ func (d DateComponentsFormatter) SetAllowsFractionalUnits(value bool) {
 // this calendar when formatting an [NSTimeInterval] value.
 //
 // The default value of this property is the calendar returned by the
-// [AutoupdatingCurrentCalendar] method of [NSCalendar]. Setting this property
-// to `nil` causes the formatter to use the Gregorian calendar with the
-// `en_US_POSIX` locale.
+// [NSCalendarClass.AutoupdatingCurrentCalendar] method of [NSCalendar].
+// Setting this property to `nil` causes the formatter to use the Gregorian
+// calendar with the `en_US_POSIX` locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/calendar
 func (d DateComponentsFormatter) Calendar() INSCalendar {

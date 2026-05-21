@@ -173,6 +173,7 @@ type ICIVector interface {
 	// Returns the values in the vector as a [CGRect] structure.
 	CGRectValue() corefoundation.CGRect
 
+	InitWithCoder(coder foundation.INSCoder) CIVector
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -255,6 +256,13 @@ func NewVectorWithCGPoint(p corefoundation.CGPoint) CIVector {
 func NewVectorWithCGRect(r corefoundation.CGRect) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGRect:"), r)
+	return CIVectorFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(coder:)
+func NewVectorWithCoder(coder foundation.INSCoder) CIVector {
+	instance := getCIVectorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return CIVectorFromID(rv)
 }
 
@@ -541,6 +549,12 @@ func (v CIVector) ValueAtIndex(index uintptr) float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("valueAtIndex:"), index)
 	return rv
 }
+
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(coder:)
+func (v CIVector) InitWithCoder(coder foundation.INSCoder) CIVector {
+	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (v CIVector) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -755,7 +769,7 @@ func (v CIVector) W() float64 {
 // [Table data omitted]
 //
 // To create a [CIVector] object from a string representation, use the
-// [VectorWithString] method.
+// [CIVectorClass.VectorWithString] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVector/stringRepresentation
 func (v CIVector) StringRepresentation() string {

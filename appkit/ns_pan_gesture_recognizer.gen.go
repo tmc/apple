@@ -55,12 +55,14 @@ func (nc NSPanGestureRecognizerClass) Alloc() NSPanGestureRecognizer {
 //
 // Upon creation, the gesture recognizer is configured to recognize pan
 // gestures involving only the primary button. It also delays sending primary
-// button events to the view by setting the [NSPanGestureRecognizer.DelaysPrimaryMouseButtonEvents]
-// property to true. To change the set of buttons to track, modify the
+// button events to the view by setting the
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to true. To
+// change the set of buttons to track, modify the
 // [NSPanGestureRecognizer.ButtonMask] property.
 //
-// In this gesture recognizer, the [LocationInView] method always reports the
-// current mouse point, which changes as the user drags the mouse.
+// In this gesture recognizer, the [NSGestureRecognizer.LocationInView] method
+// always reports the current mouse point, which changes as the user drags the
+// mouse.
 //
 // # Configuring the Gesture Recognizer
 //
@@ -256,9 +258,10 @@ func (p NSPanGestureRecognizer) VelocityInView(view INSView) corefoundation.CGPo
 // of this property is 0x1, which detects clicks in the primary mouse button.
 //
 // Changing the value of this property also sets the values of the
-// [DelaysPrimaryMouseButtonEvents], [DelaysSecondaryMouseButtonEvents], and
-// [DelaysOtherMouseButtonEvents] properties to true for each of the buttons
-// you specified.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents],
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for
+// each of the buttons you specified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPanGestureRecognizer/buttonMask
 func (p NSPanGestureRecognizer) ButtonMask() uint {

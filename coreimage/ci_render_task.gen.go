@@ -112,10 +112,10 @@ func NewCIRenderTask() CIRenderTask {
 //
 // Synchronously blocks execution until the [CIRenderTask] either completes or
 // fails (with error). Calling this method after
-// [StartTaskToRenderToDestinationError] or
-// [StartTaskToRenderFromRectToDestinationAtPointError] makes the render task
-// behave synchronously, as if the CPU and GPU were operating as a single
-// unit.
+// [CIContext.StartTaskToRenderToDestinationError] or
+// [CIContext.StartTaskToRenderFromRectToDestinationAtPointError] makes the
+// render task behave synchronously, as if the CPU and GPU were operating as a
+// single unit.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderTask/waitUntilCompleted()
 func (r CIRenderTask) WaitUntilCompletedAndReturnError() (ICIRenderInfo, error) {

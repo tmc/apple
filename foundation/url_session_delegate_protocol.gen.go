@@ -44,11 +44,11 @@ func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
 //
 // # Discussion
 //
-// If you invalidate a session by calling its [FinishTasksAndInvalidate]
-// method, the session waits until after the final task in the session
-// finishes or fails before calling this delegate method. If you call the
-// [InvalidateAndCancel] method, the session calls this delegate method
-// immediately.
+// If you invalidate a session by calling its
+// [NSURLSession.FinishTasksAndInvalidate] method, the session waits until
+// after the final task in the session finishes or fails before calling this
+// delegate method. If you call the [NSURLSession.InvalidateAndCancel] method,
+// the session calls this delegate method immediately.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didBecomeInvalidWithError:)
 func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session INSURLSession, error_ INSError) {
@@ -115,7 +115,7 @@ func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSes
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] method instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
-func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
+func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler NSURLSessionAuthChallengeDispositionURLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
 }
 

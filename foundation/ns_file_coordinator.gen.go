@@ -60,13 +60,14 @@ func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 //
 // Objects that adopt the [NSFilePresenter] protocol must register themselves
 // with the [NSFileCoordinator] class to be notified of any pending changes.
-// They do this by calling the [NSFileCoordinator.AddFilePresenter] class method. A file
-// presenter must balance calls to [NSFileCoordinator.AddFilePresenter] with a call to
-// [NSFileCoordinator.RemoveFilePresenter] before being released, even in a garbage-collected
-// application. The file presenter class maintains a list of active file
-// presenter objects in the current application and uses that list, plus the
-// file coordinator classes in other processes, to deliver notifications to
-// all of the objects interested in a particular item.
+// They do this by calling the [NSFileCoordinatorClass.AddFilePresenter] class
+// method. A file presenter must balance calls to
+// [NSFileCoordinatorClass.AddFilePresenter] with a call to
+// [NSFileCoordinatorClass.RemoveFilePresenter] before being released, even in
+// a garbage-collected application. The file presenter class maintains a list
+// of active file presenter objects in the current application and uses that
+// list, plus the file coordinator classes in other processes, to deliver
+// notifications to all of the objects interested in a particular item.
 //
 // Instances of [NSFileCoordinator] are meant to be used on a
 // per-file-operation basis, where a file operation is something like opening
@@ -84,12 +85,13 @@ func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 //
 // If your app or extension enters the background with an active file
 // presenter, it may be terminated by the system in order to prevent deadlock
-// on that file. To prevent this situation, call [NSFileCoordinator.RemoveFilePresenter] to
-// remove the file presenter in the [applicationDidEnterBackground(_:)] method
-// or in response to a [NSFileCoordinator.DidEnterBackgroundNotification] notification. Call
-// [NSFileCoordinator.AddFilePresenter] to add the file presenter again in the
-// [applicationWillEnterForeground(_:)] method or in response to a
-// [NSFileCoordinator.WillEnterForegroundNotification] notification.
+// on that file. To prevent this situation, call
+// [NSFileCoordinatorClass.RemoveFilePresenter] to remove the file presenter
+// in the [applicationDidEnterBackground(_:)] method or in response to a
+// [didEnterBackgroundNotification] notification. Call
+// [NSFileCoordinatorClass.AddFilePresenter] to add the file presenter again
+// in the [applicationWillEnterForeground(_:)] method or in response to a
+// [willEnterForegroundNotification] notification.
 //
 // # File Coordinators and iOS
 //
@@ -100,7 +102,7 @@ func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 // operation if it’s suspended, without creating a deadlock on access to
 // that file by other processes. If a process is suspended while waiting for a
 // coordinated read or write to be granted, the request is canceled, and an
-// [NSError] object with the code [NSFileCoordinator.NSUserCancelledError] is produced. If the
+// [NSError] object with the code [NSUserCancelledError] is produced. If the
 // background task expires, the process is terminated.
 //
 // # Threading Considerations
@@ -139,9 +141,12 @@ func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 //
+// [NSUserCancelledError]: https://developer.apple.com/documentation/Foundation/NSUserCancelledError-swift.var
 // [applicationDidEnterBackground(_:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/applicationDidEnterBackground(_:)
 // [applicationWillEnterForeground(_:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/applicationWillEnterForeground(_:)
 // [beginBackgroundTask(expirationHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplication/beginBackgroundTask(expirationHandler:)
+// [didEnterBackgroundNotification]: https://developer.apple.com/documentation/UIKit/UIApplication/didEnterBackgroundNotification
+// [willEnterForegroundNotification]: https://developer.apple.com/documentation/UIKit/UIApplication/willEnterForegroundNotification
 type NSFileCoordinator struct {
 	objectivec.Object
 }
@@ -230,10 +235,6 @@ type INSFileCoordinator interface {
 
 	// Tells observing file providers that the item’s ubiquity attributes have changed.
 	ItemAtURLDidChangeUbiquityAttributes(url INSURL, attributes INSSet)
-
-	// The user canceled the operation (for example, by pressing Command-period).
-	NSUserCancelledError() int
-	SetNSUserCancelledError(value int)
 }
 
 // Init initializes the instance.
@@ -433,18 +434,18 @@ func (f NSFileCoordinator) InitWithFilePresenter(filePresenterOrNil NSFilePresen
 //
 // Coordinated reads and writes from the same file coordinator instance never
 // block each other. However, if you make multiple, concurrent calls to
-// [CoordinateAccessWithIntentsQueueByAccessor], you risk deadlocking with
-// another process that is similarly making multiple concurrent calls to its
-// file coordinator. Wherever possible, invoke
-// [CoordinateAccessWithIntentsQueueByAccessor] once, passing in multiple file
-// access intent objects.
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor], you risk
+// deadlocking with another process that is similarly making multiple
+// concurrent calls to its file coordinator. Wherever possible, invoke
+// [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor] once,
+// passing in multiple file access intent objects.
 //
 // Coordinated-read and -write operations also wait on any file presenters
 // methods that are triggered as part of the coordinated access. Coordinated
 // access triggers method calls on all the file presenters for the same
 // URL—even on file presenters in other processes. There is only one
 // exception: file coordinator never sends messages to the file presenter that
-// was passed to its [InitWithFilePresenter] method.
+// was passed to its [NSFileCoordinator.InitWithFilePresenter] method.
 //
 // Coordinated reads trigger the following method calls:
 //
@@ -566,21 +567,22 @@ func (f NSFileCoordinator) CoordinateAccessWithIntentsQueueByAccessor(intents []
 // blocks (potentially for a long time) while the file is downloaded. If the
 // file cannot be downloaded, this method fails. Alternatively; use a metadata
 // query to check for the [NSMetadataUbiquitousItemDownloadingStatusKey] key,
-// and then call the [StartDownloadingUbiquitousItemAtURLError] method to
-// download the file before trying to read it.
+// and then call the [NSFileManager.StartDownloadingUbiquitousItemAtURLError]
+// method to download the file before trying to read it.
 //
 // If you want to perform a write operation from inside a read block, use the
-// [CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor]
+// [NSFileCoordinator.CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor]
 // method.
 //
 // If you want to perform a batch read operation on multiple files, use the
-// [PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor]
+// [NSFileCoordinator.PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor]
 // method instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:error:byAccessor:)
 //
 // [NSFileCoordinator.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/ReadingOptions
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
+// [NSMetadataUbiquitousItemDownloadingStatusKey]: https://developer.apple.com/documentation/Foundation/NSMetadataUbiquitousItemDownloadingStatusKey
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorReadingOptions, outError INSError, reader URLHandler) {
 	_block3, _ := NewURLBlock(reader)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
@@ -657,10 +659,10 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url 
 //
 // With one exception, do not nest calls to file coordinator methods inside
 // the block you pass to this method. You may call the
-// [CoordinateReadingItemAtURLOptionsErrorByAccessor] method to read the file
-// if you discover through modification-date checking that the contents of the
-// file have changed. However, if you call this method from inside your block,
-// the file coordinator object throws an exception.
+// [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor] method
+// to read the file if you discover through modification-date checking that
+// the contents of the file have changed. However, if you call this method
+// from inside your block, the file coordinator object throws an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:error:byAccessor:)
 //
@@ -717,13 +719,15 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url 
 // write operation that needs to be coordinated. This method executes
 // synchronously, blocking the current thread until the `readerWriter` block
 // finishes executing. When performing the write operation, you may call the
-// [CoordinateWritingItemAtURLOptionsErrorByAccessor] method from your
-// `readerWriter` block. This method does the canonical lock ordering that is
-// required to prevent a potential deadlock of the file operations.
+// [NSFileCoordinator.CoordinateWritingItemAtURLOptionsErrorByAccessor] method
+// from your `readerWriter` block. This method does the canonical lock
+// ordering that is required to prevent a potential deadlock of the file
+// operations.
 //
 // This method makes the same calls to file presenters, and has the same
 // general wait behavior, as the
-// [CoordinateReadingItemAtURLOptionsErrorByAccessor] method.
+// [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor]
+// method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:writingItemAt:options:error:byAccessor:)
 //
@@ -776,13 +780,15 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOpti
 // You use this method to perform two write operations without the risk of
 // those operations creating a deadlock. This method executes synchronously,
 // blocking the current thread until the `writer` block finishes executing.
-// You may call the [CoordinateWritingItemAtURLOptionsErrorByAccessor] method
+// You may call the
+// [NSFileCoordinator.CoordinateWritingItemAtURLOptionsErrorByAccessor] method
 // from your `writer` block. This method does the canonical lock ordering that
 // is required to prevent a potential deadlock of the file operations.
 //
 // This method makes the same calls to file presenters, and has the same
 // general wait behavior, as the
-// [CoordinateWritingItemAtURLOptionsErrorByAccessor] method.
+// [NSFileCoordinator.CoordinateWritingItemAtURLOptionsErrorByAccessor]
+// method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:writingItemAt:options:error:byAccessor:)
 //
@@ -832,9 +838,10 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOpti
 // uses the values in the `readingURLs` and `writingURLs` parameters, together
 // with reading and writing options, to prepare any relevant file presenters
 // for the upcoming operations. Specifically, it uses these parameters in the
-// same way as the [CoordinateReadingItemAtURLOptionsErrorByAccessor] and
-// [CoordinateWritingItemAtURLOptionsErrorByAccessor] methods to determine
-// which file presenter methods to call.
+// same way as the
+// [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor] and
+// [NSFileCoordinator.CoordinateWritingItemAtURLOptionsErrorByAccessor]
+// methods to determine which file presenter methods to call.
 //
 // This method executes synchronously, blocking the current thread until the
 // `batchAccessor` block finishes executing. The block you provide for the
@@ -883,10 +890,10 @@ func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLs
 // `XCUIElementTypeRtfd`. In such a case, in a sandboxed app, you must call
 // this method to declare your intent to rename a file without user approval.
 //
-// After the renaming process succeeds, call the [ItemAtURLDidMoveToURL]
-// method, with the same arguments, to provide your app with continued access
-// to the file under its new name, while also giving up access to any file
-// that appears with the old name.
+// After the renaming process succeeds, call the
+// [NSFileCoordinator.ItemAtURLDidMoveToURL] method, with the same arguments,
+// to provide your app with continued access to the file under its new name,
+// while also giving up access to any file that appears with the old name.
 //
 // If your macOS app is not sandboxed, this method serves no purpose. This
 // method is nonfunctional in iOS.
@@ -915,7 +922,8 @@ func (f NSFileCoordinator) ItemAtURLWillMoveToURL(oldURL INSURL, newURL INSURL) 
 //
 // You must call this method from a coordinated write block. Calling this
 // method with the same URL in the `oldURL` and `newURL` parameters is
-// harmless. This call must balance a call to [ItemAtURLWillMoveToURL].
+// harmless. This call must balance a call to
+// [NSFileCoordinator.ItemAtURLWillMoveToURL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/item(at:didMoveTo:)
 func (f NSFileCoordinator) ItemAtURLDidMoveToURL(oldURL INSURL, newURL INSURL) {
@@ -945,6 +953,8 @@ func (f NSFileCoordinator) ItemAtURLDidMoveToURL(oldURL INSURL, newURL INSURL) {
 // by using some other means.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/cancel()
+//
+// [NSUserCancelledError]: https://developer.apple.com/documentation/Foundation/NSUserCancelledError-swift.var
 func (f NSFileCoordinator) Cancel() {
 	objc.Send[objc.ID](f.ID, objc.Sel("cancel"))
 }
@@ -983,14 +993,15 @@ func (f NSFileCoordinator) ItemAtURLDidChangeUbiquityAttributes(url INSURL, attr
 // affected.
 //
 // Be sure to balance calls to this method with a corresponding call to the
-// [RemoveFilePresenter] method. You must remove file presenters from the
-// process wide registry before the object is deallocated, even in a
-// garbage-collected application.
+// [NSFileCoordinatorClass.RemoveFilePresenter] method. You must remove file
+// presenters from the process wide registry before the object is deallocated,
+// even in a garbage-collected application.
 //
 // If you call this method while coordinated file operations are already under
 // way in another process, your file presenter may not receive notifications
 // for that operation. To prevent missing such notifications, create a file
-// coordinator, call its [CoordinateReadingItemAtURLOptionsErrorByAccessor]
+// coordinator, call its
+// [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor]
 // method, and register your file presenter object there. If you are going to
 // read a file and then create a file presenter for that file, both actions
 // should occur in the same coordinated read block. Synchronizing on the
@@ -1026,9 +1037,9 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) RemoveFilePresenter(filePr
 // Coordinated reads and writes performed using the same purpose identifier
 // never block each other, even if they occur in different processes. If you
 // are coordinating file access on behalf of a file presenter, use
-// [InitWithFilePresenter] and do not attempt to set a custom purpose
-// identifier. Every file coordinator instance initialized with the same file
-// presenter has the same purpose identifier.
+// [NSFileCoordinator.InitWithFilePresenter] and do not attempt to set a
+// custom purpose identifier. Every file coordinator instance initialized with
+// the same file presenter has the same purpose identifier.
 //
 // You may need to set a custom purpose identifier for the following reasons:
 //
@@ -1053,17 +1064,6 @@ func (f NSFileCoordinator) SetPurposeIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPurposeIdentifier:"), objc.String(value))
 }
 
-// The user canceled the operation (for example, by pressing Command-period).
-//
-// See: https://developer.apple.com/documentation/foundation/nsusercancellederror-swift.var
-func (f NSFileCoordinator) NSUserCancelledError() int {
-	rv := objc.Send[int](f.ID, objc.Sel("NSUserCancelledError"))
-	return rv
-}
-func (f NSFileCoordinator) SetNSUserCancelledError(value int) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNSUserCancelledError:"), value)
-}
-
 // Returns an array containing the currently registered file presenter
 // objects.
 //
@@ -1077,23 +1077,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) FilePresenters() []objecti
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
-}
-
-// A notification that posts when the app enters the background.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIApplication/didEnterBackgroundNotification
-func (_NSFileCoordinatorClass NSFileCoordinatorClass) DidEnterBackgroundNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("didEnterBackgroundNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// A notification that posts shortly before an app leaves the background state
-// on its way to becoming the active app.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIApplication/willEnterForegroundNotification
-func (_NSFileCoordinatorClass NSFileCoordinatorClass) WillEnterForegroundNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("willEnterForegroundNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // CoordinateReadingItemAtURLOptionsErrorByAccessorSync is a synchronous wrapper around [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor].

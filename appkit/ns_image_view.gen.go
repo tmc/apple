@@ -261,6 +261,16 @@ func NewImageViewWithFrame(frameRect corefoundation.CGRect) NSImageView {
 	return NSImageViewFromID(rv)
 }
 
+// Creates a non-editable image view containing the provided image. The image
+// is scaled proportionally down to fit the view, and is centered within the
+// view.
+//
+// image: The image to display within the view.
+//
+// # Return Value
+//
+// An initialized image view.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/init(image:)
 func NewImageViewWithImage(image INSImage) NSImageView {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageViewClass().class), objc.Sel("imageViewWithImage:"), image)

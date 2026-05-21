@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -109,6 +110,13 @@ func NewVNHumanBodyRecognizedPoint3D() VNHumanBodyRecognizedPoint3D {
 	class := getVNHumanBodyRecognizedPoint3DClass()
 	rv := objc.Send[VNHumanBodyRecognizedPoint3D](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(coder:)
+func NewHumanBodyRecognizedPoint3DWithCoder(coder foundation.INSCoder) VNHumanBodyRecognizedPoint3D {
+	instance := getVNHumanBodyRecognizedPoint3DClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNHumanBodyRecognizedPoint3DFromID(rv)
 }
 
 // Creates a point object with the position you specify.

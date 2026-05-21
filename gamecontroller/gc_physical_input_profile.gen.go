@@ -4,7 +4,6 @@ package gamecontroller
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -89,7 +88,6 @@ func (gc GCPhysicalInputProfileClass) Alloc() GCPhysicalInputProfile {
 //   - [GCPhysicalInputProfile.HasRemappedElements]: A Boolean value that indicates whether the user remaps elements in this profile.
 //   - [GCPhysicalInputProfile.MappedElementAliasForPhysicalInputName]: Returns the name of the input element to which the user remaps the given physical element.
 //   - [GCPhysicalInputProfile.MappedPhysicalInputNamesForElementAlias]: Returns the physical input elements to which the user remaps the given input element.
-//   - [GCPhysicalInputProfile.GCControllerUserCustomizationsDidChange]: A notification that posts when the user customizes the button mappings or other settings of a controller.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputProfile
 type GCPhysicalInputProfile struct {
@@ -146,7 +144,6 @@ func GCPhysicalInputProfileFromID(id objc.ID) GCPhysicalInputProfile {
 //   - [IGCPhysicalInputProfile.HasRemappedElements]: A Boolean value that indicates whether the user remaps elements in this profile.
 //   - [IGCPhysicalInputProfile.MappedElementAliasForPhysicalInputName]: Returns the name of the input element to which the user remaps the given physical element.
 //   - [IGCPhysicalInputProfile.MappedPhysicalInputNamesForElementAlias]: Returns the physical input elements to which the user remaps the given input element.
-//   - [IGCPhysicalInputProfile.GCControllerUserCustomizationsDidChange]: A notification that posts when the user customizes the button mappings or other settings of a controller.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputProfile
 type IGCPhysicalInputProfile interface {
@@ -160,7 +157,7 @@ type IGCPhysicalInputProfile interface {
 	// Topic: Getting change information
 
 	// The time of the most recent change to an element’s value.
-	LastEventTimestamp() float64
+	LastEventTimestamp() foundation.NSTimeInterval
 	// The block that the profile calls when an element’s value changes.
 	ValueDidChangeHandler() GCPhysicalInputProfileGCControllerElementHandler
 	SetValueDidChangeHandler(value GCPhysicalInputProfileGCControllerElementHandler)
@@ -208,24 +205,6 @@ type IGCPhysicalInputProfile interface {
 	MappedElementAliasForPhysicalInputName(inputName string) string
 	// Returns the physical input elements to which the user remaps the given input element.
 	MappedPhysicalInputNamesForElementAlias(elementAlias string) foundation.INSSet
-	// A notification that posts when the user customizes the button mappings or other settings of a controller.
-	GCControllerUserCustomizationsDidChange() foundation.NSString
-
-	// The extended gamepad profile.
-	ExtendedGamepad() IGCExtendedGamepad
-	SetExtendedGamepad(value IGCExtendedGamepad)
-	// The gamepad profile.
-	Gamepad() unsafe.Pointer
-	SetGamepad(value unsafe.Pointer)
-	// The micro gamepad profile.
-	MicroGamepad() IGCMicroGamepad
-	SetMicroGamepad(value IGCMicroGamepad)
-	// The motion input profile.
-	Motion() IGCMotion
-	SetMotion(value IGCMotion)
-	// The physical input profile for the controller.
-	PhysicalInputProfile() IGCPhysicalInputProfile
-	SetPhysicalInputProfile(value IGCPhysicalInputProfile)
 }
 
 // Init initializes the instance.
@@ -365,9 +344,9 @@ func (g GCPhysicalInputProfile) Device() GCDevice {
 // The time of the most recent change to an element’s value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputProfile/lastEventTimestamp
-func (g GCPhysicalInputProfile) LastEventTimestamp() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("lastEventTimestamp"))
-	return rv
+func (g GCPhysicalInputProfile) LastEventTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](g.ID, objc.Sel("lastEventTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The block that the profile calls when an element’s value changes.
@@ -515,68 +494,4 @@ func (g GCPhysicalInputProfile) AllTouchpads() foundation.INSSet {
 func (g GCPhysicalInputProfile) HasRemappedElements() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("hasRemappedElements"))
 	return rv
-}
-
-// A notification that posts when the user customizes the button mappings or
-// other settings of a controller.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCControllerUserCustomizationsDidChange
-func (g GCPhysicalInputProfile) GCControllerUserCustomizationsDidChange() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCControllerUserCustomizationsDidChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The extended gamepad profile.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/extendedgamepad
-func (g GCPhysicalInputProfile) ExtendedGamepad() IGCExtendedGamepad {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("extendedGamepad"))
-	return GCExtendedGamepadFromID(objc.ID(rv))
-}
-func (g GCPhysicalInputProfile) SetExtendedGamepad(value IGCExtendedGamepad) {
-	objc.Send[struct{}](g.ID, objc.Sel("setExtendedGamepad:"), value)
-}
-
-// The gamepad profile.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/gamepad
-func (g GCPhysicalInputProfile) Gamepad() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("gamepad"))
-	return rv
-}
-func (g GCPhysicalInputProfile) SetGamepad(value unsafe.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGamepad:"), value)
-}
-
-// The micro gamepad profile.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/microgamepad
-func (g GCPhysicalInputProfile) MicroGamepad() IGCMicroGamepad {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("microGamepad"))
-	return GCMicroGamepadFromID(objc.ID(rv))
-}
-func (g GCPhysicalInputProfile) SetMicroGamepad(value IGCMicroGamepad) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMicroGamepad:"), value)
-}
-
-// The motion input profile.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/motion
-func (g GCPhysicalInputProfile) Motion() IGCMotion {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("motion"))
-	return GCMotionFromID(objc.ID(rv))
-}
-func (g GCPhysicalInputProfile) SetMotion(value IGCMotion) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMotion:"), value)
-}
-
-// The physical input profile for the controller.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gccontroller/physicalinputprofile
-func (g GCPhysicalInputProfile) PhysicalInputProfile() IGCPhysicalInputProfile {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("physicalInputProfile"))
-	return GCPhysicalInputProfileFromID(objc.ID(rv))
-}
-func (g GCPhysicalInputProfile) SetPhysicalInputProfile(value IGCPhysicalInputProfile) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPhysicalInputProfile:"), value)
 }

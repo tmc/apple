@@ -53,9 +53,9 @@ func AVCaptureVideoDataOutputSampleBufferDelegateObjectFromID(id objc.ID) AVCapt
 // conjunction with other APIs for further processing.
 //
 // This method is called on the dispatch queue specified by the output’s
-// [SampleBufferCallbackQueue] property. It is called periodically, so it must
-// be efficient to prevent capture performance problems, including dropped
-// frames.
+// [AVCaptureVideoDataOutput.SampleBufferCallbackQueue] property. It is called
+// periodically, so it must be efficient to prevent capture performance
+// problems, including dropped frames.
 //
 // If you need to reference the [CMSampleBuffer] object outside of the scope
 // of this method, you must [CFRetain] it and then [CFRelease] it when you are
@@ -97,7 +97,8 @@ func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutp
 //
 // Delegates receive this message whenever a late video frame is dropped. This
 // method is called once for each dropped frame. It is called on the dispatch
-// queue specified by the output’s [SampleBufferCallbackQueue] property.
+// queue specified by the output’s
+// [AVCaptureVideoDataOutput.SampleBufferCallbackQueue] property.
 //
 // The `sampleBuffer` will contain a
 // [kCMSampleBufferAttachmentKey_DroppedFrameReason] attachment that details

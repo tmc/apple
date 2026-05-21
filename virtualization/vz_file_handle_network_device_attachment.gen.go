@@ -57,10 +57,12 @@ func (vc VZFileHandleNetworkDeviceAttachmentClass) Alloc() VZFileHandleNetworkDe
 // - Create a socket with the `SOCK_DGRAM` type in your app. - Create a
 // [VZFileHandleNetworkDeviceAttachment.FileHandle] from the socket’s file descriptor. - Create the
 // [VZFileHandleNetworkDeviceAttachment] object using the file handle. -
-// Assign the attachment object to the [VZFileHandleNetworkDeviceAttachment.Attachment] property of a
+// Assign the attachment object to the
+// [VZNetworkDeviceConfiguration.Attachment] property of a
 // [VZVirtioNetworkDeviceConfiguration] object. - Add the
-// [VZVirtioNetworkDeviceConfiguration] object to the [VZFileHandleNetworkDeviceAttachment.NetworkDevices]
-// property of your [VZVirtualMachineConfiguration].
+// [VZVirtioNetworkDeviceConfiguration] object to the
+// [VZVirtualMachineConfiguration.NetworkDevices] property of your
+// [VZVirtualMachineConfiguration].
 //
 // This attachment doesn’t require your app to have the
 // [com.apple.vm.networking] entitlement.
@@ -124,20 +126,13 @@ type IVZFileHandleNetworkDeviceAttachment interface {
 	// Topic: Getting the file handle
 
 	// The file handle assigned to this attachment.
-	FileHandle() foundation.NSFileHandle
+	FileHandle() foundation.FileHandle
 
 	// Topic: Specifying the network packet size
 
 	// An integer value that indicates the maximum transmission unit (MTU) associated with this attachment.
 	MaximumTransmissionUnit() int
 	SetMaximumTransmissionUnit(value int)
-
-	// The object that defines how the virtual network device communicates with the host system.
-	Attachment() IVZNetworkDeviceAttachment
-	SetAttachment(value IVZNetworkDeviceAttachment)
-	// The array of network devices that you expose to the guest operating system.
-	NetworkDevices() IVZNetworkDeviceConfiguration
-	SetNetworkDevices(value IVZNetworkDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -193,9 +188,9 @@ func (f VZFileHandleNetworkDeviceAttachment) InitWithFileHandle(fileHandle found
 // The file handle assigned to this attachment.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleNetworkDeviceAttachment/fileHandle
-func (f VZFileHandleNetworkDeviceAttachment) FileHandle() foundation.NSFileHandle {
+func (f VZFileHandleNetworkDeviceAttachment) FileHandle() foundation.FileHandle {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandle"))
-	return foundation.NSFileHandleFromID(objc.ID(rv))
+	return foundation.FileHandleFromID(objc.ID(rv))
 }
 
 // An integer value that indicates the maximum transmission unit (MTU)
@@ -221,27 +216,4 @@ func (f VZFileHandleNetworkDeviceAttachment) MaximumTransmissionUnit() int {
 }
 func (f VZFileHandleNetworkDeviceAttachment) SetMaximumTransmissionUnit(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMaximumTransmissionUnit:"), value)
-}
-
-// The object that defines how the virtual network device communicates with
-// the host system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vznetworkdeviceconfiguration/attachment
-func (f VZFileHandleNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachment {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("attachment"))
-	return VZNetworkDeviceAttachmentFromID(objc.ID(rv))
-}
-func (f VZFileHandleNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
-	objc.Send[struct{}](f.ID, objc.Sel("setAttachment:"), value)
-}
-
-// The array of network devices that you expose to the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
-func (f VZFileHandleNetworkDeviceAttachment) NetworkDevices() IVZNetworkDeviceConfiguration {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("networkDevices"))
-	return VZNetworkDeviceConfigurationFromID(objc.ID(rv))
-}
-func (f VZFileHandleNetworkDeviceAttachment) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNetworkDevices:"), value)
 }

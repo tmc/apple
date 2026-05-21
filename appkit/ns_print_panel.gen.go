@@ -53,8 +53,8 @@ func (nc NSPrintPanelClass) Alloc() NSPrintPanel {
 // display a simplified interface when printing certain types of data. For
 // example, the panel can display a list of print-setting presets, which lets
 // the user enable print settings in groups as opposed to individually.
-// Assigning an appropriate string to the [NSPrintPanel.JobStyleHint] property activates
-// the simplified interface and identifies which presets to display.
+// Assigning an appropriate string to the [NSPrintPanel.JobStyleHint] property
+// activates the simplified interface and identifies which presets to display.
 //
 // For design guidance, see [Human Interface Guidelines].
 //
@@ -366,8 +366,8 @@ func (p NSPrintPanel) SetHelpAnchor(value NSHelpAnchorName) {
 // # Discussion
 //
 // This property contains an array of [NSViewController] objects, each of
-// which represents an accessory view added using the [AddAccessoryController]
-// method.
+// which represents an accessory view added using the
+// [NSPrintPanel.AddAccessoryController] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/accessoryControllers
 func (p NSPrintPanel) AccessoryControllers() []NSViewController {

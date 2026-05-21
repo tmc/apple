@@ -4,8 +4,8 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -155,7 +155,7 @@ func NewNSException() NSException {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSException/init(coder:)
 func NewExceptionWithCoder(coder INSCoder) NSException {
 	instance := getNSExceptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -234,7 +234,7 @@ func (e NSException) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSException/init(coder:)
 func (e NSException) InitWithCoder(coder INSCoder) NSException {
 	rv := objc.Send[NSException](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -256,7 +256,7 @@ func (e NSException) InitWithCoder(coder INSCoder) NSException {
 // The user-defined dictionary of the generated object is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/raise(_:format:arguments:)
-func (_NSExceptionClass NSExceptionClass) RaiseFormatArguments(name NSExceptionName, format string, argList unsafe.Pointer) {
+func (_NSExceptionClass NSExceptionClass) RaiseFormatArguments(name NSExceptionName, format string, argList kernel.VaList) {
 	objc.Send[objc.ID](objc.ID(_NSExceptionClass.class), objc.Sel("raise:format:arguments:"), objc.String(string(name)), objc.String(format), argList)
 }
 

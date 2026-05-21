@@ -54,16 +54,17 @@ func (nc NSLocaleClass) Alloc() NSLocale {
 // according to the user’s customs and preferences.
 //
 // You can initialize any number of locale instances with
-// [NSLocale.InitWithLocaleIdentifier] using one of the locale identifiers found in the
-// [NSLocale.AvailableLocaleIdentifiers] array. However, you usually use a locale
-// configured to match the preferences of the current user.
+// [NSLocale.InitWithLocaleIdentifier] using one of the locale identifiers
+// found in the [NSLocaleClass.AvailableLocaleIdentifiers] array. However, you
+// usually use a locale configured to match the preferences of the current
+// user.
 //
-// Use the [NSLocale.CurrentLocale] property to get the locale matching the current
-// user’s preferences. If you need to be alerted when the user does make
-// changes to region settings, register for the
-// [NSLocale.CurrentLocaleDidChangeNotification] notification. Alternatively, you can
-// use the [NSLocale.AutoupdatingCurrentLocale] property to get a locale that
-// automatically updates with the user’s configuration settings:
+// Use the [NSLocaleClass.CurrentLocale] property to get the locale matching
+// the current user’s preferences. If you need to be alerted when the user
+// does make changes to region settings, register for the
+// [currentLocaleDidChangeNotification] notification. Alternatively, you can
+// use the [NSLocaleClass.AutoupdatingCurrentLocale] property to get a locale
+// that automatically updates with the user’s configuration settings:
 //
 // You can inspect a locale by reading its properties, as listed in Getting
 // Information About a Locale. For properties containing a code or identifier,
@@ -73,11 +74,11 @@ func (nc NSLocaleClass) Alloc() NSLocale {
 // using the autoupdating locale obtained in the previous example:
 //
 // You frequently use a locale in conjunction with a formatter. For example,
-// the [NSDateFormatter] class has a [Locale] property that ensures dates are
-// converted to strings that match the user’s expectations about date
-// formatting. By default, this property indicates the user’s current
-// locale, which is usually the behavior you want, but you can instead set it
-// to another locale instance to obtain a different output. See [Data
+// the [NSDateFormatter] class has a [NSDateFormatter.Locale] property that
+// ensures dates are converted to strings that match the user’s expectations
+// about date formatting. By default, this property indicates the user’s
+// current locale, which is usually the behavior you want, but you can instead
+// set it to another locale instance to obtain a different output. See [Data
 // Formatting Guide] for more information about working with formatters.
 //
 // [NSLocale] is with its Core Foundation counterpart, [CFLocale]. See
@@ -136,6 +137,7 @@ func (nc NSLocaleClass) Alloc() NSLocale {
 // [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
 // [Locale]: https://developer.apple.com/documentation/Foundation/Locale
 // [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
+// [currentLocaleDidChangeNotification]: https://developer.apple.com/documentation/Foundation/NSLocale/currentLocaleDidChangeNotification
 type NSLocale struct {
 	objectivec.Object
 }
@@ -283,10 +285,6 @@ type INSLocale interface {
 	LanguageIdentifier() string
 	// Returns the region code of the locale. If the `rg` subtag is present, the value of the subtag will be used. For example,  returns “GB” for “en_US@rg=gbzzzz” locale. If the `localeIdentifier` doesn’t contain a region, returns `nil`.
 	RegionCode() string
-
-	// The locale for the receiver.
-	Locale() INSLocale
-	SetLocale(value INSLocale)
 }
 
 // Init initializes the instance.
@@ -388,8 +386,8 @@ func (l NSLocale) InitWithCoder(coder INSCoder) NSLocale {
 // passing `"fr_FR"` for `localeIdentifier`, produces the string `"French
 // (France)"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [identifier] key and `localeIdentifier` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [identifier] key and `localeIdentifier` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forLocaleIdentifier:)
 //
@@ -412,8 +410,8 @@ func (l NSLocale) LocalizedStringForLocaleIdentifier(localeIdentifier string) st
 // For example, calling this method on an American English (`en_US`) locale,
 // passing `"GB"` for `countryCode`, produces the string `"United Kingdom"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [countryCode] key and `countryCode` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [countryCode] key and `countryCode` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forCountryCode:)
 //
@@ -436,8 +434,8 @@ func (l NSLocale) LocalizedStringForCountryCode(countryCode string) string {
 // For example, calling this method on an American English (`en_US`) locale,
 // passing `"zh"` for `languageCode`, produces the string `"Chinese"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [languageCode] key and `languageCode` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [languageCode] key and `languageCode` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forLanguageCode:)
 //
@@ -460,8 +458,8 @@ func (l NSLocale) LocalizedStringForLanguageCode(languageCode string) string {
 // For example, calling this method on an American English (`en_US`) locale,
 // passing `"Hant"` for `scriptCode`, produces the string `"Traditional Han"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [scriptCode] key and `scriptCode` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [scriptCode] key and `scriptCode` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forScriptCode:)
 //
@@ -484,8 +482,8 @@ func (l NSLocale) LocalizedStringForScriptCode(scriptCode string) string {
 // For example, calling this method on an American English (`en_US`) locale,
 // passing `"POSIX"` for `variantCode`, produces the string `"Computer"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [variantCode] key and `variantCode` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [variantCode] key and `variantCode` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forVariantCode:)
 //
@@ -509,8 +507,9 @@ func (l NSLocale) LocalizedStringForVariantCode(variantCode string) string {
 // passing `"phonebook"` for `collationIdentifier`, produces the string
 // `"Phonebook Sort Order"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [collationIdentifier] key and `collationIdentifier` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [collationIdentifier] key and `collationIdentifier`
+// value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forCollationIdentifier:)
 //
@@ -530,8 +529,8 @@ func (l NSLocale) LocalizedStringForCollationIdentifier(collationIdentifier stri
 //
 // # Discussion
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [collatorIdentifier] key and `collatorIdentifier` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [collatorIdentifier] key and `collatorIdentifier` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forCollatorIdentifier:)
 //
@@ -554,8 +553,8 @@ func (l NSLocale) LocalizedStringForCollatorIdentifier(collatorIdentifier string
 // For example, calling this method on an American English (`en_US`) locale,
 // passing `"JPY"` for `currencyCode`, produces the string `"Japanese Yen"`.
 //
-// This method is equivalent to calling the [DisplayNameForKeyValue] method
-// passing the [currencyCode] key and `currencyCode` value.
+// This method is equivalent to calling the [NSLocale.DisplayNameForKeyValue]
+// method passing the [currencyCode] key and `currencyCode` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localizedString(forCurrencyCode:)
 //
@@ -696,10 +695,10 @@ func (_NSLocaleClass NSLocaleClass) ComponentsFromLocaleIdentifier(string_ strin
 //
 // # Discussion
 //
-// This reverses the actions of [ComponentsFromLocaleIdentifier], so for
-// example the dictionary `{NSLocaleLanguageCode="en",
-// NSLocaleCountryCode="US", NSLocaleCalendar=NSJapaneseCalendar}` becomes
-// `"en_US@calendar=japanese"`.
+// This reverses the actions of
+// [NSLocaleClass.ComponentsFromLocaleIdentifier], so for example the
+// dictionary `{NSLocaleLanguageCode="en", NSLocaleCountryCode="US",
+// NSLocaleCalendar=NSJapaneseCalendar}` becomes `"en_US@calendar=japanese"`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localeIdentifier(fromComponents:)
 func (_NSLocaleClass NSLocaleClass) LocaleIdentifierFromComponents(dict INSDictionary) string {
@@ -815,8 +814,8 @@ func (_NSLocaleClass NSLocaleClass) LocaleWithLocaleIdentifier(ident string) NSL
 // Use [localizedString(forIdentifier:)] to obtain a version of the value
 // suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [identifier] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [identifier] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/localeIdentifier
 //
@@ -833,11 +832,11 @@ func (l NSLocale) LocaleIdentifier() string {
 //
 // Examples of country or region codes include `"GB"`, `"FR"`, and `"HK"`.
 //
-// Use [LocalizedStringForCountryCode] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForCountryCode] to obtain a version of the
+// value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [countryCode] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [countryCode] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/countryCode
 //
@@ -853,11 +852,11 @@ func (l NSLocale) CountryCode() string {
 //
 // Examples of language codes include `"en"`, `"es"`, and `"zh"`.
 //
-// Use [LocalizedStringForLanguageCode] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForLanguageCode] to obtain a version of the
+// value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [languageCode] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [languageCode] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/languageCode
 //
@@ -873,11 +872,11 @@ func (l NSLocale) LanguageCode() string {
 //
 // Examples of script codes include `"Latn"` and `"Hant"`.
 //
-// Use [LocalizedStringForScriptCode] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForScriptCode] to obtain a version of the
+// value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [scriptCode] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [scriptCode] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/scriptCode
 //
@@ -893,11 +892,11 @@ func (l NSLocale) ScriptCode() string {
 //
 // Examples of variant code include `"POSIX"` and `"PREEURO"`.
 //
-// Use [LocalizedStringForVariantCode] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForVariantCode] to obtain a version of the
+// value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [variantCode] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [variantCode] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/variantCode
 //
@@ -911,8 +910,8 @@ func (l NSLocale) VariantCode() string {
 //
 // # Discussion
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [exemplarCharacterSet] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [exemplarCharacterSet] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/exemplarCharacterSet
 //
@@ -928,11 +927,11 @@ func (l NSLocale) ExemplarCharacterSet() INSCharacterSet {
 //
 // Example collation identifiers include `"phonebook"` and `"pinyin"`.
 //
-// Use [LocalizedStringForCollationIdentifier] to obtain a version of the
-// value suitable for display to the user.
+// Use [NSLocale.LocalizedStringForCollationIdentifier] to obtain a version of
+// the value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [collationIdentifier] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [collationIdentifier] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/collationIdentifier
 //
@@ -948,11 +947,11 @@ func (l NSLocale) CollationIdentifier() string {
 //
 // An example collator identifier is `"en"`.
 //
-// Use [LocalizedStringForCollatorIdentifier] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForCollatorIdentifier] to obtain a version of
+// the value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [collatorIdentifier] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [collatorIdentifier] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/collatorIdentifier
 //
@@ -966,8 +965,8 @@ func (l NSLocale) CollatorIdentifier() string {
 //
 // # Discussion
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [usesMetricSystem] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [usesMetricSystem] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/usesMetricSystem
 //
@@ -983,8 +982,8 @@ func (l NSLocale) UsesMetricSystem() bool {
 //
 // Example decimal separators include `"."` and `","`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [decimalSeparator] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [decimalSeparator] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/decimalSeparator
 //
@@ -1000,8 +999,8 @@ func (l NSLocale) DecimalSeparator() string {
 //
 // Example grouping separators include `","` and `" "`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [groupingSeparator] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [groupingSeparator] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/groupingSeparator
 //
@@ -1017,11 +1016,11 @@ func (l NSLocale) GroupingSeparator() string {
 //
 // Example currency codes include `"USD"`, `"EUR"`, and `"JPY"`.
 //
-// Use [LocalizedStringForCurrencyCode] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForCurrencyCode] to obtain a version of the
+// value suitable for display to the user.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [currencyCode] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [currencyCode] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/currencyCode
 //
@@ -1037,8 +1036,8 @@ func (l NSLocale) CurrencyCode() string {
 //
 // Example currency symbols include `"$"`, `"€"`, and `"¥"`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [currencySymbol] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [currencySymbol] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/currencySymbol
 //
@@ -1054,8 +1053,8 @@ func (l NSLocale) CurrencySymbol() string {
 //
 // Possible values are listed in `Calendar Identifiers`.
 //
-// Use [LocalizedStringForCalendarIdentifier] to obtain a version of the value
-// suitable for display to the user.
+// Use [NSLocale.LocalizedStringForCalendarIdentifier] to obtain a version of
+// the value suitable for display to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/calendarIdentifier
 func (l NSLocale) CalendarIdentifier() string {
@@ -1070,8 +1069,9 @@ func (l NSLocale) CalendarIdentifier() string {
 // Examples of begin quotation symbols include `"“"`, `"„"`, `"«"`, and
 // `"「"`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [quotationBeginDelimiterKey] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the
+// [quotationBeginDelimiterKey] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/quotationBeginDelimiter
 //
@@ -1088,8 +1088,9 @@ func (l NSLocale) QuotationBeginDelimiter() string {
 // Examples of end quotation symbols include `"”"`, `"“"`, `"»"`, and
 // `"」"`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [quotationEndDelimiterKey] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the [quotationEndDelimiterKey]
+// key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/quotationEndDelimiter
 //
@@ -1106,8 +1107,9 @@ func (l NSLocale) QuotationEndDelimiter() string {
 // Examples of alternate begin quotation symbols include `"‘"`, `"‹"`, and
 // `"『"`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [alternateQuotationBeginDelimiterKey] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the
+// [alternateQuotationBeginDelimiterKey] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/alternateQuotationBeginDelimiter
 //
@@ -1124,8 +1126,9 @@ func (l NSLocale) AlternateQuotationBeginDelimiter() string {
 // Examples of alternate end quotation symbols include `"’"`, `"›"`, and
 // `"』"`.
 //
-// This property contains the same value returned by the [ObjectForKey] method
-// when passing the [alternateQuotationEndDelimiterKey] key.
+// This property contains the same value returned by the
+// [NSLocale.ObjectForKey] method when passing the
+// [alternateQuotationEndDelimiterKey] key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/alternateQuotationEndDelimiter
 //
@@ -1155,17 +1158,6 @@ func (l NSLocale) RegionCode() string {
 	return NSStringFromID(rv).String()
 }
 
-// The locale for the receiver.
-//
-// See: https://developer.apple.com/documentation/foundation/dateformatter/locale
-func (l NSLocale) Locale() INSLocale {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("locale"))
-	return NSLocaleFromID(objc.ID(rv))
-}
-func (l NSLocale) SetLocale(value INSLocale) {
-	objc.Send[struct{}](l.ID, objc.Sel("setLocale:"), value)
-}
-
 // A locale which tracks the user’s current preferences.
 //
 // # Discussion
@@ -1183,14 +1175,17 @@ func (l NSLocale) SetLocale(value INSLocale) {
 // configuration settings. When the person using the app changes settings,
 // reading properties from a locale instance obtained from this property
 // provides the latest values. If you need to rely on a locale that does not
-// change, use the locale given by the [CurrentLocale] property instead.
+// change, use the locale given by the [NSLocaleClass.CurrentLocale] property
+// instead.
 //
 // Although the locale obtained here automatically follows the latest region
 // settings, it provides no indication when the settings change. To receive
 // notification of locale changes, add your object as an observer of
-// [CurrentLocaleDidChangeNotification].
+// [currentLocaleDidChangeNotification].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/autoupdatingCurrent
+//
+// [currentLocaleDidChangeNotification]: https://developer.apple.com/documentation/Foundation/NSLocale/currentLocaleDidChangeNotification
 func (_NSLocaleClass NSLocaleClass) AutoupdatingCurrentLocale() NSLocale {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("autoupdatingCurrentLocale"))
 	return NSLocaleFromID(objc.ID(rv))
@@ -1214,23 +1209,17 @@ func (_NSLocaleClass NSLocaleClass) AutoupdatingCurrentLocale() NSLocale {
 // instance obtained this way does not change even when the person using the
 // device changes region settings. If you want a locale instance that always
 // reflects the current configuration, use the one provided by the
-// [AutoupdatingCurrentLocale] property instead.
+// [NSLocaleClass.AutoupdatingCurrentLocale] property instead.
 //
 // To receive notification of locale changes, add your object as an observer
-// of [CurrentLocaleDidChangeNotification].
+// of [currentLocaleDidChangeNotification].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/current
+//
+// [currentLocaleDidChangeNotification]: https://developer.apple.com/documentation/Foundation/NSLocale/currentLocaleDidChangeNotification
 func (_NSLocaleClass NSLocaleClass) CurrentLocale() NSLocale {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("currentLocale"))
 	return NSLocaleFromID(objc.ID(rv))
-}
-
-// A notification that indicates that the user’s locale changed.
-//
-// See: https://developer.apple.com/documentation/foundation/nslocale/currentlocaledidchangenotification
-func (_NSLocaleClass NSLocaleClass) CurrentLocaleDidChangeNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("NSCurrentLocaleDidChangeNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // A locale representing the generic root values with little localization.
@@ -1244,7 +1233,8 @@ func (_NSLocaleClass NSLocaleClass) CurrentLocaleDidChangeNotification() NSNotif
 //
 // Use the system locale when you don’t want any localizations. If you want
 // localizations that match the user’s region settings, use the locale given
-// by the [CurrentLocale] or the [AutoupdatingCurrentLocale] property instead.
+// by the [NSLocaleClass.CurrentLocale] or the
+// [NSLocaleClass.AutoupdatingCurrentLocale] property instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/system
 func (_NSLocaleClass NSLocaleClass) SystemLocale() NSLocale {
@@ -1260,8 +1250,8 @@ func (_NSLocaleClass NSLocaleClass) SystemLocale() NSLocale {
 // code, and occasionally includes a script designator. See [Locale IDs] for
 // more information about the structure of a locale identifier.
 //
-// Use [LocalizedStringForLocaleIdentifier] to obtain a human readable
-// description of any of the locale identifiers in this list.
+// Use [NSLocale.LocalizedStringForLocaleIdentifier] to obtain a human
+// readable description of any of the locale identifiers in this list.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/availableLocaleIdentifiers
 //
@@ -1296,8 +1286,8 @@ func (_NSLocaleClass NSLocaleClass) ISOCountryCodes() []string {
 // The array provided by this property contains a list of codes for all the
 // languages the system knows about, designated by the ISO 639-1 code if
 // available, or the ISO 639-2 code if not. Use the method
-// [LocalizedStringForLanguageCode] to obtain a human readable string for any
-// of the codes in the list.
+// [NSLocale.LocalizedStringForLanguageCode] to obtain a human readable string
+// for any of the codes in the list.
 //
 // For more information about language localization in your app, see [Language
 // and Locale IDs].

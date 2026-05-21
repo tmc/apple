@@ -53,10 +53,10 @@ func (uc UnitAccelerationClass) Alloc() UnitAcceleration {
 // Acceleration is the rate of change of velocity. Acceleration can be
 // expressed by SI derived units in terms of meters per second squared (m/s2).
 //
-// The [NSUnitAcceleration] class defines its [BaseUnit] as
-// [MetersPerSecondSquared], and provides the following units, which are
-// initialized using [NSUnitConverterLinear] converters with the specified
-// coefficients:
+// The [NSUnitAcceleration] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitAccelerationClass.MetersPerSecondSquared], and provides the
+// following units, which are initialized using [NSUnitConverterLinear]
+// converters with the specified coefficients:
 //
 // [Table data omitted]
 //

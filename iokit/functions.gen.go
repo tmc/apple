@@ -543,48 +543,6 @@ func IOConnectGetService(connect uintptr, service *uintptr) int32 {
 	return result
 }
 
-var _iOConnectMapMemory func(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32
-var _iOConnectMapMemoryErr error
-
-func tryIOConnectMapMemory(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) (int32, error) {
-	if _iOConnectMapMemory == nil {
-		return 0, symbolCallError("IOConnectMapMemory", "10.0", _iOConnectMapMemoryErr)
-	}
-	return _iOConnectMapMemory(connect, memoryType, intoTask, atAddress, ofSize, options), nil
-}
-
-// IOConnectMapMemory map hardware or shared memory into the caller's task.
-//
-// See: https://developer.apple.com/documentation/iokit/1514377-ioconnectmapmemory
-func IOConnectMapMemory(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32 {
-	result, callErr := tryIOConnectMapMemory(connect, memoryType, intoTask, atAddress, ofSize, options)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iOConnectMapMemory64 func(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32
-var _iOConnectMapMemory64Err error
-
-func tryIOConnectMapMemory64(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) (int32, error) {
-	if _iOConnectMapMemory64 == nil {
-		return 0, symbolCallError("IOConnectMapMemory64", "10.5", _iOConnectMapMemory64Err)
-	}
-	return _iOConnectMapMemory64(connect, memoryType, intoTask, atAddress, ofSize, options), nil
-}
-
-// IOConnectMapMemory64 map hardware or shared memory into the caller's task.
-//
-// See: https://developer.apple.com/documentation/iokit/1514862-ioconnectmapmemory64
-func IOConnectMapMemory64(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32 {
-	result, callErr := tryIOConnectMapMemory64(connect, memoryType, intoTask, atAddress, ofSize, options)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _iOConnectRelease func(connect uintptr) int32
 var _iOConnectReleaseErr error
 
@@ -4965,8 +4923,8 @@ func tryIOHIDUserDeviceRegisterGetReportBlock(arg0 IOHIDUserDeviceRef, arg1 IOHI
 	if _iOHIDUserDeviceRegisterGetReportBlock == nil {
 		return symbolCallError("IOHIDUserDeviceRegisterGetReportBlock", "10.15", _iOHIDUserDeviceRegisterGetReportBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 IOHIDReportType, blockArg1 uint32, blockArg2 *uint8, blockArg3 *int) int {
-		return arg1(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 IOHIDReportType, blockArg1 uint32, blockArg2 *uint8, blockArg3 unsafe.Pointer) int {
+		return arg1(blockArg0, blockArg1, blockArg2, (*corefoundation.CFIndex)(blockArg3))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -4990,7 +4948,7 @@ func tryIOHIDUserDeviceRegisterSetReportBlock(arg0 IOHIDUserDeviceRef, arg1 IOHI
 	if _iOHIDUserDeviceRegisterSetReportBlock == nil {
 		return symbolCallError("IOHIDUserDeviceRegisterSetReportBlock", "10.15", _iOHIDUserDeviceRegisterSetReportBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 IOHIDReportType, blockArg1 uint32, blockArg2 *uint8, blockArg3 int) int {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 IOHIDReportType, blockArg1 uint32, blockArg2 *uint8, blockArg3 corefoundation.CFIndex) int {
 		return arg1(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -5440,27 +5398,6 @@ func tryIOKitGetBusyState(mainPort uint32, busyState *uint32) (int32, error) {
 // See: https://developer.apple.com/documentation/iokit/1514460-iokitgetbusystate
 func IOKitGetBusyState(mainPort uint32, busyState *uint32) int32 {
 	result, callErr := tryIOKitGetBusyState(mainPort, busyState)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iOKitWaitQuiet func(mainPort uint32, waitTime *kernel.Mach_timespec_t) int32
-var _iOKitWaitQuietErr error
-
-func tryIOKitWaitQuiet(mainPort uint32, waitTime *kernel.Mach_timespec_t) (int32, error) {
-	if _iOKitWaitQuiet == nil {
-		return 0, symbolCallError("IOKitWaitQuiet", "10.0", _iOKitWaitQuietErr)
-	}
-	return _iOKitWaitQuiet(mainPort, waitTime), nil
-}
-
-// IOKitWaitQuiet wait for a all IOServices' busyState to be zero.
-//
-// See: https://developer.apple.com/documentation/iokit/1514440-iokitwaitquiet
-func IOKitWaitQuiet(mainPort uint32, waitTime *kernel.Mach_timespec_t) int32 {
-	result, callErr := tryIOKitWaitQuiet(mainPort, waitTime)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -7657,27 +7594,6 @@ func IOServiceRequestProbe(service uintptr, options uint32) int32 {
 	return result
 }
 
-var _iOServiceWaitQuiet func(service uintptr, waitTime *kernel.Mach_timespec_t) int32
-var _iOServiceWaitQuietErr error
-
-func tryIOServiceWaitQuiet(service uintptr, waitTime *kernel.Mach_timespec_t) (int32, error) {
-	if _iOServiceWaitQuiet == nil {
-		return 0, symbolCallError("IOServiceWaitQuiet", "10.0", _iOServiceWaitQuietErr)
-	}
-	return _iOServiceWaitQuiet(service, waitTime), nil
-}
-
-// IOServiceWaitQuiet wait for an IOService's busyState to be zero.
-//
-// See: https://developer.apple.com/documentation/iokit/1514573-ioservicewaitquiet
-func IOServiceWaitQuiet(service uintptr, waitTime *kernel.Mach_timespec_t) int32 {
-	result, callErr := tryIOServiceWaitQuiet(service, waitTime)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _iOURLCreateDataAndPropertiesFromResource func(arg0 corefoundation.CFAllocatorRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFDataRef, arg3 corefoundation.CFDictionaryRef, arg4 corefoundation.CFArrayRef, arg5 int32) bool
 var _iOURLCreateDataAndPropertiesFromResourceErr error
 
@@ -8116,27 +8032,6 @@ func NXSetKeyRepeatThreshold(arg0 NXEventHandle, arg1 float64) {
 	}
 }
 
-var _oSGetNotificationFromMessage func(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size *kernel.Vm_size_t) int32
-var _oSGetNotificationFromMessageErr error
-
-func tryOSGetNotificationFromMessage(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size *kernel.Vm_size_t) (int32, error) {
-	if _oSGetNotificationFromMessage == nil {
-		return 0, symbolCallError("OSGetNotificationFromMessage", "10.0", _oSGetNotificationFromMessageErr)
-	}
-	return _oSGetNotificationFromMessage(msg, index, type_, reference, content, size), nil
-}
-
-// OSGetNotificationFromMessage.
-//
-// See: https://developer.apple.com/documentation/iokit/1514263-osgetnotificationfrommessage
-func OSGetNotificationFromMessage(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size *kernel.Vm_size_t) int32 {
-	result, callErr := tryOSGetNotificationFromMessage(msg, index, type_, reference, content, size)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -8163,8 +8058,6 @@ func init() {
 	registerFunc(&_iOConnectCallScalarMethod, &_iOConnectCallScalarMethodErr, frameworkHandle, "IOConnectCallScalarMethod", "10.5")
 	registerFunc(&_iOConnectCallStructMethod, &_iOConnectCallStructMethodErr, frameworkHandle, "IOConnectCallStructMethod", "10.5")
 	registerFunc(&_iOConnectGetService, &_iOConnectGetServiceErr, frameworkHandle, "IOConnectGetService", "10.0")
-	registerFunc(&_iOConnectMapMemory, &_iOConnectMapMemoryErr, frameworkHandle, "IOConnectMapMemory", "10.0")
-	registerFunc(&_iOConnectMapMemory64, &_iOConnectMapMemory64Err, frameworkHandle, "IOConnectMapMemory64", "10.5")
 	registerFunc(&_iOConnectRelease, &_iOConnectReleaseErr, frameworkHandle, "IOConnectRelease", "10.0")
 	registerFunc(&_iOConnectSetCFProperties, &_iOConnectSetCFPropertiesErr, frameworkHandle, "IOConnectSetCFProperties", "10.0")
 	registerFunc(&_iOConnectSetCFProperty, &_iOConnectSetCFPropertyErr, frameworkHandle, "IOConnectSetCFProperty", "10.0")
@@ -8397,7 +8290,6 @@ func init() {
 	registerFunc(&_iOIteratorNext, &_iOIteratorNextErr, frameworkHandle, "IOIteratorNext", "10.0")
 	registerFunc(&_iOIteratorReset, &_iOIteratorResetErr, frameworkHandle, "IOIteratorReset", "10.0")
 	registerFunc(&_iOKitGetBusyState, &_iOKitGetBusyStateErr, frameworkHandle, "IOKitGetBusyState", "10.0")
-	registerFunc(&_iOKitWaitQuiet, &_iOKitWaitQuietErr, frameworkHandle, "IOKitWaitQuiet", "10.0")
 	registerFunc(&_iOMainPort, &_iOMainPortErr, frameworkHandle, "IOMainPort", "12.0")
 	registerFunc(&_iOMasterPort, &_iOMasterPortErr, frameworkHandle, "IOMasterPort", "10.0")
 	registerFunc(&_iONetworkClose, &_iONetworkCloseErr, frameworkHandle, "IONetworkClose", "10.0")
@@ -8501,7 +8393,6 @@ func init() {
 	registerFunc(&_iOServiceOpen, &_iOServiceOpenErr, frameworkHandle, "IOServiceOpen", "10.0")
 	registerFunc(&_iOServiceOpenAsFileDescriptor, &_iOServiceOpenAsFileDescriptorErr, frameworkHandle, "IOServiceOpenAsFileDescriptor", "10.0")
 	registerFunc(&_iOServiceRequestProbe, &_iOServiceRequestProbeErr, frameworkHandle, "IOServiceRequestProbe", "10.0")
-	registerFunc(&_iOServiceWaitQuiet, &_iOServiceWaitQuietErr, frameworkHandle, "IOServiceWaitQuiet", "10.0")
 	registerFunc(&_iOURLCreateDataAndPropertiesFromResource, &_iOURLCreateDataAndPropertiesFromResourceErr, frameworkHandle, "IOURLCreateDataAndPropertiesFromResource", "10.0")
 	registerFunc(&_iOURLCreatePropertyFromResource, &_iOURLCreatePropertyFromResourceErr, frameworkHandle, "IOURLCreatePropertyFromResource", "10.0")
 	registerFunc(&_kextManagerCopyLoadedKextInfo, &_kextManagerCopyLoadedKextInfoErr, frameworkHandle, "KextManagerCopyLoadedKextInfo", "10.7")
@@ -8522,5 +8413,4 @@ func init() {
 	registerFunc(&_nXSetClickTime, &_nXSetClickTimeErr, frameworkHandle, "NXSetClickTime", "10.0")
 	registerFunc(&_nXSetKeyRepeatInterval, &_nXSetKeyRepeatIntervalErr, frameworkHandle, "NXSetKeyRepeatInterval", "10.0")
 	registerFunc(&_nXSetKeyRepeatThreshold, &_nXSetKeyRepeatThresholdErr, frameworkHandle, "NXSetKeyRepeatThreshold", "10.0")
-	registerFunc(&_oSGetNotificationFromMessage, &_oSGetNotificationFromMessageErr, frameworkHandle, "OSGetNotificationFromMessage", "10.0")
 }

@@ -44,7 +44,7 @@ func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
 // To configure a custom class to respond to the automatic reattachment of
 // views to a stack view’s view hierarchy, implement this method in the
 // class. This method is not called when your code explicitly adds a view to a
-// stack view’s [Views] array.
+// stack view’s [NSStackView.Views] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:didReattach:)
 func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackView, views []NSView) {
@@ -64,7 +64,7 @@ func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackV
 // To configure a custom class to respond to the automatic detachment of views
 // from a stack view’s view hierarchy, implement this method in the class.
 // This method is not called when your code explicitly removes a view from a
-// stack view’s [Views] array.
+// stack view’s [NSStackView.Views] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:willDetach:)
 func (o NSStackViewDelegateObject) StackViewWillDetachViews(stackView INSStackView, views []NSView) {

@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -89,10 +90,6 @@ type IVNRectangleObservation interface {
 	TopLeft() corefoundation.CGPoint
 	// The coordinates of the upper-right corner of the observation bounding box.
 	TopRight() corefoundation.CGPoint
-
-	// The results of a document segmentation request.
-	Results() IVNRectangleObservation
-	SetResults(value IVNRectangleObservation)
 }
 
 // Init initializes the instance.
@@ -123,6 +120,13 @@ func NewVNRectangleObservation() VNRectangleObservation {
 // See: https://developer.apple.com/documentation/Vision/VNDetectedObjectObservation/init(boundingBox:)
 func NewRectangleObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNRectangleObservation {
 	rv := objc.Send[objc.ID](objc.ID(getVNRectangleObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
+	return VNRectangleObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewRectangleObservationWithCoder(coder foundation.INSCoder) VNRectangleObservation {
+	instance := getVNRectangleObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNRectangleObservationFromID(rv)
 }
 
@@ -208,15 +212,4 @@ func (r VNRectangleObservation) TopLeft() corefoundation.CGPoint {
 func (r VNRectangleObservation) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
-}
-
-// The results of a document segmentation request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectdocumentsegmentationrequest/results
-func (r VNRectangleObservation) Results() IVNRectangleObservation {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("results"))
-	return VNRectangleObservationFromID(objc.ID(rv))
-}
-func (r VNRectangleObservation) SetResults(value IVNRectangleObservation) {
-	objc.Send[struct{}](r.ID, objc.Sel("setResults:"), value)
 }

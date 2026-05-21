@@ -56,12 +56,15 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // different numbers or types of views.
 //
 // [NSPredicateEditorRowTemplate] is a concrete class, but it has five
-// primitive methods that are called by [NSPredicateEditor]: [NSPredicateEditorRowTemplate.TemplateViews],
-// [NSPredicateEditorRowTemplate.MatchForPredicate], [NSPredicateEditorRowTemplate.SetPredicate], [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate],
-// and [NSPredicateEditorRowTemplate.PredicateWithSubpredicates]. [NSPredicateEditorRowTemplate] implements
-// all of these methods, but you can override them for custom templates. The
-// primitive methods are used by an instance of [NSPredicateEditor] as
-// follows.
+// primitive methods that are called by [NSPredicateEditor]:
+// [NSPredicateEditorRowTemplate.TemplateViews],
+// [NSPredicateEditorRowTemplate.MatchForPredicate],
+// [NSPredicateEditorRowTemplate.SetPredicate],
+// [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate], and
+// [NSPredicateEditorRowTemplate.PredicateWithSubpredicates].
+// [NSPredicateEditorRowTemplate] implements all of these methods, but you can
+// override them for custom templates. The primitive methods are used by an
+// instance of [NSPredicateEditor] as follows.
 //
 // First, an instance of [NSPredicateEditor] is created, and some row
 // templates are set on it—either through a nib file or programmatically.
@@ -69,25 +72,26 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // their views, using [NSPredicateEditorRowTemplate.TemplateViews].
 //
 // After setting up the predicate editor, you typically send it a
-// [NSPredicateEditorRowTemplate.ObjectValue] message to restore a saved predicate. [NSPredicateEditor]
-// needs to determine which of its templates should display each predicate in
-// the predicate tree. It does this by sending each of its row templates a
-// [NSPredicateEditorRowTemplate.MatchForPredicate] message and choosing the one that returns the highest
-// value.
+// [NSControl.ObjectValue] message to restore a saved predicate.
+// [NSPredicateEditor] needs to determine which of its templates should
+// display each predicate in the predicate tree. It does this by sending each
+// of its row templates a [NSPredicateEditorRowTemplate.MatchForPredicate]
+// message and choosing the one that returns the highest value.
 //
 // After finding the best match for a predicate, [NSPredicateEditor] copies
 // that template to get fresh views, inserts them into the proper row, and
-// then sets the predicate on the template using [NSPredicateEditorRowTemplate.SetPredicate]. Within that
-// method, the [NSPredicateEditorRowTemplate] object must set its views’
-// values to represent that predicate.
+// then sets the predicate on the template using
+// [NSPredicateEditorRowTemplate.SetPredicate]. Within that method, the
+// [NSPredicateEditorRowTemplate] object must set its views’ values to
+// represent that predicate.
 //
 // [NSPredicateEditorRowTemplate] next asks the template for the
 // “displayable sub-predicates” of the predicate by sending a
-// [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate] message. If a template represents a
-// predicate in its entirety, or if the predicate has no subpredicates, it can
-// return `nil` for this. Otherwise, it should return a list of predicates to
-// be made into sub-rows of that template’s row. The whole process repeats
-// for each sub-predicate.
+// [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate] message.
+// If a template represents a predicate in its entirety, or if the predicate
+// has no subpredicates, it can return `nil` for this. Otherwise, it should
+// return a list of predicates to be made into sub-rows of that template’s
+// row. The whole process repeats for each sub-predicate.
 //
 // At this point, the user sees the predicate that was saved. If the user then
 // makes some changes to the views of the templates, this causes
@@ -207,12 +211,7 @@ type INSPredicateEditorRowTemplate interface {
 	// Returns the attribute type of the receiver’s right expression.
 	RightExpressionAttributeType() uint
 
-	// The value of the receiver’s cell as an Objective-C object.
-	ObjectValue() unsafe.Pointer
-	SetObjectValue(value unsafe.Pointer)
-	// The row templates for the receiver.
-	RowTemplates() INSPredicateEditorRowTemplate
-	SetRowTemplates(value INSPredicateEditorRowTemplate)
+	InitWithCoder(coder foundation.INSCoder) NSPredicateEditorRowTemplate
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -233,6 +232,13 @@ func NewNSPredicateEditorRowTemplate() NSPredicateEditorRowTemplate {
 	class := getNSPredicateEditorRowTemplateClass()
 	rv := objc.Send[NSPredicateEditorRowTemplate](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(coder:)
+func NewPredicateEditorRowTemplateWithCoder(coder foundation.INSCoder) NSPredicateEditorRowTemplate {
+	instance := getNSPredicateEditorRowTemplateClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSPredicateEditorRowTemplateFromID(rv)
 }
 
 // Initializes and returns a row template suitable for displaying compound
@@ -490,7 +496,8 @@ func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.NSP
 //
 // # Discussion
 //
-// This method is only called if [MatchForPredicate] returned a positive value
+// This method is only called if
+// [NSPredicateEditorRowTemplate.MatchForPredicate] returned a positive value
 // for the receiver.
 //
 // You can override this to set the values of custom views.
@@ -541,7 +548,8 @@ func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predic
 //
 // # Discussion
 //
-// This method is only called if [MatchForPredicate] returned a positive value
+// This method is only called if
+// [NSPredicateEditorRowTemplate.MatchForPredicate] returned a positive value
 // for the receiver.
 //
 // You can override this method to return the predicate represented by a
@@ -551,6 +559,12 @@ func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predic
 func (p NSPredicateEditorRowTemplate) PredicateWithSubpredicates(subpredicates []foundation.NSPredicate) foundation.NSPredicate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("predicateWithSubpredicates:"), objectivec.IObjectSliceToNSArray(subpredicates))
 	return foundation.NSPredicateFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(coder:)
+func (p NSPredicateEditorRowTemplate) InitWithCoder(coder foundation.INSCoder) NSPredicateEditorRowTemplate {
+	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -564,8 +578,6 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 //
 // entityDescription: A Core Data entity description.
 //
-// entityDescription is a [*coredata.NSEntityDescription].
-//
 // # Return Value
 //
 // An array of predicate templates for `keyPaths` originating at
@@ -576,7 +588,7 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 // This method determines which key paths in the entity description can use
 // the same views (that is, share the same attribute type). For each of these
 // groups, it instantiates individual templates via
-// [InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions].
+// [NSPredicateEditorRowTemplate.InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/templates(withAttributeKeyPaths:in:)
 func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) TemplatesWithAttributeKeyPathsInEntityDescription(keyPaths []string, entityDescription unsafe.Pointer) []NSPredicateEditorRowTemplate {
@@ -591,7 +603,7 @@ func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) Temp
 // # Return Value
 //
 // The views for an [NSPredicateEditor] to display in a row that represents
-// the predicate from [SetPredicate].
+// the predicate from [NSPredicateEditorRowTemplate.SetPredicate].
 //
 // # Discussion
 //
@@ -691,7 +703,7 @@ func (p NSPredicateEditorRowTemplate) Operators() []foundation.NSNumber {
 // The comparison predicate options for the receiver. See
 // [NSComparisonPredicate.Options] for possible values. Returns `0` if this
 // does not apply (for example, for a compound template initialized with
-// [InitWithCompoundTypes]).
+// [NSPredicateEditorRowTemplate.InitWithCompoundTypes]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/options
 //
@@ -711,26 +723,4 @@ func (p NSPredicateEditorRowTemplate) Options() uint {
 func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("rightExpressionAttributeType"))
 	return rv
-}
-
-// The value of the receiver’s cell as an Objective-C object.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrol/objectvalue
-func (p NSPredicateEditorRowTemplate) ObjectValue() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("objectValue"))
-	return rv
-}
-func (p NSPredicateEditorRowTemplate) SetObjectValue(value unsafe.Pointer) {
-	objc.Send[struct{}](p.ID, objc.Sel("setObjectValue:"), value)
-}
-
-// The row templates for the receiver.
-//
-// See: https://developer.apple.com/documentation/appkit/nspredicateeditor/rowtemplates
-func (p NSPredicateEditorRowTemplate) RowTemplates() INSPredicateEditorRowTemplate {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("rowTemplates"))
-	return NSPredicateEditorRowTemplateFromID(objc.ID(rv))
-}
-func (p NSPredicateEditorRowTemplate) SetRowTemplates(value INSPredicateEditorRowTemplate) {
-	objc.Send[struct{}](p.ID, objc.Sel("setRowTemplates:"), value)
 }

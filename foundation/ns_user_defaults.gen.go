@@ -57,11 +57,12 @@ func (uc UserDefaultsClass) Alloc() UserDefaults {
 // the stored data determines the default startup state and behavior.
 //
 // To access the defaults system, obtain a [UserDefaults] object and call its
-// methods to read and write values. The [StandardUserDefaults] object is a
-// shared object you use to read and write your app’s standard settings. You
-// can also create unique [UserDefaults] objects to manage specific sets of
-// settings. For example, you can create a [UserDefaults] object that reads
-// and writes settings your app shares with an app extension. Don’t subclass
+// methods to read and write values. The
+// [NSUserDefaultsClass.StandardUserDefaults] object is a shared object you
+// use to read and write your app’s standard settings. You can also create
+// unique [UserDefaults] objects to manage specific sets of settings. For
+// example, you can create a [UserDefaults] object that reads and writes
+// settings your app shares with an app extension. Don’t subclass
 // [UserDefaults].
 //
 // Each item you store in a defaults object consists of a key-value pair,
@@ -124,8 +125,9 @@ func (uc UserDefaultsClass) Alloc() UserDefaults {
 // that the lessons require. Apps can’t write to managed domains, so if your
 // app encounters a managed setting, disable or hide any controls that someone
 // might use to change that setting’s value. To determine if a setting is
-// managed, call the [ObjectIsForcedForKey] or [ObjectIsForcedForKeyInDomain]
-// method of your [UserDefaults] object.
+// managed, call the [NSUserDefaults.ObjectIsForcedForKey] or
+// [NSUserDefaults.ObjectIsForcedForKeyInDomain] method of your [UserDefaults]
+// object.
 //
 // An app running on a managed device can use [NSUbiquitousKeyValueStore] to
 // share small amounts of data with the person’s other devices. Use this
@@ -144,10 +146,10 @@ func (uc UserDefaultsClass) Alloc() UserDefaults {
 // - An app can modify settings for one of its app extensions. - An app can
 // modify settings for an app group to which it belongs.
 //
-// If you use the [AddSuiteNamed] method to add the identifier for an
-// unrelated app, the method doesn’t give you access to the other app’s
-// settings. Instead, the system writes changes to your app’s settings, not
-// to the third-party app’s settings.
+// If you use the [NSUserDefaults.AddSuiteNamed] method to add the identifier
+// for an unrelated app, the method doesn’t give you access to the other
+// app’s settings. Instead, the system writes changes to your app’s
+// settings, not to the third-party app’s settings.
 //
 // # Creating a user defaults object
 //
@@ -441,7 +443,7 @@ func NewUserDefaults() UserDefaults {
 //
 // suitename: The name of the app group or suite to add to the search list. To read and
 // write settings for a shared app group, specify the app group identifier.
-// Don’t specify the [GlobalDomain] or your app’s bundle identifier. If
+// Don’t specify the [globalDomain] or your app’s bundle identifier. If
 // you specify `nil`, this method returns a defaults object that reads and
 // writes from the current app’s settings.
 //
@@ -467,6 +469,7 @@ func NewUserDefaults() UserDefaults {
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/init(suiteName:)
 //
+// [globalDomain]: https://developer.apple.com/documentation/Foundation/UserDefaults/globalDomain
 // [App Sandbox]: https://developer.apple.com/documentation/Security/app-sandbox
 // [Preferences Utilities]: https://developer.apple.com/documentation/CoreFoundation/preferences-utilities
 func NewUserDefaultsWithSuiteName(suitename string) UserDefaults {
@@ -515,7 +518,7 @@ func NewUserDefaultsWithUser(username string) UserDefaults {
 //
 // suitename: The name of the app group or suite to add to the search list. To read and
 // write settings for a shared app group, specify the app group identifier.
-// Don’t specify the [GlobalDomain] or your app’s bundle identifier. If
+// Don’t specify the [globalDomain] or your app’s bundle identifier. If
 // you specify `nil`, this method returns a defaults object that reads and
 // writes from the current app’s settings.
 //
@@ -541,6 +544,7 @@ func NewUserDefaultsWithUser(username string) UserDefaults {
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/init(suiteName:)
 //
+// [globalDomain]: https://developer.apple.com/documentation/Foundation/UserDefaults/globalDomain
 // [App Sandbox]: https://developer.apple.com/documentation/Security/app-sandbox
 // [Preferences Utilities]: https://developer.apple.com/documentation/CoreFoundation/preferences-utilities
 func (u UserDefaults) InitWithSuiteName(suitename string) UserDefaults {
@@ -676,7 +680,7 @@ func (u UserDefaults) DoubleForKey(defaultName string) float64 {
 // this method returns `nil`. If a file URL contains a tilde (~) character in
 // its path, this method replaces the tilde with an expanded path. If you
 // saved a bookmark URL for the key previously, use the
-// [URLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError]
+// [NSURLClass.URLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError]
 // method to resolve the bookmark data and retrieve an equivalent file URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/url(forKey:)
@@ -937,9 +941,9 @@ func (u UserDefaults) SetDoubleForKey(value float64, defaultName string) {
 //
 // If the location of a file might change, don’t use a file URL to specify
 // its location. Instead, create a bookmark URL using the
-// [BookmarkDataWithContentsOfURLError] method and save that URL instead.
-// Bookmark URLs store additional information about the file so the system can
-// locate the file later, even if the path to that file changes.
+// [NSURLClass.BookmarkDataWithContentsOfURLError] method and save that URL
+// instead. Bookmark URLs store additional information about the file so the
+// system can locate the file later, even if the path to that file changes.
 //
 // After you call this method, the system generates a [didChangeNotification]
 // for registered observers.
@@ -1008,7 +1012,7 @@ func (u UserDefaults) RemoveObjectForKey(defaultName string) {
 // specify a bundle identifier for another app. Instead, you might specify the
 // app group identifier you use to share data between multiple apps or between
 // your app and an app extension. Don’t specify your app’s bundle
-// identifier or the [GlobalDomain] identifier in this parameter.
+// identifier or the [globalDomain] identifier in this parameter.
 //
 // # Discussion
 //
@@ -1020,11 +1024,13 @@ func (u UserDefaults) RemoveObjectForKey(defaultName string) {
 // added them.
 //
 // This method doesn’t affect the destination for write operations. If you
-// want to write settings to a custom suite, use the [InitWithSuiteName]
-// initializer to construct a [UserDefaults] object specifically for that
-// suite.
+// want to write settings to a custom suite, use the
+// [NSUserDefaults.InitWithSuiteName] initializer to construct a
+// [UserDefaults] object specifically for that suite.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/addSuite(named:)
+//
+// [globalDomain]: https://developer.apple.com/documentation/Foundation/UserDefaults/globalDomain
 func (u UserDefaults) AddSuiteNamed(suiteName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("addSuiteNamed:"), objc.String(suiteName))
 }
@@ -1042,7 +1048,7 @@ func (u UserDefaults) RemoveSuiteNamed(suiteName string) {
 // Retrieves the settings from the specified persistent domain.
 //
 // domainName: The name of the persistent domain. Specify your app’s bundle identifier
-// to retrieve any app-specific keys. Specify the [GlobalDomain] identifier to
+// to retrieve any app-specific keys. Specify the [globalDomain] identifier to
 // retrieve keys in the global domain.
 //
 // # Return Value
@@ -1057,6 +1063,8 @@ func (u UserDefaults) RemoveSuiteNamed(suiteName string) {
 // It doesn’t retrieve keys from other persistent or volatile domains.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/persistentDomain(forName:)
+//
+// [globalDomain]: https://developer.apple.com/documentation/Foundation/UserDefaults/globalDomain
 func (u UserDefaults) PersistentDomainForName(domainName string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("persistentDomainForName:"), objc.String(domainName))
 	return NSDictionaryFromID(rv)
@@ -1085,7 +1093,7 @@ func (u UserDefaults) SetPersistentDomainForName(domain INSDictionary, domainNam
 
 // Retrieves the settings from the specified volatile domain.
 //
-// domainName: The name of the volatile domain. For example, specify the [ArgumentDomain]
+// domainName: The name of the volatile domain. For example, specify the [argumentDomain]
 // identifier to retrieve the command-line settings.
 //
 // # Return Value
@@ -1100,6 +1108,8 @@ func (u UserDefaults) SetPersistentDomainForName(domain INSDictionary, domainNam
 // It doesn’t retrieve keys from other persistent or volatile domains.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/volatileDomain(forName:)
+//
+// [argumentDomain]: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
 func (u UserDefaults) VolatileDomainForName(domainName string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("volatileDomainForName:"), objc.String(domainName))
 	return NSDictionaryFromID(rv)
@@ -1245,7 +1255,7 @@ func (_UserDefaultsClass UserDefaultsClass) ResetStandardUserDefaults() {
 //
 // Each string in the array corresponds to one of the volatile domains this
 // [UserDefaults] object searches. To get the contents of one of these
-// domains, call the [VolatileDomainForName] method.
+// domains, call the [NSUserDefaults.VolatileDomainForName] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/volatileDomainNames
 func (u UserDefaults) VolatileDomainNames() []string {
@@ -1267,66 +1277,14 @@ func (u UserDefaults) VolatileDomainNames() []string {
 // attempts return the cached object.
 //
 // The shared object retrieves settings from all of the standard domains. If
-// you add a domain using the [AddSuiteNamed] method, the object retrieves
-// values from that domain in addition to the standard ones. Custom domains
-// remain in the search list until you remove them or the app exits. When you
-// write settings using the shared object, it writes them to the current
-// app’s settings.
+// you add a domain using the [NSUserDefaults.AddSuiteNamed] method, the
+// object retrieves values from that domain in addition to the standard ones.
+// Custom domains remain in the search list until you remove them or the app
+// exits. When you write settings using the shared object, it writes them to
+// the current app’s settings.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/standard
 func (_UserDefaultsClass UserDefaultsClass) StandardUserDefaults() NSUserDefaults {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("standardUserDefaults"))
 	return NSUserDefaultsFromID(objc.ID(rv))
-}
-
-// The identifier for the domain that contains command-line settings.
-//
-// See: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
-func (_UserDefaultsClass UserDefaultsClass) ArgumentDomain() string {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("argumentDomain"))
-	return NSStringFromID(rv).String()
-}
-
-// The identifier for the domain that contains system-specified settings for
-// all apps.
-//
-// See: https://developer.apple.com/documentation/Foundation/UserDefaults/globalDomain
-func (_UserDefaultsClass UserDefaultsClass) GlobalDomain() string {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("globalDomain"))
-	return NSStringFromID(rv).String()
-}
-
-// The identifier for the domain that contains your app’s registered default
-// values.
-//
-// See: https://developer.apple.com/documentation/Foundation/UserDefaults/registrationDomain
-func (_UserDefaultsClass UserDefaultsClass) RegistrationDomain() string {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("registrationDomain"))
-	return NSStringFromID(rv).String()
-}
-
-// Posted when ubiquitous defaults finish downloading data, either the first
-// time a device is connected to an iCloud account or when a user switches
-// their primary iCloud account.
-//
-// See: https://developer.apple.com/documentation/foundation/userdefaults/completedinitialcloudsyncnotification
-func (_UserDefaultsClass UserDefaultsClass) CompletedInitialCloudSyncNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsCompletedInitialSyncNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when the user changes the primary iCloud account.
-//
-// See: https://developer.apple.com/documentation/foundation/userdefaults/didchangecloudaccountsnotification
-func (_UserDefaultsClass UserDefaultsClass) DidChangeCloudAccountsNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsDidChangeAccountsNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
-// Posted when a cloud default is set, but no iCloud user is logged in.
-//
-// See: https://developer.apple.com/documentation/foundation/userdefaults/nocloudaccountnotification
-func (_UserDefaultsClass UserDefaultsClass) NoCloudAccountNotification() NSNotificationName {
-	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsNoCloudAccountNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }

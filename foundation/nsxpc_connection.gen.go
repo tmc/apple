@@ -92,21 +92,6 @@ func (nc NSXPCConnectionClass) Alloc() NSXPCConnection {
 //
 //   - [NSXPCConnection.SetCodeSigningRequirement]: Sets the code signing requirement for this connection.
 //
-// # Error codes
-//
-//   - [NSXPCConnection.NSXPCConnectionInterrupted]: The XPC connection was interrupted.
-//   - [NSXPCConnection.SetNSXPCConnectionInterrupted]
-//   - [NSXPCConnection.NSXPCConnectionInvalid]: The XPC connection was invalid.
-//   - [NSXPCConnection.SetNSXPCConnectionInvalid]
-//   - [NSXPCConnection.NSXPCConnectionReplyInvalid]: The XPC connection reply was invalid.
-//   - [NSXPCConnection.SetNSXPCConnectionReplyInvalid]
-//   - [NSXPCConnection.NSXPCConnectionErrorMinimum]: The lower bounds of XPC connection error code values.
-//   - [NSXPCConnection.SetNSXPCConnectionErrorMinimum]
-//   - [NSXPCConnection.NSXPCConnectionErrorMaximum]: The upper bounds of XPC connection error code values.
-//   - [NSXPCConnection.SetNSXPCConnectionErrorMaximum]
-//   - [NSXPCConnection.NSXPCConnectionCodeSigningRequirementFailure]: A code-signing requirement check failed.
-//   - [NSXPCConnection.SetNSXPCConnectionCodeSigningRequirementFailure]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection
 type NSXPCConnection struct {
 	objectivec.Object
@@ -163,21 +148,6 @@ func NSXPCConnectionFromID(id objc.ID) NSXPCConnection {
 // # Working with code signing
 //
 //   - [INSXPCConnection.SetCodeSigningRequirement]: Sets the code signing requirement for this connection.
-//
-// # Error codes
-//
-//   - [INSXPCConnection.NSXPCConnectionInterrupted]: The XPC connection was interrupted.
-//   - [INSXPCConnection.SetNSXPCConnectionInterrupted]
-//   - [INSXPCConnection.NSXPCConnectionInvalid]: The XPC connection was invalid.
-//   - [INSXPCConnection.SetNSXPCConnectionInvalid]
-//   - [INSXPCConnection.NSXPCConnectionReplyInvalid]: The XPC connection reply was invalid.
-//   - [INSXPCConnection.SetNSXPCConnectionReplyInvalid]
-//   - [INSXPCConnection.NSXPCConnectionErrorMinimum]: The lower bounds of XPC connection error code values.
-//   - [INSXPCConnection.SetNSXPCConnectionErrorMinimum]
-//   - [INSXPCConnection.NSXPCConnectionErrorMaximum]: The upper bounds of XPC connection error code values.
-//   - [INSXPCConnection.SetNSXPCConnectionErrorMaximum]
-//   - [INSXPCConnection.NSXPCConnectionCodeSigningRequirementFailure]: A code-signing requirement check failed.
-//   - [INSXPCConnection.SetNSXPCConnectionCodeSigningRequirementFailure]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection
 type INSXPCConnection interface {
@@ -243,27 +213,6 @@ type INSXPCConnection interface {
 
 	// Sets the code signing requirement for this connection.
 	SetCodeSigningRequirement(requirement string)
-
-	// Topic: Error codes
-
-	// The XPC connection was interrupted.
-	NSXPCConnectionInterrupted() int
-	SetNSXPCConnectionInterrupted(value int)
-	// The XPC connection was invalid.
-	NSXPCConnectionInvalid() int
-	SetNSXPCConnectionInvalid(value int)
-	// The XPC connection reply was invalid.
-	NSXPCConnectionReplyInvalid() int
-	SetNSXPCConnectionReplyInvalid(value int)
-	// The lower bounds of XPC connection error code values.
-	NSXPCConnectionErrorMinimum() int
-	SetNSXPCConnectionErrorMinimum(value int)
-	// The upper bounds of XPC connection error code values.
-	NSXPCConnectionErrorMaximum() int
-	SetNSXPCConnectionErrorMaximum(value int)
-	// A code-signing requirement check failed.
-	NSXPCConnectionCodeSigningRequirementFailure() int
-	SetNSXPCConnectionCodeSigningRequirementFailure(value int)
 }
 
 // Init initializes the instance.
@@ -384,14 +333,16 @@ func (x NSXPCConnection) InitWithServiceName(serviceName string) NSXPCConnection
 //
 // # Discussion
 //
-// Connections start in an inactive state. You must call [Activate] on a
-// connection before it can send or receive any messages.
+// Connections start in an inactive state. You must call
+// [NSXPCConnection.Activate] on a connection before it can send or receive
+// any messages.
 //
-// Calling [Activate] on an active connection has no effect.
+// Calling [NSXPCConnection.Activate] on an active connection has no effect.
 //
-// For backward compatibility reasons, calling [Resume] on an inactive and
-// otherwise not suspended [NSXPCConnection] has the same effect as calling
-// [Activate]. For new code, prefer [Activate].
+// For backward compatibility reasons, calling [NSXPCConnection.Resume] on an
+// inactive and otherwise not suspended [NSXPCConnection] has the same effect
+// as calling [NSXPCConnection.Activate]. For new code, prefer
+// [NSXPCConnection.Activate].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/activate()
 func (x NSXPCConnection) Activate() {
@@ -429,8 +380,9 @@ func (x NSXPCConnection) Invalidate() {
 //
 // # Discussion
 //
-// As you cannot invalidate a suspended connection, every call to [Suspend]
-// that you make must be balanced by a call to [Resume].
+// As you cannot invalidate a suspended connection, every call to
+// [NSXPCListener.Suspend] that you make must be balanced by a call to
+// [NSXPCConnection.Resume].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/suspend()
 func (x NSXPCConnection) Suspend() {
@@ -493,8 +445,8 @@ func (x NSXPCConnection) SynchronousRemoteObjectProxyWithErrorHandler(handler Er
 // in Swift, or throws an exception in Objective-C. If new messages don’t
 // match the requirement, the connection becomes invalidated.
 //
-// Call this method before calling [Resume], since it’s an XPC error to call
-// this method more than once.
+// Call this method before calling [NSXPCConnection.Resume], since it’s an
+// XPC error to call this method more than once.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/setCodeSigningRequirement(_:)
 //
@@ -699,72 +651,6 @@ func (x NSXPCConnection) EffectiveGroupIdentifier() uint32 {
 func (x NSXPCConnection) EffectiveUserIdentifier() uint32 {
 	rv := objc.Send[uint32](x.ID, objc.Sel("effectiveUserIdentifier"))
 	return rv
-}
-
-// The XPC connection was interrupted.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectioninterrupted-swift.var
-func (x NSXPCConnection) NSXPCConnectionInterrupted() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionInterrupted"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionInterrupted(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionInterrupted:"), value)
-}
-
-// The XPC connection was invalid.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectioninvalid-swift.var
-func (x NSXPCConnection) NSXPCConnectionInvalid() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionInvalid"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionInvalid(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionInvalid:"), value)
-}
-
-// The XPC connection reply was invalid.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectionreplyinvalid-swift.var
-func (x NSXPCConnection) NSXPCConnectionReplyInvalid() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionReplyInvalid"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionReplyInvalid(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionReplyInvalid:"), value)
-}
-
-// The lower bounds of XPC connection error code values.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectionerrorminimum-swift.var
-func (x NSXPCConnection) NSXPCConnectionErrorMinimum() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionErrorMinimum"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionErrorMinimum(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionErrorMinimum:"), value)
-}
-
-// The upper bounds of XPC connection error code values.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectionerrormaximum-swift.var
-func (x NSXPCConnection) NSXPCConnectionErrorMaximum() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionErrorMaximum"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionErrorMaximum(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionErrorMaximum:"), value)
-}
-
-// A code-signing requirement check failed.
-//
-// See: https://developer.apple.com/documentation/foundation/nsxpcconnectioncodesigningrequirementfailure-swift.var
-func (x NSXPCConnection) NSXPCConnectionCodeSigningRequirementFailure() int {
-	rv := objc.Send[int](x.ID, objc.Sel("NSXPCConnectionCodeSigningRequirementFailure"))
-	return rv
-}
-func (x NSXPCConnection) SetNSXPCConnectionCodeSigningRequirementFailure(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionCodeSigningRequirementFailure:"), value)
 }
 
 // Protocol methods for NSXPCProxyCreating

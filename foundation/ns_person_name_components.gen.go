@@ -81,9 +81,13 @@ func (nc NSPersonNameComponentsClass) Alloc() NSPersonNameComponents {
 // An [NSPersonNameComponents] object encodes the following components of a
 // personal name, which are described in detail below.
 //
-// - Given Name ([NSPersonNameComponents.GivenName]) - Middle Name ([NSPersonNameComponents.MiddleName]) - Family Name
-// ([NSPersonNameComponents.FamilyName]) - Prefix ([NSPersonNameComponents.NamePrefix]) - Suffix ([NSPersonNameComponents.NameSuffix]) - Nickname
-// ([NSPersonNameComponents.Nickname]) - Phonetic Representation ([NSPersonNameComponents.PhoneticRepresentation])
+// - Given Name ([NSPersonNameComponents.GivenName]) - Middle Name
+// ([NSPersonNameComponents.MiddleName]) - Family Name
+// ([NSPersonNameComponents.FamilyName]) - Prefix
+// ([NSPersonNameComponents.NamePrefix]) - Suffix
+// ([NSPersonNameComponents.NameSuffix]) - Nickname
+// ([NSPersonNameComponents.Nickname]) - Phonetic Representation
+// ([NSPersonNameComponents.PhoneticRepresentation])
 //
 // # Given Name
 //
@@ -362,7 +366,7 @@ func NewNSPersonNameComponents() NSPersonNameComponents {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/init(coder:)
 func NewPersonNameComponentsWithCoder(coder INSCoder) NSPersonNameComponents {
 	instance := getNSPersonNameComponentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -378,7 +382,7 @@ func (p NSPersonNameComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/init(coder:)
 func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameComponents {
 	rv := objc.Send[NSPersonNameComponents](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv

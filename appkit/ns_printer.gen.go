@@ -123,6 +123,7 @@ type INSPrinter interface {
 	// A dictionary of keys and values that describe the device.
 	DeviceDescription() foundation.INSDictionary
 
+	InitWithCoder(coder foundation.INSCoder) NSPrinter
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -145,6 +146,13 @@ func NewNSPrinter() NSPrinter {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSPrinter/init(coder:)
+func NewPrinterWithCoder(coder foundation.INSCoder) NSPrinter {
+	instance := getNSPrinterClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSPrinterFromID(rv)
+}
+
 // Creates and returns a printer object initialized with the specified printer
 // name.
 //
@@ -165,7 +173,7 @@ func NewPrinterWithName(name string) NSPrinter {
 // printer with the specified make and model information.
 //
 // type: A string describing the make and model information. You can get this string
-// using the [PrinterTypes] method.
+// using the [NSPrinterClass.PrinterTypes] method.
 //
 // # Return Value
 //
@@ -193,6 +201,12 @@ func NewPrinterWithType(type_ NSPrinterTypeName) NSPrinter {
 func (p NSPrinter) PageSizeForPaper(paperName NSPrinterPaperName) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](p.ID, objc.Sel("pageSizeForPaper:"), objc.String(string(paperName)))
 	return corefoundation.CGSize(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSPrinter/init(coder:)
+func (p NSPrinter) InitWithCoder(coder foundation.INSCoder) NSPrinter {
+	rv := objc.Send[NSPrinter](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (p NSPrinter) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)

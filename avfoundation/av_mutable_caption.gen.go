@@ -116,6 +116,13 @@ func NewAVMutableCaption() AVMutableCaption {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(coder:)
+func NewMutableCaptionWithCoder(coder foundation.INSCoder) AVMutableCaption {
+	instance := getAVMutableCaptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMutableCaptionFromID(rv)
+}
+
 // Creates a caption that contains text and a time range.
 //
 // text: The text the caption displays.

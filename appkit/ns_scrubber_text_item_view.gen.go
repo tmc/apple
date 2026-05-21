@@ -47,9 +47,10 @@ func (nc NSScrubberTextItemViewClass) Alloc() NSScrubberTextItemView {
 //
 // # Overview
 //
-// Provide the text you want to display in the scrubber item to the [NSScrubberTextItemView.Title]
-// property. If you want finer control over the appearance of the text, you
-// can access the underlying text field using the [TextField] property.
+// Provide the text you want to display in the scrubber item to the
+// [NSScrubberTextItemView.Title] property. If you want finer control over the
+// appearance of the text, you can access the underlying text field using the
+// [NSScrubberTextItemView.TextField] property.
 //
 // # Providing text content
 //
@@ -165,7 +166,7 @@ func (s NSScrubberTextItemView) SetTitle(value string) {
 // # Discussion
 //
 // Access and configure the underlying text field used to display the text in
-// the [Title] property.
+// the [NSScrubberTextItemView.Title] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberTextItemView/textField
 func (s NSScrubberTextItemView) TextField() INSTextField {

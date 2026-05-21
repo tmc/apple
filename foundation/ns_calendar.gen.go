@@ -4,7 +4,6 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -122,7 +121,8 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 // times, which can then be rendered into a particular calendar, for
 // calendrical computations or user display.
 //
-// Two [NSCalendar] methods that return a date object, [NSCalendar.DateFromComponents],
+// Two [NSCalendar] methods that return a date object,
+// [NSCalendar.DateFromComponents],
 // [NSCalendar.DateByAddingComponentsToDateOptions], take as a parameter an
 // [NSDateComponents] object that describes the calendrical components
 // required for the computation. You can provide as many components as you
@@ -132,10 +132,10 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 // inconsistent information, calendar-specific disambiguation is performed
 // (which may involve ignoring one or more of the parameters). Related methods
 // ([NSCalendar.ComponentsFromDate] and
-// [NSCalendar.ComponentsFromDateComponentsToDateComponentsOptions]) take a bit mask
-// parameter that specifies which components to calculate when returning an
-// [NSDateComponents] object. The bit mask is composed of [NSCalendar.Unit]
-// constants (see [Constants]).
+// [NSCalendar.ComponentsFromDateComponentsToDateComponentsOptions]) take a
+// bit mask parameter that specifies which components to calculate when
+// returning an [NSDateComponents] object. The bit mask is composed of
+// [NSCalendar.Unit] constants (see [Constants]).
 //
 // In a calendar, day, week, weekday, month, and year numbers are generally
 // 1-based, but there may be calendar-specific exceptions. Ordinal numbers,
@@ -243,10 +243,6 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 //
 //   - [NSCalendar.EraSymbols]: A list of era symbols for this calendar.
 //   - [NSCalendar.LongEraSymbols]: A list of long era symbols for this calendar.
-//
-// # Recognizing Notifications
-//
-//   - [NSCalendar.NSCalendarDayChanged]: A notification that is posted whenever the calendar day of the system changes, as determined by the system calendar, locale, and time zone.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar
 //
@@ -381,10 +377,6 @@ func NSCalendarFromID(id objc.ID) NSCalendar {
 //   - [INSCalendar.EraSymbols]: A list of era symbols for this calendar.
 //   - [INSCalendar.LongEraSymbols]: A list of long era symbols for this calendar.
 //
-// # Recognizing Notifications
-//
-//   - [INSCalendar.NSCalendarDayChanged]: A notification that is posted whenever the calendar day of the system changes, as determined by the system calendar, locale, and time zone.
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar
 type INSCalendar interface {
 	objectivec.IObject
@@ -410,11 +402,11 @@ type INSCalendar interface {
 	// Returns all the date components of a date, as if in a given time zone (instead of the receiving calendar’s time zone).
 	ComponentsInTimeZoneFromDate(timezone INSTimeZone, date INSDate) INSDateComponents
 	// Returns by reference the era, year, week of year, and weekday component values for a given date.
-	GetEraYearMonthDayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, monthValuePointer unsafe.Pointer, dayValuePointer unsafe.Pointer, date INSDate)
+	GetEraYearMonthDayFromDate(eraValuePointer *int, yearValuePointer *int, monthValuePointer *int, dayValuePointer *int, date INSDate)
 	// Returns by reference the era, year, week of year, and weekday component values for a given date.
-	GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, weekValuePointer unsafe.Pointer, weekdayValuePointer unsafe.Pointer, date INSDate)
+	GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer *int, yearValuePointer *int, weekValuePointer *int, weekdayValuePointer *int, date INSDate)
 	// Returns by reference the hour, minute, second, and nanosecond component values for a given date.
-	GetHourMinuteSecondNanosecondFromDate(hourValuePointer unsafe.Pointer, minuteValuePointer unsafe.Pointer, secondValuePointer unsafe.Pointer, nanosecondValuePointer unsafe.Pointer, date INSDate)
+	GetHourMinuteSecondNanosecondFromDate(hourValuePointer *int, minuteValuePointer *int, secondValuePointer *int, nanosecondValuePointer *int, date INSDate)
 
 	// Topic: Getting Calendar Information
 
@@ -441,16 +433,16 @@ type INSCalendar interface {
 	// Returns the range of absolute time values that a smaller calendar unit (such as a day) can take on in a larger calendar unit (such as a month) that includes a specified absolute time.
 	RangeOfUnitInUnitForDate(smaller NSCalendarUnit, larger NSCalendarUnit, date INSDate) NSRange
 	// Returns by reference the starting time and duration of a given calendar unit that contains a given date.
-	RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip unsafe.Pointer, date INSDate) bool
+	RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip float64, date INSDate) bool
 	// Returns whether a given date falls within a weekend period, and if so, returns by reference the start date and time interval of the weekend range.
-	RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip unsafe.Pointer, date INSDate) bool
+	RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip float64, date INSDate) bool
 
 	// Topic: Scanning Dates
 
 	// Returns the first moment of a given date as a date instance.
 	StartOfDayForDate(date INSDate) INSDate
 	// Computes the dates that match (or most closely match) a given set of components, and calls the block once for each of them, until the enumeration is stopped.
-	EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateHandler)
+	EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateBoolBoolHandler)
 	// Returns the next date after a given date matching the given components.
 	NextDateAfterDateMatchingComponentsOptions(date INSDate, comps INSDateComponents, options NSCalendarOptions) INSDate
 	// Returns the next date after a given date that matches the given hour, minute, and second, component values.
@@ -475,7 +467,7 @@ type INSCalendar interface {
 	// Returns a new date created with the given components base on a week-of-year value.
 	DateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecondNanosecond(eraValue int, yearValue int, weekValue int, weekdayValue int, hourValue int, minuteValue int, secondValue int, nanosecondValue int) INSDate
 	// Returns by reference the starting date and time interval range of the next weekend period after a given date.
-	NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip unsafe.Pointer, options NSCalendarOptions, date INSDate) bool
+	NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip float64, options NSCalendarOptions, date INSDate) bool
 
 	// Topic: Comparing Dates
 
@@ -548,11 +540,6 @@ type INSCalendar interface {
 	EraSymbols() []string
 	// A list of long era symbols for this calendar.
 	LongEraSymbols() []string
-
-	// Topic: Recognizing Notifications
-
-	// A notification that is posted whenever the calendar day of the system changes, as determined by the system calendar, locale, and time zone.
-	NSCalendarDayChanged() NSNotificationName
 }
 
 // Init initializes the instance.
@@ -592,7 +579,7 @@ func NewCalendarWithCalendarIdentifier(ident NSCalendarIdentifier) NSCalendar {
 	return NSCalendarFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSCalendar/init(coder:)
 func NewCalendarWithCoder(coder INSCoder) NSCalendar {
 	instance := getNSCalendarClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -650,9 +637,9 @@ func (c NSCalendar) InitWithCalendarIdentifier(ident NSCalendarIdentifier) NSCal
 // # Discussion
 //
 // This method is useful for determining whether dates calculated by methods
-// like [NextDateAfterDateMatchingUnitValueOptions] or
-// [EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock] are
-// exact, or required an adjustment due to a nonexistent time.
+// like [NSCalendar.NextDateAfterDateMatchingUnitValueOptions] or
+// [NSCalendar.EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock]
+// are exact, or required an adjustment due to a nonexistent time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/date(_:matchesComponents:)
 func (c NSCalendar) DateMatchesComponents(date INSDate, components INSDateComponents) bool {
@@ -838,10 +825,10 @@ func (c NSCalendar) ComponentsInTimeZoneFromDate(timezone INSTimeZone, date INSD
 // Pass [NULL] to ignore any individual component parameter.
 //
 // This is a convenience method for getting the time components of a given
-// date using [ComponentsFromDate]
+// date using [NSCalendar.ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getEra(_:year:month:day:from:)
-func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, monthValuePointer unsafe.Pointer, dayValuePointer unsafe.Pointer, date INSDate) {
+func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer *int, yearValuePointer *int, monthValuePointer *int, dayValuePointer *int, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getEra:year:month:day:fromDate:"), eraValuePointer, yearValuePointer, monthValuePointer, dayValuePointer, date)
 }
 
@@ -863,10 +850,10 @@ func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer unsafe.Pointer, y
 // Pass [NULL] to ignore any individual component parameter.
 //
 // This is a convenience method for getting the time components of a given
-// date using [ComponentsFromDate]
+// date using [NSCalendar.ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getEra(_:yearForWeekOfYear:weekOfYear:weekday:from:)
-func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, weekValuePointer unsafe.Pointer, weekdayValuePointer unsafe.Pointer, date INSDate) {
+func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer *int, yearValuePointer *int, weekValuePointer *int, weekdayValuePointer *int, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getEra:yearForWeekOfYear:weekOfYear:weekday:fromDate:"), eraValuePointer, yearValuePointer, weekValuePointer, weekdayValuePointer, date)
 }
 
@@ -888,10 +875,10 @@ func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePoi
 // Pass [NULL] to ignore any individual component parameter.
 //
 // This is a convenience method for getting the time components of a given
-// date using [ComponentsFromDate]
+// date using [NSCalendar.ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getHour(_:minute:second:nanosecond:from:)
-func (c NSCalendar) GetHourMinuteSecondNanosecondFromDate(hourValuePointer unsafe.Pointer, minuteValuePointer unsafe.Pointer, secondValuePointer unsafe.Pointer, nanosecondValuePointer unsafe.Pointer, date INSDate) {
+func (c NSCalendar) GetHourMinuteSecondNanosecondFromDate(hourValuePointer *int, minuteValuePointer *int, secondValuePointer *int, nanosecondValuePointer *int, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getHour:minute:second:nanosecond:fromDate:"), hourValuePointer, minuteValuePointer, secondValuePointer, nanosecondValuePointer, date)
 }
 
@@ -1021,7 +1008,7 @@ func (c NSCalendar) RangeOfUnitInUnitForDate(smaller NSCalendarUnit, larger NSCa
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/range(of:start:interval:for:)
 //
 // [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
-func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip unsafe.Pointer, date INSDate) bool {
+func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip float64, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("rangeOfUnit:startDate:interval:forDate:"), unit, datep, tip, date)
 	return rv
 }
@@ -1046,7 +1033,7 @@ func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, dat
 // some calendars and locales.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/range(ofWeekendStart:interval:containing:)
-func (c NSCalendar) RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip unsafe.Pointer, date INSDate) bool {
+func (c NSCalendar) RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip float64, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("rangeOfWeekendStartDate:interval:containingDate:"), datep, tip, date)
 	return rv
 }
@@ -1199,8 +1186,8 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/enumerateDates(startingAfter:matching:options:using:)
 //
 // [NSCalendar.Options]: https://developer.apple.com/documentation/Foundation/NSCalendar/Options
-func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateHandler) {
-	_block3, _ := NewDateBlock(block)
+func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateBoolBoolHandler) {
+	_block3, _ := NewDateBoolBoolBlock(block)
 	objc.Send[objc.ID](c.ID, objc.Sel("enumerateDatesStartingAfterDate:matchingComponents:options:usingBlock:"), start, comps, opts, _block3)
 }
 
@@ -1219,8 +1206,8 @@ func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsin
 // # Discussion
 //
 // To compute a sequence of dates, use the
-// [EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock] method
-// instead of calling this method in a loop with the previous loop
+// [NSCalendar.EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock]
+// method instead of calling this method in a loop with the previous loop
 // iteration’s result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/nextDate(after:matching:options:)
@@ -1443,9 +1430,9 @@ func (c NSCalendar) DateBySettingHourMinuteSecondOfDateOptions(h int, m int, s i
 // to change as well. For example, setting the `weekday` to “Thursday”
 // will require the `day` component to change its value, and possibly the
 // `month` and `year` as well. You can use the
-// [NextDateAfterDateMatchingUnitValueOptions] method to specify more precise
-// behavior for determining the next or previous date for a given date
-// component.
+// [NSCalendar.NextDateAfterDateMatchingUnitValueOptions] method to specify
+// more precise behavior for determining the next or previous date for a given
+// date component.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/date(bySettingUnit:value:of:options:)
 //
@@ -1541,7 +1528,7 @@ func (c NSCalendar) DateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecon
 // some calendars and locales.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/nextWeekendStart(_:interval:options:after:)
-func (c NSCalendar) NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip unsafe.Pointer, options NSCalendarOptions, date INSDate) bool {
+func (c NSCalendar) NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip float64, options NSCalendarOptions, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("nextWeekendStartDate:interval:options:afterDate:"), datep, tip, options, date)
 	return rv
 }
@@ -1648,10 +1635,10 @@ func (c NSCalendar) IsDateInTomorrow(date INSDate) bool {
 // # Discussion
 //
 // If the date does fall within a weekend, you can use the
-// [RangeOfWeekendStartDateIntervalContainingDate] method to determine the
-// start date of that weekend period. Otherwise, you can use the
-// [NextWeekendStartDateIntervalOptionsAfterDate] method to determine the
-// start date of the next or previous weekend.
+// [NSCalendar.RangeOfWeekendStartDateIntervalContainingDate] method to
+// determine the start date of that weekend period. Otherwise, you can use the
+// [NSCalendar.NextWeekendStartDateIntervalOptionsAfterDate] method to
+// determine the start date of the next or previous weekend.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/isDateInWeekend(_:)
 func (c NSCalendar) IsDateInWeekend(date INSDate) bool {
@@ -1682,7 +1669,7 @@ func (c NSCalendar) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSCalendar/init(coder:)
 func (c NSCalendar) InitWithCoder(coder INSCoder) NSCalendar {
 	rv := objc.Send[NSCalendar](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -1900,15 +1887,6 @@ func (c NSCalendar) LongEraSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-// A notification that is posted whenever the calendar day of the system
-// changes, as determined by the system calendar, locale, and time zone.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nscalendardaychanged
-func (c NSCalendar) NSCalendarDayChanged() NSNotificationName {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("NSCalendarDayChangedNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
-}
-
 // The user’s current calendar.
 //
 // # Return Value
@@ -1921,7 +1899,7 @@ func (c NSCalendar) NSCalendarDayChanged() NSNotificationName {
 // chosen system locale overlaid with any custom settings the user has
 // specified in System Preferences. Settings you get from this calendar do not
 // change as System Preferences are changed, so that your operations are
-// consistent (contrast with [AutoupdatingCurrentCalendar]).
+// consistent (contrast with [NSCalendarClass.AutoupdatingCurrentCalendar]).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/current
 func (_NSCalendarClass NSCalendarClass) CurrentCalendar() NSCalendar {
@@ -1938,7 +1916,7 @@ func (_NSCalendarClass NSCalendarClass) CurrentCalendar() NSCalendar {
 // # Discussion
 //
 // Settings you get from this calendar do change as the user’s settings
-// change (contrast with [CurrentCalendar]).
+// change (contrast with [NSCalendarClass.CurrentCalendar]).
 //
 // Note that if you cache values based on the calendar or related information
 // those caches will of course not be automatically updated by the updating of

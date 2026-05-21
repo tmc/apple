@@ -110,12 +110,6 @@ type INEVPNIKEv2SecurityAssociationParameters interface {
 	PostQuantumKeyExchangeMethods() []foundation.NSNumber
 	SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber)
 
-	// An
-	ChildSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
-	SetChildSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
-	// An
-	IkeSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
-	SetIKESecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -184,9 +178,11 @@ func (v NEVPNIKEv2SecurityAssociationParameters) SetIntegrityAlgorithm(value NEV
 //
 // The default value of this property is [NEVPNIKEv2DiffieHellmanGroup14].
 //
-// The value of this property on [ChildSecurityAssociationParameters] of
-// [NEVPNProtocolIKEv2] only takes effect if the [EnablePFS] of
-// [NEVPNProtocolIKEv2] is true (its default value is false).
+// The value of this property on
+// [NEVPNProtocolIKEv2.ChildSecurityAssociationParameters] of
+// [NEVPNProtocolIKEv2] only takes effect if the
+// [NEVPNProtocolIKEv2.EnablePFS] of [NEVPNProtocolIKEv2] is true (its default
+// value is false).
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/diffieHellmanGroup
 func (v NEVPNIKEv2SecurityAssociationParameters) DiffieHellmanGroup() NEVPNIKEv2DiffieHellmanGroup {
@@ -232,26 +228,4 @@ func (v NEVPNIKEv2SecurityAssociationParameters) PostQuantumKeyExchangeMethods()
 }
 func (v NEVPNIKEv2SecurityAssociationParameters) SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPostQuantumKeyExchangeMethods:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// An
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/childsecurityassociationparameters
-func (v NEVPNIKEv2SecurityAssociationParameters) ChildSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("childSecurityAssociationParameters"))
-	return NEVPNIKEv2SecurityAssociationParametersFromID(objc.ID(rv))
-}
-func (v NEVPNIKEv2SecurityAssociationParameters) SetChildSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters) {
-	objc.Send[struct{}](v.ID, objc.Sel("setChildSecurityAssociationParameters:"), value)
-}
-
-// An
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/ikesecurityassociationparameters
-func (v NEVPNIKEv2SecurityAssociationParameters) IkeSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("IKESecurityAssociationParameters"))
-	return NEVPNIKEv2SecurityAssociationParametersFromID(objc.ID(rv))
-}
-func (v NEVPNIKEv2SecurityAssociationParameters) SetIKESecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIKESecurityAssociationParameters:"), value)
 }

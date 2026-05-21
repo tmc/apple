@@ -28,7 +28,7 @@ type NSDraggingInfo interface {
 	// Enumerates through each dragging item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler)
+	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objectivec.Class, searchOptions foundation.INSDictionary, block DraggingItemIntBoolHandler)
 
 	// Resets a spring-loading operation to its initial state.
 	//
@@ -164,12 +164,12 @@ func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGP
 //
 // block: The block to execute for the enumeration. The block takes three arguments:
 //
-// `draggingItem`: A reference to the dragging item. The [DraggingFrame] of
-// the dragging item is in the coordinate space of the view that `view`
-// specifies. A `view` value of `nil` means the screen coordinate space.
-// `idx`: The index of the element in the classes. `stop`: A reference to a
-// Boolean value that the block can use to stop the enumeration by setting
-// `*stop` to true.
+// `draggingItem`: A reference to the dragging item. The
+// [NSDraggingItem.DraggingFrame] of the dragging item is in the coordinate
+// space of the view that `view` specifies. A `view` value of `nil` means the
+// screen coordinate space. `idx`: The index of the element in the classes.
+// `stop`: A reference to a Boolean value that the block can use to stop the
+// enumeration by setting `*stop` to true.
 //
 // # Discussion
 //
@@ -208,7 +208,7 @@ func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGP
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
 //
 // [NSDraggingItemEnumerationOptions]: https://developer.apple.com/documentation/AppKit/NSDraggingItemEnumerationOptions
-func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler) {
+func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objectivec.Class, searchOptions foundation.INSDictionary, block DraggingItemIntBoolHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
 }
 
@@ -381,8 +381,8 @@ func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
 //
 // This property is inspected between prepareForDragOperation: and
 // performDragOperation:. You should enumerate through the dragging items
-// during performDragOperation: to set the item’s [DraggingFrame] to the
-// correct destinations.
+// during performDragOperation: to set the item’s
+// [NSDraggingItem.DraggingFrame] to the correct destinations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
 func (o NSDraggingInfoObject) AnimatesToDestination() bool {

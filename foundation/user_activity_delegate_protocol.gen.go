@@ -39,7 +39,8 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 // available to open.
 //
 // userActivity: The user activity that is continuing on another device. This user
-// activity’s [SupportsContinuationStreams] property must be true.
+// activity’s [NSUserActivity.SupportsContinuationStreams] property must be
+// true.
 //
 // inputStream: The stream from which the originating app can read data written from the
 // continuing app.
@@ -49,11 +50,11 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 //
 // # Discussion
 //
-// If [SupportsContinuationStreams] is true, the continuing app can request
-// streams back to the originating app. This delegate callback is received
-// with the streams from the continuing side. The streams are provided in an
-// unopened state, and the delegate should open them immediately to start
-// communicating with the continuing side.
+// If [NSUserActivity.SupportsContinuationStreams] is true, the continuing app
+// can request streams back to the originating app. This delegate callback is
+// received with the streams from the continuing side. The streams are
+// provided in an unopened state, and the delegate should open them
+// immediately to start communicating with the continuing side.
 //
 // Continuation streams are an optional feature of Handoff, and most user
 // activities do not need them for successful continuation. When streams are

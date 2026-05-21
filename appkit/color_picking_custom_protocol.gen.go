@@ -62,10 +62,11 @@ func NSColorPickingCustomObjectFromID(id objc.ID) NSColorPickingCustomObject {
 // # Discussion
 //
 // This method is invoked on the current color picker each time
-// [NSColorPanel]‘s [Color] method is invoked. If `color` is actually
-// different from the color picker’s color (as it would be if, for example,
-// the user dragged a color into [NSColorPanel]‘s color well), this method
-// could be used to update the color picker’s color to reflect the change.
+// [NSColorPanel]‘s [NSColorPanel.Color] method is invoked. If `color` is
+// actually different from the color picker’s color (as it would be if, for
+// example, the user dragged a color into [NSColorPanel]‘s color well), this
+// method could be used to update the color picker’s color to reflect the
+// change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/setColor(_:)
 func (o NSColorPickingCustomObject) SetColor(newColor INSColor) {
@@ -100,10 +101,10 @@ func (o NSColorPickingCustomObject) CurrentMode() NSColorPanelMode {
 //
 // This method is invoked when the [NSColorPanel] is first initialized: It is
 // used to attempt to restore the user’s previously selected mode. It is
-// also invoked by [NSColorPanel]‘s [Mode] method to find the color picker
-// that supports a particular mode. See this protocol description’s list of
-// the unique mode values for the standard color pickers used by the
-// Application Kit.
+// also invoked by [NSColorPanel]‘s [NSColorPanel.Mode] method to find the
+// color picker that supports a particular mode. See this protocol
+// description’s list of the unique mode values for the standard color
+// pickers used by the Application Kit.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/supportsMode(_:)
 func (o NSColorPickingCustomObject) SupportsMode(mode NSColorPanelMode) bool {
@@ -143,11 +144,11 @@ func (o NSColorPickingCustomObject) ProvideNewView(initialRequest bool) INSView 
 //
 // # Discussion
 //
-// This method is invoked by the [NSColorPanel] method [Mode] method to ensure
-// the color picker reflects the current mode. For example, invoke this method
-// during color picker initialization to ensure that all color pickers are
-// restored to the mode the user left them in the last time an [NSColorPanel]
-// was used.
+// This method is invoked by the [NSColorPanel] method [NSColorPanel.Mode]
+// method to ensure the color picker reflects the current mode. For example,
+// invoke this method during color picker initialization to ensure that all
+// color pickers are restored to the mode the user left them in the last time
+// an [NSColorPanel] was used.
 //
 // Most color pickers have only one mode and thus don’t need to do any work
 // in this method. An example of a color picker that uses this method is the
@@ -234,8 +235,8 @@ func (o NSColorPickingCustomObject) ButtonToolTip() string {
 // [NSColorPanel] is added or removed; you never invoke this method directly.
 //
 // If the color picker has its own opacity controls, it should hide or display
-// them, depending on whether the sender’s [ShowsAlpha] method returns false
-// or true.
+// them, depending on whether the sender’s [NSColorPanel.ShowsAlpha] method
+// returns false or true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
 func (o NSColorPickingCustomObject) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
@@ -267,10 +268,10 @@ func (o NSColorPickingCustomObject) ViewSizeChanged(sender objectivec.IObject) {
 // # Discussion
 //
 // You never invoke this method; it’s invoked automatically by the
-// [NSColorPanel] object when its [AttachColorList] method is invoked. Because
-// the [NSColorPanel] list mode manages [NSColorList] objects, this method
-// need only be implemented by a custom color picker that manages
-// [NSColorList] objects itself.
+// [NSColorPanel] object when its [NSColorPanel.AttachColorList] method is
+// invoked. Because the [NSColorPanel] list mode manages [NSColorList]
+// objects, this method need only be implemented by a custom color picker that
+// manages [NSColorList] objects itself.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/attachColorList(_:)
 func (o NSColorPickingCustomObject) AttachColorList(colorList INSColorList) {
@@ -285,10 +286,10 @@ func (o NSColorPickingCustomObject) AttachColorList(colorList INSColorList) {
 // # Discussion
 //
 // You never invoke this method; it’s invoked automatically by the
-// [NSColorPanel] object when its [DetachColorList] method is invoked. Because
-// the [NSColorPanel] list mode manages [NSColorList] objects, this method
-// need only be implemented by a custom color picker that manages
-// [NSColorList] objects itself.
+// [NSColorPanel] object when its [NSColorPanel.DetachColorList] method is
+// invoked. Because the [NSColorPanel] list mode manages [NSColorList]
+// objects, this method need only be implemented by a custom color picker that
+// manages [NSColorList] objects itself.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/detachColorList(_:)
 func (o NSColorPickingCustomObject) DetachColorList(colorList INSColorList) {

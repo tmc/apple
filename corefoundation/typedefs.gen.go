@@ -4,6 +4,8 @@ package corefoundation
 
 import (
 	"unsafe"
+
+	"github.com/tmc/apple/kernel"
 )
 
 // CFAbsoluteTime is type used to represent a specific point in time relative to the absolute reference date of 1 Jan 2001 00:00:00 GMT.
@@ -14,27 +16,27 @@ type CFAbsoluteTime = float64
 // CFAllocatorAllocateCallBack is a prototype for a function callback that allocates memory of a requested size.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorAllocateCallBack
-type CFAllocatorAllocateCallBack = func(int, uint, unsafe.Pointer) unsafe.Pointer
+type CFAllocatorAllocateCallBack = func(int, uint, kernel.Pointer) kernel.Pointer
 
 // CFAllocatorCopyDescriptionCallBack is a prototype for a function callback that provides a description of the specified data.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorCopyDescriptionCallBack
-type CFAllocatorCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFAllocatorCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFAllocatorDeallocateCallBack is a prototype for a function callback that deallocates a block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorDeallocateCallBack
-type CFAllocatorDeallocateCallBack = func(unsafe.Pointer, unsafe.Pointer)
+type CFAllocatorDeallocateCallBack = func(kernel.Pointer, kernel.Pointer)
 
 // CFAllocatorPreferredSizeCallBack is a prototype for a function callback that gives the size of memory likely to be allocated, given a certain request.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorPreferredSizeCallBack
-type CFAllocatorPreferredSizeCallBack = func(int, uint, unsafe.Pointer) int
+type CFAllocatorPreferredSizeCallBack = func(int, uint, kernel.Pointer) int
 
 // CFAllocatorReallocateCallBack is a prototype for a function callback that reallocates memory of a requested size for an existing block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorReallocateCallBack
-type CFAllocatorReallocateCallBack = func(unsafe.Pointer, int, uint, unsafe.Pointer) unsafe.Pointer
+type CFAllocatorReallocateCallBack = func(kernel.Pointer, int, uint, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocator
 type CFAllocatorRef uintptr
@@ -42,12 +44,12 @@ type CFAllocatorRef uintptr
 // CFAllocatorReleaseCallBack is a prototype for a function callback that releases the given data.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorReleaseCallBack
-type CFAllocatorReleaseCallBack = func(unsafe.Pointer)
+type CFAllocatorReleaseCallBack = func(kernel.Pointer)
 
 // CFAllocatorRetainCallBack is a prototype for a function callback that retains the given data.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorRetainCallBack
-type CFAllocatorRetainCallBack = func(unsafe.Pointer) unsafe.Pointer
+type CFAllocatorRetainCallBack = func(kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorTypeID
 type CFAllocatorTypeID = uint64
@@ -55,17 +57,17 @@ type CFAllocatorTypeID = uint64
 // CFArrayApplierFunction is prototype of a callback function that may be applied to every value in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayApplierFunction
-type CFArrayApplierFunction = func(unsafe.Pointer, unsafe.Pointer)
+type CFArrayApplierFunction = func(kernel.Pointer, kernel.Pointer)
 
 // CFArrayCopyDescriptionCallBack is prototype of a callback function used to get a description of a value in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayCopyDescriptionCallBack
-type CFArrayCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFArrayCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFArrayEqualCallBack is prototype of a callback function used to determine if two values in an array are equal.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayEqualCallBack
-type CFArrayEqualCallBack = func(unsafe.Pointer, unsafe.Pointer) uint8
+type CFArrayEqualCallBack = func(kernel.Pointer, kernel.Pointer) uint8
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArray
 type CFArrayRef uintptr
@@ -73,12 +75,12 @@ type CFArrayRef uintptr
 // CFArrayReleaseCallBack is prototype of a callback function used to release a value before it’s removed from an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayReleaseCallBack
-type CFArrayReleaseCallBack = func(uintptr, unsafe.Pointer)
+type CFArrayReleaseCallBack = func(uintptr, kernel.Pointer)
 
 // CFArrayRetainCallBack is prototype of a callback function used to retain a value being added to an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayRetainCallBack
-type CFArrayRetainCallBack = func(uintptr, unsafe.Pointer) unsafe.Pointer
+type CFArrayRetainCallBack = func(uintptr, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedString
 type CFAttributedStringRef uintptr
@@ -86,22 +88,22 @@ type CFAttributedStringRef uintptr
 // CFBagApplierFunction is prototype of a callback function that may be applied to every value in a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagApplierFunction
-type CFBagApplierFunction = func(unsafe.Pointer, unsafe.Pointer)
+type CFBagApplierFunction = func(kernel.Pointer, kernel.Pointer)
 
 // CFBagCopyDescriptionCallBack is prototype of a callback function used to get a description of a value in a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagCopyDescriptionCallBack
-type CFBagCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFBagCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFBagEqualCallBack is prototype of a callback function used to determine if two values in a bag are equal.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagEqualCallBack
-type CFBagEqualCallBack = func(unsafe.Pointer, unsafe.Pointer) uint8
+type CFBagEqualCallBack = func(kernel.Pointer, kernel.Pointer) uint8
 
 // CFBagHashCallBack is prototype of a callback function invoked to compute a hash code for a value. Hash codes are used when values are accessed, added, or removed from a collection.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagHashCallBack
-type CFBagHashCallBack = func(unsafe.Pointer) uint
+type CFBagHashCallBack = func(kernel.Pointer) uint
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBag
 type CFBagRef uintptr
@@ -109,17 +111,17 @@ type CFBagRef uintptr
 // CFBagReleaseCallBack is prototype of a callback function used to release a value before it’s removed from a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagReleaseCallBack
-type CFBagReleaseCallBack = func(uintptr, unsafe.Pointer)
+type CFBagReleaseCallBack = func(uintptr, kernel.Pointer)
 
 // CFBagRetainCallBack is prototype of a callback function used to retain a value being added to a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagRetainCallBack
-type CFBagRetainCallBack = func(uintptr, unsafe.Pointer) unsafe.Pointer
+type CFBagRetainCallBack = func(uintptr, kernel.Pointer) kernel.Pointer
 
 // CFBinaryHeapApplierFunction is callback function used to apply a function to all members of a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapApplierFunction
-type CFBinaryHeapApplierFunction = func(unsafe.Pointer, unsafe.Pointer)
+type CFBinaryHeapApplierFunction = func(kernel.Pointer, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeap
 type CFBinaryHeapRef uintptr
@@ -155,7 +157,7 @@ type CFCharacterSetRef uintptr
 // CFComparatorFunction is callback function that compares two values. You provide a pointer to this callback in certain Core Foundation sorting functions.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFComparatorFunction
-type CFComparatorFunction = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) CFComparisonResult
+type CFComparatorFunction = func(kernel.Pointer, kernel.Pointer, kernel.Pointer) CFComparisonResult
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFData
 type CFDataRef uintptr
@@ -172,22 +174,22 @@ type CFDateRef uintptr
 // CFDictionaryApplierFunction is prototype of a callback function that may be applied to every key-value pair in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryApplierFunction
-type CFDictionaryApplierFunction = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
+type CFDictionaryApplierFunction = func(kernel.Pointer, kernel.Pointer, kernel.Pointer)
 
 // CFDictionaryCopyDescriptionCallBack is prototype of a callback function used to get a description of a value or key in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryCopyDescriptionCallBack
-type CFDictionaryCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFDictionaryCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFDictionaryEqualCallBack is prototype of a callback function used to determine if two values or keys in a dictionary are equal.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryEqualCallBack
-type CFDictionaryEqualCallBack = func(unsafe.Pointer, unsafe.Pointer) uint8
+type CFDictionaryEqualCallBack = func(kernel.Pointer, kernel.Pointer) uint8
 
 // CFDictionaryHashCallBack is prototype of a callback function invoked to compute a hash code for a key. Hash codes are used when key-value pairs are accessed, added, or removed from a collection.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryHashCallBack
-type CFDictionaryHashCallBack = func(unsafe.Pointer) uint
+type CFDictionaryHashCallBack = func(kernel.Pointer) uint
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionary
 type CFDictionaryRef uintptr
@@ -195,12 +197,12 @@ type CFDictionaryRef uintptr
 // CFDictionaryReleaseCallBack is prototype of a callback function used to release a key-value pair before it’s removed from a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryReleaseCallBack
-type CFDictionaryReleaseCallBack = func(uintptr, unsafe.Pointer)
+type CFDictionaryReleaseCallBack = func(uintptr, kernel.Pointer)
 
 // CFDictionaryRetainCallBack is prototype of a callback function used to retain a value or key being added to a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryRetainCallBack
-type CFDictionaryRetainCallBack = func(uintptr, unsafe.Pointer) unsafe.Pointer
+type CFDictionaryRetainCallBack = func(uintptr, kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFErrorDomain
 type CFErrorDomain = unsafe.Pointer
@@ -211,7 +213,7 @@ type CFErrorRef uintptr
 // CFFileDescriptorCallBack is defines a structure for a callback for a CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorCallBack
-type CFFileDescriptorCallBack = func(uintptr, uint, unsafe.Pointer)
+type CFFileDescriptorCallBack = func(uintptr, uint, kernel.Pointer)
 
 // CFFileDescriptorNativeDescriptor is defines a type for the native file descriptor.
 //
@@ -248,12 +250,12 @@ type CFLocaleRef uintptr
 // CFMachPortCallBack is callback invoked to process a message received on a CFMachPort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortCallBack
-type CFMachPortCallBack = func(uintptr, unsafe.Pointer, int, unsafe.Pointer)
+type CFMachPortCallBack = func(uintptr, kernel.Pointer, int, kernel.Pointer)
 
 // CFMachPortInvalidationCallBack is callback invoked when a CFMachPort object is invalidated.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortInvalidationCallBack
-type CFMachPortInvalidationCallBack = func(uintptr, unsafe.Pointer)
+type CFMachPortInvalidationCallBack = func(uintptr, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPort
 type CFMachPortRef uintptr
@@ -261,12 +263,12 @@ type CFMachPortRef uintptr
 // CFMessagePortCallBack is callback invoked to process a message received on a CFMessagePort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortCallBack
-type CFMessagePortCallBack = func(uintptr, int, uintptr, unsafe.Pointer) uintptr
+type CFMessagePortCallBack = func(uintptr, int, uintptr, kernel.Pointer) uintptr
 
 // CFMessagePortInvalidationCallBack is callback invoked when a CFMessagePort object is invalidated.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortInvalidationCallBack
-type CFMessagePortInvalidationCallBack = func(uintptr, unsafe.Pointer)
+type CFMessagePortInvalidationCallBack = func(uintptr, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePort
 type CFMessagePortRef uintptr
@@ -301,7 +303,7 @@ type CFMutableStringRef uintptr
 // CFNotificationCallback is callback function invoked for each observer of a notification when the notification is posted.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCallback
-type CFNotificationCallback = func(uintptr, unsafe.Pointer, uintptr, unsafe.Pointer, uintptr)
+type CFNotificationCallback = func(uintptr, kernel.Pointer, uintptr, kernel.Pointer, uintptr)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenter
 type CFNotificationCenterRef uintptr
@@ -334,17 +336,17 @@ type CFPlugInDynamicRegisterFunction = func(uintptr)
 // CFPlugInFactoryFunction is callback function that a plug-in author must implement to create a plug-in instance.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInFactoryFunction
-type CFPlugInFactoryFunction = func(uintptr, uintptr) unsafe.Pointer
+type CFPlugInFactoryFunction = func(uintptr, uintptr) kernel.Pointer
 
 // CFPlugInInstanceDeallocateInstanceDataFunction is not recommended.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInInstanceDeallocateInstanceDataFunction
-type CFPlugInInstanceDeallocateInstanceDataFunction = func(unsafe.Pointer)
+type CFPlugInInstanceDeallocateInstanceDataFunction = func(kernel.Pointer)
 
 // CFPlugInInstanceGetInterfaceFunction is not recommended.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInInstanceGetInterfaceFunction
-type CFPlugInInstanceGetInterfaceFunction = func(uintptr, uintptr, unsafe.Pointer) uint8
+type CFPlugInInstanceGetInterfaceFunction = func(uintptr, uintptr, kernel.Pointer) uint8
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInInstance
 type CFPlugInInstanceRef uintptr
@@ -363,7 +365,7 @@ type CFPropertyListRef uintptr
 // CFReadStreamClientCallBack is callback invoked when certain types of activity takes place on a readable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamClientCallBack
-type CFReadStreamClientCallBack = func(uintptr, CFStreamEventType, unsafe.Pointer)
+type CFReadStreamClientCallBack = func(uintptr, CFStreamEventType, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStream
 type CFReadStreamRef uintptr
@@ -374,7 +376,7 @@ type CFRunLoopMode = uint
 // CFRunLoopObserverCallBack is callback invoked when a CFRunLoopObserver object is fired.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverCallBack
-type CFRunLoopObserverCallBack = func(uintptr, CFRunLoopActivity, unsafe.Pointer)
+type CFRunLoopObserverCallBack = func(uintptr, CFRunLoopActivity, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserver
 type CFRunLoopObserverRef uintptr
@@ -388,7 +390,7 @@ type CFRunLoopSourceRef uintptr
 // CFRunLoopTimerCallBack is callback invoked when a CFRunLoopTimer object fires.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerCallBack
-type CFRunLoopTimerCallBack = func(uintptr, unsafe.Pointer)
+type CFRunLoopTimerCallBack = func(uintptr, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimer
 type CFRunLoopTimerRef uintptr
@@ -396,22 +398,22 @@ type CFRunLoopTimerRef uintptr
 // CFSetApplierFunction is prototype of a callback function that may be applied to every value in a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetApplierFunction
-type CFSetApplierFunction = func(unsafe.Pointer, unsafe.Pointer)
+type CFSetApplierFunction = func(kernel.Pointer, kernel.Pointer)
 
 // CFSetCopyDescriptionCallBack is prototype of a callback function used to get a description of a value in a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetCopyDescriptionCallBack
-type CFSetCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFSetCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFSetEqualCallBack is prototype of a callback function used to determine if two values in a set are equal.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetEqualCallBack
-type CFSetEqualCallBack = func(unsafe.Pointer, unsafe.Pointer) uint8
+type CFSetEqualCallBack = func(kernel.Pointer, kernel.Pointer) uint8
 
 // CFSetHashCallBack is prototype of a callback function called to compute a hash code for a value. Hash codes are used when values are accessed, added, or removed from a collection.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetHashCallBack
-type CFSetHashCallBack = func(unsafe.Pointer) uint
+type CFSetHashCallBack = func(kernel.Pointer) uint
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSet
 type CFSetRef uintptr
@@ -419,17 +421,17 @@ type CFSetRef uintptr
 // CFSetReleaseCallBack is prototype of a callback function used to release a value before it’s removed from a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetReleaseCallBack
-type CFSetReleaseCallBack = func(uintptr, unsafe.Pointer)
+type CFSetReleaseCallBack = func(uintptr, kernel.Pointer)
 
 // CFSetRetainCallBack is prototype of a callback function used to retain a value being added to a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetRetainCallBack
-type CFSetRetainCallBack = func(uintptr, unsafe.Pointer) unsafe.Pointer
+type CFSetRetainCallBack = func(uintptr, kernel.Pointer) kernel.Pointer
 
 // CFSocketCallBack is callback invoked when certain types of activity takes place on a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCallBack
-type CFSocketCallBack = func(uintptr, CFSocketCallBackType, uintptr, unsafe.Pointer, unsafe.Pointer)
+type CFSocketCallBack = func(uintptr, CFSocketCallBackType, uintptr, kernel.Pointer, kernel.Pointer)
 
 // CFSocketNativeHandle is type for the platform-specific native socket handle.
 //
@@ -464,12 +466,12 @@ type CFTimeZoneRef uintptr
 // CFTreeApplierFunction is type of the callback function used by the CFTree apply function.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeApplierFunction
-type CFTreeApplierFunction = func(unsafe.Pointer, unsafe.Pointer)
+type CFTreeApplierFunction = func(kernel.Pointer, kernel.Pointer)
 
 // CFTreeCopyDescriptionCallBack is callback function used to provide a description of the program-defined information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeCopyDescriptionCallBack
-type CFTreeCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFTreeCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTree
 type CFTreeRef uintptr
@@ -477,12 +479,12 @@ type CFTreeRef uintptr
 // CFTreeReleaseCallBack is callback function used to release a previously retained program-defined information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeReleaseCallBack
-type CFTreeReleaseCallBack = func(unsafe.Pointer)
+type CFTreeReleaseCallBack = func(kernel.Pointer)
 
 // CFTreeRetainCallBack is callback function used to retain a program-defined information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeRetainCallBack
-type CFTreeRetainCallBack = func(unsafe.Pointer) unsafe.Pointer
+type CFTreeRetainCallBack = func(kernel.Pointer) kernel.Pointer
 
 // CFTypeID is a type for unique, constant integer values that identify particular Core Foundation opaque types.
 //
@@ -492,7 +494,7 @@ type CFTypeID = uint
 // CFTypeRef is an untyped “generic” reference to any Core Foundation object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTypeRef
-type CFTypeRef = unsafe.Pointer
+type CFTypeRef = kernel.Pointer
 
 // CFURLBookmarkFileCreationOptions is type for bookmark file creation options.
 //
@@ -521,7 +523,7 @@ type CFUserNotificationRef uintptr
 // CFWriteStreamClientCallBack is callback invoked when certain types of activity takes place on a writable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamClientCallBack
-type CFWriteStreamClientCallBack = func(uintptr, CFStreamEventType, unsafe.Pointer)
+type CFWriteStreamClientCallBack = func(uintptr, CFStreamEventType, kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStream
 type CFWriteStreamRef uintptr
@@ -529,27 +531,27 @@ type CFWriteStreamRef uintptr
 // CFXMLParserAddChildCallBack is callback function invoked by the parser to notify your application of parent/child relationships between XML structures.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserAddChildCallBack
-type CFXMLParserAddChildCallBack = func(uintptr, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
+type CFXMLParserAddChildCallBack = func(uintptr, kernel.Pointer, kernel.Pointer, kernel.Pointer)
 
 // CFXMLParserCopyDescriptionCallBack is callback function invoked by the parser when handling the information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCopyDescriptionCallBack
-type CFXMLParserCopyDescriptionCallBack = func(unsafe.Pointer) uintptr
+type CFXMLParserCopyDescriptionCallBack = func(kernel.Pointer) uintptr
 
 // CFXMLParserCreateXMLStructureCallBack is callback function invoked when the parser encounters an XML open tag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCreateXMLStructureCallBack
-type CFXMLParserCreateXMLStructureCallBack = func(uintptr, uintptr, unsafe.Pointer) unsafe.Pointer
+type CFXMLParserCreateXMLStructureCallBack = func(uintptr, uintptr, kernel.Pointer) kernel.Pointer
 
 // CFXMLParserEndXMLStructureCallBack is callback function invoked by the parser to notify your application that an XML structure (and all its children) have been completely parsed.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserEndXMLStructureCallBack
-type CFXMLParserEndXMLStructureCallBack = func(uintptr, unsafe.Pointer, unsafe.Pointer)
+type CFXMLParserEndXMLStructureCallBack = func(uintptr, kernel.Pointer, kernel.Pointer)
 
 // CFXMLParserHandleErrorCallBack is callback function invoked by the parser to notify your application that an error has occurred.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserHandleErrorCallBack
-type CFXMLParserHandleErrorCallBack = func(uintptr, CFXMLParserStatusCode, unsafe.Pointer) uint8
+type CFXMLParserHandleErrorCallBack = func(uintptr, CFXMLParserStatusCode, kernel.Pointer) uint8
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParser
 type CFXMLParserRef uintptr
@@ -557,17 +559,17 @@ type CFXMLParserRef uintptr
 // CFXMLParserReleaseCallBack is callback function invoked by the parser when it wants to release a reference to the information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserReleaseCallBack
-type CFXMLParserReleaseCallBack = func(unsafe.Pointer)
+type CFXMLParserReleaseCallBack = func(kernel.Pointer)
 
 // CFXMLParserResolveExternalEntityCallBack is callback function invoked by the parser to notify your application that an external entity has been referenced.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserResolveExternalEntityCallBack
-type CFXMLParserResolveExternalEntityCallBack = func(uintptr, *CFXMLExternalID, unsafe.Pointer) uintptr
+type CFXMLParserResolveExternalEntityCallBack = func(uintptr, *CFXMLExternalID, kernel.Pointer) uintptr
 
 // CFXMLParserRetainCallBack is callback function invoked by the parser when it needs another reference to the information pointer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserRetainCallBack
-type CFXMLParserRetainCallBack = func(unsafe.Pointer) unsafe.Pointer
+type CFXMLParserRetainCallBack = func(kernel.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTree
 type CFXMLTreeRef uintptr
@@ -581,7 +583,7 @@ type CGFloat = float64
 type HRESULT = int32
 
 // See: https://developer.apple.com/documentation/CoreFoundation/LPVOID
-type LPVOID = string
+type LPVOID = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/CoreFoundation/REFIID
 type REFIID = CFUUIDBytes

@@ -54,27 +54,28 @@ func (nc NSPathCellClass) Alloc() NSPathCell {
 // [NSPathCell] maintains a collection of [NSPathComponentCell] objects that
 // represent a particular path to be displayed to the user.
 //
-// The path shown can be set with the [NSPathCell.ClickedPathComponentCell] method. Doing
-// so removes all displayed [NSPathComponentCell] objects and automatically
-// fills the control with [NSPathComponentCell] objects set to have the
-// appropriate icons, display titles, and [NSURL] values for the particular
-// path component they represent. Alternatively, you can fill the control
-// manually by setting the cell array or directly modifying existing cells.
+// The path shown can be set with the [NSPathCell.ClickedPathComponentCell]
+// method. Doing so removes all displayed [NSPathComponentCell] objects and
+// automatically fills the control with [NSPathComponentCell] objects set to
+// have the appropriate icons, display titles, and [NSURL] values for the
+// particular path component they represent. Alternatively, you can fill the
+// control manually by setting the cell array or directly modifying existing
+// cells.
 //
 // Both an action and double-click action can be set for the path control. To
 // find out what path component cell was clicked in the action, you can read
-// the value of [NSPathCell.ClickedPathComponentCell]. When the style is set to
-// [NSPathStylePopUp], the action is still sent, and the
-// [NSPathCell.ClickedPathComponentCell] value for the represented menu item is correctly
-// set. The [NSPathCell.ClickedPathComponentCell] value is valid only when the action is
-// being sent. It is also valid when the keyboard is used to invoke the
-// action.
+// the value of [NSPathCell.ClickedPathComponentCell]. When the style is set
+// to [NSPathStylePopUp], the action is still sent, and the
+// [NSPathCell.ClickedPathComponentCell] value for the represented menu item
+// is correctly set. The [NSPathCell.ClickedPathComponentCell] value is valid
+// only when the action is being sent. It is also valid when the keyboard is
+// used to invoke the action.
 //
 // Automatic animated expansion of partially hidden [NSPathComponentCell]
-// objects happens if you correctly call [MouseEntered] and [MouseExited] for
-// each [NSPathComponentCell] in the [NSPathCell] object. This is not required
-// if the [NSPathCell.PathStyle] is set to [NSPathStylePopUp], or if you wish to not have
-// the animation.
+// objects happens if you correctly call [NSResponder.MouseEntered] and
+// [NSResponder.MouseExited] for each [NSPathComponentCell] in the
+// [NSPathCell] object. This is not required if the [NSPathCell.PathStyle] is
+// set to [NSPathStylePopUp], or if you wish to not have the animation.
 //
 // [NSPathCell] supports several path display styles. [NSPathStyleStandard]
 // has a light blue background with arrows indicating the path.
@@ -83,12 +84,13 @@ func (nc NSPathCellClass) Alloc() NSPathCell {
 // [NSPopUpButton] object to display the full path, or, if the cell is
 // editable, select a new path.
 //
-// If the cell’s [Editable] method returns true (the default), you can drag
-// and drop into the cell to change the value. You can constrain what can be
-// dropped using UTIs (Uniform Type Identifiers) with [NSPathCell.AllowedTypes] or the
-// appropriate delegate methods on [NSPathControl].
+// If the cell’s [NSCell.Editable] method returns true (the default), you
+// can drag and drop into the cell to change the value. You can constrain what
+// can be dropped using UTIs (Uniform Type Identifiers) with
+// [NSPathCell.AllowedTypes] or the appropriate delegate methods on
+// [NSPathControl].
 //
-// If the cell’s [Selectable] method returns true (the default), the
+// If the cell’s [NSCell.Selectable] method returns true (the default), the
 // cell’s contents can automatically be dragged out. The proper UTI,
 // filename, and URL are placed on the pasteboard. You can further control or
 // limit this by using the appropriate delegate methods on [NSPathControl].
@@ -100,14 +102,15 @@ func (nc NSPathCellClass) Alloc() NSPathCell {
 //
 // # Setting the control size
 //
-// When setting the [NSPathCell.ControlSize] property, [NSPathCell] properly respects the
-// control size for the [NSPathStyleStandard] and [NSPathStylePopUp] styles.
-// When the control size is set, the new size is propagated to subcells. When
-// the path style is set to [NSPathStyleNavigationBar], you cannot change the
-// control size, and it is always set to [NSSmallControlSize]. Attempting to
-// change the control size when the path style is [NSPathStyleNavigationBar]
-// causes an assertion. Setting the path style to [NSPathStyleNavigationBar]
-// forces the control size to be [NSSmallControlSize].
+// When setting the [NSCell.ControlSize] property, [NSPathCell] properly
+// respects the control size for the [NSPathStyleStandard] and
+// [NSPathStylePopUp] styles. When the control size is set, the new size is
+// propagated to subcells. When the path style is set to
+// [NSPathStyleNavigationBar], you cannot change the control size, and it is
+// always set to [NSSmallControlSize]. Attempting to change the control size
+// when the path style is [NSPathStyleNavigationBar] causes an assertion.
+// Setting the path style to [NSPathStyleNavigationBar] forces the control
+// size to be [NSSmallControlSize].
 //
 // # Displaying Hidden Components
 //
@@ -272,8 +275,8 @@ type INSPathCell interface {
 	// Topic: Setting the Double-Click Action
 
 	// Sets the receiver’s double-click action.
-	DoubleAction() objc.SEL
-	SetDoubleAction(value objc.SEL)
+	DoubleAction() objectivec.SEL
+	SetDoubleAction(value objectivec.SEL)
 
 	// Topic: Setting the Path
 
@@ -287,10 +290,6 @@ type INSPathCell interface {
 	Delegate() NSPathCellDelegate
 	SetDelegate(value NSPathCellDelegate)
 
-	// A Boolean value indicating whether the cell is editable.
-	IsEditable() bool
-	// A Boolean value indicating whether the cell’s text can be selected.
-	IsSelectable() bool
 	// Tells the delegate that the user changed the selected directory to the directory located at the specified URL.
 	PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.NSURL)
 	// [NSSavePanel]: Optional — Sent when the user changes the current type. [NSOpenPanel]: Not sent.
@@ -396,7 +395,7 @@ func NewPathCellWithCoder(coder foundation.INSCoder) NSPathCell {
 // the mouse is hovering over using mouse-entered and mouse-exited events. The
 // control should call these methods to correctly display the hovered
 // component to the user. The control can acquire rectangles to track using
-// [RectOfPathComponentCellWithFrameInView].
+// [NSPathCell.RectOfPathComponentCellWithFrameInView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/mouseEntered(with:frame:in:)
 func (p NSPathCell) MouseEnteredWithFrameInView(event INSEvent, frame corefoundation.CGRect, view INSView) {
@@ -744,11 +743,11 @@ func (p NSPathCell) SetPathComponentCells(value []NSPathComponentCell) {
 // Sets the receiver’s double-click action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/doubleAction
-func (p NSPathCell) DoubleAction() objc.SEL {
+func (p NSPathCell) DoubleAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](p.ID, objc.Sel("doubleAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (p NSPathCell) SetDoubleAction(value objc.SEL) {
+func (p NSPathCell) SetDoubleAction(value objectivec.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleAction:"), value)
 }
 
@@ -774,7 +773,7 @@ func (p NSPathCell) SetURL(value foundation.NSURL) {
 // When setting, an array of [NSPathComponentCell] objects is automatically
 // set, based on the path in `url`. The type of [NSPathComponentCell] objects
 // created can be controlled by subclassing [NSPathCell] and overriding
-// [PathComponentCellClass].
+// [NSPathCellClass.PathComponentCellClass].
 //
 // If `url` is a file URL (returns true from [isFileURL]), the images are
 // automatically filled with file icons, if the path exists. The URL value
@@ -799,28 +798,6 @@ func (p NSPathCell) SetDelegate(value NSPathCellDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
 
-// A Boolean value indicating whether the cell is editable.
-//
-// See: https://developer.apple.com/documentation/appkit/nscell/iseditable
-func (p NSPathCell) IsEditable() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("editable"))
-	return rv
-}
-func (p NSPathCell) SetEditable(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setEditable:"), value)
-}
-
-// A Boolean value indicating whether the cell’s text can be selected.
-//
-// See: https://developer.apple.com/documentation/appkit/nscell/isselectable
-func (p NSPathCell) IsSelectable() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("selectable"))
-	return rv
-}
-func (p NSPathCell) SetSelectable(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setSelectable:"), value)
-}
-
 // Returns the class used to create `pathComponentCell` objects when
 // automatically filling up the control.
 //
@@ -835,9 +812,9 @@ func (p NSPathCell) SetSelectable(value bool) {
 // class]`, or a specialized subclass thereof.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/pathComponentCellClass
-func (_NSPathCellClass NSPathCellClass) PathComponentCellClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSPathCellClass.class), objc.Sel("pathComponentCellClass"))
-	return rv
+func (_NSPathCellClass NSPathCellClass) PathComponentCellClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSPathCellClass.class), objc.Sel("pathComponentCellClass"))
+	return objectivec.Class(rv)
 }
 
 // Protocol methods for NSMenuItemValidation

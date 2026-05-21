@@ -139,9 +139,9 @@ func NewNEFilterSocketFlow() NEFilterSocketFlow {
 // # Discussion
 //
 // This endpoint object may be `nil` when the system calls your
-// [HandleNewFlow] method; if so, receiving network data populates the object.
-// In such a case, the filter may still perform filtering, based on its socket
-// type, socket family, or socket protocol.
+// [NEFilterDataProvider.HandleNewFlow] method; if so, receiving network data
+// populates the object. In such a case, the filter may still perform
+// filtering, based on its socket type, socket family, or socket protocol.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/remoteEndpoint
 func (f NEFilterSocketFlow) RemoteEndpoint() INWEndpoint {
@@ -170,9 +170,9 @@ func (f NEFilterSocketFlow) RemoteHostname() string {
 // # Discussion
 //
 // This endpoint object may be `nil` when the system calls your
-// [HandleNewFlow] method; if so, receiving network data populates the object.
-// In such a case, the filter may still perform filtering, based on its socket
-// type, socket family, or socket protocol.
+// [NEFilterDataProvider.HandleNewFlow] method; if so, receiving network data
+// populates the object. In such a case, the filter may still perform
+// filtering, based on its socket type, socket family, or socket protocol.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/localEndpoint
 func (f NEFilterSocketFlow) LocalEndpoint() INWEndpoint {

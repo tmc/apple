@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"context"
 	"errors"
 	"sync"
 	"unsafe"
@@ -249,7 +250,7 @@ func (f NSFileVersion) ReplaceItemAtURLOptionsError(url INSURL, options NSFileVe
 // This method removes this version object and its file from the version
 // store, freeing up the associated storage space. You must not call this
 // method for the current file version—that is, the version object returned
-// by the [CurrentVersionOfItemAtURL] method.
+// by the [NSFileVersionClass.CurrentVersionOfItemAtURL] method.
 //
 // You should always remove file versions as part of a coordinated write
 // operation to a file. In other words, always call this method from a block
@@ -300,7 +301,7 @@ func (_NSFileVersionClass NSFileVersionClass) CurrentVersionOfItemAtURL(url INSU
 //
 // An array of file version objects or `nil` if there is no such file. The
 // array does not contain the version object returned by the
-// [CurrentVersionOfItemAtURL] method.
+// [NSFileVersionClass.CurrentVersionOfItemAtURL] method.
 //
 // # Discussion
 //
@@ -458,6 +459,12 @@ func (_NSFileVersionClass NSFileVersionClass) RemoveOtherVersionsOfItemAtURLErro
 
 }
 
+// See: https://developer.apple.com/documentation/Foundation/NSFileVersion/getNonlocalVersionsOfItem(at:completionHandler:)
+func (_NSFileVersionClass NSFileVersionClass) GetNonlocalVersionsOfItemAtURLCompletionHandler(url INSURL, completionHandler NSFileVersionArrayErrorHandler) {
+	_block1, _ := NewNSFileVersionArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NSFileVersionClass.class), objc.Sel("getNonlocalVersionsOfItemAtURL:completionHandler:"), url, _block1)
+}
+
 // The URL identifying the location of the file associated with the file
 // version object.
 //
@@ -469,8 +476,8 @@ func (_NSFileVersionClass NSFileVersionClass) RemoveOtherVersionsOfItemAtURLErro
 //
 // Do not display any part of this URL to the user. The location of file
 // versions is managed by the system and should not be exposed to the user. If
-// you want to present the name of a file version, use the [LocalizedName]
-// property.
+// you want to present the name of a file version, use the
+// [NSFileVersion.LocalizedName] property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/url
 func (f NSFileVersion) URL() INSURL {
@@ -526,8 +533,8 @@ func (f NSFileVersion) ModificationDate() INSDate {
 //
 // You can save the value of this property persistently and use it to recreate
 // the version object later. When recreating the version object using the
-// [VersionOfItemAtURLForPersistentIdentifier] method, the version object
-// returned is equivalent to the current object.
+// [NSFileVersionClass.VersionOfItemAtURLForPersistentIdentifier] method, the
+// version object returned is equivalent to the current object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/persistentIdentifier
 func (f NSFileVersion) PersistentIdentifier() NSCoding {
@@ -547,7 +554,8 @@ func (f NSFileVersion) PersistentIdentifier() NSCoding {
 // After setting this property to true, do not set this property to false
 // again. Doing so causes the system to raise an exception. In addition, if
 // you set this property to true for the version of the file returned by the
-// [CurrentVersionOfItemAtURL] method, the system raises an exception.
+// [NSFileVersionClass.CurrentVersionOfItemAtURL] method, the system raises an
+// exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/isDiscardable
 func (f NSFileVersion) IsDiscardable() bool {
@@ -586,13 +594,14 @@ func (f NSFileVersion) IsConflict() bool {
 // resolved; you must then remove any versions of the file that are no longer
 // useful.
 //
-// To remove an unused version of a file, call the [RemoveAndReturnError]
-// method. To remove all unused versions of a file, call the
-// [RemoveOtherVersionsOfItemAtURLError] method.
+// To remove an unused version of a file, call the
+// [NSFileVersion.RemoveAndReturnError] method. To remove all unused versions
+// of a file, call the
+// [NSFileVersionClass.RemoveOtherVersionsOfItemAtURLError] method.
 //
 // Resolving a conflict causes the file version object to be removed from any
 // reports about conflicting versions, such as those returned by the
-// [UnresolvedConflictVersionsOfItemAtURL] method.
+// [NSFileVersionClass.UnresolvedConflictVersionsOfItemAtURL] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/isResolved
 func (f NSFileVersion) IsResolved() bool {
@@ -619,4 +628,27 @@ func (f NSFileVersion) HasThumbnail() bool {
 func (f NSFileVersion) OriginatorNameComponents() INSPersonNameComponents {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("originatorNameComponents"))
 	return NSPersonNameComponentsFromID(objc.ID(rv))
+}
+
+// GetNonlocalVersionsOfItemAtURL is a synchronous wrapper around [NSFileVersion.GetNonlocalVersionsOfItemAtURLCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (fc NSFileVersionClass) GetNonlocalVersionsOfItemAtURL(ctx context.Context, url INSURL) ([]NSFileVersion, error) {
+	type result struct {
+		val []NSFileVersion
+		err error
+	}
+	done := make(chan result, 1)
+	fc.GetNonlocalVersionsOfItemAtURLCompletionHandler(url, func(val *[]NSFileVersion, err error) {
+		var out []NSFileVersion
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

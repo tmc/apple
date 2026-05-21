@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -82,6 +81,7 @@ func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 //   - [NSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]: Starts the search for a misspelled word in a string starting at specified offset within the string.
 //   - [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails]: Initiates a grammatical analysis of a given string.
 //   - [NSSpellChecker.CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount]: Requests unified text checking for the given range of the given string.
+//   - [NSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]: Requests that the string be checked in the background.
 //   - [NSSpellChecker.GuessesForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns an array of possible substitutions for the specified string.
 //
 // # Managing the Spell-Checking Process
@@ -114,6 +114,7 @@ func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 //   - [NSSpellChecker.DeletesAutospaceBetweenStringAndStringLanguage]
 //   - [NSSpellChecker.LanguageForWordRangeInStringOrthography]
 //   - [NSSpellChecker.PreventsAutocorrectionBeforeStringLanguage]
+//   - [NSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 //   - [NSSpellChecker.ShowInlinePredictionForCandidatesClient]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker
@@ -160,6 +161,7 @@ func NSSpellCheckerFromID(id objc.ID) NSSpellChecker {
 //   - [INSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]: Starts the search for a misspelled word in a string starting at specified offset within the string.
 //   - [INSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails]: Initiates a grammatical analysis of a given string.
 //   - [INSSpellChecker.CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount]: Requests unified text checking for the given range of the given string.
+//   - [INSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]: Requests that the string be checked in the background.
 //   - [INSSpellChecker.GuessesForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns an array of possible substitutions for the specified string.
 //
 // # Managing the Spell-Checking Process
@@ -192,6 +194,7 @@ func NSSpellCheckerFromID(id objc.ID) NSSpellChecker {
 //   - [INSSpellChecker.DeletesAutospaceBetweenStringAndStringLanguage]
 //   - [INSSpellChecker.LanguageForWordRangeInStringOrthography]
 //   - [INSSpellChecker.PreventsAutocorrectionBeforeStringLanguage]
+//   - [INSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 //   - [INSSpellChecker.ShowInlinePredictionForCandidatesClient]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker
@@ -236,11 +239,13 @@ type INSSpellChecker interface {
 	// Starts the search for a misspelled word in `stringToCheck` starting at `startingOffset` within the string object.
 	CheckSpellingOfStringStartingAt(stringToCheck string, startingOffset int) foundation.NSRange
 	// Starts the search for a misspelled word in a string starting at specified offset within the string.
-	CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, wordCount unsafe.Pointer) foundation.NSRange
+	CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, wordCount *int) foundation.NSRange
 	// Initiates a grammatical analysis of a given string.
 	CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, details foundation.INSDictionary) foundation.NSRange
 	// Requests unified text checking for the given range of the given string.
-	CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount(stringToCheck string, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, tag int, orthography foundation.NSOrthography, wordCount unsafe.Pointer) []foundation.NSTextCheckingResult
+	CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount(stringToCheck string, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, orthography foundation.NSOrthography, wordCount *int) []foundation.NSTextCheckingResult
+	// Requests that the string be checked in the background.
+	RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler(stringToCheck string, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, completionHandler IntTextCheckingResultArrayOrthographyIntHandler) int
 	// Returns an array of possible substitutions for the specified string.
 	GuessesForWordRangeInStringLanguageInSpellDocumentWithTag(range_ foundation.NSRange, string_ string, language string, tag int) []string
 
@@ -290,6 +295,7 @@ type INSSpellChecker interface {
 	DeletesAutospaceBetweenStringAndStringLanguage(precedingString string, followingString string, language string) bool
 	LanguageForWordRangeInStringOrthography(range_ foundation.NSRange, string_ string, orthography foundation.NSOrthography) string
 	PreventsAutocorrectionBeforeStringLanguage(string_ string, language string) bool
+	RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler(selectedRange foundation.NSRange, stringToCheck string, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, completionHandler IntTextCheckingResultArrayHandler) int
 	ShowInlinePredictionForCandidatesClient(candidates []foundation.NSTextCheckingResult, client NSTextInputClient)
 }
 
@@ -363,10 +369,10 @@ func (s NSSpellChecker) SetLanguage(language string) bool {
 // Specifies a grammar-analysis detail to highlight in the Spelling panel.
 //
 // string: Problematic grammatical unit identified by
-// [CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
+// [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
 //
 // detail: One of the grammar-analysis details provided by
-// [CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
+// [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/updateSpellingPanel(withGrammarString:detail:)
 func (s NSSpellChecker) UpdateSpellingPanelWithGrammarStringDetail(string_ string, detail foundation.INSDictionary) {
@@ -436,9 +442,9 @@ func (s NSSpellChecker) CheckSpellingOfStringStartingAt(stringToCheck string, st
 // startingOffset: The offset within `stringToCheck` at which to begin spellchecking.
 //
 // language: The language of the words in the string. If `language` is `nil`, or if you
-// obtain the value by sending [Language] to `self`, the current selection in
-// the Spelling panel’s pop-up menu is used. Do not pass in an empty string
-// for `language`.
+// obtain the value by sending [NSSpellChecker.Language] to `self`, the
+// current selection in the Spelling panel’s pop-up menu is used. Do not
+// pass in an empty string for `language`.
 //
 // wrapFlag: true to indicate that spell checking should continue at the beginning of
 // the string when the end of the string is reached; false to indicate that
@@ -460,7 +466,7 @@ func (s NSSpellChecker) CheckSpellingOfStringStartingAt(stringToCheck string, st
 // the count of words spellchecked in the string in `wordCount`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/checkSpelling(of:startingAt:language:wrap:inSpellDocumentWithTag:wordCount:)
-func (s NSSpellChecker) CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, wordCount unsafe.Pointer) foundation.NSRange {
+func (s NSSpellChecker) CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, wordCount *int) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("checkSpellingOfString:startingAt:language:wrap:inSpellDocumentWithTag:wordCount:"), objc.String(stringToCheck), startingOffset, objc.String(language), wrapFlag, tag, wordCount)
 	return foundation.NSRange(rv)
 }
@@ -535,11 +541,55 @@ func (s NSSpellChecker) CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumen
 // [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 // [NSOrthography]: https://developer.apple.com/documentation/Foundation/NSOrthography
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-func (s NSSpellChecker) CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount(stringToCheck string, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, tag int, orthography foundation.NSOrthography, wordCount unsafe.Pointer) []foundation.NSTextCheckingResult {
+func (s NSSpellChecker) CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount(stringToCheck string, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, orthography foundation.NSOrthography, wordCount *int) []foundation.NSTextCheckingResult {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("checkString:range:types:options:inSpellDocumentWithTag:orthography:wordCount:"), objc.String(stringToCheck), range_, checkingTypes, options, tag, orthography, wordCount)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
 		return foundation.NSTextCheckingResultFromID(id)
 	})
+}
+
+// Requests that the string be checked in the background.
+//
+// stringToCheck: The string to check.
+//
+// range: The range of the string to check.
+//
+// checkingTypes: The type of checking to be performed. The possible constants are listed in
+// [NSTextCheckingResult.CheckingType] and can be combined using the C
+// bit-wise [OR] operator to perform multiple checks at the same time.
+//
+// options: The options dictionary specifying the types of checking to perform. See
+// [NSTextCheckingOptionKey] for the possible keys and expected values.
+//
+// tag: An identifier unique within the application used to inform the spell
+// checker which document that text is associated, potentially for many
+// purposes, not necessarily just for ignored words. A value of 0 can be
+// passed in for text not associated with a particular document.
+//
+// completionHandler: The completion handler block object will be called (in an arbitrary
+// context) when results are available, with the sequence number and results.
+//
+// The block takes four arguments:
+//
+// sequenceNumber: A monotonically increasing sequence number. results: An
+// array of [NSTextCheckingResult] objects describing particular items found
+// during checking and their individual ranges, sorted by range origin, then
+// range end, then result type. orthography: The orthography of the string.
+// wordCount: The number of words in the range of the string.
+//
+// # Return Value
+//
+// The return value is a monotonically increasing sequence number that can be
+// used to keep track of requests in flight.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
+// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
+func (s NSSpellChecker) RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler(stringToCheck string, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, completionHandler IntTextCheckingResultArrayOrthographyIntHandler) int {
+	_block5, _ := NewIntTextCheckingResultArrayOrthographyIntBlock(completionHandler)
+	rv := objc.Send[int](s.ID, objc.Sel("requestCheckingOfString:range:types:options:inSpellDocumentWithTag:completionHandler:"), objc.String(stringToCheck), range_, checkingTypes, options, tag, _block5)
+	return rv
 }
 
 // Returns an array of possible substitutions for the specified string.
@@ -594,8 +644,8 @@ func (s NSSpellChecker) IgnoreWordInSpellDocumentWithTag(wordToIgnore string, ta
 //
 // # Discussion
 //
-// Invoke this method before [CloseSpellDocumentWithTag] if you want to store
-// the ignored words.
+// Invoke this method before [NSSpellChecker.CloseSpellDocumentWithTag] if you
+// want to store the ignored words.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/ignoredWords(inSpellDocumentWithTag:)
 func (s NSSpellChecker) IgnoredWordsInSpellDocumentWithTag(tag int) []string {
@@ -819,6 +869,13 @@ func (s NSSpellChecker) PreventsAutocorrectionBeforeStringLanguage(string_ strin
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestCandidates(forSelectedRange:in:types:options:inSpellDocumentWithTag:completionHandler:)
+func (s NSSpellChecker) RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler(selectedRange foundation.NSRange, stringToCheck string, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, tag int, completionHandler IntTextCheckingResultArrayHandler) int {
+	_block5, _ := NewIntTextCheckingResultArrayBlock(completionHandler)
+	rv := objc.Send[int](s.ID, objc.Sel("requestCandidatesForSelectedRange:inString:types:options:inSpellDocumentWithTag:completionHandler:"), selectedRange, objc.String(stringToCheck), checkingTypes, options, tag, _block5)
+	return rv
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/showInlinePrediction(forCandidates:client:)
 func (s NSSpellChecker) ShowInlinePredictionForCandidatesClient(candidates []foundation.NSTextCheckingResult, client NSTextInputClient) {
 	objc.Send[objc.ID](s.ID, objc.Sel("showInlinePredictionForCandidates:client:"), objectivec.IObjectSliceToNSArray(candidates), client)
@@ -852,16 +909,16 @@ func (_NSSpellCheckerClass NSSpellCheckerClass) UniqueSpellDocumentTag() int {
 //
 // # Discussion
 //
-// If [AutomaticallyIdentifiesLanguages] is true, then text checking will
-// automatically use this method as appropriate; otherwise, it will use the
-// language set by [SetLanguage].
+// If [NSSpellChecker.AutomaticallyIdentifiesLanguages] is true, then text
+// checking will automatically use this method as appropriate; otherwise, it
+// will use the language set by [NSSpellChecker.SetLanguage].
 //
 // The older
-// [CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]
+// [NSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]
 // and
-// [CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
-// methods will use the language set by [SetLanguage], if they are called with
-// a `nil` language argument.
+// [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
+// methods will use the language set by [NSSpellChecker.SetLanguage], if they
+// are called with a `nil` language argument.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/availableLanguages
 func (s NSSpellChecker) AvailableLanguages() []string {
@@ -878,16 +935,16 @@ func (s NSSpellChecker) AvailableLanguages() []string {
 //
 // # Discussion
 //
-// If [AutomaticallyIdentifiesLanguages] is true, then text checking will
-// automatically use this method as appropriate; otherwise, it will use the
-// language set by [SetLanguage].
+// If [NSSpellChecker.AutomaticallyIdentifiesLanguages] is true, then text
+// checking will automatically use this method as appropriate; otherwise, it
+// will use the language set by [NSSpellChecker.SetLanguage].
 //
 // The older
-// [CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]
+// [NSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]
 // and
-// [CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
-// methods will use the language set by [SetLanguage], if they are called with
-// a `nil` language argument.
+// [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails].
+// methods will use the language set by [NSSpellChecker.SetLanguage], if they
+// are called with a `nil` language argument.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/userPreferredLanguages
 func (s NSSpellChecker) UserPreferredLanguages() []string {

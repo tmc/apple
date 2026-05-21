@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -82,4 +83,11 @@ func NewAVMetricPlayerItemSeekEvent() AVMetricPlayerItemSeekEvent {
 	class := getAVMetricPlayerItemSeekEventClass()
 	rv := objc.Send[AVMetricPlayerItemSeekEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemSeekEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemSeekEvent {
+	instance := getAVMetricPlayerItemSeekEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemSeekEventFromID(rv)
 }

@@ -96,10 +96,6 @@ type IMTLBufferLayoutDescriptor interface {
 	// How frequently the step function should load data.
 	StepRate() uint
 	SetStepRate(value uint)
-
-	// The organization of input and output data for the next kernel call.
-	StageInputDescriptor() IMTLStageInputOutputDescriptor
-	SetStageInputDescriptor(value IMTLStageInputOutputDescriptor)
 }
 
 // Init initializes the instance.
@@ -163,15 +159,4 @@ func (b MTLBufferLayoutDescriptor) StepRate() uint {
 }
 func (b MTLBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStepRate:"), value)
-}
-
-// The organization of input and output data for the next kernel call.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
-func (b MTLBufferLayoutDescriptor) StageInputDescriptor() IMTLStageInputOutputDescriptor {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("stageInputDescriptor"))
-	return MTLStageInputOutputDescriptorFromID(objc.ID(rv))
-}
-func (b MTLBufferLayoutDescriptor) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
-	objc.Send[struct{}](b.ID, objc.Sel("setStageInputDescriptor:"), value)
 }

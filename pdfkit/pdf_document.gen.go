@@ -173,7 +173,7 @@ type IPDFDocument interface {
 	OutlineRoot() IPDFOutline
 	SetOutlineRoot(value IPDFOutline)
 	// The class that is allocated and initialized when page objects are created for the document.
-	PageClass() objc.Class
+	PageClass() objectivec.Class
 	// The number of pages in the document.
 	PageCount() uint
 	// The permissions status of the PDF document.
@@ -350,7 +350,7 @@ func (p PDFDocument) BeginFindStringsWithOptions(strings []string, options found
 	objc.Send[objc.ID](p.ID, objc.Sel("beginFindStrings:withOptions:"), objectivec.StringSliceToNSArray(strings), options)
 }
 
-// Cancels a search initiated with [BeginFindStringWithOptions].
+// Cancels a search initiated with [PDFDocument.BeginFindStringWithOptions].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/cancelFindString()
 func (p PDFDocument) CancelFindString() {
@@ -419,8 +419,8 @@ func (p PDFDocument) FindStringFromSelectionWithOptions(string_ string, selectio
 //
 // Use this method when the complete search process will be brief and when you
 // don’t need the flexibility or control offered by
-// [BeginFindStringWithOptions]. For options, refer to [Searching, Comparing,
-// and Sorting Strings].
+// [PDFDocument.BeginFindStringWithOptions]. For options, refer to [Searching,
+// Comparing, and Sorting Strings].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/findString(_:withOptions:)
 //
@@ -454,9 +454,9 @@ func (p PDFDocument) IndexForPage(page IPDFPage) uint {
 // Be aware that a PDF viewing application might use the size of the first
 // page in the document as representative of all page sizes when reporting the
 // size of a document. If you need to get the actual size of an individual
-// page, you can use [BoundsForBox] (note that the size is returned in points,
-// which are typically converted to inches or centimeters by PDF viewing
-// applications).
+// page, you can use [PDFPage.BoundsForBox] (note that the size is returned in
+// points, which are typically converted to inches or centimeters by PDF
+// viewing applications).
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/insert(_:at:)
 func (p PDFDocument) InsertPageAtIndex(page IPDFPage, index uint) {
@@ -525,8 +525,8 @@ func (p PDFDocument) RemovePageAtIndex(index uint) {
 //
 // The selection begins at `startChar` on `startPage` and ends at `endChar` on
 // `endPage`. The starting and ending index values must be in the range of the
-// number of characters (as returned by [NumberOfCharacters]) within the
-// respective [PDFPage] objects.
+// number of characters (as returned by [PDFPage.NumberOfCharacters]) within
+// the respective [PDFPage] objects.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/selection(from:atCharacterIndex:to:atCharacterIndex:)
 func (p PDFDocument) SelectionFromPageAtCharacterIndexToPageAtCharacterIndex(startPage IPDFPage, startCharacter uint, endPage IPDFPage, endCharacter uint) IPDFSelection {
@@ -791,8 +791,8 @@ func (p PDFDocument) DocumentURL() foundation.NSURL {
 //
 // Encrypted documents whose password is the empty string are unlocked
 // automatically upon opening, because PDF Kit tries the empty string as a
-// password if none is supplied. Use the [UnlockWithPassword] method to unlock
-// a document using a password.
+// password if none is supplied. Use the [PDFDocument.UnlockWithPassword]
+// method to unlock a document using a password.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/isEncrypted
 func (p PDFDocument) IsEncrypted() bool {
@@ -820,7 +820,8 @@ func (p PDFDocument) IsFinding() bool {
 // Only encrypted documents can be locked. Encrypted documents whose password
 // is the empty string are unlocked automatically upon opening, because PDF
 // Kit tries the empty string as a password if none is supplied. Use the
-// [UnlockWithPassword] method to unlock a document using a password.
+// [PDFDocument.UnlockWithPassword] method to unlock a document using a
+// password.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/isLocked
 func (p PDFDocument) IsLocked() bool {
@@ -881,9 +882,9 @@ func (p PDFDocument) SetOutlineRoot(value IPDFOutline) {
 // The default implementation of `pageClass` returns `[PDFPage class]`.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/pageClass
-func (p PDFDocument) PageClass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("pageClass"))
-	return rv
+func (p PDFDocument) PageClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](p.ID, objc.Sel("pageClass"))
+	return objectivec.Class(rv)
 }
 
 // The number of pages in the document.
@@ -922,8 +923,8 @@ func (p PDFDocument) SelectionForEntireDocument() IPDFSelection {
 // Pages are delimited with linefeed characters.
 //
 // This is a convenience method, equivalent to creating a selection object for
-// the entire document and then invoking the [PDFSelection] class’s [String]
-// method.
+// the entire document and then invoking the [PDFSelection] class’s
+// [PDFSelection.String] method.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/string
 func (p PDFDocument) String() string {

@@ -102,6 +102,13 @@ func NewAVMetricErrorEvent() AVMetricErrorEvent {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricErrorEventWithCoder(coder foundation.INSCoder) AVMetricErrorEvent {
+	instance := getAVMetricErrorEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricErrorEventFromID(rv)
+}
+
 // Returns the error event.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricErrorEvent/error

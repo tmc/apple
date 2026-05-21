@@ -53,7 +53,7 @@ func (ac AVAudioOutputNodeClass) Alloc() AVAudioOutputNode {
 //
 // - The audio hardware sample rate and channel count when it connects to the
 // hardware. - The engine’s manual rendering mode output format (see
-// [AVAudioOutputNode.ManualRenderingFormat]).
+// [AVAudioEngine.ManualRenderingFormat]).
 //
 // The format of the input scope is initially the same as that of the output,
 // but you may set it to a different format, in which case the audio node
@@ -79,10 +79,6 @@ func AVAudioOutputNodeFromID(id objc.ID) AVAudioOutputNode {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type IAVAudioOutputNode interface {
 	IAVAudioIONode
-
-	// The render format of the engine in manual rendering mode.
-	ManualRenderingFormat() IAVAudioFormat
-	SetManualRenderingFormat(value IAVAudioFormat)
 }
 
 // Init initializes the instance.
@@ -102,15 +98,4 @@ func NewAVAudioOutputNode() AVAudioOutputNode {
 	class := getAVAudioOutputNodeClass()
 	rv := objc.Send[AVAudioOutputNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The render format of the engine in manual rendering mode.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudioengine/manualrenderingformat
-func (a AVAudioOutputNode) ManualRenderingFormat() IAVAudioFormat {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("manualRenderingFormat"))
-	return AVAudioFormatFromID(objc.ID(rv))
-}
-func (a AVAudioOutputNode) SetManualRenderingFormat(value IAVAudioFormat) {
-	objc.Send[struct{}](a.ID, objc.Sel("setManualRenderingFormat:"), value)
 }

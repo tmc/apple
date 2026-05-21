@@ -7,6 +7,7 @@ package avfoundation
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // A Boolean value that indicates whether you can write the asset to the Saved
@@ -29,7 +30,7 @@ func (a AVAsset) NaturalSize() corefoundation.CGSize {
 // The asset’s display mode preference for optimal playback of its content.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/preferredDisplayCriteria
-func (a AVAsset) PreferredDisplayCriteria() objc.ID {
+func (a AVAsset) PreferredDisplayCriteria() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("preferredDisplayCriteria"))
-	return rv
+	return objectivec.Object{ID: rv}
 }

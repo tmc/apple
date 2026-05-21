@@ -74,14 +74,16 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // # Methods to Override
 //
 // To subclass [NSXMLDocument] you need to override the primary initializer,
-// [InitWithDataOptionsError], and the methods listed below. In most cases,
-// you need only invoke the superclass implementation, adding any
+// [NSXMLDocument.InitWithDataOptionsError], and the methods listed below. In
+// most cases, you need only invoke the superclass implementation, adding any
 // subclass-specific code before or after the invocation, as necessary.
 //
-// - [RootElement] - [SetChildren] - [RemoveChildAtIndex] -
-// [InsertChildAtIndex] - [CharacterEncoding] - [CharacterEncoding] -
-// [DocumentContentKind] - [DocumentContentKind] - [DTD] - [MIMEType] -
-// [Standalone] - [Version] - [Version]
+// - [NSXMLDocument.RootElement] - [NSXMLDocument.SetChildren] -
+// [NSXMLDocument.RemoveChildAtIndex] - [NSXMLDocument.InsertChildAtIndex] -
+// [NSXMLDocument.CharacterEncoding] - [NSXMLDocument.CharacterEncoding] -
+// [NSXMLDocument.DocumentContentKind] - [NSXMLDocument.DocumentContentKind] -
+// [NSXMLDocument.DTD] - [NSXMLDocument.MIMEType] - [NSXMLDocument.Standalone]
+// - [NSXMLDocument.Version] - [NSXMLDocument.Version]
 //
 // By default [NSXMLDocument] implements the [NSObject] [isEqual(_:)] method
 // to perform a deep comparison: two [NSXMLDocument] objects are not
@@ -94,11 +96,11 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 //
 // Because of the architecture and data model of NSXML, when it parses and
 // processes a source of XML it cannot know about your subclass unless you
-// override the class method [ReplacementClassForClass] to return your custom
-// class in place of an [NSXML] class. If your custom class has no direct
-// [NSXML] counterpart—for example, it is a subclass of [NSXMLNode] that
-// represents CDATA sections—then you can walk the tree after it has been
-// created and insert the new node where appropriate.
+// override the class method [NSXMLDocumentClass.ReplacementClassForClass] to
+// return your custom class in place of an [NSXML] class. If your custom class
+// has no direct [NSXML] counterpart—for example, it is a subclass of
+// [NSXMLNode] that represents CDATA sections—then you can walk the tree
+// after it has been created and insert the new node where appropriate.
 //
 // # Initializing NSXMLDocument Objects
 //
@@ -394,13 +396,13 @@ func NewXMLDocumentWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XM
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -433,9 +435,9 @@ func NewXMLDocumentWithKind(kind NSXMLNodeKind) XMLDocument {
 // # Discussion
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:options:)
 //
@@ -806,7 +808,8 @@ func (x XMLDocument) ObjectByApplyingXSLTAtURLArgumentsError(xsltURL INSURL, arg
 //
 // # Discussion
 //
-// The encoding used is based on the value returned from [CharacterEncoding].
+// The encoding used is based on the value returned from
+// [NSXMLDocument.CharacterEncoding].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/xmlData(options:)
 func (x XMLDocument) XMLDataWithOptions(options NSXMLNodeOptions) INSData {
@@ -828,8 +831,9 @@ func (x XMLDocument) XMLDataWithOptions(options NSXMLNodeOptions) INSData {
 //
 // You can validate an XML document when it is first processed by specifying
 // the [NSXMLDocumentValidate] option when you initialize an [NSXMLDocument]
-// object with the [InitWithContentsOfURLOptionsError],
-// [InitWithDataOptionsError], or [InitWithXMLStringOptionsError] methods.
+// object with the [NSXMLDocument.InitWithContentsOfURLOptionsError],
+// [NSXMLDocument.InitWithDataOptionsError], or
+// [NSXMLDocument.InitWithXMLStringOptionsError] methods.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/validate()
 func (x XMLDocument) ValidateAndReturnError() (bool, error) {
@@ -867,9 +871,9 @@ func (x XMLDocument) ValidateAndReturnError() (bool, error) {
 // [NSXMLDTD], or [NSXMLDTDNode].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/replacementClass(for:)
-func (_XMLDocumentClass XMLDocumentClass) ReplacementClassForClass(cls objc.Class) objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_XMLDocumentClass.class), objc.Sel("replacementClassForClass:"), cls)
-	return rv
+func (_XMLDocumentClass XMLDocumentClass) ReplacementClassForClass(cls objectivec.Class) objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_XMLDocumentClass.class), objc.Sel("replacementClassForClass:"), cls)
+	return objectivec.Class(rv)
 }
 
 // Sets the character encoding of the receiver to `encoding`,
@@ -980,10 +984,10 @@ func (x XMLDocument) SetVersion(value string) {
 //
 // # Discussion
 //
-// This method invokes [XMLDataWithOptions] with an option of
+// This method invokes [NSXMLDocument.XMLDataWithOptions] with an option of
 // [NSXMLNodeOptionsNone]. The encoding used is based on the value returned
-// from [CharacterEncoding] or UTF-8 if no valid encoding is returned by that
-// method.
+// from [NSXMLDocument.CharacterEncoding] or UTF-8 if no valid encoding is
+// returned by that method.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/xmlData
 func (x XMLDocument) XMLData() INSData {

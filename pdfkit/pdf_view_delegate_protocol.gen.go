@@ -88,9 +88,9 @@ func (o PDFViewDelegateObject) PDFViewPrintJobTitle(sender IPDFView) string {
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFViewDelegate/pdfViewParentViewController()
-func (o PDFViewDelegateObject) PDFViewParentViewController() objc.ID {
+func (o PDFViewDelegateObject) PDFViewParentViewController() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("PDFViewParentViewController"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // PDFViewDelegateConfig holds optional typed callbacks for [PDFViewDelegate] methods.

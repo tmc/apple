@@ -71,15 +71,17 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 //
 // - At design time, set the Layout attribute of your collection view to Flow.
 // - Create an [NSCollectionViewFlowLayout] object programmatically and assign
-// it to the collection view’s [CollectionViewLayout] property.
+// it to the collection view’s [NSCollectionView.CollectionViewLayout]
+// property.
 //
 // Normally, you specify the size of items and their spacing using the
 // properties of this class. If you want to customize the values for your
 // items, implement the methods of the [NSCollectionViewDelegateFlowLayout]
-// protocol in the object assigned as the collection view’s [NSCollectionViewFlowLayout.Delegate]. The
-// delegate methods let you adjust layout information dynamically and change
-// the values later as needed. If you do not provide a delegate, the flow
-// layout object uses the same values for all items.
+// protocol in the object assigned as the collection view’s
+// [NSCollectionView.Delegate]. The delegate methods let you adjust layout
+// information dynamically and change the values later as needed. If you do
+// not provide a delegate, the flow layout object uses the same values for all
+// items.
 //
 // For more information about customizing the layout dynamically using a
 // delegate, see [NSCollectionViewDelegateFlowLayout].
@@ -95,8 +97,9 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // [media-1965629]
 //
 // The size of the header and footer views is configurable using the
-// [NSCollectionViewFlowLayout.HeaderReferenceSize] and [NSCollectionViewFlowLayout.FooterReferenceSize] properties of this class or
-// using the delegate object. For a vertically scrolling flow layout, the
+// [NSCollectionViewFlowLayout.HeaderReferenceSize] and
+// [NSCollectionViewFlowLayout.FooterReferenceSize] properties of this class
+// or using the delegate object. For a vertically scrolling flow layout, the
 // header and footer views span the width of the collection view and the
 // height is based on the values you specify. For a horizontal layout, the
 // footers span the height of the collection view and the width is
@@ -106,25 +109,26 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // following:
 //
 // - Register your header and footer views using the
-// [RegisterNibForSupplementaryViewOfKindWithIdentifier] or
-// [RegisterNibForSupplementaryViewOfKindWithIdentifier] method. - Implement
-// the [CollectionViewViewForSupplementaryElementOfKindAtIndexPath] method in
-// your collection view’s data source object.
+// [NSCollectionView.RegisterNibForSupplementaryViewOfKindWithIdentifier] or
+// [NSCollectionView.RegisterNibForSupplementaryViewOfKindWithIdentifier]
+// method. - Implement the
+// [CollectionViewViewForSupplementaryElementOfKindAtIndexPath] method in your
+// collection view’s data source object.
 //
-// When registering your header view, specify [NSCollectionViewFlowLayout.ElementKindSectionHeader] for
+// When registering your header view, specify [elementKindSectionHeader] for
 // the kind string. When registering your footer view, specify the
-// [NSCollectionViewFlowLayout.ElementKindSectionFooter] string. You also pass those strings to the
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method when creating
-// new views in your data source object.
+// [elementKindSectionFooter] string. You also pass those strings to the
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath] method
+// when creating new views in your data source object.
 //
 // You configure the contents of your header and footer views in the same way
 // you configure items. Use your app data to configure the content of the
 // supplementary view and its subviews. When you want to update the content in
-// a header or footer, call the [ReloadSections] method and force the
-// collection view to update the section, including its headers and footers.
-// Reloading the section is safer than maintaining references to the views
-// themselves because of how the collection view recycles views. If you do
-// want to update views directly, use the methods of the
+// a header or footer, call the [NSCollectionView.ReloadSections] method and
+// force the collection view to update the section, including its headers and
+// footers. Reloading the section is safer than maintaining references to the
+// views themselves because of how the collection view recycles views. If you
+// do want to update views directly, use the methods of the
 // [NSCollectionViewDelegate] protocol to track when your views are added and
 // removed from the collection view.
 //
@@ -151,9 +155,10 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 //
 // - Get the size of the item from the already computed layout attributes. -
 // Call the [CollectionViewLayoutSizeForItemAtIndexPath] method of the
-// delegate to get the item size. - Use the [NSCollectionViewFlowLayout.EstimatedItemSize] property, if
-// it is not set to [NSCollectionViewFlowLayout.NSZeroSize]. - Use the [NSCollectionViewFlowLayout.ItemSize] property to get the
-// size.
+// delegate to get the item size. - Use the
+// [NSCollectionViewFlowLayout.EstimatedItemSize] property, if it is not set
+// to [NSZeroSize]. - Use the [NSCollectionViewFlowLayout.ItemSize] property
+// to get the size.
 //
 // Individual spacing between items and between different lines of items is
 // controlled by the properties of this class and the delegate. For line
@@ -175,12 +180,12 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // supplementary views for each section. To support additional supplementary
 // views, or to add decoration views, you must override the following methods:
 //
-// - [LayoutAttributesForElementsInRect] (Required) -
-// [LayoutAttributesForItemAtIndexPath] (Required) -
-// [LayoutAttributesForSupplementaryViewOfKindAtIndexPath] (Required only if
-// you are adding supplementary views) -
-// [LayoutAttributesForDecorationViewOfKindAtIndexPath] (Required only if you
-// are adding decoration views)
+// - [NSCollectionViewLayout.LayoutAttributesForElementsInRect] (Required) -
+// [NSCollectionViewLayout.LayoutAttributesForItemAtIndexPath] (Required) -
+// [NSCollectionViewLayout.LayoutAttributesForSupplementaryViewOfKindAtIndexPath]
+// (Required only if you are adding supplementary views) -
+// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath]
+// (Required only if you are adding decoration views)
 //
 // Your implementations of these methods should adjust the position of items
 // and views to accommodate your custom content. For each of your
@@ -191,29 +196,36 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // # Tweaking the Layout Attributes
 //
 // To tweak the flow layout algorithm, override the
-// [LayoutAttributesForElementsInRect] method and any other methods that
-// return layout attributes that you need to modify. In each method, call
-// `super` first and then modify the attributes returned by the default flow
-// layout behavior.
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method and any
+// other methods that return layout attributes that you need to modify. In
+// each method, call `super` first and then modify the attributes returned by
+// the default flow layout behavior.
 //
 // # Changing the Initial or Final Attributes of Elements
 //
 // To customize the insertion or deletion animations performed by the layout,
 // override some or all of the following methods:
 //
-// - [NSCollectionViewFlowLayout.InitialLayoutAttributesForAppearingItemAtIndexPath] -
-// [NSCollectionViewFlowLayout.InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath]
-// - [NSCollectionViewFlowLayout.InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath] -
-// [FinalLayoutAttributesForDisappearingItemAtIndexPath] -
-// [FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath]
-// - [FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingItemAtIndexPath]
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingItemAtIndexPath]
+// -
+// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath]
 //
 // In your custom implementations, specify the layout attributes for each item
 // or view being inserted or deleted. The flow layout handles the creation of
 // the appropriate animations, using the initial or final attributes that you
 // provide. It is also recommended that you override the
-// [PrepareForCollectionViewUpdates] and [FinalizeCollectionViewUpdates]
-// methods to track the insertions and deletions.
+// [NSCollectionViewLayout.PrepareForCollectionViewUpdates] and
+// [NSCollectionViewLayout.FinalizeCollectionViewUpdates] methods to track the
+// insertions and deletions.
 //
 // # Supporting Custom Layout Attributes
 //
@@ -223,9 +235,10 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // you must also subclass [NSCollectionViewFlowLayout] to provide values for
 // those attributes . In your flow layout subclass, override the following:
 //
-// - [NSCollectionViewFlowLayout.LayoutAttributesClass] - [LayoutAttributesForElementsInRect] -
-// [LayoutAttributesForItemAtIndexPath] - All other methods that return layout
-// attributes
+// - [NSCollectionViewLayoutClass.LayoutAttributesClass] -
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] -
+// [NSCollectionViewLayout.LayoutAttributesForItemAtIndexPath] - All other
+// methods that return layout attributes
 //
 // The implementations of your custom methods should set the values of any
 // layout attributes that you define. Call `super` first to retrieve the
@@ -274,6 +287,10 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 //   - [NSCollectionViewFlowLayout.SectionAtIndexIsCollapsed]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
+// [elementKindSectionFooter]: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindSectionFooter
+// [elementKindSectionHeader]: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindSectionHeader
 type NSCollectionViewFlowLayout struct {
 	NSCollectionViewLayout
 }
@@ -377,12 +394,6 @@ type INSCollectionViewFlowLayout interface {
 	CollapseSectionAtIndex(sectionIndex uint)
 	ExpandSectionAtIndex(sectionIndex uint)
 	SectionAtIndexIsCollapsed(sectionIndex uint) bool
-
-	// An `NSSize` structure set to `0` in both dimensions.
-	NSZeroSize() corefoundation.CGSize
-	// The collection view’s delegate object.
-	Delegate() NSCollectionViewDelegate
-	SetDelegate(value NSCollectionViewDelegate)
 }
 
 // Init initializes the instance.
@@ -402,6 +413,13 @@ func NewNSCollectionViewFlowLayout() NSCollectionViewFlowLayout {
 	class := getNSCollectionViewFlowLayoutClass()
 	rv := objc.Send[NSCollectionViewFlowLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func NewCollectionViewFlowLayoutWithCoder(coder foundation.INSCoder) NSCollectionViewFlowLayout {
+	instance := getNSCollectionViewFlowLayoutClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSCollectionViewFlowLayoutFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/collapseSection(at:)
@@ -518,11 +536,13 @@ func (c NSCollectionViewFlowLayout) SetMinimumInteritemSpacing(value float64) {
 //
 // If the value of this property is not [NSZeroSize], the flow layout uses the
 // estimated size you specified. If all of your items actually have the same
-// size, use the [ItemSize] property to set their size and set this property
-// to [NSZeroSize]. For more information about how item sizes are determined,
-// see [NSCollectionViewFlowLayout].
+// size, use the [NSCollectionViewFlowLayout.ItemSize] property to set their
+// size and set this property to [NSZeroSize]. For more information about how
+// item sizes are determined, see [NSCollectionViewFlowLayout].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/estimatedItemSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewFlowLayout) EstimatedItemSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("estimatedItemSize"))
 	return corefoundation.CGSize(rv)
@@ -602,6 +622,8 @@ func (c NSCollectionViewFlowLayout) SetSectionInset(value foundation.NSEdgeInset
 // The default value of this property is [NSZeroSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/headerReferenceSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewFlowLayout) HeaderReferenceSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("headerReferenceSize"))
 	return corefoundation.CGSize(rv)
@@ -630,6 +652,8 @@ func (c NSCollectionViewFlowLayout) SetHeaderReferenceSize(value corefoundation.
 // The default value of this property is [NSZeroSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/footerReferenceSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewFlowLayout) FooterReferenceSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("footerReferenceSize"))
 	return corefoundation.CGSize(rv)
@@ -654,39 +678,4 @@ func (c NSCollectionViewFlowLayout) SectionHeadersPinToVisibleBounds() bool {
 }
 func (c NSCollectionViewFlowLayout) SetSectionHeadersPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionHeadersPinToVisibleBounds:"), value)
-}
-
-// An `NSSize` structure set to `0` in both dimensions.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSZeroSize
-func (c NSCollectionViewFlowLayout) NSZeroSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("NSZeroSize"))
-	return corefoundation.CGSize(rv)
-}
-
-// The collection view’s delegate object.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/delegate
-func (c NSCollectionViewFlowLayout) Delegate() NSCollectionViewDelegate {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("delegate"))
-	return NSCollectionViewDelegateObjectFromID(rv)
-}
-func (c NSCollectionViewFlowLayout) SetDelegate(value NSCollectionViewDelegate) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
-}
-
-// A supplementary view that acts as a footer for a given section.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
-func (_NSCollectionViewFlowLayoutClass NSCollectionViewFlowLayoutClass) ElementKindSectionFooter() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewFlowLayoutClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A supplementary view that acts as a header for a given section.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
-func (_NSCollectionViewFlowLayoutClass NSCollectionViewFlowLayoutClass) ElementKindSectionHeader() string {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewFlowLayoutClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
-	return foundation.NSStringFromID(rv).String()
 }

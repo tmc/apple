@@ -80,18 +80,18 @@ func (bc BundleClass) Alloc() Bundle {
 //
 // Before you can locate a resource, you must first specify which bundle
 // contains it. The [NSBundle] class has many constructors, but the one you
-// use most often is [MainBundle]. The main bundle represents the bundle
-// directory that contains the currently executing code. So for an app, the
-// main bundle object gives you access to the resources that shipped with your
-// app.
+// use most often is [NSBundleClass.MainBundle]. The main bundle represents
+// the bundle directory that contains the currently executing code. So for an
+// app, the main bundle object gives you access to the resources that shipped
+// with your app.
 //
 // If your app interacts directly with plug-ins, frameworks, or other bundled
 // content, you can use other methods of this class to create appropriate
 // bundle objects. You can always create bundle objects from a known URL or
 // path, but other methods make it easier to access bundles your app is
 // already using. For example, if you link to a framework, you can use the
-// [BundleForClass] method to locate the framework bundle based on a class
-// defined in that framework.
+// [NSBundleClass.BundleForClass] method to locate the framework bundle based
+// on a class defined in that framework.
 //
 // In Swift, use the [bundle()] macro to insert a bundle instance appropriate
 // to the current execution context, whether an app, app extension, framework,
@@ -228,7 +228,6 @@ func (bc BundleClass) Alloc() Bundle {
 //
 //   - [Bundle.ClassNamed]: Returns the [Class] object for the specified name.
 //   - [Bundle.PrincipalClass]: The bundle’s principal class.
-//   - [Bundle.NSLoadedClasses]: A constant used as a key for the
 //
 // # Loading Code from a Bundle
 //
@@ -237,23 +236,6 @@ func (bc BundleClass) Alloc() Bundle {
 //   - [Bundle.LoadAndReturnError]: Loads the bundle’s executable code and returns any errors.
 //   - [Bundle.Unload]: Unloads the code associated with the receiver.
 //   - [Bundle.IsLoaded]: The load status of a bundle.
-//
-// # Errors
-//
-//   - [Bundle.NSExecutableErrorMinimum]: The beginning of the range of error codes reserved for errors related to executable files.
-//   - [Bundle.SetNSExecutableErrorMinimum]
-//   - [Bundle.NSExecutableNotLoadableError]: The executable type isn’t loadable in the current process.
-//   - [Bundle.SetNSExecutableNotLoadableError]
-//   - [Bundle.NSExecutableArchitectureMismatchError]: The executable doesn’t provide an architecture compatible with the current process.
-//   - [Bundle.SetNSExecutableArchitectureMismatchError]
-//   - [Bundle.NSExecutableRuntimeMismatchError]: The executable has Objective-C runtime information that’s incompatible with the current process.
-//   - [Bundle.SetNSExecutableRuntimeMismatchError]
-//   - [Bundle.NSExecutableLoadError]: Executable cannot be loaded for an otherwise-unspecified reason.
-//   - [Bundle.SetNSExecutableLoadError]
-//   - [Bundle.NSExecutableLinkError]: The executable failed due to linking issues.
-//   - [Bundle.SetNSExecutableLinkError]
-//   - [Bundle.NSExecutableErrorMaximum]: The end of the range of error codes reserved for errors related to executable files.
-//   - [Bundle.SetNSExecutableErrorMaximum]
 //
 // # Instance Methods
 //
@@ -368,7 +350,6 @@ func NSBundleFromID(id objc.ID) Bundle { return BundleFromID(id) }
 //
 //   - [IBundle.ClassNamed]: Returns the [Class] object for the specified name.
 //   - [IBundle.PrincipalClass]: The bundle’s principal class.
-//   - [IBundle.NSLoadedClasses]: A constant used as a key for the
 //
 // # Loading Code from a Bundle
 //
@@ -377,23 +358,6 @@ func NSBundleFromID(id objc.ID) Bundle { return BundleFromID(id) }
 //   - [IBundle.LoadAndReturnError]: Loads the bundle’s executable code and returns any errors.
 //   - [IBundle.Unload]: Unloads the code associated with the receiver.
 //   - [IBundle.IsLoaded]: The load status of a bundle.
-//
-// # Errors
-//
-//   - [IBundle.NSExecutableErrorMinimum]: The beginning of the range of error codes reserved for errors related to executable files.
-//   - [IBundle.SetNSExecutableErrorMinimum]
-//   - [IBundle.NSExecutableNotLoadableError]: The executable type isn’t loadable in the current process.
-//   - [IBundle.SetNSExecutableNotLoadableError]
-//   - [IBundle.NSExecutableArchitectureMismatchError]: The executable doesn’t provide an architecture compatible with the current process.
-//   - [IBundle.SetNSExecutableArchitectureMismatchError]
-//   - [IBundle.NSExecutableRuntimeMismatchError]: The executable has Objective-C runtime information that’s incompatible with the current process.
-//   - [IBundle.SetNSExecutableRuntimeMismatchError]
-//   - [IBundle.NSExecutableLoadError]: Executable cannot be loaded for an otherwise-unspecified reason.
-//   - [IBundle.SetNSExecutableLoadError]
-//   - [IBundle.NSExecutableLinkError]: The executable failed due to linking issues.
-//   - [IBundle.SetNSExecutableLinkError]
-//   - [IBundle.NSExecutableErrorMaximum]: The end of the range of error codes reserved for errors related to executable files.
-//   - [IBundle.SetNSExecutableErrorMaximum]
 //
 // # Instance Methods
 //
@@ -445,7 +409,7 @@ type IBundle interface {
 	// Returns the location of the specified image resource file.
 	PathForImageResource(name INSString) string
 	// Returns an [NSImage] instance associated with the specified name, which can be backed by multiple files representing different resolution versions of the image.
-	ImageForResource(name INSString) objc.ID
+	ImageForResource(name INSString) objectivec.IObject
 
 	// Topic: Finding Sound Resources
 
@@ -522,11 +486,9 @@ type IBundle interface {
 	// Topic: Getting Classes from a Bundle
 
 	// Returns the [Class] object for the specified name.
-	ClassNamed(className string) objc.Class
+	ClassNamed(className string) objectivec.Class
 	// The bundle’s principal class.
-	PrincipalClass() objc.Class
-	// A constant used as a key for the
-	NSLoadedClasses() string
+	PrincipalClass() objectivec.Class
 
 	// Topic: Loading Code from a Bundle
 
@@ -540,30 +502,6 @@ type IBundle interface {
 	Unload() bool
 	// The load status of a bundle.
 	IsLoaded() bool
-
-	// Topic: Errors
-
-	// The beginning of the range of error codes reserved for errors related to executable files.
-	NSExecutableErrorMinimum() int
-	SetNSExecutableErrorMinimum(value int)
-	// The executable type isn’t loadable in the current process.
-	NSExecutableNotLoadableError() int
-	SetNSExecutableNotLoadableError(value int)
-	// The executable doesn’t provide an architecture compatible with the current process.
-	NSExecutableArchitectureMismatchError() int
-	SetNSExecutableArchitectureMismatchError(value int)
-	// The executable has Objective-C runtime information that’s incompatible with the current process.
-	NSExecutableRuntimeMismatchError() int
-	SetNSExecutableRuntimeMismatchError(value int)
-	// Executable cannot be loaded for an otherwise-unspecified reason.
-	NSExecutableLoadError() int
-	SetNSExecutableLoadError(value int)
-	// The executable failed due to linking issues.
-	NSExecutableLinkError() int
-	SetNSExecutableLinkError(value int)
-	// The end of the range of error codes reserved for errors related to executable files.
-	NSExecutableErrorMaximum() int
-	SetNSExecutableErrorMaximum(value int)
 
 	// Topic: Instance Methods
 
@@ -607,7 +545,7 @@ func NewBundle() Bundle {
 // the existing instance is returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(for:)
-func NewBundleForClass(aClass objc.Class) Bundle {
+func NewBundleForClass(aClass objectivec.Class) Bundle {
 	rv := objc.Send[objc.ID](objc.ID(getBundleClass().class), objc.Sel("bundleForClass:"), aClass)
 	return BundleFromID(rv)
 }
@@ -627,11 +565,12 @@ func NewBundleForClass(aClass objc.Class) Bundle {
 //
 // This method is typically used by frameworks and plug-ins to locate their
 // own bundle at runtime. This method may be somewhat more efficient than
-// trying to locate the bundle using the [BundleForClass] method. However, if
-// the initial lookup of an already loaded and cached bundle with the
-// specified identifier fails, this method uses potentially time-consuming
-// heuristics to attempt to locate the bundle. As an optimization, you can use
-// the [BundleWithPath] or [BundleWithURL] method instead to avoid file system
+// trying to locate the bundle using the [NSBundleClass.BundleForClass]
+// method. However, if the initial lookup of an already loaded and cached
+// bundle with the specified identifier fails, this method uses potentially
+// time-consuming heuristics to attempt to locate the bundle. As an
+// optimization, you can use the [NSBundleClass.BundleWithPath] or
+// [NSBundleClass.BundleWithURL] method instead to avoid file system
 // traversal.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(identifier:)
@@ -657,9 +596,9 @@ func NewBundleWithIdentifier(identifier string) Bundle {
 // # Discussion
 //
 // It’s not necessary to allocate and initialize an instance for the main
-// bundle; use the [MainBundle] class method to get this instance. You can
-// also use the [BundleWithPath] class method to obtain a bundle identified by
-// its directory path.
+// bundle; use the [NSBundleClass.MainBundle] class method to get this
+// instance. You can also use the [NSBundleClass.BundleWithPath] class method
+// to obtain a bundle identified by its directory path.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(path:)
 func NewBundleWithPath(path string) Bundle {
@@ -685,9 +624,9 @@ func NewBundleWithPath(path string) Bundle {
 // # Discussion
 //
 // It’s not necessary to allocate and initialize an instance for the main
-// bundle; use the [MainBundle] class method to get this instance. You can
-// also use the [BundleWithURL] class method to obtain a bundle identified by
-// its file URL.
+// bundle; use the [NSBundleClass.MainBundle] class method to get this
+// instance. You can also use the [NSBundleClass.BundleWithURL] class method
+// to obtain a bundle identified by its file URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
 func NewBundleWithURL(url INSURL) Bundle {
@@ -713,9 +652,9 @@ func NewBundleWithURL(url INSURL) Bundle {
 // # Discussion
 //
 // It’s not necessary to allocate and initialize an instance for the main
-// bundle; use the [MainBundle] class method to get this instance. You can
-// also use the [BundleWithURL] class method to obtain a bundle identified by
-// its file URL.
+// bundle; use the [NSBundleClass.MainBundle] class method to get this
+// instance. You can also use the [NSBundleClass.BundleWithURL] class method
+// to obtain a bundle identified by its file URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
 func (b Bundle) InitWithURL(url INSURL) Bundle {
@@ -740,9 +679,9 @@ func (b Bundle) InitWithURL(url INSURL) Bundle {
 // # Discussion
 //
 // It’s not necessary to allocate and initialize an instance for the main
-// bundle; use the [MainBundle] class method to get this instance. You can
-// also use the [BundleWithPath] class method to obtain a bundle identified by
-// its directory path.
+// bundle; use the [NSBundleClass.MainBundle] class method to get this
+// instance. You can also use the [NSBundleClass.BundleWithPath] class method
+// to obtain a bundle identified by its directory path.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/init(path:)
 func (b Bundle) InitWithPath(path string) Bundle {
@@ -929,15 +868,16 @@ func (b Bundle) URLsForResourcesWithExtensionSubdirectory(ext string, subpath st
 //
 // # Discussion
 //
-// This method is equivalent to [URLsForResourcesWithExtensionSubdirectory],
-// except that only nonlocalized resources and those in the language-specific
+// This method is equivalent to
+// [NSBundle.URLsForResourcesWithExtensionSubdirectory], except that only
+// nonlocalized resources and those in the language-specific
 // `XCUIElementTypeLproj` directory specified by `localizationName` are
 // searched.
 //
 // There should typically be little reason to use this method—see Getting
 // the Current Language and Locale. See also
-// [PreferredLocalizationsFromArrayForPreferences] for how to determine what
-// localizations are available.
+// [NSBundleClass.PreferredLocalizationsFromArrayForPreferences] for how to
+// determine what localizations are available.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/url(forResource:withExtension:subdirectory:localization:)
 func (b Bundle) URLForResourceWithExtensionSubdirectoryLocalization(name string, ext string, subpath string, localizationName string) INSURL {
@@ -969,8 +909,9 @@ func (b Bundle) URLForResourceWithExtensionSubdirectoryLocalization(name string,
 //
 // # Discussion
 //
-// This method is equivalent to [URLsForResourcesWithExtensionSubdirectory],
-// except that only nonlocalized resources and those in the language-specific
+// This method is equivalent to
+// [NSBundle.URLsForResourcesWithExtensionSubdirectory], except that only
+// nonlocalized resources and those in the language-specific
 // `XCUIElementTypeLproj` directory specified by `localizationName` are
 // searched.
 //
@@ -1102,15 +1043,15 @@ func (b Bundle) PathForResourceOfTypeInDirectory(name string, ext string, subpat
 //
 // # Discussion
 //
-// This method is equivalent to [PathForResourceOfTypeInDirectory], except
-// that only nonlocalized resources and those in the language-specific
+// This method is equivalent to [NSBundle.PathForResourceOfTypeInDirectory],
+// except that only nonlocalized resources and those in the language-specific
 // `XCUIElementTypeLproj` directory specified by `localizationName` are
 // searched.
 //
 // There should typically be little reason to use this method—see Getting
 // the Current Language and Locale. See also
-// [PreferredLocalizationsFromArrayForPreferences] for how to determine what
-// localizations are available.
+// [NSBundleClass.PreferredLocalizationsFromArrayForPreferences] for how to
+// determine what localizations are available.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/path(forResource:ofType:inDirectory:forLocalization:)
 func (b Bundle) PathForResourceOfTypeInDirectoryForLocalization(name string, ext string, subpath string, localizationName string) string {
@@ -1189,8 +1130,8 @@ func (b Bundle) PathsForResourcesOfTypeInDirectory(ext string, subpath string) [
 //
 // # Discussion
 //
-// This method is equivalent to [PathsForResourcesOfTypeInDirectory], except
-// that only nonlocalized resources and those in the language-specific
+// This method is equivalent to [NSBundle.PathsForResourcesOfTypeInDirectory],
+// except that only nonlocalized resources and those in the language-specific
 // `XCUIElementTypeLproj` directory specified by `localizationName` are
 // searched.
 //
@@ -1270,9 +1211,9 @@ func (b Bundle) PathForImageResource(name INSString) string {
 //
 // [init(named:)]: https://developer.apple.com/documentation/AppKit/NSImage/init(named:)
 // [setName(_:)]: https://developer.apple.com/documentation/AppKit/NSImage/setName(_:)
-func (b Bundle) ImageForResource(name INSString) objc.ID {
+func (b Bundle) ImageForResource(name INSString) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("imageForResource:"), name)
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // Returns the location of the specified sound resource file.
@@ -1325,11 +1266,11 @@ func (b Bundle) PathForSoundResource(name INSString) string {
 // `XCUIElementTypeStrings` file, see “[String Resources].”
 //
 // Using the user default [NSShowNonLocalizedStrings], you can alter the
-// behavior of [LocalizedStringForKeyValueTable] to log a message when the
-// method can’t find a localized string. If you set this default to true (in
-// the global domain or in the application’s domain), then when the method
-// can’t find a localized string in the table, it logs a message to the
-// console and capitalizes `key` before returning it.
+// behavior of [NSBundle.LocalizedStringForKeyValueTable] to log a message
+// when the method can’t find a localized string. If you set this default to
+// true (in the global domain or in the application’s domain), then when the
+// method can’t find a localized string in the table, it logs a message to
+// the console and capitalizes `key` before returning it.
 //
 // The following example cycles through a static array of keys when a button
 // is clicked, gets the value for each key from a strings table named
@@ -1462,9 +1403,9 @@ func (b Bundle) ObjectForInfoDictionaryKey(key string) objectivec.IObject {
 // See: https://developer.apple.com/documentation/Foundation/Bundle/classNamed(_:)
 //
 // [didLoadNotification]: https://developer.apple.com/documentation/Foundation/Bundle/didLoadNotification
-func (b Bundle) ClassNamed(className string) objc.Class {
-	rv := objc.Send[objc.Class](b.ID, objc.Sel("classNamed:"), objc.String(className))
-	return rv
+func (b Bundle) ClassNamed(className string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](b.ID, objc.Sel("classNamed:"), objc.String(className))
+	return objectivec.Class(rv)
 }
 
 // Returns a Boolean value indicating whether the bundle’s executable code
@@ -1479,7 +1420,7 @@ func (b Bundle) ClassNamed(className string) objc.Class {
 // requires the actual loading of the code to verify link errors.
 //
 // For a list of possible load errors, see the discussion for the
-// [LoadAndReturnError] method.
+// [NSBundle.LoadAndReturnError] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/preflight()
 func (b Bundle) PreflightAndReturnError() (bool, error) {
@@ -1880,10 +1821,10 @@ func (b Bundle) SharedSupportURL() INSURL {
 //
 // Receipts aren’t initially present in iOS and iPadOS apps in the sandbox
 // environment and in Xcode. Apps get a receipt after the tester completes the
-// first in-app purchase. When your app checks [AppStoreReceiptURL] and finds
-// that it’s `nil`, assume the tester is a new customer and has no access to
-// premium content. For Mac apps running in TestFlight, the receipt is always
-// present.
+// first in-app purchase. When your app checks [NSBundle.AppStoreReceiptURL]
+// and finds that it’s `nil`, assume the tester is a new customer and has no
+// access to premium content. For Mac apps running in TestFlight, the receipt
+// is always present.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/appStoreReceiptURL
 //
@@ -2085,8 +2026,9 @@ func (b Bundle) LocalizedInfoDictionary() INSDictionary {
 // it should mediate between those classes and classes external to the bundle.
 // Classes (and categories) are loaded from just one file within the bundle
 // directory. The bundle obtains the name of the code file to load from the
-// dictionary returned from [InfoDictionary], using “[NSExecutable]” as
-// the key. The bundle determines its principal class in one of two ways:
+// dictionary returned from [NSBundle.InfoDictionary], using
+// “[NSExecutable]” as the key. The bundle determines its principal class
+// in one of two ways:
 //
 // - It first looks in its own information dictionary, which extracts the
 // information encoded in the bundle’s property list (`Info.Plist()`). The
@@ -2108,24 +2050,16 @@ func (b Bundle) LocalizedInfoDictionary() INSDictionary {
 // details.
 //
 // The following method obtains a bundle by specifying its path
-// ([BundleWithPath]), then loads the bundle with [PrincipalClass] and uses
-// the principal class object to allocate and initialize an instance of that
-// class:
+// ([NSBundleClass.BundleWithPath]), then loads the bundle with
+// [NSBundle.PrincipalClass] and uses the principal class object to allocate
+// and initialize an instance of that class:
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/principalClass
 //
 // [didLoadNotification]: https://developer.apple.com/documentation/Foundation/Bundle/didLoadNotification
-func (b Bundle) PrincipalClass() objc.Class {
-	rv := objc.Send[objc.Class](b.ID, objc.Sel("principalClass"))
-	return rv
-}
-
-// A constant used as a key for the
-//
-// See: https://developer.apple.com/documentation/foundation/nsloadedclasses
-func (b Bundle) NSLoadedClasses() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("NSLoadedClasses"))
-	return NSStringFromID(rv).String()
+func (b Bundle) PrincipalClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](b.ID, objc.Sel("principalClass"))
+	return objectivec.Class(rv)
 }
 
 // An array of numbers indicating the architecture types supported by the
@@ -2163,87 +2097,6 @@ func (b Bundle) ExecutableArchitectures() []NSNumber {
 func (b Bundle) IsLoaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
-}
-
-// The beginning of the range of error codes reserved for errors related to
-// executable files.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutableerrorminimum-swift.var
-func (b Bundle) NSExecutableErrorMinimum() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableErrorMinimum"))
-	return rv
-}
-func (b Bundle) SetNSExecutableErrorMinimum(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableErrorMinimum:"), value)
-}
-
-// The executable type isn’t loadable in the current process.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutablenotloadableerror-swift.var
-func (b Bundle) NSExecutableNotLoadableError() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableNotLoadableError"))
-	return rv
-}
-func (b Bundle) SetNSExecutableNotLoadableError(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableNotLoadableError:"), value)
-}
-
-// The executable doesn’t provide an architecture compatible with the
-// current process.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutablearchitecturemismatcherror-swift.var
-func (b Bundle) NSExecutableArchitectureMismatchError() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableArchitectureMismatchError"))
-	return rv
-}
-func (b Bundle) SetNSExecutableArchitectureMismatchError(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableArchitectureMismatchError:"), value)
-}
-
-// The executable has Objective-C runtime information that’s incompatible
-// with the current process.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutableruntimemismatcherror-swift.var
-func (b Bundle) NSExecutableRuntimeMismatchError() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableRuntimeMismatchError"))
-	return rv
-}
-func (b Bundle) SetNSExecutableRuntimeMismatchError(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableRuntimeMismatchError:"), value)
-}
-
-// Executable cannot be loaded for an otherwise-unspecified reason.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutableloaderror-swift.var
-func (b Bundle) NSExecutableLoadError() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableLoadError"))
-	return rv
-}
-func (b Bundle) SetNSExecutableLoadError(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableLoadError:"), value)
-}
-
-// The executable failed due to linking issues.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutablelinkerror-swift.var
-func (b Bundle) NSExecutableLinkError() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableLinkError"))
-	return rv
-}
-func (b Bundle) SetNSExecutableLinkError(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableLinkError:"), value)
-}
-
-// The end of the range of error codes reserved for errors related to
-// executable files.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexecutableerrormaximum-swift.var
-func (b Bundle) NSExecutableErrorMaximum() int {
-	rv := objc.Send[int](b.ID, objc.Sel("NSExecutableErrorMaximum"))
-	return rv
-}
-func (b Bundle) SetNSExecutableErrorMaximum(value int) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableErrorMaximum:"), value)
 }
 
 // Returns the bundle object that contains the current executable.

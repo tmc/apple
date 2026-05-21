@@ -53,10 +53,6 @@ func (vc VNDetectTextRectanglesRequestClass) Alloc() VNDetectTextRectanglesReque
 //   - [VNDetectTextRectanglesRequest.ReportCharacterBoxes]: A Boolean value that indicates whether the request detects character bounding boxes.
 //   - [VNDetectTextRectanglesRequest.SetReportCharacterBoxes]
 //
-// # Identifying Request Revisions
-//
-//   - [VNDetectTextRectanglesRequest.VNDetectTextRectanglesRequestRevision1]: A constant for specifying revision 1 of the text rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTextRectanglesRequest
 type VNDetectTextRectanglesRequest struct {
 	VNImageBasedRequest
@@ -79,10 +75,6 @@ func VNDetectTextRectanglesRequestFromID(id objc.ID) VNDetectTextRectanglesReque
 //   - [IVNDetectTextRectanglesRequest.ReportCharacterBoxes]: A Boolean value that indicates whether the request detects character bounding boxes.
 //   - [IVNDetectTextRectanglesRequest.SetReportCharacterBoxes]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectTextRectanglesRequest.VNDetectTextRectanglesRequestRevision1]: A constant for specifying revision 1 of the text rectangles detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTextRectanglesRequest
 type IVNDetectTextRectanglesRequest interface {
 	IVNImageBasedRequest
@@ -92,11 +84,6 @@ type IVNDetectTextRectanglesRequest interface {
 	// A Boolean value that indicates whether the request detects character bounding boxes.
 	ReportCharacterBoxes() bool
 	SetReportCharacterBoxes(value bool)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of the text rectangles detection request.
-	VNDetectTextRectanglesRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -126,7 +113,7 @@ func NewVNDetectTextRectanglesRequest() VNDetectTextRectanglesRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectTextRectanglesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectTextRectanglesRequest {
@@ -150,13 +137,4 @@ func (d VNDetectTextRectanglesRequest) ReportCharacterBoxes() bool {
 }
 func (d VNDetectTextRectanglesRequest) SetReportCharacterBoxes(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReportCharacterBoxes:"), value)
-}
-
-// A constant for specifying revision 1 of the text rectangles detection
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecttextrectanglesrequestrevision1
-func (d VNDetectTextRectanglesRequest) VNDetectTextRectanglesRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTextRectanglesRequestRevision1"))
-	return rv
 }

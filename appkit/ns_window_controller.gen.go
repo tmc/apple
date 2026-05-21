@@ -87,25 +87,28 @@ func (nc NSWindowControllerClass) Alloc() NSWindowController {
 // augment the default behavior, such as to give the window a custom title or
 // to perform some setup tasks before the window is loaded. In your class’s
 // initialization method, be sure to invoke on `super` either one of the `...`
-// initializers or the [NSWindowController.InitWithWindow] initializer. The initializer you
-// choose depends on whether the window object originates in a nib file or is
-// programmatically created.
+// initializers or the [NSWindowController.InitWithWindow] initializer. The
+// initializer you choose depends on whether the window object originates in a
+// nib file or is programmatically created.
 //
 // You can also implement an [NSWindowController] subclass to avoid requiring
 // client code to get the corresponding nib’s filename and pass it to
-// [NSWindowController.InitWithWindowNibName] or [NSWindowController.InitWithWindowNibNameOwner] when instantiating
-// the window controller. The best way to do this is to override
-// [NSWindowController.WindowNibName] to return the nib’s filename and instantiate the window
-// controller by passing `nil` to [NSWindowController.InitWithWindow]. Using the [NSWindowController.InitWithWindow]
-// designated initializer simplifies compliance with Swift initializer
-// requirements.
+// [NSWindowController.InitWithWindowNibName] or
+// [NSWindowController.InitWithWindowNibNameOwner] when instantiating the
+// window controller. The best way to do this is to override
+// [NSWindowController.WindowNibName] to return the nib’s filename and
+// instantiate the window controller by passing `nil` to
+// [NSWindowController.InitWithWindow]. Using the
+// [NSWindowController.InitWithWindow] designated initializer simplifies
+// compliance with Swift initializer requirements.
 //
 // Typically, you override one of the methods listed below.
 //
 // [Table data omitted]
 //
-// You can also override [NSWindowController.LoadWindow] to get different nib-searching or
-// nib-loading behavior, although there is usually no need to do this.
+// You can also override [NSWindowController.LoadWindow] to get different
+// nib-searching or nib-loading behavior, although there is usually no need to
+// do this.
 //
 // # Initializing Window Controllers
 //
@@ -353,12 +356,12 @@ func NewWindowControllerWithCoder(coder foundation.INSCoder) NSWindowController 
 //
 // This initializer is useful when a window has been loaded but no window
 // controller is assigned. The default initialization turns on cascading, sets
-// the [ShouldCloseDocument] property to false, and sets the window frame
-// autosave name to an empty string. As a side effect, the created window
-// controller is added as an observer of the [willCloseNotification]s posted
-// by that window object (which is handled by a private method). If you make
-// the window controller a delegate of the window, you can implement
-// NSWindow’s windowShouldClose: delegate method.
+// the [NSWindowController.ShouldCloseDocument] property to false, and sets
+// the window frame autosave name to an empty string. As a side effect, the
+// created window controller is added as an observer of the
+// [willCloseNotification]s posted by that window object (which is handled by
+// a private method). If you make the window controller a delegate of the
+// window, you can implement NSWindow’s windowShouldClose: delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(window:)
 //
@@ -377,8 +380,9 @@ func NewWindowControllerWithWindow(window INSWindow) NSWindowController {
 // # Discussion
 //
 // Sets the owner of the nib file to the receiver. The default initialization
-// turns on cascading, sets the [ShouldCloseDocument] property to false, and
-// sets the autosave name for the window’s frame to an empty string.
+// turns on cascading, sets the [NSWindowController.ShouldCloseDocument]
+// property to false, and sets the autosave name for the window’s frame to
+// an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibName:)
 func NewWindowControllerWithWindowNibName(windowNibName NSNibName) NSWindowController {
@@ -398,8 +402,8 @@ func NewWindowControllerWithWindowNibName(windowNibName NSNibName) NSWindowContr
 // # Discussion
 //
 // The default initialization turns on cascading, sets the
-// [ShouldCloseDocument] property to false, and sets the autosave name for the
-// window’s frame to an empty string.
+// [NSWindowController.ShouldCloseDocument] property to false, and sets the
+// autosave name for the window’s frame to an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibName:owner:)
 func NewWindowControllerWithWindowNibNameOwner(windowNibName NSNibName, owner objectivec.IObject) NSWindowController {
@@ -421,8 +425,9 @@ func NewWindowControllerWithWindowNibNameOwner(windowNibName NSNibName, owner ob
 // Use this method if your nib file is at a fixed location (which is not
 // inside either the file’s owner’s class’s bundle or in the
 // application’s main bundle). The default initialization turns on
-// cascading, sets the [ShouldCloseDocument] property to false, and sets the
-// autosave name for the window’s frame to an empty string.
+// cascading, sets the [NSWindowController.ShouldCloseDocument] property to
+// false, and sets the autosave name for the window’s frame to an empty
+// string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibPath:owner:)
 func NewWindowControllerWithWindowNibPathOwner(windowNibPath string, owner objectivec.IObject) NSWindowController {
@@ -445,12 +450,12 @@ func NewWindowControllerWithWindowNibPathOwner(windowNibPath string, owner objec
 //
 // This initializer is useful when a window has been loaded but no window
 // controller is assigned. The default initialization turns on cascading, sets
-// the [ShouldCloseDocument] property to false, and sets the window frame
-// autosave name to an empty string. As a side effect, the created window
-// controller is added as an observer of the [willCloseNotification]s posted
-// by that window object (which is handled by a private method). If you make
-// the window controller a delegate of the window, you can implement
-// NSWindow’s windowShouldClose: delegate method.
+// the [NSWindowController.ShouldCloseDocument] property to false, and sets
+// the window frame autosave name to an empty string. As a side effect, the
+// created window controller is added as an observer of the
+// [willCloseNotification]s posted by that window object (which is handled by
+// a private method). If you make the window controller a delegate of the
+// window, you can implement NSWindow’s windowShouldClose: delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(window:)
 //
@@ -468,8 +473,9 @@ func (w NSWindowController) InitWithWindow(window INSWindow) NSWindowController 
 // # Discussion
 //
 // Sets the owner of the nib file to the receiver. The default initialization
-// turns on cascading, sets the [ShouldCloseDocument] property to false, and
-// sets the autosave name for the window’s frame to an empty string.
+// turns on cascading, sets the [NSWindowController.ShouldCloseDocument]
+// property to false, and sets the autosave name for the window’s frame to
+// an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibName:)
 func (w NSWindowController) InitWithWindowNibName(windowNibName NSNibName) NSWindowController {
@@ -488,8 +494,8 @@ func (w NSWindowController) InitWithWindowNibName(windowNibName NSNibName) NSWin
 // # Discussion
 //
 // The default initialization turns on cascading, sets the
-// [ShouldCloseDocument] property to false, and sets the autosave name for the
-// window’s frame to an empty string.
+// [NSWindowController.ShouldCloseDocument] property to false, and sets the
+// autosave name for the window’s frame to an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibName:owner:)
 func (w NSWindowController) InitWithWindowNibNameOwner(windowNibName NSNibName, owner objectivec.IObject) NSWindowController {
@@ -510,8 +516,9 @@ func (w NSWindowController) InitWithWindowNibNameOwner(windowNibName NSNibName, 
 // Use this method if your nib file is at a fixed location (which is not
 // inside either the file’s owner’s class’s bundle or in the
 // application’s main bundle). The default initialization turns on
-// cascading, sets the [ShouldCloseDocument] property to false, and sets the
-// autosave name for the window’s frame to an empty string.
+// cascading, sets the [NSWindowController.ShouldCloseDocument] property to
+// false, and sets the autosave name for the window’s frame to an empty
+// string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/init(windowNibPath:owner:)
 func (w NSWindowController) InitWithWindowNibPathOwner(windowNibPath string, owner objectivec.IObject) NSWindowController {
@@ -523,13 +530,15 @@ func (w NSWindowController) InitWithWindowNibPathOwner(windowNibPath string, own
 //
 // # Discussion
 //
-// You should never directly invoke this method. Instead, access the [Window]
-// property so the [WindowDidLoad] and [WindowWillLoad] methods are invoked.
-// Subclasses can override this method if the way it finds and loads the
-// window is not adequate. It uses the [Bundle] class’s [init(for:)] method
-// to get the bundle, using the class of the nib file owner as argument. It
-// then locates the nib file within the bundle and, if successful, loads it;
-// if unsuccessful, it tries to find the nib file in the main bundle.
+// You should never directly invoke this method. Instead, access the
+// [NSWindowController.Window] property so the
+// [NSWindowController.WindowDidLoad] and [NSWindowController.WindowWillLoad]
+// methods are invoked. Subclasses can override this method if the way it
+// finds and loads the window is not adequate. It uses the [Bundle] class’s
+// [init(for:)] method to get the bundle, using the class of the nib file
+// owner as argument. It then locates the nib file within the bundle and, if
+// successful, loads it; if unsuccessful, it tries to find the nib file in the
+// main bundle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/loadWindow()
 //
@@ -545,10 +554,10 @@ func (w NSWindowController) LoadWindow() {
 //
 // # Discussion
 //
-// If the window is an [NSPanel] object and has its [BecomesKeyOnlyIfNeeded]
-// flag set to true, the window is displayed in front of all other windows but
-// is not made key; otherwise it is displayed in front and is made key. This
-// method is useful for menu actions.
+// If the window is an [NSPanel] object and has its
+// [NSPanel.BecomesKeyOnlyIfNeeded] flag set to true, the window is displayed
+// in front of all other windows but is not made key; otherwise it is
+// displayed in front and is made key. This method is useful for menu actions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/showWindow(_:)
 func (w NSWindowController) ShowWindow(sender objectivec.IObject) {
@@ -600,8 +609,8 @@ func (w NSWindowController) SetDocumentEdited(dirtyFlag bool) {
 //
 // Because this method closes the window without asking the user for
 // confirmation, you usually do not invoke it when the Close menu command is
-// chosen. Instead invoke NSWindow’s [PerformClose] on the receiver’s
-// window.
+// chosen. Instead invoke NSWindow’s [NSWindow.PerformClose] on the
+// receiver’s window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/close()
 func (w NSWindowController) Close() {
@@ -616,8 +625,8 @@ func (w NSWindowController) Close() {
 // Does nothing if the window controller has no associated document or loaded
 // window. This method queries the window controller’s document to get the
 // document’s display name and full filename path, then calls
-// [WindowTitleForDocumentDisplayName] to get the display name to show in the
-// window title.
+// [NSWindowController.WindowTitleForDocumentDisplayName] to get the display
+// name to show in the window title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/synchronizeWindowTitleWithDocumentName()
 func (w NSWindowController) SynchronizeWindowTitleWithDocumentName() {
@@ -759,11 +768,13 @@ func (w NSWindowController) IsWindowLoaded() bool {
 //
 // Accessing this property loads the nib file if there is one and it has not
 // yet been loaded. If the window was loaded, the following methods are called
-// in order: [WindowWillLoad], [LoadWindow], and [WindowDidLoad]. If the
-// window controller has a document, the document’s corresponding methods
-// [WindowControllerWillLoadNib] and [WindowControllerDidLoadNib] are also
-// called (if implemented). To affect nib loading or do something before or
-// after it happens, you should always override these methods.
+// in order: [NSWindowController.WindowWillLoad],
+// [NSWindowController.LoadWindow], and [NSWindowController.WindowDidLoad]. If
+// the window controller has a document, the document’s corresponding
+// methods [NSDocument.WindowControllerWillLoadNib] and
+// [NSDocument.WindowControllerDidLoadNib] are also called (if implemented).
+// To affect nib loading or do something before or after it happens, you
+// should always override these methods.
 //
 // Setting this property releases the window controller’s old window along
 // with any associated top-level objects in its nib file, and establishes
@@ -849,10 +860,11 @@ func (w NSWindowController) Storyboard() INSStoryboard {
 //
 // # Discussion
 //
-// If [InitWithWindowNibPathOwner] was used to initialize the instance,
-// [WindowNibName] contains the last path component with the
-// “`XCUIElementTypeNib`” extension stripped off. If
-// [InitWithWindowNibName] or [InitWithWindowNibNameOwner] was used,
+// If [NSWindowController.InitWithWindowNibPathOwner] was used to initialize
+// the instance, [NSWindowController.WindowNibName] contains the last path
+// component with the “`XCUIElementTypeNib`” extension stripped off. If
+// [NSWindowController.InitWithWindowNibName] or
+// [NSWindowController.InitWithWindowNibNameOwner] was used,
 // [NSWindowController] contains the name without the
 // “`XCUIElementTypeNib`” extension.
 //
@@ -867,13 +879,15 @@ func (w NSWindowController) WindowNibName() NSNibName {
 //
 // # Discussion
 //
-// If [InitWithWindowNibPathOwner] was used to initialize the instance, this
-// property contains the path. If [InitWithWindowNibName] or
-// [InitWithWindowNibNameOwner] was used, [WindowNibPath] locates the nib in
-// the file’s owner’s class’ bundle or in the application’s main
-// bundle and returns the full path (or `nil` if it cannot be located).
-// Subclasses can override this behavior to augment the search behavior, but
-// probably ought to call `super` first.
+// If [NSWindowController.InitWithWindowNibPathOwner] was used to initialize
+// the instance, this property contains the path. If
+// [NSWindowController.InitWithWindowNibName] or
+// [NSWindowController.InitWithWindowNibNameOwner] was used,
+// [NSWindowController.WindowNibPath] locates the nib in the file’s
+// owner’s class’ bundle or in the application’s main bundle and returns
+// the full path (or `nil` if it cannot be located). Subclasses can override
+// this behavior to augment the search behavior, but probably ought to call
+// `super` first.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/windowNibPath
 func (w NSWindowController) WindowNibPath() string {
@@ -922,7 +936,8 @@ func (w NSWindowController) SetWindowFrameAutosaveName(value NSWindowFrameAutosa
 //
 // # Discussion
 //
-// The value of this property tracks the window’s [ContentView] property.
+// The value of this property tracks the window’s [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/contentViewController
 func (w NSWindowController) ContentViewController() INSViewController {

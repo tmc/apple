@@ -169,8 +169,8 @@ type INSSliderTouchBarItem interface {
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 	// The selector on the target object that is invoked when a user interacts with the slider or either of the accessories.
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 }
 
 // Init initializes the instance.
@@ -338,10 +338,10 @@ func (s NSSliderTouchBarItem) SetTarget(value objectivec.IObject) {
 // with the slider or either of the accessories.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/action
-func (s NSSliderTouchBarItem) Action() objc.SEL {
+func (s NSSliderTouchBarItem) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (s NSSliderTouchBarItem) SetAction(value objc.SEL) {
+func (s NSSliderTouchBarItem) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAction:"), value)
 }

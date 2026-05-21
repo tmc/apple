@@ -288,9 +288,9 @@ func (s NSScroller) TestPart(point corefoundation.CGPoint) NSScrollerPart {
 //
 // # Discussion
 //
-// The [UsableParts] property contains the state calculated by this method.
-// You should never need to invoke this method; it’s invoked automatically
-// whenever the scroller’s size changes.
+// The [NSScroller.UsableParts] property contains the state calculated by this
+// method. You should never need to invoke this method; it’s invoked
+// automatically whenever the scroller’s size changes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/checkSpaceForParts()
 func (s NSScroller) CheckSpaceForParts() {
@@ -412,7 +412,8 @@ func (s NSScroller) HitPart() NSScrollerPart {
 // For a scroller that’s managed by an [NSScrollView] object, the setter is
 // automatically invoked by the scroll view with the appropriate setting,
 // according to the user’s Appearance preference settings and possibly what
-// pointing device(s) are present (see [PreferredScrollerStyle]).
+// pointing device(s) are present (see
+// [NSScrollerClass.PreferredScrollerStyle]).
 //
 // For a list of valid scroller styles, see [NSScroller.Style].
 //
@@ -485,30 +486,24 @@ func (s NSScroller) SetKnobProportion(value float64) {
 //
 // In most cases, updating to a new scroller style is automatic: When the
 // preferred scroller style changes, AppKit notifies all [NSScrollView]
-// instances, setting the [ScrollerStyle] property of each with the new style,
-// which causes each scroll view to automatically re-tile (update its layout)
-// to adapt to the new scroller style. Some [NSScrollView] instances may
-// refuse the new scroller style setting if they cannot accommodate it for
-// compatibility reasons (the presence of accessory views or legacy scroller
-// subclasses prevent use of overlay scrollers), but most instances will
-// switch to the specified new preferred scroller style.
+// instances, setting the [NSScroller.ScrollerStyle] property of each with the
+// new style, which causes each scroll view to automatically re-tile (update
+// its layout) to adapt to the new scroller style. Some [NSScrollView]
+// instances may refuse the new scroller style setting if they cannot
+// accommodate it for compatibility reasons (the presence of accessory views
+// or legacy scroller subclasses prevent use of overlay scrollers), but most
+// instances will switch to the specified new preferred scroller style.
 //
 // If you need to be notified of changes to the preferred scroller style, you
-// can register to receive [PreferredScrollerStyleDidChangeNotification]
+// can register to receive [preferredScrollerStyleDidChangeNotification]
 // notifications.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/preferredScrollerStyle
+//
+// [preferredScrollerStyleDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSScroller/preferredScrollerStyleDidChangeNotification
 func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyle() NSScrollerStyle {
 	rv := objc.Send[NSScrollerStyle](objc.ID(_NSScrollerClass.class), objc.Sel("preferredScrollerStyle"))
 	return NSScrollerStyle(rv)
-}
-
-// Posted if the preferred scroller style changes.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscroller/preferredscrollerstyledidchangenotification
-func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyleDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSScrollerClass.class), objc.Sel("NSPreferredScrollerStyleDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/isCompatibleWithOverlayScrollers

@@ -94,7 +94,7 @@ func (cc CKContainerClass) Alloc() CKContainer {
 // encourage them to enable iCloud. You can even provide a button that takes
 // the user directly to Settings so that they can enable iCloud. To implement
 // such a button, have the button’s action open the URL that the
-// [CKContainer.OpenSettingsURLString] constant provides.
+// [openSettingsURLString] constant provides.
 //
 // # User Records and Permissions
 //
@@ -110,7 +110,7 @@ func (cc CKContainerClass) Alloc() CKContainer {
 // While a user record isn’t the same as the user’s [CKUserIdentity], the
 // identity does provide the identifier of their user record that you can use
 // to fetch that record from either the public database or the user’s
-// private database. For more information, see [CKContainer.UserRecordID].
+// private database. For more information, see [CKUserIdentity.UserRecordID].
 //
 // # Testing Your Code Using the Development Container
 //
@@ -157,16 +157,15 @@ func (cc CKContainerClass) Alloc() CKContainer {
 //   - [CKContainer.FetchShareParticipantWithPhoneNumberCompletionHandler]: Fetches the share participant with the specified phone number.
 //   - [CKContainer.FetchShareParticipantWithUserRecordIDCompletionHandler]: Fetches the share participant with the specified user record ID.
 //   - [CKContainer.FetchUserRecordIDWithCompletionHandler]: Fetches the user record ID of the current user.
-//   - [CKContainer.CKCurrentUserDefaultName]: A constant that provides the current user’s default name.
-//   - [CKContainer.CKOwnerDefaultName]: A constant that provides the default owner’s name.
 //
 // # Accessing Container Metadata
 //
 //   - [CKContainer.FetchShareMetadataWithURLCompletionHandler]: Fetches the share metadata for the specified share URL.
 //   - [CKContainer.AcceptShareMetadataCompletionHandler]: Accepts the specified share metadata.
-//   - [CKContainer.CKAccountChanged]: A notification that a container posts when the status of an iCloud account changes.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer
+//
+// [openSettingsURLString]: https://developer.apple.com/documentation/UIKit/UIApplication/openSettingsURLString
 type CKContainer struct {
 	objectivec.Object
 }
@@ -208,14 +207,11 @@ func CKContainerFromID(id objc.ID) CKContainer {
 //   - [ICKContainer.FetchShareParticipantWithPhoneNumberCompletionHandler]: Fetches the share participant with the specified phone number.
 //   - [ICKContainer.FetchShareParticipantWithUserRecordIDCompletionHandler]: Fetches the share participant with the specified user record ID.
 //   - [ICKContainer.FetchUserRecordIDWithCompletionHandler]: Fetches the user record ID of the current user.
-//   - [ICKContainer.CKCurrentUserDefaultName]: A constant that provides the current user’s default name.
-//   - [ICKContainer.CKOwnerDefaultName]: A constant that provides the default owner’s name.
 //
 // # Accessing Container Metadata
 //
 //   - [ICKContainer.FetchShareMetadataWithURLCompletionHandler]: Fetches the share metadata for the specified share URL.
 //   - [ICKContainer.AcceptShareMetadataCompletionHandler]: Accepts the specified share metadata.
-//   - [ICKContainer.CKAccountChanged]: A notification that a container posts when the status of an iCloud account changes.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer
 type ICKContainer interface {
@@ -257,10 +253,6 @@ type ICKContainer interface {
 	FetchShareParticipantWithUserRecordIDCompletionHandler(userRecordID ICKRecordID, completionHandler CKShareParticipantErrorHandler)
 	// Fetches the user record ID of the current user.
 	FetchUserRecordIDWithCompletionHandler(completionHandler CKRecordIDErrorHandler)
-	// A constant that provides the current user’s default name.
-	CKCurrentUserDefaultName() string
-	// A constant that provides the default owner’s name.
-	CKOwnerDefaultName() string
 
 	// Topic: Accessing Container Metadata
 
@@ -268,12 +260,6 @@ type ICKContainer interface {
 	FetchShareMetadataWithURLCompletionHandler(url foundation.NSURL, completionHandler CKShareMetadataErrorHandler)
 	// Accepts the specified share metadata.
 	AcceptShareMetadataCompletionHandler(metadata ICKShareMetadata, completionHandler CKShareErrorHandler)
-	// A notification that a container posts when the status of an iCloud account changes.
-	CKAccountChanged() foundation.NSString
-
-	// The user record ID for the corresponding user record.
-	UserRecordID() ICKRecordID
-	SetUserRecordID(value ICKRecordID)
 }
 
 // Init initializes the instance.
@@ -308,7 +294,7 @@ func NewCKContainer() CKContainer {
 // in the iCloud capabilities section of your Xcode project. Including the
 // identifier with your app’s capabilities adds the corresponding
 // entitlements to your app. To access your app’s default container, use the
-// [DefaultContainer] method instead.
+// [CKContainerClass.DefaultContainer] method instead.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/init(identifier:)
 func NewCKContainerWithIdentifier(containerIdentifier string) CKContainer {
@@ -347,6 +333,8 @@ func (c CKContainer) DatabaseWithDatabaseScope(databaseScope CKDatabaseScope) IC
 // method again to determine the status of the new account.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/accountStatus(completionHandler:)
+//
+// [CKAccountChanged]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/CKAccountChanged
 func (c CKContainer) AccountStatusWithCompletionHandler(completionHandler CKAccountStatusErrorHandler) {
 	_block0, _ := NewCKAccountStatusErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("accountStatusWithCompletionHandler:"), _block0)
@@ -530,8 +518,8 @@ func (c CKContainer) AcceptShareMetadataCompletionHandler(metadata ICKShareMetad
 //
 // Use this method to retrieve your app’s default container. This is the one
 // you typically use to store your app’s data. If you want the container for
-// a different app, create a container using the [ContainerWithIdentifier]
-// method.
+// a different app, create a container using the
+// [CKContainerClass.ContainerWithIdentifier] method.
 //
 // During development, the container uses the development environment. When
 // you release your app, the container uses the production environment.
@@ -557,7 +545,7 @@ func (_CKContainerClass CKContainerClass) DefaultContainer() CKContainer {
 // If there isn’t an iCloud account on the user’s device, this property
 // still returns a database, but any attempt to use it results in an error. To
 // determine if there is an iCloud account on the device, use the
-// [AccountStatusWithCompletionHandler] method.
+// [CKContainer.AccountStatusWithCompletionHandler] method.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/privateCloudDatabase
 func (c CKContainer) PrivateCloudDatabase() ICKDatabase {
@@ -603,7 +591,7 @@ func (c CKContainer) PublicCloudDatabase() ICKDatabase {
 // If there isn’t an iCloud account on the user’s device, this property
 // still returns a database, but any attempt to use it results in an error. To
 // determine if there is an iCloud account on the device, use the
-// [AccountStatusWithCompletionHandler] method.
+// [CKContainer.AccountStatusWithCompletionHandler] method.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/sharedCloudDatabase
 func (c CKContainer) SharedCloudDatabase() ICKDatabase {
@@ -621,51 +609,6 @@ func (c CKContainer) SharedCloudDatabase() ICKDatabase {
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/containerIdentifier
 func (c CKContainer) ContainerIdentifier() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("containerIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A constant that provides the current user’s default name.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckcurrentuserdefaultname
-func (c CKContainer) CKCurrentUserDefaultName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKCurrentUserDefaultName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A constant that provides the default owner’s name.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckownerdefaultname
-func (c CKContainer) CKOwnerDefaultName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKOwnerDefaultName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A notification that a container posts when the status of an iCloud account
-// changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/CKAccountChanged
-func (c CKContainer) CKAccountChanged() foundation.NSString {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKAccountChanged"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// The user record ID for the corresponding user record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckuseridentity/userrecordid
-func (c CKContainer) UserRecordID() ICKRecordID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userRecordID"))
-	return CKRecordIDFromID(objc.ID(rv))
-}
-func (c CKContainer) SetUserRecordID(value ICKRecordID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserRecordID:"), value)
-}
-
-// The URL string you use to deep link to your app’s custom settings in the
-// Settings app.
-//
-// See: https://developer.apple.com/documentation/UIKit/UIApplication/openSettingsURLString
-func (_CKContainerClass CKContainerClass) OpenSettingsURLString() string {
-	rv := objc.Send[objc.ID](objc.ID(_CKContainerClass.class), objc.Sel("openSettingsURLString"))
 	return foundation.NSStringFromID(rv).String()
 }
 

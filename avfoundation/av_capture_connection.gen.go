@@ -54,12 +54,13 @@ func (ac AVCaptureConnectionClass) Alloc() AVCaptureConnection {
 // video and audio data).
 //
 // You can add an [AVCaptureConnection] instance to a session using the
-// [AddConnection] method only if the [CanAddConnection] method returns true.
-// When using the [AddInput] or [AddOutput] method, the session forms
-// connections automatically between all compatible inputs and outputs. You
-// only need to add connections manually when adding an input or output with
-// no connections. You can also use connections to enable or disable the flow
-// of data from a given input or to a given output.
+// [AVCaptureSession.AddConnection] method only if the
+// [AVCaptureSession.CanAddConnection] method returns true. When using the
+// [AVCaptureSession.AddInput] or [AVCaptureSession.AddOutput] method, the
+// session forms connections automatically between all compatible inputs and
+// outputs. You only need to add connections manually when adding an input or
+// output with no connections. You can also use connections to enable or
+// disable the flow of data from a given input or to a given output.
 //
 // # Creating a connection
 //
@@ -299,12 +300,13 @@ func NewAVCaptureConnection() AVCaptureConnection {
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/init(inputPort:videoPreviewLayer:)
 func NewCaptureConnectionWithInputPortVideoPreviewLayer(port IAVCaptureInputPort, layer IAVCaptureVideoPreviewLayer) AVCaptureConnection {
@@ -329,12 +331,13 @@ func NewCaptureConnectionWithInputPortVideoPreviewLayer(port IAVCaptureInputPort
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/init(inputPorts:output:)
 func NewCaptureConnectionWithInputPortsOutput(ports []AVCaptureInputPort, output IAVCaptureOutput) AVCaptureConnection {
@@ -359,12 +362,13 @@ func NewCaptureConnectionWithInputPortsOutput(ports []AVCaptureInputPort, output
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/init(inputPorts:output:)
 func (c AVCaptureConnection) InitWithInputPortsOutput(ports []AVCaptureInputPort, output IAVCaptureOutput) AVCaptureConnection {
@@ -388,12 +392,13 @@ func (c AVCaptureConnection) InitWithInputPortsOutput(ports []AVCaptureInputPort
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/init(inputPort:videoPreviewLayer:)
 func (c AVCaptureConnection) InitWithInputPortVideoPreviewLayer(port IAVCaptureInputPort, layer IAVCaptureVideoPreviewLayer) AVCaptureConnection {
@@ -428,12 +433,13 @@ func (c AVCaptureConnection) IsVideoRotationAngleSupported(videoRotationAngle fl
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/connectionWithInputPort:videoPreviewLayer:
 func (_AVCaptureConnectionClass AVCaptureConnectionClass) ConnectionWithInputPortVideoPreviewLayer(port IAVCaptureInputPort, layer IAVCaptureVideoPreviewLayer) AVCaptureConnection {
@@ -457,12 +463,13 @@ func (_AVCaptureConnectionClass AVCaptureConnectionClass) ConnectionWithInputPor
 // # Discussion
 //
 // You can add the connection this method returns to an [AVCaptureSession]
-// instance with the [AddConnection] method.
+// instance with the [AVCaptureSession.AddConnection] method.
 //
-// The [AddInput]: or [AddOutput] methods automatically form connections
-// between all compatible inputs and outputs. You don’t need to manually
-// create and add connections to the session unless you use the primitive
-// [AddInputWithNoConnections] and [AddOutputWithNoConnections] methods.
+// The [AVCaptureSession.AddInput]: or [AVCaptureSession.AddOutput] methods
+// automatically form connections between all compatible inputs and outputs.
+// You don’t need to manually create and add connections to the session
+// unless you use the primitive [AVCaptureSession.AddInputWithNoConnections]
+// and [AVCaptureSession.AddOutputWithNoConnections] methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/connectionWithInputPorts:output:
 func (_AVCaptureConnectionClass AVCaptureConnectionClass) ConnectionWithInputPortsOutput(ports []AVCaptureInputPort, output IAVCaptureOutput) AVCaptureConnection {
@@ -516,7 +523,7 @@ func (c AVCaptureConnection) Output() IAVCaptureOutput {
 // # Discussion
 //
 // The connection sets the property in its
-// [InitWithInputPortVideoPreviewLayer] initializer.
+// [AVCaptureConnection.InitWithInputPortVideoPreviewLayer] initializer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoPreviewLayer
 func (c AVCaptureConnection) VideoPreviewLayer() IAVCaptureVideoPreviewLayer {
@@ -544,10 +551,12 @@ func (c AVCaptureConnection) AudioChannels() []AVCaptureAudioChannel {
 //
 // Your app can set a video rotation angle that it gets from an
 // [AVCaptureDeviceRotationCoordinator] instance’s
-// [VideoRotationAngleForHorizonLevelCapture] or
-// [VideoRotationAngleForHorizonLevelPreview] property. The rotation angle
-// only applies to video or depth connections, similar to [VideoMirrored], and
-// can be any angle that [IsVideoRotationAngleSupported] returns true for.
+// [AVCaptureDeviceRotationCoordinator.VideoRotationAngleForHorizonLevelCapture]
+// or
+// [AVCaptureDeviceRotationCoordinator.VideoRotationAngleForHorizonLevelPreview]
+// property. The rotation angle only applies to video or depth connections,
+// similar to [AVCaptureConnection.VideoMirrored], and can be any angle that
+// [AVCaptureConnection.IsVideoRotationAngleSupported] returns true for.
 //
 // Not all capture connections rotate each frame. For example, a video
 // connection to an [AVCaptureMovieFileOutput] or [AVCapturePhotoOutput]
@@ -563,8 +572,8 @@ func (c AVCaptureConnection) AudioChannels() []AVCaptureAudioChannel {
 //
 // You can rotate the video of a movie file you record with an [AVAssetWriter]
 // instance by applying the rotation to an [AVAssetWriterInput] instance’s
-// [Transform] property. This approach avoids the performance costs that come
-// with rotating each video frame.
+// [AVAssetWriterInput.Transform] property. This approach avoids the
+// performance costs that come with rotating each video frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoRotationAngle
 //
@@ -594,8 +603,9 @@ func (c AVCaptureConnection) IsVideoMirroringSupported() bool {
 //
 // You can apply a mirror-image effect to a video flowing through the
 // connection by setting the value to true. The mirroring effect only applies
-// to video or depth connections, similar to [VideoRotationAngle], and if
-// [SupportsVideoMirroring] is true.
+// to video or depth connections, similar to
+// [AVCaptureConnection.VideoRotationAngle], and if
+// [AVCaptureConnection.SupportsVideoMirroring] is true.
 //
 // Not all capture connections mirror each frame. For example, a video
 // connection to an [AVCaptureMovieFileOutput] or [AVCapturePhotoOutput]
@@ -610,10 +620,10 @@ func (c AVCaptureConnection) IsVideoMirroringSupported() bool {
 // acceleration to mirror every frame.
 //
 // You can mirror the video of a movie file you record with an [AVAssetWriter]
-// instance by applying a scale factor to the [Transform] property of its
-// [AVAssetWriterInput]. For example, you can horizontally flip an image by
-// scaling the x-axis by `-1`. This approach avoids the performance costs that
-// come with rotating each video frame.
+// instance by applying a scale factor to the [AVAssetWriterInput.Transform]
+// property of its [AVAssetWriterInput]. For example, you can horizontally
+// flip an image by scaling the x-axis by `-1`. This approach avoids the
+// performance costs that come with rotating each video frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMirrored
 //
@@ -634,9 +644,9 @@ func (c AVCaptureConnection) SetVideoMirrored(value bool) {
 //
 // For some session configurations, the connection mirrors the video data by
 // default. When the value of this property is true, the value of
-// [VideoMirrored] may change, depending on the configuration of the session.
-// For example, the value may change after switching to a different capture
-// device input.
+// [AVCaptureConnection.VideoMirrored] may change, depending on the
+// configuration of the session. For example, the value may change after
+// switching to a different capture device input.
 //
 // The default value is true.
 //
@@ -655,7 +665,8 @@ func (c AVCaptureConnection) SetAutomaticallyAdjustsVideoMirroring(value bool) {
 // # Discussion
 //
 // The property indicates whether the connection honors the
-// [VideoMinFrameDuration] property for a video connection.
+// [AVCaptureConnection.VideoMinFrameDuration] property for a video
+// connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMinFrameDurationSupported
 func (c AVCaptureConnection) IsVideoMinFrameDurationSupported() bool {
@@ -668,10 +679,10 @@ func (c AVCaptureConnection) IsVideoMinFrameDurationSupported() bool {
 //
 // # Discussion
 //
-// When [SupportsVideoMinFrameDuration] is true, the value of the property
-// configures the lower bound for the amount of time a video connection
-// separates consecutive frames. The value is equivalent to the reciprocal of
-// the minimum frame rate.
+// When [AVCaptureConnection.SupportsVideoMinFrameDuration] is true, the value
+// of the property configures the lower bound for the amount of time a video
+// connection separates consecutive frames. The value is equivalent to the
+// reciprocal of the minimum frame rate.
 //
 // You can set an unlimited frame rate with [zero] or [invalid] (which is the
 // default).
@@ -694,7 +705,8 @@ func (c AVCaptureConnection) SetVideoMinFrameDuration(value coremedia.CMTime) {
 // # Discussion
 //
 // The property indicates whether the connection honors the
-// [VideoMaxFrameDuration] property for a video connection.
+// [AVCaptureConnection.VideoMaxFrameDuration] property for a video
+// connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMaxFrameDurationSupported
 func (c AVCaptureConnection) IsVideoMaxFrameDurationSupported() bool {
@@ -707,10 +719,10 @@ func (c AVCaptureConnection) IsVideoMaxFrameDurationSupported() bool {
 //
 // # Discussion
 //
-// When [SupportsVideoMaxFrameDuration] is true, the value of the property
-// configures the upper bound for the amount of time a video connection
-// separates consecutive frames. The value is equivalent to the reciprocal of
-// the minimum frame rate.
+// When [AVCaptureConnection.SupportsVideoMaxFrameDuration] is true, the value
+// of the property configures the upper bound for the amount of time a video
+// connection separates consecutive frames. The value is equivalent to the
+// reciprocal of the minimum frame rate.
 //
 // You can set an unlimited frame rate with [zero] or [invalid] (which is the
 // default).
@@ -732,8 +744,8 @@ func (c AVCaptureConnection) SetVideoMaxFrameDuration(value coremedia.CMTime) {
 //
 // # Discussion
 //
-// The property only applies to a video connection’s [VideoFieldMode]
-// property.
+// The property only applies to a video connection’s
+// [AVCaptureConnection.VideoFieldMode] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoFieldModeSupported
 func (c AVCaptureConnection) IsVideoFieldModeSupported() bool {
@@ -747,7 +759,7 @@ func (c AVCaptureConnection) IsVideoFieldModeSupported() bool {
 // # Discussion
 //
 // The property only applies to a video connection and when
-// [SupportsVideoFieldMode] is true.
+// [AVCaptureConnection.SupportsVideoFieldMode] is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoFieldMode
 func (c AVCaptureConnection) VideoFieldMode() AVVideoFieldMode {
@@ -774,8 +786,8 @@ func (c AVCaptureConnection) IsVideoOrientationSupported() bool {
 //
 // The property only applies to a video connection.
 //
-// If the value of [SupportsVideoOrientation] is true, you can set
-// `videoOrientation` to rotate the video buffers consumed by the
+// If the value of [AVCaptureConnection.SupportsVideoOrientation] is true, you
+// can set `videoOrientation` to rotate the video buffers consumed by the
 // connection’s output. Setting `videoOrientation` doesn’t necessarily
 // result in a physical rotation of video buffers. For example, a video
 // connection to an [AVCaptureMovieFileOutput] object handles orientation
@@ -786,8 +798,9 @@ func (c AVCaptureConnection) IsVideoOrientationSupported() bool {
 // buffers in their [CaptureOutputDidOutputSampleBufferFromConnection]
 // delegate callback. The [AVCaptureVideoDataOutput] hardware accelerates the
 // rotation operation and supports all four [AVCaptureVideoOrientation] modes.
-// A client sets `videoOrientation` or [VideoMirrored] on the video data
-// output’s video [AVCaptureConnection] to request physical buffer rotation.
+// A client sets `videoOrientation` or [AVCaptureConnection.VideoMirrored] on
+// the video data output’s video [AVCaptureConnection] to request physical
+// buffer rotation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoOrientation
 //

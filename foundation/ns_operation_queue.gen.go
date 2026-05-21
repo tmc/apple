@@ -60,10 +60,10 @@ func (oc OperationQueueClass) Alloc() OperationQueue {
 //
 // An operation queue organizes and invokes its operations according to their
 // readiness, priority level, and interoperation dependencies. If all of the
-// queued operations have the same [QueuePriority] and the [Ready] property
-// returns true, the queue invokes them in the order you added them.
-// Otherwise, the operation queue always invokes the operation with the
-// highest priority relative to the other ready operations.
+// queued operations have the same [NSOperation.QueuePriority] and the
+// [NSOperation.Ready] property returns true, the queue invokes them in the
+// order you added them. Otherwise, the operation queue always invokes the
+// operation with the highest priority relative to the other ready operations.
 //
 // However, don’t rely on queue semantics to ensure a specific execution
 // order of operations because changes in the readiness of an operation can
@@ -84,8 +84,9 @@ func (oc OperationQueueClass) Alloc() OperationQueue {
 // executing operations, this means that the operation object’s work code
 // must check the cancellation state, stop what it is doing, and mark itself
 // as finished. For operations that are queued but not yet executing, the
-// queue must still call the operation object’s [Start] method so that it
-// can processes the cancellation event and mark itself as finished.
+// queue must still call the operation object’s [NSOperation.Start] method
+// so that it can processes the cancellation event and mark itself as
+// finished.
 //
 // For more information about operation cancellation, see [NSOperation] in
 // [NSOperation].
@@ -97,9 +98,11 @@ func (oc OperationQueueClass) Alloc() OperationQueue {
 // other parts of your application. To observe the properties, use the
 // following key paths:
 //
-// - [Operations] — Read-only - [OperationCount] — Read-only -
-// [MaxConcurrentOperationCount] — Readable and writable - [Suspended] —
-// Readable and writable - [Name] — Readable and writable
+// - [NSOperationQueue.Operations] — Read-only -
+// [NSOperationQueue.OperationCount] — Read-only -
+// [NSOperationQueue.MaxConcurrentOperationCount] — Readable and writable -
+// [NSOperationQueue.Suspended] — Readable and writable -
+// [NSOperationQueue.Name] — Readable and writable
 //
 // Although you can attach observers to these properties, don’t use Cocoa
 // bindings to bind these properties to elements of your application’s user
@@ -250,13 +253,6 @@ type IOperationQueue interface {
 	// The dispatch queue that the operation queue uses to invoke operations.
 	UnderlyingQueue() dispatch.Queue
 	SetUnderlyingQueue(value dispatch.Queue)
-
-	// A Boolean value indicating whether the operation can be performed now.
-	IsReady() bool
-	SetReady(value bool)
-	// The execution priority of the operation in an operation queue.
-	QueuePriority() NSOperationQueuePriority
-	SetQueuePriority(value NSOperationQueuePriority)
 }
 
 // Init initializes the instance.
@@ -308,7 +304,7 @@ func (o OperationQueue) AddOperation(op INSOperation) {
 // conditions are true for any of the operations in the `ops` parameter.
 //
 // Once added, the specified `operation` remains in the queue until its
-// [Finished] method returns true.
+// [NSOperation.Finished] method returns true.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/addOperations(_:waitUntilFinished:)
 func (o OperationQueue) AddOperationsWaitUntilFinished(ops []NSOperation, wait bool) {
@@ -355,8 +351,8 @@ func (o OperationQueue) AddBarrierBlock(barrier VoidHandler) {
 //
 // # Discussion
 //
-// This method calls the [Cancel] method on all operations currently in the
-// queue.
+// This method calls the [NSOperation.Cancel] method on all operations
+// currently in the queue.
 //
 // Canceling the operations does not automatically remove them from the queue
 // or stop those that are currently executing. For operations that are queued
@@ -407,8 +403,8 @@ func (o OperationQueue) WaitUntilAllOperationsAreFinished() {
 // retrieved the array but have subsequently finished.
 //
 // You can monitor changes to the value of this property using [Key-value
-// observing] (KVO). Configure an observer to monitor the [Operations] key
-// path of the operation queue.
+// observing] (KVO). Configure an observer to monitor the
+// [NSOperationQueue.Operations] key path of the operation queue.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/operations
 //
@@ -432,8 +428,8 @@ func (o OperationQueue) Operations() []NSOperation {
 // other precise calculations.
 //
 // You may monitor changes to the value of this property using [Key-value
-// observing]. Configure an observer to monitor the [OperationCount] key path
-// of the operation queue.
+// observing]. Configure an observer to monitor the
+// [NSOperationQueue.OperationCount] key path of the operation queue.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/operationCount
 //
@@ -452,7 +448,7 @@ func (o OperationQueue) OperationCount() uint {
 // set, that value is used instead. The default value of this property depends
 // on how you created the queue. For queues you create yourself, the default
 // value is [NSOperationQualityOfServiceBackground]. For the queue returned by
-// the [MainQueue] method, the default value is
+// the [NSOperationQueueClass.MainQueue] method, the default value is
 // [NSOperationQualityOfServiceUserInteractive] and cannot be changed.
 //
 // Service levels affect the priority with which operation objects are given
@@ -489,7 +485,8 @@ func (o OperationQueue) SetQualityOfService(value NSQualityOfService) {
 // The default value of this property is [defaultMaxConcurrentOperationCount].
 // You may monitor changes to the value of this property using [Key-value
 // observing]. Configure an observer to monitor the
-// [MaxConcurrentOperationCount] key path of the operation queue.
+// [NSOperationQueue.MaxConcurrentOperationCount] key path of the operation
+// queue.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/maxConcurrentOperationCount
 //
@@ -509,16 +506,17 @@ func (o OperationQueue) SetMaxConcurrentOperationCount(value int) {
 // # Discussion
 //
 // By default, [NSOperationQueue] doesn’t report progress until
-// [TotalUnitCount] is set. When [TotalUnitCount] is set, the queue begins
-// reporting progress. Each operation in the queue contributes one unit of
-// completion to the overall progress of the queue for operations that are
-// finished by the end of [Main]. Operations that override [Start] and don’t
-// invoke super don’t contribute to the queue’s progress.
+// [NSProgress.TotalUnitCount] is set. When [NSProgress.TotalUnitCount] is
+// set, the queue begins reporting progress. Each operation in the queue
+// contributes one unit of completion to the overall progress of the queue for
+// operations that are finished by the end of [NSOperation.Main]. Operations
+// that override [NSOperation.Start] and don’t invoke super don’t
+// contribute to the queue’s progress.
 //
-// To update [TotalUnitCount] in a thread-safe manner, use the
-// [AddBarrierBlock] method. This method ensures that the operation queue
-// completes the operations in the queue, preventing an inadvertent backward
-// jump in progress.
+// To update [NSProgress.TotalUnitCount] in a thread-safe manner, use the
+// [NSOperationQueue.AddBarrierBlock] method. This method ensures that the
+// operation queue completes the operations in the queue, preventing an
+// inadvertent backward jump in progress.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/progress
 func (o OperationQueue) Progress() INSProgress {
@@ -545,8 +543,8 @@ func (o OperationQueue) Progress() INSProgress {
 // queued and not executing.
 //
 // You may monitor changes to the value of this property using [Key-value
-// observing]. Configure an observer to monitor the [Suspended] key path of
-// the operation queue.
+// observing]. Configure an observer to monitor the
+// [NSOperationQueue.Suspended] key path of the operation queue.
 //
 // The default value of this property is false.
 //
@@ -572,7 +570,7 @@ func (o OperationQueue) SetSuspended(value bool) {
 // The default value of this property is a string containing the memory
 // address of the operation queue. You may monitor changes to the value of
 // this property using [Key-value observing]. Configure an observer to monitor
-// the [Name] key path of the operation queue.
+// the [NSOperationQueue.Name] key path of the operation queue.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/name
 //
@@ -594,43 +592,23 @@ func (o OperationQueue) SetName(value string) {
 // interspersed with blocks submitted to that dispatch queue.
 //
 // The value of this property should only be set if there are no operations in
-// the queue; setting the value of this property when [OperationCount] is not
-// equal to `0` raises an [InvalidArgumentException]. The value of this
-// property must not be the value returned by [dispatch_get_main_queue]. The
-// quality-of-service level set for the underlying dispatch queue overrides
-// any value set for the operation queue’s [QualityOfService] property.
+// the queue; setting the value of this property when
+// [NSOperationQueue.OperationCount] is not equal to `0` raises an
+// [invalidArgumentException]. The value of this property must not be the
+// value returned by [dispatch_get_main_queue]. The quality-of-service level
+// set for the underlying dispatch queue overrides any value set for the
+// operation queue’s [NSOperationQueue.QualityOfService] property.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/underlyingQueue
 //
 // [dispatch_get_main_queue]: https://developer.apple.com/documentation/Dispatch/dispatch_get_main_queue
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (o OperationQueue) UnderlyingQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](o.ID, objc.Sel("underlyingQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
 func (o OperationQueue) SetUnderlyingQueue(value dispatch.Queue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnderlyingQueue:"), uintptr(value.Handle()))
-}
-
-// A Boolean value indicating whether the operation can be performed now.
-//
-// See: https://developer.apple.com/documentation/foundation/operation/isready
-func (o OperationQueue) IsReady() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("ready"))
-	return rv
-}
-func (o OperationQueue) SetReady(value bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setReady:"), value)
-}
-
-// The execution priority of the operation in an operation queue.
-//
-// See: https://developer.apple.com/documentation/foundation/operation/queuepriority-swift.property
-func (o OperationQueue) QueuePriority() NSOperationQueuePriority {
-	rv := objc.Send[NSOperationQueuePriority](o.ID, objc.Sel("queuePriority"))
-	return NSOperationQueuePriority(rv)
-}
-func (o OperationQueue) SetQueuePriority(value NSOperationQueuePriority) {
-	objc.Send[struct{}](o.ID, objc.Sel("setQueuePriority:"), value)
 }
 
 // Returns the operation queue associated with the main thread.
@@ -646,9 +624,9 @@ func (o OperationQueue) SetQueuePriority(value NSOperationQueuePriority) {
 // the other tasks that must execute on the main thread, such as the servicing
 // of events and the updating of an app’s user interface. The queue executes
 // those operations in the run loop common modes, as represented by the
-// [common] constant. The value of the [UnderlyingQueue] property for the
-// queue is the dispatch queue for the main thread; this property cannot be
-// set to another value.
+// [common] constant. The value of the [NSOperationQueue.UnderlyingQueue]
+// property for the queue is the dispatch queue for the main thread; this
+// property cannot be set to another value.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/main
 //

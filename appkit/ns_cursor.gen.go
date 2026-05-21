@@ -75,8 +75,8 @@ func (nc NSCursorClass) Alloc() NSCursor {
 //
 // # Balancing cursor hiding and unhiding
 //
-// Each call to [NSCursor.Hide] cursor must have a corresponding [NSCursor.Unhide] call. For
-// example,
+// Each call to [NSCursorClass.Hide] cursor must have a corresponding
+// [NSCursorClass.Unhide] call. For example,
 //
 // Will result in the cursor still being hidden because the `hide` and
 // `unhide` method invocations are not balanced. Instead you must balance the
@@ -257,24 +257,26 @@ func (c NSCursor) EncodeWithCoder(coder foundation.INSCoder) {
 // # Discussion
 //
 // If another cursor becomes current, that cursor will be invisible, too. It
-// will remain invisible until you invoke the [Unhide] method.
+// will remain invisible until you invoke the [NSCursorClass.Unhide] method.
 //
-// Each invocation of `hide` must be balanced by an invocation of [Unhide] in
-// order for the cursor to be displayed.
+// Each invocation of `hide` must be balanced by an invocation of
+// [NSCursorClass.Unhide] in order for the cursor to be displayed.
 //
-// The [Hide] method overrides [SetHiddenUntilMouseMoves].
+// The [NSCursorClass.Hide] method overrides
+// [NSCursorClass.SetHiddenUntilMouseMoves].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/hide()
 func (_NSCursorClass NSCursorClass) Hide() {
 	objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("hide"))
 }
 
-// Negates an earlier call to [Hide] by showing the current cursor.
+// Negates an earlier call to [NSCursorClass.Hide] by showing the current
+// cursor.
 //
 // # Discussion
 //
-// Each invocation of `unhide` must be balanced by an invocation of [Hide] in
-// order for the cursor display to be correct.
+// Each invocation of `unhide` must be balanced by an invocation of
+// [NSCursorClass.Hide] in order for the cursor display to be correct.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/unhide()
 func (_NSCursorClass NSCursorClass) Unhide() {
@@ -290,8 +292,8 @@ func (_NSCursorClass NSCursorClass) Unhide() {
 //
 // # Discussion
 //
-// Do not try to counter this method by invoking [Unhide]. The results are
-// undefined.
+// Do not try to counter this method by invoking [NSCursorClass.Unhide]. The
+// results are undefined.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/setHiddenUntilMouseMoves(_:)
 func (_NSCursorClass NSCursorClass) SetHiddenUntilMouseMoves(flag bool) {
@@ -352,7 +354,8 @@ func (_NSCursorClass NSCursorClass) RowResizeCursorInDirections(directions NSVer
 //
 // The cursor image or `nil` if none exists. Note that an [NSCursor] object is
 // immutable: you cannot change its image after it’s created. Instead, use
-// [InitWithImageHotSpot] to create a new cursor with the new settings.
+// [NSCursor.InitWithImageHotSpot] to create a new cursor with the new
+// settings.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/image
 func (c NSCursor) Image() INSImage {
@@ -374,8 +377,8 @@ func (c NSCursor) Image() INSImage {
 // [media-4311497]
 //
 // Note that an [NSCursor] object is immutable: you can’t change its hot
-// spot after it’s created. Instead, use [InitWithImageHotSpot] to create a
-// new cursor with the new settings.
+// spot after it’s created. Instead, use [NSCursor.InitWithImageHotSpot] to
+// create a new cursor with the new settings.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/hotSpot
 func (c NSCursor) HotSpot() corefoundation.CGPoint {

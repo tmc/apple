@@ -76,13 +76,13 @@ func (nc NSScriptObjectSpecifierClass) Alloc() NSScriptObjectSpecifier {
 // determined by Apple Computer and object specifier classes are already
 // implemented for this set. If for some reason you do need to create a
 // subclass, you must override the primitive method
-// [NSScriptObjectSpecifier.IndicesOfObjectsByEvaluatingWithContainerCount] to return indices to the
-// elements within the container whose values are matched with the child
-// specifier’s key. In addition, you probably need to declare any special
-// instance variables and implement an initializer that invokes super’s
-// designated initializer,
-// [NSScriptObjectSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey], and initializes
-// these variables.
+// [NSScriptObjectSpecifier.IndicesOfObjectsByEvaluatingWithContainerCount] to
+// return indices to the elements within the container whose values are
+// matched with the child specifier’s key. In addition, you probably need to
+// declare any special instance variables and implement an initializer that
+// invokes super’s designated initializer,
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey],
+// and initializes these variables.
 //
 // For a comprehensive treatment of object specifiers, including sample code,
 // see [Object Specifiers] in [Cocoa Scripting Guide].
@@ -207,7 +207,7 @@ type INSScriptObjectSpecifier interface {
 	// Topic: Evaluating an object specifier
 
 	// This primitive method must be overridden by subclasses to return a pointer to an array of indices identifying objects in the key of a given container that are identified by the receiver of the message.
-	IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) unsafe.Pointer
+	IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count *int) unsafe.Pointer
 	// Returns the actual object represented by the nested series of object specifiers.
 	ObjectsByEvaluatingSpecifier() objectivec.IObject
 	// Returns the actual object or objects specified by the receiver as evaluated in the context of given container object.
@@ -398,11 +398,12 @@ func (s NSScriptObjectSpecifier) InitWithContainerSpecifierKey(container INSScri
 // returns the number of such matching objects by indirection in `numRefs`. It
 // returns `nil` directly and –1 via `numRefs` if all objects in the
 // container (or the sole object) match the value of the receiver’s key.
-// This method is invoked by [ObjectsByEvaluatingWithContainers]. The default
+// This method is invoked by
+// [NSScriptObjectSpecifier.ObjectsByEvaluatingWithContainers]. The default
 // implementation returns `nil` directly and –1 indirectly via `numRefs`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/indicesOfObjectsByEvaluating(withContainer:count:)
-func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) unsafe.Pointer {
+func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count *int) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indicesOfObjectsByEvaluatingWithContainer:count:"), container, count)
 	return rv
 }
@@ -417,11 +418,12 @@ func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(
 //
 // # Discussion
 //
-// Invokes [IndicesOfObjectsByEvaluatingWithContainerCount] on `self` to get
-// an array of pointers to indices of elements in `containers` that have
-// values paired with the message receiver’s key. This method then uses
-// key-value coding to obtain the object or objects associated with the key;
-// it returns these objects or `nil` if there are no matching values in
+// Invokes
+// [NSScriptObjectSpecifier.IndicesOfObjectsByEvaluatingWithContainerCount] on
+// `self` to get an array of pointers to indices of elements in `containers`
+// that have values paired with the message receiver’s key. This method then
+// uses key-value coding to obtain the object or objects associated with the
+// key; it returns these objects or `nil` if there are no matching values in
 // containers. If there are multiple matching values, they are returned in an
 // [NSArray]; if matching values are `nil`, [NSNull] objects are substituted.
 // If `containers` is an [NSArray], the method recursively evaluates each
@@ -462,17 +464,19 @@ func (s NSScriptObjectSpecifier) EncodeWithCoder(coder INSCoder) {
 // specifiers until it reaches the top-level container specifier (which is
 // either an [NSWhoseSpecifier] or the application object), after which it
 // begins evaluating each object specifier
-// ([ObjectsByEvaluatingWithContainers]) going in the opposite direction
-// (top-level to innermost) as it unwinds from the stack. Returns the actual
-// object represented by the nested series of object specifiers. Returns `nil`
-// if a container specifier could not be evaluated or if no top-level
-// container specifier could be found. Thus `nil` can be a valid value or can
-// indicate an error; you can use [EvaluationErrorNumber] to determine if and
-// which error occurred and [EvaluationErrorSpecifier] to find the container
-// specifier responsible for the error. In the normal course of command
-// processing, this method is invoked by an [NSScriptCommand] object’s
-// [EvaluatedArguments] and [EvaluatedReceivers] methods, which take as
-// message receiver the innermost object specifier.
+// ([NSScriptObjectSpecifier.ObjectsByEvaluatingWithContainers]) going in the
+// opposite direction (top-level to innermost) as it unwinds from the stack.
+// Returns the actual object represented by the nested series of object
+// specifiers. Returns `nil` if a container specifier could not be evaluated
+// or if no top-level container specifier could be found. Thus `nil` can be a
+// valid value or can indicate an error; you can use
+// [NSScriptObjectSpecifier.EvaluationErrorNumber] to determine if and which
+// error occurred and [NSScriptObjectSpecifier.EvaluationErrorSpecifier] to
+// find the container specifier responsible for the error. In the normal
+// course of command processing, this method is invoked by an
+// [NSScriptCommand] object’s [NSScriptCommand.EvaluatedArguments] and
+// [NSScriptCommand.EvaluatedReceivers] methods, which take as message
+// receiver the innermost object specifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/objectsByEvaluatingSpecifier
 func (s NSScriptObjectSpecifier) ObjectsByEvaluatingSpecifier() objectivec.IObject {
@@ -503,8 +507,8 @@ func (s NSScriptObjectSpecifier) SetContainerClassDescription(value INSScriptCla
 // specifier is `nil` and `flag` is false, sets the receiver’s container to
 // be the top-level object.
 //
-// If `flag` is true [ContainerIsRangeContainerObject] should not also be
-// invoked with an argument of true.
+// If `flag` is true [NSScriptObjectSpecifier.ContainerIsRangeContainerObject]
+// should not also be invoked with an argument of true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/containerIsObjectBeingTested
 func (s NSScriptObjectSpecifier) ContainerIsObjectBeingTested() bool {
@@ -525,8 +529,8 @@ func (s NSScriptObjectSpecifier) SetContainerIsObjectBeingTested(value bool) {
 // the receiver’s container specifier is `nil` and `flag` is false, sets the
 // receiver’s container to be the top-level object.
 //
-// If `flag` is true, [ContainerIsObjectBeingTested] should not also be
-// invoked with an argument of true.
+// If `flag` is true, [NSScriptObjectSpecifier.ContainerIsObjectBeingTested]
+// should not also be invoked with an argument of true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/containerIsRangeContainerObject
 func (s NSScriptObjectSpecifier) ContainerIsRangeContainerObject() bool {
@@ -553,7 +557,7 @@ func (s NSScriptObjectSpecifier) SetContainerSpecifier(value INSScriptObjectSpec
 // # Discussion
 //
 // Do not invoke this method directly; it is automatically invoked by
-// [ContainerSpecifier].
+// [NSScriptObjectSpecifier.ContainerSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/child
 func (s NSScriptObjectSpecifier) ChildSpecifier() INSScriptObjectSpecifier {
@@ -623,9 +627,10 @@ func (s NSScriptObjectSpecifier) SetEvaluationErrorNumber(value int) {
 //
 // # Discussion
 //
-// If the receiver was created with [ObjectSpecifierWithDescriptor], the
-// passed-in descriptor is returned. Otherwise, a new descriptor is created
-// and returned, autoreleased.
+// If the receiver was created with
+// [NSWhoseSpecifierClass.ObjectSpecifierWithDescriptor], the passed-in
+// descriptor is returned. Otherwise, a new descriptor is created and
+// returned, autoreleased.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/descriptor
 func (s NSScriptObjectSpecifier) Descriptor() INSAppleEventDescriptor {

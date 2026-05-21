@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -140,6 +141,13 @@ func NewNSLayoutDimension() NSLayoutDimension {
 	class := getNSLayoutDimensionClass()
 	rv := objc.Send[NSLayoutDimension](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/init(coder:)
+func NewLayoutDimensionWithCoder(coder foundation.INSCoder) NSLayoutDimension {
+	instance := getNSLayoutDimensionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSLayoutDimensionFromID(rv)
 }
 
 // Returns a constraint that defines the anchor’s size attribute as equal to

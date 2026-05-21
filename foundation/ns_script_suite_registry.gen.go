@@ -361,9 +361,9 @@ func (s NSScriptSuiteRegistry) BundleForSuite(suiteName string) INSBundle {
 // the wrong type, it logs messages to the console. It also registers class
 // descriptions and command descriptions. In registering a class description,
 // it invokes the [NSClassDescription] class method
-// [RegisterClassDescriptionForClass]. In registering a command description,
-// it arranges for the Apple event translator to handle incoming Apple events
-// that represent the defined commands.
+// [NSClassDescriptionClass.RegisterClassDescriptionForClass]. In registering
+// a command description, it arranges for the Apple event translator to handle
+// incoming Apple events that represent the defined commands.
 //
 // This method is invoked when the shared instance is initialized and when
 // bundles are loaded at runtime. Prior to invoking it,
@@ -378,7 +378,8 @@ func (s NSScriptSuiteRegistry) LoadSuiteWithDictionaryFromBundle(suiteDeclaratio
 }
 
 // Loads the suite definitions in bundle `aBundle`, invoking
-// [LoadSuiteWithDictionaryFromBundle] for each suite found.
+// [NSScriptSuiteRegistry.LoadSuiteWithDictionaryFromBundle] for each suite
+// found.
 //
 // # Discussion
 //

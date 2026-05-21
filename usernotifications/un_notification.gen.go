@@ -56,8 +56,9 @@ func (uc UNNotificationClass) Alloc() UNNotification {
 // the system delivers notification objects to your
 // [UNUserNotificationCenterDelegate] object. The [UNUserNotificationCenter]
 // object also maintains the list of notifications that the system delivers,
-// and you use the [GetDeliveredNotificationsWithCompletionHandler] method to
-// retrieve those objects.
+// and you use the
+// [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]
+// method to retrieve those objects.
 //
 // # Getting the Notification Details
 //

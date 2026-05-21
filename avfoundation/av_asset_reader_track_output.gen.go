@@ -4,9 +4,7 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -53,12 +51,12 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 // convert them to an alternative format.
 //
 // A track output produces uncompressed output. For audio output settings,
-// this means that [AVAssetReaderTrackOutput.AVFormatIDKey] must be [AVAssetReaderTrackOutput.KAudioFormatLinearPCM]. For video
+// this means that [AVFormatIDKey] must be [kAudioFormatLinearPCM]. For video
 // output settings, this means that the dictionary must contain values for
 // uncompressed video output, as defined in `Video Settings`. A track output
-// doesn’t support the [AVAssetReaderTrackOutput.AVSampleRateConverterAudioQualityKey] audio setting
-// key or the following video settings keys: [AVAssetReaderTrackOutput.AVVideoCleanApertureKey],
-// [AVAssetReaderTrackOutput.AVVideoPixelAspectRatioKey], and [AVAssetReaderTrackOutput.AVVideoScalingModeKey].
+// doesn’t support the [AVSampleRateConverterAudioQualityKey] audio setting
+// key or the following video settings keys: [AVVideoCleanApertureKey],
+// [AVVideoPixelAspectRatioKey], and [AVVideoScalingModeKey].
 //
 // When constructing video output settings, the choice of pixel format affects
 // the performance and quality of the decompression. For optimal performance
@@ -66,28 +64,28 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 // decoder supports natively to avoid unnecessary conversions. Below are some
 // recommendations:
 //
-// - For H.264, use [KCVPixelFormatType_420YpCbCr8BiPlanarVideoRange] or
-// [KCVPixelFormatType_420YpCbCr8BiPlanarFullRange] when you know the video is
-// full range. - In iOS, use [KCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
-// for JPEG output. - In macOS, [KCVPixelFormatType_422YpCbCr8] is the
+// - For H.264, use [kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange] or
+// [kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] when you know the video is
+// full range. - In iOS, use [kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
+// for JPEG output. - In macOS, [kCVPixelFormatType_422YpCbCr8] is the
 // preferred pixel format for video and generally provides the best
 // performance when decoding. If you need to work in the RGB domain, use
-// [KCVPixelFormatType_32BGRA] in iOS, and [KCVPixelFormatType_32ARGB] in
+// [kCVPixelFormatType_32BGRA] in iOS, and [kCVPixelFormatType_32ARGB] in
 // macOS. - ProRes-encoded media can contain up to 12 bits per channel. For
 // ProRes-encoded sources that you wish to preserve more than 8 bits per
 // channel during decompression, use one of the following pixel formats:
-// [KCVPixelFormatType_4444AYpCbCr16], [KCVPixelFormatType_422YpCbCr16],
-// [KCVPixelFormatType_422YpCbCr10], or [KCVPixelFormatType_64ARGB].
+// [kCVPixelFormatType_4444AYpCbCr16], [kCVPixelFormatType_422YpCbCr16],
+// [kCVPixelFormatType_422YpCbCr10], or [kCVPixelFormatType_64ARGB].
 // [AVAssetReader] doesn’t support scaling with any of these high-bit-depth
 // pixel formats. If you use the above pixel formats, don’t specify
-// [AVAssetReaderTrackOutput.KCVPixelBufferWidthKey] or [AVAssetReaderTrackOutput.KCVPixelBufferHeightKey] in the
-// [AVAssetReaderTrackOutput.OutputSettings] dictionary. Only ProRes encoders support these pixel
-// formats. - ProRes 4444-encoded media can contain a mathematically lossless
-// alpha channel. To preserve the alpha channel during decompression, use a
-// pixel format with an alpha component such as
-// [KCVPixelFormatType_4444AYpCbCr16] or [KCVPixelFormatType_64ARGB]. To test
+// [kCVPixelBufferWidthKey] or [kCVPixelBufferHeightKey] in the
+// [AVAssetReaderTrackOutput.OutputSettings] dictionary. Only ProRes encoders
+// support these pixel formats. - ProRes 4444-encoded media can contain a
+// mathematically lossless alpha channel. To preserve the alpha channel during
+// decompression, use a pixel format with an alpha component such as
+// [kCVPixelFormatType_4444AYpCbCr16] or [kCVPixelFormatType_64ARGB]. To test
 // whether your source contains an alpha channel, check that the track’s
-// format description has a [KCMFormatDescriptionExtension_Depth] key with a
+// format description has a [kCMFormatDescriptionExtension_Depth] key with a
 // value of `32`.
 //
 // # Creating a track output
@@ -105,6 +103,25 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 //   - [AVAssetReaderTrackOutput.Track]: The track from which the output reads sample buffers.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput
+//
+// [AVFormatIDKey]: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
+// [AVSampleRateConverterAudioQualityKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
+// [AVVideoCleanApertureKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCleanApertureKey
+// [AVVideoPixelAspectRatioKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoPixelAspectRatioKey
+// [AVVideoScalingModeKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoScalingModeKey
+// [kAudioFormatLinearPCM]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
+// [kCMFormatDescriptionExtension_Depth]: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth
+// [kCVPixelBufferHeightKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
+// [kCVPixelBufferWidthKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
+// [kCVPixelFormatType_32ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
+// [kCVPixelFormatType_32BGRA]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32BGRA
+// [kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
+// [kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+// [kCVPixelFormatType_422YpCbCr10]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr10
+// [kCVPixelFormatType_422YpCbCr16]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr16
+// [kCVPixelFormatType_422YpCbCr8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr8
+// [kCVPixelFormatType_4444AYpCbCr16]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_4444AYpCbCr16
+// [kCVPixelFormatType_64ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_64ARGB
 type AVAssetReaderTrackOutput struct {
 	AVAssetReaderOutput
 }
@@ -156,52 +173,6 @@ type IAVAssetReaderTrackOutput interface {
 	OutputSettings() foundation.INSDictionary
 	// The track from which the output reads sample buffers.
 	Track() IAVAssetTrack
-
-	// An integer value that represents the format of the audio data.
-	AVFormatIDKey() string
-	// An integer value that represents the audio quality for conversion.
-	AVSampleRateConverterAudioQualityKey() string
-	// A key that defines the region within the video dimension displayed during playback.
-	AVVideoCleanApertureKey() string
-	// A key to access the video’s pixel aspect ratio.
-	AVVideoPixelAspectRatioKey() string
-	// A key to retrieve the video scaling mode from a dictionary.
-	AVVideoScalingModeKey() string
-	// A key that specifies the linear PCM codec, and uses the standard flags.
-	KAudioFormatLinearPCM() unsafe.Pointer
-	SetKAudioFormatLinearPCM(value unsafe.Pointer)
-	KCMFormatDescriptionExtension_Depth() corefoundation.CFString
-	// A key to the height of the pixel buffer.
-	KCVPixelBufferHeightKey() corefoundation.CFString
-	// A key to the width of the pixel buffer.
-	KCVPixelBufferWidthKey() corefoundation.CFString
-	// 32-bit ARGB.
-	KCVPixelFormatType_32ARGB() uint32
-	SetKCVPixelFormatType_32ARGB(value uint32)
-	// 32-bit BGRA.
-	KCVPixelFormatType_32BGRA() uint32
-	SetKCVPixelFormatType_32BGRA(value uint32)
-	// Bi-Planar Component Y’CbCr 8-bit 4:2:0, full-range (luma=[0,255] chroma=[1,255]).  `baseAddr` points to a big-endian `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
-	KCVPixelFormatType_420YpCbCr8BiPlanarFullRange() uint32
-	SetKCVPixelFormatType_420YpCbCr8BiPlanarFullRange(value uint32)
-	// Bi-Planar Component Y’CbCr 8-bit 4:2:0, video-range (luma=[16,235] chroma=[16,240]).  `baseAddr` points to a big-endian `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
-	KCVPixelFormatType_420YpCbCr8BiPlanarVideoRange() uint32
-	SetKCVPixelFormatType_420YpCbCr8BiPlanarVideoRange(value uint32)
-	// Component Y’CbCr 10-bit 4:2:2.
-	KCVPixelFormatType_422YpCbCr10() uint32
-	SetKCVPixelFormatType_422YpCbCr10(value uint32)
-	// Component Y’CbCr 10,12,14,16-bit 4:2:2.
-	KCVPixelFormatType_422YpCbCr16() uint32
-	SetKCVPixelFormatType_422YpCbCr16(value uint32)
-	// Component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1.
-	KCVPixelFormatType_422YpCbCr8() uint32
-	SetKCVPixelFormatType_422YpCbCr8(value uint32)
-	// Component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr, 16-bit little-endian samples.
-	KCVPixelFormatType_4444AYpCbCr16() uint32
-	SetKCVPixelFormatType_4444AYpCbCr16(value uint32)
-	// 64-bit ARGB, 16-bit big-endian samples.
-	KCVPixelFormatType_64ARGB() uint32
-	SetKCVPixelFormatType_64ARGB(value uint32)
 }
 
 // Init initializes the instance.
@@ -330,182 +301,4 @@ func (a AVAssetReaderTrackOutput) OutputSettings() foundation.INSDictionary {
 func (a AVAssetReaderTrackOutput) Track() IAVAssetTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("track"))
 	return AVAssetTrackFromID(objc.ID(rv))
-}
-
-// An integer value that represents the format of the audio data.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
-func (a AVAssetReaderTrackOutput) AVFormatIDKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVFormatIDKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An integer value that represents the audio quality for conversion.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
-func (a AVAssetReaderTrackOutput) AVSampleRateConverterAudioQualityKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVSampleRateConverterAudioQualityKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that defines the region within the video dimension displayed during
-// playback.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideocleanaperturekey
-func (a AVAssetReaderTrackOutput) AVVideoCleanApertureKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoCleanApertureKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key to access the video’s pixel aspect ratio.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideopixelaspectratiokey
-func (a AVAssetReaderTrackOutput) AVVideoPixelAspectRatioKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoPixelAspectRatioKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key to retrieve the video scaling mode from a dictionary.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avvideoscalingmodekey
-func (a AVAssetReaderTrackOutput) AVVideoScalingModeKey() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoScalingModeKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A key that specifies the linear PCM codec, and uses the standard flags.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
-func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioFormatLinearPCM"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), value)
-}
-
-// See: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth
-func (a AVAssetReaderTrackOutput) KCMFormatDescriptionExtension_Depth() corefoundation.CFString {
-	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMFormatDescriptionExtension_Depth"))
-	return corefoundation.CFString(rv)
-}
-
-// A key to the height of the pixel buffer.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
-func (a AVAssetReaderTrackOutput) KCVPixelBufferHeightKey() corefoundation.CFString {
-	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCVPixelBufferHeightKey"))
-	return corefoundation.CFString(rv)
-}
-
-// A key to the width of the pixel buffer.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
-func (a AVAssetReaderTrackOutput) KCVPixelBufferWidthKey() corefoundation.CFString {
-	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCVPixelBufferWidthKey"))
-	return corefoundation.CFString(rv)
-}
-
-// 32-bit ARGB.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_32ARGB() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_32ARGB"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_32ARGB(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_32ARGB:"), value)
-}
-
-// 32-bit BGRA.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32BGRA
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_32BGRA() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_32BGRA"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_32BGRA(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_32BGRA:"), value)
-}
-
-// Bi-Planar Component Y’CbCr 8-bit 4:2:0, full-range (luma=[0,255]
-// chroma=[1,255]). `baseAddr` points to a big-endian
-// `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_420YpCbCr8BiPlanarFullRange() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_420YpCbCr8BiPlanarFullRange"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_420YpCbCr8BiPlanarFullRange(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_420YpCbCr8BiPlanarFullRange:"), value)
-}
-
-// Bi-Planar Component Y’CbCr 8-bit 4:2:0, video-range (luma=[16,235]
-// chroma=[16,240]). `baseAddr` points to a big-endian
-// `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_420YpCbCr8BiPlanarVideoRange() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_420YpCbCr8BiPlanarVideoRange(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_420YpCbCr8BiPlanarVideoRange:"), value)
-}
-
-// Component Y’CbCr 10-bit 4:2:2.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr10
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr10() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_422YpCbCr10"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr10(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr10:"), value)
-}
-
-// Component Y’CbCr 10,12,14,16-bit 4:2:2.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr16
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr16() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_422YpCbCr16"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr16(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr16:"), value)
-}
-
-// Component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr8
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr8() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_422YpCbCr8"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr8(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr8:"), value)
-}
-
-// Component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha,
-// video range Y’CbCr, 16-bit little-endian samples.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_4444AYpCbCr16
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_4444AYpCbCr16() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_4444AYpCbCr16"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_4444AYpCbCr16(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_4444AYpCbCr16:"), value)
-}
-
-// 64-bit ARGB, 16-bit big-endian samples.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_64ARGB
-func (a AVAssetReaderTrackOutput) KCVPixelFormatType_64ARGB() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("kCVPixelFormatType_64ARGB"))
-	return rv
-}
-func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_64ARGB(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_64ARGB:"), value)
 }

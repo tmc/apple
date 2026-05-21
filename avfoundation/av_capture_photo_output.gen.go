@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
@@ -65,50 +64,55 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 // [AVCapturePhotoSettings] object to choose features and settings for a
 // specific capture (for example, whether to enable image stabilization or
 // flash). - Capture an image by passing your photo settings object to the
-// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method along with a delegate object
-// implementing the [AVCapturePhotoCaptureDelegate] protocol. The photo
-// capture output then calls your delegate to notify you of significant events
-// during the capture process.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method along with a
+// delegate object implementing the [AVCapturePhotoCaptureDelegate] protocol.
+// The photo capture output then calls your delegate to notify you of
+// significant events during the capture process.
 //
-// Some photo capture settings, such as the [AVCapturePhotoOutput.FlashMode] property, include
-// options for automatic behavior. For such settings, the photo output
-// determines whether to use that feature at the moment of capture—you
-// don’t know when requesting a capture whether the feature will be enabled
-// when the capture completes. When the photo capture output calls your
-// [AVCapturePhotoCaptureDelegate] methods with information about the
-// completed or in-progress capture, it also provides an
+// Some photo capture settings, such as the [AVCapturePhotoSettings.FlashMode]
+// property, include options for automatic behavior. For such settings, the
+// photo output determines whether to use that feature at the moment of
+// capture—you don’t know when requesting a capture whether the feature
+// will be enabled when the capture completes. When the photo capture output
+// calls your [AVCapturePhotoCaptureDelegate] methods with information about
+// the completed or in-progress capture, it also provides an
 // [AVCaptureResolvedPhotoSettings] object that details which automatic
 // features are set for that capture. The resolved settings object’s
-// [AVCapturePhotoOutput.UniqueID] property matches the [AVCapturePhotoOutput.UniqueID] value of the
-// [AVCapturePhotoSettings] object you used to request capture.
+// [AVCaptureResolvedPhotoSettings.UniqueID] property matches the
+// [AVCapturePhotoSettings.UniqueID] value of the [AVCapturePhotoSettings]
+// object you used to request capture.
 //
 // Enabling certain photo features (Live Photo capture and high resolution
 // capture) requires a reconfiguration of the capture render pipeline. To opt
 // into these features, set the [isHighResolutionCaptureEnabled],
-// [AVCapturePhotoOutput.LivePhotoCaptureEnabled], and [AVCapturePhotoOutput.LivePhotoAutoTrimmingEnabled] properties
-// before calling your [AVCaptureSession] object’s [StartRunning] method.
-// Changing any of these properties while the session is running disrupts the
-// capture render pipeline: Live Photo captures in progress end immediately,
-// unfulfilled photo requests abort, and video preview temporarily freezes.
+// [AVCapturePhotoOutput.LivePhotoCaptureEnabled], and
+// [AVCapturePhotoOutput.LivePhotoAutoTrimmingEnabled] properties before
+// calling your [AVCaptureSession] object’s [AVCaptureSession.StartRunning]
+// method. Changing any of these properties while the session is running
+// disrupts the capture render pipeline: Live Photo captures in progress end
+// immediately, unfulfilled photo requests abort, and video preview
+// temporarily freezes.
 //
 // Using a photo capture output adds other requirements to your
 // [AVCaptureSession] object:
 //
 // - A capture session can’t support both Live Photo capture and movie file
 // output. If your capture session includes an [AVCaptureMovieFileOutput]
-// object, the [AVCapturePhotoOutput.LivePhotoCaptureSupported] property becomes false. (As an
-// alternative, you can use the [AVCaptureVideoDataOutput] class to output
-// video buffers at the same resolution as a simultaneous Live Photo capture).
-// - A capture session can’t contain both an [AVCapturePhotoOutput] object
-// and an [AVCaptureStillImageOutput] object. The [AVCapturePhotoOutput] class
+// object, the [AVCapturePhotoOutput.LivePhotoCaptureSupported] property
+// becomes false. (As an alternative, you can use the
+// [AVCaptureVideoDataOutput] class to output video buffers at the same
+// resolution as a simultaneous Live Photo capture). - A capture session
+// can’t contain both an [AVCapturePhotoOutput] object and an
+// [AVCaptureStillImageOutput] object. The [AVCapturePhotoOutput] class
 // includes all functionality of (and deprecates) the
 // [AVCaptureStillImageOutput] class.
 //
 // The [AVCapturePhotoOutput] class implicitly supports wide-gamut color
-// photography. If the source [AVCaptureDevice] object’s [AVCapturePhotoOutput.ActiveColorSpace]
-// value is [AVCaptureColorSpace_P3_D65], the capture output produces photos
-// with wide color information (unless your [AVCapturePhotoSettings] object
-// specifies an output format that doesn’t support wide color).
+// photography. If the source [AVCaptureDevice] object’s
+// [AVCaptureDevice.ActiveColorSpace] value is [AVCaptureColorSpace_P3_D65],
+// the capture output produces photos with wide color information (unless your
+// [AVCapturePhotoSettings] object specifies an output format that doesn’t
+// support wide color).
 //
 // # Capturing a photo
 //
@@ -158,11 +162,6 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 //
 //   - [AVCapturePhotoOutput.PreservesLivePhotoCaptureSuspendedOnSessionStop]: A Boolean value that indicates whether to preserve the suspended state of Live Photo capture when the session stops.
 //   - [AVCapturePhotoOutput.SetPreservesLivePhotoCaptureSuspendedOnSessionStop]
-//
-// # Configuring Portrait Effects matte capture
-//
-//   - [AVCapturePhotoOutput.PortraitEffectsMatte]: The portrait effects matte captured with the photo.
-//   - [AVCapturePhotoOutput.SetPortraitEffectsMatte]
 //
 // # Configuring constant color
 //
@@ -245,11 +244,6 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 //   - [IAVCapturePhotoOutput.PreservesLivePhotoCaptureSuspendedOnSessionStop]: A Boolean value that indicates whether to preserve the suspended state of Live Photo capture when the session stops.
 //   - [IAVCapturePhotoOutput.SetPreservesLivePhotoCaptureSuspendedOnSessionStop]
 //
-// # Configuring Portrait Effects matte capture
-//
-//   - [IAVCapturePhotoOutput.PortraitEffectsMatte]: The portrait effects matte captured with the photo.
-//   - [IAVCapturePhotoOutput.SetPortraitEffectsMatte]
-//
 // # Configuring constant color
 //
 //   - [IAVCapturePhotoOutput.IsConstantColorSupported]: A Boolean value that indicates whether a photo output supports constant color capture.
@@ -330,12 +324,6 @@ type IAVCapturePhotoOutput interface {
 	PreservesLivePhotoCaptureSuspendedOnSessionStop() bool
 	SetPreservesLivePhotoCaptureSuspendedOnSessionStop(value bool)
 
-	// Topic: Configuring Portrait Effects matte capture
-
-	// The portrait effects matte captured with the photo.
-	PortraitEffectsMatte() IAVPortraitEffectsMatte
-	SetPortraitEffectsMatte(value IAVPortraitEffectsMatte)
-
 	// Topic: Configuring constant color
 
 	// A Boolean value that indicates whether a photo output supports constant color capture.
@@ -350,15 +338,6 @@ type IAVCapturePhotoOutput interface {
 	MaxPhotoQualityPrioritization() AVCapturePhotoQualityPrioritization
 	SetMaxPhotoQualityPrioritization(value AVCapturePhotoQualityPrioritization)
 
-	// The currently active color space for capture.
-	ActiveColorSpace() AVCaptureColorSpace
-	SetActiveColorSpace(value AVCaptureColorSpace)
-	// A setting for whether to fire the flash when capturing photos.
-	FlashMode() AVCaptureFlashMode
-	SetFlashMode(value AVCaptureFlashMode)
-	// A unique identifier for this photo settings instance.
-	UniqueID() unsafe.Pointer
-	SetUniqueID(value unsafe.Pointer)
 	// Returns the list of uncompressed pixel formats supported for photo data in the specified file type.
 	SupportedPhotoPixelFormatTypesForFileType(fileType AVFileType) []foundation.NSNumber
 }
@@ -401,10 +380,10 @@ func NewAVCapturePhotoOutput() AVCapturePhotoOutput {
 //
 // When you call this method, the photo output validates the properties of
 // your `settings` object to ensure deterministic behavior. For example, the
-// [FlashMode] setting must specify a value that is present in the photo
-// output’s [SupportedFlashModes] array. See each property’s description
-// in the [AVCapturePhotoSettings] class reference for detailed validation
-// rules.
+// [AVCapturePhotoSettings.FlashMode] setting must specify a value that is
+// present in the photo output’s [AVCapturePhotoOutput.SupportedFlashModes]
+// array. See each property’s description in the [AVCapturePhotoSettings]
+// class reference for detailed validation rules.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/capturePhoto(with:delegate:)
 func (c AVCapturePhotoOutput) CapturePhotoWithSettingsDelegate(settings IAVCapturePhotoSettings, delegate AVCapturePhotoCaptureDelegate) {
@@ -428,9 +407,9 @@ func (c AVCapturePhotoOutput) CapturePhotoWithSettingsDelegate(settings IAVCaptu
 // producing output files containing that data. However, each file type
 // supports only a specific set of image data types.
 //
-// After choosing a file type from the [AvailablePhotoFileTypes] array, use
-// this method to find a compatible image data codec before creating a photo
-// settings object.
+// After choosing a file type from the
+// [AVCapturePhotoOutput.AvailablePhotoFileTypes] array, use this method to
+// find a compatible image data codec before creating a photo settings object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/supportedPhotoCodecTypes(for:)
 func (c AVCapturePhotoOutput) SupportedPhotoCodecTypesForFileType(fileType AVFileType) []string {
@@ -455,9 +434,10 @@ func (c AVCapturePhotoOutput) SupportedPhotoCodecTypesForFileType(fileType AVFil
 // producing output files containing that data. However, each file type
 // supports only a specific set of image data types.
 //
-// After choosing a file type from the [AvailablePhotoFileTypes] array, use
-// this method to find a compatible image data format before creating a photo
-// settings object.
+// After choosing a file type from the
+// [AVCapturePhotoOutput.AvailablePhotoFileTypes] array, use this method to
+// find a compatible image data format before creating a photo settings
+// object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/supportedPhotoPixelFormatTypesForFileType:
 func (c AVCapturePhotoOutput) SupportedPhotoPixelFormatTypesForFileType(fileType AVFileType) []foundation.NSNumber {
@@ -547,10 +527,10 @@ func (c AVCapturePhotoOutput) SetZeroShutterLagEnabled(value bool) {
 // # Discussion
 //
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
-// use the [PhotoSettingsWithFormat] initializer to create your photo settings
-// object. In that initializer’s `format` dictionary, pass the key
-// [kCVPixelBufferPixelFormatTypeKey], whose value must be one of the pixel
-// format identifiers listed in this array.
+// use the [AVCapturePhotoSettingsClass.PhotoSettingsWithFormat] initializer
+// to create your photo settings object. In that initializer’s `format`
+// dictionary, pass the key [kCVPixelBufferPixelFormatTypeKey], whose value
+// must be one of the pixel format identifiers listed in this array.
 //
 // This property supports key-value observing.
 //
@@ -570,10 +550,10 @@ func (c AVCapturePhotoOutput) AvailablePhotoPixelFormatTypes() []foundation.NSNu
 // # Discussion
 //
 // To capture a photo in a compressed format, such as JPEG, use the
-// [PhotoSettingsWithFormat] initializer to create your photo settings object.
-// In that initializer’s `format` dictionary, pass the key
-// [AVVideoCodecKey], whose value must be one of the codec identifiers listed
-// in this array.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithFormat] initializer to create
+// your photo settings object. In that initializer’s `format` dictionary,
+// pass the key [AVVideoCodecKey], whose value must be one of the codec
+// identifiers listed in this array.
 //
 // This property supports key-value observing.
 //
@@ -595,8 +575,9 @@ func (c AVCapturePhotoOutput) AvailablePhotoCodecTypes() []string {
 // supports only a specific set of image data types.
 //
 // After choosing an output file type, use the
-// [SupportedPhotoCodecTypesForFileType] (for capture in compressed formats
-// such as HEVC and JPEG) or [SupportedPhotoPixelFormatTypesForFileType] (for
+// [AVCapturePhotoOutput.SupportedPhotoCodecTypesForFileType] (for capture in
+// compressed formats such as HEVC and JPEG) or
+// [AVCapturePhotoOutput.SupportedPhotoPixelFormatTypesForFileType] (for
 // capture in uncompressed formats such as TIFF) method to choose an
 // appropriate data format before creating a photo settings object.
 //
@@ -616,7 +597,8 @@ func (c AVCapturePhotoOutput) AvailablePhotoFileTypes() []string {
 // false.
 //
 // If the output supports this feature, you can supress the shutter sound when
-// capturing a photo using the [ShutterSoundSuppressionEnabled] property of
+// capturing a photo using the
+// [AVCapturePhotoSettings.ShutterSoundSuppressionEnabled] property of
 // [AVCapturePhotoSettings].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isShutterSoundSuppressionSupported
@@ -629,9 +611,9 @@ func (c AVCapturePhotoOutput) IsShutterSoundSuppressionSupported() bool {
 //
 // # Discussion
 //
-// To set the flash mode for a capture, set the [FlashMode] property of your
-// photo settings object to one of the [AVCaptureDevice.FlashMode] values
-// listed in this array.
+// To set the flash mode for a capture, set the
+// [AVCapturePhotoSettings.FlashMode] property of your photo settings object
+// to one of the [AVCaptureDevice.FlashMode] values listed in this array.
 //
 // This property supports key-value observing.
 //
@@ -652,8 +634,9 @@ func (c AVCapturePhotoOutput) SupportedFlashModes() []foundation.NSNumber {
 // Set a value for this property to request images up to the specified
 // dimensions. Images that a photo output returns may be smaller than the
 // dimensions, but are never be larger. Once set, you can request images with
-// any valid maximum photo dimensions by setting [MaxPhotoDimensions] on
-// [AVCapturePhotoSettings] on a per photo basis.
+// any valid maximum photo dimensions by setting
+// [AVCapturePhotoSettings.MaxPhotoDimensions] on [AVCapturePhotoSettings] on
+// a per photo basis.
 //
 // The dimensions you set must match one returned by
 // [supportedMaxPhotoDimensions] for the current active format.
@@ -676,7 +659,8 @@ func (c AVCapturePhotoOutput) SetMaxPhotoDimensions(value coremedia.CMVideoDimen
 //
 // This value defaults to false, which means that Live Photo capture resumes
 // when the session stops. Set the value to true to save the state of the
-// [LivePhotoCaptureSuspended] property across session restarts.
+// [AVCapturePhotoOutput.LivePhotoCaptureSuspended] property across session
+// restarts.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/preservesLivePhotoCaptureSuspendedOnSessionStop
 func (c AVCapturePhotoOutput) PreservesLivePhotoCaptureSuspendedOnSessionStop() bool {
@@ -685,17 +669,6 @@ func (c AVCapturePhotoOutput) PreservesLivePhotoCaptureSuspendedOnSessionStop() 
 }
 func (c AVCapturePhotoOutput) SetPreservesLivePhotoCaptureSuspendedOnSessionStop(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreservesLivePhotoCaptureSuspendedOnSessionStop:"), value)
-}
-
-// The portrait effects matte captured with the photo.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturephoto/portraiteffectsmatte
-func (c AVCapturePhotoOutput) PortraitEffectsMatte() IAVPortraitEffectsMatte {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("portraitEffectsMatte"))
-	return AVPortraitEffectsMatteFromID(objc.ID(rv))
-}
-func (c AVCapturePhotoOutput) SetPortraitEffectsMatte(value IAVPortraitEffectsMatte) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPortraitEffectsMatte:"), value)
 }
 
 // A Boolean value that indicates whether a photo output supports constant
@@ -721,18 +694,20 @@ func (c AVCapturePhotoOutput) SetPortraitEffectsMatte(value IAVPortraitEffectsMa
 //
 // You can only achieve constant color when the flash has a discernible effect
 // on the scene, so it may not perform well in bright conditions such as
-// direct sunlight. Use the photo’s [ConstantColorConfidenceMap] property to
-// examine the confidence level, and therefore the usefulness, of each region
-// of a constant color photo.
+// direct sunlight. Use the photo’s
+// [AVCapturePhoto.ConstantColorConfidenceMap] property to examine the
+// confidence level, and therefore the usefulness, of each region of a
+// constant color photo.
 //
 // The property value is true if the session’s current configuration allows
 // the output to capture photos with constant color.
 //
 // When switching cameras or formats this property may change. When this
-// property changes from true to false, the value of [ConstantColorEnabled]
-// also reverts to false. If you’ve previously opted in to constant color
-// and then change configurations, you may need to set the value of
-// [ConstantColorEnabled] to true again.
+// property changes from true to false, the value of
+// [AVCapturePhotoOutput.ConstantColorEnabled] also reverts to false. If
+// you’ve previously opted in to constant color and then change
+// configurations, you may need to set the value of
+// [AVCapturePhotoOutput.ConstantColorEnabled] to true again.
 //
 // This property is key-value observable.
 //
@@ -749,7 +724,7 @@ func (c AVCapturePhotoOutput) IsConstantColorSupported() bool {
 //
 // The default value is false. Set the value to true to enable support for
 // taking constant color photos. You can only enable constant color capture if
-// the value of [ConstantColorSupported] is true.
+// the value of [AVCapturePhotoOutput.ConstantColorSupported] is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isConstantColorEnabled
 func (c AVCapturePhotoOutput) IsConstantColorEnabled() bool {
@@ -770,7 +745,8 @@ func (c AVCapturePhotoOutput) SetConstantColorEnabled(value bool) {
 // motion, and so on. Some techniques improve image quality at the expense of
 // the shot-to-shot time. Before starting your session, you may set this
 // property to indicate the highest quality prioritization you intend to
-// request when calling the [CapturePhotoWithSettingsDelegate] method.
+// request when calling the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method.
 //
 // When configuring an [AVCapturePhotoSettings] object, you can’t exceed
 // this quality prioritization level, but you may select a lower
@@ -790,37 +766,4 @@ func (c AVCapturePhotoOutput) MaxPhotoQualityPrioritization() AVCapturePhotoQual
 }
 func (c AVCapturePhotoOutput) SetMaxPhotoQualityPrioritization(value AVCapturePhotoQualityPrioritization) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxPhotoQualityPrioritization:"), value)
-}
-
-// The currently active color space for capture.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activecolorspace
-func (c AVCapturePhotoOutput) ActiveColorSpace() AVCaptureColorSpace {
-	rv := objc.Send[AVCaptureColorSpace](c.ID, objc.Sel("activeColorSpace"))
-	return AVCaptureColorSpace(rv)
-}
-func (c AVCapturePhotoOutput) SetActiveColorSpace(value AVCaptureColorSpace) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveColorSpace:"), value)
-}
-
-// A setting for whether to fire the flash when capturing photos.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturephotosettings/flashmode
-func (c AVCapturePhotoOutput) FlashMode() AVCaptureFlashMode {
-	rv := objc.Send[AVCaptureFlashMode](c.ID, objc.Sel("flashMode"))
-	return AVCaptureFlashMode(rv)
-}
-func (c AVCapturePhotoOutput) SetFlashMode(value AVCaptureFlashMode) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFlashMode:"), value)
-}
-
-// A unique identifier for this photo settings instance.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturephotosettings/uniqueid
-func (c AVCapturePhotoOutput) UniqueID() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("uniqueID"))
-	return rv
-}
-func (c AVCapturePhotoOutput) SetUniqueID(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUniqueID:"), value)
 }

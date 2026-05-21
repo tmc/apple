@@ -84,9 +84,9 @@ type INSScriptCoercionHandler interface {
 	// Topic: Working with handlers
 
 	// Returns an object of a given class representing a given value.
-	CoerceValueToClass(value objectivec.IObject, toClass objc.Class) objectivec.IObject
+	CoerceValueToClass(value objectivec.IObject, toClass objectivec.Class) objectivec.IObject
 	// Registers a given object (typically a class) to handle coercions (conversions) from one given class to another.
-	RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objc.SEL, fromClass objc.Class, toClass objc.Class)
+	RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objectivec.SEL, fromClass objectivec.Class, toClass objectivec.Class)
 }
 
 // Init initializes the instance.
@@ -120,7 +120,7 @@ func NewNSScriptCoercionHandler() NSScriptCoercionHandler {
 // `value`. Returns `nil` if an error occurs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCoercionHandler/coerceValue(_:to:)
-func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, toClass objc.Class) objectivec.IObject {
+func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, toClass objectivec.Class) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("coerceValue:toClass:"), value, toClass)
 	return objectivec.Object{ID: rv}
 }
@@ -141,7 +141,7 @@ func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, to
 // toClass: The class to which instances of `fromClass` are coerced.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCoercionHandler/registerCoercer(_:selector:toConvertFrom:to:)
-func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objc.SEL, fromClass objc.Class, toClass objc.Class) {
+func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objectivec.SEL, fromClass objectivec.Class, toClass objectivec.Class) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerCoercer:selector:toConvertFromClass:toClass:"), coercer, selector, fromClass, toClass)
 }
 

@@ -49,8 +49,8 @@ func (vc VZVirtioFileSystemDeviceConfigurationClass) Alloc() VZVirtioFileSystemD
 // # Overview
 //
 // Use [VZVirtioFileSystemDeviceConfiguration] to create a Virtio file system
-// device which allows the host to expose directories to a guest using a [VZVirtioFileSystemDeviceConfiguration.Tag]
-// label.
+// device which allows the host to expose directories to a guest using a
+// [VZVirtioFileSystemDeviceConfiguration.Tag] label.
 //
 // The example below shows the creation of a
 // [VZVirtioFileSystemDeviceConfiguration] that shares a single directory that
@@ -78,7 +78,8 @@ func (vc VZVirtioFileSystemDeviceConfigurationClass) Alloc() VZVirtioFileSystemD
 // # Automounting shared directories in macOS VMs
 //
 // In macOS 13 and later, it’s possible to specify a file system device that
-// macOS 13 or later guest VMs automount using the [VZVirtioFileSystemDeviceConfiguration.MacOSGuestAutomountTag]
+// macOS 13 or later guest VMs automount using the
+// [VZVirtioFileSystemDeviceConfigurationClass.MacOSGuestAutomountTag]
 // property. The example below demonstrates sharing a single macOS directory,
 // to a macOS guest:
 //
@@ -179,7 +180,7 @@ func NewVZVirtioFileSystemDeviceConfiguration() VZVirtioFileSystemDeviceConfigur
 //
 // The system presents the `tag` as a label in the guest identifying this
 // device for mounting. The `tag` must be valid, which you can check with
-// [ValidateTagError].
+// [VZVirtioFileSystemDeviceConfigurationClass.ValidateTagError].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/init(tag:)
 func NewVirtioFileSystemDeviceConfigurationWithTag(tag string) VZVirtioFileSystemDeviceConfiguration {
@@ -196,7 +197,7 @@ func NewVirtioFileSystemDeviceConfigurationWithTag(tag string) VZVirtioFileSyste
 //
 // The system presents the `tag` as a label in the guest identifying this
 // device for mounting. The `tag` must be valid, which you can check with
-// [ValidateTagError].
+// [VZVirtioFileSystemDeviceConfigurationClass.ValidateTagError].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/init(tag:)
 func (v VZVirtioFileSystemDeviceConfiguration) InitWithTag(tag string) VZVirtioFileSystemDeviceConfiguration {

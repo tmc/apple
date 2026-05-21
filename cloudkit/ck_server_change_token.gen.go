@@ -67,6 +67,10 @@ func (cc CKServerChangeTokenClass) Alloc() CKServerChangeToken {
 // Change tokens conform to [NSSecureCoding] and are safe to cache on-disk, as
 // the following example shows:
 //
+// # Initializers
+//
+//   - [CKServerChangeToken.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CloudKit/CKServerChangeToken
 //
 // [NSSecureCoding]: https://developer.apple.com/documentation/Foundation/NSSecureCoding
@@ -86,9 +90,17 @@ func CKServerChangeTokenFromID(id objc.ID) CKServerChangeToken {
 
 // An interface definition for the [CKServerChangeToken] class.
 //
+// # Initializers
+//
+//   - [ICKServerChangeToken.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CloudKit/CKServerChangeToken
 type ICKServerChangeToken interface {
 	objectivec.IObject
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKServerChangeToken
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -112,6 +124,18 @@ func NewCKServerChangeToken() CKServerChangeToken {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKServerChangeToken/init(coder:)
+func NewCKServerChangeTokenWithCoder(coder foundation.INSCoder) CKServerChangeToken {
+	instance := getCKServerChangeTokenClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKServerChangeTokenFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKServerChangeToken/init(coder:)
+func (c CKServerChangeToken) InitWithCoder(coder foundation.INSCoder) CKServerChangeToken {
+	rv := objc.Send[CKServerChangeToken](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (c CKServerChangeToken) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }

@@ -4,13 +4,14 @@
 //
 // Access hardware devices and drivers from your apps and services.
 //
-// The IOKit framework implements nonkernel access to IOKit objects such drivers and nubs through the device-interface mechanism.
+// The IOKit framework implements nonkernel access to IOKit objects such
+// drivers and nubs through the device-interface mechanism.
 //
 // # Serial Ports
 //
-//   - Communicating with a Modem on a Serial Port: Find and connect to a modem attached to a serial port using IOKit.
+//   - [Communicating with a Modem on a Serial Port]: Find and connect to a modem attached to a serial port using IOKit.//
 //
-// [iokit Documentation]: https://developer.apple.com/documentation/iokit
+// [Communicating with a Modem on a Serial Port]: https://developer.apple.com/documentation/iokit/communicating_with_a_modem_on_a_serial_port
 package iokit
 
 import (

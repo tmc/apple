@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [GCControllerLiveInput] class.
@@ -52,11 +53,12 @@ func (gc GCControllerLiveInputClass) Alloc() GCControllerLiveInput {
 // controller and their current input values from [GCControllerLiveInput]
 // instances.
 //
-// Use the [GCControllerLiveInput.Capture] method to save a copy of the current input state. If you
-// want Game Controller to buffer snapshots of the input states for you, use
-// the [GCControllerLiveInput.InputStateQueueDepth] property to set the buffer’s queue depth to a
-// value other than `0`. Then use the [GCControllerLiveInput.NextInputState] method to get the
-// snapshots when you’re ready to process input.
+// Use the [GCControllerLiveInput.Capture] method to save a copy of the
+// current input state. If you want Game Controller to buffer snapshots of the
+// input states for you, use the [GCControllerLiveInput.InputStateQueueDepth] property to set the
+// buffer’s queue depth to a value other than `0`. Then use the
+// [GCControllerLiveInput.NextInputState] method to get the snapshots when
+// you’re ready to process input.
 //
 // # Handling device input
 //
@@ -110,9 +112,11 @@ type IGCControllerLiveInput interface {
 	UnmappedInput() IGCControllerLiveInput
 
 	// A block that the profile calls when an element’s value changes.
-	ElementValueDidChangeHandler() func(objc.ID)
+	ElementValueDidChangeHandler() func(objectivec.IObject)
 	// The block that the profile calls when Game Controller adds an input state to the queue.
-	InputStateAvailableHandler() func(objc.ID)
+	InputStateAvailableHandler() func(objectivec.IObject)
+	// The maximum number of input values that the queue stores.
+	InputStateQueueDepth() int
 	// The dispatch queue that the system uses for callbacks.
 	Queue() dispatch.Queue
 	Elements() IGCPhysicalInputElementCollection
@@ -168,7 +172,7 @@ func (g GCControllerLiveInput) Capture() IGCControllerInputState {
 // A block that the profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-func (g GCControllerLiveInput) ElementValueDidChangeHandler() func(objc.ID) {
+func (g GCControllerLiveInput) ElementValueDidChangeHandler() func(objectivec.IObject) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementValueDidChangeHandler"))
 	_ = rv
 	return nil
@@ -178,10 +182,18 @@ func (g GCControllerLiveInput) ElementValueDidChangeHandler() func(objc.ID) {
 // to the queue.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-func (g GCControllerLiveInput) InputStateAvailableHandler() func(objc.ID) {
+func (g GCControllerLiveInput) InputStateAvailableHandler() func(objectivec.IObject) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputStateAvailableHandler"))
 	_ = rv
 	return nil
+}
+
+// The maximum number of input values that the queue stores.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
+func (g GCControllerLiveInput) InputStateQueueDepth() int {
+	rv := objc.Send[int](g.ID, objc.Sel("inputStateQueueDepth"))
+	return rv
 }
 
 // The dispatch queue that the system uses for callbacks.
@@ -205,15 +217,4 @@ func (g GCControllerLiveInput) Queue() dispatch.Queue {
 func (g GCControllerLiveInput) UnmappedInput() IGCControllerLiveInput {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unmappedInput"))
 	return GCControllerLiveInputFromID(objc.ID(rv))
-}
-
-// The maximum number of input values that the queue stores.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gcdevicephysicalinput/inputstatequeuedepth
-func (g GCControllerLiveInput) InputStateQueueDepth() int {
-	rv := objc.Send[int](g.ID, objc.Sel("inputStateQueueDepth"))
-	return rv
-}
-func (g GCControllerLiveInput) SetInputStateQueueDepth(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setInputStateQueueDepth:"), value)
 }

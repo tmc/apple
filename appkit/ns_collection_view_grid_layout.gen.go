@@ -60,7 +60,8 @@ func (nc NSCollectionViewGridLayoutClass) Alloc() NSCollectionViewGridLayout {
 //
 // - At design time, set the Layout attribute of your collection view to Grid.
 // - Create an [NSCollectionViewGridLayout] object programmatically and assign
-// it to the collection view’s [CollectionViewLayout] property.
+// it to the collection view’s [NSCollectionView.CollectionViewLayout]
+// property.
 //
 // A grid layout displays only items and does not display supplementary views
 // or decoration views. Use the properties of this class to configure the
@@ -189,6 +190,13 @@ func NewNSCollectionViewGridLayout() NSCollectionViewGridLayout {
 	class := getNSCollectionViewGridLayoutClass()
 	rv := objc.Send[NSCollectionViewGridLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func NewCollectionViewGridLayoutWithCoder(coder foundation.INSCoder) NSCollectionViewGridLayout {
+	instance := getNSCollectionViewGridLayoutClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSCollectionViewGridLayoutFromID(rv)
 }
 
 // The maximum number of rows to display in the collection view’s visible

@@ -176,7 +176,7 @@ func NewStatusBarButtonWithFrame(frameRect corefoundation.CGRect) NSStatusBarBut
 //
 // # Discussion
 //
-// Set the image’s [AccessibilityDescription] property to ensure
+// Set the image’s [NSImage.AccessibilityDescription] property to ensure
 // accessibility for this control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/init(image:target:action:)

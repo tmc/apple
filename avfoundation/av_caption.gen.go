@@ -152,6 +152,7 @@ type IAVCaption interface {
 	FontStyleAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionFontStyle
 	// Returns the font weight and range at the index position.
 	FontWeightAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionFontWeight
+	InitWithCoder(coder foundation.INSCoder) AVCaption
 	// Returns the ruby text at the index position.
 	RubyAtIndexRange(index int, outRange *foundation.NSRange) IAVCaptionRuby
 	// Returns the text color at the index position.
@@ -178,6 +179,13 @@ func NewAVCaption() AVCaption {
 	class := getAVCaptionClass()
 	rv := objc.Send[AVCaption](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(coder:)
+func NewCaptionWithCoder(coder foundation.INSCoder) AVCaption {
+	instance := getAVCaptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVCaptionFromID(rv)
 }
 
 // Creates a caption that contains text and a time range.
@@ -268,6 +276,12 @@ func (c AVCaption) FontStyleAtIndexRange(index int, outRange *foundation.NSRange
 func (c AVCaption) FontWeightAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionFontWeight {
 	rv := objc.Send[AVCaptionFontWeight](c.ID, objc.Sel("fontWeightAtIndex:range:"), index, outRange)
 	return AVCaptionFontWeight(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(coder:)
+func (c AVCaption) InitWithCoder(coder foundation.INSCoder) AVCaption {
+	rv := objc.Send[AVCaption](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Returns the ruby text at the index position.

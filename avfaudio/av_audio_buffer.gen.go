@@ -135,7 +135,7 @@ func (a AVAudioBuffer) Format() IAVAudioFormat {
 // buffer contents.
 //
 // The `mDataByteSize` fields of this audio buffer list express the buffer’s
-// current [FrameLength].
+// current [AVAudioPCMBuffer.FrameLength].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/audioBufferList
 func (a AVAudioBuffer) AudioBufferList() objectivec.IObject {
@@ -152,8 +152,8 @@ func (a AVAudioBuffer) AudioBufferList() objectivec.IObject {
 // [AudioConverterConvertComplexBuffer(_:_:_:_:)] function).
 //
 // The `mDataByteSize` fields of this audio buffer list express the buffer’s
-// current [FrameCapacity]. If you alter the capacity, modify the buffer’s
-// `frameLength` to match.
+// current [AVAudioPCMBuffer.FrameCapacity]. If you alter the capacity, modify
+// the buffer’s `frameLength` to match.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/mutableAudioBufferList
 //

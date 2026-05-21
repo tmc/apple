@@ -66,8 +66,6 @@ func (ac AVURLAssetClass) Alloc() AVURLAsset {
 //
 // # Loading tracks
 //
-//   - [AVURLAsset.Tracks]: The tracks an asset contains.
-//   - [AVURLAsset.SetTracks]
 //   - [AVURLAsset.FindCompatibleTrackForCompositionTrackCompletionHandler]: Loads an asset track from which you can insert any time range into the composition track.
 //
 // # Assisting with resource loading
@@ -113,8 +111,6 @@ func AVURLAssetFromID(id objc.ID) AVURLAsset {
 //
 // # Loading tracks
 //
-//   - [IAVURLAsset.Tracks]: The tracks an asset contains.
-//   - [IAVURLAsset.SetTracks]
 //   - [IAVURLAsset.FindCompatibleTrackForCompositionTrackCompletionHandler]: Loads an asset track from which you can insert any time range into the composition track.
 //
 // # Assisting with resource loading
@@ -149,9 +145,6 @@ type IAVURLAsset interface {
 
 	// Topic: Loading tracks
 
-	// The tracks an asset contains.
-	Tracks() IAVAssetTrack
-	SetTracks(value IAVAssetTrack)
 	// Loads an asset track from which you can insert any time range into the composition track.
 	FindCompatibleTrackForCompositionTrackCompletionHandler(compositionTrack IAVCompositionTrack, completionHandler AVAssetTrackErrorHandler)
 
@@ -270,7 +263,8 @@ func (u AVURLAsset) InitWithURLOptions(URL foundation.NSURL, options foundation.
 //
 // # Discussion
 //
-// This method is the logical complement of [MutableTrackCompatibleWithTrack].
+// This method is the logical complement of
+// [AVMutableComposition.MutableTrackCompatibleWithTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/findCompatibleTrack(for:completionHandler:)
 func (u AVURLAsset) FindCompatibleTrackForCompositionTrackCompletionHandler(compositionTrack IAVCompositionTrack, completionHandler AVAssetTrackErrorHandler) {
@@ -340,17 +334,6 @@ func (_AVURLAssetClass AVURLAssetClass) IsPlayableExtendedMIMEType(extendedMIMET
 func (_AVURLAssetClass AVURLAssetClass) URLAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVURLAssetClass.class), objc.Sel("URLAssetWithURL:options:"), URL, options)
 	return AVURLAssetFromID(rv)
-}
-
-// The tracks an asset contains.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avpartialasyncproperty/tracks-44ptx
-func (u AVURLAsset) Tracks() IAVAssetTrack {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("tracks"))
-	return AVAssetTrackFromID(objc.ID(rv))
-}
-func (u AVURLAsset) SetTracks(value IAVAssetTrack) {
-	objc.Send[struct{}](u.ID, objc.Sel("setTracks:"), value)
 }
 
 // The resource loader for the asset.

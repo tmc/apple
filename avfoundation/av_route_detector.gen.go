@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -56,7 +55,6 @@ func (ac AVRouteDetectorClass) Alloc() AVRouteDetector {
 //   - [AVRouteDetector.IsRouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
 //   - [AVRouteDetector.SetRouteDetectionEnabled]
 //   - [AVRouteDetector.MultipleRoutesDetected]: A Boolean value that indicates whether the object detects more than one playback route.
-//   - [AVRouteDetector.AVRouteDetectorMultipleRoutesDetectedDidChange]: A notification the system posts when changes occur to its detected routes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector
 //
@@ -82,7 +80,6 @@ func AVRouteDetectorFromID(id objc.ID) AVRouteDetector {
 //   - [IAVRouteDetector.IsRouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
 //   - [IAVRouteDetector.SetRouteDetectionEnabled]
 //   - [IAVRouteDetector.MultipleRoutesDetected]: A Boolean value that indicates whether the object detects more than one playback route.
-//   - [IAVRouteDetector.AVRouteDetectorMultipleRoutesDetectedDidChange]: A notification the system posts when changes occur to its detected routes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector
 type IAVRouteDetector interface {
@@ -95,8 +92,6 @@ type IAVRouteDetector interface {
 	SetRouteDetectionEnabled(value bool)
 	// A Boolean value that indicates whether the object detects more than one playback route.
 	MultipleRoutesDetected() bool
-	// A notification the system posts when changes occur to its detected routes.
-	AVRouteDetectorMultipleRoutesDetectedDidChange() foundation.NSString
 }
 
 // Init initializes the instance.
@@ -149,12 +144,4 @@ func (r AVRouteDetector) SetRouteDetectionEnabled(value bool) {
 func (r AVRouteDetector) MultipleRoutesDetected() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("multipleRoutesDetected"))
 	return rv
-}
-
-// A notification the system posts when changes occur to its detected routes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/AVRouteDetectorMultipleRoutesDetectedDidChange
-func (r AVRouteDetector) AVRouteDetectorMultipleRoutesDetectedDidChange() foundation.NSString {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("AVRouteDetectorMultipleRoutesDetectedDidChange"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

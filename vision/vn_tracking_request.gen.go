@@ -50,8 +50,9 @@ func (vc VNTrackingRequestClass) Alloc() VNTrackingRequest {
 //
 // Instantiate a tracking request subclass to perform object tracking across
 // multiple frames of an image. After initialization, configure the degree of
-// accuracy by setting [VNTrackingRequest.TrackingLevel], and provide observations you’d like
-// to track by setting the [VNTrackingRequest.InputObservation] initial bounding box.
+// accuracy by setting [VNTrackingRequest.TrackingLevel], and provide
+// observations you’d like to track by setting the
+// [VNTrackingRequest.InputObservation] initial bounding box.
 //
 // # Configuring a Tracking Request
 //
@@ -146,7 +147,7 @@ func NewVNTrackingRequest() VNTrackingRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackingRequest {

@@ -58,13 +58,14 @@ func (cc CKReferenceClass) Alloc() CKReference {
 // the ID of a record as a string. Specifically, you can use references to
 // create an ownership model between two records. When the reference
 // object’s action is [CKRecord.ReferenceAction.deleteSelf], the target of
-// the reference—that is, the record in the reference’s [CKReference.RecordID]
-// property—becomes the owner of the source record. Deleting the target
-// (owner) record deletes all its source records. The deletion of any owned
-// records can trigger further deletions if those records are the owners of
-// other records. If a record contains two or more [CKReference] objects with
-// an action of [CKRecord.ReferenceAction.deleteSelf], CloudKit deletes the
-// record when it deletes any of the objects it references.
+// the reference—that is, the record in the reference’s
+// [CKReference.RecordID] property—becomes the owner of the source record.
+// Deleting the target (owner) record deletes all its source records. The
+// deletion of any owned records can trigger further deletions if those
+// records are the owners of other records. If a record contains two or more
+// [CKReference] objects with an action of
+// [CKRecord.ReferenceAction.deleteSelf], CloudKit deletes the record when it
+// deletes any of the objects it references.
 //
 // To save multiple records that contain references between them, save the
 // target records first or save all the records in one batch operation using
@@ -183,12 +184,6 @@ type ICKReference interface {
 	// The ID of the referenced record.
 	RecordID() ICKRecordID
 
-	// The ownership behavior for the records.
-	Action() CKReferenceAction
-	SetReferenceAction(value CKReferenceAction)
-	// The server change token for the record.
-	RecordChangeTag() string
-	SetRecordChangeTag(value string)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -354,22 +349,11 @@ func (c CKReference) EncodeWithCoder(coder foundation.INSCoder) {
 
 // The ownership behavior for the records.
 //
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/reference/action-swift.property
-func (c CKReference) Action() CKReferenceAction {
-	rv := objc.Send[CKReferenceAction](c.ID, objc.Sel("referenceAction"))
-	return CKReferenceAction(rv)
-}
-func (c CKReference) SetReferenceAction(value CKReferenceAction) {
-	objc.Send[struct{}](c.ID, objc.Sel("setReferenceAction:"), value)
-}
-
-// The ownership behavior for the records.
-//
 // # Discussion
 //
 // The value in this property determines which action, if any, to take when
 // deleting the target of the reference object — that is, the object that
-// the [RecordID] property points to. When this property is
+// the [CKReference.RecordID] property points to. When this property is
 // [CKRecord.ReferenceAction.deleteSelf], deleting the target object deletes
 // any records that contain that reference in one of their fields. When this
 // property is [CKRecord.ReferenceAction.none], deleting the target object
@@ -395,15 +379,4 @@ func (c CKReference) ReferenceAction() CKReferenceAction {
 func (c CKReference) RecordID() ICKRecordID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordID"))
 	return CKRecordIDFromID(objc.ID(rv))
-}
-
-// The server change token for the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/recordchangetag
-func (c CKReference) RecordChangeTag() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordChangeTag"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKReference) SetRecordChangeTag(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordChangeTag:"), objc.String(value))
 }

@@ -53,8 +53,9 @@ func (nc NSPrintInfoClass) Alloc() NSPrintInfo {
 // used by default for all printing jobs for that app. The printing
 // information in an [NSPrintInfo] object is stored in a dictionary. To access
 // the standard attributes in the dictionary directly, this class defines a
-// set of keys and provides the [NSPrintInfo.Dictionary] method. You can also initialize
-// an instance of this class using the [NSPrintInfo.InitWithDictionary] method.
+// set of keys and provides the [NSPrintInfo.Dictionary] method. You can also
+// initialize an instance of this class using the
+// [NSPrintInfo.InitWithDictionary] method.
 //
 // You can use this dictionary to store custom information associated with a
 // print job. Any non-object values should be stored as [NSNumber] or
@@ -490,8 +491,8 @@ func (p NSPrintInfo) PMPrintSession() unsafe.Pointer {
 // changes to the information in the [PMPageFormat] object.
 //
 // If you make changes to the data in the [PMPageFormat] object, you should
-// invoke the [UpdateFromPMPageFormat] method to synchronize those changes
-// with the [NSPrintInfo] object that created the object.
+// invoke the [NSPrintInfo.UpdateFromPMPageFormat] method to synchronize those
+// changes with the [NSPrintInfo] object that created the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/pmPageFormat()
 //
@@ -519,8 +520,8 @@ func (p NSPrintInfo) PMPageFormat() unsafe.Pointer {
 // changes to the information in the [PMPrintSettings] data type.
 //
 // If you make changes to the data in the [PMPrintSettings] object, you should
-// invoke the [UpdateFromPMPrintSettings] method to synchronize those changes
-// with the [NSPrintInfo] object that created the object.
+// invoke the [NSPrintInfo.UpdateFromPMPrintSettings] method to synchronize
+// those changes with the [NSPrintInfo] object that created the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/pmPrintSettings()
 //
@@ -537,9 +538,9 @@ func (p NSPrintInfo) PMPrintSettings() unsafe.Pointer {
 //
 // You should use this method after making changes to the [PMPageFormat]
 // object obtained from the receiver. Each [NSPrintInfo] object keeps track of
-// the object returned from its [PMPageFormat] method and obtains any updated
-// information from the object directly. You only need to synchronize the
-// objects once when you have made all of the desired changes.
+// the object returned from its [NSPrintInfo.PMPageFormat] method and obtains
+// any updated information from the object directly. You only need to
+// synchronize the objects once when you have made all of the desired changes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/updateFromPMPageFormat()
 func (p NSPrintInfo) UpdateFromPMPageFormat() {
@@ -553,9 +554,9 @@ func (p NSPrintInfo) UpdateFromPMPageFormat() {
 //
 // You should use this method after making changes to the [PMPrintSettings]
 // object obtained from the receiver. Each [NSPrintInfo] object keeps track of
-// the object returned from its [PMPrintSettings] method and obtains any
-// updated information from the object directly. You only need to synchronize
-// the objects once when you have made all of the desired changes.
+// the object returned from its [NSPrintInfo.PMPrintSettings] method and
+// obtains any updated information from the object directly. You only need to
+// synchronize the objects once when you have made all of the desired changes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/updateFromPMPrintSettings()
 func (p NSPrintInfo) UpdateFromPMPrintSettings() {
@@ -700,8 +701,8 @@ func (p NSPrintInfo) SetPaperName(value NSPrinterPaperName) {
 //
 // # Discussion
 //
-// This is typically different from the value of [PaperName], which is almost
-// never suitable for presentation to the user.
+// This is typically different from the value of [NSPrintInfo.PaperName],
+// which is almost never suitable for presentation to the user.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/localizedPaperName
 func (p NSPrintInfo) LocalizedPaperName() string {

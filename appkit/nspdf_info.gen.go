@@ -124,6 +124,7 @@ type INSPDFInfo interface {
 	// A dictionary of additional attributes that describe how to export content as a PDF file.
 	Attributes() foundation.INSDictionary
 
+	InitWithCoder(coder foundation.INSCoder) NSPDFInfo
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -146,6 +147,18 @@ func NewNSPDFInfo() NSPDFInfo {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/init(coder:)
+func NewPDFInfoWithCoder(coder foundation.INSCoder) NSPDFInfo {
+	instance := getNSPDFInfoClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSPDFInfoFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/init(coder:)
+func (p NSPDFInfo) InitWithCoder(coder foundation.INSCoder) NSPDFInfo {
+	rv := objc.Send[NSPDFInfo](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p NSPDFInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }

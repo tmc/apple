@@ -56,23 +56,26 @@ func (mc MTLRenderPipelineDescriptorClass) Alloc() MTLRenderPipelineDescriptor {
 // to create an [MTLRenderPipelineState] object.
 //
 // To specify the vertex or fragment function in the rendering pipeline
-// descriptor, set the [MTLRenderPipelineDescriptor.VertexFunction] or [MTLRenderPipelineDescriptor.FragmentFunction] property,
-// respectively, to the desired [MTLFunction] object. The system ignores the
-// tessellation stage properties if you don’t set the [MTLRenderPipelineDescriptor.VertexFunction]
-// property to a post-tessellation vertex function. A vertex function is a
-// post-tessellation vertex function if the `[[ patch(patch-type, N) ]]`
-// attribute precedes the function’s signature in your Metal Shading
-// Language source. See the “Post-Tessellation Vertex Functions” section
-// of [Metal Shading Language Specification] for more information.
+// descriptor, set the [MTLRenderPipelineDescriptor.VertexFunction] or
+// [MTLRenderPipelineDescriptor.FragmentFunction] property, respectively, to
+// the desired [MTLFunction] object. The system ignores the tessellation stage
+// properties if you don’t set the
+// [MTLRenderPipelineDescriptor.VertexFunction] property to a
+// post-tessellation vertex function. A vertex function is a post-tessellation
+// vertex function if the `[[ patch(patch-type, N) ]]` attribute precedes the
+// function’s signature in your Metal Shading Language source. See the
+// “Post-Tessellation Vertex Functions” section of [Metal Shading Language
+// Specification] for more information.
 //
-// Setting the [MTLRenderPipelineDescriptor.FragmentFunction] property to `nil` disables the rasterization
-// of pixels into the color attachment. This action is typically for
-// outputting vertex function data into a buffer object, or for depth-only
-// rendering.
+// Setting the [MTLRenderPipelineDescriptor.FragmentFunction] property to
+// `nil` disables the rasterization of pixels into the color attachment. This
+// action is typically for outputting vertex function data into a buffer
+// object, or for depth-only rendering.
 //
 // If the vertex shader has an argument with per-vertex input attributes, set
-// the [VertexDescriptor] property to an [MTLVertexDescriptor] object that
-// describes the organization of that vertex data.
+// the [MTLRenderPipelineDescriptor.VertexDescriptor] property to an
+// [MTLVertexDescriptor] object that describes the organization of that vertex
+// data.
 //
 // # Multisampling and the render pipeline
 //
@@ -81,22 +84,25 @@ func (mc MTLRenderPipelineDescriptorClass) Alloc() MTLRenderPipelineDescriptor {
 // multiple samples per fragment, and the following rendering pipeline
 // descriptor properties determine coverage:
 //
-// - [MTLRenderPipelineDescriptor.RasterSampleCount] is the number of samples for each pixel. - If
-// [MTLRenderPipelineDescriptor.AlphaToCoverageEnabled] is true, the GPU uses the alpha channel fragment
-// output for [MTLRenderPipelineDescriptor.ColorAttachments] to compute a coverage mask that affects the
-// values the GPU writes to all attachments (color, depth, and stencil). - If
-// [MTLRenderPipelineDescriptor.AlphaToOneEnabled] is true, the GPU changes alpha channel fragment values
-// for [MTLRenderPipelineDescriptor.ColorAttachments] to `1.0`, which is the largest representable value.
+// - [MTLRenderPipelineDescriptor.RasterSampleCount] is the number of samples
+// for each pixel. - If [MTLRenderPipelineDescriptor.AlphaToCoverageEnabled]
+// is true, the GPU uses the alpha channel fragment output for
+// [MTLRenderPipelineDescriptor.ColorAttachments] to compute a coverage mask
+// that affects the values the GPU writes to all attachments (color, depth,
+// and stencil). - If [MTLRenderPipelineDescriptor.AlphaToOneEnabled] is true,
+// the GPU changes alpha channel fragment values for
+// [MTLRenderPipelineDescriptor.ColorAttachments] to `1.0`, which is the
+// largest representable value.
 //
-// If [MTLRenderPipelineDescriptor.AlphaToCoverageEnabled] is true, an implementation-defined
-// `coverageToMask` function uses the alpha channel fragment output from
-// [MTLRenderPipelineDescriptor.ColorAttachments] to create an intermediate coverage mask, which sets a
-// number of bits in its output proportionally to the value of the
-// floating-point input. For example, if the input is `0.0f`, the function
-// sets the output to `0x0`. If the input is `1.0f`, the function sets all
-// output bits (in effect, `~0x0`). If the input is `0.5f`, the function sets
-// half of the bits, according to the implementation, which often uses dither
-// patterns.
+// If [MTLRenderPipelineDescriptor.AlphaToCoverageEnabled] is true, an
+// implementation-defined `coverageToMask` function uses the alpha channel
+// fragment output from [MTLRenderPipelineDescriptor.ColorAttachments] to
+// create an intermediate coverage mask, which sets a number of bits in its
+// output proportionally to the value of the floating-point input. For
+// example, if the input is `0.0f`, the function sets the output to `0x0`. If
+// the input is `1.0f`, the function sets all output bits (in effect, `~0x0`).
+// If the input is `0.5f`, the function sets half of the bits, according to
+// the implementation, which often uses dither patterns.
 //
 // To determine a final coverage mask, the function performs a logical [AND]
 // on the resulting coverage mask `alphaCoverageMask` with the masks from the
@@ -766,7 +772,7 @@ func (r MTLRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 //
 // The default value is `16` and the maximum value is `64`. Any value in
 // between needs to be set according to the partitioning mode specified by the
-// [TessellationPartitionMode] property:
+// [MTLRenderPipelineDescriptor.TessellationPartitionMode] property:
 //
 // - For the [MTLTessellationPartitionModePow2] partitioning mode, the value
 // needs to be a power of two. - For the [MTLTessellationPartitionModeInteger]
@@ -793,8 +799,9 @@ func (r MTLRenderPipelineDescriptor) SetMaxTessellationFactor(value uint) {
 //
 // If this value is true, a scale factor is applied to the tessellation
 // factors after the patch cull check is performed but before the tessellation
-// factors are clamped to the value of [MaxTessellationFactor]. The scale
-// factor is applied only if the patch is not culled.
+// factors are clamped to the value of
+// [MTLRenderPipelineDescriptor.MaxTessellationFactor]. The scale factor is
+// applied only if the patch is not culled.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/isTessellationFactorScaleEnabled
 func (r MTLRenderPipelineDescriptor) IsTessellationFactorScaleEnabled() bool {

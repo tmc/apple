@@ -4,7 +4,9 @@ package fskit
 
 import (
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -56,17 +58,18 @@ func (fc FSItemClass) Alloc() FSItem {
 // properties have no explicit thread safety provisions, since the operations
 // that either get or set these properties enforce thread safety.
 //
-// You test an attribute’s validity with the the method [IsValid]. If the
-// value is `true` (Swift) or [YES] (Objective-C), it’s safe to use the
-// attribute.
+// You test an attribute’s validity with the the method
+// [FSItemAttributes.IsValid]. If the value is `true` (Swift) or [YES]
+// (Objective-C), it’s safe to use the attribute.
 //
 // Methods that get or set an item’s attribute use
 // [FSItemGetAttributesRequest] or [FSItemSetAttributesRequest], respectively.
 // Both are subclasses of [FSItemAttributes]. An [FSItemGetAttributesRequest]
-// contains a [FSItem.WantedAttributes] property to indicate the attributes a file
-// system provides for the request. Similarly, [FSItemSetAttributesRequest]
-// uses the property [FSItem.ConsumedAttributes] for a file system to signal back
-// which attributes it successfully used.
+// contains a [FSItemGetAttributesRequest.WantedAttributes] property to
+// indicate the attributes a file system provides for the request. Similarly,
+// [FSItemSetAttributesRequest] uses the property
+// [FSItemSetAttributesRequest.ConsumedAttributes] for a file system to signal
+// back which attributes it successfully used.
 //
 // [FSItem] is the FSKit equivelant of a vnode in the kernel. For every FSKit
 // vnode in the kernel, the [FSModule] hosting the volume has an instantiated
@@ -95,11 +98,11 @@ type IFSItem interface {
 	objectivec.IObject
 
 	// The attributes successfully used by the file system.
-	ConsumedAttributes() FSItemAttribute
-	SetConsumedAttributes(value FSItemAttribute)
+	ConsumedAttributes() unsafe.Pointer
+	SetConsumedAttributes(value kernel.Pointer)
 	// The attributes requested by the request.
-	WantedAttributes() FSItemAttribute
-	SetWantedAttributes(value FSItemAttribute)
+	WantedAttributes() unsafe.Pointer
+	SetWantedAttributes(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -124,21 +127,21 @@ func NewFSItem() FSItem {
 // The attributes successfully used by the file system.
 //
 // See: https://developer.apple.com/documentation/fskit/fsitem/setattributesrequest/consumedattributes
-func (i FSItem) ConsumedAttributes() FSItemAttribute {
-	rv := objc.Send[FSItemAttribute](i.ID, objc.Sel("consumedAttributes"))
-	return FSItemAttribute(rv)
+func (i FSItem) ConsumedAttributes() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("consumedAttributes"))
+	return rv
 }
-func (i FSItem) SetConsumedAttributes(value FSItemAttribute) {
+func (i FSItem) SetConsumedAttributes(value kernel.Pointer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setConsumedAttributes:"), value)
 }
 
 // The attributes requested by the request.
 //
 // See: https://developer.apple.com/documentation/fskit/fsitem/getattributesrequest/wantedattributes
-func (i FSItem) WantedAttributes() FSItemAttribute {
-	rv := objc.Send[FSItemAttribute](i.ID, objc.Sel("wantedAttributes"))
-	return FSItemAttribute(rv)
+func (i FSItem) WantedAttributes() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("wantedAttributes"))
+	return rv
 }
-func (i FSItem) SetWantedAttributes(value FSItemAttribute) {
+func (i FSItem) SetWantedAttributes(value kernel.Pointer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setWantedAttributes:"), value)
 }

@@ -49,17 +49,19 @@ func (nc NETransparentProxyProviderClass) Alloc() NETransparentProxyProvider {
 // The [NETransparentProxyProvider] class has the following behavior
 // differences from its superclass [NEAppProxyProvider]:
 //
-// - Returning [NO] from [HandleNewFlow] and
-// [HandleNewUDPFlowInitialRemoteEndpoint] causes the flow to proceed to
-// communicate directly with the flow’s ultimate destination, instead of
-// closing the flow with a “Connection Refused” error. - This provider
-// ignores [NEDNSSettings] and [NEProxySettings] specified within
+// - Returning [NO] from [NEAppProxyProvider.HandleNewFlow] and
+// [NEAppProxyProvider.HandleNewUDPFlowInitialRemoteEndpoint] causes the flow
+// to proceed to communicate directly with the flow’s ultimate destination,
+// instead of closing the flow with a “Connection Refused” error. - This
+// provider ignores [NEDNSSettings] and [NEProxySettings] specified within
 // [NETransparentProxyNetworkSettings]. Flows that match the
-// [NETransparentProxyProvider.IncludedNetworkRules] within [NETransparentProxyNetworkSettings] use the
-// same DNS and proxy settings that other flows on the system currently use. -
-// Flows that are created using a “connect by name” API (such as [Network]
-// framework or [URLSession]) that match the [NETransparentProxyProvider.IncludedNetworkRules] don’t
-// bypass DNS resolution.
+// [NETransparentProxyNetworkSettings.IncludedNetworkRules] within
+// [NETransparentProxyNetworkSettings] use the same DNS and proxy settings
+// that other flows on the system currently use. - Flows that are created
+// using a “connect by name” API (such as [Network] framework or
+// [URLSession]) that match the
+// [NETransparentProxyNetworkSettings.IncludedNetworkRules] don’t bypass DNS
+// resolution.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyProvider
 //
@@ -85,10 +87,6 @@ func NETransparentProxyProviderFromID(id objc.ID) NETransparentProxyProvider {
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyProvider
 type INETransparentProxyProvider interface {
 	INEAppProxyProvider
-
-	// An array of rules that collectively specify what traffic to route through the transparent proxy.
-	IncludedNetworkRules() INENetworkRule
-	SetIncludedNetworkRules(value INENetworkRule)
 }
 
 // Init initializes the instance.
@@ -108,16 +106,4 @@ func NewNETransparentProxyProvider() NETransparentProxyProvider {
 	class := getNETransparentProxyProviderClass()
 	rv := objc.Send[NETransparentProxyProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// An array of rules that collectively specify what traffic to route through
-// the transparent proxy.
-//
-// See: https://developer.apple.com/documentation/networkextension/netransparentproxynetworksettings/includednetworkrules
-func (t NETransparentProxyProvider) IncludedNetworkRules() INENetworkRule {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("includedNetworkRules"))
-	return NENetworkRuleFromID(objc.ID(rv))
-}
-func (t NETransparentProxyProvider) SetIncludedNetworkRules(value INENetworkRule) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIncludedNetworkRules:"), value)
 }

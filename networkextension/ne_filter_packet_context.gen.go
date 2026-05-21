@@ -64,10 +64,6 @@ func NEFilterPacketContextFromID(id objc.ID) NEFilterPacketContext {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketContext
 type INEFilterPacketContext interface {
 	objectivec.IObject
-
-	// A Swift closure or an ObjectiveC block that handles each packet received by the filter.
-	PacketHandler() NEFilterPacketHandler
-	SetPacketHandler(value NEFilterPacketHandler)
 }
 
 // Init initializes the instance.
@@ -87,16 +83,4 @@ func NewNEFilterPacketContext() NEFilterPacketContext {
 	class := getNEFilterPacketContextClass()
 	rv := objc.Send[NEFilterPacketContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// A Swift closure or an ObjectiveC block that handles each packet received by
-// the filter.
-//
-// See: https://developer.apple.com/documentation/networkextension/nefilterpacketprovider/packethandler
-func (f NEFilterPacketContext) PacketHandler() NEFilterPacketHandler {
-	rv := objc.Send[NEFilterPacketHandler](f.ID, objc.Sel("packetHandler"))
-	return NEFilterPacketHandler(rv)
-}
-func (f NEFilterPacketContext) SetPacketHandler(value NEFilterPacketHandler) {
-	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), value)
 }

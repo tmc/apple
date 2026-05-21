@@ -27,8 +27,8 @@ func (c AVCaptureSession) IsInterrupted() bool {
 // # Discussion
 //
 // Query this property to determine whether you can use the camera while
-// multitasking by setting the state of the [MultitaskingCameraAccessEnabled]
-// property to `true`.
+// multitasking by setting the state of the
+// [AVCaptureSession.MultitaskingCameraAccessEnabled] property to `true`.
 //
 // In iOS and iPadOS, this property is `true` for any of the following cases:
 //
@@ -59,9 +59,9 @@ func (c AVCaptureSession) IsMultitaskingCameraAccessSupported() bool {
 //
 // The default value is false.
 //
-// If the value of the [MultitaskingCameraAccessSupported] property is true,
-// you can enable multitasking camera access by setting this value to true
-// prior to starting the capture session.
+// If the value of the [AVCaptureSession.MultitaskingCameraAccessSupported]
+// property is true, you can enable multitasking camera access by setting this
+// value to true prior to starting the capture session.
 //
 // This property is key-value observable.
 //
@@ -104,10 +104,11 @@ func (c AVCaptureSession) SetMultitaskingCameraAccessEnabled(value bool) {
 // the number of cameras configured to produce depth, the higher the cost.
 //
 // To reduce the hardware cost, consider picking a sensor-cropped or binned
-// [ActiveFormat]. You may also use a device input’s
-// [VideoMinFrameDurationOverride] property to artificially limit the maximum
-// frame rate of a source device to a lower value. By doing so, you only pay
-// the hardware cost for the maximum frame rate you intend to use.
+// [AVCaptureDevice.ActiveFormat]. You may also use a device input’s
+// [AVCaptureDeviceInput.VideoMinFrameDurationOverride] property to
+// artificially limit the maximum frame rate of a source device to a lower
+// value. By doing so, you only pay the hardware cost for the maximum frame
+// rate you intend to use.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/hardwareCost
 //
@@ -144,7 +145,7 @@ func (c AVCaptureSession) SetUsesApplicationAudioSession(value bool) {
 // # Discussion
 //
 // This property only takes effect if the value of the
-// [UsesApplicationAudioSession] property is true.
+// [AVCaptureSession.UsesApplicationAudioSession] property is true.
 //
 // The value of this property defaults to true, causing the capture session to
 // automatically configure the app’s shared [AVAudioSession] instance for
@@ -197,7 +198,7 @@ func (c AVCaptureSession) SetConfiguresApplicationAudioSessionToMixWithOthers(va
 // this value to `true` to tell a capture session to opt-in to high-quality
 // bluetooth recording, which enables a person to select AirPods as the active
 // mic source for capture. This property has no effect when the value of
-// [UsesApplicationAudioSession] is `false`.
+// [AVCaptureSession.UsesApplicationAudioSession] is `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/configuresApplicationAudioSessionForBluetoothHighQualityRecording
 func (c AVCaptureSession) ConfiguresApplicationAudioSessionForBluetoothHighQualityRecording() bool {
@@ -223,22 +224,22 @@ func (c AVCaptureSession) SetConfiguresApplicationAudioSessionForBluetoothHighQu
 // appropriate for wide-gamut capture:
 //
 // - If you use a session preset other than [inputPriority], the session
-// automatically sets the device’s [ActiveFormat] property to one that
-// supports wide-gamut capture, and sets the device’s [ActiveColorSpace]
-// property to a wide-gamut color space. - If you manually choose a capture
-// format (thereby setting the session to input priority), the session
-// automatically sets the device’s [ActiveColorSpace] property to a
-// wide-gamut color space only if your chosen format supports wide-gamut
-// capture.
+// automatically sets the device’s [AVCaptureDevice.ActiveFormat] property
+// to one that supports wide-gamut capture, and sets the device’s
+// [AVCaptureDevice.ActiveColorSpace] property to a wide-gamut color space. -
+// If you manually choose a capture format (thereby setting the session to
+// input priority), the session automatically sets the device’s
+// [AVCaptureDevice.ActiveColorSpace] property to a wide-gamut color space
+// only if your chosen format supports wide-gamut capture.
 //
 // For information about which devices and session configurations
 // automatically enable wide-gamut capture, see Wide-Gamut Capture in [iOS
 // Device Compatibility Reference].
 //
 // Set this property to false if you want to directly change the value of the
-// capture device’s [ActiveColorSpace] property (regardless of whether you
-// configure your device with a session preset or by directly setting a
-// capture format).
+// capture device’s [AVCaptureDevice.ActiveColorSpace] property (regardless
+// of whether you configure your device with a session preset or by directly
+// setting a capture format).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/automaticallyConfiguresCaptureDeviceForWideColor
 //

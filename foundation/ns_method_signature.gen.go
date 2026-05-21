@@ -52,14 +52,14 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 // object does not respond to—most notably in the case of distributed
 // objects. You typically create an [NSMethodSignature] object using the
 // [NSObject] [methodSignatureForSelector:] instance method (in macOS 10.5 and
-// later you can also use [NSMethodSignature.SignatureWithObjCTypes]). It is then used to create
-// an [NSInvocation] object, which is passed as the argument to a
-// [forwardInvocation:] message to send the invocation on to whatever other
-// object can handle the message. In the default case, [NSObject] invokes
-// [doesNotRecognizeSelector(_:)], which raises an exception. For distributed
-// objects, the [NSInvocation] object is encoded using the information in the
-// [NSMethodSignature] object and sent to the real object represented by the
-// receiver of the message.
+// later you can also use [NSMethodSignatureClass.SignatureWithObjCTypes]). It
+// is then used to create an [NSInvocation] object, which is passed as the
+// argument to a [forwardInvocation:] message to send the invocation on to
+// whatever other object can handle the message. In the default case,
+// [NSObject] invokes [doesNotRecognizeSelector(_:)], which raises an
+// exception. For distributed objects, the [NSInvocation] object is encoded
+// using the information in the [NSMethodSignature] object and sent to the
+// real object represented by the receiver of the message.
 //
 // # Type Encodings
 //
@@ -72,12 +72,14 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 // A method signature consists of one or more characters for the method return
 // type, followed by the string encodings of the implicit arguments `self` and
 // `_cmd`, followed by zero or more explicit arguments. You can determine the
-// string encoding and the length of a return type using [NSMethodSignature.MethodReturnType]
-// and [NSMethodSignature.MethodReturnLength] properties. You can access arguments individually
-// using the [NSMethodSignature.GetArgumentTypeAtIndex] method and [NSMethodSignature.NumberOfArguments] property.
+// string encoding and the length of a return type using
+// [NSMethodSignature.MethodReturnType] and
+// [NSMethodSignature.MethodReturnLength] properties. You can access arguments
+// individually using the [NSMethodSignature.GetArgumentTypeAtIndex] method
+// and [NSMethodSignature.NumberOfArguments] property.
 //
-// For example, the [NSString] instance method [ContainsString] has a method
-// signature with the following arguments:
+// For example, the [NSString] instance method [NSString.ContainsString] has a
+// method signature with the following arguments:
 //
 // - `@encode(BOOL)` (`c`) for the return type - `@encode(id)` (`@`) for the
 // receiver (`self`) - `@encode(SEL)` (`:`) for the selector (`_cmd`) -

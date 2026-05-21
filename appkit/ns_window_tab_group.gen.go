@@ -49,7 +49,7 @@ func (nc NSWindowTabGroupClass) Alloc() NSWindowTabGroup {
 //
 // AppKit automatically creates instances of [NSWindowTabGroup] to reflect the
 // tabbing state of your windows. You can access a window’s current tab
-// group using the [NSWindowTabGroup.TabGroup] property.
+// group using the [NSWindow.TabGroup] property.
 //
 // # Checking the Group Identifier
 //
@@ -136,10 +136,6 @@ type INSWindowTabGroup interface {
 	InsertWindowAtIndex(window INSWindow, index int)
 	// Removes a window from the tab group.
 	RemoveWindow(window INSWindow)
-
-	// A group of windows that display together as a tab group.
-	TabGroup() INSWindowTabGroup
-	SetTabGroup(value INSWindowTabGroup)
 }
 
 // Init initializes the instance.
@@ -208,9 +204,9 @@ func (w NSWindowTabGroup) InsertWindowAtIndex(window INSWindow, index int) {
 //
 // # Discussion
 //
-// You can use [RemoveWindow] to explicitly remove a window from the tab
-// group. Windows are implicity removed from their associated tab groups when
-// they order out.
+// You can use [NSWindowTabGroup.RemoveWindow] to explicitly remove a window
+// from the tab group. Windows are implicity removed from their associated tab
+// groups when they order out.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/removeWindow(_:)
 func (w NSWindowTabGroup) RemoveWindow(window INSWindow) {
@@ -257,7 +253,7 @@ func (w NSWindowTabGroup) SetOverviewVisible(value bool) {
 //
 // Typically, a tabbed window displays a tab bar if there is more than one
 // window in the tabbing group. The tab bar can also be manually toggled using
-// the [ToggleTabBar] method.
+// the [NSWindow.ToggleTabBar] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/isTabBarVisible
 func (w NSWindowTabGroup) IsTabBarVisible() bool {
@@ -298,15 +294,4 @@ func (w NSWindowTabGroup) SelectedWindow() INSWindow {
 }
 func (w NSWindowTabGroup) SetSelectedWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSelectedWindow:"), value)
-}
-
-// A group of windows that display together as a tab group.
-//
-// See: https://developer.apple.com/documentation/appkit/nswindow/tabgroup
-func (w NSWindowTabGroup) TabGroup() INSWindowTabGroup {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("tabGroup"))
-	return NSWindowTabGroupFromID(objc.ID(rv))
-}
-func (w NSWindowTabGroup) SetTabGroup(value INSWindowTabGroup) {
-	objc.Send[struct{}](w.ID, objc.Sel("setTabGroup:"), value)
 }

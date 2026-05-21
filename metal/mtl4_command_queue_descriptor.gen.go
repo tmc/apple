@@ -89,8 +89,6 @@ type IMTL4CommandQueueDescriptor interface {
 	// Assigns an optional label to the command queue instance for debugging purposes.
 	Label() string
 	SetLabel(value string)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -142,10 +140,4 @@ func (m MTL4CommandQueueDescriptor) Label() string {
 }
 func (m MTL4CommandQueueDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4CommandQueueDescriptor) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

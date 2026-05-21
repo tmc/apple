@@ -59,7 +59,8 @@ func (gc GCEventViewControllerClass) Alloc() GCEventViewController {
 // [GCEventViewController] object as the root view controller. The view
 // controller delivers the input for its views and their subviews to the game
 // controller’s profile. To switch back to the responder chain, set the view
-// controller’s [GCEventViewController.ControllerUserInteractionEnabled] property to true.
+// controller’s [GCEventViewController.ControllerUserInteractionEnabled]
+// property to true.
 //
 // # Delivering game controller inputs
 //

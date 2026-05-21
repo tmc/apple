@@ -52,10 +52,11 @@ func (nc NSCollectionViewCompositionalLayoutConfigurationClass) Alloc() NSCollec
 // layout, and add headers or footers to the entire layout.
 //
 // You can pass in this configuration when creating an
-// [NSCollectionViewCompositionalLayout], or you can set the [NSCollectionViewCompositionalLayoutConfiguration.Configuration]
-// property on an existing layout. If you modify the configuration on an
-// existing layout, the system invalidates the layout so that it will be
-// updated with the new configuration.
+// [NSCollectionViewCompositionalLayout], or you can set the
+// [NSCollectionViewCompositionalLayout.Configuration] property on an existing
+// layout. If you modify the configuration on an existing layout, the system
+// invalidates the layout so that it will be updated with the new
+// configuration.
 //
 // # Specifying Scroll Direction
 //
@@ -126,10 +127,6 @@ type INSCollectionViewCompositionalLayoutConfiguration interface {
 	// An array of the supplementary items that are associated with the boundary edges of the entire layout, such as global headers and footers.
 	BoundarySupplementaryItems() []NSCollectionLayoutBoundarySupplementaryItem
 	SetBoundarySupplementaryItems(value []NSCollectionLayoutBoundarySupplementaryItem)
-
-	// The layout’s configuration, such as its scroll direction and section spacing.
-	Configuration() INSCollectionViewCompositionalLayoutConfiguration
-	SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration)
 }
 
 // Init initializes the instance.
@@ -194,16 +191,4 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) BoundarySupplementaryI
 }
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetBoundarySupplementaryItems(value []NSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The layout’s configuration, such as its scroll direction and section
-// spacing.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionviewcompositionallayout/configuration
-func (c NSCollectionViewCompositionalLayoutConfiguration) Configuration() INSCollectionViewCompositionalLayoutConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("configuration"))
-	return NSCollectionViewCompositionalLayoutConfigurationFromID(objc.ID(rv))
-}
-func (c NSCollectionViewCompositionalLayoutConfiguration) SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }

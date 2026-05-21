@@ -54,7 +54,8 @@ func (wc WKWebExtensionControllerClass) Alloc() WKWebExtensionController {
 // parts of the app to use different sets of extensions.
 //
 // You can associate a controller with [WKWebView] using the
-// [WebExtensionController] property on [WKWebViewConfiguration].
+// [WKWebViewConfiguration.WebExtensionController] property on
+// [WKWebViewConfiguration].
 //
 // # Initializers
 //
@@ -81,6 +82,7 @@ func (wc WKWebExtensionControllerClass) Alloc() WKWebExtensionController {
 //   - [WKWebExtensionController.ExtensionContextForURL]: Returns a loaded extension context matching the specified URL.
 //   - [WKWebExtensionController.ExtensionContextForExtension]: Returns a loaded extension context for the specified extension.
 //   - [WKWebExtensionController.FetchDataRecordOfTypesForExtensionContextCompletionHandler]: Fetches a data record containing the given extension data types for a specific known web extension context.
+//   - [WKWebExtensionController.FetchDataRecordsOfTypesCompletionHandler]: Fetches data records containing the given extension data types for all known extensions.
 //   - [WKWebExtensionController.LoadExtensionContextError]: Loads the specified extension context.
 //   - [WKWebExtensionController.RemoveDataOfTypesFromDataRecordsCompletionHandler]: Removes extension data of the given types for the given data records.
 //   - [WKWebExtensionController.UnloadExtensionContextError]: Unloads the specified extension context.
@@ -127,6 +129,7 @@ func WKWebExtensionControllerFromID(id objc.ID) WKWebExtensionController {
 //   - [IWKWebExtensionController.ExtensionContextForURL]: Returns a loaded extension context matching the specified URL.
 //   - [IWKWebExtensionController.ExtensionContextForExtension]: Returns a loaded extension context for the specified extension.
 //   - [IWKWebExtensionController.FetchDataRecordOfTypesForExtensionContextCompletionHandler]: Fetches a data record containing the given extension data types for a specific known web extension context.
+//   - [IWKWebExtensionController.FetchDataRecordsOfTypesCompletionHandler]: Fetches data records containing the given extension data types for all known extensions.
 //   - [IWKWebExtensionController.LoadExtensionContextError]: Loads the specified extension context.
 //   - [IWKWebExtensionController.RemoveDataOfTypesFromDataRecordsCompletionHandler]: Removes extension data of the given types for the given data records.
 //   - [IWKWebExtensionController.UnloadExtensionContextError]: Unloads the specified extension context.
@@ -176,6 +179,8 @@ type IWKWebExtensionController interface {
 	ExtensionContextForExtension(extension IWKWebExtension) IWKWebExtensionContext
 	// Fetches a data record containing the given extension data types for a specific known web extension context.
 	FetchDataRecordOfTypesForExtensionContextCompletionHandler(dataTypes foundation.INSSet, extensionContext IWKWebExtensionContext, completionHandler WKWebExtensionDataRecordHandler)
+	// Fetches data records containing the given extension data types for all known extensions.
+	FetchDataRecordsOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler WKWebExtensionDataRecordArrayHandler)
 	// Loads the specified extension context.
 	LoadExtensionContextError(extensionContext IWKWebExtensionContext) (bool, error)
 	// Removes extension data of the given types for the given data records.
@@ -183,8 +188,6 @@ type IWKWebExtensionController interface {
 	// Unloads the specified extension context.
 	UnloadExtensionContextError(extensionContext IWKWebExtensionContext) (bool, error)
 
-	WebExtensionController() IWKWebExtensionController
-	SetWebExtensionController(value IWKWebExtensionController)
 	// Should be called by the app when a tab is activated to notify all loaded web extensions.
 	DidActivateTabPreviousActiveTab(activatedTab WKWebExtensionTab, previousTab WKWebExtensionTab)
 	// Should be called by the app when a tab is closed to fire appropriate events with all loaded web extensions.
@@ -224,10 +227,11 @@ func NewWKWebExtensionController() WKWebExtensionController {
 //
 // # Discussion
 //
-// This is a designated initializer. You can use [Init] to initialize an
-// instance with the default configuration. The initializer copies the
-// specified configuration, so mutating the configuration after invoking the
-// initializer has no effect on the web extension controller.
+// This is a designated initializer. You can use
+// [WKWebExtensionController.Init] to initialize an instance with the default
+// configuration. The initializer copies the specified configuration, so
+// mutating the configuration after invoking the initializer has no effect on
+// the web extension controller.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/init(configuration:)
 func NewWebExtensionControllerWithConfiguration(configuration IWKWebExtensionControllerConfiguration) WKWebExtensionController {
@@ -248,10 +252,11 @@ func NewWebExtensionControllerWithConfiguration(configuration IWKWebExtensionCon
 //
 // # Discussion
 //
-// This is a designated initializer. You can use [Init] to initialize an
-// instance with the default configuration. The initializer copies the
-// specified configuration, so mutating the configuration after invoking the
-// initializer has no effect on the web extension controller.
+// This is a designated initializer. You can use
+// [WKWebExtensionController.Init] to initialize an instance with the default
+// configuration. The initializer copies the specified configuration, so
+// mutating the configuration after invoking the initializer has no effect on
+// the web extension controller.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/init(configuration:)
 func (w WKWebExtensionController) InitWithConfiguration(configuration IWKWebExtensionControllerConfiguration) WKWebExtensionController {
@@ -421,8 +426,8 @@ func (w WKWebExtensionController) DidSelectTabs(selectedTabs []objectivec.IObjec
 // This method is useful for determining the extension context to use when
 // about to navigate to an extension URL. For example, you could use this
 // method to retrieve the appropriate extension context and then use its
-// [WebViewConfiguration] property to configure a web view for loading that
-// URL.
+// [WKWebExtensionContext.WebViewConfiguration] property to configure a web
+// view for loading that URL.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/extensionContext(for:)-2kr4
 func (w WKWebExtensionController) ExtensionContextForURL(URL foundation.NSURL) IWKWebExtensionContext {
@@ -459,6 +464,21 @@ func (w WKWebExtensionController) ExtensionContextForExtension(extension IWKWebE
 func (w WKWebExtensionController) FetchDataRecordOfTypesForExtensionContextCompletionHandler(dataTypes foundation.INSSet, extensionContext IWKWebExtensionContext, completionHandler WKWebExtensionDataRecordHandler) {
 	_block2, _ := NewWKWebExtensionDataRecordBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("fetchDataRecordOfTypes:forExtensionContext:completionHandler:"), dataTypes, extensionContext, _block2)
+}
+
+// Fetches data records containing the given extension data types for all
+// known extensions.
+//
+// dataTypes: The extension data types to fetch records for.
+//
+// completionHandler: A block to invoke when the data records have been fetched.
+//
+// # Discussion
+//
+// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/fetchDataRecords(ofTypes:completionHandler:)
+func (w WKWebExtensionController) FetchDataRecordsOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler WKWebExtensionDataRecordArrayHandler) {
+	_block1, _ := NewWKWebExtensionDataRecordArrayBlock(completionHandler)
+	objc.Send[objc.ID](w.ID, objc.Sel("fetchDataRecordsOfTypes:completionHandler:"), dataTypes, _block1)
 }
 
 // Loads the specified extension context.
@@ -624,15 +644,6 @@ func (w WKWebExtensionController) Extensions() foundation.INSSet {
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
-// See: https://developer.apple.com/documentation/webkit/wkwebviewconfiguration/webextensioncontroller
-func (w WKWebExtensionController) WebExtensionController() IWKWebExtensionController {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("webExtensionController"))
-	return WKWebExtensionControllerFromID(objc.ID(rv))
-}
-func (w WKWebExtensionController) SetWebExtensionController(value IWKWebExtensionController) {
-	objc.Send[struct{}](w.ID, objc.Sel("setWebExtensionController:"), value)
-}
-
 // Returns a set of all available extension data types.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/allExtensionDataTypes
@@ -647,6 +658,25 @@ func (w WKWebExtensionController) FetchDataRecordOfTypesForExtensionContext(ctx 
 	done := make(chan *WKWebExtensionDataRecord, 1)
 	w.FetchDataRecordOfTypesForExtensionContextCompletionHandler(dataTypes, extensionContext, func(val *WKWebExtensionDataRecord) {
 		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// FetchDataRecordsOfTypes is a synchronous wrapper around [WKWebExtensionController.FetchDataRecordsOfTypesCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (w WKWebExtensionController) FetchDataRecordsOfTypes(ctx context.Context, dataTypes foundation.INSSet) ([]WKWebExtensionDataRecord, error) {
+	done := make(chan []WKWebExtensionDataRecord, 1)
+	w.FetchDataRecordsOfTypesCompletionHandler(dataTypes, func(val *[]WKWebExtensionDataRecord) {
+		var out []WKWebExtensionDataRecord
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
 	})
 	select {
 	case r := <-done:

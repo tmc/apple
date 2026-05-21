@@ -100,10 +100,6 @@ type IVNCoreMLModel interface {
 	// The name of the feature value that Vision sets from the request handler.
 	InputImageFeatureName() string
 	SetInputImageFeatureName(value string)
-
-	// The model to base the image analysis request on.
-	Model() IVNCoreMLModel
-	SetModel(value IVNCoreMLModel)
 }
 
 // Init initializes the instance.
@@ -152,8 +148,8 @@ func NewCoreMLModelForMLModelError(model objectivec.IObject) (VNCoreMLModel, err
 //
 // This optional object conforms to the [MLFeatureProvider] protocol that the
 // model uses to predict inputs that are not supplied by Vision. Vision
-// provides the MLModel with the image for the [InputImageFeatureName] via the
-// [VNRequestHandler].
+// provides the MLModel with the image for the
+// [VNCoreMLModel.InputImageFeatureName] via the [VNRequestHandler].
 //
 // A feature provider is necessary for models that have more than one required
 // input. Models with only one image input won’t use the feature provider.
@@ -174,7 +170,8 @@ func (c VNCoreMLModel) SetFeatureProvider(value coreml.MLFeatureProvider) {
 // # Discussion
 //
 // By default, Vision uses the first input found, but you can manually set
-// that input to another [FeatureName] instead.
+// that input to another [VNCoreMLFeatureValueObservation.FeatureName]
+// instead.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLModel/inputImageFeatureName
 func (c VNCoreMLModel) InputImageFeatureName() string {
@@ -183,15 +180,4 @@ func (c VNCoreMLModel) InputImageFeatureName() string {
 }
 func (c VNCoreMLModel) SetInputImageFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInputImageFeatureName:"), objc.String(value))
-}
-
-// The model to base the image analysis request on.
-//
-// See: https://developer.apple.com/documentation/vision/vncoremlrequest/model
-func (c VNCoreMLModel) Model() IVNCoreMLModel {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("model"))
-	return VNCoreMLModelFromID(objc.ID(rv))
-}
-func (c VNCoreMLModel) SetModel(value IVNCoreMLModel) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModel:"), value)
 }

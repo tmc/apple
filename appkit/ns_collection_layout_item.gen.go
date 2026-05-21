@@ -201,7 +201,7 @@ func (c NSCollectionLayoutItem) SupplementaryItems() []NSCollectionLayoutSupplem
 // Use this property to adjust the position of the item in relation to its
 // container and other items. For example, you can use this property to apply
 // extra space to the trailing edge of each item. Edge spacing is applied
-// before applying [ContentInsets].
+// before applying [NSCollectionLayoutItem.ContentInsets].
 //
 // The following diagram shows the result of applying 2 points of trailing
 // edge spacing to the items in a group:
@@ -224,7 +224,7 @@ func (c NSCollectionLayoutItem) SetEdgeSpacing(value INSCollectionLayoutEdgeSpac
 //
 // You can use this property within a grid layout to apply even spacing around
 // each edge of each item. Content insets are applied after applying
-// [EdgeSpacing].
+// [NSCollectionLayoutItem.EdgeSpacing].
 //
 // The following diagram shows the result of applying 2 points of content
 // insets to each edge of each item in a group.

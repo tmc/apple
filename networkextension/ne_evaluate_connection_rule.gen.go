@@ -121,9 +121,6 @@ type INEEvaluateConnectionRule interface {
 	// The action to take if the properties of the network connection being established match the rule.
 	Action() NEEvaluateConnectionRuleAction
 
-	// An array of
-	ConnectionRules() INEEvaluateConnectionRule
-	SetConnectionRules(value INEEvaluateConnectionRule)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -241,15 +238,4 @@ func (e NEEvaluateConnectionRule) SetProbeURL(value foundation.NSURL) {
 func (e NEEvaluateConnectionRule) Action() NEEvaluateConnectionRuleAction {
 	rv := objc.Send[NEEvaluateConnectionRuleAction](e.ID, objc.Sel("action"))
 	return NEEvaluateConnectionRuleAction(rv)
-}
-
-// An array of
-//
-// See: https://developer.apple.com/documentation/networkextension/neondemandruleevaluateconnection/connectionrules
-func (e NEEvaluateConnectionRule) ConnectionRules() INEEvaluateConnectionRule {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("connectionRules"))
-	return NEEvaluateConnectionRuleFromID(objc.ID(rv))
-}
-func (e NEEvaluateConnectionRule) SetConnectionRules(value INEEvaluateConnectionRule) {
-	objc.Send[struct{}](e.ID, objc.Sel("setConnectionRules:"), value)
 }

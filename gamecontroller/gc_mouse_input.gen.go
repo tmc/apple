@@ -5,7 +5,6 @@ package gamecontroller
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,7 +52,7 @@ func (gc GCMouseInputClass) Alloc() GCMouseInput {
 //
 // This profile provides only raw mouse movement delta values. For the cursor
 // position at a specific time, use the [UIHoverGestureRecognizer] class and
-// the [NSEvent] [GCMouseInput.MouseLocation] method.
+// the [NSEvent] [mouseLocation] method.
 //
 // # Getting Change Information
 //
@@ -74,6 +73,7 @@ func (gc GCMouseInputClass) Alloc() GCMouseInput {
 // See: https://developer.apple.com/documentation/GameController/GCMouseInput
 //
 // [UIHoverGestureRecognizer]: https://developer.apple.com/documentation/UIKit/UIHoverGestureRecognizer
+// [mouseLocation]: https://developer.apple.com/documentation/AppKit/NSEvent/mouseLocation
 type GCMouseInput struct {
 	GCPhysicalInputProfile
 }
@@ -215,15 +215,4 @@ func (g GCMouseInput) AuxiliaryButtons() []GCControllerButtonInput {
 func (g GCMouseInput) Scroll() IGCDeviceCursor {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("scroll"))
 	return GCDeviceCursorFromID(objc.ID(rv))
-}
-
-// Reports the current mouse position in screen coordinates.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSEvent/mouseLocation
-func (_GCMouseInputClass GCMouseInputClass) MouseLocation() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](objc.ID(_GCMouseInputClass.class), objc.Sel("mouseLocation"))
-	return corefoundation.CGPoint(rv)
-}
-func (_GCMouseInputClass GCMouseInputClass) SetMouseLocation(value corefoundation.CGPoint) {
-	objc.Send[struct{}](objc.ID(_GCMouseInputClass.class), objc.Sel("setMouseLocation:"), value)
 }

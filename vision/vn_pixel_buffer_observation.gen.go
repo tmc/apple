@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNPixelBufferObservation] class.
@@ -54,8 +53,8 @@ func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 // style of one image and then transfers that style to a different image.
 //
 // Vision infers that an [MLModel] object is an image-to-image model if that
-// model includes an image. Its [VNPixelBufferObservation.ModelDescription] object includes an
-// image-typed feature description in its [VNPixelBufferObservation.OutputDescriptionsByName]
+// model includes an image. Its [modelDescription] object includes an
+// image-typed feature description in its [outputDescriptionsByName]
 // dictionary.
 //
 // # Parsing Observation Content
@@ -66,6 +65,8 @@ func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 // See: https://developer.apple.com/documentation/Vision/VNPixelBufferObservation
 //
 // [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
+// [modelDescription]: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
+// [outputDescriptionsByName]: https://developer.apple.com/documentation/CoreML/MLModelDescription/outputDescriptionsByName
 type VNPixelBufferObservation struct {
 	VNObservation
 }
@@ -97,13 +98,6 @@ type IVNPixelBufferObservation interface {
 	PixelBuffer() corevideo.CVImageBufferRef
 	// A feature name that the CoreML model defines.
 	FeatureName() string
-
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() objectivec.IObject
-	SetModelDescription(value objectivec.IObject)
-	// A dictionary of output feature descriptions, which the model keys by the output’s name.
-	OutputDescriptionsByName() objectivec.IObject
-	SetOutputDescriptionsByName(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -123,6 +117,13 @@ func NewVNPixelBufferObservation() VNPixelBufferObservation {
 	class := getVNPixelBufferObservationClass()
 	rv := objc.Send[VNPixelBufferObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewPixelBufferObservationWithCoder(coder foundation.INSCoder) VNPixelBufferObservation {
+	instance := getVNPixelBufferObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNPixelBufferObservationFromID(rv)
 }
 
 // The image that results from a request with image output.
@@ -149,28 +150,4 @@ func (p VNPixelBufferObservation) PixelBuffer() corevideo.CVImageBufferRef {
 func (p VNPixelBufferObservation) FeatureName() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("featureName"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// Model information you use at runtime during development, which Xcode also
-// displays in its Core ML model editor view.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (p VNPixelBufferObservation) ModelDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelDescription"))
-	return objectivec.Object{ID: rv}
-}
-func (p VNPixelBufferObservation) SetModelDescription(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
-}
-
-// A dictionary of output feature descriptions, which the model keys by the
-// output’s name.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/outputDescriptionsByName
-func (p VNPixelBufferObservation) OutputDescriptionsByName() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("outputDescriptionsByName"))
-	return objectivec.Object{ID: rv}
-}
-func (p VNPixelBufferObservation) SetOutputDescriptionsByName(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }

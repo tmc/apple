@@ -615,6 +615,7 @@ type IPDFAnnotation interface {
 
 	IsActivatableTextField() bool
 
+	InitWithCoder(coder foundation.INSCoder) PDFAnnotation
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -650,6 +651,13 @@ func NewPDFAnnotation() PDFAnnotation {
 func NewPDFAnnotationWithBoundsForTypeWithProperties(bounds corefoundation.CGRect, annotationType PDFAnnotationSubtype, properties foundation.INSDictionary) PDFAnnotation {
 	instance := getPDFAnnotationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBounds:forType:withProperties:"), bounds, annotationType, properties)
+	return PDFAnnotationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/init(coder:)
+func NewPDFAnnotationWithCoder(coder foundation.INSCoder) PDFAnnotation {
+	instance := getPDFAnnotationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return PDFAnnotationFromID(rv)
 }
 
@@ -789,6 +797,12 @@ func (p PDFAnnotation) AddBezierPath(path appkit.NSBezierPath) {
 func (p PDFAnnotation) RemoveBezierPath(path appkit.NSBezierPath) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeBezierPath:"), path)
 }
+
+// See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/init(coder:)
+func (p PDFAnnotation) InitWithCoder(coder foundation.INSCoder) PDFAnnotation {
+	rv := objc.Send[PDFAnnotation](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (p PDFAnnotation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -823,8 +837,8 @@ func (_PDFAnnotationClass PDFAnnotationClass) NameForLineStyle(style PDFLineStyl
 //
 // # Discussion
 //
-// The [AddAnnotation] method in the [PDFPage] class lets you associate an
-// annotation with a page.
+// The [PDFPage.AddAnnotation] method in the [PDFPage] class lets you
+// associate an annotation with a page.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/page
 func (p PDFAnnotation) Page() IPDFPage {
@@ -1276,7 +1290,7 @@ func (p PDFAnnotation) SetWidgetStringValue(value string) {
 //
 // For radio buttons and checkboxes, set this property to [Off] if the desired
 // default is for the button to be in an unselected state; otherwise, set it
-// to the [ButtonWidgetStateString].
+// to the [PDFAnnotation.ButtonWidgetStateString].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/widgetDefaultStringValue
 func (p PDFAnnotation) WidgetDefaultStringValue() string {
@@ -1363,8 +1377,8 @@ func (p PDFAnnotation) SetMaximumLength(value int) {
 //
 // # Discussion
 //
-// The [MaximumLength] property specifies the number of spaces the text widget
-// divides the bounds into.
+// The [PDFAnnotation.MaximumLength] property specifies the number of spaces
+// the text widget divides the bounds into.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/hasComb
 func (p PDFAnnotation) Comb() bool {
@@ -1405,9 +1419,9 @@ func (p PDFAnnotation) SetButtonWidgetState(value PDFWidgetCellState) {
 //
 // The default value is [Yes].
 //
-// To group button widgets, set the same [FieldName] on the button widgets.
-// The [ButtonWidgetStateString] property allows you to identify individual
-// button widgets in that group.
+// To group button widgets, set the same [PDFAnnotation.FieldName] on the
+// button widgets. The [PDFAnnotation.ButtonWidgetStateString] property allows
+// you to identify individual button widgets in that group.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/buttonWidgetStateString
 func (p PDFAnnotation) ButtonWidgetStateString() string {
@@ -1435,8 +1449,8 @@ func (p PDFAnnotation) SetCaption(value string) {
 // # Discussion
 //
 // To implement a group of radio buttons where at least one option must remain
-// in a selected state, set [AllowsToggleToOff] to false on each button in the
-// group.
+// in a selected state, set [PDFAnnotation.AllowsToggleToOff] to false on each
+// button in the group.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/allowsToggleToOff
 func (p PDFAnnotation) AllowsToggleToOff() bool {

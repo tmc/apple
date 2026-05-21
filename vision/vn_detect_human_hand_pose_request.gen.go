@@ -55,17 +55,6 @@ func (vc VNDetectHumanHandPoseRequestClass) Alloc() VNDetectHumanHandPoseRequest
 //   - [VNDetectHumanHandPoseRequest.MaximumHandCount]: The maximum number of hands to detect in an image.
 //   - [VNDetectHumanHandPoseRequest.SetMaximumHandCount]
 //
-// # Determining Supported Joints
-//
-//   - [VNDetectHumanHandPoseRequest.SupportedJointNames]: Retrieves the supported joint names.
-//   - [VNDetectHumanHandPoseRequest.SetSupportedJointNames]
-//   - [VNDetectHumanHandPoseRequest.SupportedJointsGroupNames]: Retrieves the supported joint group names.
-//   - [VNDetectHumanHandPoseRequest.SetSupportedJointsGroupNames]
-//
-// # Identifying Hand Pose Revisions
-//
-//   - [VNDetectHumanHandPoseRequest.VNDetectHumanHandPoseRequestRevision1]: A constant for specifying revision 1 of the hand pose detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequest
 type VNDetectHumanHandPoseRequest struct {
 	VNImageBasedRequest
@@ -88,17 +77,6 @@ func VNDetectHumanHandPoseRequestFromID(id objc.ID) VNDetectHumanHandPoseRequest
 //   - [IVNDetectHumanHandPoseRequest.MaximumHandCount]: The maximum number of hands to detect in an image.
 //   - [IVNDetectHumanHandPoseRequest.SetMaximumHandCount]
 //
-// # Determining Supported Joints
-//
-//   - [IVNDetectHumanHandPoseRequest.SupportedJointNames]: Retrieves the supported joint names.
-//   - [IVNDetectHumanHandPoseRequest.SetSupportedJointNames]
-//   - [IVNDetectHumanHandPoseRequest.SupportedJointsGroupNames]: Retrieves the supported joint group names.
-//   - [IVNDetectHumanHandPoseRequest.SetSupportedJointsGroupNames]
-//
-// # Identifying Hand Pose Revisions
-//
-//   - [IVNDetectHumanHandPoseRequest.VNDetectHumanHandPoseRequestRevision1]: A constant for specifying revision 1 of the hand pose detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequest
 type IVNDetectHumanHandPoseRequest interface {
 	IVNImageBasedRequest
@@ -108,20 +86,6 @@ type IVNDetectHumanHandPoseRequest interface {
 	// The maximum number of hands to detect in an image.
 	MaximumHandCount() uint
 	SetMaximumHandCount(value uint)
-
-	// Topic: Determining Supported Joints
-
-	// Retrieves the supported joint names.
-	SupportedJointNames() VNHumanHandPoseObservationJointName
-	SetSupportedJointNames(value VNHumanHandPoseObservationJointName)
-	// Retrieves the supported joint group names.
-	SupportedJointsGroupNames() VNHumanHandPoseObservationJointsGroupName
-	SetSupportedJointsGroupNames(value VNHumanHandPoseObservationJointsGroupName)
-
-	// Topic: Identifying Hand Pose Revisions
-
-	// A constant for specifying revision 1 of the hand pose detection request.
-	VNDetectHumanHandPoseRequestRevision1() int
 
 	// Retrieves the supported joint names.
 	SupportedJointNamesAndReturnError() ([]string, error)
@@ -156,7 +120,7 @@ func NewVNDetectHumanHandPoseRequest() VNDetectHumanHandPoseRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectHumanHandPoseRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectHumanHandPoseRequest {
@@ -215,34 +179,4 @@ func (d VNDetectHumanHandPoseRequest) MaximumHandCount() uint {
 }
 func (d VNDetectHumanHandPoseRequest) SetMaximumHandCount(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumHandCount:"), value)
-}
-
-// Retrieves the supported joint names.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointnames
-func (d VNDetectHumanHandPoseRequest) SupportedJointNames() VNHumanHandPoseObservationJointName {
-	rv := objc.Send[VNHumanHandPoseObservationJointName](d.ID, objc.Sel("supportedJointNames"))
-	return VNHumanHandPoseObservationJointName(rv)
-}
-func (d VNDetectHumanHandPoseRequest) SetSupportedJointNames(value VNHumanHandPoseObservationJointName) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
-}
-
-// Retrieves the supported joint group names.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointsgroupnames
-func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNames() VNHumanHandPoseObservationJointsGroupName {
-	rv := objc.Send[VNHumanHandPoseObservationJointsGroupName](d.ID, objc.Sel("supportedJointsGroupNames"))
-	return VNHumanHandPoseObservationJointsGroupName(rv)
-}
-func (d VNDetectHumanHandPoseRequest) SetSupportedJointsGroupNames(value VNHumanHandPoseObservationJointsGroupName) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
-}
-
-// A constant for specifying revision 1 of the hand pose detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequestrevision1
-func (d VNDetectHumanHandPoseRequest) VNDetectHumanHandPoseRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanHandPoseRequestRevision1"))
-	return rv
 }

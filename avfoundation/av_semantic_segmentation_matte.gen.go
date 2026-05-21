@@ -52,7 +52,7 @@ func (ac AVSemanticSegmentationMatteClass) Alloc() AVSemanticSegmentationMatte {
 // # Overview
 //
 // The matting image stores its pixel data as [CVPixelBuffer] objects in
-// [KCVPixelFormatType_OneComponent8] format. The image file contains the
+// [kCVPixelFormatType_OneComponent8] format. The image file contains the
 // semantic segmentation matte as an auxiliary image, accessible using the
 // ImageIO framework’s [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]
 // function.
@@ -73,6 +73,7 @@ func (ac AVSemanticSegmentationMatteClass) Alloc() AVSemanticSegmentationMatte {
 //
 // [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
+// [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
 type AVSemanticSegmentationMatte struct {
 	objectivec.Object
 }
@@ -123,10 +124,6 @@ type IAVSemanticSegmentationMatte interface {
 	MattingImage() corevideo.CVImageBufferRef
 	// The pixel format type for this object’s internal matting image.
 	PixelFormatType() uint32
-
-	// 8-bit one component, black is zero.
-	KCVPixelFormatType_OneComponent8() uint32
-	SetKCVPixelFormatType_OneComponent8(value uint32)
 }
 
 // Init initializes the instance.
@@ -165,7 +162,7 @@ func NewAVSemanticSegmentationMatte() AVSemanticSegmentationMatte {
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/init(fromImageSourceAuxiliaryDataType:dictionaryRepresentation:)
 //
 // [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
-func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepresentationError(imageSourceAuxiliaryDataType corefoundation.CFString, imageSourceAuxiliaryDataInfoDictionary foundation.INSDictionary) (AVSemanticSegmentationMatte, error) {
+func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepresentationError(imageSourceAuxiliaryDataType corefoundation.CFStringRef, imageSourceAuxiliaryDataInfoDictionary foundation.INSDictionary) (AVSemanticSegmentationMatte, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getAVSemanticSegmentationMatteClass().class), objc.Sel("semanticSegmentationMatteFromImageSourceAuxiliaryDataType:dictionaryRepresentation:error:"), imageSourceAuxiliaryDataType, imageSourceAuxiliaryDataInfoDictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -179,7 +176,7 @@ func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepre
 // pixel buffer.
 //
 // pixelBuffer: A pixel buffer containing a semantic segmentation matting image,
-// represented as [KCVPixelFormatType_OneComponent8] with a
+// represented as [kCVPixelFormatType_OneComponent8] with a
 // [kCVImageBufferTransferFunction_Linear] transfer function.
 //
 // # Return Value
@@ -197,6 +194,7 @@ func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepre
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/replacingSemanticSegmentationMatte(with:)
 //
 // [kCVImageBufferTransferFunction_Linear]: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_Linear
+// [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
 func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVSemanticSegmentationMatte, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("semanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBuffer:error:"), pixelBuffer, unsafe.Pointer(&errorPtr))
@@ -220,12 +218,13 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanti
 //
 // # Discussion
 //
-// This method throws an [InvalidArgumentException] if you pass an
+// This method throws an [invalidArgumentException] if you pass an
 // unrecognized `exifOrientation`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/applyingExifOrientation(_:)
 //
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation uint) IAVSemanticSegmentationMatte {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("semanticSegmentationMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVSemanticSegmentationMatteFromID(rv)
@@ -256,8 +255,8 @@ func (s AVSemanticSegmentationMatte) DictionaryRepresentationForAuxiliaryDataTyp
 //
 // # Discussion
 //
-// A semantic segmentation matte’s [MatteType] is immutable for the life of
-// the object.
+// A semantic segmentation matte’s [AVSemanticSegmentationMatte.MatteType]
+// is immutable for the life of the object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/matteType-swift.property
 func (s AVSemanticSegmentationMatte) MatteType() AVSemanticSegmentationMatteType {
@@ -270,7 +269,7 @@ func (s AVSemanticSegmentationMatte) MatteType() AVSemanticSegmentationMatteType
 // # Discussion
 //
 // You can determine the pixel buffer’s format type using the
-// [PixelFormatType] property.
+// [AVSemanticSegmentationMatte.PixelFormatType] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/mattingImage
 func (s AVSemanticSegmentationMatte) MattingImage() corevideo.CVImageBufferRef {
@@ -283,21 +282,12 @@ func (s AVSemanticSegmentationMatte) MattingImage() corevideo.CVImageBufferRef {
 // # Discussion
 //
 // Currently, the only supported pixel format type for the matting image is
-// [KCVPixelFormatType_OneComponent8].
+// [kCVPixelFormatType_OneComponent8].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/pixelFormatType
+//
+// [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
 func (s AVSemanticSegmentationMatte) PixelFormatType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("pixelFormatType"))
 	return rv
-}
-
-// 8-bit one component, black is zero.
-//
-// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
-func (s AVSemanticSegmentationMatte) KCVPixelFormatType_OneComponent8() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("kCVPixelFormatType_OneComponent8"))
-	return rv
-}
-func (s AVSemanticSegmentationMatte) SetKCVPixelFormatType_OneComponent8(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setKCVPixelFormatType_OneComponent8:"), value)
 }

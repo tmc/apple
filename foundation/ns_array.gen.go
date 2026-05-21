@@ -3,7 +3,6 @@
 package foundation
 
 import (
-	"context"
 	"errors"
 	"sync"
 	"unsafe"
@@ -63,11 +62,12 @@ func (nc NSArrayClass) Alloc() NSArray {
 //
 // # Creating NSArray Objects Using Array Literals
 //
-// In addition to the provided initializers, such as [NSArray.InitWithObjects], you
-// can create an [NSArray] object using an .
+// In addition to the provided initializers, such as
+// [NSMutableArray.InitWithObjects], you can create an [NSArray] object using
+// an .
 //
 // In Objective-C, the compiler generates code that makes an underlying call
-// to the [NSArray.InitWithObjectsCount] method.
+// to the [NSMutableArray.InitWithObjectsCount] method.
 //
 // You should not terminate the list of objects with `nil` when using this
 // literal syntax, and in fact `nil` is an invalid value. For more information
@@ -81,8 +81,9 @@ func (nc NSArrayClass) Alloc() NSArray {
 //
 // # Accessing Values Using Subscripting
 //
-// In addition to the provided instance methods, such as [NSArray.ObjectAtIndex], you
-// can access [NSArray] values by their indexes using .
+// In addition to the provided instance methods, such as
+// [NSArray.ObjectAtIndex], you can access [NSArray] values by their indexes
+// using .
 //
 // # Subclassing Notes
 //
@@ -98,21 +99,21 @@ func (nc NSArrayClass) Alloc() NSArray {
 //
 // # Methods to Override
 //
-// Any subclass of [NSArray] override the primitive instance methods [NSArray.Count]
-// and [NSArray.ObjectAtIndex]. These methods must operate on the backing store that
-// you provide for the elements of the collection. For this backing store you
-// can use a static array, a standard [NSArray] object, or some other data
-// type or mechanism. You may also choose to override, partially or fully, any
-// other [NSArray] method for which you want to provide an alternative
-// implementation.
+// Any subclass of [NSArray] override the primitive instance methods
+// [NSArray.Count] and [NSArray.ObjectAtIndex]. These methods must operate on
+// the backing store that you provide for the elements of the collection. For
+// this backing store you can use a static array, a standard [NSArray] object,
+// or some other data type or mechanism. You may also choose to override,
+// partially or fully, any other [NSArray] method for which you want to
+// provide an alternative implementation.
 //
 // You might want to implement an initializer for your subclass that is suited
 // to the backing store that the subclass is managing. If you do, your
 // initializer must invoke one of the designated initializers of the [NSArray]
-// class, either [NSArray.Init] or [NSArray.InitWithObjectsCount]. The [NSArray] class adopts
-// the [NSCopying], [NSMutableCopying], and [NSCoding] protocols; custom
-// subclasses of [NSArray] should override the methods in these protocols as
-// necessary.
+// class, either [NSArray.Init] or [NSMutableArray.InitWithObjectsCount]. The
+// [NSArray] class adopts the [NSCopying], [NSMutableCopying], and [NSCoding]
+// protocols; custom subclasses of [NSArray] should override the methods in
+// these protocols as necessary.
 //
 // Remember that [NSArray] is the public interface for a class cluster and
 // what this entails for your subclass. You must provide the storage for your
@@ -404,28 +405,28 @@ type INSArray interface {
 	// Returns the lowest index within a specified range whose corresponding array value is equal to a given object .
 	IndexOfObjectIdenticalToInRange(anObject objectivec.IObject, range_ NSRange) uint
 	// Returns the index of the first object in the array that passes a test in a given block.
-	IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint
+	IndexOfObjectPassingTest(predicate BoolIObjectHandler) uint
 	// Returns the index of an object in the array that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint
+	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) uint
 	// Returns the index, from a given set of indexes, of the first object in the array that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint
+	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint
 	// Returns the indexes of objects in the array that pass a test in a given block.
-	IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) INSIndexSet
 	// Returns the indexes of objects in the array that pass a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet
 	// Returns the indexes, from a given set of indexes, of objects in the array that pass a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet
+	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet
 	// Returns the index, within a specified range, of an object compared with elements in the array using a given [NSComparator] block.
 	IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec.IObject, r NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint
 
 	// Topic: Sending Messages to Elements
 
 	// Executes a given closure or block using each object in the array, starting with the first object and continuing through the array to the last object.
-	EnumerateObjectsUsingBlock(block ObjectTypeHandler)
+	EnumerateObjectsUsingBlock(block IObjectUintBoolHandler)
 	// Executes a given closure or block using each object in the array with the specified options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler)
 	// Executes a given block using the objects in the array at the specified indexes.
-	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler)
+	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block IObjectUintBoolHandler)
 
 	// Topic: Comparing Arrays
 
@@ -456,7 +457,7 @@ type INSArray interface {
 	// Returns a copy of the receiving array sorted as specified by a given array of sort descriptors.
 	SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given selector.
-	SortedArrayUsingSelector(comparator objc.SEL) []objectivec.IObject
+	SortedArrayUsingSelector(comparator objectivec.SEL) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block.
 	SortedArrayUsingComparator(cmptr NSComparator) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block.
@@ -484,11 +485,11 @@ type INSArray interface {
 	// Topic: Key-Value Observing
 
 	// Raises an exception.
-	RemoveObserverFromObjectsAtIndexesForKeyPathContext(observer objectivec.Object, indexes INSIndexSet, keyPath string, context unsafe.Pointer)
+	RemoveObserverFromObjectsAtIndexesForKeyPathContext(observer objectivec.NSObject, indexes INSIndexSet, keyPath string, context unsafe.Pointer)
 	// Registers an observer to receive key value observer notifications for the specified key-path relative to the objects at the indexes.
-	AddObserverToObjectsAtIndexesForKeyPathOptionsContext(observer objectivec.Object, indexes INSIndexSet, keyPath string, options uint, context unsafe.Pointer)
+	AddObserverToObjectsAtIndexesForKeyPathOptionsContext(observer objectivec.NSObject, indexes INSIndexSet, keyPath string, options uint, context unsafe.Pointer)
 	// Removes `anObserver` from all key value observer notifications associated with the specified `keyPath` relative to the array’s objects at `indexes`.
-	RemoveObserverFromObjectsAtIndexesForKeyPath(observer objectivec.Object, indexes INSIndexSet, keyPath string)
+	RemoveObserverFromObjectsAtIndexesForKeyPath(observer objectivec.NSObject, indexes INSIndexSet, keyPath string)
 
 	// Topic: Randomly Shuffling an Array
 
@@ -512,15 +513,15 @@ type INSArray interface {
 	// Compares two arrays, with options, to create a difference object that represents the changes between them.
 	DifferenceFromArrayWithOptions(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two arrays, using the provided block and with options, to create a difference object that represents the changes between them.
-	DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference
+	DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference
 	// Copies references to objects contained in the array that fall within the specified range to `aBuffer`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated array by placing in it the objects in the argument list.
 	InitWithObjects(firstObj objectivec.IObject) NSArray
 	// Sends to each object in the array the message identified by a given selector, starting with the first object and continuing through the array to the last object.
-	MakeObjectsPerformSelector(aSelector objc.SEL)
+	MakeObjectsPerformSelector(aSelector objectivec.SEL)
 	// Sends the `aSelector` message to each object in the array, starting with the first object and continuing through the array to the last object.
-	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
+	MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -768,11 +769,12 @@ func (a NSArray) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NS
 //
 // To determine if the array contains a particular instance of an object, you
 // can test for identity rather than equality by calling the
-// [IndexOfObjectIdenticalTo] method and comparing the return value to
+// [NSArray.IndexOfObjectIdenticalTo] method and comparing the return value to
 // [NSNotFound].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/contains(_:)
 //
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2
 // [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (a NSArray) ContainsObject(anObject objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("containsObject:"), anObject)
@@ -790,10 +792,12 @@ func (a NSArray) ContainsObject(anObject objectivec.IObject) bool {
 // # Discussion
 //
 // If `index` is beyond the end of the array (that is, if `index` is greater
-// than or equal to the value returned by `count`), an [RangeException] is
+// than or equal to the value returned by `count`), an [rangeException] is
 // raised.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/object(at:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (a NSArray) ObjectAtIndex(index uint) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndex:"), index)
 	return objectivec.Object{ID: rv}
@@ -809,15 +813,17 @@ func (a NSArray) ObjectAtIndex(index uint) objectivec.IObject {
 //
 // # Discussion
 //
-// This method has the same behavior as the [ObjectAtIndex] method.
+// This method has the same behavior as the [NSArray.ObjectAtIndex] method.
 //
 // If `idx` is beyond the end of the array (that is, if `idx` is greater than
-// or equal to the value returned by `count`), an [RangeException] is raised.
+// or equal to the value returned by `count`), an [rangeException] is raised.
 //
 // You shouldn’t need to call this method directly. Instead, this method is
 // called when accessing an object by index using subscripting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/subscript(_:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (a NSArray) ObjectAtIndexedSubscript(idx uint) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndexedSubscript:"), idx)
 	return objectivec.Object{ID: rv}
@@ -837,10 +843,12 @@ func (a NSArray) ObjectAtIndexedSubscript(idx uint) objectivec.IObject {
 // `indexes`, so that object in returned array with higher index in indexes
 // will follow the object with smaller index in `indexes`.
 //
-// Raises an [RangeException] if any location in `indexes` exceeds the bounds
+// Raises an [rangeException] if any location in `indexes` exceeds the bounds
 // of the array, `indexes` is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/objects(at:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (a NSArray) ObjectsAtIndexes(indexes INSIndexSet) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("objectsAtIndexes:"), indexes)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -946,12 +954,13 @@ func (a NSArray) IndexOfObject(anObject objectivec.IObject) uint {
 // found or the end of the `range` is reached. Objects are considered equal if
 // [isEqual(_:)] returns true.
 //
-// This method raises an [RangeException] exception if the `range` parameter
+// This method raises an [rangeException] exception if the `range` parameter
 // represents a range that doesn’t exist in the array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/index(of:in:)
 //
 // [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (a NSArray) IndexOfObjectInRange(anObject objectivec.IObject, range_ NSRange) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObject:inRange:"), anObject, range_)
 	return rv
@@ -1029,8 +1038,8 @@ func (a NSArray) IndexOfObjectIdenticalToInRange(anObject objectivec.IObject, ra
 // If the block parameter is `nil` this method will raise an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(passingTest:)
-func (a NSArray) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint {
-	_block0, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexOfObjectPassingTest(predicate BoolIObjectHandler) uint {
+	_block0, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectPassingTest:"), _block0)
 	return rv
 }
@@ -1074,8 +1083,8 @@ func (a NSArray) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint {
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(options:passingTest:)
-func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-	_block1, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
+	_block1, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, _block1)
 	return rv
 }
@@ -1120,8 +1129,8 @@ func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, 
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(at:options:passingTest:)
-func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-	_block2, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
+	_block2, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, _block2)
 	return rv
 }
@@ -1150,8 +1159,8 @@ func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NS
 // index set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(passingTest:)
-func (a NSArray) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet {
-	_block0, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) INSIndexSet {
+	_block0, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsPassingTest:"), _block0)
 	return NSIndexSetFromID(rv)
 }
@@ -1193,8 +1202,8 @@ func (a NSArray) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSInd
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(options:passingTest:)
-func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-	_block1, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
+	_block1, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, _block1)
 	return NSIndexSetFromID(rv)
 }
@@ -1238,8 +1247,8 @@ func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOption
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(at:options:passingTest:)
-func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-	_block2, _ := NewObjectTypeBlock(predicate)
+func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
+	_block2, _ := NewBoolIObjectBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, _block2)
 	return NSIndexSetFromID(rv)
 }
@@ -1249,12 +1258,12 @@ func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts
 //
 // obj: An object for which to search in the array.
 //
-// If this value is `nil`, throws an [InvalidArgumentException].
+// If this value is `nil`, throws an [invalidArgumentException].
 //
 // r: The range within the array to search for `obj`.
 //
 // If `r` exceeds the bounds of the array (if the location plus length of the
-// range is greater than the count of the array), throws an [RangeException].
+// range is greater than the count of the array), throws an [rangeException].
 //
 // opts: Options for the search. For possible values, see
 // [NSBinarySearchingOptions].
@@ -1265,7 +1274,7 @@ func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts
 // cmp: A comparator block used to compare the object `obj` with elements in the
 // array.
 //
-// If this value is [NULL], throws an [InvalidArgumentException].
+// If this value is [NULL], throws an [invalidArgumentException].
 //
 // # Return Value
 //
@@ -1297,7 +1306,11 @@ func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/index(of:inSortedRange:options:usingComparator:)
 //
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [NSBinarySearchingOptions]: https://developer.apple.com/documentation/Foundation/NSBinarySearchingOptions
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (a NSArray) IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec.IObject, r NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint {
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
 		return cmp(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
@@ -1324,8 +1337,8 @@ func (a NSArray) IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec
 // deallocated after the block is executed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(_:)
-func (a NSArray) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-	_block0, _ := NewObjectTypeBlock(block)
+func (a NSArray) EnumerateObjectsUsingBlock(block IObjectUintBoolHandler) {
+	_block0, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 
@@ -1355,8 +1368,8 @@ func (a NSArray) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(options:using:)
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-	_block1, _ := NewObjectTypeBlock(block)
+func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler) {
+	_block1, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -1392,8 +1405,8 @@ func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(at:options:using:)
-func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler) {
-	_block2, _ := NewObjectTypeBlock(block)
+func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block IObjectUintBoolHandler) {
+	_block2, _ := NewIObjectUintBoolBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, _block2)
 }
 
@@ -1573,24 +1586,25 @@ func (a NSArray) SortedArrayUsingFunctionContext(comparator objectivec.IObject, 
 // The new array contains references to the receiving array’s elements, not
 // copies of them.
 //
-// This method is similar to [SortedArrayUsingFunctionContext], except that it
-// uses the supplied hint to speed the sorting process. When you know the
-// array is nearly sorted, this method is faster than
-// [SortedArrayUsingFunctionContext]. If you sorted a large array ([N]
+// This method is similar to [NSArray.SortedArrayUsingFunctionContext], except
+// that it uses the supplied hint to speed the sorting process. When you know
+// the array is nearly sorted, this method is faster than
+// [NSArray.SortedArrayUsingFunctionContext]. If you sorted a large array ([N]
 // entries) once, and you don’t change it much ([P] additions and deletions,
 // where [P] is much smaller than [N]), then you can reuse the work you did in
 // the original sort by conceptually doing a merge sort between the [N]
 // “old” items and the [P] “new” items.
 //
-// To obtain an appropriate hint, use [SortedArrayHint]. You should obtain
-// this hint when the original array has been sorted, and keep hold of it
-// until you need it, after the array has been modified. The hint is computed
-// by [SortedArrayHint] in `O(N)` (where [N] is the number of items). This
-// assumes that items in the array implement a `-hash` method. Given a
-// suitable hint, and assuming that the hash function is a “good” hash
-// function, -[SortedArrayUsingFunctionContextHint] sorts the array in
-// `O(P*LOG(P)+N)` where [P] is the number of adds or deletes. This is an
-// improvement over the un-hinted sort, `O(N*LOG(N))`, when [P] is small.
+// To obtain an appropriate hint, use [NSArray.SortedArrayHint]. You should
+// obtain this hint when the original array has been sorted, and keep hold of
+// it until you need it, after the array has been modified. The hint is
+// computed by [NSArray.SortedArrayHint] in `O(N)` (where [N] is the number of
+// items). This assumes that items in the array implement a `-hash` method.
+// Given a suitable hint, and assuming that the hash function is a “good”
+// hash function, -[NSArray.SortedArrayUsingFunctionContextHint] sorts the
+// array in `O(P*LOG(P)+N)` where [P] is the number of adds or deletes. This
+// is an improvement over the un-hinted sort, `O(N*LOG(N))`, when [P] is
+// small.
 //
 // The hint is simply an array of size [N] containing the [N] hashes. To
 // re-sort you need internally to create a map table mapping a hash to the
@@ -1659,11 +1673,12 @@ func (a NSArray) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor)
 // single argument another object in the array.
 //
 // For example, an array of [NSString] objects can be sorted by using the
-// [CaseInsensitiveCompare] method declared in the [NSString] class. Assuming
-// `anArray` exists, a sorted version of the array can be created in this way:
+// [NSString.CaseInsensitiveCompare] method declared in the [NSString] class.
+// Assuming `anArray` exists, a sorted version of the array can be created in
+// this way:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/sortedArray(using:)-9nhh9
-func (a NSArray) SortedArrayUsingSelector(comparator objc.SEL) []objectivec.IObject {
+func (a NSArray) SortedArrayUsingSelector(comparator objectivec.SEL) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sortedArrayUsingSelector:"), comparator)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -1760,7 +1775,7 @@ func (a NSArray) ComponentsJoinedByString(separator string) string {
 // # Discussion
 //
 // For a description of how `locale` is applied to each element in the
-// receiving array, see [DescriptionWithLocaleIndent].
+// receiving array, see [NSArray.DescriptionWithLocaleIndent].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/description(withLocale:)
 func (a NSArray) DescriptionWithLocale(locale objectivec.IObject) string {
@@ -1788,16 +1803,16 @@ func (a NSArray) DescriptionWithLocale(locale objectivec.IObject) string {
 //
 // The returned [NSString] object contains the string representations of each
 // of the array’s elements, in order, from first to last. To obtain the
-// string representation of a given element, [DescriptionWithLocaleIndent]
-// proceeds as follows:
+// string representation of a given element,
+// [NSArray.DescriptionWithLocaleIndent] proceeds as follows:
 //
 // - If the element is an [NSString] object, it is used as is. - If the
-// element responds to [DescriptionWithLocaleIndent], that method is invoked
-// to obtain the element’s string representation. - If the element responds
-// to [DescriptionWithLocale], that method is invoked to obtain the
-// element’s string representation. - If none of the above conditions is
-// met, the element’s string representation is obtained by invoking its
-// [Description] method.
+// element responds to [NSArray.DescriptionWithLocaleIndent], that method is
+// invoked to obtain the element’s string representation. - If the element
+// responds to [NSArray.DescriptionWithLocale], that method is invoked to
+// obtain the element’s string representation. - If none of the above
+// conditions is met, the element’s string representation is obtained by
+// invoking its [NSArray.Description] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/description(withLocale:indent:)
 func (a NSArray) DescriptionWithLocaleIndent(locale objectivec.IObject, level uint) string {
@@ -1841,7 +1856,7 @@ func (a NSArray) PathsMatchingExtensions(filterTypes []string) []string {
 // objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/removeObserver(_:fromObjectsAt:forKeyPath:context:)
-func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPathContext(observer objectivec.Object, indexes INSIndexSet, keyPath string, context unsafe.Pointer) {
+func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPathContext(observer objectivec.NSObject, indexes INSIndexSet, keyPath string, context unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeObserver:fromObjectsAtIndexes:forKeyPath:context:"), observer, indexes, objc.String(keyPath), context)
 }
 
@@ -1870,7 +1885,7 @@ func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPathContext(observer ob
 // See: https://developer.apple.com/documentation/Foundation/NSArray/addObserver(_:toObjectsAt:forKeyPath:options:context:)
 //
 // [addObserver(_:forKeyPath:options:context:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/addObserver(_:forKeyPath:options:context:)
-func (a NSArray) AddObserverToObjectsAtIndexesForKeyPathOptionsContext(observer objectivec.Object, indexes INSIndexSet, keyPath string, options uint, context unsafe.Pointer) {
+func (a NSArray) AddObserverToObjectsAtIndexesForKeyPathOptionsContext(observer objectivec.NSObject, indexes INSIndexSet, keyPath string, options uint, context unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("addObserver:toObjectsAtIndexes:forKeyPath:options:context:"), observer, indexes, objc.String(keyPath), options, context)
 }
 
@@ -1893,7 +1908,7 @@ func (a NSArray) AddObserverToObjectsAtIndexesForKeyPathOptionsContext(observer 
 // See: https://developer.apple.com/documentation/Foundation/NSArray/removeObserver(_:fromObjectsAt:forKeyPath:)
 //
 // [removeObserver(_:forKeyPath:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/removeObserver(_:forKeyPath:)
-func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPath(observer objectivec.Object, indexes INSIndexSet, keyPath string) {
+func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPath(observer objectivec.NSObject, indexes INSIndexSet, keyPath string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeObserver:fromObjectsAtIndexes:forKeyPath:"), observer, indexes, objc.String(keyPath))
 }
 
@@ -1906,7 +1921,7 @@ func (a NSArray) RemoveObserverFromObjectsAtIndexesForKeyPath(observer objective
 // # Discussion
 //
 // Calling this method is equivalent to calling the
-// [ShuffledArrayWithRandomSource] method and passing the system
+// [NSArray.ShuffledArrayWithRandomSource] method and passing the system
 // [sharedRandom()] random source. To influence the random shuffling or to be
 // able to deterministically reproduce a series of shuffles, create your own
 // [GKRandomSource] object.
@@ -2063,8 +2078,8 @@ func (a NSArray) DifferenceFromArray(other []objectivec.IObject) INSOrderedColle
 // The options allow you to choose to omit insertion or removal references to
 // the change objects within the difference object. You can also choose to
 // infer moves when computing the difference, which provides an
-// [AssociatedIndex] within the change objects that indicates the index in the
-// array where the object moved from.
+// [NSOrderedCollectionChange.AssociatedIndex] within the change objects that
+// indicates the index in the array where the object moved from.
 //
 // The following example computes the difference between two arrays, inferring
 // moves between them:
@@ -2084,11 +2099,12 @@ func (a NSArray) DifferenceFromArrayWithOptions(other []objectivec.IObject, opti
 // the change objects within the difference object’s changes. Don’t use
 // the option [NSOrderedCollectionDifferenceCalculationInferMoves] when
 // providing a block for the equivalence test. The changes returned in the
-// difference object don’t include valid values for [AssociatedIndex].
+// difference object don’t include valid values for
+// [NSOrderedCollectionChange.AssociatedIndex].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/differenceFromArray:withOptions:usingEquivalenceTest:
-func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference {
-	_block2, _ := NewObjectTypeBlock(block)
+func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference {
+	_block2, _ := NewBoolIObjectBlock(block)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:withOptions:usingEquivalenceTest:"), other, options, _block2)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
@@ -2111,7 +2127,7 @@ func (a NSArray) EncodeWithCoder(coder INSCoder) {
 // range: A range within the bounds of the array.
 //
 // If the location plus the length of the range is greater than the count of
-// the array, this method raises an [RangeException].
+// the array, this method raises an [rangeException].
 //
 // # Discussion
 //
@@ -2123,6 +2139,8 @@ func (a NSArray) EncodeWithCoder(coder INSCoder) {
 // over the contents of an array):
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/getObjects:range:
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (a NSArray) GetObjectsRange(objects []objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](a.ID, objc.Sel("getObjects:range:"), objectivec.IObjectSliceToNSArray(objects), range_)
 }
@@ -2167,7 +2185,7 @@ func (a NSArray) InitWithObjects(firstObj objectivec.IObject) NSArray {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:
-func (a NSArray) MakeObjectsPerformSelector(aSelector objc.SEL) {
+func (a NSArray) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
@@ -2187,7 +2205,7 @@ func (a NSArray) MakeObjectsPerformSelector(aSelector objc.SEL) {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:withObject:
-func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
+func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 
@@ -2317,7 +2335,8 @@ func (a NSArray) LastObject() objectivec.IObject {
 }
 
 // Analyzes the array and returns a “hint” that speeds the sorting of the
-// array when the hint is supplied to [SortedArrayUsingFunctionContextHint].
+// array when the hint is supplied to
+// [NSArray.SortedArrayUsingFunctionContextHint].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/sortedArrayHint
 func (a NSArray) SortedArrayHint() INSData {
@@ -2339,138 +2358,3 @@ func (a NSArray) Description() string {
 // Protocol methods for NSMutableCopying
 
 // Protocol methods for NSSecureCoding
-
-// IndexOfObjectPassingTestSync is a synchronous wrapper around [NSArray.IndexOfObjectPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexOfObjectPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexOfObjectPassingTest(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexOfObjectWithOptionsPassingTestSync is a synchronous wrapper around [NSArray.IndexOfObjectWithOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexOfObjectWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexOfObjectWithOptionsPassingTest(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexOfObjectAtIndexesOptionsPassingTestSync is a synchronous wrapper around [NSArray.IndexOfObjectAtIndexesOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTestSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexOfObjectAtIndexesOptionsPassingTest(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsPassingTestSync is a synchronous wrapper around [NSArray.IndexesOfObjectsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexesOfObjectsPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexesOfObjectsPassingTest(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsWithOptionsPassingTestSync is a synchronous wrapper around [NSArray.IndexesOfObjectsWithOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexesOfObjectsWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexesOfObjectsWithOptionsPassingTest(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// IndexesOfObjectsAtIndexesOptionsPassingTestSync is a synchronous wrapper around [NSArray.IndexesOfObjectsAtIndexesOptionsPassingTest].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTestSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.IndexesOfObjectsAtIndexesOptionsPassingTest(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsUsingBlockSync is a synchronous wrapper around [NSArray.EnumerateObjectsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) EnumerateObjectsUsingBlockSync(ctx context.Context) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.EnumerateObjectsUsingBlock(func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsWithOptionsUsingBlockSync is a synchronous wrapper around [NSArray.EnumerateObjectsWithOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) EnumerateObjectsWithOptionsUsingBlockSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.EnumerateObjectsWithOptionsUsingBlock(opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}
-
-// EnumerateObjectsAtIndexesOptionsUsingBlockSync is a synchronous wrapper around [NSArray.EnumerateObjectsAtIndexesOptionsUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlockSync(ctx context.Context, s INSIndexSet, opts NSEnumerationOptions) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	a.EnumerateObjectsAtIndexesOptionsUsingBlock(s, opts, func(val objectivec.IObject) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-}

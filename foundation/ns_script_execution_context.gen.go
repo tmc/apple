@@ -55,8 +55,9 @@ func (nc NSScriptExecutionContextClass) Alloc() NSScriptExecutionContext {
 //
 // In most cases, the top-level container for a complete series of nested
 // object specifiers is automatically set to the application object ([NSApp]),
-// and you can get this object with the [NSScriptExecutionContext.TopLevelObject] method. But you can
-// also set this top-level container to something else (using
+// and you can get this object with the
+// [NSScriptExecutionContext.TopLevelObject] method. But you can also set this
+// top-level container to something else (using
 // [NSScriptExecutionContext.TopLevelObject]) if the situation warrants it.
 //
 // It is unlikely that you will need to subclass [NSScriptExecutionContext].

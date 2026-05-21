@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNClassificationObservation] class.
@@ -52,8 +51,8 @@ func (vc VNClassificationObservationClass) Alloc() VNClassificationObservation {
 // analysis with a Core ML model whose role is classification (rather than
 // prediction or image-to-image processing). Vision infers that an [MLModel]
 // object is a classifier model if that model predicts a single feature. That
-// is, the model’s [VNClassificationObservation.ModelDescription] object has a non-`nil` value for its
-// [VNClassificationObservation.PredictedFeatureName] property.
+// is, the model’s [modelDescription] object has a non-`nil` value for its
+// [predictedFeatureName] property.
 //
 // # Determining Classification
 //
@@ -68,6 +67,8 @@ func (vc VNClassificationObservationClass) Alloc() VNClassificationObservation {
 // See: https://developer.apple.com/documentation/Vision/VNClassificationObservation
 //
 // [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
+// [modelDescription]: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
+// [predictedFeatureName]: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
 type VNClassificationObservation struct {
 	VNObservation
 }
@@ -112,13 +113,6 @@ type IVNClassificationObservation interface {
 	HasMinimumPrecisionForRecall(minimumPrecision float32, recall float32) bool
 	// Determines whether the observation for a specific precision has a minimum recall value.
 	HasMinimumRecallForPrecision(minimumRecall float32, precision float32) bool
-
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() objectivec.IObject
-	SetModelDescription(value objectivec.IObject)
-	// The name of the primary prediction feature output description.
-	PredictedFeatureName() string
-	SetPredictedFeatureName(value string)
 }
 
 // Init initializes the instance.
@@ -138,6 +132,13 @@ func NewVNClassificationObservation() VNClassificationObservation {
 	class := getVNClassificationObservationClass()
 	rv := objc.Send[VNClassificationObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewClassificationObservationWithCoder(coder foundation.INSCoder) VNClassificationObservation {
+	instance := getVNClassificationObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNClassificationObservationFromID(rv)
 }
 
 // Determines whether the observation for a specific recall has a minimum
@@ -211,27 +212,4 @@ func (c VNClassificationObservation) Identifier() string {
 func (c VNClassificationObservation) HasPrecisionRecallCurve() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("hasPrecisionRecallCurve"))
 	return rv
-}
-
-// Model information you use at runtime during development, which Xcode also
-// displays in its Core ML model editor view.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (c VNClassificationObservation) ModelDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
-	return objectivec.Object{ID: rv}
-}
-func (c VNClassificationObservation) SetModelDescription(value objectivec.IObject) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
-}
-
-// The name of the primary prediction feature output description.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
-func (c VNClassificationObservation) PredictedFeatureName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictedFeatureName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c VNClassificationObservation) SetPredictedFeatureName(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPredictedFeatureName:"), objc.String(value))
 }

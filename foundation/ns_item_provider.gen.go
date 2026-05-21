@@ -60,27 +60,30 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 // # App extension support
 //
 // An app extension typically encounters item providers when examining the
-// [NSItemProvider.Attachments] property of an [NSExtensionItem] object. During that
-// examination, the extension can use the [NSItemProvider.HasItemConformingToTypeIdentifier]
-// method to look for data that it recognizes. Item providers use [Uniform
-// Type Identifiers] values to identify the data they contain. After finding a
-// type of data that your extension can use, it calls the
-// [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler] method to load the
-// actual data, which is delivered to the provided completion handler.
+// [NSExtensionItem.Attachments] property of an [NSExtensionItem] object.
+// During that examination, the extension can use the
+// [NSItemProvider.HasItemConformingToTypeIdentifier] method to look for data
+// that it recognizes. Item providers use [Uniform Type Identifiers] values to
+// identify the data they contain. After finding a type of data that your
+// extension can use, it calls the
+// [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler] method
+// to load the actual data, which is delivered to the provided completion
+// handler.
 //
 // You can create item providers to vend data to another process. An extension
 // that modifies an original data item can create a new [NSItemProvider]
 // object to send back to the host app. When creating data items, you specify
 // your data object and the type of that object. You can optionally use the
-// [NSItemProvider.PreviewImageHandler] property to generate a preview image for your data.
+// [NSItemProvider.PreviewImageHandler] property to generate a preview image
+// for your data.
 //
 // A single item provider may use custom blocks to provide its data in many
 // different formats. When configuring an item provider, use the
-// [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler] method to register your blocks
-// and the formats each one supports. When a client requests data in a
-// particular format, the item provider executes the corresponding block,
-// which is then responsible for coercing the data to the appropriate type and
-// returning it to the client.
+// [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler] method to
+// register your blocks and the formats each one supports. When a client
+// requests data in a particular format, the item provider executes the
+// corresponding block, which is then responsible for coercing the data to the
+// appropriate type and returning it to the client.
 //
 // # Creating an item provider
 //
@@ -255,7 +258,7 @@ type INSItemProvider interface {
 	// Topic: Querying the provider’s contents
 
 	// Returns a Boolean value indicating whether an item provider can load objects of a specified class.
-	CanLoadObjectOfClass(aClass objc.Class) bool
+	CanLoadObjectOfClass(aClass objectivec.Class) bool
 	// Returns a Boolean value indicating whether an item provider contains a data representation conforming to a specified universal type identifier file options parameter with a value of zero.
 	HasItemConformingToTypeIdentifier(typeIdentifier string) bool
 	// Returns a Boolean value indicating whether an item provider contains a data representation conforming to a specified universal type identifier and to specified open-in-place behavior.
@@ -274,9 +277,9 @@ type INSItemProvider interface {
 	// Asynchronously writes a copy of the provided, typed data to a temporary file, returning a progress object.
 	LoadFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress
 	// Asynchronously opens a file in place, if possible, returning a progress object.
-	LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress
+	LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLBoolErrorHandler) INSProgress
 	// Asynchronously loads an object of a specified class to an item provider, returning a progress object.
-	LoadObjectOfClassCompletionHandler(aClass objc.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress
+	LoadObjectOfClassCompletionHandler(aClass objectivec.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress
 
 	// Topic: Loading a preview image
 
@@ -319,7 +322,7 @@ type INSItemProvider interface {
 	// Adds representations of a specified object to an item provider, based on the object’s implementation of the item provider writing protocol, and adhering to a visibility specification.
 	RegisterObjectVisibility(object NSItemProviderWriting, visibility NSItemProviderRepresentationVisibility)
 	// Lazily adds representations of a specified object class to an item provider, based on the object’s implementation of the item provider writing protocol, and adhering to a visibility specification.
-	RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
+	RegisterObjectOfClassVisibilityLoadHandler(aClass objectivec.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 
 	// Topic: Getting the provider’s frame
 
@@ -328,19 +331,16 @@ type INSItemProvider interface {
 	// The rectangle of the item’s visible content.
 	ContainerFrame() NSRect
 
-	// An optional array of media data associated with the extension item.
-	Attachments() INSItemProvider
-	SetAttachments(value INSItemProvider)
 	// Provides data-backed content from an existing file with the specified parameters.
 	InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider
 	// Asynchronously copies the provided, typed data into a generic data object, returning a progress object.
 	LoadDataRepresentationForContentTypeCompletionHandler(contentType objectivec.IObject, completionHandler DataErrorHandler) INSProgress
 	// Asynchronously copies the content type data into a generic data object with the specified parameters.
-	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress
+	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLBoolErrorHandler) INSProgress
 	// Registers an existing collaboration object on a server.
 	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
 	// Creates and registers a new collaboration object using a collection of records to share.
-	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler)
+	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler uintptr)
 	// Lazily registers an item, according to the item provider type coercion policy.
 	RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Registers a file-backed representation for an item with item visibility, an open-in-place option, and a load handler.
@@ -531,7 +531,7 @@ func (i NSItemProvider) InitWithObject(object NSItemProviderWriting) NSItemProvi
 // `true` if the item provider can load objects of the class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/canLoadObject(ofClass:)-3eig9
-func (i NSItemProvider) CanLoadObjectOfClass(aClass objc.Class) bool {
+func (i NSItemProvider) CanLoadObjectOfClass(aClass objectivec.Class) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("canLoadObjectOfClass:"), aClass)
 	return rv
 }
@@ -672,8 +672,8 @@ func (i NSItemProvider) LoadFileRepresentationForTypeIdentifierCompletionHandler
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadInPlaceFileRepresentation(forTypeIdentifier:completionHandler:)
 //
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
-func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress {
-	_block1, _ := NewURLErrorBlock(completionHandler)
+func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLBoolErrorHandler) INSProgress {
+	_block1, _ := NewURLBoolErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadInPlaceFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
@@ -682,7 +682,7 @@ func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletion
 // returning a progress object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadObject(ofClass:completionHandler:)-8ak5d
-func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objc.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress {
+func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objectivec.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress {
 	_block1, _ := NewNSItemProviderReadingErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadObjectOfClass:completionHandler:"), aClass, _block1)
 	return NSProgressFromID(rv)
@@ -833,10 +833,10 @@ func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoa
 // Use this method to register blocks that can take the item provider’s file
 // or data object and convert it to a specific data format. Your `loadHandler`
 // block is executed when a client passes the same `typeIdentifier` string to
-// the [LoadItemForTypeIdentifierOptionsCompletionHandler] method. In the
-// implementation of your block, coerce the data to the specified type and
-// call the provided completion handler. You must call the completion handler,
-// either with the requested data or with an error.
+// the [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler]
+// method. In the implementation of your block, coerce the data to the
+// specified type and call the provided completion handler. You must call the
+// completion handler, either with the requested data or with an error.
 //
 // Item providers know how to coerce known types of objects, such as images or
 // strings. Use this method to register blocks to coerce your custom data
@@ -892,7 +892,7 @@ func (i NSItemProvider) RegisterObjectVisibility(object NSItemProviderWriting, v
 // writing protocol, and adhering to a visibility specification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerObject(ofClass:visibility:loadHandler:)-9sndn
-func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
+func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objectivec.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
@@ -942,8 +942,8 @@ func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(co
 // the specified parameters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentationForContentType:openInPlace:completionHandler:
-func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress {
-	_block2, _ := NewURLErrorBlock(completionHandler)
+func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLBoolErrorHandler) INSProgress {
+	_block2, _ := NewURLBoolErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
 	return NSProgressFromID(rv)
 }
@@ -1019,9 +1019,8 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 // [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
-	_block2, _ := NewErrorBlock(preparationHandler)
-	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
+func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler uintptr) {
+	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, preparationHandler)
 }
 
 // Lazily registers an item, according to the item provider type coercion
@@ -1057,10 +1056,11 @@ func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenIn
 //
 // When displaying the item, the value in this property represents the ideal
 // size at which to display the item. The size in this property may differ
-// from the size in the [SourceFrame] rectangle. For images, video, and other
-// content with a natural size, the item automatically derives the size from
-// that content. If the value in this property is [NSZeroSize], use the size
-// specified in the [SourceFrame] rectangle.
+// from the size in the [NSItemProvider.SourceFrame] rectangle. For images,
+// video, and other content with a natural size, the item automatically
+// derives the size from that content. If the value in this property is
+// [NSZeroSize], use the size specified in the [NSItemProvider.SourceFrame]
+// rectangle.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/preferredPresentationSize
 //
@@ -1157,9 +1157,9 @@ func (i NSItemProvider) SourceFrame() NSRect {
 // # Discussion
 //
 // The rectangle in this property corresponds to the onscreen frame rectangle
-// of the item. This rectangle may or may not intersect the [SourceFrame]
-// rectangle of the item. An intersection of the rectangles means that at
-// least part of the item is visible onscreen.
+// of the item. This rectangle may or may not intersect the
+// [NSItemProvider.SourceFrame] rectangle of the item. An intersection of the
+// rectangles means that at least part of the item is visible onscreen.
 //
 // The rectangle in this property may be a clipped version of the source frame
 // or it might be [NSZeroRect] if the item is offscreen or the system can’t
@@ -1172,17 +1172,6 @@ func (i NSItemProvider) SourceFrame() NSRect {
 func (i NSItemProvider) ContainerFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("containerFrame"))
 	return NSRect(rv)
-}
-
-// An optional array of media data associated with the extension item.
-//
-// See: https://developer.apple.com/documentation/foundation/nsextensionitem/attachments
-func (i NSItemProvider) Attachments() INSItemProvider {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("attachments"))
-	return NSItemProviderFromID(objc.ID(rv))
-}
-func (i NSItemProvider) SetAttachments(value INSItemProvider) {
-	objc.Send[struct{}](i.ID, objc.Sel("setAttachments:"), value)
 }
 
 // Protocol methods for NSCopying
@@ -1227,7 +1216,7 @@ func (i NSItemProvider) LoadFileRepresentationForTypeIdentifier(ctx context.Cont
 
 // LoadObjectOfClass is a synchronous wrapper around [NSItemProvider.LoadObjectOfClassCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) LoadObjectOfClass(ctx context.Context, aClass objc.Class) (NSItemProviderReading, error) {
+func (i NSItemProvider) LoadObjectOfClass(ctx context.Context, aClass objectivec.Class) (NSItemProviderReading, error) {
 	type result struct {
 		val NSItemProviderReading
 		err error

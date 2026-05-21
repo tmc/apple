@@ -52,8 +52,9 @@ func (uc UNTextInputNotificationResponseClass) Alloc() UNTextInputNotificationRe
 // categories, you can specify an [UNTextInputNotificationAction] object
 // instead of an [UNNotificationAction] object for your action. If you do, the
 // system creates an [UNTextInputNotificationResponse] object when the user
-// selects the accompanying action, and it fills the [UNTextInputNotificationResponse.UserText] property with
-// any user-entered text.
+// selects the accompanying action, and it fills the
+// [UNTextInputNotificationResponse.UserText] property with any user-entered
+// text.
 //
 // You don’t create [UNTextInputNotificationResponse] objects yourself.
 // Instead, the shared user notification center object creates them and

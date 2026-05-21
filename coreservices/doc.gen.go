@@ -2,11 +2,12 @@
 
 // Package coreservices provides Go bindings for the coreservices framework.
 //
-// Access and manage key operating system services, such as launch and identity services.
+// Access and manage key operating system services, such as launch and
+// identity services.
 //
-// This collection of documents provides the API reference for the Core Services framework, which encompasses many fundamental operating system services used by Carbon applications.
-//
-// [coreservices Documentation]: https://developer.apple.com/documentation/coreservices
+// This collection of documents provides the API reference for the Core
+// Services framework, which encompasses many fundamental operating system
+// services used by Carbon applications.
 package coreservices
 
 import (

@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -165,8 +164,8 @@ func (o NSOutlineViewDelegateObject) OutlineViewNextTypeSelectMatchFromItemToIte
 //
 // # Discussion
 //
-// Generally, this method will be called from [KeyDown] and the event will be
-// a key event.
+// Generally, this method will be called from [NSResponder.KeyDown] and the
+// event will be a key event.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldTypeSelectFor:withCurrentSearch:)
 func (o NSOutlineViewDelegateObject) OutlineViewShouldTypeSelectForEventWithCurrentSearchString(outlineView INSOutlineView, event INSEvent, searchString string) bool {
@@ -196,7 +195,7 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldTypeSelectForEventWithCurr
 // If you don’t want a tooltip at that location, return an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:toolTipFor:rect:tableColumn:item:mouseLocation:)
-func (o NSOutlineViewDelegateObject) OutlineViewToolTipForCellRectTableColumnItemMouseLocation(outlineView INSOutlineView, cell INSCell, rect foundation.NSRect, tableColumn INSTableColumn, item objectivec.IObject, mouseLocation corefoundation.CGPoint) string {
+func (o NSOutlineViewDelegateObject) OutlineViewToolTipForCellRectTableColumnItemMouseLocation(outlineView INSOutlineView, cell INSCell, rect foundation.NSRectPointer, tableColumn INSTableColumn, item objectivec.IObject, mouseLocation corefoundation.CGPoint) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:toolTipForCell:rect:tableColumn:item:mouseLocation:"), outlineView, cell, rect, tableColumn, item, mouseLocation)
 	return foundation.NSStringFromID(rv).String()
 }
@@ -439,9 +438,9 @@ func (o NSOutlineViewDelegateObject) OutlineViewDataCellForTableColumnItem(outli
 //
 // # Discussion
 //
-// Returning false causes [FrameOfOutlineCellAtRow] to return [NSZeroRect],
-// hiding the cell. In addition, the row will not be collapsible by keyboard
-// shortcuts.
+// Returning false causes [NSOutlineView.FrameOfOutlineCellAtRow] to return
+// [NSZeroRect], hiding the cell. In addition, the row will not be collapsible
+// by keyboard shortcuts.
 //
 // This method is called only for expandable rows.
 //
@@ -500,7 +499,7 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldShowCellExpansionForTableC
 // new location.
 //
 // The actual [NSTableColumn] instance can be retrieved from the
-// [TableColumns] array.
+// [NSTableView.TableColumns] array.
 //
 // If this method is not implemented, all columns are considered reorderable.
 //
@@ -695,13 +694,13 @@ func (o NSOutlineViewDelegateObject) OutlineViewDidDragTableColumn(outlineView I
 // For large tables in particular, you should make sure that this method is
 // efficient. [NSOutlineView] may cache the values this method returns, so if
 // you would like to change a row’s height make sure to invalidate the row
-// height by calling [NoteHeightOfRowsWithIndexesChanged]. [NSOutlineView]
-// automatically invalidates its entire row height cache in [ReloadData] and
-// [NoteNumberOfRowsChanged].
+// height by calling [NSTableView.NoteHeightOfRowsWithIndexesChanged].
+// [NSOutlineView] automatically invalidates its entire row height cache in
+// [NSTableView.ReloadData] and [NSTableView.NoteNumberOfRowsChanged].
 //
-// If you call [ViewAtColumnRowMakeIfNecessary] or
-// [RowViewAtRowMakeIfNecessary] within your implementation of this method, an
-// exception is thrown.
+// If you call [NSTableView.ViewAtColumnRowMakeIfNecessary] or
+// [NSTableView.RowViewAtRowMakeIfNecessary] within your implementation of
+// this method, an exception is thrown.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:heightOfRowByItem:)
 func (o NSOutlineViewDelegateObject) OutlineViewHeightOfRowByItem(outlineView INSOutlineView, item objectivec.IObject) float64 {
@@ -723,8 +722,8 @@ func (o NSOutlineViewDelegateObject) OutlineViewHeightOfRowByItem(outlineView IN
 // # Discussion
 //
 // By default, [NSOutlineView] iterates every row in the table, accesses a
-// cell via [preparedCell(atColumn:row:)], and requests the [CellSize] to find
-// the appropriate largest width to use.
+// cell via [preparedCell(atColumn:row:)], and requests the [NSCell.CellSize]
+// to find the appropriate largest width to use.
 //
 // For accurate results and performance, it is recommended that this method is
 // implemented when using large tables. By default, large tables use a monte
@@ -895,11 +894,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewRowViewForItem(outlineView INSOu
 // cannot be mixed within the same outline view.
 //
 // It is recommended that the implementation of this method first call the
-// [NSTableView] method [ViewWithIdentifierOwner] passing, respectively, the
-// `tableColumn` parameter’s identifier and `self` as the owner to attempt
-// to reuse a view that is no longer visible. The frame of the view returned
-// by this method is not important, and is automatically set by the outline
-// view.
+// [NSTableView] method [NSTableView.ViewWithIdentifierOwner] passing,
+// respectively, the `tableColumn` parameter’s identifier and `self` as the
+// owner to attempt to reuse a view that is no longer visible. The frame of
+// the view returned by this method is not important, and is automatically set
+// by the outline view.
 //
 // The view’s properties should be properly set up before returning the
 // result.
@@ -907,12 +906,12 @@ func (o NSOutlineViewDelegateObject) OutlineViewRowViewForItem(outlineView INSOu
 // When using Cocoa bindings, this method is optional if at least one
 // identifier has been associated with the table view at design time. If this
 // method is not implemented, the outline view automatically calls
-// [ViewWithIdentifierOwner] with the `tableColumn` parameter’s identifier
-// and the outline view’s delegate as parameters, to attempt to reuse a
-// previous view or automatically unarchive a prototype associated with the
-// table view.
+// [NSTableView.ViewWithIdentifierOwner] with the `tableColumn` parameter’s
+// identifier and the outline view’s delegate as parameters, to attempt to
+// reuse a previous view or automatically unarchive a prototype associated
+// with the table view.
 //
-// The [AutoresizingMask] of the returned view is automatically set to
+// The [NSView.AutoresizingMask] of the returned view is automatically set to
 // [NSViewHeightSizable] to resize properly on row height changes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:viewFor:item:)
@@ -1095,10 +1094,10 @@ func (o NSOutlineViewDelegateObject) ControlTextShouldEndEditing(control INSCont
 // selected initially.
 //
 // The actual means of presentation of the potential completions is determined
-// by the [Complete] method of [NSTextView].
+// by the [NSTextView.Complete] method of [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
-func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }

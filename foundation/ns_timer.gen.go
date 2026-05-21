@@ -82,8 +82,8 @@ func (tc TimerClass) Alloc() Timer {
 // # Timer Tolerance
 //
 // In iOS 7 and later and macOS 10.9 and later, you can specify a tolerance
-// for a timer ([Tolerance]). This flexibility in when a timer fires improves
-// the system’s ability to optimize for increased power savings and
+// for a timer ([NSTimer.Tolerance]). This flexibility in when a timer fires
+// improves the system’s ability to optimize for increased power savings and
 // responsiveness. The timer may fire at any time between its scheduled fire
 // date and the scheduled fire date plus the tolerance. The timer doesn’t
 // fire before the scheduled fire date. For repeating timers, the next fire
@@ -91,7 +91,7 @@ func (tc TimerClass) Alloc() Timer {
 // applied at individual fire times, to avoid drift. The default value is
 // zero, which means no additional tolerance is applied. The system reserves
 // the right to apply a small amount of tolerance to certain timers regardless
-// of the value of the [Tolerance] property.
+// of the value of the [NSTimer.Tolerance] property.
 //
 // As the user of the timer, you can determine the appropriate tolerance for a
 // timer. A general rule, set the tolerance to at least 10% of the interval,
@@ -105,37 +105,40 @@ func (tc TimerClass) Alloc() Timer {
 // added to multiple run loop modes within that run loop. There are three ways
 // to create a timer:
 //
-// - Use the [ScheduledTimerWithTimeIntervalInvocationRepeats] or
-// [ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats] class method
-// to create the timer and schedule it on the current run loop in the default
-// mode. - Use the [TimerWithTimeIntervalInvocationRepeats] or
-// [TimerWithTimeIntervalTargetSelectorUserInfoRepeats] class method to create
-// the timer object without scheduling it on a run loop. (After creating it,
-// you must add the timer to a run loop manually by calling the
-// [AddPortForMode] method of the corresponding [NSRunLoop] object.) -
-// Allocate the timer and initialize it using the
-// [InitWithFireDateIntervalTargetSelectorUserInfoRepeats] method. (After
-// creating it, you must add the timer to a run loop manually by calling the
-// [AddPortForMode] method of the corresponding [NSRunLoop] object.)
+// - Use the [NSTimerClass.ScheduledTimerWithTimeIntervalInvocationRepeats] or
+// [NSTimerClass.ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats]
+// class method to create the timer and schedule it on the current run loop in
+// the default mode. - Use the
+// [NSTimerClass.TimerWithTimeIntervalInvocationRepeats] or
+// [NSTimerClass.TimerWithTimeIntervalTargetSelectorUserInfoRepeats] class
+// method to create the timer object without scheduling it on a run loop.
+// (After creating it, you must add the timer to a run loop manually by
+// calling the [NSRunLoop.AddPortForMode] method of the corresponding
+// [NSRunLoop] object.) - Allocate the timer and initialize it using the
+// [NSTimer.InitWithFireDateIntervalTargetSelectorUserInfoRepeats] method.
+// (After creating it, you must add the timer to a run loop manually by
+// calling the [NSRunLoop.AddPortForMode] method of the corresponding
+// [NSRunLoop] object.)
 //
 // Once scheduled on a run loop, the timer fires at the specified interval
 // until it is invalidated. A nonrepeating timer invalidates itself
 // immediately after it fires. However, for a repeating timer, you must
-// invalidate the timer object yourself by calling its [Invalidate] method.
-// Calling this method requests the removal of the timer from the current run
-// loop; as a result, you should always call the [Invalidate] method from the
-// same thread on which the timer was installed. Invalidating the timer
-// immediately disables it so that it no longer affects the run loop. The run
-// loop then removes the timer (and the strong reference it had to the timer),
-// either just before the [Invalidate] method returns or at some later point.
-// Once invalidated, timer objects cannot be reused.
+// invalidate the timer object yourself by calling its [NSTimer.Invalidate]
+// method. Calling this method requests the removal of the timer from the
+// current run loop; as a result, you should always call the
+// [NSTimer.Invalidate] method from the same thread on which the timer was
+// installed. Invalidating the timer immediately disables it so that it no
+// longer affects the run loop. The run loop then removes the timer (and the
+// strong reference it had to the timer), either just before the
+// [NSTimer.Invalidate] method returns or at some later point. Once
+// invalidated, timer objects cannot be reused.
 //
 // After a repeating timer fires, it schedules the next firing for the nearest
 // future date that is an integer multiple of the timer interval after the
-// last scheduled fire date, within the specified [Tolerance]. If the time
-// taken to call out to perform a selector or invocation is longer than the
-// specified interval, the timer schedules only the next firing; that is, the
-// timer doesn’t attempt to compensate for any missed firings that would
+// last scheduled fire date, within the specified [NSTimer.Tolerance]. If the
+// time taken to call out to perform a selector or invocation is longer than
+// the specified interval, the timer schedules only the next firing; that is,
+// the timer doesn’t attempt to compensate for any missed firings that would
 // have occurred while calling the specified selector or invocation.
 //
 // # Subclassing Notes
@@ -228,7 +231,7 @@ type ITimer interface {
 	// Initializes a timer for the specified date and time interval with the specified block.
 	InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float64, repeats bool, block TimerHandler) Timer
 	// Initializes a timer using the specified object and selector.
-	InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer
+	InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer
 
 	// Topic: Firing a Timer
 
@@ -310,13 +313,13 @@ func NewTimer() Timer {
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Upon
-// firing, the timer sends the message `aSelector` to `target`. (If the timer
-// is configured to repeat, there is no need to subsequently re-add the timer
-// to the run loop.)
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Upon firing, the timer sends the message `aSelector` to `target`. (If the
+// timer is configured to repeat, there is no need to subsequently re-add the
+// timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fireAt:interval:target:selector:userInfo:repeats:)
-func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer {
+func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer {
 	instance := getTimerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFireDate:interval:target:selector:userInfo:repeats:"), date, ti, t, s, ui, rep)
 	return TimerFromID(rv)
@@ -340,10 +343,10 @@ func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti 
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Then,
-// after `ti` have elapsed, the timer fires, invoking `invocation`. (If the
-// timer is configured to repeat, there is no need to subsequently re-add the
-// timer to the run loop.)
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Then, after `ti` have elapsed, the timer fires, invoking `invocation`. (If
+// the timer is configured to repeat, there is no need to subsequently re-add
+// the timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:invocation:repeats:)
 func NewTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocation, yesOrNo bool) Timer {
@@ -381,13 +384,13 @@ func NewTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocat
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Then,
-// after `ti` seconds have elapsed, the timer fires, sending the message
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Then, after `ti` seconds have elapsed, the timer fires, sending the message
 // `aSelector` to `target`. (If the timer is configured to repeat, there is no
 // need to subsequently re-add the timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:target:selector:userInfo:repeats:)
-func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) Timer {
+func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objectivec.SEL, userInfo objectivec.IObject, yesOrNo bool) Timer {
 	rv := objc.Send[objc.ID](objc.ID(getTimerClass().class), objc.Sel("timerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return TimerFromID(rv)
 }
@@ -413,10 +416,10 @@ func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget o
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Upon
-// firing, after `interval` seconds have elapsed, the timer fires, executing
-// `block`. (If the timer is configured to repeat, you don’t need to add the
-// timer to the run loop again.)
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Upon firing, after `interval` seconds have elapsed, the timer fires,
+// executing `block`. (If the timer is configured to repeat, you don’t need
+// to add the timer to the run loop again.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fire:interval:repeats:block:)
 func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float64, repeats bool, block TimerHandler) Timer {
@@ -457,13 +460,13 @@ func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Upon
-// firing, the timer sends the message `aSelector` to `target`. (If the timer
-// is configured to repeat, there is no need to subsequently re-add the timer
-// to the run loop.)
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Upon firing, the timer sends the message `aSelector` to `target`. (If the
+// timer is configured to repeat, there is no need to subsequently re-add the
+// timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fireAt:interval:target:selector:userInfo:repeats:)
-func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer {
+func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer {
 	rv := objc.Send[Timer](t_.ID, objc.Sel("initWithFireDate:interval:target:selector:userInfo:repeats:"), date, ti, t, s, ui, rep)
 	return rv
 }
@@ -488,7 +491,7 @@ func (t Timer) Fire() {
 //
 // This method is the only way to remove a timer from an [NSRunLoop] object.
 // The [NSRunLoop] object removes its strong reference to the timer, either
-// just before the [Invalidate] method returns or at some later point.
+// just before the [NSTimer.Invalidate] method returns or at some later point.
 //
 // If it was configured with target and user info objects, the receiver
 // removes its strong references to those objects as well.
@@ -567,7 +570,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interva
 // `aSelector` to `target`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(timeInterval:target:selector:userInfo:repeats:)
-func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) NSTimer {
+func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objectivec.SEL, userInfo objectivec.IObject, yesOrNo bool) NSTimer {
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return NSTimerFromID(rv)
 }
@@ -617,10 +620,10 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddPortForMode]. Then,
-// after `interval` seconds have elapsed, the timer fires, executing `block`.
-// (If the timer is configured to repeat, you don’t need to add the timer to
-// the run loop again.)
+// You must add the new timer to a run loop, using [NSRunLoop.AddPortForMode].
+// Then, after `interval` seconds have elapsed, the timer fires, executing
+// `block`. (If the timer is configured to repeat, you don’t need to add the
+// timer to the run loop again.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:repeats:block:)
 func (_TimerClass TimerClass) TimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) NSTimer {
@@ -663,7 +666,7 @@ func (t Timer) IsValid() bool {
 // fired, although you should always do so from the thread to which the timer
 // is attached to avoid potential race conditions.
 //
-// Use the [Valid] method to verify that the timer is valid.
+// Use the [NSTimer.Valid] method to verify that the timer is valid.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/fireDate
 func (t Timer) FireDate() INSDate {
@@ -690,8 +693,8 @@ func (t Timer) TimeInterval() float64 {
 //
 // # Discussion
 //
-// Do not access this property after the timer is invalidated. Use [Valid] to
-// test whether the timer is valid.
+// Do not access this property after the timer is invalidated. Use
+// [NSTimer.Valid] to test whether the timer is valid.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/userInfo
 func (t Timer) UserInfo() objectivec.IObject {

@@ -55,9 +55,10 @@ func (uc UnitElectricCurrentClass) Alloc() UnitElectricCurrent {
 // electromagnetic force between two parallel linear conductors. It can also
 // be expressed as the flow of one coulomb per second (1A = 1C / s).
 //
-// The [NSUnitElectricCurrent] class defines its [BaseUnit] as [Amperes], and
-// provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitElectricCurrent] class defines its [NSDimensionClass.BaseUnit]
+// as [NSUnitElectricCurrentClass.Amperes], and provides the following units,
+// which are initialized using [NSUnitConverterLinear] converters with the
+// specified coefficients:
 //
 // [Table data omitted]
 //

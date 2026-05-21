@@ -89,9 +89,9 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 // launches and dials the number. Use the [WKWebViewConfiguration] object to
 // change the default data detector behavior.
 //
-// You can also use [WKWebView.SetMagnificationCenteredAtPoint] to programmatically set
-// the scale of web content the first time it appears in a web view.
-// Thereafter, the user can change the scale using gestures.
+// You can also use [WKWebView.SetMagnificationCenteredAtPoint] to
+// programmatically set the scale of web content the first time it appears in
+// a web view. Thereafter, the user can change the scale using gestures.
 //
 // # Manage the navigation through your web content
 //
@@ -108,10 +108,10 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 // You can also use the methods of [WKWebView] to navigate programmatically
 // through your content, or to trigger navigation from other parts of your
 // app’s interface. For example, if your UI includes forward and back
-// buttons, connect those buttons to the [WKWebView.GoBack] and [WKWebView.GoForward] methods of
-// your web view to trigger the corresponding web navigation. Use the
-// [WKWebView.CanGoBack] and [WKWebView.CanGoForward] properties to determine when to enable or
-// disable your buttons.
+// buttons, connect those buttons to the [WKWebView.GoBack] and
+// [WKWebView.GoForward] methods of your web view to trigger the corresponding
+// web navigation. Use the [WKWebView.CanGoBack] and [WKWebView.CanGoForward]
+// properties to determine when to enable or disable your buttons.
 //
 // # Provide sharing options
 //
@@ -845,7 +845,7 @@ func (w WKWebView) LoadFileRequestAllowingReadAccessToURL(request foundation.NSU
 //
 // This method sets the source of this load request for app activity data to
 // [NSURLRequest.Attribution.developer]. To specify the source of this load,
-// use [LoadFileRequestAllowingReadAccessToURL] instead.
+// use [WKWebView.LoadFileRequestAllowingReadAccessToURL] instead.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/loadFileURL(_:allowingReadAccessTo:)
 //
@@ -1315,8 +1315,9 @@ func (_WKWebViewClass WKWebViewClass) HandlesURLScheme(urlScheme string) bool {
 // configuration object, changes you make to that object don’t affect the
 // web view’s configuration.
 //
-// If you didn’t create your web view using the [InitWithFrameConfiguration]
-// method, this property contains a default configuration object.
+// If you didn’t create your web view using the
+// [WKWebView.InitWithFrameConfiguration] method, this property contains a
+// default configuration object.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/configuration
 func (w WKWebView) Configuration() IWKWebViewConfiguration {

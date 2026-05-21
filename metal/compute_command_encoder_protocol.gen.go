@@ -3,8 +3,6 @@
 package metal
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -45,12 +43,12 @@ type MTLComputeCommandEncoder interface {
 	// Copies data directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-	SetBytesLengthAtIndex(bytes []byte, index uint)
+	SetBytesLengthAtIndex(bytes []byte, length uint, index uint)
 
 	// Copies data with a given stride directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-	SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
+	SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
 
 	// Binds a texture to the texture argument table, allowing compute kernels to access its data on the GPU.
 	//
@@ -382,8 +380,8 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(of
 // especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, length uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), bytes, length, index)
 }
 
 // Copies data with a given stride directly to the GPU to populate an entry in
@@ -405,8 +403,8 @@ func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, inde
 // can improve performance, especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
 }
 
 // Binds a texture to the texture argument table, allowing compute kernels to
@@ -446,8 +444,9 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStateAtIndex(sampler MTLSample
 //
 // # Discussion
 //
-// Calling this method ignores the [LodMinClamp] and [LodMaxClamp] properties
-// of the sampler, using the provided levels of detail instead.
+// Calling this method ignores the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of the sampler, using the
+// provided levels of detail instead.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 func (o MTLComputeCommandEncoderObject) SetSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
@@ -1044,8 +1043,9 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTablesWithBufferR
 //
 // # Discussion
 //
-// Calling this method ignores the [LodMinClamp] and [LodMaxClamp] properties
-// of the samplers, using the provided levels of detail instead.
+// Calling this method ignores the [MTLSamplerDescriptor.LodMinClamp] and
+// [MTLSamplerDescriptor.LodMaxClamp] properties of the samplers, using the
+// provided levels of detail instead.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:lodMinClamps:lodMaxClamps:withRange:
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange) {

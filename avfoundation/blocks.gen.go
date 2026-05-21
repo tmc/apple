@@ -7,17 +7,49 @@ import (
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // AVAssetTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVAsset.LoadTracksWithMediaTypeCompletionHandler]
 //   - [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]
 type AVAssetTrackArrayErrorHandler = func(*[]AVAssetTrack, error)
+
+// NewAVAssetTrackArrayErrorBlock wraps a Go [AVAssetTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVAsset.LoadTracksWithMediaTypeCompletionHandler]
+//   - [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]
+func NewAVAssetTrackArrayErrorBlock(handler AVAssetTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVAssetTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVAssetTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVAssetTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVAssetTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -90,7 +122,30 @@ func NewAVAssetTrackSegmentErrorBlock(handler AVAssetTrackSegmentErrorHandler) (
 //   - [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler]
 //   - [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandler]
 //   - [AVVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandler]
-type AVAsynchronousCIImageFilteringRequestHandler = func(*objc.ID)
+type AVAsynchronousCIImageFilteringRequestHandler = func(*objectivec.Object)
+
+// NewAVAsynchronousCIImageFilteringRequestBlock wraps a Go [AVAsynchronousCIImageFilteringRequestHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler]
+//   - [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandler]
+//   - [AVVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandler]
+func NewAVAsynchronousCIImageFilteringRequestBlock(handler AVAsynchronousCIImageFilteringRequestHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *objectivec.Object
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := objectivec.ObjectFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVCaptionConversionWarningHandler handles The callback the system invokes when it finishes validation.
 //
@@ -123,10 +178,40 @@ func NewAVCaptionConversionWarningBlock(handler AVCaptionConversionWarningHandle
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVComposition.LoadTracksWithMediaTypeCompletionHandler]
 type AVCompositionTrackArrayErrorHandler = func(*[]AVCompositionTrack, error)
+
+// NewAVCompositionTrackArrayErrorBlock wraps a Go [AVCompositionTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVComposition.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVCompositionTrackArrayErrorBlock(handler AVCompositionTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVCompositionTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVCompositionTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVCompositionTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVCompositionTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -163,10 +248,40 @@ func NewAVCompositionTrackErrorBlock(handler AVCompositionTrackErrorHandler) (ob
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVFragmentedAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVFragmentedAsset.LoadTracksWithMediaTypeCompletionHandler]
 type AVFragmentedAssetTrackArrayErrorHandler = func(*[]AVFragmentedAssetTrack, error)
+
+// NewAVFragmentedAssetTrackArrayErrorBlock wraps a Go [AVFragmentedAssetTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVFragmentedAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVFragmentedAsset.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVFragmentedAssetTrackArrayErrorBlock(handler AVFragmentedAssetTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVFragmentedAssetTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVFragmentedAssetTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVFragmentedAssetTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVFragmentedAssetTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -203,10 +318,40 @@ func NewAVFragmentedAssetTrackErrorBlock(handler AVFragmentedAssetTrackErrorHand
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVFragmentedMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVFragmentedMovie.LoadTracksWithMediaTypeCompletionHandler]
 type AVFragmentedMovieTrackArrayErrorHandler = func(*[]AVFragmentedMovieTrack, error)
+
+// NewAVFragmentedMovieTrackArrayErrorBlock wraps a Go [AVFragmentedMovieTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVFragmentedMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVFragmentedMovie.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVFragmentedMovieTrackArrayErrorBlock(handler AVFragmentedMovieTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVFragmentedMovieTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVFragmentedMovieTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVFragmentedMovieTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVFragmentedMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -274,10 +419,40 @@ func NewAVMediaSelectionGroupErrorBlock(handler AVMediaSelectionGroupErrorHandle
 //   - metadata: An array of metadata items, which may be empty if there are no items of the specified format. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVAsset.LoadMetadataForFormatCompletionHandler]
 //   - [AVAssetTrack.LoadMetadataForFormatCompletionHandler]
 type AVMetadataItemArrayErrorHandler = func(*[]AVMetadataItem, error)
+
+// NewAVMetadataItemArrayErrorBlock wraps a Go [AVMetadataItemArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAsset.LoadMetadataForFormatCompletionHandler]
+//   - [AVAssetTrack.LoadMetadataForFormatCompletionHandler]
+func NewAVMetadataItemArrayErrorBlock(handler AVMetadataItemArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVMetadataItem
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVMetadataItem, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVMetadataItemFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVMetadataItemValueRequestHandler handles A block that loads the value of the metadata item.
 //
@@ -312,10 +487,40 @@ func NewAVMetadataItemValueRequestBlock(handler AVMetadataItemValueRequestHandle
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVMovie.LoadTracksWithMediaTypeCompletionHandler]
 type AVMovieTrackArrayErrorHandler = func(*[]AVMovieTrack, error)
+
+// NewAVMovieTrackArrayErrorBlock wraps a Go [AVMovieTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMovie.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVMovieTrackArrayErrorBlock(handler AVMovieTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVMovieTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVMovieTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVMovieTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -352,10 +557,40 @@ func NewAVMovieTrackErrorBlock(handler AVMovieTrackErrorHandler) (objc.ID, func(
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVMutableComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVMutableComposition.LoadTracksWithMediaTypeCompletionHandler]
 type AVMutableCompositionTrackArrayErrorHandler = func(*[]AVMutableCompositionTrack, error)
+
+// NewAVMutableCompositionTrackArrayErrorBlock wraps a Go [AVMutableCompositionTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVMutableComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMutableComposition.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVMutableCompositionTrackArrayErrorBlock(handler AVMutableCompositionTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVMutableCompositionTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVMutableCompositionTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVMutableCompositionTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVMutableCompositionTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -392,10 +627,40 @@ func NewAVMutableCompositionTrackErrorBlock(handler AVMutableCompositionTrackErr
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVMutableMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
 //   - [AVMutableMovie.LoadTracksWithMediaTypeCompletionHandler]
 type AVMutableMovieTrackArrayErrorHandler = func(*[]AVMutableMovieTrack, error)
+
+// NewAVMutableMovieTrackArrayErrorBlock wraps a Go [AVMutableMovieTrackArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVMutableMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMutableMovie.LoadTracksWithMediaTypeCompletionHandler]
+func NewAVMutableMovieTrackArrayErrorBlock(handler AVMutableMovieTrackArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVMutableMovieTrack
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVMutableMovieTrack, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVMutableMovieTrackFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVMutableMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
@@ -464,10 +729,40 @@ func NewAVMutableVideoCompositionErrorBlock(handler AVMutableVideoCompositionErr
 //   - metadataGroups: An array of metadata groups, which may be empty if no groups exist for the specified languages. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
 // Used by:
 //   - [AVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]
 //   - [AVAsset.LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler]
 type AVTimedMetadataGroupArrayErrorHandler = func(*[]AVTimedMetadataGroup, error)
+
+// NewAVTimedMetadataGroupArrayErrorBlock wraps a Go [AVTimedMetadataGroupArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]
+//   - [AVAsset.LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler]
+func NewAVTimedMetadataGroupArrayErrorBlock(handler AVTimedMetadataGroupArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]AVTimedMetadataGroup
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]AVTimedMetadataGroup, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = AVTimedMetadataGroupFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // AVVideoCompositionErrorHandler handles A callback the system invokes with the created video composition, or an error if a failure occurs.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -602,24 +897,24 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// CGImageRefErrorHandler handles A callback that the image generator invokes with the result of the request.
+// CGImageRefCMTimeErrorHandler handles A callback that the image generator invokes with the result of the request.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
-type CGImageRefErrorHandler = func(coregraphics.CGImageRef, error)
+type CGImageRefCMTimeErrorHandler = func(coregraphics.CGImageRef, coremedia.CMTime, error)
 
-// NewCGImageRefErrorBlock wraps a Go [CGImageRefErrorHandler] as an Objective-C block.
+// NewCGImageRefCMTimeErrorBlock wraps a Go [CGImageRefCMTimeErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
 //   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
-func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
+func NewCGImageRefCMTimeErrorBlock(handler CGImageRefCMTimeErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal coregraphics.CGImageRef, errID objc.ID) {
-		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	block := objc.NewBlock(func(b objc.Block, primitive coregraphics.CGImageRef, extra0 coremedia.CMTime, errID objc.ID) {
+		handler(primitive, extra0, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -629,7 +924,7 @@ func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [AVAsset.FindUnusedTrackIDWithCompletionHandler]
-type CMPersistentTrackIDErrorHandler = func(int32, error)
+type CMPersistentTrackIDErrorHandler = func(coremedia.CMPersistentTrackID, error)
 
 // NewCMPersistentTrackIDErrorBlock wraps a Go [CMPersistentTrackIDErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -640,7 +935,7 @@ func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal int32, errID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMPersistentTrackID, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -775,6 +1070,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -822,10 +1118,9 @@ func NewFloat64Block(handler Float64Handler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// IntHandler handles A transformation from index to localized title.
+// IntHandler handles The action to perform in response to changes to the control’s value.
 //
 // Used by:
-//   - [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform]
 //   - [AVCaptureIndexPicker.SetActionQueueAction]
 type IntHandler = func(int)
 
@@ -833,7 +1128,6 @@ type IntHandler = func(int)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform]
 //   - [AVCaptureIndexPicker.SetActionQueueAction]
 func NewIntBlock(handler IntHandler) (objc.ID, func()) {
 	if handler == nil {
@@ -841,6 +1135,27 @@ func NewIntBlock(handler IntHandler) (objc.ID, func()) {
 	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// StringIntHandler handles A transformation from index to localized title.
+//
+// Used by:
+//   - [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform]
+type StringIntHandler = func(int) string
+
+// NewStringIntBlock wraps a Go [StringIntHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform]
+func NewStringIntBlock(handler StringIntHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal int) string {
+		return handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

@@ -183,15 +183,16 @@ func NewFormatterWithCoder(coder INSCoder) Formatter {
 //
 // When implementing a subclass, return the [NSString] object that textually
 // represents the cell’s object for display and—if
-// [EditingStringForObjectValue] is unimplemented—for editing. First test
-// the passed-in object to see if it’s of the correct class. If it isn’t,
-// return `nil`; but if it is of the right class, return a properly formatted
-// and, if necessary, localized string. (See the specification of the
-// [NSString] class for formatting and localizing details.)
+// [NSFormatter.EditingStringForObjectValue] is unimplemented—for editing.
+// First test the passed-in object to see if it’s of the correct class. If
+// it isn’t, return `nil`; but if it is of the right class, return a
+// properly formatted and, if necessary, localized string. (See the
+// specification of the [NSString] class for formatting and localizing
+// details.)
 //
 // The following implementation (which is paired with the
-// [GetObjectValueForStringErrorDescription] example above) prefixes a
-// two-digit float representation with a dollar sign:
+// [NSFormatter.GetObjectValueForStringErrorDescription] example above)
+// prefixes a two-digit float representation with a dollar sign:
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/string(for:)
 func (f Formatter) StringForObjectValue(obj objectivec.IObject) string {
@@ -215,12 +216,13 @@ func (f Formatter) StringForObjectValue(obj objectivec.IObject) string {
 // When implementing a subclass, return an [NSAttributedString] object if the
 // string for display should have some attributes. For instance, you might
 // want negative values in a financial application to appear in red text.
-// Invoke your implementation of [StringForObjectValue] to get the
+// Invoke your implementation of [NSFormatter.StringForObjectValue] to get the
 // non-attributed string, then create an [NSAttributedString] object with it
-// (see [InitWithString]). Use the `attributes` default dictionary to reset
-// the attributes of the string when a change in value warrants it (for
-// example, a negative value becomes positive) For information on creating
-// attributed strings, see [Attributed String Programming Guide].
+// (see [NSMutableAttributedString.InitWithString]). Use the `attributes`
+// default dictionary to reset the attributes of the string when a change in
+// value warrants it (for example, a negative value becomes positive) For
+// information on creating attributed strings, see [Attributed String
+// Programming Guide].
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/attributedString(for:withDefaultAttributes:)
 //
@@ -230,7 +232,8 @@ func (f Formatter) AttributedStringForObjectValueWithDefaultAttributes(obj objec
 	return NSAttributedStringFromID(rv)
 }
 
-// The default implementation of this method invokes [StringForObjectValue].
+// The default implementation of this method invokes
+// [NSFormatter.StringForObjectValue].
 //
 // obj: The object for which to return an editing string.
 //
@@ -244,9 +247,10 @@ func (f Formatter) AttributedStringForObjectValueWithDefaultAttributes(obj objec
 // When implementing a subclass, override this method only when the string
 // that users see and the string that they edit are different. In your
 // implementation, return an [NSString] object that is used for editing,
-// following the logic recommended for implementing [StringForObjectValue]. As
-// an example, you would implement this method if you want the dollar signs in
-// displayed strings removed for editing.
+// following the logic recommended for implementing
+// [NSFormatter.StringForObjectValue]. As an example, you would implement this
+// method if you want the dollar signs in displayed strings removed for
+// editing.
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/editingString(for:)
 func (f Formatter) EditingStringForObjectValue(obj objectivec.IObject) string {
@@ -285,9 +289,10 @@ func (f Formatter) EditingStringForObjectValue(obj objectivec.IObject) string {
 // and you should not attempt to assign one.
 //
 // The following example (which is paired with the example given in
-// [StringForObjectValue]) converts a string representation of a dollar amount
-// that includes the dollar sign; it uses an [NSScanner] instance to convert
-// this amount to a float after stripping out the initial dollar sign.
+// [NSFormatter.StringForObjectValue]) converts a string representation of a
+// dollar amount that includes the dollar sign; it uses an [NSScanner]
+// instance to convert this amount to a float after stripping out the initial
+// dollar sign.
 //
 // # Special Considerations
 //
@@ -340,9 +345,9 @@ func (f Formatter) GetObjectValueForStringErrorDescription(obj []objectivec.IObj
 //
 // This method is a compatibility method. If a subclass overrides this method
 // and does not override
-// [IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription],
+// [NSFormatter.IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription],
 // this method will be called as before
-// ([IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription]
+// ([NSFormatter.IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription]
 // just calls this one by default).
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/isPartialStringValid(_:newEditingString:errorDescription:)

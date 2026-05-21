@@ -1679,8 +1679,8 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityCancelButton(value object
 // that are also in the accessibility hierarchy. If you use an
 // [NSAccessibilityElement] subclass to represent an interface element that is
 // not backed by a view, you can either set the `accessibilityChildren`
-// property or you can call the [AccessibilityAddChildElement] convenience
-// method.
+// property or you can call the
+// [NSAccessibilityElement.AccessibilityAddChildElement] convenience method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
 func (o NSAccessibilityProtocolObject) AccessibilityChildren() foundation.INSArray {
@@ -2675,8 +2675,8 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityOverflowButton(value obje
 // accessibility hierarchy. If you use an [NSAccessibilityElement] subclass to
 // represent an interface element that is not backed by a view, you can either
 // set the parent property or you can call the
-// [AccessibilityElementWithRoleFrameLabelParent] convenience method, which
-// sets it automatically.
+// [NSAccessibilityElementClass.AccessibilityElementWithRoleFrameLabelParent]
+// convenience method, which sets it automatically.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilityProtocolObject) AccessibilityParent() objectivec.IObject {

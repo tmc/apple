@@ -5,7 +5,6 @@ package metal
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -88,9 +87,6 @@ type IMTLCommandQueueDescriptor interface {
 	// An integer that sets the maximum number of uncompleted command buffers the queue can allow.
 	MaxCommandBufferCount() uint
 	SetMaxCommandBufferCount(value uint)
-
-	// The domain for Metal command buffer errors.
-	MTLCommandBufferErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -133,12 +129,4 @@ func (c MTLCommandQueueDescriptor) MaxCommandBufferCount() uint {
 }
 func (c MTLCommandQueueDescriptor) SetMaxCommandBufferCount(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxCommandBufferCount:"), value)
-}
-
-// The domain for Metal command buffer errors.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain
-func (c MTLCommandQueueDescriptor) MTLCommandBufferErrorDomain() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("MTLCommandBufferErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

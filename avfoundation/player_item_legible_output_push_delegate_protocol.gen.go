@@ -43,17 +43,18 @@ func AVPlayerItemLegibleOutputPushDelegateObjectFromID(id objc.ID) AVPlayerItemL
 //
 // nativeSamples: An array of [CMSampleBuffer] objects, for media subtypes included in the
 // array passed to the `output` object’s
-// [InitWithMediaSubtypesForNativeRepresentation] method.
+// [AVPlayerItemLegibleOutput.InitWithMediaSubtypesForNativeRepresentation]
+// method.
 //
 // itemTime: The item time at which the strings should be presented.
 //
 // # Discussion
 //
 // For each media subtype in the array passed in to the `output` object’s
-// [InitWithMediaSubtypesForNativeRepresentation] method, the delegate
-// receives sample buffers carrying data in its native format via the
-// `nativeSamples` parameter if there is media data of that subtype in the
-// media resource.
+// [AVPlayerItemLegibleOutput.InitWithMediaSubtypesForNativeRepresentation]
+// method, the delegate receives sample buffers carrying data in its native
+// format via the `nativeSamples` parameter if there is media data of that
+// subtype in the media resource.
 //
 // For all other media subtypes present in the media resource, the delegate
 // receives attributed strings in a common format via the `strings` parameter.

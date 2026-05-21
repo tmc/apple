@@ -113,6 +113,13 @@ func NewVNAnimalBodyPoseObservation() VNAnimalBodyPoseObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewAnimalBodyPoseObservationWithCoder(coder foundation.INSCoder) VNAnimalBodyPoseObservation {
+	instance := getVNAnimalBodyPoseObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNAnimalBodyPoseObservationFromID(rv)
+}
+
 // Returns the point for a joint name the observation recognizes.
 //
 // jointName: The joint name to retrieve.

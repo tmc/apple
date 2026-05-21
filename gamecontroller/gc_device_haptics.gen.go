@@ -53,7 +53,6 @@ func (gc GCDeviceHapticsClass) Alloc() GCDeviceHaptics {
 // # Creating a haptics engine
 //
 //   - [GCDeviceHaptics.CreateEngineWithLocality]: Creates a haptics engine with the specified locality.
-//   - [GCDeviceHaptics.GCHapticDurationInfinite]: An infinite duration for a haptics event.
 //
 // # Getting the localities
 //
@@ -79,7 +78,6 @@ func GCDeviceHapticsFromID(id objc.ID) GCDeviceHaptics {
 // # Creating a haptics engine
 //
 //   - [IGCDeviceHaptics.CreateEngineWithLocality]: Creates a haptics engine with the specified locality.
-//   - [IGCDeviceHaptics.GCHapticDurationInfinite]: An infinite duration for a haptics event.
 //
 // # Getting the localities
 //
@@ -93,17 +91,11 @@ type IGCDeviceHaptics interface {
 
 	// Creates a haptics engine with the specified locality.
 	CreateEngineWithLocality(locality GCHapticsLocality) objectivec.IObject
-	// An infinite duration for a haptics event.
-	GCHapticDurationInfinite() float32
 
 	// Topic: Getting the localities
 
 	// The locations of haptic actuators on the device.
 	SupportedLocalities() foundation.INSSet
-
-	// A Boolean value that indicates whether the device supports haptic event playback.
-	SupportsHaptics() bool
-	SetSupportsHaptics(value bool)
 }
 
 // Init initializes the instance.
@@ -149,30 +141,10 @@ func (g GCDeviceHaptics) CreateEngineWithLocality(locality GCHapticsLocality) ob
 	return objectivec.Object{ID: rv}
 }
 
-// An infinite duration for a haptics event.
-//
-// See: https://developer.apple.com/documentation/gamecontroller/gchapticdurationinfinite
-func (g GCDeviceHaptics) GCHapticDurationInfinite() float32 {
-	rv := objc.Send[float32](g.ID, objc.Sel("GCHapticDurationInfinite"))
-	return rv
-}
-
 // The locations of haptic actuators on the device.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDeviceHaptics/supportedLocalities
 func (g GCDeviceHaptics) SupportedLocalities() foundation.INSSet {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("supportedLocalities"))
 	return foundation.NSSetFromID(objc.ID(rv))
-}
-
-// A Boolean value that indicates whether the device supports haptic event
-// playback.
-//
-// See: https://developer.apple.com/documentation/CoreHaptics/CHHapticDeviceCapability/supportsHaptics
-func (g GCDeviceHaptics) SupportsHaptics() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("supportsHaptics"))
-	return rv
-}
-func (g GCDeviceHaptics) SetSupportsHaptics(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setSupportsHaptics:"), value)
 }

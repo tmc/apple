@@ -179,7 +179,7 @@ func NewNSOpenPanel() NSOpenPanel {
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -194,10 +194,10 @@ func NewNSOpenPanel() NSOpenPanel {
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewOpenPanelWindowWithContentViewController(contentViewController INSViewController) NSOpenPanel {
@@ -251,7 +251,8 @@ func NewOpenPanelWithCoder(coder foundation.INSCoder) NSOpenPanel {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -384,8 +385,8 @@ func (o NSOpenPanel) SetResolvesAliases(value bool) {
 //
 // When the value of this property is true, the user may select multiple items
 // from the browser. When the selection contains multiple items, use the
-// [URLs] property to retrieve those items instead of the inherited [URL]
-// property.
+// [NSOpenPanel.URLs] property to retrieve those items instead of the
+// inherited [NSSavePanel.URL] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/allowsMultipleSelection
 func (o NSOpenPanel) AllowsMultipleSelection() bool {

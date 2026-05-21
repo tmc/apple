@@ -50,8 +50,9 @@ func (nc NSSliderCellClass) Alloc() NSSliderCell {
 // You can customize an [NSSliderCell] to a certain degree, using its
 // properties. If this doesn’t give you sufficient flexibility, you can
 // create a subclass. In that subclass, you can override any of the following
-// methods: [NSSliderCell.KnobRectFlipped], [NSSliderCell.DrawBarInsideFlipped], [NSSliderCell.DrawKnob], and
-// [NSSliderCell.PrefersTrackingUntilMouseUp].
+// methods: [NSSliderCell.KnobRectFlipped],
+// [NSSliderCell.DrawBarInsideFlipped], [NSSliderCell.DrawKnob], and
+// [NSSliderCellClass.PrefersTrackingUntilMouseUp].
 //
 // # Managing Cell Behavior
 //
@@ -310,7 +311,7 @@ func NewSliderCellWithCoder(coder foundation.INSCoder) NSSliderCell {
 //
 // flipped: true if the coordinate system of the associated [NSSlider] or [NSMatrix] is
 // flipped; otherwise false. You can determine whether this is the case by
-// sending the [NSView] message [Flipped] message to the [NSMatrix] or
+// sending the [NSView] message [NSView.Flipped] message to the [NSMatrix] or
 // [NSSlider].
 //
 // # Return Value
@@ -346,7 +347,7 @@ func (s NSSliderCell) DrawTickMarks() {
 //
 // flipped: true if the coordinate system of the associated [NSSlider] or [NSMatrix] is
 // flipped; otherwise false. You can determine whether this is the case by
-// sending the [NSView] message [Flipped] message to the [NSMatrix] or
+// sending the [NSView] message [NSView.Flipped] message to the [NSMatrix] or
 // [NSSlider].
 //
 // # Return Value
@@ -387,7 +388,7 @@ func (s NSSliderCell) DrawBarInsideFlipped(rect corefoundation.CGRect, flipped b
 }
 
 // Calculates the rectangle in which the knob should be drawn, then calls
-// [DrawKnob] to actually draw the knob.
+// [NSSliderCell.DrawKnob] to actually draw the knob.
 //
 // # Discussion
 //
@@ -400,7 +401,7 @@ func (s NSSliderCell) DrawBarInsideFlipped(rect corefoundation.CGRect, flipped b
 // # Special Considerations
 //
 // If you create a subclass of [NSSliderCell], don’t override this method.
-// Override [DrawKnob] instead.
+// Override [NSSliderCell.DrawKnob] instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/drawKnob()
 func (s NSSliderCell) DrawKnob() {
@@ -453,8 +454,8 @@ func (s NSSliderCell) ClosestTickMarkValueToValue(value float64) float64 {
 //
 // If `point` is not within the bounding rectangle (plus an extra pixel of
 // space) of any tick mark, the method returns [NSNotFound]. This method calls
-// [RectOfTickMarkAtIndex] for each tick mark on the slider until it finds a
-// tick mark containing `point`.
+// [NSSliderCell.RectOfTickMarkAtIndex] for each tick mark on the slider until
+// it finds a tick mark containing `point`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/indexOfTickMark(at:)
 func (s NSSliderCell) IndexOfTickMarkAtPoint(point corefoundation.CGPoint) int {
@@ -539,15 +540,16 @@ func (s NSSliderCell) TrackRect() corefoundation.CGRect {
 // Possible values are described in [NSSlider.SliderType].
 //
 // When the value of this property is [NSCircularSlider], then you get a
-// fixed-size circular slider. The minimum value ([MinValue]) is at the top,
-// and the value increases clockwise around the dial. The maximum selectable
-// value is just below [MaxValue]; for example, if [MaxValue] is 360, you can
-// set the dial up to 359.999.
+// fixed-size circular slider. The minimum value ([NSSliderCell.MinValue]) is
+// at the top, and the value increases clockwise around the dial. The maximum
+// selectable value is just below [NSSliderCell.MaxValue]; for example, if
+// [NSSliderCell.MaxValue] is 360, you can set the dial up to 359.999.
 //
-// You can use the [NumberOfTickMarks] property to display tick marks, and you
-// can use the [AllowsTickMarkValuesOnly] property to specify that values are
-// limited to those values represented by tick marks. You can set this control
-// to regular or small sizes; the mini size is not supported.
+// You can use the [NSSliderCell.NumberOfTickMarks] property to display tick
+// marks, and you can use the [NSSliderCell.AllowsTickMarkValuesOnly] property
+// to specify that values are limited to those values represented by tick
+// marks. You can set this control to regular or small sizes; the mini size is
+// not supported.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/sliderType
 //
@@ -600,8 +602,8 @@ func (s NSSliderCell) SetVertical(value bool) {
 // A horizontal slider sends its maximum value when the knob is at the right
 // end of the slider; a vertical slider sends it when the knob is at the top.
 // The maximum selectable value for a circular slider is just below
-// [MaxValue]; for example, if [MaxValue] is 360, you can set the dial up to
-// 359.999.
+// [NSSliderCell.MaxValue]; for example, if [NSSliderCell.MaxValue] is 360,
+// you can set the dial up to 359.999.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/maxValue
 func (s NSSliderCell) MaxValue() float64 {
@@ -677,7 +679,7 @@ func (s NSSliderCell) SetNumberOfTickMarks(value int) {
 // tick marks. Possible values are described in [NSSlider.TickMarkPosition].
 // The default alignments are [NSTickMarkBelow] and [NSTickMarkLeft]. Setting
 // this property has no effect if no tick marks have been assigned (that is,
-// if [NumberOfTickMarks] is 0).
+// if [NSSliderCell.NumberOfTickMarks] is 0).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/tickMarkPosition
 //

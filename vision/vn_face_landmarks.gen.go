@@ -84,9 +84,7 @@ type IVNFaceLandmarks interface {
 	// A confidence estimate for the detected landmarks.
 	Confidence() VNConfidence
 
-	// The facial features of the detected face.
-	Landmarks() IVNFaceLandmarks2D
-	SetLandmarks(value IVNFaceLandmarks2D)
+	InitWithCoder(coder foundation.INSCoder) VNFaceLandmarks
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -106,6 +104,19 @@ func (f VNFaceLandmarks) Autorelease() VNFaceLandmarks {
 func NewVNFaceLandmarks() VNFaceLandmarks {
 	class := getVNFaceLandmarksClass()
 	rv := objc.Send[VNFaceLandmarks](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks/init(coder:)
+func NewFaceLandmarksWithCoder(coder foundation.INSCoder) VNFaceLandmarks {
+	instance := getVNFaceLandmarksClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNFaceLandmarksFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks/init(coder:)
+func (f VNFaceLandmarks) InitWithCoder(coder foundation.INSCoder) VNFaceLandmarks {
+	rv := objc.Send[VNFaceLandmarks](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -132,17 +143,6 @@ func (f VNFaceLandmarks) EncodeWithCoder(coder foundation.INSCoder) {
 func (f VNFaceLandmarks) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](f.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
-}
-
-// The facial features of the detected face.
-//
-// See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
-func (f VNFaceLandmarks) Landmarks() IVNFaceLandmarks2D {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("landmarks"))
-	return VNFaceLandmarks2DFromID(objc.ID(rv))
-}
-func (f VNFaceLandmarks) SetLandmarks(value IVNFaceLandmarks2D) {
-	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
 
 // Protocol methods for VNRequestRevisionProviding

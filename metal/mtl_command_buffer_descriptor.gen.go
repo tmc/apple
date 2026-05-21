@@ -5,7 +5,6 @@ package metal
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,10 +50,11 @@ func (mc MTLCommandBufferDescriptorClass) Alloc() MTLCommandBufferDescriptor {
 // [MTLCommandBufferDescriptor] instance and passing it to an
 // [MTLCommandQueue] instance’s [CommandBufferWithDescriptor] method. You
 // can configure whether the command buffer retains references to resources
-// that its commands refer to with the [MTLCommandBufferDescriptor.RetainedReferences] property. The
-// command buffer can save extra error information, which is useful during
-// development, by setting its [MTLCommandBufferDescriptor.ErrorOptions] property to
-// [MTLCommandBufferErrorOptionEncoderExecutionStatus].
+// that its commands refer to with the
+// [MTLCommandBufferDescriptor.RetainedReferences] property. The command
+// buffer can save extra error information, which is useful during
+// development, by setting its [MTLCommandBufferDescriptor.ErrorOptions]
+// property to [MTLCommandBufferErrorOptionEncoderExecutionStatus].
 //
 // # Configuring the command buffer
 //
@@ -106,12 +106,6 @@ type IMTLCommandBufferDescriptor interface {
 	// The reporting configuration that indicates which information the GPU driver stores in a command buffer’s error property.
 	ErrorOptions() MTLCommandBufferErrorOption
 	SetErrorOptions(value MTLCommandBufferErrorOption)
-
-	// The domain for Metal command buffer errors.
-	MTLCommandBufferErrorDomain() string
-	// An option that instructs a command buffer to save additional details about a GPU runtime error.
-	EncoderExecutionStatus() MTLCommandBufferErrorOption
-	SetMTLCommandBufferErrorOptionEncoderExecutionStatus(value MTLCommandBufferErrorOption)
 }
 
 // Init initializes the instance.
@@ -198,24 +192,4 @@ func (c MTLCommandBufferDescriptor) ErrorOptions() MTLCommandBufferErrorOption {
 }
 func (c MTLCommandBufferDescriptor) SetErrorOptions(value MTLCommandBufferErrorOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setErrorOptions:"), value)
-}
-
-// The domain for Metal command buffer errors.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain
-func (c MTLCommandBufferDescriptor) MTLCommandBufferErrorDomain() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("MTLCommandBufferErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An option that instructs a command buffer to save additional details about
-// a GPU runtime error.
-//
-// See: https://developer.apple.com/documentation/metal/mtlcommandbuffererroroption/encoderexecutionstatus
-func (c MTLCommandBufferDescriptor) EncoderExecutionStatus() MTLCommandBufferErrorOption {
-	rv := objc.Send[MTLCommandBufferErrorOption](c.ID, objc.Sel("MTLCommandBufferErrorOptionEncoderExecutionStatus"))
-	return MTLCommandBufferErrorOption(rv)
-}
-func (c MTLCommandBufferDescriptor) SetMTLCommandBufferErrorOptionEncoderExecutionStatus(value MTLCommandBufferErrorOption) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMTLCommandBufferErrorOptionEncoderExecutionStatus:"), value)
 }

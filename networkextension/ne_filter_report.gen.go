@@ -48,8 +48,9 @@ func (nc NEFilterReportClass) Alloc() NEFilterReport {
 // # Overview
 //
 // The system issues a report by calling your control provider’s
-// [HandleReport] method with a report instance when the data provider issues
-// a verdict whose [NEFilterReport.ShouldReport] property is set to true.
+// [NEFilterProvider.HandleReport] method with a report instance when the data
+// provider issues a verdict whose [NEFilterVerdict.ShouldReport] property is
+// set to true.
 //
 // # Getting report properties
 //
@@ -101,9 +102,6 @@ type INEFilterReport interface {
 	// The number of outbound bytes sent on the flow.
 	BytesOutboundCount() uint
 
-	// A Boolean value that indicates whether to send a report to the control provider when processing this verdict.
-	ShouldReport() bool
-	SetShouldReport(value bool)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -158,7 +156,7 @@ func (f NEFilterReport) Event() NEFilterReportEvent {
 //
 // # Discussion
 //
-// This property is only non-zero when the report [Event] is
+// This property is only non-zero when the report [NEFilterReport.Event] is
 // [NEFilterReportEventFlowClosed].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/bytesInboundCount
@@ -171,23 +169,11 @@ func (f NEFilterReport) BytesInboundCount() uint {
 //
 // # Discussion
 //
-// This property is only non-zero when the report [Event] is
+// This property is only non-zero when the report [NEFilterReport.Event] is
 // [NEFilterReportEventFlowClosed].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/bytesOutboundCount
 func (f NEFilterReport) BytesOutboundCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("bytesOutboundCount"))
 	return rv
-}
-
-// A Boolean value that indicates whether to send a report to the control
-// provider when processing this verdict.
-//
-// See: https://developer.apple.com/documentation/networkextension/nefilterverdict/shouldreport
-func (f NEFilterReport) ShouldReport() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("shouldReport"))
-	return rv
-}
-func (f NEFilterReport) SetShouldReport(value bool) {
-	objc.Send[struct{}](f.ID, objc.Sel("setShouldReport:"), value)
 }

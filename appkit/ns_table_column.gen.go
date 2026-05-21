@@ -309,7 +309,8 @@ func NewTableColumnWithCoder(coder foundation.INSCoder) NSTableColumn {
 //
 // # Discussion
 //
-// You can set the table column title using the [Title] property.
+// You can set the table column title using the [NSTableColumn.Title]
+// property.
 //
 // This method is the designated initializer for the [NSTableColumn] class.
 //
@@ -331,7 +332,8 @@ func NewTableColumnWithIdentifier(identifier NSUserInterfaceItemIdentifier) NSTa
 //
 // # Discussion
 //
-// You can set the table column title using the [Title] property.
+// You can set the table column title using the [NSTableColumn.Title]
+// property.
 //
 // This method is the designated initializer for the [NSTableColumn] class.
 //
@@ -372,7 +374,7 @@ func (t NSTableColumn) SizeToFit() {
 // Returns the [NSCell] object used by the table view to draw values for the
 // receiver. The table view calls this method when drawing the row, so you
 // shouldn’t need to call it directly. By default, this method just accesses
-// [DataCell].
+// [NSTableColumn.DataCell].
 //
 // To enable per-row customization of the cell used by the table column, you
 // can override this method or use the [NSTableViewDelegate] method
@@ -407,7 +409,7 @@ func (t NSTableColumn) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // You should never need to set this property; it’s set automatically when
 // you add a table column to a table view using the [NSTableView] class’s
-// method [AddTableColumn].
+// method [NSTableView.AddTableColumn].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/tableView
 func (t NSTableColumn) TableView() INSTableView {
@@ -522,7 +524,8 @@ func (t NSTableColumn) SetTitle(value string) {
 // The value of this property must not be `nil`. It’s recommended that the
 // value of this property be an instance or subclass of [NSTableHeaderCell].
 //
-// You can set the table column title using the [Title] property.
+// You can set the table column title using the [NSTableColumn.Title]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/headerCell
 func (t NSTableColumn) HeaderCell() INSTableHeaderCell {
@@ -557,7 +560,8 @@ func (t NSTableColumn) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 // cell-based table’s column. The default value of this property is true.
 //
 // To initiate editing programmatically regardless of the value of this
-// property, use the [NSTableView] [EditColumnRowWithEventSelect] method.
+// property, use the [NSTableView] [NSTableView.EditColumnRowWithEventSelect]
+// method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/isEditable
 func (t NSTableColumn) IsEditable() bool {
@@ -593,8 +597,8 @@ func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.NSSortDescrip
 // default value is false.
 //
 // Columns that are hidden still exist in the table view object’s
-// [TableColumns] array and are included in the table view’s
-// [NumberOfColumns] count.
+// [NSTableView.TableColumns] array and are included in the table view’s
+// [NSTableView.NumberOfColumns] count.
 //
 // The hidden state is stored when the table view autosaves the table column
 // state.

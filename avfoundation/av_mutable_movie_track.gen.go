@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -389,7 +390,7 @@ type IAVMutableMovieTrack interface {
 	HasProtectedContent() bool
 	// The total number of bytes of sample data the track requires.
 	TotalSampleDataLength() unsafe.Pointer
-	SetTotalSampleDataLength(value unsafe.Pointer)
+	SetTotalSampleDataLength(value kernel.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -399,14 +400,14 @@ type IAVMutableMovieTrack interface {
 	TimeRange() coremedia.CMTimeRange
 	SetTimeRange(value coremedia.CMTimeRange)
 	// The time scale for tracks that contain the `moov` atom.
-	Timescale() int32
-	SetTimescale(value int32)
+	Timescale() coremedia.CMTimeScale
+	SetTimescale(value coremedia.CMTimeScale)
 	// The natural time scale of the media that a track references.
-	NaturalTimeScale() int32
-	SetNaturalTimeScale(value int32)
+	NaturalTimeScale() coremedia.CMTimeScale
+	SetNaturalTimeScale(value coremedia.CMTimeScale)
 	// The estimated data rate, in bits per second, of the media that the track references.
-	EstimatedDataRate() float32
-	SetEstimatedDataRate(value float32)
+	EstimatedDataRate() kernel.Float
+	SetEstimatedDataRate(value kernel.Float)
 	// Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
 	SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime
 
@@ -452,8 +453,8 @@ type IAVMutableMovieTrack interface {
 	// Topic: Accessing frame-based characteristics
 
 	// The frame rate of the track, in frames per second.
-	NominalFrameRate() float32
-	SetNominalFrameRate(value float32)
+	NominalFrameRate() kernel.Float
+	SetNominalFrameRate(value kernel.Float)
 	// The minimum duration of the track’s frames.
 	MinFrameDuration() coremedia.CMTime
 	SetMinFrameDuration(value coremedia.CMTime)
@@ -486,8 +487,8 @@ type IAVMutableMovieTrack interface {
 	// Topic: Managing track associations
 
 	// An array of association types that the track uses to associate with other tracks.
-	AvailableTrackAssociationTypes() objc.ID
-	SetAvailableTrackAssociationTypes(value objc.ID)
+	AvailableTrackAssociationTypes() objectivec.IObject
+	SetAvailableTrackAssociationTypes(value objectivec.IObject)
 	// Returns an array of associated tracks that have the specified association type.
 	AssociatedTracksOfType(trackAssociationType AVTrackAssociationType) []AVAssetTrack
 	// Creates a specific type of track association between two tracks.
@@ -721,7 +722,7 @@ func (m AVMutableMovieTrack) SegmentForTrackTime(trackTime coremedia.CMTime) IAV
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load associated tracks asynchronously using
-// [LoadAssociatedTracksOfTypeCompletionHandler] instead.
+// [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler] instead.
 //
 // You can call this method without blocking the current thread after you’ve
 // loaded the [availableTrackAssociationTypes] property.
@@ -928,8 +929,8 @@ func (m AVMutableMovieTrack) SetDecodable(value bool) {
 //
 // # Discussion
 //
-// For file-based media, you can change its [Enabled] presentation state using
-// [AVPlayerItemTrack].
+// For file-based media, you can change its [AVPlayerItemTrack.Enabled]
+// presentation state using [AVPlayerItemTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/isEnabled
 func (m AVMutableMovieTrack) IsEnabled() bool {
@@ -972,7 +973,7 @@ func (m AVMutableMovieTrack) TotalSampleDataLength() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("totalSampleDataLength"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
+func (m AVMutableMovieTrack) SetTotalSampleDataLength(value kernel.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 
@@ -1004,22 +1005,22 @@ func (m AVMutableMovieTrack) SetTimeRange(value coremedia.CMTimeRange) {
 // before any edits are performed on the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/timescale
-func (m AVMutableMovieTrack) Timescale() int32 {
-	rv := objc.Send[int32](m.ID, objc.Sel("timescale"))
-	return rv
+func (m AVMutableMovieTrack) Timescale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](m.ID, objc.Sel("timescale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (m AVMutableMovieTrack) SetTimescale(value int32) {
+func (m AVMutableMovieTrack) SetTimescale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTimescale:"), value)
 }
 
 // The natural time scale of the media that a track references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/naturalTimeScale
-func (m AVMutableMovieTrack) NaturalTimeScale() int32 {
-	rv := objc.Send[int32](m.ID, objc.Sel("naturalTimeScale"))
-	return rv
+func (m AVMutableMovieTrack) NaturalTimeScale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](m.ID, objc.Sel("naturalTimeScale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (m AVMutableMovieTrack) SetNaturalTimeScale(value int32) {
+func (m AVMutableMovieTrack) SetNaturalTimeScale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNaturalTimeScale:"), value)
 }
 
@@ -1027,11 +1028,11 @@ func (m AVMutableMovieTrack) SetNaturalTimeScale(value int32) {
 // references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/estimatedDataRate
-func (m AVMutableMovieTrack) EstimatedDataRate() float32 {
-	rv := objc.Send[float32](m.ID, objc.Sel("estimatedDataRate"))
-	return rv
+func (m AVMutableMovieTrack) EstimatedDataRate() kernel.Float {
+	rv := objc.Send[kernel.Float](m.ID, objc.Sel("estimatedDataRate"))
+	return kernel.Float(rv)
 }
-func (m AVMutableMovieTrack) SetEstimatedDataRate(value float32) {
+func (m AVMutableMovieTrack) SetEstimatedDataRate(value kernel.Float) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEstimatedDataRate:"), value)
 }
 
@@ -1172,11 +1173,11 @@ func (m AVMutableMovieTrack) SetHasAudioSampleDependencies(value bool) {
 // frame rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/nominalFrameRate
-func (m AVMutableMovieTrack) NominalFrameRate() float32 {
-	rv := objc.Send[float32](m.ID, objc.Sel("nominalFrameRate"))
-	return rv
+func (m AVMutableMovieTrack) NominalFrameRate() kernel.Float {
+	rv := objc.Send[kernel.Float](m.ID, objc.Sel("nominalFrameRate"))
+	return kernel.Float(rv)
 }
-func (m AVMutableMovieTrack) SetNominalFrameRate(value float32) {
+func (m AVMutableMovieTrack) SetNominalFrameRate(value kernel.Float) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNominalFrameRate:"), value)
 }
 
@@ -1264,11 +1265,11 @@ func (m AVMutableMovieTrack) SetSegments(value IAVAssetTrackSegment) {
 // tracks.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/availableTrackAssociationTypes
-func (m AVMutableMovieTrack) AvailableTrackAssociationTypes() objc.ID {
+func (m AVMutableMovieTrack) AvailableTrackAssociationTypes() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableTrackAssociationTypes"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
-func (m AVMutableMovieTrack) SetAvailableTrackAssociationTypes(value objc.ID) {
+func (m AVMutableMovieTrack) SetAvailableTrackAssociationTypes(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableTrackAssociationTypes:"), value)
 }
 

@@ -51,8 +51,8 @@ func (nc NSCollectionLayoutDecorationItemClass) Alloc() NSCollectionLayoutDecora
 // tracking these strings together in a way that makes it straightforward to
 // identify each element, for example:
 //
-// Add a background to a section by setting that section’s [NSCollectionLayoutDecorationItem.DecorationItems]
-// property:
+// Add a background to a section by setting that section’s
+// [NSCollectionLayoutSection.DecorationItems] property:
 //
 // # Getting the element kind
 //
@@ -103,10 +103,6 @@ type INSCollectionLayoutDecorationItem interface {
 	// The vertical stacking order of the decoration item in relation to other items in the section.
 	ZIndex() int
 	SetZIndex(value int)
-
-	// An array of the decoration items that are anchored to the section, such as background decoration views.
-	DecorationItems() INSCollectionLayoutDecorationItem
-	SetDecorationItems(value INSCollectionLayoutDecorationItem)
 }
 
 // Init initializes the instance.
@@ -176,16 +172,4 @@ func (c NSCollectionLayoutDecorationItem) ZIndex() int {
 }
 func (c NSCollectionLayoutDecorationItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
-}
-
-// An array of the decoration items that are anchored to the section, such as
-// background decoration views.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionlayoutsection/decorationitems
-func (c NSCollectionLayoutDecorationItem) DecorationItems() INSCollectionLayoutDecorationItem {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("decorationItems"))
-	return NSCollectionLayoutDecorationItemFromID(objc.ID(rv))
-}
-func (c NSCollectionLayoutDecorationItem) SetDecorationItems(value INSCollectionLayoutDecorationItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDecorationItems:"), value)
 }

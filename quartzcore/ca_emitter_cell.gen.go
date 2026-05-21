@@ -423,17 +423,17 @@ func (e CAEmitterCell) Autoreverses() bool {
 // if applicable.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (e CAEmitterCell) BeginTime() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("beginTime"))
-	return rv
+func (e CAEmitterCell) BeginTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](e.ID, objc.Sel("beginTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Specifies the basic duration of the animation, in seconds.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (e CAEmitterCell) Duration() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("duration"))
-	return rv
+func (e CAEmitterCell) Duration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](e.ID, objc.Sel("duration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Determines if the receiver’s presentation is frozen or removed once its
@@ -456,9 +456,9 @@ func (e CAEmitterCell) RepeatCount() float32 {
 // Determines how many seconds the animation will repeat for.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (e CAEmitterCell) RepeatDuration() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("repeatDuration"))
-	return rv
+func (e CAEmitterCell) RepeatDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](e.ID, objc.Sel("repeatDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Specifies how time is mapped to receiver’s time space from the parent
@@ -473,9 +473,9 @@ func (e CAEmitterCell) Speed() float32 {
 // Specifies an additional time offset in active local time.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (e CAEmitterCell) TimeOffset() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("timeOffset"))
-	return rv
+func (e CAEmitterCell) TimeOffset() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](e.ID, objc.Sel("timeOffset"))
+	return corefoundation.CFTimeInterval(rv)
 }
 func (e CAEmitterCell) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -543,7 +543,7 @@ func (e CAEmitterCell) SetContents(value objectivec.IObject) {
 }
 
 // A rectangle (in the unit coordinate space) that specifies the portion of
-// [Contents] that the receiver should draw. Animatable.
+// [CAEmitterCell.Contents] that the receiver should draw. Animatable.
 //
 // # Discussion
 //
@@ -579,10 +579,10 @@ func (e CAEmitterCell) SetContentsRect(value corefoundation.CGRect) {
 // The following code shows how you can create a firework style effect using
 // sub-cells. The `fireworkCell` has an emission longitude of one quarter turn
 // anti-clockwise to emit particles upwards. It emits `trailCell` instances
-// which have a slight [YAcceleration] that simulates gravity.
+// which have a slight [CAEmitterCell.YAcceleration] that simulates gravity.
 //
-// Note that the [Scale] and [Color] of `fireworkCell` are inherited by
-// `trailCell`.
+// Note that the [CAEmitterCell.Scale] and [CAEmitterCell.Color] of
+// `fireworkCell` are inherited by `trailCell`.
 //
 // Listing 1. Creating particle trails
 //
@@ -618,9 +618,11 @@ func (e CAEmitterCell) SetEnabled(value bool) {
 // # Discussion
 //
 // The specified color of the cell will vary by a random amount within the
-// [RedRange], [GreenRange], [BlueRange] and [AlphaRange]values over the
-// lifetime of the cell. The [RedSpeed], [GreenSpeed], [BlueSpeed], and
-// [AlphaSpeed] determine the rate of change.
+// [CAEmitterCell.RedRange], [CAEmitterCell.GreenRange],
+// [CAEmitterCell.BlueRange] and [CAEmitterCell.AlphaRange]values over the
+// lifetime of the cell. The [CAEmitterCell.RedSpeed],
+// [CAEmitterCell.GreenSpeed], [CAEmitterCell.BlueSpeed], and
+// [CAEmitterCell.AlphaSpeed] determine the rate of change.
 //
 // The default value of this property is a color object set to opaque white.
 //
@@ -639,7 +641,7 @@ func (e CAEmitterCell) SetColor(value coregraphics.CGColorRef) {
 // # Discussion
 //
 // The range specifies the mean amount by which the red component of the
-// [Color] property can vary for the cell.
+// [CAEmitterCell.Color] property can vary for the cell.
 //
 // The default value of this property is `0.0`.
 //
@@ -658,7 +660,7 @@ func (e CAEmitterCell) SetRedRange(value float32) {
 // # Discussion
 //
 // The range specifies the mean amount by which the green component of the
-// [Color] property can vary for the cell.
+// [CAEmitterCell.Color] property can vary for the cell.
 //
 // The default value of this property is `0.0`.
 //
@@ -677,7 +679,7 @@ func (e CAEmitterCell) SetGreenRange(value float32) {
 // # Discussion
 //
 // The range specifies the mean amount by which the blue component of the
-// [Color] property can vary for the cell.
+// [CAEmitterCell.Color] property can vary for the cell.
 //
 // The default value of this property value is `0.0`.
 //
@@ -695,7 +697,7 @@ func (e CAEmitterCell) SetBlueRange(value float32) {
 // # Discussion
 //
 // The range specifies the mean amount by which the alpha component of the
-// [Color] property can vary for the cell.
+// [CAEmitterCell.Color] property can vary for the cell.
 //
 // The default value of this property is `0.0`.
 //
@@ -821,8 +823,8 @@ func (e CAEmitterCell) SetMinificationFilter(value string) {
 //
 // # Discussion
 //
-// This value is used by the [MinificationFilter] property when it is set to
-// `kCAFilterTrilinear`.
+// This value is used by the [CAEmitterCell.MinificationFilter] property when
+// it is set to `kCAFilterTrilinear`.
 //
 // The default value of this property to `0`.
 //
@@ -840,8 +842,8 @@ func (e CAEmitterCell) SetMinificationFilterBias(value float32) {
 // # Discussion
 //
 // The scale of the cell will vary by a random amount within the range
-// specified by [ScaleRange]. The [ScaleSpeed] property determines the rate of
-// change.
+// specified by [CAEmitterCell.ScaleRange]. The [CAEmitterCell.ScaleSpeed]
+// property determines the rate of change.
 //
 // The default value of this property is `1.0`.
 //
@@ -858,8 +860,8 @@ func (e CAEmitterCell) SetScale(value float64) {
 //
 // # Discussion
 //
-// The range specifies the mean amount that the [Scale] value can vary for the
-// cell over its lifetime.
+// The range specifies the mean amount that the [CAEmitterCell.Scale] value
+// can vary for the cell over its lifetime.
 //
 // The default value of this property is `0.0`.
 //
@@ -917,7 +919,7 @@ func (e CAEmitterCell) SetName(value string) {
 // “style.someValue” takes precedence over “style.style.someValue”.
 //
 // If the style dictionary doesn’t define a value for an attribute, the
-// cell’s [DefaultValueForKey] class method is called.
+// cell’s [CAEmitterCellClass.DefaultValueForKey] class method is called.
 //
 // The style dictionary is not consulted for the following keys: `bounds`,
 // `frame`.
@@ -939,7 +941,7 @@ func (e CAEmitterCell) SetStyle(value foundation.INSDictionary) {
 // # Discussion
 //
 // The spin of the cell will vary by a random amount with the range specified
-// by [SpinRange].
+// by [CAEmitterCell.SpinRange].
 //
 // The default value of this property is `0.0`.
 //
@@ -957,8 +959,8 @@ func (e CAEmitterCell) SetSpin(value float64) {
 //
 // # Discussion
 //
-// The range specifies the mean amount the [Spin] value can vary over the
-// cell’s lifetime.
+// The range specifies the mean amount the [CAEmitterCell.Spin] value can vary
+// over the cell’s lifetime.
 //
 // The default value of this property is `0.0`.
 //
@@ -1030,7 +1032,7 @@ func (e CAEmitterCell) SetEmissionRange(value float64) {
 // # Discussion
 //
 // The lifetime of the cell will vary by a random amount with the range
-// specified by [LifetimeRange].
+// specified by [CAEmitterCell.LifetimeRange].
 //
 // The default value of this property is `0.0`.
 //
@@ -1043,12 +1045,14 @@ func (e CAEmitterCell) SetLifetime(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLifetime:"), value)
 }
 
-// The mean value by which the [Lifetime] of the cell can vary. Animatable.
+// The mean value by which the [CAEmitterCell.Lifetime] of the cell can vary.
+// Animatable.
 //
 // # Discussion
 //
-// If the [LifetimeRange] is 3 seconds, and the [Lifetime] of the cell is 10
-// seconds, the cell’s actual lifetime will be between 7 and 13 seconds.
+// If the [CAEmitterCell.LifetimeRange] is 3 seconds, and the
+// [CAEmitterCell.Lifetime] of the cell is 10 seconds, the cell’s actual
+// lifetime will be between 7 and 13 seconds.
 //
 // The default value of this property is `0.0`.
 //
@@ -1099,7 +1103,7 @@ func (e CAEmitterCell) SetScaleSpeed(value float64) {
 // # Discussion
 //
 // The velocity of the cell will vary by a random amount within the range
-// specified by [VelocityRange].
+// specified by [CAEmitterCell.VelocityRange].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/velocity
 func (e CAEmitterCell) Velocity() float64 {
@@ -1114,7 +1118,8 @@ func (e CAEmitterCell) SetVelocity(value float64) {
 //
 // # Discussion
 //
-// The range specifies the mean amount the initial [Velocity] value change.
+// The range specifies the mean amount the initial [CAEmitterCell.Velocity]
+// value change.
 //
 // The default value of this property is `0.0`.
 //
@@ -1182,7 +1187,7 @@ func (e CAEmitterCell) SetZAcceleration(value float64) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (o CAEmitterCell) SetBeginTime(value float64) {
+func (o CAEmitterCell) SetBeginTime(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBeginTime:"), value)
 }
 
@@ -1193,7 +1198,7 @@ func (o CAEmitterCell) SetBeginTime(value float64) {
 // Defaults to 0. .
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (o CAEmitterCell) SetTimeOffset(value float64) {
+func (o CAEmitterCell) SetTimeOffset(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTimeOffset:"), value)
 }
 
@@ -1223,7 +1228,7 @@ func (o CAEmitterCell) SetRepeatCount(value float32) {
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (o CAEmitterCell) SetRepeatDuration(value float64) {
+func (o CAEmitterCell) SetRepeatDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRepeatDuration:"), value)
 }
 
@@ -1234,7 +1239,7 @@ func (o CAEmitterCell) SetRepeatDuration(value float64) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (o CAEmitterCell) SetDuration(value float64) {
+func (o CAEmitterCell) SetDuration(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDuration:"), value)
 }
 

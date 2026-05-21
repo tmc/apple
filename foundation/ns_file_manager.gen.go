@@ -213,16 +213,6 @@ func (fc FileManagerClass) Alloc() FileManager {
 // # Unmounting volumes
 //
 //   - [FileManager.UnmountVolumeAtURLOptionsCompletionHandler]: Starts the process of unmounting the specified volume.
-//   - [FileManager.NSFileManagerUnmountDissentingProcessIdentifierErrorKey]: The process identifier of the process that prevented a volume from unmounting.
-//
-// # Determining resource fork support
-//
-//   - [FileManager.NSFoundationVersionWithFileManagerResourceForkSupport]: The version of the Foundation framework in which
-//   - [FileManager.SetNSFoundationVersionWithFileManagerResourceForkSupport]
-//
-// # Notifications
-//
-//   - [FileManager.NSUbiquityIdentityDidChange]: Sent after the iCloud (“ubiquity”) identity has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager
 //
@@ -361,16 +351,6 @@ func NSFileManagerFromID(id objc.ID) FileManager { return FileManagerFromID(id) 
 // # Unmounting volumes
 //
 //   - [IFileManager.UnmountVolumeAtURLOptionsCompletionHandler]: Starts the process of unmounting the specified volume.
-//   - [IFileManager.NSFileManagerUnmountDissentingProcessIdentifierErrorKey]: The process identifier of the process that prevented a volume from unmounting.
-//
-// # Determining resource fork support
-//
-//   - [IFileManager.NSFoundationVersionWithFileManagerResourceForkSupport]: The version of the Foundation framework in which
-//   - [IFileManager.SetNSFoundationVersionWithFileManagerResourceForkSupport]
-//
-// # Notifications
-//
-//   - [IFileManager.NSUbiquityIdentityDidChange]: Sent after the iCloud (“ubiquity”) identity has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager
 type IFileManager interface {
@@ -550,19 +530,6 @@ type IFileManager interface {
 
 	// Starts the process of unmounting the specified volume.
 	UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask NSFileManagerUnmountOptions, completionHandler ErrorHandler)
-	// The process identifier of the process that prevented a volume from unmounting.
-	NSFileManagerUnmountDissentingProcessIdentifierErrorKey() string
-
-	// Topic: Determining resource fork support
-
-	// The version of the Foundation framework in which
-	NSFoundationVersionWithFileManagerResourceForkSupport() unsafe.Pointer
-	SetNSFoundationVersionWithFileManagerResourceForkSupport(value unsafe.Pointer)
-
-	// Topic: Notifications
-
-	// Sent after the iCloud (“ubiquity”) identity has changed.
-	NSUbiquityIdentityDidChange() NSNotificationName
 
 	// Returns a directory enumerator object that can be used to perform a deep enumeration of the directory at the specified URL.
 	EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler URLErrorHandler) INSDirectoryEnumerator
@@ -737,8 +704,8 @@ func (f FileManager) URLsForDirectoryInDomains(directory NSSearchPathDirectory, 
 //
 // You use one of these group identifier strings to locate the corresponding
 // group’s shared directory. When you call
-// [ContainerURLForSecurityApplicationGroupIdentifier] with one of your
-// app’s group identifiers, the method returns an [NSURL] instance
+// [NSFileManager.ContainerURLForSecurityApplicationGroupIdentifier] with one
+// of your app’s group identifiers, the method returns an [NSURL] instance
 // specifying the location in the file system of that group’s shared
 // directory. The behavior of application groups differs between macOS and
 // iOS.
@@ -829,8 +796,8 @@ func (f FileManager) ContainerURLForSecurityApplicationGroupIdentifier(groupIden
 // (”`.`”), parent directory (”`..`”), or resource forks (files that
 // begin with “`._`”) but it does return other hidden files. If you need
 // to perform a deep enumeration, use the
-// [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler] method
-// instead.
+// [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
+// method instead.
 //
 // The order of the files in the returned array is undefined.
 //
@@ -871,7 +838,8 @@ func (f FileManager) ContentsOfDirectoryAtURLIncludingPropertiesForKeysOptionsEr
 // (”`.`”), parent directory (”`..`”), or resource forks (files that
 // begin with “`._`”) but it does return other hidden files (files that
 // begin with a period character). If you need to perform a deep enumeration,
-// use the [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
+// use the
+// [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
 // method instead.
 //
 // The order of the files in the returned array is undefined.
@@ -901,7 +869,8 @@ func (f FileManager) ContentsOfDirectoryAtPathError(path string) ([]string, erro
 // # Discussion
 //
 // If `path` is a filename, the method returns an enumerator object that
-// enumerates no files—the first call to [NextObject] will return `nil`.
+// enumerates no files—the first call to [NSEnumerator.NextObject] will
+// return `nil`.
 //
 // Because the enumeration is deep—that is, it lists the contents of all
 // subdirectories—this enumerator object is useful for performing actions
@@ -973,11 +942,11 @@ func (f FileManager) MountedVolumeURLsIncludingResourceValuesForKeysOptions(prop
 //
 // Because this method recurses the directory’s contents, you might not want
 // to use it in performance-critical code. Instead, consider using the
-// [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler] or
-// [EnumeratorAtPath] method to enumerate the directory contents yourself.
-// Doing so gives you more control over the retrieval of items and more
-// opportunities to complete the enumeration or perform other tasks at the
-// same time.
+// [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
+// or [NSFileManager.EnumeratorAtPath] method to enumerate the directory
+// contents yourself. Doing so gives you more control over the retrieval of
+// items and more opportunities to complete the enumeration or perform other
+// tasks at the same time.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/subpathsOfDirectory(atPath:)
 func (f FileManager) SubpathsOfDirectoryAtPathError(path string) ([]string, error) {
@@ -1016,7 +985,8 @@ func (f FileManager) SubpathsOfDirectoryAtPathError(path string) ([]string, erro
 //
 // # Special Considerations
 //
-// In macOS 10.5 and later, use [SubpathsOfDirectoryAtPathError] instead.
+// In macOS 10.5 and later, use [NSFileManager.SubpathsOfDirectoryAtPathError]
+// instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/subpaths(atPath:)
 func (f FileManager) SubpathsAtPath(path string) []string {
@@ -1186,8 +1156,8 @@ func (f FileManager) CreateFileAtPathContentsAttributes(path string, data INSDat
 //
 // Removing an item also removes all old versions of that item, invalidating
 // any URLs returned by the
-// [URLForPublishingUbiquitousItemAtURLExpirationDateError] method to old
-// versions.
+// [NSFileManager.URLForPublishingUbiquitousItemAtURLExpirationDateError]
+// method to old versions.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/removeItem(at:)
 func (f FileManager) RemoveItemAtURLError(URL INSURL) (bool, error) {
@@ -1226,8 +1196,8 @@ func (f FileManager) RemoveItemAtURLError(URL INSURL) (bool, error) {
 //
 // Removing an item also removes all old versions of that item, invalidating
 // any URLs returned by the
-// [URLForPublishingUbiquitousItemAtURLExpirationDateError] method to old
-// versions.
+// [NSFileManager.URLForPublishingUbiquitousItemAtURLExpirationDateError]
+// method to old versions.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/removeItem(atPath:)
 func (f FileManager) RemoveItemAtPathError(path string) (bool, error) {
@@ -1312,10 +1282,10 @@ func (f FileManager) TrashItemAtURLResultingItemURLError(url INSURL, outResultin
 // parameters are located on the same volume. Attempting to call this method
 // by passing `originalItemURL` and `newItemURL` parameters that have
 // locations on different volumes results in an error. Instead, you can call
-// the [URLForDirectoryInDomainAppropriateForURLCreateError] method, passing
-// [NSItemReplacementDirectory] as the search path directory, to get a
-// temporary URL on the destination’s volume that is suitable for use with
-// this method.
+// the [NSFileManager.URLForDirectoryInDomainAppropriateForURLCreateError]
+// method, passing [NSItemReplacementDirectory] as the search path directory,
+// to get a temporary URL on the destination’s volume that is suitable for
+// use with this method.
 //
 // If an error occurs and the original item is not in the original location or
 // a temporary location, the resulting error object contains a user info
@@ -1617,10 +1587,11 @@ func (f FileManager) URLForUbiquityContainerIdentifier(containerIdentifier strin
 // # Discussion
 //
 // This method reflects only whether the item should be stored in iCloud
-// because a call was made to the [SetUbiquitousItemAtURLDestinationURLError]
-// method with a value of true for its `flag` parameter. This method does not
-// reflect whether the file has actually been uploaded to any iCloud servers.
-// To determine a file’s upload status, check the
+// because a call was made to the
+// [NSFileManager.SetUbiquitousItemAtURLDestinationURLError] method with a
+// value of true for its `flag` parameter. This method does not reflect
+// whether the file has actually been uploaded to any iCloud servers. To
+// determine a file’s upload status, check the
 // [NSURLUbiquitousItemIsUploadedKey] attribute of the corresponding [NSURL]
 // object.
 //
@@ -1639,13 +1610,13 @@ func (f FileManager) IsUbiquitousItemAtURL(url INSURL) bool {
 //
 // destinationURL: When moving a file into iCloud, this is the location in iCloud at which to
 // store the file or directory. This URL must be constructed from a URL
-// returned by the [URLForUbiquityContainerIdentifier] method, which you use
-// to retrieve the desired iCloud container directory. The URL you specify may
-// contain additional subdirectories so that you can organize your files
-// hierarchically in iCloud. However, you are responsible for creating those
-// intermediate subdirectories (using the [NSFileManager] class) in your
-// iCloud container directory. When moving a file , this is the location on
-// the local device.
+// returned by the [NSFileManager.URLForUbiquityContainerIdentifier] method,
+// which you use to retrieve the desired iCloud container directory. The URL
+// you specify may contain additional subdirectories so that you can organize
+// your files hierarchically in iCloud. However, you are responsible for
+// creating those intermediate subdirectories (using the [NSFileManager]
+// class) in your iCloud container directory. When moving a file , this is the
+// location on the local device.
 //
 // # Discussion
 //
@@ -1695,6 +1666,8 @@ func (f FileManager) SetUbiquitousItemAtURLDestinationURLError(flag bool, url IN
 // file.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)
+//
+// [NSMetadataUbiquitousItemDownloadingStatusKey]: https://developer.apple.com/documentation/Foundation/NSMetadataUbiquitousItemDownloadingStatusKey
 func (f FileManager) StartDownloadingUbiquitousItemAtURLError(url INSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](f.ID, objc.Sel("startDownloadingUbiquitousItemAtURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -1722,9 +1695,9 @@ func (f FileManager) StartDownloadingUbiquitousItemAtURLError(url INSURL) (bool,
 // thread as the call to this method, to avoid deadlocking.
 //
 // This method doesn’t remove the item from iCloud. It removes only the
-// local version. You can then use [StartDownloadingUbiquitousItemAtURLError]
-// to force iCloud to download a new version of the file or directory from the
-// server.
+// local version. You can then use
+// [NSFileManager.StartDownloadingUbiquitousItemAtURLError] to force iCloud to
+// download a new version of the file or directory from the server.
 //
 // To delete a file permanently from the user’s iCloud storage, use the
 // regular [NSFileManager] routines for deleting files and directories.
@@ -1751,9 +1724,10 @@ func (f FileManager) EvictUbiquitousItemAtURLError(url INSURL) (bool, error) {
 //
 // url: The URL of the item in the cloud that you want to share. The URL must be
 // prefixed with the base URL returned from the
-// [URLForUbiquityContainerIdentifier] method that corresponds to the item’s
-// location. The file must be a flat file, not a bundle. The file at the
-// specified URL must already be uploaded to iCloud when you call this method.
+// [NSFileManager.URLForUbiquityContainerIdentifier] method that corresponds
+// to the item’s location. The file must be a flat file, not a bundle. The
+// file at the specified URL must already be uploaded to iCloud when you call
+// this method.
 //
 // outDate: On input, a pointer to a variable for a date object. On output, this
 // parameter contains the date after which the item is no longer available at
@@ -1774,9 +1748,9 @@ func (f FileManager) EvictUbiquitousItemAtURLError(url INSURL) (bool, error) {
 // are made to the original file in the user’s iCloud storage. The snapshot
 // file remains available at the specified URL until the date specified in the
 // `outDate` parameter, after which it is automatically deleted. Explicitly
-// deleting the item by calling the [RemoveItemAtURLError] or
-// [RemoveItemAtPathError] method also deletes all old versions of the item,
-// invalidating URLs to those versions returned by this method.
+// deleting the item by calling the [NSFileManager.RemoveItemAtURLError] or
+// [NSFileManager.RemoveItemAtPathError] method also deletes all old versions
+// of the item, invalidating URLs to those versions returned by this method.
 //
 // Your app must have access to the network for this call to succeed. If the
 // specified file is in the process of being uploaded to iCloud, you must not
@@ -1811,7 +1785,7 @@ func (f FileManager) URLForPublishingUbiquitousItemAtURLExpirationDateError(url 
 // nor download remote changes.
 //
 // While paused, call
-// [UploadLocalVersionOfUbiquitousItemAtURLWithConflictResolutionPolicyCompletionHandler]
+// [NSFileManager.UploadLocalVersionOfUbiquitousItemAtURLWithConflictResolutionPolicyCompletionHandler]
 // when the document is in a stable state. This action keeps the server
 // version as up-to-date as possible.
 //
@@ -1825,12 +1799,13 @@ func (f FileManager) URLForPublishingUbiquitousItemAtURLExpirationDateError(url 
 // Pausing sync is independent of the calling app’s lifecycle; sync
 // doesn’t automatically resume if the app closes or crashes and relaunches
 // later. To resume syncing, explicitly call
-// [ResumeSyncForUbiquitousItemAtURLWithBehaviorCompletionHandler]. Always be
-// sure to resume syncing before you close the item.
+// [NSFileManager.ResumeSyncForUbiquitousItemAtURLWithBehaviorCompletionHandler].
+// Always be sure to resume syncing before you close the item.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/pauseSyncForUbiquitousItem(at:completionHandler:)
 //
 // [EBUSY]: https://developer.apple.com/documentation/Foundation/POSIXError/EBUSY
+// [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 // [featureUnsupported]: https://developer.apple.com/documentation/Foundation/CocoaError/featureUnsupported
 func (f FileManager) PauseSyncForUbiquitousItemAtURLCompletionHandler(url INSURL, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
@@ -1901,8 +1876,9 @@ func (f FileManager) ResumeSyncForUbiquitousItemAtURLWithBehaviorCompletionHandl
 // version and sync isn’t paused, this call replaces the local item and
 // provides the version of the new item. - If the server has a newer version
 // but sync is paused, the returned version points to a side location. In this
-// case, call [ReplaceItemAtURLOptionsError] on the provided version object to
-// replace the local item with the newer item from the server.
+// case, call [NSFileVersion.ReplaceItemAtURLOptionsError] on the provided
+// version object to replace the local item with the newer item from the
+// server.
 //
 // If the device isn’t connected to the network, the call may fail with
 // [NSFileReadUnknownError], with the underlying error of [serverUnreachable].
@@ -1939,8 +1915,8 @@ func (f FileManager) FetchLatestRemoteVersionOfItemAtURLCompletionHandler(url IN
 // If the server has a newer version than the one to which the app made
 // changes, uploading fails with [NSFileWriteUnknownError], with an underlying
 // error of [localVersionConflictingWithServer]. In this case, call
-// [FetchLatestRemoteVersionOfItemAtURLCompletionHandler], rebase local
-// changes on top of that version, and retry the upload.
+// [NSFileManager.FetchLatestRemoteVersionOfItemAtURLCompletionHandler],
+// rebase local changes on top of that version, and retry the upload.
 //
 // If the device isn’t connected to the network, the call may fail with
 // [NSFileWriteUnknownError], with the underlying error of
@@ -2133,8 +2109,8 @@ func (f FileManager) DestinationOfSymbolicLinkAtPathError(path string) (string, 
 // at a specified path.
 //
 // path: The path of the file or directory. If `path` begins with a tilde (`~`), it
-// must first be expanded with [StringByExpandingTildeInPath]; otherwise, this
-// method returns false.
+// must first be expanded with [NSString.StringByExpandingTildeInPath];
+// otherwise, this method returns false.
 //
 // App Sandbox does not restrict which path values may be passed to this
 // parameter.
@@ -2162,8 +2138,8 @@ func (f FileManager) FileExistsAtPath(path string) bool {
 // at a specified path.
 //
 // path: The path of a file or directory. If `path` begins with a tilde (`~`), it
-// must first be expanded with [StringByExpandingTildeInPath], or this method
-// will return false.
+// must first be expanded with [NSString.StringByExpandingTildeInPath], or
+// this method will return false.
 //
 // isDirectory: Upon return, contains true if `path` is a directory or if the final path
 // element is a symbolic link that points to a directory; otherwise, contains
@@ -2368,16 +2344,19 @@ func (f FileManager) DisplayNameAtPath(path string) string {
 //
 // If the item at the path is a symbolic link—that is, the value of the
 // [type] key in the attributes dictionary is [typeSymbolicLink]—you can use
-// the [DestinationOfSymbolicLinkAtPathError] method to retrieve the path of
-// the item pointed to by the link. You can also use the
-// [StringByResolvingSymlinksInPath] method of [NSString] to resolve links in
-// the path before retrieving the item’s attributes.
+// the [NSFileManager.DestinationOfSymbolicLinkAtPathError] method to retrieve
+// the path of the item pointed to by the link. You can also use the
+// [NSString.StringByResolvingSymlinksInPath] method of [NSString] to resolve
+// links in the path before retrieving the item’s attributes.
 //
 // As a convenience, [NSDictionary] provides a set of methods (declared as a
 // category on [NSDictionary]) for quickly and efficiently obtaining attribute
-// information from the returned dictionary: [FileGroupOwnerAccountName],
-// [FileModificationDate], [FileOwnerAccountName], [FilePosixPermissions],
-// [FileSize], [FileSystemFileNumber], [FileSystemNumber], and [FileType].
+// information from the returned dictionary:
+// [NSDictionary.FileGroupOwnerAccountName],
+// [NSDictionary.FileModificationDate], [NSDictionary.FileOwnerAccountName],
+// [NSDictionary.FilePosixPermissions], [NSDictionary.FileSize],
+// [NSDictionary.FileSystemFileNumber], [NSDictionary.FileSystemNumber], and
+// [NSDictionary.FileType].
 //
 // # Discussion
 //
@@ -2702,8 +2681,8 @@ func (f FileManager) UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask
 //
 // url: The location of the directory for which you want an enumeration. This URL
 // must not be a symbolic link that points to the desired directory. You can
-// use the [URLByResolvingSymlinksInPath] method to resolve any symlinks in
-// the URL.
+// use the [NSURL.URLByResolvingSymlinksInPath] method to resolve any symlinks
+// in the URL.
 //
 // keys: An array of keys that identify the properties that you want pre-fetched for
 // each item in the enumeration. The values for these keys are cached in the
@@ -2729,8 +2708,8 @@ func (f FileManager) UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask
 //
 // An directory enumerator object that enumerates the contents of the
 // directory at `url`. If `url` is a filename, the method returns an
-// enumerator object that enumerates no files—the first call to [NextObject]
-// returns `nil`.
+// enumerator object that enumerates no files—the first call to
+// [NSEnumerator.NextObject] returns `nil`.
 //
 // # Discussion
 //
@@ -2752,8 +2731,9 @@ func (f FileManager) UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask
 // The [NSDirectoryEnumerator] class has methods for skipping descendants of
 // the existing path and for returning the number of levels deep the current
 // object is in the directory hierarchy being enumerated (where the directory
-// passed to [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler] is
-// considered to be level 0).
+// passed to
+// [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
+// is considered to be level 0).
 //
 // This code fragment enumerates a URL and its subdirectories, collecting the
 // URLs of files (skips directories). It also demonstrates how to ignore the
@@ -2806,8 +2786,8 @@ func (f FileManager) TemporaryDirectory() INSURL {
 //
 // Accessing the token in this property doesn’t connect your app to its
 // ubiquity containers. To establish access to a ubiquity container, call the
-// [URLForUbiquityContainerIdentifier] method. In macOS, you can instead use
-// an [NSDocument] object, which establishes access automatically.
+// [NSFileManager.URLForUbiquityContainerIdentifier] method. In macOS, you can
+// instead use an [NSDocument] object, which establishes access automatically.
 //
 // CloudKit clients should not use this token as a way to identify whether the
 // iCloud account is logged in. Instead, use
@@ -2817,6 +2797,7 @@ func (f FileManager) TemporaryDirectory() INSURL {
 // See: https://developer.apple.com/documentation/Foundation/FileManager/ubiquityIdentityToken
 //
 // [NSDocument]: https://developer.apple.com/documentation/AppKit/NSDocument
+// [NSUbiquityIdentityDidChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUbiquityIdentityDidChange
 // [accountStatus(completionHandler:)]: https://developer.apple.com/documentation/CloudKit/CKContainer/accountStatus(completionHandler:)
 // [fetchUserRecordID(completionHandler:)]: https://developer.apple.com/documentation/CloudKit/CKContainer/fetchUserRecordID(completionHandler:)
 // [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
@@ -2831,8 +2812,8 @@ func (f FileManager) UbiquityIdentityToken() objectivec.IObject {
 //
 // It is recommended that you assign a delegate to the file manager object
 // only if you allocated and initialized the object yourself. Avoid assigning
-// a delegate to the shared file manager obtained from the [DefaultManager]
-// method.
+// a delegate to the shared file manager obtained from the
+// [NSFileManagerClass.DefaultManager] method.
 //
 // The default value of this property is `nil`. When assigning a delegate to
 // this property, your object must conform to the [NSFileManagerDelegate]
@@ -2860,40 +2841,12 @@ func (f FileManager) SetDelegate(value NSFileManagerDelegate) {
 // current working directory. If the current working directory is not
 // accessible for any reason, the value of this property is `nil`. You can
 // change the value of this property by calling the
-// [ChangeCurrentDirectoryPath] method.
+// [NSFileManager.ChangeCurrentDirectoryPath] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/currentDirectoryPath
 func (f FileManager) CurrentDirectoryPath() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("currentDirectoryPath"))
 	return NSStringFromID(rv).String()
-}
-
-// The process identifier of the process that prevented a volume from
-// unmounting.
-//
-// See: https://developer.apple.com/documentation/foundation/nsfilemanagerunmountdissentingprocessidentifiererrorkey
-func (f FileManager) NSFileManagerUnmountDissentingProcessIdentifierErrorKey() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileManagerUnmountDissentingProcessIdentifierErrorKey"))
-	return NSStringFromID(rv).String()
-}
-
-// The version of the Foundation framework in which
-//
-// See: https://developer.apple.com/documentation/foundation/nsfoundationversionwithfilemanagerresourceforksupport
-func (f FileManager) NSFoundationVersionWithFileManagerResourceForkSupport() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("NSFoundationVersionWithFileManagerResourceForkSupport"))
-	return rv
-}
-func (f FileManager) SetNSFoundationVersionWithFileManagerResourceForkSupport(value unsafe.Pointer) {
-	objc.Send[struct{}](f.ID, objc.Sel("setNSFoundationVersionWithFileManagerResourceForkSupport:"), value)
-}
-
-// Sent after the iCloud (“ubiquity”) identity has changed.
-//
-// See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsubiquityidentitydidchange
-func (f FileManager) NSUbiquityIdentityDidChange() NSNotificationName {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSUbiquityIdentityDidChangeNotification"))
-	return NSNotificationName(NSStringFromID(rv).String())
 }
 
 // The shared file manager object for the process.

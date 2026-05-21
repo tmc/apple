@@ -491,7 +491,7 @@ func (e MTLArgumentBuffersTier) String() string {
 type MTLArgumentType uint
 
 const (
-	// Deprecated.
+	// Deprecated: use MTLBindingType.
 	MTLArgumentTypeBuffer MTLArgumentType = 0
 	// Deprecated.
 	MTLArgumentTypeImageblock MTLArgumentType = 17
@@ -503,11 +503,11 @@ const (
 	MTLArgumentTypeIntersectionFunctionTable MTLArgumentType = 27
 	// Deprecated.
 	MTLArgumentTypePrimitiveAccelerationStructure MTLArgumentType = 25
-	// Deprecated.
+	// Deprecated: use MTLBindingType.
 	MTLArgumentTypeSampler MTLArgumentType = 3
-	// Deprecated.
+	// Deprecated: use MTLBindingType.
 	MTLArgumentTypeTexture MTLArgumentType = 2
-	// Deprecated.
+	// Deprecated: use MTLBindingType.
 	MTLArgumentTypeThreadgroupMemory MTLArgumentType = 1
 	// Deprecated.
 	MTLArgumentTypeVisibleFunctionTable MTLArgumentType = 24
@@ -1212,7 +1212,7 @@ const (
 	MTLCommandBufferErrorStackOverflow MTLCommandBufferError = 12
 	// MTLCommandBufferErrorTimeout: An error code that indicates the system interrupted and terminated the command buffer before it finished running.
 	MTLCommandBufferErrorTimeout MTLCommandBufferError = 2
-	// Deprecated.
+	// Deprecated: use MTLCommandBufferErrorAccessRevoked.
 	MTLCommandBufferErrorBlacklisted MTLCommandBufferError = 4
 )
 
@@ -2247,7 +2247,7 @@ const (
 	MTLFunctionOptionPipelineIndependent MTLFunctionOptions = 8
 	// MTLFunctionOptionStoreFunctionInMetalPipelinesScript: An option that instructs the compiler to store function information for inspecting binary archives.
 	MTLFunctionOptionStoreFunctionInMetalPipelinesScript MTLFunctionOptions = 2
-	// Deprecated.
+	// Deprecated: use MTLFunctionOptionStoreFunctionInMetalPipelinesScript.
 	MTLFunctionOptionStoreFunctionInMetalScript MTLFunctionOptions = 2
 )
 
@@ -2341,11 +2341,11 @@ const (
 	// MTLGPUFamilyMetal3: Represents the Metal 3 features.
 	MTLGPUFamilyMetal3 MTLGPUFamily = 5001
 	MTLGPUFamilyMetal4 MTLGPUFamily = 5002
-	// Deprecated.
+	// Deprecated: use MTLGPUFamilyMac2.
 	MTLGPUFamilyMac1 MTLGPUFamily = 2001
-	// Deprecated.
+	// Deprecated: use MTLGPUFamilyMac2.
 	MTLGPUFamilyMacCatalyst1 MTLGPUFamily = 4001
-	// Deprecated.
+	// Deprecated: use MTLGPUFamilyMac2.
 	MTLGPUFamilyMacCatalyst2 MTLGPUFamily = 4002
 )
 
@@ -3112,7 +3112,7 @@ const (
 	MTLPipelineOptionFailOnBinaryArchiveMiss MTLPipelineOption = 4
 	// MTLPipelineOptionNone: Don’t provide any reflection information.
 	MTLPipelineOptionNone MTLPipelineOption = 0
-	// Deprecated.
+	// Deprecated: use MTLPipelineOptionBindingInfo.
 	MTLPipelineOptionArgumentInfo MTLPipelineOption = 1
 )
 
@@ -3877,7 +3877,7 @@ const (
 	MTLResourceStorageModeShared MTLResourceOptions = 0
 	// Deprecated.
 	MTLResourceOptionCPUCacheModeDefault MTLResourceOptions = 0
-	// Deprecated.
+	// Deprecated: use MTLResourceCPUCacheModeWriteCombined.
 	MTLResourceOptionCPUCacheModeWriteCombined MTLResourceOptions = 1
 )
 
@@ -3904,7 +3904,7 @@ const (
 	MTLResourceUsageRead MTLResourceUsage = 1
 	// MTLResourceUsageWrite: An option that enables writing to the resource.
 	MTLResourceUsageWrite MTLResourceUsage = 2
-	// Deprecated.
+	// Deprecated: use MTLResourceUsageRead.
 	MTLResourceUsageSample MTLResourceUsage = 4
 )
 

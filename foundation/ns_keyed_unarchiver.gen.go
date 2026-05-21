@@ -64,8 +64,9 @@ func (nc NSKeyedUnarchiverClass) Alloc() NSKeyedUnarchiver {
 // If you invoke one of the `decode`-prefixed methods of this class using a
 // key that does not exist in the archive, the return value indicates failure.
 // This value varies by decoded type. For example, if a key does not exist in
-// an archive, [NSKeyedUnarchiver.DecodeBoolForKey] returns false, [NSKeyedUnarchiver.DecodeIntForKey] returns
-// `0`, and [NSKeyedUnarchiver.DecodeObjectForKey] returns `nil`.
+// an archive, [NSKeyedUnarchiver.DecodeBoolForKey] returns false,
+// [NSKeyedUnarchiver.DecodeIntForKey] returns `0`, and
+// [NSKeyedUnarchiver.DecodeObjectForKey] returns `nil`.
 //
 // [NSKeyedUnarchiver] supports limited type coercion for numeric types. You
 // can use any of the integer decode methods to decode a value encoded as any
@@ -73,9 +74,9 @@ func (nc NSKeyedUnarchiverClass) Alloc() NSKeyedUnarchiver {
 // integer. Likewise, you can use the [Float]- or [Double]-returning decode
 // methods to handle value encoded as a [Float] or [Double]. If an encoded
 // value is too large to fit within the coerced type, the decoding method
-// throws a [NSKeyedUnarchiver.RangeException]. Further, when trying to coerce a value to an
+// throws a [rangeException]. Further, when trying to coerce a value to an
 // incompatible type — for example decoding an [Int] as a [Float] — the
-// decoding method throws an [NSKeyedUnarchiver.InvalidUnarchiveOperationException].
+// decoding method throws an [invalidUnarchiveOperationException].
 //
 // # Creating a Keyed Unarchiver
 //
@@ -91,6 +92,9 @@ func (nc NSKeyedUnarchiverClass) Alloc() NSKeyedUnarchiver {
 //   - [NSKeyedUnarchiver.SetDelegate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver
+//
+// [invalidUnarchiveOperationException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidUnarchiveOperationException
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 type NSKeyedUnarchiver struct {
 	NSCoder
 }
@@ -139,11 +143,6 @@ type INSKeyedUnarchiver interface {
 	// The receiver’s delegate.
 	Delegate() NSKeyedUnarchiverDelegate
 	SetDelegate(value NSKeyedUnarchiverDelegate)
-
-	// The name of the exception raised by
-	InvalidUnarchiveOperationException() NSExceptionName
-	// Name of an exception that occurs when attempting to access outside the bounds of some data, such as beyond the end of a string.
-	RangeException() NSExceptionName
 }
 
 // Init initializes the instance.
@@ -171,10 +170,11 @@ func NewNSKeyedUnarchiver() NSKeyedUnarchiver {
 //
 // # Discussion
 //
-// This initializer enables [RequiresSecureCoding] by default, and sets the
-// [DecodingFailurePolicy] to [NSDecodingFailurePolicySetErrorAndReturn].
+// This initializer enables [NSKeyedUnarchiver.RequiresSecureCoding] by
+// default, and sets the [NSKeyedUnarchiver.DecodingFailurePolicy] to
+// [NSDecodingFailurePolicySetErrorAndReturn].
 //
-// Call [FinishDecoding] when you finish decoding data
+// Call [NSKeyedUnarchiver.FinishDecoding] when you finish decoding data
 //
 // This method throws an error if `data` isn’t a valid keyed archive.
 //
@@ -196,10 +196,11 @@ func NewKeyedUnarchiverForReadingFromDataError(data INSData) (NSKeyedUnarchiver,
 //
 // # Discussion
 //
-// This initializer enables [RequiresSecureCoding] by default, and sets the
-// [DecodingFailurePolicy] to [NSDecodingFailurePolicySetErrorAndReturn].
+// This initializer enables [NSKeyedUnarchiver.RequiresSecureCoding] by
+// default, and sets the [NSKeyedUnarchiver.DecodingFailurePolicy] to
+// [NSDecodingFailurePolicySetErrorAndReturn].
 //
-// Call [FinishDecoding] when you finish decoding data
+// Call [NSKeyedUnarchiver.FinishDecoding] when you finish decoding data
 //
 // This method throws an error if `data` isn’t a valid keyed archive.
 //
@@ -269,7 +270,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassesF
 // translation is found first in an instance’s separate translation map.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/setClass(_:forClassName:)-swift.type.method
-func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) SetClassForClassName(cls objc.Class, codedName string) {
+func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) SetClassForClassName(cls objectivec.Class, codedName string) {
 	objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("setClass:forClassName:"), cls, objc.String(codedName))
 }
 
@@ -285,9 +286,9 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) SetClassForClassName(cls o
 // not have a translation mapping for `codedName`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/class(forClassName:)-swift.type.method
-func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) ClassForClassNameWithCodedName(codedName string) objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("classForClassName:"), objc.String(codedName))
-	return rv
+func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) ClassForClassNameWithCodedName(codedName string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("classForClassName:"), objc.String(codedName))
+	return objectivec.Class(rv)
 }
 
 // Decodes the \c NSArray root object from \c data which should be an \c
@@ -304,7 +305,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) ClassForClassNameWithCoded
 // sets the \c error out parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedArrayOfObjectsOfClass:fromData:error:
-func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOfClassFromDataError(cls objc.Class, data INSData) (INSArray, error) {
+func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOfClassFromDataError(cls objectivec.Class, data INSData) (INSArray, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedArrayOfObjectsOfClass:fromData:error:"), cls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -355,7 +356,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOf
 // sets the \c error out parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedDictionaryWithKeysOfClass:objectsOfClass:fromData:error:
-func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKeysOfClassObjectsOfClassFromDataError(keyCls objc.Class, valueCls objc.Class, data INSData) (INSDictionary, error) {
+func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKeysOfClassObjectsOfClassFromDataError(keyCls objectivec.Class, valueCls objectivec.Class, data INSData) (INSDictionary, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedDictionaryWithKeysOfClass:objectsOfClass:fromData:error:"), keyCls, valueCls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -411,7 +412,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKe
 // This method produces an error if `data` does not contain valid keyed data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedObjectOfClass:fromData:error:
-func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassFromDataError(cls objc.Class, data INSData) (objectivec.IObject, error) {
+func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassFromDataError(cls objectivec.Class, data INSData) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedObjectOfClass:fromData:error:"), cls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -431,21 +432,4 @@ func (k NSKeyedUnarchiver) Delegate() NSKeyedUnarchiverDelegate {
 }
 func (k NSKeyedUnarchiver) SetDelegate(value NSKeyedUnarchiverDelegate) {
 	objc.Send[struct{}](k.ID, objc.Sel("setDelegate:"), value)
-}
-
-// The name of the exception raised by
-//
-// See: https://developer.apple.com/documentation/foundation/nsexceptionname/invalidunarchiveoperationexception
-func (k NSKeyedUnarchiver) InvalidUnarchiveOperationException() NSExceptionName {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("NSInvalidUnarchiveOperationException"))
-	return NSExceptionName(NSStringFromID(rv).String())
-}
-
-// Name of an exception that occurs when attempting to access outside the
-// bounds of some data, such as beyond the end of a string.
-//
-// See: https://developer.apple.com/documentation/foundation/nsexceptionname/rangeexception
-func (k NSKeyedUnarchiver) RangeException() NSExceptionName {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("NSRangeException"))
-	return NSExceptionName(NSStringFromID(rv).String())
 }

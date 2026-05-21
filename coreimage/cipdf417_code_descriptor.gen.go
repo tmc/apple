@@ -133,6 +133,13 @@ func NewCIPDF417CodeDescriptor() CIPDF417CodeDescriptor {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func NewPDF417CodeDescriptorWithCoder(coder foundation.INSCoder) CIPDF417CodeDescriptor {
+	instance := getCIPDF417CodeDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIPDF417CodeDescriptorFromID(rv)
+}
+
 // Initializes an PDF417 code descriptor for the given payload and parameters.
 //
 // errorCorrectedPayload: The data to encode in the PDF417 code symbol.

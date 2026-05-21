@@ -6,7 +6,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -99,10 +98,6 @@ func (nc NEFilterProviderClass) Alloc() NEFilterProvider {
 //
 //   - [NEFilterProvider.HandleReport]: Receives a report from the framework.
 //
-// # Handling errors
-//
-//   - [NEFilterProvider.NEFilterErrorDomain]: The domain for errors resulting from calls to the filter manager.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProvider
 //
 // [NEFilterControlProvider]: https://developer.apple.com/documentation/NetworkExtension/NEFilterControlProvider
@@ -135,10 +130,6 @@ func NEFilterProviderFromID(id objc.ID) NEFilterProvider {
 //
 //   - [INEFilterProvider.HandleReport]: Receives a report from the framework.
 //
-// # Handling errors
-//
-//   - [INEFilterProvider.NEFilterErrorDomain]: The domain for errors resulting from calls to the filter manager.
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProvider
 type INEFilterProvider interface {
 	INEProvider
@@ -159,11 +150,6 @@ type INEFilterProvider interface {
 
 	// Receives a report from the framework.
 	HandleReport(report INEFilterReport)
-
-	// Topic: Handling errors
-
-	// The domain for errors resulting from calls to the filter manager.
-	NEFilterErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -232,8 +218,8 @@ func (f NEFilterProvider) StopFilterWithReasonCompletionHandler(reason NEProvide
 // # Discussion
 //
 // The framework calls this method when the data provider extension returns a
-// verdict with the [ShouldReport] property set to true. Override this method
-// in a subclass if you want to handle the flow report.
+// verdict with the [NEFilterVerdict.ShouldReport] property set to true.
+// Override this method in a subclass if you want to handle the flow report.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProvider/handle(_:)
 func (f NEFilterProvider) HandleReport(report INEFilterReport) {
@@ -255,14 +241,6 @@ func (f NEFilterProvider) HandleReport(report INEFilterReport) {
 func (f NEFilterProvider) FilterConfiguration() INEFilterProviderConfiguration {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filterConfiguration"))
 	return NEFilterProviderConfigurationFromID(objc.ID(rv))
-}
-
-// The domain for errors resulting from calls to the filter manager.
-//
-// See: https://developer.apple.com/documentation/networkextension/nefiltererrordomain
-func (f NEFilterProvider) NEFilterErrorDomain() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NEFilterErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // StartFilter is a synchronous wrapper around [NEFilterProvider.StartFilterWithCompletionHandler].

@@ -538,7 +538,7 @@ const (
 	KCMIODevicePropertySuspendedByUser                      KCMIODeviceProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 'u' // 'sbyu'
 	KCMIODevicePropertyTransportType                        KCMIODeviceProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
 	KCMIODevicePropertyVideoDigitizerComponents             KCMIODeviceProperty = 'v'<<24 | 'd'<<16 | 'i'<<8 | 'g' // 'vdig'
-	// Deprecated.
+	// Deprecated: use KCMIODevicePropertyDeviceControl.
 	KCMIODevicePropertyDeviceMaster KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | 'h' // 'pmnh'
 )
 
@@ -734,7 +734,7 @@ const (
 	KCMIOHardwarePropertySuspendedBySystem                 KCMIOHardwareProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 's' // 'sbys'
 	KCMIOHardwarePropertyUnloadingIsAllowed                KCMIOHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
 	KCMIOHardwarePropertyUserSessionIsActiveOrHeadless     KCMIOHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
-	// Deprecated.
+	// Deprecated: use KCMIOHardwarePropertyProcessIsMain.
 	KCMIOHardwarePropertyProcessIsMaster KCMIOHardwareProperty = 'm'<<24 | 'a'<<16 | 's'<<8 | 't' // 'mast'
 )
 
@@ -781,7 +781,7 @@ const (
 	KCMIOObjectPropertyElementMain KCMIOObject = 0
 	KCMIOObjectPropertyScopeGlobal KCMIOObject = 'g'<<24 | 'l'<<16 | 'o'<<8 | 'b' // 'glob'
 	KCMIOObjectUnknown             KCMIOObject = 0
-	// Deprecated.
+	// Deprecated: use KCMIOObjectPropertyElementMain.
 	KCMIOObjectPropertyElementMaster KCMIOObject = 0
 )
 

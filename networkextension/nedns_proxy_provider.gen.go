@@ -65,7 +65,8 @@ func (nc NEDNSProxyProviderClass) Alloc() NEDNSProxyProvider {
 // for the following methods:
 //
 // - [NEDNSProxyProvider.StartProxyWithOptionsCompletionHandler] -
-// [NEDNSProxyProvider.StopProxyWithReasonCompletionHandler] - [NEDNSProxyProvider.HandleNewFlow]
+// [NEDNSProxyProvider.StopProxyWithReasonCompletionHandler] -
+// [NEDNSProxyProvider.HandleNewFlow]
 //
 // # Managing the DNS proxy life cycle
 //
@@ -162,8 +163,8 @@ func NewNEDNSProxyProvider() NEDNSProxyProvider {
 // options: A dictionary that you define as part of a device configuration profile. You
 // can also modify the contents of this dictionary from your app using the
 // shared instance of [NEDNSProxyManager]. The dictionary appears as the
-// [ProviderConfiguration] component of the manager’s [ProviderProtocol]
-// property.
+// [NEDNSProxyProviderProtocol.ProviderConfiguration] component of the
+// manager’s [NEDNSProxyManager.ProviderProtocol] property.
 //
 // completionHandler: A block that you must execute when the proxy is fully established, or when
 // the proxy cannot be started due to an error. If the proxy is successfully
@@ -238,7 +239,8 @@ func (d NEDNSProxyProvider) CancelProxyWithError(error_ foundation.NSError) {
 // from the flow.
 //
 // The proxy provider indicates that the proxy is ready to handle flow data by
-// calling the flow’s [OpenWithLocalEndpointCompletionHandler] method.
+// calling the flow’s
+// [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler] method.
 //
 // If the proxy implementation decides to handle the flow, it’s responsible
 // for retaining a reference to the flow instance.

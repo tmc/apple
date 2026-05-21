@@ -52,8 +52,9 @@ func (ac AVCaptureAudioFileOutputClass) Alloc() AVCaptureAudioFileOutput {
 // addition, you can configure options specific to the audio file formats,
 // including writing metadata collections to each file and specifying audio
 // encoding options. [AVCaptureAudioFileOutput] does not, however, support
-// [StartRecordingToOutputFileURLRecordingDelegate]—use
-// [AVCaptureAudioFileOutput.StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate] instead.
+// [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate]—use
+// [AVCaptureAudioFileOutput.StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate]
+// instead.
 //
 // # Starting a recording
 //
@@ -138,7 +139,7 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 //
 // outputFileURL: The URL of the output file.
 //
-// This method throws an [InvalidArgumentException] if the URL is not a valid
+// This method throws an [invalidArgumentException] if the URL is not a valid
 // file URL.
 //
 // If a file at the given URL already exists when capturing starts, recording
@@ -155,10 +156,10 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 //
 // # Discussion
 //
-// You do not need not to call [StopRecording] before calling this method
-// while another recording is in progress. If this method is invoked while an
-// existing output file was already being recorded, no media samples will be
-// discarded between the old file and the new file.
+// You do not need not to call [AVCaptureFileOutput.StopRecording] before
+// calling this method while another recording is in progress. If this method
+// is invoked while an existing output file was already being recorded, no
+// media samples will be discarded between the old file and the new file.
 //
 // When recording is stopped—by calling `stopRecording`, by changing files
 // using this method, or because of an error—the remaining data that needs
@@ -176,6 +177,8 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 // in the sample buffer passed to that method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioFileOutput/startRecording(to:outputFileType:recordingDelegate:)
+//
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 func (c AVCaptureAudioFileOutput) StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate(outputFileURL foundation.NSURL, fileType AVFileType, delegate AVCaptureFileOutputRecordingDelegate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startRecordingToOutputFileURL:outputFileType:recordingDelegate:"), outputFileURL, objc.String(string(fileType)), delegate)
 }

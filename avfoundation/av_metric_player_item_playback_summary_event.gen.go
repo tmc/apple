@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -99,8 +100,8 @@ type IAVMetricPlayerItemPlaybackSummaryEvent interface {
 	PlaybackDuration() int
 	RecoverableErrorCount() int
 	StallCount() int
-	TimeSpentInInitialStartup() float64
-	TimeSpentRecoveringFromStall() float64
+	TimeSpentInInitialStartup() foundation.NSTimeInterval
+	TimeSpentRecoveringFromStall() foundation.NSTimeInterval
 	TimeWeightedAverageBitrate() int
 	TimeWeightedPeakBitrate() int
 	VariantSwitchCount() int
@@ -123,6 +124,13 @@ func NewAVMetricPlayerItemPlaybackSummaryEvent() AVMetricPlayerItemPlaybackSumma
 	class := getAVMetricPlayerItemPlaybackSummaryEventClass()
 	rv := objc.Send[AVMetricPlayerItemPlaybackSummaryEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemPlaybackSummaryEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemPlaybackSummaryEvent {
+	instance := getAVMetricPlayerItemPlaybackSummaryEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemPlaybackSummaryEventFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/errorEvent
@@ -156,15 +164,15 @@ func (m AVMetricPlayerItemPlaybackSummaryEvent) StallCount() int {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeSpentInInitialStartup
-func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentInInitialStartup() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("timeSpentInInitialStartup"))
-	return rv
+func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentInInitialStartup() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("timeSpentInInitialStartup"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeSpentRecoveringFromStall
-func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentRecoveringFromStall() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("timeSpentRecoveringFromStall"))
-	return rv
+func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentRecoveringFromStall() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("timeSpentRecoveringFromStall"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeWeightedAverageBitrate

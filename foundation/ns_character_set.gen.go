@@ -71,12 +71,13 @@ func (nc NSCharacterSetClass) Alloc() NSCharacterSet {
 // The [NSCharacterSet] class declares the programmatic interface for an
 // object that manages a set of Unicode characters (see the [NSString] class
 // cluster specification for information on Unicode). [NSCharacterSet]’s
-// principal primitive method, [NSCharacterSet.CharacterIsMember], provides the basis for all
-// other instance methods in its interface. A subclass of [NSCharacterSet]
-// needs only to implement this method, plus [NSCharacterSet.MutableCopyWithZone], for proper
-// behavior. For optimal performance, a subclass should also override
-// [NSCharacterSet.BitmapRepresentation], which otherwise works by invoking
-// [NSCharacterSet.CharacterIsMember] for every possible Unicode value.
+// principal primitive method, [NSCharacterSet.CharacterIsMember], provides
+// the basis for all other instance methods in its interface. A subclass of
+// [NSCharacterSet] needs only to implement this method, plus
+// [NSCharacterSet.MutableCopyWithZone], for proper behavior. For optimal performance, a
+// subclass should also override [NSCharacterSet.BitmapRepresentation], which
+// otherwise works by invoking [NSCharacterSet.CharacterIsMember] for every
+// possible Unicode value.
 //
 // [NSCharacterSet] is “toll-free bridged” with its Core Foundation
 // counterpart, [CFCharacterSet]. See [Toll-Free Bridging] for more
@@ -255,8 +256,8 @@ func NewCharacterSetWithCoder(coder INSCoder) NSCharacterSet {
 // whether the requested set has already been loaded.
 //
 // To read a bitmap representation from any file, use the [NSData]
-// method[DataWithContentsOfFileOptionsError] and pass the result to
-// [CharacterSetWithBitmapRepresentation].
+// method[NSDataClass.DataWithContentsOfFileOptionsError] and pass the result
+// to [NSCharacterSetClass.CharacterSetWithBitmapRepresentation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/init(contentsOfFile:)
 func NewCharacterSetWithContentsOfFile(fName string) NSCharacterSet {

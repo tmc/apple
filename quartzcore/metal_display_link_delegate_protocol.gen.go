@@ -52,11 +52,12 @@ func CAMetalDisplayLinkDelegateObjectFromID(id objc.ID) CAMetalDisplayLinkDelega
 // # Discussion
 //
 // In this method’s implementation, perform your app’s rendering on the
-// [Layer] or [Texture] of the `update` instance’s [Drawable] property.
-// Before calling [present()], encode all your Metal commands to the `link`
-// parameter’s [MTLDevice]. The GPU has additional time to complete running
-// your commands before the frame displays on screen, determined by the value
-// of the `link` parameter’s [PreferredFrameLatency] property.
+// [Layer] or [Texture] of the `update` instance’s
+// [CAMetalDisplayLinkUpdate.Drawable] property. Before calling [present()],
+// encode all your Metal commands to the `link` parameter’s [MTLDevice]. The
+// GPU has additional time to complete running your commands before the frame
+// displays on screen, determined by the value of the `link` parameter’s
+// [CAMetalDisplayLink.PreferredFrameLatency] property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLinkDelegate/metalDisplayLink(_:needsUpdate:)
 //

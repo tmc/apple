@@ -55,8 +55,6 @@ func (sc SCContentSharingPickerClass) Alloc() SCContentSharingPicker {
 //
 // # Stream configuration
 //
-//   - [SCContentSharingPicker.Configuration]: Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
-//   - [SCContentSharingPicker.SetConfiguration]
 //   - [SCContentSharingPicker.DefaultConfiguration]: The default configuration to use for the content capture picker.
 //   - [SCContentSharingPicker.SetDefaultConfiguration]
 //   - [SCContentSharingPicker.MaximumStreamCount]: The maximum number of streams the content capture picker allows.
@@ -99,8 +97,6 @@ func SCContentSharingPickerFromID(id objc.ID) SCContentSharingPicker {
 //
 // # Stream configuration
 //
-//   - [ISCContentSharingPicker.Configuration]: Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
-//   - [ISCContentSharingPicker.SetConfiguration]
 //   - [ISCContentSharingPicker.DefaultConfiguration]: The default configuration to use for the content capture picker.
 //   - [ISCContentSharingPicker.SetDefaultConfiguration]
 //   - [ISCContentSharingPicker.MaximumStreamCount]: The maximum number of streams the content capture picker allows.
@@ -130,9 +126,6 @@ type ISCContentSharingPicker interface {
 
 	// Topic: Stream configuration
 
-	// Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
-	Configuration() ISCContentSharingPickerConfiguration
-	SetConfiguration(value ISCContentSharingPickerConfiguration)
 	// The default configuration to use for the content capture picker.
 	DefaultConfiguration() ISCContentSharingPickerConfiguration
 	SetDefaultConfiguration(value ISCContentSharingPickerConfiguration)
@@ -243,7 +236,8 @@ func (c SCContentSharingPicker) PresentPickerForStreamUsingContentStyle(stream I
 // providing allowed selection modes and content excluded from selection.
 //
 // pickerConfig: The configuration to set for the given capture stream. When this value is
-// `nil`, changes the stream configuration to use [DefaultConfiguration].
+// `nil`, changes the stream configuration to use
+// [SCContentSharingPicker.DefaultConfiguration].
 //
 // stream: The capture stream to set a configuration for. When this value is `nil`,
 // applies to all currently active streams.
@@ -267,18 +261,6 @@ func (c SCContentSharingPicker) IsActive() bool {
 }
 func (c SCContentSharingPicker) SetActive(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActive:"), value)
-}
-
-// Sets the configuration for the content capture picker for all streams,
-// providing allowed selection modes and content excluded from selection.
-//
-// See: https://developer.apple.com/documentation/screencapturekit/sccontentsharingpicker/configuration
-func (c SCContentSharingPicker) Configuration() ISCContentSharingPickerConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("configuration"))
-	return SCContentSharingPickerConfigurationFromID(objc.ID(rv))
-}
-func (c SCContentSharingPicker) SetConfiguration(value ISCContentSharingPickerConfiguration) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
 
 // The default configuration to use for the content capture picker.

@@ -6,6 +6,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -48,7 +49,7 @@ func (p AVPlayer) IntendedSpatialAudioExperience() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("intendedSpatialAudioExperience"))
 	return rv
 }
-func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
+func (p AVPlayer) SetIntendedSpatialAudioExperience(value kernel.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }
 
@@ -61,7 +62,7 @@ func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
 // video playback concludes. A brief transition may be visible on the external
 // display when automatically switching between the two modes. The default
 // value of this property is false. The value of this property has no effect
-// if [AllowsExternalPlayback] is false.
+// if [AVPlayer.AllowsExternalPlayback] is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/usesExternalPlaybackWhileExternalScreenIsActive
 func (p AVPlayer) UsesExternalPlaybackWhileExternalScreenIsActive() bool {

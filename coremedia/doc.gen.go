@@ -4,7 +4,10 @@
 //
 // Represent time-based audio-visual assets with essential data types.
 //
-// The Core Media framework defines the media pipeline used by AVFoundation and other high-level media frameworks found on Apple platforms. Use Core Media’s low-level data types and interfaces to efficiently process media samples and manage queues of media data.
+// The Core Media framework defines the media pipeline used by AVFoundation
+// and other high-level media frameworks found on Apple platforms. Use Core
+// Media’s low-level data types and interfaces to efficiently process media
+// samples and manage queues of media data.
 //
 // # Sample Processing
 //
@@ -13,18 +16,12 @@
 //   - CMTaggedBufferGroup: Objective-C types and interfaces for working with Core Media tagged buffer groups. ([CMTaggedBufferGroupFormatType])
 //   - CMFormatDescription: A media format descriptor that describes the samples in a sample buffer. ([CMSoundDescriptionFlavor], [CMImageDescriptionFlavor], [CMMetadataDescriptionFlavor], [CMTextDescriptionFlavor], [CMTimeCodeDescriptionFlavor])
 //   - CMAttachment: Add supporting metadata to sample buffers. ([CMAttachmentMode])
-//   - CMTaggedBuffer: An instance of a media buffer containing metadata tags.
-//   - CMMutableDataBlockBuffer: A block buffer that provides read-write access to a range of bytes.
-//   - CMReadOnlyDataBlockBuffer: A block buffer that provides read-only access to the a range of bytes.
-//   - CMReadySampleBuffer: Buffer carrying readily available samples of media data.
-//   - CMSampleDataReference: References sample data in at a URL.
-//   - CMTaggedDynamicBuffer: Contains a collection of tags associated with a read-only media buffer.
 //
 // # Time Representation
 //
-//   - CMTime: A structure that represents time. ([CMTimeRoundingMethod], [CMTime], [CMTimeValue], [CMTimeScale], [CMTimeEpoch])
-//   - CMTimeRange: A structure that represents a range of time. ([CMTimeRange])
-//   - CMTimeMapping: A structure that maps a segment of a source time range to a target time range. ([CMTimeMapping])
+//   - [CMTime]: A structure that represents time. ([CMTimeRoundingMethod], [CMTime], [CMTimeValue], [CMTimeScale], [CMTimeEpoch])
+//   - [CMTimeRange]: A structure that represents a range of time. ([CMTimeRange])
+//   - [CMTimeMapping]: A structure that maps a segment of a source time range to a target time range. ([CMTimeMapping])
 //
 // # Media Synchronization
 //
@@ -39,14 +36,12 @@
 // # Metadata
 //
 //   - CMMetadata: The APIs for working with the framework’s Metadata Identifier Services and Metadata Data Type Registry.
-//   - CMTag: Types and interfaces for working with Core Media tags. ([CMTag])
-//   - CMTag: A tag to set additional metadata on media buffers.
-//   - CMTypedTag: A tag to set additional metadata on media buffers, with an associated Swift type for its value.
+//   - [CMTag]: Types and interfaces for working with Core Media tags. ([CMTag])
 //   - CMTagCollection: Objective-C types and interfaces for working with Core Media tag collections.
-//   - CMProjectionType: Constants describing the projection surface information in a 3D video buffer or channel.
-//   - CMStereoViewComponents: Constants describing the stereo views contained within a buffer or channel.
-//   - CMStereoViewInterpretationOptions: Create a set of stereo view interpretation options from a constant.
-//   - CMPackingType: The type of packing within each video frame, if any.
+//   - [CMProjectionType]: Constants describing the projection surface information in a 3D video buffer or channel.
+//   - [CMStereoViewComponents]: Constants describing the stereo views contained within a buffer or channel.
+//   - [CMStereoViewInterpretationOptions]: Create a set of stereo view interpretation options from a constant.
+//   - [CMPackingType]: The type of packing within each video frame, if any.
 //
 // # Queues
 //
@@ -54,7 +49,17 @@
 //   - CMBufferQueue: A queue of timed buffers. ([CMBufferCallbacks], [CMBufferQueueTriggerHandler], [CMBufferQueueTriggerToken], [CMBufferQueueTriggerCallback], [CMBufferQueueTriggerCondition])
 //   - CMMemoryPool: An object that optimizes memory allocation when working with large blocks of memory.
 //
-// [CoreMedia Documentation]: https://developer.apple.com/documentation/CoreMedia
+// # Variables
+//
+//   - [KCMTagProjectionTypeParametricImmersive]
+//
+// # Functions
+//
+//   - [CMTaggedBufferGroupFormatDescriptionCreateForTaggedBufferGroupWithExtensions]
+//
+// # Macros
+//
+//   - CM_BRIDGED_MUTABLE_TYPE
 package coremedia
 
 import (

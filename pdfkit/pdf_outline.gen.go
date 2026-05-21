@@ -218,8 +218,8 @@ func (p PDFOutline) ChildAtIndex(index uint) IPDFOutline {
 //
 // To build a PDF outline hierarchy, use this method to add child outline
 // objects. Before you call this method on a [PDFOutline] object that already
-// has a parent, you should retain the object and call [RemoveFromParent] on
-// it first.
+// has a parent, you should retain the object and call
+// [PDFOutline.RemoveFromParent] on it first.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFOutline/insertChild(_:at:)
 func (p PDFOutline) InsertChildAtIndex(child IPDFOutline, index uint) {
@@ -300,8 +300,8 @@ func (p PDFOutline) SetLabel(value string) {
 // This method may return [NULL] if the outline has an associated action
 // instead of a destination. Note that if the associated action is a
 // [PDFActionGoTo], this method returns the destination from the
-// [PDFActionGoTo] object. However, it is better to use the [Action] method
-// for this purpose.
+// [PDFActionGoTo] object. However, it is better to use the
+// [PDFOutline.Action] method for this purpose.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFOutline/destination
 func (p PDFOutline) Destination() IPDFDestination {
@@ -322,8 +322,9 @@ func (p PDFOutline) SetDestination(value IPDFDestination) {
 //
 // If the [PDFOutline] object has a destination, instead of an action,
 // `action` returns a [PDFActionGoTo] object (this is equivalent to calling
-// [Destination] on the [PDFOutline] object). For other action types, `action`
-// returns the appropriate PDF Kit action type object, such as [PDFActionURL].
+// [PDFOutline.Destination] on the [PDFOutline] object). For other action
+// types, `action` returns the appropriate PDF Kit action type object, such as
+// [PDFActionURL].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFOutline/action
 func (p PDFOutline) Action() IPDFAction {

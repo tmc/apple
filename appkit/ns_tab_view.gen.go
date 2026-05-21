@@ -679,9 +679,10 @@ func (t NSTabView) SelectedTabViewItem() INSTabViewItem {
 // # Discussion
 //
 // The default value of this property is the message font of default size (see
-// [MessageFontOfSize]), which is equivalent to the system font of default
-// size. Tab height is adjusted automatically to accommodate a new font size.
-// If the view allows truncating, tab labels are truncated as needed.
+// [NSFontClass.MessageFontOfSize]), which is equivalent to the system font of
+// default size. Tab height is adjusted automatically to accommodate a new
+// font size. If the view allows truncating, tab labels are truncated as
+// needed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/font
 func (t NSTabView) Font() NSFont {

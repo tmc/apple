@@ -50,7 +50,7 @@ func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
 // console devices on the [VZVirtualMachineConfiguration] through a subclass
 // of [VZConsoleDeviceConfiguration]. After you create [VZVirtualMachine] from
 // the configuration, the console devices are available through the
-// [VZConsoleDevice.ConsoleDevices] property.
+// [VZVirtualMachine.ConsoleDevices] property.
 //
 // The actual type of [VZConsoleDevice] corresponds to the type that the
 // configuration uses. For example, a [VZVirtioConsoleDeviceConfiguration] is
@@ -76,10 +76,6 @@ func VZConsoleDeviceFromID(id objc.ID) VZConsoleDevice {
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice
 type IVZConsoleDevice interface {
 	objectivec.IObject
-
-	// The list of configured console devices on the VM.
-	ConsoleDevices() IVZConsoleDevice
-	SetConsoleDevices(value IVZConsoleDevice)
 }
 
 // Init initializes the instance.
@@ -99,15 +95,4 @@ func NewVZConsoleDevice() VZConsoleDevice {
 	class := getVZConsoleDeviceClass()
 	rv := objc.Send[VZConsoleDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The list of configured console devices on the VM.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/consoledevices
-func (c VZConsoleDevice) ConsoleDevices() IVZConsoleDevice {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("consoleDevices"))
-	return VZConsoleDeviceFromID(objc.ID(rv))
-}
-func (c VZConsoleDevice) SetConsoleDevices(value IVZConsoleDevice) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConsoleDevices:"), value)
 }

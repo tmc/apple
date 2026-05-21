@@ -54,8 +54,8 @@ func (nc NSAlertClass) Alloc() NSAlert {
 // offer help specific to an alert.
 //
 // To display an alert as a sheet, call the
-// [NSAlert.BeginSheetModalForWindowCompletionHandler] method; to display one as an
-// app-modal dialog, use the [NSAlert.RunModal] method.
+// [NSAlert.BeginSheetModalForWindowCompletionHandler] method; to display one
+// as an app-modal dialog, use the [NSAlert.RunModal] method.
 //
 // By design, an [NSAlert] object is intended for a single alert—that is, an
 // alert with a unique combination of title, buttons, and so on—that is
@@ -79,20 +79,21 @@ func (nc NSAlertClass) Alloc() NSAlert {
 // [NSAlert] objects have the following attributes:
 //
 // - Type An alert’s type helps convey the importance or gravity of its
-// message to the user. Specified with the [NSAlert.AlertStyle] property. - Message
-// text The main message of the alert. Specified with [NSAlert.MessageText]. -
-// Informative text Additional information about the alert. Specified with
-// [NSAlert.InformativeText]. - Icon An optional, custom icon to display in the alert,
-// which is used instead of the default app icon. Specified with [NSAlert.Icon]. -
-// Help Alerts can let the user get help about them. Use [NSAlert.HelpAnchor] and
-// [NSAlert.ShowsHelp]. - Response buttons By default an alert has one response
-// button: the OK button. You can add more response buttons using the
-// [NSAlert.AddButtonWithTitle] method. - Suppression checkbox A suppression checkbox
-// allows the user to suppress the display of a particular alert in subsequent
-// occurrences of the event that triggers it. Use [NSAlert.ShowsSuppressionButton]. -
-// Accessory view An accessory view lets you add additional information to an
-// alert; for example, a text field with contact information. Use
-// [NSAlert.AccessoryView], [NSAlert.Layout].
+// message to the user. Specified with the [NSAlert.AlertStyle] property. -
+// Message text The main message of the alert. Specified with
+// [NSAlert.MessageText]. - Informative text Additional information about the
+// alert. Specified with [NSAlert.InformativeText]. - Icon An optional, custom
+// icon to display in the alert, which is used instead of the default app
+// icon. Specified with [NSAlert.Icon]. - Help Alerts can let the user get
+// help about them. Use [NSAlert.HelpAnchor] and [NSAlert.ShowsHelp]. -
+// Response buttons By default an alert has one response button: the OK
+// button. You can add more response buttons using the
+// [NSAlert.AddButtonWithTitle] method. - Suppression checkbox A suppression
+// checkbox allows the user to suppress the display of a particular alert in
+// subsequent occurrences of the event that triggers it. Use
+// [NSAlert.ShowsSuppressionButton]. - Accessory view An accessory view lets
+// you add additional information to an alert; for example, a text field with
+// contact information. Use [NSAlert.AccessoryView], [NSAlert.Layout].
 //
 // # Subclassing Notes
 //
@@ -345,7 +346,7 @@ func (a NSAlert) Layout() {
 // If you use “ to create an alert, the [NSAlertDefaultReturn],
 // [NSAlertAlternateReturn], and [NSAlertOtherReturn] constants identify the
 // button used to dismiss the alert. Otherwise, the constants used are the
-// ones described in [AddButtonWithTitle].
+// ones described in [NSAlert.AddButtonWithTitle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/runModal()
 //
@@ -373,9 +374,9 @@ func (a NSAlert) RunModal() NSModalResponse {
 // to the window. Otherwise, it is presented—or queued for presentation—as
 // a standard sheet.
 //
-// Note that [OrderOut] no longer needs to be called in the completion
-// handler. If you don’t dismiss the alert, it will be done for you after
-// the completion handler finishes.
+// Note that [NSWindow.OrderOut] no longer needs to be called in the
+// completion handler. If you don’t dismiss the alert, it will be done for
+// you after the completion handler finishes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/beginSheetModal(for:completionHandler:)
 //
@@ -406,9 +407,9 @@ func (a NSAlert) BeginSheetModalForWindowCompletionHandler(sheetWindow INSWindow
 // with a title of “Cancel” has a key equivalent of Escape, and any button
 // with the title “Don’t Save” has a key equivalent of Command-D (but
 // only if it’s the first button). You can also assign different key
-// equivalents for the buttons using the [KeyEquivalent] method of the
-// [NSButton] class. In addition, you can use the [Tag] method of the
-// [NSButton] class to set the return value.
+// equivalents for the buttons using the [NSButton.KeyEquivalent] method of
+// the [NSButton] class. In addition, you can use the [NSControl.Tag] method
+// of the [NSButton] class to set the return value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/addButton(withTitle:)
 func (a NSAlert) AddButtonWithTitle(title string) INSButton {
@@ -439,10 +440,11 @@ func (a NSAlert) SetAlertStyle(value NSAlertStyle) {
 //
 // The [NSAlert] class places the accessory view between the informative text
 // or suppression checkbox (if present) and the response buttons. Before you
-// change the location of the accessory view, first call the [Layout] method.
+// change the location of the accessory view, first call the [NSAlert.Layout]
+// method.
 //
-// [AlertStyle] shows an example of adding an accessory view to an alert.
-// [Buttons] shows the alert generated.
+// [NSAlert.AlertStyle] shows an example of adding an accessory view to an
+// alert. [NSAlert.Buttons] shows the alert generated.
 //
 // Listing 1. Adding an accessory view to an alert
 //
@@ -465,14 +467,14 @@ func (a NSAlert) SetAccessoryView(value INSView) {
 // button, or false to specify it does not.
 //
 // When a user clicks an alert’s help button, the alert delegate
-// ([Delegate]) receives an [AlertShowHelp] message. The delegate is
+// ([NSAlert.Delegate]) receives an [AlertShowHelp] message. The delegate is
 // responsible for displaying the help information related to this particular
 // alert.
 //
 // Clicking an alert’s help button can alternately cause the
-// [OpenHelpAnchorInBook] message to be sent to the app’s help manager with
-// a `nil` book and the anchor specified by the [HelpAnchor] property, if any
-// of the following conditions are true:
+// [NSHelpManager.OpenHelpAnchorInBook] message to be sent to the app’s help
+// manager with a `nil` book and the anchor specified by the
+// [NSAlert.HelpAnchor] property, if any of the following conditions are true:
 //
 // - There is no alert delegate. - The alert delegate does not implement
 // [AlertShowHelp]. - The alert delegate implements [AlertShowHelp] but
@@ -531,7 +533,7 @@ func (a NSAlert) SetDelegate(value NSAlertDelegate) {
 // example, you can do this to change the suppression checkbox’s default
 // message, or to change its initial selection state (which is
 // “unselected” by default). For a code example, see the
-// [ShowsSuppressionButton] property.
+// [NSAlert.ShowsSuppressionButton] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/suppressionButton
 func (a NSAlert) SuppressionButton() INSButton {
@@ -630,8 +632,8 @@ func (a NSAlert) SetIcon(value INSImage) {
 // Any button with a title of “Cancel” has a key equivalent of Escape, and
 // any button with the title “Don’t Save” has a key equivalent of
 // Command-D (but only if it is not the first button). You can also assign
-// different key equivalents for the buttons using the [KeyEquivalent] method
-// of the [NSButton] class.
+// different key equivalents for the buttons using the
+// [NSButton.KeyEquivalent] method of the [NSButton] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/buttons
 func (a NSAlert) Buttons() []NSButton {
@@ -647,8 +649,8 @@ func (a NSAlert) Buttons() []NSButton {
 //
 // The alert’s window is of type [NSPanel]. Use this property when you want
 // to dismiss an alert created with the
-// [BeginSheetModalForWindowCompletionHandler] method within that method’s
-// completion handler block.
+// [NSAlert.BeginSheetModalForWindowCompletionHandler] method within that
+// method’s completion handler block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/window
 func (a NSAlert) Window() INSWindow {

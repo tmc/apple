@@ -50,10 +50,11 @@ func (vc VNRecognizeTextRequestClass) Alloc() VNRecognizeTextRequest {
 //
 // By default, a text recognition request first locates all possible glyphs or
 // characters in the input image, and then analyzes each string. To specify or
-// limit the languages to find in the request, set the [VNRecognizeTextRequest.RecognitionLanguages]
-// property to an array that contains the names of the languages of text you
-// want to recognize. Vision returns the result of this request in a
-// [VNRecognizedTextObservation] object.
+// limit the languages to find in the request, set the
+// [VNRecognizeTextRequest.RecognitionLanguages] property to an array that
+// contains the names of the languages of text you want to recognize. Vision
+// returns the result of this request in a [VNRecognizedTextObservation]
+// object.
 //
 // # Customizing Recognition Constraints
 //
@@ -73,12 +74,6 @@ func (vc VNRecognizeTextRequestClass) Alloc() VNRecognizeTextRequest {
 //   - [VNRecognizeTextRequest.CustomWords]: An array of strings to supplement the recognized languages at the word-recognition stage.
 //   - [VNRecognizeTextRequest.SetCustomWords]
 //   - [VNRecognizeTextRequest.SupportedRecognitionLanguagesAndReturnError]: Returns the identifiers of the languages that the request supports.
-//
-// # Identifying Request Revisions
-//
-//   - [VNRecognizeTextRequest.VNRecognizeTextRequestRevision3]: A constant for specifying revision 3 of the text recognition request.
-//   - [VNRecognizeTextRequest.VNRecognizeTextRequestRevision2]: A constant for specifying revision 2 of the text recognition request.
-//   - [VNRecognizeTextRequest.VNRecognizeTextRequestRevision1]: A constant for specifying revision 1 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest
 type VNRecognizeTextRequest struct {
@@ -116,12 +111,6 @@ func VNRecognizeTextRequestFromID(id objc.ID) VNRecognizeTextRequest {
 //   - [IVNRecognizeTextRequest.SetCustomWords]
 //   - [IVNRecognizeTextRequest.SupportedRecognitionLanguagesAndReturnError]: Returns the identifiers of the languages that the request supports.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNRecognizeTextRequest.VNRecognizeTextRequestRevision3]: A constant for specifying revision 3 of the text recognition request.
-//   - [IVNRecognizeTextRequest.VNRecognizeTextRequestRevision2]: A constant for specifying revision 2 of the text recognition request.
-//   - [IVNRecognizeTextRequest.VNRecognizeTextRequestRevision1]: A constant for specifying revision 1 of the text recognition request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest
 type IVNRecognizeTextRequest interface {
 	IVNImageBasedRequest
@@ -151,15 +140,6 @@ type IVNRecognizeTextRequest interface {
 	SetCustomWords(value []string)
 	// Returns the identifiers of the languages that the request supports.
 	SupportedRecognitionLanguagesAndReturnError() ([]string, error)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 3 of the text recognition request.
-	VNRecognizeTextRequestRevision3() int
-	// A constant for specifying revision 2 of the text recognition request.
-	VNRecognizeTextRequestRevision2() int
-	// A constant for specifying revision 1 of the text recognition request.
-	VNRecognizeTextRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -189,7 +169,7 @@ func NewVNRecognizeTextRequest() VNRecognizeTextRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRecognizeTextRequest {
@@ -327,7 +307,7 @@ func (r VNRecognizeTextRequest) SetUsesLanguageCorrection(value bool) {
 // # Discussion
 //
 // Custom words take precedence over the standard lexicon. The request ignores
-// this value if [UsesLanguageCorrection] is false.
+// this value if [VNRecognizeTextRequest.UsesLanguageCorrection] is false.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/customWords
 func (r VNRecognizeTextRequest) CustomWords() []string {
@@ -336,30 +316,6 @@ func (r VNRecognizeTextRequest) CustomWords() []string {
 }
 func (r VNRecognizeTextRequest) SetCustomWords(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCustomWords:"), objectivec.StringSliceToNSArray(value))
-}
-
-// A constant for specifying revision 3 of the text recognition request.
-//
-// See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision3
-func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision3() int {
-	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision3"))
-	return rv
-}
-
-// A constant for specifying revision 2 of the text recognition request.
-//
-// See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision2
-func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision2() int {
-	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the text recognition request.
-//
-// See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision1
-func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision1() int {
-	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision1"))
-	return rv
 }
 
 // Protocol methods for VNRequestProgressProviding

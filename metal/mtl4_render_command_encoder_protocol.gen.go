@@ -304,11 +304,11 @@ func (o MTL4RenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float
 // # Discussion
 //
 // Use this method to define how the physical color attachments you specify
-// via [ColorAttachments] map to the logical color output the fragment shader
-// writes to.
+// via [MTL4RenderPassDescriptor.ColorAttachments] map to the logical color
+// output the fragment shader writes to.
 //
-// To use this feature, make sure to set [SupportColorAttachmentMapping] to
-// true.
+// To use this feature, make sure to set
+// [MTL4RenderPassDescriptor.SupportColorAttachmentMapping] to true.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setColorAttachmentMap(_:)
 func (o MTL4RenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogicalToPhysicalColorAttachmentMap) {
@@ -466,9 +466,9 @@ func (o MTL4RenderCommandEncoderObject) SetScissorRect(rect MTLScissorRect) {
 // mode: A [MTLVisibilityResultMode] that configures which visibility test results
 // the render pass saves to a buffer, or disables visibility testing.
 //
-// offset: A location, in bytes, relative to the start of [VisibilityResultBuffer] The
-// GPU stores the result of a visibility test at `offset`, which needs to be a
-// multiple of `8`.
+// offset: A location, in bytes, relative to the start of
+// [MTL4RenderPassDescriptor.VisibilityResultBuffer] The GPU stores the result
+// of a visibility test at `offset`, which needs to be a multiple of `8`.
 //
 // # Discussion
 //

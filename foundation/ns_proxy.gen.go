@@ -58,11 +58,12 @@ func (nc NSProxyClass) Alloc() NSProxy {
 // class it doesn’t provide an initialization method, and it raises an
 // exception upon receiving any message it doesn’t respond to. A concrete
 // subclass must therefore provide an initialization or creation method and
-// override the [NSProxy.ForwardInvocation] and [NSProxy.MethodSignatureForSelector] methods
-// to handle messages that it doesn’t implement itself. A subclass’s
-// implementation of [NSProxy.ForwardInvocation] should do whatever is needed to
-// process the invocation, such as forwarding the invocation over the network
-// or loading the real object and passing it the invocation.
+// override the [NSProxy.ForwardInvocation] and
+// [NSProxy.MethodSignatureForSelector] methods to handle messages that it
+// doesn’t implement itself. A subclass’s implementation of
+// [NSProxy.ForwardInvocation] should do whatever is needed to process the
+// invocation, such as forwarding the invocation over the network or loading
+// the real object and passing it the invocation.
 // [NSProxy.MethodSignatureForSelector] is required to provide argument type
 // information for a given message; a subclass’s implementation should be
 // able to determine the argument types for the messages it needs to forward
@@ -152,7 +153,7 @@ type INSProxy interface {
 
 	AllowsWeakReference() bool
 	// Raises [NSInvalidArgumentException]. Override this method in your concrete subclass to return a proper [NSMethodSignature] object for the given selector and the class your proxy objects stand in for.
-	MethodSignatureForSelector(sel objc.SEL) INSMethodSignature
+	MethodSignatureForSelector(sel objectivec.SEL) INSMethodSignature
 	RetainWeakReference() bool
 }
 
@@ -216,7 +217,7 @@ func (p NSProxy) Finalize() {
 // at the very least by setting its return value.
 //
 // For example, if your proxy merely forwards messages to an instance variable
-// named `realObject`, it can implement [ForwardInvocation] like this:
+// named `realObject`, it can implement [NSProxy.ForwardInvocation] like this:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/forwardInvocation(_:)
 func (p NSProxy) ForwardInvocation(invocation INSInvocation) {
@@ -247,11 +248,11 @@ func (p NSProxy) AllowsWeakReference() bool {
 // that might invoke this method.
 //
 // For example, if your proxy merely forwards messages to an instance variable
-// named `realObject`, it can implement [MethodSignatureForSelector] like
-// this:
+// named `realObject`, it can implement [NSProxy.MethodSignatureForSelector]
+// like this:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/methodSignatureForSelector:
-func (p NSProxy) MethodSignatureForSelector(sel objc.SEL) INSMethodSignature {
+func (p NSProxy) MethodSignatureForSelector(sel objectivec.SEL) INSMethodSignature {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("methodSignatureForSelector:"), sel)
 	return NSMethodSignatureFromID(rv)
 }

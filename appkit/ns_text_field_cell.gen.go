@@ -58,14 +58,16 @@ func (nc NSTextFieldCellClass) Alloc() NSTextFieldCell {
 // [NSTextFieldCell] methods.
 //
 // Placeholder strings, set using the [NSTextFieldCell.PlaceholderString] or
-// [NSTextFieldCell.PlaceholderAttributedString] property, appear in the text field cell if
-// the actual string is `nil` or an empty string. They’re drawn in gray on
-// the cell and aren’t archived in the “pre-10.2” nib format.
+// [NSTextFieldCell.PlaceholderAttributedString] property, appear in the text
+// field cell if the actual string is `nil` or an empty string. They’re
+// drawn in gray on the cell and aren’t archived in the “pre-10.2” nib
+// format.
 //
 // # Designated Initializers
 //
 // When subclassing [NSTextFieldCell] you must implement the designated
-// initializers [NSTextFieldCell.InitWithCoder] and [NSTextFieldCell.InitTextCell].
+// initializers [NSTextAttachmentCell.InitWithCoder] and
+// [NSTextAttachmentCell.InitTextCell].
 //
 // # Setting the Text Color
 //
@@ -270,8 +272,8 @@ func (t NSTextFieldCell) SetTextColor(value INSColor) {
 // # Discussion
 //
 // To set the bezel style, you must have already set the the text field’s
-// [Bezeled] method with an argument of true. For a list of bezel styles, see
-// [NSTextField.BezelStyle].
+// [NSTextField.Bezeled] method with an argument of true. For a list of bezel
+// styles, see [NSTextField.BezelStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/bezelStyle
 //
@@ -321,7 +323,7 @@ func (t NSTextFieldCell) SetDrawsBackground(value bool) {
 // # Discussion
 //
 // Assigning a new value to this property also clears out any value set for
-// the [PlaceholderAttributedString] property.
+// the [NSTextFieldCell.PlaceholderAttributedString] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/placeholderString
 func (t NSTextFieldCell) PlaceholderString() string {
@@ -337,7 +339,7 @@ func (t NSTextFieldCell) SetPlaceholderString(value string) {
 // # Discussion
 //
 // Assigning a new value to this property also clears out any value set for
-// the [PlaceholderString] property.
+// the [NSTextFieldCell.PlaceholderString] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/placeholderAttributedString
 func (t NSTextFieldCell) PlaceholderAttributedString() foundation.NSAttributedString {

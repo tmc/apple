@@ -49,13 +49,14 @@ func (cc CKSyncEngineStateClass) Alloc() CKSyncEngineState {
 // To reliably and consistently sync your app’s data, a sync engine keeps a
 // record of several important pieces of data, such as server changes tokens
 // (for databases and record zones), subscription identifiers, the most recent
-// [CKSyncEngineState.UserRecordID], and so on. This class automatically manages that state on
-// behalf of your app, but there are certain elements you can modify. For
-// example, you control the list of pending changes to send to the iCloud
-// servers and manipulate that list using the [CKSyncEngineState.AddPendingDatabaseChanges] and
-// [CKSyncEngineState.AddPendingRecordZoneChanges] methods. If there aren’t any scheduled sync
-// operations when you invoke these methods, the engine automatically
-// schedules one.
+// [CKUserIdentity.UserRecordID], and so on. This class automatically manages
+// that state on behalf of your app, but there are certain elements you can
+// modify. For example, you control the list of pending changes to send to the
+// iCloud servers and manipulate that list using the
+// [CKSyncEngineState.AddPendingDatabaseChanges] and
+// [CKSyncEngineState.AddPendingRecordZoneChanges] methods. If there aren’t
+// any scheduled sync operations when you invoke these methods, the engine
+// automatically schedules one.
 //
 // An engine’s state changes periodically and, when it does, the sync engine
 // dispatches an event of type [CKSyncEngineStateUpdateEvent] to your
@@ -65,7 +66,7 @@ func (cc CKSyncEngineStateClass) Alloc() CKSyncEngineState {
 // available across app launches. On the next initialization of the sync
 // engine, you provide the most recently persisted state as part of the
 // engine’s configuration. For more information, see
-// [InitWithDatabaseStateSerializationDelegate].
+// [CKSyncEngineConfiguration.InitWithDatabaseStateSerializationDelegate].
 //
 // # Accessing pending changes
 //
@@ -148,10 +149,6 @@ type ICKSyncEngineState interface {
 	// Topic: Instance Properties
 
 	ZoneIDsWithUnfetchedServerChanges() []CKRecordZoneID
-
-	// The user record ID for the corresponding user record.
-	UserRecordID() ICKRecordID
-	SetUserRecordID(value ICKRecordID)
 }
 
 // Init initializes the instance.
@@ -216,7 +213,7 @@ func (c CKSyncEngineState) RemovePendingDatabaseChanges(changes []CKSyncEnginePe
 // zone changes. For example, when someone makes a change that your app needs
 // to send to the server, use this method to record the change. Then, when
 // creating the change batch for the next send operation, retrieve the pending
-// changes from the [PendingRecordZoneChanges] property.
+// changes from the [CKSyncEngineState.PendingRecordZoneChanges] property.
 //
 // If there are no scheduled sync operations when you invoke this method, the
 // sync engine automatically schedules one to send the changes. After the
@@ -248,11 +245,11 @@ func (c CKSyncEngineState) RemovePendingRecordZoneChanges(changes []CKSyncEngine
 // # Discussion
 //
 // Use this property to inform the sync engine that there are pending changes
-// other than those available in [PendingRecordZoneChanges]. After you set
-// this property, the sync engine automatically schedules a send operation
-// and, when that operation executes, asks your delegate to provide those
-// changes by invoking the [SyncEngineNextRecordZoneChangeBatchForContext]
-// method.
+// other than those available in [CKSyncEngineState.PendingRecordZoneChanges].
+// After you set this property, the sync engine automatically schedules a send
+// operation and, when that operation executes, asks your delegate to provide
+// those changes by invoking the
+// [SyncEngineNextRecordZoneChangeBatchForContext] method.
 //
 // Using this property is optional and is necessary only if you track pending
 // changes manually, outside of the sync engine’s state.
@@ -276,8 +273,9 @@ func (c CKSyncEngineState) SetHasPendingUntrackedChanges(value bool) {
 // sync engine sends those changes, your app’s sync delegate receives an
 // event of type [CKSyncEngineSentDatabaseChangesEvent].
 //
-// Use the [AddPendingDatabaseChanges] and [RemovePendingDatabaseChanges]
-// methods to modify the array’s contents.
+// Use the [CKSyncEngineState.AddPendingDatabaseChanges] and
+// [CKSyncEngineState.RemovePendingDatabaseChanges] methods to modify the
+// array’s contents.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineState/pendingDatabaseChanges
 func (c CKSyncEngineState) PendingDatabaseChanges() []CKSyncEnginePendingDatabaseChange {
@@ -297,8 +295,9 @@ func (c CKSyncEngineState) PendingDatabaseChanges() []CKSyncEnginePendingDatabas
 // sync engine sends those changes, your app’s sync delegate receives an
 // event of type [CKSyncEngineSentRecordZoneChangesEvent].
 //
-// Use the [AddPendingRecordZoneChanges] and [RemovePendingRecordZoneChanges]
-// methods to modify the array’s contents.
+// Use the [CKSyncEngineState.AddPendingRecordZoneChanges] and
+// [CKSyncEngineState.RemovePendingRecordZoneChanges] methods to modify the
+// array’s contents.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineState/pendingRecordZoneChanges
 func (c CKSyncEngineState) PendingRecordZoneChanges() []CKSyncEnginePendingRecordZoneChange {
@@ -314,15 +313,4 @@ func (c CKSyncEngineState) ZoneIDsWithUnfetchedServerChanges() []CKRecordZoneID 
 	return objc.ConvertSlice(rv, func(id objc.ID) CKRecordZoneID {
 		return CKRecordZoneIDFromID(id)
 	})
-}
-
-// The user record ID for the corresponding user record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckuseridentity/userrecordid
-func (c CKSyncEngineState) UserRecordID() ICKRecordID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("userRecordID"))
-	return CKRecordIDFromID(objc.ID(rv))
-}
-func (c CKSyncEngineState) SetUserRecordID(value ICKRecordID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setUserRecordID:"), value)
 }

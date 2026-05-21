@@ -134,8 +134,9 @@ func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContai
 // # Discussion
 //
 // The default implementation queries the text attachment view provider class
-// using the [TextAttachmentViewProviderClassForFileType] method of
-// [NSTextAttachment]. When non-`nil`, it instantiates a view, then, fills
+// using the
+// [NSTextAttachmentClass.TextAttachmentViewProviderClassForFileType] method
+// of [NSTextAttachment]. When non-`nil`, it instantiates a view, then, fills
 // properties declared in [NSTextAttachmentViewProvider] if implemented.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/viewProvider(for:location:textContainer:)

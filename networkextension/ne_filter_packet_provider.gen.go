@@ -54,11 +54,6 @@ func (nc NEFilterPacketProviderClass) Alloc() NEFilterPacketProvider {
 //   - [NEFilterPacketProvider.DelayCurrentPacket]: Delay a packet currently processed by a packet handler.
 //   - [NEFilterPacketProvider.AllowPacket]: Allow delivery of a previously-delayed packet.
 //
-// # Instance Properties
-//
-//   - [NEFilterPacketProvider.Handler]
-//   - [NEFilterPacketProvider.SetHandler]
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider
 type NEFilterPacketProvider struct {
 	NEFilterProvider
@@ -87,11 +82,6 @@ func NEFilterPacketProviderFromID(id objc.ID) NEFilterPacketProvider {
 //   - [INEFilterPacketProvider.DelayCurrentPacket]: Delay a packet currently processed by a packet handler.
 //   - [INEFilterPacketProvider.AllowPacket]: Allow delivery of a previously-delayed packet.
 //
-// # Instance Properties
-//
-//   - [INEFilterPacketProvider.Handler]
-//   - [INEFilterPacketProvider.SetHandler]
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider
 type INEFilterPacketProvider interface {
 	INEFilterProvider
@@ -108,11 +98,6 @@ type INEFilterPacketProvider interface {
 	DelayCurrentPacket(context INEFilterPacketContext) INEPacket
 	// Allow delivery of a previously-delayed packet.
 	AllowPacket(packet INEPacket)
-
-	// Topic: Instance Properties
-
-	Handler() NEFilterPacketProviderVerdict
-	SetHandler(value NEFilterPacketProviderVerdict)
 }
 
 // Init initializes the instance.
@@ -140,11 +125,12 @@ func NewNEFilterPacketProvider() NEFilterPacketProvider {
 //
 // # Discussion
 //
-// This function is only valid within the [PacketHandler] Swift closure or
-// ObjectiveC block, which must return [NEFilterPacketProviderVerdictDelay]
-// after delaying the packet. The framework prevents further delivery of the
-// packet through the network stack until it’s allowed or dropped. Allow the
-// packet by calling [AllowPacket], or drop it by releasing it.
+// This function is only valid within the
+// [NEFilterPacketProvider.PacketHandler] Swift closure or ObjectiveC block,
+// which must return [NEFilterPacketProviderVerdictDelay] after delaying the
+// packet. The framework prevents further delivery of the packet through the
+// network stack until it’s allowed or dropped. Allow the packet by calling
+// [NEFilterPacketProvider.AllowPacket], or drop it by releasing it.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/delayCurrentPacket(_:)
 func (f NEFilterPacketProvider) DelayCurrentPacket(context INEFilterPacketContext) INEPacket {
@@ -188,13 +174,4 @@ func (f NEFilterPacketProvider) PacketHandler() NEFilterPacketHandler {
 }
 func (f NEFilterPacketProvider) SetPacketHandler(value NEFilterPacketHandler) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), value)
-}
-
-// See: https://developer.apple.com/documentation/networkextension/nefilterpacketprovider/handler
-func (f NEFilterPacketProvider) Handler() NEFilterPacketProviderVerdict {
-	rv := objc.Send[NEFilterPacketProviderVerdict](f.ID, objc.Sel("handler"))
-	return NEFilterPacketProviderVerdict(rv)
-}
-func (f NEFilterPacketProvider) SetHandler(value NEFilterPacketProviderVerdict) {
-	objc.Send[struct{}](f.ID, objc.Sel("setHandler:"), value)
 }

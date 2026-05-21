@@ -71,15 +71,16 @@ func (nc NetServiceClass) Alloc() NetService {
 // To publish a service, initialize your [NSNetService] object with the
 // service name, domain, type, and port information. All of this information
 // must be valid for the socket created by your application. Once initialized,
-// call the [Publish] method to broadcast your service information to the
-// network.
+// call the [NSNetService.Publish] method to broadcast your service
+// information to the network.
 //
 // When connecting to a service, use the [NSNetServiceBrowser] class to locate
 // the service on the network and obtain the corresponding [NSNetService]
-// object. Once you have the object, call the [ResolveWithTimeout] method to
-// verify that the service is available and ready for your application. If it
-// is, the [Addresses] property provides the socket information you can use to
-// connect to the service.
+// object. Once you have the object, call the
+// [NSNetService.ResolveWithTimeout] method to verify that the service is
+// available and ready for your application. If it is, the
+// [NSNetService.Addresses] property provides the socket information you can
+// use to connect to the service.
 //
 // The methods of [NSNetService] operate asynchronously so your application is
 // not impacted by the speed of the network. All information about a service
@@ -230,18 +231,18 @@ func NewNetService() NetService {
 // # Discussion
 //
 // This method is the appropriate initializer to use to resolve a service—to
-// publish a service, use [InitWithDomainTypeNamePort].
+// publish a service, use [NSNetService.InitWithDomainTypeNamePort].
 //
 // If you know the values for `domain`, `type`, and `name` of the service you
 // wish to connect to, you can create an [NSNetService] object using this
-// initializer and call [ResolveWithTimeout] on the result.
+// initializer and call [NSNetService.ResolveWithTimeout] on the result.
 //
 // You cannot use this initializer to publish a service. This initializer
 // passes an invalid port number to the designated initializer, which prevents
-// the service from being registered. Calling [Publish] on an [NSNetService]
-// object initialized with this method generates a call to your delegate’s
-// [NetServiceDidNotPublish] method with an [NSNetServicesBadArgumentError]
-// error.
+// the service from being registered. Calling [NSNetService.Publish] on an
+// [NSNetService] object initialized with this method generates a call to your
+// delegate’s [NetServiceDidNotPublish] method with an
+// [NSNetServicesBadArgumentError] error.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/init(domain:type:name:)
 func NewNetServiceWithDomainTypeName(domain string, type_ string, name string) NetService {
@@ -291,7 +292,7 @@ func NewNetServiceWithDomainTypeName(domain string, type_ string, name string) N
 // You use this method to create a service that you wish to publish on the
 // network. Although you can also use this method to create a service you wish
 // to resolve on the network, it is generally more appropriate to use the
-// [InitWithDomainTypeName] method instead.
+// [NSNetService.InitWithDomainTypeName] method instead.
 //
 // When publishing a service, you must provide valid arguments in order to
 // advertise your service correctly. If the host computer has access to
@@ -344,8 +345,8 @@ func (n NetService) Addresses() []NSData {
 // absolute name).
 //
 // This property’s value is set when the object is first initialized,
-// whether by your code or by a browser object. See [InitWithDomainTypeName]
-// for more information.
+// whether by your code or by a browser object. See
+// [NSNetService.InitWithDomainTypeName] for more information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/domain
 func (n NetService) Domain() string {
@@ -358,8 +359,9 @@ func (n NetService) Domain() string {
 //
 // # Discussion
 //
-// This property must be set before calling [Publish] or [PublishWithOptions],
-// [ResolveWithTimeout]`, or [StartMonitoring] in order to take effect.
+// This property must be set before calling [NSNetService.Publish] or
+// [NSNetService.PublishWithOptions], [NSNetService.ResolveWithTimeout]`, or
+// [NSNetService.StartMonitoring] in order to take effect.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/includesPeerToPeer
 func (n NetService) IncludesPeerToPeer() bool {
@@ -375,8 +377,8 @@ func (n NetService) SetIncludesPeerToPeer(value bool) {
 // # Discussion
 //
 // This value is set when the object is first initialized, whether by your
-// code or by a browser object. See [InitWithDomainTypeName] for more
-// information.
+// code or by a browser object. See [NSNetService.InitWithDomainTypeName] for
+// more information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/name
 func (n NetService) Name() string {
@@ -389,8 +391,8 @@ func (n NetService) Name() string {
 // # Discussion
 //
 // This value is set when the object is first initialized, whether by your
-// code or by a browser object. See [InitWithDomainTypeName] for more
-// information.
+// code or by a browser object. See [NSNetService.InitWithDomainTypeName] for
+// more information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/type
 func (n NetService) Type() string {
@@ -418,13 +420,15 @@ func (n NetService) SetDelegate(value NSNetServiceDelegate) {
 //
 // # Discussion
 //
-// If the object was initialized by calling [InitWithDomainTypeNamePort]
-// (whether by your code or by a browser object), then the value was set when
-// the object was first initialized.
+// If the object was initialized by calling
+// [NSNetService.InitWithDomainTypeNamePort] (whether by your code or by a
+// browser object), then the value was set when the object was first
+// initialized.
 //
-// If the object was initialized by calling [InitWithDomainTypeName], the
-// value of this property is not valid (`-1`) until after the service has
-// successfully been resolved (when `addresses` is non-`nil`).
+// If the object was initialized by calling
+// [NSNetService.InitWithDomainTypeName], the value of this property is not
+// valid (`-1`) until after the service has successfully been resolved (when
+// `addresses` is non-`nil`).
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/port
 func (n NetService) Port() int {

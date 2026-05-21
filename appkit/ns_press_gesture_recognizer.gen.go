@@ -54,8 +54,10 @@ func (nc NSPressGestureRecognizerClass) Alloc() NSPressGestureRecognizer {
 //
 // Upon creation, the gesture recognizer recognizes press gestures involving
 // only the primary button. It also delays sending primary button events to
-// the view by setting the [NSPressGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to true.
-// To change the set of buttons to track, modify the [NSPressGestureRecognizer.ButtonMask] property.
+// the view by setting the
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to true. To
+// change the set of buttons to track, modify the
+// [NSPressGestureRecognizer.ButtonMask] property.
 //
 // # Configuring the Gesture Recognizer
 //
@@ -110,8 +112,8 @@ type INSPressGestureRecognizer interface {
 	ButtonMask() uint
 	SetButtonMask(value uint)
 	// The minimum time (in seconds) that the user must hold the mouse button in the view for a valid gesture.
-	MinimumPressDuration() float64
-	SetMinimumPressDuration(value float64)
+	MinimumPressDuration() foundation.NSTimeInterval
+	SetMinimumPressDuration(value foundation.NSTimeInterval)
 	// The number of necessary touches on a Touch Bar for the gesture recognizer to match.
 	NumberOfTouchesRequired() int
 	SetNumberOfTouchesRequired(value int)
@@ -203,9 +205,10 @@ func (p NSPressGestureRecognizer) SetAllowableMovement(value float64) {
 // button.
 //
 // Changing the value of this property also sets the values of the
-// [DelaysPrimaryMouseButtonEvents], [DelaysSecondaryMouseButtonEvents], and
-// [DelaysOtherMouseButtonEvents] properties to true for each of the buttons
-// you specified.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents],
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for
+// each of the buttons you specified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPressGestureRecognizer/buttonMask
 func (p NSPressGestureRecognizer) ButtonMask() uint {
@@ -225,11 +228,11 @@ func (p NSPressGestureRecognizer) SetButtonMask(value uint) {
 // interval.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPressGestureRecognizer/minimumPressDuration
-func (p NSPressGestureRecognizer) MinimumPressDuration() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("minimumPressDuration"))
-	return rv
+func (p NSPressGestureRecognizer) MinimumPressDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("minimumPressDuration"))
+	return foundation.NSTimeInterval(rv)
 }
-func (p NSPressGestureRecognizer) SetMinimumPressDuration(value float64) {
+func (p NSPressGestureRecognizer) SetMinimumPressDuration(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinimumPressDuration:"), value)
 }
 

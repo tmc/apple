@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -146,6 +147,13 @@ func NewNSCollectionViewTransitionLayout() NSCollectionViewTransitionLayout {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func NewCollectionViewTransitionLayoutWithCoder(coder foundation.INSCoder) NSCollectionViewTransitionLayout {
+	instance := getNSCollectionViewTransitionLayoutClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSCollectionViewTransitionLayoutFromID(rv)
+}
+
 // Initializes and returns the transition layout object.
 //
 // currentLayout: The layout object currently in use by the collection view.
@@ -215,8 +223,8 @@ func (c NSCollectionViewTransitionLayout) UpdateValueForAnimatedKey(value float6
 
 // Returns the most recently set value for the specified key.
 //
-// key: A key whose value you set previously using the [UpdateValueForAnimatedKey]
-// method.
+// key: A key whose value you set previously using the
+// [NSCollectionViewTransitionLayout.UpdateValueForAnimatedKey] method.
 //
 // # Return Value
 //
@@ -228,7 +236,8 @@ func (c NSCollectionViewTransitionLayout) UpdateValueForAnimatedKey(value float6
 // the contents of your collection view. The key you specify is a string that
 // you define and that has some meaning to your layout’s implementation. At
 // points during an interactive transition, you can assign new values to that
-// key using the [UpdateValueForAnimatedKey] method.
+// key using the [NSCollectionViewTransitionLayout.UpdateValueForAnimatedKey]
+// method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewTransitionLayout/value(forAnimatedKey:)
 func (c NSCollectionViewTransitionLayout) ValueForAnimatedKey(key NSCollectionViewTransitionLayoutAnimatedKey) float64 {
@@ -241,10 +250,10 @@ func (c NSCollectionViewTransitionLayout) ValueForAnimatedKey(key NSCollectionVi
 // # Discussion
 //
 // During the transition, set the value of this property periodically and call
-// the [InvalidateLayout] method to force the collection view to update item
-// positions. For example, when driving a transition using a gesture
-// recognizer, you can set this property from the handler method of your
-// gesture recognizer.
+// the [NSCollectionViewLayout.InvalidateLayout] method to force the
+// collection view to update item positions. For example, when driving a
+// transition using a gesture recognizer, you can set this property from the
+// handler method of your gesture recognizer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewTransitionLayout/transitionProgress
 func (c NSCollectionViewTransitionLayout) TransitionProgress() float64 {

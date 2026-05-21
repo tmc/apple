@@ -73,8 +73,8 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 // # Methods to Override
 //
 // To subclass [NSXMLNode] you need to override the primary initializer,
-// [InitWithKindOptions], and the methods listed below. In most cases, you
-// need only invoke the superclass implementation, adding any
+// [NSXMLNode.InitWithKindOptions], and the methods listed below. In most
+// cases, you need only invoke the superclass implementation, adding any
 // subclass-specific code before or after the invocation, as necessary.
 //
 // [Table data omitted]
@@ -90,11 +90,12 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 //
 // Because of the architecture and data model of NSXML, when it parses and
 // processes a source of XML it cannot know about your subclass unless you
-// override the [NSXMLDocument] class method [ReplacementClassForClass] to
-// return your custom class in place of an NSXML class. If your custom class
-// has no direct NSXML counterpart—for example, it is a subclass of
-// [NSXMLNode] that represents CDATA sections—then you can walk the tree
-// after it has been created and insert the new node where appropriate.
+// override the [NSXMLDocument] class method
+// [NSXMLDocumentClass.ReplacementClassForClass] to return your custom class
+// in place of an NSXML class. If your custom class has no direct NSXML
+// counterpart—for example, it is a subclass of [NSXMLNode] that represents
+// CDATA sections—then you can walk the tree after it has been created and
+// insert the new node where appropriate.
 //
 // # Creating and Initializing Node Objects
 //
@@ -103,8 +104,6 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 //
 // # Managing XML Node Objects
 //
-//   - [XMLNode.Index]: Returns the index of the receiver identifying its position relative to its sibling nodes.
-//   - [XMLNode.SetIndex]
 //   - [XMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
 //   - [XMLNode.Level]: Returns the nesting level of the receiver within the tree hierarchy.
 //   - [XMLNode.Name]: Returns the name of the receiver.
@@ -179,8 +178,6 @@ func NSXMLNodeFromID(id objc.ID) XMLNode { return XMLNodeFromID(id) }
 //
 // # Managing XML Node Objects
 //
-//   - [IXMLNode.Index]: Returns the index of the receiver identifying its position relative to its sibling nodes.
-//   - [IXMLNode.SetIndex]
 //   - [IXMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
 //   - [IXMLNode.Level]: Returns the nesting level of the receiver within the tree hierarchy.
 //   - [IXMLNode.Name]: Returns the name of the receiver.
@@ -238,9 +235,6 @@ type IXMLNode interface {
 
 	// Topic: Managing XML Node Objects
 
-	// Returns the index of the receiver identifying its position relative to its sibling nodes.
-	Index() int
-	SetIndex(value int)
 	// Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
 	Kind() NSXMLNodeKind
 	// Returns the nesting level of the receiver within the tree hierarchy.
@@ -345,13 +339,13 @@ func NewXMLNode() XMLNode {
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -384,9 +378,9 @@ func NewXMLNodeWithKind(kind NSXMLNodeKind) XMLNode {
 // # Discussion
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:options:)
 //
@@ -411,13 +405,13 @@ func NewXMLNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XML
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -449,9 +443,9 @@ func (x XMLNode) InitWithKind(kind NSXMLNodeKind) XMLNode {
 // # Discussion
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:options:)
 //
@@ -592,11 +586,11 @@ func (x XMLNode) CanonicalXMLStringPreservingComments(comments bool) string {
 // The receiver acts as the context item for the query (”.”). If you have
 // explicitly added adjacent text nodes as children of an element, you should
 // invoke the [NSXMLElement] method
-// [NormalizeAdjacentTextNodesPreservingCDATA] (with an argument of false) on
-// the element before applying any XPath queries to it; this method coalesces
-// these text nodes. The same precaution applies if you have processed a
-// document preserving CDATA sections and these sections are adjacent to text
-// nodes.
+// [NSXMLElement.NormalizeAdjacentTextNodesPreservingCDATA] (with an argument
+// of false) on the element before applying any XPath queries to it; this
+// method coalesces these text nodes. The same precaution applies if you have
+// processed a document preserving CDATA sections and these sections are
+// adjacent to text nodes.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/nodes(forXPath:)
 func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
@@ -622,9 +616,10 @@ func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
 // The receiver acts as the context item for the query (”.”). If the
 // receiver has been changed after parsing to have multiple adjacent text
 // nodes, you should invoke the [NSXMLElement] method
-// [NormalizeAdjacentTextNodesPreservingCDATA] (with an argument of false) to
-// coalesce the text nodes before querying .This convenience method invokes
-// [ObjectsForXQueryConstantsError] with `nil` for the `constants` dictionary.
+// [NSXMLElement.NormalizeAdjacentTextNodesPreservingCDATA] (with an argument
+// of false) to coalesce the text nodes before querying .This convenience
+// method invokes [NSXMLNode.ObjectsForXQueryConstantsError] with `nil` for
+// the `constants` dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/objects(forXQuery:)
 func (x XMLNode) ObjectsForXQueryError(xquery string) (INSArray, error) {
@@ -651,8 +646,8 @@ func (x XMLNode) ObjectsForXQueryError(xquery string) (INSArray, error) {
 // The receiver acts as the context item for the query (”.”). If the
 // receiver has been changed after parsing to have multiple adjacent text
 // nodes, you should invoke the [NSXMLElement] method
-// [NormalizeAdjacentTextNodesPreservingCDATA] (with an argument of false) to
-// coalesce the text nodes before querying.
+// [NSXMLElement.NormalizeAdjacentTextNodesPreservingCDATA] (with an argument
+// of false) to coalesce the text nodes before querying.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/objects(forXQuery:constants:)
 func (x XMLNode) ObjectsForXQueryConstantsError(xquery string, constants INSDictionary) (INSArray, error) {
@@ -1014,18 +1009,6 @@ func (_XMLNodeClass XMLNodeClass) PrefixForName(name string) string {
 	return NSStringFromID(rv).String()
 }
 
-// Returns the index of the receiver identifying its position relative to its
-// sibling nodes.
-//
-// See: https://developer.apple.com/documentation/foundation/xmlnode/index
-func (x XMLNode) Index() int {
-	rv := objc.Send[int](x.ID, objc.Sel("index"))
-	return rv
-}
-func (x XMLNode) SetIndex(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setIndex:"), value)
-}
-
 // Returns the kind of node the receiver is as a constant of type
 // [XMLNode.Kind].
 //
@@ -1095,9 +1078,9 @@ func (x XMLNode) SetName(value string) {
 // # Return Value
 //
 // The object value of the receiver, which may be the same as the value
-// returned by [StringValue]. For nodes without content (for example, document
-// nodes), this method returns the string value, or an empty string if there
-// is no string value.
+// returned by [NSXMLNode.StringValue]. For nodes without content (for
+// example, document nodes), this method returns the string value, or an empty
+// string if there is no string value.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/objectValue
 func (x XMLNode) ObjectValue() objectivec.IObject {
@@ -1189,8 +1172,8 @@ func (x XMLNode) Parent() INSXMLNode {
 //
 // This receiver should be an [NSXMLNode] object representing a document,
 // element, or document type declaration. For performance reasons, use this
-// method instead of getting the count from the array returned by [Children]
-// (for example, `[[thisNode children] count`]).
+// method instead of getting the count from the array returned by
+// [NSXMLNode.Children] (for example, `[[thisNode children] count`]).
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/childCount
 func (x XMLNode) ChildCount() uint {
@@ -1214,11 +1197,12 @@ func (x XMLNode) Children() []NSXMLNode {
 // # Discussion
 //
 // You use this method to “walk” forward through the tree structure
-// representing an XML document or document section. (Use [PreviousNode] to
-// traverse the tree in the opposite direction.) Document order is the natural
-// order that XML constructs appear in markup text. If you send this message
-// to the last node in the tree, `nil` is returned. [NSXMLNode] bypasses
-// namespace and attribute nodes when it traverses a tree in document order.
+// representing an XML document or document section. (Use
+// [NSXMLNode.PreviousNode] to traverse the tree in the opposite direction.)
+// Document order is the natural order that XML constructs appear in markup
+// text. If you send this message to the last node in the tree, `nil` is
+// returned. [NSXMLNode] bypasses namespace and attribute nodes when it
+// traverses a tree in document order.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/next
 func (x XMLNode) NextNode() INSXMLNode {
@@ -1230,11 +1214,13 @@ func (x XMLNode) NextNode() INSXMLNode {
 //
 // # Discussion
 //
-// This object will have an [Index] value that is one more than the
+// This object will have an [index] value that is one more than the
 // receiver’s. If there are no more subsequent siblings (that is, other
 // child nodes of the receiver’s parent) the method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/nextSibling
+//
+// [index]: https://developer.apple.com/documentation/Foundation/XMLNode/index
 func (x XMLNode) NextSibling() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("nextSibling"))
 	return NSXMLNodeFromID(objc.ID(rv))
@@ -1245,10 +1231,10 @@ func (x XMLNode) NextSibling() INSXMLNode {
 // # Discussion
 //
 // You use this method to “walk” backward through the tree structure
-// representing an XML document or document section. (Use [NextNode] to
-// traverse the tree in the opposite direction.) Document order is the natural
-// order that XML constructs appear in markup text. If you send this message
-// to the first node in the tree (that is, the root element), `nil` is
+// representing an XML document or document section. (Use [NSXMLNode.NextNode]
+// to traverse the tree in the opposite direction.) Document order is the
+// natural order that XML constructs appear in markup text. If you send this
+// message to the first node in the tree (that is, the root element), `nil` is
 // returned. [NSXMLNode] bypasses namespace and attribute nodes when it
 // traverses a tree in document order.
 //
@@ -1263,11 +1249,13 @@ func (x XMLNode) PreviousNode() INSXMLNode {
 //
 // # Discussion
 //
-// This object will have an [Index] value that is one less than the
+// This object will have an [index] value that is one less than the
 // receiver’s. If there are no more previous siblings (that is, other child
 // nodes of the receiver’s parent) the method returns `nil`
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/previousSibling
+//
+// [index]: https://developer.apple.com/documentation/Foundation/XMLNode/index
 func (x XMLNode) PreviousSibling() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("previousSibling"))
 	return NSXMLNodeFromID(objc.ID(rv))
@@ -1279,8 +1267,8 @@ func (x XMLNode) PreviousSibling() INSXMLNode {
 // # Discussion
 //
 // The returned string includes the string representations of all children.
-// This method invokes [XMLStringWithOptions] with an `options` argument of
-// [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.XMLStringWithOptions] with an `options`
+// argument of [NSXMLNodeOptionsNone].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/xmlString
 func (x XMLNode) XMLString() string {
@@ -1305,7 +1293,8 @@ func (x XMLNode) Description() string {
 //
 // For example, this method might return a string such as
 // “foo/bar[2]/baz”. The result of this method can be used directly in the
-// [NodesForXPathError] and [ObjectsForXQueryConstantsError] methods.
+// [NSXMLNode.NodesForXPathError] and
+// [NSXMLNode.ObjectsForXQueryConstantsError] methods.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/xPath
 func (x XMLNode) XPath() string {

@@ -4,13 +4,18 @@
 //
 // Perform common application tasks.
 //
-// This collection of documents provides the API reference for the Application Services framework, which includes several services that are essential to Carbon applications. The Application Services framework also includes support for a number of legacy technologies—such as QuickDraw and the Font Manager—that have been superseded with newer technologies like Quartz 2D and ATSUI.
+// This collection of documents provides the API reference for the Application
+// Services framework, which includes several services that are essential to
+// Carbon applications. The Application Services framework also includes
+// support for a number of legacy technologies—such as QuickDraw and the
+// Font Manager—that have been superseded with newer technologies like
+// Quartz 2D and ATSUI.
 //
 // # Managers
 //
-//   - Apple Event Manager
-//   - ColorSync Manager ([CMFlattenProcPtr], [CM2Profile], [CMDeviceInfo], [CMDeviceProfileArray], [CMDeviceScope])
-//   - Speech Synthesis Manager ([SpeechDoneProcPtr], [SpeechErrorProcPtr], [SpeechErrorCFProcPtr], [SpeechPhonemeProcPtr], [SpeechSyncProcPtr])
+//   - [Apple Event Manager]
+//   - [ColorSync Manager] ([CMFlattenProcPtr], [CM2Profile], [CMDeviceInfo], [CMDeviceProfileArray], [CMDeviceScope])
+//   - [Speech Synthesis Manager] ([SpeechDoneProcPtr], [SpeechErrorProcPtr], [SpeechErrorCFProcPtr], [SpeechPhonemeProcPtr], [SpeechSyncProcPtr])
 //
 // # Classes
 //
@@ -27,11 +32,13 @@
 //
 // # Protocols
 //
-//   - PDEPanel
-//   - PDEPlugIn
-//   - PDEPlugInCallbackProtocol
+//   - [PDEPanel]
+//   - [PDEPlugIn]
+//   - [PDEPlugInCallbackProtocol]//
 //
-// [ApplicationServices Documentation]: https://developer.apple.com/documentation/applicationservices
+// [Apple Event Manager]: https://developer.apple.com/documentation/applicationservices/apple_event_manager
+// [ColorSync Manager]: https://developer.apple.com/documentation/applicationservices/colorsync_manager
+// [Speech Synthesis Manager]: https://developer.apple.com/documentation/applicationservices/speech_synthesis_manager
 package applicationservices
 
 import (

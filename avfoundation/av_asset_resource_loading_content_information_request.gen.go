@@ -53,21 +53,24 @@ func (ac AVAssetResourceLoadingContentInformationRequestClass) Alloc() AVAssetRe
 // [AVAssetResourceLoadingRequest] when the
 // [ResourceLoaderShouldWaitForLoadingOfRequestedResource] is invoked and
 // accepts responsibility for loading the resource, it must check whether the
-// [AVAssetResourceLoadingContentInformationRequest.ContentInformationRequest] property of the [AVAssetResourceLoadingRequest]
-// is not `nil`. Whenever the value is not `nil`, the request includes a query
-// for the information that [AVAssetResourceLoadingContentInformationRequest]
-// encapsulates. In response to such queries, the resource loading delegate
-// should set the values of the content information request’s properties
-// appropriately before invoking the [AVAssetResourceLoadingRequest] method
-// [FinishLoading].
+// [AVAssetResourceLoadingRequest.ContentInformationRequest] property of the
+// [AVAssetResourceLoadingRequest] is not `nil`. Whenever the value is not
+// `nil`, the request includes a query for the information that
+// [AVAssetResourceLoadingContentInformationRequest] encapsulates. In response
+// to such queries, the resource loading delegate should set the values of the
+// content information request’s properties appropriately before invoking
+// the [AVAssetResourceLoadingRequest] method
+// [AVAssetResourceLoadingRequest.FinishLoading].
 //
-// When [FinishLoading] is invoked, the values of the properties of its
-// [AVAssetResourceLoadingContentInformationRequest.ContentInformationRequest] property will, in part, determine how the
-// requested resource is processed. For example, if the requested resource’s
-// URL is the URL of an [AVURLAsset] and [AVAssetResourceLoadingContentInformationRequest.ContentType] is set by the resource
-// loading delegate to a value that the underlying media system doesn’t
-// recognize as a supported media file type, operations on the [AVURLAsset],
-// such as playback, are likely to fail.
+// When [AVAssetResourceLoadingRequest.FinishLoading] is invoked, the values
+// of the properties of its
+// [AVAssetResourceLoadingRequest.ContentInformationRequest] property will, in
+// part, determine how the requested resource is processed. For example, if
+// the requested resource’s URL is the URL of an [AVURLAsset] and
+// [AVAssetResourceLoadingContentInformationRequest.ContentType] is set by the
+// resource loading delegate to a value that the underlying media system
+// doesn’t recognize as a supported media file type, operations on the
+// [AVURLAsset], such as playback, are likely to fail.
 //
 // # Configuring content information
 //
@@ -138,10 +141,6 @@ type IAVAssetResourceLoadingContentInformationRequest interface {
 	// A Boolean value that indicates whether asset data loading can expect data immediately.
 	IsEntireLengthAvailableOnDemand() bool
 	SetEntireLengthAvailableOnDemand(value bool)
-
-	// The information for a requested resource.
-	ContentInformationRequest() IAVAssetResourceLoadingContentInformationRequest
-	SetContentInformationRequest(value IAVAssetResourceLoadingContentInformationRequest)
 }
 
 // Init initializes the instance.
@@ -169,8 +168,9 @@ func NewAVAssetResourceLoadingContentInformationRequest() AVAssetResourceLoading
 // # Discussion
 //
 // This property contains an array of file format UTIs. When
-// `allowedContentTypes` is non-nil, the value of [ContentType] must be set to
-// a value contained in `allowedContentTypes` or `nil`.
+// `allowedContentTypes` is non-nil, the value of
+// [AVAssetResourceLoadingContentInformationRequest.ContentType] must be set
+// to a value contained in `allowedContentTypes` or `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/allowedContentTypes
 func (a AVAssetResourceLoadingContentInformationRequest) AllowedContentTypes() []string {
@@ -184,16 +184,17 @@ func (a AVAssetResourceLoadingContentInformationRequest) AllowedContentTypes() [
 // # Discussion
 //
 // Before finishing loading an [AVAssetResourceLoadingRequest] instance, if
-// its [ContentInformationRequest] property is not `nil`, set the value of
-// this property to a UTI indicating the type of data contained by the
-// requested resource.
+// its [AVAssetResourceLoadingRequest.ContentInformationRequest] property is
+// not `nil`, set the value of this property to a UTI indicating the type of
+// data contained by the requested resource.
 //
 // When responding to an [AVAssetResourceLoadingRequest] for a FairPlay
 // Streaming key, only set `contentType` to
 // [AVStreamingKeyDeliveryContentKeyType],
 // [AVStreamingKeyDeliveryPersistentContentKeyType], or `nil`. The value of
-// contentType must be contained in the [AllowedContentTypes] property or
-// `nil`.
+// contentType must be contained in the
+// [AVAssetResourceLoadingContentInformationRequest.AllowedContentTypes]
+// property or `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/contentType
 //
@@ -212,9 +213,9 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetContentType(value st
 // # Discussion
 //
 // Before finishing loading an [AVAssetResourceLoadingRequest] instance, if
-// its [ContentInformationRequest] property is not `nil`, set the value of the
-// `contentLength` property to the number of bytes contained by the requested
-// resource.
+// its [AVAssetResourceLoadingRequest.ContentInformationRequest] property is
+// not `nil`, set the value of the `contentLength` property to the number of
+// bytes contained by the requested resource.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/contentLength
 func (a AVAssetResourceLoadingContentInformationRequest) ContentLength() int64 {
@@ -231,9 +232,9 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetContentLength(value 
 // # Discussion
 //
 // Before finishing loading an [AVAssetResourceLoadingRequest] instance, if
-// its [ContentInformationRequest] property is not `nil`, set the value of
-// this property to true if it supports random access to arbitrary ranges of
-// bytes of the resource.
+// its [AVAssetResourceLoadingRequest.ContentInformationRequest] property is
+// not `nil`, set the value of this property to true if it supports random
+// access to arbitrary ranges of bytes of the resource.
 //
 // If this property is not true for resources that must be loaded
 // incrementally, loading of the resource may fail. Such resources include
@@ -278,11 +279,11 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetRenewalDate(value fo
 // # Discussion
 //
 // Before you finish loading an [AVAssetResourceLoadingRequest], if its
-// [ContentInformationRequest] isn’t `nil`, set the value to true to
-// indicate that all asset data is available. This may be true because the
-// data is fully cached, or because the custom URL scheme ultimately refers to
-// files on local storage, which allows for significant data flow
-// optimizations.
+// [AVAssetResourceLoadingRequest.ContentInformationRequest] isn’t `nil`,
+// set the value to true to indicate that all asset data is available. This
+// may be true because the data is fully cached, or because the custom URL
+// scheme ultimately refers to files on local storage, which allows for
+// significant data flow optimizations.
 //
 // For backward compatibility, this property defaults to false.
 //
@@ -293,15 +294,4 @@ func (a AVAssetResourceLoadingContentInformationRequest) IsEntireLengthAvailable
 }
 func (a AVAssetResourceLoadingContentInformationRequest) SetEntireLengthAvailableOnDemand(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEntireLengthAvailableOnDemand:"), value)
-}
-
-// The information for a requested resource.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetresourceloadingrequest/contentinformationrequest
-func (a AVAssetResourceLoadingContentInformationRequest) ContentInformationRequest() IAVAssetResourceLoadingContentInformationRequest {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("contentInformationRequest"))
-	return AVAssetResourceLoadingContentInformationRequestFromID(objc.ID(rv))
-}
-func (a AVAssetResourceLoadingContentInformationRequest) SetContentInformationRequest(value IAVAssetResourceLoadingContentInformationRequest) {
-	objc.Send[struct{}](a.ID, objc.Sel("setContentInformationRequest:"), value)
 }

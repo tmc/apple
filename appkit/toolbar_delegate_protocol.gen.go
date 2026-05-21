@@ -185,8 +185,8 @@ func (o NSToolbarDelegateObject) ToolbarImmovableItemIdentifiers(toolbar INSTool
 // Use this method to return the complete list of toolbar items that support
 // selection. When someone selects one of the returned items, the toolbar
 // automatically displays that item with a visual highlight. The toolbar also
-// places the currently selected item in its [SelectedItemIdentifier]
-// property.
+// places the currently selected item in its
+// [NSToolbar.SelectedItemIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarSelectableItemIdentifiers(_:)
 func (o NSToolbarDelegateObject) ToolbarSelectableItemIdentifiers(toolbar INSToolbar) []string {

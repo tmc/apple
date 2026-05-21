@@ -50,7 +50,8 @@ func NSTouchBarDelegateObjectFromID(id objc.ID) NSTouchBarDelegateObject {
 //
 // When the system needs to populate a bar’s items array, the system calls
 // this delegate method to retrieve an item if that item can’t be found in
-// the bar’s private array or in the bar’s [TemplateItems] property.
+// the bar’s private array or in the bar’s [NSTouchBar.TemplateItems]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarDelegate/touchBar(_:makeItemForIdentifier:)
 func (o NSTouchBarDelegateObject) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {

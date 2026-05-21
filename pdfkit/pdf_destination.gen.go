@@ -50,7 +50,8 @@ func (pc PDFDestinationClass) Alloc() PDFDestination {
 //
 // In typical usage, you do not initialize [PDFDestination] objects but rather
 // get them as either attributes of [PDFAnnotationLink] or [PDFOutline]
-// objects, or in response to the [PDFView] method [PDFDestination.CurrentDestination].
+// objects, or in response to the [PDFView] method
+// [PDFView.CurrentDestination].
 //
 // # Initializing a Destination
 //
@@ -60,7 +61,6 @@ func (pc PDFDestinationClass) Alloc() PDFDestination {
 //
 //   - [PDFDestination.Page]: Returns the page that the destination refers to.
 //   - [PDFDestination.Point]: Returns the point, in page space, that the destination refers to.
-//   - [PDFDestination.KPDFDestinationUnspecifiedValue]
 //
 // # Getting a Relative Location
 //
@@ -98,7 +98,6 @@ func PDFDestinationFromID(id objc.ID) PDFDestination {
 //
 //   - [IPDFDestination.Page]: Returns the page that the destination refers to.
 //   - [IPDFDestination.Point]: Returns the point, in page space, that the destination refers to.
-//   - [IPDFDestination.KPDFDestinationUnspecifiedValue]
 //
 // # Getting a Relative Location
 //
@@ -124,7 +123,6 @@ type IPDFDestination interface {
 	Page() IPDFPage
 	// Returns the point, in page space, that the destination refers to.
 	Point() corefoundation.CGPoint
-	KPDFDestinationUnspecifiedValue() float64
 
 	// Topic: Getting a Relative Location
 
@@ -135,22 +133,6 @@ type IPDFDestination interface {
 
 	Zoom() float64
 	SetZoom(value float64)
-
-	// An object that represents an action for a PDF element, such as a link annotation.
-	Action() IPDFAction
-	SetAction(value IPDFAction)
-	// Returns a
-	CurrentDestination() IPDFDestination
-	SetCurrentDestination(value IPDFDestination)
-	// Returns the modification date of the annotation.
-	ModificationDate() foundation.NSDate
-	SetModificationDate(value foundation.NSDate)
-	// Returns the type of the annotation.
-	Type() string
-	SetType(value string)
-	// Returns the name of the user who created the annotation.
-	UserName() string
-	SetUserName(value string)
 }
 
 // Init initializes the instance.
@@ -291,12 +273,6 @@ func (p PDFDestination) Point() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-// See: https://developer.apple.com/documentation/pdfkit/kpdfdestinationunspecifiedvalue
-func (p PDFDestination) KPDFDestinationUnspecifiedValue() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("kPDFDestinationUnspecifiedValue"))
-	return rv
-}
-
 // See: https://developer.apple.com/documentation/PDFKit/PDFDestination/zoom
 func (p PDFDestination) Zoom() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("zoom"))
@@ -304,60 +280,4 @@ func (p PDFDestination) Zoom() float64 {
 }
 func (p PDFDestination) SetZoom(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setZoom:"), value)
-}
-
-// An object that represents an action for a PDF element, such as a link
-// annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/action
-func (p PDFDestination) Action() IPDFAction {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("action"))
-	return PDFActionFromID(objc.ID(rv))
-}
-func (p PDFDestination) SetAction(value IPDFAction) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAction:"), value)
-}
-
-// Returns a
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfview/currentdestination
-func (p PDFDestination) CurrentDestination() IPDFDestination {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDestination"))
-	return PDFDestinationFromID(objc.ID(rv))
-}
-func (p PDFDestination) SetCurrentDestination(value IPDFDestination) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCurrentDestination:"), value)
-}
-
-// Returns the modification date of the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/modificationdate
-func (p PDFDestination) ModificationDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modificationDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (p PDFDestination) SetModificationDate(value foundation.NSDate) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModificationDate:"), value)
-}
-
-// Returns the type of the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/type
-func (p PDFDestination) Type() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("type"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFDestination) SetType(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setType:"), objc.String(value))
-}
-
-// Returns the name of the user who created the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/username
-func (p PDFDestination) UserName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("userName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFDestination) SetUserName(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setUserName:"), objc.String(value))
 }

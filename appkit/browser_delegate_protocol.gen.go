@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -50,8 +49,9 @@ func NSBrowserDelegateObjectFromID(id objc.ID) NSBrowserDelegateObject {
 //
 // # Discussion
 //
-// This method is invoked in response to the [ValidateVisibleColumns]method of
-// [NSBrowser] being sent to `sender`.
+// This method is invoked in response to the
+// [NSBrowser.ValidateVisibleColumns]method of [NSBrowser] being sent to
+// `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:isColumnValid:)
 func (o NSBrowserDelegateObject) BrowserIsColumnValid(sender INSBrowser, column int) bool {
@@ -153,7 +153,7 @@ func (o NSBrowserDelegateObject) BrowserShouldTypeSelectForEventWithCurrentSearc
 //
 // If the delegate does not implement this method, all cells with text are
 // searched, and the browser determines the keyboard-based selection text by
-// sending [StringValue] to the cell specified by `column` and `row`.
+// sending [NSCell.StringValue] to the cell specified by `column` and `row`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:typeSelectStringForRow:inColumn:)
 func (o NSBrowserDelegateObject) BrowserTypeSelectStringForRowInColumn(browser INSBrowser, row int, column int) string {
@@ -202,8 +202,8 @@ func (o NSBrowserDelegateObject) BrowserNextTypeSelectMatchFromRowToRowInColumnF
 //
 // # Discussion
 //
-// Invoked in response to the [SetPath] method of [NSBrowser] being received
-// by `sender`.
+// Invoked in response to the [NSBrowser.SetPath] method of [NSBrowser] being
+// received by `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:selectCellWith:inColumn:)
 func (o NSBrowserDelegateObject) BrowserSelectCellWithStringInColumn(sender INSBrowser, title string, column int) bool {
@@ -226,8 +226,8 @@ func (o NSBrowserDelegateObject) BrowserSelectCellWithStringInColumn(sender INSB
 //
 // # Discussion
 //
-// Invoked in response to [SelectRowInColumn] of [NSBrowser] being received by
-// `sender`.
+// Invoked in response to [NSBrowser.SelectRowInColumn] of [NSBrowser] being
+// received by `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:selectRow:inColumn:)
 func (o NSBrowserDelegateObject) BrowserSelectRowInColumn(sender INSBrowser, row int, column int) bool {
@@ -358,7 +358,7 @@ func (o NSBrowserDelegateObject) BrowserSetObjectValueForItem(browser INSBrowser
 //
 // By default, `nil` identifies the root item. This method can specify a
 // different root item. To reload the previously set root item, call
-// [LoadColumnZero], and [RootItemForBrowser] will be called again.
+// [NSBrowser.LoadColumnZero], and [RootItemForBrowser] will be called again.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/rootItem(for:)
 func (o NSBrowserDelegateObject) RootItemForBrowser(browser INSBrowser) objectivec.IObject {
@@ -530,7 +530,7 @@ func (o NSBrowserDelegateObject) BrowserCanDragRowsWithIndexesInColumnWithEvent(
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:draggingImageForRowsWith:inColumn:with:offset:)
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnWithEventOffset(browser INSBrowser, rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnWithEventOffset(browser INSBrowser, rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"), browser, rowIndexes, column, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -566,7 +566,7 @@ func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnW
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:validateDrop:proposedRow:column:dropOperation:)
-func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row unsafe.Pointer, column unsafe.Pointer, dropOperation NSBrowserDropOperation) NSDragOperation {
+func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row *int, column *int, dropOperation NSBrowserDropOperation) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("browser:validateDrop:proposedRow:column:dropOperation:"), browser, info, row, column, dropOperation)
 	return rv
 }
@@ -704,10 +704,11 @@ func (o NSBrowserDelegateObject) BrowserSizeToFitWidthOfColumn(browser INSBrowse
 // # Discussion
 //
 // This method applies only to browsers with resize type
-// [NSBrowserUserColumnResizing]. It is invoked when the [SetWidthOfColumn]
-// method of [NSBrowser] is used to change the width of any browser columns or
-// when the user resizes any columns. If the user resizes more than one
-// column, a single notification is posted when the user is finished resizing.
+// [NSBrowserUserColumnResizing]. It is invoked when the
+// [NSBrowser.SetWidthOfColumn] method of [NSBrowser] is used to change the
+// width of any browser columns or when the user resizes any columns. If the
+// user resizes more than one column, a single notification is posted when the
+// user is finished resizing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browserColumnConfigurationDidChange(_:)
 //
@@ -731,8 +732,8 @@ func (o NSBrowserDelegateObject) BrowserColumnConfigurationDidChange(notificatio
 // # Discussion
 //
 // The values returned for this method may be cached. Therefore, you should
-// call [NoteHeightOfRowsWithIndexesChangedInColumn] to invalidate a row’s
-// height before changing it.
+// call [NSBrowser.NoteHeightOfRowsWithIndexesChangedInColumn] to invalidate a
+// row’s height before changing it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:heightOfRow:inColumn:)
 func (o NSBrowserDelegateObject) BrowserHeightOfRowInColumn(browser INSBrowser, row int, columnIndex int) float64 {
@@ -818,7 +819,7 @@ type NSBrowserDelegateConfig struct {
 	// CanDragRowsWithIndexesInColumnWithEvent — Sent to the delegate to determine whether the browser can attempt to initiate a drag of the specified rows for the specified event.
 	CanDragRowsWithIndexesInColumnWithEvent func(browser NSBrowser, rowIndexes foundation.NSIndexSet, column int, event NSEvent) bool
 	// DraggingImageForRowsWithIndexesInColumnWithEventOffset — Sent to the delegate to obtain an image to represent dragged rows during a drag operation on a browser.
-	DraggingImageForRowsWithIndexesInColumnWithEventOffset func(browser NSBrowser, rowIndexes foundation.NSIndexSet, column int, event NSEvent, dragImageOffset foundation.NSPoint) NSImage
+	DraggingImageForRowsWithIndexesInColumnWithEventOffset func(browser NSBrowser, rowIndexes foundation.NSIndexSet, column int, event NSEvent, dragImageOffset foundation.NSPointPointer) NSImage
 	// WriteRowsWithIndexesInColumnToPasteboard — Determines whether a drag operation can proceed. This method is required for a browser to be a drag source.
 	WriteRowsWithIndexesInColumnToPasteboard func(browser NSBrowser, rowIndexes foundation.NSIndexSet, column int, pasteboard NSPasteboard) bool
 }
@@ -948,7 +949,7 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		fn := config.DraggingImageForRowsWithIndexesInColumnWithEventOffset
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, rowIndexesID objc.ID, column int, eventID objc.ID, dragImageOffset foundation.NSPoint) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, rowIndexesID objc.ID, column int, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
 				browser := NSBrowserFromID(browserID)
 				rowIndexes := foundation.NSIndexSetFromID(rowIndexesID)
 				event := NSEventFromID(eventID)

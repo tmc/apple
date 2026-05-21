@@ -93,7 +93,7 @@ type IUNTimeIntervalNotificationTrigger interface {
 	// The next date at which the trigger conditions are met.
 	NextTriggerDate() foundation.NSDate
 	// The time interval to create the trigger.
-	TimeInterval() float64
+	TimeInterval() foundation.NSTimeInterval
 }
 
 // Init initializes the instance.
@@ -137,7 +137,7 @@ func NewUNTimeIntervalNotificationTrigger() UNTimeIntervalNotificationTrigger {
 // notification requests that are no longer needed.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTimeIntervalNotificationTrigger/init(timeInterval:repeats:)
-func NewUNTimeIntervalNotificationTriggerWithTimeIntervalRepeats(timeInterval float64, repeats bool) UNTimeIntervalNotificationTrigger {
+func NewUNTimeIntervalNotificationTriggerWithTimeIntervalRepeats(timeInterval foundation.NSTimeInterval, repeats bool) UNTimeIntervalNotificationTrigger {
 	rv := objc.Send[objc.ID](objc.ID(getUNTimeIntervalNotificationTriggerClass().class), objc.Sel("triggerWithTimeInterval:repeats:"), timeInterval, repeats)
 	return UNTimeIntervalNotificationTriggerFromID(rv)
 }
@@ -166,10 +166,10 @@ func (u UNTimeIntervalNotificationTrigger) NextTriggerDate() foundation.NSDate {
 // This property contains the original time interval that you specified when
 // creating the trigger object. The value in this property isn’t updated as
 // time counts down. To find out when the trigger will fire next, call the
-// [NextTriggerDate] method.
+// [UNTimeIntervalNotificationTrigger.NextTriggerDate] method.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTimeIntervalNotificationTrigger/timeInterval
-func (u UNTimeIntervalNotificationTrigger) TimeInterval() float64 {
-	rv := objc.Send[float64](u.ID, objc.Sel("timeInterval"))
-	return rv
+func (u UNTimeIntervalNotificationTrigger) TimeInterval() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](u.ID, objc.Sel("timeInterval"))
+	return foundation.NSTimeInterval(rv)
 }

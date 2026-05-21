@@ -51,11 +51,14 @@ func (ac AVSpeechUtteranceClass) Alloc() AVSpeechUtterance {
 // An [AVSpeechUtterance] is the basic unit of speech synthesis.
 //
 // To synthesize speech, create an [AVSpeechUtterance] instance with text you
-// want a speech synthesizer to speak. Optionally, change the [AVSpeechUtterance.Voice],
-// [AVSpeechUtterance.PitchMultiplier], [AVSpeechUtterance.Volume], [AVSpeechUtterance.Rate], [AVSpeechUtterance.PreUtteranceDelay], or
-// [AVSpeechUtterance.PostUtteranceDelay] parameters for the utterance. Pass the utterance to an
-// instance of [AVSpeechSynthesizer] to begin speech, or enqueue the utterance
-// to speak later if the synthesizer is already speaking.
+// want a speech synthesizer to speak. Optionally, change the
+// [AVSpeechUtterance.Voice], [AVSpeechUtterance.PitchMultiplier],
+// [AVSpeechUtterance.Volume], [AVSpeechUtterance.Rate],
+// [AVSpeechUtterance.PreUtteranceDelay], or
+// [AVSpeechUtterance.PostUtteranceDelay] parameters for the utterance. Pass
+// the utterance to an instance of [AVSpeechSynthesizer] to begin speech, or
+// enqueue the utterance to speak later if the synthesizer is already
+// speaking.
 //
 // Split a body of text into multiple utterances if you want to apply
 // different speech parameters. For example, you can emphasize a sentence by
@@ -72,7 +75,6 @@ func (ac AVSpeechUtteranceClass) Alloc() AVSpeechUtterance {
 //
 //   - [AVSpeechUtterance.InitWithString]: Creates an utterance with the text string that you specify for the speech synthesizer to speak.
 //   - [AVSpeechUtterance.InitWithAttributedString]: Creates an utterance with the attributed text string that you specify for the speech synthesizer to speak.
-//   - [AVSpeechUtterance.AVSpeechSynthesisIPANotationAttribute]: A string that contains International Phonetic Alphabet (IPA) symbols the speech synthesizer uses to control pronunciation of certain words or phrases.
 //   - [AVSpeechUtterance.InitWithSSMLRepresentation]: Creates a speech utterance with an Speech Synthesis Markup Language (SSML) string.
 //
 // # Configuring an utterance
@@ -90,9 +92,6 @@ func (ac AVSpeechUtteranceClass) Alloc() AVSpeechUtterance {
 //
 //   - [AVSpeechUtterance.Rate]: The rate the speech synthesizer uses when speaking the utterance.
 //   - [AVSpeechUtterance.SetRate]
-//   - [AVSpeechUtterance.AVSpeechUtteranceMinimumSpeechRate]: The minimum rate the speech synthesizer uses when speaking an utterance.
-//   - [AVSpeechUtterance.AVSpeechUtteranceMaximumSpeechRate]: The maximum rate the speech synthesizer uses when speaking an utterance.
-//   - [AVSpeechUtterance.AVSpeechUtteranceDefaultSpeechRate]: The default rate the speech synthesizer uses when speaking an utterance.
 //   - [AVSpeechUtterance.PreUtteranceDelay]: The amount of time the speech synthesizer pauses before speaking the utterance.
 //   - [AVSpeechUtterance.SetPreUtteranceDelay]
 //   - [AVSpeechUtterance.PostUtteranceDelay]: The amount of time the speech synthesizer pauses after speaking an utterance before handling the next utterance in the queue.
@@ -125,7 +124,6 @@ func AVSpeechUtteranceFromID(id objc.ID) AVSpeechUtterance {
 //
 //   - [IAVSpeechUtterance.InitWithString]: Creates an utterance with the text string that you specify for the speech synthesizer to speak.
 //   - [IAVSpeechUtterance.InitWithAttributedString]: Creates an utterance with the attributed text string that you specify for the speech synthesizer to speak.
-//   - [IAVSpeechUtterance.AVSpeechSynthesisIPANotationAttribute]: A string that contains International Phonetic Alphabet (IPA) symbols the speech synthesizer uses to control pronunciation of certain words or phrases.
 //   - [IAVSpeechUtterance.InitWithSSMLRepresentation]: Creates a speech utterance with an Speech Synthesis Markup Language (SSML) string.
 //
 // # Configuring an utterance
@@ -143,9 +141,6 @@ func AVSpeechUtteranceFromID(id objc.ID) AVSpeechUtterance {
 //
 //   - [IAVSpeechUtterance.Rate]: The rate the speech synthesizer uses when speaking the utterance.
 //   - [IAVSpeechUtterance.SetRate]
-//   - [IAVSpeechUtterance.AVSpeechUtteranceMinimumSpeechRate]: The minimum rate the speech synthesizer uses when speaking an utterance.
-//   - [IAVSpeechUtterance.AVSpeechUtteranceMaximumSpeechRate]: The maximum rate the speech synthesizer uses when speaking an utterance.
-//   - [IAVSpeechUtterance.AVSpeechUtteranceDefaultSpeechRate]: The default rate the speech synthesizer uses when speaking an utterance.
 //   - [IAVSpeechUtterance.PreUtteranceDelay]: The amount of time the speech synthesizer pauses before speaking the utterance.
 //   - [IAVSpeechUtterance.SetPreUtteranceDelay]
 //   - [IAVSpeechUtterance.PostUtteranceDelay]: The amount of time the speech synthesizer pauses after speaking an utterance before handling the next utterance in the queue.
@@ -166,8 +161,6 @@ type IAVSpeechUtterance interface {
 	InitWithString(string_ string) AVSpeechUtterance
 	// Creates an utterance with the attributed text string that you specify for the speech synthesizer to speak.
 	InitWithAttributedString(string_ foundation.NSAttributedString) AVSpeechUtterance
-	// A string that contains International Phonetic Alphabet (IPA) symbols the speech synthesizer uses to control pronunciation of certain words or phrases.
-	AVSpeechSynthesisIPANotationAttribute() string
 	// Creates a speech utterance with an Speech Synthesis Markup Language (SSML) string.
 	InitWithSSMLRepresentation(string_ string) AVSpeechUtterance
 
@@ -191,18 +184,12 @@ type IAVSpeechUtterance interface {
 	// The rate the speech synthesizer uses when speaking the utterance.
 	Rate() float32
 	SetRate(value float32)
-	// The minimum rate the speech synthesizer uses when speaking an utterance.
-	AVSpeechUtteranceMinimumSpeechRate() float32
-	// The maximum rate the speech synthesizer uses when speaking an utterance.
-	AVSpeechUtteranceMaximumSpeechRate() float32
-	// The default rate the speech synthesizer uses when speaking an utterance.
-	AVSpeechUtteranceDefaultSpeechRate() float32
 	// The amount of time the speech synthesizer pauses before speaking the utterance.
-	PreUtteranceDelay() float64
-	SetPreUtteranceDelay(value float64)
+	PreUtteranceDelay() foundation.NSTimeInterval
+	SetPreUtteranceDelay(value foundation.NSTimeInterval)
 	// The amount of time the speech synthesizer pauses after speaking an utterance before handling the next utterance in the queue.
-	PostUtteranceDelay() float64
-	SetPostUtteranceDelay(value float64)
+	PostUtteranceDelay() foundation.NSTimeInterval
+	SetPostUtteranceDelay(value foundation.NSTimeInterval)
 
 	// Topic: Inspecting utterance text
 
@@ -211,6 +198,7 @@ type IAVSpeechUtterance interface {
 	// An attributed string that contains the text for speech synthesis.
 	AttributedSpeechString() foundation.NSAttributedString
 
+	InitWithCoder(coder foundation.INSCoder) AVSpeechUtterance
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -250,6 +238,13 @@ func NewSpeechUtteranceWithAttributedString(string_ foundation.NSAttributedStrin
 	return AVSpeechUtteranceFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(coder:)
+func NewSpeechUtteranceWithCoder(coder foundation.INSCoder) AVSpeechUtterance {
+	instance := getAVSpeechUtteranceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVSpeechUtteranceFromID(rv)
+}
+
 // Creates a speech utterance with an Speech Synthesis Markup Language (SSML)
 // string.
 //
@@ -263,8 +258,8 @@ func NewSpeechUtteranceWithAttributedString(string_ foundation.NSAttributedStrin
 // appropriate synthesizer.
 //
 // If no voice matches the properties, the utterance uses the voice set in its
-// [Voice] property. If you don’t specify a voice, the system uses its
-// default voice.
+// [AVSpeechUtterance.Voice] property. If you don’t specify a voice, the
+// system uses its default voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)-8zam9
 func NewSpeechUtteranceWithSSMLRepresentation(string_ string) AVSpeechUtterance {
@@ -343,12 +338,18 @@ func (s AVSpeechUtterance) InitWithAttributedString(string_ foundation.NSAttribu
 // appropriate synthesizer.
 //
 // If no voice matches the properties, the utterance uses the voice set in its
-// [Voice] property. If you don’t specify a voice, the system uses its
-// default voice.
+// [AVSpeechUtterance.Voice] property. If you don’t specify a voice, the
+// system uses its default voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)-8zam9
 func (s AVSpeechUtterance) InitWithSSMLRepresentation(string_ string) AVSpeechUtterance {
 	rv := objc.Send[AVSpeechUtterance](s.ID, objc.Sel("initWithSSMLRepresentation:"), objc.String(string_))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(coder:)
+func (s AVSpeechUtterance) InitWithCoder(coder foundation.INSCoder) AVSpeechUtterance {
+	rv := objc.Send[AVSpeechUtterance](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s AVSpeechUtterance) EncodeWithCoder(coder foundation.INSCoder) {
@@ -392,8 +393,8 @@ func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SpeechUtteranceWithAttribu
 // appropriate synthesizer.
 //
 // If no voice matches the properties, the utterance uses the voice set in its
-// [Voice] property. If you don’t specify a voice, the system uses its
-// default voice.
+// [AVSpeechUtterance.Voice] property. If you don’t specify a voice, the
+// system uses its default voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/speechUtteranceWithSSMLRepresentation:
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SpeechUtteranceWithSSMLRepresentation(string_ string) AVSpeechUtterance {
@@ -419,16 +420,6 @@ func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SpeechUtteranceWithSSMLRep
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SpeechUtteranceWithString(string_ string) AVSpeechUtterance {
 	rv := objc.Send[objc.ID](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("speechUtteranceWithString:"), objc.String(string_))
 	return AVSpeechUtteranceFromID(rv)
-}
-
-// A string that contains International Phonetic Alphabet (IPA) symbols the
-// speech synthesizer uses to control pronunciation of certain words or
-// phrases.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisipanotationattribute
-func (s AVSpeechUtterance) AVSpeechSynthesisIPANotationAttribute() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSpeechSynthesisIPANotationAttribute"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // The voice the speech synthesizer uses when speaking the utterance.
@@ -510,36 +501,16 @@ func (s AVSpeechUtterance) SetPrefersAssistiveTechnologySettings(value bool) {
 // utterance because setting it afterward has no effect.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/rate
+//
+// [AVSpeechUtteranceDefaultSpeechRate]: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtteranceDefaultSpeechRate
+// [AVSpeechUtteranceMaximumSpeechRate]: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtteranceMaximumSpeechRate
+// [AVSpeechUtteranceMinimumSpeechRate]: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtteranceMinimumSpeechRate
 func (s AVSpeechUtterance) Rate() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("rate"))
 	return rv
 }
 func (s AVSpeechUtterance) SetRate(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRate:"), value)
-}
-
-// The minimum rate the speech synthesizer uses when speaking an utterance.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechutteranceminimumspeechrate
-func (s AVSpeechUtterance) AVSpeechUtteranceMinimumSpeechRate() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AVSpeechUtteranceMinimumSpeechRate"))
-	return rv
-}
-
-// The maximum rate the speech synthesizer uses when speaking an utterance.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechutterancemaximumspeechrate
-func (s AVSpeechUtterance) AVSpeechUtteranceMaximumSpeechRate() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AVSpeechUtteranceMaximumSpeechRate"))
-	return rv
-}
-
-// The default rate the speech synthesizer uses when speaking an utterance.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechutterancedefaultspeechrate
-func (s AVSpeechUtterance) AVSpeechUtteranceDefaultSpeechRate() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AVSpeechUtteranceDefaultSpeechRate"))
-	return rv
 }
 
 // The amount of time the speech synthesizer pauses before speaking the
@@ -549,14 +520,15 @@ func (s AVSpeechUtterance) AVSpeechUtteranceDefaultSpeechRate() float32 {
 //
 // When multiple utterances exist in the queue, the speech synthesizer pauses
 // a minimum amount of time equal to the sum of the current utterance’s
-// [PostUtteranceDelay] and the next utterance’s `preUtteranceDelay`.
+// [AVSpeechUtterance.PostUtteranceDelay] and the next utterance’s
+// `preUtteranceDelay`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/preUtteranceDelay
-func (s AVSpeechUtterance) PreUtteranceDelay() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("preUtteranceDelay"))
-	return rv
+func (s AVSpeechUtterance) PreUtteranceDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("preUtteranceDelay"))
+	return foundation.NSTimeInterval(rv)
 }
-func (s AVSpeechUtterance) SetPreUtteranceDelay(value float64) {
+func (s AVSpeechUtterance) SetPreUtteranceDelay(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreUtteranceDelay:"), value)
 }
 
@@ -567,14 +539,15 @@ func (s AVSpeechUtterance) SetPreUtteranceDelay(value float64) {
 //
 // When multiple utterances exist in the queue, the speech synthesizer pauses
 // a minimum amount of time equal to the sum of the current utterance’s
-// `postUtteranceDelay` and the next utterance’s [PreUtteranceDelay].
+// `postUtteranceDelay` and the next utterance’s
+// [AVSpeechUtterance.PreUtteranceDelay].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/postUtteranceDelay
-func (s AVSpeechUtterance) PostUtteranceDelay() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("postUtteranceDelay"))
-	return rv
+func (s AVSpeechUtterance) PostUtteranceDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("postUtteranceDelay"))
+	return foundation.NSTimeInterval(rv)
 }
-func (s AVSpeechUtterance) SetPostUtteranceDelay(value float64) {
+func (s AVSpeechUtterance) SetPostUtteranceDelay(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPostUtteranceDelay:"), value)
 }
 

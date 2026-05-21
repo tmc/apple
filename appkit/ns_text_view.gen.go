@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -88,25 +87,26 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //
 // # Becoming the first responder
 //
-// When the system invokes [BecomeFirstResponder] on a text view, if the
-// previous first responder was not a text view on the same layout manager as
-// the receiving text view, the receiving text view draws the selection and
-// updates the insertion point if necessary.
+// When the system invokes [NSResponder.BecomeFirstResponder] on a text view,
+// if the previous first responder was not a text view on the same layout
+// manager as the receiving text view, the receiving text view draws the
+// selection and updates the insertion point if necessary.
 //
 // To make a text view the first responder, call the containing window’s
-// [FirstResponder] method. Never invoke a text view’s
-// [BecomeFirstResponder] method directly.
+// [NSWindow.FirstResponder] method. Never invoke a text view’s
+// [NSResponder.BecomeFirstResponder] method directly.
 //
 // # Resigning as first responder
 //
-// When the system invokes [ResignFirstResponder] on a text view, if the
-// object that will become the new first responder is a text view attached to
-// the same layout manager as the receiver, the receiving text view returns
-// true with no further action. Otherwise, it sends a [TextShouldEndEditing]
-// message to its delegate (if any). If the delegate returns false, the text
-// view returns false. If the delegate returns true, the text view hides the
-// selection highlighting and posts an [NSTextView.DidEndEditingNotification] to the
-// default notification center and then returns true.
+// When the system invokes [NSResponder.ResignFirstResponder] on a text view,
+// if the object that will become the new first responder is a text view
+// attached to the same layout manager as the receiver, the receiving text
+// view returns true with no further action. Otherwise, it sends a
+// [TextShouldEndEditing] message to its delegate (if any). If the delegate
+// returns false, the text view returns false. If the delegate returns true,
+// the text view hides the selection highlighting and posts an
+// [didEndEditingNotification] to the default notification center and then
+// returns true.
 //
 // # Creating a text view
 //
@@ -380,6 +380,8 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //   - [NSTextView.Highlight]: An action for toggling [NSTextHighlightStyleAttributeName] in the receiver’s selected range. The sender should be a menu item with a `representedObject` of type ([NSTextHighlightColorScheme]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView
+//
+// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
 type NSTextView struct {
 	NSText
 }
@@ -947,7 +949,7 @@ type INSTextView interface {
 	// Topic: Dragging
 
 	// Returns an appropriate drag image for the drag initiated by the specified event.
-	DragImageForSelectionWithEventOrigin(event INSEvent, origin foundation.NSPoint) INSImage
+	DragImageForSelectionWithEventOrigin(event INSEvent, origin foundation.NSPointPointer) INSImage
 	// Returns the type of drag operation that should be performed if the image were released now.
 	DragOperationForDraggingInfoType(dragInfo NSDraggingInfo, type_ NSPasteboardType) NSDragOperation
 	// Begins dragging the current selected text range.
@@ -984,7 +986,7 @@ type INSTextView interface {
 	// Topic: Performing text completion
 
 	// Returns an array of potential completions, in the order to be presented, representing possible word completions available from a partial word.
-	CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index unsafe.Pointer) []string
+	CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index *int) []string
 	// Inserts the selected completion into the text at the appropriate location.
 	InsertCompletionForPartialWordRangeMovementIsFinal(word string, charRange foundation.NSRange, movement int, flag bool)
 	// The partial range from the most recent beginning of a word up to the insertion point.
@@ -997,12 +999,12 @@ type INSTextView interface {
 	// Performs the default text checking on the current selection.
 	CheckTextInSelection(sender objectivec.IObject)
 	// Check and replace the text in the range using the specified checking types and options.
-	CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary)
+	CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary)
 	// Handles the text checking results returned by the text view
-	HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(results []foundation.NSTextCheckingResult, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, orthography foundation.NSOrthography, wordCount int)
+	HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(results []foundation.NSTextCheckingResult, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, orthography foundation.NSOrthography, wordCount int)
 	// The default text checking types.
-	EnabledTextCheckingTypes() uint64
-	SetEnabledTextCheckingTypes(value uint64)
+	EnabledTextCheckingTypes() foundation.NSTextCheckingTypes
+	SetEnabledTextCheckingTypes(value foundation.NSTextCheckingTypes)
 	// A Boolean value that indicates whether automatic dash substitution is enabled.
 	IsAutomaticDashSubstitutionEnabled() bool
 	SetAutomaticDashSubstitutionEnabled(value bool)
@@ -1081,9 +1083,6 @@ type INSTextView interface {
 	DrawTextHighlightBackgroundForTextRangeOrigin(textRange INSTextRange, origin corefoundation.CGPoint)
 	// An action for toggling [NSTextHighlightStyleAttributeName] in the receiver’s selected range. The sender should be a menu item with a `representedObject` of type ([NSTextHighlightColorScheme]).
 	Highlight(sender objectivec.IObject)
-
-	// Type for the find panel metadata property list.
-	FindPanelSearchOptions() NSPasteboardType
 }
 
 // Init initializes the instance.
@@ -1133,7 +1132,7 @@ func NewTextViewWithCoder(coder foundation.INSCoder) NSTextView {
 //
 // This method creates the entire collection of objects associated with a text
 // view—its text container, layout manager, and text storage—and invokes
-// [InitWithFrameTextContainer].
+// [NSTextView.InitWithFrameTextContainer].
 //
 // This method creates the text web in such a manner that the text view is the
 // principal owner of the objects in the web.
@@ -1159,18 +1158,18 @@ func NewTextViewWithFrame(frameRect corefoundation.CGRect) NSTextView {
 //
 // This method is the designated initializer for [NSTextView] objects.
 //
-// Unlike [InitWithFrame], which builds up an entire group of text-handling
-// objects, you use this method after you’ve created the other components of
-// the text-handling system — a text storage object, a layout manager, and a
-// text container. Assembling the components in this fashion means that the
-// text storage, not the text view, is the principal owner of the component
-// objects.
+// Unlike [NSTextView.InitWithFrame], which builds up an entire group of
+// text-handling objects, you use this method after you’ve created the other
+// components of the text-handling system — a text storage object, a layout
+// manager, and a text container. Assembling the components in this fashion
+// means that the text storage, not the text view, is the principal owner of
+// the component objects.
 //
-// The [InitWithFrame] initializer uses [NSLayoutManager] by default. When you
-// use this initializer in macOS 12 and later, you have the option to use
-// [NSTextLayoutManager] which gives you access to newer TextKit functionality
-// and performance improvements. To use the new layout manager create
-// instances of [NSTextLayoutManager], [NSTextContainer], and
+// The [NSTextView.InitWithFrame] initializer uses [NSLayoutManager] by
+// default. When you use this initializer in macOS 12 and later, you have the
+// option to use [NSTextLayoutManager] which gives you access to newer TextKit
+// functionality and performance improvements. To use the new layout manager
+// create instances of [NSTextLayoutManager], [NSTextContainer], and
 // [NSTextContentStorage]; these manage the view’s text layout, text
 // regions, and backingstore, respectively. The example below shows the order
 // of creation and initialization of these objects, and how configure them to
@@ -1200,18 +1199,18 @@ func NewTextViewWithFrameTextContainer(frameRect corefoundation.CGRect, containe
 //
 // This method is the designated initializer for [NSTextView] objects.
 //
-// Unlike [InitWithFrame], which builds up an entire group of text-handling
-// objects, you use this method after you’ve created the other components of
-// the text-handling system — a text storage object, a layout manager, and a
-// text container. Assembling the components in this fashion means that the
-// text storage, not the text view, is the principal owner of the component
-// objects.
+// Unlike [NSTextView.InitWithFrame], which builds up an entire group of
+// text-handling objects, you use this method after you’ve created the other
+// components of the text-handling system — a text storage object, a layout
+// manager, and a text container. Assembling the components in this fashion
+// means that the text storage, not the text view, is the principal owner of
+// the component objects.
 //
-// The [InitWithFrame] initializer uses [NSLayoutManager] by default. When you
-// use this initializer in macOS 12 and later, you have the option to use
-// [NSTextLayoutManager] which gives you access to newer TextKit functionality
-// and performance improvements. To use the new layout manager create
-// instances of [NSTextLayoutManager], [NSTextContainer], and
+// The [NSTextView.InitWithFrame] initializer uses [NSLayoutManager] by
+// default. When you use this initializer in macOS 12 and later, you have the
+// option to use [NSTextLayoutManager] which gives you access to newer TextKit
+// functionality and performance improvements. To use the new layout manager
+// create instances of [NSTextLayoutManager], [NSTextContainer], and
 // [NSTextContentStorage]; these manage the view’s text layout, text
 // regions, and backingstore, respectively. The example below shows the order
 // of creation and initialization of these objects, and how configure them to
@@ -1263,10 +1262,11 @@ func (t NSTextView) InvalidateTextContainerOrigin() {
 //
 // # Discussion
 //
-// This method gets the new color by sending a [Color] message to `sender`.
+// This method gets the new color by sending a [NSColorPanel.Color] message to
+// `sender`.
 //
 // This will only set the background color if
-// [AllowsDocumentBackgroundColorChange]returns true.
+// [NSTextView.AllowsDocumentBackgroundColorChange]returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/changeDocumentBackgroundColor(_:)
 func (t NSTextView) ChangeDocumentBackgroundColor(sender objectivec.IObject) {
@@ -1283,8 +1283,8 @@ func (t NSTextView) ChangeDocumentBackgroundColor(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// [NSTextView] overrides the [NSView] [SetNeedsDisplayInRect] method to
-// invoke this method with a `flag` argument of false.
+// [NSTextView] overrides the [NSView] [NSView.SetNeedsDisplayInRect] method
+// to invoke this method with a `flag` argument of false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/setNeedsDisplay(_:avoidAdditionalLayout:)
 func (t NSTextView) SetNeedsDisplayInRectAvoidAdditionalLayout(rect corefoundation.CGRect, flag bool) {
@@ -1387,9 +1387,9 @@ func (t NSTextView) ShowFindIndicatorForRange(charRange foundation.NSRange) {
 // to right-to-left for languages like Hebrew and Arabic, for example.
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/setBaseWritingDirection(_:range:)
 func (t NSTextView) SetBaseWritingDirectionRange(writingDirection NSWritingDirection, range_ foundation.NSRange) {
@@ -1458,8 +1458,9 @@ func (t NSTextView) ToggleAutomaticTextCompletion(sender objectivec.IObject) {
 // charRange: The range of characters to select. This range must begin and end on glyph
 // boundaries and not split base glyphs and their nonspacing marks.
 //
-// affinity: The selection affinity for the selection. See [SelectionAffinity] for more
-// information about how affinities work.
+// affinity: The selection affinity for the selection. See
+// [NSTextView.SelectionAffinity] for more information about how affinities
+// work.
 //
 // stillSelectingFlag: true to behave appropriately for a continuing selection where the user is
 // still dragging the mouse, false otherwise. If true, the receiver doesn’t
@@ -1491,8 +1492,9 @@ func (t NSTextView) SetSelectedRangeAffinityStillSelecting(charRange foundation.
 // `rangeValue` method. The ranges in the `ranges` array must begin and end on
 // glyph boundaries and not split base glyphs and their nonspacing marks.
 //
-// affinity: The selection affinity for the selection. See [SelectionAffinity] for more
-// information about how affinities work.
+// affinity: The selection affinity for the selection. See
+// [NSTextView.SelectionAffinity] for more information about how affinities
+// work.
 //
 // stillSelectingFlag: true to behave appropriately for a continuing selection where the user is
 // still dragging the mouse, false otherwise. If true, the receiver doesn’t
@@ -1595,9 +1597,9 @@ func (t NSTextView) PreferredPasteboardTypeFromArrayRestrictedToTypesFromArray(a
 // # Discussion
 //
 // This method invokes the
-// [PreferredPasteboardTypeFromArrayRestrictedToTypesFromArray] method to
-// determine the text view’s preferred type of data and then reads the data
-// using the [ReadSelectionFromPasteboardType] method.
+// [NSTextView.PreferredPasteboardTypeFromArrayRestrictedToTypesFromArray]
+// method to determine the text view’s preferred type of data and then reads
+// the data using the [NSTextView.ReadSelectionFromPasteboardType] method.
 //
 // You should not need to override this method. You might need to invoke this
 // method if you are implementing a new type of pasteboard to handle services
@@ -1625,8 +1627,8 @@ func (t NSTextView) ReadSelectionFromPasteboard(pboard INSPasteboard) bool {
 // current selection if one exists.
 //
 // You should override this method to read pasteboard types other than the
-// default types. Use the [RangeForUserTextChange] method to obtain the range
-// of characters (if any) to be replaced by the new data.
+// default types. Use the [NSTextView.RangeForUserTextChange] method to obtain
+// the range of characters (if any) to be replaced by the new data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/readSelection(from:type:)
 func (t NSTextView) ReadSelectionFromPasteboardType(pboard INSPasteboard, type_ NSPasteboardType) bool {
@@ -1650,10 +1652,11 @@ func (t NSTextView) ReadSelectionFromPasteboardType(pboard INSPasteboard, type_ 
 // The complete set of data types being written to `pboard` should be declared
 // before invoking this method.
 //
-// This method should be invoked only from [WriteSelectionToPasteboardTypes].
-// You can override this method to add support for writing new types of data
-// to the pasteboard. You should invoke `super`’s implementation of the
-// method to handle any types of data your overridden version does not.
+// This method should be invoked only from
+// [NSTextView.WriteSelectionToPasteboardTypes]. You can override this method
+// to add support for writing new types of data to the pasteboard. You should
+// invoke `super`’s implementation of the method to handle any types of data
+// your overridden version does not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/writeSelection(to:type:)
 func (t NSTextView) WriteSelectionToPasteboardType(pboard INSPasteboard, type_ NSPasteboardType) bool {
@@ -1676,7 +1679,7 @@ func (t NSTextView) WriteSelectionToPasteboardType(pboard INSPasteboard, type_ N
 // # Discussion
 //
 // This method declares the data types on `pboard` and then invokes
-// [WriteSelectionToPasteboardType] or the delegate method
+// [NSTextView.WriteSelectionToPasteboardType] or the delegate method
 // [TextViewWriteCellAtIndexToPasteboardType] for each type in the `types`
 // array.
 //
@@ -1706,9 +1709,10 @@ func (t NSTextView) AlignJustified(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// This method changes the attributes by invoking [ConvertAttributes] on
-// `sender` and applying the returned attributes to the appropriate text. For
-// more information on attribute conversion, see [NSFontManager].
+// This method changes the attributes by invoking
+// [NSFontManager.ConvertAttributes] on `sender` and applying the returned
+// attributes to the appropriate text. For more information on attribute
+// conversion, see [NSFontManager].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/changeAttributes(_:)
 func (t NSTextView) ChangeAttributes(sender objectivec.IObject) {
@@ -1718,7 +1722,7 @@ func (t NSTextView) ChangeAttributes(sender objectivec.IObject) {
 // Sets the color of the selected text.
 //
 // sender: The control that sent the message. [NSTextView]’s implementation sends a
-// [Color] message to `sender` to get the new color.
+// [NSColorPanel.Color] message to `sender` to get the new color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/changeColor(_:)
 func (t NSTextView) ChangeColor(sender objectivec.IObject) {
@@ -1735,9 +1739,9 @@ func (t NSTextView) ChangeColor(sender objectivec.IObject) {
 // # Discussion
 //
 // This method does not include undo support by default. Clients must invoke
-// [ShouldChangeTextInRangesReplacementStrings] or
-// [ShouldChangeTextInRangeReplacementString] to include this method in an
-// undoable action.
+// [NSTextView.ShouldChangeTextInRangesReplacementStrings] or
+// [NSTextView.ShouldChangeTextInRangeReplacementString] to include this
+// method in an undoable action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/setAlignment(_:range:)
 func (t NSTextView) SetAlignmentRange(alignment NSTextAlignment, range_ foundation.NSRange) {
@@ -2029,7 +2033,7 @@ func (t NSTextView) SelectionRangeForProposedRangeGranularity(proposedCharRange 
 // editing changes. If your subclass of [NSTextView] implements methods that
 // modify the text, make sure to invoke this method to determine whether the
 // change should be made. If the change is allowed, complete the change by
-// invoking the [DidChangeText] method.
+// invoking the [NSTextView.DidChangeText] method.
 //
 // # Special Considerations
 //
@@ -2074,9 +2078,9 @@ func (t NSTextView) ShouldChangeTextInRangeReplacementString(affectedCharRange f
 //
 // that modify the text, make sure to invoke this method to determine whether
 // the change should be made. If the change is allowed, complete the change by
-// invoking the [DidChangeText] method. If you can’t determine the affected
-// range or replacement string before beginning changes, pass `nil` for these
-// values.
+// invoking the [NSTextView.DidChangeText] method. If you can’t determine
+// the affected range or replacement string before beginning changes, pass
+// `nil` for these values.
 //
 // # Special Considerations
 //
@@ -2159,8 +2163,8 @@ func (t NSTextView) SmartDeleteRangeForProposedRange(proposedCharRange foundatio
 // # Discussion
 //
 // Don’t invoke this method directly. Instead, use
-// [SmartInsertForStringReplacingRangeBeforeStringAfterString], which calls
-// this method as part of its implementation.
+// [NSTextView.SmartInsertForStringReplacingRangeBeforeStringAfterString],
+// which calls this method as part of its implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/smartInsert(afterStringFor:replacing:)
 func (t NSTextView) SmartInsertAfterStringForStringReplacingRange(pasteString string, charRangeToReplace foundation.NSRange) string {
@@ -2186,8 +2190,8 @@ func (t NSTextView) SmartInsertAfterStringForStringReplacingRange(pasteString st
 // # Discussion
 //
 // Don’t invoke this method directly. Instead, use
-// [SmartInsertForStringReplacingRangeBeforeStringAfterString], which calls
-// this method as part of its implementation.
+// [NSTextView.SmartInsertForStringReplacingRangeBeforeStringAfterString],
+// which calls this method as part of its implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/smartInsert(beforeStringFor:replacing:)
 func (t NSTextView) SmartInsertBeforeStringForStringReplacingRange(pasteString string, charRangeToReplace foundation.NSRange) string {
@@ -2214,9 +2218,9 @@ func (t NSTextView) SmartInsertBeforeStringForStringReplacingRange(pasteString s
 // # Discussion
 //
 // As part of its implementation, this method calls
-// [SmartInsertAfterStringForStringReplacingRange] and
-// [SmartInsertBeforeStringForStringReplacingRange]. To change this method’s
-// behavior, override those two methods instead of this one.
+// [NSTextView.SmartInsertAfterStringForStringReplacingRange] and
+// [NSTextView.SmartInsertBeforeStringForStringReplacingRange]. To change this
+// method’s behavior, override those two methods instead of this one.
 //
 // [NSTextView] uses this method as necessary. You can also use it in
 // implementing your own methods that insert text. To do so, invoke this
@@ -2318,12 +2322,12 @@ func (t NSTextView) OrderFrontSharingServicePicker(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// This method is used by [DragSelectionWithEventOffsetSlideBack]. It can be
-// called by others who need such an image, or can be overridden by subclasses
-// to return a different image.
+// This method is used by [NSTextView.DragSelectionWithEventOffsetSlideBack].
+// It can be called by others who need such an image, or can be overridden by
+// subclasses to return a different image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/dragImageForSelection(with:origin:)
-func (t NSTextView) DragImageForSelectionWithEventOrigin(event INSEvent, origin foundation.NSPoint) INSImage {
+func (t NSTextView) DragImageForSelectionWithEventOrigin(event INSEvent, origin foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dragImageForSelectionWithEvent:origin:"), event, origin)
 	return NSImageFromID(rv)
 }
@@ -2401,9 +2405,9 @@ func (t NSTextView) StopSpeaking(sender objectivec.IObject) {
 
 // Performs a find panel action specified by the sender’s tag.
 //
-// sender: The control sending the message. This method sends the [Tag] method to
-// determine what operation to perform. The list of possible tags is provided
-// in Constants.
+// sender: The control sending the message. This method sends the [NSControl.Tag]
+// method to determine what operation to perform. The list of possible tags is
+// provided in Constants.
 //
 // # Discussion
 //
@@ -2489,7 +2493,7 @@ func (t NSTextView) OrderFrontSubstitutionsPanel(sender objectivec.IObject) {
 // implements such a method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/completions(forPartialWordRange:indexOfSelectedItem:)
-func (t NSTextView) CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (t NSTextView) CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("completionsForPartialWordRange:indexOfSelectedItem:"), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }
@@ -2536,7 +2540,8 @@ func (t NSTextView) InsertCompletionForPartialWordRangeMovementIsFinal(word stri
 // Immediately performs the text checking and replaces the document content
 // with the checked content.
 //
-// The checks performed are specified by [EnabledTextCheckingTypes];
+// The checks performed are specified by
+// [NSTextView.EnabledTextCheckingTypes];
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/checkTextInDocument(_:)
 func (t NSTextView) CheckTextInDocument(sender objectivec.IObject) {
@@ -2552,7 +2557,8 @@ func (t NSTextView) CheckTextInDocument(sender objectivec.IObject) {
 // Immediately performs the text checking and replaces the selection with the
 // checked content.
 //
-// The checks performed are specified by [EnabledTextCheckingTypes];
+// The checks performed are specified by
+// [NSTextView.EnabledTextCheckingTypes];
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/checkTextInSelection(_:)
 func (t NSTextView) CheckTextInSelection(sender objectivec.IObject) {
@@ -2583,7 +2589,7 @@ func (t NSTextView) CheckTextInSelection(sender objectivec.IObject) {
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/checkText(in:types:options:)
 //
 // [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
-func (t NSTextView) CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary) {
+func (t NSTextView) CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkTextInRange:types:options:"), range_, checkingTypes, options)
 }
 
@@ -2618,7 +2624,7 @@ func (t NSTextView) CheckTextInRangeTypesOptions(range_ foundation.NSRange, chec
 //
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 // [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
-func (t NSTextView) HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(results []foundation.NSTextCheckingResult, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, orthography foundation.NSOrthography, wordCount int) {
+func (t NSTextView) HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(results []foundation.NSTextCheckingResult, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, orthography foundation.NSOrthography, wordCount int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("handleTextCheckingResults:forRange:types:options:orthography:wordCount:"), objectivec.IObjectSliceToNSArray(results), range_, checkingTypes, options, orthography, wordCount)
 }
 
@@ -2750,7 +2756,8 @@ func (t NSTextView) QuickLookPreviewableItemsInRanges(ranges []foundation.NSValu
 //
 // # Discussion
 //
-// Calls [SetLayoutOrientation] with the sender’s tag as the orientation.
+// Calls [NSTextView.SetLayoutOrientation] with the sender’s tag as the
+// orientation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/changeLayoutOrientation(_:)
 func (t NSTextView) ChangeLayoutOrientation(sender objectivec.IObject) {
@@ -2765,10 +2772,11 @@ func (t NSTextView) ChangeLayoutOrientation(sender objectivec.IObject) {
 //
 // Unlike other [NSTextView] properties, this is not shared by sibling views.
 // It also rotates the bounds 90 degrees, swaps horizontal and vertical bits
-// of the [AutoresizingMask] mask, and reconfigures [HorizontallyResizable]
-// and [VerticallyResizable] properties accordingly. Also, if
-// [EnclosingScrollView] returns non-`nil`, it reconfigures the horizontal and
-// vertical ruler views, the horizontal and vertical scrollers, and the frame.
+// of the [NSView.AutoresizingMask] mask, and reconfigures
+// [NSText.HorizontallyResizable] and [NSText.VerticallyResizable] properties
+// accordingly. Also, if [NSView.EnclosingScrollView] returns non-`nil`, it
+// reconfigures the horizontal and vertical ruler views, the horizontal and
+// vertical scrollers, and the frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/setLayoutOrientation(_:)
 func (t NSTextView) SetLayoutOrientation(orientation NSTextLayoutOrientation) {
@@ -2958,7 +2966,7 @@ func (t NSTextView) AttributedString() foundation.NSAttributedString {
 // the document’s range, return `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-func (t NSTextView) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
+func (t NSTextView) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 }
@@ -3157,7 +3165,7 @@ func (t NSTextView) DrawsVerticallyForCharacterAtIndex(charIndex uint) bool {
 // width is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-func (t NSTextView) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
+func (t NSTextView) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
 	return corefoundation.CGRect(rv)
 }
@@ -3278,7 +3286,7 @@ func (t NSTextView) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlace
 //
 // When `aString` is an [NSString] object, the receiver is expected to render
 // the marked text with distinguishing appearance (for example, [NSTextView]
-// renders with [MarkedTextAttributes]).
+// renders with [NSTextView.MarkedTextAttributes]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
 func (t NSTextView) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
@@ -3309,7 +3317,8 @@ func (t NSTextView) SupportsAdaptiveImageGlyph() bool {
 //
 // When the system needs to populate a bar’s items array, the system calls
 // this delegate method to retrieve an item if that item can’t be found in
-// the bar’s private array or in the bar’s [TemplateItems] property.
+// the bar’s private array or in the bar’s [NSTouchBar.TemplateItems]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarDelegate/touchBar(_:makeItemForIdentifier:)
 func (t NSTextView) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
@@ -3479,8 +3488,8 @@ func (t NSTextView) CharacterIndexForPoint(point corefoundation.CGPoint) uint {
 // is created; you should never need to invoke it directly.
 //
 // Subclasses of [NSTextView] that wish to add support for new service types
-// should override [RegisterForServices] to call `super` and then register
-// their own new types.
+// should override [NSTextViewClass.RegisterForServices] to call `super` and
+// then register their own new types.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/registerForServices()
 func (_NSTextViewClass NSTextViewClass) RegisterForServices() {
@@ -3533,11 +3542,12 @@ func (t NSTextView) SetTextContainer(value INSTextContainer) {
 // It is possible to set the text container and view sizes and resizing
 // behavior so that the inset cannot be maintained exactly, although the text
 // system tries to maintain the inset wherever possible. In any case, the
-// [TextContainerOrigin] and size of the text container are authoritative as
-// to the location of the text container within the view.
+// [NSTextView.TextContainerOrigin] and size of the text container are
+// authoritative as to the location of the text container within the view.
 //
 // The text itself can have an additional inset, inside the text container,
-// specified by the [LineFragmentPadding] method of [NSTextContainer].
+// specified by the [NSTextContainer.LineFragmentPadding] method of
+// [NSTextContainer].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/textContainerInset
 func (t NSTextView) TextContainerInset() corefoundation.CGSize {
@@ -4011,11 +4021,11 @@ func (t NSTextView) AcceptableDragTypes() []string {
 // # Discussion
 //
 // The range of characters affected by an action method that changes character
-// (not paragraph) attributes, such as the NSText action method [ChangeFont].
-// For rich text this range is typically the range of the selection. For plain
-// text this range is the entire contents of the receiver. If the receiver
-// isn’t editable or doesn’t use the Font panel, the range has a location
-// of [NSNotFound].
+// (not paragraph) attributes, such as the NSText action method
+// [NSText.ChangeFont]. For rich text this range is typically the range of the
+// selection. For plain text this range is the entire contents of the
+// receiver. If the receiver isn’t editable or doesn’t use the Font panel,
+// the range has a location of [NSNotFound].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/rangeForUserCharacterAttributeChange
 func (t NSTextView) RangeForUserCharacterAttributeChange() foundation.NSRange {
@@ -4030,9 +4040,9 @@ func (t NSTextView) RangeForUserCharacterAttributeChange() foundation.NSRange {
 //
 // An array containing the ranges of characters affected by an action method
 // that changes character (not paragraph) attributes, such as the NSText
-// action method [ChangeFont]. For rich text these ranges are typically the
-// ranges of the selections. For plain text the range is the entire contents
-// of the receiver.
+// action method [NSText.ChangeFont]. For rich text these ranges are typically
+// the ranges of the selections. For plain text the range is the entire
+// contents of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/rangesForUserCharacterAttributeChange
 func (t NSTextView) RangesForUserCharacterAttributeChange() []foundation.NSValue {
@@ -4048,11 +4058,12 @@ func (t NSTextView) RangesForUserCharacterAttributeChange() []foundation.NSValue
 // # Discussion
 //
 // The range of characters affected by an action method that changes paragraph
-// (not character) attributes, such as the NSText action method [AlignLeft].
-// For rich text this range is typically calculated by extending the range of
-// the selection to paragraph boundaries. For plain text this range is the
-// entire contents of the receiver. If the receiver isn’t editable or
-// doesn’t use the Font panel, the range has a location of [NSNotFound].
+// (not character) attributes, such as the NSText action method
+// [NSText.AlignLeft]. For rich text this range is typically calculated by
+// extending the range of the selection to paragraph boundaries. For plain
+// text this range is the entire contents of the receiver. If the receiver
+// isn’t editable or doesn’t use the Font panel, the range has a location
+// of [NSNotFound].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/rangeForUserParagraphAttributeChange
 func (t NSTextView) RangeForUserParagraphAttributeChange() foundation.NSRange {
@@ -4136,10 +4147,11 @@ func (t NSTextView) SetContinuousSpellCheckingEnabled(value bool) {
 //
 // # Discussion
 //
-// The document tag is obtained by sending a [UniqueSpellDocumentTag] message
-// to the spell server the first time this method is invoked for a particular
-// group of text views. See the [NSSpellChecker]and [NSSpellServer]class
-// specifications for more information on how this tag is used.
+// The document tag is obtained by sending a
+// [NSSpellCheckerClass.UniqueSpellDocumentTag] message to the spell server
+// the first time this method is invoked for a particular group of text views.
+// See the [NSSpellChecker]and [NSSpellServer]class specifications for more
+// information on how this tag is used.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/spellCheckerDocumentTag
 //
@@ -4188,8 +4200,8 @@ func (t NSTextView) SetAcceptsGlyphInfo(value bool) {
 // # Discussion
 //
 // true to allow the use of a find panel, false otherwise. A text view can use
-// either a find panel or a find bar. If [UsesFindPanel] is set to true,
-// [UsesFindBar] is set to false and vice versa.
+// either a find panel or a find bar. If [NSTextView.UsesFindPanel] is set to
+// true, [NSTextView.UsesFindBar] is set to false and vice versa.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/usesFindPanel
 func (t NSTextView) UsesFindPanel() bool {
@@ -4207,7 +4219,7 @@ func (t NSTextView) SetUsesFindPanel(value bool) {
 //
 // This value is intended to be used for the range argument in the text
 // completion methods such as
-// [CompletionsForPartialWordRangeIndexOfSelectedItem].
+// [NSTextView.CompletionsForPartialWordRangeIndexOfSelectedItem].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/rangeForUserCompletion
 func (t NSTextView) RangeForUserCompletion() foundation.NSRange {
@@ -4218,11 +4230,11 @@ func (t NSTextView) RangeForUserCompletion() foundation.NSRange {
 // The default text checking types.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/enabledTextCheckingTypes
-func (t NSTextView) EnabledTextCheckingTypes() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("enabledTextCheckingTypes"))
-	return rv
+func (t NSTextView) EnabledTextCheckingTypes() foundation.NSTextCheckingTypes {
+	rv := objc.Send[foundation.NSTextCheckingTypes](t.ID, objc.Sel("enabledTextCheckingTypes"))
+	return foundation.NSTextCheckingTypes(rv)
 }
-func (t NSTextView) SetEnabledTextCheckingTypes(value uint64) {
+func (t NSTextView) SetEnabledTextCheckingTypes(value foundation.NSTextCheckingTypes) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabledTextCheckingTypes:"), value)
 }
 
@@ -4311,8 +4323,9 @@ func (t NSTextView) IsWritingToolsActive() bool {
 // view; otherwise false. See [NSTextFinder] for information about the find
 // bar.
 //
-// A text view can use either a find panel or a find bar. If [UsesFindBar] is
-// set to true, [UsesFindPanel] is set to false and vice versa.
+// A text view can use either a find panel or a find bar. If
+// [NSTextView.UsesFindBar] is set to true, [NSTextView.UsesFindPanel] is set
+// to false and vice versa.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/usesFindBar
 func (t NSTextView) UsesFindBar() bool {
@@ -4394,26 +4407,10 @@ func (t NSTextView) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }
 
-// Type for the find panel metadata property list.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/findpanelsearchoptions
-func (t NSTextView) FindPanelSearchOptions() NSPasteboardType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSFindPanelSearchOptionsPboardType"))
-	return NSPasteboardType(foundation.NSStringFromID(rv).String())
-}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/stronglyReferencesTextStorage
 func (_NSTextViewClass NSTextViewClass) StronglyReferencesTextStorage() bool {
 	rv := objc.Send[bool](objc.ID(_NSTextViewClass.class), objc.Sel("stronglyReferencesTextStorage"))
 	return rv
-}
-
-// Posted when focus leaves an
-//
-// See: https://developer.apple.com/documentation/appkit/nstext/didendeditingnotification
-func (_NSTextViewClass NSTextViewClass) DidEndEditingNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSTextViewClass.class), objc.Sel("NSTextDidEndEditingNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // Protocol methods for NSAccessibilityNavigableStaticText

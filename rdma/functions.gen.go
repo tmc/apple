@@ -87,8 +87,6 @@ func tryIbvAllocPd(context RDMAContext) (RDMAPD, error) {
 }
 
 // IbvAllocPd.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_alloc_pd
 func IbvAllocPd(context RDMAContext) (RDMAPD, error) {
 	return tryIbvAllocPd(context)
 }
@@ -104,8 +102,6 @@ func tryIbvCloseDevice(context RDMAContext) (int, error) {
 }
 
 // IbvCloseDevice.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_close_device
 func IbvCloseDevice(context RDMAContext) (int, error) {
 	return tryIbvCloseDevice(context)
 }
@@ -121,8 +117,6 @@ func tryIbvCreateCq(context RDMAContext, cqe int, cq_context uintptr, channel ui
 }
 
 // IbvCreateCq.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_create_cq
 func IbvCreateCq(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) (RDMACQ, error) {
 	return tryIbvCreateCq(context, cqe, cq_context, channel, comp_vector)
 }
@@ -138,8 +132,6 @@ func tryIbvCreateQp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
 }
 
 // IbvCreateQp.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_create_qp
 func IbvCreateQp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
 	return tryIbvCreateQp(pd, qp_init_attr)
 }
@@ -155,8 +147,6 @@ func tryIbvDeallocPd(pd RDMAPD) (int, error) {
 }
 
 // IbvDeallocPd.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_dealloc_pd
 func IbvDeallocPd(pd RDMAPD) (int, error) {
 	return tryIbvDeallocPd(pd)
 }
@@ -172,8 +162,6 @@ func tryIbvDeregMr(mr RDMAMR) (int, error) {
 }
 
 // IbvDeregMr.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_dereg_mr
 func IbvDeregMr(mr RDMAMR) (int, error) {
 	return tryIbvDeregMr(mr)
 }
@@ -189,8 +177,6 @@ func tryIbvDestroyCq(cq RDMACQ) (int, error) {
 }
 
 // IbvDestroyCq.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_destroy_cq
 func IbvDestroyCq(cq RDMACQ) (int, error) {
 	return tryIbvDestroyCq(cq)
 }
@@ -206,8 +192,6 @@ func tryIbvDestroyQp(qp RDMAQP) (int, error) {
 }
 
 // IbvDestroyQp.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_destroy_qp
 func IbvDestroyQp(qp RDMAQP) (int, error) {
 	return tryIbvDestroyQp(qp)
 }
@@ -224,8 +208,6 @@ func tryIbvFreeDeviceList(list RDMADeviceList) error {
 }
 
 // IbvFreeDeviceList.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_free_device_list
 func IbvFreeDeviceList(list RDMADeviceList) error {
 	return tryIbvFreeDeviceList(list)
 }
@@ -241,8 +223,6 @@ func tryIbvGetDeviceList(num_devices uintptr) (RDMADeviceList, error) {
 }
 
 // IbvGetDeviceList.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_get_device_list
 func IbvGetDeviceList(num_devices uintptr) (RDMADeviceList, error) {
 	return tryIbvGetDeviceList(num_devices)
 }
@@ -258,8 +238,6 @@ func tryIbvGetDeviceName(device RDMADevice) (uintptr, error) {
 }
 
 // IbvGetDeviceName.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_get_device_name
 func IbvGetDeviceName(device RDMADevice) (uintptr, error) {
 	return tryIbvGetDeviceName(device)
 }
@@ -275,8 +253,6 @@ func tryIbvModifyQp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
 }
 
 // IbvModifyQp.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_modify_qp
 func IbvModifyQp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
 	return tryIbvModifyQp(qp, attr, attr_mask)
 }
@@ -292,8 +268,6 @@ func tryIbvOpenDevice(device RDMADevice) (RDMAContext, error) {
 }
 
 // IbvOpenDevice.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_open_device
 func IbvOpenDevice(device RDMADevice) (RDMAContext, error) {
 	return tryIbvOpenDevice(device)
 }
@@ -309,8 +283,6 @@ func tryIbvQueryDevice(context RDMAContext, device_attr uintptr) (int, error) {
 }
 
 // IbvQueryDevice.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_query_device
 func IbvQueryDevice(context RDMAContext, device_attr uintptr) (int, error) {
 	return tryIbvQueryDevice(context, device_attr)
 }
@@ -326,8 +298,6 @@ func tryIbvQueryGid(context RDMAContext, port_num uint8, index int, gid uintptr)
 }
 
 // IbvQueryGid.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_query_gid
 func IbvQueryGid(context RDMAContext, port_num uint8, index int, gid uintptr) (int, error) {
 	return tryIbvQueryGid(context, port_num, index, gid)
 }
@@ -343,8 +313,6 @@ func tryIbvQueryPort(context RDMAContext, port_num uint8, port_attr uintptr) (in
 }
 
 // IbvQueryPort.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_query_port
 func IbvQueryPort(context RDMAContext, port_num uint8, port_attr uintptr) (int, error) {
 	return tryIbvQueryPort(context, port_num, port_attr)
 }
@@ -360,8 +328,6 @@ func tryIbvRegMr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, e
 }
 
 // IbvRegMr.
-//
-// See: https://developer.apple.com/documentation/RDMA/ibv_reg_mr
 func IbvRegMr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, error) {
 	return tryIbvRegMr(pd, addr, length, access)
 }

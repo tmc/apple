@@ -163,7 +163,7 @@ func (_BlockOperationClass BlockOperationClass) BlockOperationWithBlock(block Vo
 // # Discussion
 //
 // The blocks in this array are copies of those originally added using the
-// [AddExecutionBlock] method.
+// [NSBlockOperation.AddExecutionBlock] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/executionBlocks
 func (b BlockOperation) ExecutionBlocks() VoidHandler {

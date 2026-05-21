@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -47,13 +46,13 @@ func (ac AVAssetResourceRenewalRequestClass) Alloc() AVAssetResourceRenewalReque
 //
 // # Overview
 //
-// When an [AVURLAsset] needs to renew a resource, because the [AVAssetResourceRenewalRequest.RenewalDate]
-// has been set on a previous loading request, it asks its
-// [AVAssetResourceLoader] object to assist. The resource loader encapsulates
-// the request information by creating an instance of this object, which it
-// then hands to its delegate for processing. The delegate uses the
-// information in this object to perform the request and report on the success
-// or failure of the operation.
+// When an [AVURLAsset] needs to renew a resource, because the
+// [AVAssetResourceLoadingContentInformationRequest.RenewalDate] has been set
+// on a previous loading request, it asks its [AVAssetResourceLoader] object
+// to assist. The resource loader encapsulates the request information by
+// creating an instance of this object, which it then hands to its delegate
+// for processing. The delegate uses the information in this object to perform
+// the request and report on the success or failure of the operation.
 //
 // The [AVAssetResourceRenewalRequest] class is a subclass of
 // [AVAssetResourceLoadingRequest].
@@ -79,10 +78,6 @@ func AVAssetResourceRenewalRequestFromID(id objc.ID) AVAssetResourceRenewalReque
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceRenewalRequest
 type IAVAssetResourceRenewalRequest interface {
 	IAVAssetResourceLoadingRequest
-
-	// The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
-	RenewalDate() foundation.NSDate
-	SetRenewalDate(value foundation.NSDate)
 }
 
 // Init initializes the instance.
@@ -102,16 +97,4 @@ func NewAVAssetResourceRenewalRequest() AVAssetResourceRenewalRequest {
 	class := getAVAssetResourceRenewalRequestClass()
 	rv := objc.Send[AVAssetResourceRenewalRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The date at which a new resource loading request will be issued for
-// resources that expire, if the media system still requires it.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetresourceloadingcontentinformationrequest/renewaldate
-func (a AVAssetResourceRenewalRequest) RenewalDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("renewalDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (a AVAssetResourceRenewalRequest) SetRenewalDate(value foundation.NSDate) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRenewalDate:"), value)
 }

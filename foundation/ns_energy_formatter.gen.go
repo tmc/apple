@@ -192,7 +192,8 @@ func (e EnergyFormatter) StringFromValueUnit(value float64, unit NSEnergyFormatt
 // # Discussion
 //
 // This method selects the correct unit based on the formatter’s locale, the
-// magnitude of the value, and the [ForFoodEnergyUse] property.
+// magnitude of the value, and the [NSEnergyFormatter.ForFoodEnergyUse]
+// property.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/unitString(fromJoules:usedUnit:)
 //

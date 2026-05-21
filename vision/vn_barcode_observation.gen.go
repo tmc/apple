@@ -216,6 +216,13 @@ func NewBarcodeObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNB
 	return VNBarcodeObservationFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewBarcodeObservationWithCoder(coder foundation.INSCoder) VNBarcodeObservation {
+	instance := getVNBarcodeObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNBarcodeObservationFromID(rv)
+}
+
 // Creates an observation with a revision number and bounding box.
 //
 // requestRevision: The revision of the request to use.

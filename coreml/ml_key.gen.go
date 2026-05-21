@@ -88,6 +88,7 @@ type IMLKey interface {
 	// The applicable scope of the machine learning key.
 	Scope() string
 
+	InitWithCoder(coder foundation.INSCoder) MLKey
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -110,6 +111,18 @@ func NewMLKey() MLKey {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLKey/init(coder:)
+func NewKeyWithCoder(coder foundation.INSCoder) MLKey {
+	instance := getMLKeyClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLKeyFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLKey/init(coder:)
+func (k MLKey) InitWithCoder(coder foundation.INSCoder) MLKey {
+	rv := objc.Send[MLKey](k.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (k MLKey) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](k.ID, objc.Sel("encodeWithCoder:"), coder)
 }

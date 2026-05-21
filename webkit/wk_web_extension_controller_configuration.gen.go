@@ -180,7 +180,8 @@ func (_WKWebExtensionControllerConfigurationClass WKWebExtensionControllerConfig
 //
 // This property sets the primary data store for managing website data,
 // including cookies, which extensions can access, subject to the granted
-// permissions within the extension contexts. Defaults to [DefaultDataStore].
+// permissions within the extension contexts. Defaults to
+// [WKWebsiteDataStoreClass.DefaultDataStore].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/Configuration-swift.class/defaultWebsiteDataStore
 func (w WKWebExtensionControllerConfiguration) DefaultWebsiteDataStore() IWKWebsiteDataStore {

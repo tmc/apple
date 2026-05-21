@@ -189,10 +189,11 @@ func (c AVCaptionConversionValidator) InitWithCaptionsTimeRangeConversionSetting
 //
 // When the object finishes validating and reports all warnings, it invokes
 // the callback once with a value of `nil` for its warning parameter. When
-// this occurs, the validator’s [Status] value changes to
-// [AVCaptionConversionValidatorStatusCompleted].
+// this occurs, the validator’s [AVCaptionConversionValidator.Status] value
+// changes to [AVCaptionConversionValidatorStatusCompleted].
 //
-// Stop an in-progress validation operation by calling [StopValidating].
+// Stop an in-progress validation operation by calling
+// [AVCaptionConversionValidator.StopValidating].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/validateCaptionConversion(warningHandler:)
 func (c AVCaptionConversionValidator) ValidateCaptionConversionWithWarningHandler(handler AVCaptionConversionWarningHandler) {
@@ -207,7 +208,8 @@ func (c AVCaptionConversionValidator) ValidateCaptionConversionWithWarningHandle
 // You can call this method at any time, even within the validator’s
 // callback to its handler.
 //
-// Calling this method stops validation and changes the [Status] value to
+// Calling this method stops validation and changes the
+// [AVCaptionConversionValidator.Status] value to
 // [AVCaptionConversionValidatorStatusStopped].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/stopValidating()

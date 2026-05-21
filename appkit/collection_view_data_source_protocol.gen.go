@@ -86,10 +86,10 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 // All data source objects must implement this method. Your implementation is
 // responsible for creating, configuring, and returning the appropriate item
 // object based on the specified index path. You do this by calling the
-// [ItemWithIdentifierForIndexPath] method of the collection view to retrieve
-// an empty item object of the appropriate type. After receiving the item
-// object, update its properties with the data from your app’s data
-// structures and return it.
+// [NSCollectionView.ItemWithIdentifierForIndexPath] method of the collection
+// view to retrieve an empty item object of the appropriate type. After
+// receiving the item object, update its properties with the data from your
+// app’s data structures and return it.
 //
 // You do not need to set the frame of an item’s view from this method. The
 // collection view gets the item’s location and other layout-related
@@ -143,10 +143,10 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 // Implement this method if the collection view’s layout object supports
 // supplementary views. Your implementation is responsible for creating,
 // configuring, and returning an appropriate view. You do this by calling the
-// [SupplementaryViewOfKindWithIdentifierForIndexPath] method of the
-// collection view to retrieve an unconfigured view of the appropriate type.
-// After receiving the view, update its properties and content using your
-// app’s data structures and return it.
+// [NSCollectionView.SupplementaryViewOfKindWithIdentifierForIndexPath] method
+// of the collection view to retrieve an unconfigured view of the appropriate
+// type. After receiving the view, update its properties and content using
+// your app’s data structures and return it.
 //
 // You do not need to set the location of supplementary views inside the
 // collection view’s bounds. The collection view gets the view’s location

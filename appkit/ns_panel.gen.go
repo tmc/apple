@@ -115,7 +115,7 @@ func NewNSPanel() NSPanel {
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -130,10 +130,10 @@ func NewNSPanel() NSPanel {
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewPanelWindowWithContentViewController(contentViewController INSViewController) NSPanel {
@@ -187,7 +187,8 @@ func NewPanelWithCoder(coder foundation.INSCoder) NSPanel {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -265,8 +266,8 @@ func NewPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundati
 // (such as by clicking an item in a list).
 //
 // If the panel is a non-activating panel, then it becomes key only if the hit
-// view returns true from [NeedsPanelToBecomeKey]. This way, a non-activating
-// panel can control whether it takes keyboard focus.
+// view returns true from [NSView.NeedsPanelToBecomeKey]. This way, a
+// non-activating panel can control whether it takes keyboard focus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPanel/becomesKeyOnlyIfNeeded
 func (p NSPanel) BecomesKeyOnlyIfNeeded() bool {

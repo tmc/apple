@@ -62,13 +62,15 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 // You create and configure [VZVirtualMachineConfiguration] objects directly.
 // After validating the configuration object, use it to initialize the
 // [VZVirtualMachine] object that manages the virtual environment. The
-// smallest valid configuration includes a value for the [BootLoader]
-// property; you can also include more devices in the configuration depending
-// on the needs of your app, such as graphics devices, shared directories, and
-// so on. When you finish configuring the object, call the [VZVirtualMachineConfiguration.ValidateWithError]
-// method to determine whether a VM can successfully support your
-// configuration. A configuration object is invalid if your app doesn’t have
-// the [com.apple.security.virtualization] entitlement.
+// smallest valid configuration includes a value for the
+// [VZVirtualMachineConfiguration.BootLoader] property; you can also include
+// more devices in the configuration depending on the needs of your app, such
+// as graphics devices, shared directories, and so on. When you finish
+// configuring the object, call the
+// [VZVirtualMachineConfiguration.ValidateWithError] method to determine
+// whether a VM can successfully support your configuration. A configuration
+// object is invalid if your app doesn’t have the
+// [com.apple.security.virtualization] entitlement.
 //
 // For more information on using [VZVirtualMachineConfiguration], see
 // [Installing macOS on a Virtual Machine] and [Creating and Running a Linux
@@ -321,8 +323,8 @@ func (v VZVirtualMachineConfiguration) ValidateWithError() (bool, error) {
 //
 // - Not all configuration options can be safely saved and restored from the
 // configuration file on disk. - If this method returns `false`, the caller
-// should expect future calls to [SaveMachineStateToURLCompletionHandler] to
-// fail.
+// should expect future calls to
+// [VZVirtualMachine.SaveMachineStateToURLCompletionHandler] to fail.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/validateSaveRestoreSupport()
 func (v VZVirtualMachineConfiguration) ValidateSaveRestoreSupportWithError() (bool, error) {
@@ -386,19 +388,20 @@ func (v VZVirtualMachineConfiguration) SetMemorySize(value uint64) {
 // # Discussion
 //
 // Use this property to request a memory balloon device from the VM. The VM
-// initially reserves the amount of memory in the [MemorySize] property for
-// the guest operating system. A balloon memory device asks the guest system
-// to return memory pages that it isn’t using to the VM. You might use the
-// device to reclaim memory when the amount of free memory on the host system
-// runs low.
+// initially reserves the amount of memory in the
+// [VZVirtualMachineConfiguration.MemorySize] property for the guest operating
+// system. A balloon memory device asks the guest system to return memory
+// pages that it isn’t using to the VM. You might use the device to reclaim
+// memory when the amount of free memory on the host system runs low.
 //
 // The default value of this property is an empty array, which doesn’t
 // result in the creation of a balloon memory device. To create a balloon
 // memory device, add a single
 // [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] object to the array.
 // In response, the VM creates a [VZVirtioTraditionalMemoryBalloonDevice]
-// object and adds it to its [MemoryBalloonDevices] property. Use that object
-// to change the amount of memory reserved for the guest system.
+// object and adds it to its [VZVirtualMachine.MemoryBalloonDevices] property.
+// Use that object to change the amount of memory reserved for the guest
+// system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/memoryBalloonDevices
 func (v VZVirtualMachineConfiguration) MemoryBalloonDevices() []VZMemoryBalloonDeviceConfiguration {
@@ -456,8 +459,8 @@ func (v VZVirtualMachineConfiguration) SetNetworkDevices(value []VZNetworkDevice
 // port-based communication with sockets, create a single
 // [VZVirtioSocketDeviceConfiguration] object, add it to an array, and assign
 // it to this property. After initializing the virtual machine, use the object
-// in its [SocketDevices] property to configure the port information and
-// handlers.
+// in its [VZVirtualMachine.SocketDevices] property to configure the port
+// information and handlers.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/socketDevices
 func (v VZVirtualMachineConfiguration) SocketDevices() []VZSocketDeviceConfiguration {
@@ -667,8 +670,8 @@ func (v VZVirtualMachineConfiguration) SetUsbControllers(value []VZUSBController
 //
 // # Discussion
 //
-// The value in the [CPUCount] property must be greater than or equal to the
-// value in this property.
+// The value in the [VZVirtualMachineConfiguration.CPUCount] property must be
+// greater than or equal to the value in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/minimumAllowedCPUCount
 func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MinimumAllowedCPUCount() uint {
@@ -680,8 +683,8 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 //
 // # Discussion
 //
-// The value in the [CPUCount] property must be less than or equal to the
-// value in this property.
+// The value in the [VZVirtualMachineConfiguration.CPUCount] property must be
+// less than or equal to the value in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/maximumAllowedCPUCount
 func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MaximumAllowedCPUCount() uint {
@@ -693,8 +696,8 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Ma
 //
 // # Discussion
 //
-// The value in the [MemorySize] property must be greater than or equal to the
-// value in this property.
+// The value in the [VZVirtualMachineConfiguration.MemorySize] property must
+// be greater than or equal to the value in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/minimumAllowedMemorySize
 func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MinimumAllowedMemorySize() uint64 {
@@ -706,8 +709,8 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 //
 // # Discussion
 //
-// The value in the [MemorySize] property must be less than or equal to the
-// value in this property.
+// The value in the [VZVirtualMachineConfiguration.MemorySize] property must
+// be less than or equal to the value in this property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/maximumAllowedMemorySize
 func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MaximumAllowedMemorySize() uint64 {

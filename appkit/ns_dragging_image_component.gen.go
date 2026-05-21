@@ -205,9 +205,10 @@ func (_NSDraggingImageComponentClass NSDraggingImageComponentClass) DraggingImag
 // You can create your own named components, however the keys described in
 // [NSDragImage Component Keys] have special meanings.
 //
-// When an NSDraggingItem instances [ImageComponents] are changed by one of
-// the “ methods the image associated with this key is morphed into the new
-// image component’s image associated with the same key.
+// When an NSDraggingItem instances [NSDraggingItem.ImageComponents] are
+// changed by one of the “ methods the image associated with this key is
+// morphed into the new image component’s image associated with the same
+// key.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/key
 //
@@ -245,7 +246,7 @@ func (d NSDraggingImageComponent) SetContents(value objectivec.IObject) {
 // `draggingFrame.SizeXCUIElementTypeHeight()`}}.
 //
 // The coordinate space is the bounds of the parent [NSDraggingItem]
-// instance’s [DraggingFrame].
+// instance’s [NSDraggingItem.DraggingFrame].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/frame
 func (d NSDraggingImageComponent) Frame() corefoundation.CGRect {

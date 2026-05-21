@@ -37,12 +37,12 @@ type GCLinearInput interface {
 	// The time of the most recent value change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueTimestamp
-	LastValueTimestamp() float64
+	LastValueTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the last value change and the current time.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueLatency
-	LastValueLatency() float64
+	LastValueLatency() foundation.NSTimeInterval
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -113,9 +113,9 @@ func (o GCLinearInputObject) Value() float32 {
 // between value changes, subtract a previous time from the current time.
 //
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueTimestamp
-func (o GCLinearInputObject) LastValueTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastValueTimestamp"))
-	return float64(rv)
+func (o GCLinearInputObject) LastValueTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastValueTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the last value change and the current time.
@@ -126,9 +126,9 @@ func (o GCLinearInputObject) LastValueTimestamp() float64 {
 // that accrues on the device or when it transmits the event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueLatency
-func (o GCLinearInputObject) LastValueLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastValueLatency"))
-	return float64(rv)
+func (o GCLinearInputObject) LastValueLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastValueLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

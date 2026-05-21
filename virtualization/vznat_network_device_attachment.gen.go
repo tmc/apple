@@ -55,10 +55,11 @@ func (vc VZNATNetworkDeviceAttachmentClass) Alloc() VZNATNetworkDeviceAttachment
 // To configure a network device with a NAT attachment:
 //
 // - Create the [VZNATNetworkDeviceAttachment] object. - Assign the attachment
-// object to the [VZNATNetworkDeviceAttachment.Attachment] property of a
+// object to the [VZNetworkDeviceConfiguration.Attachment] property of a
 // [VZVirtioNetworkDeviceConfiguration] object. - Add the
-// [VZVirtioNetworkDeviceConfiguration] object to the [VZNATNetworkDeviceAttachment.NetworkDevices]
-// property of your [VZVirtualMachineConfiguration].
+// [VZVirtioNetworkDeviceConfiguration] object to the
+// [VZVirtualMachineConfiguration.NetworkDevices] property of your
+// [VZVirtualMachineConfiguration].
 //
 // This attachment doesn’t require your app to have the
 // [com.apple.vm.networking] entitlement.
@@ -86,13 +87,6 @@ func VZNATNetworkDeviceAttachmentFromID(id objc.ID) VZNATNetworkDeviceAttachment
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment
 type IVZNATNetworkDeviceAttachment interface {
 	IVZNetworkDeviceAttachment
-
-	// The object that defines how the virtual network device communicates with the host system.
-	Attachment() IVZNetworkDeviceAttachment
-	SetAttachment(value IVZNetworkDeviceAttachment)
-	// The array of network devices that you expose to the guest operating system.
-	NetworkDevices() IVZNetworkDeviceConfiguration
-	SetNetworkDevices(value IVZNetworkDeviceConfiguration)
 }
 
 // Init initializes the instance.
@@ -112,27 +106,4 @@ func NewVZNATNetworkDeviceAttachment() VZNATNetworkDeviceAttachment {
 	class := getVZNATNetworkDeviceAttachmentClass()
 	rv := objc.Send[VZNATNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The object that defines how the virtual network device communicates with
-// the host system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vznetworkdeviceconfiguration/attachment
-func (n VZNATNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachment {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("attachment"))
-	return VZNetworkDeviceAttachmentFromID(objc.ID(rv))
-}
-func (n VZNATNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
-	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
-}
-
-// The array of network devices that you expose to the guest operating system.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
-func (n VZNATNetworkDeviceAttachment) NetworkDevices() IVZNetworkDeviceConfiguration {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("networkDevices"))
-	return VZNetworkDeviceConfigurationFromID(objc.ID(rv))
-}
-func (n VZNATNetworkDeviceAttachment) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }

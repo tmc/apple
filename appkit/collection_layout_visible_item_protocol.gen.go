@@ -38,7 +38,7 @@ type NSCollectionLayoutVisibleItem interface {
 	// The index path of the item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/indexPath
-	IndexPath() objc.ID
+	IndexPath() foundation.NSIndexPath
 
 	// The transparency of the item.
 	//
@@ -128,9 +128,9 @@ func (o NSCollectionLayoutVisibleItemObject) RepresentedElementCategory() NSColl
 // The index path of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/indexPath
-func (o NSCollectionLayoutVisibleItemObject) IndexPath() objc.ID {
+func (o NSCollectionLayoutVisibleItemObject) IndexPath() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexPath"))
-	return objc.ID(rv)
+	return foundation.NSIndexPathFromID(rv)
 }
 
 // The transparency of the item.

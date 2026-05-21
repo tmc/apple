@@ -267,9 +267,9 @@ func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceCount(value uint)
 // You need to set a buffer before creating the instanced acceleration
 // structure. The buffer needs to contain a list of instance data structures,
 // each defining the characteristics of an instance. The descriptor’s
-// [InstanceDescriptorType] property determines which memory layout to use for
-// the instance data; see [MTLAccelerationStructureInstanceDescriptorType] for
-// more information.
+// [MTLInstanceAccelerationStructureDescriptor.InstanceDescriptorType]
+// property determines which memory layout to use for the instance data; see
+// [MTLAccelerationStructureInstanceDescriptorType] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/instanceDescriptorBuffer
 //

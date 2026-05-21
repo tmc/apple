@@ -291,8 +291,8 @@ func NewGridViewWithNumberOfColumnsRows(columnCount int, rowCount int) NSGridVie
 // for that row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/init(views:)
-func NewGridViewWithViews(rows []foundation.NSArray) NSGridView {
-	rv := objc.Send[objc.ID](objc.ID(getNSGridViewClass().class), objc.Sel("gridViewWithViews:"), objectivec.IObjectSliceToNSArray(rows))
+func NewGridViewWithViews(rows []foundation.INSArray) NSGridView {
+	rv := objc.Send[objc.ID](objc.ID(getNSGridViewClass().class), objc.Sel("gridViewWithViews:"), rows)
 	return NSGridViewFromID(rv)
 }
 

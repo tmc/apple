@@ -104,7 +104,7 @@ func (o NSNetServiceDelegateObject) NetServiceWillResolve(sender INSNetService) 
 // Clients may try to resolve again upon receiving this error. For example, a
 // DNS rotary may yield different IP addresses on different resolution
 // requests. A common error condition is that no addresses were resolved
-// during the timeout period specified in [ResolveWithTimeout].
+// during the timeout period specified in [NSNetService.ResolveWithTimeout].
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didNotResolve:)
 //
@@ -120,10 +120,11 @@ func (o NSNetServiceDelegateObject) NetServiceDidNotResolve(sender INSNetService
 //
 // # Discussion
 //
-// The delegate can use the [Addresses] method to retrieve the service’s
-// address. If the delegate needs only one address, it can stop the resolution
-// process using [Stop]. Otherwise, the resolution will continue until the
-// timeout specified in [ResolveWithTimeout] is reached.
+// The delegate can use the [NSNetService.Addresses] method to retrieve the
+// service’s address. If the delegate needs only one address, it can stop
+// the resolution process using [NSNetService.Stop]. Otherwise, the resolution
+// will continue until the timeout specified in
+// [NSNetService.ResolveWithTimeout] is reached.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidResolveAddress(_:)
 func (o NSNetServiceDelegateObject) NetServiceDidResolveAddress(sender INSNetService) {
@@ -142,8 +143,8 @@ func (o NSNetServiceDelegateObject) NetServiceDidUpdateTXTRecordData(sender INSN
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didUpdateTXTRecordData:"), sender, data)
 }
 
-// Informs the delegate that a [Publish] or [ResolveWithTimeout] request was
-// stopped.
+// Informs the delegate that a [NSNetService.Publish] or
+// [NSNetService.ResolveWithTimeout] request was stopped.
 //
 // sender: The service that stopped.
 //

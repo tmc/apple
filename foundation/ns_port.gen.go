@@ -70,14 +70,14 @@ func (pc PortClass) Alloc() Port {
 // application uses garbage collection, you must invalidate the port object
 // before removing any strong references to it. If you do not invalidate the
 // port, the resulting port object may linger and create a memory leak. To
-// invalidate the port object, invoke its [Invalidate] method.
+// invalidate the port object, invoke its [NSPort.Invalidate] method.
 //
 // Foundation defines three concrete subclasses of [NSPort]. [NSMachPort] and
 // [NSMessagePort] allow local (on the same machine) communication only.
 // [NSSocketPort] allows for both local and remote communication, but may be
 // more expensive than the others for the local case. When creating an
-// [NSPort] object, using [allocWithZone:] or [Port], an [NSMachPort] object
-// is created instead.
+// [NSPort] object, using [allocWithZone:] or [NSPortClass.Port], an
+// [NSMachPort] object is created instead.
 //
 // For backward compatibility on Mach, `-[NSPort ]` returns an instance of the
 // [NSMachPort] class when sent to this class. Otherwise, it returns an

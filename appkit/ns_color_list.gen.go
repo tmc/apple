@@ -156,6 +156,7 @@ type INSColorList interface {
 	// Removes the file from which the list was created, if the file is in a standard search path and owned by the user.
 	RemoveFile()
 
+	InitWithCoder(coder foundation.INSCoder) NSColorList
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -195,6 +196,13 @@ func NewColorListNamed(name string) NSColorList {
 	return NSColorListFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSColorList/init(coder:)
+func NewColorListWithCoder(coder foundation.INSCoder) NSColorList {
+	instance := getNSColorListClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSColorListFromID(rv)
+}
+
 // Initializes and returns a color list, registering it under the specified
 // name if it isn’t in use already.
 //
@@ -207,11 +215,11 @@ func NewColorListNamed(name string) NSColorList {
 //
 // # Discussion
 //
-// This method invokes [InitWithNameFromFile] with a “ argument of `nil`,
-// indicating that the color list doesn’t need to be initialized from a
-// file. Note that this method does not add the color list to
-// [AvailableColorLists] until the color list is saved into the user’s path
-// with [write(toFile:)] with a value of `nil`.
+// This method invokes [NSColorList.InitWithNameFromFile] with a “ argument
+// of `nil`, indicating that the color list doesn’t need to be initialized
+// from a file. Note that this method does not add the color list to
+// [NSColorListClass.AvailableColorLists] until the color list is saved into
+// the user’s path with [write(toFile:)] with a value of `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/init(name:)
 //
@@ -234,9 +242,9 @@ func NewColorListWithName(name string) NSColorList {
 //
 // # Discussion
 //
-// Note that this method does not add the color list to [AvailableColorLists]
-// until the color list is saved into the user’s path with [write(toFile:)]
-// with a value of `nil`.
+// Note that this method does not add the color list to
+// [NSColorListClass.AvailableColorLists] until the color list is saved into
+// the user’s path with [write(toFile:)] with a value of `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/init(name:fromFile:)
 //
@@ -259,11 +267,11 @@ func NewColorListWithNameFromFile(name string, path string) NSColorList {
 //
 // # Discussion
 //
-// This method invokes [InitWithNameFromFile] with a “ argument of `nil`,
-// indicating that the color list doesn’t need to be initialized from a
-// file. Note that this method does not add the color list to
-// [AvailableColorLists] until the color list is saved into the user’s path
-// with [write(toFile:)] with a value of `nil`.
+// This method invokes [NSColorList.InitWithNameFromFile] with a “ argument
+// of `nil`, indicating that the color list doesn’t need to be initialized
+// from a file. Note that this method does not add the color list to
+// [NSColorListClass.AvailableColorLists] until the color list is saved into
+// the user’s path with [write(toFile:)] with a value of `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/init(name:)
 //
@@ -285,9 +293,9 @@ func (c NSColorList) InitWithName(name string) NSColorList {
 //
 // # Discussion
 //
-// Note that this method does not add the color list to [AvailableColorLists]
-// until the color list is saved into the user’s path with [write(toFile:)]
-// with a value of `nil`.
+// Note that this method does not add the color list to
+// [NSColorListClass.AvailableColorLists] until the color list is saved into
+// the user’s path with [write(toFile:)] with a value of `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/init(name:fromFile:)
 //
@@ -361,7 +369,7 @@ func (c NSColorList) RemoveColorWithKey(key string) {
 //
 // If the list already contains `key`, this method sets the corresponding
 // color to `color`; otherwise, it inserts `color` at the end of the list by
-// invoking [InsertColorKeyAtIndex].
+// invoking [NSColorList.InsertColorKeyAtIndex].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/setColor(_:forKey:)
 func (c NSColorList) SetColorForKey(color INSColor, key string) {
@@ -378,8 +386,8 @@ func (c NSColorList) SetColorForKey(color INSColor, key string) {
 //
 // If `url` represents a directory, this method saves the color list in that
 // directory in a file with the name `XCUIElementTypeClr`, where is the value
-// of the [Name] property. If `url` represents a file, this method saves the
-// color list using the name you provided.
+// of the [NSColorList.Name] property. If `url` represents a file, this method
+// saves the color list using the name you provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/write(to:)
 func (c NSColorList) WriteToURLError(url foundation.NSURL) (bool, error) {
@@ -402,13 +410,19 @@ func (c NSColorList) WriteToURLError(url foundation.NSURL) (bool, error) {
 // # Discussion
 //
 // In addition to removing the file, this method removes the color list from
-// the contents of the [AvailableColorLists] property. If there are no
-// outstanding references to the color list, this method might also deallocate
-// the object.
+// the contents of the [NSColorListClass.AvailableColorLists] property. If
+// there are no outstanding references to the color list, this method might
+// also deallocate the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/removeFile()
 func (c NSColorList) RemoveFile() {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeFile"))
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSColorList/init(coder:)
+func (c NSColorList) InitWithCoder(coder foundation.INSCoder) NSColorList {
+	rv := objc.Send[NSColorList](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (c NSColorList) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)

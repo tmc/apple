@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -71,11 +70,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellDisplayStringForRepresente
 // # Discussion
 //
 // If the delegate implements this method and returns an
-// [NSTokenField.TokenStyle] that differs from the style set by [TokenStyle],
-// the value the delegate returns is preferred.
+// [NSTokenField.TokenStyle] that differs from the style set by
+// [NSTokenFieldCell.TokenStyle], the value the delegate returns is preferred.
 //
 // If the delegate does not implement this method, the token field cell’s
-// [TokenStyle] is used.
+// [NSTokenFieldCell.TokenStyle] is used.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:styleForRepresentedObject:)
 //
@@ -108,7 +107,7 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(
 // provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
-func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
+func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex *int) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenFieldCell, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
 }

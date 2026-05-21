@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
@@ -138,7 +139,7 @@ type ICARenderer interface {
 	// Topic: Rendering a Frame
 
 	// Begin rendering a frame at the specified time.
-	BeginFrameAtTimeTimeStamp(t float64, ts objectivec.IObject)
+	BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp)
 	// Returns the bounds of the update region that contains all pixels that will be rendered by the current frame.
 	UpdateBounds() corefoundation.CGRect
 	// Adds the rectangle to the update region of the current frame.
@@ -146,7 +147,7 @@ type ICARenderer interface {
 	// Render the update region of the current frame to the target context.
 	Render()
 	// Returns the time at which the next update should happen.
-	NextFrameTime() float64
+	NextFrameTime() corefoundation.CFTimeInterval
 	// Release any data associated with the current frame.
 	EndFrame()
 
@@ -189,7 +190,7 @@ func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSD
 // ts: The display timestamp associated with timeInterval. Can be null.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/beginFrame(atTime:timeStamp:)
-func (r CARenderer) BeginFrameAtTimeTimeStamp(t float64, ts objectivec.IObject) {
+func (r CARenderer) BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp) {
 	objc.Send[objc.ID](r.ID, objc.Sel("beginFrameAtTime:timeStamp:"), t, ts)
 }
 
@@ -240,9 +241,9 @@ func (r CARenderer) Render() {
 // be scheduled after an appropriate delay.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/nextFrameTime()
-func (r CARenderer) NextFrameTime() float64 {
-	rv := objc.Send[float64](r.ID, objc.Sel("nextFrameTime"))
-	return rv
+func (r CARenderer) NextFrameTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](r.ID, objc.Sel("nextFrameTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Release any data associated with the current frame.

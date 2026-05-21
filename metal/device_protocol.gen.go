@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -191,7 +192,7 @@ type MTLDevice interface {
 	// Creates a buffer that wraps an existing contiguous memory allocation.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
-	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer
+	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer
 
 	// Creates a buffer the method clears with zero values.
 	//
@@ -251,7 +252,7 @@ type MTLDevice interface {
 	// Creates a Metal library instance that contains the functions in a bundle’s default Metal library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-	NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error)
+	NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error)
 
 	// Creates a depth-stencil state instance.
 	//
@@ -1268,7 +1269,8 @@ func (o MTLDeviceObject) NewAccelerationStructureWithSize(size uint) MTLAccelera
 // Creates a new argument encoder for an array of arguments.
 //
 // arguments: An array of [MTLArgumentDescriptor] instances that you need to sort by
-// their [Index] properties in monotonically increasing order.
+// their [MTLArgumentDescriptor.Index] properties in monotonically increasing
+// order.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArgumentEncoder(arguments:)
 func (o MTLDeviceObject) NewArgumentEncoderWithArguments(arguments []MTLArgumentDescriptor) MTLArgumentEncoder {
@@ -1355,8 +1357,8 @@ var _mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key 
 // [MTLResourceOptions]: https://developer.apple.com/documentation/Metal/MTLResourceOptions
 // [Resource fundamentals]: https://developer.apple.com/documentation/Metal/resource-fundamentals
 // [Setting resource storage modes]: https://developer.apple.com/documentation/Metal/setting-resource-storage-modes
-func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer {
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, objc.ID(_block3))
 	objc.AssociateBlockWithReceiver(rv, &_mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key, _block3)
 	return MTLBufferObjectFromID(rv)
@@ -1623,7 +1625,7 @@ func (o MTLDeviceObject) NewDefaultLibrary() MTLLibrary {
 // Swift throws an error and Objective-C returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error) {
+func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDefaultLibraryWithBundle:error:"), bundle)
 	if err != nil {
 		return nil, err
@@ -2488,11 +2490,13 @@ func (o MTLDeviceObject) SupportsRasterizationRateMapWithLayerCount(layerCount u
 // Consider a GPU device’s limitations for sample count by checking
 // [MTLTexture]`.`[SampleCount] when configuring these properties:
 //
-// - [MTLTextureDescriptor]`.`[SampleCount] -
-// [MTLRenderPipelineDescriptor]`.`[RasterSampleCount] -
-// [MTLTileRenderPipelineDescriptor]`.`[RasterSampleCount] -
-// [MTLMeshRenderPipelineDescriptor]`.`[RasterSampleCount] -
-// [MTKView]`.`[sampleCount]
+// - [MTLTextureDescriptor]`.`[MTLTextureDescriptor.SampleCount] -
+// [MTLRenderPipelineDescriptor]`.`[MTLRenderPipelineDescriptor.RasterSampleCount]
+// -
+// [MTLTileRenderPipelineDescriptor]`.`[MTLTileRenderPipelineDescriptor.RasterSampleCount]
+// -
+// [MTLMeshRenderPipelineDescriptor]`.`[MTLMeshRenderPipelineDescriptor.RasterSampleCount]
+// - [MTKView]`.`[sampleCount]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsTextureSampleCount(_:)
 //
@@ -2697,16 +2701,19 @@ func (o MTLDeviceObject) Location() MTLDeviceLocation {
 //
 // # Discussion
 //
-// The meaning of the location number depends on a device’s [Location]
+// The meaning of the location number depends on a device’s [location]
 // property:
 //
 // - For [MTLDeviceLocationBuiltIn], the location number is `0` for low-power
-// GPUs (see [IsLowPower]) and `1` for other GPUs. - For
+// GPUs (see [isLowPower]) and `1` for other GPUs. - For
 // [MTLDeviceLocationSlot], the location number represents the slot. - For
 // [MTLDeviceLocationExternal], the location number represents the Thunderbolt
 // port.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/locationNumber
+//
+// [isLowPower]: https://developer.apple.com/documentation/Metal/MTLDevice/isLowPower
+// [location]: https://developer.apple.com/documentation/Metal/MTLDevice/location
 func (o MTLDeviceObject) LocationNumber() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("locationNumber"))
 	return uint(rv)
@@ -2742,10 +2749,11 @@ func (o MTLDeviceObject) LowPower() bool {
 // # Discussion
 //
 // This limit only applies to samplers that support argument buffers (see
-// [SupportArgumentBuffers]). An [MTLSamplerState] instance is only unique if
-// the properties of the [MTLSamplerDescriptor] instance that created it are
-// unique. For example, two samplers with equal [MinFilter] values but
-// different [MagFilter] values are unique.
+// [MTLSamplerDescriptor.SupportArgumentBuffers]). An [MTLSamplerState]
+// instance is only unique if the properties of the [MTLSamplerDescriptor]
+// instance that created it are unique. For example, two samplers with equal
+// [MTLSamplerDescriptor.MinFilter] values but different
+// [MTLSamplerDescriptor.MagFilter] values are unique.
 //
 // See [Improving CPU performance by using argument buffers] for more
 // information about argument buffer tiers, limits, and capabilities.
@@ -2857,11 +2865,16 @@ func (o MTLDeviceObject) PeerGroupID() uint64 {
 //
 // # Discussion
 //
-// If the GPU is part of a peer group (see [PeerGroupID] or [PeerCount]) the
-// peer index is the GPU’s unique value within the group in the range
-// `[PeerCount]`)`.
+// If the GPU is part of a peer group (see [peerGroupID] or [peerCount]) the
+// peer index is the GPU’s unique value within the group in the range `[0,
+// `[peerCount]`)`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/peerIndex
+//
+// [peerCount]: https://developer.apple.com/documentation/Metal/MTLDevice/peerCount
+// [peerGroupID]: https://developer.apple.com/documentation/Metal/MTLDevice/peerGroupID
+//
+// [0, `[peerCount]: https://developer.apple.com/documentation/Metal/MTLDevice/peerCount
 func (o MTLDeviceObject) PeerIndex() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("peerIndex"))
 	return uint32(rv)

@@ -253,12 +253,13 @@ func NewColorKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(na
 //
 // # Discussion
 //
-// This method is analogous to the [CIFilter] method [ApplyArgumentsOptions],
-// but it does not require construction of a [CIFilter] object, and it allows
-// you to specify a callback for determining the kernel’s region of interest
-// as a block or closure. As with the similar [CIFilter] method, calling this
-// method does not execute the kernel code—filters and their kernel code are
-// evaluated only when rendering a final output image.
+// This method is analogous to the [CIFilter] method
+// [CIFilter.ApplyArgumentsOptions], but it does not require construction of a
+// [CIFilter] object, and it allows you to specify a callback for determining
+// the kernel’s region of interest as a block or closure. As with the
+// similar [CIFilter] method, calling this method does not execute the kernel
+// code—filters and their kernel code are evaluated only when rendering a
+// final output image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorKernel/apply(extent:arguments:)
 //

@@ -91,19 +91,6 @@ type IPDFAction interface {
 
 	// Returns the type of the action.
 	Type() string
-
-	// An object that represents an action for a PDF element, such as a link annotation.
-	Action() IPDFAction
-	SetAction(value IPDFAction)
-	// Returns the modification date of the annotation.
-	ModificationDate() foundation.NSDate
-	SetModificationDate(value foundation.NSDate)
-	// Returns the page that the annotation is associated with.
-	Page() IPDFPage
-	SetPage(value IPDFPage)
-	// Returns the name of the user who created the annotation.
-	UserName() string
-	SetUserName(value string)
 }
 
 // Init initializes the instance.
@@ -144,49 +131,4 @@ func NewPDFAction() PDFAction {
 func (p PDFAction) Type() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// An object that represents an action for a PDF element, such as a link
-// annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/action
-func (p PDFAction) Action() IPDFAction {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("action"))
-	return PDFActionFromID(objc.ID(rv))
-}
-func (p PDFAction) SetAction(value IPDFAction) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAction:"), value)
-}
-
-// Returns the modification date of the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/modificationdate
-func (p PDFAction) ModificationDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modificationDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (p PDFAction) SetModificationDate(value foundation.NSDate) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModificationDate:"), value)
-}
-
-// Returns the page that the annotation is associated with.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/page
-func (p PDFAction) Page() IPDFPage {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("page"))
-	return PDFPageFromID(objc.ID(rv))
-}
-func (p PDFAction) SetPage(value IPDFPage) {
-	objc.Send[struct{}](p.ID, objc.Sel("setPage:"), value)
-}
-
-// Returns the name of the user who created the annotation.
-//
-// See: https://developer.apple.com/documentation/pdfkit/pdfannotation/username
-func (p PDFAction) UserName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("userName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (p PDFAction) SetUserName(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setUserName:"), objc.String(value))
 }

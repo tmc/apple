@@ -127,10 +127,6 @@ type IAVCaptureExternalDisplayConfigurator interface {
 
 	// Forces the external display configurator to asynchronously stop configuring the external display.
 	Stop()
-
-	// The capture format in use by the device.
-	ActiveFormat() IAVCaptureDeviceFormat
-	SetActiveFormat(value IAVCaptureDeviceFormat)
 }
 
 // Init initializes the instance.
@@ -178,7 +174,7 @@ func NewAVCaptureExternalDisplayConfigurator() AVCaptureExternalDisplayConfigura
 //
 // If multiple configurators are linked to the same external display ,the last
 // one created becomes the active configurator for the external display (see
-// [Active]).
+// [AVCaptureExternalDisplayConfigurator.Active]).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/init(device:previewLayer:configuration:)
 func NewCaptureExternalDisplayConfiguratorWithDevicePreviewLayerConfiguration(device IAVCaptureDevice, previewLayer quartzcore.CALayer, configuration IAVCaptureExternalDisplayConfiguration) AVCaptureExternalDisplayConfigurator {
@@ -213,7 +209,7 @@ func NewCaptureExternalDisplayConfiguratorWithDevicePreviewLayerConfiguration(de
 //
 // If multiple configurators are linked to the same external display ,the last
 // one created becomes the active configurator for the external display (see
-// [Active]).
+// [AVCaptureExternalDisplayConfigurator.Active]).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/init(device:previewLayer:configuration:)
 func (c AVCaptureExternalDisplayConfigurator) InitWithDevicePreviewLayerConfiguration(device IAVCaptureDevice, previewLayer quartzcore.CALayer, configuration IAVCaptureExternalDisplayConfiguration) AVCaptureExternalDisplayConfigurator {
@@ -226,10 +222,13 @@ func (c AVCaptureExternalDisplayConfigurator) InitWithDevicePreviewLayerConfigur
 //
 // # Discussion
 //
-// Call [Stop] to force the [AVCaptureExternalDisplayConfigurator] to
-// asynchronously stop configuring the external display. Once stopped, the
-// [Active] property changes to `false` and the
-// [ActiveExternalDisplayFrameRate] becomes 0.
+// Call [AVCaptureExternalDisplayConfigurator.Stop] to force the
+// [AVCaptureExternalDisplayConfigurator] to asynchronously stop configuring
+// the external display. Once stopped, the
+// [AVCaptureExternalDisplayConfigurator.Active] property changes to `false`
+// and the
+// [AVCaptureExternalDisplayConfigurator.ActiveExternalDisplayFrameRate]
+// becomes 0.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/stop()
 func (c AVCaptureExternalDisplayConfigurator) Stop() {
@@ -242,8 +241,9 @@ func (c AVCaptureExternalDisplayConfigurator) Stop() {
 // # Discussion
 //
 // Observe this property to determine if the configured frame rate matches the
-// max frame rate ([ActiveVideoMinFrameDuration]) of the device. When the
-// [Active] property becomes `false`, this property changes to 0.
+// max frame rate ([AVCaptureDevice.ActiveVideoMinFrameDuration]) of the
+// device. When the [AVCaptureExternalDisplayConfigurator.Active] property
+// becomes `false`, this property changes to 0.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/activeExternalDisplayFrameRate
 func (c AVCaptureExternalDisplayConfigurator) ActiveExternalDisplayFrameRate() float64 {
@@ -301,24 +301,14 @@ func (c AVCaptureExternalDisplayConfigurator) PreviewLayer() quartzcore.CALayer 
 	return quartzcore.CALayerFromID(objc.ID(rv))
 }
 
-// The capture format in use by the device.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/activeformat
-func (c AVCaptureExternalDisplayConfigurator) ActiveFormat() IAVCaptureDeviceFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeFormat"))
-	return AVCaptureDeviceFormatFromID(objc.ID(rv))
-}
-func (c AVCaptureExternalDisplayConfigurator) SetActiveFormat(value IAVCaptureDeviceFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setActiveFormat:"), value)
-}
-
 // Whether the external display supports matching frame rate to a capture
 // device.
 //
 // # Discussion
 //
 // If `true`, you may instantiate a configurator with a configuration
-// specifying [ShouldMatchFrameRate] set to `true`.
+// specifying [AVCaptureExternalDisplayConfiguration.ShouldMatchFrameRate] set
+// to `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isMatchingFrameRateSupported
 func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsMatchingFrameRateSupported() bool {
@@ -332,7 +322,8 @@ func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfigu
 // # Discussion
 //
 // If `true`, you may instantiate a configurator with a configuration
-// specifying [PreferredResolution] set to `true`.
+// specifying [AVCaptureExternalDisplayConfiguration.PreferredResolution] set
+// to `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isPreferredResolutionSupported
 func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsPreferredResolutionSupported() bool {
@@ -345,7 +336,9 @@ func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfigu
 // # Discussion
 //
 // If `true`, you may instantiate a configurator with a configuration
-// specifying [BypassColorSpaceConversion] set to `true`.
+// specifying
+// [AVCaptureExternalDisplayConfiguration.BypassColorSpaceConversion] set to
+// `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isBypassingColorSpaceConversionSupported
 func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsBypassingColorSpaceConversionSupported() bool {

@@ -153,6 +153,7 @@ type IMLFeatureValue interface {
 	// Returns a Boolean value that indicates whether a feature value is equal to another.
 	IsEqualToFeatureValue(value IMLFeatureValue) bool
 
+	InitWithCoder(coder foundation.INSCoder) MLFeatureValue
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -296,6 +297,13 @@ func NewFeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(c
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(coder:)
+func NewFeatureValueWithCoder(coder foundation.INSCoder) MLFeatureValue {
+	instance := getMLFeatureValueClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLFeatureValueFromID(rv)
 }
 
 // Creates a feature value that contains a dictionary of numbers.
@@ -514,6 +522,12 @@ func NewFeatureValueWithString(value string) MLFeatureValue {
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/isEqual(to:)
 func (f MLFeatureValue) IsEqualToFeatureValue(value IMLFeatureValue) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isEqualToFeatureValue:"), value)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(coder:)
+func (f MLFeatureValue) InitWithCoder(coder foundation.INSCoder) MLFeatureValue {
+	rv := objc.Send[MLFeatureValue](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (f MLFeatureValue) EncodeWithCoder(coder foundation.INSCoder) {

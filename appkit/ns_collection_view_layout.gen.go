@@ -58,10 +58,10 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 //
 // You do not create instances of this class directly. Instead, you create
 // instances of one of its subclasses and associate that object with your
-// collection view either programmatically (using the [CollectionViewLayout]
-// property) or at design time in Interface Builder. Changing the layout
-// object of a collection view forces an immediate update of the layout
-// information.
+// collection view either programmatically (using the
+// [NSCollectionView.CollectionViewLayout] property) or at design time in
+// Interface Builder. Changing the layout object of a collection view forces
+// an immediate update of the layout information.
 //
 // Collection views support many different types of elements, most of which
 // are visual and all of which require layout attributes:
@@ -120,20 +120,23 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 // When defining a custom layout class, always override the following methods
 // and properties:
 //
-// - [NSCollectionViewLayout.PrepareLayout] - [NSCollectionViewLayout.CollectionViewContentSize] -
-// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] - [NSCollectionViewLayout.LayoutAttributesForItemAtIndexPath]
-// - [NSCollectionViewLayout.LayoutAttributesForSupplementaryViewOfKindAtIndexPath] (if your layout
-// supports supplementary views) -
-// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath] (if your layout
-// supports decoration views) - [NSCollectionViewLayout.ShouldInvalidateLayoutForBoundsChange]
+// - [NSCollectionViewLayout.PrepareLayout] -
+// [NSCollectionViewLayout.CollectionViewContentSize] -
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] -
+// [NSCollectionViewLayout.LayoutAttributesForItemAtIndexPath] -
+// [NSCollectionViewLayout.LayoutAttributesForSupplementaryViewOfKindAtIndexPath]
+// (if your layout supports supplementary views) -
+// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath]
+// (if your layout supports decoration views) -
+// [NSCollectionViewLayout.ShouldInvalidateLayoutForBoundsChange]
 //
 // These methods provide the fundamental layout information that the
 // collection view needs to configure the items and other views that it
 // displays. Layout objects need to implement only the methods associated with
 // the types of elements they support. So if your layout object does not
 // include decoration views, you do not need to implement the
-// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath] method or any other
-// methods relating to decoration views.
+// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath]
+// method or any other methods relating to decoration views.
 //
 // In addition to the preceding methods, it is recommended that you implement
 // several other methods in your custom layout objects. The insertion or
@@ -143,15 +146,22 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 // deletion of items. Other methods provide additional support for
 // layout-related behaviors.
 //
-// - [NSCollectionViewLayout.InitialLayoutAttributesForAppearingItemAtIndexPath] -
-// [NSCollectionViewLayout.InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath]
-// - [NSCollectionViewLayout.InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath] -
-// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingItemAtIndexPath] -
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingItemAtIndexPath]
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewTransitionLayout.InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath]
+// -
+// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingItemAtIndexPath]
+// -
 // [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath]
-// - [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath]
-// - [NSCollectionViewLayout.LayoutAttributesForDropTargetAtPoint] (if your layout supports dropping
-// content between items - [NSCollectionViewLayout.LayoutAttributesForInterItemGapBeforeIndexPath]
-// (if your layout supports dropping content in gaps between elements)
+// -
+// [NSCollectionViewLayout.FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath]
+// - [NSCollectionViewLayout.LayoutAttributesForDropTargetAtPoint] (if your
+// layout supports dropping content between items -
+// [NSCollectionViewLayout.LayoutAttributesForInterItemGapBeforeIndexPath] (if
+// your layout supports dropping content in gaps between elements)
 //
 // # Understanding the Layout Process
 //
@@ -167,26 +177,28 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 // very important methods, whose implementations drive the core layout
 // behavior.
 //
-// - Use the [NSCollectionViewLayout.PrepareLayout] method to perform your initial layout
-// calculations. These calculations provide the basis for everything the
-// layout object does later. - Use the [NSCollectionViewLayout.CollectionViewContentSize] method to
-// return the smallest rectangle that completely encloses all of the elements
-// in the collection view. Use the calculations from your [NSCollectionViewLayout.PrepareLayout]
-// method to specify this rectangle. - Use the
-// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method to return the layout attributes
-// for all elements in the specified rectangle. The collection view typically
-// requests only the subset of visible elements, but may include elements that
-// are just offscreen.
+// - Use the [NSCollectionViewLayout.PrepareLayout] method to perform your
+// initial layout calculations. These calculations provide the basis for
+// everything the layout object does later. - Use the
+// [NSCollectionViewLayout.CollectionViewContentSize] method to return the
+// smallest rectangle that completely encloses all of the elements in the
+// collection view. Use the calculations from your
+// [NSCollectionViewLayout.PrepareLayout] method to specify this rectangle. -
+// Use the [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method
+// to return the layout attributes for all elements in the specified
+// rectangle. The collection view typically requests only the subset of
+// visible elements, but may include elements that are just offscreen.
 //
-// The [NSCollectionViewLayout.PrepareLayout] method is your chance to perform the main calculations
-// associated with the layout process. Use this method to generate an initial
-// list of layout attributes for your content. For example, use this method to
-// calculate the frame rectangles of all elements in the collection view.
-// Performing all of these calculations up front and caching the resulting
-// data is often simpler than trying to compute attributes for individual
-// items later.
+// The [NSCollectionViewLayout.PrepareLayout] method is your chance to perform
+// the main calculations associated with the layout process. Use this method
+// to generate an initial list of layout attributes for your content. For
+// example, use this method to calculate the frame rectangles of all elements
+// in the collection view. Performing all of these calculations up front and
+// caching the resulting data is often simpler than trying to compute
+// attributes for individual items later.
 //
-// In addition to the [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method, the
+// In addition to the
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method, the
 // collection view may call other methods to retrieve layout attributes for
 // specific items. By performing your calculations in advance, your
 // implementations of those methods should be able to return cached
@@ -208,38 +220,43 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 // [NSCollectionViewLayout.RegisterNibForDecorationViewOfKind] method.
 //
 // To create a decoration view, return an appropriate layout attributes object
-// from your layout object’s [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method.
-// When the collection view receives attributes for a decoration view, it
-// creates that view using the class or nib file that your layout object
-// registered. Because the collection view creates them, decoration views must
-// be fully configured at registration time. You cannot add content to a
-// decoration view or change its configuration later.
+// from your layout object’s
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method. When the
+// collection view receives attributes for a decoration view, it creates that
+// view using the class or nib file that your layout object registered.
+// Because the collection view creates them, decoration views must be fully
+// configured at registration time. You cannot add content to a decoration
+// view or change its configuration later.
 //
 // # Optimizing Layout Performance Using Invalidation Contexts
 //
 // When designing custom layouts, you can improve performance by updating only
-// the portions of your layout that actually changed. The [NSCollectionViewLayout.InvalidateLayout]
-// method forces the collection view to throw away all of its layout
-// information and recompute it, which is inefficient if most of the layout
-// has not changed. A better way to update your layout is using the
-// [NSCollectionViewLayout.InvalidateLayoutWithContext] method, which uses the provided context
-// object to invalidate only the parts of the layout that changed.
+// the portions of your layout that actually changed. The
+// [NSCollectionViewLayout.InvalidateLayout] method forces the collection view
+// to throw away all of its layout information and recompute it, which is
+// inefficient if most of the layout has not changed. A better way to update
+// your layout is using the
+// [NSCollectionViewLayout.InvalidateLayoutWithContext] method, which uses the
+// provided context object to invalidate only the parts of the layout that
+// changed.
 //
 // Support for invalidation contexts must be built into the implementation of
 // your layout object. At a minimum, you must override the
-// [NSCollectionViewLayout.InvalidateLayoutWithContext] method and use it to mark the parts of your
-// layout that changed. You might do this by setting flags or throwing away
-// cached layout attributes for the changed elements. Your
-// [NSCollectionViewLayout.InvalidateLayoutWithContext] method should also call `super` so that the
-// collection view can initiate the layout update process at a future time.
+// [NSCollectionViewLayout.InvalidateLayoutWithContext] method and use it to
+// mark the parts of your layout that changed. You might do this by setting
+// flags or throwing away cached layout attributes for the changed elements.
+// Your [NSCollectionViewLayout.InvalidateLayoutWithContext] method should
+// also call `super` so that the collection view can initiate the layout
+// update process at a future time.
 //
 // If your layout object supports more fine-grained invalidation than the
 // [NSCollectionViewLayoutInvalidationContext] class provides, you can
 // subclass and add your invalidation information there. If you define a
-// custom context class, override the [NSCollectionViewLayout.InvalidationContextClass] property in
-// your layout object so that the collection view knows which class to
-// instantiate. Similarly, other parts of your app should create instances of
-// your custom context class and use them to invalidate the layout.
+// custom context class, override the
+// [NSCollectionViewLayoutClass.InvalidationContextClass] property in your
+// layout object so that the collection view knows which class to instantiate.
+// Similarly, other parts of your app should create instances of your custom
+// context class and use them to invalidate the layout.
 //
 // # Getting the Collection View
 //
@@ -457,7 +474,7 @@ type INSCollectionViewLayout interface {
 	// Topic: Registering Decoration Views
 
 	// Registers a class to use when creating the layout’s decoration views.
-	RegisterClassForDecorationViewOfKind(viewClass objc.Class, elementKind NSCollectionViewDecorationElementKind)
+	RegisterClassForDecorationViewOfKind(viewClass objectivec.Class, elementKind NSCollectionViewDecorationElementKind)
 	// Registers a nib file to use when creating the layout’s decoration views.
 	RegisterNibForDecorationViewOfKind(nib INSNib, elementKind NSCollectionViewDecorationElementKind)
 
@@ -470,9 +487,7 @@ type INSCollectionViewLayout interface {
 	// Performs any final steps related to a layout transition before the transition animations actually occur.
 	FinalizeLayoutTransition()
 
-	// The layout object used to organize the collection view’s content.
-	CollectionViewLayout() INSCollectionViewLayout
-	SetCollectionViewLayout(value INSCollectionViewLayout)
+	InitWithCoder(coder foundation.INSCoder) NSCollectionViewLayout
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -493,6 +508,13 @@ func NewNSCollectionViewLayout() NSCollectionViewLayout {
 	class := getNSCollectionViewLayoutClass()
 	rv := objc.Send[NSCollectionViewLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func NewCollectionViewLayoutWithCoder(coder foundation.INSCoder) NSCollectionViewLayout {
+	instance := getNSCollectionViewLayoutClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSCollectionViewLayoutFromID(rv)
 }
 
 // Prepares the layout object to begin laying out content.
@@ -531,10 +553,11 @@ func (c NSCollectionViewLayout) PrepareLayout() {
 // (item, supplementary, or decoration). The collection view differentiates
 // between attributes for items, supplementary views, and decoration views and
 // uses the differences to decide how to create and manage the corresponding
-// views. Use the [LayoutAttributesForItemAtIndexPath],
-// [LayoutAttributesForSupplementaryViewOfKindAtIndexPath], and
-// [LayoutAttributesForDecorationViewOfKindAtIndexPath] methods to create new
-// layout attribute objects.
+// views. Use the [NSCollectionViewLayout.LayoutAttributesForItemAtIndexPath],
+// [NSCollectionViewLayout.LayoutAttributesForSupplementaryViewOfKindAtIndexPath],
+// and
+// [NSCollectionViewLayout.LayoutAttributesForDecorationViewOfKindAtIndexPath]
+// methods to create new layout attribute objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForElements(in:)
 func (c NSCollectionViewLayout) LayoutAttributesForElementsInRect(rect corefoundation.CGRect) []NSCollectionViewLayoutAttributes {
@@ -661,11 +684,13 @@ func (c NSCollectionViewLayout) LayoutAttributesForDecorationViewOfKindAtIndexPa
 // Layouts that support inter-item gaps as drop targets must override this
 // method and use it to return the layout attributes that represent that gap.
 // In your implementation, calculate the index path just after the gap and
-// pass that value to the [LayoutAttributesForInterItemGapBeforeIndexPath]
-// class method of [NSCollectionViewLayoutAttributes]. Set the [Frame]
-// property of the resulting attributes object to the rectangle that best
-// represents the gap and also contains the specified point. When overriding
-// this method, you can call `super` at any time to get the default behavior.
+// pass that value to the
+// [NSCollectionViewLayoutAttributesClass.LayoutAttributesForInterItemGapBeforeIndexPath]
+// class method of [NSCollectionViewLayoutAttributes]. Set the
+// [NSCollectionViewLayoutAttributes.Frame] property of the resulting
+// attributes object to the rectangle that best represents the gap and also
+// contains the specified point. When overriding this method, you can call
+// `super` at any time to get the default behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForDropTarget(at:)
 func (c NSCollectionViewLayout) LayoutAttributesForDropTargetAtPoint(pointInCollectionView corefoundation.CGPoint) INSCollectionViewLayoutAttributes {
@@ -691,10 +716,11 @@ func (c NSCollectionViewLayout) LayoutAttributesForDropTargetAtPoint(pointInColl
 // override this method to provide layout attributes for inter-item gaps. In
 // your implementation, use the specified index path to compute the location
 // of the gap in collection view’s content. If the gap represents a valid
-// location, use the [LayoutAttributesForInterItemGapBeforeIndexPath] class
-// method of [NSCollectionViewLayoutAttributes] to create a new layout
-// attributes object and set the [Frame] property to the rectangle you
-// computed.
+// location, use the
+// [NSCollectionViewLayoutAttributesClass.LayoutAttributesForInterItemGapBeforeIndexPath]
+// class method of [NSCollectionViewLayoutAttributes] to create a new layout
+// attributes object and set the [NSCollectionViewLayoutAttributes.Frame]
+// property to the rectangle you computed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForInterItemGap(before:)
 func (c NSCollectionViewLayout) LayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.NSIndexPath) INSCollectionViewLayoutAttributes {
@@ -1227,9 +1253,9 @@ func (c NSCollectionViewLayout) InvalidateLayoutWithContext(context INSCollectio
 // collection view.
 //
 // If you return true from this method, the collection view invalidates the
-// layout using the [InvalidateLayoutWithContext] method. The invalidation
-// context passed to that method is created using the
-// [InvalidationContextForBoundsChange] method.
+// layout using the [NSCollectionViewLayout.InvalidateLayoutWithContext]
+// method. The invalidation context passed to that method is created using the
+// [NSCollectionViewLayout.InvalidationContextForBoundsChange] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/shouldInvalidateLayout(forBoundsChange:)
 func (c NSCollectionViewLayout) ShouldInvalidateLayoutForBoundsChange(newBounds corefoundation.CGRect) bool {
@@ -1257,9 +1283,9 @@ func (c NSCollectionViewLayout) ShouldInvalidateLayoutForBoundsChange(newBounds 
 // layout of other portions of the collection view.
 //
 // If you return true from this method, the collection view invalidates the
-// layout using the [InvalidateLayoutWithContext] method. The invalidation
-// context passed to that method is created using the
-// [InvalidationContextForPreferredLayoutAttributesWithOriginalAttributes]
+// layout using the [NSCollectionViewLayout.InvalidateLayoutWithContext]
+// method. The invalidation context passed to that method is created using the
+// [NSCollectionViewLayout.InvalidationContextForPreferredLayoutAttributesWithOriginalAttributes]
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/shouldInvalidateLayout(forPreferredLayoutAttributes:withOriginalAttributes:)
@@ -1281,11 +1307,12 @@ func (c NSCollectionViewLayout) ShouldInvalidateLayoutForPreferredLayoutAttribut
 // # Discussion
 //
 // The default implementation of this method creates an instance of the class
-// returned by the [InvalidationContextClass] method and initializes it using
-// its [init()] method. Subclasses can override this method and configure
-// additional properties of the invalidation context. In your implementation,
-// you must call `super` first to get the context object; you can then
-// configure that object and return it.
+// returned by the [NSCollectionViewLayoutClass.InvalidationContextClass]
+// method and initializes it using its [init()] method. Subclasses can
+// override this method and configure additional properties of the
+// invalidation context. In your implementation, you must call `super` first
+// to get the context object; you can then configure that object and return
+// it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/invalidationContext(forBoundsChange:)
 //
@@ -1310,11 +1337,12 @@ func (c NSCollectionViewLayout) InvalidationContextForBoundsChange(newBounds cor
 // # Discussion
 //
 // The default implementation of this method creates an instance of the class
-// returned by the [InvalidationContextClass] method and initializes it using
-// its [init()] method. Subclasses can override this method and configure
-// additional properties of the invalidation context. In your implementation,
-// you must call `super` first to get the context object; you can then
-// configure that object and return it.
+// returned by the [NSCollectionViewLayoutClass.InvalidationContextClass]
+// method and initializes it using its [init()] method. Subclasses can
+// override this method and configure additional properties of the
+// invalidation context. In your implementation, you must call `super` first
+// to get the context object; you can then configure that object and return
+// it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/invalidationContext(forPreferredLayoutAttributes:withOriginalAttributes:)
 //
@@ -1387,13 +1415,13 @@ func (c NSCollectionViewLayout) FinalizeAnimatedBoundsChange() {
 //
 // After registering your decoration views, you create decoration views by
 // returning an appropriate set of layout attributes from the
-// [LayoutAttributesForElementsInRect] method. When you return a
-// [NSCollectionViewLayoutAttributes] object configured for a decoration view,
-// the collection view uses your registered nib or class information to create
-// the corresponding views.
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method. When you
+// return a [NSCollectionViewLayoutAttributes] object configured for a
+// decoration view, the collection view uses your registered nib or class
+// information to create the corresponding views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/register(_:forDecorationViewOfKind:)-44qmc
-func (c NSCollectionViewLayout) RegisterClassForDecorationViewOfKind(viewClass objc.Class, elementKind NSCollectionViewDecorationElementKind) {
+func (c NSCollectionViewLayout) RegisterClassForDecorationViewOfKind(viewClass objectivec.Class, elementKind NSCollectionViewDecorationElementKind) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerClass:forDecorationViewOfKind:"), viewClass, objc.String(string(elementKind)))
 }
 
@@ -1420,10 +1448,10 @@ func (c NSCollectionViewLayout) RegisterClassForDecorationViewOfKind(viewClass o
 //
 // After registering your decoration views, you create decoration views by
 // returning an appropriate set of layout attributes from the
-// [LayoutAttributesForElementsInRect] method. When you return a
-// [NSCollectionViewLayoutAttributes] object configured for a decoration view,
-// the collection view uses your registered nib or class information to create
-// the corresponding views.
+// [NSCollectionViewLayout.LayoutAttributesForElementsInRect] method. When you
+// return a [NSCollectionViewLayoutAttributes] object configured for a
+// decoration view, the collection view uses your registered nib or class
+// information to create the corresponding views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/register(_:forDecorationViewOfKind:)-7z7uf
 func (c NSCollectionViewLayout) RegisterNibForDecorationViewOfKind(nib INSNib, elementKind NSCollectionViewDecorationElementKind) {
@@ -1478,6 +1506,12 @@ func (c NSCollectionViewLayout) PrepareForTransitionToLayout(newLayout INSCollec
 func (c NSCollectionViewLayout) FinalizeLayoutTransition() {
 	objc.Send[objc.ID](c.ID, objc.Sel("finalizeLayoutTransition"))
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/init(coder:)
+func (c NSCollectionViewLayout) InitWithCoder(coder foundation.INSCoder) NSCollectionViewLayout {
+	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (c NSCollectionViewLayout) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -1511,20 +1545,11 @@ func (c NSCollectionViewLayout) CollectionView() INSCollectionView {
 // The default value in this property is [NSZeroSize].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/collectionViewContentSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (c NSCollectionViewLayout) CollectionViewContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("collectionViewContentSize"))
 	return corefoundation.CGSize(rv)
-}
-
-// The layout object used to organize the collection view’s content.
-//
-// See: https://developer.apple.com/documentation/appkit/nscollectionview/collectionviewlayout
-func (c NSCollectionViewLayout) CollectionViewLayout() INSCollectionViewLayout {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionViewLayout"))
-	return NSCollectionViewLayoutFromID(objc.ID(rv))
-}
-func (c NSCollectionViewLayout) SetCollectionViewLayout(value INSCollectionViewLayout) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCollectionViewLayout:"), value)
 }
 
 // Returns the class to use for layout attribute objects
@@ -1544,9 +1569,9 @@ func (c NSCollectionViewLayout) SetCollectionViewLayout(value INSCollectionViewL
 // usage of this method is as follows:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesClass
-func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) LayoutAttributesClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("layoutAttributesClass"))
-	return rv
+func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) LayoutAttributesClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("layoutAttributesClass"))
+	return objectivec.Class(rv)
 }
 
 // Returns the class to use when creating an invalidation context object for
@@ -1568,7 +1593,7 @@ func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) LayoutAttributes
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/invalidationContextClass
 //
 // [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
-func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) InvalidationContextClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("invalidationContextClass"))
-	return rv
+func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) InvalidationContextClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("invalidationContextClass"))
+	return objectivec.Class(rv)
 }

@@ -132,7 +132,7 @@ type IMTLRasterizationRateLayerDescriptor interface {
 	// A pointer to the storage for the layer map’s vertical rasterization rates.
 	VerticalSampleStorage() unsafe.Pointer
 	// Initializes the layer map with the provided grid size and rasterization rates.
-	InitWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal unsafe.Pointer, vertical unsafe.Pointer) MTLRasterizationRateLayerDescriptor
+	InitWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal *float32, vertical *float32) MTLRasterizationRateLayerDescriptor
 }
 
 // Init initializes the instance.
@@ -191,7 +191,7 @@ func NewRasterizationRateLayerDescriptorWithSampleCount(sampleCount MTLSize) MTL
 // copies the rasterization rates.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/initWithSampleCount:horizontal:vertical:
-func NewRasterizationRateLayerDescriptorWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal unsafe.Pointer, vertical unsafe.Pointer) MTLRasterizationRateLayerDescriptor {
+func NewRasterizationRateLayerDescriptorWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal *float32, vertical *float32) MTLRasterizationRateLayerDescriptor {
 	instance := getMTLRasterizationRateLayerDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSampleCount:horizontal:vertical:"), sampleCount, horizontal, vertical)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
@@ -233,7 +233,7 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCount(sampleCount MTL
 // copies the rasterization rates.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/initWithSampleCount:horizontal:vertical:
-func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal unsafe.Pointer, vertical unsafe.Pointer) MTLRasterizationRateLayerDescriptor {
+func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal *float32, vertical *float32) MTLRasterizationRateLayerDescriptor {
 	rv := objc.Send[MTLRasterizationRateLayerDescriptor](r.ID, objc.Sel("initWithSampleCount:horizontal:vertical:"), sampleCount, horizontal, vertical)
 	return rv
 }
@@ -242,10 +242,12 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCountHorizontalVertic
 //
 // # Discussion
 //
-// The [SampleCount] property splits the logical viewport coordinate space
-// into a 2D grid of equal-sized cells. Its [depth] value is always `0`.
+// The [MTLRasterizationRateLayerDescriptor.SampleCount] property splits the
+// logical viewport coordinate space into a 2D grid of equal-sized cells. Its
+// [depth] value is always `0`.
 //
-// The default value is the same as [MaxSampleCount].
+// The default value is the same as
+// [MTLRasterizationRateLayerDescriptor.MaxSampleCount].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/sampleCount
 //
@@ -291,7 +293,8 @@ func (r MTLRasterizationRateLayerDescriptor) Vertical() IMTLRasterizationRateSam
 // # Discussion
 //
 // Points to the first element in the array of horizontal rasterization rates.
-// The number of elements is equal to the [width] value of [SampleCount].
+// The number of elements is equal to the [width] value of
+// [MTLRasterizationRateLayerDescriptor.SampleCount].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/horizontalSampleStorage
 //
@@ -307,7 +310,8 @@ func (r MTLRasterizationRateLayerDescriptor) HorizontalSampleStorage() unsafe.Po
 // # Discussion
 //
 // Points to the first element in the array of vertical rasterization rates.
-// The number of elements is equal to the [height] value of [SampleCount].
+// The number of elements is equal to the [height] value of
+// [MTLRasterizationRateLayerDescriptor.SampleCount].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/verticalSampleStorage
 //

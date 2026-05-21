@@ -54,10 +54,10 @@ func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 // specifier involved in the tested-for condition. An [NSWhoseSpecifier]
 // object encapsulates a “test” object for defining this condition. A test
 // object is instantiated from a subclass of the abstract [NSScriptWhoseTest]
-// class, whose one declared method is [IsTrue]. See “Boolean Expressions
-// and Logical Operations” in [NSScriptObjectSpecifier] and the descriptions
-// in NSComparisonMethods and NSScriptingComparisonMethods for more
-// information.
+// class, whose one declared method is [NSScriptWhoseTest.IsTrue]. See
+// “Boolean Expressions and Logical Operations” in
+// [NSScriptObjectSpecifier] and the descriptions in NSComparisonMethods and
+// NSScriptingComparisonMethods for more information.
 //
 // The set of elements specified by an [NSWhoseSpecifier] object can be a
 // subset of those that pass the [NSWhoseSpecifier] object’s test. This
@@ -222,8 +222,8 @@ func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] and sets the whose
-// test condition to `test`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// and sets the whose test condition to `test`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/init(containerClassDescription:containerSpecifier:key:test:)
 func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKeyTest(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, test INSScriptWhoseTest) NSWhoseSpecifier {
@@ -268,8 +268,8 @@ func NewWhoseSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] and sets the whose
-// test condition to `test`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// and sets the whose test condition to `test`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/init(containerClassDescription:containerSpecifier:key:test:)
 func (w NSWhoseSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyTest(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, test INSScriptWhoseTest) NSWhoseSpecifier {

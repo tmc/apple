@@ -14,8 +14,9 @@ import (
 // specified pixel format.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // # Return Value
 //
@@ -25,13 +26,15 @@ import (
 //
 // Use this initializer for RAW-only capture. To capture an image in both RAW
 // format and a processed format (such as JPEG), use the
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer instead.
 //
 // Requesting RAW format capture adds requirements for other photo settings:
-// for details, see the [RawPhotoPixelFormatType] property. The capture output
-// validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// for details, see the [AVCapturePhotoSettings.RawPhotoPixelFormatType]
+// property. The capture output validates these requirements when you call the
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate don’t meet these requirements, that method raises
+// an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:)
 func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWithRawPixelFormatType(rawPixelFormatType uint32) AVCapturePhotoSettings {
@@ -43,8 +46,9 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 // processed format.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // processedFormat: A dictionary of Core Video pixel buffer attributes or AVFoundation video
 // settings constants (see `Video Settings`).
@@ -52,13 +56,15 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
 // set the key [kCVPixelBufferPixelFormatTypeKey] in the `format` dictionary.
 // The corresponding value must be one of the pixel format identifiers listed
-// in the [AvailablePhotoPixelFormatTypes] array of your photo capture output.
+// in the [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // To capture a photo in a compressed format, such as JPEG, set the key
 // [AVVideoCodecKey] in the `format` dictionary. The corresponding value must
-// be one of the codec identifiers listed in the [AvailablePhotoCodecTypes]
-// array of your photo capture output. For a compressed format, you can also
-// specify a compression level with the key [AVVideoQualityKey].
+// be one of the codec identifiers listed in the
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array of your photo capture
+// output. For a compressed format, you can also specify a compression level
+// with the key [AVVideoQualityKey].
 //
 // # Return Value
 //
@@ -68,14 +74,16 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 //
 // Use this initializer to capture an image in both RAW format and a processed
 // format (such as JPEG). For RAW-only capture, use the
-// [PhotoSettingsWithRawPixelFormatType] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType]
+// initializer instead.
 //
 // Requesting both formats adds requirements for other photo settings: see the
-// [Format] property for processed format requirements and the
-// [RawPhotoPixelFormatType] property for RAW format requirements. The capture
-// output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// [AVCapturePhotoSettings.Format] property for processed format requirements
+// and the [AVCapturePhotoSettings.RawPhotoPixelFormatType] property for RAW
+// format requirements. The capture output validates these requirements when
+// you call the [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// method. If your settings and delegate don’t meet these requirements, that
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:processedFormat:)
 //
@@ -91,8 +99,9 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 // processed format with the specified output file types.
 //
 // rawPixelFormatType: The Bayer RAW pixel format type to use for capture. This value must be one
-// of the format identifiers listed in the [AvailableRawPhotoPixelFormatTypes]
-// array of your photo capture output.
+// of the format identifiers listed in the
+// [AVCapturePhotoOutput.AvailableRawPhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // rawFileType: The container file format for eventual output of the RAW image.
 //
@@ -106,13 +115,15 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 // To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
 // set the key [kCVPixelBufferPixelFormatTypeKey] in the `format` dictionary.
 // The corresponding value must be one of the pixel format identifiers listed
-// in the [AvailablePhotoPixelFormatTypes] array of your photo capture output.
+// in the [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes] array of your
+// photo capture output.
 //
 // To capture a photo in a compressed format, such as JPEG, set the key
 // [AVVideoCodecKey] in the `format` dictionary. The corresponding value must
-// be one of the codec identifiers listed in the [AvailablePhotoCodecTypes]
-// array of your photo capture output. For a compressed format, you can also
-// specify a compression level with the key [AVVideoQualityKey].
+// be one of the codec identifiers listed in the
+// [AVCapturePhotoOutput.AvailablePhotoCodecTypes] array of your photo capture
+// output. For a compressed format, you can also specify a compression level
+// with the key [AVVideoQualityKey].
 //
 // processedFileType: The container file format for eventual output of the processed image.
 //
@@ -128,14 +139,16 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 //
 // Use this initializer to capture an image in both RAW format and a processed
 // format (such as JPEG). For RAW-only capture, use the
-// [PhotoSettingsWithRawPixelFormatType] initializer instead.
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType]
+// initializer instead.
 //
 // Requesting both formats adds requirements for other photo settings: see the
-// [Format] property for processed format requirements and the
-// [RawPhotoPixelFormatType] property for RAW format requirements. The capture
-// output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate do
-// not meet these requirements, that method raises an exception.
+// [AVCapturePhotoSettings.Format] property for processed format requirements
+// and the [AVCapturePhotoSettings.RawPhotoPixelFormatType] property for RAW
+// format requirements. The capture output validates these requirements when
+// you call the [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate]
+// method. If your settings and delegate do not meet these requirements, that
+// method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/init(rawPixelFormatType:rawFileType:processedFormat:processedFileType:)
 //
@@ -152,10 +165,11 @@ func (_AVCapturePhotoSettingsClass AVCapturePhotoSettingsClass) PhotoSettingsWit
 // # Discussion
 //
 // You specify a file format when creating capture settings with the
-// [PhotoSettingsWithRawPixelFormatTypeRawFileTypeProcessedFormatProcessedFileType]
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeRawFileTypeProcessedFormatProcessedFileType]
 // initializer. If you didn’t specify a file format, this value is `nil`,
 // and the photo output automatically choosea a default file format
-// appropriate to the [RawPhotoPixelFormatType] property.
+// appropriate to the [AVCapturePhotoSettings.RawPhotoPixelFormatType]
+// property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/rawFileType
 func (c AVCapturePhotoSettings) RawFileType() AVFileType {
@@ -169,25 +183,30 @@ func (c AVCapturePhotoSettings) RawFileType() AVFileType {
 // # Discussion
 //
 // This property is read-only—you specify a RAW pixel format when creating a
-// settings object with the [PhotoSettingsWithRawPixelFormatType],
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer.
+// settings object with the
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType],
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer.
 //
 // When capturing RAW images, the following requirements apply:
 //
-// - The [AutoStillImageStabilizationEnabled] setting must be false. - Your
-// delegate object must implement the
+// - The [AVCapturePhotoSettings.AutoStillImageStabilizationEnabled] setting
+// must be false. - Your delegate object must implement the
 // [CaptureOutputDidFinishProcessingRawPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError]
 // method. - The [isHighResolutionPhotoEnabled] setting may be true or false,
 // but that setting applies only to the separate processed image.
 //
 // (You request separate processed images with the
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer. This
-// restriction does not apply when you request RAW-only capture with the
-// [PhotoSettingsWithRawPixelFormatType] initializer).
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatTypeProcessedFormat]
+// initializer. This restriction does not apply when you request RAW-only
+// capture with the
+// [AVCapturePhotoSettingsClass.PhotoSettingsWithRawPixelFormatType]
+// initializer).
 //
 // The capture output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate do
-// not meet these requirements, that method raises an exception.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate do not meet these requirements, that method raises an
+// exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/rawPhotoPixelFormatType
 //
@@ -215,8 +234,8 @@ func (c AVCapturePhotoSettings) SetAutoRedEyeReductionEnabled(value bool) {
 // # Discussion
 //
 // When this setting is false (the default), and the
-// [DualCameraDualPhotoDeliveryEnabled] setting is true, dual photo capture
-// doesn’t deliver additional data.
+// [AVCapturePhotoSettings.DualCameraDualPhotoDeliveryEnabled] setting is
+// true, dual photo capture doesn’t deliver additional data.
 //
 // If you change this setting to true, the [AVCapturePhoto] results from a
 // dual photo capture include [AVCameraCalibrationData] objects that describe
@@ -254,12 +273,14 @@ func (c AVCapturePhotoSettings) SetAutoContentAwareDistortionCorrectionEnabled(v
 //
 // # Discussion
 //
-// When [AutoVirtualDeviceFusionEnabled] and [VirtualDeviceFusionSupported]
-// are true, the framework may fuse constituent camera images of a virtual
-// device to improve still image quality, depending on the current zoom
-// factor, light levels, and focus position. You can determine whether virtual
-// device fusion is enabled for a particular capture request by inspecting the
-// [VirtualDeviceFusionEnabled] property of [AVCaptureResolvedPhotoSettings].
+// When [AVCapturePhotoSettings.AutoVirtualDeviceFusionEnabled] and
+// [AVCapturePhotoOutput.VirtualDeviceFusionSupported] are true, the framework
+// may fuse constituent camera images of a virtual device to improve still
+// image quality, depending on the current zoom factor, light levels, and
+// focus position. You can determine whether virtual device fusion is enabled
+// for a particular capture request by inspecting the
+// [AVCaptureResolvedPhotoSettings.VirtualDeviceFusionEnabled] property of
+// [AVCaptureResolvedPhotoSettings].
 //
 // The default value for this property is true, unless you’re capturing a
 // RAW photo or a bracket using [AVCapturePhotoBracketSettings].
@@ -281,13 +302,14 @@ func (c AVCapturePhotoSettings) SetAutoVirtualDeviceFusionEnabled(value bool) {
 //
 // You can opt in to constituent-device photo delivery by setting this
 // property to any subset of the devices in the virtual device’s
-// [ConstituentDevices] array. The framework calls your
+// [AVCaptureDevice.ConstituentDevices] array. The framework calls your
 // [CaptureOutputDidFinishProcessingPhotoError]callback once for each of the
 // devices you include in the array.
 //
 // You may only set this property to a non-`nil` array if you’ve set your
-// photo output’s [VirtualDeviceConstituentPhotoDeliveryEnabled] property to
-// true, and your delegate implements the
+// photo output’s
+// [AVCapturePhotoOutput.VirtualDeviceConstituentPhotoDeliveryEnabled]
+// property to true, and your delegate implements the
 // [CaptureOutputDidFinishProcessingPhotoError] method.
 //
 // The default value of this property is an empty array.
@@ -372,8 +394,8 @@ func (c AVCapturePhotoSettings) SetAutoDualCameraFusionEnabled(value bool) {
 // Automatic image stabilization is not compatible with the
 // [AVCaptureFlashModeOn] setting. If you explicitly enable the flash, the
 // photo output ignores your image stabilization setting, and the
-// [StillImageStabilizationEnabled] property of the
-// [AVCaptureResolvedPhotoSettings] object provided to your photo capture
+// [AVCaptureResolvedPhotoSettings.StillImageStabilizationEnabled] property of
+// the [AVCaptureResolvedPhotoSettings] object provided to your photo capture
 // delegate is always false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoStillImageStabilizationEnabled
@@ -397,10 +419,10 @@ func (c AVCapturePhotoSettings) SetAutoStillImageStabilizationEnabled(value bool
 //
 // The dictionary must contain the [kCVPixelBufferPixelFormatTypeKey] key,
 // whose corresponding value must be one of the pixel format types listed in
-// the [AvailablePreviewPhotoPixelFormatTypes] array.
+// the [AVCapturePhotoSettings.AvailablePreviewPhotoPixelFormatTypes] array.
 //
-// Optionally, you can also include the [KCVPixelBufferWidthKey] and
-// [KCVPixelBufferHeightKey] keys to specify the size of the preview image.
+// Optionally, you can also include the [kCVPixelBufferWidthKey] and
+// [kCVPixelBufferHeightKey] keys to specify the size of the preview image.
 // (If you specify either width or height, you must specify both.) If the size
 // you specify does not match the aspect ratio of the primary photo, the photo
 // output provides a preview image whose size matches the longer of the two
@@ -408,7 +430,9 @@ func (c AVCapturePhotoSettings) SetAutoStillImageStabilizationEnabled(value bool
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/previewPhotoFormat
 //
+// [kCVPixelBufferHeightKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
 // [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+// [kCVPixelBufferWidthKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
 func (c AVCapturePhotoSettings) PreviewPhotoFormat() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("previewPhotoFormat"))
 	return foundation.NSDictionaryFromID(rv)
@@ -423,8 +447,9 @@ func (c AVCapturePhotoSettings) SetPreviewPhotoFormat(value foundation.INSDictio
 // # Discussion
 //
 // To enable delivery of preview-sized images along with the main image
-// captured by a photo output, set the [PreviewPhotoFormat] property using one
-// of the [kCVPixelBufferPixelFormatTypeKey] values listed in this array.
+// captured by a photo output, set the
+// [AVCapturePhotoSettings.PreviewPhotoFormat] property using one of the
+// [kCVPixelBufferPixelFormatTypeKey] values listed in this array.
 //
 // The order of this array is such that the format requiring the least
 // conversion is listed first.
@@ -451,13 +476,13 @@ func (c AVCapturePhotoSettings) AvailablePreviewPhotoPixelFormatTypes() []founda
 //
 // - The dictionary must contain the key [AVVideoCodecKey], whose
 // corresponding value must be one of the pixel format types listed in the
-// [AvailableEmbeddedThumbnailPhotoCodecTypes] array. - Optionally, you can
-// also include the [AVVideoWidthKey] and [AVVideoHeightKey] keys to specify
-// the size of the thumbnail image. (If you specify either width or height,
-// you must specify both.) If the size you specify does not match the aspect
-// ratio of the primary photo, the photo output provides a thumbnail image
-// whose size matches the longer of the two specified dimensions, preserving
-// the original aspect ratio.
+// [AVCapturePhotoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes] array. -
+// Optionally, you can also include the [AVVideoWidthKey] and
+// [AVVideoHeightKey] keys to specify the size of the thumbnail image. (If you
+// specify either width or height, you must specify both.) If the size you
+// specify does not match the aspect ratio of the primary photo, the photo
+// output provides a thumbnail image whose size matches the longer of the two
+// specified dimensions, preserving the original aspect ratio.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/embeddedThumbnailPhotoFormat
 //
@@ -499,8 +524,8 @@ func (c AVCapturePhotoSettings) SetRawEmbeddedThumbnailPhotoFormat(value foundat
 // # Discussion
 //
 // To enable embedding thumbnail images in photo file output, set the
-// [EmbeddedThumbnailPhotoFormat] property using one of the codec types listed
-// in this array.
+// [AVCapturePhotoSettings.EmbeddedThumbnailPhotoFormat] property using one of
+// the codec types listed in this array.
 //
 // The order of this array is such that the most backward-compatible codec is
 // listed first.
@@ -522,16 +547,18 @@ func (c AVCapturePhotoSettings) AvailableEmbeddedThumbnailPhotoCodecTypes() []st
 //
 // When you enable Live Photo capture, the following requirements apply:
 //
-// - The photo output’s [LivePhotoCaptureEnabled] property must be true, and
-// its and [LivePhotoCaptureSuspended] property must be false. - The URL you
-// specify must be a file URL to an accessible location in your app’s
-// sandbox. - Your delegate object must implement the
+// - The photo output’s [AVCapturePhotoOutput.LivePhotoCaptureEnabled]
+// property must be true, and its and
+// [AVCapturePhotoOutput.LivePhotoCaptureSuspended] property must be false. -
+// The URL you specify must be a file URL to an accessible location in your
+// app’s sandbox. - Your delegate object must implement the
 // [CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError]
 // method.
 //
 // The capture output validates these requirements when you call the
-// [CapturePhotoWithSettingsDelegate] method. If your settings and delegate
-// don’t meet these requirements, that method raises an exception.
+// [AVCapturePhotoOutput.CapturePhotoWithSettingsDelegate] method. If your
+// settings and delegate don’t meet these requirements, that method raises
+// an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/livePhotoMovieFileURL
 func (c AVCapturePhotoSettings) LivePhotoMovieFileURL() foundation.NSURL {
@@ -555,8 +582,8 @@ func (c AVCapturePhotoSettings) SetLivePhotoMovieFileURL(value foundation.NSURL)
 // identifier for you if you don’t specify one of your own. You can also use
 // this property to specify additional movie metadata.
 //
-// This property applies only if the value of the [LivePhotoMovieFileURL]
-// property is to non-`nil`.
+// This property applies only if the value of the
+// [AVCapturePhotoSettings.LivePhotoMovieFileURL] property is to non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/livePhotoMovieMetadata
 //
@@ -576,7 +603,7 @@ func (c AVCapturePhotoSettings) SetLivePhotoMovieMetadata(value []AVMetadataItem
 // # Discussion
 //
 // This value must be one of the video codec types listed in the photo
-// output’s [AvailableLivePhotoVideoCodecTypes] array.
+// output’s [AVCapturePhotoOutput.AvailableLivePhotoVideoCodecTypes] array.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/livePhotoVideoCodecType
 func (c AVCapturePhotoSettings) LivePhotoVideoCodecType() AVVideoCodecType {
@@ -599,8 +626,8 @@ func (c AVCapturePhotoSettings) SetLivePhotoVideoCodecType(value AVVideoCodecTyp
 // scene depth information and delivers an [AVDepthData] object in the photo
 // capture results. Enabling depth capture for a photo capture request
 // requires that the photo output first be configured for depth capture using
-// its own [DepthDataDeliveryEnabled] property (and raises an exception
-// otherwise).
+// its own [AVCapturePhotoOutput.DepthDataDeliveryEnabled] property (and
+// raises an exception otherwise).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isDepthDataDeliveryEnabled
 func (c AVCapturePhotoSettings) IsDepthDataDeliveryEnabled() bool {
@@ -617,9 +644,9 @@ func (c AVCapturePhotoSettings) SetDepthDataDeliveryEnabled(value bool) {
 // # Discussion
 //
 // When this property is true (the default), and depth data capture is enabled
-// with the [DepthDataDeliveryEnabled] property, the [AVCapturePhoto] class
-// includes the depth map as an embedded attachment when you flatten the photo
-// data for output in compatible file formats.
+// with the [AVCapturePhotoSettings.DepthDataDeliveryEnabled] property, the
+// [AVCapturePhoto] class includes the depth map as an embedded attachment
+// when you flatten the photo data for output in compatible file formats.
 //
 // Set this property to false if you wish to capture depth data with a photo
 // but not include depth data in output.
@@ -639,10 +666,10 @@ func (c AVCapturePhotoSettings) SetEmbedsDepthDataInPhoto(value bool) {
 // # Discussion
 //
 // When this property is true (the default), and depth data capture is enabled
-// with the [DepthDataDeliveryEnabled] property, the capture system smooths
-// noise and fills in missing values (caused by low light or lens occlusion)
-// in depth data maps by temporally interpolating between previous and
-// subsequent frames of captured depth data.
+// with the [AVCapturePhotoSettings.DepthDataDeliveryEnabled] property, the
+// capture system smooths noise and fills in missing values (caused by low
+// light or lens occlusion) in depth data maps by temporally interpolating
+// between previous and subsequent frames of captured depth data.
 //
 // Filtering depth data makes it more useful for applying visual effects to a
 // companion image, but alters the data such that it may no longer be suitable
@@ -666,8 +693,8 @@ func (c AVCapturePhotoSettings) SetDepthDataFiltered(value bool) {
 //
 // The default is [NO]. Set to [YES] if you wish to receive a portrait effects
 // matte with your photo. AVFoundation throws an exception if
-// [PortraitEffectsMatteDeliveryEnabled] is not set to [YES], or if your
-// delegate doesn’t respond to the
+// [AVCapturePhotoOutput.PortraitEffectsMatteDeliveryEnabled] is not set to
+// [YES], or if your delegate doesn’t respond to the
 // [CaptureOutputDidFinishProcessingPhotoError] selector.
 //
 // Setting this property to [YES] doen’t guarantee that a portrait effects
@@ -695,9 +722,11 @@ func (c AVCapturePhotoSettings) SetPortraitEffectsMatteDeliveryEnabled(value boo
 // The default is true, which tells AV Foundation to embed the portrait
 // effects matte images as HEIF and JPEG in the photo.
 //
-// This property is ignored if [PortraitEffectsMatteDeliveryEnabled] is set to
+// This property is ignored if
+// [AVCapturePhotoSettings.PortraitEffectsMatteDeliveryEnabled] is set to
 // false. AV Foundation includes the portrait effects matte only if both this
-// property and [PortraitEffectsMatteDeliveryEnabled] are set to true.
+// property and [AVCapturePhotoSettings.PortraitEffectsMatteDeliveryEnabled]
+// are set to true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/embedsPortraitEffectsMatteInPhoto
 func (c AVCapturePhotoSettings) EmbedsPortraitEffectsMatteInPhoto() bool {
@@ -716,7 +745,8 @@ func (c AVCapturePhotoSettings) SetEmbedsPortraitEffectsMatteInPhoto(value bool)
 //
 // Semantic segmentation mattes are only supported in HEIF and JPEG. The photo
 // output ignores this property if you set
-// [EnabledSemanticSegmentationMatteTypes] to an empty array.
+// [AVCapturePhotoSettings.EnabledSemanticSegmentationMatteTypes] to an empty
+// array.
 //
 // The property’s default value is true.
 //
@@ -736,7 +766,7 @@ func (c AVCapturePhotoSettings) SetEmbedsSemanticSegmentationMattesInPhoto(value
 //
 // You may set this property to the array of matte types you’d like
 // delivered with [AVCapturePhoto]. The array may only contain values present
-// in [AvailableSemanticSegmentationMatteTypes].
+// in [AVCapturePhotoOutput.AvailableSemanticSegmentationMatteTypes].
 //
 // The default value of this property is an empty array.
 //

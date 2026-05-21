@@ -47,13 +47,14 @@ func (nc NSScriptWhoseTestClass) Alloc() NSScriptWhoseTest {
 //
 // # Overview
 //
-// [NSScriptWhoseTest] is an abstract class whose sole method is [NSScriptWhoseTest.IsTrue]. Two
-// concrete subclasses of [NSScriptWhoseTest] generate objects representing
-// Boolean expressions comparing one object with another and objects
-// representing multiple Boolean expressions connected by logical operators
-// ([OR], [AND], [NOT]). These classes are, respectively, [NSSpecifierTest]
-// and [NSLogicalTest]. In evaluating itself, an [NSWhoseSpecifier] invokes
-// the [NSScriptWhoseTest.IsTrue] method of its “test” object.
+// [NSScriptWhoseTest] is an abstract class whose sole method is
+// [NSScriptWhoseTest.IsTrue]. Two concrete subclasses of [NSScriptWhoseTest]
+// generate objects representing Boolean expressions comparing one object with
+// another and objects representing multiple Boolean expressions connected by
+// logical operators ([OR], [AND], [NOT]). These classes are, respectively,
+// [NSSpecifierTest] and [NSLogicalTest]. In evaluating itself, an
+// [NSWhoseSpecifier] invokes the [NSScriptWhoseTest.IsTrue] method of its
+// “test” object.
 //
 // You shouldn’t need to subclass [NSScriptWhoseTest], and you should rarely
 // need to subclass one of its subclasses.

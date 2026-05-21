@@ -155,7 +155,7 @@ func NewCloneCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 // For example, the specifier may indicate that a document’s third rectangle
 // should be cloned. The returned specifier is valid only in the context of
 // the [NSCloneCommand] object; for example, if you send the specifier a
-// [ContainerSpecifier] message, the result is `nil`.
+// [NSScriptObjectSpecifier.ContainerSpecifier] message, the result is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCloneCommand/keySpecifier
 func (c NSCloneCommand) KeySpecifier() INSScriptObjectSpecifier {

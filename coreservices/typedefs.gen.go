@@ -5,8 +5,8 @@ package coreservices
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/security"
 )
 
@@ -18,7 +18,7 @@ type AEAddressDesc = AEDesc
 // AEArrayData is stores array information to be put into a descriptor listwith the [AEPutArray] functionor extracted from a descriptor list with the [AEGetArray] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443170-aearraydata
-type AEArrayData = unsafe.Pointer
+type AEArrayData = kernel.Pointer
 
 // AEArrayDataPointer is a pointer to a union of type [AEArrayData].
 //
@@ -131,7 +131,7 @@ type AERemoteProcessResolverCallback = func(AERemoteProcessResolverRef, unsafe.P
 // AERemoteProcessResolverRef is an opaque reference to an object that encapsulates the mechanism for obtaining a list of processes running on a remote machine.
 //
 // See: https://developer.apple.com/documentation/coreservices/aeremoteprocessresolverref
-type AERemoteProcessResolverRef uintptr
+type AERemoteProcessResolverRef = kernel.Pointer
 
 // AEReturnID is specifies a return ID for a created Apple event.
 //
@@ -151,7 +151,7 @@ type AESendPriority = int16
 // AEStreamRef is an opaque data structure for storing stream-based descriptor data.
 //
 // See: https://developer.apple.com/documentation/coreservices/aestreamref
-type AEStreamRef uintptr
+type AEStreamRef = kernel.Pointer
 
 // AETransactionID is specifies a transaction ID.
 //
@@ -159,28 +159,28 @@ type AEStreamRef uintptr
 type AETransactionID = int32
 
 // See: https://developer.apple.com/documentation/coreservices/afpalternateaddress
-type AFPAlternateAddress = unsafe.Pointer
+type AFPAlternateAddress = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpserversignature
 type AFPServerSignature = uint8
 
 // See: https://developer.apple.com/documentation/coreservices/afptagdata
-type AFPTagData = unsafe.Pointer
+type AFPTagData = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpvolmountinfo
-type AFPVolMountInfo = unsafe.Pointer
+type AFPVolMountInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpvolmountinfoptr
 type AFPVolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpxvolmountinfo
-type AFPXVolMountInfo = unsafe.Pointer
+type AFPXVolMountInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpxvolmountinfoptr
 type AFPXVolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/aiffloop
-type AIFFLoop = unsafe.Pointer
+type AIFFLoop = kernel.Pointer
 
 // AliasHandle is abst_AliasHandle.
 //
@@ -200,7 +200,7 @@ type AliasPtr = unsafe.Pointer
 // AliasRecord is defines an alias record.
 //
 // See: https://developer.apple.com/documentation/coreservices/aliasrecord
-type AliasRecord = unsafe.Pointer
+type AliasRecord = kernel.Pointer
 
 // AppleEvent is a descriptor whose data is a list of descriptors containing both attributes and parameters that make up an Apple event.
 //
@@ -211,7 +211,7 @@ type AppleEvent = AEDesc
 type AppleEventPtr = *AEDesc
 
 // See: https://developer.apple.com/documentation/coreservices/applicationspecificchunk
-type ApplicationSpecificChunk = unsafe.Pointer
+type ApplicationSpecificChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/applicationspecificchunkptr
 type ApplicationSpecificChunkPtr = unsafe.Pointer
@@ -220,7 +220,7 @@ type ApplicationSpecificChunkPtr = unsafe.Pointer
 type AreaID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/audiorecordingchunk
-type AudioRecordingChunk = unsafe.Pointer
+type AudioRecordingChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/audiorecordingchunkptr
 type AudioRecordingChunkPtr = unsafe.Pointer
@@ -228,38 +228,38 @@ type AudioRecordingChunkPtr = unsafe.Pointer
 // BigEndianFixed is protects a big-endian Fixed value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianfixed
-type BigEndianFixed = unsafe.Pointer
+type BigEndianFixed = kernel.Pointer
 
 // BigEndianLong is protects a big-endian long value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianlong
-type BigEndianLong = unsafe.Pointer
+type BigEndianLong = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/bigendianostype
-type BigEndianOSType = unsafe.Pointer
+type BigEndianOSType = kernel.Pointer
 
 // BigEndianShort is protects a big-endian short value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianshort
-type BigEndianShort = unsafe.Pointer
+type BigEndianShort = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/bigendianuint32
-type BigEndianUInt32 = unsafe.Pointer
+type BigEndianUInt32 = kernel.Pointer
 
 // BigEndianUnsignedFixed is protects a big-endian unsigned Fixed value from beingchanged by little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedfixed
-type BigEndianUnsignedFixed = unsafe.Pointer
+type BigEndianUnsignedFixed = kernel.Pointer
 
 // BigEndianUnsignedLong is protects a big-endian unsigned long value from being changedby little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedlong
-type BigEndianUnsignedLong = unsafe.Pointer
+type BigEndianUnsignedLong = kernel.Pointer
 
 // BigEndianUnsignedShort is protects a big-endian unsigned short value from beingchanged by little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedshort
-type BigEndianUnsignedShort = unsafe.Pointer
+type BigEndianUnsignedShort = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/cscomponentsthreadmode
 type CSComponentsThreadMode = uint32
@@ -298,54 +298,54 @@ type CSIdentityQueryStringComparisonMethod = int
 type CSIdentityRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/csidentitystatusupdatedcallback
-type CSIdentityStatusUpdatedCallback = func(CSIdentityRef, int, corefoundation.CFErrorRef, unsafe.Pointer)
+type CSIdentityStatusUpdatedCallback = func(CSIdentityRef, corefoundation.CFIndex, corefoundation.CFErrorRef, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/coreservices/callingconventiontype
 type CallingConventionType = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/catpositionrec
-type CatPositionRec = unsafe.Pointer
+type CatPositionRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/chunkheader
-type ChunkHeader = unsafe.Pointer
+type ChunkHeader = kernel.Pointer
 
 // CollatorRef is refers to an opaque object that encapsulates locale and collation information for the purpose of performing Unicode string comparison.
 //
 // See: https://developer.apple.com/documentation/coreservices/collatorref
-type CollatorRef uintptr
+type CollatorRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/collectionexceptionupp
-type CollectionExceptionUPP = unsafe.Pointer
+type CollectionExceptionUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/collectionflattenupp
-type CollectionFlattenUPP = unsafe.Pointer
+type CollectionFlattenUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/collectiontag
 type CollectionTag = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/comment
-type Comment = unsafe.Pointer
+type Comment = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commentschunk
-type CommentsChunk = unsafe.Pointer
+type CommentsChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commentschunkptr
 type CommentsChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commonchunk
-type CommonChunk = unsafe.Pointer
+type CommonChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commonchunkptr
 type CommonChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentaliasresource
-type ComponentAliasResource = unsafe.Pointer
+type ComponentAliasResource = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentdescription
-type ComponentDescription = unsafe.Pointer
+type ComponentDescription = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentfunctionupp
-type ComponentFunctionUPP = unsafe.Pointer
+type ComponentFunctionUPP = kernel.Pointer
 
 // ComponentInstance is abst_ComponentInstance.
 //
@@ -353,10 +353,10 @@ type ComponentFunctionUPP = unsafe.Pointer
 type ComponentInstance = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentinstancerecord
-type ComponentInstanceRecord = unsafe.Pointer
+type ComponentInstanceRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionheaderrecord
-type ComponentMPWorkFunctionHeaderRecord = unsafe.Pointer
+type ComponentMPWorkFunctionHeaderRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionheaderrecordptr
 type ComponentMPWorkFunctionHeaderRecordPtr = unsafe.Pointer
@@ -364,25 +364,25 @@ type ComponentMPWorkFunctionHeaderRecordPtr = unsafe.Pointer
 // ComponentMPWorkFunctionUPP is represents a type used by the Image Codec API.
 //
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionupp
-type ComponentMPWorkFunctionUPP = unsafe.Pointer
+type ComponentMPWorkFunctionUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentparameters
-type ComponentParameters = unsafe.Pointer
+type ComponentParameters = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentplatforminfo
-type ComponentPlatformInfo = unsafe.Pointer
+type ComponentPlatformInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentplatforminfoarray
-type ComponentPlatformInfoArray = unsafe.Pointer
+type ComponentPlatformInfoArray = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentrecord
-type ComponentRecord = unsafe.Pointer
+type ComponentRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentresource
-type ComponentResource = unsafe.Pointer
+type ComponentResource = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentresourceextension
-type ComponentResourceExtension = unsafe.Pointer
+type ComponentResourceExtension = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentresourcehandle
 type ComponentResourceHandle = unsafe.Pointer
@@ -396,13 +396,13 @@ type ComponentResourcePtr = unsafe.Pointer
 type ComponentResult = int32
 
 // See: https://developer.apple.com/documentation/coreservices/componentroutineupp
-type ComponentRoutineUPP = unsafe.Pointer
+type ComponentRoutineUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/constfseventstreamref
 type ConstFSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/constfsspecptr
-type ConstFSSpecPtr = unsafe.Pointer
+type ConstFSSpecPtr = FSSpec
 
 // ConstScriptCodeRunPtr is defines a constant script code run pointer.
 //
@@ -440,10 +440,10 @@ type ConstUnicodeMappingPtr = UnicodeMapping
 type ConstUnicodeToTextInfo = UnicodeToTextInfo
 
 // See: https://developer.apple.com/documentation/coreservices/containerchunk
-type ContainerChunk = unsafe.Pointer
+type ContainerChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/custombadgeresource
-type CustomBadgeResource = unsafe.Pointer
+type CustomBadgeResource = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/custombadgeresourcehandle
 type CustomBadgeResourceHandle = unsafe.Pointer
@@ -454,19 +454,19 @@ type CustomBadgeResourcePtr = unsafe.Pointer
 // DCSDictionaryRef is an opaque object that represents a dictionary file.
 //
 // See: https://developer.apple.com/documentation/coreservices/dcsdictionaryref
-type DCSDictionaryRef uintptr
+type DCSDictionaryRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/dinfo
-type DInfo = unsafe.Pointer
+type DInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/dxinfo
-type DXInfo = unsafe.Pointer
+type DXInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/datecacheptr
 type DateCachePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/datecacherecord
-type DateCacheRecord = unsafe.Pointer
+type DateCacheRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/datedelta
 type DateDelta = int8
@@ -478,40 +478,40 @@ type DateForm = int8
 type DateOrders = int8
 
 // See: https://developer.apple.com/documentation/coreservices/datetimerec
-type DateTimeRec = unsafe.Pointer
+type DateTimeRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debugassertoutputhandlerupp
-type DebugAssertOutputHandlerUPP = unsafe.Pointer
+type DebugAssertOutputHandlerUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debugcomponentcallbackupp
-type DebugComponentCallbackUPP = unsafe.Pointer
+type DebugComponentCallbackUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerdisposethreadtpp
 type DebuggerDisposeThreadTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerdisposethreadupp
-type DebuggerDisposeThreadUPP = unsafe.Pointer
+type DebuggerDisposeThreadUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggernewthreadtpp
 type DebuggerNewThreadTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggernewthreadupp
-type DebuggerNewThreadUPP = unsafe.Pointer
+type DebuggerNewThreadUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerthreadschedulertpp
 type DebuggerThreadSchedulerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerthreadschedulerupp
-type DebuggerThreadSchedulerUPP = unsafe.Pointer
+type DebuggerThreadSchedulerUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtask
-type DeferredTask = unsafe.Pointer
+type DeferredTask = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtaskptr
 type DeferredTaskPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtaskupp
-type DeferredTaskUPP = unsafe.Pointer
+type DeferredTaskUPP = kernel.Pointer
 
 // DescType is specifies the type of the data stored in an [AEDesc] descriptor.
 //
@@ -525,25 +525,25 @@ type ExceptionHandler = uintptr
 type ExceptionHandlerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptionhandlerupp
-type ExceptionHandlerUPP = unsafe.Pointer
+type ExceptionHandlerUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptioninformation
-type ExceptionInformation = unsafe.Pointer
+type ExceptionInformation = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptioninformationpowerpc
-type ExceptionInformationPowerPC = unsafe.Pointer
+type ExceptionInformationPowerPC = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptionkind
 type ExceptionKind = uint
 
 // See: https://developer.apple.com/documentation/coreservices/extcommonchunk
-type ExtCommonChunk = unsafe.Pointer
+type ExtCommonChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extcommonchunkptr
 type ExtCommonChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extcomponentresource
-type ExtComponentResource = unsafe.Pointer
+type ExtComponentResource = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extcomponentresourcehandle
 type ExtComponentResourceHandle = unsafe.Pointer
@@ -552,13 +552,13 @@ type ExtComponentResourceHandle = unsafe.Pointer
 type ExtComponentResourcePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extendedfileinfo
-type ExtendedFileInfo = unsafe.Pointer
+type ExtendedFileInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extendedfolderinfo
-type ExtendedFolderInfo = unsafe.Pointer
+type ExtendedFolderInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/finfo
-type FInfo = unsafe.Pointer
+type FInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fnmessage
 type FNMessage = uint32
@@ -567,7 +567,7 @@ type FNMessage = uint32
 type FNSubscriptionRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fnsubscriptionupp
-type FNSubscriptionUPP = unsafe.Pointer
+type FNSubscriptionUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fpregintel
 type FPRegIntel = uint8
@@ -576,15 +576,15 @@ type FPRegIntel = uint8
 type FPUInformation = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fpuinformationintel64
-type FPUInformationIntel64 = unsafe.Pointer
+type FPUInformationIntel64 = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fpuinformationpowerpc
-type FPUInformationPowerPC = unsafe.Pointer
+type FPUInformationPowerPC = kernel.Pointer
 
 // FSAliasInfo is defines an information block passed to the [FSCopyAliasInfo] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/fsaliasinfo
-type FSAliasInfo = unsafe.Pointer
+type FSAliasInfo = kernel.Pointer
 
 // FSAliasInfoBitmap is returned by the [FSCopyAliasInfo] function to indicate which fields of the alias information structure contain valid data.
 //
@@ -598,13 +598,13 @@ type FSAliasInfoPtr = unsafe.Pointer
 type FSAllocationFlags = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fscatalogbulkparam
-type FSCatalogBulkParam = unsafe.Pointer
+type FSCatalogBulkParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fscatalogbulkparamptr
 type FSCatalogBulkParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fscataloginfo
-type FSCatalogInfo = unsafe.Pointer
+type FSCatalogInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fscataloginfobitmap
 type FSCatalogInfoBitmap = uint32
@@ -631,7 +631,7 @@ type FSEventStreamEventId = uint64
 type FSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsfileoperationclientcontext
-type FSFileOperationClientContext = unsafe.Pointer
+type FSFileOperationClientContext = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsfileoperationref
 type FSFileOperationRef uintptr
@@ -643,19 +643,19 @@ type FSFileOperationStage = uint32
 type FSFileSecurityRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkcbinfoparam
-type FSForkCBInfoParam = unsafe.Pointer
+type FSForkCBInfoParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkcbinfoparamptr
 type FSForkCBInfoParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkioparam
-type FSForkIOParam = unsafe.Pointer
+type FSForkIOParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkioparamptr
 type FSForkIOParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkinfo
-type FSForkInfo = unsafe.Pointer
+type FSForkInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkinfoflags
 type FSForkInfoFlags = uint8
@@ -670,16 +670,16 @@ type FSIORefNum = int
 type FSIterator = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsiteratorflags
-type FSIteratorFlags = applicationservices.OptionBits
+type FSIteratorFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fsmountstatus
 type FSMountStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fspermissioninfo
-type FSPermissionInfo = unsafe.Pointer
+type FSPermissionInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrangelockparam
-type FSRangeLockParam = unsafe.Pointer
+type FSRangeLockParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrangelockparamptr
 type FSRangeLockParamPtr = unsafe.Pointer
@@ -687,16 +687,16 @@ type FSRangeLockParamPtr = unsafe.Pointer
 // FSRef is identifies a directory or file, including a volume’s root directory.
 //
 // See: https://developer.apple.com/documentation/coreservices/fsref
-type FSRef uintptr
+type FSRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefforkioparam
-type FSRefForkIOParam = unsafe.Pointer
+type FSRefForkIOParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefforkioparamptr
 type FSRefForkIOParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefparam
-type FSRefParam = unsafe.Pointer
+type FSRefParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefparamptr
 type FSRefParamPtr = unsafe.Pointer
@@ -705,13 +705,13 @@ type FSRefParamPtr = unsafe.Pointer
 type FSRefPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fssearchparams
-type FSSearchParams = unsafe.Pointer
+type FSSearchParams = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fssearchparamsptr
 type FSSearchParamsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsspec
-type FSSpec = unsafe.Pointer
+type FSSpec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsspecarrayptr
 type FSSpecArrayPtr = unsafe.Pointer
@@ -726,16 +726,16 @@ type FSSpecPtr = unsafe.Pointer
 type FSUnmountStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeejectupp
-type FSVolumeEjectUPP = unsafe.Pointer
+type FSVolumeEjectUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfo
-type FSVolumeInfo = unsafe.Pointer
+type FSVolumeInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfobitmap
 type FSVolumeInfoBitmap = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfoparam
-type FSVolumeInfoParam = unsafe.Pointer
+type FSVolumeInfoParam = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfoparamptr
 type FSVolumeInfoParamPtr = unsafe.Pointer
@@ -744,7 +744,7 @@ type FSVolumeInfoParamPtr = unsafe.Pointer
 type FSVolumeInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumemountupp
-type FSVolumeMountUPP = unsafe.Pointer
+type FSVolumeMountUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeoperation
 type FSVolumeOperation = uintptr
@@ -753,22 +753,22 @@ type FSVolumeOperation = uintptr
 type FSVolumeRefNum = int16
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeunmountupp
-type FSVolumeUnmountUPP = unsafe.Pointer
+type FSVolumeUnmountUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fvector
-type FVector = unsafe.Pointer
+type FVector = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fxinfo
-type FXInfo = unsafe.Pointer
+type FXInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fileinfo
-type FileInfo = unsafe.Pointer
+type FileInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderclass
 type FolderClass = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/folderdesc
-type FolderDesc = unsafe.Pointer
+type FolderDesc = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderdescflags
 type FolderDescFlags = uint32
@@ -777,16 +777,16 @@ type FolderDescFlags = uint32
 type FolderDescPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderinfo
-type FolderInfo = unsafe.Pointer
+type FolderInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderlocation
 type FolderLocation = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/foldermanagernotificationupp
-type FolderManagerNotificationUPP = unsafe.Pointer
+type FolderManagerNotificationUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderrouting
-type FolderRouting = unsafe.Pointer
+type FolderRouting = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderroutingptr
 type FolderRoutingPtr = unsafe.Pointer
@@ -804,28 +804,28 @@ type FormatResultType = int8
 type FormatStatus = int16
 
 // See: https://developer.apple.com/documentation/coreservices/formatversionchunk
-type FormatVersionChunk = unsafe.Pointer
+type FormatVersionChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/formatversionchunkptr
 type FormatVersionChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/getmissingcomponentresourceupp
-type GetMissingComponentResourceUPP = unsafe.Pointer
+type GetMissingComponentResourceUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/getvolparmsinfobuffer
-type GetVolParmsInfoBuffer = unsafe.Pointer
+type GetVolParmsInfoBuffer = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/hfscatalognodeid
 type HFSCatalogNodeID = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/iocompletionupp
-type IOCompletionUPP = unsafe.Pointer
+type IOCompletionUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/isatype
 type ISAType = int8
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyelement
-type IconFamilyElement = unsafe.Pointer
+type IconFamilyElement = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyhandle
 type IconFamilyHandle = unsafe.Pointer
@@ -834,22 +834,22 @@ type IconFamilyHandle = unsafe.Pointer
 type IconFamilyPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyresource
-type IconFamilyResource = unsafe.Pointer
+type IconFamilyResource = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/iconref
-type IconRef uintptr
+type IconRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/iconservicesusageflags
 type IconServicesUsageFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringprocptr
-type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
+type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringupp
 type IndexToUCStringUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/instrumentchunk
-type InstrumentChunk = unsafe.Pointer
+type InstrumentChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/instrumentchunkptr
 type InstrumentChunkPtr = unsafe.Pointer
@@ -861,7 +861,7 @@ type Intl0Hndl = unsafe.Pointer
 type Intl0Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl0rec
-type Intl0Rec = unsafe.Pointer
+type Intl0Rec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl1hndl
 type Intl1Hndl = unsafe.Pointer
@@ -870,10 +870,10 @@ type Intl1Hndl = unsafe.Pointer
 type Intl1Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl1rec
-type Intl1Rec = unsafe.Pointer
+type Intl1Rec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itl1extrec
-type Itl1ExtRec = unsafe.Pointer
+type Itl1ExtRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itl4handle
 type Itl4Handle = unsafe.Pointer
@@ -882,22 +882,22 @@ type Itl4Handle = unsafe.Pointer
 type Itl4Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itl4rec
-type Itl4Rec = unsafe.Pointer
+type Itl4Rec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itl5record
-type Itl5Record = unsafe.Pointer
+type Itl5Record = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itlbextrecord
-type ItlbExtRecord = unsafe.Pointer
+type ItlbExtRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itlbrecord
-type ItlbRecord = unsafe.Pointer
+type ItlbRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itlcrecord
-type ItlcRecord = unsafe.Pointer
+type ItlcRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcattrtype
-type KCAttrType = unsafe.Pointer
+type KCAttrType = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcattribute
 type KCAttribute = security.SecKeychainAttribute
@@ -909,10 +909,10 @@ type KCAttributeList = security.SecKeychainAttributeList
 type KCAuthType = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/kccallbackinfo
-type KCCallbackInfo = unsafe.Pointer
+type KCCallbackInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kccallbackupp
-type KCCallbackUPP = unsafe.Pointer
+type KCCallbackUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kccertaddoptions
 type KCCertAddOptions = uint32
@@ -948,7 +948,7 @@ type KCRef = security.SecKeychainRef
 type KCSearchRef = security.SecKeychainSearchRef
 
 // See: https://developer.apple.com/documentation/coreservices/kcstatus
-type KCStatus = unsafe.Pointer
+type KCStatus = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcverifystopon
 type KCVerifyStopOn = uint16
@@ -970,7 +970,7 @@ type LSSharedFileListRef uintptr
 type LSSharedFileListResolutionFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/localdatetime
-type LocalDateTime = unsafe.Pointer
+type LocalDateTime = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/localdatetimehandle
 type LocalDateTimeHandle = unsafe.Pointer
@@ -979,7 +979,7 @@ type LocalDateTimeHandle = unsafe.Pointer
 type LocalDateTimePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/localeandvariant
-type LocaleAndVariant = unsafe.Pointer
+type LocaleAndVariant = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/localenamemask
 type LocaleNameMask = uint32
@@ -1005,7 +1005,7 @@ type LongDateTime = int64
 // MDItemRef is a reference to a MDItem object.
 //
 // See: https://developer.apple.com/documentation/coreservices/mditemref
-type MDItemRef uintptr
+type MDItemRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/mdlabelref
 type MDLabelRef uintptr
@@ -1018,12 +1018,12 @@ type MDQueryCreateResultFunction = func(MDQueryRef, MDItemRef, unsafe.Pointer) u
 // MDQueryCreateValueFunction is callback function usedto create the value objects stored and returned by a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerycreatevaluefunction
-type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFString, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
+type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFString, corefoundation.CFTypeRef, unsafe.Pointer) unsafe.Pointer
 
 // MDQueryRef is a reference to a MDQuery object.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdqueryref
-type MDQueryRef uintptr
+type MDQueryRef = kernel.Pointer
 
 // MDQuerySortComparatorFunction is callback function used to sort the results of a query.
 //
@@ -1031,7 +1031,7 @@ type MDQueryRef uintptr
 type MDQuerySortComparatorFunction = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
 
 // See: https://developer.apple.com/documentation/coreservices/mididatachunk
-type MIDIDataChunk = unsafe.Pointer
+type MIDIDataChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/mididatachunkptr
 type MIDIDataChunkPtr = unsafe.Pointer
@@ -1040,7 +1040,7 @@ type MIDIDataChunkPtr = unsafe.Pointer
 type MPAddressSpaceID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpaddressspaceinfo
-type MPAddressSpaceInfo = unsafe.Pointer
+type MPAddressSpaceInfo = kernel.Pointer
 
 // MPCoherenceID is represents a memory coherence group.
 //
@@ -1061,7 +1061,7 @@ type MPCpuID = uintptr
 type MPCriticalRegionID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpcriticalregioninfo
-type MPCriticalRegionInfo = unsafe.Pointer
+type MPCriticalRegionInfo = kernel.Pointer
 
 // MPDebuggerLevel is indicates the debugger level.
 //
@@ -1079,7 +1079,7 @@ type MPEventFlags = uint32
 type MPEventID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpeventinfo
-type MPEventInfo = unsafe.Pointer
+type MPEventInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/mpisfullyinitializedproc
 type MPIsFullyInitializedProc = bool
@@ -1090,7 +1090,7 @@ type MPIsFullyInitializedProc = bool
 type MPNotificationID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpnotificationinfo
-type MPNotificationInfo = unsafe.Pointer
+type MPNotificationInfo = kernel.Pointer
 
 // MPOpaqueID is represents a generic notification ID (that is, an ID that could be a queue ID, event ID, kernel notification ID, or semaphore ID).
 //
@@ -1114,7 +1114,7 @@ type MPProcessID = uintptr
 type MPQueueID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpqueueinfo
-type MPQueueInfo = unsafe.Pointer
+type MPQueueInfo = kernel.Pointer
 
 // MPRemoteContext is specify which contexts are allowed to execute the callback function when using [MPRemoteCall].
 //
@@ -1124,7 +1124,7 @@ type MPRemoteContext = uint8
 // MPSemaphoreCount is represents a semaphore count.
 //
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphorecount
-type MPSemaphoreCount = uint
+type MPSemaphoreCount = kernel.Pointer
 
 // MPSemaphoreID is represents a semaphore ID, which Multiprocessing Services uses to manipulate semaphores.
 //
@@ -1132,7 +1132,7 @@ type MPSemaphoreCount = uint
 type MPSemaphoreID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphoreinfo
-type MPSemaphoreInfo = unsafe.Pointer
+type MPSemaphoreInfo = kernel.Pointer
 
 // MPTaskID is represents a task ID.
 //
@@ -1142,15 +1142,15 @@ type MPTaskID = uintptr
 // MPTaskInfo is contains information about a task.
 //
 // See: https://developer.apple.com/documentation/coreservices/mptaskinfo
-type MPTaskInfo = unsafe.Pointer
+type MPTaskInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/mptaskinfoversion2
-type MPTaskInfoVersion2 = unsafe.Pointer
+type MPTaskInfoVersion2 = kernel.Pointer
 
 // MPTaskOptions is specify optional actions when calling the [MPCreateTask] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/mptaskoptions
-type MPTaskOptions = applicationservices.OptionBits
+type MPTaskOptions = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/mptaskstatekind
 type MPTaskStateKind = uint32
@@ -1169,19 +1169,19 @@ type MPTimerID = uintptr
 type MachineInformation = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/machineinformationintel64
-type MachineInformationIntel64 = unsafe.Pointer
+type MachineInformationIntel64 = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/machineinformationpowerpc
-type MachineInformationPowerPC = unsafe.Pointer
+type MachineInformationPowerPC = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/machinelocation
-type MachineLocation = unsafe.Pointer
+type MachineLocation = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/marker
-type Marker = unsafe.Pointer
+type Marker = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/markerchunk
-type MarkerChunk = unsafe.Pointer
+type MarkerChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/markerchunkptr
 type MarkerChunkPtr = unsafe.Pointer
@@ -1190,13 +1190,13 @@ type MarkerChunkPtr = unsafe.Pointer
 type MarkerIdType = int16
 
 // See: https://developer.apple.com/documentation/coreservices/memoryexceptioninformation
-type MemoryExceptionInformation = unsafe.Pointer
+type MemoryExceptionInformation = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/memoryreferencekind
 type MemoryReferenceKind = uint
 
 // See: https://developer.apple.com/documentation/coreservices/mixedmodestaterecord
-type MixedModeStateRecord = unsafe.Pointer
+type MixedModeStateRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/nitl4handle
 type NItl4Handle = unsafe.Pointer
@@ -1205,19 +1205,19 @@ type NItl4Handle = unsafe.Pointer
 type NItl4Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/nitl4rec
-type NItl4Rec = unsafe.Pointer
+type NItl4Rec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/nanoseconds
 type Nanoseconds = uint64
 
 // See: https://developer.apple.com/documentation/coreservices/numformatstring
-type NumFormatString = unsafe.Pointer
+type NumFormatString = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/numformatstringrec
 type NumFormatStringRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/numberparts
-type NumberParts = unsafe.Pointer
+type NumberParts = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/numberpartsptr
 type NumberPartsPtr = unsafe.Pointer
@@ -1303,7 +1303,7 @@ type OSLMarkProcPtr = func(unsafe.Pointer, unsafe.Pointer, int) int16
 type OSLMarkUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/offpair
-type OffPair = unsafe.Pointer
+type OffPair = kernel.Pointer
 
 // OffsetArrayHandle is defines a data type that points to an [OffsetArray]. Not typically used by developers.
 //
@@ -1317,40 +1317,40 @@ type OffsetArrayPtr = *OffsetArray
 type OffsetTable = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefcontainerheader
-type PEFContainerHeader = unsafe.Pointer
+type PEFContainerHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbol
-type PEFExportedSymbol = unsafe.Pointer
+type PEFExportedSymbol = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbolhashslot
-type PEFExportedSymbolHashSlot = unsafe.Pointer
+type PEFExportedSymbolHashSlot = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbolkey
-type PEFExportedSymbolKey = string
+type PEFExportedSymbolKey = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefimportedlibrary
-type PEFImportedLibrary = unsafe.Pointer
+type PEFImportedLibrary = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefimportedsymbol
-type PEFImportedSymbol = unsafe.Pointer
+type PEFImportedSymbol = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefloaderinfoheader
-type PEFLoaderInfoHeader = unsafe.Pointer
+type PEFLoaderInfoHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefloaderrelocationheader
-type PEFLoaderRelocationHeader = unsafe.Pointer
+type PEFLoaderRelocationHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefrelocchunk
 type PEFRelocChunk = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefsectionheader
-type PEFSectionHeader = unsafe.Pointer
+type PEFSectionHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefsplithashword
-type PEFSplitHashWord = unsafe.Pointer
+type PEFSplitHashWord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/paramblockrec
-type ParamBlockRec = unsafe.Pointer
+type ParamBlockRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/parmblkptr
 type ParmBlkPtr = unsafe.Pointer
@@ -1359,13 +1359,13 @@ type ParmBlkPtr = unsafe.Pointer
 type ProcInfoType = uint
 
 // See: https://developer.apple.com/documentation/coreservices/qelem
-type QElem = unsafe.Pointer
+type QElem = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qelemptr
 type QElemPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qhdr
-type QHdr = unsafe.Pointer
+type QHdr = kernel.Pointer
 
 // QHdrPtr is represents a type used by the Compression and Decompression API.
 //
@@ -1373,7 +1373,7 @@ type QHdr = unsafe.Pointer
 type QHdrPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qtypes
-type QTypes = unsafe.Pointer
+type QTypes = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/rdflagstype
 type RDFlagsType = uint8
@@ -1385,19 +1385,19 @@ type RTAType = int8
 type RegisterInformation = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registerinformationintel64
-type RegisterInformationIntel64 = unsafe.Pointer
+type RegisterInformationIntel64 = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registerinformationpowerpc
-type RegisterInformationPowerPC = unsafe.Pointer
+type RegisterInformationPowerPC = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentinstancerecord
-type RegisteredComponentInstanceRecord = unsafe.Pointer
+type RegisteredComponentInstanceRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentinstancerecordptr
 type RegisteredComponentInstanceRecordPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentrecord
-type RegisteredComponentRecord = unsafe.Pointer
+type RegisteredComponentRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentrecordptr
 type RegisteredComponentRecordPtr = unsafe.Pointer
@@ -1406,7 +1406,7 @@ type RegisteredComponentRecordPtr = unsafe.Pointer
 type ResAttributes = int16
 
 // See: https://developer.apple.com/documentation/coreservices/reserrupp
-type ResErrUPP = unsafe.Pointer
+type ResErrUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/resfileattributes
 type ResFileAttributes = int16
@@ -1424,10 +1424,10 @@ type ResourceCount = int16
 type ResourceIndex = int16
 
 // See: https://developer.apple.com/documentation/coreservices/resourcespec
-type ResourceSpec = unsafe.Pointer
+type ResourceSpec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/routinedescriptor
-type RoutineDescriptor = unsafe.Pointer
+type RoutineDescriptor = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/routinedescriptorhandle
 type RoutineDescriptorHandle = unsafe.Pointer
@@ -1439,7 +1439,7 @@ type RoutineDescriptorPtr = unsafe.Pointer
 type RoutineFlagsType = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routinerecord
-type RoutineRecord = unsafe.Pointer
+type RoutineRecord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/routinerecordhandle
 type RoutineRecordHandle = unsafe.Pointer
@@ -1451,7 +1451,7 @@ type RoutineRecordPtr = unsafe.Pointer
 type RoutingFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/routingresourceentry
-type RoutingResourceEntry = unsafe.Pointer
+type RoutingResourceEntry = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/routingresourcehandle
 type RoutingResourceHandle = unsafe.Pointer
@@ -1463,7 +1463,7 @@ type RoutingResourcePtr = unsafe.Pointer
 type RsrcChainLocation = int16
 
 // See: https://developer.apple.com/documentation/coreservices/rulebasedtrslrecord
-type RuleBasedTrslRecord = unsafe.Pointer
+type RuleBasedTrslRecord = kernel.Pointer
 
 // SKDocument is defines an opaque data type representing a document’s URL.
 //
@@ -1508,7 +1508,7 @@ type SKSearchRef uintptr
 // SKSearchResultsFilterCallBack is deprecated. Use [SKSearchCreate] and [SKSearchFindMatches] instead, which do not use a callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/sksearchresultsfiltercallback
-type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) unsafe.Pointer
+type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) kernel.Pointer
 
 // SKSearchResultsRef is deprecated. Use asynchronous searching with SKSearchCreate instead, which does not employ search groups.
 //
@@ -1521,7 +1521,7 @@ type SKSearchResultsRef uintptr
 type SKSummaryRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/schedulerinforec
-type SchedulerInfoRec = unsafe.Pointer
+type SchedulerInfoRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/schedulerinforecptr
 type SchedulerInfoRecPtr = unsafe.Pointer
@@ -1529,7 +1529,7 @@ type SchedulerInfoRecPtr = unsafe.Pointer
 // ScriptCodeRun is contains script code information for a text run.
 //
 // See: https://developer.apple.com/documentation/coreservices/scriptcoderun
-type ScriptCodeRun = unsafe.Pointer
+type ScriptCodeRun = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/scriptcoderunptr
 type ScriptCodeRunPtr = unsafe.Pointer
@@ -1537,19 +1537,19 @@ type ScriptCodeRunPtr = unsafe.Pointer
 // SelectorFunctionUPP is defines a universal procedure pointer to a selector function callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/selectorfunctionupp
-type SelectorFunctionUPP = unsafe.Pointer
+type SelectorFunctionUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqrec
-type SleepQRec = unsafe.Pointer
+type SleepQRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqrecptr
 type SleepQRecPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqupp
-type SleepQUPP = unsafe.Pointer
+type SleepQUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sounddatachunk
-type SoundDataChunk = unsafe.Pointer
+type SoundDataChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sounddatachunkptr
 type SoundDataChunkPtr = unsafe.Pointer
@@ -1566,23 +1566,23 @@ type SysPPtr = unsafe.Pointer
 // TECBufferContextRec is contains buffers for text and text encoding runs.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecbuffercontextrec
-type TECBufferContextRec = unsafe.Pointer
+type TECBufferContextRec = kernel.Pointer
 
 // TECConversionInfo is contains text encoding conversion information.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecconversioninfo
-type TECConversionInfo = unsafe.Pointer
+type TECConversionInfo = kernel.Pointer
 
 // TECConverterContextRec is contains converter information used by a Text Encoding Converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecconvertercontextrec
-type TECConverterContextRec = unsafe.Pointer
+type TECConverterContextRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairrec
-type TECEncodingPairRec = unsafe.Pointer
+type TECEncodingPairRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairs
-type TECEncodingPairs = unsafe.Pointer
+type TECEncodingPairs = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairshandle
 type TECEncodingPairsHandle = unsafe.Pointer
@@ -1591,7 +1591,7 @@ type TECEncodingPairsHandle = unsafe.Pointer
 type TECEncodingPairsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairsrec
-type TECEncodingPairsRec = unsafe.Pointer
+type TECEncodingPairsRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingslisthandle
 type TECEncodingsListHandle = unsafe.Pointer
@@ -1600,12 +1600,12 @@ type TECEncodingsListHandle = unsafe.Pointer
 type TECEncodingsListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingslistrec
-type TECEncodingsListRec = unsafe.Pointer
+type TECEncodingsListRec = kernel.Pointer
 
 // TECInfo is contains information about the Unicode Converter, the Text Encoding Converter, and Basic Text Types.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecinfo
-type TECInfo = unsafe.Pointer
+type TECInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinfohandle
 type TECInfoHandle = unsafe.Pointer
@@ -1614,7 +1614,7 @@ type TECInfoHandle = unsafe.Pointer
 type TECInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnamerec
-type TECInternetNameRec = unsafe.Pointer
+type TECInternetNameRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnameusagemask
 type TECInternetNameUsageMask = uint32
@@ -1626,13 +1626,13 @@ type TECInternetNamesHandle = unsafe.Pointer
 type TECInternetNamesPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnamesrec
-type TECInternetNamesRec = unsafe.Pointer
+type TECInternetNamesRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocalelisttoencodinglistptr
 type TECLocaleListToEncodingListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocalelisttoencodinglistrec
-type TECLocaleListToEncodingListRec = unsafe.Pointer
+type TECLocaleListToEncodingListRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocaletoencodingslisthandle
 type TECLocaleToEncodingsListHandle = unsafe.Pointer
@@ -1641,7 +1641,7 @@ type TECLocaleToEncodingsListHandle = unsafe.Pointer
 type TECLocaleToEncodingsListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocaletoencodingslistrec
-type TECLocaleToEncodingsListRec = unsafe.Pointer
+type TECLocaleToEncodingsListRec = kernel.Pointer
 
 // TECObjectRef is defines an opaque reference to a converter object.
 //
@@ -1651,7 +1651,7 @@ type TECObjectRef uintptr
 // TECPluginDispatchTable is contains version and signature information and pointers to the callback functions used by a text encoding converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecplugindispatchtable
-type TECPluginDispatchTable = unsafe.Pointer
+type TECPluginDispatchTable = kernel.Pointer
 
 // TECPluginGetPluginDispatchTablePtr is defines a pointer to a function that returnsa pointer to a plug-in dispatch table.
 //
@@ -1671,7 +1671,7 @@ type TECPluginSignature = uint32
 // TECPluginStateRec is contains state information for a Text Encoding Converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecpluginstaterec
-type TECPluginStateRec = unsafe.Pointer
+type TECPluginStateRec = kernel.Pointer
 
 // TECPluginVersion is defines a data type for Text Encoding Converter plug-in version.
 //
@@ -1681,7 +1681,7 @@ type TECPluginVersion = uint32
 // TECSnifferContextRec is contains infomation used by a sniffer object.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecsniffercontextrec
-type TECSnifferContextRec = unsafe.Pointer
+type TECSnifferContextRec = kernel.Pointer
 
 // TECSnifferObjectRef is defines a reference to an opaque sniffer object.
 //
@@ -1689,7 +1689,7 @@ type TECSnifferContextRec = unsafe.Pointer
 type TECSnifferObjectRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingrec
-type TECSubTextEncodingRec = unsafe.Pointer
+type TECSubTextEncodingRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingshandle
 type TECSubTextEncodingsHandle = unsafe.Pointer
@@ -1698,26 +1698,26 @@ type TECSubTextEncodingsHandle = unsafe.Pointer
 type TECSubTextEncodingsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingsrec
-type TECSubTextEncodingsRec = unsafe.Pointer
+type TECSubTextEncodingsRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tmtask
-type TMTask = unsafe.Pointer
+type TMTask = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tmtaskptr
 type TMTaskPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tabledirectoryrecord
-type TableDirectoryRecord = unsafe.Pointer
+type TableDirectoryRecord = kernel.Pointer
 
 // TaskStorageIndex is represents a task storage index value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstorageindex
-type TaskStorageIndex = uint
+type TaskStorageIndex = kernel.Pointer
 
 // TaskStorageValue is represents a task storage value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstoragevalue
-type TaskStorageValue = unsafe.Pointer
+type TaskStorageValue = kernel.Pointer
 
 // TextBreakLocatorRef is refers to an opaque object that encapsulates locale and text-break information for the purpose of finding boundaries in Unicode text.
 //
@@ -1725,7 +1725,7 @@ type TaskStorageValue = unsafe.Pointer
 type TextBreakLocatorRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/textchunk
-type TextChunk = unsafe.Pointer
+type TextChunk = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/textchunkptr
 type TextChunkPtr = unsafe.Pointer
@@ -1751,12 +1751,12 @@ type TextEncodingFormat = uint32
 type TextEncodingNameSelector = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/textencodingrec
-type TextEncodingRec = unsafe.Pointer
+type TextEncodingRec = kernel.Pointer
 
 // TextEncodingRun is contains text encoding information for a text run.
 //
 // See: https://developer.apple.com/documentation/coreservices/textencodingrun
-type TextEncodingRun = unsafe.Pointer
+type TextEncodingRun = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/textencodingrunptr
 type TextEncodingRunPtr = unsafe.Pointer
@@ -1790,7 +1790,7 @@ type TextToUnicodeInfo = uintptr
 type ThreadEntryTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadentryupp
-type ThreadEntryUPP = unsafe.Pointer
+type ThreadEntryUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadid
 type ThreadID = uint
@@ -1802,7 +1802,7 @@ type ThreadOptions = uint32
 type ThreadSchedulerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadschedulerupp
-type ThreadSchedulerUPP = unsafe.Pointer
+type ThreadSchedulerUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadstate
 type ThreadState = uint16
@@ -1814,7 +1814,7 @@ type ThreadStyle = uint32
 type ThreadSwitchTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadswitchupp
-type ThreadSwitchUPP = unsafe.Pointer
+type ThreadSwitchUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadtaskref
 type ThreadTaskRef uintptr
@@ -1823,13 +1823,13 @@ type ThreadTaskRef uintptr
 type ThreadTerminationTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadterminationupp
-type ThreadTerminationUPP = unsafe.Pointer
+type ThreadTerminationUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/timerupp
-type TimerUPP = unsafe.Pointer
+type TimerUPP = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/togglepb
-type TogglePB = unsafe.Pointer
+type TogglePB = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/toggleresults
 type ToggleResults = int16
@@ -1887,10 +1887,10 @@ type UCTypeSelectCompareResult = int32
 type UCTypeSelectOptions = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/uctypeselectref
-type UCTypeSelectRef uintptr
+type UCTypeSelectRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/utcdatetime
-type UTCDateTime = unsafe.Pointer
+type UTCDateTime = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/utcdatetimehandle
 type UTCDateTimeHandle = unsafe.Pointer
@@ -1917,7 +1917,7 @@ type UnicodeMapVersion = int32
 // UnicodeMapping is contains information for mapping to or from Unicode encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/unicodemapping
-type UnicodeMapping = unsafe.Pointer
+type UnicodeMapping = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/unicodemappingptr
 type UnicodeMappingPtr = unsafe.Pointer
@@ -1925,7 +1925,7 @@ type UnicodeMappingPtr = unsafe.Pointer
 // UnicodeToTextFallbackUPP is defines a universal procedure pointer to a Unicode-to-text-fallback callback function.
 //
 // See: https://developer.apple.com/documentation/coreservices/unicodetotextfallbackupp
-type UnicodeToTextFallbackUPP = unsafe.Pointer
+type UnicodeToTextFallbackUPP = kernel.Pointer
 
 // UnicodeToTextInfo is defines a reference to an opaque Unicode to text converter object.
 //
@@ -1938,7 +1938,7 @@ type UnicodeToTextInfo = uintptr
 type UnicodeToTextRunInfo = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/untokentable
-type UntokenTable = unsafe.Pointer
+type UntokenTable = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/untokentablehandle
 type UntokenTableHandle = unsafe.Pointer
@@ -1950,19 +1950,19 @@ type UntokenTablePtr = unsafe.Pointer
 type VectorInformation = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/vectorinformationintel64
-type VectorInformationIntel64 = unsafe.Pointer
+type VectorInformationIntel64 = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/vectorinformationpowerpc
-type VectorInformationPowerPC = unsafe.Pointer
+type VectorInformationPowerPC = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/volmountinfoheader
-type VolMountInfoHeader = unsafe.Pointer
+type VolMountInfoHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/volmountinfoptr
 type VolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/volumemountinfoheader
-type VolumeMountInfoHeader = unsafe.Pointer
+type VolumeMountInfoHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/volumemountinfoheaderptr
 type VolumeMountInfoHeaderPtr = unsafe.Pointer
@@ -1973,7 +1973,7 @@ type VolumeType = uint32
 // WSClientContext is an optional context that can contain data you want passed to your callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/wsclientcontext
-type WSClientContext = unsafe.Pointer
+type WSClientContext = kernel.Pointer
 
 // WSMethodInvocationRef is an opaque reference to a web services method invocation.
 //
@@ -1988,16 +1988,16 @@ type WSProtocolHandlerRef uintptr
 // WSTypeID is web Services Core uses the following enumeration when serializing between Core Foundation and XML types. Because CFTypes are defined at runtime, it isn't always possible to produce a static mapping to a particular CFTypeRef. This enum and associated API allows for static determination of the expected serialization.
 //
 // See: https://developer.apple.com/documentation/coreservices/wstypeid
-type WSTypeID = string
+type WSTypeID = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/widechararr
-type WideCharArr = unsafe.Pointer
+type WideCharArr = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/xlibcontainerheader
-type XLibContainerHeader = unsafe.Pointer
+type XLibContainerHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/xlibexportedsymbol
-type XLibExportedSymbol = unsafe.Pointer
+type XLibExportedSymbol = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/xlibexportedsymbolhashslot
 type XLibExportedSymbolHashSlot = unsafe.Pointer
@@ -2012,10 +2012,10 @@ type CcntTokenRecHandle = *CcntTokenRecPtr
 type CcntTokenRecPtr = *CcntTokenRecord
 
 // See: https://developer.apple.com/documentation/coreservices/decform
-type Decform = unsafe.Pointer
+type Decform = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/decimal
-type Decimal = unsafe.Pointer
+type Decimal = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registerselectortype
 type RegisterSelectorType = uint16

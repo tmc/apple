@@ -309,7 +309,8 @@ func (b ByteCountFormatter) SetAllowsNonnumericFormatting(value bool) {
 // bytes)`. This will happen only if needed, that is, the first part is
 // already not showing the exact byte count.
 //
-// If [IncludesUnit] or [IncludesCount] are false, then this setting has no
+// If [NSByteCountFormatter.IncludesUnit] or
+// [NSByteCountFormatter.IncludesCount] are false, then this setting has no
 // effect.
 //
 // Default value is false.
@@ -374,12 +375,13 @@ func (b ByteCountFormatter) SetAllowedUnits(value NSByteCountFormatterUnits) {
 //
 // # Discussion
 //
-// If set to true and [IncludesUnit] is set to false, no unit is displayed.
-// For example, a value of 723 KB is formatted as `723`.
+// If set to true and [NSByteCountFormatter.IncludesUnit] is set to false, no
+// unit is displayed. For example, a value of 723 KB is formatted as `723`.
 //
-// You can get the set this property to true and the [IncludesUnit] to true
-// individually to get both parts, separately. Note that putting them together
-// yourself via string concatenation may be incorrect for some locales.
+// You can get the set this property to true and the
+// [NSByteCountFormatter.IncludesUnit] to true individually to get both parts,
+// separately. Note that putting them together yourself via string
+// concatenation may be incorrect for some locales.
 //
 // The default value is true.
 //
@@ -396,12 +398,13 @@ func (b ByteCountFormatter) SetIncludesCount(value bool) {
 //
 // # Discussion
 //
-// If set to true and [IncludesCount] is set to false, no count is displayed.
-// For example, a value of 723 KB is formatted as [KB].
+// If set to true and [NSByteCountFormatter.IncludesCount] is set to false, no
+// count is displayed. For example, a value of 723 KB is formatted as [KB].
 //
-// You can get the set this property to true and the [IncludesCount] to true
-// individually to get both parts, separately. Note that putting them together
-// yourself via string concatenation may be incorrect for some locales.
+// You can get the set this property to true and the
+// [NSByteCountFormatter.IncludesCount] to true individually to get both
+// parts, separately. Note that putting them together yourself via string
+// concatenation may be incorrect for some locales.
 //
 // The default value is true.
 //
@@ -421,9 +424,10 @@ func (b ByteCountFormatter) SetIncludesUnit(value bool) {
 //
 // Displaying values using zero pad fraction digits causes a consistent number
 // of fraction digits are displayed, causing updating displays to remain more
-// stable. For instance, if the [Adaptive] algorithm is used, this option
-// formats 1.19 and 1.2 GB as `1.19 GB` and `1.20 GB`, respectively, while
-// without the option the latter would be displayed as `1.2 GB`.
+// stable. For instance, if the [NSByteCountFormatter.Adaptive] algorithm is
+// used, this option formats 1.19 and 1.2 GB as `1.19 GB` and `1.20 GB`,
+// respectively, while without the option the latter would be displayed as
+// `1.2 GB`.
 //
 // The default value is false.
 //

@@ -54,9 +54,10 @@ func (uc UnitConcentrationMassClass) Alloc() UnitConcentrationMass {
 // Concentration can be expressed by SI derived units in terms of kilograms
 // per cubic meter (kg/m3).
 //
-// The [NSUnitConcentrationMass] class defines its [BaseUnit] as
-// [GramsPerLiter], and provides the following units, which are initialized
-// using [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitConcentrationMass] class defines its [NSDimensionClass.BaseUnit]
+// as [NSUnitConcentrationMassClass.GramsPerLiter], and provides the following
+// units, which are initialized using [NSUnitConverterLinear] converters with
+// the specified coefficients:
 //
 // [Table data omitted]
 //

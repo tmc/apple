@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -79,8 +80,8 @@ func (nc NSDataClass) Alloc() NSData {
 // replace the files with hard or symbolic links, causing your write
 // operations to overwrite or corrupt other system resources.
 //
-// Avoid using the [NSData.WriteToURLAtomically] method (and the related methods)
-// when working inside a publicly accessible directory. Instead, use
+// Avoid using the [NSData.WriteToURLAtomically] method (and the related
+// methods) when working inside a publicly accessible directory. Instead, use
 // [NSFileHandle] with an existing file descriptor to securely write the file.
 //
 // For more information, see [Securing File Operations] in [Secure Coding
@@ -108,6 +109,8 @@ func (nc NSDataClass) Alloc() NSData {
 //
 // # Encoding and Decoding Base64 Representations
 //
+//   - [NSData.InitWithBase64EncodedDataOptions]: Initializes a data object with the given Base64 encoded data.
+//   - [NSData.InitWithBase64EncodedStringOptions]: Initializes a data object with the given Base64 encoded string.
 //   - [NSData.Base64EncodedDataWithOptions]: Creates a Base64, UTF-8 encoded data object from the string using the given options.
 //   - [NSData.Base64EncodedStringWithOptions]: Creates a Base64 encoded string from the string using the given options.
 //
@@ -136,19 +139,9 @@ func (nc NSDataClass) Alloc() NSData {
 //
 //   - [NSData.CompressedDataUsingAlgorithmError]: Returns a new data object by compressing the data object’s bytes.
 //   - [NSData.DecompressedDataUsingAlgorithmError]: Returns a new data object by decompressing data object’s bytes.
-//   - [NSData.NSCompressionErrorMaximum]: The end of the range of error codes reserved for compression errors.
-//   - [NSData.SetNSCompressionErrorMaximum]
-//   - [NSData.NSCompressionErrorMinimum]: The start of the range of error codes reserved for compression errors.
-//   - [NSData.SetNSCompressionErrorMinimum]
-//   - [NSData.NSCompressionFailedError]: An error code value that indicates a failure to compress data using the provided algorithm.
-//   - [NSData.SetNSCompressionFailedError]
-//   - [NSData.NSDecompressionFailedError]: An error code value that indicates a failure to decompress data using the provided algorithm.
-//   - [NSData.SetNSDecompressionFailedError]
 //
 // # Initializers
 //
-//   - [NSData.InitWithBase64EncodedStringOptions]
-//   - [NSData.InitWithBase64EncodedDataOptions]
 //   - [NSData.InitWithContentsOfURL]
 //   - [NSData.InitWithContentsOfURLOptionsError]
 //
@@ -198,6 +191,8 @@ func NSDataFromID(id objc.ID) NSData {
 //
 // # Encoding and Decoding Base64 Representations
 //
+//   - [INSData.InitWithBase64EncodedDataOptions]: Initializes a data object with the given Base64 encoded data.
+//   - [INSData.InitWithBase64EncodedStringOptions]: Initializes a data object with the given Base64 encoded string.
 //   - [INSData.Base64EncodedDataWithOptions]: Creates a Base64, UTF-8 encoded data object from the string using the given options.
 //   - [INSData.Base64EncodedStringWithOptions]: Creates a Base64 encoded string from the string using the given options.
 //
@@ -226,19 +221,9 @@ func NSDataFromID(id objc.ID) NSData {
 //
 //   - [INSData.CompressedDataUsingAlgorithmError]: Returns a new data object by compressing the data object’s bytes.
 //   - [INSData.DecompressedDataUsingAlgorithmError]: Returns a new data object by decompressing data object’s bytes.
-//   - [INSData.NSCompressionErrorMaximum]: The end of the range of error codes reserved for compression errors.
-//   - [INSData.SetNSCompressionErrorMaximum]
-//   - [INSData.NSCompressionErrorMinimum]: The start of the range of error codes reserved for compression errors.
-//   - [INSData.SetNSCompressionErrorMinimum]
-//   - [INSData.NSCompressionFailedError]: An error code value that indicates a failure to compress data using the provided algorithm.
-//   - [INSData.SetNSCompressionFailedError]
-//   - [INSData.NSDecompressionFailedError]: An error code value that indicates a failure to decompress data using the provided algorithm.
-//   - [INSData.SetNSDecompressionFailedError]
 //
 // # Initializers
 //
-//   - [INSData.InitWithBase64EncodedStringOptions]
-//   - [INSData.InitWithBase64EncodedDataOptions]
 //   - [INSData.InitWithContentsOfURL]
 //   - [INSData.InitWithContentsOfURLOptionsError]
 //
@@ -254,7 +239,7 @@ type INSData interface {
 	// Initializes a data object filled with a given number of bytes of data from a given buffer.
 	InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData
 	// Initializes a data object filled with a given number of bytes of data from a given buffer, with a custom deallocator block.
-	InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(unsafe.Pointer, uint64)) NSData
+	InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(kernel.Pointer, uint64)) NSData
 	// Initializes a newly allocated data object by adding the given number of bytes from the given buffer.
 	InitWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSData
 	// Initializes a data object with the contents of another data object.
@@ -280,6 +265,10 @@ type INSData interface {
 
 	// Topic: Encoding and Decoding Base64 Representations
 
+	// Initializes a data object with the given Base64 encoded data.
+	InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData
+	// Initializes a data object with the given Base64 encoded string.
+	InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData
 	// Creates a Base64, UTF-8 encoded data object from the string using the given options.
 	Base64EncodedDataWithOptions(options NSDataBase64EncodingOptions) INSData
 	// Creates a Base64 encoded string from the string using the given options.
@@ -290,7 +279,7 @@ type INSData interface {
 	// A pointer to the data object’s contents.
 	Bytes() unsafe.Pointer
 	// Enumerates each range of bytes in the data object using a block.
-	EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.Pointer, *bool))
+	EnumerateByteRangesUsingBlock(block func(kernel.Pointer, kernel.Pointer, *bool))
 	// Copies a number of bytes from the start of the data object into a given buffer.
 	GetBytesLength(buffer unsafe.Pointer, length uint)
 	// Copies a range of bytes from the data object into a given buffer.
@@ -321,23 +310,9 @@ type INSData interface {
 	CompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (INSData, error)
 	// Returns a new data object by decompressing data object’s bytes.
 	DecompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (INSData, error)
-	// The end of the range of error codes reserved for compression errors.
-	NSCompressionErrorMaximum() int
-	SetNSCompressionErrorMaximum(value int)
-	// The start of the range of error codes reserved for compression errors.
-	NSCompressionErrorMinimum() int
-	SetNSCompressionErrorMinimum(value int)
-	// An error code value that indicates a failure to compress data using the provided algorithm.
-	NSCompressionFailedError() int
-	SetNSCompressionFailedError(value int)
-	// An error code value that indicates a failure to decompress data using the provided algorithm.
-	NSDecompressionFailedError() int
-	SetNSDecompressionFailedError(value int)
 
 	// Topic: Initializers
 
-	InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData
-	InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData
 	InitWithContentsOfURL(url INSURL) NSData
 	InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error)
 }
@@ -361,14 +336,56 @@ func NewNSData() NSData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
+// Initializes a data object with the given Base64 encoded data.
+//
+// base64Data: A Base64, UTF-8 encoded data object.
+//
+// options: A mask that specifies options for Base64 decoding the data. Possible values
+// are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object containing the Base64 decoded data. Returns `nil` if the data
+// object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedData:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
 	instance := getNSDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
 	return NSDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
+// Initializes a data object with the given Base64 encoded string.
+//
+// base64String: A Base-64 encoded string.
+//
+// options: A mask that specifies options for Base-64 decoding the data. Possible
+// values are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object built by Base64 decoding the provided string. Returns `nil`
+// if the data object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
 func NewDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
 	instance := getNSDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
@@ -389,11 +406,10 @@ func NewDataWithBase64EncodedStringOptions(base64String string, options NSDataBa
 // Although this method was only introduced publicly for iOS 7, it has existed
 // since iOS 4; you can use it if your application needs to target an
 // operating system prior to iOS 7. This method behaves like
-// [init(base64EncodedString:options:)], but ignores all unknown characters.
+// [NSPurgeableData.InitWithBase64EncodedStringOptions], but ignores all
+// unknown characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoding:)
-//
-// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
 func NewDataWithBase64Encoding(base64String string) NSData {
 	instance := getNSDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64Encoding:"), objc.String(base64String))
@@ -463,7 +479,7 @@ func NewDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint,
 	return NSDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(coder:)
 func NewDataWithCoder(coder INSCoder) NSData {
 	instance := getNSDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -481,8 +497,8 @@ func NewDataWithCoder(coder INSCoder) NSData {
 //
 // # Discussion
 //
-// This method is equivalent to [InitWithContentsOfFileOptionsError] with no
-// options.
+// This method is equivalent to
+// [NSPurgeableData.InitWithContentsOfFileOptionsError] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:)
 func NewDataWithContentsOfFile(path string) NSData {
@@ -628,8 +644,8 @@ var _nsdata_initwithbytesnocopy_length_deallocator_p2_key byte
 // outside the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(unsafe.Pointer, uint64)) NSData {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(kernel.Pointer, uint64)) NSData {
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, objc.ID(_block2))
 	objc.AssociateBlockWithReceiver(rv.ID, &_nsdata_initwithbytesnocopy_length_deallocator_p2_key, _block2)
 	return rv
@@ -678,8 +694,8 @@ func (d NSData) InitWithData(data INSData) NSData {
 //
 // # Discussion
 //
-// This method is equivalent to [InitWithContentsOfFileOptionsError] with no
-// options.
+// This method is equivalent to
+// [NSPurgeableData.InitWithContentsOfFileOptionsError] with no options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:)
 func (d NSData) InitWithContentsOfFile(path string) NSData {
@@ -718,8 +734,8 @@ func (d NSData) InitWithContentsOfFileOptionsError(path string, readOptionsMask 
 // Writes the data object’s bytes to the file specified by a given path.
 //
 // path: The location to which to write the receiver’s bytes. If `path` contains a
-// tilde (~) character, you must expand it with [StringByExpandingTildeInPath]
-// before invoking this method.
+// tilde (~) character, you must expand it with
+// [NSString.StringByExpandingTildeInPath] before invoking this method.
 //
 // useAuxiliaryFile: If true, the data is written to a backup file, and then—assuming no
 // errors occur—the backup file is renamed to the name specified by `path`;
@@ -795,8 +811,8 @@ func (d NSData) WriteToFileOptionsError(path string, writeOptionsMask NSDataWrit
 // # Discussion
 //
 // Since at present only `//` URLs are supported, there is no difference
-// between this method and [WriteToFileAtomically], except for the type of the
-// first argument.
+// between this method and [NSData.WriteToFileAtomically], except for the type
+// of the first argument.
 //
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
@@ -822,8 +838,8 @@ func (d NSData) WriteToURLAtomically(url INSURL, atomically bool) bool {
 // # Discussion
 //
 // Since at present only `//` URLs are supported, there is no difference
-// between this method and [WriteToFileOptionsError], except for the type of
-// the first argument.
+// between this method and [NSData.WriteToFileOptionsError], except for the
+// type of the first argument.
 //
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
@@ -847,6 +863,60 @@ func (d NSData) WriteToURLOptionsError(url INSURL, writeOptionsMask NSDataWritin
 	}
 	return rv, nil
 
+}
+
+// Initializes a data object with the given Base64 encoded data.
+//
+// base64Data: A Base64, UTF-8 encoded data object.
+//
+// options: A mask that specifies options for Base64 decoding the data. Possible values
+// are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object containing the Base64 decoded data. Returns `nil` if the data
+// object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedData:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
+func (d NSData) InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
+	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
+	return rv
+}
+
+// Initializes a data object with the given Base64 encoded string.
+//
+// base64String: A Base-64 encoded string.
+//
+// options: A mask that specifies options for Base-64 decoding the data. Possible
+// values are given in [NSData.Base64DecodingOptions].
+//
+// # Return Value
+//
+// A data object built by Base64 decoding the provided string. Returns `nil`
+// if the data object could not be decoded.
+//
+// # Discussion
+//
+// The default implementation of this method will reject non-alphabet
+// characters, including line break characters. To support different encodings
+// and ignore non-alphabet characters, specify an `options` value of
+// [NSDataBase64DecodingIgnoreUnknownCharacters].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
+//
+// [NSData.Base64DecodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
+func (d NSData) InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
+	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
+	return rv
 }
 
 // Creates a Base64, UTF-8 encoded data object from the string using the given
@@ -925,8 +995,8 @@ func (d NSData) Base64EncodedStringWithOptions(options NSDataBase64EncodingOptio
 // See: https://developer.apple.com/documentation/Foundation/NSData/enumerateBytes(_:)
 //
 // [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.Pointer, *bool)) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
+func (d NSData) EnumerateByteRangesUsingBlock(block func(kernel.Pointer, kernel.Pointer, *bool)) {
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 kernel.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
 	defer _block0.Release()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateByteRangesUsingBlock:"), objc.ID(_block0))
 }
@@ -942,7 +1012,7 @@ func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.
 // # Discussion
 //
 // The number of bytes copied is the smaller of the `length` parameter and the
-// [Length] of the data encapsulated in the object.
+// [NSData.Length] of the data encapsulated in the object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/getBytes(_:length:)
 func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
@@ -959,9 +1029,11 @@ func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
 // # Discussion
 //
 // If `range` isn’t within the receiver’s range of bytes, an
-// [RangeException] is raised.
+// [rangeException] is raised.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/getBytes(_:range:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (d NSData) GetBytesRange(buffer unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getBytes:range:"), buffer, range_)
 }
@@ -970,7 +1042,7 @@ func (d NSData) GetBytesRange(buffer unsafe.Pointer, range_ NSRange) {
 // within the limits specified by a given range.
 //
 // range: The range in the receiver from which to get the data. If this range is not
-// within the data object’s range of bytes, [RangeException] is raised.
+// within the data object’s range of bytes, [rangeException] is raised.
 //
 // # Return Value
 //
@@ -983,6 +1055,7 @@ func (d NSData) GetBytesRange(buffer unsafe.Pointer, range_ NSRange) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/subdata(with:)
 //
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [Working With Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingBinaryData.html#//apple_ref/doc/uid/20000717
 func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("subdataWithRange:"), range_)
@@ -998,7 +1071,7 @@ func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 // specified singly or by combining them with the C bitwise [OR] operator.
 //
 // searchRange: The range within the receiver in which to search for `dataToFind`. If this
-// range is not within the data object’s range of bytes, [RangeException] is
+// range is not within the data object’s range of bytes, [rangeException] is
 // raised.
 //
 // # Return Value
@@ -1011,6 +1084,7 @@ func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 // See: https://developer.apple.com/documentation/Foundation/NSData/range(of:options:in:)
 //
 // [NSData.SearchOptions]: https://developer.apple.com/documentation/Foundation/NSData/SearchOptions
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 func (d NSData) RangeOfDataOptionsRange(dataToFind INSData, mask NSDataSearchOptions, searchRange NSRange) NSRange {
 	rv := objc.Send[NSRange](d.ID, objc.Sel("rangeOfData:options:range:"), dataToFind, mask, searchRange)
@@ -1055,7 +1129,7 @@ func (d NSData) IsEqualToData(other INSData) bool {
 // images or AAC audio, additional compression may provide minimal or no
 // reduction in memory usage.
 //
-// To restore this data, use [DecompressedDataUsingAlgorithmError], and
+// To restore this data, use [NSData.DecompressedDataUsingAlgorithmError], and
 // specify the algorithm originally used to compress the data.
 //
 // The following example shows how to compress the data from a string and
@@ -1108,18 +1182,6 @@ func (d NSData) DecompressedDataUsingAlgorithmError(algorithm NSDataCompressionA
 
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
-func (d NSData) InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
-	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
-func (d NSData) InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
-	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
-	return rv
-}
-
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func (d NSData) InitWithContentsOfURL(url INSURL) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithContentsOfURL:"), url)
@@ -1147,7 +1209,7 @@ func (d NSData) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSData/init(coder:)
 func (d NSData) InitWithCoder(coder INSCoder) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -1229,10 +1291,10 @@ func (_NSDataClass NSDataClass) DataWithBytesNoCopyLengthFreeWhenDone(bytes unsa
 //
 // This method returns `nil` if the data object could not be created. If you
 // need to know the reason for failure, use
-// [DataWithContentsOfFileOptionsError].
+// [NSDataClass.DataWithContentsOfFileOptionsError].
 //
-// This method is equivalent to calling [DataWithContentsOfFileOptionsError]
-// and passing no options.
+// This method is equivalent to calling
+// [NSDataClass.DataWithContentsOfFileOptionsError] and passing no options.
 //
 // A sample using this method can be found in [Working With Binary Data].
 //
@@ -1305,7 +1367,8 @@ func (_NSDataClass NSDataClass) DataWithData(data INSData) NSData {
 //
 // # Discussion
 //
-// If the [Length] of the [NSData] object is 0, this property returns `nil`.
+// If the [NSData.Length] of the [NSData] object is 0, this property returns
+// `nil`.
 //
 // For an immutable data object, the returned pointer is valid until the data
 // object is deallocated. For a mutable data object, the returned pointer is
@@ -1334,52 +1397,6 @@ func (d NSData) Length() uint {
 func (d NSData) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
-}
-
-// The end of the range of error codes reserved for compression errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nscompressionerrormaximum-swift.var
-func (d NSData) NSCompressionErrorMaximum() int {
-	rv := objc.Send[int](d.ID, objc.Sel("NSCompressionErrorMaximum"))
-	return rv
-}
-func (d NSData) SetNSCompressionErrorMaximum(value int) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMaximum:"), value)
-}
-
-// The start of the range of error codes reserved for compression errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nscompressionerrorminimum-swift.var
-func (d NSData) NSCompressionErrorMinimum() int {
-	rv := objc.Send[int](d.ID, objc.Sel("NSCompressionErrorMinimum"))
-	return rv
-}
-func (d NSData) SetNSCompressionErrorMinimum(value int) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMinimum:"), value)
-}
-
-// An error code value that indicates a failure to compress data using the
-// provided algorithm.
-//
-// See: https://developer.apple.com/documentation/foundation/nscompressionfailederror-swift.var
-func (d NSData) NSCompressionFailedError() int {
-	rv := objc.Send[int](d.ID, objc.Sel("NSCompressionFailedError"))
-	return rv
-}
-func (d NSData) SetNSCompressionFailedError(value int) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionFailedError:"), value)
-}
-
-// An error code value that indicates a failure to decompress data using the
-// provided algorithm.
-//
-// See: https://developer.apple.com/documentation/foundation/nsdecompressionfailederror-swift.var
-func (d NSData) NSDecompressionFailedError() int {
-	rv := objc.Send[int](d.ID, objc.Sel("NSDecompressionFailedError"))
-	return rv
-}
-func (d NSData) SetNSDecompressionFailedError(value int) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSDecompressionFailedError:"), value)
 }
 
 // Protocol methods for NSCopying

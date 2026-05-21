@@ -115,7 +115,7 @@ type IAVAudioIONode interface {
 	// Topic: Getting the I/O Latency
 
 	// The presentation or hardware latency, applicable when rendering to or from an audio device.
-	PresentationLatency() float64
+	PresentationLatency() foundation.NSTimeInterval
 
 	// Topic: Getting and Setting the Voice Processing State
 
@@ -181,9 +181,9 @@ func (a AVAudioIONode) AudioUnit() IAVAudioUnit {
 // `AudioHardwareBase.H()` in `CoreAudio.Framework`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/presentationLatency
-func (a AVAudioIONode) PresentationLatency() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("presentationLatency"))
-	return rv
+func (a AVAudioIONode) PresentationLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("presentationLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // A Boolean value that indicates whether voice processing is in an enabled

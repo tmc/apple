@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,8 +59,8 @@ func (cc CATransactionClass) Alloc() CATransaction {
 // layer tree is modified by a thread without an active transaction and are
 // committed automatically when the thread’s runloop next iterates. Explicit
 // transactions occur when the the application sends the [CATransaction] class
-// a [CATransaction.Begin] message before modifying the layer tree, and a [CATransaction.Commit] message
-// afterwards.
+// a [CATransactionClass.Begin] message before modifying the layer tree, and a
+// [CATransactionClass.Commit] message afterwards.
 //
 // [CATransaction] allows you to override default animation properties that
 // are set for animatable properties. You can customize duration, timing
@@ -173,15 +174,15 @@ func (_CATransactionClass CATransactionClass) Flush() {
 // # Discussion
 //
 // You can retrieve the animation duration for a specific transaction by
-// calling the [ValueForKey] method of the transaction object and asking for
-// the [kCATransactionAnimationDuration] key.
+// calling the [CATransactionClass.ValueForKey] method of the transaction
+// object and asking for the [kCATransactionAnimationDuration] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/animationDuration()
 //
 // [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
-func (_CATransactionClass CATransactionClass) AnimationDuration() float64 {
-	rv := objc.Send[float64](objc.ID(_CATransactionClass.class), objc.Sel("animationDuration"))
-	return rv
+func (_CATransactionClass CATransactionClass) AnimationDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](objc.ID(_CATransactionClass.class), objc.Sel("animationDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // Sets the animation duration used by all animations within this transaction
@@ -192,13 +193,13 @@ func (_CATransactionClass CATransactionClass) AnimationDuration() float64 {
 // # Discussion
 //
 // You can also set the animation duration for a specific transaction object
-// by calling the [SetValueForKey] method of that object and specifying the
-// [kCATransactionAnimationDuration] key.
+// by calling the [CATransactionClass.SetValueForKey] method of that object
+// and specifying the [kCATransactionAnimationDuration] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationDuration(_:)
 //
 // [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
-func (_CATransactionClass CATransactionClass) SetAnimationDuration(dur float64) {
+func (_CATransactionClass CATransactionClass) SetAnimationDuration(dur corefoundation.CFTimeInterval) {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("setAnimationDuration:"), dur)
 }
 
@@ -212,7 +213,7 @@ func (_CATransactionClass CATransactionClass) SetAnimationDuration(dur float64) 
 // # Discussion
 //
 // This is a convenience method that returns the [CAMediaTimingFunction] for
-// the [ValueForKey] value returned by the
+// the [CATransactionClass.ValueForKey] value returned by the
 // [kCATransactionAnimationTimingFunction] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/animationTimingFunction()
@@ -231,7 +232,8 @@ func (_CATransactionClass CATransactionClass) AnimationTimingFunction() CAMediaT
 // # Discussion
 //
 // This is a convenience method that sets the [CAMediaTimingFunction] for the
-// [ValueForKey] value of the [kCATransactionAnimationTimingFunction] key.
+// [CATransactionClass.ValueForKey] value of the
+// [kCATransactionAnimationTimingFunction] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationTimingFunction(_:)
 //
@@ -250,7 +252,8 @@ func (_CATransactionClass CATransactionClass) SetAnimationTimingFunction(functio
 // # Discussion
 //
 // This is a convenience method that returns the `boolValue` for the
-// [ValueForKey] value returned by the [kCATransactionDisableActions] key.
+// [CATransactionClass.ValueForKey] value returned by the
+// [kCATransactionDisableActions] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/disableActions()
 //
@@ -267,8 +270,9 @@ func (_CATransactionClass CATransactionClass) DisableActions() bool {
 //
 // # Discussion
 //
-// This is a convenience method that invokes [SetValueForKey] with an
-// [NSNumber] containing a true for the [kCATransactionDisableActions] key.
+// This is a convenience method that invokes
+// [CATransactionClass.SetValueForKey] with an [NSNumber] containing a true
+// for the [kCATransactionDisableActions] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setDisableActions(_:)
 //
@@ -281,8 +285,8 @@ func (_CATransactionClass CATransactionClass) SetDisableActions(flag bool) {
 //
 // # Discussion
 //
-// See [SetCompletionBlock] for a description of the role of the completion
-// block object.
+// See [CATransactionClass.SetCompletionBlock] for a description of the role
+// of the completion block object.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/completionBlock()
 func (_CATransactionClass CATransactionClass) CompletionBlock() {

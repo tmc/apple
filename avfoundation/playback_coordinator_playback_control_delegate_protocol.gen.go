@@ -57,9 +57,10 @@ func AVPlaybackCoordinatorPlaybackControlDelegateObjectFromID(id objc.ID) AVPlay
 // coordinator: The playback coordinator that issues the command.
 //
 // playCommand: The command to execute. Before performing it, verify that its
-// [ExpectedCurrentItemIdentifier] property value matches the item that
-// you’re currently playing. If the command isn’t valid for the current
-// item, ignore it and call the completion handler.
+// [AVDelegatingPlaybackCoordinatorPlaybackControlCommand.ExpectedCurrentItemIdentifier]
+// property value matches the item that you’re currently playing. If the
+// command isn’t valid for the current item, ignore it and call the
+// completion handler.
 //
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
@@ -75,15 +76,17 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // coordinator: The playback coordinator that issues the command.
 //
 // pauseCommand: The command to execute. Before performing it, verify that its
-// [ExpectedCurrentItemIdentifier] property value matches the item that
-// you’re currently playing. If the command isn’t valid for the current
-// item, ignore it and call the completion handler.
+// [AVDelegatingPlaybackCoordinatorPlaybackControlCommand.ExpectedCurrentItemIdentifier]
+// property value matches the item that you’re currently playing. If the
+// command isn’t valid for the current item, ignore it and call the
+// completion handler.
 //
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
 //
-// If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
+// If the value of the command’s
+// [AVDelegatingPlaybackCoordinatorPauseCommand.ShouldBufferInAnticipationOfPlayback]
 // property is true, call the completion handler only after the player is
 // ready for playback.
 //
@@ -97,15 +100,17 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // coordinator: The playback coordinator that issues the command.
 //
 // seekCommand: The command to execute. Before performing it, verify that its
-// [ExpectedCurrentItemIdentifier] property value matches the item that
-// you’re currently playing. If the command isn’t valid for the current
-// item, ignore it and call the completion handler.
+// [AVDelegatingPlaybackCoordinatorPlaybackControlCommand.ExpectedCurrentItemIdentifier]
+// property value matches the item that you’re currently playing. If the
+// command isn’t valid for the current item, ignore it and call the
+// completion handler.
 //
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
 //
-// If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
+// If the value of the command’s
+// [AVDelegatingPlaybackCoordinatorPauseCommand.ShouldBufferInAnticipationOfPlayback]
 // property is true, call the completion handler only after the player is
 // ready for playback.
 //
@@ -125,15 +130,17 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // coordinator: The playback coordinator that issues the command.
 //
 // bufferingCommand: The command to execute. Before performing it, verify that its
-// [ExpectedCurrentItemIdentifier] property value matches the item that
-// you’re currently playing. If the command isn’t valid for the current
-// item, ignore it and call the completion handler.
+// [AVDelegatingPlaybackCoordinatorPlaybackControlCommand.ExpectedCurrentItemIdentifier]
+// property value matches the item that you’re currently playing. If the
+// command isn’t valid for the current item, ignore it and call the
+// completion handler.
 //
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
 //
-// If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
+// If the value of the command’s
+// [AVDelegatingPlaybackCoordinatorPauseCommand.ShouldBufferInAnticipationOfPlayback]
 // property is true, call the completion handler only after the player is
 // ready for playback.
 //

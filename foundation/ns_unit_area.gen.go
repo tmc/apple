@@ -54,9 +54,10 @@ func (uc UnitAreaClass) Alloc() UnitArea {
 // derived units in terms of square meters (m2). Area is also commonly
 // measured in square feet (ft2) and acres (ac).
 //
-// The [NSUnitArea] class defines its [BaseUnit] as [SquareMeters], and
-// provides the following units, which are initialized using
-// [NSUnitConverterLinear] converters with the specified coefficients:
+// The [NSUnitArea] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitAreaClass.SquareMeters], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

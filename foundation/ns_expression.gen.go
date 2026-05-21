@@ -4,8 +4,8 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -229,7 +229,7 @@ type INSExpression interface {
 	// Topic: Accessing the Expression Block
 
 	// The block that executes to evaluate the expression.
-	ExpressionBlock() NSExpressionArrayHandler
+	ExpressionBlock() IObjectIObjectHandler
 }
 
 // Init initializes the instance.
@@ -360,8 +360,8 @@ func NewExpressionForFunctionArguments(name string, parameters INSArray) NSExpre
 //
 // # Discussion
 //
-// See the description of [ExpressionForFunctionArguments] for examples of how
-// to construct the parameter array.
+// See the description of [NSExpressionClass.ExpressionForFunctionArguments]
+// for examples of how to construct the parameter array.
 //
 // # Special Considerations
 //
@@ -593,7 +593,7 @@ func NewExpressionWithFormatArgumentArray(expressionFormat string, arguments INS
 // An initialized [NSExpression] object with the specified arguments.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/init(format:arguments:)
-func NewExpressionWithFormatArguments(expressionFormat string, argList unsafe.Pointer) NSExpression {
+func NewExpressionWithFormatArguments(expressionFormat string, argList kernel.VaList) NSExpression {
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionWithFormat:arguments:"), objc.String(expressionFormat), argList)
 	return NSExpressionFromID(rv)
 }
@@ -731,15 +731,16 @@ func (_NSExpressionClass NSExpressionClass) ExpressionForAnyKey() NSExpression {
 // parameters may simply be replaced by `nil` (which occurs depends on how
 // many parameters are provided, and whether you have over- or underflow).
 //
-// See [ExpressionForFunctionArguments] for a complete list of arguments.
+// See [NSExpressionClass.ExpressionForFunctionArguments] for a complete list
+// of arguments.
 //
 // # Return Value
 //
 // An expression that filters a collection using the specified Block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/init(block:arguments:)
-func (_NSExpressionClass NSExpressionClass) ExpressionForBlockArguments(block NSExpressionArrayHandler, arguments []NSExpression) NSExpression {
-	_block0, _ := NewNSExpressionArrayBlock(block)
+func (_NSExpressionClass NSExpressionClass) ExpressionForBlockArguments(block IObjectIObjectHandler, arguments []NSExpression) NSExpression {
+	_block0, _ := NewIObjectIObjectBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForBlock:arguments:"), _block0, arguments)
 	return NSExpressionFromID(rv)
 }
@@ -947,7 +948,7 @@ func (e NSExpression) TrueExpression() INSExpression {
 // The block that executes to evaluate the expression.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/expressionBlock
-func (e NSExpression) ExpressionBlock() NSExpressionArrayHandler {
+func (e NSExpression) ExpressionBlock() IObjectIObjectHandler {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("expressionBlock"))
 	_ = rv
 	return nil

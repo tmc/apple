@@ -48,9 +48,10 @@ func (cc CKSyncEngineSendChangesContextClass) Alloc() CKSyncEngineSendChangesCon
 //
 // A sync engine has two ways to send changes to iCloud — periodically, in
 // cooperation with the system scheduler, and manually, whenever your app
-// invokes the [SendChangesWithCompletionHandler] method. This object provides
-// information about a single attempt to send changes that includes both the
-// reason for the attempt and any additional options in use by the attempt.
+// invokes the [CKSyncEngine.SendChangesWithCompletionHandler] method. This
+// object provides information about a single attempt to send changes that
+// includes both the reason for the attempt and any additional options in use
+// by the attempt.
 //
 // # Accessing specific attributes
 //

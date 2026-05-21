@@ -52,14 +52,14 @@ func (cc CKUserIdentityClass) Alloc() CKUserIdentity {
 // retrieves this information from the user’s iCloud account. A user must
 // give their consent to be discoverable before CloudKit can provide this data
 // to your app. For more information, see
-// [RequestApplicationPermissionCompletionHandler].
+// [CKContainer.RequestApplicationPermissionCompletionHandler].
 //
 // You don’t create instances of this class. Instead, CloudKit provides them
 // in certain contexts. A share’s owner has a user identity, as does each of
 // its participants. When creating participants, CloudKit tries to find iCloud
 // accounts it can use to populate their identities. If CloudKit doesn’t
-// find an account, it sets the identity’s [CKUserIdentity.HasiCloudAccount] property to
-// false.
+// find an account, it sets the identity’s [CKUserIdentity.HasiCloudAccount]
+// property to false.
 //
 // You can also discover the identities of your app’s users by executing one
 // of the user discovery operations: [CKDiscoverAllUserIdentitiesOperation]
@@ -67,7 +67,8 @@ func (cc CKUserIdentityClass) Alloc() CKUserIdentity {
 // using [CKDiscoverAllUserIdentitiesOperation] correspond to entries in the
 // device’s Contacts database. These identities contain the identifiers of
 // their Contact records, which you can use to fetch those records from the
-// Contacts database. For more information, see [CKUserIdentity.ContactIdentifiers].
+// Contacts database. For more information, see
+// [CKUserIdentity.ContactIdentifiers].
 //
 // # Accessing iCloud Information
 //
@@ -79,6 +80,10 @@ func (cc CKUserIdentityClass) Alloc() CKUserIdentity {
 //   - [CKUserIdentity.UserRecordID]: The user record ID for the corresponding user record.
 //   - [CKUserIdentity.ContactIdentifiers]: Identifiers that match contacts in the local Contacts database.
 //   - [CKUserIdentity.NameComponents]: The user’s name.
+//
+// # Initializers
+//
+//   - [CKUserIdentity.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKUserIdentity
 type CKUserIdentity struct {
@@ -108,6 +113,10 @@ func CKUserIdentityFromID(id objc.ID) CKUserIdentity {
 //   - [ICKUserIdentity.ContactIdentifiers]: Identifiers that match contacts in the local Contacts database.
 //   - [ICKUserIdentity.NameComponents]: The user’s name.
 //
+// # Initializers
+//
+//   - [ICKUserIdentity.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CloudKit/CKUserIdentity
 type ICKUserIdentity interface {
 	objectivec.IObject
@@ -127,6 +136,10 @@ type ICKUserIdentity interface {
 	ContactIdentifiers() []string
 	// The user’s name.
 	NameComponents() foundation.NSPersonNameComponents
+
+	// Topic: Initializers
+
+	InitWithCoder(coder foundation.INSCoder) CKUserIdentity
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -150,6 +163,18 @@ func NewCKUserIdentity() CKUserIdentity {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CloudKit/CKUserIdentity/init(coder:)
+func NewCKUserIdentityWithCoder(coder foundation.INSCoder) CKUserIdentity {
+	instance := getCKUserIdentityClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CKUserIdentityFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CloudKit/CKUserIdentity/init(coder:)
+func (c CKUserIdentity) InitWithCoder(coder foundation.INSCoder) CKUserIdentity {
+	rv := objc.Send[CKUserIdentity](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (c CKUserIdentity) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }

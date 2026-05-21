@@ -74,7 +74,7 @@ func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPas
 // A [WriteSelectionToPasteboardTypes] message is sent to the first responder
 // when the user chooses a command from the Services menu, but only if the
 // receiver didn’t return `nil` to a previous
-// [ValidRequestorForSendTypeReturnType] message.
+// [NSResponder.ValidRequestorForSendTypeReturnType] message.
 //
 // After your method writes the data to the pasteboard, a remote message is
 // sent to the application that provides the service the user requested. If

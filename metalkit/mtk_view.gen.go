@@ -4,7 +4,6 @@ package metalkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
@@ -62,8 +61,8 @@ func (mc MTKViewClass) Alloc() MTKView {
 // [CAMetalLayer] to manage the Metal drawable objects.
 //
 // The view requires a [MTLDevice] object to manage the Metal objects it
-// creates for you. You must set the [MTKView.Device] property and, optionally, modify
-// the view’s drawable properties before drawing.
+// creates for you. You must set the [MTKView.Device] property and,
+// optionally, modify the view’s drawable properties before drawing.
 //
 // # Configuring the Drawing Behavior
 //
@@ -71,15 +70,16 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 // - Timed updates: The view redraws its contents based on an internal timer.
 // In this case, which is the default behavior, both [MTKView.Paused] and
-// [MTKView.EnableSetNeedsDisplay] are set to false. Use this mode for games and other
-// animated content that’s regularly updated. - Draw notifications: The view
-// redraws itself when something invalidates its contents, usually because of
-// a call to [setNeedsDisplay()] or some other view-related behavior. In this
-// case, set [MTKView.Paused] and [MTKView.EnableSetNeedsDisplay] to true. Use this mode for
-// apps with a more traditional workflow, where updates happen when data
-// changes, but not on a regular timed interval. - Explicit drawing: The view
-// redraws its contents only when you explicitly call the [MTKView.Draw] method. In
-// this case, set [MTKView.Paused] to true and [MTKView.EnableSetNeedsDisplay] to false. Use
+// [MTKView.EnableSetNeedsDisplay] are set to false. Use this mode for games
+// and other animated content that’s regularly updated. - Draw
+// notifications: The view redraws itself when something invalidates its
+// contents, usually because of a call to [setNeedsDisplay()] or some other
+// view-related behavior. In this case, set [MTKView.Paused] and
+// [MTKView.EnableSetNeedsDisplay] to true. Use this mode for apps with a more
+// traditional workflow, where updates happen when data changes, but not on a
+// regular timed interval. - Explicit drawing: The view redraws its contents
+// only when you explicitly call the [MTKView.Draw] method. In this case, set
+// [MTKView.Paused] to true and [MTKView.EnableSetNeedsDisplay] to false. Use
 // this mode to create your own custom workflow.
 //
 // # Drawing the View’s Contents
@@ -97,16 +97,16 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 // Each [MTKView] is backed by a [CAMetalLayer]. In your renderer, implement
 // the [MTKViewDelegate] protocol to interact with a MetalKit view. Call the
-// MetalKit view’s [MTKView.CurrentRenderPassDescriptor] property to obtain a render
-// pass descriptor configured for the current frame:
+// MetalKit view’s [MTKView.CurrentRenderPassDescriptor] property to obtain
+// a render pass descriptor configured for the current frame:
 //
 // When you read this property, Core Animation implicitly obtains a drawable
-// for the current frame and stores it in the [MTKView.CurrentDrawable] property. It
-// then configures a render pass descriptor to draw into that drawable,
-// including any depth, stencil, and antialiasing textures as necessary. The
-// view configures this render pass using the default store and load actions.
-// You can adjust the descriptor further before using it to create a
-// [MTLRenderCommandEncoder].
+// for the current frame and stores it in the [MTKView.CurrentDrawable]
+// property. It then configures a render pass descriptor to draw into that
+// drawable, including any depth, stencil, and antialiasing textures as
+// necessary. The view configures this render pass using the default store and
+// load actions. You can adjust the descriptor further before using it to
+// create a [MTLRenderCommandEncoder].
 //
 // Obtain drawables as late as possible; preferably, immediately before
 // encoding your onscreen render pass.
@@ -334,7 +334,7 @@ type IMTKView interface {
 	// Topic: Configuring the Color Render Target
 
 	// The color pixel format for the current drawable’s texture.
-	ColorPixelFormat() unsafe.Pointer
+	ColorPixelFormat() metal.MTLPixelFormat
 	SetColorPixelFormat(value metal.MTLPixelFormat)
 	// The color space of the rendered content.
 	Colorspace() coregraphics.CGColorSpaceRef
@@ -357,10 +357,10 @@ type IMTKView interface {
 	// Topic: Configuring the Render Target Properties
 
 	// The format used to generate the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) object.
-	DepthStencilPixelFormat() unsafe.Pointer
+	DepthStencilPixelFormat() metal.MTLPixelFormat
 	SetDepthStencilPixelFormat(value metal.MTLPixelFormat)
 	// The texture usage characteristics that the view uses when creating the depth and stencil textures.
-	DepthStencilAttachmentTextureUsage() unsafe.Pointer
+	DepthStencilAttachmentTextureUsage() metal.MTLTextureUsage
 	SetDepthStencilAttachmentTextureUsage(value metal.MTLTextureUsage)
 	// The depth value to use to clear the depth target when creating a render pass descriptor.
 	ClearDepth() float64
@@ -375,7 +375,7 @@ type IMTKView interface {
 	SampleCount() uint
 	SetSampleCount(value uint)
 	// The texture usage characteristics that the view uses when creating multisample textures.
-	MultisampleColorAttachmentTextureUsage() unsafe.Pointer
+	MultisampleColorAttachmentTextureUsage() metal.MTLTextureUsage
 	SetMultisampleColorAttachmentTextureUsage(value metal.MTLTextureUsage)
 
 	// Topic: Retrieving Render Target Information
@@ -387,7 +387,7 @@ type IMTKView interface {
 	// A packed depth and stencil texture associated with the current drawable object’s texture.
 	DepthStencilTexture() metal.MTLTexture
 	// The storage mode that the packed depth and stencil texture use.
-	DepthStencilStorageMode() unsafe.Pointer
+	DepthStencilStorageMode() metal.MTLStorageMode
 	SetDepthStencilStorageMode(value metal.MTLStorageMode)
 	// The multisample color sample texture to render into.
 	MultisampleColorTexture() metal.MTLTexture
@@ -494,8 +494,8 @@ func (v MTKView) InitWithFrameDevice(frameRect corefoundation.CGRect, device met
 //
 // This method manually tells the view to redraw its contents. Calling this
 // method causes the view to call either the [DrawInMTKView] method of the
-// view’s [Delegate], or the [draw(_:)] method of the [MTKView] subclass.
-// Never call this method inside either drawing function.
+// view’s [MTKView.Delegate], or the [draw(_:)] method of the [MTKView]
+// subclass. Never call this method inside either drawing function.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/draw()
 //
@@ -504,7 +504,8 @@ func (v MTKView) Draw() {
 	objc.Send[objc.ID](v.ID, objc.Sel("draw"))
 }
 
-// Releases the [DepthStencilTexture] and [MultisampleColorTexture] objects.
+// Releases the [MTKView.DepthStencilTexture] and
+// [MTKView.MultisampleColorTexture] objects.
 //
 // # Discussion
 //
@@ -561,9 +562,9 @@ func (v MTKView) SetDevice(value metal.MTLDevice) {
 // GPU, this method returns the [MTLDevice] that was last used to composite
 // and present the view’s contents. This device object usually corresponds
 // to the GPU associated with the screen that’s displaying the view. If you
-// set the view’s [Device] property to this device object, you reduce the
-// number of cross-GPU texture copies that Core Animation must make to present
-// the view’s contents onscreen.
+// set the view’s [MTKView.Device] property to this device object, you
+// reduce the number of cross-GPU texture copies that Core Animation must make
+// to present the view’s contents onscreen.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/preferredDevice
 //
@@ -588,9 +589,9 @@ func (v MTKView) PreferredDevice() metal.MTLDevice {
 // [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
 // [MTLPixelFormat.bgra8Unorm]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/bgra8Unorm
 // [pixelFormat]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/pixelFormat
-func (v MTKView) ColorPixelFormat() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("colorPixelFormat"))
-	return rv
+func (v MTKView) ColorPixelFormat() metal.MTLPixelFormat {
+	rv := objc.Send[metal.MTLPixelFormat](v.ID, objc.Sel("colorPixelFormat"))
+	return metal.MTLPixelFormat(rv)
 }
 func (v MTKView) SetColorPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setColorPixelFormat:"), value)
@@ -643,10 +644,10 @@ func (v MTKView) SetFramebufferOnly(value bool) {
 // # Discussion
 //
 // Changing this value adjusts the size of any color, depth, stencil, and
-// multisampling textures created by the view. If [AutoResizeDrawable] is
-// true, this property is updated automatically whenever the view’s size
-// changes. If [AutoResizeDrawable] is false, set this value to change the
-// size of the texture objects.
+// multisampling textures created by the view. If [MTKView.AutoResizeDrawable]
+// is true, this property is updated automatically whenever the view’s size
+// changes. If [MTKView.AutoResizeDrawable] is false, set this value to change
+// the size of the texture objects.
 //
 // The default value is derived from the current view’s size, in native
 // pixels.
@@ -675,8 +676,8 @@ func (v MTKView) PreferredDrawableSize() corefoundation.CGSize {
 //
 // If the value is true, the view automatically resizes its underlying color,
 // depth, stencil, and multisample textures when the view is resized. If the
-// value is false, you must explicitly set [DrawableSize] to change the size
-// of these objects.
+// value is false, you must explicitly set [MTKView.DrawableSize] to change
+// the size of these objects.
 //
 // The default value is true.
 //
@@ -709,7 +710,7 @@ func (v MTKView) SetClearColor(value metal.MTLClearColor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClearColor:"), value)
 }
 
-// The format used to generate the [DepthStencilTexture] object.
+// The format used to generate the [MTKView.DepthStencilTexture] object.
 //
 // # Discussion
 //
@@ -721,9 +722,9 @@ func (v MTKView) SetClearColor(value metal.MTLClearColor) {
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilPixelFormat
 //
 // [MTLPixelFormat.invalid]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/invalid
-func (v MTKView) DepthStencilPixelFormat() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("depthStencilPixelFormat"))
-	return rv
+func (v MTKView) DepthStencilPixelFormat() metal.MTLPixelFormat {
+	rv := objc.Send[metal.MTLPixelFormat](v.ID, objc.Sel("depthStencilPixelFormat"))
+	return metal.MTLPixelFormat(rv)
 }
 func (v MTKView) SetDepthStencilPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilPixelFormat:"), value)
@@ -739,9 +740,9 @@ func (v MTKView) SetDepthStencilPixelFormat(value metal.MTLPixelFormat) {
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilAttachmentTextureUsage
 //
 // [renderTarget]: https://developer.apple.com/documentation/Metal/MTLTextureUsage/renderTarget
-func (v MTKView) DepthStencilAttachmentTextureUsage() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("depthStencilAttachmentTextureUsage"))
-	return rv
+func (v MTKView) DepthStencilAttachmentTextureUsage() metal.MTLTextureUsage {
+	rv := objc.Send[metal.MTLTextureUsage](v.ID, objc.Sel("depthStencilAttachmentTextureUsage"))
+	return metal.MTLTextureUsage(rv)
 }
 func (v MTKView) SetDepthStencilAttachmentTextureUsage(value metal.MTLTextureUsage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilAttachmentTextureUsage:"), value)
@@ -789,7 +790,8 @@ func (v MTKView) SetClearStencil(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClearStencil:"), value)
 }
 
-// The sample count used to generate the [MultisampleColorTexture] object.
+// The sample count used to generate the [MTKView.MultisampleColorTexture]
+// object.
 //
 // # Discussion
 //
@@ -800,9 +802,9 @@ func (v MTKView) SetClearStencil(value uint32) {
 // The default value is `1`. When you set a value greater than `1`, the view
 // creates and configures an intermediate set of multisample textures. The
 // pixel format is the same as the one specified for the drawable; see
-// [ColorPixelFormat]. When the view creates a render pass descriptor, the
-// render pass uses those intermediate textures as the color render targets,
-// with a store action to resolve these multisample textures into the
+// [MTKView.ColorPixelFormat]. When the view creates a render pass descriptor,
+// the render pass uses those intermediate textures as the color render
+// targets, with a store action to resolve these multisample textures into the
 // drawable’s texture ([MTLStoreAction.multisampleResolve]).
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/sampleCount
@@ -827,9 +829,9 @@ func (v MTKView) SetSampleCount(value uint) {
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorAttachmentTextureUsage
 //
 // [renderTarget]: https://developer.apple.com/documentation/Metal/MTLTextureUsage/renderTarget
-func (v MTKView) MultisampleColorAttachmentTextureUsage() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("multisampleColorAttachmentTextureUsage"))
-	return rv
+func (v MTKView) MultisampleColorAttachmentTextureUsage() metal.MTLTextureUsage {
+	rv := objc.Send[metal.MTLTextureUsage](v.ID, objc.Sel("multisampleColorAttachmentTextureUsage"))
+	return metal.MTLTextureUsage(rv)
 }
 func (v MTKView) SetMultisampleColorAttachmentTextureUsage(value metal.MTLTextureUsage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMultisampleColorAttachmentTextureUsage:"), value)
@@ -843,9 +845,10 @@ func (v MTKView) SetMultisampleColorAttachmentTextureUsage(value metal.MTLTextur
 // render into the current drawable’s texture. [MTKView] doesn’t use this
 // descriptor, and there’s no requirement for your application to use it.
 //
-// This property is `nil` if the view’s [Device] property isn’t set or if
-// [CurrentDrawable] is `nil`. Your app should check that
-// [CurrentRenderPassDescriptor] isn’t `nil` before attempting to use it.
+// This property is `nil` if the view’s [MTKView.Device] property isn’t
+// set or if [MTKView.CurrentDrawable] is `nil`. Your app should check that
+// [MTKView.CurrentRenderPassDescriptor] isn’t `nil` before attempting to
+// use it.
 //
 // The view configures the render pass as follows:
 //
@@ -878,7 +881,7 @@ func (v MTKView) CurrentRenderPassDescriptor() metal.MTLRenderPassDescriptor {
 // # Discussion
 //
 // If all drawable objects are in use, the value of this property is `nil`.
-// Your app should check that [CurrentDrawable] isn’t `nil` before
+// Your app should check that [MTKView.CurrentDrawable] isn’t `nil` before
 // attempting to draw. The view changes the value of this property only after
 // returning from a drawing function, either [draw(_:)] from a subclassed
 // instance of the view, or [DrawInMTKView] from the view’s delegate.
@@ -905,8 +908,8 @@ func (v MTKView) CurrentDrawable() quartzcore.CAMetalDrawable {
 //
 // # Discussion
 //
-// The value of [DepthStencilPixelFormat] determines the format of this
-// texture.
+// The value of [MTKView.DepthStencilPixelFormat] determines the format of
+// this texture.
 //
 // The default value is `nil`. This value is also `nil` if the specified pixel
 // format is [MTLPixelFormat.invalid].
@@ -928,9 +931,9 @@ func (v MTKView) DepthStencilTexture() metal.MTLTexture {
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilStorageMode
 //
 // [MTLStorageMode.private]: https://developer.apple.com/documentation/Metal/MTLStorageMode/private
-func (v MTKView) DepthStencilStorageMode() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("depthStencilStorageMode"))
-	return rv
+func (v MTKView) DepthStencilStorageMode() metal.MTLStorageMode {
+	rv := objc.Send[metal.MTLStorageMode](v.ID, objc.Sel("depthStencilStorageMode"))
+	return metal.MTLStorageMode(rv)
 }
 func (v MTKView) SetDepthStencilStorageMode(value metal.MTLStorageMode) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilStorageMode:"), value)
@@ -941,11 +944,11 @@ func (v MTKView) SetDepthStencilStorageMode(value metal.MTLStorageMode) {
 // # Discussion
 //
 // The format of this texture is determined by the value of the
-// [ColorPixelFormat] and [SampleCount] properties.
+// [MTKView.ColorPixelFormat] and [MTKView.SampleCount] properties.
 //
 // The default value is `nil`. This value is also `nil` if the specified pixel
-// format is [MTLPixelFormat.invalid], or if [SampleCount] is less than or
-// equal to 1.
+// format is [MTLPixelFormat.invalid], or if [MTKView.SampleCount] is less
+// than or equal to 1.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture
 //
@@ -986,7 +989,7 @@ func (v MTKView) SetPreferredFramesPerSecond(value int) {
 // # Discussion
 //
 // If the value is false, the view periodically redraws the contents, at a
-// frame rate set by the value of [PreferredFramesPerSecond].
+// frame rate set by the value of [MTKView.PreferredFramesPerSecond].
 //
 // The default value is false.
 //
@@ -1004,7 +1007,7 @@ func (v MTKView) SetPaused(value bool) {
 //
 // # Discussion
 //
-// If this value and the value of [Paused] are true, the view behaves
+// If this value and the value of [MTKView.Paused] are true, the view behaves
 // similarly to a [UIView] object, responding to calls to [setNeedsDisplay()].
 // In this case, the view’s internal draw loop is paused and updates are
 // event-driven instead.

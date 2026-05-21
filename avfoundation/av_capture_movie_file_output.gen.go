@@ -197,9 +197,10 @@ func NewAVCaptureMovieFileOutput() AVCaptureMovieFileOutput {
 // If the returned value is an empty dictionary, the format of the media from
 // the connection isn’t changed before writing to the file.
 //
-// If you call [SetOutputSettingsForConnection] with a `nil` dictionary, this
-// method returns a non-`nil` dictionary that reflects the settings used by
-// the capture session’s [SessionPreset] value.
+// If you call [AVCaptureMovieFileOutput.SetOutputSettingsForConnection] with
+// a `nil` dictionary, this method returns a non-`nil` dictionary that
+// reflects the settings used by the capture session’s
+// [AVCaptureSession.SessionPreset] value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/outputSettings(for:)
 func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCaptureConnection) foundation.INSDictionary {
@@ -223,21 +224,23 @@ func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCapt
 // and [Audio settings] for audio connections.
 //
 // On iOS, your output settings dictionary may only contain keys listed
-// returned from the [SupportedOutputSettingsKeysForConnection] method. If you
-// specify any other key, the system throws an invalid argument exception.
-// Additionally, the value you specify for [AVVideoCodecKey] should be present
-// in the [AvailableVideoCodecTypes] array. If you specify
-// [AVVideoCompressionPropertiesKey], you must also specify a valid value for
-// [AVVideoCodecKey].
+// returned from the
+// [AVCaptureMovieFileOutput.SupportedOutputSettingsKeysForConnection] method.
+// If you specify any other key, the system throws an invalid argument
+// exception. Additionally, the value you specify for [AVVideoCodecKey] should
+// be present in the [AVCaptureMovieFileOutput.AvailableVideoCodecTypes]
+// array. If you specify [AVVideoCompressionPropertiesKey], you must also
+// specify a valid value for [AVVideoCodecKey].
 //
-// On iOS, the [OutputSettingsForConnection] method always provides a fully
-// populated dictionary. If you call [OutputSettingsForConnection] with the
-// intent of overriding a few of the values, you must exclude keys that
-// aren’t supported before calling [SetOutputSettingsForConnection]. When
-// providing an [AVVideoCompressionPropertiesKey] sub dictionary, you may
-// specify a sparse dictionary. A movie file output object always fills in
-// missing keys with default values for the current capture session
-// configuration.
+// On iOS, the [AVCaptureMovieFileOutput.OutputSettingsForConnection] method
+// always provides a fully populated dictionary. If you call
+// [AVCaptureMovieFileOutput.OutputSettingsForConnection] with the intent of
+// overriding a few of the values, you must exclude keys that aren’t
+// supported before calling
+// [AVCaptureMovieFileOutput.SetOutputSettingsForConnection]. When providing
+// an [AVVideoCompressionPropertiesKey] sub dictionary, you may specify a
+// sparse dictionary. A movie file output object always fills in missing keys
+// with default values for the current capture session configuration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/setOutputSettings(_:for:)
 //
@@ -267,7 +270,8 @@ func (c AVCaptureMovieFileOutput) SetOutputSettingsForConnection(outputSettings 
 // Use this method to control the camera switching behavior the system uses
 // when recording a movie. The behavior you specify takes effect when you
 // enable it by setting the value of
-// [PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled] to true.
+// [AVCaptureMovieFileOutput.PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]
+// to true.
 //
 // When a capture device doesn’t support constituent device selection,
 // attempting to set a behavior other than
@@ -347,7 +351,8 @@ func (c AVCaptureMovieFileOutput) IsSpatialVideoCaptureSupported() bool {
 //
 // Spatial capture lets you record your favorite moments in 3D for playback on
 // Apple Vision Pro. This feature isn’t supported on all devices, so you can
-// only enable this property when [SpatialVideoCaptureSupported] is true.
+// only enable this property when
+// [AVCaptureMovieFileOutput.SpatialVideoCaptureSupported] is true.
 //
 // The default value is false.
 //
@@ -367,10 +372,11 @@ func (c AVCaptureMovieFileOutput) SetSpatialVideoCaptureEnabled(value bool) {
 //
 // Use this property to enable camera switching restrictions when recording
 // movies. You set restrictions by calling the output’s
-// [SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]
+// [AVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]
 // method. The restrictions take effect when you start recording, and revert
 // to the behavior set by the capture device’s
-// [PrimaryConstituentDeviceSwitchingBehavior] when you stop recording.
+// [AVCaptureDevice.PrimaryConstituentDeviceSwitchingBehavior] when you stop
+// recording.
 //
 // By default, this property is true when connected to a capture device that
 // supports constituent device switching.

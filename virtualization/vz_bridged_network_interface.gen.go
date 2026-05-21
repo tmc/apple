@@ -57,9 +57,9 @@ func (vc VZBridgedNetworkInterfaceClass) Alloc() VZBridgedNetworkInterface {
 //
 // You don’t create [VZBridgedNetworkInterface] objects directly. Instead,
 // the system creates one object for each physical interface of the host
-// computer and stores those objects in the [VZBridgedNetworkInterface.NetworkInterfaces] property.
-// Iterate over the objects in that property to retrieve the network
-// interfaces you need.
+// computer and stores those objects in the
+// [VZBridgedNetworkInterfaceClass.NetworkInterfaces] property. Iterate over
+// the objects in that property to retrieve the network interfaces you need.
 //
 // # Getting the interface description
 //

@@ -327,11 +327,12 @@ func (i MTLIndirectCommandBufferDescriptor) SetInheritPipelineState(value bool) 
 //
 // # Discussion
 //
-// Metal ignores this property if [InheritBuffers] is true or if you
-// configured [CommandTypes] for compute commands. Metal needs to reserve
-// enough memory in each command to store this many arguments. Use the
-// smallest value that works for all commands you plan to encode into the
-// indirect command buffer.
+// Metal ignores this property if
+// [MTLIndirectCommandBufferDescriptor.InheritBuffers] is true or if you
+// configured [MTLIndirectCommandBufferDescriptor.CommandTypes] for compute
+// commands. Metal needs to reserve enough memory in each command to store
+// this many arguments. Use the smallest value that works for all commands you
+// plan to encode into the indirect command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxVertexBufferBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxVertexBufferBindCount() uint {
@@ -347,11 +348,12 @@ func (i MTLIndirectCommandBufferDescriptor) SetMaxVertexBufferBindCount(value ui
 //
 // # Discussion
 //
-// Metal ignores this property if [InheritBuffers] is true or if you
-// configured [CommandTypes] for compute commands. Metal needs to reserve
-// enough memory in each command to store this many arguments. Use the
-// smallest value that works for all commands you plan to encode into the
-// indirect command buffer.
+// Metal ignores this property if
+// [MTLIndirectCommandBufferDescriptor.InheritBuffers] is true or if you
+// configured [MTLIndirectCommandBufferDescriptor.CommandTypes] for compute
+// commands. Metal needs to reserve enough memory in each command to store
+// this many arguments. Use the smallest value that works for all commands you
+// plan to encode into the indirect command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxFragmentBufferBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxFragmentBufferBindCount() uint {
@@ -367,11 +369,12 @@ func (i MTLIndirectCommandBufferDescriptor) SetMaxFragmentBufferBindCount(value 
 //
 // # Discussion
 //
-// Metal ignores this property if [InheritBuffers] is true or if you
-// configured [CommandTypes] for rendering commands. Metal needs to reserve
-// enough memory in each command to store this many arguments. Use the
-// smallest value that works for all commands you plan to encode into the
-// indirect command buffer.
+// Metal ignores this property if
+// [MTLIndirectCommandBufferDescriptor.InheritBuffers] is true or if you
+// configured [MTLIndirectCommandBufferDescriptor.CommandTypes] for rendering
+// commands. Metal needs to reserve enough memory in each command to store
+// this many arguments. Use the smallest value that works for all commands you
+// plan to encode into the indirect command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxKernelBufferBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxKernelBufferBindCount() uint {

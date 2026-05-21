@@ -67,8 +67,8 @@ func (uc UNNotificationActionClass) Alloc() UNNotificationAction {
 // object. Specifically, the system calls the
 // [UserNotificationCenterDidReceiveNotificationResponseWithCompletionHandler]
 // method of your delegate object. The response object passed to your delegate
-// includes the [UNNotificationAction.Identifier] string of the action the user selects, which you
-// can use to perform the corresponding task.
+// includes the [UNNotificationAction.Identifier] string of the action the
+// user selects, which you can use to perform the corresponding task.
 //
 // For information on how to handle actions, see [Handling notifications and
 // notification-related actions].

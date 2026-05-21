@@ -83,10 +83,6 @@ type IAVAudioSessionCapability interface {
 	IsEnabled() bool
 	// A Boolean value that indicates whether the capability is supported.
 	IsSupported() bool
-
-	// An optional port extension that describes capabilities relevant to Bluetooth microphone ports.
-	BluetoothMicrophoneExtension() objc.ID
-	SetBluetoothMicrophoneExtension(value objc.ID)
 }
 
 // Init initializes the instance.
@@ -122,16 +118,4 @@ func (a AVAudioSessionCapability) IsEnabled() bool {
 func (a AVAudioSessionCapability) IsSupported() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSupported"))
 	return rv
-}
-
-// An optional port extension that describes capabilities relevant to
-// Bluetooth microphone ports.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiosessionportdescription/bluetoothmicrophoneextension
-func (a AVAudioSessionCapability) BluetoothMicrophoneExtension() objc.ID {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("bluetoothMicrophoneExtension"))
-	return rv
-}
-func (a AVAudioSessionCapability) SetBluetoothMicrophoneExtension(value objc.ID) {
-	objc.Send[struct{}](a.ID, objc.Sel("setBluetoothMicrophoneExtension:"), value)
 }

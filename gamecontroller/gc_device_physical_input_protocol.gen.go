@@ -4,6 +4,7 @@ package gamecontroller
 
 import (
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -91,16 +92,16 @@ func (o GCDevicePhysicalInputObject) Capture() GCDevicePhysicalInputState {
 // The time of the most recent event.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventTimestamp
-func (o GCDevicePhysicalInputObject) LastEventTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastEventTimestamp"))
+func (o GCDevicePhysicalInputObject) LastEventTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastEventTimestamp"))
 	return rv
 }
 
 // The time in seconds between the last event and the current time.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventLatency
-func (o GCDevicePhysicalInputObject) LastEventLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastEventLatency"))
+func (o GCDevicePhysicalInputObject) LastEventLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastEventLatency"))
 	return rv
 }
 

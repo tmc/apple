@@ -129,8 +129,6 @@ type IMTLArgumentDescriptor interface {
 	// The texture type of a texture argument.
 	TextureType() MTLTextureType
 	SetTextureType(value MTLTextureType)
-
-	MTLAttributeStrideStatic() int
 }
 
 // Init initializes the instance.
@@ -240,10 +238,4 @@ func (a MTLArgumentDescriptor) TextureType() MTLTextureType {
 }
 func (a MTLArgumentDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTextureType:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtlattributestridestatic
-func (a MTLArgumentDescriptor) MTLAttributeStrideStatic() int {
-	rv := objc.Send[int](a.ID, objc.Sel("MTLAttributeStrideStatic"))
-	return rv
 }

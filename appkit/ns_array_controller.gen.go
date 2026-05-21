@@ -344,8 +344,8 @@ func NewArrayControllerWithContent(content objectivec.IObject) NSArrayController
 // # Return Value
 //
 // An array containing `objects` filtered using the receiver’s filter
-// predicate (see [FilterPredicate]) and sorted according to the receiver’s
-// [SortDescriptors].
+// predicate (see [NSArrayController.FilterPredicate]) and sorted according to
+// the receiver’s [NSArrayController.SortDescriptors].
 //
 // # Discussion
 //
@@ -363,7 +363,7 @@ func (a NSArrayController) ArrangeObjects(objects foundation.INSArray) foundatio
 //
 // # Discussion
 //
-// This method invokes [ArrangeObjects].
+// This method invokes [NSArrayController.ArrangeObjects].
 //
 // When you detect that filtering criteria change (such as when listening to
 // the text sent by an [NSSearchField] instance), invoke this method on
@@ -383,8 +383,8 @@ func (a NSArrayController) RearrangeObjects() {
 //
 // # Discussion
 //
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
+// Attempting to change the selection may cause a [NSController.CommitEditing]
+// message which fails, thus denying the selection change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/addSelectionIndexes(_:)
 func (a NSArrayController) AddSelectionIndexes(indexes foundation.NSIndexSet) bool {
@@ -401,8 +401,8 @@ func (a NSArrayController) AddSelectionIndexes(indexes foundation.NSIndexSet) bo
 //
 // # Discussion
 //
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
+// Attempting to change the selection may cause a [NSController.CommitEditing]
+// message which fails, thus denying the selection change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/removeSelectionIndexes(_:)
 func (a NSArrayController) RemoveSelectionIndexes(indexes foundation.NSIndexSet) bool {
@@ -419,8 +419,8 @@ func (a NSArrayController) RemoveSelectionIndexes(indexes foundation.NSIndexSet)
 //
 // # Discussion
 //
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
+// Attempting to change the selection may cause a [NSController.CommitEditing]
+// message which fails, thus denying the selection change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/addSelectedObjects(_:)
 func (a NSArrayController) AddSelectedObjects(objects foundation.INSArray) bool {
@@ -436,8 +436,8 @@ func (a NSArrayController) AddSelectedObjects(objects foundation.INSArray) bool 
 //
 // # Discussion
 //
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
+// Attempting to change the selection may cause a [NSController.CommitEditing]
+// message which fails, thus denying the selection change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/removeSelectedObjects(_:)
 func (a NSArrayController) RemoveSelectedObjects(objects foundation.INSArray) bool {
@@ -491,9 +491,10 @@ func (a NSArrayController) SelectPrevious(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// If an entity name is specified (see [EntityName]), this method creates an
-// instance of the of the class specified by the entity, otherwise this method
-// creates an instance of the class specified by [ObjectClass].
+// If an entity name is specified (see [NSObjectController.EntityName]), this
+// method creates an instance of the of the class specified by the entity,
+// otherwise this method creates an instance of the class specified by
+// [NSObjectController.ObjectClass].
 //
 // # Special Considerations
 //
@@ -512,14 +513,15 @@ func (a NSArrayController) Insert(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// If [SelectsInsertedObjects] is true (the default), the added objects are
-// selected in the array controller.
+// If [NSArrayController.SelectsInsertedObjects] is true (the default), the
+// added objects are selected in the array controller.
 //
 // It is important to note that inserting many objects with
-// [SelectsInsertedObjects] on can cause a significant performance penalty. In
-// this case it is more efficient to use the [Content] method to set the
-// array, or to set [SelectsInsertedObjects] to false before adding the
-// objects with [AddObjects].
+// [NSArrayController.SelectsInsertedObjects] on can cause a significant
+// performance penalty. In this case it is more efficient to use the
+// [NSObjectController.Content] method to set the array, or to set
+// [NSArrayController.SelectsInsertedObjects] to false before adding the
+// objects with [NSArrayController.AddObjects].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/add(contentsOf:)
 func (a NSArrayController) AddObjects(objects foundation.INSArray) {
@@ -534,9 +536,10 @@ func (a NSArrayController) AddObjects(objects foundation.INSArray) {
 //
 // Subclasses can override this method to provide customized arranged objects
 // support. An error is returned if the given index is outside of the
-// [ArrangedObjects] range, or if the given object would not appear in the
-// arrangedObjects. Set the [ClearsFilterPredicateOnInsertion] to true to
-// allow insertion.
+// [NSArrayController.ArrangedObjects] range, or if the given object would not
+// appear in the arrangedObjects. Set the
+// [NSArrayController.ClearsFilterPredicateOnInsertion] to true to allow
+// insertion.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/insert(_:atArrangedObjectIndex:)
 func (a NSArrayController) InsertObjectAtArrangedObjectIndex(object objectivec.IObject, index uint) {
@@ -557,8 +560,8 @@ func (a NSArrayController) InsertObjectsAtArrangedObjectIndexes(objects foundati
 //
 // # Discussion
 //
-// See [RemoveObject] for a discussion of the semantics of removing objects
-// when using Core Data.
+// See [NSArrayController.RemoveObject] for a discussion of the semantics of
+// removing objects when using Core Data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/remove(atArrangedObjectIndex:)
 func (a NSArrayController) RemoveObjectAtArrangedObjectIndex(index uint) {
@@ -570,8 +573,8 @@ func (a NSArrayController) RemoveObjectAtArrangedObjectIndex(index uint) {
 //
 // # Discussion
 //
-// See [RemoveObject] for a discussion of the semantics of removing objects
-// when using Core Data.
+// See [NSArrayController.RemoveObject] for a discussion of the semantics of
+// removing objects when using Core Data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/remove(atArrangedObjectIndexes:)
 func (a NSArrayController) RemoveObjectsAtArrangedObjectIndexes(indexes foundation.NSIndexSet) {
@@ -582,8 +585,8 @@ func (a NSArrayController) RemoveObjectsAtArrangedObjectIndexes(indexes foundati
 //
 // # Discussion
 //
-// See [RemoveObject] for a discussion of the semantics of removing objects
-// when using Core Data.
+// See [NSArrayController.RemoveObject] for a discussion of the semantics of
+// removing objects when using Core Data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/remove(contentsOf:)
 func (a NSArrayController) RemoveObjects(objects foundation.INSArray) {
@@ -601,8 +604,8 @@ func (a NSArrayController) RemoveObjects(objects foundation.INSArray) {
 // # Special Considerations
 //
 // If you implement a subclass of [NSArrayController] and override
-// [RearrangeObjects] to use additional arrangement criteria, you should
-// invoke this method if those criteria change.
+// [NSArrayController.RearrangeObjects] to use additional arrangement
+// criteria, you should invoke this method if those criteria change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/didChangeArrangementCriteria()
 func (a NSArrayController) DidChangeArrangementCriteria() {
@@ -628,7 +631,7 @@ func (a NSArrayController) SetSortDescriptors(value []foundation.NSSortDescripto
 }
 
 // An array containing the receiver’s content objects arranged using
-// [ArrangeObjects].
+// [NSArrayController.ArrangeObjects].
 //
 // # Discussion
 //
@@ -835,7 +838,7 @@ func (a NSArrayController) SetAutomaticallyRearrangesObjects(value bool) {
 // Subclasses can override this property to customize the default behavior of
 // the sort descriptors and filtering predicates, for example, if additional
 // arrangement criteria are used in a custom implementation of
-// [ArrangedObjects].
+// [NSArrayController.ArrangedObjects].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/automaticRearrangementKeyPaths
 func (a NSArrayController) AutomaticRearrangementKeyPaths() []string {

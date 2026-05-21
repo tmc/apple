@@ -67,8 +67,9 @@ func (nc NSBrowserClass) Alloc() NSBrowser {
 //
 // # Superclass overrides
 //
-// - [Opaque] returns true when the browser doesn’t have a title and its
-// background color’s alpha component is `1.0`; otherwise, it returns false.
+// - [NSView.Opaque] returns true when the browser doesn’t have a title and
+// its background color’s alpha component is `1.0`; otherwise, it returns
+// false.
 //
 // # Protocol implementations
 //
@@ -472,11 +473,11 @@ type INSBrowser interface {
 	// Selects the cell at the specified row and column index.
 	SelectRowInColumn(row int, column int)
 	// The index path of the item selected in the browser.
-	SelectionIndexPath() objc.ID
-	SetSelectionIndexPath(value objc.ID)
+	SelectionIndexPath() foundation.NSIndexPath
+	SetSelectionIndexPath(value foundation.NSIndexPath)
 	// An array containing the index paths of all items selected in the browser.
-	SelectionIndexPaths() []objc.ID
-	SetSelectionIndexPaths(value []objc.ID)
+	SelectionIndexPaths() []foundation.NSIndexPath
+	SetSelectionIndexPaths(value []foundation.NSIndexPath)
 
 	// Topic: Accessing Components
 
@@ -489,7 +490,7 @@ type INSBrowser interface {
 	// Returns the item located at the specified row and column.
 	ItemAtRowInColumn(row int, column int) objectivec.IObject
 	// Returns the index path of the item whose children are displayed in the given column.
-	IndexPathForColumn(column int) objc.ID
+	IndexPathForColumn(column int) foundation.NSIndexPath
 	// Returns whether the specified item is a leaf item.
 	IsLeafItem(item objectivec.IObject) bool
 	// Returns the item that contains the children located in the specified column.
@@ -575,7 +576,7 @@ type INSBrowser interface {
 	// Indicates whether the browser can attempt to initiate a drag of the given rows for the given event.
 	CanDragRowsWithIndexesInColumnWithEvent(rowIndexes foundation.NSIndexSet, column int, event INSEvent) bool
 	// Provides an image to represent dragged rows during a drag operation on the browser.
-	DraggingImageForRowsWithIndexesInColumnWithEventOffset(rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPoint) INSImage
+	DraggingImageForRowsWithIndexesInColumnWithEventOffset(rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage
 
 	// Topic: Getting Column Frames
 
@@ -594,8 +595,8 @@ type INSBrowser interface {
 	// Topic: Managing Actions
 
 	// The browser’s double-click action method.
-	DoubleAction() objc.SEL
-	SetDoubleAction(value objc.SEL)
+	DoubleAction() objectivec.SEL
+	SetDoubleAction(value objectivec.SEL)
 	// A Boolean that indicates whether pressing an arrow key causes an action message to be sent.
 	SendsActionOnArrowKeys() bool
 	SetSendsActionOnArrowKeys(value bool)
@@ -639,9 +640,6 @@ type INSBrowser interface {
 	// The height of the browser’s rows.
 	RowHeight() float64
 	SetRowHeight(value float64)
-
-	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
-	IsOpaque() bool
 }
 
 // Init initializes the instance.
@@ -855,9 +853,9 @@ func (b NSBrowser) ItemAtRowInColumn(row int, column int) objectivec.IObject {
 // source methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/indexPath(forColumn:)
-func (b NSBrowser) IndexPathForColumn(column int) objc.ID {
+func (b NSBrowser) IndexPathForColumn(column int) foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("indexPathForColumn:"), column)
-	return rv
+	return foundation.NSIndexPathFromID(rv)
 }
 
 // Returns whether the specified item is a leaf item.
@@ -871,9 +869,9 @@ func (b NSBrowser) IndexPathForColumn(column int) objc.ID {
 // # Discussion
 //
 // This method may return false if the item has never been displayed in the
-// browser or accessed via [ItemAtIndexPath]. Overriding this method has no
-// effect. It may be used only if the browser’s delegate implements the item
-// data source methods.
+// browser or accessed via [NSBrowser.ItemAtIndexPath]. Overriding this method
+// has no effect. It may be used only if the browser’s delegate implements
+// the item data source methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isLeafItem(_:)
 func (b NSBrowser) IsLeafItem(item objectivec.IObject) bool {
@@ -901,12 +899,12 @@ func (b NSBrowser) ParentForItemsInColumn(column int) objectivec.IObject {
 // # Return Value
 //
 // The path representing the current selection. The components of this path
-// are separated with the string returned by [PathSeparator].
+// are separated with the string returned by [NSBrowser.PathSeparator].
 //
 // # Discussion
 //
-// Invoking this method is equivalent to invoking [PathToColumn] for all
-// columns.
+// Invoking this method is equivalent to invoking [NSBrowser.PathToColumn] for
+// all columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/path()
 func (b NSBrowser) Path() string {
@@ -950,7 +948,7 @@ func (b NSBrowser) SetPath(path string) bool {
 //
 // The path of the current selection up to, but not including, the specified
 // column. The components of this path are separated with the string returned
-// by [PathSeparator].
+// by [NSBrowser.PathSeparator].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/path(toColumn:)
 func (b NSBrowser) PathToColumn(column int) string {
@@ -1111,7 +1109,7 @@ func (b NSBrowser) ScrollColumnsRightBy(shiftAmount int) {
 // # Discussion
 //
 // The row’s column will not be scrolled to visible via this method. To
-// scroll the column to visible, use [ScrollColumnToVisible].
+// scroll the column to visible, use [NSBrowser.ScrollColumnToVisible].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/scrollRowToVisible(_:inColumn:)
 func (b NSBrowser) ScrollRowToVisibleInColumn(row int, column int) {
@@ -1175,7 +1173,7 @@ func (b NSBrowser) CanDragRowsWithIndexesInColumnWithEvent(rowIndexes foundation
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/draggingImageForRows(with:inColumn:with:offset:)
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (b NSBrowser) DraggingImageForRowsWithIndexesInColumnWithEventOffset(rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (b NSBrowser) DraggingImageForRowsWithIndexesInColumnWithEventOffset(rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"), rowIndexes, column, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -1338,11 +1336,11 @@ func (b NSBrowser) WidthOfColumn(column int) float64 {
 // # Discussion
 //
 // This method can be used to set the initial width of browser columns unless
-// the column sizing is automatic; [SetWidthOfColumn] does nothing if
-// [ColumnResizingType] is [NSBrowserAutoColumnResizing]. To set the default
-// width for new columns (that don’t otherwise have initial widths from
-// defaults or via the delegate), use a `columnIndex` of –1. A value set for
-// `columnIndex` of –1 is persistent. An
+// the column sizing is automatic; [NSBrowser.SetWidthOfColumn] does nothing
+// if [NSBrowser.ColumnResizingType] is [NSBrowserAutoColumnResizing]. To set
+// the default width for new columns (that don’t otherwise have initial
+// widths from defaults or via the delegate), use a `columnIndex` of –1. A
+// value set for `columnIndex` of –1 is persistent. An
 // [columnConfigurationDidChangeNotification] notification is posted (not
 // immediately), if necessary, so that the browser can autosave the new column
 // configuration.
@@ -1465,7 +1463,7 @@ func (b NSBrowser) SetMinColumnWidth(value float64) {
 // When the value of this property is true, the browser’s columns are
 // separated by bezeled borders.
 //
-// This value is ignored if [Titled] does not return false.
+// This value is ignored if [NSBrowser.Titled] does not return false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/separatesColumns
 func (b NSBrowser) SeparatesColumns() bool {
@@ -1607,23 +1605,25 @@ func (b NSBrowser) SelectedCells() []NSCell {
 // When the value of this property is `nil`, there is no selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectionIndexPath
-func (b NSBrowser) SelectionIndexPath() objc.ID {
+func (b NSBrowser) SelectionIndexPath() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("selectionIndexPath"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
-func (b NSBrowser) SetSelectionIndexPath(value objc.ID) {
+func (b NSBrowser) SetSelectionIndexPath(value foundation.NSIndexPath) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSelectionIndexPath:"), value)
 }
 
 // An array containing the index paths of all items selected in the browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectionIndexPaths
-func (b NSBrowser) SelectionIndexPaths() []objc.ID {
+func (b NSBrowser) SelectionIndexPaths() []foundation.NSIndexPath {
 	rv := objc.Send[[]objc.ID](b.ID, objc.Sel("selectionIndexPaths"))
-	return rv
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSIndexPath {
+		return foundation.NSIndexPathFromID(id)
+	})
 }
-func (b NSBrowser) SetSelectionIndexPaths(value []objc.ID) {
-	objc.Send[struct{}](b.ID, objc.Sel("setSelectionIndexPaths:"), value)
+func (b NSBrowser) SetSelectionIndexPaths(value []foundation.NSIndexPath) {
+	objc.Send[struct{}](b.ID, objc.Sel("setSelectionIndexPaths:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // The path separator.
@@ -1743,11 +1743,11 @@ func (b NSBrowser) SetHasHorizontalScroller(value bool) {
 // The browser’s double-click action method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/doubleAction
-func (b NSBrowser) DoubleAction() objc.SEL {
+func (b NSBrowser) DoubleAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](b.ID, objc.Sel("doubleAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (b NSBrowser) SetDoubleAction(value objc.SEL) {
+func (b NSBrowser) SetDoubleAction(value objectivec.SEL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setDoubleAction:"), value)
 }
 
@@ -1758,7 +1758,7 @@ func (b NSBrowser) SetDoubleAction(value objc.SEL) {
 //
 // When the value of this property is false, pressing an arrow key scrolls the
 // browser. When the value of this property is true, it also sends the action
-// message specified by [Action].
+// message specified by [NSControl.Action].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/sendsActionOnArrowKeys
 func (b NSBrowser) SendsActionOnArrowKeys() bool {
@@ -1880,16 +1880,4 @@ func (b NSBrowser) RowHeight() float64 {
 }
 func (b NSBrowser) SetRowHeight(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setRowHeight:"), value)
-}
-
-// A Boolean value indicating whether the view fills its frame rectangle with
-// opaque content.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/isopaque
-func (b NSBrowser) IsOpaque() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("opaque"))
-	return rv
-}
-func (b NSBrowser) SetOpaque(value bool) {
-	objc.Send[struct{}](b.ID, objc.Sel("setOpaque:"), value)
 }

@@ -83,21 +83,13 @@ type IMLMultiArrayShapeConstraint interface {
 	// Topic: Accessing the Constraints
 
 	// Array of allowed shapes for a multiarray feature.
-	EnumeratedShapes() []foundation.NSArray
+	EnumeratedShapes() []foundation.INSArray
 	// The allowable range for a dimention of the multiarray.
 	SizeRangeForDimension() []foundation.NSValue
 	// The type of the shape constraint.
 	Type() MLMultiArrayShapeConstraintType
 
-	// The type for the multi array.
-	DataType() MLMultiArrayDataType
-	SetDataType(value MLMultiArrayDataType)
-	// The shape of the multi array.
-	Shape() foundation.NSNumber
-	SetShape(value foundation.NSNumber)
-	// The constraint on the shape of the multiarray.
-	ShapeConstraint() IMLMultiArrayShapeConstraint
-	SetShapeConstraint(value IMLMultiArrayShapeConstraint)
+	InitWithCoder(coder foundation.INSCoder) MLMultiArrayShapeConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -120,6 +112,18 @@ func NewMLMultiArrayShapeConstraint() MLMultiArrayShapeConstraint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/init(coder:)
+func NewMultiArrayShapeConstraintWithCoder(coder foundation.INSCoder) MLMultiArrayShapeConstraint {
+	instance := getMLMultiArrayShapeConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLMultiArrayShapeConstraintFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/init(coder:)
+func (m MLMultiArrayShapeConstraint) InitWithCoder(coder foundation.INSCoder) MLMultiArrayShapeConstraint {
+	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m MLMultiArrayShapeConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -127,9 +131,9 @@ func (m MLMultiArrayShapeConstraint) EncodeWithCoder(coder foundation.INSCoder) 
 // Array of allowed shapes for a multiarray feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/enumeratedShapes
-func (m MLMultiArrayShapeConstraint) EnumeratedShapes() []foundation.NSArray {
+func (m MLMultiArrayShapeConstraint) EnumeratedShapes() []foundation.INSArray {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("enumeratedShapes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSArray {
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.INSArray {
 		return foundation.NSArrayFromID(id)
 	})
 }
@@ -150,37 +154,4 @@ func (m MLMultiArrayShapeConstraint) SizeRangeForDimension() []foundation.NSValu
 func (m MLMultiArrayShapeConstraint) Type() MLMultiArrayShapeConstraintType {
 	rv := objc.Send[MLMultiArrayShapeConstraintType](m.ID, objc.Sel("type"))
 	return MLMultiArrayShapeConstraintType(rv)
-}
-
-// The type for the multi array.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmultiarrayconstraint/datatype
-func (m MLMultiArrayShapeConstraint) DataType() MLMultiArrayDataType {
-	rv := objc.Send[MLMultiArrayDataType](m.ID, objc.Sel("dataType"))
-	return MLMultiArrayDataType(rv)
-}
-func (m MLMultiArrayShapeConstraint) SetDataType(value MLMultiArrayDataType) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDataType:"), value)
-}
-
-// The shape of the multi array.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmultiarrayconstraint/shape
-func (m MLMultiArrayShapeConstraint) Shape() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shape"))
-	return foundation.NSNumberFromID(objc.ID(rv))
-}
-func (m MLMultiArrayShapeConstraint) SetShape(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShape:"), value)
-}
-
-// The constraint on the shape of the multiarray.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmultiarrayconstraint/shapeconstraint
-func (m MLMultiArrayShapeConstraint) ShapeConstraint() IMLMultiArrayShapeConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeConstraint"))
-	return MLMultiArrayShapeConstraintFromID(objc.ID(rv))
-}
-func (m MLMultiArrayShapeConstraint) SetShapeConstraint(value IMLMultiArrayShapeConstraint) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShapeConstraint:"), value)
 }

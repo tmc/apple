@@ -172,7 +172,7 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDid
 // # Discussion
 //
 // This method is invoked when an expired session report is added to the
-// [StorageURL] property.
+// [AVContentKeySession.StorageURL] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySessionDidGenerateExpiredSessionReport(_:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidGenerateExpiredSessionReport(session IAVContentKeySession) {

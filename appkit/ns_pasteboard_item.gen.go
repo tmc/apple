@@ -67,11 +67,13 @@ func (nc NSPasteboardItemClass) Alloc() NSPasteboardItem {
 //
 // A pasteboard item can be associated with a single pasteboard. When you
 // create an item, you can write it to any pasteboard. When you pass an item
-// to a pasteboard in [WriteObjects], that item becomes bound to the
-// pasteboard it writes to. When you retrieve items from a pasteboard using
-// [NSPasteboardItem.PasteboardItems] or [ReadObjectsForClassesOptions], the returned items are
+// to a pasteboard in [NSPasteboard.WriteObjects], that item becomes bound to
+// the pasteboard it writes to. When you retrieve items from a pasteboard
+// using [NSPasteboard.PasteboardItems] or
+// [NSPasteboard.ReadObjectsForClassesOptions], the returned items are
 // associated with the messaged pasteboard. Passing an item that is already
-// associated with a pasteboard into [WriteObjects] causes an exception.
+// associated with a pasteboard into [NSPasteboard.WriteObjects] causes an
+// exception.
 //
 // Use pasteboard items during a single pasteboard interaction, rather than
 // retaining and reusing them. A pasteboard item is only valid until the owner
@@ -186,10 +188,6 @@ type INSPasteboardItem interface {
 	CollaborationMetadata() objectivec.IObject
 	SetCollaborationMetadata(value objectivec.IObject)
 
-	// An array that contains all the items held by the pasteboard.
-	PasteboardItems() INSPasteboardItem
-	SetPasteboardItems(value INSPasteboardItem)
-	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSPasteboardItem
 }
 
@@ -212,32 +210,7 @@ func NewNSPasteboardItem() NSPasteboardItem {
 	return rv
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/init(pasteboardPropertyList:ofType:)
 func NewPasteboardItemWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSPasteboardItem {
 	instance := getNSPasteboardItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
@@ -381,32 +354,7 @@ func (p NSPasteboardItem) PropertyListForType(type_ NSPasteboardType) objectivec
 	return objectivec.Object{ID: rv}
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/init(pasteboardPropertyList:ofType:)
 func (p NSPasteboardItem) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSPasteboardItem {
 	rv := objc.Send[NSPasteboardItem](p.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
@@ -569,17 +517,6 @@ func (p NSPasteboardItem) CollaborationMetadata() objectivec.IObject {
 }
 func (p NSPasteboardItem) SetCollaborationMetadata(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollaborationMetadata:"), value)
-}
-
-// An array that contains all the items held by the pasteboard.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboarditems
-func (p NSPasteboardItem) PasteboardItems() INSPasteboardItem {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("pasteboardItems"))
-	return NSPasteboardItemFromID(objc.ID(rv))
-}
-func (p NSPasteboardItem) SetPasteboardItems(value INSPasteboardItem) {
-	objc.Send[struct{}](p.ID, objc.Sel("setPasteboardItems:"), value)
 }
 
 // Protocol methods for NSPasteboardWriting

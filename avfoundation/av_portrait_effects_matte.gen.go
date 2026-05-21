@@ -217,7 +217,7 @@ func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(ex
 // Returns a portrait effects matte by wrapping the replacement pixel buffer.
 //
 // pixelBuffer: A pixel buffer containing a portrait effects matte image, represented as
-// [KCVPixelFormatType_OneComponent8] with
+// [kCVPixelFormatType_OneComponent8] with
 // [kCVImageBufferColorPrimaries_ITU_R_709_2] color primaries and a
 // [kCVImageBufferTransferFunction_Linear] transfer function.
 //
@@ -225,6 +225,7 @@ func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(ex
 //
 // [kCVImageBufferColorPrimaries_ITU_R_709_2]: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_ITU_R_709_2
 // [kCVImageBufferTransferFunction_Linear]: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_Linear
+// [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
 func (p AVPortraitEffectsMatte) PortraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVPortraitEffectsMatte, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("portraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBuffer:error:"), pixelBuffer, unsafe.Pointer(&errorPtr))
@@ -259,7 +260,8 @@ func (p AVPortraitEffectsMatte) DictionaryRepresentationForAuxiliaryDataType(out
 //
 // # Discussion
 //
-// Query the pixel format using the [PixelFormatType] property.
+// Query the pixel format using the [AVPortraitEffectsMatte.PixelFormatType]
+// property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPortraitEffectsMatte/mattingImage
 func (p AVPortraitEffectsMatte) MattingImage() corevideo.CVImageBufferRef {
@@ -272,9 +274,11 @@ func (p AVPortraitEffectsMatte) MattingImage() corevideo.CVImageBufferRef {
 // # Discussion
 //
 // The only supported pixel format type for the matting image is
-// [KCVPixelFormatType_OneComponent8].
+// [kCVPixelFormatType_OneComponent8].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPortraitEffectsMatte/pixelFormatType
+//
+// [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
 func (p AVPortraitEffectsMatte) PixelFormatType() uint32 {
 	rv := objc.Send[uint32](p.ID, objc.Sel("pixelFormatType"))
 	return rv

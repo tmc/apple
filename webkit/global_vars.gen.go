@@ -14,60 +14,6 @@ import (
 var (
 	// See: https://developer.apple.com/documentation/WebKit/NSReadAccessURLDocumentOption
 	ReadAccessURLDocumentOption appkit.NSAttributedStringDocumentReadingOptionKey
-	// WKWebExtensionContextDeniedPermissionMatchPatternsWereRemovedNotification is a notification the system sends whenever a web extension context has newly removed denied permission match patterns.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/deniedPermissionMatchPatternsWereRemovedNotification
-	WKWebExtensionContextDeniedPermissionMatchPatternsWereRemovedNotification foundation.NSNotificationName
-	// WKWebExtensionContextDeniedPermissionsWereRemovedNotification is a notification the system sends whenever a web extension context has newly removed denied permissions.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/deniedPermissionsWereRemovedNotification
-	WKWebExtensionContextDeniedPermissionsWereRemovedNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/errorDomain
-	WKWebExtensionContextErrorDomain foundation.NSErrorDomain
-	// WKWebExtensionContextErrorsDidUpdateNotification is this notification is sent whenever a web extension context has new errors or errors were cleared.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/errorsDidUpdateNotification
-	WKWebExtensionContextErrorsDidUpdateNotification foundation.NSNotificationName
-	// WKWebExtensionContextGrantedPermissionMatchPatternsWereRemovedNotification is this notification is sent whenever a web extension context has newly removed granted permission match patterns.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/grantedPermissionMatchPatternsWereRemovedNotification
-	WKWebExtensionContextGrantedPermissionMatchPatternsWereRemovedNotification foundation.NSNotificationName
-	// WKWebExtensionContextGrantedPermissionsWereRemovedNotification is this notification is sent whenever a web extension context has newly removed granted permissions.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/grantedPermissionsWereRemovedNotification
-	WKWebExtensionContextGrantedPermissionsWereRemovedNotification foundation.NSNotificationName
-	// WKWebExtensionContextPermissionMatchPatternsWereDeniedNotification is this notification is sent whenever a web extension context has newly denied permission match patterns.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionMatchPatternsWereDeniedNotification
-	WKWebExtensionContextPermissionMatchPatternsWereDeniedNotification foundation.NSNotificationName
-	// WKWebExtensionContextPermissionMatchPatternsWereGrantedNotification is this notification is sent whenever a web extension context has newly granted permission match patterns.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionMatchPatternsWereGrantedNotification
-	WKWebExtensionContextPermissionMatchPatternsWereGrantedNotification foundation.NSNotificationName
-	// WKWebExtensionContextPermissionsWereDeniedNotification is this notification is sent whenever a web extension context has newly denied permissions.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionsWereDeniedNotification
-	WKWebExtensionContextPermissionsWereDeniedNotification foundation.NSNotificationName
-	// WKWebExtensionContextPermissionsWereGrantedNotification is this notification is sent whenever a web extension context has newly granted permissions.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionsWereGrantedNotification
-	WKWebExtensionContextPermissionsWereGrantedNotification foundation.NSNotificationName
-	// WKWebExtensionDataRecordErrorDomain is indicates a [WKWebExtension.DataRecord] error.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/DataRecord/errorDomain
-	WKWebExtensionDataRecordErrorDomain foundation.NSErrorDomain
-	// WKWebExtensionErrorDomain is indicates a web extension error.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/errorDomain
-	WKWebExtensionErrorDomain foundation.NSErrorDomain
-	// WKWebExtensionMatchPatternErrorDomain is a string that identifies the error domain.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/errorDomain
-	WKWebExtensionMatchPatternErrorDomain foundation.NSErrorDomain
-	// WKWebExtensionMessagePortErrorDomain is a string that identifies the error domain.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MessagePort/errorDomain
-	WKWebExtensionMessagePortErrorDomain foundation.NSErrorDomain
 )
 
 var (
@@ -123,6 +69,66 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataTypeWebSQLDatabases
 	WKWebsiteDataTypeWebSQLDatabases string
+)
+
+var (
+	// WKWebExtensionContextDeniedPermissionMatchPatternsWereRemovedNotification is a notification the system sends whenever a web extension context has newly removed denied permission match patterns.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/deniedPermissionMatchPatternsWereRemovedNotification
+	WKWebExtensionContextDeniedPermissionMatchPatternsWereRemovedNotification foundation.NSNotificationName
+	// WKWebExtensionContextDeniedPermissionsWereRemovedNotification is a notification the system sends whenever a web extension context has newly removed denied permissions.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/deniedPermissionsWereRemovedNotification
+	WKWebExtensionContextDeniedPermissionsWereRemovedNotification foundation.NSNotificationName
+	// WKWebExtensionContextErrorsDidUpdateNotification is this notification is sent whenever a web extension context has new errors or errors were cleared.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/errorsDidUpdateNotification
+	WKWebExtensionContextErrorsDidUpdateNotification foundation.NSNotificationName
+	// WKWebExtensionContextGrantedPermissionMatchPatternsWereRemovedNotification is this notification is sent whenever a web extension context has newly removed granted permission match patterns.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/grantedPermissionMatchPatternsWereRemovedNotification
+	WKWebExtensionContextGrantedPermissionMatchPatternsWereRemovedNotification foundation.NSNotificationName
+	// WKWebExtensionContextGrantedPermissionsWereRemovedNotification is this notification is sent whenever a web extension context has newly removed granted permissions.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/grantedPermissionsWereRemovedNotification
+	WKWebExtensionContextGrantedPermissionsWereRemovedNotification foundation.NSNotificationName
+	// WKWebExtensionContextPermissionMatchPatternsWereDeniedNotification is this notification is sent whenever a web extension context has newly denied permission match patterns.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionMatchPatternsWereDeniedNotification
+	WKWebExtensionContextPermissionMatchPatternsWereDeniedNotification foundation.NSNotificationName
+	// WKWebExtensionContextPermissionMatchPatternsWereGrantedNotification is this notification is sent whenever a web extension context has newly granted permission match patterns.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionMatchPatternsWereGrantedNotification
+	WKWebExtensionContextPermissionMatchPatternsWereGrantedNotification foundation.NSNotificationName
+	// WKWebExtensionContextPermissionsWereDeniedNotification is this notification is sent whenever a web extension context has newly denied permissions.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionsWereDeniedNotification
+	WKWebExtensionContextPermissionsWereDeniedNotification foundation.NSNotificationName
+	// WKWebExtensionContextPermissionsWereGrantedNotification is this notification is sent whenever a web extension context has newly granted permissions.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionsWereGrantedNotification
+	WKWebExtensionContextPermissionsWereGrantedNotification foundation.NSNotificationName
+)
+
+var (
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/errorDomain
+	WKWebExtensionContextErrorDomain foundation.NSErrorDomain
+	// WKWebExtensionDataRecordErrorDomain is indicates a [WKWebExtension.DataRecord] error.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/DataRecord/errorDomain
+	WKWebExtensionDataRecordErrorDomain foundation.NSErrorDomain
+	// WKWebExtensionErrorDomain is indicates a web extension error.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/errorDomain
+	WKWebExtensionErrorDomain foundation.NSErrorDomain
+	// WKWebExtensionMatchPatternErrorDomain is a string that identifies the error domain.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/errorDomain
+	WKWebExtensionMatchPatternErrorDomain foundation.NSErrorDomain
+	// WKWebExtensionMessagePortErrorDomain is a string that identifies the error domain.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MessagePort/errorDomain
+	WKWebExtensionMessagePortErrorDomain foundation.NSErrorDomain
 )
 
 var ()

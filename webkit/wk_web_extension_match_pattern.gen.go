@@ -381,7 +381,8 @@ func (_WKWebExtensionMatchPatternClass WKWebExtensionMatchPatternClass) MatchPat
 	return WKWebExtensionMatchPatternFromID(rv)
 }
 
-// The host part of the pattern string, unless [MatchesAllURLs] is [YES].
+// The host part of the pattern string, unless
+// [WKWebExtensionMatchPattern.MatchesAllURLs] is [YES].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/host
 func (w WKWebExtensionMatchPattern) Host() string {
@@ -405,7 +406,8 @@ func (w WKWebExtensionMatchPattern) MatchesAllURLs() bool {
 	return rv
 }
 
-// The path part of the pattern string, unless [MatchesAllURLs] is [YES].
+// The path part of the pattern string, unless
+// [WKWebExtensionMatchPattern.MatchesAllURLs] is [YES].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/path
 func (w WKWebExtensionMatchPattern) Path() string {
@@ -413,7 +415,8 @@ func (w WKWebExtensionMatchPattern) Path() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-// The scheme part of the pattern string, unless [MatchesAllURLs] is [YES].
+// The scheme part of the pattern string, unless
+// [WKWebExtensionMatchPattern.MatchesAllURLs] is [YES].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/scheme
 func (w WKWebExtensionMatchPattern) Scheme() string {

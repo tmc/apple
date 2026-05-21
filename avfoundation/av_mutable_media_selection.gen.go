@@ -111,9 +111,9 @@ func NewAVMutableMediaSelection() AVMutableMediaSelection {
 // [AVMediaSelectionGroup] and deselects all other options in that group. If
 // the specified media selection option isn’t a member of the specified
 // media selection group, no change in state will be made. If the media
-// selection group’s [AllowsEmptySelection] property is set to true, you can
-// pass `nil` for `mediaSelectionOption` argument to deselect all media
-// selection options in the group.
+// selection group’s [AVMediaSelectionGroup.AllowsEmptySelection] property
+// is set to true, you can pass `nil` for `mediaSelectionOption` argument to
+// deselect all media selection options in the group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMediaSelection/select(_:in:)
 func (m AVMutableMediaSelection) SelectMediaOptionInMediaSelectionGroup(mediaSelectionOption IAVMediaSelectionOption, mediaSelectionGroup IAVMediaSelectionGroup) {

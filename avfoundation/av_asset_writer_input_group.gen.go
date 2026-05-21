@@ -135,8 +135,8 @@ func NewAVAssetWriterInputGroup() AVAssetWriterInputGroup {
 // # Discussion
 //
 // When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
-// of the other inputs in the group to false.
+// input’s [AVAssetWriterInput.MarksOutputTrackAsEnabled] property value to
+// true, and the value of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/init(inputs:defaultInput:)
 func NewAssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {
@@ -154,8 +154,8 @@ func NewAssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput,
 // # Discussion
 //
 // When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
-// of the other inputs in the group to false.
+// input’s [AVAssetWriterInput.MarksOutputTrackAsEnabled] property value to
+// true, and the value of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/init(inputs:defaultInput:)
 func (a AVAssetWriterInputGroup) InitWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {
@@ -176,8 +176,8 @@ func (a AVAssetWriterInputGroup) InitWithInputsDefaultInput(inputs []AVAssetWrit
 // # Discussion
 //
 // When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
-// of the other inputs in the group to false.
+// input’s [AVAssetWriterInput.MarksOutputTrackAsEnabled] property value to
+// true, and the value of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/assetWriterInputGroupWithInputs:defaultInput:
 func (_AVAssetWriterInputGroupClass AVAssetWriterInputGroupClass) AssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {

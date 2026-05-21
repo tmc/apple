@@ -63,7 +63,8 @@ func (nc NEAppProxyProviderClass) Alloc() NEAppProxyProvider {
 // applications that use low-level DNS resolution APIs such as
 // [DNSServiceGetAddrInfo(_:_:_:_:_:_:_:)](). The App Proxy Provider can
 // specify the DNS resolver configuration that will be used by these
-// applications using the [SetTunnelNetworkSettingsCompletionHandler] method.
+// applications using the
+// [NETunnelProvider.SetTunnelNetworkSettingsCompletionHandler] method.
 //
 // Applications that use higher-level networking APIs such as [URLSession] and
 // [NSURLConnection] do not generate DNS queries. Instead the destination
@@ -105,7 +106,8 @@ func (nc NEAppProxyProviderClass) Alloc() NEAppProxyProvider {
 // # Methods to Override
 //
 // - [NEAppProxyProvider.StartProxyWithOptionsCompletionHandler] -
-// [NEAppProxyProvider.StopProxyWithReasonCompletionHandler] - [NEAppProxyProvider.HandleNewFlow]
+// [NEAppProxyProvider.StopProxyWithReasonCompletionHandler] -
+// [NEAppProxyProvider.HandleNewFlow]
 //
 // # Managing the app proxy life cycle
 //

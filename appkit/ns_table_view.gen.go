@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -82,15 +81,15 @@ func (nc NSTableViewClass) Alloc() NSTableView {
 //
 // # Enabling the Table View
 //
-// Use the [Enabled] property to enable or disable the table view, which the
-// view inherits from [NSControl]. This property affects the visual appearance
-// of the table view differently depending on whether you use a view- or a
-// cell-based table view. When you change the property’s value for a
-// cell-based table view, the system manages the visual appearance of that
-// table view’s rows, and updates them to a state that reflects the value.
-// Because view-based table views permit complex items in their cells, it’s
-// the developer’s responsibility to update each cell’s appearance as
-// appropriate.
+// Use the [NSControl.Enabled] property to enable or disable the table view,
+// which the view inherits from [NSControl]. This property affects the visual
+// appearance of the table view differently depending on whether you use a
+// view- or a cell-based table view. When you change the property’s value
+// for a cell-based table view, the system manages the visual appearance of
+// that table view’s rows, and updates them to a state that reflects the
+// value. Because view-based table views permit complex items in their cells,
+// it’s the developer’s responsibility to update each cell’s appearance
+// as appropriate.
 //
 // # Managing the Table’s Data
 //
@@ -594,8 +593,8 @@ type INSTableView interface {
 	// Topic: Target-action Behavior
 
 	// The message sent to the table view’s target when the user double-clicks a cell or column header.
-	DoubleAction() objc.SEL
-	SetDoubleAction(value objc.SEL)
+	DoubleAction() objectivec.SEL
+	SetDoubleAction(value objectivec.SEL)
 	// The index of the column the user clicked.
 	ClickedColumn() int
 	// The index of the row the user clicked.
@@ -710,7 +709,7 @@ type INSTableView interface {
 	// Topic: Enumerating Table Rows
 
 	// Allows the enumeration of all the table rows that are known to the table view.
-	EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHandler)
+	EnumerateAvailableRowViewsUsingBlock(handler TableRowViewIntHandler)
 
 	// Topic: Managing Type Select
 
@@ -826,7 +825,7 @@ type INSTableView interface {
 	// Topic: Dragging
 
 	// Computes and returns an image to use for dragging.
-	DragImageForRowsWithIndexesTableColumnsEventOffset(dragRows foundation.NSIndexSet, tableColumns []NSTableColumn, dragEvent INSEvent, dragImageOffset foundation.NSPoint) INSImage
+	DragImageForRowsWithIndexesTableColumnsEventOffset(dragRows foundation.NSIndexSet, tableColumns []NSTableColumn, dragEvent INSEvent, dragImageOffset foundation.NSPointPointer) INSImage
 	// Returns a Boolean value indicating whether the table view allows dragging the rows with the drag initiated at the specified point.
 	CanDragRowsWithIndexesAtPoint(rowIndexes foundation.NSIndexSet, mouseDownPoint corefoundation.CGPoint) bool
 	// Sets the default operation mask returned by `` to `mask`.
@@ -860,9 +859,6 @@ type INSTableView interface {
 	UnhideRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, rowAnimation NSTableViewAnimationOptions)
 	// The indexes of all hidden table rows.
 	HiddenRowIndexes() foundation.NSIndexSet
-
-	// A Boolean value that indicates whether the receiver reacts to mouse events.
-	IsEnabled() bool
 }
 
 // Init initializes the instance.
@@ -905,10 +901,12 @@ func NewTableViewWithFrame(frameRect corefoundation.CGRect) NSTableView {
 //
 // This method forces a redraw of all the visible cells in the table view. If
 // you want to update the value in a single cell, column, or row, it is more
-// efficient to use [FrameOfCellAtColumnRow], [RectOfColumn], or [RectOfRow]
-// in conjunction with the [SetNeedsDisplayInRect] method of [NSView]. If you
-// just want to update the scroller, use [NoteNumberOfRowsChanged]; if the
-// height of a set of rows changes, use [NoteHeightOfRowsWithIndexesChanged].
+// efficient to use [NSTableView.FrameOfCellAtColumnRow],
+// [NSTableView.RectOfColumn], or [NSTableView.RectOfRow] in conjunction with
+// the [NSView.SetNeedsDisplayInRect] method of [NSView]. If you just want to
+// update the scroller, use [NSTableView.NoteNumberOfRowsChanged]; if the
+// height of a set of rows changes, use
+// [NSTableView.NoteHeightOfRowsWithIndexesChanged].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/reloadData()
 func (t NSTableView) ReloadData() {
@@ -923,12 +921,13 @@ func (t NSTableView) ReloadData() {
 //
 // # Discussion
 //
-// For cells that are visible, the appropriate [DataSource] and [Delegate]
-// methods are called and the cells are redrawn.
+// For cells that are visible, the appropriate [NSTableView.DataSource] and
+// [NSTableView.Delegate] methods are called and the cells are redrawn.
 //
 // For tables that support variable row heights, the row height is not
 // re-queried from the delegate; it is your responsibility to invoke
-// [NoteHeightOfRowsWithIndexesChanged] if a row height change is required.
+// [NSTableView.NoteHeightOfRowsWithIndexesChanged] if a row height change is
+// required.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/reloadData(forRowIndexes:columnIndexes:)
 func (t NSTableView) ReloadDataForRowIndexesColumnIndexes(rowIndexes foundation.NSIndexSet, columnIndexes foundation.NSIndexSet) {
@@ -1001,9 +1000,10 @@ func (t NSTableView) MakeViewWithIdentifierOwner(identifier NSUserInterfaceItemI
 // available (generally this means it is visible).
 //
 // An exception is thrown if `row` falls outside of the number of rows in the
-// table ([NumberOfRows]). The returned result should generally not be held
-// onto for longer than the current run loop cycle. It’s better to call
-// [RowViewAtRowMakeIfNecessary] whenever a view is required.
+// table ([NSTableView.NumberOfRows]). The returned result should generally
+// not be held onto for longer than the current run loop cycle. It’s better
+// to call [NSTableView.RowViewAtRowMakeIfNecessary] whenever a view is
+// required.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/rowView(atRow:makeIfNecessary:)
 func (t NSTableView) RowViewAtRowMakeIfNecessary(row int, makeIfNecessary bool) INSTableRowView {
@@ -1014,7 +1014,7 @@ func (t NSTableView) RowViewAtRowMakeIfNecessary(row int, makeIfNecessary bool) 
 // Returns a view at the specified row and column indexes, creating one if
 // necessary.
 //
-// column: The index of the column in the [TableColumns] array.
+// column: The index of the column in the [NSTableView.TableColumns] array.
 //
 // row: The row index.
 //
@@ -1036,10 +1036,10 @@ func (t NSTableView) RowViewAtRowMakeIfNecessary(row int, makeIfNecessary bool) 
 // view, and false if you only want to update properties on a view only if it
 // is available (generally this means it is visible).
 //
-// An exception will be thrown if `row` is not within the [NumberOfRows]. The
-// returned result should generally not be held onto for longer than the
-// current run loop cycle. Instead they should re-query the table view for the
-// row view.
+// An exception will be thrown if `row` is not within the
+// [NSTableView.NumberOfRows]. The returned result should generally not be
+// held onto for longer than the current run loop cycle. Instead they should
+// re-query the table view for the row view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/view(atColumn:row:makeIfNecessary:)
 func (t NSTableView) ViewAtColumnRowMakeIfNecessary(column int, row int, makeIfNecessary bool) INSView {
@@ -1053,19 +1053,19 @@ func (t NSTableView) ViewAtColumnRowMakeIfNecessary(column int, row int, makeIfN
 //
 // For [NSView]-based table views, multiple row changes—that is, insertions,
 // deletions, and moves—are animated simultaneously by surrounding calls to
-// those method calls with [BeginUpdates] and [EndUpdates]. These methods are
-// nestable.
+// those method calls with [NSTableView.BeginUpdates] and
+// [NSTableView.EndUpdates]. These methods are nestable.
 //
 // The selected rows are maintained during the series of insertions,
 // deletions, moves, and scrolling. If a selected row is deleted, a selection
-// changed notification occurs after [RemoveRowsAtIndexesWithAnimation] is
-// called.
+// changed notification occurs after
+// [NSTableView.RemoveRowsAtIndexesWithAnimation] is called.
 //
-// It is not necessary to call [BeginUpdates] and [EndUpdates] if only one
-// insertion, deletion, or move is occurring and the table view is an
-// [NSView]-based table view. When using an [NSCell]-based table view, you
-// must surround any insertion, deletion, or move in an update block for
-// animations to occur.
+// It is not necessary to call [NSTableView.BeginUpdates] and
+// [NSTableView.EndUpdates] if only one insertion, deletion, or move is
+// occurring and the table view is an [NSView]-based table view. When using an
+// [NSCell]-based table view, you must surround any insertion, deletion, or
+// move in an update block for animations to occur.
 //
 // The main reason for doing a batch update of changes to a table view is to
 // avoid having the table animate unnecessarily.
@@ -1083,7 +1083,8 @@ func (t NSTableView) BeginUpdates() {
 // # Discussion
 //
 // Ends the group of updates for the table view. This method, like
-// [BeginUpdates], is nestable. See [BeginUpdates] for details.
+// [NSTableView.BeginUpdates], is nestable. See [NSTableView.BeginUpdates] for
+// details.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/endUpdates()
 func (t NSTableView) EndUpdates() {
@@ -1104,10 +1105,11 @@ func (t NSTableView) EndUpdates() {
 //
 // Changes happen incrementally as they are sent to the table, so as soon as
 // this method is called the row can be considered moved. However the
-// underlying view is not moved until [EndUpdates] has been called.
+// underlying view is not moved until [NSTableView.EndUpdates] has been
+// called.
 //
-// This method can be called multiple times within the same [BeginUpdates] and
-// [EndUpdates] block.
+// This method can be called multiple times within the same
+// [NSTableView.BeginUpdates] and [NSTableView.EndUpdates] block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/moveRow(at:to:)
 func (t NSTableView) MoveRowAtIndexToIndex(oldIndex int, newIndex int) {
@@ -1124,11 +1126,12 @@ func (t NSTableView) MoveRowAtIndexToIndex(oldIndex int, newIndex int) {
 //
 // # Discussion
 //
-// The [NumberOfRows] in the table view is automatically increased by the
-// count of `indexes`.
+// The [NSTableView.NumberOfRows] in the table view is automatically increased
+// by the count of `indexes`.
 //
-// Calling this method multiple times within the same [BeginUpdates] and
-// [EndUpdates] block is allowed, and changes are processed incrementally.
+// Calling this method multiple times within the same
+// [NSTableView.BeginUpdates] and [NSTableView.EndUpdates] block is allowed,
+// and changes are processed incrementally.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/insertRows(at:withAnimation:)
 //
@@ -1148,19 +1151,22 @@ func (t NSTableView) InsertRowsAtIndexesWithAnimation(indexes foundation.NSIndex
 // # Discussion
 //
 // This method deletes from the table the rows represented at `indexes` and
-// automatically decreases [NumberOfRows] by the count of `indexes`.
+// automatically decreases [NSTableView.NumberOfRows] by the count of
+// `indexes`.
 //
 // The row indexes should be with respect to the current state displayed in
 // the table view, and not the final state, because the specified rows do not
 // exist in the final state.
 //
-// Calling this method multiple times within the same [BeginUpdates] and
-// [EndUpdates] block is allowed, and changes are processed incrementally.
+// Calling this method multiple times within the same
+// [NSTableView.BeginUpdates] and [NSTableView.EndUpdates] block is allowed,
+// and changes are processed incrementally.
 //
 // Changes are processed incrementally as the
-// [InsertRowsAtIndexesWithAnimation], [RemoveRowsAtIndexesWithAnimation], and
-// the [MoveRowAtIndexToIndex] methods are called. It is acceptable to delete
-// row `0` multiple times, as long as there is still a row available.
+// [NSTableView.InsertRowsAtIndexesWithAnimation],
+// [NSTableView.RemoveRowsAtIndexesWithAnimation], and the
+// [NSTableView.MoveRowAtIndexToIndex] methods are called. It is acceptable to
+// delete row `0` multiple times, as long as there is still a row available.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/removeRows(at:withAnimation:)
 //
@@ -1201,10 +1207,10 @@ func (t NSTableView) RowForView(view INSView) int {
 //
 // # Return Value
 //
-// The index of the column containing `view` in the [TableColumns] array. This
-// method returns `-1` if the view is not in the table view. This method may
-// also return `-1` if the row containing the view is being animated away,
-// such as during the deletion of a row.
+// The index of the column containing `view` in the [NSTableView.TableColumns]
+// array. This method returns `-1` if the view is not in the table view. This
+// method may also return `-1` if the row containing the view is being
+// animated away, such as during the deletion of a row.
 //
 // # Discussion
 //
@@ -1232,9 +1238,9 @@ func (t NSTableView) ColumnForView(view INSView) int {
 //
 // Use this method to associate one of the NIB’s cell views with
 // `identifier` so that the table can instantiate this view when requested.
-// This method is used when [ViewWithIdentifierOwner] is called, and there was
-// no NIB created at design time for the specified identifier. This allows
-// dynamic loading of NIBs that can be associated with the table.
+// This method is used when [NSTableView.ViewWithIdentifierOwner] is called,
+// and there was no NIB created at design time for the specified identifier.
+// This allows dynamic loading of NIBs that can be associated with the table.
 //
 // Because a NIB can contain multiple views, you can associate the same NIB
 // with multiple identifiers. To remove a previously associated NIB for
@@ -1300,9 +1306,10 @@ func (t NSTableView) RemoveTableColumn(tableColumn INSTableColumn) {
 // Moves the column and heading at the specified index to the new specified
 // index.
 //
-// oldIndex: The current index in the [TableColumns] array of the column to move.
+// oldIndex: The current index in the [NSTableView.TableColumns] array of the column to
+// move.
 //
-// newIndex: The new index in the [TableColumns] array for the moved column.
+// newIndex: The new index in the [NSTableView.TableColumns] array for the moved column.
 //
 // # Discussion
 //
@@ -1323,9 +1330,9 @@ func (t NSTableView) MoveColumnToColumn(oldIndex int, newIndex int) {
 //
 // # Return Value
 //
-// The index in the [TableColumns] array of the first column in the table view
-// whose identifier is equal to `anObject` (when compared using “), or `–1`
-// if no columns are found with the specified identifier.
+// The index in the [NSTableView.TableColumns] array of the first column in
+// the table view whose identifier is equal to `anObject` (when compared using
+// “), or `–1` if no columns are found with the specified identifier.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/column(withIdentifier:)
 func (t NSTableView) ColumnWithIdentifier(identifier NSUserInterfaceItemIdentifier) int {
@@ -1370,7 +1377,8 @@ func (t NSTableView) SelectColumnIndexesByExtendingSelection(indexes foundation.
 
 // Deselects the column at the specified index if it’s selected.
 //
-// column: The index in the [TableColumns] array of the column to deselect.
+// column: The index in the [NSTableView.TableColumns] array of the column to
+// deselect.
 //
 // # Discussion
 //
@@ -1397,7 +1405,8 @@ func (t NSTableView) DeselectColumn(column int) {
 // Returns a Boolean value that indicates whether the column at the specified
 // index is selected.
 //
-// column: The index into the [TableColumns] array that represents the column to test.
+// column: The index into the [NSTableView.TableColumns] array that represents the
+// column to test.
 //
 // # Return Value
 //
@@ -1479,8 +1488,9 @@ func (t NSTableView) IsRowSelected(row int) bool {
 // Posts [selectionDidChangeNotification] to the default notification center
 // if the selection does in fact change.
 //
-// As a target-action method, [DeselectAll] checks with the delegate before
-// changing the selection, using [SelectionShouldChangeInTableView].
+// As a target-action method, [NSTableView.DeselectAll] checks with the
+// delegate before changing the selection, using
+// [SelectionShouldChangeInTableView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/deselectAll(_:)
 //
@@ -1501,23 +1511,23 @@ func (t NSTableView) DeselectAll(sender objectivec.IObject) {
 //
 // # Discussion
 //
-// The enumeration includes all views in the [VisibleRect]; however, it may
-// also include ones that are “in flight” due to animations or other
+// The enumeration includes all views in the [NSView.VisibleRect]; however, it
+// may also include ones that are “in flight” due to animations or other
 // attributes of the table.
 //
 // It is preferred to use this method to efficiently make changes over all
 // views that exist in the table.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/enumerateAvailableRowViews(_:)
-func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHandler) {
-	_block0, _ := NewTableRowViewBlock(handler)
+func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewIntHandler) {
+	_block0, _ := NewTableRowViewIntBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateAvailableRowViewsUsingBlock:"), _block0)
 }
 
 // Edits the cell at the specified column and row using the specified event
 // and selection behavior.
 //
-// column: The index of the column in the [TableColumns] array.
+// column: The index of the column in the [NSTableView.TableColumns] array.
 //
 // row: The row index.
 //
@@ -1534,10 +1544,10 @@ func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHa
 //
 // This method scrolls the table view so that the cell is visible and sets up
 // the field editor. If `flag` is false, it calls the
-// [EditWithFrameInViewEditorDelegateEvent] method of the field editor’s
-// [NSCell] object, providing the [NSTableView] as the text delegate. If
-// `flag` is true, this method calls the
-// [SelectWithFrameInViewEditorDelegateStartLength] method instead.
+// [NSCell.EditWithFrameInViewEditorDelegateEvent] method of the field
+// editor’s [NSCell] object, providing the [NSTableView] as the text
+// delegate. If `flag` is true, this method calls the
+// [NSCell.SelectWithFrameInViewEditorDelegateStartLength] method instead.
 //
 // This method can be overridden to customize drawing for `rowIndex` when
 // using [NSCell]-based table views.
@@ -1587,7 +1597,8 @@ func (t NSTableView) DidRemoveRowViewForRow(rowView INSTableRowView, row int) {
 
 // Returns the rectangle containing the column at the specified index.
 //
-// column: The index in the [TableColumns] array of a column in the table view.
+// column: The index in the [NSTableView.TableColumns] array of a column in the table
+// view.
 //
 // # Return Value
 //
@@ -1598,7 +1609,7 @@ func (t NSTableView) DidRemoveRowViewForRow(rowView INSTableRowView, row int) {
 // # Discussion
 //
 // You can use this method to update a single column more efficiently than
-// sending the table view a [ReloadData] message.
+// sending the table view a [NSTableView.ReloadData] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/rect(ofColumn:)
 func (t NSTableView) RectOfColumn(column int) corefoundation.CGRect {
@@ -1616,7 +1627,7 @@ func (t NSTableView) RectOfColumn(column int) corefoundation.CGRect {
 // # Discussion
 //
 // You can use this method to update a single row more efficiently than
-// sending the table view a [ReloadData] message.
+// sending the table view a [NSTableView.ReloadData] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/rect(ofRow:)
 func (t NSTableView) RectOfRow(row int) corefoundation.CGRect {
@@ -1659,8 +1670,8 @@ func (t NSTableView) RowsInRect(rect corefoundation.CGRect) foundation.NSRange {
 //
 // # Discussion
 //
-// Columns that return true for the [NSTableColumn] method [Hidden] are
-// excluded from the results.
+// Columns that return true for the [NSTableColumn] method
+// [NSTableColumn.Hidden] are excluded from the results.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/columnIndexes(in:)
 //
@@ -1676,8 +1687,8 @@ func (t NSTableView) ColumnIndexesInRect(rect corefoundation.CGRect) foundation.
 //
 // # Return Value
 //
-// The index in the [TableColumns] array of the column `aPoint` lies in, or
-// `–1` if `aPoint` lies outside the table view’s bounds.
+// The index in the [NSTableView.TableColumns] array of the column `aPoint`
+// lies in, or `–1` if `aPoint` lies outside the table view’s bounds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/column(at:)
 func (t NSTableView) ColumnAtPoint(point corefoundation.CGPoint) int {
@@ -1703,8 +1714,8 @@ func (t NSTableView) RowAtPoint(point corefoundation.CGPoint) int {
 // Returns a rectangle locating the cell that lies at the intersection of the
 // specified column and row.
 //
-// column: The index in the [TableColumns] array of the column containing the cell
-// whose rectangle you want.
+// column: The index in the [NSTableView.TableColumns] array of the column containing
+// the cell whose rectangle you want.
 //
 // row: The index of the row containing the cell whose rectangle you want.
 //
@@ -1718,18 +1729,19 @@ func (t NSTableView) RowAtPoint(point corefoundation.CGPoint) int {
 // # Discussion
 //
 // You can use this method to update a single cell more efficiently than
-// sending the table view a [ReloadData] message using
-// [ReloadDataForRowIndexesColumnIndexes]
+// sending the table view a [NSTableView.ReloadData] message using
+// [NSTableView.ReloadDataForRowIndexesColumnIndexes]
 //
-// The result of this method is used in a [DrawWithFrameInView] message to the
-// table column’s data cell. You can subclass and override this method to
-// customize the frame of a particular cell. However, never return a frame
-// larger than the default implementation returns.
+// The result of this method is used in a [NSCell.DrawWithFrameInView] message
+// to the table column’s data cell. You can subclass and override this
+// method to customize the frame of a particular cell. However, never return a
+// frame larger than the default implementation returns.
 //
-// The default frame is computed to have a height equal to the [RectOfRow] for
-// `rowIndex`, minus the half [IntercellSpacing] height on the top and half on
-// the bottom. The width of frame is equal to the with of the table column
-// minus half the [IntercellSpacing] width on the left, and half on the right.
+// The default frame is computed to have a height equal to the
+// [NSTableView.RectOfRow] for `rowIndex`, minus the half
+// [NSTableView.IntercellSpacing] height on the top and half on the bottom.
+// The width of frame is equal to the with of the table column minus half the
+// [NSTableView.IntercellSpacing] width on the left, and half on the right.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/frameOfCell(atColumn:row:)
 func (t NSTableView) FrameOfCellAtColumnRow(column int, row int) corefoundation.CGRect {
@@ -1791,11 +1803,13 @@ func (t NSTableView) Tile() {
 // retiles the table view using the row heights the delegate provides.
 //
 // For [NSView]-based tables, this method will animate. To turn off the
-// animation, create an [NSAnimationContext] grouping and set the [Duration]
-// to 0. Then call this method and end the grouping.
+// animation, create an [NSAnimationContext] grouping and set the
+// [NSAnimationContext.Duration] to 0. Then call this method and end the
+// grouping.
 //
 // For [NSCell]-based tables, this method normally doesn’t animate. However,
-// it will animate if you call it inside a [BeginUpdates]/[EndUpdates] block.
+// it will animate if you call it inside a
+// [NSTableView.BeginUpdates]/[NSTableView.EndUpdates] block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/noteHeightOfRows(withIndexesChanged:)
 func (t NSTableView) NoteHeightOfRowsWithIndexesChanged(indexSet foundation.NSIndexSet) {
@@ -1826,7 +1840,7 @@ func (t NSTableView) DrawRowClipRect(row int, clipRect corefoundation.CGRect) {
 // # Discussion
 //
 // Draws the grid lines within `clipRect`, using the grid color set with
-// [GridColor].
+// [NSTableView.GridColor].
 //
 // Subclasses can override this method to draw grid lines other than the
 // standard ones. This method draws a grid regardless of whether the table
@@ -1843,7 +1857,7 @@ func (t NSTableView) DrawGridInClipRect(clipRect corefoundation.CGRect) {
 //
 // # Discussion
 //
-// This method is invoked before [DrawRowClipRect].
+// This method is invoked before [NSTableView.DrawRowClipRect].
 //
 // [NSCell]-based table views can override this method to change the manner in
 // which they highlight selections.
@@ -1874,7 +1888,7 @@ func (t NSTableView) ScrollRowToVisible(row int) {
 
 // Scrolls the view so the specified column is visible.
 //
-// column: The index of the column in the [TableColumns] array.
+// column: The index of the column in the [NSTableView.TableColumns] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/scrollColumnToVisible(_:)
 func (t NSTableView) ScrollColumnToVisible(column int) {
@@ -1901,7 +1915,7 @@ func (t NSTableView) ScrollColumnToVisible(column int) {
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/dragImageForRows(with:tableColumns:event:offset:)
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (t NSTableView) DragImageForRowsWithIndexesTableColumnsEventOffset(dragRows foundation.NSIndexSet, tableColumns []NSTableColumn, dragEvent INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (t NSTableView) DragImageForRowsWithIndexesTableColumnsEventOffset(dragRows foundation.NSIndexSet, tableColumns []NSTableColumn, dragEvent INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dragImageForRowsWithIndexes:tableColumns:event:offset:"), dragRows, objectivec.IObjectSliceToNSArray(tableColumns), dragEvent, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -2351,7 +2365,7 @@ func (t NSTableView) TextViewCandidatesForSelectedRange(textView INSTextView, se
 // perform a double click.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:clickedOn:in:at:)
-func (t NSTableView) TextViewClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
+func (t NSTableView) TextViewClickedOnCellInRectAtIndex(textView INSTextView, cell INSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:clickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
 }
 
@@ -2372,7 +2386,7 @@ func (t NSTableView) TextViewClickedOnCellInRectAtIndex(textView INSTextView, ce
 // # Discussion
 //
 // The delegate can use this method to handle the click on the link. It is
-// invoked by [ClickedOnLinkAtIndex].
+// invoked by [NSTextView.ClickedOnLinkAtIndex].
 //
 // The `charIndex` parameter is a character index somewhere in the range of
 // the link attribute. If the user actually physically clicked the link, then
@@ -2406,7 +2420,7 @@ func (t NSTableView) TextViewClickedOnLinkAtIndex(textView INSTextView, link obj
 // completion.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:completions:forPartialWordRange:indexOfSelectedItem:)
-func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
+func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index *int) []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }
@@ -2461,8 +2475,9 @@ func (t NSTableView) TextViewDidChangeTypingAttributes(notification foundation.N
 // # Discussion
 //
 // Invoked by
-// [HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount], this
-// method allows observation of text checking, or modification of the results
+// [NSTextView.HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount],
+// this method allows observation of text checking, or modification of the
+// results
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:didCheckTextIn:types:options:results:orthography:wordCount:)
 //
@@ -2470,7 +2485,7 @@ func (t NSTableView) TextViewDidChangeTypingAttributes(notification foundation.N
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 //
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-func (t NSTableView) TextViewDidCheckTextInRangeTypesOptionsResultsOrthographyWordCount(view INSTextView, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, results []foundation.NSTextCheckingResult, orthography foundation.NSOrthography, wordCount int) []foundation.NSTextCheckingResult {
+func (t NSTableView) TextViewDidCheckTextInRangeTypesOptionsResultsOrthographyWordCount(view INSTextView, range_ foundation.NSRange, checkingTypes foundation.NSTextCheckingTypes, options foundation.INSDictionary, results []foundation.NSTextCheckingResult, orthography foundation.NSOrthography, wordCount int) []foundation.NSTextCheckingResult {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:didCheckTextInRange:types:options:results:orthography:wordCount:"), view, range_, checkingTypes, options, objectivec.IObjectSliceToNSArray(results), orthography, wordCount)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
 		return foundation.NSTextCheckingResultFromID(id)
@@ -2518,7 +2533,7 @@ func (t NSTableView) TextViewDoCommandBySelector(textView INSTextView, commandSe
 // that draws `cell`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:doubleClickedOn:in:at:)
-func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
+func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell INSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:doubleClickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
 }
 
@@ -2540,7 +2555,7 @@ func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextVi
 // operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:draggedCell:in:event:at:)
-func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell NSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
+func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell INSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:draggedCell:inRect:event:atIndex:"), view, cell, rect, event, charIndex)
 }
 
@@ -2562,7 +2577,7 @@ func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cel
 // # Discussion
 //
 // This method allows the delegate to control the context menu returned by
-// [MenuForEvent].
+// [NSView.MenuForEvent].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:menu:for:at:)
 func (t NSTableView) TextViewMenuForEventAtIndex(view INSTextView, menu INSMenu, event INSEvent, charIndex uint) INSMenu {
@@ -2723,11 +2738,11 @@ func (t NSTableView) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTex
 // The returned [NSURL] object is used by the text view to provide default
 // behaviors involving text attachments such as Quick Look and
 // double-clicking. For example, the [NSTextView] method
-// [QuickLookPreviewableItemsInRanges] uses this method for mapping text
-// attachments to their corresponding document URLs, and [NSTextView] invokes
-// the [NSWorkspace] method [OpenURL] with the URL returned from this method
-// when the delegate has no [TextViewDoubleClickedOnCellInRectAtIndex]
-// implementation.
+// [NSTextView.QuickLookPreviewableItemsInRanges] uses this method for mapping
+// text attachments to their corresponding document URLs, and [NSTextView]
+// invokes the [NSWorkspace] method [NSWorkspace.OpenURL] with the URL
+// returned from this method when the delegate has no
+// [TextViewDoubleClickedOnCellInRectAtIndex] implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:urlForContentsOf:at:)
 func (t NSTableView) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.NSURL {
@@ -2753,7 +2768,7 @@ func (t NSTableView) TextViewURLForContentsOfTextAttachmentAtIndex(textView INST
 //
 // This method is invoked before a text view finishes changing the
 // selection—that is, when the last argument to a
-// [SetSelectedRangeAffinityStillSelecting] message is false.
+// [NSTextView.SetSelectedRangeAffinityStillSelecting] message is false.
 //
 // Non-selectable text views do not process any mouse events. If for some
 // reason it is necessary to disallow user selection change in a text view
@@ -2802,8 +2817,8 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangeToCharacterRan
 //
 // Invoked before an [NSTextView] object finishes changing the
 // selection—that is, when the last argument to a
-// [SetSelectedRangeAffinityStillSelecting] or
-// [SetSelectedRangesAffinityStillSelecting] message is false.
+// [NSTextView.SetSelectedRangeAffinityStillSelecting] or
+// [NSTextView.SetSelectedRangesAffinityStillSelecting] message is false.
 //
 // Non-selectable text views do not process any mouse events. If for some
 // reason it is necessary to disallow user selection change in a text view
@@ -2846,14 +2861,14 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangesToCharacterRa
 //
 // # Discussion
 //
-// Invoked by [CheckTextInRangeTypesOptions], this method allows control over
-// text checking `options`s (via the return value) or types (by modifying the
-// flags pointed to by the inout parameter `checkingTypes`)
+// Invoked by [NSTextView.CheckTextInRangeTypesOptions], this method allows
+// control over text checking `options`s (via the return value) or types (by
+// modifying the flags pointed to by the inout parameter `checkingTypes`)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willCheckTextIn:options:types:)
 //
 // [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
-func (t NSTableView) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes unsafe.Pointer) foundation.INSDictionary {
+func (t NSTableView) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes *foundation.NSTextCheckingTypes) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
 	return foundation.NSDictionaryFromID(rv)
 }
@@ -2933,7 +2948,7 @@ func (t NSTableView) TextViewWillShowSharingServicePickerForItems(textView INSTe
 // writing the attachment to the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writablePasteboardTypesFor:at:)
-func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextView, cell NSTextAttachmentCell, charIndex uint) []string {
+func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextView, cell INSTextAttachmentCell, charIndex uint) []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writablePasteboardTypesForCell:atIndex:"), view, cell, charIndex)
 	return objc.ConvertSliceToStrings(rv)
 }
@@ -2961,7 +2976,7 @@ func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextV
 // `type`, and return success or failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:write:at:to:type:)
-func (t NSTableView) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, cell NSTextAttachmentCell, charIndex uint, pboard INSPasteboard, type_ NSPasteboardType) bool {
+func (t NSTableView) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, cell INSTextAttachmentCell, charIndex uint, pboard INSPasteboard, type_ NSPasteboardType) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:writeCell:atIndex:toPasteboard:type:"), view, cell, charIndex, pboard, objc.String(string(type_)))
 	return rv
 }
@@ -3000,7 +3015,7 @@ func (t NSTableView) TextViewWritingToolsWillBegin(textView INSTextView) {
 // between changes to text and changes to other items in the application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/undoManager(for:)
-func (t NSTableView) UndoManagerForTextView(view INSTextView) foundation.NSUndoManager {
+func (t NSTableView) UndoManagerForTextView(view INSTextView) foundation.UndoManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("undoManagerForTextView:"), view)
 	return foundation.NSUndoManagerFromID(rv)
 }
@@ -3065,8 +3080,9 @@ func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification)
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidBeginEditing:"), notification)
 }
 
-// Invoked from a text object’s implementation of [ResignFirstResponder],
-// this method requests permission for `aTextObject` to end editing.
+// Invoked from a text object’s implementation of
+// [NSResponder.ResignFirstResponder], this method requests permission for
+// `aTextObject` to end editing.
 //
 // # Discussion
 //
@@ -3085,9 +3101,11 @@ func (t NSTableView) TextShouldEndEditing(textObject INSText) bool {
 //
 // # Discussion
 //
-// The name of `aNotification` is [DidEndEditingNotification].
+// The name of `aNotification` is [didEndEditingNotification].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
+//
+// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
 func (t NSTableView) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidEndEditing:"), notification)
 }
@@ -3102,7 +3120,7 @@ func (t NSTableView) TextDidEndEditing(notification foundation.NSNotification) {
 // for more information. Note that in versions of macOS prior to v10.12, the
 // table view did not retain the data source in a managed memory environment.
 //
-// Setting the data source invokes [Tile].
+// Setting the data source invokes [NSTableView.Tile].
 //
 // If the delegate doesn’t respond to either [NumberOfRowsInTableView] or
 // [TableViewObjectValueForTableColumnRow], [internalInconsistencyException]
@@ -3132,11 +3150,11 @@ func (t NSTableView) SetDataSource(value NSTableViewDataSource) {
 // In Xcode, any rows you add to a static table are saved in the corresponding
 // nib or storyboard file and loaded with the rest of the table at runtime.
 // You can add table rows programmatically to a static table view using the
-// [InsertRowsAtIndexesWithAnimation] method. When adding rows
+// [NSTableView.InsertRowsAtIndexesWithAnimation] method. When adding rows
 // programmatically, your table view delegate must implement the
 // [TableViewViewForTableColumnRow] method to provide the corresponding view
 // for any new rows. You can also remove rows at any time using the
-// [RemoveRowsAtIndexesWithAnimation] method.
+// [NSTableView.RemoveRowsAtIndexesWithAnimation] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/usesStaticContents
 func (t NSTableView) UsesStaticContents() bool {
@@ -3154,7 +3172,7 @@ func (t NSTableView) SetUsesStaticContents(value bool) {
 //
 // Each key in the dictionary is the identifier string (given by
 // [NSUserInterfaceItemIdentifier]) used to register the nib file in the
-// [RegisterNibForIdentifier] method. The value of each key is the
+// [NSTableView.RegisterNibForIdentifier] method. The value of each key is the
 // corresponding [NSNib] object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/registeredNibsByIdentifier
@@ -3172,24 +3190,24 @@ func (t NSTableView) RegisteredNibsByIdentifier() foundation.INSDictionary {
 // following form:
 //
 // When the user double-clicks a cell or column header, the table calls the
-// specified method of its [Target] object. The default value of this property
-// is nil. If you do not specify a value for this property, the table view
-// begins editing the cell.
+// specified method of its [NSControl.Target] object. The default value of
+// this property is nil. If you do not specify a value for this property, the
+// table view begins editing the cell.
 //
-// The [ClickedRow] and [ClickedColumn] properties allow you to determine
-// which row and column the double-click occurred in or if, rather than in a
-// row, the double-click occurred in a column heading.
+// The [NSTableView.ClickedRow] and [NSTableView.ClickedColumn] properties
+// allow you to determine which row and column the double-click occurred in or
+// if, rather than in a row, the double-click occurred in a column heading.
 //
 // Note that if the table view uses Cocoa bindings and the Double Click Target
 // binding is bound, both messages are invoked on their respective targets:
 // First the Cocoa binding message is sent, then the “ message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/doubleAction
-func (t NSTableView) DoubleAction() objc.SEL {
+func (t NSTableView) DoubleAction() objectivec.SEL {
 	rv := objc.Send[objc.SEL](t.ID, objc.Sel("doubleAction"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (t NSTableView) SetDoubleAction(value objc.SEL) {
+func (t NSTableView) SetDoubleAction(value objectivec.SEL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDoubleAction:"), value)
 }
 
@@ -3197,10 +3215,10 @@ func (t NSTableView) SetDoubleAction(value objc.SEL) {
 //
 // # Discussion
 //
-// This property contains the index in the [TableColumns] array of the column
-// that the user clicked. The value is `-1` when the user clicks in an area of
-// the table view that is not occupied by columns or when the user clicks a
-// row that is a group separator.
+// This property contains the index in the [NSTableView.TableColumns] array of
+// the column that the user clicked. The value is `-1` when the user clicks in
+// an area of the table view that is not occupied by columns or when the user
+// clicks a row that is a group separator.
 //
 // The value of this property is meaningful in the target object’s
 // implementation of the action and double-action methods. You can also use
@@ -3378,10 +3396,11 @@ func (t NSTableView) SetIntercellSpacing(value corefoundation.CGSize) {
 // # Discussion
 //
 // The default row height is `16.0`. The value in this property is used only
-// if the table’s [RowSizeStyle] is set to [NSTableViewRowSizeStyleCustom].
+// if the table’s [NSTableView.RowSizeStyle] is set to
+// [NSTableViewRowSizeStyleCustom].
 //
-// When you change the value of this property, the table view calls the [Tile]
-// method to redisplay the rows using the new value.
+// When you change the value of this property, the table view calls the
+// [NSTableView.Tile] method to redisplay the rows using the new value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/rowHeight
 func (t NSTableView) RowHeight() float64 {
@@ -3451,8 +3470,8 @@ func (t NSTableView) SetStyle(value NSTableViewStyle) {
 //
 // # Discussion
 //
-// If the [Style] property value is [NSTableViewStyleAutomatic], then this
-// property contains the resolved style.
+// If the [NSTableView.Style] property value is [NSTableViewStyleAutomatic],
+// then this property contains the resolved style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/effectiveStyle
 func (t NSTableView) EffectiveStyle() NSTableViewStyle {
@@ -3468,7 +3487,7 @@ func (t NSTableView) EffectiveStyle() NSTableViewStyle {
 // Setting the selection highlight style to
 // [NSTableViewSelectionHighlightStyleSourceList] causes the table view to
 // draw its background using the source list style. It also sets the
-// [DraggingDestinationFeedbackStyle] to
+// [NSTableView.DraggingDestinationFeedbackStyle] to
 // [NSTableViewDraggingDestinationFeedbackStyleSourceList].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionHighlightStyle-swift.property
@@ -3517,7 +3536,7 @@ func (t NSTableView) SetGridStyleMask(value NSTableViewGridLineStyle) {
 //
 // # Discussion
 //
-// If the value in the [RowSizeStyle] property is
+// If the value in the [NSTableView.RowSizeStyle] property is
 // [NSTableViewRowSizeStyleDefault], then this property contains the default
 // size for this table. The default size is currently set in System
 // Preferences by the user.
@@ -3538,9 +3557,10 @@ func (t NSTableView) EffectiveRowSizeStyle() NSTableViewRowSizeStyle {
 // [TableViewHeightOfRow] method in your table view delegate object.
 //
 // The default value of this property is [NSTableViewRowSizeStyleCustom],
-// which tells the table to use the [RowHeight] of the table instead of any
-// pre-determined system values. Generally, `rowSizeStyle` should always be
-// [NSTableViewRowSizeStyleCustom] except for “source lists”.
+// which tells the table to use the [NSTableView.RowHeight] of the table
+// instead of any pre-determined system values. Generally, `rowSizeStyle`
+// should always be [NSTableViewRowSizeStyleCustom] except for “source
+// lists”.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/rowSizeStyle-swift.property
 func (t NSTableView) RowSizeStyle() NSTableViewRowSizeStyle {
@@ -3696,8 +3716,9 @@ func (t NSTableView) SetFloatsGroupRows(value bool) {
 //
 // # Return Value
 //
-// If sent during [EditColumnRowWithEventSelect], the index in the
-// [TableColumns] array of the column being edited; otherwise `–1`.
+// If sent during [NSTableView.EditColumnRowWithEventSelect], the index in the
+// [NSTableView.TableColumns] array of the column being edited; otherwise
+// `–1`.
 //
 // # Discussion
 //
@@ -3795,11 +3816,11 @@ func (t NSTableView) SetColumnAutoresizingStyle(value NSTableViewColumnAutoresiz
 //
 // When this property is set to true, the table information is saved
 // separately for each user and application under the name specified in the
-// [AutosaveName] property. If you change the value of this property from
-// false to true, the table tries to read in any saved information and sets
-// the order and width of this table view’s columns to match. If the
-// [AutosaveName] property is `nil`, this setting is ignored and the table
-// information is not read or saved.
+// [NSTableView.AutosaveName] property. If you change the value of this
+// property from false to true, the table tries to read in any saved
+// information and sets the order and width of this table view’s columns to
+// match. If the [NSTableView.AutosaveName] property is `nil`, this setting is
+// ignored and the table information is not read or saved.
 //
 // When autosave is enabled, the table saves the table column width, the table
 // column order, any applied sort descriptors, and the table column hidden
@@ -3821,8 +3842,8 @@ func (t NSTableView) SetAutosaveTableColumns(value bool) {
 // The table information is saved separately in user defaults for each user
 // and for each application that user uses. If no name has been set, the value
 // of this property is `nil`. Even when a table view has an autosave name, it
-// only saves the table information when the [AutosaveTableColumns] property
-// is true.
+// only saves the table information when the
+// [NSTableView.AutosaveTableColumns] property is true.
 //
 // If you change the value of this property to a new name, the table reads in
 // any saved information and sets the order and width of this table view’s
@@ -3988,40 +4009,13 @@ func (t NSTableView) SetRowActionsVisible(value bool) {
 //
 // The value of this property is an index set containing the indexes of any
 // hidden table rows. Table rows may be hidden by invoking the
-// [HideRowsAtIndexesWithAnimation] method. Some drag-and-drop operations also
-// result in hidden rows.
+// [NSTableView.HideRowsAtIndexesWithAnimation] method. Some drag-and-drop
+// operations also result in hidden rows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/hiddenRowIndexes
 func (t NSTableView) HiddenRowIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("hiddenRowIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
-}
-
-// A Boolean value that indicates whether the receiver reacts to mouse events.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrol/isenabled
-func (t NSTableView) IsEnabled() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("enabled"))
-	return rv
-}
-func (t NSTableView) SetEnabled(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
-}
-
-// Sent when a control with editable cells begins an edit session.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrol/textdidbegineditingnotification
-func (_NSTableViewClass NSTableViewClass) TextDidBeginEditingNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSTableViewClass.class), objc.Sel("NSControlTextDidBeginEditingNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// Sent when the text in the receiving control changes.
-//
-// See: https://developer.apple.com/documentation/appkit/nscontrol/textdidchangenotification
-func (_NSTableViewClass NSTableViewClass) TextDidChangeNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSTableViewClass.class), objc.Sel("NSControlTextDidChangeNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // Protocol methods for NSAccessibilityTable

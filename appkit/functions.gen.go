@@ -164,26 +164,6 @@ func NSAccessibilityPostNotification(element objectivec.Object, notification NSA
 	}
 }
 
-var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer)
-var _nSAccessibilityPostNotificationWithUserInfoErr error
-
-func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer) error {
-	if _nSAccessibilityPostNotificationWithUserInfo == nil {
-		return symbolCallError("NSAccessibilityPostNotificationWithUserInfo", "10.7", _nSAccessibilityPostNotificationWithUserInfoErr)
-	}
-	_nSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo)
-	return nil
-}
-
-// NSAccessibilityPostNotificationWithUserInfo sends a notification and an optional user info dictionary to any observing assistive apps.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:userInfo:)
-func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer) {
-	if callErr := tryNSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo); callErr != nil {
-		panic(callErr)
-	}
-}
-
 var _nSAccessibilityRoleDescription func(role NSAccessibilityRole, subrole NSAccessibilitySubrole) foundation.NSString
 var _nSAccessibilityRoleDescriptionErr error
 
@@ -1595,7 +1575,6 @@ func init() {
 	registerFunc(&_nSAccessibilityFrameInView, &_nSAccessibilityFrameInViewErr, frameworkHandle, "NSAccessibilityFrameInView", "10.10")
 	registerFunc(&_nSAccessibilityPointInView, &_nSAccessibilityPointInViewErr, frameworkHandle, "NSAccessibilityPointInView", "10.10")
 	registerFunc(&_nSAccessibilityPostNotification, &_nSAccessibilityPostNotificationErr, frameworkHandle, "NSAccessibilityPostNotification", "")
-	registerFunc(&_nSAccessibilityPostNotificationWithUserInfo, &_nSAccessibilityPostNotificationWithUserInfoErr, frameworkHandle, "NSAccessibilityPostNotificationWithUserInfo", "10.7")
 	registerFunc(&_nSAccessibilityRoleDescription, &_nSAccessibilityRoleDescriptionErr, frameworkHandle, "NSAccessibilityRoleDescription", "")
 	registerFunc(&_nSAccessibilityRoleDescriptionForUIElement, &_nSAccessibilityRoleDescriptionForUIElementErr, frameworkHandle, "NSAccessibilityRoleDescriptionForUIElement", "")
 	registerFunc(&_nSAccessibilitySetMayContainProtectedContent, &_nSAccessibilitySetMayContainProtectedContentErr, frameworkHandle, "NSAccessibilitySetMayContainProtectedContent", "")

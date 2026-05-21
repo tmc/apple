@@ -38,14 +38,14 @@ import (
 // devices. It also lets you capture simultaneous streams from a virtual
 // device, such as the dual camera. You use this method to find the ports
 // associated with a virtual device’s underlying physical devices. A virtual
-// device input’s [Ports] property doesn’t include constituent device
-// ports.
+// device input’s [AVCaptureInput.Ports] property doesn’t include
+// constituent device ports.
 //
-// Using the dual camera as an example, the [Ports] property exposes only
-// those ports supported by the virtual device (it switches automatically
-// between wide-angle and telephoto cameras, depending on the zoom factor).
-// You may use this method to find the video ports for the constituent
-// devices.
+// Using the dual camera as an example, the [AVCaptureInput.Ports] property
+// exposes only those ports supported by the virtual device (it switches
+// automatically between wide-angle and telephoto cameras, depending on the
+// zoom factor). You may use this method to find the video ports for the
+// constituent devices.
 //
 // You can use these ports to create connections to two instances of
 // [AVCaptureVideoDataOutput], allowing for synchronized, full-frame-rate
@@ -55,8 +55,8 @@ import (
 // discover microphones in different positions. You can use the microphone
 // ports to make output connections to simultaneously capture both
 // front-facing and back-facing audio. The audio device port whose
-// [SourceDevicePosition] is [AVCaptureDevicePositionUnspecified] produces
-// omnidirectional sound.
+// [AVCaptureInputPort.SourceDevicePosition] is
+// [AVCaptureDevicePositionUnspecified] produces omnidirectional sound.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/ports(for:sourceDeviceType:sourceDevicePosition:)
 //
@@ -73,19 +73,20 @@ func (c AVCaptureDeviceInput) PortsWithMediaTypeSourceDeviceTypeSourceDevicePosi
 //
 // # Discussion
 //
-// You may set the value of a capture device’s [ActiveFormat] in two ways:
+// You may set the value of a capture device’s
+// [AVCaptureDevice.ActiveFormat] in two ways:
 //
-// - Set it directly using one of the formats in the device’s [Formats]
-// property. - The capture session sets it on your behalf when you set its
-// [SessionPreset] property.
+// - Set it directly using one of the formats in the device’s
+// [AVCaptureDevice.Formats] property. - The capture session sets it on your
+// behalf when you set its [AVCaptureSession.SessionPreset] property.
 //
 // Depending on the device and format, you may configure the default auto
 // exposure behavior differently when you use one method or the other,
 // resulting in non-uniform auto exposure behavior. Auto exposure defaults
-// include [MinFrameRate], [MaxFrameRate], and [MaxExposureDuration]. You can
-// set this property to true to ensure that the system applies consistent
-// default behaviors to the device regardless of the way you set the active
-// format.
+// include [AVFrameRateRange.MinFrameRate], [AVFrameRateRange.MaxFrameRate],
+// and [AVCaptureDeviceFormat.MaxExposureDuration]. You can set this property
+// to true to ensure that the system applies consistent default behaviors to
+// the device regardless of the way you set the active format.
 //
 // The default value is false.
 //
@@ -103,21 +104,23 @@ func (c AVCaptureDeviceInput) SetUnifiedAutoExposureDefaultsEnabled(value bool) 
 //
 // # Discussion
 //
-// A capture device’s [ActiveVideoMinFrameDuration] property is the
-// reciprocal of its active maximum frame rate. To limit the maximum frame
-// rate of the capture device, you may set [ActiveVideoMinFrameDuration] to a
-// value supported by the device’s [ActiveFormat]. Changes you make to the
-// device’s [ActiveVideoMinFrameDuration] value take effect immediately
-// without disrupting preview. Therefore, [AVCaptureSession] must always
-// allocate sufficient resources to allow the device to run at its active
-// format’s maximum frame rate.
+// A capture device’s [AVCaptureDevice.ActiveVideoMinFrameDuration] property
+// is the reciprocal of its active maximum frame rate. To limit the maximum
+// frame rate of the capture device, you may set
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] to a value supported by the
+// device’s [AVCaptureDevice.ActiveFormat]. Changes you make to the
+// device’s [AVCaptureDevice.ActiveVideoMinFrameDuration] value take effect
+// immediately without disrupting preview. Therefore, [AVCaptureSession] must
+// always allocate sufficient resources to allow the device to run at its
+// active format’s maximum frame rate.
 //
 // If you wish to use a particular device format but run it only at lower
 // frame rates (for instance, only run a 1080p240 fps format at a maximum
-// frame rate of 60), set the input’s [VideoMinFrameDurationOverride]
-// property to the reciprocal of the maximum frame rate you intend to use
-// before starting the session (or within a [BeginConfiguration] /
-// [CommitConfiguration] block while running the session).
+// frame rate of 60), set the input’s
+// [AVCaptureDeviceInput.VideoMinFrameDurationOverride] property to the
+// reciprocal of the maximum frame rate you intend to use before starting the
+// session (or within a [AVCaptureSession.BeginConfiguration] /
+// [AVCaptureSession.CommitConfiguration] block while running the session).
 //
 // This property’s default value is [invalid]. When you remove a device
 // input from a session and then add it back, this property reverts to its

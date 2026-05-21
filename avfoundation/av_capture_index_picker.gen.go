@@ -114,7 +114,7 @@ type IAVCaptureIndexPicker interface {
 	// Creates a control to pick a value from the specified number of indexes.
 	InitWithLocalizedTitleSymbolNameNumberOfIndexes(localizedTitle string, symbolName string, numberOfIndexes int) AVCaptureIndexPicker
 	// Creates a control to pick a value from the specified number of indices.
-	InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform IntHandler) AVCaptureIndexPicker
+	InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform StringIntHandler) AVCaptureIndexPicker
 	// Creates an object to select an index from a set of values.
 	InitWithLocalizedTitleSymbolNameLocalizedIndexTitles(localizedTitle string, symbolName string, localizedIndexTitles []string) AVCaptureIndexPicker
 
@@ -236,8 +236,8 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 // title for each value lazily.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/init(_:symbolName:numberOfIndexes:localizedTitleTransform:)
-func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform IntHandler) AVCaptureIndexPicker {
-	_block3, _ := NewIntBlock(localizedTitleTransform)
+func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform StringIntHandler) AVCaptureIndexPicker {
+	_block3, _ := NewStringIntBlock(localizedTitleTransform)
 	rv := objc.Send[AVCaptureIndexPicker](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
 	return rv
 }
@@ -287,7 +287,7 @@ func (c AVCaptureIndexPicker) SetActionQueueAction(actionQueue dispatch.Queue, a
 // # Discussion
 //
 // The default value is `0`. You can only set a value that’s greater than or
-// equal to `0` and less than [NumberOfIndexes].
+// equal to `0` and less than [AVCaptureIndexPicker.NumberOfIndexes].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/selectedIndex
 func (c AVCaptureIndexPicker) SelectedIndex() int {
@@ -328,21 +328,6 @@ func (c AVCaptureIndexPicker) LocalizedTitle() string {
 func (c AVCaptureIndexPicker) LocalizedIndexTitles() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("localizedIndexTitles"))
 	return objc.ConvertSliceToStrings(rv)
-}
-
-// InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransformSync is a synchronous wrapper around [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform].
-// It blocks until the completion handler fires or the context is cancelled.
-func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransformSync(ctx context.Context, localizedTitle string, symbolName string, numberOfIndexes int) (int, error) {
-	done := make(chan int, 1)
-	c.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle, symbolName, numberOfIndexes, func(val int) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return 0, ctx.Err()
-	}
 }
 
 // SetActionQueueActionSync is a synchronous wrapper around [AVCaptureIndexPicker.SetActionQueueAction].

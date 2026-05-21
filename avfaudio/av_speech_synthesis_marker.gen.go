@@ -143,9 +143,7 @@ type IAVSpeechSynthesisMarker interface {
 	ByteSampleOffset() uint
 	SetByteSampleOffset(value uint)
 
-	// A block that subclasses use to send marker information to the host.
-	SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisProviderOutputBlock
-	SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock)
+	InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -178,6 +176,13 @@ func NewAVSpeechSynthesisMarker() AVSpeechSynthesisMarker {
 func NewSpeechSynthesisMarkerWithBookmarkNameAtByteSampleOffset(mark string, byteSampleOffset int) AVSpeechSynthesisMarker {
 	instance := getAVSpeechSynthesisMarkerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBookmarkName:atByteSampleOffset:"), objc.String(mark), byteSampleOffset)
+	return AVSpeechSynthesisMarkerFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/init(coder:)
+func NewSpeechSynthesisMarkerWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
+	instance := getAVSpeechSynthesisMarkerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return AVSpeechSynthesisMarkerFromID(rv)
 }
 
@@ -329,6 +334,12 @@ func (s AVSpeechSynthesisMarker) InitWithBookmarkNameAtByteSampleOffset(mark str
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithBookmarkName:atByteSampleOffset:"), objc.String(mark), byteSampleOffset)
 	return rv
 }
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/init(coder:)
+func (s AVSpeechSynthesisMarker) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
+	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s AVSpeechSynthesisMarker) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -386,15 +397,4 @@ func (s AVSpeechSynthesisMarker) ByteSampleOffset() uint {
 }
 func (s AVSpeechSynthesisMarker) SetByteSampleOffset(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setByteSampleOffset:"), value)
-}
-
-// A block that subclasses use to send marker information to the host.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisprovideraudiounit/speechsynthesisoutputmetadatablock
-func (s AVSpeechSynthesisMarker) SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisProviderOutputBlock {
-	rv := objc.Send[AVSpeechSynthesisProviderOutputBlock](s.ID, objc.Sel("speechSynthesisOutputMetadataBlock"))
-	return AVSpeechSynthesisProviderOutputBlock(rv)
-}
-func (s AVSpeechSynthesisMarker) SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSpeechSynthesisOutputMetadataBlock:"), value)
 }

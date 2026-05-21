@@ -4,9 +4,7 @@ package metal
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -131,11 +129,6 @@ type IMTLTensorDescriptor interface {
 	// A set of contexts in which you can use tensors you create with this descriptor.
 	Usage() MTLTensorUsage
 	SetUsage(value MTLTensorUsage)
-
-	// An error domain for errors that pertain to creating a tensor.
-	MTLTensorDomain() string
-	MTL_TENSOR_MAX_RANK() unsafe.Pointer
-	SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -290,21 +283,4 @@ func (t MTLTensorDescriptor) Usage() MTLTensorUsage {
 }
 func (t MTLTensorDescriptor) SetUsage(value MTLTensorUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
-}
-
-// An error domain for errors that pertain to creating a tensor.
-//
-// See: https://developer.apple.com/documentation/metal/mtltensordomain
-func (t MTLTensorDescriptor) MTLTensorDomain() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
-func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
-	return rv
-}
-func (t MTLTensorDescriptor) SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }

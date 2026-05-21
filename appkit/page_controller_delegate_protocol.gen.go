@@ -61,8 +61,8 @@ func (o NSPageControllerDelegateObject) PageControllerWillStartLiveTransition(pa
 // gesture or one of the page controller’s target-action navigation methods.
 //
 // Your content view is still hidden and you must call the
-// [CompleteTransition] method on `pageController` when your content is ready
-// to show.
+// [NSPageController.CompleteTransition] method on `pageController` when your
+// content is ready to show.
 //
 // If completed successfully, a [PageControllerDidTransitionToObject] will
 // already have been sent.
@@ -127,8 +127,8 @@ func (o NSPageControllerDelegateObject) PageControllerIdentifierForObject(pageCo
 // necessary to maintain performance. This method is called whenever another
 // instance is required.
 //
-// The view controller may become the [SelectedViewController] after a
-// transition if necessary.
+// The view controller may become the
+// [NSPageController.SelectedViewController] after a transition if necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:viewControllerForIdentifier:)
 func (o NSPageControllerDelegateObject) PageControllerViewControllerForIdentifier(pageController INSPageController, identifier NSPageControllerObjectIdentifier) INSViewController {
@@ -171,15 +171,16 @@ func (o NSPageControllerDelegateObject) PageControllerPrepareViewControllerWithO
 // # Discussion
 //
 // You only need to implement this if the view frame can differ between the
-// page controller’s [ArrangedObjects].
+// page controller’s [NSPageController.ArrangedObjects].
 //
 // This method must return immediately. Avoid file, network or any potentially
 // blocking or lengthy work to provide an answer.
 //
-// If this method is not implemented, all [ArrangedObjects] are assumed to
-// have the same frame as the `pageController` object’s current
-// [SelectedViewController] instance’s `view` or the bounds of `view` when
-// [SelectedViewController] is `nil`.
+// If this method is not implemented, all [NSPageController.ArrangedObjects]
+// are assumed to have the same frame as the `pageController` object’s
+// current [NSPageController.SelectedViewController] instance’s `view` or
+// the bounds of `view` when [NSPageController.SelectedViewController] is
+// `nil`.
 //
 // This method is only useful if [PageControllerIdentifierForObject] and
 // [PageControllerViewControllerForIdentifier] are implemented.

@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -51,6 +52,10 @@ func (nc NSMutableParagraphStyleClass) Alloc() NSMutableParagraphStyle {
 // paragraph style attribute. For more information, see [NSParagraphStyle] and
 // [NSAttributedString].
 //
+// # Setting style information
+//
+//   - [NSMutableParagraphStyle.SetParagraphStyle]: Replaces the subattributes of the paragraph with those in the specified paragraph style object.
+//
 // # Specifying tab information
 //
 //   - [NSMutableParagraphStyle.AddTabStop]: Adds the specified tab stop to the paragraph.
@@ -76,6 +81,10 @@ func NSMutableParagraphStyleFromID(id objc.ID) NSMutableParagraphStyle {
 
 // An interface definition for the [NSMutableParagraphStyle] class.
 //
+// # Setting style information
+//
+//   - [INSMutableParagraphStyle.SetParagraphStyle]: Replaces the subattributes of the paragraph with those in the specified paragraph style object.
+//
 // # Specifying tab information
 //
 //   - [INSMutableParagraphStyle.AddTabStop]: Adds the specified tab stop to the paragraph.
@@ -84,6 +93,11 @@ func NSMutableParagraphStyleFromID(id objc.ID) NSMutableParagraphStyle {
 // See: https://developer.apple.com/documentation/AppKit/NSMutableParagraphStyle
 type INSMutableParagraphStyle interface {
 	INSParagraphStyle
+
+	// Topic: Setting style information
+
+	// Replaces the subattributes of the paragraph with those in the specified paragraph style object.
+	SetParagraphStyle(obj INSParagraphStyle)
 
 	// Topic: Specifying tab information
 
@@ -110,6 +124,21 @@ func NewNSMutableParagraphStyle() NSMutableParagraphStyle {
 	class := getNSMutableParagraphStyleClass()
 	rv := objc.Send[NSMutableParagraphStyle](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/init(coder:)
+func NewMutableParagraphStyleWithCoder(coder foundation.INSCoder) NSMutableParagraphStyle {
+	instance := getNSMutableParagraphStyleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSMutableParagraphStyleFromID(rv)
+}
+
+// Replaces the subattributes of the paragraph with those in the specified
+// paragraph style object.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSMutableParagraphStyle/setParagraphStyle(_:)
+func (m NSMutableParagraphStyle) SetParagraphStyle(obj INSParagraphStyle) {
+	objc.Send[objc.ID](m.ID, objc.Sel("setParagraphStyle:"), obj)
 }
 
 // Adds the specified tab stop to the paragraph.

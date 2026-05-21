@@ -60,28 +60,31 @@ func (dc DistributedNotificationCenterClass) Alloc() DistributedNotificationCent
 // In addition to the notification name and sender, dispatch table entries for
 // distributed notification centers specify when the notification center
 // delivers notifications to its observers. See the
-// [PostNotificationNameObjectUserInfoDeliverImmediately] method, Suspending
-// and Resuming Notification Delivery, and
+// [NSDistributedNotificationCenter.PostNotificationNameObjectUserInfoDeliverImmediately]
+// method, Suspending and Resuming Notification Delivery, and
 // [DistributedNotificationCenter.SuspensionBehavior] for details.
 //
 // # Commonly Used Methods
 //
-// [DefaultCenter]: Accesses the default distributed notification center.
-// [AddObserverSelectorNameObjectSuspensionBehavior]: Registers an object to
-// receive a notification with a specified behavior when notification delivery
-// is suspended. [PostNotificationNameObjectUserInfoDeliverImmediately]:
-// Creates and posts a notification. [RemoveObserverNameObject]: Specifies
-// that an object no longer wants to receive certain notifications.
+// [NSDistributedNotificationCenterClass.DefaultCenter]: Accesses the default
+// distributed notification center.
+// [NSDistributedNotificationCenter.AddObserverSelectorNameObjectSuspensionBehavior]:
+// Registers an object to receive a notification with a specified behavior
+// when notification delivery is suspended.
+// [NSDistributedNotificationCenter.PostNotificationNameObjectUserInfoDeliverImmediately]:
+// Creates and posts a notification.
+// [NSDistributedNotificationCenter.RemoveObserverNameObject]: Specifies that
+// an object no longer wants to receive certain notifications.
 //
 // # Overview
 //
 // Each task has a default distributed notification center that you access
-// with the [DefaultCenter] class method. There may be different types of
-// distributed notification centers. Currently there is a single
-// type—[NSLocalNotificationCenterType]. This type of distributed
-// notification center handles notifications that can be sent between tasks on
-// a single computer. For communication between tasks on different computers,
-// use [Distributed Objects Programming Topics].
+// with the [NSDistributedNotificationCenterClass.DefaultCenter] class method.
+// There may be different types of distributed notification centers. Currently
+// there is a single type—[NSLocalNotificationCenterType]. This type of
+// distributed notification center handles notifications that can be sent
+// between tasks on a single computer. For communication between tasks on
+// different computers, use [Distributed Objects Programming Topics].
 //
 // Posting a is an expensive operation. The notification gets sent to a
 // system-wide server that distributes it to all the tasks that have objects
@@ -160,7 +163,7 @@ type IDistributedNotificationCenter interface {
 	// Topic: Managing Observers
 
 	// Adds an entry to the receiver’s dispatch table with a specific observer and suspended-notifications behavior, and optional notification name and sender.
-	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
+	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
 
 	// Topic: Posting Notifications
 
@@ -221,11 +224,11 @@ func NewDistributedNotificationCenter() DistributedNotificationCenter {
 //
 // The receiver does not retain `notificationObserver`. Therefore, you should
 // always send `NotificationCenter/removeObserver(_:)` or
-// [RemoveObserverNameObject] to the receiver before releasing
-// `notificationObserver`.
+// [NSDistributedNotificationCenter.RemoveObserverNameObject] to the receiver
+// before releasing `notificationObserver`.
 //
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/addObserver(_:selector:name:object:suspensionBehavior:)
-func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
+func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addObserver:selector:name:object:suspensionBehavior:"), observer, selector, objc.String(string(name)), objc.String(object), suspensionBehavior)
 }
 

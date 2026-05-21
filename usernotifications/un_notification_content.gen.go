@@ -53,8 +53,9 @@ func (uc UNNotificationContentClass) Alloc() UNNotificationContent {
 // [UNNotificationRequest] object contains an object of this type with the
 // content that your app received. Use the content object to get the details
 // of the notification, including the type of notification that the system
-// delivered, any custom data you stored in the [UNNotificationContent.UserInfo] dictionary before
-// scheduling the notification, and any attachments.
+// delivered, any custom data you stored in the
+// [UNNotificationContent.UserInfo] dictionary before scheduling the
+// notification, and any attachments.
 //
 // Don’t create instances of this class directly. For remote notifications,
 // the system derives the contents of this object from the JSON payload that
@@ -248,9 +249,9 @@ func NewUNNotificationContent() UNNotificationContent {
 // [UNUserNotificationCenter] without mutating.
 //
 // Add this call to the [UNNotificationServiceExtension] in
-// [DidReceiveNotificationRequestWithContentHandler]. Your app passes the
-// returned [UNNotificationContent] to the `contentHandler` for incoming push
-// notifications.
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler].
+// Your app passes the returned [UNNotificationContent] to the
+// `contentHandler` for incoming push notifications.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationContent/updating(from:)
 //

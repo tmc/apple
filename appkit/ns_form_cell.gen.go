@@ -300,7 +300,8 @@ func (f NSFormCell) SetPlaceholderAttributedString(value foundation.NSAttributed
 // If this property returns `nil`, you can also call
 // `placeholderAttributedString` to see if the cell has an attributed
 // placeholder string. Note that invoking this method clears out any
-// attributed string set by the [PlaceholderAttributedString] property.
+// attributed string set by the [NSFormCell.PlaceholderAttributedString]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/placeholderString
 func (f NSFormCell) PlaceholderString() string {
@@ -317,10 +318,10 @@ func (f NSFormCell) SetPlaceholderString(value string) {
 //
 // The preferred width is reflected in the cell’s `cellSize`, which will be
 // large enough to accommodate the title, bezel, and a text field of width
-// `preferredTextWidth`. It is also reflected in the [IntrinsicContentSize] of
-// the [NSForm] object. That is, under Auto Layout, the form will try to size
-// itself so that the text field cell is the given width, according to the
-// usual content size constraint priorities.
+// `preferredTextWidth`. It is also reflected in the
+// [NSView.IntrinsicContentSize] of the [NSForm] object. That is, under Auto
+// Layout, the form will try to size itself so that the text field cell is the
+// given width, according to the usual content size constraint priorities.
 //
 // If the width is negative, the cel size matches the historic behavior, which
 // is that it is large enough to accommodate the title, bezel, and the current

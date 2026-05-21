@@ -214,14 +214,16 @@ func (x NSXPCListener) InitWithMachServiceName(name string) NSXPCListener {
 //
 // # Discussion
 //
-// Connections start in an inactive state. You must call [Activate] on a
-// connection before it can send or receive any messages.
+// Connections start in an inactive state. You must call
+// [NSXPCListener.Activate] on a connection before it can send or receive any
+// messages.
 //
-// Calling [Activate] on an active connection has no effect.
+// Calling [NSXPCListener.Activate] on an active connection has no effect.
 //
-// For backward compatibility reasons, calling [Resume] on an inactive and
-// otherwise not suspended [NSXPCListener] has the same effect as calling
-// [Activate]. For new code, prefer [Activate].
+// For backward compatibility reasons, calling [NSXPCListener.Resume] on an
+// inactive and otherwise not suspended [NSXPCListener] has the same effect as
+// calling [NSXPCListener.Activate]. For new code, prefer
+// [NSXPCListener.Activate].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListener/activate()
 func (x NSXPCListener) Activate() {
@@ -235,10 +237,10 @@ func (x NSXPCListener) Activate() {
 // All listeners start suspended and must be resumed before they begin
 // processing incoming requests.
 //
-// If called on the [ServiceListener] object, this method never returns.
-// Therefore, you should call it as the last step inside the XPC service’s
-// `main` function after setting up any desired initial state and configuring
-// the listener itself.
+// If called on the [NSXPCListenerClass.ServiceListener] object, this method
+// never returns. Therefore, you should call it as the last step inside the
+// XPC service’s `main` function after setting up any desired initial state
+// and configuring the listener itself.
 //
 // If called on any other [NSXPCListener], the connection is resumed, and the
 // method returns immediately.
@@ -264,8 +266,9 @@ func (x NSXPCListener) Invalidate() {
 //
 // # Discussion
 //
-// As you cannot invalidate a suspended listener, every call to [Suspend] that
-// you make must be balanced by a call to [Resume].
+// As you cannot invalidate a suspended listener, every call to
+// [NSXPCListener.Suspend] that you make must be balanced by a call to
+// [NSXPCListener.Resume].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListener/suspend()
 func (x NSXPCListener) Suspend() {
@@ -312,8 +315,9 @@ func (_NSXPCListenerClass NSXPCListenerClass) ServiceListener() NSXPCListener {
 // # Discussion
 //
 // Other processes can connect to this listener by passing this listener
-// object’s [NSXPCListenerEndpoint] to the [InitWithListenerEndpoint] method
-// of an [NSXPCConnection] object.
+// object’s [NSXPCListenerEndpoint] to the
+// [NSXPCConnection.InitWithListenerEndpoint] method of an [NSXPCConnection]
+// object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListener/anonymous()
 func (_NSXPCListenerClass NSXPCListenerClass) AnonymousListener() NSXPCListener {

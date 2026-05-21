@@ -52,8 +52,9 @@ func (mc MTLSharedTextureHandleClass) Alloc() MTLSharedTextureHandle {
 // connections and then used to create a reference to the texture in another
 // process. The texture in the other process needs to be created using the
 // same [MTLDevice] on which the shared texture was originally created. To
-// identify which device it was created on, you can use the [MTLSharedTextureHandle.Device] property
-// of the [MTLSharedTextureHandle] object.
+// identify which device it was created on, you can use the
+// [MTLSharedTextureHandle.Device] property of the [MTLSharedTextureHandle]
+// object.
 //
 // # Identifying the shared texture handle
 //
@@ -94,6 +95,7 @@ type IMTLSharedTextureHandle interface {
 	// A string that identifies the texture.
 	Label() string
 
+	InitWithCoder(coder foundation.INSCoder) MTLSharedTextureHandle
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -116,6 +118,18 @@ func NewMTLSharedTextureHandle() MTLSharedTextureHandle {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLSharedTextureHandle/init(coder:)
+func NewSharedTextureHandleWithCoder(coder foundation.INSCoder) MTLSharedTextureHandle {
+	instance := getMTLSharedTextureHandleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MTLSharedTextureHandleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLSharedTextureHandle/init(coder:)
+func (s MTLSharedTextureHandle) InitWithCoder(coder foundation.INSCoder) MTLSharedTextureHandle {
+	rv := objc.Send[MTLSharedTextureHandle](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s MTLSharedTextureHandle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }

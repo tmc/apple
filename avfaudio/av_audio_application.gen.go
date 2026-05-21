@@ -138,8 +138,9 @@ func NewAVAudioApplication() AVAudioApplication {
 //
 // In platforms that use [AVAudioSession], setting the value to true mutes all
 // sources of audio input in the app. In macOS, the system instead invokes the
-// callback that you register by calling [SetInputMuteStateChangeHandlerError]
-// to handle input muting.
+// callback that you register by calling
+// [AVAudioApplication.SetInputMuteStateChangeHandlerError] to handle input
+// muting.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/setInputMuted(_:)
 //
@@ -170,9 +171,9 @@ func (a AVAudioApplication) SetInputMutedError(muted bool) (bool, error) {
 //
 // Use this method to set a closure to handle your macOS app’s input muting
 // logic. The system calls thie closure when the input mute state changes,
-// either due to setting the [InputMuted] state, or due to a Bluetooth audio
-// accessory gesture (certain AirPods / Beats headphones) changing the mute
-// state.
+// either due to setting the [AVAudioApplication.InputMuted] state, or due to
+// a Bluetooth audio accessory gesture (certain AirPods / Beats headphones)
+// changing the mute state.
 //
 // Since the input mute handling logic should happen a single place,
 // subsequent calls to this method overwrite any previously registered block
@@ -180,8 +181,9 @@ func (a AVAudioApplication) SetInputMutedError(muted bool) (bool, error) {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/setInputMuteStateChangeHandler(_:)
 func (a AVAudioApplication) SetInputMuteStateChangeHandlerError(inputMuteHandler func(bool) bool) (bool, error) {
+	_block0, _ := NewBoolBoolBlock(inputMuteHandler)
 	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("setInputMuteStateChangeHandler:error:"), inputMuteHandler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](a.ID, objc.Sel("setInputMuteStateChangeHandler:error:"), _block0, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -225,7 +227,8 @@ func (_AVAudioApplicationClass AVAudioApplicationClass) RequestRecordPermissionW
 //
 // # Discussion
 //
-// See [RequestRecordPermissionWithCompletionHandler] for more information.
+// See [AVAudioApplicationClass.RequestRecordPermissionWithCompletionHandler]
+// for more information.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/recordPermission-swift.property
 func (a AVAudioApplication) RecordPermission() AVAudioApplicationRecordPermission {
@@ -238,8 +241,8 @@ func (a AVAudioApplication) RecordPermission() AVAudioApplicationRecordPermissio
 //
 // # Discussion
 //
-// Set a new value for this property by calling the [SetInputMutedError]
-// method.
+// Set a new value for this property by calling the
+// [AVAudioApplication.SetInputMutedError] method.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/isInputMuted
 func (a AVAudioApplication) IsInputMuted() bool {

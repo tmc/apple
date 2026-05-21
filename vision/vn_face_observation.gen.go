@@ -118,10 +118,6 @@ type IVNFaceObservation interface {
 
 	// A value that indicates the quality of the face capture.
 	FaceCaptureQuality() foundation.NSNumber
-
-	// The results of the face-capture quality request.
-	Results() IVNFaceObservation
-	SetResults(value IVNFaceObservation)
 }
 
 // Init initializes the instance.
@@ -152,6 +148,13 @@ func NewVNFaceObservation() VNFaceObservation {
 // See: https://developer.apple.com/documentation/Vision/VNDetectedObjectObservation/init(boundingBox:)
 func NewFaceObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNFaceObservation {
 	rv := objc.Send[objc.ID](objc.ID(getVNFaceObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
+	return VNFaceObservationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewFaceObservationWithCoder(coder foundation.INSCoder) VNFaceObservation {
+	instance := getVNFaceObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNFaceObservationFromID(rv)
 }
 
@@ -260,15 +263,4 @@ func (f VNFaceObservation) Pitch() foundation.NSNumber {
 func (f VNFaceObservation) FaceCaptureQuality() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("faceCaptureQuality"))
 	return foundation.NSNumberFromID(objc.ID(rv))
-}
-
-// The results of the face-capture quality request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequest/results
-func (f VNFaceObservation) Results() IVNFaceObservation {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("results"))
-	return VNFaceObservationFromID(objc.ID(rv))
-}
-func (f VNFaceObservation) SetResults(value IVNFaceObservation) {
-	objc.Send[struct{}](f.ID, objc.Sel("setResults:"), value)
 }

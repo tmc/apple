@@ -350,7 +350,8 @@ func (s NSScriptCommand) InitWithCommandDescription(commandDef INSScriptCommandD
 //
 // You shouldn’t have to override this method. If the command’s receivers
 // want to handle the command themselves, this method invokes their defined
-// handler. Otherwise, it invokes [PerformDefaultImplementation].
+// handler. Otherwise, it invokes
+// [NSScriptCommand.PerformDefaultImplementation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/execute()
 func (s NSScriptCommand) ExecuteCommand() objectivec.IObject {
@@ -363,9 +364,10 @@ func (s NSScriptCommand) ExecuteCommand() objectivec.IObject {
 //
 // # Discussion
 //
-// Do not invoke this method directly. [ExecuteCommand] invokes this method
-// when the command being executed is not supported by the class of the
-// objects receiving the command. The default implementation returns `nil`.
+// Do not invoke this method directly. [NSScriptCommand.ExecuteCommand]
+// invokes this method when the command being executed is not supported by the
+// class of the objects receiving the command. The default implementation
+// returns `nil`.
 //
 // You need to create a subclass of [NSScriptCommand] only if you need to
 // provide a default implementation of a command.
@@ -384,7 +386,7 @@ func (s NSScriptCommand) PerformDefaultImplementation() objectivec.IObject {
 // executed in the current thread by Cocoa scripting’s built-in Apple event
 // handling (that is, the receiver would be returned by `[NSScriptCommand
 // currentCommand]`)—otherwise, does nothing. A matching invocation of
-// [ResumeExecutionWithResult] must be made.
+// [NSScriptCommand.ResumeExecutionWithResult] must be made.
 //
 // Another command can execute while a command is suspended.
 //
@@ -393,27 +395,31 @@ func (s NSScriptCommand) SuspendExecution() {
 	objc.Send[objc.ID](s.ID, objc.Sel("suspendExecution"))
 }
 
-// If a successful, unmatched, invocation of [SuspendExecution] has been made,
-// resume the execution of the command.
+// If a successful, unmatched, invocation of
+// [NSScriptCommand.SuspendExecution] has been made, resume the execution of
+// the command.
 //
 // # Discussion
 //
 // Resumes the execution of the command if a successful, unmatched, invocation
-// of [SuspendExecution] has been made—otherwise, does nothing. The value
-// for `result` is dependent on the segment of command execution that was
-// suspended:
+// of [NSScriptCommand.SuspendExecution] has been made—otherwise, does
+// nothing. The value for `result` is dependent on the segment of command
+// execution that was suspended:
 //
-// - If [SuspendExecution] was invoked from within a command handler of one of
-// the command’s receivers, `result` is considered to be the return value of
-// the handler. Unless the command has received a [ScriptErrorNumber] message
-// with a nonzero error number, execution of the command will continue and the
-// command handlers of other receivers will be invoked. - If
-// [SuspendExecution] was invoked from within an override of
-// [PerformDefaultImplementation] the result is treated as if it were the
-// return value of the invocation of [PerformDefaultImplementation].
+// - If [NSScriptCommand.SuspendExecution] was invoked from within a command
+// handler of one of the command’s receivers, `result` is considered to be
+// the return value of the handler. Unless the command has received a
+// [NSScriptCommand.ScriptErrorNumber] message with a nonzero error number,
+// execution of the command will continue and the command handlers of other
+// receivers will be invoked. - If [NSScriptCommand.SuspendExecution] was
+// invoked from within an override of
+// [NSScriptCommand.PerformDefaultImplementation] the result is treated as if
+// it were the return value of the invocation of
+// [NSScriptCommand.PerformDefaultImplementation].
 //
-// [ResumeExecutionWithResult] may be invoked in any thread, not just the one
-// in which the corresponding invocation of [SuspendExecution] occurred.
+// [NSScriptCommand.ResumeExecutionWithResult] may be invoked in any thread,
+// not just the one in which the corresponding invocation of
+// [NSScriptCommand.SuspendExecution] occurred.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/resumeExecution(withResult:)
 func (s NSScriptCommand) ResumeExecutionWithResult(result objectivec.IObject) {
@@ -442,15 +448,16 @@ func (s NSScriptCommand) EncodeWithCoder(coder INSCoder) {
 //
 // A command is being executed in the current thread by Cocoa scripting’s
 // built-in Apple event handling if an instance of [NSScriptCommand] is
-// handling an [ExecuteCommand] message at this instant as the result of the
-// dispatch of an Apple event. Returns `nil` otherwise. [ScriptErrorNumber]
-// and [ScriptErrorString] messages sent to the returned command object will
-// affect the reply event sent to the sender of the event from which the
-// command was constructed, if the sender has requested a reply.
+// handling an [NSScriptCommand.ExecuteCommand] message at this instant as the
+// result of the dispatch of an Apple event. Returns `nil` otherwise.
+// [NSScriptCommand.ScriptErrorNumber] and [NSScriptCommand.ScriptErrorString]
+// messages sent to the returned command object will affect the reply event
+// sent to the sender of the event from which the command was constructed, if
+// the sender has requested a reply.
 //
 // A suspended command is not considered the current command. If a command is
 // suspended and no other command is being executed in the current thread,
-// [CurrentCommand] returns `nil`.
+// [NSScriptCommandClass.CurrentCommand] returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/current()
 func (_NSScriptCommandClass NSScriptCommandClass) CurrentCommand() NSScriptCommand {
@@ -609,16 +616,16 @@ func (s NSScriptCommand) SetScriptErrorExpectedTypeDescriptor(value INSAppleEven
 //
 // # Discussion
 //
-// If you override [PerformDefaultImplementation] and an error occurs, you
-// should call this method to supply an appropriate error number. In fact, any
-// script handler should call this method when an error occurs. The error
-// number you supply is returned in the reply Apple event.
+// If you override [NSScriptCommand.PerformDefaultImplementation] and an error
+// occurs, you should call this method to supply an appropriate error number.
+// In fact, any script handler should call this method when an error occurs.
+// The error number you supply is returned in the reply Apple event.
 //
 // Invoking “ causes an error message to be displayed. To associate a
 // specific error message with the error number, you invoke
-// [ScriptErrorString]. This make sense, for example, when you set an error
-// number that is specific to your application, or when you can supply a
-// specific and useful error message to the user.
+// [NSScriptCommand.ScriptErrorString]. This make sense, for example, when you
+// set an error number that is specific to your application, or when you can
+// supply a specific and useful error message to the user.
 //
 // If “ is invoked on an [NSScriptCommand] with multiple receivers, the
 // command will stop sending command handling messages to more receivers.
@@ -650,14 +657,14 @@ func (s NSScriptCommand) SetScriptErrorOffendingObjectDescriptor(value INSAppleE
 //
 // # Discussion
 //
-// If you override [PerformDefaultImplementation] and an error occurs, you
-// should call this method to supply a string that provides a useful
-// explanation. In fact, any script handler should call this method when an
-// error occurs.
+// If you override [NSScriptCommand.PerformDefaultImplementation] and an error
+// occurs, you should call this method to supply a string that provides a
+// useful explanation. In fact, any script handler should call this method
+// when an error occurs.
 //
 // Calling this method alone does not cause an error message to be
-// displayed—you must also call [ScriptErrorNumber] to supply an error
-// number.
+// displayed—you must also call [NSScriptCommand.ScriptErrorNumber] to
+// supply an error number.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/scriptErrorString
 func (s NSScriptCommand) ScriptErrorString() string {

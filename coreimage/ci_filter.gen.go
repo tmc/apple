@@ -77,8 +77,8 @@ func (cc CIFilterClass) Alloc() CIFilter {
 //
 // The type-safe approach returns a non-optional filter. Because the returned
 // filter conforms to the relevant protocol—for example, [CIFalseColor] in
-// the case of [CIFilter.FalseColorFilter]—the parameters are available as
-// properties. The following creates and applies a false color filter:
+// the case of [CIFilterClass.FalseColorFilter]—the parameters are available
+// as properties. The following creates and applies a false color filter:
 //
 // The false color filter maps luminance to a color ramp of two colors:
 //
@@ -95,10 +95,10 @@ func (cc CIFilterClass) Alloc() CIFilter {
 // or implementing its own kernel, you should:
 //
 // - Declare any input parameters as properties whose names are prefixed with
-// `input`, such as `inputImage`. - Override the [CIFilter.SetDefaults] methods to
-// provide default values for any input parameters you’ve declared. -
-// Implement an `outputImage` method to create a new [CIImage] with your
-// filter’s effect.
+// `input`, such as `inputImage`. - Override the [CIFilter.SetDefaults]
+// methods to provide default values for any input parameters you’ve
+// declared. - Implement an `outputImage` method to create a new [CIImage]
+// with your filter’s effect.
 //
 // The [CIFilter] class automatically manages input parameters when archiving,
 // copying, and deallocating filters. For this reason, your subclass must obey
@@ -224,6 +224,7 @@ type ICIFilter interface {
 
 	// Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying a kernel function.
 	Apply(k ICIKernel) ICIImage
+	InitWithCoder(coder foundation.INSCoder) CIFilter
 	EncodeWithCoder(coder foundation.INSCoder)
 	// Sets the value of the property identified by the given key.
 	SetValueForKey(value objectivec.IObject, key string)
@@ -250,6 +251,13 @@ func NewCIFilter() CIFilter {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(coder:)
+func NewFilterWithCoder(coder foundation.INSCoder) CIFilter {
+	instance := getCIFilterClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIFilterFromID(rv)
+}
+
 // Creates a [CIFilter] object for a specific kind of filter.
 //
 // name: The name of the filter. You must make sure the name is spelled correctly,
@@ -264,7 +272,7 @@ func NewCIFilter() CIFilter {
 // # Discussion
 //
 // In macOS, after creating a filter with this method you must call
-// [SetDefaults] or set parameters individually by calling
+// [CIFilter.SetDefaults] or set parameters individually by calling
 // [setValue(_:forKey:)]. In iOS, the filter’s parameters are automatically
 // set to default values.
 //
@@ -276,13 +284,31 @@ func NewFilterWithName(name string) CIFilter {
 	return CIFilterFromID(rv)
 }
 
-// Creates a new filter of type ‘name’. The filter’s input parameters
-// are set from the dictionary of key-value pairs. On OSX, any of the filter
-// input parameters not specified in the dictionary will be undefined. On iOS,
-// any of the filter input parameters not specified in the dictionary will be
-// set to default values.
+// Creates a [CIFilter] object for a specific kind of filter and initializes
+// the input values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(name:parameters:)
+// name: The name of the filter. You must make sure the name is spelled correctly,
+// otherwise your app will run but not produce any output images. For that
+// reason, you should check for the existence of the filter after calling this
+// method.
+//
+// params: A list of key-value pairs to set as input values to the filter. Each key is
+// a constant that specifies the name of an input parameter for the filter,
+// and the corresponding value is the value for that parameter. See [Core
+// Image Filter Reference] for built-in filters and their allowed parameters.
+//
+// # Return Value
+//
+// A [CIFilter] object whose input values are initialized.
+//
+// # Discussion
+//
+// Use this method to quickly create and configure a [CIFilter] instance, as
+// in the example below.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(name:withInputParameters:)
+//
+// [Core Image Filter Reference]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/uid/TP40004346
 func NewFilterWithNameWithInputParameters(name string, params foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](objc.ID(getCIFilterClass().class), objc.Sel("filterWithName:withInputParameters:"), objc.String(name), params)
 	return CIFilterFromID(rv)
@@ -317,10 +343,10 @@ func (f CIFilter) SetDefaults() {
 // # Discussion
 //
 // If you are implementing a custom filter, this method needs to be called
-// from within the [OutputImage] method in order to apply your kernel function
-// to the [CIImage] object. You can pass any of the keys defined in [Options
-// for Applying a Filter], along with appropriate values, into the options
-// dictionary.
+// from within the [CIFilter.OutputImage] method in order to apply your kernel
+// function to the [CIImage] object. You can pass any of the keys defined in
+// [Options for Applying a Filter], along with appropriate values, into the
+// options dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/apply(_:arguments:options:)
 //
@@ -392,9 +418,9 @@ func (f CIFilter) ViewForUIConfigurationExcludedKeys(inUIConfiguration foundatio
 // # Discussion
 //
 // If you are implementing a custom filter, this method needs to be called
-// from within the [OutputImage] method in order to apply your kernel function
-// to the [CIImage] object. For example, if the kernel function has this
-// signature:
+// from within the [CIFilter.OutputImage] method in order to apply your kernel
+// function to the [CIImage] object. For example, if the kernel function has
+// this signature:
 //
 // You would supply two arguments after the `k` argument to the `k, ...`
 // method. In this case, the first argument must be a sampler and the second a
@@ -407,6 +433,12 @@ func (f CIFilter) ViewForUIConfigurationExcludedKeys(inUIConfiguration foundatio
 func (f CIFilter) Apply(k ICIKernel) ICIImage {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("apply:"), k)
 	return CIImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(coder:)
+func (f CIFilter) InitWithCoder(coder foundation.INSCoder) CIFilter {
+	rv := objc.Send[CIFilter](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (f CIFilter) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -814,7 +846,8 @@ func (_CIFilterClass CIFilterClass) AreaAverageFilter() CIFilter {
 // height of 1 pixel and a width of 256 pixels. The pixel color components
 // contain the histogram values.
 //
-// To display the histogram, you can use the [HistogramDisplayFilter] filter:
+// To display the histogram, you can use the
+// [CIFilterClass.HistogramDisplayFilter] filter:
 //
 // [media-4332392]
 //
@@ -854,7 +887,8 @@ func (_CIFilterClass CIFilterClass) AreaHistogramFilter() CIFilter {
 // with a width of 256. The pixel color components contain the logarithmic
 // histogram values:
 //
-// Use the [HistogramDisplayFilter] filter to display the histogram:
+// Use the [CIFilterClass.HistogramDisplayFilter] filter to display the
+// histogram:
 //
 // [media-4407281]
 //
@@ -2519,8 +2553,9 @@ func (_CIFilterClass CIFilterClass) ConvertRGBtoLabFilter() CIFilter {
 // itself, and those within a distance of 1 pixel horizontally and vertically.
 // The effect repeats this for every pixel within the image. The work area is
 // then combined with the weight property vector to produce the processed
-// image. This filter differs from the [ConvolutionRGB3X3Filter], which only
-// processes the [RGB] color components.
+// image. This filter differs from the
+// [CIFilterClass.ConvolutionRGB3X3Filter], which only processes the [RGB]
+// color components.
 //
 // The convolution 3 x 3 filter uses the following properties:
 //
@@ -2553,8 +2588,9 @@ func (_CIFilterClass CIFilterClass) Convolution3X3Filter() CIFilter {
 // itself, and those within a distance of 2 pixels horizontally and
 // vertically. The effect repeats this for every pixel within the image. The
 // work area is then combined with the weight property vector to produce the
-// processed image. This filter differs from the [ConvolutionRGB5X5Filter]
-// filter, which only processes the RGB components.
+// processed image. This filter differs from the
+// [CIFilterClass.ConvolutionRGB5X5Filter] filter, which only processes the
+// RGB components.
 //
 // The convolution 5 x 5 filter uses the following properties:
 //
@@ -2588,8 +2624,8 @@ func (_CIFilterClass CIFilterClass) Convolution5X5Filter() CIFilter {
 // within a distance of 3 pixels horizontally and vertically. The effect
 // repeats this for every pixel within the image. The work area is then
 // combined with the weight property vector to produce the processed image.
-// This filter differs from the [ConvolutionRGB7X7Filter] filter, which only
-// processes the RGB components.
+// This filter differs from the [CIFilterClass.ConvolutionRGB7X7Filter]
+// filter, which only processes the RGB components.
 //
 // The convolution 7 x 7 filter uses the following properties:
 //
@@ -2625,7 +2661,8 @@ func (_CIFilterClass CIFilterClass) Convolution7X7Filter() CIFilter {
 // repeats this for every pixel within the image. Unlike the convolution
 // filters, which use square matrices, this filter can only produce effects
 // along a horizontal axis. You can combine this filter with the
-// [Convolution9VerticalFilter] to apply separable 9 x 9 convolutions.
+// [CIFilterClass.Convolution9VerticalFilter] to apply separable 9 x 9
+// convolutions.
 //
 // The convolution 9-horizontal filter uses the following properties:
 //
@@ -2660,7 +2697,8 @@ func (_CIFilterClass CIFilterClass) Convolution9HorizontalFilter() CIFilter {
 // effect repeats this for every pixel within the image. Unlike the
 // convolution filters, which use square matrices, this filter can only
 // produce effects along a vertical axis. You can combine this filter with the
-// [Convolution9HorizontalFilter] to apply separable 9 x 9 convolutions.
+// [CIFilterClass.Convolution9HorizontalFilter] to apply separable 9 x 9
+// convolutions.
 //
 // The convolution-9-vertical filter uses the following properties:
 //
@@ -2691,8 +2729,8 @@ func (_CIFilterClass CIFilterClass) Convolution9VerticalFilter() CIFilter {
 // This method applies a 3 x 3 convolution to the [RGB] components of an
 // image. The effect uses a 3 x 3 area surrounding an input pixel, the pixel
 // itself, and those within a distance of 1 pixel horizontally and vertically.
-// This filter differs from the [Convolution3X3Filter] filter, which processes
-// all of the color components including the alpha component.
+// This filter differs from the [CIFilterClass.Convolution3X3Filter] filter,
+// which processes all of the color components including the alpha component.
 //
 // The convolution-RGB 3 x 3 filter uses the following properties:
 //
@@ -2719,8 +2757,8 @@ func (_CIFilterClass CIFilterClass) ConvolutionRGB3X3Filter() CIFilter {
 // those within a distance of two pixels horizontally and vertically. The
 // effect repeats this for every pixel within the image. The work area is then
 // combined with the weight property vector to produce the processed image.
-// This filter differs from the [Convolution5X5Filter] filter, which processes
-// all of the color components including the alpha component.
+// This filter differs from the [CIFilterClass.Convolution5X5Filter] filter,
+// which processes all of the color components including the alpha component.
 //
 // # Discussion
 //
@@ -2754,8 +2792,8 @@ func (_CIFilterClass CIFilterClass) ConvolutionRGB5X5Filter() CIFilter {
 // those within a distance of 3 pixels horizontally and vertically. The effect
 // repeats this for every pixel within the image. The work area is then
 // combined with the weight property vector to produce the processed image.
-// This filter differs from the [Convolution7X7Filter] filter, which processes
-// all of the color components including the alpha component.
+// This filter differs from the [CIFilterClass.Convolution7X7Filter] filter,
+// which processes all of the color components including the alpha component.
 //
 // The convolution-RGB 7 x 7 filter uses the following properties:
 //
@@ -2788,9 +2826,10 @@ func (_CIFilterClass CIFilterClass) ConvolutionRGB7X7Filter() CIFilter {
 // repeats this for every pixel within the image. Unlike the convolution
 // filters, which use square matrices, this filter can only produce effects
 // along a vertical axis. You can combine this filter with the
-// [ConvolutionRGB9VerticalFilter] to apply separable 9 x 9 convolutions. This
-// filter differs from the [Convolution9HorizontalFilter] filter, which
-// processes all of the color components including the alpha component.
+// [CIFilterClass.ConvolutionRGB9VerticalFilter] to apply separable 9 x 9
+// convolutions. This filter differs from the
+// [CIFilterClass.Convolution9HorizontalFilter] filter, which processes all of
+// the color components including the alpha component.
 //
 // The convolution-RGB-9-vertical filter uses the following properties:
 //
@@ -2819,9 +2858,10 @@ func (_CIFilterClass CIFilterClass) ConvolutionRGB9HorizontalFilter() CIFilter {
 // repeats this for every pixel within the image. Unlike the convolution
 // filters, which use square matrices, this filter can only produce effects
 // along a vertical axis. You can combine this filter with the
-// [ConvolutionRGB9HorizontalFilter] to apply separable 9 x 9 convolutions.
-// This filter differs from the [Convolution9VerticalFilter] filter, which
-// processes all of the color components including the alpha component.
+// [CIFilterClass.ConvolutionRGB9HorizontalFilter] to apply separable 9 x 9
+// convolutions. This filter differs from the
+// [CIFilterClass.Convolution9VerticalFilter] filter, which processes all of
+// the color components including the alpha component.
 //
 // # Discussion
 //
@@ -3622,12 +3662,11 @@ func (_CIFilterClass CIFilterClass) FalseColorFilter() CIFilter {
 // As with all Objective-C methods that accept `nil`-terminated argument
 // lists, to prevent unintended behavior you must take take care not to pass a
 // `nil` value before the intended end of the argument list. You can avoid
-// such issues by using the [init(name:withInputParameters:)] method to create
-// a filter, expressing the parameter list as a dictionary literal.
+// such issues by using the
+// [CIRAWFilterClass.FilterWithNameWithInputParameters] method to create a
+// filter, expressing the parameter list as a dictionary literal.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/filterWithName:keysAndValues:
-//
-// [init(name:withInputParameters:)]: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/init(name:withInputParameters:)
 func (_CIFilterClass CIFilterClass) FilterWithNameKeysAndValues(name string, key0 objectivec.IObject) CIFilter {
 	rv := objc.Send[objc.ID](objc.ID(_CIFilterClass.class), objc.Sel("filterWithName:keysAndValues:"), objc.String(name), key0)
 	return CIFilterFromID(rv)
@@ -4201,8 +4240,9 @@ func (_CIFilterClass CIFilterClass) HighlightShadowAdjustFilter() CIFilter {
 // # Discussion
 //
 // This method applies the histogram display filter to the result of the
-// output from the [AreaHistogramFilter] filter. This effect shows a graphical
-// representation of the tonal distribution of colors in the image.
+// output from the [CIFilterClass.AreaHistogramFilter] filter. This effect
+// shows a graphical representation of the tonal distribution of colors in the
+// image.
 //
 // The histogram display filter uses the following properties:
 //
@@ -4366,8 +4406,9 @@ func (_CIFilterClass CIFilterClass) HueSaturationValueGradientFilter() CIFilter 
 // dimensions. Each [RGBA] pixel in the result image represents the center of
 // a k-means cluster. The [RGB] components contain the color and the alpha
 // component represents the weight of the color. You typically use the
-// [KMeansFilter] filter in conjunction with the [PalettizeFilter] filter to
-// produce an image with a reduced number of colors.
+// [CIFilterClass.KMeansFilter] filter in conjunction with the
+// [CIFilterClass.PalettizeFilter] filter to produce an image with a reduced
+// number of colors.
 //
 // `inputImage`: A [CIImage] to process. `extent`: A [CGRect] specifying the
 // area of the image to analyze. `means`: An optional [CIImage] containing a
@@ -4377,8 +4418,9 @@ func (_CIFilterClass CIFilterClass) HueSaturationValueGradientFilter() CIFilter 
 // Maximum is `20`, and default is `5`. `perceptual`: Whether the k-means
 // color palette should use a perceptual color space.
 //
-// The following code example uses the [KMeansFilter] filter followed by the
-// [PalettizeFilter] filter to reduce the colors in the image to four:
+// The following code example uses the [CIFilterClass.KMeansFilter] filter
+// followed by the [CIFilterClass.PalettizeFilter] filter to reduce the colors
+// in the image to four:
 //
 // [media-4332587]
 //
@@ -6951,7 +6993,8 @@ func (_CIFilterClass CIFilterClass) SmoothLinearGradientFilter() CIFilter {
 //
 // `inputImage`: A [CIImage] containing the image to process.
 //
-// The following code applies the [SobelGradientsFilter] filter to an image.
+// The following code applies the [CIFilterClass.SobelGradientsFilter] filter
+// to an image.
 //
 // [media-4407283]
 //
@@ -8016,10 +8059,10 @@ func (f CIFilter) SetName(value string) {
 // The filter is applied to its input when this property is set to true (the
 // default).
 //
-// Use this property in conjunction with the [Name] property when attaching
-// filters to Core Animation layers and accessing or animating filter
-// properties through key-value animations. Core Animation can animate this
-// property on a layer.
+// Use this property in conjunction with the [CIFilter.Name] property when
+// attaching filters to Core Animation layers and accessing or animating
+// filter properties through key-value animations. Core Animation can animate
+// this property on a layer.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/isEnabled
 func (f CIFilter) IsEnabled() bool {

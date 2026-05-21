@@ -67,13 +67,15 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 // When you create an [NSSpeechSynthesizer] instance using the default
 // initializer (`init`), the class uses the selected in System Preferences >
 // Speech. Alternatively, you can select a specific voice for an
-// [NSSpeechSynthesizer] instance by initializing it with [NSSpeechSynthesizer.InitWithVoice]. To
-// begin synthesis, send either [NSSpeechSynthesizer.StartSpeakingString] or
-// [NSSpeechSynthesizer.StartSpeakingStringToURL] to the instance. The former generates speech
-// through the system’s default sound output device; the latter saves the
-// generated speech to a file. If you wish to be notified when the current
-// speech concludes, set the [NSSpeechSynthesizer.Delegate] property and implement the delegate
-// method [SpeechSynthesizerDidFinishSpeaking].
+// [NSSpeechSynthesizer] instance by initializing it with
+// [NSSpeechSynthesizer.InitWithVoice]. To begin synthesis, send either
+// [NSSpeechSynthesizer.StartSpeakingString] or
+// [NSSpeechSynthesizer.StartSpeakingStringToURL] to the instance. The former
+// generates speech through the system’s default sound output device; the
+// latter saves the generated speech to a file. If you wish to be notified
+// when the current speech concludes, set the [NSSpeechSynthesizer.Delegate]
+// property and implement the delegate method
+// [SpeechSynthesizerDidFinishSpeaking].
 //
 // Speech synthesis is just one of the macOS speech technologies. The speech
 // recognizer technology allows applications to “listen to” text spoken in

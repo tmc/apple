@@ -159,6 +159,7 @@ type INSGridRow interface {
 
 	MergeCellsInRange(range_ foundation.NSRange)
 
+	InitWithCoder(coder foundation.INSCoder) NSGridRow
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -181,6 +182,13 @@ func NewNSGridRow() NSGridRow {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSGridRow/init(coder:)
+func NewGridRowWithCoder(coder foundation.INSCoder) NSGridRow {
+	instance := getNSGridRowClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSGridRowFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/cell(at:)
 func (g NSGridRow) CellAtIndex(index int) INSGridCell {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cellAtIndex:"), index)
@@ -190,6 +198,12 @@ func (g NSGridRow) CellAtIndex(index int) INSGridCell {
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/mergeCells(in:)
 func (g NSGridRow) MergeCellsInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mergeCellsInRange:"), range_)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSGridRow/init(coder:)
+func (g NSGridRow) InitWithCoder(coder foundation.INSCoder) NSGridRow {
+	rv := objc.Send[NSGridRow](g.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (g NSGridRow) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)

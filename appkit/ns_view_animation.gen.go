@@ -59,7 +59,7 @@ func (nc NSViewAnimationClass) Alloc() NSViewAnimation {
 // delegation methods in order to animate view and windows concurrent with the
 // ones specified as targets in the view-animation dictionary.
 //
-// Invoking the [NSAnimation] [StopAnimation] method on a running
+// Invoking the [NSAnimation] [NSAnimation.StopAnimation] method on a running
 // [NSViewAnimation] object moves the animation to the end frame.
 //
 // # Initializing an NSViewAnimation object
@@ -158,11 +158,12 @@ func NewViewAnimationWithCoder(coder foundation.INSCoder) NSViewAnimation {
 // # Discussion
 //
 // You can always later change the duration of an [NSAnimation] object by
-// changing the [Duration] property, even while the animation is running. See
-// “Constants” for descriptions of the NSAnimationCurve constants.
+// changing the [NSAnimation.Duration] property, even while the animation is
+// running. See “Constants” for descriptions of the NSAnimationCurve
+// constants.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(duration:animationCurve:)
-func NewViewAnimationWithDurationAnimationCurve(duration float64, animationCurve NSAnimationCurve) NSViewAnimation {
+func NewViewAnimationWithDurationAnimationCurve(duration foundation.NSTimeInterval, animationCurve NSAnimationCurve) NSViewAnimation {
 	instance := getNSViewAnimationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return NSViewAnimationFromID(rv)
@@ -174,7 +175,7 @@ func NewViewAnimationWithDurationAnimationCurve(duration float64, animationCurve
 // viewAnimations: An array of [NSDictionary] objects. Each dictionary specifies a view or
 // window to animate and the effect to apply. `viewAnimations` can be `nil`,
 // but you must later set the required array of dictionaries with
-// [ViewAnimations] if you want to use the capabilities of the
+// [NSViewAnimation.ViewAnimations] if you want to use the capabilities of the
 // [NSViewAnimation] class. See`View Animation Dictionary Keys` for a
 // description of valid keys and values for dictionaries in `viewAnimations`.
 //
@@ -198,7 +199,7 @@ func NewViewAnimationWithViewAnimations(viewAnimations foundation.INSDictionary)
 // viewAnimations: An array of [NSDictionary] objects. Each dictionary specifies a view or
 // window to animate and the effect to apply. `viewAnimations` can be `nil`,
 // but you must later set the required array of dictionaries with
-// [ViewAnimations] if you want to use the capabilities of the
+// [NSViewAnimation.ViewAnimations] if you want to use the capabilities of the
 // [NSViewAnimation] class. See`View Animation Dictionary Keys` for a
 // description of valid keys and values for dictionaries in `viewAnimations`.
 //

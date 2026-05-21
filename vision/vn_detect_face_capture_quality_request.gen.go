@@ -48,19 +48,16 @@ func (vc VNDetectFaceCaptureQualityRequestClass) Alloc() VNDetectFaceCaptureQual
 // # Overview
 //
 // This request produces or updates a [VNFaceObservation] object’s property
-// [VNDetectFaceCaptureQualityRequest.FaceCaptureQuality] with a floating-point value. The value ranges from `0`
+// [faceCaptureQuality] with a floating-point value. The value ranges from `0`
 // to `1`. Faces with quality closer to `1` are better lit, sharper, and more
 // centrally positioned than faces with quality closer to `0`.
 //
 // If you don’t execute the request, or the request fails, the property
-// [VNDetectFaceCaptureQualityRequest.FaceCaptureQuality] is nil.
-//
-// # Identifying Request Revisions
-//
-//   - [VNDetectFaceCaptureQualityRequest.VNDetectFaceCaptureQualityRequestRevision2]: Revision 2 of the request algorithm.
-//   - [VNDetectFaceCaptureQualityRequest.VNDetectFaceCaptureQualityRequestRevision1]: A constant for specifying revision 1 of the face capture detection request.
+// [faceCaptureQuality] is nil.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequest
+//
+// [faceCaptureQuality]: https://developer.apple.com/documentation/Vision/VNFaceObservation/faceCaptureQuality-bjg5
 type VNDetectFaceCaptureQualityRequest struct {
 	VNImageBasedRequest
 }
@@ -78,25 +75,9 @@ func VNDetectFaceCaptureQualityRequestFromID(id objc.ID) VNDetectFaceCaptureQual
 
 // An interface definition for the [VNDetectFaceCaptureQualityRequest] class.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNDetectFaceCaptureQualityRequest.VNDetectFaceCaptureQualityRequestRevision2]: Revision 2 of the request algorithm.
-//   - [IVNDetectFaceCaptureQualityRequest.VNDetectFaceCaptureQualityRequestRevision1]: A constant for specifying revision 1 of the face capture detection request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequest
 type IVNDetectFaceCaptureQualityRequest interface {
 	IVNImageBasedRequest
-
-	// Topic: Identifying Request Revisions
-
-	// Revision 2 of the request algorithm.
-	VNDetectFaceCaptureQualityRequestRevision2() int
-	// A constant for specifying revision 1 of the face capture detection request.
-	VNDetectFaceCaptureQualityRequestRevision1() int
-
-	// A value that indicates the quality of the face capture.
-	FaceCaptureQuality() float32
-	SetFaceCaptureQuality(value float32)
 }
 
 // Init initializes the instance.
@@ -126,7 +107,7 @@ func NewVNDetectFaceCaptureQualityRequest() VNDetectFaceCaptureQualityRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewDetectFaceCaptureQualityRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectFaceCaptureQualityRequest {
@@ -143,33 +124,6 @@ func (d VNDetectFaceCaptureQualityRequest) InputFaceObservations() []VNFaceObser
 	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
 		return VNFaceObservationFromID(id)
 	})
-}
-
-// Revision 2 of the request algorithm.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequestrevision2
-func (d VNDetectFaceCaptureQualityRequest) VNDetectFaceCaptureQualityRequestRevision2() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceCaptureQualityRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the face capture detection request.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequestrevision1
-func (d VNDetectFaceCaptureQualityRequest) VNDetectFaceCaptureQualityRequestRevision1() int {
-	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceCaptureQualityRequestRevision1"))
-	return rv
-}
-
-// A value that indicates the quality of the face capture.
-//
-// See: https://developer.apple.com/documentation/vision/vnfaceobservation/facecapturequality-bjg5
-func (d VNDetectFaceCaptureQualityRequest) FaceCaptureQuality() float32 {
-	rv := objc.Send[float32](d.ID, objc.Sel("faceCaptureQuality"))
-	return rv
-}
-func (d VNDetectFaceCaptureQualityRequest) SetFaceCaptureQuality(value float32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setFaceCaptureQuality:"), value)
 }
 
 // Protocol methods for VNFaceObservationAccepting

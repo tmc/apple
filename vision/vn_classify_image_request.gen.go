@@ -55,10 +55,6 @@ func (vc VNClassifyImageRequestClass) Alloc() VNClassifyImageRequest {
 //
 //   - [VNClassifyImageRequest.SupportedIdentifiersAndReturnError]: Returns the classification identifiers that the request supports in its current configuration.
 //
-// # Specifying Algorithm Revision
-//
-//   - [VNClassifyImageRequest.VNClassifyImageRequestRevision1]: A constant for specifying the first revision of the image-classification request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest
 //
 // [knownClassifications(forRevision:)]: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest/knownClassifications(forRevision:)
@@ -82,10 +78,6 @@ func VNClassifyImageRequestFromID(id objc.ID) VNClassifyImageRequest {
 //
 //   - [IVNClassifyImageRequest.SupportedIdentifiersAndReturnError]: Returns the classification identifiers that the request supports in its current configuration.
 //
-// # Specifying Algorithm Revision
-//
-//   - [IVNClassifyImageRequest.VNClassifyImageRequestRevision1]: A constant for specifying the first revision of the image-classification request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest
 type IVNClassifyImageRequest interface {
 	IVNImageBasedRequest
@@ -94,11 +86,6 @@ type IVNClassifyImageRequest interface {
 
 	// Returns the classification identifiers that the request supports in its current configuration.
 	SupportedIdentifiersAndReturnError() ([]string, error)
-
-	// Topic: Specifying Algorithm Revision
-
-	// A constant for specifying the first revision of the image-classification request.
-	VNClassifyImageRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -128,7 +115,7 @@ func NewVNClassifyImageRequest() VNClassifyImageRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNClassifyImageRequest {
@@ -154,13 +141,4 @@ func (c VNClassifyImageRequest) SupportedIdentifiersAndReturnError() ([]string, 
 	}
 	return objc.ConvertSliceToStrings(rv), nil
 
-}
-
-// A constant for specifying the first revision of the image-classification
-// request.
-//
-// See: https://developer.apple.com/documentation/vision/vnclassifyimagerequestrevision1
-func (c VNClassifyImageRequest) VNClassifyImageRequestRevision1() int {
-	rv := objc.Send[int](c.ID, objc.Sel("VNClassifyImageRequestRevision1"))
-	return rv
 }

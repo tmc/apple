@@ -58,9 +58,9 @@ func (nc NSUbiquitousKeyValueStoreClass) Alloc() NSUbiquitousKeyValueStore {
 // continue reading from the same place on their other devices.
 //
 // Each app has a single iCloud key-value store object, which you retrieve
-// from the [NSUbiquitousKeyValueStore.DefaultStore] class property. Use this same object throughout
-// your app to read and write values. Don’t subclass
-// [NSUbiquitousKeyValueStore].
+// from the [NSUbiquitousKeyValueStoreClass.DefaultStore] class property. Use
+// this same object throughout your app to read and write values. Don’t
+// subclass [NSUbiquitousKeyValueStore].
 //
 // The keys in the iCloud key-value store identify the item and its purpose in
 // your app, and the value is a data object you use to implement the
@@ -101,7 +101,7 @@ func (nc NSUbiquitousKeyValueStoreClass) Alloc() NSUbiquitousKeyValueStore {
 // store. If a key string exceeds the maximum length, the system raises an
 // exception. If a write operation would exceed your app’s quota, the system
 // posts [didChangeExternallyNotification] notification with the change reason
-// set to [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreQuotaViolationChange].
+// set to [NSUbiquitousKeyValueStoreQuotaViolationChange].
 //
 // # Getting values
 //
@@ -133,19 +133,6 @@ func (nc NSUbiquitousKeyValueStoreClass) Alloc() NSUbiquitousKeyValueStore {
 // # Removing keys
 //
 //   - [NSUbiquitousKeyValueStore.RemoveObjectForKey]: Removes the value for the specified key from the iCloud key-value store.
-//
-// # Detecting changes to values
-//
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreChangeReasonKey]: A key that indicates the reason why the key-value store changed.
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreChangedKeysKey]: A key that indicates which keys changed in the iCloud key-value store.
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreServerChange]: A constant that indicates a value changed in iCloud.
-//   - [NSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreServerChange]
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreInitialSyncChange]: A constant that indicates the initial attempt to load keys and values from iCloud is in progress.
-//   - [NSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreInitialSyncChange]
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreQuotaViolationChange]: A constant that indicates an attempt to write data exceeded the quota limits.
-//   - [NSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreQuotaViolationChange]
-//   - [NSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreAccountChange]: A constant that indicates the current Apple account changed.
-//   - [NSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreAccountChange]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUbiquitousKeyValueStore
 //
@@ -207,19 +194,6 @@ func NSUbiquitousKeyValueStoreFromID(id objc.ID) NSUbiquitousKeyValueStore {
 //
 //   - [INSUbiquitousKeyValueStore.RemoveObjectForKey]: Removes the value for the specified key from the iCloud key-value store.
 //
-// # Detecting changes to values
-//
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreChangeReasonKey]: A key that indicates the reason why the key-value store changed.
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreChangedKeysKey]: A key that indicates which keys changed in the iCloud key-value store.
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreServerChange]: A constant that indicates a value changed in iCloud.
-//   - [INSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreServerChange]
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreInitialSyncChange]: A constant that indicates the initial attempt to load keys and values from iCloud is in progress.
-//   - [INSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreInitialSyncChange]
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreQuotaViolationChange]: A constant that indicates an attempt to write data exceeded the quota limits.
-//   - [INSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreQuotaViolationChange]
-//   - [INSUbiquitousKeyValueStore.NSUbiquitousKeyValueStoreAccountChange]: A constant that indicates the current Apple account changed.
-//   - [INSUbiquitousKeyValueStore.SetNSUbiquitousKeyValueStoreAccountChange]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSUbiquitousKeyValueStore
 type INSUbiquitousKeyValueStore interface {
 	objectivec.IObject
@@ -273,25 +247,6 @@ type INSUbiquitousKeyValueStore interface {
 
 	// Removes the value for the specified key from the iCloud key-value store.
 	RemoveObjectForKey(aKey string)
-
-	// Topic: Detecting changes to values
-
-	// A key that indicates the reason why the key-value store changed.
-	NSUbiquitousKeyValueStoreChangeReasonKey() string
-	// A key that indicates which keys changed in the iCloud key-value store.
-	NSUbiquitousKeyValueStoreChangedKeysKey() string
-	// A constant that indicates a value changed in iCloud.
-	NSUbiquitousKeyValueStoreServerChange() int
-	SetNSUbiquitousKeyValueStoreServerChange(value int)
-	// A constant that indicates the initial attempt to load keys and values from iCloud is in progress.
-	NSUbiquitousKeyValueStoreInitialSyncChange() int
-	SetNSUbiquitousKeyValueStoreInitialSyncChange(value int)
-	// A constant that indicates an attempt to write data exceeded the quota limits.
-	NSUbiquitousKeyValueStoreQuotaViolationChange() int
-	SetNSUbiquitousKeyValueStoreQuotaViolationChange(value int)
-	// A constant that indicates the current Apple account changed.
-	NSUbiquitousKeyValueStoreAccountChange() int
-	SetNSUbiquitousKeyValueStoreAccountChange(value int)
 
 	// Sets the value of the property identified by the given key.
 	SetValueForKey(value objectivec.IObject, key string)
@@ -658,76 +613,15 @@ func (u NSUbiquitousKeyValueStore) ValueForKey(key string) objectivec.IObject {
 // Getting this property retrieves the in-memory copy of the keys and values.
 // If changes to the keys and values are pending, the system fetches those
 // changes from iCloud and updates the dictionary before returning it. To
-// ensure the dictionary contains all recent changes, call [Synchronize]
-// shortly before accessing this property. All of the values in the dictionary
-// are property list object types.
+// ensure the dictionary contains all recent changes, call
+// [NSUbiquitousKeyValueStore.Synchronize] shortly before accessing this
+// property. All of the values in the dictionary are property list object
+// types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUbiquitousKeyValueStore/dictionaryRepresentation
 func (u NSUbiquitousKeyValueStore) DictionaryRepresentation() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dictionaryRepresentation"))
 	return NSDictionaryFromID(objc.ID(rv))
-}
-
-// A key that indicates the reason why the key-value store changed.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangereasonkey
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangeReasonKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUbiquitousKeyValueStoreChangeReasonKey"))
-	return NSStringFromID(rv).String()
-}
-
-// A key that indicates which keys changed in the iCloud key-value store.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangedkeyskey
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangedKeysKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUbiquitousKeyValueStoreChangedKeysKey"))
-	return NSStringFromID(rv).String()
-}
-
-// A constant that indicates a value changed in iCloud.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreserverchange
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreServerChange() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUbiquitousKeyValueStoreServerChange"))
-	return rv
-}
-func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreServerChange(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreServerChange:"), value)
-}
-
-// A constant that indicates the initial attempt to load keys and values from
-// iCloud is in progress.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreinitialsyncchange
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreInitialSyncChange() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUbiquitousKeyValueStoreInitialSyncChange"))
-	return rv
-}
-func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreInitialSyncChange(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreInitialSyncChange:"), value)
-}
-
-// A constant that indicates an attempt to write data exceeded the quota
-// limits.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorequotaviolationchange
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreQuotaViolationChange() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUbiquitousKeyValueStoreQuotaViolationChange"))
-	return rv
-}
-func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreQuotaViolationChange(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreQuotaViolationChange:"), value)
-}
-
-// A constant that indicates the current Apple account changed.
-//
-// See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreaccountchange
-func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreAccountChange() int {
-	rv := objc.Send[int](u.ID, objc.Sel("NSUbiquitousKeyValueStoreAccountChange"))
-	return rv
-}
-func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreAccountChange(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreAccountChange:"), value)
 }
 
 // The shared iCloud key-value store object.

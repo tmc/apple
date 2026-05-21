@@ -88,8 +88,8 @@ func (nc NSWritingToolsCoordinatorContextClass) Alloc() NSWritingToolsCoordinato
 // value that represents the portion of that string that corresponds to the
 // text selection. Providing some additional text in your context object can
 // help Writing Tools improve its evaluation of your content. Writing Tools
-// uses the [NSWritingToolsCoordinatorContext.ResolvedRange] property of your context object to indicate what
-// text it considered.
+// uses the [NSWritingToolsCoordinatorContext.ResolvedRange] property of your
+// context object to indicate what text it considered.
 //
 // If your context object includes text that you don’t want Writing Tools to
 // evaluate, add the `excludeFromWritingTools` attribute to the corresponding
@@ -304,9 +304,11 @@ func (w NSWritingToolsCoordinatorContext) Range() foundation.NSRange {
 // # Discussion
 //
 // After analyzing the text in your context object, Writing Tools sets this
-// property to the portion of [AttributedString] it might modify. Initially,
-// this property has a location of [NSNotFound] and a length of `0`, but
-// Writing Tools updates those values before making any changes to the text.
+// property to the portion of
+// [NSWritingToolsCoordinatorContext.AttributedString] it might modify.
+// Initially, this property has a location of [NSNotFound] and a length of
+// `0`, but Writing Tools updates those values before making any changes to
+// the text.
 //
 // While the Writing Tools operation is active, make sure Writing Tools has
 // exclusive access to the text in this range. Your

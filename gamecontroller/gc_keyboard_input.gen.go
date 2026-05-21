@@ -134,8 +134,8 @@ func NewGCKeyboardInput() GCKeyboardInput {
 // # Discussion
 //
 // Alternatively, you can get a button element for a key using the
-// [ObjectForKeyedSubscript] notation that you inherit from
-// [GCPhysicalInputProfile], as in `keyboard[GCKeyUpArrow]`.
+// [GCPhysicalInputProfile.ObjectForKeyedSubscript] notation that you inherit
+// from [GCPhysicalInputProfile], as in `keyboard[GCKeyUpArrow]`.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardInput/button(forKeyCode:)
 func (g GCKeyboardInput) ButtonForKeyCode(code GCKeyCode) IGCControllerButtonInput {

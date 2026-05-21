@@ -131,6 +131,13 @@ func NewCIDataMatrixCodeDescriptor() CIDataMatrixCodeDescriptor {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeDescriptor/init(coder:)
+func NewDataMatrixCodeDescriptorWithCoder(coder foundation.INSCoder) CIDataMatrixCodeDescriptor {
+	instance := getCIDataMatrixCodeDescriptorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIDataMatrixCodeDescriptorFromID(rv)
+}
+
 // Initializes a Data Matrix code descriptor for the given payload and
 // parameters.
 //

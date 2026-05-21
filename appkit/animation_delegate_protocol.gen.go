@@ -56,8 +56,8 @@ func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
 //
 // # Discussion
 //
-// An [NSAnimation] object stops running when it receives a [StopAnimation]
-// message.
+// An [NSAnimation] object stops running when it receives a
+// [NSAnimation.StopAnimation] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidStop(_:)
 func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
@@ -75,8 +75,8 @@ func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 // # Discussion
 //
 // The delegate is sent this message just after `animation` receives a
-// [StartAnimation] message. The delegate can use this method to prepare
-// objects and resources for the effect.
+// [NSAnimation.StartAnimation] message. The delegate can use this method to
+// prepare objects and resources for the effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationShouldStart(_:)
 func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) bool {
@@ -102,13 +102,14 @@ func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) 
 // [NSAnimation] computes the current curve value.
 //
 // The animation:valueForProgress: message is sent to the delegate when an
-// [NSAnimation] object receives a [CurrentValue] message. The value the
-// delegate returns is used as the value of [CurrentValue]; if there is no
-// delegate, or it doesn’t implement animation:valueForProgress:,
-// [NSAnimation] computes and returns the current value. [NSAnimation] does
-// not invoke [CurrentValue]itself, but subclasses might.
+// [NSAnimation] object receives a [NSAnimation.CurrentValue] message. The
+// value the delegate returns is used as the value of
+// [NSAnimation.CurrentValue]; if there is no delegate, or it doesn’t
+// implement animation:valueForProgress:, [NSAnimation] computes and returns
+// the current value. [NSAnimation] does not invoke
+// [NSAnimation.CurrentValue]itself, but subclasses might.
 //
-// See the description of [CurrentValue] for more information.
+// See the description of [NSAnimation.CurrentValue] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
 func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {

@@ -48,9 +48,10 @@ func (fc FSItemGetAttributesRequestClass) Alloc() FSItemGetAttributesRequest {
 // # Overview
 //
 // Methods that retrieve attributes use this type and inspect the
-// [FSItemGetAttributesRequest.WantedAttributes] property to determine which attributes to provide. FSKit
-// calls the [FSItemGetAttributesRequest.IsAttributeWanted] method to determine whether the request
-// requires a given attribute.
+// [FSItemGetAttributesRequest.WantedAttributes] property to determine which
+// attributes to provide. FSKit calls the
+// [FSItemGetAttributesRequest.IsAttributeWanted] method to determine whether
+// the request requires a given attribute.
 //
 // # Inspecting requested attributes
 //

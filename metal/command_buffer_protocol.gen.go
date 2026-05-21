@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -37,12 +38,12 @@ type MTLCommandBuffer interface {
 	// Presents a drawable at a specific time.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:atTime:)
-	PresentDrawableAtTime(drawable MTLDrawable, presentationTime float64)
+	PresentDrawableAtTime(drawable MTLDrawable, presentationTime corefoundation.CFTimeInterval)
 
 	// Presents a drawable after the system presents the previous drawable for an amount of time.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:afterMinimumDuration:)
-	PresentDrawableAfterMinimumDuration(drawable MTLDrawable, duration float64)
+	PresentDrawableAfterMinimumDuration(drawable MTLDrawable, duration corefoundation.CFTimeInterval)
 
 	// Registers a completion handler the GPU device calls immediately after it schedules the command buffer to run on the GPU.
 	//
@@ -152,12 +153,12 @@ type MTLCommandBuffer interface {
 	// The host time, in seconds, when the GPU finishes execution of the command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
-	GPUEndTime() float64
+	GPUEndTime() corefoundation.CFTimeInterval
 
 	// The host time, in seconds, when the GPU starts command buffer execution.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-	GPUStartTime() float64
+	GPUStartTime() corefoundation.CFTimeInterval
 
 	// The command queue that creates the command buffer.
 	//
@@ -182,12 +183,12 @@ type MTLCommandBuffer interface {
 	// The host time, in seconds, when the CPU finishes scheduling the command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
-	KernelEndTime() float64
+	KernelEndTime() corefoundation.CFTimeInterval
 
 	// The host time, in seconds, when the CPU begins to schedule the command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
-	KernelStartTime() float64
+	KernelStartTime() corefoundation.CFTimeInterval
 
 	// An optional name that can help you identify the command buffer.
 	//
@@ -350,7 +351,7 @@ func (o MTLCommandBufferObject) PresentDrawable(drawable MTLDrawable) {
 // [AddScheduledHandler] method for you.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:atTime:)
-func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, presentationTime float64) {
+func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, presentationTime corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("presentDrawable:atTime:"), drawable, presentationTime)
 }
 
@@ -371,7 +372,7 @@ func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, pres
 // completion handler by calling its own [AddScheduledHandler] method for you.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:afterMinimumDuration:)
-func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTLDrawable, duration float64) {
+func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTLDrawable, duration corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](o.ID, objc.Sel("presentDrawable:afterMinimumDuration:"), drawable, duration)
 }
 
@@ -807,9 +808,9 @@ func (o MTLCommandBufferObject) Status() MTLCommandBufferStatus {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
 //
 // [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-func (o MTLCommandBufferObject) GPUEndTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
-	return float64(rv)
+func (o MTLCommandBufferObject) GPUEndTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("GPUEndTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The host time, in seconds, when the GPU starts command buffer execution.
@@ -828,9 +829,9 @@ func (o MTLCommandBufferObject) GPUEndTime() float64 {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
 //
 // [gpuEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
-func (o MTLCommandBufferObject) GPUStartTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
-	return float64(rv)
+func (o MTLCommandBufferObject) GPUStartTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("GPUStartTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The command queue that creates the command buffer.
@@ -892,9 +893,9 @@ func (o MTLCommandBufferObject) Error() foundation.NSError {
 //
 // # Discussion
 //
-// The property reflects the [ErrorOptions] property of the
-// [MTLCommandBufferDescriptor] instance at the time you create the command
-// buffer.
+// The property reflects the [MTLCommandBufferDescriptor.ErrorOptions]
+// property of the [MTLCommandBufferDescriptor] instance at the time you
+// create the command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/errorOptions
 func (o MTLCommandBufferObject) ErrorOptions() MTLCommandBufferErrorOption {
@@ -918,9 +919,9 @@ func (o MTLCommandBufferObject) ErrorOptions() MTLCommandBufferErrorOption {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
 //
 // [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
-func (o MTLCommandBufferObject) KernelEndTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("kernelEndTime"))
-	return float64(rv)
+func (o MTLCommandBufferObject) KernelEndTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("kernelEndTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The host time, in seconds, when the CPU begins to schedule the command
@@ -939,9 +940,9 @@ func (o MTLCommandBufferObject) KernelEndTime() float64 {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
 //
 // [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
-func (o MTLCommandBufferObject) KernelStartTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("kernelStartTime"))
-	return float64(rv)
+func (o MTLCommandBufferObject) KernelStartTime() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](o.ID, objc.Sel("kernelStartTime"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // An optional name that can help you identify the command buffer.
@@ -982,10 +983,11 @@ func (o MTLCommandBufferObject) Logs() MTLLogContainer {
 // # Discussion
 //
 // You can configure this property when you create a command buffer by setting
-// [RetainedReferences] of an [MTLCommandBufferDescriptor] instance and
-// calling the [CommandBufferWithDescriptor] method. The [CommandBuffer]
-// method sets this property to true, and
-// [CommandBufferWithUnretainedReferences] sets it to false.
+// [MTLCommandBufferDescriptor.RetainedReferences] of an
+// [MTLCommandBufferDescriptor] instance and calling the
+// [CommandBufferWithDescriptor] method. The [CommandBuffer] method sets this
+// property to true, and [CommandBufferWithUnretainedReferences] sets it to
+// false.
 //
 // If false, your app is responsible for maintaining strong references to all
 // the resources the command buffer relies on until it completes.

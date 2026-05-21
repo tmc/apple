@@ -387,8 +387,9 @@ func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IA
 //
 // # Discussion
 //
-// The output buffer’s [FrameCapacity] value needs to be at least at large
-// as the [FrameLength] value of the `inputBuffer`.
+// The output buffer’s [AVAudioPCMBuffer.FrameCapacity] value needs to be at
+// least at large as the [AVAudioPCMBuffer.FrameLength] value of the
+// `inputBuffer`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/convert(to:from:)
 func (a AVAudioConverter) ConvertToBufferFromBufferError(outputBuffer IAVAudioPCMBuffer, inputBuffer IAVAudioPCMBuffer) (bool, error) {

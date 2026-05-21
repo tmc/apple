@@ -17,7 +17,7 @@ type NSAccessibilityElementLoading interface {
 	// Loads the target accessibility element with the specified load token.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityElement(withToken:)
-	AccessibilityElementWithToken(token objectivec.IObject) NSAccessibilityElement
+	AccessibilityElementWithToken(token NSAccessibilityLoadingToken) INSAccessibilityElement
 }
 
 // NSAccessibilityElementLoadingObject wraps an existing Objective-C object that conforms to the NSAccessibilityElementLoading protocol.
@@ -40,7 +40,7 @@ func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElemen
 // Loads the target accessibility element with the specified load token.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityElement(withToken:)
-func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token objectivec.IObject) NSAccessibilityElement {
+func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token NSAccessibilityLoadingToken) INSAccessibilityElement {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityElementWithToken:"), token)
 	return NSAccessibilityElementFromID(rv)
 }
@@ -49,7 +49,7 @@ func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token
 // accessibility elements with the specified load token.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityRangeInTargetElement(withToken:)
-func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWithToken(token objectivec.IObject) foundation.NSRange {
+func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWithToken(token NSAccessibilityLoadingToken) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeInTargetElementWithToken:"), token)
 	return rv
 }

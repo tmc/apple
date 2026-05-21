@@ -237,11 +237,11 @@ func (m AVMetadataObject) CinematicVideoFocusMode() AVCaptureCinematicVideoFocus
 // # Discussion
 //
 // When presented with a collection of [AVMetadataObject] instances of
-// different types, you may use the objects’ [GroupID] to combine them into
-// groups. For example, a human body and face belonging to the same person
-// have the same [GroupID]. If an object’s [GroupID] property is set to -1,
-// it is invalid. When set to a value of >=0, it is unique across all object
-// groups.
+// different types, you may use the objects’ [AVMetadataObject.GroupID] to
+// combine them into groups. For example, a human body and face belonging to
+// the same person have the same [AVMetadataObject.GroupID]. If an object’s
+// [AVMetadataObject.GroupID] property is set to -1, it is invalid. When set
+// to a value of >=0, it is unique across all object groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/groupID
 func (m AVMetadataObject) GroupID() int {
@@ -256,9 +256,10 @@ func (m AVMetadataObject) GroupID() int {
 //
 // Defaults to a value of -1 when invalid or not available. When used in
 // conjunction with an [AVCaptureMetadataOutput], each newly detected object
-// that enters the scene is assigned a unique identifier. [ObjectID]s are
-// never re-used as objects leave the picture and new ones enter. Objects that
-// leave the picture and then re-enter are assigned a new [ObjectID].
+// that enters the scene is assigned a unique identifier.
+// [AVMetadataObject.ObjectID]s are never re-used as objects leave the picture
+// and new ones enter. Objects that leave the picture and then re-enter are
+// assigned a new [AVMetadataObject.ObjectID].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/objectID
 func (m AVMetadataObject) ObjectID() int {

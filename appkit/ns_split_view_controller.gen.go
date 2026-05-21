@@ -55,15 +55,17 @@ func (nc NSSplitViewControllerClass) Alloc() NSSplitViewController {
 // A split view controller owns an array of split view items
 // ([NSSplitViewItem]), each of which has a view controller
 // ([NSViewController]) and corresponding view. The split view controller’s
-// [SplitView] object manages those child views and the dividers between them.
+// [NSSplitViewController.SplitView] object manages those child views and the
+// dividers between them.
 //
 // By default, a split view arranges its child views vertically from top to
 // bottom. To specify a horizontal (side-by-side) arrangement, implement the
-// [Vertical] property of the [SplitView] object to return true.
+// [NSSplitView.Vertical] property of the [NSSplitViewController.SplitView]
+// object to return true.
 //
-// The split view controller serves as the delegate of its [SplitView] object.
-// If you override a split view delegate method, your override must call
-// `super`.
+// The split view controller serves as the delegate of its
+// [NSSplitViewController.SplitView] object. If you override a split view
+// delegate method, your override must call `super`.
 //
 // To use a split view controller, you must use Auto Layout for the child
 // views and to support animations that collapse and reveal child views. For
@@ -101,7 +103,7 @@ func (nc NSSplitViewControllerClass) Alloc() NSSplitViewController {
 //
 // # Managing Inspectors
 //
-//   - [NSSplitViewController.ToggleInspector]
+//   - [NSSplitViewController.ToggleInspector]: Collapses or expands the first inspector in the split view controller using an animation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController
 //
@@ -145,7 +147,7 @@ func NSSplitViewControllerFromID(id objc.ID) NSSplitViewController {
 //
 // # Managing Inspectors
 //
-//   - [INSSplitViewController.ToggleInspector]
+//   - [INSSplitViewController.ToggleInspector]: Collapses or expands the first inspector in the split view controller using an animation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController
 type INSSplitViewController interface {
@@ -183,11 +185,8 @@ type INSSplitViewController interface {
 
 	// Topic: Managing Inspectors
 
+	// Collapses or expands the first inspector in the split view controller using an animation.
 	ToggleInspector(sender objectivec.IObject)
-
-	// A Boolean value that determines the geometric orientation of the split view’s dividers.
-	IsVertical() bool
-	SetVertical(value bool)
 }
 
 // Init initializes the instance.
@@ -238,9 +237,10 @@ func NewSplitViewControllerWithCoder(coder foundation.INSCoder) NSSplitViewContr
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewSplitViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSSplitViewController {
@@ -272,13 +272,15 @@ func (s NSSplitViewController) SplitViewItemForViewController(viewController INS
 // # Discussion
 //
 // This is a convenience method you can use in place of the
-// [InsertSplitViewItemAtIndex] method when you want to add a split view item
-// to the end of the [SplitViewItems] array. Calling this method implicitly
-// calls the [InsertSplitViewItemAtIndex] method.
+// [NSSplitViewController.InsertSplitViewItemAtIndex] method when you want to
+// add a split view item to the end of the
+// [NSSplitViewController.SplitViewItems] array. Calling this method
+// implicitly calls the [NSSplitViewController.InsertSplitViewItemAtIndex]
+// method.
 //
 // If you subclass the [NSSplitViewController] class, don’t call this method
 // in your custom object to add a split view item. Instead, call the
-// [InsertSplitViewItemAtIndex] method directly.
+// [NSSplitViewController.InsertSplitViewItemAtIndex] method directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/addSplitViewItem(_:)
 func (s NSSplitViewController) AddSplitViewItem(splitViewItem INSSplitViewItem) {
@@ -290,8 +292,8 @@ func (s NSSplitViewController) AddSplitViewItem(splitViewItem INSSplitViewItem) 
 //
 // splitViewItem: The split view item to add.
 //
-// index: The index position for adding the split view item in the [SplitViewItems]
-// array.
+// index: The index position for adding the split view item in the
+// [NSSplitViewController.SplitViewItems] array.
 //
 // # Discussion
 //
@@ -331,6 +333,14 @@ func (s NSSplitViewController) ToggleSidebar(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("toggleSidebar:"), sender)
 }
 
+// Collapses or expands the first inspector in the split view controller using
+// an animation.
+//
+// # Discussion
+//
+// If the split view controller doesn’t contain an inspector, calling this
+// method does nothing.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/toggleInspector(_:)
 func (s NSSplitViewController) ToggleInspector(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("toggleInspector:"), sender)
@@ -490,11 +500,12 @@ func (s NSSplitViewController) SplitViewEffectiveRectForDrawnRectOfDividerAtInde
 // Resize the subviews so that the sum of the sizes of the subviews plus the
 // sum of the thickness of the dividers equals the size of the new frame of
 // the [NSSplitView]. You can get the thickness of a divider through the
-// [DividerThickness] method.
+// [NSSplitView.DividerThickness] method.
 //
 // If you implement this delegate method to resize subviews on your own, the
 // [NSSplitView] doesn’t perform any error checking for you. However, you
-// can invoke [AdjustSubviews] to perform the default sizing behavior.
+// can invoke [NSSplitView.AdjustSubviews] to perform the default sizing
+// behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:resizeSubviewsWithOldSize:)
 func (s NSSplitViewController) SplitViewResizeSubviewsWithOldSize(splitView INSSplitView, oldSize corefoundation.CGSize) {
@@ -509,15 +520,15 @@ func (s NSSplitViewController) SplitViewResizeSubviewsWithOldSize(splitView INSS
 //
 // # Return Value
 //
-// If [AdjustSubviews] can change the size of the subview, true; otherwise,
-// false. By returning false, you lock the size of the split view `subview`
-// while the split view resizes.
+// If [NSSplitView.AdjustSubviews] can change the size of the subview, true;
+// otherwise, false. By returning false, you lock the size of the split view
+// `subview` while the split view resizes.
 //
 // # Discussion
 //
-// Regardless of the value that this method returns, [AdjustSubviews] may
-// change the origin of the subview. Nonresizable subviews may resize to
-// prevent an invalid subview layout.
+// Regardless of the value that this method returns,
+// [NSSplitView.AdjustSubviews] may change the origin of the subview.
+// Nonresizable subviews may resize to prevent an invalid subview layout.
 //
 // If a split view has no delegate, or if its delegate doesn’t respond to
 // this message, the split view behaves as if this method returns true.
@@ -569,8 +580,8 @@ func (s NSSplitViewController) SplitViewWillResizeSubviews(notification foundati
 //
 // # Return Value
 //
-// true if the specified item responds to [ToggleSidebar], false if it
-// doesn’t.
+// true if the specified item responds to
+// [NSSplitViewController.ToggleSidebar], false if it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/validateUserInterfaceItem(_:)
 func (s NSSplitViewController) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
@@ -587,18 +598,19 @@ func (s NSSplitViewController) ValidateUserInterfaceItem(item NSValidatedUserInt
 //
 // By default, a split view arranges its child views vertically from top to
 // bottom. To specify a horizontal (side-by-side) arrangement, implement the
-// [Vertical] property of the split view object to return true.
+// [NSSplitView.Vertical] property of the split view object to return true.
 //
 // Also by default, a split view has a divider style of
 // [NSSplitViewDividerStyleThin], and doesn’t have an autosave name.
 //
 // To provide a custom split view, set this property at any time before you
-// call `super` in the inherited [ViewDidLoad] method; that is, before the
-// split view controller’s [ViewLoaded] property is true.
+// call `super` in the inherited [NSViewController.ViewDidLoad] method; that
+// is, before the split view controller’s [NSViewController.ViewLoaded]
+// property is true.
 //
 // The split view isn’t always the same object as that in the split view
-// controller’s inherited [View] property. To access the split view, always
-// use the [SplitView] property.
+// controller’s inherited [NSViewController.View] property. To access the
+// split view, always use the [NSSplitViewController.SplitView] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitView
 func (s NSSplitViewController) SplitView() INSSplitView {
@@ -614,16 +626,18 @@ func (s NSSplitViewController) SetSplitView(value INSSplitView) {
 //
 // # Discussion
 //
-// Setting this property implicitly calls the [InsertSplitViewItemAtIndex] or
-// [RemoveSplitViewItem] method, as appropriate, to add or remove split view
-// items from this array.
+// Setting this property implicitly calls the
+// [NSSplitViewController.InsertSplitViewItemAtIndex] or
+// [NSSplitViewController.RemoveSplitViewItem] method, as appropriate, to add
+// or remove split view items from this array.
 //
 // If you add a child view controller to the split view controller, the system
 // automatically creates a default split view item for the child view
-// controller and adds it to the [SplitViewItems] array.
+// controller and adds it to the [NSSplitViewController.SplitViewItems] array.
 //
 // If you remove a child view controller, the split view controller removes
-// its corresponding split view item from the [SplitViewItems] array.
+// its corresponding split view item from the
+// [NSSplitViewController.SplitViewItems] array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitViewItems
 func (s NSSplitViewController) SplitViewItems() []NSSplitViewItem {
@@ -641,10 +655,10 @@ func (s NSSplitViewController) SetSplitViewItems(value []NSSplitViewItem) {
 // # Discussion
 //
 // This value describes the minimum thickness in the primary axis of a split
-// view—width if the split view’s [Vertical] value is true, height if
-// it’s false. This value is the minimum thickness that sidebars can shrink
-// to before they automatically collapse. When sidebars autocollapse in
-// full-screen mode, they overlay the other split view items.
+// view—width if the split view’s [NSSplitView.Vertical] value is true,
+// height if it’s false. This value is the minimum thickness that sidebars
+// can shrink to before they automatically collapse. When sidebars
+// autocollapse in full-screen mode, they overlay the other split view items.
 //
 // Autocollapsed sidebars automatically expand if their thickness increases to
 // or above this minimum thickness threshold.
@@ -666,18 +680,6 @@ func (s NSSplitViewController) MinimumThicknessForInlineSidebars() float64 {
 }
 func (s NSSplitViewController) SetMinimumThicknessForInlineSidebars(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumThicknessForInlineSidebars:"), value)
-}
-
-// A Boolean value that determines the geometric orientation of the split
-// view’s dividers.
-//
-// See: https://developer.apple.com/documentation/appkit/nssplitview/isvertical
-func (s NSSplitViewController) IsVertical() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("vertical"))
-	return rv
-}
-func (s NSSplitViewController) SetVertical(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 
 // Protocol methods for NSSplitViewDelegate

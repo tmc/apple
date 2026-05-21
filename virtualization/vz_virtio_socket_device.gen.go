@@ -56,9 +56,10 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 //
 // Don’t create a [VZVirtioSocketDevice] object directly. Instead, when you
 // request a socket device in your configuration, the virtual machine creates
-// it and stores it in the [VZVirtioSocketDevice.SocketDevices] property. For each port you want to
-// make available in your virtual machine, call the [VZVirtioSocketDevice.SetSocketListenerForPort]
-// method and provide an object to manage the port connections.
+// it and stores it in the [VZVirtualMachine.SocketDevices] property. For each
+// port you want to make available in your virtual machine, call the
+// [VZVirtioSocketDevice.SetSocketListenerForPort] method and provide an
+// object to manage the port connections.
 //
 // # Configuring Port Listeners
 //
@@ -171,8 +172,9 @@ func (v VZVirtioSocketDevice) RemoveSocketListenerForPort(port uint32) {
 // system doesn’t listen for connections to the specifed port, this method
 // does nothing.
 //
-// For a successful connection, this method sets the [SourcePort] property of
-// the resulting [VZVirtioSocketConnection] object to a random port number.
+// For a successful connection, this method sets the
+// [VZVirtioSocketConnection.SourcePort] property of the resulting
+// [VZVirtioSocketConnection] object to a random port number.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:)
 func (v VZVirtioSocketDevice) ConnectToPortCompletionHandler(port uint32, completionHandler VirtioSocketConnectionErrorHandler) {

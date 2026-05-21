@@ -49,15 +49,11 @@ func (gc GCKeyboardClass) Alloc() GCKeyboard {
 // # Overview
 //
 // To get the keyboard object and its input values, register for the
-// [GCKeyboard.GCKeyboardDidConnect] (Swift) or [GCKeyboardDidConnectNotification]
+// [GCKeyboardDidConnect] (Swift) or [GCKeyboardDidConnectNotification]
 // (Objective-C) notification for when a keyboard connects to the device, or
-// use the [GCKeyboard.CoalescedKeyboard] class property. Then get the input values from
-// the keyboard object’s [GCKeyboard.KeyboardInput] controller profile.
-//
-// # Discovering keyboards
-//
-//   - [GCKeyboard.GCKeyboardDidConnect]: A notification that posts after a keyboard connects to the device.
-//   - [GCKeyboard.GCKeyboardDidDisconnect]: A notification that posts after a single keyboard, or the last of multiple keyboards, disconnects from the device.
+// use the [GCKeyboardClass.CoalescedKeyboard] class property. Then get the
+// input values from the keyboard object’s [GCKeyboard.KeyboardInput]
+// controller profile.
 //
 // # Getting input values
 //
@@ -66,6 +62,7 @@ func (gc GCKeyboardClass) Alloc() GCKeyboard {
 // See: https://developer.apple.com/documentation/GameController/GCKeyboard
 //
 // [GCKeyboardDidConnectNotification]: https://developer.apple.com/documentation/GameController/GCKeyboardDidConnectNotification
+// [GCKeyboardDidConnect]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCKeyboardDidConnect
 type GCKeyboard struct {
 	objectivec.Object
 }
@@ -82,11 +79,6 @@ func GCKeyboardFromID(id objc.ID) GCKeyboard {
 
 // An interface definition for the [GCKeyboard] class.
 //
-// # Discovering keyboards
-//
-//   - [IGCKeyboard.GCKeyboardDidConnect]: A notification that posts after a keyboard connects to the device.
-//   - [IGCKeyboard.GCKeyboardDidDisconnect]: A notification that posts after a single keyboard, or the last of multiple keyboards, disconnects from the device.
-//
 // # Getting input values
 //
 //   - [IGCKeyboard.KeyboardInput]: The controller profile for the keyboard.
@@ -94,13 +86,6 @@ func GCKeyboardFromID(id objc.ID) GCKeyboard {
 // See: https://developer.apple.com/documentation/GameController/GCKeyboard
 type IGCKeyboard interface {
 	objectivec.IObject
-
-	// Topic: Discovering keyboards
-
-	// A notification that posts after a keyboard connects to the device.
-	GCKeyboardDidConnect() foundation.NSString
-	// A notification that posts after a single keyboard, or the last of multiple keyboards, disconnects from the device.
-	GCKeyboardDidDisconnect() foundation.NSString
 
 	// Topic: Getting input values
 
@@ -162,23 +147,6 @@ func (g GCKeyboard) VendorName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-// A notification that posts after a keyboard connects to the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCKeyboardDidConnect
-func (g GCKeyboard) GCKeyboardDidConnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCKeyboardDidConnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts after a single keyboard, or the last of multiple
-// keyboards, disconnects from the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCKeyboardDidDisconnect
-func (g GCKeyboard) GCKeyboardDidDisconnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCKeyboardDidDisconnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
 // The controller profile for the keyboard.
 //
 // # Discussion
@@ -195,10 +163,10 @@ func (g GCKeyboard) KeyboardInput() IGCKeyboardInput {
 //
 // # Discussion
 //
-// Get the keyboard input values from the keyboard’s [KeyboardInput]
-// controller profile. If the user connects more than one keyboard, the
-// framework represents the combined keyboards with one coalesced keyboard
-// object.
+// Get the keyboard input values from the keyboard’s
+// [GCKeyboard.KeyboardInput] controller profile. If the user connects more
+// than one keyboard, the framework represents the combined keyboards with one
+// coalesced keyboard object.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboard/coalesced
 func (_GCKeyboardClass GCKeyboardClass) CoalescedKeyboard() GCKeyboard {

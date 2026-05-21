@@ -61,14 +61,17 @@ func (nc NSRulerViewClass) Alloc() NSRulerView {
 //
 // # Creation
 //
-// - [NSRulerView.HasHorizontalRuler] ([NSScrollView]) - [NSRulerView.HasVerticalRuler]
-// ([NSScrollView]) - [NSRulerView.InitWithScrollViewOrientation] Designated initializer.
+// - [NSScrollView.HasHorizontalRuler] ([NSScrollView]) -
+// [NSScrollView.HasVerticalRuler] ([NSScrollView]) -
+// [NSRulerView.InitWithScrollViewOrientation] Designated initializer.
 //
 // # Commonly Used Methods
 //
-// [NSRulerView.ClientView]: Changes the ruler’s client view. [NSRulerView.Markers]: Sets the
-// markers displayed by the ruler view. [NSRulerView.AccessoryView]: Sets the accessory
-// view. [NSRulerView.TrackMarkerWithMouseEvent]: Allows the user to add a new marker.
+// [NSRulerView.ClientView]: Changes the ruler’s client view.
+// [NSRulerView.Markers]: Sets the markers displayed by the ruler view.
+// [NSRulerView.AccessoryView]: Sets the accessory view.
+// [NSRulerView.TrackMarkerWithMouseEvent]: Allows the user to add a new
+// marker.
 //
 // # Overview
 //
@@ -287,13 +290,6 @@ type INSRulerView interface {
 	RequiredThickness() float64
 	// The location of the receiver’s baseline, in its own coordinate system.
 	BaselineLocation() float64
-
-	// A Boolean that indicates whether the scroll view keeps a horizontal ruler object.
-	HasHorizontalRuler() bool
-	SetHasHorizontalRuler(value bool)
-	// A Boolean that indicates whether the scroll view keeps a vertical ruler object.
-	HasVerticalRuler() bool
-	SetHasVerticalRuler(value bool)
 }
 
 // Init initializes the instance.
@@ -410,8 +406,8 @@ func (r NSRulerView) RemoveMarker(marker INSRulerMarker) {
 // # Discussion
 //
 // Returns true if the receiver adds `aMarker`, false if it doesn’t. This
-// method works by sending [TrackMouseAdding] to `aMarker` with `theEvent` and
-// true as arguments.
+// method works by sending [NSRulerMarker.TrackMouseAdding] to `aMarker` with
+// `theEvent` and true as arguments.
 //
 // An application typically invokes this method in one of two cases. In the
 // simpler case, the client view can implement [NSRulerView] to invoke this
@@ -423,7 +419,7 @@ func (r NSRulerView) RemoveMarker(marker INSRulerMarker) {
 // ruler’s accessory view or from some other place. With this technique the
 // palette tracks the cursor until it enters the ruler view, at which time it
 // hands over control to the ruler view by invoking
-// [TrackMarkerWithMouseEvent].
+// [NSRulerView.TrackMarkerWithMouseEvent].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/trackMarker(_:withMouseEvent:)
 func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSEvent) bool {
@@ -458,9 +454,10 @@ func (r NSRulerView) MoveRulerlineFromLocationToLocation(oldLocation float64, ne
 //
 // # Discussion
 //
-// This method is invoked by [DrawRect]—you should never need to invoke it
-// directly. You can define custom measurement units using the class method
-// [RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle].
+// This method is invoked by [NSRulerMarker.DrawRect]—you should never need
+// to invoke it directly. You can define custom measurement units using the
+// class method
+// [NSRulerViewClass.RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle].
 // Override this method if you want to customize the appearance of the hash
 // marks themselves.
 //
@@ -474,9 +471,9 @@ func (r NSRulerView) DrawHashMarksAndLabelsInRect(rect corefoundation.CGRect) {
 //
 // # Discussion
 //
-// This method is invoked by [DrawRect]; you should never need to invoke it
-// directly, but you might want to override it if you want to do something
-// different when drawing markers.
+// This method is invoked by [NSRulerMarker.DrawRect]; you should never need
+// to invoke it directly, but you might want to override it if you want to do
+// something different when drawing markers.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/drawMarkers(in:)
 func (r NSRulerView) DrawMarkersInRect(rect corefoundation.CGRect) {
@@ -489,7 +486,7 @@ func (r NSRulerView) DrawMarkersInRect(rect corefoundation.CGRect) {
 // # Discussion
 //
 // You should never need to invoke this method directly, but might need to
-// override it if you override [DrawHashMarksAndLabelsInRect].
+// override it if you override [NSRulerView.DrawHashMarksAndLabelsInRect].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/invalidateHashMarks()
 func (r NSRulerView) InvalidateHashMarks() {
@@ -529,7 +526,7 @@ func (_NSRulerViewClass NSRulerViewClass) RegisterUnitWithNameAbbreviationUnitTo
 //
 // `unitName` must have been registered with the NSRulerView class object
 // prior to invoking this method. See the description of the class method
-// [RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle]
+// [NSRulerViewClass.RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle]
 // for a list of predefined units.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/measurementUnits
@@ -735,28 +732,4 @@ func (r NSRulerView) RequiredThickness() float64 {
 func (r NSRulerView) BaselineLocation() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("baselineLocation"))
 	return rv
-}
-
-// A Boolean that indicates whether the scroll view keeps a horizontal ruler
-// object.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscrollview/hashorizontalruler
-func (r NSRulerView) HasHorizontalRuler() bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("hasHorizontalRuler"))
-	return rv
-}
-func (r NSRulerView) SetHasHorizontalRuler(value bool) {
-	objc.Send[struct{}](r.ID, objc.Sel("setHasHorizontalRuler:"), value)
-}
-
-// A Boolean that indicates whether the scroll view keeps a vertical ruler
-// object.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscrollview/hasverticalruler
-func (r NSRulerView) HasVerticalRuler() bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("hasVerticalRuler"))
-	return rv
-}
-func (r NSRulerView) SetHasVerticalRuler(value bool) {
-	objc.Send[struct{}](r.ID, objc.Sel("setHasVerticalRuler:"), value)
 }

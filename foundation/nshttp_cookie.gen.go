@@ -327,10 +327,11 @@ func (_HTTPCookieClass HTTPCookieClass) CookiesWithResponseHeaderFieldsForURL(he
 // # Discussion
 //
 // To send these headers as part of a URL request to a remote server, create
-// an [NSMutableURLRequest] object, then call the [AllHTTPHeaderFields] or
-// [SetValueForHTTPHeaderField] method to set the provided headers for the
-// request. Finally, initialize and start an [NSURLSessionTask] instance based
-// on that request object.
+// an [NSMutableURLRequest] object, then call the
+// [NSMutableURLRequest.AllHTTPHeaderFields] or
+// [NSMutableURLRequest.SetValueForHTTPHeaderField] method to set the provided
+// headers for the request. Finally, initialize and start an
+// [NSURLSessionTask] instance based on that request object.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/requestHeaderFields(with:)
 func (_HTTPCookieClass HTTPCookieClass) RequestHeaderFieldsWithCookies(cookies []NSHTTPCookie) INSDictionary {
@@ -528,12 +529,12 @@ func (h HTTPCookie) SameSitePolicy() NSHTTPCookieStringPolicy {
 //
 // # Discussion
 //
-// This dictionary can be used with [InitWithProperties] (or
-// [CookieWithProperties] in Objective-C) to create an equivalent
-// [NSHTTPCookie] object.
+// This dictionary can be used with [NSHTTPCookie.InitWithProperties] (or
+// [NSHTTPCookieClass.CookieWithProperties] in Objective-C) to create an
+// equivalent [NSHTTPCookie] object.
 //
-// See [InitWithProperties] for more information on the constraints imposed on
-// the `properties` dictionary.
+// See [NSHTTPCookie.InitWithProperties] for more information on the
+// constraints imposed on the `properties` dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/properties
 func (h HTTPCookie) Properties() INSDictionary {

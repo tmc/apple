@@ -47,12 +47,15 @@ func (nc NETransparentProxyNetworkSettingsClass) Alloc() NETransparentProxyNetwo
 // # Overview
 //
 // A proxy network settings object contains two properties: an array of rules
-// to include traffic ([NETransparentProxyNetworkSettings.IncludedNetworkRules]) and an array of rules to
-// exclude traffic ([NETransparentProxyNetworkSettings.ExcludedNetworkRules]). The exclusion rules take
-// prirority. Therefore, if a given flow matches any of the
-// [NETransparentProxyNetworkSettings.ExcludedNetworkRules], evaluation ends and the flow doesn’t route to the
-// proxy. If there’s no match, then evaluation continues and attempts to
-// match the flow against the [NETransparentProxyNetworkSettings.IncludedNetworkRules].
+// to include traffic
+// ([NETransparentProxyNetworkSettings.IncludedNetworkRules]) and an array of
+// rules to exclude traffic
+// ([NETransparentProxyNetworkSettings.ExcludedNetworkRules]). The exclusion
+// rules take prirority. Therefore, if a given flow matches any of the
+// [NETransparentProxyNetworkSettings.ExcludedNetworkRules], evaluation ends
+// and the flow doesn’t route to the proxy. If there’s no match, then
+// evaluation continues and attempts to match the flow against the
+// [NETransparentProxyNetworkSettings.IncludedNetworkRules].
 //
 // # Traffic routing rules
 //
@@ -142,8 +145,9 @@ func NewTransparentProxyNetworkSettingsWithTunnelRemoteAddress(address string) N
 // `0.0.0.0` or `::)`, then the port string of the endpoint must be non-empty
 // and must not be `0`. - A port string of `53` is not allowed. Use
 // Destination Domain-based rules to match DNS traffic. - The
-// [MatchLocalNetwork] property must be `nil`. - The [MatchDirection] property
-// must be [NETrafficDirectionOutbound].
+// [NENetworkRule.MatchLocalNetwork] property must be `nil`. - The
+// [NENetworkRule.MatchDirection] property must be
+// [NETrafficDirectionOutbound].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyNetworkSettings/includedNetworkRules
 func (t NETransparentProxyNetworkSettings) IncludedNetworkRules() []NENetworkRule {
@@ -169,8 +173,9 @@ func (t NETransparentProxyNetworkSettings) SetIncludedNetworkRules(value []NENet
 // `0.0.0.0` or `::)`, then the port string of the endpoint must be non-empty
 // and must not be `0`. - A port string of `53` is not allowed. Use
 // Destination Domain-based rules to match DNS traffic. - The
-// [MatchLocalNetwork] property must be `nil`. - The [MatchDirection] property
-// must be [NETrafficDirectionOutbound].
+// [NENetworkRule.MatchLocalNetwork] property must be `nil`. - The
+// [NENetworkRule.MatchDirection] property must be
+// [NETrafficDirectionOutbound].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyNetworkSettings/excludedNetworkRules
 func (t NETransparentProxyNetworkSettings) ExcludedNetworkRules() []NENetworkRule {

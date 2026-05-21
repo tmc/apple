@@ -108,6 +108,13 @@ func NewFSContainerIdentifier() FSContainerIdentifier {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(coder:)
+func NewContainerIdentifierWithCoder(coder foundation.INSCoder) FSContainerIdentifier {
+	instance := getFSContainerIdentifierClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return FSContainerIdentifierFromID(rv)
+}
+
 // Creates an entity identifier with the given UUID.
 //
 // uuid: The UUID to use for this identifier.

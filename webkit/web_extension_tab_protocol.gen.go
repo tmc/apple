@@ -115,8 +115,8 @@ func (o WKWebExtensionTabObject) DuplicateUsingConfigurationForWebExtensionConte
 //
 // # Discussion
 //
-// Navigates to the previous page in the tab’s web view via [GoBack] if not
-// implemented.
+// Navigates to the previous page in the tab’s web view via
+// [WKWebView.GoBack] if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/goBack(for:completionHandler:)
 func (o WKWebExtensionTabObject) GoBackForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
@@ -132,8 +132,8 @@ func (o WKWebExtensionTabObject) GoBackForWebExtensionContextCompletionHandler(c
 //
 // # Discussion
 //
-// Navigates to the next page in the tab’s web view via [GoForward] if not
-// implemented.
+// Navigates to the next page in the tab’s web view via
+// [WKWebView.GoForward] if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/goForward(for:completionHandler:)
 func (o WKWebExtensionTabObject) GoForwardForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
@@ -162,7 +162,7 @@ func (o WKWebExtensionTabObject) IndexInWindowForWebExtensionContext(context IWK
 //
 // # Discussion
 //
-// Defaults to [Loading] of the tab’s web view if not implemented.
+// Defaults to [WKWebView.Loading] of the tab’s web view if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/isLoadingComplete(for:)
 func (o WKWebExtensionTabObject) IsLoadingCompleteForWebExtensionContext(context IWKWebExtensionContext) bool {
@@ -268,7 +268,7 @@ func (o WKWebExtensionTabObject) IsSelectedForWebExtensionContext(context IWKWeb
 //
 // If the tab is already loading a page, calling this method should stop the
 // current page from loading and start loading the new URL. Loads the URL in
-// the tab’s web view via [LoadRequest] if not implemented.
+// the tab’s web view via [WKWebView.LoadRequest] if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/loadURL(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) LoadURLForWebExtensionContextCompletionHandler(url foundation.NSURL, context IWKWebExtensionContext, completionHandler ErrorHandler) {
@@ -318,8 +318,8 @@ func (o WKWebExtensionTabObject) PendingURLForWebExtensionContext(context IWKWeb
 //
 // # Discussion
 //
-// Reloads the tab’s web view via [Reload] or [ReloadFromOrigin] if not
-// implemented.
+// Reloads the tab’s web view via [WKWebView.Reload] or
+// [WKWebView.ReloadFromOrigin] if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/reload(fromOrigin:for:completionHandler:)
 func (o WKWebExtensionTabObject) ReloadFromOriginForWebExtensionContextCompletionHandler(fromOrigin bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
@@ -436,7 +436,7 @@ func (o WKWebExtensionTabObject) SetSelectedForWebExtensionContextCompletionHand
 //
 // # Discussion
 //
-// Sets [PageZoom] of the tab’s web view if not implemented.
+// Sets [WKWebView.PageZoom] of the tab’s web view if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setZoomFactor(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetZoomFactorForWebExtensionContextCompletionHandler(zoomFactor float64, context IWKWebExtensionContext, completionHandler ErrorHandler) {
@@ -516,7 +516,7 @@ func (o WKWebExtensionTabObject) TakeSnapshotUsingConfigurationForWebExtensionCo
 //
 // # Discussion
 //
-// Defaults to [Title] of the tab’s web view if not implemented.
+// Defaults to [WKWebView.Title] of the tab’s web view if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/title(for:)
 func (o WKWebExtensionTabObject) TitleForWebExtensionContext(context IWKWebExtensionContext) string {
@@ -545,10 +545,10 @@ func (o WKWebExtensionTabObject) UrlForWebExtensionContext(context IWKWebExtensi
 // # Discussion
 //
 // The web view’s [WKWebViewConfiguration] must have its
-// [WebExtensionController] property set to match the controller of the given
-// context; otherwise `nil` will be used. Defaults to `nil` if not
-// implemented. If `nil`, some critical features will not be available for
-// this tab, such as content injection or modification.
+// [WKWebViewConfiguration.WebExtensionController] property set to match the
+// controller of the given context; otherwise `nil` will be used. Defaults to
+// `nil` if not implemented. If `nil`, some critical features will not be
+// available for this tab, such as content injection or modification.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/webView(for:)
 func (o WKWebExtensionTabObject) WebViewForWebExtensionContext(context IWKWebExtensionContext) IWKWebView {
@@ -576,7 +576,8 @@ func (o WKWebExtensionTabObject) WindowForWebExtensionContext(context IWKWebExte
 //
 // # Discussion
 //
-// Defaults to [PageZoom] of the tab’s web view if not implemented.
+// Defaults to [WKWebView.PageZoom] of the tab’s web view if not
+// implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/zoomFactor(for:)
 func (o WKWebExtensionTabObject) ZoomFactorForWebExtensionContext(context IWKWebExtensionContext) float64 {

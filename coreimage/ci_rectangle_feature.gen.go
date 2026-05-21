@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -57,7 +56,7 @@ func (cc CIRectangleFeatureClass) Alloc() CIRectangleFeature {
 // [CIPerspectiveCorrection] filter to transform the feature to a normal
 // orientation.
 //
-// To detect rectangles in an image or video, choose [CIRectangleFeature.CIDetectorTypeRectangle]
+// To detect rectangles in an image or video, choose [CIDetectorTypeRectangle]
 // when initializing a [CIDetector] object, and use the
 // [CIDetectorAspectRatio] and [CIDetectorFocalLength] options to specify the
 // approximate shape of rectangular features to search for. The detector
@@ -72,6 +71,8 @@ func (cc CIRectangleFeatureClass) Alloc() CIRectangleFeature {
 //   - [CIRectangleFeature.TopRight]: The upper-right corner of the detected rectangle, in image coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRectangleFeature
+//
+// [CIDetectorTypeRectangle]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeRectangle
 type CIRectangleFeature struct {
 	CIFeature
 }
@@ -109,9 +110,6 @@ type ICIRectangleFeature interface {
 	TopLeft() corefoundation.CGPoint
 	// The upper-right corner of the detected rectangle, in image coordinates.
 	TopRight() corefoundation.CGPoint
-
-	// A detector that searches for rectangular areas in a still image or video, returning
-	CIDetectorTypeRectangle() string
 }
 
 // Init initializes the instance.
@@ -163,13 +161,4 @@ func (r CIRectangleFeature) TopLeft() corefoundation.CGPoint {
 func (r CIRectangleFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
-}
-
-// A detector that searches for rectangular areas in a still image or video,
-// returning
-//
-// See: https://developer.apple.com/documentation/coreimage/cidetectortyperectangle
-func (r CIRectangleFeature) CIDetectorTypeRectangle() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("CIDetectorTypeRectangle"))
-	return foundation.NSStringFromID(rv).String()
 }

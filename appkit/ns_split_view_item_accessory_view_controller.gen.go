@@ -101,11 +101,6 @@ type INSSplitViewItemAccessoryViewController interface {
 	IsHidden() bool
 	SetHidden(value bool)
 
-	BottomAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController
-	SetBottomAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController)
-	// The following methods allow you to add accessory views to the top/bottom of this splitViewItem. See
-	TopAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController
-	SetTopAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController)
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Sets the option dictionary that maps event trigger keys to animation objects.
@@ -162,9 +157,10 @@ func NewSplitViewItemAccessoryViewControllerWithCoder(coder foundation.INSCoder)
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
 //
-// If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
-// [LoadView] throws an exception; in this case you must set [View] before
-// [View] is invoked, or override [LoadView].
+// If you pass in `nil` for `nibNameOrNil`, [NSViewController.NibName] returns
+// `nil` and [NSViewController.LoadView] throws an exception; in this case you
+// must set [NSViewController.View] before [NSViewController.View] is invoked,
+// or override [NSViewController.LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
 func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSSplitViewItemAccessoryViewController {
@@ -320,25 +316,4 @@ func (s NSSplitViewItemAccessoryViewController) IsHidden() bool {
 }
 func (s NSSplitViewItemAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHidden:"), value)
-}
-
-// See: https://developer.apple.com/documentation/appkit/nssplitviewitem/bottomalignedaccessoryviewcontrollers
-func (s NSSplitViewItemAccessoryViewController) BottomAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bottomAlignedAccessoryViewControllers"))
-	return NSSplitViewItemAccessoryViewControllerFromID(objc.ID(rv))
-}
-func (s NSSplitViewItemAccessoryViewController) SetBottomAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBottomAlignedAccessoryViewControllers:"), value)
-}
-
-// The following methods allow you to add accessory views to the top/bottom of
-// this splitViewItem. See
-//
-// See: https://developer.apple.com/documentation/appkit/nssplitviewitem/topalignedaccessoryviewcontrollers
-func (s NSSplitViewItemAccessoryViewController) TopAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("topAlignedAccessoryViewControllers"))
-	return NSSplitViewItemAccessoryViewControllerFromID(objc.ID(rv))
-}
-func (s NSSplitViewItemAccessoryViewController) SetTopAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController) {
-	objc.Send[struct{}](s.ID, objc.Sel("setTopAlignedAccessoryViewControllers:"), value)
 }

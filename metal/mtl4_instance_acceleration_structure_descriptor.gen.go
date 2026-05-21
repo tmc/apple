@@ -51,7 +51,8 @@ func (mc MTL4InstanceAccelerationStructureDescriptorClass) Alloc() MTL4InstanceA
 //
 // You specify the properties of the instances in the acceleration structure
 // this descriptor builds by providing a buffer of `structs` via its
-// [MTL4InstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer] property.
+// [MTL4InstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer]
+// property.
 //
 // Use a [MTLResidencySet] to mark residency of all buffers and acceleration
 // structures this descriptor references when you build this acceleration
@@ -189,7 +190,8 @@ func (m MTL4InstanceAccelerationStructureDescriptor) SetInstanceCount(value uint
 //
 // This buffer conceptually represents an array of instance data. The specific
 // format for the structs that comprise each entry depends on the value of the
-// [InstanceDescriptorType] property.
+// [MTL4InstanceAccelerationStructureDescriptor.InstanceDescriptorType]
+// property.
 //
 // You are responsible for ensuring the buffer address the range contains is
 // not zero.
@@ -257,7 +259,10 @@ func (m MTL4InstanceAccelerationStructureDescriptor) SetInstanceDescriptorType(v
 // # Discussion
 //
 // Metal interprets the value of this property as the layout for the buffers
-// that both [InstanceDescriptorBuffer] and [MotionTransformBuffer] reference.
+// that both
+// [MTL4InstanceAccelerationStructureDescriptor.InstanceDescriptorBuffer] and
+// [MTL4InstanceAccelerationStructureDescriptor.MotionTransformBuffer]
+// reference.
 //
 // Defaults to [MTLMatrixLayoutColumnMajor].
 //

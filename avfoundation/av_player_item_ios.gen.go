@@ -7,6 +7,7 @@ package avfoundation
 import (
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -99,7 +100,7 @@ func (p AVPlayerItem) SetTranslatesPlayerInterstitialEvents(value bool) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/interstitialTimeRanges
 //
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
-func (p AVPlayerItem) InterstitialTimeRanges() []objc.ID {
+func (p AVPlayerItem) InterstitialTimeRanges() []avfaudio.AVInterstitialTimeRange {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("interstitialTimeRanges"))
 	return objc.ConvertSlice(rv, func(id objc.ID) avfaudio.AVInterstitialTimeRange {
 		return avfaudio.AVInterstitialTimeRangeFromID(id)
@@ -137,20 +138,20 @@ func (p AVPlayerItem) SetNowPlayingInfo(value foundation.INSDictionary) {
 // navigating each group.
 //
 // To provide a chapter list, use the first item in the
-// [NavigationMarkerGroups] array and set its title property to `nil`. To
-// provide additional or alternate means of navigating content, use a unique
-// title value for each navigation marker group in the array.
+// [AVPlayerItem.NavigationMarkerGroups] array and set its title property to
+// `nil`. To provide additional or alternate means of navigating content, use
+// a unique title value for each navigation marker group in the array.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/navigationMarkerGroups
 //
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
-func (p AVPlayerItem) NavigationMarkerGroups() []objc.ID {
+func (p AVPlayerItem) NavigationMarkerGroups() []avfaudio.AVNavigationMarkersGroup {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("navigationMarkerGroups"))
 	return objc.ConvertSlice(rv, func(id objc.ID) avfaudio.AVNavigationMarkersGroup {
 		return avfaudio.AVNavigationMarkersGroupFromID(id)
 	})
 }
-func (p AVPlayerItem) SetNavigationMarkerGroups(value []objc.ID) {
+func (p AVPlayerItem) SetNavigationMarkerGroups(value []avfaudio.AVNavigationMarkersGroup) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNavigationMarkerGroups:"), objectivec.IObjectSliceToNSArray(value))
 }
 
@@ -166,7 +167,7 @@ func (p AVPlayerItem) NextContentProposal() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("nextContentProposal"))
 	return rv
 }
-func (p AVPlayerItem) SetNextContentProposal(value unsafe.Pointer) {
+func (p AVPlayerItem) SetNextContentProposal(value kernel.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNextContentProposal:"), value)
 }
 

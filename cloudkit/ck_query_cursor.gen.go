@@ -79,21 +79,6 @@ func CKQueryCursorFromID(id objc.ID) CKQueryCursor {
 type ICKQueryCursor interface {
 	objectivec.IObject
 
-	// The  cursor for continuing the search.
-	Cursor() ICKQueryCursor
-	SetCursor(value ICKQueryCursor)
-	// The fields of the records to fetch.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
-	// The query for the search.
-	Query() ICKQuery
-	SetQuery(value ICKQuery)
-	// The maximum number of records to return at one time.
-	ResultsLimit() int
-	SetResultsLimit(value int)
-	// The ID of the record zone that contains the records to search.
-	ZoneID() ICKRecordZoneID
-	SetZoneID(value ICKRecordZoneID)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -118,68 +103,4 @@ func NewCKQueryCursor() CKQueryCursor {
 
 func (c CKQueryCursor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// The cursor for continuing the search.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/cursor-swift.property
-func (c CKQueryCursor) Cursor() ICKQueryCursor {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("cursor"))
-	return CKQueryCursorFromID(objc.ID(rv))
-}
-func (c CKQueryCursor) SetCursor(value ICKQueryCursor) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCursor:"), value)
-}
-
-// The fields of the records to fetch.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/desiredkeys-7qrse
-func (c CKQueryCursor) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKQueryCursor) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
-}
-
-// The query for the search.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/query
-func (c CKQueryCursor) Query() ICKQuery {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("query"))
-	return CKQueryFromID(objc.ID(rv))
-}
-func (c CKQueryCursor) SetQuery(value ICKQuery) {
-	objc.Send[struct{}](c.ID, objc.Sel("setQuery:"), value)
-}
-
-// The maximum number of records to return at one time.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/resultslimit
-func (c CKQueryCursor) ResultsLimit() int {
-	rv := objc.Send[int](c.ID, objc.Sel("resultsLimit"))
-	return rv
-}
-func (c CKQueryCursor) SetResultsLimit(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setResultsLimit:"), value)
-}
-
-// The ID of the record zone that contains the records to search.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/zoneid
-func (c CKQueryCursor) ZoneID() ICKRecordZoneID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("zoneID"))
-	return CKRecordZoneIDFromID(objc.ID(rv))
-}
-func (c CKQueryCursor) SetZoneID(value ICKRecordZoneID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setZoneID:"), value)
-}
-
-// A constant value that represents the maximum number of results CloudKit
-// retrieves.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/maximumresults
-func (_CKQueryCursorClass CKQueryCursorClass) MaximumResults() int {
-	rv := objc.Send[int](objc.ID(_CKQueryCursorClass.class), objc.Sel("CKQueryOperationMaximumResults"))
-	return rv
 }

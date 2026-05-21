@@ -250,12 +250,6 @@ type IMTLRenderPassDescriptor interface {
 	VisibilityResultType() MTLVisibilityResultType
 	SetVisibilityResultType(value MTLVisibilityResultType)
 
-	// An option for rendering to the texture in a render pass.
-	RenderTarget() MTLTextureUsage
-	SetMTLTextureUsageRenderTarget(value MTLTextureUsage)
-	// Options that determine how you can use the texture.
-	Usage() MTLTextureUsage
-	SetUsage(value MTLTextureUsage)
 	// Retrieves the programmable sample positions set for a render pass.
 	GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint
 	// Sets the programmable sample positions for a render pass.
@@ -295,9 +289,10 @@ func NewMTLRenderPassDescriptor() MTLRenderPassDescriptor {
 // # Discussion
 //
 // The value of `count` needs to be equal to the number of programmable sample
-// positions set by a previous call to the [SetSamplePositionsCount] method
-// (the `count` parameter). Also, the `positions` array needs to contain at
-// least as many elements as the value of `count`.
+// positions set by a previous call to the
+// [MTLRenderPassDescriptor.SetSamplePositionsCount] method (the `count`
+// parameter). Also, the `positions` array needs to contain at least as many
+// elements as the value of `count`.
 //
 // If you don’t know the correct value for `count`, you may query this
 // method by passing a `nil` array for `positions` and a `0` value for
@@ -340,10 +335,12 @@ func (r MTLRenderPassDescriptor) SetSamplePositionsCount(positions []MTLSamplePo
 //
 // # Discussion
 //
-// Set the desired color attachments with the [SetObjectAtIndexedSubscript]
-// method of the [ColorAttachments] property. Set the desired depth and
-// stencil attachments with the [DepthAttachment] and [StencilAttachment]
-// properties, respectively.
+// Set the desired color attachments with the
+// [MTLRenderPassColorAttachmentDescriptorArray.SetObjectAtIndexedSubscript]
+// method of the [MTLRenderPassDescriptor.ColorAttachments] property. Set the
+// desired depth and stencil attachments with the
+// [MTLRenderPassDescriptor.DepthAttachment] and
+// [MTLRenderPassDescriptor.StencilAttachment] properties, respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/renderPassDescriptor
 func (_MTLRenderPassDescriptorClass MTLRenderPassDescriptorClass) RenderPassDescriptor() MTLRenderPassDescriptor {
@@ -576,26 +573,4 @@ func (r MTLRenderPassDescriptor) VisibilityResultType() MTLVisibilityResultType 
 }
 func (r MTLRenderPassDescriptor) SetVisibilityResultType(value MTLVisibilityResultType) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVisibilityResultType:"), value)
-}
-
-// An option for rendering to the texture in a render pass.
-//
-// See: https://developer.apple.com/documentation/metal/mtltextureusage/rendertarget
-func (r MTLRenderPassDescriptor) RenderTarget() MTLTextureUsage {
-	rv := objc.Send[MTLTextureUsage](r.ID, objc.Sel("MTLTextureUsageRenderTarget"))
-	return MTLTextureUsage(rv)
-}
-func (r MTLRenderPassDescriptor) SetMTLTextureUsageRenderTarget(value MTLTextureUsage) {
-	objc.Send[struct{}](r.ID, objc.Sel("setMTLTextureUsageRenderTarget:"), value)
-}
-
-// Options that determine how you can use the texture.
-//
-// See: https://developer.apple.com/documentation/metal/mtltexturedescriptor/usage
-func (r MTLRenderPassDescriptor) Usage() MTLTextureUsage {
-	rv := objc.Send[MTLTextureUsage](r.ID, objc.Sel("usage"))
-	return MTLTextureUsage(rv)
-}
-func (r MTLRenderPassDescriptor) SetUsage(value MTLTextureUsage) {
-	objc.Send[struct{}](r.ID, objc.Sel("setUsage:"), value)
 }

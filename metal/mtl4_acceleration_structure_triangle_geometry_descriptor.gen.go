@@ -238,8 +238,9 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetTriangleCount(va
 // # Discussion
 //
 // You are responsible for ensuring that the format of all vertex positions
-// match the [VertexFormat] property, and that the buffer address for the
-// buffer range is not zero.
+// match the
+// [MTL4AccelerationStructureTriangleGeometryDescriptor.VertexFormat]
+// property, and that the buffer address for the buffer range is not zero.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureTriangleGeometryDescriptor/vertexBuffer
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) VertexBuffer() MTL4BufferRange {
@@ -255,7 +256,8 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetVertexBuffer(val
 // # Discussion
 //
 // This property controls the format of the position attribute of the vertices
-// the [VertexBuffer] references.
+// the [MTL4AccelerationStructureTriangleGeometryDescriptor.VertexBuffer]
+// references.
 //
 // The format defaults to [MTLAttributeFormatFloat3], corresponding to three
 // packed floating point numbers.
@@ -274,12 +276,13 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetVertexFormat(val
 // # Discussion
 //
 // The stride you specify needs to be a multiple of the size of the vertex
-// format you provide in the [VertexFormat] property. Similarly, you are
-// responsible for ensuring this stride matches the vertex format data
-// type’s alignment.
+// format you provide in the
+// [MTL4AccelerationStructureTriangleGeometryDescriptor.VertexFormat]
+// property. Similarly, you are responsible for ensuring this stride matches
+// the vertex format data type’s alignment.
 //
 // Defaults to `0`, which signals the stride matches the size of the
-// [VertexFormat] data.
+// [MTL4AccelerationStructureTriangleGeometryDescriptor.VertexFormat] data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureTriangleGeometryDescriptor/vertexStride
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) VertexStride() uint {

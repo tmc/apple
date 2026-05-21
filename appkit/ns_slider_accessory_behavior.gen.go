@@ -76,6 +76,7 @@ type INSSliderAccessoryBehavior interface {
 	// Override point for custom subclasses to handle interaction.
 	HandleAction(sender INSSliderAccessory)
 
+	InitWithCoder(coder foundation.INSCoder) NSSliderAccessoryBehavior
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -98,6 +99,17 @@ func NewNSSliderAccessoryBehavior() NSSliderAccessoryBehavior {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(coder:)
+func NewSliderAccessoryBehaviorWithCoder(coder foundation.INSCoder) NSSliderAccessoryBehavior {
+	instance := getNSSliderAccessoryBehaviorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSSliderAccessoryBehaviorFromID(rv)
+}
+
+// The action is sent to the target on interaction.
+//
+// target: An optional [NSSliderAccessory].
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(target:action:)
 func NewSliderAccessoryBehaviorWithTargetAction(target objectivec.IObject, action objc.SEL) NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(getNSSliderAccessoryBehaviorClass().class), objc.Sel("behaviorWithTarget:action:"), target, action)
@@ -110,10 +122,22 @@ func NewSliderAccessoryBehaviorWithTargetAction(target objectivec.IObject, actio
 func (s NSSliderAccessoryBehavior) HandleAction(sender INSSliderAccessory) {
 	objc.Send[objc.ID](s.ID, objc.Sel("handleAction:"), sender)
 }
+
+// See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(coder:)
+func (s NSSliderAccessoryBehavior) InitWithCoder(coder foundation.INSCoder) NSSliderAccessoryBehavior {
+	rv := objc.Send[NSSliderAccessoryBehavior](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (s NSSliderAccessoryBehavior) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
+// The handler block is invoked on interaction.
+//
+// # Discussion
+//
+// This variant is not codable and will assert in `-`.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(handler:)
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) BehaviorWithHandler(handler SliderAccessoryHandler) NSSliderAccessoryBehavior {
 	_block0, _ := NewSliderAccessoryBlock(handler)

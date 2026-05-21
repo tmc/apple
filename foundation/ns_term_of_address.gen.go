@@ -60,9 +60,9 @@ func (nc NSTermOfAddressClass) Alloc() NSTermOfAddress {
 // For example, to substitute the masculine pronoun , for the neutral pronoun
 // , do the following:
 //
-// If the [NSTermOfAddress.Masculine], [NSTermOfAddress.Feminine], and [NSTermOfAddress.Neutral] terms of address are
-// insufficient, create your own term of address specifying the pronouns and
-// language.
+// If the [NSTermOfAddressClass.Masculine], [NSTermOfAddressClass.Feminine],
+// and [NSTermOfAddressClass.Neutral] terms of address are insufficient,
+// create your own term of address specifying the pronouns and language.
 //
 // For examples of how to use terms of address, see:
 //

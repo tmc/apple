@@ -92,16 +92,16 @@ func (o PDFDocumentDelegateObject) DocumentDidFindMatch(notification foundation.
 // Returns a [PDFPage] subclass for a page object.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocumentDelegate/classForPage()
-func (o PDFDocumentDelegateObject) ClassForPage() objc.Class {
-	rv := objc.Send[objc.Class](o.ID, objc.Sel("classForPage"))
+func (o PDFDocumentDelegateObject) ClassForPage() objectivec.Class {
+	rv := objc.Send[objectivec.Class](o.ID, objc.Sel("classForPage"))
 	return rv
 }
 
 // Returns a [PDFAnnotation] subclass for an annotation type.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocumentDelegate/class(forAnnotationType:)
-func (o PDFDocumentDelegateObject) ClassForAnnotationType(annotationType string) objc.Class {
-	rv := objc.Send[objc.Class](o.ID, objc.Sel("classForAnnotationType:"), objc.String(annotationType))
+func (o PDFDocumentDelegateObject) ClassForAnnotationType(annotationType string) objectivec.Class {
+	rv := objc.Send[objectivec.Class](o.ID, objc.Sel("classForAnnotationType:"), objc.String(annotationType))
 	return rv
 }
 
@@ -132,10 +132,6 @@ type PDFDocumentDelegateConfig struct {
 	DocumentDidEndPageFind func(notification foundation.NSNotification)
 	// DocumentDidFindMatch — Called when the [PDFDocumentDidFindMatchNotification] notification is posted.
 	DocumentDidFindMatch func(notification foundation.NSNotification)
-
-	// Wrapping Document Elements
-	// ClassForPage — Returns a [PDFPage] subclass for a page object.
-	ClassForPage func() objc.Class
 }
 
 // NewPDFDocumentDelegate creates an Objective-C object implementing the [PDFDocumentDelegate] protocol.
@@ -229,16 +225,6 @@ func NewPDFDocumentDelegate(config PDFDocumentDelegateConfig) PDFDocumentDelegat
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
-			},
-		})
-	}
-
-	if config.ClassForPage != nil {
-		fn := config.ClassForPage
-		methods = append(methods, objc.MethodDef{
-			Cmd: objc.RegisterName("classForPage"),
-			Fn: func(self objc.ID, _cmd objc.SEL) objc.Class {
-				return fn()
 			},
 		})
 	}

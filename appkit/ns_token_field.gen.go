@@ -123,8 +123,8 @@ type INSTokenField interface {
 	// Topic: Configuring the Completion Delay
 
 	// The receiver’s completion delay.
-	CompletionDelay() float64
-	SetCompletionDelay(value float64)
+	CompletionDelay() foundation.NSTimeInterval
+	SetCompletionDelay(value foundation.NSTimeInterval)
 }
 
 // Init initializes the instance.
@@ -272,11 +272,11 @@ func (t NSTokenField) SetTokenizingCharacterSet(value foundation.NSCharacterSet)
 // The receiver’s completion delay.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/completionDelay
-func (t NSTokenField) CompletionDelay() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("completionDelay"))
-	return rv
+func (t NSTokenField) CompletionDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](t.ID, objc.Sel("completionDelay"))
+	return foundation.NSTimeInterval(rv)
 }
-func (t NSTokenField) SetCompletionDelay(value float64) {
+func (t NSTokenField) SetCompletionDelay(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompletionDelay:"), value)
 }
 
@@ -299,7 +299,7 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultTokenizingCharacterSet() foun
 // The default completion delay is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/defaultCompletionDelay
-func (_NSTokenFieldClass NSTokenFieldClass) DefaultCompletionDelay() float64 {
-	rv := objc.Send[float64](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultCompletionDelay"))
-	return rv
+func (_NSTokenFieldClass NSTokenFieldClass) DefaultCompletionDelay() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultCompletionDelay"))
+	return foundation.NSTimeInterval(rv)
 }

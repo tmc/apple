@@ -3,11 +3,9 @@
 package avfoundation
 
 import (
-	"context"
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -182,7 +180,7 @@ type IAVAssetImageGenerator interface {
 	// Topic: Generating images
 
 	// Generates an image asynchronously for a requested time, and returns the result in a callback.
-	GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefErrorHandler)
+	GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefCMTimeErrorHandler)
 	// Generates images asynchronously for an array of requested times, and returns the results in a callback.
 	GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler)
 	// Cancels all pending image generation requests.
@@ -250,8 +248,8 @@ func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerat
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImageAsynchronously(for:completionHandler:)
 //
 // [image(at:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/image(at:)
-func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefErrorHandler) {
-	_block1, _ := NewCGImageRefErrorBlock(handler)
+func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefCMTimeErrorHandler) {
+	_block1, _ := NewCGImageRefCMTimeErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImageAsynchronouslyForTime:completionHandler:"), requestedTime, _block1)
 }
 
@@ -309,7 +307,7 @@ func (_AVAssetImageGeneratorClass AVAssetImageGeneratorClass) AssetImageGenerato
 //
 // Setting a size scales images to fit their defined bounding boxes. You
 // define the aspect ratio of the scaled image by setting a value for the
-// [ApertureMode] property.
+// [AVAssetImageGenerator.ApertureMode] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/maximumSize
 //
@@ -328,9 +326,9 @@ func (a AVAssetImageGenerator) SetMaximumSize(value corefoundation.CGSize) {
 // # Discussion
 //
 // The default value is [positiveInfinity]. Set the values of
-// [RequestedTimeToleranceBefore] and [RequestedTimeToleranceAfter] to [zero]
-// to request frame-accurate image generation; this may incur additional
-// decoding delay.
+// [AVAssetImageGenerator.RequestedTimeToleranceBefore] and
+// [AVAssetImageGenerator.RequestedTimeToleranceAfter] to [zero] to request
+// frame-accurate image generation; this may incur additional decoding delay.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceBefore
 //
@@ -350,9 +348,9 @@ func (a AVAssetImageGenerator) SetRequestedTimeToleranceBefore(value coremedia.C
 // # Discussion
 //
 // The default value is [positiveInfinity]. Set the values of
-// [RequestedTimeToleranceBefore] and [RequestedTimeToleranceAfter] to [zero]
-// to request frame-accurate image generation; this may incur additional
-// decoding delay.
+// [AVAssetImageGenerator.RequestedTimeToleranceBefore] and
+// [AVAssetImageGenerator.RequestedTimeToleranceAfter] to [zero] to request
+// frame-accurate image generation; this may incur additional decoding delay.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceAfter
 //
@@ -392,7 +390,7 @@ func (a AVAssetImageGenerator) SetDynamicRangePolicy(value AVAssetImageGenerator
 // or 270 degrees.
 //
 // The image generator ignores this property if you set a value for the
-// [VideoComposition] property.
+// [AVAssetImageGenerator.VideoComposition] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/appliesPreferredTrackTransform
 func (a AVAssetImageGenerator) AppliesPreferredTrackTransform() bool {
@@ -429,14 +427,16 @@ func (a AVAssetImageGenerator) SetApertureMode(value AVAssetImageGeneratorApertu
 // first enabled video track.
 //
 // If specify a video composition, the image generator ignores the value of
-// the [AppliesPreferredTrackTransform] property.
+// the [AVAssetImageGenerator.AppliesPreferredTrackTransform] property.
 //
 // Setting a video composition with any of the following attributes generates
 // an exception:
 //
-// - A [RenderScale] not equal to `1.0`. - A [RenderSize] with a width or
-// height less than `0`. - A [FrameDuration] that’s invalid, or less than or
-// equal to [zero]. - A [SourceTrackIDForFrameTiming] less than [zero].
+// - A [AVVideoComposition.RenderScale] not equal to `1.0`. - A
+// [AVVideoComposition.RenderSize] with a width or height less than `0`. - A
+// [AVVideoComposition.FrameDuration] that’s invalid, or less than or equal
+// to [zero]. - A [AVVideoComposition.SourceTrackIDForFrameTiming] less than
+// [zero].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/videoComposition
 //
@@ -464,23 +464,4 @@ func (a AVAssetImageGenerator) CustomVideoCompositor() AVVideoCompositing {
 func (a AVAssetImageGenerator) Asset() IAVAsset {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("asset"))
 	return AVAssetFromID(objc.ID(rv))
-}
-
-// GenerateCGImageAsynchronouslyForTime is a synchronous wrapper around [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTime(ctx context.Context, requestedTime coremedia.CMTime) (coregraphics.CGImageRef, error) {
-	type result struct {
-		val coregraphics.CGImageRef
-		err error
-	}
-	done := make(chan result, 1)
-	a.GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime, func(val coregraphics.CGImageRef, err error) {
-		done <- result{val, err}
-	})
-	select {
-	case r := <-done:
-		return r.val, r.err
-	case <-ctx.Done():
-		return *new(coregraphics.CGImageRef), ctx.Err()
-	}
 }

@@ -53,7 +53,7 @@ func (nc NSRotationGestureRecognizerClass) Alloc() NSRotationGestureRecognizer {
 // end.
 //
 // Upon creation, the gesture recognizer sets the value of the
-// [NSRotationGestureRecognizer.DelaysRotationEvents] property to true.
+// [NSGestureRecognizer.DelaysRotationEvents] property to true.
 //
 // # Interpreting the Gesture
 //
@@ -165,7 +165,7 @@ func NewRotationGestureRecognizerWithTargetAction(target objectivec.IObject, act
 //
 // This property contains the current rotation in effect for the gesture.
 // Changing the value in this property also updates the value in the
-// [RotationInDegrees] property.
+// [NSRotationGestureRecognizer.RotationInDegrees] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRotationGestureRecognizer/rotation
 func (r NSRotationGestureRecognizer) Rotation() float64 {
@@ -182,7 +182,7 @@ func (r NSRotationGestureRecognizer) SetRotation(value float64) {
 //
 // This property contains the current rotation in effect for the gesture.
 // Changing the value in this property also updates the value in the
-// [Rotation] property.
+// [NSRotationGestureRecognizer.Rotation] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRotationGestureRecognizer/rotationInDegrees
 func (r NSRotationGestureRecognizer) RotationInDegrees() float64 {

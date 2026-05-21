@@ -91,7 +91,8 @@ func (o WKDownloadDelegateObject) DownloadDidFinish(download IWKDownload) {
 // # Discussion
 //
 // To restart a failed download, call
-// [ResumeDownloadFromResumeDataCompletionHandler] with `resumeData`.
+// [WKWebView.ResumeDownloadFromResumeDataCompletionHandler] with
+// `resumeData`.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didFailWithError:resumeData:)
 func (o WKDownloadDelegateObject) DownloadDidFailWithErrorResumeData(download IWKDownload, error_ foundation.NSError, resumeData foundation.NSData) {
@@ -120,7 +121,7 @@ func (o WKDownloadDelegateObject) DownloadDidFailWithErrorResumeData(download IW
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didReceive:completionHandler:)
 //
 // [URLSession.AuthChallengeDisposition.rejectProtectionSpace]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition/rejectProtectionSpace
-func (o WKDownloadDelegateObject) DownloadDidReceiveAuthenticationChallengeCompletionHandler(download IWKDownload, challenge foundation.NSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
+func (o WKDownloadDelegateObject) DownloadDidReceiveAuthenticationChallengeCompletionHandler(download IWKDownload, challenge foundation.NSURLAuthenticationChallenge, completionHandler IntURLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveAuthenticationChallenge:completionHandler:"), download, challenge, completionHandler)
 }
 
@@ -150,7 +151,7 @@ func (o WKDownloadDelegateObject) DownloadWillPerformHTTPRedirectionNewRequestDe
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:decidePlaceholderPolicy:)
-func (o WKDownloadDelegateObject) DownloadDecidePlaceholderPolicy(download IWKDownload, completionHandler URLHandler) {
+func (o WKDownloadDelegateObject) DownloadDecidePlaceholderPolicy(download IWKDownload, completionHandler IntURLHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:decidePlaceholderPolicy:"), download, completionHandler)
 }
 

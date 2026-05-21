@@ -93,7 +93,7 @@ type IAVMetricHLSMediaSegmentRequestEvent interface {
 	MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent
 	MediaType() AVMediaType
 	// Returns the duration of segment in seconds.
-	SegmentDuration() float64
+	SegmentDuration() foundation.NSTimeInterval
 	Url() foundation.NSURL
 }
 
@@ -114,6 +114,13 @@ func NewAVMetricHLSMediaSegmentRequestEvent() AVMetricHLSMediaSegmentRequestEven
 	class := getAVMetricHLSMediaSegmentRequestEventClass()
 	rv := objc.Send[AVMetricHLSMediaSegmentRequestEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricHLSMediaSegmentRequestEventWithCoder(coder foundation.INSCoder) AVMetricHLSMediaSegmentRequestEvent {
+	instance := getAVMetricHLSMediaSegmentRequestEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricHLSMediaSegmentRequestEventFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/byteRange
@@ -149,9 +156,9 @@ func (m AVMetricHLSMediaSegmentRequestEvent) MediaType() AVMediaType {
 // Returns the duration of segment in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/segmentDuration
-func (m AVMetricHLSMediaSegmentRequestEvent) SegmentDuration() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("segmentDuration"))
-	return rv
+func (m AVMetricHLSMediaSegmentRequestEvent) SegmentDuration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("segmentDuration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/url

@@ -47,9 +47,10 @@ func (cc CKSyncEngineFetchChangesContextClass) Alloc() CKSyncEngineFetchChangesC
 // # Overview
 //
 // The sync engine might attempt to fetch changes to the server for many
-// reasons. For example, if you call [FetchChangesWithCompletionHandler], it
-// tries to fetch changes immediately. Or if it receives a push notification,
-// it schedules a sync and fetch changes when the scheduler task runs.
+// reasons. For example, if you call
+// [CKSyncEngine.FetchChangesWithCompletionHandler], it tries to fetch changes
+// immediately. Or if it receives a push notification, it schedules a sync and
+// fetch changes when the scheduler task runs.
 //
 // # Instance Properties
 //

@@ -4,7 +4,6 @@ package coreml
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -145,15 +144,7 @@ type IMLModelDescription interface {
 	// A dictionary of the descriptions for the model’s parameters.
 	ParameterDescriptionsByKey() foundation.INSDictionary
 
-	// The list of available compute devices that the model’s prediction methods use.
-	AvailableComputeDevices() unsafe.Pointer
-	SetAvailableComputeDevices(value unsafe.Pointer)
-	// The configuration of the model set during initialization.
-	Configuration() IMLModelConfiguration
-	SetConfiguration(value IMLModelConfiguration)
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() IMLModelDescription
-	SetModelDescription(value IMLModelDescription)
+	InitWithCoder(coder foundation.INSCoder) MLModelDescription
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -176,6 +167,18 @@ func NewMLModelDescription() MLModelDescription {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/init(coder:)
+func NewModelDescriptionWithCoder(coder foundation.INSCoder) MLModelDescription {
+	instance := getMLModelDescriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLModelDescriptionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/init(coder:)
+func (m MLModelDescription) InitWithCoder(coder foundation.INSCoder) MLModelDescription {
+	rv := objc.Send[MLModelDescription](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m MLModelDescription) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -272,39 +275,4 @@ func (m MLModelDescription) TrainingInputDescriptionsByName() foundation.INSDict
 func (m MLModelDescription) ParameterDescriptionsByKey() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterDescriptionsByKey"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The list of available compute devices that the model’s prediction methods
-// use.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/availablecomputedevices-6klyt
-func (m MLModelDescription) AvailableComputeDevices() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableComputeDevices"))
-	return rv
-}
-func (m MLModelDescription) SetAvailableComputeDevices(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableComputeDevices:"), value)
-}
-
-// The configuration of the model set during initialization.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/configuration
-func (m MLModelDescription) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
-	return MLModelConfigurationFromID(objc.ID(rv))
-}
-func (m MLModelDescription) SetConfiguration(value IMLModelConfiguration) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
-}
-
-// Model information you use at runtime during development, which Xcode also
-// displays in its Core ML model editor view.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/modeldescription
-func (m MLModelDescription) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
-	return MLModelDescriptionFromID(objc.ID(rv))
-}
-func (m MLModelDescription) SetModelDescription(value IMLModelDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }

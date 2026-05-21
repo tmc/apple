@@ -181,10 +181,10 @@ func (c AVCaptureMetadataOutput) SetMetadataObjectsDelegateQueue(objectsDelegate
 //
 // # Discussion
 //
-// Each string in the array corresponds to a possible value in the [Type]
-// property of the [AVMetadataObject] objects reported by the receiver. The
-// available types are dependent on the capabilities of the
-// [AVCaptureInputPort] to which the receiver’s connection is attached.
+// Each string in the array corresponds to a possible value in the
+// [AVMetadataObject.Type] property of the [AVMetadataObject] objects reported
+// by the receiver. The available types are dependent on the capabilities of
+// the [AVCaptureInputPort] to which the receiver’s connection is attached.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutput/availableMetadataObjectTypes
 func (c AVCaptureMetadataOutput) AvailableMetadataObjectTypes() []string {
@@ -203,8 +203,9 @@ func (c AVCaptureMetadataOutput) AvailableMetadataObjectTypes() []string {
 // processing.
 //
 // When assigning a new array to this property, each of the type strings must
-// be present in the array returned by the [AvailableMetadataObjectTypes]
-// property; otherwise, the receiver raises an[NSException].
+// be present in the array returned by the
+// [AVCaptureMetadataOutput.AvailableMetadataObjectTypes] property; otherwise,
+// the receiver raises an[NSException].
 //
 // The default is an empty [NSArray] object, and as a result, no metadata
 // objects are forwarded to the delegate’s
@@ -257,10 +258,12 @@ func (c AVCaptureMetadataOutput) SetRectOfInterest(value corefoundation.CGRect) 
 // # Discussion
 //
 // Since the Cinematic Video algorithm requires a particular set of metadata
-// objects to function optimally, you must set your [MetadataObjectTypes]
-// property to this property’s returned value if you’ve set
-// [CinematicVideoCaptureEnabled] to `true` on the connected device input,
-// otherwise an [NSInvalidArgumentException] is thrown.
+// objects to function optimally, you must set your
+// [AVCaptureMetadataOutput.MetadataObjectTypes] property to this property’s
+// returned value if you’ve set
+// [AVCaptureDeviceInput.CinematicVideoCaptureEnabled] to `true` on the
+// connected device input, otherwise an [NSInvalidArgumentException] is
+// thrown.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutput/requiredMetadataObjectTypesForCinematicVideoCapture
 func (c AVCaptureMetadataOutput) RequiredMetadataObjectTypesForCinematicVideoCapture() []string {
@@ -278,7 +281,7 @@ func (c AVCaptureMetadataOutput) RequiredMetadataObjectTypesForCinematicVideoCap
 // metadata output object’s connection.
 //
 // To set the delegate object, you must use the
-// [SetMetadataObjectsDelegateQueue] method.
+// [AVCaptureMetadataOutput.SetMetadataObjectsDelegateQueue] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutput/metadataObjectsDelegate
 func (c AVCaptureMetadataOutput) MetadataObjectsDelegate() AVCaptureMetadataOutputObjectsDelegate {
@@ -291,7 +294,7 @@ func (c AVCaptureMetadataOutput) MetadataObjectsDelegate() AVCaptureMetadataOutp
 // # Discussion
 //
 // To set the dispatch queue, you must use the
-// [SetMetadataObjectsDelegateQueue] method.
+// [AVCaptureMetadataOutput.SetMetadataObjectsDelegateQueue] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutput/metadataObjectsCallbackQueue
 func (c AVCaptureMetadataOutput) MetadataObjectsCallbackQueue() dispatch.Queue {

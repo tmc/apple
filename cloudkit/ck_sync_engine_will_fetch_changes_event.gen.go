@@ -50,11 +50,11 @@ func (cc CKSyncEngineWillFetchChangesEventClass) Alloc() CKSyncEngineWillFetchCh
 // [CKSyncEngineFetchedRecordZoneChangesEvent].
 //
 // Note that this event might not always occur every time you call
-// [FetchChangesWithCompletionHandler]. For example, if you call
-// [FetchChangesWithCompletionHandler] concurrently while the engine is
-// already fetching changes, this event might not be sent. Similarly, if
-// there’s no logged-in account, the engine might short-circuit the call to
-// `fetchChanges`, and this event won’t be sent.
+// [CKSyncEngine.FetchChangesWithCompletionHandler]. For example, if you call
+// [CKSyncEngine.FetchChangesWithCompletionHandler] concurrently while the
+// engine is already fetching changes, this event might not be sent.
+// Similarly, if there’s no logged-in account, the engine might
+// short-circuit the call to `fetchChanges`, and this event won’t be sent.
 //
 // # Instance Properties
 //

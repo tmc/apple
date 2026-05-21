@@ -50,17 +50,18 @@ func (vc ValueTransformerClass) Alloc() ValueTransformer {
 // You create a value transformer by subclassing [NSValueTransformer] and
 // overriding the necessary methods to provide the required custom
 // transformation. You then register the value transformer using the
-// [SetValueTransformerForName] method, so that other parts of your app can
-// access it by name with [ValueTransformerForName].
+// [NSValueTransformerClass.SetValueTransformerForName] method, so that other
+// parts of your app can access it by name with
+// [NSValueTransformerClass.ValueTransformerForName].
 //
-// Use the [TransformedValue] method to transform a value from one
-// representation into another. If a value transformer designates that its
-// transformation is reversible by returning true for
-// [AllowsReverseTransformation], you can also use the
-// [ReverseTransformedValue] to perform the transformation in reverse. For
-// example, reversing the characters in a string is a reversible operation,
-// whereas changing the characters in a string to be uppercase is a
-// nonreversible operation.
+// Use the [NSValueTransformer.TransformedValue] method to transform a value
+// from one representation into another. If a value transformer designates
+// that its transformation is reversible by returning true for
+// [NSValueTransformerClass.AllowsReverseTransformation], you can also use the
+// [NSValueTransformer.ReverseTransformedValue] to perform the transformation
+// in reverse. For example, reversing the characters in a string is a
+// reversible operation, whereas changing the characters in a string to be
+// uppercase is a nonreversible operation.
 //
 // A value transformer can take inputs of one type and return a value of a
 // different type. For example, a value transformer could take an [NSImage] or
@@ -193,8 +194,9 @@ func (v ValueTransformer) TransformedValue(value objectivec.IObject) objectivec.
 // # Discussion
 //
 // The default implementation raises an exception if
-// [AllowsReverseTransformation] returns false; otherwise it will invoke
-// [TransformedValue] with `value`.
+// [NSValueTransformerClass.AllowsReverseTransformation] returns false;
+// otherwise it will invoke [NSValueTransformer.TransformedValue] with
+// `value`.
 //
 // A subclass should override this method if they require a reverse
 // transformation that is not the same as simply reapplying the original
@@ -265,7 +267,7 @@ func (_ValueTransformerClass ValueTransformerClass) AllowsReverseTransformation(
 // A subclass should override this method to return the appropriate class.
 //
 // See: https://developer.apple.com/documentation/Foundation/ValueTransformer/transformedValueClass()
-func (_ValueTransformerClass ValueTransformerClass) TransformedValueClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_ValueTransformerClass.class), objc.Sel("transformedValueClass"))
-	return rv
+func (_ValueTransformerClass ValueTransformerClass) TransformedValueClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_ValueTransformerClass.class), objc.Sel("transformedValueClass"))
+	return objectivec.Class(rv)
 }

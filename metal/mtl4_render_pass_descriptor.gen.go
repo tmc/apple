@@ -73,8 +73,6 @@ func (mc MTL4RenderPassDescriptorClass) Alloc() MTL4RenderPassDescriptor {
 //   - [MTL4RenderPassDescriptor.SetRenderTargetHeight]
 //   - [MTL4RenderPassDescriptor.RenderTargetWidth]: Sets the width, in pixels, to which Metal constrains the render target.
 //   - [MTL4RenderPassDescriptor.SetRenderTargetWidth]
-//   - [MTL4RenderPassDescriptor.SamplePositions]: Configures the custom sample positions to use in MSAA rendering.
-//   - [MTL4RenderPassDescriptor.SetSamplePositions]
 //   - [MTL4RenderPassDescriptor.StencilAttachment]: Accesses state information for a render attachment that stores stencil data.
 //   - [MTL4RenderPassDescriptor.SetStencilAttachment]
 //   - [MTL4RenderPassDescriptor.SupportColorAttachmentMapping]: Controls if the render pass supports color attachment mapping.
@@ -124,8 +122,6 @@ func MTL4RenderPassDescriptorFromID(id objc.ID) MTL4RenderPassDescriptor {
 //   - [IMTL4RenderPassDescriptor.SetRenderTargetHeight]
 //   - [IMTL4RenderPassDescriptor.RenderTargetWidth]: Sets the width, in pixels, to which Metal constrains the render target.
 //   - [IMTL4RenderPassDescriptor.SetRenderTargetWidth]
-//   - [IMTL4RenderPassDescriptor.SamplePositions]: Configures the custom sample positions to use in MSAA rendering.
-//   - [IMTL4RenderPassDescriptor.SetSamplePositions]
 //   - [IMTL4RenderPassDescriptor.StencilAttachment]: Accesses state information for a render attachment that stores stencil data.
 //   - [IMTL4RenderPassDescriptor.SetStencilAttachment]
 //   - [IMTL4RenderPassDescriptor.SupportColorAttachmentMapping]: Controls if the render pass supports color attachment mapping.
@@ -170,9 +166,6 @@ type IMTL4RenderPassDescriptor interface {
 	// Sets the width, in pixels, to which Metal constrains the render target.
 	RenderTargetWidth() uint
 	SetRenderTargetWidth(value uint)
-	// Configures the custom sample positions to use in MSAA rendering.
-	SamplePositions() MTLSamplePosition
-	SetSamplePositions(value MTLSamplePosition)
 	// Accesses state information for a render attachment that stores stencil data.
 	StencilAttachment() IMTLRenderPassStencilAttachmentDescriptor
 	SetStencilAttachment(value IMTLRenderPassStencilAttachmentDescriptor)
@@ -374,17 +367,6 @@ func (m MTL4RenderPassDescriptor) RenderTargetWidth() uint {
 }
 func (m MTL4RenderPassDescriptor) SetRenderTargetWidth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetWidth:"), value)
-}
-
-// Configures the custom sample positions to use in MSAA rendering.
-//
-// See: https://developer.apple.com/documentation/metal/mtl4renderpassdescriptor/samplepositions
-func (m MTL4RenderPassDescriptor) SamplePositions() MTLSamplePosition {
-	rv := objc.Send[MTLSamplePosition](m.ID, objc.Sel("samplePositions"))
-	return MTLSamplePosition(rv)
-}
-func (m MTL4RenderPassDescriptor) SetSamplePositions(value MTLSamplePosition) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSamplePositions:"), value)
 }
 
 // Accesses state information for a render attachment that stores stencil

@@ -135,7 +135,7 @@ func (o NSOutlineViewDataSourceObject) OutlineViewDraggingSessionEndedAtPointOpe
 //
 // The `draggedItems` array directly matches the pasteboard writer array used
 // to begin the dragging session with the [NSView] method
-// [BeginDraggingSessionWithItemsEventSource]. Hence, the order is
+// [NSView.BeginDraggingSessionWithItemsEventSource]. Hence, the order is
 // deterministic, and can be used in [OutlineViewAcceptDropItemChildIndex]
 // when enumerating the [NSDraggingInfo] protocol’s pasteboard classes.
 //
@@ -185,7 +185,7 @@ func (o NSOutlineViewDataSourceObject) OutlineViewIsItemExpandable(outlineView I
 // # Special Considerations
 //
 // You must implement this method if you are automatically saving expanded
-// items (that is, if [AutosaveExpandedItems] returns true).
+// items (that is, if [NSOutlineView.AutosaveExpandedItems] returns true).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:itemForPersistentObject:)
 func (o NSOutlineViewDataSourceObject) OutlineViewItemForPersistentObject(outlineView INSOutlineView, object objectivec.IObject) objectivec.IObject {
@@ -279,7 +279,7 @@ func (o NSOutlineViewDataSourceObject) OutlineViewPasteboardWriterForItem(outlin
 // # Special Considerations
 //
 // You must implement this method if you are automatically saving expanded
-// items (that is, if [AutosaveExpandedItems] returns true).
+// items (that is, if [NSOutlineView.AutosaveExpandedItems] returns true).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:persistentObjectForItem:)
 func (o NSOutlineViewDataSourceObject) OutlineViewPersistentObjectForItem(outlineView INSOutlineView, item objectivec.IObject) objectivec.IObject {
@@ -319,7 +319,7 @@ func (o NSOutlineViewDataSourceObject) OutlineViewSetObjectValueForTableColumnBy
 // selections accordingly. If you need to know the current sort descriptors
 // and the data source does not itself manage them, you can get
 // `outlineView`’s current sort descriptors by sending it a
-// [SortDescriptors] message.
+// [NSTableView.SortDescriptors] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:sortDescriptorsDidChange:)
 func (o NSOutlineViewDataSourceObject) OutlineViewSortDescriptorsDidChange(outlineView INSOutlineView, oldDescriptors []foundation.NSSortDescriptor) {
@@ -338,9 +338,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewSortDescriptorsDidChange(outli
 // Implementing this method is required for multi-image dragging. A typical
 // implementation calls the passed-in dragging info object’s
 // [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
-// method and sets the dragging item’s [ImageComponentsProvider] property to
-// a proper image based on the content. For NSView-based table views, you can
-// use the [NSTableCellView] method [DraggingImageComponents].
+// method and sets the dragging item’s
+// [NSDraggingItem.ImageComponentsProvider] property to a proper image based
+// on the content. For NSView-based table views, you can use the
+// [NSTableCellView] method [NSTableCellView.DraggingImageComponents].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:updateDraggingItemsForDrag:)
 func (o NSOutlineViewDataSourceObject) OutlineViewUpdateDraggingItemsForDrag(outlineView INSOutlineView, draggingInfo NSDraggingInfo) {
@@ -366,9 +367,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewUpdateDraggingItemsForDrag(out
 //
 // Based on the mouse position, the outline view will suggest a proposed drop
 // location. The data source may “retarget” a drop if desired by calling
-// [SetDropItemDropChildIndex] and returning something other than
-// [NSDragOperationNone]. You may choose to retarget for various reasons (for
-// example, for better visual feedback when inserting into a sorted position).
+// [NSOutlineView.SetDropItemDropChildIndex] and returning something other
+// than [NSDragOperationNone]. You may choose to retarget for various reasons
+// (for example, for better visual feedback when inserting into a sorted
+// position).
 //
 // Implementation of this method is optional.
 //

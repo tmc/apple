@@ -211,8 +211,8 @@ func (o AVAudio3DMixingObject) SetSourceMode(value AVAudio3DMixingSourceMode) {
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
-// [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
-// instance.
+// [AVAudioEnvironmentNode.ApplicableRenderingAlgorithms] function of the
+// [AVAudioEnvironmentNode] instance.
 //
 // The default rendering algorithm is
 // [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the

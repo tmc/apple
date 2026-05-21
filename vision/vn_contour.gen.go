@@ -103,7 +103,7 @@ type IVNContour interface {
 	// The aspect ratio of the contour.
 	AspectRatio() float32
 	// The contour object’s index path.
-	IndexPath() objc.ID
+	IndexPath() foundation.NSIndexPath
 	// The contour object as a path in normalized coordinates.
 	NormalizedPath() coregraphics.CGPathRef
 	// The contour’s number of points.
@@ -121,16 +121,6 @@ type IVNContour interface {
 	ChildContours() []VNContour
 	// Retrieves the child contour object at the specified index.
 	ChildContourAtIndexError(childContourIndex uint) (IVNContour, error)
-
-	// The total number of detected contours.
-	ContourCount() int
-	SetContourCount(value int)
-	// The total number of detected top-level contours.
-	TopLevelContourCount() int
-	SetTopLevelContourCount(value int)
-	// An array of contours that don’t have another contour enclosing them.
-	TopLevelContours() IVNContour
-	SetTopLevelContours(value IVNContour)
 }
 
 // Init initializes the instance.
@@ -219,9 +209,9 @@ func (c VNContour) AspectRatio() float32 {
 // The contour object’s index path.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/indexPath
-func (c VNContour) IndexPath() objc.ID {
+func (c VNContour) IndexPath() foundation.NSIndexPath {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPath"))
-	return rv
+	return foundation.NSIndexPathFromID(objc.ID(rv))
 }
 
 // The contour object as a path in normalized coordinates.
@@ -271,39 +261,6 @@ func (c VNContour) ChildContours() []VNContour {
 	return objc.ConvertSlice(rv, func(id objc.ID) VNContour {
 		return VNContourFromID(id)
 	})
-}
-
-// The total number of detected contours.
-//
-// See: https://developer.apple.com/documentation/vision/vncontoursobservation/contourcount
-func (c VNContour) ContourCount() int {
-	rv := objc.Send[int](c.ID, objc.Sel("contourCount"))
-	return rv
-}
-func (c VNContour) SetContourCount(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
-}
-
-// The total number of detected top-level contours.
-//
-// See: https://developer.apple.com/documentation/vision/vncontoursobservation/toplevelcontourcount
-func (c VNContour) TopLevelContourCount() int {
-	rv := objc.Send[int](c.ID, objc.Sel("topLevelContourCount"))
-	return rv
-}
-func (c VNContour) SetTopLevelContourCount(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContourCount:"), value)
-}
-
-// An array of contours that don’t have another contour enclosing them.
-//
-// See: https://developer.apple.com/documentation/vision/vncontoursobservation/toplevelcontours
-func (c VNContour) TopLevelContours() IVNContour {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("topLevelContours"))
-	return VNContourFromID(objc.ID(rv))
-}
-func (c VNContour) SetTopLevelContours(value IVNContour) {
-	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContours:"), value)
 }
 
 // Protocol methods for VNRequestRevisionProviding

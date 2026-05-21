@@ -4,7 +4,6 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -57,7 +56,7 @@ func (cc CAGradientLayerClass) Alloc() CAGradientLayer {
 //
 // The following code shows how to create a gradient layer containing four
 // colors that are evenly distributed through the gradient. Rotating the layer
-// by 90° ([CAGradientLayer.Pi] ⁄ `2` radians) gives a horizontal gradient.
+// by 90° ([pi] ⁄ `2` radians) gives a horizontal gradient.
 //
 // The following figure shows the appearance of the gradient layer.
 //
@@ -77,6 +76,8 @@ func (cc CAGradientLayerClass) Alloc() CAGradientLayer {
 //   - [CAGradientLayer.SetType]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAGradientLayer
+//
+// [pi]: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
 type CAGradientLayer struct {
 	CALayer
 }
@@ -128,10 +129,6 @@ type ICAGradientLayer interface {
 	// Style of gradient drawn by the layer.
 	Type() CAGradientLayerType
 	SetType(value CAGradientLayerType)
-
-	// The mathematical constant pi (π), approximately equal to 3.14159.
-	Pi() unsafe.Pointer
-	SetPi(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -164,7 +161,7 @@ func NewCAGradientLayer() CAGradientLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -276,15 +273,4 @@ func (g CAGradientLayer) Type() CAGradientLayerType {
 }
 func (g CAGradientLayer) SetType(value CAGradientLayerType) {
 	objc.Send[struct{}](g.ID, objc.Sel("setType:"), objc.String(string(value)))
-}
-
-// The mathematical constant pi (π), approximately equal to 3.14159.
-//
-// See: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
-func (g CAGradientLayer) Pi() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("pi"))
-	return rv
-}
-func (g CAGradientLayer) SetPi(value unsafe.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPi:"), value)
 }

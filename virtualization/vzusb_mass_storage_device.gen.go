@@ -50,9 +50,9 @@ func (vc VZUSBMassStorageDeviceClass) Alloc() VZUSBMassStorageDevice {
 // [VZUSBMassStorageDeviceConfiguration] to its initializer, or instantiating
 // a [VZUSBMassStorageDeviceConfiguration] in a
 // [VZVirtualMachineConfiguration]. Direct instantiation creates an object
-// that you can pass to [AttachDeviceCompletionHandler]. Instantiation through
-// [VZUSBMassStorageDeviceConfiguration] makes the device available in the
-// [VZUSBMassStorageDevice.UsbDevices] property.
+// that you can pass to [VZUSBController.AttachDeviceCompletionHandler].
+// Instantiation through [VZUSBMassStorageDeviceConfiguration] makes the
+// device available in the [VZUSBController.UsbDevices] property.
 //
 // # Creating a USB mass storage device
 //
@@ -87,10 +87,6 @@ type IVZUSBMassStorageDevice interface {
 
 	// Creates a USB mass storage device with the provided configuration.
 	InitWithConfiguration(configuration IVZUSBMassStorageDeviceConfiguration) VZUSBMassStorageDevice
-
-	// The list of attached USB devices for the controller.
-	UsbDevices() VZUSBDevice
-	SetUsbDevices(value VZUSBDevice)
 }
 
 // Init initializes the instance.
@@ -147,17 +143,6 @@ func (u VZUSBMassStorageDevice) UsbController() IVZUSBController {
 func (u VZUSBMassStorageDevice) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(rv)
-}
-
-// The list of attached USB devices for the controller.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzusbcontroller/usbdevices
-func (u VZUSBMassStorageDevice) UsbDevices() VZUSBDevice {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbDevices"))
-	return VZUSBDeviceObjectFromID(rv)
-}
-func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), value)
 }
 
 // Protocol methods for VZUSBDevice

@@ -66,8 +66,8 @@ func (nc NSValueClass) Alloc() NSValue {
 // # Methods to Override
 //
 // Any subclass of [NSValue] override the primitive instance methods
-// [NSValue.GetValue] and [NSValue.ObjCType]. These methods must operate on the storage that
-// you provide for the value.
+// [NSValue.GetValue] and [NSValue.ObjCType]. These methods must operate on
+// the storage that you provide for the value.
 //
 // You might want to implement an initializer for your subclass that is suited
 // to the storage you provide. The [NSValue] class does not have a designated
@@ -76,7 +76,7 @@ func (nc NSValueClass) Alloc() NSValue {
 // protocols; if you want instances of your own custom subclass created from
 // copying or coding, override the methods in these protocols.
 //
-// You may also wish to implement the [NSValue.Hash] method to make your subclass work
+// You may also wish to implement the [hash] method to make your subclass work
 // well in collections.
 //
 // # Alternatives to Subclassing
@@ -146,6 +146,7 @@ func (nc NSValueClass) Alloc() NSValue {
 // See: https://developer.apple.com/documentation/Foundation/NSValue
 //
 // [Key-value coding]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KeyValueCoding.html#//apple_ref/doc/uid/TP40008195-CH25
+// [hash]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
 // [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
 type NSValue struct {
 	objectivec.Object
@@ -295,10 +296,6 @@ type INSValue interface {
 	// Topic: Instance Methods
 
 	GetValueSize(value unsafe.Pointer, size uint)
-
-	// Returns an integer that can be used as a table address in a hash table structure.
-	Hash() int
-	SetHash(value int)
 }
 
 // Init initializes the instance.
@@ -556,7 +553,8 @@ func NewValueWithMKCoordinateSpan(span unsafe.Pointer) NSValue {
 //
 // # Discussion
 //
-// This method is equivalent to invoking [ValueWithObjCType] in this manner:
+// This method is equivalent to invoking [NSValueClass.ValueWithObjCType] in
+// this manner:
 //
 // This method is useful if you want to add an object to a [Collection] but
 // don’t want the collection to create a strong reference to it.
@@ -584,9 +582,9 @@ func NewValueWithNonretainedObject(anObject objectivec.IObject) NSValue {
 //
 // # Discussion
 //
-// This method has the same effect as [ValueWithBytesObjCType] and may be
-// deprecated in a future release. You should use [ValueWithBytesObjCType]
-// instead.
+// This method has the same effect as [NSValueClass.ValueWithBytesObjCType]
+// and may be deprecated in a future release. You should use
+// [NSValueClass.ValueWithBytesObjCType] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(_:withObjCType:)
 func NewValueWithObjCType(value unsafe.Pointer, type_ string) NSValue {
@@ -619,7 +617,8 @@ func NewValueWithPoint(point corefoundation.CGPoint) NSValue {
 //
 // # Discussion
 //
-// This method is equivalent to invoking [ValueWithObjCType] in this manner:
+// This method is equivalent to invoking [NSValueClass.ValueWithObjCType] in
+// this manner:
 //
 // This method does not copy the contents of `aPointer`, so you must not to
 // free the memory at the pointer destination while the [NSValue] object
@@ -1006,18 +1005,6 @@ func (v NSValue) GCPoint2Value() unsafe.Pointer {
 func (v NSValue) CMVideoDimensionsValue() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CMVideoDimensionsValue"))
 	return rv
-}
-
-// Returns an integer that can be used as a table address in a hash table
-// structure.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
-func (v NSValue) Hash() int {
-	rv := objc.Send[int](v.ID, objc.Sel("hash"))
-	return rv
-}
-func (v NSValue) SetHash(value int) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHash:"), value)
 }
 
 // Protocol methods for NSCopying

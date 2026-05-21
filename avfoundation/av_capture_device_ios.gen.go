@@ -7,6 +7,7 @@ package avfoundation
 import (
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -16,28 +17,31 @@ import (
 // dynamicAspectRatio: The new [AVCaptureDevice.AspectRatio] the device should output.
 //
 // handler: A block called by the device when `dynamicAspectRatio` is set to the value
-// specified. If you call [SetDynamicAspectRatioCompletionHandler] multiple
-// times, the completion handlers are called in FIFO order. The block receives
-// a timestamp which matches that of the first buffer to which all settings
-// have been applied. Note that the timestamp is synchronized to the device
-// clock, and thus must be converted to the [SynchronizationClock] prior to
-// comparison with the timestamps of buffers delivered via an
+// specified. If you call
+// [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler] multiple times,
+// the completion handlers are called in FIFO order. The block receives a
+// timestamp which matches that of the first buffer to which all settings have
+// been applied. Note that the timestamp is synchronized to the device clock,
+// and thus must be converted to the [AVCaptureSession.SynchronizationClock]
+// prior to comparison with the timestamps of buffers delivered via an
 // [AVCaptureVideoDataOutput]. You may pass `nil` for the `handler` parameter
 // if you do not need to know when the operation completes.
 //
+// dynamicAspectRatio is a [avfoundation.AVCaptureAspectRatio].
+//
 // # Discussion
 //
-// This is the only way of setting [DynamicAspectRatio]. This method throws an
-// [NSInvalidArgumentException] if `dynamicAspectRatio` is not a supported
-// aspect ratio found in the device’s activeFormat’s
-// [SupportedDynamicAspectRatios]. This method throws an [NSGenericException]
-// if you call it without first obtaining exclusive access to the device using
-// [LockForConfiguration].
+// This is the only way of setting [AVCaptureDevice.DynamicAspectRatio]. This
+// method throws an [NSInvalidArgumentException] if `dynamicAspectRatio` is
+// not a supported aspect ratio found in the device’s activeFormat’s
+// [AVCaptureDeviceFormat.SupportedDynamicAspectRatios]. This method throws an
+// [NSGenericException] if you call it without first obtaining exclusive
+// access to the device using [AVCaptureDevice.LockForConfiguration].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setDynamicAspectRatio(_:completionHandler:)
 //
 // [AVCaptureDevice.AspectRatio]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/AspectRatio
-func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRatio objectivec.IObject, handler CMTimeErrorHandler) {
+func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRatio kernel.ID, handler CMTimeErrorHandler) {
 	_block1, _ := NewCMTimeErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setDynamicAspectRatio:completionHandler:"), dynamicAspectRatio, _block1)
 }
@@ -47,15 +51,16 @@ func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRat
 // # Discussion
 //
 // Calling this method is equivalent to calling
-// [RampToVideoZoomFactorWithRate] with a rate of zero. If a zoom transition
-// is in progress, the transition slows to a stop (instead of stopping
-// abruptly).
+// [AVCaptureDevice.RampToVideoZoomFactorWithRate] with a rate of zero. If a
+// zoom transition is in progress, the transition slows to a stop (instead of
+// stopping abruptly).
 //
-// Before calling this method, you must call [LockForConfiguration] to acquire
-// exclusive access to the device’s configuration properties. If you
-// don’t, calling this method raises an exception. When you finish
-// configuring the device, call [UnlockForConfiguration] to release the lock
-// and allow other devices to configure the settings.
+// Before calling this method, you must call
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. If you don’t, calling this method
+// raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/cancelVideoZoomRamp()
 func (c AVCaptureDevice) CancelVideoZoomRamp() {
@@ -78,8 +83,8 @@ func (c AVCaptureDevice) CancelVideoZoomRamp() {
 // to device-independent chromaticity (little x, little y) values.
 //
 // Each change in the structure supports values between `1.0` and
-// [MaxWhiteBalanceGain]. This method throws an exception if you specify an
-// unsupported value.
+// [AVCaptureDevice.MaxWhiteBalanceGain]. This method throws an exception if
+// you specify an unsupported value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/chromaticityValues(for:)
 //
@@ -104,7 +109,8 @@ func (c AVCaptureDevice) ChromaticityValuesForDeviceWhiteBalanceGains(whiteBalan
 // for white balance. You can use the values to adjust color casts for a given
 // scene.
 //
-// Each channel supports values between `1.0` and -[MaxWhiteBalanceGain].
+// Each channel supports values between `1.0` and
+// -[AVCaptureDevice.MaxWhiteBalanceGain].
 //
 // This property is key-value observable.
 //
@@ -134,9 +140,9 @@ func (c AVCaptureDevice) DeviceWhiteBalanceGainsForChromaticityValues(chromatici
 // balance gains will be produced. Note, though, that some temperature and
 // tint combinations yield out-of-range device RGB values that will cause an
 // exception to be thrown if passed directly to
-// [SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler]. Be
-// sure to verify that the red, green, and blue gain values are within the
-// range of [MaxWhiteBalanceGain]].
+// [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler].
+// Be sure to verify that the red, green, and blue gain values are within the
+// range of [AVCaptureDevice.MaxWhiteBalanceGain]].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/deviceWhiteBalanceGains(for:)-3wtsa
 //
@@ -157,20 +163,22 @@ func (c AVCaptureDevice) DeviceWhiteBalanceGainsForTemperatureAndTintValues(temp
 // # Discussion
 //
 // Allowed values for `factor` range from `1.0` (full field of view) to the
-// [VideoMaxZoomFactor] specified by the active capture format.
+// [AVCaptureDeviceFormat.VideoMaxZoomFactor] specified by the active capture
+// format.
 //
 // During a ramp, the zoom factor changes at an exponential rate, but this
 // yields a visually linear transition. The `rate` parameter controls the
 // speed of this transition independent of direction; for example, a value of
 // `1.0` causes zoom factor to double every second if zooming in (that’s, if
-// the specified `factor` is greater than the current [VideoZoomFactor]) or
-// halve every second if zooming out.
+// the specified `factor` is greater than the current
+// [AVCaptureDevice.VideoZoomFactor]) or halve every second if zooming out.
 //
-// Before calling this method, you must call [LockForConfiguration] to acquire
-// exclusive access to the device’s configuration properties. If you
-// don’t, calling this method raises an exception. When you finish
-// configuring the device, call [UnlockForConfiguration] to release the lock
-// and allow other devices to configure the settings.
+// Before calling this method, you must call
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. If you don’t, calling this method
+// raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/ramp(toVideoZoomFactor:withRate:)
 func (c AVCaptureDevice) RampToVideoZoomFactorWithRate(factor float64, rate float32) {
@@ -186,7 +194,8 @@ func (c AVCaptureDevice) RampToVideoZoomFactorWithRate(factor float64, rate floa
 // duration unchanged.
 //
 // Changes made to the exposure duration may result in changes to
-// [ActiveVideoMinFrameDuration] or [ActiveVideoMaxFrameDuration].
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] or
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration].
 //
 // ISO: The exposure ISO value.
 //
@@ -198,9 +207,9 @@ func (c AVCaptureDevice) RampToVideoZoomFactorWithRate(factor float64, rate floa
 //
 // The system passes a time value that matches that of the first buffer to
 // which its applied all settings. It synchronizes the timestamp to the device
-// clock, and you must convert the timestamp to the [SynchronizationClock]
-// prior to comparison with the timestamps of buffers delivered through an
-// [AVCaptureVideoDataOutput].
+// clock, and you must convert the timestamp to the
+// [AVCaptureSession.SynchronizationClock] prior to comparison with the
+// timestamps of buffers delivered through an [AVCaptureVideoDataOutput].
 //
 // You can pass `nil` for this parameter if you don’t require this
 // information.
@@ -210,19 +219,21 @@ func (c AVCaptureDevice) RampToVideoZoomFactorWithRate(factor float64, rate floa
 // This method throws an exception if you set the exposure duration or ISO
 // values to an unsupported level
 //
-// Before changing exposure mode, you must call [LockForConfiguration] to
-// acquire exclusive access to the device’s configuration properties.
-// Otherwise, setting the value of this property raises an exception. When you
-// finish configuring the device, call [UnlockForConfiguration] to release the
-// lock and allow other devices to configure the settings.
+// Before changing exposure mode, you must call
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // When using [AVCapturePhotoOutput] to capture photos, the
-// [PhotoQualityPrioritization] property of [AVCapturePhotoSettings] defaults
-// to [AVCapturePhotoQualityPrioritizationBalanced], which allows photo
-// capture to temporarily override the capture device’s exposure duration
-// and ISO if the scene is dark enough to require multi-image fusion to
-// improve quality. To ensure that the system honors the device exposure
-// duration and ISO values while in [AVCaptureExposureModeCustom] or
+// [AVCapturePhotoSettings.PhotoQualityPrioritization] property of
+// [AVCapturePhotoSettings] defaults to
+// [AVCapturePhotoQualityPrioritizationBalanced], which allows photo capture
+// to temporarily override the capture device’s exposure duration and ISO if
+// the scene is dark enough to require multi-image fusion to improve quality.
+// To ensure that the system honors the device exposure duration and ISO
+// values while in [AVCaptureExposureModeCustom] or
 // [AVCaptureExposureModeLocked] mode, you must photo quality prioritization
 // to [AVCapturePhotoQualityPrioritizationSpeed].
 //
@@ -245,9 +256,9 @@ func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(d
 //
 // The system passes a time value that matches that of the first buffer to
 // which its applied all settings. It synchronizes the timestamp to the device
-// clock, and you must convert the timestamp to the [SynchronizationClock]
-// prior to comparison with the timestamps of buffers delivered through an
-// [AVCaptureVideoDataOutput].
+// clock, and you must convert the timestamp to the
+// [AVCaptureSession.SynchronizationClock] prior to comparison with the
+// timestamps of buffers delivered through an [AVCaptureVideoDataOutput].
 //
 // You can pass `nil` for this parameter if you don’t require this
 // information.
@@ -255,11 +266,11 @@ func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(d
 // # Discussion
 //
 // Before changing the value the lens position, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setExposureTargetBias(_:completionHandler:)
 func (c AVCaptureDevice) SetExposureTargetBiasCompletionHandler(bias float32, handler CMTimeHandler) {
@@ -270,36 +281,39 @@ func (c AVCaptureDevice) SetExposureTargetBiasCompletionHandler(bias float32, ha
 // Locks the lens position at the specified value, and sets the focus mode to
 // a locked state.
 //
-// lensPosition: The lens position. Pass a value of [CurrentLensPosition] to leave the
+// lensPosition: The lens position. Pass a value of [currentLensPosition] to leave the
 // current lens position unchanged.
 //
 // handler: A callback the system invokes when the adjustment to the lens position is
-// complete and the [FocusMode] set to a locked state. If you call this method
-// multiple times, the system calls the completion handlers in FIFO order.
+// complete and the [AVCaptureDevice.FocusMode] set to a locked state. If you
+// call this method multiple times, the system calls the completion handlers
+// in FIFO order.
 //
 // The system passes a time value that matches that of the first buffer to
 // which its applied all settings. It synchronizes the timestamp to the device
-// clock, and you must convert the timestamp to the [SynchronizationClock]
-// prior to comparison with the timestamps of buffers delivered through an
-// [AVCaptureVideoDataOutput].
+// clock, and you must convert the timestamp to the
+// [AVCaptureSession.SynchronizationClock] prior to comparison with the
+// timestamps of buffers delivered through an [AVCaptureVideoDataOutput].
 //
 // You can pass `nil` for this parameter if you don’t require this
 // information.
 //
 // # Discussion
 //
-// Calling this method is the only way to set the value of the [LensPosition]
-// property. This method throws an exception if you set the value to an
-// unsupported level.
+// Calling this method is the only way to set the value of the
+// [AVCaptureDevice.LensPosition] property. This method throws an exception if
+// you set the value to an unsupported level.
 //
 // Before changing the value the lens position, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setFocusModeLocked(lensPosition:completionHandler:)
+//
+// [currentLensPosition]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentLensPosition
 func (c AVCaptureDevice) SetFocusModeLockedWithLensPositionCompletionHandler(lensPosition float32, handler CMTimeHandler) {
 	_block1, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setFocusModeLockedWithLensPosition:completionHandler:"), lensPosition, _block1)
@@ -312,15 +326,15 @@ func (c AVCaptureDevice) SetFocusModeLockedWithLensPositionCompletionHandler(len
 // to leave the current white balance unchanged.
 //
 // handler: A callback the system invokes when the adjustment to the white balance is
-// complete and the [WhiteBalanceMode] set to a locked state. If you call this
-// method multiple times, the system calls the completion handlers in FIFO
-// order.
+// complete and the [AVCaptureDevice.WhiteBalanceMode] set to a locked state.
+// If you call this method multiple times, the system calls the completion
+// handlers in FIFO order.
 //
 // The system passes a time value that matches that of the first buffer to
 // which its applied all settings. It synchronizes the timestamp to the device
-// clock, and you must convert the timestamp to the [SynchronizationClock]
-// prior to comparison with the timestamps of buffers delivered through an
-// [AVCaptureVideoDataOutput].
+// clock, and you must convert the timestamp to the
+// [AVCaptureSession.SynchronizationClock] prior to comparison with the
+// timestamps of buffers delivered through an [AVCaptureVideoDataOutput].
 //
 // You can pass `nil` for this parameter if you don’t require this
 // information.
@@ -328,19 +342,19 @@ func (c AVCaptureDevice) SetFocusModeLockedWithLensPositionCompletionHandler(len
 // # Discussion
 //
 // Each channel in the white balance gains structure supports values between
-// `1.0` and [MaxWhiteBalanceGain]. Setting a channel value outside this range
-// generates an exception.
+// `1.0` and [AVCaptureDevice.MaxWhiteBalanceGain]. Setting a channel value
+// outside this range generates an exception.
 //
 // The system normalizes gain values to the minimum channel value to avoid
 // brightness changes (for example, `R:2 G:2 B:4` normalizes to `R:1 G:1
 // B:2`).
 //
 // Before changing the value the white balance gains, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setWhiteBalanceModeLocked(with:completionHandler:)
 //
@@ -354,21 +368,21 @@ func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCom
 // values.
 //
 // whiteBalanceTemperatureAndTintValues: The white balance temperature and tint values, as computed from
-// [TemperatureAndTintValuesForDeviceWhiteBalanceGains] method,
-// [AVCaptureDevice.WhiteBalanceTemperatureAndTintValues] presets or manual
-// input.
+// [AVCaptureDevice.TemperatureAndTintValuesForDeviceWhiteBalanceGains]
+// method, [AVCaptureDevice.WhiteBalanceTemperatureAndTintValues] presets or
+// manual input.
 //
 // handler: A block to be called when white balance values have been set to the values
-// specified and [WhiteBalanceMode] is set to
+// specified and [AVCaptureDevice.WhiteBalanceMode] is set to
 // [AVCaptureWhiteBalanceModeLocked]. If
-// [SetWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValuesCompletionHandler]
+// [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValuesCompletionHandler]
 // is called multiple times, the completion handlers are called in FIFO order.
 // The block receives a timestamp which matches that of the first buffer to
 // which all settings have been applied. Note that the timestamp is
 // synchronized to the device clock, and thus must be converted to the
-// [SynchronizationClock] prior to comparison with the timestamps of buffers
-// delivered via an [AVCaptureVideoDataOutput]. This parameter may be `nil` if
-// synchronization is not required.
+// [AVCaptureSession.SynchronizationClock] prior to comparison with the
+// timestamps of buffers delivered via an [AVCaptureVideoDataOutput]. This
+// parameter may be `nil` if synchronization is not required.
 //
 // # Discussion
 //
@@ -377,7 +391,7 @@ func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCom
 // This method throws an [NSRangeException] if any of the values are set to an
 // unsupported level. This method throws an [NSGenericException] if called
 // without first obtaining exclusive access to the device using
-// [LockForConfiguration].
+// [AVCaptureDevice.LockForConfiguration].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setWhiteBalanceModeLocked(whiteBalanceTemperatureAndTintValues:handler:)
 //
@@ -403,8 +417,8 @@ func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperat
 // # Discussion
 //
 // Each change in the structure supports values between `1.0` and
-// [MaxWhiteBalanceGain]. This method throws an exception if you specify an
-// unsupported value.
+// [AVCaptureDevice.MaxWhiteBalanceGain]. This method throws an exception if
+// you specify an unsupported value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/temperatureAndTintValues(for:)
 //
@@ -470,7 +484,7 @@ func (c AVCaptureDevice) IsVirtualDevice() bool {
 // # Discussion
 //
 // The value of this property is an empty array when called on a device whose
-// [VirtualDevice] property is false.
+// [AVCaptureDevice.VirtualDevice] property is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/constituentDevices
 func (c AVCaptureDevice) ConstituentDevices() []AVCaptureDevice {
@@ -493,11 +507,11 @@ func (c AVCaptureDevice) ConstituentDevices() []AVCaptureDevice {
 // action such as focusing, adjusting exposure, and so on.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you’re finished configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you’re finished configuring the
+// device, call [AVCaptureDevice.UnlockForConfiguration] to release the lock
+// and allow other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -522,16 +536,16 @@ func (c AVCaptureDevice) SetSubjectAreaChangeMonitoringEnabled(value bool) {
 // property returns non `nil`, you may use it to listen for framing
 // recommendations by configuring its [enabledFramings] and calling
 // [startMonitoring()]. The smart framing monitor only makes recommendations
-// when the current [ActiveFormat] supports smart framing (see
-// [SmartFramingSupported]).
+// when the current [AVCaptureDevice.ActiveFormat] supports smart framing (see
+// [AVCaptureDeviceFormat.SmartFramingSupported]).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/smartFramingMonitor
 //
 // [enabledFramings]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSmartFramingMonitor/enabledFramings
 // [startMonitoring()]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSmartFramingMonitor/startMonitoring()
-func (c AVCaptureDevice) SmartFramingMonitor() objc.ID {
+func (c AVCaptureDevice) SmartFramingMonitor() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("smartFramingMonitor"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // A key-value observable property indicating the current aspect ratio for a
@@ -540,16 +554,17 @@ func (c AVCaptureDevice) SmartFramingMonitor() objc.ID {
 // # Discussion
 //
 // This property is initialized to the first [AVCaptureDevice.AspectRatio]
-// listed in the device’s activeFormat’s [SupportedDynamicAspectRatios]
-// property. If the activeFormat’s [SupportedDynamicAspectRatios] is an
+// listed in the device’s activeFormat’s
+// [AVCaptureDeviceFormat.SupportedDynamicAspectRatios] property. If the
+// activeFormat’s [AVCaptureDeviceFormat.SupportedDynamicAspectRatios] is an
 // empty array, this property returns nil.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/dynamicAspectRatio
 //
 // [AVCaptureDevice.AspectRatio]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/AspectRatio
-func (c AVCaptureDevice) DynamicAspectRatio() objc.ID {
+func (c AVCaptureDevice) DynamicAspectRatio() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("dynamicAspectRatio"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // A key-value observable property describing the output dimensions of the
@@ -557,8 +572,9 @@ func (c AVCaptureDevice) DynamicAspectRatio() objc.ID {
 //
 // # Discussion
 //
-// If the device’s activeFormat’s [SupportedDynamicAspectRatios] is an
-// empty array, this property returns {0,0}.
+// If the device’s activeFormat’s
+// [AVCaptureDeviceFormat.SupportedDynamicAspectRatios] is an empty array,
+// this property returns {0,0}.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/dynamicDimensions
 func (c AVCaptureDevice) DynamicDimensions() coremedia.CMVideoDimensions {
@@ -577,16 +593,16 @@ func (c AVCaptureDevice) DynamicDimensions() coremedia.CMVideoDimensions {
 // the capture session becomes interrupted until the pressured state abates.
 //
 // You can effectively mitigate system pressure by lowering the device’s
-// [ActiveVideoMinFrameDuration] in response to changes in the system pressure
-// state. Implement frame rate throttling to bring system pressure down if
-// your capture use case can tolerate a reduced frame rate.
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] in response to changes in the
+// system pressure state. Implement frame rate throttling to bring system
+// pressure down if your capture use case can tolerate a reduced frame rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/systemPressureState-swift.property
 //
 // [shutdown]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/SystemPressureState-swift.class/Level-swift.struct/shutdown
-func (c AVCaptureDevice) SystemPressureState() objc.ID {
+func (c AVCaptureDevice) SystemPressureState() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("systemPressureState"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // The nominal 35mm equivalent focal length of the capture device’s lens.
@@ -597,7 +613,8 @@ func (c AVCaptureDevice) SystemPressureState() objc.ID {
 // view, expressed as a 35mm equivalent focal length, measured diagonally. The
 // value is similar to the [FocalLengthIn35mmFormat] EXIF entry (see
 // [kCGImagePropertyExifFocalLenIn35mmFilm]) for a photo captured using the
-// device’s format where [HighestPhotoQualitySupported] is `true` or when
+// device’s format where
+// [AVCaptureDeviceFormat.HighestPhotoQualitySupported] is `true` or when
 // you’ve configured the session with the [photo] preset.
 //
 // This property value is `0` for virtual devices and external cameras.
@@ -617,10 +634,12 @@ func (c AVCaptureDevice) NominalFocalLengthIn35mmFilm() float32 {
 //
 // This property controls the sensor’s sensitivity to light by applying a
 // gain value to the signal. This value is between the active format’s
-// [MinISO] and [MaxISO] values. Higher values result in noisier images.
+// [AVCaptureDeviceFormat.MinISO] and [AVCaptureDeviceFormat.MaxISO] values.
+// Higher values result in noisier images.
 //
 // To set the ISO, call the
-// [SetExposureModeCustomWithDurationISOCompletionHandler] method.
+// [AVCaptureDevice.SetExposureModeCustomWithDurationISOCompletionHandler]
+// method.
 //
 // This property is key-value observable.
 //
@@ -635,17 +654,18 @@ func (c AVCaptureDevice) ISO() float32 {
 // # Discussion
 //
 // You must obtain exclusive access to the device by calling
-// [LockForConfiguration] before setting this property value.
+// [AVCaptureDevice.LockForConfiguration] before setting this property value.
 //
 // You can set this property only to formats present in the active format’s
-// [SupportedDepthDataFormats] array. Attempting to set an unsupported format
-// throws an exception.
+// [AVCaptureDeviceFormat.SupportedDepthDataFormats] array. Attempting to set
+// an unsupported format throws an exception.
 //
 // You can’t set the frame rate of depth data directly. Instead, the system
 // synchronizes the depth data frame rate to the device’s
-// [ActiveVideoMinFrameDuration] and [ActiveVideoMaxFrameDuration] values. It
-// may match the device’s current frame rate, or lower, if the system
-// can’t produce depth data fast enough for the active video frame rate.
+// [AVCaptureDevice.ActiveVideoMinFrameDuration] and
+// [AVCaptureDevice.ActiveVideoMaxFrameDuration] values. It may match the
+// device’s current frame rate, or lower, if the system can’t produce
+// depth data fast enough for the active video frame rate.
 //
 // Delivery of depth data to a [AVCaptureDepthDataOutput] may increase the
 // system load, resulting in a reduced video frame rate for thermal
@@ -710,21 +730,23 @@ func (c AVCaptureDevice) SetActiveDepthDataMinFrameDuration(value coremedia.CMTi
 // current maximum exposure duration in use.
 //
 // You may also override the default value by setting this property to a value
-// between the format’s [MinExposureDuration] and [MaxExposureDuration]
-// values. The system throws an exception if you pass an out-of-bounds
-// exposure value.
+// between the format’s [AVCaptureDeviceFormat.MinExposureDuration] and
+// [AVCaptureDeviceFormat.MaxExposureDuration] values. The system throws an
+// exception if you pass an out-of-bounds exposure value.
 //
 // Setting the property to the special value of [invalid] resets the
 // autoexposure maximum duration to the device’s default for your current
-// configuration. When the device’s [ActiveFormat] or the capture
-// session’s [SessionPreset] changes, this property resets to the default
-// max exposure duration for the new format or session preset.
+// configuration. When the device’s [AVCaptureDevice.ActiveFormat] or the
+// capture session’s [AVCaptureSession.SessionPreset] changes, this property
+// resets to the default max exposure duration for the new format or session
+// preset.
 //
 // On some devices, the auto exposure algorithm picks a different maximum
 // exposure duration for a given format depending on whether you used the
-// [SessionPreset] or [ActiveFormat] APIs to set to set the format. To ensure
-// uniform default handling of maximum exposure duration, set the value of a
-// capture input’s [UnifiedAutoExposureDefaultsEnabled] property to true.
+// [AVCaptureSession.SessionPreset] or [AVCaptureDevice.ActiveFormat] APIs to
+// set to set the format. To ensure uniform default handling of maximum
+// exposure duration, set the value of a capture input’s
+// [AVCaptureDeviceInput.UnifiedAutoExposureDefaultsEnabled] property to true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeMaxExposureDuration
 //
@@ -748,11 +770,11 @@ func (c AVCaptureDevice) SetActiveMaxExposureDuration(value coremedia.CMTime) {
 // ambiguities.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/autoFocusRangeRestriction-swift.property
 func (c AVCaptureDevice) AutoFocusRangeRestriction() AVCaptureAutoFocusRangeRestriction {
@@ -770,7 +792,7 @@ func (c AVCaptureDevice) SetAutoFocusRangeRestriction(value AVCaptureAutoFocusRa
 //
 // Focus range restriction is available only on compatible devices. If this
 // property’s value is false, setting the value of
-// [AutoFocusRangeRestriction] raises an exception.
+// [AVCaptureDevice.AutoFocusRangeRestriction] raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAutoFocusRangeRestrictionSupported
 func (c AVCaptureDevice) IsAutoFocusRangeRestrictionSupported() bool {
@@ -785,12 +807,13 @@ func (c AVCaptureDevice) IsAutoFocusRangeRestrictionSupported() bool {
 //
 // The value of this property defaults to true for devices that support
 // autoexposure. If your app requires explicitly setting the state of
-// [FaceDrivenAutoExposureEnabled], set this value to false.
+// [AVCaptureDevice.FaceDrivenAutoExposureEnabled], set this value to false.
 //
 // To set this property value, you must call the device’s
-// [LockForConfiguration] method to obtain exclusive access to configure it.
-// Otherwise, attempting to set a value raises an exception. When you finish
-// configuring the device, call [UnlockForConfiguration] to release the lock.
+// [AVCaptureDevice.LockForConfiguration] method to obtain exclusive access to
+// configure it. Otherwise, attempting to set a value raises an exception.
+// When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/automaticallyAdjustsFaceDrivenAutoExposureEnabled
 func (c AVCaptureDevice) AutomaticallyAdjustsFaceDrivenAutoExposureEnabled() bool {
@@ -808,12 +831,13 @@ func (c AVCaptureDevice) SetAutomaticallyAdjustsFaceDrivenAutoExposureEnabled(va
 //
 // The value of this property defaults to true for devices that support auto
 // focus. If your app requires explicitly setting the state of
-// [FaceDrivenAutoFocusEnabled], set this value to false.
+// [AVCaptureDevice.FaceDrivenAutoFocusEnabled], set this value to false.
 //
 // To set this property value, you must call the device’s
-// [LockForConfiguration] method to obtain exclusive access to configure it.
-// Otherwise, attempting to set a value raises an exception. When you finish
-// configuring the device, call [UnlockForConfiguration] to release the lock.
+// [AVCaptureDevice.LockForConfiguration] method to obtain exclusive access to
+// configure it. Otherwise, attempting to set a value raises an exception.
+// When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/automaticallyAdjustsFaceDrivenAutoFocusEnabled
 func (c AVCaptureDevice) AutomaticallyAdjustsFaceDrivenAutoFocusEnabled() bool {
@@ -830,7 +854,8 @@ func (c AVCaptureDevice) SetAutomaticallyAdjustsFaceDrivenAutoFocusEnabled(value
 // # Discussion
 //
 // By default, this value is `true`, and a capture device automatically
-// enables [VideoHDREnabled] if it’s a good fit for the active format.
+// enables [AVCaptureDevice.VideoHDREnabled] if it’s a good fit for the
+// active format.
 //
 // This property is key-value observable.
 //
@@ -854,18 +879,18 @@ func (c AVCaptureDevice) SetAutomaticallyAdjustsVideoHDREnabled(value bool) {
 // operation when the scene becomes sufficiently lit.
 //
 // Setting a value for this property throws an exception if the value of
-// [LowLightBoostSupported] is false.
+// [AVCaptureDevice.LowLightBoostSupported] is false.
 //
 // A capture device that supports this feature may only engage boost mode for
 // certain source formats or resolutions. The switch between normal operation
 // and low light boost mode may drop one or more video frames.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // This property is key-value observable.
 //
@@ -884,7 +909,8 @@ func (c AVCaptureDevice) SetAutomaticallyEnablesLowLightBoostWhenAvailable(value
 //
 // This property specifies the current red, green, and blue gain values used
 // for white balance. You can use the values to adjust color casts for a given
-// scene. Each channel supports values between 1.0 and -[MaxWhiteBalanceGain].
+// scene. Each channel supports values between 1.0 and
+// -[AVCaptureDevice.MaxWhiteBalanceGain].
 //
 // This property is key-value observable.
 //
@@ -904,11 +930,11 @@ func (c AVCaptureDevice) DeviceWhiteBalanceGains() AVCaptureWhiteBalanceGains {
 //
 // This property’s value is the zoom factor at which the zoomed field of
 // view from the wide-angle camera matches the full field of view from the
-// telephoto camera. When the [VideoZoomFactor] setting meets or exceeds this
-// value, the device can automatically chooses which camera provides output
-// imagery (or automatically combine imagery from both to create final output)
-// based on scene conditions. For zoom factors below this value, the device
-// always uses imagery from the wide-angle camera.
+// telephoto camera. When the [AVCaptureDevice.VideoZoomFactor] setting meets
+// or exceeds this value, the device can automatically chooses which camera
+// provides output imagery (or automatically combine imagery from both to
+// create final output) based on scene conditions. For zoom factors below this
+// value, the device always uses imagery from the wide-angle camera.
 //
 // On a single-camera device, this value is always `1.0`.
 //
@@ -925,10 +951,12 @@ func (c AVCaptureDevice) DualCameraSwitchOverVideoZoomFactor() float64 {
 // # Discussion
 //
 // The exposure duration is between the active format’s
-// [MinExposureDuration] and [MaxExposureDuration].
+// [AVCaptureDeviceFormat.MinExposureDuration] and
+// [AVCaptureDeviceFormat.MaxExposureDuration].
 //
 // To set the exposure duration, call the
-// [SetExposureModeCustomWithDurationISOCompletionHandler] method.
+// [AVCaptureDevice.SetExposureModeCustomWithDurationISOCompletionHandler]
+// method.
 //
 // This property is key-value observable.
 //
@@ -946,9 +974,9 @@ func (c AVCaptureDevice) ExposureDuration() coremedia.CMTime {
 // When the device exposure mode is
 // [AVCaptureExposureModeContinuousAutoExposure] or
 // [AVCaptureExposureModeLocked], the bias affects both metering
-// ([ExposureTargetOffset]), and the actual exposure level ([ExposureDuration]
-// and [ISO]). When the exposure mode is [AVCaptureExposureModeCustom], it
-// only affects metering.
+// ([AVCaptureDevice.ExposureTargetOffset]), and the actual exposure level
+// ([AVCaptureDevice.ExposureDuration] and [AVCaptureDevice.ISO]). When the
+// exposure mode is [AVCaptureExposureModeCustom], it only affects metering.
 //
 // This property is key-value observable.
 //
@@ -988,14 +1016,16 @@ func (c AVCaptureDevice) ExposureTargetOffset() float32 {
 // Before setting a value for this property, perform the following:
 //
 // - Obtain exclusive access to the device by calling its
-// [LockForConfiguration] method. - Set the value of the device’s
-// [AutomaticallyAdjustsFaceDrivenAutoExposureEnabled] property to false.
+// [AVCaptureDevice.LockForConfiguration] method. - Set the value of the
+// device’s
+// [AVCaptureDevice.AutomaticallyAdjustsFaceDrivenAutoExposureEnabled]
+// property to false.
 //
 // Attempting to set a value before performing these steps results in an
 // exception.
 //
 // When you finish configuring the device, unlock it by calling its
-// [UnlockForConfiguration] method.
+// [AVCaptureDevice.UnlockForConfiguration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFaceDrivenAutoExposureEnabled
 func (c AVCaptureDevice) IsFaceDrivenAutoExposureEnabled() bool {
@@ -1018,14 +1048,15 @@ func (c AVCaptureDevice) SetFaceDrivenAutoExposureEnabled(value bool) {
 // Before setting a value for this property, perform the following:
 //
 // - Obtain exclusive access to the device by calling its
-// [LockForConfiguration] method. - Set the value of the device’s
-// [AutomaticallyAdjustsFaceDrivenAutoFocusEnabled] property to false.
+// [AVCaptureDevice.LockForConfiguration] method. - Set the value of the
+// device’s [AVCaptureDevice.AutomaticallyAdjustsFaceDrivenAutoFocusEnabled]
+// property to false.
 //
 // Attempting to set a value before performing these steps results in an
 // exception.
 //
 // When you finish configuring the device, unlock it by calling its
-// [UnlockForConfiguration] method.
+// [AVCaptureDevice.UnlockForConfiguration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFaceDrivenAutoFocusEnabled
 func (c AVCaptureDevice) IsFaceDrivenAutoFocusEnabled() bool {
@@ -1099,9 +1130,9 @@ func (c AVCaptureDevice) IsGeometricDistortionCorrectionSupported() bool {
 // When this property value is true, the tone map adjusts dynamically
 // depending on the current scene and applies to all pixels in an image. You
 // can only enable this setting if the device’s active format’s
-// [GlobalToneMappingSupported] property returns true. If set to its default
-// value of false, the framework may apply different tone maps to different
-// pixels in an image.
+// [AVCaptureDeviceFormat.GlobalToneMappingSupported] property returns true.
+// If set to its default value of false, the framework may apply different
+// tone maps to different pixels in an image.
 //
 // This property resets to its default value of false under the following
 // conditions:
@@ -1132,10 +1163,11 @@ func (c AVCaptureDevice) SetGlobalToneMappingEnabled(value bool) {
 // Gray world values assume you’ve placed a neutral subject (for example, a
 // gray card) in the middle of the subject area, and fills the center 50% of
 // the frame. Apps can read these values and apply them to the device using
-// [SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler].
+// [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler].
 //
-// Each change supports values between `1.0` and [MaxWhiteBalanceGain]. You
-// can read the value at any time, regardless of white balance mode.
+// Each change supports values between `1.0` and
+// [AVCaptureDevice.MaxWhiteBalanceGain]. You can read the value at any time,
+// regardless of white balance mode.
 //
 // This property is key-value observable.
 //
@@ -1186,10 +1218,13 @@ func (c AVCaptureDevice) LensPosition() float32 {
 // # Discussion
 //
 // If this property’s value is false, calling the
-// [SetFocusModeLockedWithLensPositionCompletionHandler] method with a lens
-// position value other than [CurrentLensPosition] raises an exception.
+// [AVCaptureDevice.SetFocusModeLockedWithLensPositionCompletionHandler]
+// method with a lens position value other than [currentLensPosition] raises
+// an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isLockingFocusWithCustomLensPositionSupported
+//
+// [currentLensPosition]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentLensPosition
 func (c AVCaptureDevice) IsLockingFocusWithCustomLensPositionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLockingFocusWithCustomLensPositionSupported"))
 	return rv
@@ -1201,7 +1236,7 @@ func (c AVCaptureDevice) IsLockingFocusWithCustomLensPositionSupported() bool {
 // # Discussion
 //
 // If the value is false, calling the
-// [SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler]
+// [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler]
 // method with a white balance gains value other than
 // [currentWhiteBalanceGains] throws an exception.
 //
@@ -1237,8 +1272,8 @@ func (c AVCaptureDevice) IsLowLightBoostEnabled() bool {
 // # Discussion
 //
 // You can set the capture device’s
-// [AutomaticallyEnablesLowLightBoostWhenAvailable] property only if this
-// property is true.
+// [AVCaptureDevice.AutomaticallyEnablesLowLightBoostWhenAvailable] property
+// only if this property is true.
 //
 // This property is key-value observable.
 //
@@ -1253,16 +1288,17 @@ func (c AVCaptureDevice) IsLowLightBoostSupported() bool {
 // # Discussion
 //
 // On single-camera devices, this value is always equal to the device
-// format’s [VideoMaxZoomFactor] value. On a dual-camera device, the allowed
-// range of video zoom factors can change if the device is delivering depth
-// data to one or more capture outputs.
+// format’s [AVCaptureDeviceFormat.VideoMaxZoomFactor] value. On a
+// dual-camera device, the allowed range of video zoom factors can change if
+// the device is delivering depth data to one or more capture outputs.
 //
-// Setting the [VideoZoomFactor] property to (or calling the
-// [RampToVideoZoomFactorWithRate] method with) a value greater than the
-// device format’s [VideoMaxZoomFactor] value always raises an exception.
-// Setting the video zoom factor to a value between the maximum available zoom
-// factor and the device format’s maximum clamps the zoom setting to the
-// maximum available value.
+// Setting the [AVCaptureDevice.VideoZoomFactor] property to (or calling the
+// [AVCaptureDevice.RampToVideoZoomFactorWithRate] method with) a value
+// greater than the device format’s
+// [AVCaptureDeviceFormat.VideoMaxZoomFactor] value always raises an
+// exception. Setting the video zoom factor to a value between the maximum
+// available zoom factor and the device format’s maximum clamps the zoom
+// setting to the maximum available value.
 //
 // This property is key-value observable.
 //
@@ -1300,11 +1336,11 @@ func (c AVCaptureDevice) MaxWhiteBalanceGain() float32 {
 // device, the allowed range of video zoom factors can change if the device is
 // delivering depth data to one or more capture outputs.
 //
-// Setting the [VideoZoomFactor] property to (or calling the
-// [RampToVideoZoomFactorWithRate] method with) a value less than `1.0` always
-// raises an exception. Setting the video zoom factor to a value between `1.0`
-// and the minimum available zoom factor clamps the zoom setting to the
-// minimum.
+// Setting the [AVCaptureDevice.VideoZoomFactor] property to (or calling the
+// [AVCaptureDevice.RampToVideoZoomFactorWithRate] method with) a value less
+// than `1.0` always raises an exception. Setting the video zoom factor to a
+// value between `1.0` and the minimum available zoom factor clamps the zoom
+// setting to the minimum.
 //
 // This property is key-value observable.
 //
@@ -1345,11 +1381,11 @@ func (c AVCaptureDevice) IsRampingVideoZoom() bool {
 // visually intrusive, a behavior that you may want for video capture.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSmoothAutoFocusEnabled
 func (c AVCaptureDevice) IsSmoothAutoFocusEnabled() bool {
@@ -1366,8 +1402,8 @@ func (c AVCaptureDevice) SetSmoothAutoFocusEnabled(value bool) {
 // # Discussion
 //
 // The smooth focusing mode is available only on compatible devices. If this
-// property’s value is false, setting the value of [SmoothAutoFocusEnabled]
-// to true raises an exception.
+// property’s value is false, setting the value of
+// [AVCaptureDevice.SmoothAutoFocusEnabled] to true raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSmoothAutoFocusSupported
 func (c AVCaptureDevice) IsSmoothAutoFocusSupported() bool {
@@ -1380,22 +1416,23 @@ func (c AVCaptureDevice) IsSmoothAutoFocusSupported() bool {
 //
 // # Discussion
 //
-// The device ignores the value of this property when [ActiveColorSpace] is
-// HLG BT2020 color space because HDR is effectively always on and can’t be
-// disabled.
+// The device ignores the value of this property when
+// [AVCaptureDevice.ActiveColorSpace] is HLG BT2020 color space because HDR is
+// effectively always on and can’t be disabled.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // Note that setting this property may cause a lengthy reconfiguration of the
 // device, similar to setting a new active format or capture session preset.
-// If you’re setting either the active format or the [SessionPreset] this
-// property, you should bracket these operations with [BeginConfiguration] and
-// session [CommitConfiguration] to minimize reconfiguration time.
+// If you’re setting either the active format or the
+// [AVCaptureSession.SessionPreset] this property, you should bracket these
+// operations with [AVCaptureSession.BeginConfiguration] and session
+// [AVCaptureSession.CommitConfiguration] to minimize reconfiguration time.
 //
 // This property is key-value observable.
 //
@@ -1416,23 +1453,24 @@ func (c AVCaptureDevice) SetVideoHDREnabled(value bool) {
 // This value is a multiplier. For example, a value of `2.0` doubles the size
 // of an image’s subject (and halves the field of view). Allowed values
 // range from `1.0` (full field of view) to the value of the active format’s
-// [VideoMaxZoomFactor] property. Setting the value of this property jumps
-// immediately to the new zoom factor. For a smooth transition, use the
-// [RampToVideoZoomFactorWithRate] method.
+// [AVCaptureDeviceFormat.VideoMaxZoomFactor] property. Setting the value of
+// this property jumps immediately to the new zoom factor. For a smooth
+// transition, use the [AVCaptureDevice.RampToVideoZoomFactorWithRate] method.
 //
 // The device achieves a zoom effect by cropping around the center of the
 // image captured by the sensor. At low zoom factors, the cropped images is
 // equal to or larger than the output size. At higher zoom factors, the device
 // must scale the cropped image up to the output size, resulting in a loss of
-// image quality. The active format’s [VideoZoomFactorUpscaleThreshold]
-// property indicates the factors at which upscaling occurs.
+// image quality. The active format’s
+// [AVCaptureDeviceFormat.VideoZoomFactorUpscaleThreshold] property indicates
+// the factors at which upscaling occurs.
 //
 // Before changing the value of this property, you must call
-// [LockForConfiguration] to acquire exclusive access to the device’s
-// configuration properties. Otherwise, setting the value of this property
-// raises an exception. When you finish configuring the device, call
-// [UnlockForConfiguration] to release the lock and allow other devices to
-// configure the settings.
+// [AVCaptureDevice.LockForConfiguration] to acquire exclusive access to the
+// device’s configuration properties. Otherwise, setting the value of this
+// property raises an exception. When you finish configuring the device, call
+// [AVCaptureDevice.UnlockForConfiguration] to release the lock and allow
+// other devices to configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor
 func (c AVCaptureDevice) VideoZoomFactor() float64 {
@@ -1451,8 +1489,8 @@ func (c AVCaptureDevice) SetVideoZoomFactor(value float64) {
 // This property contains zoom factors at which the field of view of one
 // constituent device matches the full field of view of the next constituent
 // device. The number of switched-over video zoom factors is always one fewer
-// than the count of the [ConstituentDevices] property. These factors progress
-// in the same order as the devices listed in that property.
+// than the count of the [AVCaptureDevice.ConstituentDevices] property. These
+// factors progress in the same order as the devices listed in that property.
 //
 // The value of this property is an empty array for nonvirtual devices.
 //

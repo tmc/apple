@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -70,8 +71,8 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 // However, performing a series of media insertions may result in a movie file
 // that’s not optimally interleaved. You can optimize a movie file for
 // playback by exporting it with an [AVAssetExportSession] object using the
-// export preset [AVMutableMovie.AVAssetExportPresetPassthrough], and setting the
-// [AVMutableMovie.ShouldOptimizeForNetworkUse] property value to true.
+// export preset [AVAssetExportPresetPassthrough], and setting the
+// [AVAssetExportSession.ShouldOptimizeForNetworkUse] property value to true.
 //
 // # Creating a movie
 //
@@ -191,6 +192,8 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 //   - [AVMutableMovie.SetOverallDurationHint]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie
+//
+// [AVAssetExportPresetPassthrough]: https://developer.apple.com/documentation/AVFoundation/AVAssetExportPresetPassthrough
 type AVMutableMovie struct {
 	AVMovie
 }
@@ -344,8 +347,8 @@ type IAVMutableMovie interface {
 	IsModified() bool
 	SetModified(value bool)
 	// The time scale of the movie.
-	Timescale() int32
-	SetTimescale(value int32)
+	Timescale() coremedia.CMTimeScale
+	SetTimescale(value coremedia.CMTimeScale)
 	// A time period indicating the duration for interleaving runs of samples for each track.
 	InterleavingPeriod() coremedia.CMTime
 	SetInterleavingPeriod(value coremedia.CMTime)
@@ -353,13 +356,13 @@ type IAVMutableMovie interface {
 	// Topic: Accessing tracks
 
 	// Retrieves a track in the movie that contains the specified identifier.
-	TrackWithTrackID(trackID int32) IAVMutableMovieTrack
+	TrackWithTrackID(trackID coremedia.CMPersistentTrackID) IAVMutableMovieTrack
 	// Retrieves tracks in the movie that present media of the specified type.
 	TracksWithMediaType(mediaType AVMediaType) []AVMutableMovieTrack
 	// Retrieve tracks in the movie that present media of the specified characteristic.
 	TracksWithMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) []AVMutableMovieTrack
 	// Returns an identifier that no other tracks in the asset use.
-	UnusedTrackID() int32
+	UnusedTrackID() coremedia.CMPersistentTrackID
 
 	// Topic: Accessing track groups
 
@@ -469,7 +472,7 @@ type IAVMutableMovie interface {
 
 	// The locales of the asset’s chapter metadata.
 	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value unsafe.Pointer)
+	SetAvailableChapterLocales(value kernel.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -492,12 +495,6 @@ type IAVMutableMovie interface {
 	// The total duration of fragments that currently exist, or may exist in the future.
 	OverallDurationHint() coremedia.CMTime
 	SetOverallDurationHint(value coremedia.CMTime)
-
-	// A preset to export the asset in its current format, unless otherwise prohibited.
-	AVAssetExportPresetPassthrough() string
-	// A Boolean value that indicates whether to optimize the movie for network use.
-	ShouldOptimizeForNetworkUse() bool
-	SetShouldOptimizeForNetworkUse(value bool)
 }
 
 // Init initializes the instance.
@@ -560,11 +557,11 @@ func NewMutableMovieWithDataOptions(data foundation.NSData, options foundation.I
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // Use this method to create movies from movie headers that are not stored in
 // files, which can include movies on the pasteboard.
@@ -594,11 +591,11 @@ func NewMutableMovieWithDataOptionsError(data foundation.NSData, options foundat
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(settingsFrom:options:)
 func NewMutableMovieWithSettingsFromMovieOptionsError(movie IAVMovie, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -621,8 +618,8 @@ func NewMutableMovieWithSettingsFromMovieOptionsError(movie IAVMovie, options fo
 //
 // # Discussion
 //
-// Upon creation, the values of the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are `nil`.
+// Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
+// and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
 func NewMutableMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMutableMovie {
@@ -645,11 +642,11 @@ func NewMutableMovieWithURLOptions(URL foundation.NSURL, options foundation.INSD
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
 func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -677,11 +674,11 @@ func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
 func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -708,11 +705,11 @@ func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.NSURL, options fo
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // Use this method to create movies from movie headers that are not stored in
 // files, which can include movies on the pasteboard.
@@ -742,11 +739,11 @@ func (m AVMutableMovie) InitWithDataOptionsError(data foundation.NSData, options
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(settingsFrom:options:)
 func (m AVMutableMovie) InitWithSettingsFromMovieOptionsError(movie IAVMovie, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -772,10 +769,10 @@ func (m AVMutableMovie) InitWithSettingsFromMovieOptionsError(movie IAVMovie, op
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load a track asynchronously using
-// [LoadTrackWithTrackIDCompletionHandler] instead.
+// [AVMutableMovie.LoadTrackWithTrackIDCompletionHandler] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/track(withTrackID:)
-func (m AVMutableMovie) TrackWithTrackID(trackID int32) IAVMutableMovieTrack {
+func (m AVMutableMovie) TrackWithTrackID(trackID coremedia.CMPersistentTrackID) IAVMutableMovieTrack {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("trackWithTrackID:"), trackID)
 	return AVMutableMovieTrackFromID(rv)
 }
@@ -793,7 +790,7 @@ func (m AVMutableMovie) TrackWithTrackID(trackID int32) IAVMutableMovieTrack {
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load tracks asynchronously using
-// [LoadTracksWithMediaTypeCompletionHandler] instead.
+// [AVMutableMovie.LoadTracksWithMediaTypeCompletionHandler] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/tracks(withMediaType:)
 func (m AVMutableMovie) TracksWithMediaType(mediaType AVMediaType) []AVMutableMovieTrack {
@@ -817,7 +814,8 @@ func (m AVMutableMovie) TracksWithMediaType(mediaType AVMediaType) []AVMutableMo
 //
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load tracks asynchronously using
-// [LoadTracksWithMediaCharacteristicCompletionHandler] instead.
+// [AVMutableMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+// instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/tracks(withMediaCharacteristic:)
 func (m AVMutableMovie) TracksWithMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) []AVMutableMovieTrack {
@@ -836,9 +834,9 @@ func (m AVMutableMovie) TracksWithMediaCharacteristic(mediaCharacteristic AVMedi
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/unusedTrackID()
 //
 // [CMPersistentTrackID]: https://developer.apple.com/documentation/CoreMedia/CMPersistentTrackID
-func (m AVMutableMovie) UnusedTrackID() int32 {
-	rv := objc.Send[int32](m.ID, objc.Sel("unusedTrackID"))
-	return rv
+func (m AVMutableMovie) UnusedTrackID() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](m.ID, objc.Sel("unusedTrackID"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // Provides a reference to a track from a mutable movie into which you can
@@ -1002,8 +1000,8 @@ func (m AVMutableMovie) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 //
 // You can filter the array to the specific items of interest using the class
 // methods provided by [AVMetadataItem], like
-// [MetadataItemsFromArrayFilteredByIdentifier] or
-// [MetadataItemsFromArrayWithLocale].
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] or
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale].
 //
 // You can call this method without blocking the current thread after you’ve
 // asynchronously loaded the [availableMetadataFormats] property.
@@ -1086,10 +1084,10 @@ func (m AVMutableMovie) MediaSelectionGroupForMediaCharacteristic(mediaCharacter
 // don’t need to match the locale of the chapter titles.
 //
 // You can use the
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
 // method to further filter the metadata items in each group. You can also
 // filter the returned items based on locale using the
-// [MetadataItemsFromArrayWithLocale] method.
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale] method.
 //
 // This method is callable without blocking the current thread after you’ve
 // asynchronously loaded the [availableChapterLocales] property.
@@ -1131,7 +1129,8 @@ func (m AVMutableMovie) ChapterMetadataGroupsBestMatchingPreferredLanguages(pref
 //
 // The locale of items that don’t contain chapter titles doesn’t need to
 // match the specified locale parameter. You can filter the returned items
-// based on locale using [MetadataItemsFromArrayWithLocale].
+// based on locale using
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/chapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:)
 //
@@ -1158,11 +1157,11 @@ func (m AVMutableMovie) ChapterMetadataGroupsWithTitleLocaleContainingItemsWithC
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // Use this method to create movies from movie headers that are not stored in
 // files, which can include movies on the pasteboard.
@@ -1194,11 +1193,11 @@ func (_AVMutableMovieClass AVMutableMovieClass) MovieWithDataOptionsError(data f
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/movieWithSettingsFromMovie:options:error:
 func (_AVMutableMovieClass AVMutableMovieClass) MovieWithSettingsFromMovieOptionsError(movie IAVMovie, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -1228,11 +1227,11 @@ func (_AVMutableMovieClass AVMutableMovieClass) MovieWithSettingsFromMovieOption
 //
 // # Discussion
 //
-// On initialization, the [DefaultMediaDataStorage] property and any
-// associated [MediaDataStorage] properties are set to `nil`. To create an
-// [AVMutableMovie] from a file and then append sample buffers to any of its
-// tracks, you must first set one of these properties to indicate where the
-// sample data should be written.
+// On initialization, the [AVMutableMovie.DefaultMediaDataStorage] property
+// and any associated [AVMutableMovieTrack.MediaDataStorage] properties are
+// set to `nil`. To create an [AVMutableMovie] from a file and then append
+// sample buffers to any of its tracks, you must first set one of these
+// properties to indicate where the sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/movieWithURL:options:error:
 func (_AVMutableMovieClass AVMutableMovieClass) MovieWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
@@ -1273,11 +1272,11 @@ func (m AVMutableMovie) SetModified(value bool) {
 // perform any edits on it.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/timescale
-func (m AVMutableMovie) Timescale() int32 {
-	rv := objc.Send[int32](m.ID, objc.Sel("timescale"))
-	return rv
+func (m AVMutableMovie) Timescale() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](m.ID, objc.Sel("timescale"))
+	return coremedia.CMTimeScale(rv)
 }
-func (m AVMutableMovie) SetTimescale(value int32) {
+func (m AVMutableMovie) SetTimescale(value coremedia.CMTimeScale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTimescale:"), value)
 }
 
@@ -1379,9 +1378,9 @@ func (m AVMutableMovie) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
 // # Discussion
 //
 // You can filter the metadata items by language using the
-// [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages]
 // method, or by identifier with the
-// [MetadataItemsFromArrayFilteredByIdentifier] method.
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/metadata
 func (m AVMutableMovie) Metadata() []AVMetadataItem {
@@ -1402,9 +1401,9 @@ func (m AVMutableMovie) SetMetadata(value []AVMetadataItem) {
 // This property value is an array of metadata items, one for each metadata
 // key from the common key space for which the asset has an available value.
 // You can use the various class methods provided by [AVMetadataItem], such as
-// [MetadataItemsFromArrayFilteredByIdentifier] or
-// [MetadataItemsFromArrayWithLocale] to filter the array to the specific
-// items of interest.
+// [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] or
+// [AVMetadataItemClass.MetadataItemsFromArrayWithLocale] to filter the array
+// to the specific items of interest.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/commonMetadata
 func (m AVMutableMovie) CommonMetadata() IAVMetadataItem {
@@ -1641,7 +1640,7 @@ func (m AVMutableMovie) AvailableChapterLocales() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableChapterLocales"))
 	return rv
 }
-func (m AVMutableMovie) SetAvailableChapterLocales(value unsafe.Pointer) {
+func (m AVMutableMovie) SetAvailableChapterLocales(value kernel.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 
@@ -1689,10 +1688,12 @@ func (m AVMutableMovie) SetCanContainFragments(value bool) {
 // # Discussion
 //
 // For QuickTime movie files and MPEG-4 files, the value is true if
-// [CanContainFragments] is true and at least one `moof` box is present after
+// [canContainFragments] is true and at least one `moof` box is present after
 // the `moov` box.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/containsFragments
+//
+// [canContainFragments]: https://developer.apple.com/documentation/AVFoundation/AVAsset/canContainFragments
 func (m AVMutableMovie) ContainsFragments() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("containsFragments"))
 	return rv
@@ -1719,25 +1720,4 @@ func (m AVMutableMovie) OverallDurationHint() coremedia.CMTime {
 }
 func (m AVMutableMovie) SetOverallDurationHint(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOverallDurationHint:"), value)
-}
-
-// A preset to export the asset in its current format, unless otherwise
-// prohibited.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetexportpresetpassthrough
-func (m AVMutableMovie) AVAssetExportPresetPassthrough() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("AVAssetExportPresetPassthrough"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Boolean value that indicates whether to optimize the movie for network
-// use.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetexportsession/shouldoptimizefornetworkuse
-func (m AVMutableMovie) ShouldOptimizeForNetworkUse() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("shouldOptimizeForNetworkUse"))
-	return rv
-}
-func (m AVMutableMovie) SetShouldOptimizeForNetworkUse(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShouldOptimizeForNetworkUse:"), value)
 }

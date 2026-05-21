@@ -15,7 +15,7 @@ import (
 // # Return Value
 //
 // An array of keys that can be set in the
-// [SetOutputSettingsForConnection]method.
+// [AVCaptureMovieFileOutput.SetOutputSettingsForConnection]method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/supportedOutputSettingsKeys(for:)
 func (c AVCaptureMovieFileOutput) SupportedOutputSettingsKeysForConnection(connection IAVCaptureConnection) []string {
@@ -59,9 +59,10 @@ func (c AVCaptureMovieFileOutput) SetRecordsVideoOrientationAndMirroringChangesA
 // # Discussion
 //
 // The first codec in this list is the default for recording movie files. To
-// record using a different codec, call the [SetOutputSettingsForConnection]
-// method, passing a video settings dictionary with a value for
-// [AVVideoCodecKey] that matches one of the other values in this list.
+// record using a different codec, call the
+// [AVCaptureMovieFileOutput.SetOutputSettingsForConnection] method, passing a
+// video settings dictionary with a value for [AVVideoCodecKey] that matches
+// one of the other values in this list.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/availableVideoCodecTypes
 //

@@ -5,6 +5,7 @@ package vision
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -83,12 +84,12 @@ type IVNVideoProcessorTimeIntervalCadence interface {
 	// Topic: Creating a Cadence
 
 	// Creates a new time-based cadence with a time interval.
-	InitWithTimeInterval(timeInterval float64) VNVideoProcessorTimeIntervalCadence
+	InitWithTimeInterval(timeInterval corefoundation.CFTimeInterval) VNVideoProcessorTimeIntervalCadence
 
 	// Topic: Inspecting the Time Interval
 
 	// The time interval of the cadence.
-	TimeInterval() float64
+	TimeInterval() corefoundation.CFTimeInterval
 }
 
 // Init initializes the instance.
@@ -115,7 +116,7 @@ func NewVNVideoProcessorTimeIntervalCadence() VNVideoProcessorTimeIntervalCadenc
 // timeInterval: The time interval at which to process video.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/TimeIntervalCadence/init(_:)
-func NewVideoProcessorTimeIntervalCadenceWithTimeInterval(timeInterval float64) VNVideoProcessorTimeIntervalCadence {
+func NewVideoProcessorTimeIntervalCadenceWithTimeInterval(timeInterval corefoundation.CFTimeInterval) VNVideoProcessorTimeIntervalCadence {
 	instance := getVNVideoProcessorTimeIntervalCadenceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeInterval:"), timeInterval)
 	return VNVideoProcessorTimeIntervalCadenceFromID(rv)
@@ -126,7 +127,7 @@ func NewVideoProcessorTimeIntervalCadenceWithTimeInterval(timeInterval float64) 
 // timeInterval: The time interval at which to process video.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/TimeIntervalCadence/init(_:)
-func (v VNVideoProcessorTimeIntervalCadence) InitWithTimeInterval(timeInterval float64) VNVideoProcessorTimeIntervalCadence {
+func (v VNVideoProcessorTimeIntervalCadence) InitWithTimeInterval(timeInterval corefoundation.CFTimeInterval) VNVideoProcessorTimeIntervalCadence {
 	rv := objc.Send[VNVideoProcessorTimeIntervalCadence](v.ID, objc.Sel("initWithTimeInterval:"), timeInterval)
 	return rv
 }
@@ -134,7 +135,7 @@ func (v VNVideoProcessorTimeIntervalCadence) InitWithTimeInterval(timeInterval f
 // The time interval of the cadence.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/TimeIntervalCadence/timeInterval
-func (v VNVideoProcessorTimeIntervalCadence) TimeInterval() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("timeInterval"))
-	return rv
+func (v VNVideoProcessorTimeIntervalCadence) TimeInterval() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](v.ID, objc.Sel("timeInterval"))
+	return corefoundation.CFTimeInterval(rv)
 }

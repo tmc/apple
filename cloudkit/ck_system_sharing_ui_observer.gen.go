@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -112,10 +113,10 @@ type ICKSystemSharingUIObserver interface {
 
 	// A callback block the system invokes after the success or failure of a share save by the system sharing UI.
 	SystemSharingUIDidSaveShareBlock() unsafe.Pointer
-	SetSystemSharingUIDidSaveShareBlock(value unsafe.Pointer)
+	SetSystemSharingUIDidSaveShareBlock(value kernel.Pointer)
 	// A callback block the system invokes after the success or failure of a share delete by the system sharing UI.
 	SystemSharingUIDidStopSharingBlock() unsafe.Pointer
-	SetSystemSharingUIDidStopSharingBlock(value unsafe.Pointer)
+	SetSystemSharingUIDidStopSharingBlock(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -166,7 +167,7 @@ func (c CKSystemSharingUIObserver) SystemSharingUIDidSaveShareBlock() unsafe.Poi
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("systemSharingUIDidSaveShareBlock"))
 	return rv
 }
-func (c CKSystemSharingUIObserver) SetSystemSharingUIDidSaveShareBlock(value unsafe.Pointer) {
+func (c CKSystemSharingUIObserver) SetSystemSharingUIDidSaveShareBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSystemSharingUIDidSaveShareBlock:"), value)
 }
 
@@ -178,6 +179,6 @@ func (c CKSystemSharingUIObserver) SystemSharingUIDidStopSharingBlock() unsafe.P
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("systemSharingUIDidStopSharingBlock"))
 	return rv
 }
-func (c CKSystemSharingUIObserver) SetSystemSharingUIDidStopSharingBlock(value unsafe.Pointer) {
+func (c CKSystemSharingUIObserver) SetSystemSharingUIDidStopSharingBlock(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSystemSharingUIDidStopSharingBlock:"), value)
 }

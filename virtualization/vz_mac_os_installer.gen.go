@@ -110,7 +110,7 @@ type IVZMacOSInstaller interface {
 	// Topic: Getting Information About an Installation
 
 	// A progress object that you can use to observe or cancel an installation.
-	Progress() foundation.NSProgress
+	Progress() foundation.Progress
 	// The restore image URL used to initialize this installer.
 	RestoreImageURL() foundation.NSURL
 	// The virtual machine used to initialize this installer.
@@ -193,9 +193,9 @@ func (m VZMacOSInstaller) InstallWithCompletionHandler(completionHandler ErrorHa
 // exception.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/progress
-func (m VZMacOSInstaller) Progress() foundation.NSProgress {
+func (m VZMacOSInstaller) Progress() foundation.Progress {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progress"))
-	return foundation.NSProgressFromID(objc.ID(rv))
+	return foundation.ProgressFromID(objc.ID(rv))
 }
 
 // The restore image URL used to initialize this installer.

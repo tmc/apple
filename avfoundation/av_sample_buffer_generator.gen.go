@@ -180,8 +180,10 @@ func (s AVSampleBufferGenerator) InitWithAssetTimebase(asset IAVAsset, timebase 
 // [AVSampleBufferRequest] objects default to using a request mode of
 // [AVSampleBufferRequestModeImmediate].
 //
-// Call the [NotifyOfDataReadyForSampleBufferCompletionHandler] class method
-// to have the system notify you when sample buffer data is available.
+// Call the
+// [AVSampleBufferGeneratorClass.NotifyOfDataReadyForSampleBufferCompletionHandler]
+// class method to have the system notify you when sample buffer data is
+// available.
 //
 // The request may fail based on generator configuration or file format.
 //
@@ -219,8 +221,8 @@ func (s AVSampleBufferGenerator) MakeBatch() IAVSampleBufferGeneratorBatch {
 // request: A sample buffer creation request.
 //
 // batch: A batch object to contain the output sample buffer. You must create this
-// object by calling [Batch] on the same instance of [AVSampleBufferGenerator]
-// or an error occurs.
+// object by calling [AVSampleBufferGenerator.Batch] on the same instance of
+// [AVSampleBufferGenerator] or an error occurs.
 //
 // # Return Value
 //
@@ -228,10 +230,12 @@ func (s AVSampleBufferGenerator) MakeBatch() IAVSampleBufferGeneratorBatch {
 //
 // # Discussion
 //
-// Call the [DataReadyWithCompletionHandler] on [AVSampleBufferGeneratorBatch]
-// once to commence I/O and load sample data for all [CMSampleBuffer] objects
-// in a batch. After loading commences, any subsequent calls to
-// [CreateSampleBufferForRequestAddingToBatchError] throw an exception.
+// Call the [AVSampleBufferGeneratorBatch.DataReadyWithCompletionHandler] on
+// [AVSampleBufferGeneratorBatch] once to commence I/O and load sample data
+// for all [CMSampleBuffer] objects in a batch. After loading commences, any
+// subsequent calls to
+// [AVSampleBufferGenerator.CreateSampleBufferForRequestAddingToBatchError]
+// throw an exception.
 //
 // The generator may defer I/O to fetch sample data depending on the source of
 // the sample data and the generator’s timebase

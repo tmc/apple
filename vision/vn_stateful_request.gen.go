@@ -123,7 +123,7 @@ func NewVNStatefulRequest() VNStatefulRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNStatefulRequest {

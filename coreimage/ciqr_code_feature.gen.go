@@ -51,7 +51,7 @@ func (cc CIQRCodeFeatureClass) Alloc() CIQRCodeFeature {
 // standard. The properties of a CIQRCodeFeature object identify the corners
 // of the barcode in the image perspective and provide the decoded message.
 //
-// To detect QR codes in an image or video, choose [CIQRCodeFeature.CIDetectorTypeQRCode] type
+// To detect QR codes in an image or video, choose [CIDetectorTypeQRCode] type
 // when initializing a [CIDetector] object.
 //
 // # Decoding a Detected Barcode
@@ -67,6 +67,8 @@ func (cc CIQRCodeFeatureClass) Alloc() CIQRCodeFeature {
 //   - [CIQRCodeFeature.TopRight]: The image coordinate of the upper-right corner of the detected QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature
+//
+// [CIDetectorTypeQRCode]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeQRCode
 type CIQRCodeFeature struct {
 	CIFeature
 }
@@ -116,9 +118,6 @@ type ICIQRCodeFeature interface {
 	TopLeft() corefoundation.CGPoint
 	// The image coordinate of the upper-right corner of the detected QR code.
 	TopRight() corefoundation.CGPoint
-
-	// A detector that searches for Quick Response codes (a type of 2D barcode) in a still image or video, returning
-	CIDetectorTypeQRCode() string
 }
 
 // Init initializes the instance.
@@ -138,6 +137,13 @@ func NewCIQRCodeFeature() CIQRCodeFeature {
 	class := getCIQRCodeFeatureClass()
 	rv := objc.Send[CIQRCodeFeature](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature/init(coder:)
+func NewQRCodeFeatureWithCoder(coder foundation.INSCoder) CIQRCodeFeature {
+	instance := getCIQRCodeFeatureClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CIQRCodeFeatureFromID(rv)
 }
 
 // The string decoded from the detected barcode.
@@ -192,13 +198,4 @@ func (q CIQRCodeFeature) TopLeft() corefoundation.CGPoint {
 func (q CIQRCodeFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](q.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
-}
-
-// A detector that searches for Quick Response codes (a type of 2D barcode) in
-// a still image or video, returning
-//
-// See: https://developer.apple.com/documentation/coreimage/cidetectortypeqrcode
-func (q CIQRCodeFeature) CIDetectorTypeQRCode() string {
-	rv := objc.Send[objc.ID](q.ID, objc.Sel("CIDetectorTypeQRCode"))
-	return foundation.NSStringFromID(rv).String()
 }

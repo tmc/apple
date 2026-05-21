@@ -77,6 +77,7 @@ type IAVMetricMediaRendition interface {
 	StableID() string
 	URL() foundation.NSURL
 
+	InitWithCoder(coder foundation.INSCoder) AVMetricMediaRendition
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -99,6 +100,18 @@ func NewAVMetricMediaRendition() AVMetricMediaRendition {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaRendition/init(coder:)
+func NewMetricMediaRenditionWithCoder(coder foundation.INSCoder) AVMetricMediaRendition {
+	instance := getAVMetricMediaRenditionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricMediaRenditionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaRendition/init(coder:)
+func (m AVMetricMediaRendition) InitWithCoder(coder foundation.INSCoder) AVMetricMediaRendition {
+	rv := objc.Send[AVMetricMediaRendition](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (m AVMetricMediaRendition) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }

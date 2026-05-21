@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -82,4 +83,11 @@ func NewAVMetricPlayerItemStallEvent() AVMetricPlayerItemStallEvent {
 	class := getAVMetricPlayerItemStallEventClass()
 	rv := objc.Send[AVMetricPlayerItemStallEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemStallEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemStallEvent {
+	instance := getAVMetricPlayerItemStallEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemStallEventFromID(rv)
 }

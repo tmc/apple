@@ -46,9 +46,10 @@ func (uc URLSessionTaskMetricsClass) Alloc() URLSessionTaskMetrics {
 //
 // # Overview
 //
-// Each [NSURLSessionTaskMetrics] object contains the [TaskInterval] and
-// [RedirectCount], as well as metrics for each request-and-response
-// transaction made during the execution of the task.
+// Each [NSURLSessionTaskMetrics] object contains the
+// [NSURLSessionTaskMetrics.TaskInterval] and
+// [NSURLSessionTaskMetrics.RedirectCount], as well as metrics for each
+// request-and-response transaction made during the execution of the task.
 //
 // # Accessing task metrics
 //

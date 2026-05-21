@@ -99,10 +99,6 @@ type IVNContoursObservation interface {
 	ContourAtIndexError(contourIndex int) (IVNContour, error)
 	// Retrieves the contour object at the specified index path.
 	ContourAtIndexPathError(indexPath foundation.NSIndexPath) (IVNContour, error)
-
-	// The results of the request to detect contours.
-	Results() IVNContoursObservation
-	SetResults(value IVNContoursObservation)
 }
 
 // Init initializes the instance.
@@ -124,11 +120,18 @@ func NewVNContoursObservation() VNContoursObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewContoursObservationWithCoder(coder foundation.INSCoder) VNContoursObservation {
+	instance := getVNContoursObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNContoursObservationFromID(rv)
+}
+
 // Retrieves the contour object at the specified index, irrespective of
 // hierarchy.
 //
 // contourIndex: The index of the contour to retrieve. Valid values are in the range of 0 to
-// [ContourCount] - 1.
+// [VNContoursObservation.ContourCount] - 1.
 //
 // # Return Value
 //
@@ -171,7 +174,7 @@ func (c VNContoursObservation) ContourAtIndexPathError(indexPath foundation.NSIn
 // # Discussion
 //
 // Use this value to determine the number of indices available for calling
-// [ContourAtIndexPathError].
+// [VNContoursObservation.ContourAtIndexPathError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contourCount
 func (c VNContoursObservation) ContourCount() int {
@@ -208,15 +211,4 @@ func (c VNContoursObservation) TopLevelContours() []VNContour {
 func (c VNContoursObservation) TopLevelContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("topLevelContourCount"))
 	return rv
-}
-
-// The results of the request to detect contours.
-//
-// See: https://developer.apple.com/documentation/vision/vndetectcontoursrequest/results
-func (c VNContoursObservation) Results() IVNContoursObservation {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("results"))
-	return VNContoursObservationFromID(objc.ID(rv))
-}
-func (c VNContoursObservation) SetResults(value IVNContoursObservation) {
-	objc.Send[struct{}](c.ID, objc.Sel("setResults:"), value)
 }

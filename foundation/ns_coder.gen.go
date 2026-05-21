@@ -168,19 +168,6 @@ func (nc NSCoderClass) Alloc() NSCoder {
 //   - [NSCoder.SystemVersion]: The system version in effect for the archive.
 //   - [NSCoder.VersionForClassName]: This method is present for historical reasons and is not used with keyed archivers.
 //
-// # Error Codes
-//
-//   - [NSCoder.NSCoderErrorMaximum]: The end of the range of error codes reserved for coder errors.
-//   - [NSCoder.SetNSCoderErrorMaximum]
-//   - [NSCoder.NSCoderErrorMinimum]: The start of the range of error codes reserved for coder errors.
-//   - [NSCoder.SetNSCoderErrorMinimum]
-//   - [NSCoder.NSCoderReadCorruptError]: Decoding failed due to corrupt data.
-//   - [NSCoder.SetNSCoderReadCorruptError]
-//   - [NSCoder.NSCoderValueNotFoundError]: The requested data wasn’t found.
-//   - [NSCoder.SetNSCoderValueNotFoundError]
-//   - [NSCoder.NSCoderInvalidValueError]: Data wasn’t valid to encode.
-//   - [NSCoder.SetNSCoderInvalidValueError]
-//
 // # Instance Methods
 //
 //   - [NSCoder.DecodeBytesForKeyMinimumLength]: Decode bytes from the decoder for a given key. The length of the bytes must be greater than or equal to the `length` parameter. If the result exists, but is of insufficient length, then the decoder uses `failWithError` to fail the entire decode operation. The result of that is configurable on a per-NSCoder basis using [NSDecodingFailurePolicy].
@@ -300,19 +287,6 @@ func NSCoderFromID(id objc.ID) NSCoder {
 //   - [INSCoder.SystemVersion]: The system version in effect for the archive.
 //   - [INSCoder.VersionForClassName]: This method is present for historical reasons and is not used with keyed archivers.
 //
-// # Error Codes
-//
-//   - [INSCoder.NSCoderErrorMaximum]: The end of the range of error codes reserved for coder errors.
-//   - [INSCoder.SetNSCoderErrorMaximum]
-//   - [INSCoder.NSCoderErrorMinimum]: The start of the range of error codes reserved for coder errors.
-//   - [INSCoder.SetNSCoderErrorMinimum]
-//   - [INSCoder.NSCoderReadCorruptError]: Decoding failed due to corrupt data.
-//   - [INSCoder.SetNSCoderReadCorruptError]
-//   - [INSCoder.NSCoderValueNotFoundError]: The requested data wasn’t found.
-//   - [INSCoder.SetNSCoderValueNotFoundError]
-//   - [INSCoder.NSCoderInvalidValueError]: Data wasn’t valid to encode.
-//   - [INSCoder.SetNSCoderInvalidValueError]
-//
 // # Instance Methods
 //
 //   - [INSCoder.DecodeBytesForKeyMinimumLength]: Decode bytes from the decoder for a given key. The length of the bytes must be greater than or equal to the `length` parameter. If the result exists, but is of insufficient length, then the decoder uses `failWithError` to fail the entire decode operation. The result of that is configurable on a per-NSCoder basis using [NSDecodingFailurePolicy].
@@ -412,9 +386,9 @@ type INSCoder interface {
 	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
 	DecodeBoolForKey(key string) bool
 	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
-	DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) unsafe.Pointer
+	DecodeBytesForKeyReturnedLength(key string, lengthp *uint) unsafe.Pointer
 	// Decodes a buffer of data whose types are unspecified.
-	DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) unsafe.Pointer
+	DecodeBytesWithReturnedLength(lengthp *uint) unsafe.Pointer
 	// Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
 	DecodeDataObject() INSData
 	// Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
@@ -475,24 +449,6 @@ type INSCoder interface {
 	// This method is present for historical reasons and is not used with keyed archivers.
 	VersionForClassName(className string) int
 
-	// Topic: Error Codes
-
-	// The end of the range of error codes reserved for coder errors.
-	NSCoderErrorMaximum() int
-	SetNSCoderErrorMaximum(value int)
-	// The start of the range of error codes reserved for coder errors.
-	NSCoderErrorMinimum() int
-	SetNSCoderErrorMinimum(value int)
-	// Decoding failed due to corrupt data.
-	NSCoderReadCorruptError() int
-	SetNSCoderReadCorruptError(value int)
-	// The requested data wasn’t found.
-	NSCoderValueNotFoundError() int
-	SetNSCoderValueNotFoundError(value int)
-	// Data wasn’t valid to encode.
-	NSCoderInvalidValueError() int
-	SetNSCoderInvalidValueError(value int)
-
 	// Topic: Instance Methods
 
 	// Decode bytes from the decoder for a given key. The length of the bytes must be greater than or equal to the `length` parameter. If the result exists, but is of insufficient length, then the decoder uses `failWithError` to fail the entire decode operation. The result of that is configurable on a per-NSCoder basis using [NSDecodingFailurePolicy].
@@ -501,15 +457,15 @@ type INSCoder interface {
 	DecodeBytesWithMinimumLength(length uint) unsafe.Pointer
 
 	// Decodes the \c NSArray object for the given  \c key, which should be an \c NSArray, containing the given non-collection class (no nested arrays or arrays of dictionaries, etc) from the coder.
-	DecodeArrayOfObjectsOfClassForKey(cls objc.Class, key string) INSArray
+	DecodeArrayOfObjectsOfClassForKey(cls objectivec.Class, key string) INSArray
 	// Decodes the \c NSArray object for the given \c key, which should be an \c NSArray, containing the given non-collection classes (no nested arrays or arrays of dictionaries, etc) from the coder.
 	DecodeArrayOfObjectsOfClassesForKey(classes INSSet, key string) INSArray
 	// Decodes the \c NSDictionary object for the given \c key, which should be an \c NSDictionary<keyCls,objectCls> , with keys of type given in \c keyCls and objects of the given non-collection class \c objectCls (no nested dictionaries or other dictionaries contained in the dictionary, etc) from the coder.
-	DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objc.Class, objectCls objc.Class, key string) INSDictionary
+	DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objectivec.Class, objectCls objectivec.Class, key string) INSDictionary
 	// Decodes the \c NSDictionary object for the given \c key, which should be an \c NSDictionary, with keys of the types given in \c keyClasses and objects of the given non-collection classes in \c objectClasses (no nested dictionaries or other dictionaries contained in the dictionary, etc) from the given coder.
 	DecodeDictionaryWithKeysOfClassesObjectsOfClassesForKey(keyClasses INSSet, objectClasses INSSet, key string) INSDictionary
 	// Decodes an object for the key, restricted to the specified class.
-	DecodeObjectOfClassForKey(aClass objc.Class, key string) objectivec.IObject
+	DecodeObjectOfClassForKey(aClass objectivec.Class, key string) objectivec.IObject
 	// Decodes an object for the key, restricted to the specified classes.
 	DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject
 	// Decodes a previously-encoded object, populating an error if decoding fails.
@@ -517,7 +473,7 @@ type INSCoder interface {
 	// Decodes the previously-encoded object associated by a key, populating an error if decoding fails.
 	DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject, error)
 	// Decode an object as an expected type, failing if the archived type does not match.
-	DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key string) (objectivec.IObject, error)
+	DecodeTopLevelObjectOfClassForKeyError(aClass objectivec.Class, key string) (objectivec.IObject, error)
 	// Decode an object as one of several expected types, failing if the archived type does not match.
 	DecodeTopLevelObjectOfClassesForKeyError(classes INSSet, key string) (objectivec.IObject, error)
 	// Decodes a series of potentially different Objective-C types.
@@ -571,12 +527,12 @@ func (c NSCoder) ContainsValueForKey(key string) bool {
 //
 // The values are encoded from the buffer beginning at `address`. `itemType`
 // must contain exactly one type code. [NSCoder]’s implementation invokes
-// [EncodeValueOfObjCTypeAt] to encode the entire array of items. Subclasses
-// that implement the [EncodeValueOfObjCTypeAt] method do not need to override
-// this method.
+// [NSCoder.EncodeValueOfObjCTypeAt] to encode the entire array of items.
+// Subclasses that implement the [NSCoder.EncodeValueOfObjCTypeAt] method do
+// not need to override this method.
 //
-// This method must be matched by a subsequent [DecodeArrayOfObjCTypeCountAt]
-// message.
+// This method must be matched by a subsequent
+// [NSCoder.DecodeArrayOfObjCTypeCountAt] message.
 //
 // For information on creating an Objective-C type code suitable for
 // `itemType`, see [Type Encodings].
@@ -584,7 +540,7 @@ func (c NSCoder) ContainsValueForKey(key string) bool {
 // # Special Considerations
 //
 // You should not use this method to encode C arrays of Objective-C objects.
-// See [DecodeArrayOfObjCTypeCountAt] for more details.
+// See [NSCoder.DecodeArrayOfObjCTypeCountAt] for more details.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeArray(ofObjCType:count:at:)
 //
@@ -609,9 +565,10 @@ func (c NSCoder) EncodeBoolForKey(value bool, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeSize].
+// [NSCoder]’s implementation simply invokes [NSCoder.EncodeSize].
 //
-// This method must be matched by a corresponding [DecodeObject] message.
+// This method must be matched by a corresponding [NSCoder.DecodeObject]
+// message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeBycopyObject(_:)
 func (c NSCoder) EncodeBycopyObject(anObject objectivec.IObject) {
@@ -623,9 +580,10 @@ func (c NSCoder) EncodeBycopyObject(anObject objectivec.IObject) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeSize].
+// [NSCoder]’s implementation simply invokes [NSCoder.EncodeSize].
 //
-// This method must be matched by a corresponding [DecodeObject] message.
+// This method must be matched by a corresponding [NSCoder.DecodeObject]
+// message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeByrefObject(_:)
 func (c NSCoder) EncodeByrefObject(anObject objectivec.IObject) {
@@ -640,7 +598,7 @@ func (c NSCoder) EncodeByrefObject(anObject objectivec.IObject) {
 // given by `numBytes`.
 //
 // This method must be matched by a corresponding
-// [DecodeBytesWithReturnedLength] message.
+// [NSCoder.DecodeBytesWithReturnedLength] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:)
 func (c NSCoder) EncodeBytesLength(byteaddr unsafe.Pointer, length uint) {
@@ -668,12 +626,12 @@ func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) 
 // unconditionally encoded elsewhere (with any other `encode...Object:`
 // method).
 //
-// This method must be matched by a subsequent [DecodeObject] message. Upon
-// decoding, if `object` was never encoded unconditionally, `decodeObject`
-// returns `nil` in place of `object`. However, if `object` was encoded
-// unconditionally, all references to `object` must be resolved.
+// This method must be matched by a subsequent [NSCoder.DecodeObject] message.
+// Upon decoding, if `object` was never encoded unconditionally,
+// `decodeObject` returns `nil` in place of `object`. However, if `object` was
+// encoded unconditionally, all references to `object` must be resolved.
 //
-// [NSCoder]’s implementation simply invokes [EncodeSize].
+// [NSCoder]’s implementation simply invokes [NSCoder.EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:)
 func (c NSCoder) EncodeConditionalObject(object objectivec.IObject) {
@@ -688,9 +646,9 @@ func (c NSCoder) EncodeConditionalObject(object objectivec.IObject) {
 //
 // Subclasses must override this method if they support keyed coding.
 //
-// The encoded object is decoded with the [DecodeObjectForKey] method. If
-// `objv` was never encoded unconditionally, [DecodeObjectForKey] returns
-// `nil` in place of `objv`.
+// The encoded object is decoded with the [NSCoder.DecodeObjectForKey] method.
+// If `objv` was never encoded unconditionally, [NSCoder.DecodeObjectForKey]
+// returns `nil` in place of `objv`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)
 func (c NSCoder) EncodeConditionalObjectForKey(object objectivec.IObject, key string) {
@@ -703,7 +661,8 @@ func (c NSCoder) EncodeConditionalObjectForKey(object objectivec.IObject, key st
 //
 // Subclasses must override this method.
 //
-// This method must be matched by a subsequent [DecodeDataObject] message.
+// This method must be matched by a subsequent [NSCoder.DecodeDataObject]
+// message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-1qd1e
 func (c NSCoder) EncodeDataObject(data INSData) {
@@ -781,13 +740,13 @@ func (c NSCoder) EncodeInt64ForKey(value int64, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeValueOfObjCTypeAt] to
-// encode `object`. Subclasses can override this method to encode a reference
-// to `object` instead of `object` itself. For example, [NSArchiver] detects
-// duplicate objects and encodes a reference to the original object rather
-// than encode the same object twice.
+// [NSCoder]’s implementation simply invokes
+// [NSCoder.EncodeValueOfObjCTypeAt] to encode `object`. Subclasses can
+// override this method to encode a reference to `object` instead of `object`
+// itself. For example, [NSArchiver] detects duplicate objects and encodes a
+// reference to the original object rather than encode the same object twice.
 //
-// This method must be matched by a subsequent [DecodeObject] message.
+// This method must be matched by a subsequent [NSCoder.DecodeObject] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-9648d
 func (c NSCoder) EncodeObject(object objectivec.IObject) {
@@ -812,10 +771,10 @@ func (c NSCoder) EncodeObjectForKey(object objectivec.IObject, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation invokes [EncodeValueOfObjCTypeAt] to encode
-// `point`.
+// [NSCoder]’s implementation invokes [NSCoder.EncodeValueOfObjCTypeAt] to
+// encode `point`.
 //
-// This method must be matched by a subsequent [DecodePoint] message.
+// This method must be matched by a subsequent [NSCoder.DecodePoint] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-75jv4
 func (c NSCoder) EncodePoint(point corefoundation.CGPoint) {
@@ -833,10 +792,11 @@ func (c NSCoder) EncodePointForKey(point corefoundation.CGPoint, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation invokes [EncodeValueOfObjCTypeAt] to encode
-// `aPropertyList`.
+// [NSCoder]’s implementation invokes [NSCoder.EncodeValueOfObjCTypeAt] to
+// encode `aPropertyList`.
 //
-// This method must be matched by a subsequent [DecodePropertyList] message.
+// This method must be matched by a subsequent [NSCoder.DecodePropertyList]
+// message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodePropertyList(_:)
 func (c NSCoder) EncodePropertyList(aPropertyList objectivec.IObject) {
@@ -847,10 +807,10 @@ func (c NSCoder) EncodePropertyList(aPropertyList objectivec.IObject) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation invokes [EncodeValueOfObjCTypeAt] to encode
-// `rect`.
+// [NSCoder]’s implementation invokes [NSCoder.EncodeValueOfObjCTypeAt] to
+// encode `rect`.
 //
-// This method must be matched by a subsequent [DecodeRect] message.
+// This method must be matched by a subsequent [NSCoder.DecodeRect] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-3c1wz
 func (c NSCoder) EncodeRect(rect corefoundation.CGRect) {
@@ -869,9 +829,9 @@ func (c NSCoder) EncodeRectForKey(rect corefoundation.CGRect, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeSize].
+// [NSCoder]’s implementation simply invokes [NSCoder.EncodeSize].
 //
-// This method must be matched by a subsequent [DecodeObject] message.
+// This method must be matched by a subsequent [NSCoder.DecodeObject] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeRootObject(_:)
 func (c NSCoder) EncodeRootObject(rootObject objectivec.IObject) {
@@ -882,10 +842,10 @@ func (c NSCoder) EncodeRootObject(rootObject objectivec.IObject) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation invokes [EncodeValueOfObjCTypeAt] to encode
-// `size`.
+// [NSCoder]’s implementation invokes [NSCoder.EncodeValueOfObjCTypeAt] to
+// encode `size`.
 //
-// This method must be matched by a subsequent [DecodeSize] message.
+// This method must be matched by a subsequent [NSCoder.DecodeSize] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-82i7c
 func (c NSCoder) EncodeSize(size corefoundation.CGSize) {
@@ -904,7 +864,7 @@ func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
 // # Discussion
 //
 // Subclasses must override this method, and match it with a subsequent
-// [DecodeValueOfObjCTypeAt] message.
+// [NSCoder.DecodeValueOfObjCTypeAt] message.
 //
 // When calling this method, `valueType` must contain exactly one type code.
 //
@@ -914,7 +874,7 @@ func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
 // # Special Considerations
 //
 // You should not use this method to encode Objective-C objects. See
-// [DecodeArrayOfObjCTypeCountAt] for more details.
+// [NSCoder.DecodeArrayOfObjCTypeCountAt] for more details.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeValue(ofObjCType:at:)
 //
@@ -930,8 +890,6 @@ func (c NSCoder) EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer) {
 //
 // key: The key with which to associate `time` in the archive.
 //
-// time is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-6wbby
 func (c NSCoder) EncodeCMTimeForKey(time unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTime:forKey:"), time, objc.String(key))
@@ -943,8 +901,6 @@ func (c NSCoder) EncodeCMTimeForKey(time unsafe.Pointer, key string) {
 // timeRange: A [CMTimeRange] structure.
 //
 // key: The key with which to associate `timeRange` in the archive.
-//
-// timeRange is a [coremedia.CMTimeRange].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-46lo8
 func (c NSCoder) EncodeCMTimeRangeForKey(timeRange unsafe.Pointer, key string) {
@@ -958,8 +914,6 @@ func (c NSCoder) EncodeCMTimeRangeForKey(timeRange unsafe.Pointer, key string) {
 //
 // key: The key with which to associate `timeMapping` in the archive.
 //
-// timeMapping is a [coremedia.CMTimeMapping].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-8tefb
 func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeMapping:forKey:"), timeMapping, objc.String(key))
@@ -972,11 +926,11 @@ func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping unsafe.Pointer, key strin
 //
 // The items are decoded into the buffer beginning at `address`, which must be
 // large enough to contain them all. `itemType` must contain exactly one type
-// code. [NSCoder]’s implementation invokes [DecodeValueOfObjCTypeAt] to
-// decode the entire array of items.
+// code. [NSCoder]’s implementation invokes
+// [NSCoder.DecodeValueOfObjCTypeAt] to decode the entire array of items.
 //
-// This method matches an [EncodeArrayOfObjCTypeCountAt] message used during
-// encoding.
+// This method matches an [NSCoder.EncodeArrayOfObjCTypeCountAt] message used
+// during encoding.
 //
 // For information on creating an Objective-C type code suitable for
 // `itemType`, see [Type Encodings].
@@ -996,7 +950,7 @@ func (c NSCoder) DecodeArrayOfObjCTypeCountAt(itemType []string, count uint, arr
 }
 
 // Decodes and returns a boolean value that was previously encoded with
-// [EncodeCMTimeMappingForKey] and associated with the string `key`.
+// [NSCoder.EncodeCMTimeMappingForKey] and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1009,7 +963,7 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 }
 
 // Decodes a buffer of data that was previously encoded with
-// [EncodeBytesLengthForKey] and associated with the string `key`.
+// [NSCoder.EncodeBytesLengthForKey] and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1018,7 +972,7 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 // keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(forKey:returnedLength:)
-func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) unsafe.Pointer {
+func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp *uint) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
 	return rv
 }
@@ -1027,31 +981,32 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Poin
 //
 // # Discussion
 //
-// [NSCoder]‘s implementation invokes [DecodeValueOfObjCTypeAt] to decode
-// the data as a series of bytes, which this method then places into a buffer
-// and returns. The buffer’s length is returned by reference in `numBytes`.
-// If you need the bytes beyond the scope of the current `@autoreleasepool`
-// block, you must copy them.
+// [NSCoder]‘s implementation invokes [NSCoder.DecodeValueOfObjCTypeAt] to
+// decode the data as a series of bytes, which this method then places into a
+// buffer and returns. The buffer’s length is returned by reference in
+// `numBytes`. If you need the bytes beyond the scope of the current
+// `@autoreleasepool` block, you must copy them.
 //
-// This method matches an [EncodeBytesLength] message used during encoding.
+// This method matches an [NSCoder.EncodeBytesLength] message used during
+// encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(withReturnedLength:)
-func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) unsafe.Pointer {
+func (c NSCoder) DecodeBytesWithReturnedLength(lengthp *uint) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
 	return rv
 }
 
 // Decodes and returns an [NSData] object that was previously encoded with
-// [EncodeSize]. Subclasses must override this method.
+// [NSCoder.EncodeSize]. Subclasses must override this method.
 //
 // # Discussion
 //
 // The implementation of your overriding method must match the implementation
-// of your [EncodeSize] method. For example, a typical [EncodeSize] method
-// encodes the number of bytes of data followed by the bytes themselves. Your
-// override of this method must read the number of bytes, create an [NSData]
-// object of the appropriate size, and decode the bytes into the new [NSData]
-// object.
+// of your [NSCoder.EncodeSize] method. For example, a typical
+// [NSCoder.EncodeSize] method encodes the number of bytes of data followed by
+// the bytes themselves. Your override of this method must read the number of
+// bytes, create an [NSData] object of the appropriate size, and decode the
+// bytes into the new [NSData] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeData()
 func (c NSCoder) DecodeDataObject() INSData {
@@ -1060,8 +1015,8 @@ func (c NSCoder) DecodeDataObject() INSData {
 }
 
 // Decodes and returns a double value that was previously encoded with either
-// [EncodeCMTimeMappingForKey] or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeCMTimeMappingForKey] or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1074,8 +1029,8 @@ func (c NSCoder) DecodeDoubleForKey(key string) float64 {
 }
 
 // Decodes and returns a float value that was previously encoded with
-// [EncodeCMTimeMappingForKey] or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeCMTimeMappingForKey] or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1091,9 +1046,9 @@ func (c NSCoder) DecodeFloatForKey(key string) float32 {
 }
 
 // Decodes and returns an int value that was previously encoded with
-// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
-// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeIntForKey], [NSCoder.EncodeCMTimeMappingForKey],
+// [NSCoder.EncodeCMTimeMappingForKey], or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1108,9 +1063,9 @@ func (c NSCoder) DecodeIntForKey(key string) int {
 }
 
 // Decodes and returns an NSInteger value that was previously encoded with
-// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
-// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeIntForKey], [NSCoder.EncodeCMTimeMappingForKey],
+// [NSCoder.EncodeCMTimeMappingForKey], or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1125,9 +1080,9 @@ func (c NSCoder) DecodeIntegerForKey(key string) int {
 }
 
 // Decodes and returns a 32-bit integer value that was previously encoded with
-// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
-// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeIntForKey], [NSCoder.EncodeCMTimeMappingForKey],
+// [NSCoder.EncodeCMTimeMappingForKey], or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1142,9 +1097,9 @@ func (c NSCoder) DecodeInt32ForKey(key string) int32 {
 }
 
 // Decodes and returns a 64-bit integer value that was previously encoded with
-// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
-// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
-// with the string `key`.
+// [NSCoder.EncodeIntForKey], [NSCoder.EncodeCMTimeMappingForKey],
+// [NSCoder.EncodeCMTimeMappingForKey], or [NSCoder.EncodeCMTimeMappingForKey]
+// and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1161,13 +1116,13 @@ func (c NSCoder) DecodeInt64ForKey(key string) int64 {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation invokes [DecodeValueOfObjCTypeAt] to decode
-// the object data.
+// [NSCoder]’s implementation invokes [NSCoder.DecodeValueOfObjCTypeAt] to
+// decode the object data.
 //
 // Subclasses may need to override this method if they override any of the
 // corresponding `encode…Object` methods. For example, if an object was
-// encoded conditionally using the [EncodeConditionalObject] method, this
-// method needs to check whether the object had actually been encoded.
+// encoded conditionally using the [NSCoder.EncodeConditionalObject] method,
+// this method needs to check whether the object had actually been encoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObject()
 func (c NSCoder) DecodeObject() objectivec.IObject {
@@ -1176,8 +1131,9 @@ func (c NSCoder) DecodeObject() objectivec.IObject {
 }
 
 // Decodes and returns a previously-encoded object that was previously encoded
-// with [EncodeCMTimeMappingForKey] or [EncodeConditionalObjectForKey] and
-// associated with the string `key`.
+// with [NSCoder.EncodeCMTimeMappingForKey] or
+// [NSCoder.EncodeConditionalObjectForKey] and associated with the string
+// `key`.
 //
 // # Discussion
 //
@@ -1190,7 +1146,7 @@ func (c NSCoder) DecodeObjectForKey(key string) objectivec.IObject {
 }
 
 // Decodes and returns an NSPoint structure that was previously encoded with
-// [EncodeSize].
+// [NSCoder.EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint()
 func (c NSCoder) DecodePoint() NSPoint {
@@ -1199,7 +1155,7 @@ func (c NSCoder) DecodePoint() NSPoint {
 }
 
 // Decodes and returns an NSPoint structure that was previously encoded with
-// [EncodeCMTimeMappingForKey].
+// [NSCoder.EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint(forKey:)
 func (c NSCoder) DecodePointForKey(key string) NSPoint {
@@ -1208,7 +1164,7 @@ func (c NSCoder) DecodePointForKey(key string) NSPoint {
 }
 
 // Decodes a property list that was previously encoded with
-// [EncodePropertyList].
+// [NSCoder.EncodePropertyList].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePropertyList()
 func (c NSCoder) DecodePropertyList() objectivec.IObject {
@@ -1217,7 +1173,7 @@ func (c NSCoder) DecodePropertyList() objectivec.IObject {
 }
 
 // Decodes and returns an NSRect structure that was previously encoded with
-// [EncodeSize].
+// [NSCoder.EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect()
 func (c NSCoder) DecodeRect() NSRect {
@@ -1226,7 +1182,7 @@ func (c NSCoder) DecodeRect() NSRect {
 }
 
 // Decodes and returns an NSRect structure that was previously encoded with
-// [EncodeCMTimeMappingForKey].
+// [NSCoder.EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect(forKey:)
 func (c NSCoder) DecodeRectForKey(key string) NSRect {
@@ -1235,7 +1191,7 @@ func (c NSCoder) DecodeRectForKey(key string) NSRect {
 }
 
 // Decodes and returns an NSSize structure that was previously encoded with
-// [EncodeSize].
+// [NSCoder.EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeSize()
 func (c NSCoder) DecodeSize() NSSize {
@@ -1244,7 +1200,7 @@ func (c NSCoder) DecodeSize() NSSize {
 }
 
 // Decodes and returns an NSSize structure that was previously encoded with
-// [EncodeCMTimeMappingForKey].
+// [NSCoder.EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeSize(forKey:)
 func (c NSCoder) DecodeSizeForKey(key string) NSSize {
@@ -1271,8 +1227,8 @@ func (c NSCoder) DecodeSizeForKey(key string) NSSize {
 // decode the value. In your overriding implementation, decode the value into
 // the buffer beginning at data.
 //
-// This method matches an [EncodeValueOfObjCTypeAt] message used during
-// encoding.
+// This method matches an [NSCoder.EncodeValueOfObjCTypeAt] message used
+// during encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeValue(ofObjCType:at:size:)
 func (c NSCoder) DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, size uint) {
@@ -1289,8 +1245,8 @@ func (c NSCoder) DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, 
 //
 // # Discussion
 //
-// This method calls [DecodeObjectOfClassesForKey] with a set allowing only
-// property list types.
+// This method calls [NSCoder.DecodeObjectOfClassesForKey] with a set allowing
+// only property list types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePropertyList(forKey:)
 func (c NSCoder) DecodePropertyListForKey(key string) objectivec.IObject {
@@ -1353,7 +1309,7 @@ func (c NSCoder) DecodeCMTimeMappingForKey(key string) unsafe.Pointer {
 // This method is only meaningful to call for decodes.
 //
 // The effect of calling this method depends on the value of
-// [DecodingFailurePolicy], as follows:
+// [NSCoder.DecodingFailurePolicy], as follows:
 //
 // - If the policy is [NSDecodingFailurePolicyRaiseException], calling this
 // method throws an exception immediately. Swift code cannot catch this kind
@@ -1424,7 +1380,7 @@ func (c NSCoder) DecodeBytesWithMinimumLength(length uint) unsafe.Pointer {
 // cannot be decoded, and sets the \c error on the decoder.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeArrayOfObjectsOfClass:forKey:
-func (c NSCoder) DecodeArrayOfObjectsOfClassForKey(cls objc.Class, key string) INSArray {
+func (c NSCoder) DecodeArrayOfObjectsOfClassForKey(cls objectivec.Class, key string) INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeArrayOfObjectsOfClass:forKey:"), cls, objc.String(key))
 	return NSArrayFromID(rv)
 }
@@ -1461,7 +1417,7 @@ func (c NSCoder) DecodeArrayOfObjectsOfClassesForKey(classes INSSet, key string)
 // cannot be decoded, and sets the \c error on the decoder.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeDictionaryWithKeysOfClass:objectsOfClass:forKey:
-func (c NSCoder) DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objc.Class, objectCls objc.Class, key string) INSDictionary {
+func (c NSCoder) DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objectivec.Class, objectCls objectivec.Class, key string) INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeDictionaryWithKeysOfClass:objectsOfClass:forKey:"), keyCls, objectCls, objc.String(key))
 	return NSDictionaryFromID(rv)
 }
@@ -1498,18 +1454,18 @@ func (c NSCoder) DecodeDictionaryWithKeysOfClassesObjectsOfClassesForKey(keyClas
 //
 // # Discussion
 //
-// If the coder responds true to [RequiresSecureCoding], then an exception
-// will be thrown if the class to be decoded does not implement
+// If the coder responds true to [NSCoder.RequiresSecureCoding], then an
+// exception will be thrown if the class to be decoded does not implement
 // [NSSecureCoding] or is not [isKind(of:)] of `aClass`.
 //
-// If the coder responds false to [RequiresSecureCoding], then the class
-// argument is ignored and no check of the class of the decoded object is
-// performed, exactly as if [DecodeObjectForKey] had been called.
+// If the coder responds false to [NSCoder.RequiresSecureCoding], then the
+// class argument is ignored and no check of the class of the decoded object
+// is performed, exactly as if [NSCoder.DecodeObjectForKey] had been called.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObjectOfClass:forKey:
 //
 // [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
-func (c NSCoder) DecodeObjectOfClassForKey(aClass objc.Class, key string) objectivec.IObject {
+func (c NSCoder) DecodeObjectOfClassForKey(aClass objectivec.Class, key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClass:forKey:"), aClass, objc.String(key))
 	return objectivec.Object{ID: rv}
 }
@@ -1528,7 +1484,7 @@ func (c NSCoder) DecodeObjectOfClassForKey(aClass objc.Class, key string) object
 //
 // The class of the object may be any class in the `classes` set, or a
 // subclass of any class in the set. Otherwise, the behavior is the same as
-// [DecodeObjectOfClassForKey].
+// [NSCoder.DecodeObjectOfClassForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObjectOfClasses:forKey:
 func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject {
@@ -1597,8 +1553,8 @@ func (c NSCoder) DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject
 //
 // # Discussion
 //
-// If the coder responds true to [RequiresSecureCoding], then the coder calls
-// [FailWithError] in either the following cases:
+// If the coder responds true to [NSCoder.RequiresSecureCoding], then the
+// coder calls [NSCoder.FailWithError] in either the following cases:
 //
 // - The class indicated by `cls` does not implement [NSSecureCoding]. - The
 // unarchived class does not match `cls`, nor do any of its superclasses.
@@ -1607,7 +1563,7 @@ func (c NSCoder) DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject
 // and does not check the decoded object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTopLevelObjectOfClass:forKey:error:
-func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key string) (objectivec.IObject, error) {
+func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objectivec.Class, key string) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeTopLevelObjectOfClass:forKey:error:"), aClass, objc.String(key), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1637,8 +1593,8 @@ func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key s
 //
 // This method is equivalent to [decodeObject(of:forKey:)], but allows you to
 // specify a set of classes that the decoded object can match. If
-// [RequiresSecureCoding] is true, the decoded object’s class must be a
-// member of the classes parameter, or a sublcass of a member.
+// [NSCoder.RequiresSecureCoding] is true, the decoded object’s class must
+// be a member of the classes parameter, or a sublcass of a member.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTopLevelObjectOfClasses:forKey:error:
 //
@@ -1664,12 +1620,13 @@ func (c NSCoder) DecodeTopLevelObjectOfClassesForKeyError(classes INSSet, key st
 // value. For each type code in `valueTypes`, you must specify a corresponding
 // pointer argument whose buffer is large enough to hold the decoded value.
 //
-// This method matches an [EncodeValuesOfObjCTypes] message used during
-// encoding.
+// This method matches an [NSCoder.EncodeValuesOfObjCTypes] message used
+// during encoding.
 //
-// [NSCoder]’s implementation invokes [DecodeValueOfObjCTypeAt] to decode
-// individual types. Subclasses that implement the [DecodeValueOfObjCTypeAt]
-// method do not need to override this method.
+// [NSCoder]’s implementation invokes [NSCoder.DecodeValueOfObjCTypeAt] to
+// decode individual types. Subclasses that implement the
+// [NSCoder.DecodeValueOfObjCTypeAt] method do not need to override this
+// method.
 //
 // For information on creating Objective-C type codes suitable for
 // `valueTypes`, see [Type Encodings].
@@ -1677,7 +1634,7 @@ func (c NSCoder) DecodeTopLevelObjectOfClassesForKeyError(classes INSSet, key st
 // # Special Considerations
 //
 // You should not use this method to decode Objective-C objects. See
-// [DecodeArrayOfObjCTypeCountAt] for more details.
+// [NSCoder.DecodeArrayOfObjCTypeCountAt] for more details.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeValuesOfObjCTypes:
 //
@@ -1696,14 +1653,15 @@ func (c NSCoder) DecodeValuesOfObjCTypes(types string) {
 // each type code in `valueTypes`, you must specify a corresponding pointer
 // argument.
 //
-// This method must be matched by a subsequent [DecodeValuesOfObjCTypes]
-// message.
+// This method must be matched by a subsequent
+// [NSCoder.DecodeValuesOfObjCTypes] message.
 //
-// [NSCoder]’s implementation invokes [EncodeValueOfObjCTypeAt] to encode
-// individual types. Subclasses that implement the [EncodeValueOfObjCTypeAt]
-// method do not need to override this method. However, subclasses that
-// provide a more efficient approach for encoding a series of values may
-// override this method to implement that approach.
+// [NSCoder]’s implementation invokes [NSCoder.EncodeValueOfObjCTypeAt] to
+// encode individual types. Subclasses that implement the
+// [NSCoder.EncodeValueOfObjCTypeAt] method do not need to override this
+// method. However, subclasses that provide a more efficient approach for
+// encoding a series of values may override this method to implement that
+// approach.
 //
 // For information on creating Objective-C type codes suitable for
 // `valueTypes`, see [Type Encodings].
@@ -1711,7 +1669,7 @@ func (c NSCoder) DecodeValuesOfObjCTypes(types string) {
 // # Special Considerations
 //
 // You should not use this method to encode Objective-C objects. See
-// [DecodeArrayOfObjCTypeCountAt] for more details.
+// [NSCoder.DecodeArrayOfObjCTypeCountAt] for more details.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeValuesOfObjCTypes:
 //
@@ -1763,11 +1721,11 @@ func (c NSCoder) AllowsKeyedCoding() bool {
 // - The keyed archive data is corrupt or missing. - A type mismatch occurs,
 // such as expecting a class by calling [decodeObject(of:forKey:)] but
 // encountering a numeric type instead. This also occurs when
-// [DecodeIntegerForKey] encounters a value encoded as floating-point, or vice
-// versa. - A secure coding violation occurs. This happens when you attempt to
-// decode an object that doesn’t conform to [NSSecureCoding]. This also
-// happens when the encoded type doesn’t match any of the types passed to
-// [decodeObject(of:forKey:)].
+// [NSCoder.DecodeIntegerForKey] encounters a value encoded as floating-point,
+// or vice versa. - A secure coding violation occurs. This happens when you
+// attempt to decode an object that doesn’t conform to [NSSecureCoding].
+// This also happens when the encoded type doesn’t match any of the types
+// passed to [decodeObject(of:forKey:)].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodingFailurePolicy-swift.property
 //
@@ -1811,7 +1769,7 @@ func (c NSCoder) AllowedClasses() INSSet {
 // # Discussion
 //
 // The meaning of this property depends on the setting of the
-// [DecodingFailurePolicy] property. For
+// [NSCoder.DecodingFailurePolicy] property. For
 // [NSDecodingFailurePolicyRaiseException], this property is always `nil`. For
 // [NSDecodingFailurePolicySetErrorAndReturn], a non-`nil` value represents
 // the first error encountered while decoding the archive.
@@ -1836,59 +1794,4 @@ func (c NSCoder) Error() INSError {
 func (c NSCoder) SystemVersion() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("systemVersion"))
 	return rv
-}
-
-// The end of the range of error codes reserved for coder errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nscodererrormaximum-swift.var
-func (c NSCoder) NSCoderErrorMaximum() int {
-	rv := objc.Send[int](c.ID, objc.Sel("NSCoderErrorMaximum"))
-	return rv
-}
-func (c NSCoder) SetNSCoderErrorMaximum(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMaximum:"), value)
-}
-
-// The start of the range of error codes reserved for coder errors.
-//
-// See: https://developer.apple.com/documentation/foundation/nscodererrorminimum-swift.var
-func (c NSCoder) NSCoderErrorMinimum() int {
-	rv := objc.Send[int](c.ID, objc.Sel("NSCoderErrorMinimum"))
-	return rv
-}
-func (c NSCoder) SetNSCoderErrorMinimum(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMinimum:"), value)
-}
-
-// Decoding failed due to corrupt data.
-//
-// See: https://developer.apple.com/documentation/foundation/nscoderreadcorrupterror-swift.var
-func (c NSCoder) NSCoderReadCorruptError() int {
-	rv := objc.Send[int](c.ID, objc.Sel("NSCoderReadCorruptError"))
-	return rv
-}
-func (c NSCoder) SetNSCoderReadCorruptError(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderReadCorruptError:"), value)
-}
-
-// The requested data wasn’t found.
-//
-// See: https://developer.apple.com/documentation/foundation/nscodervaluenotfounderror-swift.var
-func (c NSCoder) NSCoderValueNotFoundError() int {
-	rv := objc.Send[int](c.ID, objc.Sel("NSCoderValueNotFoundError"))
-	return rv
-}
-func (c NSCoder) SetNSCoderValueNotFoundError(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderValueNotFoundError:"), value)
-}
-
-// Data wasn’t valid to encode.
-//
-// See: https://developer.apple.com/documentation/foundation/nscoderinvalidvalueerror-swift.var
-func (c NSCoder) NSCoderInvalidValueError() int {
-	rv := objc.Send[int](c.ID, objc.Sel("NSCoderInvalidValueError"))
-	return rv
-}
-func (c NSCoder) SetNSCoderInvalidValueError(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderInvalidValueError:"), value)
 }

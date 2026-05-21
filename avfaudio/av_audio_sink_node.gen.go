@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -157,7 +158,7 @@ var _avaudiosinknode_initwithreceiverblock_p0_key byte
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/init(receiverBlock:)
 func (a AVAudioSinkNode) InitWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAudioSinkNode {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer) int {
-		return block(arg0, arg1, arg2)
+		return block((*coreaudiotypes.AudioTimeStamp)(arg0), arg1, (*coreaudiotypes.AudioBufferList)(arg2))
 	})
 	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), objc.ID(_block0))
 	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosinknode_initwithreceiverblock_p0_key, _block0)

@@ -163,6 +163,8 @@ type IAVCaptionRegion interface {
 
 	// Encodes the region using the specified encoder.
 	EncodeWithCoder(encoder foundation.INSCoder)
+
+	InitWithCoder(coder foundation.INSCoder) AVCaptionRegion
 }
 
 // Init initializes the instance.
@@ -184,15 +186,22 @@ func NewAVCaptionRegion() AVCaptionRegion {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/init(coder:)
+func NewCaptionRegionWithCoder(coder foundation.INSCoder) AVCaptionRegion {
+	instance := getAVCaptionRegionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVCaptionRegionFromID(rv)
+}
+
 // Encodes the region using the specified encoder.
 //
 // encoder: An encoder instance to use.
 //
 // # Discussion
 //
-// This method throws an exception if the caption region’s [Size] has
-// different units for [width] and [height], or if the units are
-// unrecognizeable.
+// This method throws an exception if the caption region’s
+// [AVCaptionRegion.Size] has different units for [width] and [height], or if
+// the units are unrecognizeable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/encode(with:)
 //
@@ -200,6 +209,12 @@ func NewAVCaptionRegion() AVCaptionRegion {
 // [width]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize/width
 func (c AVCaptionRegion) EncodeWithCoder(encoder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), encoder)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/init(coder:)
+func (c AVCaptionRegion) InitWithCoder(coder foundation.INSCoder) AVCaptionRegion {
+	rv := objc.Send[AVCaptionRegion](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // A string that identifies the region.
@@ -243,7 +258,7 @@ func (c AVCaptionRegion) Origin() AVCaptionPoint {
 // # Discussion
 //
 // CEA608 closed captions limit the [height] property’s value to 1 cell,
-// except when the value of its [Scroll] property is
+// except when the value of its [AVCaptionRegion.Scroll] property is
 // [AVCaptionRegionScrollRollUp]. In this case, the [height] property’s
 // value must be 2, 3 or 4 cells.
 //

@@ -3,6 +3,7 @@
 package gamecontroller
 
 import (
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -26,12 +27,12 @@ type GCDevicePhysicalInputState interface {
 	// The time of the most recent event.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventTimestamp
-	LastEventTimestamp() float64
+	LastEventTimestamp() foundation.NSTimeInterval
 
 	// The time in seconds between the last event and the current time.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventLatency
-	LastEventLatency() float64
+	LastEventLatency() foundation.NSTimeInterval
 
 	// The device’s elements as key-value pairs for lookup by name.
 	//
@@ -108,9 +109,9 @@ func (o GCDevicePhysicalInputStateObject) Device() GCDevice {
 // two different devices to determine which event occurs first.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventTimestamp
-func (o GCDevicePhysicalInputStateObject) LastEventTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastEventTimestamp"))
-	return float64(rv)
+func (o GCDevicePhysicalInputStateObject) LastEventTimestamp() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastEventTimestamp"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time in seconds between the last event and the current time.
@@ -123,9 +124,9 @@ func (o GCDevicePhysicalInputStateObject) LastEventTimestamp() float64 {
 // value may not be accurate.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/lastEventLatency
-func (o GCDevicePhysicalInputStateObject) LastEventLatency() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("lastEventLatency"))
-	return float64(rv)
+func (o GCDevicePhysicalInputStateObject) LastEventLatency() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](o.ID, objc.Sel("lastEventLatency"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The device’s elements as key-value pairs for lookup by name.

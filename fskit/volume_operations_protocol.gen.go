@@ -457,7 +457,8 @@ func (o FSVolumeOperationsObject) ReadSymbolicLinkReplyHandler(item IFSItem, rep
 // Fetches attributes for the given item.
 //
 // desiredAttributes: A requested set of attributes to get. The implementation inspects the
-// request’s [WantedAttributes] to determine which attributes to populate.
+// request’s [FSItemGetAttributesRequest.WantedAttributes] to determine
+// which attributes to populate.
 //
 // item: The item to get attributes for.
 //
@@ -470,8 +471,8 @@ func (o FSVolumeOperationsObject) ReadSymbolicLinkReplyHandler(item IFSItem, rep
 //
 // # Discussion
 //
-// For file systems that don’t support hard links, set [LinkCount] to `1`
-// for regular files and symbolic links.
+// For file systems that don’t support hard links, set
+// [FSItemAttributes.LinkCount] to `1` for regular files and symbolic links.
 //
 // If the item’s `bsdFlags` contain the `UF_COMPRESSED` flag, your file
 // system returns the uncompressed size of the file.
@@ -499,10 +500,10 @@ func (o FSVolumeOperationsObject) GetAttributesOfItemReplyHandler(desiredAttribu
 // Several attributes are considered “read-only”, and an attempt to set
 // these attributes results in an error with the code [EINVAL].
 //
-// A request may set [Size] beyond the end of the file. If the underlying file
-// system doesn’t support sparse files, allocate space to fill the new file
-// size. Either fill this space with zeroes, or configure it to read as
-// zeroes.
+// A request may set [FSItemAttributes.Size] beyond the end of the file. If
+// the underlying file system doesn’t support sparse files, allocate space
+// to fill the new file size. Either fill this space with zeroes, or configure
+// it to read as zeroes.
 //
 // If a request sets the file size below the current end-of-file, truncate the
 // file and return any unused space to the file system as free space.
@@ -551,7 +552,8 @@ func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes 
 //
 // # Discussion
 //
-// This method uses the [PackEntryWithNameItemTypeItemIDNextCookieAttributes]
+// This method uses the
+// [FSDirectoryEntryPacker.PackEntryWithNameItemTypeItemIDNextCookieAttributes]
 // method of the `packer` parameter to deliver the enumerated items to the
 // caller. The general flow of an enumeration implementation follows these
 // steps:

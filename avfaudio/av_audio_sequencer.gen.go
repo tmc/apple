@@ -82,8 +82,6 @@ func (ac AVAudioSequencerClass) Alloc() AVAudioSequencer {
 //
 //   - [AVAudioSequencer.BeatsForHostTimeError]: Gets the beat the system plays at the specified host time.
 //   - [AVAudioSequencer.BeatsForSeconds]: Gets the beat position (timestamp) for the specified time in the track.
-//   - [AVAudioSequencer.AVMusicTimeStampEndOfTrack]: A timestamp you use to access all events in a music track through a beat range.
-//   - [AVAudioSequencer.SetAVMusicTimeStampEndOfTrack]
 //
 // # Setting the User Callback
 //
@@ -155,8 +153,6 @@ func AVAudioSequencerFromID(id objc.ID) AVAudioSequencer {
 //
 //   - [IAVAudioSequencer.BeatsForHostTimeError]: Gets the beat the system plays at the specified host time.
 //   - [IAVAudioSequencer.BeatsForSeconds]: Gets the beat position (timestamp) for the specified time in the track.
-//   - [IAVAudioSequencer.AVMusicTimeStampEndOfTrack]: A timestamp you use to access all events in a music track through a beat range.
-//   - [IAVAudioSequencer.SetAVMusicTimeStampEndOfTrack]
 //
 // # Setting the User Callback
 //
@@ -220,17 +216,14 @@ type IAVAudioSequencer interface {
 	// Gets the host time the sequence plays at the specified position.
 	HostTimeForBeatsError(inBeats AVMusicTimeStamp) (uint64, error)
 	// Gets the time for the specified beat position (timestamp) in the track, in seconds.
-	SecondsForBeats(beats AVMusicTimeStamp) float64
+	SecondsForBeats(beats AVMusicTimeStamp) foundation.NSTimeInterval
 
 	// Topic: Handling Beat Range
 
 	// Gets the beat the system plays at the specified host time.
 	BeatsForHostTimeError(inHostTime uint64) (AVMusicTimeStamp, error)
 	// Gets the beat position (timestamp) for the specified time in the track.
-	BeatsForSeconds(seconds float64) AVMusicTimeStamp
-	// A timestamp you use to access all events in a music track through a beat range.
-	AVMusicTimeStampEndOfTrack() float64
-	SetAVMusicTimeStampEndOfTrack(value float64)
+	BeatsForSeconds(seconds foundation.NSTimeInterval) AVMusicTimeStamp
 
 	// Topic: Setting the User Callback
 
@@ -247,11 +240,11 @@ type IAVAudioSequencer interface {
 	// An array that contains all the tracks in the sequence.
 	Tracks() []AVMusicTrack
 	// The current playback position, in beats.
-	CurrentPositionInBeats() float64
-	SetCurrentPositionInBeats(value float64)
+	CurrentPositionInBeats() foundation.NSTimeInterval
+	SetCurrentPositionInBeats(value foundation.NSTimeInterval)
 	// The current playback position, in seconds.
-	CurrentPositionInSeconds() float64
-	SetCurrentPositionInSeconds(value float64)
+	CurrentPositionInSeconds() foundation.NSTimeInterval
+	SetCurrentPositionInSeconds(value foundation.NSTimeInterval)
 	// The track that contains tempo information about the sequence.
 	TempoTrack() IAVMusicTrack
 	// A dictionary that contains metadata from a sequence.
@@ -432,8 +425,8 @@ func (a AVAudioSequencer) PrepareToPlay() {
 //
 // # Discussion
 //
-// If you don’t call [PrepareToPlay], the framework calls it and then starts
-// the player.
+// If you don’t call [AVAudioSequencer.PrepareToPlay], the framework calls
+// it and then starts the player.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/start()
 func (a AVAudioSequencer) StartAndReturnError() (bool, error) {
@@ -455,9 +448,9 @@ func (a AVAudioSequencer) StartAndReturnError() (bool, error) {
 // # Discussion
 //
 // Stopping the player leaves it in an unprerolled state, but stores the
-// playback position so that a subsequent call to [StartAndReturnError]
-// resumes where it stops. This action doesn’t stop an audio engine you
-// associate with it.
+// playback position so that a subsequent call to
+// [AVAudioSequencer.StartAndReturnError] resumes where it stops. This action
+// doesn’t stop an audio engine you associate with it.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/stop()
 func (a AVAudioSequencer) Stop() {
@@ -495,9 +488,9 @@ func (a AVAudioSequencer) HostTimeForBeatsError(inBeats AVMusicTimeStamp) (uint6
 // beats: The timestamp for the beat position.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/seconds(forBeats:)
-func (a AVAudioSequencer) SecondsForBeats(beats AVMusicTimeStamp) float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("secondsForBeats:"), beats)
-	return rv
+func (a AVAudioSequencer) SecondsForBeats(beats AVMusicTimeStamp) foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("secondsForBeats:"), beats)
+	return foundation.NSTimeInterval(rv)
 }
 
 // Gets the beat the system plays at the specified host time.
@@ -530,7 +523,7 @@ func (a AVAudioSequencer) BeatsForHostTimeError(inHostTime uint64) (AVMusicTimeS
 // seconds: The time to retrieve the beat timestamp for.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/beats(forSeconds:)
-func (a AVAudioSequencer) BeatsForSeconds(seconds float64) AVMusicTimeStamp {
+func (a AVAudioSequencer) BeatsForSeconds(seconds foundation.NSTimeInterval) AVMusicTimeStamp {
 	rv := objc.Send[AVMusicTimeStamp](a.ID, objc.Sel("beatsForSeconds:"), seconds)
 	return AVMusicTimeStamp(rv)
 }
@@ -632,11 +625,11 @@ func (a AVAudioSequencer) Tracks() []AVMusicTrack {
 // in which case, playback resumes at the new position.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/currentPositionInBeats
-func (a AVAudioSequencer) CurrentPositionInBeats() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("currentPositionInBeats"))
-	return rv
+func (a AVAudioSequencer) CurrentPositionInBeats() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("currentPositionInBeats"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a AVAudioSequencer) SetCurrentPositionInBeats(value float64) {
+func (a AVAudioSequencer) SetCurrentPositionInBeats(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPositionInBeats:"), value)
 }
 
@@ -649,11 +642,11 @@ func (a AVAudioSequencer) SetCurrentPositionInBeats(value float64) {
 // case, playback resumes at the new position.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/currentPositionInSeconds
-func (a AVAudioSequencer) CurrentPositionInSeconds() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("currentPositionInSeconds"))
-	return rv
+func (a AVAudioSequencer) CurrentPositionInSeconds() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("currentPositionInSeconds"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a AVAudioSequencer) SetCurrentPositionInSeconds(value float64) {
+func (a AVAudioSequencer) SetCurrentPositionInSeconds(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPositionInSeconds:"), value)
 }
 
@@ -685,16 +678,4 @@ func (a AVAudioSequencer) TempoTrack() IAVMusicTrack {
 func (a AVAudioSequencer) UserInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("userInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// A timestamp you use to access all events in a music track through a beat
-// range.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avmusictimestampendoftrack
-func (a AVAudioSequencer) AVMusicTimeStampEndOfTrack() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("AVMusicTimeStampEndOfTrack"))
-	return rv
-}
-func (a AVAudioSequencer) SetAVMusicTimeStampEndOfTrack(value float64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAVMusicTimeStampEndOfTrack:"), value)
 }

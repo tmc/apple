@@ -233,8 +233,9 @@ func (r RelativeDateTimeFormatter) LocalizedStringFromTimeInterval(timeInterval 
 //
 // # Discussion
 //
-// Defaults to [AutoupdatingCurrentCalendar]. If you set this property to
-// `nil`, the formatter resets to using [AutoupdatingCurrentCalendar].
+// Defaults to [NSCalendarClass.AutoupdatingCurrentCalendar]. If you set this
+// property to `nil`, the formatter resets to using
+// [NSCalendarClass.AutoupdatingCurrentCalendar].
 //
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/calendar
 func (r RelativeDateTimeFormatter) Calendar() INSCalendar {
@@ -249,8 +250,9 @@ func (r RelativeDateTimeFormatter) SetCalendar(value INSCalendar) {
 //
 // # Discussion
 //
-// The default value is [AutoupdatingCurrentLocale]. If you set this property
-// to `nil`, the formatter resets to using [AutoupdatingCurrentLocale].
+// The default value is [NSLocaleClass.AutoupdatingCurrentLocale]. If you set
+// this property to `nil`, the formatter resets to using
+// [NSLocaleClass.AutoupdatingCurrentLocale].
 //
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/locale
 func (r RelativeDateTimeFormatter) Locale() INSLocale {

@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -1119,7 +1120,7 @@ func tryCMBufferQueueInstallTriggerHandler(queue CMBufferQueueRef, condition CMB
 	if _cMBufferQueueInstallTriggerHandler == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandler", "10.14.4", _cMBufferQueueInstallTriggerHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandler(queue, condition, time, triggerTokenOut, _block0), nil
@@ -1143,7 +1144,7 @@ func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQue
 	if _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandlerWithIntegerThreshold", "10.14.4", _cMBufferQueueInstallTriggerHandlerWithIntegerThresholdErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue, condition, threshold, triggerTokenOut, _block0), nil
@@ -1335,7 +1336,7 @@ func tryCMBufferQueueSetValidationHandler(queue CMBufferQueueRef, handler CMBuff
 	if _cMBufferQueueSetValidationHandler == nil {
 		return 0, symbolCallError("CMBufferQueueSetValidationHandler", "10.14.4", _cMBufferQueueSetValidationHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 unsafe.Pointer) int {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 kernel.Pointer) int {
 		return handler(blockArg0, blockArg1)
 	})
 	defer _block0Value.Release()
@@ -2615,7 +2616,7 @@ func tryCMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator cor
 	if _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateForImageBufferWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) int { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator, imageBuffer, dataReady, formatDescription, sampleTiming, sampleBufferOut, _block0), nil
@@ -2702,7 +2703,7 @@ func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CF
 	if _cMSampleBufferCreateWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) int { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, _block0), nil
@@ -3314,7 +3315,7 @@ func tryCMSampleBufferSetInvalidateHandler(sbuf CMSampleBufferRef, invalidateHan
 	if _cMSampleBufferSetInvalidateHandler == nil {
 		return 0, symbolCallError("CMSampleBufferSetInvalidateHandler", "10.10", _cMSampleBufferSetInvalidateHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { invalidateHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { invalidateHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferSetInvalidateHandler(sbuf, _block0), nil

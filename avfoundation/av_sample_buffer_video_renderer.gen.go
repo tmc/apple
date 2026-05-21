@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
@@ -128,8 +127,8 @@ type IAVSampleBufferVideoRenderer interface {
 
 	// Topic: Setting presentation time expectations
 
-	PresentationTimeExpectation() unsafe.Pointer
-	SetPresentationTimeExpectation(value unsafe.Pointer)
+	PresentationTimeExpectation() objectivec.IObject
+	SetPresentationTimeExpectation(value objectivec.IObject)
 
 	// Topic: Inspecting the status
 
@@ -324,7 +323,7 @@ func (s AVSampleBufferVideoRenderer) Timebase() coremedia.CMTimebaseRef {
 // video renderer’s status changing to
 // [AVQueuedSampleBufferRenderingStatusFailed]. To resume rendering sample
 // buffers, you must first reset the video renderer by calling [Flush] or
-// [FlushWithRemovalOfDisplayedImageCompletionHandler].
+// [AVSampleBufferVideoRenderer.FlushWithRemovalOfDisplayedImageCompletionHandler].
 //
 // This property is not key-value observable. Instead, track changes to this
 // property by observing notifications of type
@@ -339,11 +338,11 @@ func (s AVSampleBufferVideoRenderer) RequiresFlushToResumeDecoding() bool {
 }
 
 // See: https://developer.apple.com/documentation/avfoundation/avsamplebuffervideorenderer/presentationtimeexpectation-swift.property
-func (s AVSampleBufferVideoRenderer) PresentationTimeExpectation() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("presentationTimeExpectation"))
-	return rv
+func (s AVSampleBufferVideoRenderer) PresentationTimeExpectation() objectivec.IObject {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("presentationTimeExpectation"))
+	return objectivec.Object{ID: rv}
 }
-func (s AVSampleBufferVideoRenderer) SetPresentationTimeExpectation(value unsafe.Pointer) {
+func (s AVSampleBufferVideoRenderer) SetPresentationTimeExpectation(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPresentationTimeExpectation:"), value)
 }
 
@@ -353,10 +352,10 @@ func (s AVSampleBufferVideoRenderer) SetPresentationTimeExpectation(value unsafe
 // # Discussion
 //
 // If the status is [AVQueuedSampleBufferRenderingStatusFailed], check the
-// value of the [Error] property to determine the failure. To resume rendering
-// sample buffers after a failure, you must first reset the status to
-// [AVQueuedSampleBufferRenderingStatusUnknown], which you do by invoking
-// [Flush] on the video renderer.
+// value of the [AVSampleBufferVideoRenderer.Error] property to determine the
+// failure. To resume rendering sample buffers after a failure, you must first
+// reset the status to [AVQueuedSampleBufferRenderingStatusUnknown], which you
+// do by invoking [Flush] on the video renderer.
 //
 // This property is key-value observable.
 //
@@ -371,7 +370,8 @@ func (s AVSampleBufferVideoRenderer) Status() AVQueuedSampleBufferRenderingStatu
 // # Discussion
 //
 // This value is `nil` by default. It only contains a valid error object when
-// the [Status] value is [AVQueuedSampleBufferRenderingStatusFailed].
+// the [AVSampleBufferVideoRenderer.Status] value is
+// [AVQueuedSampleBufferRenderingStatusFailed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/error
 func (s AVSampleBufferVideoRenderer) Error() foundation.NSError {

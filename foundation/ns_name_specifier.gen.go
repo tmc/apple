@@ -170,8 +170,8 @@ func NewNameSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDes
 }
 
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and then
-// sets the name instance variable to `name`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and then sets the name instance variable to `name`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNameSpecifier/init(containerClassDescription:containerSpecifier:key:name:)
 func NewNameSpecifierWithContainerClassDescriptionContainerSpecifierKeyName(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, name string) NSNameSpecifier {
@@ -200,8 +200,8 @@ func NewNameSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifie
 }
 
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and then
-// sets the name instance variable to `name`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and then sets the name instance variable to `name`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNameSpecifier/init(containerClassDescription:containerSpecifier:key:name:)
 func (n NSNameSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyName(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, name string) NSNameSpecifier {

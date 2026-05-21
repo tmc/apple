@@ -66,27 +66,31 @@ func (dc DateFormatterClass) Alloc() DateFormatter {
 //
 // # Working With User-Visible Representations of Dates and Times
 //
-// When displaying a date to a user, you set the [DateStyle] and [TimeStyle]
-// properties of the date formatter according to your particular needs. For
-// example, if you want to show the month, day, and year without showing the
-// time, you would set the [DateStyle] property to [NSDateFormatterLongStyle]
-// and the [TimeStyle] property to [NSDateFormatterNoStyle]. Conversely, if
-// you want to show only the time, you would set the `dateStyle` property to
-// [NSDateFormatterNoStyle] and the [TimeStyle] property to
-// [NSDateFormatterShortStyle]. Based on the values of the [DateStyle] and
-// [TimeStyle] properties, [NSDateFormatter] provides a representation of a
-// specified date that is appropriate for a given locale.
+// When displaying a date to a user, you set the [NSDateFormatter.DateStyle]
+// and [NSDateFormatter.TimeStyle] properties of the date formatter according
+// to your particular needs. For example, if you want to show the month, day,
+// and year without showing the time, you would set the
+// [NSDateFormatter.DateStyle] property to [NSDateFormatterLongStyle] and the
+// [NSDateFormatter.TimeStyle] property to [NSDateFormatterNoStyle].
+// Conversely, if you want to show only the time, you would set the
+// `dateStyle` property to [NSDateFormatterNoStyle] and the
+// [NSDateFormatter.TimeStyle] property to [NSDateFormatterShortStyle]. Based
+// on the values of the [NSDateFormatter.DateStyle] and
+// [NSDateFormatter.TimeStyle] properties, [NSDateFormatter] provides a
+// representation of a specified date that is appropriate for a given locale.
 //
 // If you need to define a format that cannot be achieved using the predefined
-// styles, you can use the [SetLocalizedDateFormatFromTemplate] to specify a
-// localized date format from a template.
+// styles, you can use the
+// [NSDateFormatter.SetLocalizedDateFormatFromTemplate] to specify a localized
+// date format from a template.
 //
 // # Working With Fixed Format Date Representations
 //
 // When working with fixed format dates, such as RFC 3339, you set the
-// [DateFormat] property to specify a format string. For most fixed formats,
-// you should also set the [Locale] property to a POSIX locale
-// (`"en_US_POSIX"`), and set the [TimeZone] property to UTC.
+// [NSDateFormatter.DateFormat] property to specify a format string. For most
+// fixed formats, you should also set the [NSDateFormatter.Locale] property to
+// a POSIX locale (`"en_US_POSIX"`), and set the [NSDateFormatter.TimeZone]
+// property to UTC.
 //
 // For more information, see [Technical Q&A QA1480 “NSDateFormatter and
 // Internet Dates”].
@@ -516,8 +520,8 @@ func NewDateFormatterWithCoder(coder INSCoder) DateFormatter {
 //
 // # Return Value
 //
-// A date representation of `string`. If [DateFromString] can’t parse the
-// string, returns `nil`.
+// A date representation of `string`. If [NSDateFormatter.DateFromString]
+// can’t parse the string, returns `nil`.
 //
 // # Discussion
 //
@@ -598,9 +602,9 @@ func (d DateFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObjec
 // permitted in date format strings.
 //
 // Calling this method is equivalent to, but not necessarily implemented as,
-// setting the [DateFormat] property to the result of calling the
-// [DateFormatFromTemplateOptionsLocale] method, passing no options and the
-// [Locale] property value.
+// setting the [NSDateFormatter.DateFormat] property to the result of calling
+// the [NSDateFormatterClass.DateFormatFromTemplateOptionsLocale] method,
+// passing no options and the [NSDateFormatter.Locale] property value.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/setLocalizedDateFormatFromTemplate(_:)
 //
@@ -666,7 +670,7 @@ func (_DateFormatterClass DateFormatterClass) LocalizedStringFromDateDateStyleTi
 // Different locales have different conventions for the ordering of date
 // components. You use this method to get an appropriate format string for a
 // given set of components for a specified locale (typically you use the
-// current locale—see [CurrentLocale]).
+// current locale—see [NSLocaleClass.CurrentLocale]).
 //
 // The following example shows the difference between the date formats for
 // British and American English:
@@ -710,11 +714,12 @@ func (d DateFormatter) SetTimeStyle(value NSDateFormatterStyle) {
 //
 // You should only set this property when working with fixed format
 // representations, as discussed in [NSDateFormatter]. For user-visible
-// representations, you should use the [DateStyle] and [TimeStyle] properties,
-// or the [SetLocalizedDateFormatFromTemplate] method if your desired format
-// cannot be achieved using the predefined styles; both of these properties
-// and this method provide a localized date representation appropriate for
-// display to the user.
+// representations, you should use the [NSDateFormatter.DateStyle] and
+// [NSDateFormatter.TimeStyle] properties, or the
+// [NSDateFormatter.SetLocalizedDateFormatFromTemplate] method if your desired
+// format cannot be achieved using the predefined styles; both of these
+// properties and this method provide a localized date representation
+// appropriate for display to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/dateFormat
 //

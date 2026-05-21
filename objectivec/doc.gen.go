@@ -2,24 +2,23 @@
 
 // Package objectivec provides Go bindings for the ObjectiveC framework.
 //
-// Gain low-level access to the Objective-C runtime and the Objective-C root types.
+// Gain low-level access to the Objective-C runtime and the Objective-C root
+// types.
 //
-// The [Objective-C Runtime](<doc://com.apple.objectivec/documentation/ObjectiveC>) module APIs define the base of the Objective-C language. These APIs include:
+// The Objective-C Runtime module APIs define the base of the Objective-C
+// language. These APIs include:
 //
 // # Classes
 //
-//   - NSObject: The root class of most Objective-C class hierarchies, from which subclasses inherit a basic interface to the runtime system and the ability to behave as Objective-C objects.
-//   - Protocol
+//   - [NSObject]: The root class of most Objective-C class hierarchies, from which subclasses inherit a basic interface to the runtime system and the ability to behave as Objective-C objects.
 //
 // # Protocols
 //
-//   - NSObjectProtocol: The group of methods that are fundamental to all Objective-C objects.
+//   - [NSObject]: The group of methods that are fundamental to all Objective-C objects.
 //
 // # Key Types
 //
 //   - [Protocol]
-//
-// [ObjectiveC Documentation]: https://developer.apple.com/documentation/ObjectiveC
 package objectivec
 
 import (

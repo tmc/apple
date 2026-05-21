@@ -78,15 +78,6 @@ func CKNotificationIDFromID(id objc.ID) CKNotificationID {
 type ICKNotificationID interface {
 	objectivec.IObject
 
-	// The ID of the container with the content that triggers the notification.
-	ContainerIdentifier() string
-	SetContainerIdentifier(value string)
-	// The notification’s ID.
-	NotificationID() ICKNotificationID
-	SetNotificationID(value ICKNotificationID)
-	// The type of event that generates the notification.
-	NotificationType() CKNotificationType
-	SetNotificationType(value CKNotificationType)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -111,37 +102,4 @@ func NewCKNotificationID() CKNotificationID {
 
 func (c CKNotificationID) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// The ID of the container with the content that triggers the notification.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cknotification/containeridentifier
-func (c CKNotificationID) ContainerIdentifier() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("containerIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKNotificationID) SetContainerIdentifier(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContainerIdentifier:"), objc.String(value))
-}
-
-// The notification’s ID.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cknotification/notificationid
-func (c CKNotificationID) NotificationID() ICKNotificationID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("notificationID"))
-	return CKNotificationIDFromID(objc.ID(rv))
-}
-func (c CKNotificationID) SetNotificationID(value ICKNotificationID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNotificationID:"), value)
-}
-
-// The type of event that generates the notification.
-//
-// See: https://developer.apple.com/documentation/cloudkit/cknotification/notificationtype-swift.property
-func (c CKNotificationID) NotificationType() CKNotificationType {
-	rv := objc.Send[CKNotificationType](c.ID, objc.Sel("notificationType"))
-	return CKNotificationType(rv)
-}
-func (c CKNotificationID) SetNotificationType(value CKNotificationType) {
-	objc.Send[struct{}](c.ID, objc.Sel("setNotificationType:"), value)
 }

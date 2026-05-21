@@ -82,7 +82,7 @@ type IAVMetricPlayerItemLikelyToKeepUpEvent interface {
 	// Topic: Inspecting the event
 
 	LoadedTimeRanges() []foundation.NSValue
-	TimeTaken() float64
+	TimeTaken() foundation.NSTimeInterval
 	Variant() IAVAssetVariant
 }
 
@@ -105,6 +105,13 @@ func NewAVMetricPlayerItemLikelyToKeepUpEvent() AVMetricPlayerItemLikelyToKeepUp
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/init(coder:)
+func NewMetricPlayerItemLikelyToKeepUpEventWithCoder(coder foundation.INSCoder) AVMetricPlayerItemLikelyToKeepUpEvent {
+	instance := getAVMetricPlayerItemLikelyToKeepUpEventClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVMetricPlayerItemLikelyToKeepUpEventFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/loadedTimeRanges-960vi
 func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
@@ -114,9 +121,9 @@ func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.N
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/timeTaken
-func (m AVMetricPlayerItemLikelyToKeepUpEvent) TimeTaken() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("timeTaken"))
-	return rv
+func (m AVMetricPlayerItemLikelyToKeepUpEvent) TimeTaken() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("timeTaken"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/variant

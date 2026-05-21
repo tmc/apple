@@ -344,7 +344,7 @@ func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCo
 // # Discussion
 //
 // You are responsible for ensuring the source and destination textures have
-// the same [PlacementSparsePageSize].
+// the same [MTLTextureDescriptor.PlacementSparsePageSize].
 //
 // Additionally, you are responsible for ensuring that the source and
 // destination textures don’t use the same aliased tiles at the same time.
@@ -397,9 +397,9 @@ func (o MTL4CommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResi
 // You can provide a `nil` parameter to the `heap` argument only when you
 // perform unmap operations. Otherwise, you are responsible for ensuring
 // parameter `heap` references an [MTLHeap] that has a
-// [MaxCompatiblePlacementSparsePageSize] of at least the buffer’s
-// `placementSparsePageSize` you assign when creating the sparse buffer via
-// [NewBufferWithLengthOptionsPlacementSparsePageSize].
+// [MTLHeapDescriptor.MaxCompatiblePlacementSparsePageSize] of at least the
+// buffer’s `placementSparsePageSize` you assign when creating the sparse
+// buffer via [NewBufferWithLengthOptionsPlacementSparsePageSize].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/updateBufferMappings:heap:operations:count:
 //
@@ -423,8 +423,9 @@ func (o MTL4CommandQueueObject) UpdateBufferMappingsHeapOperationsCount(buffer M
 //
 // You can provide a `nil` parameter to the `heap` argument only if when you
 // perform unmap operations. Otherwise, you are responsible for ensuring the
-// heap is non-nil and has a [MaxCompatiblePlacementSparsePageSize] of at
-// least the texture’s [PlacementSparsePageSize].
+// heap is non-nil and has a
+// [MTLHeapDescriptor.MaxCompatiblePlacementSparsePageSize] of at least the
+// texture’s [MTLTextureDescriptor.PlacementSparsePageSize].
 //
 // When performing a sparse mapping update, you are responsible for issuing a
 // barrier against stage [MTLStageResourceState].

@@ -49,17 +49,19 @@ func (cc CAKeyframeAnimationClass) Alloc() CAKeyframeAnimation {
 // # Overview
 //
 // You create a [CAKeyframeAnimation] object using the inherited
-// [CAKeyframeAnimation.AnimationWithKeyPath] method, specifying the key path of the property that
-// you want to animate on the layer. You can then specify the keyframe values
-// to use to control the timing and animation behavior.
+// [CASpringAnimationClass.AnimationWithKeyPath] method, specifying the key
+// path of the property that you want to animate on the layer. You can then
+// specify the keyframe values to use to control the timing and animation
+// behavior.
 //
 // For most types of animations, you specify the keyframe values using the
-// [CAKeyframeAnimation.Values] and [CAKeyframeAnimation.KeyTimes] properties. During the animation, Core Animation
-// generates intermediate values by interpolating between the values you
-// provide. When animating a value that is a coordinate point, such as the
-// layer’s position, you can specify a [CAKeyframeAnimation.Path] for that point to follow
-// instead of individual values. The pacing of the animation is controlled by
-// the timing information you provide.
+// [CAKeyframeAnimation.Values] and [CAKeyframeAnimation.KeyTimes] properties.
+// During the animation, Core Animation generates intermediate values by
+// interpolating between the values you provide. When animating a value that
+// is a coordinate point, such as the layer’s position, you can specify a
+// [CAKeyframeAnimation.Path] for that point to follow instead of individual
+// values. The pacing of the animation is controlled by the timing information
+// you provide.
 //
 // The following code shows how to create a keyframe animation that animates a
 // layer’s background color from red to green to blue over a two second
@@ -228,17 +230,18 @@ func NewKeyframeAnimationWithKeyPath(path string) CAKeyframeAnimation {
 // The keyframe values represent the values through which the animation must
 // proceed. The time at which a given keyframe value is applied to the layer
 // depends on the animation timing, which is controlled by the
-// [CalculationMode], [KeyTimes], and [TimingFunctions] properties. Values
-// between keyframes are created using interpolation, unless the calculation
-// mode is set to [discrete].
+// [CAKeyframeAnimation.CalculationMode], [CAKeyframeAnimation.KeyTimes], and
+// [CAKeyframeAnimation.TimingFunctions] properties. Values between keyframes
+// are created using interpolation, unless the calculation mode is set to
+// [discrete].
 //
 // Depending on the type of the property, you may need to wrap the values in
 // this array with an [NSNumber] of [NSValue] object. For some Core Graphics
 // data types, you may also need to cast them to `id` before adding them to
 // the array.
 //
-// The values in this property are used only if the value in the [Path]
-// property is `nil`.
+// The values in this property are used only if the value in the
+// [CAKeyframeAnimation.Path] property is `nil`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAKeyframeAnimation/values
 //
@@ -260,7 +263,7 @@ func (k CAKeyframeAnimation) SetValues(value foundation.INSArray) {
 // For layer properties that contain a [CGPoint] data type, the path object
 // you assign to this property defines the values for that property over the
 // length of the animation. If you specify a value for this property, any data
-// in the [Values] property is ignored.
+// in the [CAKeyframeAnimation.Values] property is ignored.
 //
 // Any timing values you specify for the animation are applied to the points
 // used to create the path. Paths can contain points defining move-to,
@@ -270,12 +273,13 @@ func (k CAKeyframeAnimation) SetValues(value foundation.INSArray) {
 // define separate keyframe values.
 //
 // How the animation proceeds along the path is dependent on the value in the
-// [CalculationMode] property. To achieve a smooth, constant velocity
-// animation along the path, set the [CalculationMode] property to [paced] or
-// [cubicPaced]. To create an animation where the location value jumps from
-// keyframe point to keyframe point (without interpolation in between), use
-// the [discrete] value. To animate along the path by interpolating values
-// between points, use the [linear] value.
+// [CAKeyframeAnimation.CalculationMode] property. To achieve a smooth,
+// constant velocity animation along the path, set the
+// [CAKeyframeAnimation.CalculationMode] property to [paced] or [cubicPaced].
+// To create an animation where the location value jumps from keyframe point
+// to keyframe point (without interpolation in between), use the [discrete]
+// value. To animate along the path by interpolating values between points,
+// use the [linear] value.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAKeyframeAnimation/path
 //
@@ -302,21 +306,22 @@ func (k CAKeyframeAnimation) SetPath(value coregraphics.CGPathRef) {
 // total duration) at which to apply the corresponding keyframe value. Each
 // successive value in the array must be greater than, or equal to, the
 // previous value. Usually, the number of elements in the array should match
-// the number of elements in the [Values] property or the number of control
-// points in the [Path] property. If they do not, the timing of your animation
-// might not be what you expect.
+// the number of elements in the [CAKeyframeAnimation.Values] property or the
+// number of control points in the [CAKeyframeAnimation.Path] property. If
+// they do not, the timing of your animation might not be what you expect.
 //
 // The appropriate values to include in the array are dependent on the
-// [CalculationMode] property.
+// [CAKeyframeAnimation.CalculationMode] property.
 //
-// - If the [CalculationMode] is set to [linear] or [cubic], the first value
-// in the array must be `0.0` and the last value must be `1.0`. All
-// intermediate values represent time points between the start and end times.
-// - If the [CalculationMode] is set to [discrete], the first value in the
-// array must be `0.0` and the last value must be `1.0`. The array should have
-// one more entry than appears in the values array. For example, if there are
-// two values, there should be three key times. - If the [CalculationMode] is
-// set to [paced] or [cubicPaced], the values in this property are ignored.
+// - If the [CAKeyframeAnimation.CalculationMode] is set to [linear] or
+// [cubic], the first value in the array must be `0.0` and the last value must
+// be `1.0`. All intermediate values represent time points between the start
+// and end times. - If the [CAKeyframeAnimation.CalculationMode] is set to
+// [discrete], the first value in the array must be `0.0` and the last value
+// must be `1.0`. The array should have one more entry than appears in the
+// values array. For example, if there are two values, there should be three
+// key times. - If the [CAKeyframeAnimation.CalculationMode] is set to [paced]
+// or [cubicPaced], the values in this property are ignored.
 //
 // If the values in this array are invalid or inappropriate for the current
 // calculation mode, they are ignored.
@@ -348,15 +353,15 @@ func (k CAKeyframeAnimation) SetKeyTimes(value []foundation.NSNumber) {
 // keyframes in the values property is , then this property should contain
 // `-1` objects.
 //
-// If you provide timing information in the [KeyTimes] property, the timing
-// functions you specify using this property further modify the timing between
-// those values. If you do not assign a value to the [KeyTimes] property, the
-// timing functions modify the default timing provided by the animation
-// object.
+// If you provide timing information in the [CAKeyframeAnimation.KeyTimes]
+// property, the timing functions you specify using this property further
+// modify the timing between those values. If you do not assign a value to the
+// [CAKeyframeAnimation.KeyTimes] property, the timing functions modify the
+// default timing provided by the animation object.
 //
 // If you also specify a timing function in the animation object’s
-// [TimingFunction] property, that function is applied first followed by the
-// timing function for the specific keyframe segment.
+// [CAAnimation.TimingFunction] property, that function is applied first
+// followed by the timing function for the specific keyframe segment.
 //
 // For information on how to create a timing function, see
 // [CAMediaTimingFunction].

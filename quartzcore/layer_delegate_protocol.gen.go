@@ -43,14 +43,15 @@ func CALayerDelegateObjectFromID(id objc.ID) CALayerDelegateObject {
 // # Discussion
 //
 // The [DisplayLayer] delegate method is called when the layer is marked for
-// its content to be reloaded, typically initiated by the [SetNeedsDisplay]
-// method. The typical technique for updating is to set the layer’s
-// `contents` property.
+// its content to be reloaded, typically initiated by the
+// [CALayer.SetNeedsDisplay] method. The typical technique for updating is to
+// set the layer’s `contents` property.
 //
 // The following code shows how you can create a class named [LayerDelegate]
 // that implements [CALayerDelegate] and sets it as a layer’s (named
-// `sublayer`) delegate. When [SetNeedsDisplay] is called on `sublayer`, the
-// delegate’s [DisplayLayer] replaces its contents with a specified image.
+// `sublayer`) delegate. When [CALayer.SetNeedsDisplay] is called on
+// `sublayer`, the delegate’s [DisplayLayer] replaces its contents with a
+// specified image.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/display(_:)
 func (o CALayerDelegateObject) DisplayLayer(layer ICALayer) {
@@ -68,16 +69,17 @@ func (o CALayerDelegateObject) DisplayLayer(layer ICALayer) {
 // # Discussion
 //
 // The [DrawLayerInContext] method is called when the layer is marked for its
-// content to be reloaded, typically with the [SetNeedsDisplay] method. It is
-// not called if the delegate implements the [DisplayLayer] method. You can
-// use the context to draw vectors, such as curves and lines, or images with
-// the [draw(_:in:byTiling:)] method.
+// content to be reloaded, typically with the [CALayer.SetNeedsDisplay]
+// method. It is not called if the delegate implements the [DisplayLayer]
+// method. You can use the context to draw vectors, such as curves and lines,
+// or images with the [draw(_:in:byTiling:)] method.
 //
 // The following code shows how you can create a class named [LayerDelegate]
 // that implements [CALayerDelegate] and sets it as a layer’s (named
-// `sublayer`) delegate. When [SetNeedsDisplay] is called on `sublayer`, the
-// delegate’s [DrawLayerInContext] method draws an ellipse fitting the
-// bounding box of the layer using the [boundingBoxOfClipPath] function.
+// `sublayer`) delegate. When [CALayer.SetNeedsDisplay] is called on
+// `sublayer`, the delegate’s [DrawLayerInContext] method draws an ellipse
+// fitting the bounding box of the layer using the [boundingBoxOfClipPath]
+// function.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/draw(_:in:)
 //
@@ -95,7 +97,7 @@ func (o CALayerDelegateObject) DrawLayerInContext(layer ICALayer, ctx coregraphi
 //
 // The [LayerWillDraw] method is called before [DrawLayerInContext]. You can
 // use this method to configure any layer state affecting contents prior to
-// [DrawLayerInContext] such as [ContentsFormat] and [Opaque].
+// [DrawLayerInContext] such as [CALayer.ContentsFormat] and [CALayer.Opaque].
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/layerWillDraw(_:)
 func (o CALayerDelegateObject) LayerWillDraw(layer ICALayer) {
@@ -124,7 +126,7 @@ func (o CALayerDelegateObject) LayoutSublayersOfLayer(layer ICALayer) {
 	objc.Send[struct{}](o.ID, objc.Sel("layoutSublayersOfLayer:"), layer)
 }
 
-// Returns the default action of the [ActionForKey] method.
+// Returns the default action of the [CALayer.ActionForKey] method.
 //
 // layer: The layer that is the target of the action.
 //
@@ -139,8 +141,8 @@ func (o CALayerDelegateObject) LayoutSublayersOfLayer(layer ICALayer) {
 //
 // A layer’s delegate that implements this method returns an action for a
 // specified key and stops any further searches (i.e. actions for the same key
-// in the layer’s [Actions] dictionary or specified by [DefaultActionForKey]
-// are not returned).
+// in the layer’s [CALayer.Actions] dictionary or specified by
+// [CALayerClass.DefaultActionForKey] are not returned).
 //
 // The following code shows how you can create a class named [LayerDelegate]
 // that implements [CALayerDelegate] and sets it as a layer’s (named

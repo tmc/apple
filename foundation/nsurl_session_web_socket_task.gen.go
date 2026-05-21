@@ -54,7 +54,7 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 // You create a [NSURLSessionWebSocketTask] with either a “ or “ URL. When
 // creating the task, you can also provide a list of protocols to advertise
 // during the handshake phase. Once the handshake completes, your app receives
-// notifications through the session’s [Delegate].
+// notifications through the session’s [NSURLSession.Delegate].
 //
 // You send data with [send(_:completionHandler:)] and receive data with
 // [receive(completionHandler:)]. The task performs reads and writes
@@ -68,8 +68,8 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 // The WebSocket task calls the redirection and authentication delegate
 // methods prior to completing the handshake. The WebSocket task also supports
 // cookies, by storing cookies to the session configuration’s
-// [HTTPCookieStorage], and attaches cookies to outgoing HTTP handshake
-// requests.
+// [NSURLSessionConfiguration.HTTPCookieStorage], and attaches cookies to
+// outgoing HTTP handshake requests.
 //
 // # Sending and receiving data
 //
@@ -151,9 +151,6 @@ type IURLSessionWebSocketTask interface {
 	// A block of data that provides further information about why a connection closed.
 	CloseReason() INSData
 
-	// The cookie store for storing cookies within this session.
-	HttpCookieStorage() INSHTTPCookieStorage
-	SetHTTPCookieStorage(value INSHTTPCookieStorage)
 	// Reads a WebSocket message once all the frames of the message are available.
 	ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler)
 	// Sends a WebSocket message, receiving the result in a completion handler.
@@ -207,8 +204,8 @@ func (u URLSessionWebSocketTask) SendPingWithPongReceiveHandler(pongReceiveHandl
 //
 // # Discussion
 //
-// If you call [Cancel] on the task instead of this method, it sends a
-// cancellation frame with no close code or reason.
+// If you call [NSURLSessionTask.Cancel] on the task instead of this method,
+// it sends a cancellation frame with no close code or reason.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/cancel(with:reason:)
 //
@@ -225,8 +222,8 @@ func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessio
 //
 // # Discussion
 //
-// If the task reaches the [MaximumMessageSize] while buffering the frames,
-// this call fails with an error.
+// If the task reaches the [NSURLSessionWebSocketTask.MaximumMessageSize]
+// while buffering the frames, this call fails with an error.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/receiveMessageWithCompletionHandler:
 func (u URLSessionWebSocketTask) ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler) {
@@ -288,8 +285,9 @@ func (u URLSessionWebSocketTask) CloseCode() NSURLSessionWebSocketCloseCode {
 // # Discussion
 //
 // The close reason provides further information about why a connection
-// closed, beyond that provided by the [CloseCode]. The value of this property
-// isn’t defined by [RFC 6455]; the endpoints define how it’s used.
+// closed, beyond that provided by the [NSURLSessionWebSocketTask.CloseCode].
+// The value of this property isn’t defined by [RFC 6455]; the endpoints
+// define how it’s used.
 //
 // You can retrieve the close reason at any time. When the task is not yet
 // closed, this value is [NSURLSessionWebSocketCloseCodeInvalid].
@@ -300,17 +298,6 @@ func (u URLSessionWebSocketTask) CloseCode() NSURLSessionWebSocketCloseCode {
 func (u URLSessionWebSocketTask) CloseReason() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("closeReason"))
 	return NSDataFromID(objc.ID(rv))
-}
-
-// The cookie store for storing cookies within this session.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/httpcookiestorage
-func (u URLSessionWebSocketTask) HttpCookieStorage() INSHTTPCookieStorage {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPCookieStorage"))
-	return NSHTTPCookieStorageFromID(objc.ID(rv))
-}
-func (u URLSessionWebSocketTask) SetHTTPCookieStorage(value INSHTTPCookieStorage) {
-	objc.Send[struct{}](u.ID, objc.Sel("setHTTPCookieStorage:"), value)
 }
 
 // SendPingWithPongReceiveHandlerSync is a synchronous wrapper around [URLSessionWebSocketTask.SendPingWithPongReceiveHandler].

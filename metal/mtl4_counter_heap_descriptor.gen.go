@@ -5,7 +5,6 @@ package metal
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -90,8 +89,6 @@ type IMTL4CounterHeapDescriptor interface {
 	// Assigns the type of data that the heap contains.
 	Type() MTL4CounterHeapType
 	SetType(value MTL4CounterHeapType)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -138,10 +135,4 @@ func (m MTL4CounterHeapDescriptor) Type() MTL4CounterHeapType {
 }
 func (m MTL4CounterHeapDescriptor) SetType(value MTL4CounterHeapType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setType:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4CounterHeapDescriptor) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

@@ -415,8 +415,9 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) ConstraintsWithVisualFor
 //
 // This convenience method provides an easy way to activate a set of
 // constraints with one call. The effect of this method is the same as setting
-// the [Active] property of each constraint to true. Typically, using this
-// method is more efficient than activating each constraint individually.
+// the [NSLayoutConstraint.Active] property of each constraint to true.
+// Typically, using this method is more efficient than activating each
+// constraint individually.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/activate(_:)
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) ActivateConstraints(constraints []NSLayoutConstraint) {
@@ -431,9 +432,9 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) ActivateConstraints(cons
 //
 // This is a convenience method that provides an easy way to deactivate a set
 // of constraints with one call. The effect of this method is the same as
-// setting the [Active] property of each constraint to false. Typically, using
-// this method is more efficient than deactivating each constraint
-// individually.
+// setting the [NSLayoutConstraint.Active] property of each constraint to
+// false. Typically, using this method is more efficient than deactivating
+// each constraint individually.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/deactivate(_:)
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) DeactivateConstraints(constraints []NSLayoutConstraint) {
@@ -488,13 +489,13 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) DefaultAnimationForKey(k
 // You can activate or deactivate a constraint by changing this property. Note
 // that only active constraints affect the calculated layout. If you try to
 // activate a constraint whose items have no common ancestor, an exception is
-// thrown. For newly created constraints, the [Active] property is false by
-// default.
+// thrown. For newly created constraints, the [NSLayoutConstraint.Active]
+// property is false by default.
 //
-// Activating or deactivating the constraint calls [AddConstraint] and
-// [RemoveConstraint] on the view that is the closest common ancestor of the
-// items managed by this constraint. Use this property instead of calling
-// [AddConstraint] or [RemoveConstraint] directly.
+// Activating or deactivating the constraint calls [NSView.AddConstraint] and
+// [NSView.RemoveConstraint] on the view that is the closest common ancestor
+// of the items managed by this constraint. Use this property instead of
+// calling [NSView.AddConstraint] or [NSView.RemoveConstraint] directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/isActive
 func (l NSLayoutConstraint) IsActive() bool {
@@ -594,9 +595,9 @@ func (l NSLayoutConstraint) SecondAnchor() INSLayoutAnchor {
 // # Discussion
 //
 // By default, all constraints are required; this property is set to
-// [Required] in macOS or [UILayoutPriorityRequired] in iOS.
+// [required] in macOS or [UILayoutPriorityRequired] in iOS.
 //
-// If a constraint’s priority level is less than [Required] in macOS or
+// If a constraint’s priority level is less than [required] in macOS or
 // [UILayoutPriorityRequired] in iOS, then it is optional. Higher priority
 // constraints are satisfied before lower priority constraints; however,
 // optional constraint satisfaction is not all or nothing. If a constraint `a
@@ -604,17 +605,19 @@ func (l NSLayoutConstraint) SecondAnchor() INSLayoutAnchor {
 // minimize `abs(a-b)`.
 //
 // Priorities may not change from nonrequired to required, or from required to
-// nonrequired. An exception will be thrown if a priority of [Required] in
+// nonrequired. An exception will be thrown if a priority of [required] in
 // macOS or [UILayoutPriorityRequired] in iOS is changed to a lower priority,
 // or if a lower priority is changed to a required priority after the
 // constraints is added to a view. Changing from one optional priority to
 // another optional priority is allowed even after the constraint is installed
 // on a view.
 //
-// Priorities must be greater than 0 and less than or equal to [Required] in
+// Priorities must be greater than 0 and less than or equal to [required] in
 // macOS or [UILayoutPriorityRequired] in iOS.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/priority-swift.property
+//
+// [required]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Priority-swift.struct/required
 func (l NSLayoutConstraint) Priority() NSLayoutPriority {
 	rv := objc.Send[NSLayoutPriority](l.ID, objc.Sel("priority"))
 	return NSLayoutPriority(rv)
@@ -645,8 +648,9 @@ func (l NSLayoutConstraint) SetIdentifier(value string) {
 // # Discussion
 //
 // When a view is archived, it archives some but not all constraints in its
-// [Constraints] array. The value of [ShouldBeArchived] informs the view if a
-// particular constraint should be archived by the view.
+// [NSView.Constraints] array. The value of
+// [NSLayoutConstraint.ShouldBeArchived] informs the view if a particular
+// constraint should be archived by the view.
 //
 // If a constraint is created at runtime in response to the state of the
 // object, it isn’t appropriate to archive the constraint. Instead you

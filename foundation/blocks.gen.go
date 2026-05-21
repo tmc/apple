@@ -41,6 +41,103 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// BoolIObjectHandler handles The block to apply to elements in the array.
+//   - obj: The element in the array.
+//   - idx: The index of the element in the array.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further enumeration of the array. If a block stops further enumeration, that block continues to run until it’s finished. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//
+// Used by:
+//   - [NSArray.DifferenceFromArrayWithOptionsUsingEquivalenceTest]
+//   - [NSArray.IndexOfObjectAtIndexesOptionsPassingTest]
+//   - [NSArray.IndexOfObjectPassingTest]
+//   - [NSArray.IndexOfObjectWithOptionsPassingTest]
+//   - [NSArray.IndexesOfObjectsAtIndexesOptionsPassingTest]
+//   - [NSArray.IndexesOfObjectsPassingTest]
+//   - [NSArray.IndexesOfObjectsWithOptionsPassingTest]
+//   - [NSComparisonPredicate.PredicateWithBlock]
+//   - [NSCompoundPredicate.PredicateWithBlock]
+//   - [NSDictionary.KeysOfEntriesPassingTest]
+//   - [NSDictionary.KeysOfEntriesWithOptionsPassingTest]
+//   - [NSOrderedSet.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest]
+//   - [NSOrderedSet.IndexOfObjectAtIndexesOptionsPassingTest]
+//   - [NSOrderedSet.IndexOfObjectPassingTest]
+//   - [NSOrderedSet.IndexOfObjectWithOptionsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsAtIndexesOptionsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsWithOptionsPassingTest]
+//   - [NSPredicate.PredicateWithBlock]
+//   - [NSSet.ObjectsPassingTest]
+//   - [NSSet.ObjectsWithOptionsPassingTest]
+type BoolIObjectHandler = func(objectivec.IObject, uint, bool)
+
+// NewBoolIObjectBlock wraps a Go [BoolIObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSArray.DifferenceFromArrayWithOptionsUsingEquivalenceTest]
+//   - [NSArray.IndexOfObjectAtIndexesOptionsPassingTest]
+//   - [NSArray.IndexOfObjectPassingTest]
+//   - [NSArray.IndexOfObjectWithOptionsPassingTest]
+//   - [NSArray.IndexesOfObjectsAtIndexesOptionsPassingTest]
+//   - [NSArray.IndexesOfObjectsPassingTest]
+//   - [NSArray.IndexesOfObjectsWithOptionsPassingTest]
+//   - [NSComparisonPredicate.PredicateWithBlock]
+//   - [NSCompoundPredicate.PredicateWithBlock]
+//   - [NSDictionary.KeysOfEntriesPassingTest]
+//   - [NSDictionary.KeysOfEntriesWithOptionsPassingTest]
+//   - [NSOrderedSet.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest]
+//   - [NSOrderedSet.IndexOfObjectAtIndexesOptionsPassingTest]
+//   - [NSOrderedSet.IndexOfObjectPassingTest]
+//   - [NSOrderedSet.IndexOfObjectWithOptionsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsAtIndexesOptionsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsPassingTest]
+//   - [NSOrderedSet.IndexesOfObjectsWithOptionsPassingTest]
+//   - [NSPredicate.PredicateWithBlock]
+//   - [NSSet.ObjectsPassingTest]
+//   - [NSSet.ObjectsWithOptionsPassingTest]
+func NewBoolIObjectBlock(handler BoolIObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive objectivec.IObject, extra0 uint, extra1 bool) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// BoolUintHandler handles The Block to apply to elements in the set.
+//   - idx: The index of the object.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to YES within the Block.
+//
+// Used by:
+//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexPassingTest]
+//   - [NSIndexSet.IndexWithOptionsPassingTest]
+//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexesPassingTest]
+//   - [NSIndexSet.IndexesWithOptionsPassingTest]
+type BoolUintHandler = func(uint, bool)
+
+// NewBoolUintBlock wraps a Go [BoolUintHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexPassingTest]
+//   - [NSIndexSet.IndexWithOptionsPassingTest]
+//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexesPassingTest]
+//   - [NSIndexSet.IndexesWithOptionsPassingTest]
+func NewBoolUintBlock(handler BoolUintHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive uint, extra0 bool) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // CachedURLResponseHandler handles A completion handler that receives the cached URL response for the data task’s request, or `nil` if no response is found in the cache.
 //
 // Used by:
@@ -70,6 +167,34 @@ func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// DataBoolErrorHandler handles The completion handler to call when all bytes are read, or an error occurs.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
+type DataBoolErrorHandler = func(*NSData, bool, error)
+
+// NewDataBoolErrorBlock wraps a Go [DataBoolErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
+func NewDataBoolErrorBlock(handler DataBoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool, errID objc.ID) {
+		var result *NSData
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSDataFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0, SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // DataErrorHandler handles The handler that’s called after the data is loaded.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -81,7 +206,6 @@ func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func(
 //   - [NSMutableString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 //   - [NSString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 //   - [NSURL.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
-//   - [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
 //   - [NSUserActivity.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 type DataErrorHandler = func(*NSData, error)
 
@@ -96,7 +220,6 @@ type DataErrorHandler = func(*NSData, error)
 //   - [NSMutableString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 //   - [NSString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 //   - [NSURL.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
-//   - [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
 //   - [NSUserActivity.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
 	if handler == nil {
@@ -185,32 +308,32 @@ func NewDataURLResponseErrorBlock(handler DataURLResponseErrorHandler) (objc.ID,
 	return objc.ID(block), func() { block.Release() }
 }
 
-// DateHandler handles The block to apply to each enumerated date.
+// DateBoolBoolHandler handles The block to apply to each enumerated date.
 //   - date: The enumerated date.
 //   - idx: Whether `date` exactly matches the specified date components.
 //   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
 //
 // Used by:
 //   - [NSCalendar.EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock]
-type DateHandler = func(*NSDate)
+type DateBoolBoolHandler = func(*NSDate, bool, bool)
 
-// NewDateBlock wraps a Go [DateHandler] as an Objective-C block.
+// NewDateBoolBoolBlock wraps a Go [DateBoolBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
 //   - [NSCalendar.EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock]
-func NewDateBlock(handler DateHandler) (objc.ID, func()) {
+func NewDateBoolBoolBlock(handler DateBoolBoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool, extra1 bool) {
 		var result *NSDate
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDateFromID(resultID)
 			result = &v
 		}
-		handler(result)
+		handler(result, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -222,12 +345,6 @@ func NewDateBlock(handler DateHandler) (objc.ID, func()) {
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
-//   - [NSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]
-//   - [NSAppleEventManager.SetEventHandlerAndSelectorForEventClassAndEventID]
-//   - [NSAttributedString.LoadFromHTMLWithDataOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithFileURLOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithRequestOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithStringOptionsCompletionHandler]
 //   - [NSError.SetUserInfoValueProviderForDomainProvider]
 //   - [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor]
 //   - [NSFileCoordinator.PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor]
@@ -242,7 +359,6 @@ func NewDateBlock(handler DateHandler) (objc.ID, func()) {
 //   - [NSFilePresenter.SavePresentedItemChangesWithCompletionHandler]
 //   - [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler]
 //   - [NSItemProvider.LoadPreviewImageWithOptionsCompletionHandler]
-//   - [NSItemProvider.RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler]
 //   - [NSItemProvider.RegisterCloudKitShareWithPreparationHandler]
 //   - [NSItemProvider.RegisterDataRepresentationForContentTypeVisibilityLoadHandler]
 //   - [NSItemProvider.RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler]
@@ -250,7 +366,6 @@ func NewDateBlock(handler DateHandler) (objc.ID, func()) {
 //   - [NSItemProvider.RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler]
 //   - [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler]
 //   - [NSItemProvider.RegisterObjectOfClassVisibilityLoadHandler]
-//   - [NSProgress.AddSubscriberForFileURLWithPublishingHandler]
 //   - [NSURLSessionStreamTask.WriteDataTimeoutCompletionHandler]
 //   - [NSURLSessionWebSocketTask.SendMessageCompletionHandler]
 //   - [NSURLSessionWebSocketTask.SendPingWithPongReceiveHandler]
@@ -268,12 +383,6 @@ type ErrorHandler = func(error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [NSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]
-//   - [NSAppleEventManager.SetEventHandlerAndSelectorForEventClassAndEventID]
-//   - [NSAttributedString.LoadFromHTMLWithDataOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithFileURLOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithRequestOptionsCompletionHandler]
-//   - [NSAttributedString.LoadFromHTMLWithStringOptionsCompletionHandler]
 //   - [NSError.SetUserInfoValueProviderForDomainProvider]
 //   - [NSFileCoordinator.CoordinateAccessWithIntentsQueueByAccessor]
 //   - [NSFileCoordinator.PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor]
@@ -288,7 +397,6 @@ type ErrorHandler = func(error)
 //   - [NSFilePresenter.SavePresentedItemChangesWithCompletionHandler]
 //   - [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler]
 //   - [NSItemProvider.LoadPreviewImageWithOptionsCompletionHandler]
-//   - [NSItemProvider.RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler]
 //   - [NSItemProvider.RegisterCloudKitShareWithPreparationHandler]
 //   - [NSItemProvider.RegisterDataRepresentationForContentTypeVisibilityLoadHandler]
 //   - [NSItemProvider.RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler]
@@ -296,7 +404,6 @@ type ErrorHandler = func(error)
 //   - [NSItemProvider.RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler]
 //   - [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler]
 //   - [NSItemProvider.RegisterObjectOfClassVisibilityLoadHandler]
-//   - [NSProgress.AddSubscriberForFileURLWithPublishingHandler]
 //   - [NSURLSessionStreamTask.WriteDataTimeoutCompletionHandler]
 //   - [NSURLSessionWebSocketTask.SendMessageCompletionHandler]
 //   - [NSURLSessionWebSocketTask.SendPingWithPongReceiveHandler]
@@ -315,6 +422,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 
@@ -369,11 +477,175 @@ func NewFileVersionErrorBlock(handler FileVersionErrorHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-// IndexPathHandler is the signature for a completion handler block.
+// IObjectBoolHandler handles The block to apply to elements in the set.
+//   - obj: The element in the set.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//
+// Used by:
+//   - [NSSet.EnumerateObjectsUsingBlock]
+//   - [NSSet.EnumerateObjectsWithOptionsUsingBlock]
+type IObjectBoolHandler = func(objectivec.IObject, bool)
+
+// NewIObjectBoolBlock wraps a Go [IObjectBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSSet.EnumerateObjectsUsingBlock]
+//   - [NSSet.EnumerateObjectsWithOptionsUsingBlock]
+func NewIObjectBoolBlock(handler IObjectBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive objectivec.IObject, extra0 bool) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IObjectIObjectBoolHandler handles A block object to operate on entries in the dictionary.
+//
+// Used by:
+//   - [NSDictionary.EnumerateKeysAndObjectsUsingBlock]
+//   - [NSDictionary.EnumerateKeysAndObjectsWithOptionsUsingBlock]
+type IObjectIObjectBoolHandler = func(objectivec.IObject, objectivec.IObject, bool)
+
+// NewIObjectIObjectBoolBlock wraps a Go [IObjectIObjectBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSDictionary.EnumerateKeysAndObjectsUsingBlock]
+//   - [NSDictionary.EnumerateKeysAndObjectsWithOptionsUsingBlock]
+func NewIObjectIObjectBoolBlock(handler IObjectIObjectBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive objectivec.IObject, extra0 objectivec.IObject, extra1 bool) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IObjectIObjectHandler handles The Block is applied to the object to be evaluated.
+//   - evaluatedObject: The object to be evaluated.
+//   - expressions: An array of predicate expressions that evaluates to a collection.
+//   - context: A dictionary that the expression can use to store temporary state for one predicate evaluation.
+//
+// Used by:
+//   - [NSExpression.ExpressionForBlockArguments]
+type IObjectIObjectHandler = func(objectivec.IObject) objectivec.IObject
+
+// NewIObjectIObjectBlock wraps a Go [IObjectIObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSExpression.ExpressionForBlockArguments]
+func NewIObjectIObjectBlock(handler IObjectIObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, valID objc.ID) objectivec.IObject {
+		var val objectivec.IObject
+		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(valID)
+			val = &obj
+		}
+		return handler(val)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IObjectNSRangeBoolHandler handles A closure or block to apply to ranges of the specified attribute in the attributed string, taking three arguments:
+//
+// Used by:
+//   - [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]
+type IObjectNSRangeBoolHandler = func(objectivec.IObject, NSRange, bool)
+
+// NewIObjectNSRangeBoolBlock wraps a Go [IObjectNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]
+func NewIObjectNSRangeBoolBlock(handler IObjectNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, extra0 NSRange, extra1 bool) {
+		var primitive objectivec.IObject
+		if primitiveID != 0 {
+			objc.Send[objc.ID](primitiveID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(primitiveID)
+			primitive = &obj
+		}
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IObjectUintBoolHandler handles A closure or block to execute for each object in the array, taking three arguments:
+//   - obj: The element in the array.
+//   - idx: The index of the element in the array.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further enumeration of the array. If a block stops further enumeration, that block continues to run until it’s finished. When the [NSEnumerationConcurrent] enumeration option is specified, enumeration stops after all of the currently running blocks finish. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//
+// Used by:
+//   - [NSArray.EnumerateObjectsAtIndexesOptionsUsingBlock]
+//   - [NSArray.EnumerateObjectsUsingBlock]
+//   - [NSArray.EnumerateObjectsWithOptionsUsingBlock]
+//   - [NSMetadataQuery.EnumerateResultsUsingBlock]
+//   - [NSMetadataQuery.EnumerateResultsWithOptionsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsAtIndexesOptionsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsWithOptionsUsingBlock]
+type IObjectUintBoolHandler = func(objectivec.IObject, uint, bool)
+
+// NewIObjectUintBoolBlock wraps a Go [IObjectUintBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSArray.EnumerateObjectsAtIndexesOptionsUsingBlock]
+//   - [NSArray.EnumerateObjectsUsingBlock]
+//   - [NSArray.EnumerateObjectsWithOptionsUsingBlock]
+//   - [NSMetadataQuery.EnumerateResultsUsingBlock]
+//   - [NSMetadataQuery.EnumerateResultsWithOptionsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsAtIndexesOptionsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsUsingBlock]
+//   - [NSOrderedSet.EnumerateObjectsWithOptionsUsingBlock]
+func NewIObjectUintBoolBlock(handler IObjectUintBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive objectivec.IObject, extra0 uint, extra1 bool) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// IndexPathBoolHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
-type IndexPathHandler = func(*objc.ID)
+type IndexPathBoolHandler = func(*objectivec.Object, bool)
+
+// NewIndexPathBoolBlock wraps a Go [IndexPathBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
+func NewIndexPathBoolBlock(handler IndexPathBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool) {
+		var result *objectivec.Object
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := objectivec.ObjectFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // InputStreamHandler handles A completion handler that your delegate method should call with the new body stream.
 //
@@ -438,104 +710,71 @@ func NewInputStreamOutputStreamErrorBlock(handler InputStreamOutputStreamErrorHa
 	return objc.ID(block), func() { block.Release() }
 }
 
-// KeyTypeHandler handles A block object to operate on entries in the dictionary.
-//
-// Used by:
-//   - [NSDictionary.EnumerateKeysAndObjectsUsingBlock]
-//   - [NSDictionary.EnumerateKeysAndObjectsWithOptionsUsingBlock]
-//   - [NSDictionary.KeysOfEntriesPassingTest]
-//   - [NSDictionary.KeysOfEntriesWithOptionsPassingTest]
-type KeyTypeHandler = func(objectivec.IObject)
-
-// NewKeyTypeBlock wraps a Go [KeyTypeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSDictionary.EnumerateKeysAndObjectsUsingBlock]
-//   - [NSDictionary.EnumerateKeysAndObjectsWithOptionsUsingBlock]
-//   - [NSDictionary.KeysOfEntriesPassingTest]
-//   - [NSDictionary.KeysOfEntriesWithOptionsPassingTest]
-func NewKeyTypeBlock(handler KeyTypeHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// MatchingFlagsHandler handles The Block enumerates the matches of the regular expression in the string.
-//   - result: An [NSTextCheckingResult](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult>) specifying the match. This result gives the overall matched range via its [range](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range>) property, and the range of each individual capture group via its [range(at:)](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range(at:)>) method. The range {[NSNotFound], 0} is returned if one of the capture groups did not participate in this particular match.
-//   - flags: The current state of the matching progress. See [NSRegularExpression.MatchingFlags](<doc://com.apple.foundation/documentation/Foundation/NSRegularExpression/MatchingFlags>) for the possible values.
-//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
-//
-// Used by:
-//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
-type MatchingFlagsHandler = func(*NSTextCheckingResult)
-
-// NewMatchingFlagsBlock wraps a Go [MatchingFlagsHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
-func NewMatchingFlagsBlock(handler MatchingFlagsHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *NSTextCheckingResult
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSTextCheckingResultFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// NSExpressionArrayHandler handles The Block is applied to the object to be evaluated.
-//   - evaluatedObject: The object to be evaluated.
-//   - expressions: An array of predicate expressions that evaluates to a collection.
-//   - context: A dictionary that the expression can use to store temporary state for one predicate evaluation.
-//
-// Used by:
-//   - [NSExpression.ExpressionForBlockArguments]
-type NSExpressionArrayHandler = func(objectivec.IObject)
-
-// NewNSExpressionArrayBlock wraps a Go [NSExpressionArrayHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSExpression.ExpressionForBlockArguments]
-func NewNSExpressionArrayBlock(handler NSExpressionArrayHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
-		var val objectivec.IObject
-		if valID != 0 {
-			objc.Send[objc.ID](valID, objc.Sel("retain"))
-			obj := objectivec.ObjectFromID(valID)
-			val = &obj
-		}
-		handler(val)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // NSFileVersionArrayErrorHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [NSFileVersion.GetNonlocalVersionsOfItemAtURLCompletionHandler]
 type NSFileVersionArrayErrorHandler = func(*[]NSFileVersion, error)
 
+// NewNSFileVersionArrayErrorBlock wraps a Go [NSFileVersionArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSFileVersion.GetNonlocalVersionsOfItemAtURLCompletionHandler]
+func NewNSFileVersionArrayErrorBlock(handler NSFileVersionArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]NSFileVersion
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]NSFileVersion, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = NSFileVersionFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSHTTPCookieArrayHandler handles A completion handler that receives an array of cookies as its argument.
 //
 // Used by:
 //   - [NSHTTPCookieStorage.GetCookiesForTaskCompletionHandler]
 type NSHTTPCookieArrayHandler = func(*[]NSHTTPCookie)
+
+// NewNSHTTPCookieArrayBlock wraps a Go [NSHTTPCookieArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSHTTPCookieStorage.GetCookiesForTaskCompletionHandler]
+func NewNSHTTPCookieArrayBlock(handler NSHTTPCookieArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]NSHTTPCookie
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]NSHTTPCookie, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = NSHTTPCookieFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // NSItemProviderReadingErrorHandler is the signature for a completion handler block.
 //
@@ -563,11 +802,178 @@ func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSRangeBoolHandler handles The block to apply to elements in the index set.
+//   - range: The range of elements.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+//
+// Used by:
+//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesUsingBlock]
+//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
+type NSRangeBoolHandler = func(NSRange, bool)
+
+// NewNSRangeBoolBlock wraps a Go [NSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesUsingBlock]
+//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
+func NewNSRangeBoolBlock(handler NSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSRange, extra0 bool) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSURLSessionAuthChallengeDispositionURLCredentialHandler handles A handler that your delegate method must call.
+//
+// Used by:
+//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
+//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
+type NSURLSessionAuthChallengeDispositionURLCredentialHandler = func(NSURLSessionAuthChallengeDisposition, *NSURLCredential)
+
+// NewNSURLSessionAuthChallengeDispositionURLCredentialBlock wraps a Go [NSURLSessionAuthChallengeDispositionURLCredentialHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
+//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
+func NewNSURLSessionAuthChallengeDispositionURLCredentialBlock(handler NSURLSessionAuthChallengeDispositionURLCredentialHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSURLSessionAuthChallengeDisposition, extra0ID objc.ID) {
+		var extra0 *NSURLCredential
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := NSURLCredentialFromID(extra0ID)
+			extra0 = &v
+		}
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler handles The completion handler to call with the list of tasks.
+//
+// Used by:
+//   - [NSURLSession.GetTasksWithCompletionHandler]
+type NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler = func(*[]NSURLSessionDataTask, *[]NSURLSessionUploadTask, *[]NSURLSessionDownloadTask)
+
+// NewNSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayBlock wraps a Go [NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSURLSession.GetTasksWithCompletionHandler]
+func NewNSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayBlock(handler NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID) {
+		var result *[]NSURLSessionDataTask
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]NSURLSessionDataTask, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = NSURLSessionDataTaskFromID(item.GetID())
+			}
+			result = &res
+		}
+		var extra0 *[]NSURLSessionUploadTask
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			obj := NSArrayFromID(extra0ID)
+			count := obj.Count()
+			res := make([]NSURLSessionUploadTask, count)
+			for j := uint(0); j < count; j++ {
+				item := obj.ObjectAtIndex(j)
+				res[j] = NSURLSessionUploadTaskFromID(item.GetID())
+			}
+			extra0 = &res
+		}
+		var extra1 *[]NSURLSessionDownloadTask
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			obj := NSArrayFromID(extra1ID)
+			count := obj.Count()
+			res := make([]NSURLSessionDownloadTask, count)
+			for j := uint(0); j < count; j++ {
+				item := obj.ObjectAtIndex(j)
+				res[j] = NSURLSessionDownloadTaskFromID(item.GetID())
+			}
+			extra1 = &res
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSURLSessionDelayedRequestDispositionURLRequestHandler handles A completion handler to perform the request.
+//
+// Used by:
+//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
+type NSURLSessionDelayedRequestDispositionURLRequestHandler = func(NSURLSessionDelayedRequestDisposition, *NSURLRequest)
+
+// NewNSURLSessionDelayedRequestDispositionURLRequestBlock wraps a Go [NSURLSessionDelayedRequestDispositionURLRequestHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
+func NewNSURLSessionDelayedRequestDispositionURLRequestBlock(handler NSURLSessionDelayedRequestDispositionURLRequestHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSURLSessionDelayedRequestDisposition, extra0ID objc.ID) {
+		var extra0 *NSURLRequest
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := NSURLRequestFromID(extra0ID)
+			extra0 = &v
+		}
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSURLSessionTaskArrayHandler handles The completion handler to call with the list of tasks.
 //
 // Used by:
 //   - [NSURLSession.GetAllTasksWithCompletionHandler]
 type NSURLSessionTaskArrayHandler = func(*[]NSURLSessionTask)
+
+// NewNSURLSessionTaskArrayBlock wraps a Go [NSURLSessionTaskArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSURLSession.GetAllTasksWithCompletionHandler]
+func NewNSURLSessionTaskArrayBlock(handler NSURLSessionTaskArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]NSURLSessionTask
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]NSURLSessionTask, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = NSURLSessionTaskFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // NotificationHandler handles The block that executes when receiving a notification.
 //
@@ -596,12 +1002,9 @@ func NewNotificationBlock(handler NotificationHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// ObjectHandler handles A closure or block to apply to ranges of the specified attribute in the attributed string, taking three arguments:
+// ObjectHandler handles A block to be executed when an operation is undone.
 //
 // Used by:
-//   - [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]
-//   - [NSMetadataQuery.EnumerateResultsUsingBlock]
-//   - [NSMetadataQuery.EnumerateResultsWithOptionsUsingBlock]
 //   - [NSUndoManager.RegisterUndoWithTargetHandler]
 type ObjectHandler = func(objectivec.IObject)
 
@@ -609,9 +1012,6 @@ type ObjectHandler = func(objectivec.IObject)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]
-//   - [NSMetadataQuery.EnumerateResultsUsingBlock]
-//   - [NSMetadataQuery.EnumerateResultsWithOptionsUsingBlock]
 //   - [NSUndoManager.RegisterUndoWithTargetHandler]
 func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	if handler == nil {
@@ -629,122 +1029,13 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// ObjectTypeHandler handles The block to apply to elements in the array.
-//   - obj: The element in the array.
-//   - idx: The index of the element in the array.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further enumeration of the array. If a block stops further enumeration, that block continues to run until it’s finished. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
-//
-// Used by:
-//   - [NSArray.DifferenceFromArrayWithOptionsUsingEquivalenceTest]
-//   - [NSArray.EnumerateObjectsAtIndexesOptionsUsingBlock]
-//   - [NSArray.EnumerateObjectsUsingBlock]
-//   - [NSArray.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSArray.IndexOfObjectAtIndexesOptionsPassingTest]
-//   - [NSArray.IndexOfObjectPassingTest]
-//   - [NSArray.IndexOfObjectWithOptionsPassingTest]
-//   - [NSArray.IndexesOfObjectsAtIndexesOptionsPassingTest]
-//   - [NSArray.IndexesOfObjectsPassingTest]
-//   - [NSArray.IndexesOfObjectsWithOptionsPassingTest]
-//   - [NSOrderedSet.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest]
-//   - [NSOrderedSet.EnumerateObjectsAtIndexesOptionsUsingBlock]
-//   - [NSOrderedSet.EnumerateObjectsUsingBlock]
-//   - [NSOrderedSet.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSOrderedSet.IndexOfObjectAtIndexesOptionsPassingTest]
-//   - [NSOrderedSet.IndexOfObjectPassingTest]
-//   - [NSOrderedSet.IndexOfObjectWithOptionsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsAtIndexesOptionsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsWithOptionsPassingTest]
-//   - [NSSet.EnumerateObjectsUsingBlock]
-//   - [NSSet.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSSet.ObjectsPassingTest]
-//   - [NSSet.ObjectsWithOptionsPassingTest]
-type ObjectTypeHandler = func(objectivec.IObject)
-
-// NewObjectTypeBlock wraps a Go [ObjectTypeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSArray.DifferenceFromArrayWithOptionsUsingEquivalenceTest]
-//   - [NSArray.EnumerateObjectsAtIndexesOptionsUsingBlock]
-//   - [NSArray.EnumerateObjectsUsingBlock]
-//   - [NSArray.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSArray.IndexOfObjectAtIndexesOptionsPassingTest]
-//   - [NSArray.IndexOfObjectPassingTest]
-//   - [NSArray.IndexOfObjectWithOptionsPassingTest]
-//   - [NSArray.IndexesOfObjectsAtIndexesOptionsPassingTest]
-//   - [NSArray.IndexesOfObjectsPassingTest]
-//   - [NSArray.IndexesOfObjectsWithOptionsPassingTest]
-//   - [NSOrderedSet.DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest]
-//   - [NSOrderedSet.EnumerateObjectsAtIndexesOptionsUsingBlock]
-//   - [NSOrderedSet.EnumerateObjectsUsingBlock]
-//   - [NSOrderedSet.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSOrderedSet.IndexOfObjectAtIndexesOptionsPassingTest]
-//   - [NSOrderedSet.IndexOfObjectPassingTest]
-//   - [NSOrderedSet.IndexOfObjectWithOptionsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsAtIndexesOptionsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsPassingTest]
-//   - [NSOrderedSet.IndexesOfObjectsWithOptionsPassingTest]
-//   - [NSSet.EnumerateObjectsUsingBlock]
-//   - [NSSet.EnumerateObjectsWithOptionsUsingBlock]
-//   - [NSSet.ObjectsPassingTest]
-//   - [NSSet.ObjectsWithOptionsPassingTest]
-func NewObjectTypeBlock(handler ObjectTypeHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// RangeHandler handles The block to apply to elements in the index set.
-//   - range: The range of elements.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
-//
-// Used by:
-//   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]
-//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
-//   - [NSIndexSet.EnumerateRangesUsingBlock]
-//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-//   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
-//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
-type RangeHandler = func(NSRange)
-
-// NewRangeBlock wraps a Go [RangeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]
-//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
-//   - [NSIndexSet.EnumerateRangesUsingBlock]
-//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
-//   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-//   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
-//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
-func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal NSRange) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// StringHandler handles The block executed for the enumeration.
+// StringBoolHandler handles The block executed for the enumeration.
 //   - line: The current line of the string being enumerated. The line contains just the contents of the line, without the line terminators. See [getLineStart(_:end:contentsEnd:for:)](<doc://com.apple.foundation/documentation/Foundation/NSString/getLineStart(_:end:contentsEnd:for:)>) for a discussion of line terminators.
 //   - stop: A reference to a Boolean value that the block can use to stop the enumeration by setting `*stop = YES`; it should not touch `*stop` otherwise.
 //
 // Used by:
 //   - [NSString.EnumerateLinesUsingBlock]
-type StringHandler = func(*string)
+type StringBoolHandler = func(*string, *bool)
 
 // StringNSFileProviderServiceDictionaryErrorHandler handles A block that is called on an anonymous background queue.
 //
@@ -752,21 +1043,39 @@ type StringHandler = func(*string)
 //   - [NSFileManager.GetFileProviderServicesForItemAtURLCompletionHandler]
 type StringNSFileProviderServiceDictionaryErrorHandler = func(*INSDictionary, error)
 
+// StringNSRangeBoolHandler handles The block to apply to ranges of the string.
+//   - tag: The located linguistic tag.
+//   - tokenRange: The range of the linguistic tag.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//
+// Used by:
+//   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
+//   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
+type StringNSRangeBoolHandler = func(*string, *NSRange, *bool)
+
+// StringNSRangeNSRangeBoolHandler handles The block to apply to ranges of the string.
+//   - tag: The located linguistic tag.
+//   - tokenRange: The range of the linguistic tag.
+//   - sentenceRange: The range of the sentence in which the tag occurs.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//
+// Used by:
+//   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
+//   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
+//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
+type StringNSRangeNSRangeBoolHandler = func(*string, *NSRange, *NSRange, *bool)
+
 // StringNSURLCredentialDictionaryHandler handles A completion handler that receives a single argument with the credentials for the specified protection space and task.
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetCredentialsForProtectionSpaceTaskCompletionHandler]
 type StringNSURLCredentialDictionaryHandler = func(*INSDictionary)
 
-// StringidDictionaryHandler handles The block is applied to the object to be evaluated.
-//   - evaluatedObject: The object to be evaluated.
-//   - bindings: The substitution variables dictionary. The dictionary must contain key-value pairs for all variables in the receiver.
+// StringidDictionaryNSRangeBoolHandler handles The closure or block to apply to ranges of attributes in the attributed string, taking three arguments:
 //
 // Used by:
-//   - [NSComparisonPredicate.PredicateWithBlock]
-//   - [NSCompoundPredicate.PredicateWithBlock]
-//   - [NSPredicate.PredicateWithBlock]
-type StringidDictionaryHandler = func(*INSDictionary)
+//   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]
+type StringidDictionaryNSRangeBoolHandler = func(*INSDictionary, *NSRange, *bool)
 
 // TaskHandler handles The system invokes this completion block when the task has completed.
 //
@@ -791,6 +1100,36 @@ func NewTaskBlock(handler TaskHandler) (objc.ID, func()) {
 			result = &v
 		}
 		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// TextCheckingResultNSMatchingFlagsBoolHandler handles The Block enumerates the matches of the regular expression in the string.
+//   - result: An [NSTextCheckingResult](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult>) specifying the match. This result gives the overall matched range via its [range](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range>) property, and the range of each individual capture group via its [range(at:)](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range(at:)>) method. The range {[NSNotFound], 0} is returned if one of the capture groups did not participate in this particular match.
+//   - flags: The current state of the matching progress. See [NSRegularExpression.MatchingFlags](<doc://com.apple.foundation/documentation/Foundation/NSRegularExpression/MatchingFlags>) for the possible values.
+//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+//
+// Used by:
+//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
+type TextCheckingResultNSMatchingFlagsBoolHandler = func(*NSTextCheckingResult, NSMatchingFlags, bool)
+
+// NewTextCheckingResultNSMatchingFlagsBoolBlock wraps a Go [TextCheckingResultNSMatchingFlagsBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
+func NewTextCheckingResultNSMatchingFlagsBoolBlock(handler TextCheckingResultNSMatchingFlagsBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 NSMatchingFlags, extra1 bool) {
+		var result *NSTextCheckingResult
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTextCheckingResultFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -826,12 +1165,39 @@ func NewTimerBlock(handler TimerHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// URLBoolErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSItemProvider.LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler]
+//   - [NSItemProvider.LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler]
+type URLBoolErrorHandler = func(*NSURL, bool, error)
+
+// NewURLBoolErrorBlock wraps a Go [URLBoolErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSItemProvider.LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler]
+//   - [NSItemProvider.LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler]
+func NewURLBoolErrorBlock(handler URLBoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool, errID objc.ID) {
+		var result *NSURL
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSURLFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0, SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // URLCredentialHandler handles A completion handler that receives the default credential as its argument, or `nil` if there is no default credential for this combination of protection space and task.
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetDefaultCredentialForProtectionSpaceTaskCompletionHandler]
-//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
-//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
 type URLCredentialHandler = func(*NSURLCredential)
 
 // NewURLCredentialBlock wraps a Go [URLCredentialHandler] as an Objective-C block.
@@ -839,8 +1205,6 @@ type URLCredentialHandler = func(*NSURLCredential)
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetDefaultCredentialForProtectionSpaceTaskCompletionHandler]
-//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
-//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
 func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -865,9 +1229,7 @@ func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
-//   - [NSItemProvider.LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler]
 //   - [NSItemProvider.LoadFileRepresentationForTypeIdentifierCompletionHandler]
-//   - [NSItemProvider.LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler]
 type URLErrorHandler = func(*NSURL, error)
 
 // NewURLErrorBlock wraps a Go [URLErrorHandler] as an Objective-C block.
@@ -875,9 +1237,7 @@ type URLErrorHandler = func(*NSURL, error)
 //
 // Used by:
 //   - [NSFileManager.EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
-//   - [NSItemProvider.LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler]
 //   - [NSItemProvider.LoadFileRepresentationForTypeIdentifierCompletionHandler]
-//   - [NSItemProvider.LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler]
 func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -926,7 +1286,6 @@ func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 // URLRequestHandler handles A block that your handler should call with either the value of the `request` parameter, a modified URL request object, or [NULL] to refuse the redirect and return the body of the redirect response.
 //
 // Used by:
-//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler]
 type URLRequestHandler = func(*NSURLRequest)
 
@@ -934,7 +1293,6 @@ type URLRequestHandler = func(*NSURLRequest)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler]
 func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
 	if handler == nil {
@@ -1074,7 +1432,7 @@ func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, f
 	return objc.ID(block), func() { block.Release() }
 }
 
-// UintHandler handles The Block to apply to elements in the set.
+// UintBoolHandler handles The Block to apply to elements in the set.
 //   - idx: The index of the object.
 //   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to YES within the Block.
 //
@@ -1082,33 +1440,45 @@ func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, f
 //   - [NSIndexSet.EnumerateIndexesInRangeOptionsUsingBlock]
 //   - [NSIndexSet.EnumerateIndexesUsingBlock]
 //   - [NSIndexSet.EnumerateIndexesWithOptionsUsingBlock]
-//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
-//   - [NSIndexSet.IndexPassingTest]
-//   - [NSIndexSet.IndexWithOptionsPassingTest]
-//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
-//   - [NSIndexSet.IndexesPassingTest]
-//   - [NSIndexSet.IndexesWithOptionsPassingTest]
-type UintHandler = func(uint)
+type UintBoolHandler = func(uint, bool)
 
-// NewUintBlock wraps a Go [UintHandler] as an Objective-C block.
+// NewUintBoolBlock wraps a Go [UintBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
 //   - [NSIndexSet.EnumerateIndexesInRangeOptionsUsingBlock]
 //   - [NSIndexSet.EnumerateIndexesUsingBlock]
 //   - [NSIndexSet.EnumerateIndexesWithOptionsUsingBlock]
-//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
-//   - [NSIndexSet.IndexPassingTest]
-//   - [NSIndexSet.IndexWithOptionsPassingTest]
-//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
-//   - [NSIndexSet.IndexesPassingTest]
-//   - [NSIndexSet.IndexesWithOptionsPassingTest]
-func NewUintBlock(handler UintHandler) (objc.ID, func()) {
+func NewUintBoolBlock(handler UintBoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal uint) {
-		handler(primitiveVal)
+	block := objc.NewBlock(func(b objc.Block, primitive uint, extra0 bool) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// UnsafePointerNSRangeBoolHandler handles The block to apply to byte ranges in the array.
+//   - bytes: The bytes for the current range. This pointer is valid until the data object is deallocated.
+//   - byteRange: The range of the current data bytes.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the data. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+//
+// Used by:
+//   - [NSData.EnumerateByteRangesUsingBlock]
+type UnsafePointerNSRangeBoolHandler = func(unsafe.Pointer, NSRange, bool)
+
+// NewUnsafePointerNSRangeBoolBlock wraps a Go [UnsafePointerNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSData.EnumerateByteRangesUsingBlock]
+func NewUnsafePointerNSRangeBoolBlock(handler UnsafePointerNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive unsafe.Pointer, extra0 NSRange, extra1 bool) {
+		handler(primitive, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -1128,7 +1498,6 @@ func NewUintBlock(handler UintHandler) (objc.ID, func()) {
 //   - [NSThread.DetachNewThreadWithBlock]
 //   - [NSThread.InitWithBlock]
 //   - [NSURLSession.FlushWithCompletionHandler]
-//   - [NSURLSession.GetTasksWithCompletionHandler]
 //   - [NSURLSession.ResetWithCompletionHandler]
 //   - [NSUserActivity.DeleteAllSavedUserActivitiesWithCompletionHandler]
 //   - [NSUserActivity.DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler]
@@ -1151,7 +1520,6 @@ type VoidHandler = func()
 //   - [NSThread.DetachNewThreadWithBlock]
 //   - [NSThread.InitWithBlock]
 //   - [NSURLSession.FlushWithCompletionHandler]
-//   - [NSURLSession.GetTasksWithCompletionHandler]
 //   - [NSURLSession.ResetWithCompletionHandler]
 //   - [NSUserActivity.DeleteAllSavedUserActivitiesWithCompletionHandler]
 //   - [NSUserActivity.DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler]
@@ -1194,27 +1562,6 @@ func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, fun
 	return objc.ID(block), func() { block.Release() }
 }
 
-// constvoidHandler handles The block to receive the buffer pointer and its size in bytes.
-//
-// Used by:
-//   - [NSData.EnumerateByteRangesUsingBlock]
-type constvoidHandler = func(unsafe.Pointer, int64)
-
-// NewconstvoidBlock wraps a Go [constvoidHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSData.EnumerateByteRangesUsingBlock]
-func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, bytes unsafe.Pointer, size int64) {
-		handler(bytes, size)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // idOrderedCollectionChangeHandler handles A block receives an ordered collection change and returns an updated change.
 //
 // Used by:
@@ -1242,11 +1589,11 @@ func NewidOrderedCollectionChangeBlock(handler idOrderedCollectionChangeHandler)
 	return objc.ID(block), func() { block.Release() }
 }
 
-// unsignedshortHandler is the signature for a completion handler block.
+// unsignedshortUintHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [NSConstantString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSMutableString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSSimpleCString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSString.InitWithCharactersNoCopyLengthDeallocator]
-type unsignedshortHandler = func(*uint16)
+type unsignedshortUintHandler = func(*uint16, *uint)

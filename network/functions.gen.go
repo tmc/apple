@@ -10,6 +10,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/security"
@@ -3435,7 +3436,7 @@ func tryNWFramerMessageSetValue(message NWFramerMessage, key string, value unsaf
 	if _nWFramerMessageSetValue == nil {
 		return symbolCallError("nw_framer_message_set_value", "10.15", _nWFramerMessageSetValueErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { dispose_value(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { dispose_value(blockArg0) })
 	retainNetworkAsyncBlock(message.ID, "nw_framer_message_set_value:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nWFramerMessageSetValue(message, key, value, _block0)

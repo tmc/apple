@@ -98,6 +98,7 @@ type INSTintConfiguration interface {
 	// A color object that matches the effective content tint.
 	EquivalentContentTintColor() INSColor
 
+	InitWithCoder(coder foundation.INSCoder) NSTintConfiguration
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -118,6 +119,13 @@ func NewNSTintConfiguration() NSTintConfiguration {
 	class := getNSTintConfigurationClass()
 	rv := objc.Send[NSTintConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTintConfiguration/init(coder:)
+func NewTintConfigurationWithCoder(coder foundation.INSCoder) NSTintConfiguration {
+	instance := getNSTintConfigurationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTintConfigurationFromID(rv)
 }
 
 // Creates a new tint configuration using a specific color value.
@@ -149,6 +157,11 @@ func NewTintConfigurationWithPreferredColor(color INSColor) NSTintConfiguration 
 	return NSTintConfigurationFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSTintConfiguration/init(coder:)
+func (t NSTintConfiguration) InitWithCoder(coder foundation.INSCoder) NSTintConfiguration {
+	rv := objc.Send[NSTintConfiguration](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (t NSTintConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }

@@ -49,11 +49,6 @@ func (gc GCRacingWheelClass) Alloc() GCRacingWheel {
 // An object that represents a physical racing wheel controller connected to a
 // device.
 //
-// # Discovering racing wheels
-//
-//   - [GCRacingWheel.GCRacingWheelDidConnect]: A notification that posts after a racing wheel controller connects to the device.
-//   - [GCRacingWheel.GCRacingWheelDidDisconnect]: A notification that posts after a racing wheel controller disconnects from the device.
-//
 // # Getting events
 //
 //   - [GCRacingWheel.AcquireDeviceWithError]: Starts receiving events from the racing wheel.
@@ -87,11 +82,6 @@ func GCRacingWheelFromID(id objc.ID) GCRacingWheel {
 
 // An interface definition for the [GCRacingWheel] class.
 //
-// # Discovering racing wheels
-//
-//   - [IGCRacingWheel.GCRacingWheelDidConnect]: A notification that posts after a racing wheel controller connects to the device.
-//   - [IGCRacingWheel.GCRacingWheelDidDisconnect]: A notification that posts after a racing wheel controller disconnects from the device.
-//
 // # Getting events
 //
 //   - [IGCRacingWheel.AcquireDeviceWithError]: Starts receiving events from the racing wheel.
@@ -110,13 +100,6 @@ func GCRacingWheelFromID(id objc.ID) GCRacingWheel {
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel
 type IGCRacingWheel interface {
 	objectivec.IObject
-
-	// Topic: Discovering racing wheels
-
-	// A notification that posts after a racing wheel controller connects to the device.
-	GCRacingWheelDidConnect() foundation.NSString
-	// A notification that posts after a racing wheel controller disconnects from the device.
-	GCRacingWheelDidDisconnect() foundation.NSString
 
 	// Topic: Getting events
 
@@ -234,24 +217,6 @@ func (g GCRacingWheel) ProductCategory() string {
 func (g GCRacingWheel) VendorName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// A notification that posts after a racing wheel controller connects to the
-// device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCRacingWheelDidConnect
-func (g GCRacingWheel) GCRacingWheelDidConnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCRacingWheelDidConnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification that posts after a racing wheel controller disconnects from
-// the device.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/GCRacingWheelDidDisconnect
-func (g GCRacingWheel) GCRacingWheelDidDisconnect() foundation.NSString {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("GCRacingWheelDidDisconnect"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 // A Boolean value that indicates whether the racing wheel sends events to the

@@ -330,8 +330,8 @@ func (a NSAppleScript) IsCompiled() bool {
 // # Discussion
 //
 // It is possible for an [NSAppleScript] that has been instantiated with
-// [InitWithContentsOfURLError] to be a script for which the source code is
-// not available but is nonetheless executable.
+// [NSAppleScript.InitWithContentsOfURLError] to be a script for which the
+// source code is not available but is nonetheless executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/source
 func (a NSAppleScript) Source() string {
@@ -345,8 +345,9 @@ func (a NSAppleScript) Source() string {
 // # Discussion
 //
 // Returns `nil` otherwise. It is possible for an instance of [NSAppleScript]
-// that has been instantiated with [InitWithContentsOfURLError] to be a script
-// for which the source code is not available, but is nonetheless executable.
+// that has been instantiated with [NSAppleScript.InitWithContentsOfURLError]
+// to be a script for which the source code is not available, but is
+// nonetheless executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/richTextSource
 func (a NSAppleScript) RichTextSource() INSAttributedString {

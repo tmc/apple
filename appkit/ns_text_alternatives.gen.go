@@ -125,6 +125,7 @@ type INSTextAlternatives interface {
 	// Sent to the [NSTextAlternatives] object by the text view when the user chooses one of the alternative strings.
 	NoteSelectedAlternativeString(alternativeString string)
 
+	InitWithCoder(coder foundation.INSCoder) NSTextAlternatives
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -145,6 +146,13 @@ func NewNSTextAlternatives() NSTextAlternatives {
 	class := getNSTextAlternativesClass()
 	rv := objc.Send[NSTextAlternatives](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/init(coder:)
+func NewTextAlternativesWithCoder(coder foundation.INSCoder) NSTextAlternatives {
+	instance := getNSTextAlternativesClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextAlternativesFromID(rv)
 }
 
 // Initializes an [NSTextAlternatives] instance.
@@ -198,6 +206,12 @@ func (t NSTextAlternatives) InitWithPrimaryStringAlternativeStrings(primaryStrin
 // See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/noteSelectedAlternativeString(_:)
 func (t NSTextAlternatives) NoteSelectedAlternativeString(alternativeString string) {
 	objc.Send[objc.ID](t.ID, objc.Sel("noteSelectedAlternativeString:"), objc.String(alternativeString))
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/init(coder:)
+func (t NSTextAlternatives) InitWithCoder(coder foundation.INSCoder) NSTextAlternatives {
+	rv := objc.Send[NSTextAlternatives](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (t NSTextAlternatives) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)

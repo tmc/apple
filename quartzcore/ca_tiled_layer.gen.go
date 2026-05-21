@@ -48,16 +48,16 @@ func (cc CATiledLayerClass) Alloc() CATiledLayer {
 //
 // # Overview
 //
-// As more data is required by the renderer, the layer’s [DrawInContext]
-// method is called on one or more background threads to supply the drawing
-// operations to fill in one tile of data. The clip bounds and current
-// transformation matrix (CTM) of the drawing context can be used to determine
-// the bounds and resolution of the tile being requested.
+// As more data is required by the renderer, the layer’s
+// [CALayer.DrawInContext] method is called on one or more background threads
+// to supply the drawing operations to fill in one tile of data. The clip
+// bounds and current transformation matrix (CTM) of the drawing context can
+// be used to determine the bounds and resolution of the tile being requested.
 //
-// Regions of the layer may be invalidated using the [SetNeedsDisplayInRect]
-// method however the update will be asynchronous. While the next display
-// update will most likely not contain the updated content, a future update
-// will.
+// Regions of the layer may be invalidated using the
+// [CALayer.SetNeedsDisplayInRect] method however the update will be
+// asynchronous. While the next display update will most likely not contain
+// the updated content, a future update will.
 //
 // # Levels of detail
 //
@@ -151,7 +151,7 @@ func NewCATiledLayer() CATiledLayer {
 // # Discussion
 //
 // This initializer is used to create shadow copies of layers, for example,
-// for the [PresentationLayer] method. Using this method in any other
+// for the [CALayer.PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
 //
@@ -177,9 +177,9 @@ func NewTiledLayerWithLayer(layer objectivec.IObject) CATiledLayer {
 // The default implementation returns 0.25 seconds.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATiledLayer/fadeDuration()
-func (_CATiledLayerClass CATiledLayerClass) FadeDuration() float64 {
-	rv := objc.Send[float64](objc.ID(_CATiledLayerClass.class), objc.Sel("fadeDuration"))
-	return rv
+func (_CATiledLayerClass CATiledLayerClass) FadeDuration() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](objc.ID(_CATiledLayerClass.class), objc.Sel("fadeDuration"))
+	return corefoundation.CFTimeInterval(rv)
 }
 
 // The number of levels of detail maintained by this layer.

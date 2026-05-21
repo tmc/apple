@@ -5,6 +5,7 @@ package accelerate
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -16,29 +17,29 @@ type BLASParamErrorProc = func(*byte, *byte, *int, *int)
 // BNNSAlloc is a type-alias for a user-provided memory allocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSAlloc
-type BNNSAlloc = func(unsafe.Pointer, uint, uint) int
+type BNNSAlloc = func(kernel.Pointer, uint, uint) int
 
 // BNNSFilter is an opaque type that represents a filter.
 //
 // Deprecated: Deprecated since macOS 15.0. Use BNNSGraph* APIs
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSFilter
-type BNNSFilter = unsafe.Pointer
+type BNNSFilter = kernel.Pointer
 
 // BNNSFree is a type-alias for a user-provided memory deallocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSFree
-type BNNSFree = func(unsafe.Pointer)
+type BNNSFree = func(kernel.Pointer)
 
 // BNNSNearestNeighbors is a k-nearest neighbors object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSNearestNeighbors
-type BNNSNearestNeighbors = unsafe.Pointer
+type BNNSNearestNeighbors = kernel.Pointer
 
 // BNNSRandomGenerator is a pointer to a random number generator object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSRandomGenerator
-type BNNSRandomGenerator = unsafe.Pointer
+type BNNSRandomGenerator = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Accelerate/COMPLEX
 type COMPLEX = DSPComplex
@@ -75,13 +76,13 @@ type FFTSetupD = uintptr
 // GammaFunction is a type for a gamma function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/GammaFunction
-type GammaFunction = unsafe.Pointer
+type GammaFunction = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16F
 type Pixel_16F = uint16
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16F16F
-type Pixel_16F16F = unsafe.Pointer
+type Pixel_16F16F = kernel.Pointer
 
 // Pixel_16Q12 is a type for a signed 16-bit, fixed-point number with 12 bits of fractional precision.
 //
@@ -94,7 +95,7 @@ type Pixel_16Q12 = int16
 type Pixel_16S = int16
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16S16S
-type Pixel_16S16S = unsafe.Pointer
+type Pixel_16S16S = kernel.Pointer
 
 // Pixel_16U is a type for a planar, 16-bits-per-channel, unsigned pixel.
 //
@@ -104,7 +105,7 @@ type Pixel_16U = uint16
 // Pixel_16U16U is a type for a two-channel, 16-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16U16U
-type Pixel_16U16U = unsafe.Pointer
+type Pixel_16U16U = kernel.Pointer
 
 // Pixel_32U is a type you use for the XRGB2101010 format.
 //
@@ -119,25 +120,25 @@ type Pixel_8 = uint8
 // Pixel_88 is a type for a two-channel, 8-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_88
-type Pixel_88 = unsafe.Pointer
+type Pixel_88 = kernel.Pointer
 
 // Pixel_8888 is a type for a four-channel, 8-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_8888
-type Pixel_8888 = unsafe.Pointer
+type Pixel_8888 = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16F
-type Pixel_ARGB_16F = unsafe.Pointer
+type Pixel_ARGB_16F = kernel.Pointer
 
 // Pixel_ARGB_16S is a type for a four-channel, 16-bits-per-channel, signed pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16S
-type Pixel_ARGB_16S = unsafe.Pointer
+type Pixel_ARGB_16S = kernel.Pointer
 
 // Pixel_ARGB_16U is a type for a four-channel, 16-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16U
-type Pixel_ARGB_16U = unsafe.Pointer
+type Pixel_ARGB_16U = kernel.Pointer
 
 // Pixel_F is a type for a planar, 32-bits-per-channel, floating-point pixel.
 //
@@ -145,17 +146,17 @@ type Pixel_ARGB_16U = unsafe.Pointer
 type Pixel_F = float32
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_FF
-type Pixel_FF = unsafe.Pointer
+type Pixel_FF = kernel.Pointer
 
 // Pixel_FFFF is a type for a four-channel, 32-bits-per-channel, floating-point pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_FFFF
-type Pixel_FFFF = unsafe.Pointer
+type Pixel_FFFF = kernel.Pointer
 
 // ResamplingFilter is a pointer to a resampling filter callback function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/ResamplingFilter
-type ResamplingFilter = unsafe.Pointer
+type ResamplingFilter = kernel.Pointer
 
 // Bnns_graph_compile_message_fn_t is the graph compile-message logging callback function.
 //
@@ -170,12 +171,12 @@ type Bnns_graph_execute_message_fn_t = func(BNNSGraphMessageLevel, *byte, *byte,
 // Bnns_graph_free_all_fn_t is the workspace and output deallocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_free_all_fn_t
-type Bnns_graph_free_all_fn_t = func(unsafe.Pointer, uint)
+type Bnns_graph_free_all_fn_t = func(kernel.Pointer, uint)
 
 // Bnns_graph_realloc_fn_t is the workspace and output allocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_realloc_fn_t
-type Bnns_graph_realloc_fn_t = func(unsafe.Pointer, uint, unsafe.Pointer, uint, uint) int
+type Bnns_graph_realloc_fn_t = func(kernel.Pointer, uint, kernel.Pointer, uint, uint) int
 
 // See: https://developer.apple.com/documentation/Accelerate/la_attribute_t
 type La_attribute_t = uint
@@ -184,7 +185,7 @@ type La_attribute_t = uint
 type La_count_t = uint
 
 // See: https://developer.apple.com/documentation/Accelerate/la_deallocator_t
-type La_deallocator_t = func(unsafe.Pointer)
+type La_deallocator_t = func(kernel.Pointer)
 
 // See: https://developer.apple.com/documentation/Accelerate/la_hint_t
 type La_hint_t = uint
@@ -205,7 +206,7 @@ type La_scalar_type_t = uint
 type La_status_t = int
 
 // See: https://developer.apple.com/documentation/Accelerate/quadrature_function_array
-type Quadrature_function_array = func(unsafe.Pointer, uint, []float64, []float64)
+type Quadrature_function_array = func(kernel.Pointer, uint, []float64, []float64)
 
 // Simd_bool is a Boolean scalar value.
 //
@@ -310,37 +311,37 @@ type Simd_float8 = float32
 // Simd_half1 is a vector of one 16-bit floating-point element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half1
-type Simd_half1 = unsafe.Pointer
+type Simd_half1 = kernel.Pointer
 
 // Simd_half16 is a vector of sixteen 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half16
-type Simd_half16 = unsafe.Pointer
+type Simd_half16 = kernel.Pointer
 
 // Simd_half2 is a vector of two 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half2
-type Simd_half2 = unsafe.Pointer
+type Simd_half2 = kernel.Pointer
 
 // Simd_half3 is a vector of three 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half3
-type Simd_half3 = unsafe.Pointer
+type Simd_half3 = kernel.Pointer
 
 // Simd_half32 is a vector of thirty-two 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half32
-type Simd_half32 = unsafe.Pointer
+type Simd_half32 = kernel.Pointer
 
 // Simd_half4 is a vector of four 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half4
-type Simd_half4 = unsafe.Pointer
+type Simd_half4 = kernel.Pointer
 
 // Simd_half8 is a vector of eight 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half8
-type Simd_half8 = unsafe.Pointer
+type Simd_half8 = kernel.Pointer
 
 // Simd_int1 is a vector of one 32-bit signed integer element.
 //

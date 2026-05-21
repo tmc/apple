@@ -51,9 +51,10 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 // [VZVirtualMachineConfiguration] the system creates the number of network
 // devices based on the number of [VZVirtioNetworkDeviceConfiguration] objects
 // you specify in the VM configuration. Before initializing the virtual
-// machine (VM), validate the configuration using [ValidateWithError] to
-// ensure the user’s computer supports the number of network and other
-// devices you’ve specified.
+// machine (VM), validate the configuration using
+// [VZVirtualMachineConfiguration.ValidateWithError] to ensure the user’s
+// computer supports the number of network and other devices you’ve
+// specified.
 //
 // For many purposes, a single network that uses a Network Address Translation
 // (NAT) attachment and connects the VM to the host computer’s network is
@@ -65,11 +66,11 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 // different purposes.
 //
 // You access the network devices through the
-// [VZVirtualMachine].[VZNetworkDevice.NetworkDevices] property. The network devices map to
-// their respective configurations in a one to one relationship, where index
-// `i` of `VZVirtualMachine.NetworkDevices()` corresponds to the network
-// device configuration at index `i` set on
-// [VZVirtualMachineConfiguration].[VZNetworkDevice.NetworkDevices].
+// [VZVirtualMachine].[VZVirtualMachine.NetworkDevices] property. The network
+// devices map to their respective configurations in a one to one
+// relationship, where index `i` of `VZVirtualMachine.NetworkDevices()`
+// corresponds to the network device configuration at index `i` set on
+// [VZVirtualMachineConfiguration].[VZVirtualMachineConfiguration.NetworkDevices].
 //
 // # Getting the network attachment point
 //
@@ -107,10 +108,6 @@ type IVZNetworkDevice interface {
 	// The network attachment that’s connected to this network device.
 	Attachment() IVZNetworkDeviceAttachment
 	SetAttachment(value IVZNetworkDeviceAttachment)
-
-	// The list of configured network devices on the VM.
-	NetworkDevices() IVZNetworkDevice
-	SetNetworkDevices(value IVZNetworkDevice)
 }
 
 // Init initializes the instance.
@@ -149,15 +146,4 @@ func (n VZNetworkDevice) Attachment() IVZNetworkDeviceAttachment {
 }
 func (n VZNetworkDevice) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
-}
-
-// The list of configured network devices on the VM.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/networkdevices
-func (n VZNetworkDevice) NetworkDevices() IVZNetworkDevice {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("networkDevices"))
-	return VZNetworkDeviceFromID(objc.ID(rv))
-}
-func (n VZNetworkDevice) SetNetworkDevices(value IVZNetworkDevice) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }

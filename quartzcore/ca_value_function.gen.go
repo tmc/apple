@@ -4,7 +4,6 @@ package quartzcore
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,16 +53,17 @@ func (cc CAValueFunctionClass) Alloc() CAValueFunction {
 //
 // For example, to create a basic animation that rotates a layer from 0° to
 // 180° around its z-axis, you would create a [CABasicAnimation] object with
-// a [CAValueFunction.FromValue] of `0`, a [CAValueFunction.ToValue] of [CAValueFunction.Pi], and a [ValueFunction] of a
-// [CAValueFunction] with a function name of [CAValueFunction.RotateZ].
+// a [CABasicAnimation.FromValue] of `0`, a [CABasicAnimation.ToValue] of
+// [pi], and a [CAPropertyAnimation.ValueFunction] of a [CAValueFunction] with
+// a function name of [rotateZ].
 //
 // The following code shows how you would create such a rotation and apply it
 // to a [CALayer] named `rotatingLayer`.
 //
-// The value functions [CAValueFunction.Scale] and [CAValueFunction.Translate] require 3 values, for the
+// The value functions [scale] and [translate] require 3 values, for the
 // individual `x`, `y` and `z` components. When working with these value
-// functions, you specify the animation’s [CAValueFunction.FromValue] and [CAValueFunction.ToValue] as
-// arrays.
+// functions, you specify the animation’s [CABasicAnimation.FromValue] and
+// [CABasicAnimation.ToValue] as arrays.
 //
 // The following code shows how you could animate a layer’s scale from `0`
 // to `1` using a value function.
@@ -73,6 +73,11 @@ func (cc CAValueFunctionClass) Alloc() CAValueFunction {
 //   - [CAValueFunction.Name]: Returns the name of the value function.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAValueFunction
+//
+// [pi]: https://developer.apple.com/documentation/Swift/Float/pi
+// [rotateZ]: https://developer.apple.com/documentation/QuartzCore/CAValueFunctionName/rotateZ
+// [scale]: https://developer.apple.com/documentation/QuartzCore/CAValueFunctionName/scale
+// [translate]: https://developer.apple.com/documentation/QuartzCore/CAValueFunctionName/translate
 type CAValueFunction struct {
 	objectivec.Object
 }
@@ -103,24 +108,6 @@ type ICAValueFunction interface {
 	// Returns the name of the value function.
 	Name() CAValueFunctionName
 
-	// Defines the value the receiver uses to start interpolation.
-	FromValue() unsafe.Pointer
-	SetFromValue(value unsafe.Pointer)
-	// The mathematical constant pi (π), approximately equal to 3.14159.
-	Pi() float32
-	SetPi(value float32)
-	// A value function that rotates by the input value, in radians, around the z-axis. This value function expects a single input value.
-	RotateZ() CAValueFunctionName
-	// A value function scales by the input value along all three axis. Animations using this value transform function must provide animation values in an
-	Scale() CAValueFunctionName
-	// Defines the value the receiver uses to end interpolation.
-	ToValue() unsafe.Pointer
-	SetToValue(value unsafe.Pointer)
-	// A value function that translates by the input values along all three axis. Animations using this value transform function must provide animation values in an
-	Translate() CAValueFunctionName
-	// An optional value function that is applied to interpolated values.
-	ValueFunction() ICAValueFunction
-	SetValueFunction(value ICAValueFunction)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -177,76 +164,4 @@ func (v CAValueFunction) EncodeWithCoder(coder foundation.INSCoder) {
 func (v CAValueFunction) Name() CAValueFunctionName {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return CAValueFunctionName(foundation.NSStringFromID(rv).String())
-}
-
-// Defines the value the receiver uses to start interpolation.
-//
-// See: https://developer.apple.com/documentation/quartzcore/cabasicanimation/fromvalue
-func (v CAValueFunction) FromValue() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("fromValue"))
-	return rv
-}
-func (v CAValueFunction) SetFromValue(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFromValue:"), value)
-}
-
-// The mathematical constant pi (π), approximately equal to 3.14159.
-//
-// See: https://developer.apple.com/documentation/Swift/Float/pi
-func (v CAValueFunction) Pi() float32 {
-	rv := objc.Send[float32](v.ID, objc.Sel("pi"))
-	return rv
-}
-func (v CAValueFunction) SetPi(value float32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPi:"), value)
-}
-
-// A value function that rotates by the input value, in radians, around the
-// z-axis. This value function expects a single input value.
-//
-// See: https://developer.apple.com/documentation/quartzcore/cavaluefunctionname/rotatez
-func (v CAValueFunction) RotateZ() CAValueFunctionName {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("kCAValueFunctionRotateZ"))
-	return CAValueFunctionName(foundation.NSStringFromID(rv).String())
-}
-
-// A value function scales by the input value along all three axis. Animations
-// using this value transform function must provide animation values in an
-//
-// See: https://developer.apple.com/documentation/quartzcore/cavaluefunctionname/scale
-func (v CAValueFunction) Scale() CAValueFunctionName {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("kCAValueFunctionScale"))
-	return CAValueFunctionName(foundation.NSStringFromID(rv).String())
-}
-
-// Defines the value the receiver uses to end interpolation.
-//
-// See: https://developer.apple.com/documentation/quartzcore/cabasicanimation/tovalue
-func (v CAValueFunction) ToValue() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("toValue"))
-	return rv
-}
-func (v CAValueFunction) SetToValue(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setToValue:"), value)
-}
-
-// A value function that translates by the input values along all three axis.
-// Animations using this value transform function must provide animation
-// values in an
-//
-// See: https://developer.apple.com/documentation/quartzcore/cavaluefunctionname/translate
-func (v CAValueFunction) Translate() CAValueFunctionName {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("kCAValueFunctionTranslate"))
-	return CAValueFunctionName(foundation.NSStringFromID(rv).String())
-}
-
-// An optional value function that is applied to interpolated values.
-//
-// See: https://developer.apple.com/documentation/quartzcore/capropertyanimation/valuefunction
-func (v CAValueFunction) ValueFunction() ICAValueFunction {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("valueFunction"))
-	return CAValueFunctionFromID(objc.ID(rv))
-}
-func (v CAValueFunction) SetValueFunction(value ICAValueFunction) {
-	objc.Send[struct{}](v.ID, objc.Sel("setValueFunction:"), value)
 }

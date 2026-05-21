@@ -154,11 +154,11 @@ func NewMoveCommandWithCommandDescription(commandDef INSScriptCommandDescription
 // # Discussion
 //
 // Note that this specifier may be different than the specifier set by
-// [SetReceiversSpecifier], which sets the container specifier. For example,
-// for a command such as `move the third circle to the location of the first
-// circle`, the receiver might identify a document (which has a list of
-// graphics), while the key specifier identifies the particular graphic to be
-// moved.
+// [NSMoveCommand.SetReceiversSpecifier], which sets the container specifier.
+// For example, for a command such as `move the third circle to the location
+// of the first circle`, the receiver might identify a document (which has a
+// list of graphics), while the key specifier identifies the particular
+// graphic to be moved.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMoveCommand/keySpecifier
 func (m NSMoveCommand) KeySpecifier() INSScriptObjectSpecifier {

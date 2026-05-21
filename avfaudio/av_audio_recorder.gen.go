@@ -55,7 +55,7 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 // recording - Access recording-level metering data
 //
 // To record audio in iOS or tvOS, configure your audio session to use the
-// [AVAudioRecorder.Record] or [AVAudioRecorder.PlayAndRecord] category.
+// [record] or [playAndRecord] category.
 //
 // # Creating an audio recorder
 //
@@ -65,6 +65,7 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 // # Controlling recording
 //
 //   - [AVAudioRecorder.PrepareToRecord]: Creates an audio file and prepares the system for recording.
+//   - [AVAudioRecorder.Record]: Starts or resumes audio recording.
 //   - [AVAudioRecorder.RecordAtTime]: Records audio starting at a specific time.
 //   - [AVAudioRecorder.RecordForDuration]: Records audio for the indicated duration of time.
 //   - [AVAudioRecorder.RecordAtTimeForDuration]: Records audio starting at a specific time for the indicated duration.
@@ -98,6 +99,9 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 //   - [AVAudioRecorder.Settings]: The settings that describe the format of the recorded audio.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder
+//
+// [playAndRecord]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Category-swift.struct/playAndRecord
+// [record]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Category-swift.struct/record
 type AVAudioRecorder struct {
 	objectivec.Object
 }
@@ -122,6 +126,7 @@ func AVAudioRecorderFromID(id objc.ID) AVAudioRecorder {
 // # Controlling recording
 //
 //   - [IAVAudioRecorder.PrepareToRecord]: Creates an audio file and prepares the system for recording.
+//   - [IAVAudioRecorder.Record]: Starts or resumes audio recording.
 //   - [IAVAudioRecorder.RecordAtTime]: Records audio starting at a specific time.
 //   - [IAVAudioRecorder.RecordForDuration]: Records audio for the indicated duration of time.
 //   - [IAVAudioRecorder.RecordAtTimeForDuration]: Records audio starting at a specific time for the indicated duration.
@@ -169,12 +174,14 @@ type IAVAudioRecorder interface {
 
 	// Creates an audio file and prepares the system for recording.
 	PrepareToRecord() bool
+	// Starts or resumes audio recording.
+	Record() bool
 	// Records audio starting at a specific time.
-	RecordAtTime(time float64) bool
+	RecordAtTime(time foundation.NSTimeInterval) bool
 	// Records audio for the indicated duration of time.
-	RecordForDuration(duration float64) bool
+	RecordForDuration(duration foundation.NSTimeInterval) bool
 	// Records audio starting at a specific time for the indicated duration.
-	RecordAtTimeForDuration(time float64, duration float64) bool
+	RecordAtTimeForDuration(time foundation.NSTimeInterval, duration foundation.NSTimeInterval) bool
 	// Pauses an audio recording.
 	Pause()
 	// Stops recording and closes the audio file.
@@ -187,9 +194,9 @@ type IAVAudioRecorder interface {
 	// Topic: Accessing recorder timing
 
 	// The time, in seconds, since the beginning of the recording.
-	CurrentTime() float64
+	CurrentTime() foundation.NSTimeInterval
 	// The time, in seconds, of the host audio device.
-	DeviceCurrentTime() float64
+	DeviceCurrentTime() foundation.NSTimeInterval
 
 	// Topic: Managing audio-level metering
 
@@ -217,11 +224,6 @@ type IAVAudioRecorder interface {
 	Format() IAVAudioFormat
 	// The settings that describe the format of the recorded audio.
 	Settings() foundation.INSDictionary
-
-	// The category for recording (input) and playback (output) of audio, such as for a Voice over Internet Protocol (VoIP) app.
-	PlayAndRecord() objc.ID
-	// The category for recording audio while also silencing playback audio.
-	Record() objc.ID
 }
 
 // Init initializes the instance.
@@ -372,7 +374,7 @@ func (a AVAudioRecorder) InitWithURLFormatError(url foundation.NSURL, format IAV
 // it.
 //
 // Call this method to start recording as quickly as possible upon calling
-// [Record].
+// [AVAudioRecorder.Record].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/prepareToRecord()
 func (a AVAudioRecorder) PrepareToRecord() bool {
@@ -380,9 +382,27 @@ func (a AVAudioRecorder) PrepareToRecord() bool {
 	return rv
 }
 
+// Starts or resumes audio recording.
+//
+// # Return Value
+//
+// true if successful; otherwise, false.
+//
+// # Discussion
+//
+// Calling this method implicitly calls [AVAudioRecorder.PrepareToRecord],
+// which creates an audio file and prepares the system for recording.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/record()
+func (a AVAudioRecorder) Record() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("record"))
+	return rv
+}
+
 // Records audio starting at a specific time.
 //
-// time: The time at which to start recording, relative to [DeviceCurrentTime].
+// time: The time at which to start recording, relative to
+// [AVAudioRecorder.DeviceCurrentTime].
 //
 // # Return Value
 //
@@ -393,11 +413,11 @@ func (a AVAudioRecorder) PrepareToRecord() bool {
 // You can call this method on a single recorder, or use it to synchronize the
 // recording of multiple players as shown below.
 //
-// Calling this method implicitly calls [PrepareToRecord], which creates an
-// audio file and prepares the system for recording.
+// Calling this method implicitly calls [AVAudioRecorder.PrepareToRecord],
+// which creates an audio file and prepares the system for recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/record(atTime:)
-func (a AVAudioRecorder) RecordAtTime(time float64) bool {
+func (a AVAudioRecorder) RecordAtTime(time foundation.NSTimeInterval) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recordAtTime:"), time)
 	return rv
 }
@@ -414,18 +434,19 @@ func (a AVAudioRecorder) RecordAtTime(time float64) bool {
 //
 // The recorder stops recording when it reaches the indicated duration.
 //
-// Calling this method implicitly calls [PrepareToRecord], which creates an
-// audio file and prepares the system for recording.
+// Calling this method implicitly calls [AVAudioRecorder.PrepareToRecord],
+// which creates an audio file and prepares the system for recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/record(forDuration:)
-func (a AVAudioRecorder) RecordForDuration(duration float64) bool {
+func (a AVAudioRecorder) RecordForDuration(duration foundation.NSTimeInterval) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recordForDuration:"), duration)
 	return rv
 }
 
 // Records audio starting at a specific time for the indicated duration.
 //
-// time: The time at which to start recording, relative to [DeviceCurrentTime].
+// time: The time at which to start recording, relative to
+// [AVAudioRecorder.DeviceCurrentTime].
 //
 // duration: The duration of time to record, in seconds.
 //
@@ -439,11 +460,11 @@ func (a AVAudioRecorder) RecordForDuration(duration float64) bool {
 // duration. You may also use it to synchronize recording of multiple
 // recorders as shown below.
 //
-// Calling this method implicitly calls [PrepareToRecord], which creates an
-// audio file and prepares the system for recording.
+// Calling this method implicitly calls [AVAudioRecorder.PrepareToRecord],
+// which creates an audio file and prepares the system for recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/record(atTime:forDuration:)
-func (a AVAudioRecorder) RecordAtTimeForDuration(time float64, duration float64) bool {
+func (a AVAudioRecorder) RecordAtTimeForDuration(time foundation.NSTimeInterval, duration foundation.NSTimeInterval) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recordAtTime:forDuration:"), time, duration)
 	return rv
 }
@@ -452,7 +473,7 @@ func (a AVAudioRecorder) RecordAtTimeForDuration(time float64, duration float64)
 //
 // # Discussion
 //
-// Call [Record] to resume recording.
+// Call [AVAudioRecorder.Record] to resume recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/pause()
 func (a AVAudioRecorder) Pause() {
@@ -488,7 +509,8 @@ func (a AVAudioRecorder) DeleteRecording() bool {
 // # Discussion
 //
 // Call this method to update the level meter data before calling
-// [AveragePowerForChannel] or [PeakPowerForChannel].
+// [AVAudioRecorder.AveragePowerForChannel] or
+// [AVAudioRecorder.PeakPowerForChannel].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/updateMeters()
 func (a AVAudioRecorder) UpdateMeters() {
@@ -507,9 +529,9 @@ func (a AVAudioRecorder) UpdateMeters() {
 // # Discussion
 //
 // Before asking the player for its average power value, you must call
-// [UpdateMeters] to generate the latest data. The returned value ranges from
-// `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
-// power.
+// [AVAudioPlayer.UpdateMeters] to generate the latest data. The returned
+// value ranges from `–160` dBFS, indicating minimum power, to 0 dBFS,
+// indicating maximum power.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/averagePower(forChannel:)
 func (a AVAudioRecorder) AveragePowerForChannel(channelNumber uint) float32 {
@@ -529,9 +551,9 @@ func (a AVAudioRecorder) AveragePowerForChannel(channelNumber uint) float32 {
 // # Discussion
 //
 // Before asking the player for its peak power value, you must call
-// [UpdateMeters] to generate the latest data. The returned value ranges from
-// `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
-// power.
+// [AVAudioPlayer.UpdateMeters] to generate the latest data. The returned
+// value ranges from `–160` dBFS, indicating minimum power, to 0 dBFS,
+// indicating maximum power.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/peakPower(forChannel:)
 func (a AVAudioRecorder) PeakPowerForChannel(channelNumber uint) float32 {
@@ -555,9 +577,9 @@ func (a AVAudioRecorder) IsRecording() bool {
 // recorder.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/currentTime
-func (a AVAudioRecorder) CurrentTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("currentTime"))
-	return rv
+func (a AVAudioRecorder) CurrentTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("currentTime"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The time, in seconds, of the host audio device.
@@ -565,12 +587,13 @@ func (a AVAudioRecorder) CurrentTime() float64 {
 // # Discussion
 //
 // Use this property value to schedule audio recording using the
-// [RecordAtTime] and [RecordAtTimeForDuration] methods.
+// [AVAudioRecorder.RecordAtTime] and
+// [AVAudioRecorder.RecordAtTimeForDuration] methods.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/deviceCurrentTime
-func (a AVAudioRecorder) DeviceCurrentTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("deviceCurrentTime"))
-	return rv
+func (a AVAudioRecorder) DeviceCurrentTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("deviceCurrentTime"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // A Boolean value that indicates whether you’ve enabled the recorder to
@@ -622,27 +645,11 @@ func (a AVAudioRecorder) Format() IAVAudioFormat {
 //
 // # Discussion
 //
-// See [InitWithURLSettingsError] for supported keys and values.
+// See [AVAudioRecorder.InitWithURLSettingsError] for supported keys and
+// values.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/settings
 func (a AVAudioRecorder) Settings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("settings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The category for recording (input) and playback (output) of audio, such as
-// for a Voice over Internet Protocol (VoIP) app.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/category-swift.struct/playandrecord
-func (a AVAudioRecorder) PlayAndRecord() objc.ID {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioSessionCategoryPlayAndRecord"))
-	return rv
-}
-
-// The category for recording audio while also silencing playback audio.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/category-swift.struct/record
-func (a AVAudioRecorder) Record() objc.ID {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioSessionCategoryRecord"))
-	return rv
 }

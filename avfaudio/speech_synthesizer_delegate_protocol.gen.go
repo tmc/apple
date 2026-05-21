@@ -44,8 +44,9 @@ func AVSpeechSynthesizerDelegateObjectFromID(id objc.ID) AVSpeechSynthesizerDele
 //
 // # Discussion
 //
-// If the utterance’s [PreUtteranceDelay] property is greater than zero, the
-// system calls this method after the delay completes and speech begins.
+// If the utterance’s [AVSpeechUtterance.PreUtteranceDelay] property is
+// greater than zero, the system calls this method after the delay completes
+// and speech begins.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didStart:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidStartSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
@@ -57,8 +58,9 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidStartSpeechUttera
 //
 // synthesizer: The speech synthesizer that’s about to speak an utterance.
 //
-// characterRange: The range of characters in the utterance’s [SpeechString] that correspond
-// to the unit of speech the synthesizer is about to speak.
+// characterRange: The range of characters in the utterance’s
+// [AVSpeechUtterance.SpeechString] that correspond to the unit of speech the
+// synthesizer is about to speak.
 //
 // utterance: The utterance that the speech synthesizer is about to speak.
 //
@@ -95,9 +97,10 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakMarkerUtter
 // # Discussion
 //
 // The system only calls this method if a speech synthesizer is speaking an
-// utterance and the system calls its [PauseSpeakingAtBoundary] method. The
-// system doesn’t call this method if the synthesizer is in a delay between
-// utterances when speech pauses.
+// utterance and the system calls its
+// [AVSpeechSynthesizer.PauseSpeakingAtBoundary] method. The system doesn’t
+// call this method if the synthesizer is in a delay between utterances when
+// speech pauses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didPause:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidPauseSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
@@ -114,9 +117,9 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidPauseSpeechUttera
 // # Discussion
 //
 // The system only calls this method if a speech synthesizer pauses speaking
-// and the system calls its [PauseSpeakingAtBoundary] method. The system
-// doesn’t call this method if the synthesizer pauses while in a delay
-// between utterances.
+// and the system calls its [AVSpeechSynthesizer.PauseSpeakingAtBoundary]
+// method. The system doesn’t call this method if the synthesizer pauses
+// while in a delay between utterances.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didContinue:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidContinueSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
@@ -131,8 +134,9 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidContinueSpeechUtt
 //
 // # Discussion
 //
-// The system ignores the final utterance’s [PostUtteranceDelay] and calls
-// this method immediately when speech ends.
+// The system ignores the final utterance’s
+// [AVSpeechUtterance.PostUtteranceDelay] and calls this method immediately
+// when speech ends.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didFinish:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
@@ -148,10 +152,10 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeechUtter
 // # Discussion
 //
 // The system only calls this method if a speech synthesizer is speaking an
-// utterance and the system calls its [StopSpeakingAtBoundary] method. The
-// system doesn’t call this method if the synthesizer is in a delay between
-// utterances when speech stops, and it doesn’t call it for unspoken
-// utterances.
+// utterance and the system calls its
+// [AVSpeechSynthesizer.StopSpeakingAtBoundary] method. The system doesn’t
+// call this method if the synthesizer is in a delay between utterances when
+// speech stops, and it doesn’t call it for unspoken utterances.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didCancel:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidCancelSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {

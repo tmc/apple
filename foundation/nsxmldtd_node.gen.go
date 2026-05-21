@@ -58,10 +58,11 @@ func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 // ([NSXMLEntityParameterKind]). You can use a DTD node’s subkind to help
 // determine how to handle the value of the node.
 //
-// You can create an [NSXMLDTDNode] object with the [InitWithXMLString]
-// method, the [NSXMLNode] class method [DTDNodeWithXMLString], or with the
-// [NSXMLNode] initializer [InitWithKindOptions] (in the latter method
-// supplying the appropriate [XMLNode.Kind] constant).
+// You can create an [NSXMLDTDNode] object with the
+// [NSXMLDTDNode.InitWithXMLString] method, the [NSXMLNode] class method
+// [NSXMLNodeClass.DTDNodeWithXMLString], or with the [NSXMLNode] initializer
+// [NSXMLNode.InitWithKindOptions] (in the latter method supplying the
+// appropriate [XMLNode.Kind] constant).
 //
 // Setting the object value or string value of an [NSXMLDTDNode] objects
 // affects different parts of different kinds of declaration. See the related
@@ -191,13 +192,13 @@ func NewXMLDTDNode() XMLDTDNode {
 //
 // # Discussion
 //
-// This method invokes [InitWithKindOptions] with the `options` parameter set
-// to [NSXMLNodeOptionsNone].
+// This method invokes [NSXMLNode.InitWithKindOptions] with the `options`
+// parameter set to [NSXMLNodeOptionsNone].
 //
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
-// attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
-// method of this class or the [InitWithXMLString] method of the
-// [NSXMLDTDNode] class.
+// attribute-list declarations. Instead, use the
+// [NSXMLNodeClass.DTDNodeWithXMLString] class method of this class or the
+// [NSXMLDTDNode.InitWithXMLString] method of the [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
 //
@@ -230,11 +231,13 @@ func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 //
 // The node kind (NSXMLNode) assigned to the returned object—element,
 // attribute, entity, or notation declaration— is based on the full XML
-// string that is parsed. To assign a subkind, set the [DTDKind] property.
+// string that is parsed. To assign a subkind, set the [NSXMLDTDNode.DTDKind]
+// property.
 //
-// You may also use the [DTDNodeWithXMLString] or [InitWithKind] methods to
-// create [NSXMLDTDNode] instances. However, you cannot use the latter method
-// to create [NSXMLDTDNode] instances for attribute-list declarations.
+// You may also use the [NSXMLNodeClass.DTDNodeWithXMLString] or
+// [NSXMLNode.InitWithKind] methods to create [NSXMLDTDNode] instances.
+// However, you cannot use the latter method to create [NSXMLDTDNode]
+// instances for attribute-list declarations.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)-1dyhd
 func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
@@ -258,11 +261,13 @@ func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
 //
 // The node kind (NSXMLNode) assigned to the returned object—element,
 // attribute, entity, or notation declaration— is based on the full XML
-// string that is parsed. To assign a subkind, set the [DTDKind] property.
+// string that is parsed. To assign a subkind, set the [NSXMLDTDNode.DTDKind]
+// property.
 //
-// You may also use the [DTDNodeWithXMLString] or [InitWithKind] methods to
-// create [NSXMLDTDNode] instances. However, you cannot use the latter method
-// to create [NSXMLDTDNode] instances for attribute-list declarations.
+// You may also use the [NSXMLNodeClass.DTDNodeWithXMLString] or
+// [NSXMLNode.InitWithKind] methods to create [NSXMLDTDNode] instances.
+// However, you cannot use the latter method to create [NSXMLDTDNode]
+// instances for attribute-list declarations.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)-1dyhd
 func (x XMLDTDNode) InitWithXMLString(string_ string) XMLDTDNode {
@@ -280,7 +285,7 @@ func (x XMLDTDNode) InitWithXMLString(string_ string) XMLDTDNode {
 // # Discussion
 //
 // The DTD kind is distinct from a [NSXMLDTDNode] object’s node kind
-// (returned by the [NSXMLNode] [Kind] method).
+// (returned by the [NSXMLNode] [NSXMLNode.Kind] method).
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/dtdKind-swift.property
 func (x XMLDTDNode) DTDKind() NSXMLDTDNodeKind {

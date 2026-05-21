@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
@@ -85,12 +84,7 @@ type IAVCompositionTrackFormatDescriptionReplacement interface {
 	// The replacement format description.
 	ReplacementFormatDescription() coremedia.CMFormatDescriptionRef
 
-	// The replacement format descriptions.
-	FormatDescriptionReplacements() IAVCompositionTrackFormatDescriptionReplacement
-	SetFormatDescriptionReplacements(value IAVCompositionTrackFormatDescriptionReplacement)
-	// The format descriptions of the media samples that a track references.
-	FormatDescriptions() unsafe.Pointer
-	SetFormatDescriptions(value unsafe.Pointer)
+	InitWithCoder(coder foundation.INSCoder) AVCompositionTrackFormatDescriptionReplacement
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -113,6 +107,18 @@ func NewAVCompositionTrackFormatDescriptionReplacement() AVCompositionTrackForma
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/init(coder:)
+func NewCompositionTrackFormatDescriptionReplacementWithCoder(coder foundation.INSCoder) AVCompositionTrackFormatDescriptionReplacement {
+	instance := getAVCompositionTrackFormatDescriptionReplacementClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return AVCompositionTrackFormatDescriptionReplacementFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/init(coder:)
+func (c AVCompositionTrackFormatDescriptionReplacement) InitWithCoder(coder foundation.INSCoder) AVCompositionTrackFormatDescriptionReplacement {
+	rv := objc.Send[AVCompositionTrackFormatDescriptionReplacement](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (c AVCompositionTrackFormatDescriptionReplacement) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -131,26 +137,4 @@ func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescriptio
 func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescription() coremedia.CMFormatDescriptionRef {
 	rv := objc.Send[coremedia.CMFormatDescriptionRef](c.ID, objc.Sel("replacementFormatDescription"))
 	return coremedia.CMFormatDescriptionRef(rv)
-}
-
-// The replacement format descriptions.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcompositiontrack/formatdescriptionreplacements
-func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptionReplacements() IAVCompositionTrackFormatDescriptionReplacement {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatDescriptionReplacements"))
-	return AVCompositionTrackFormatDescriptionReplacementFromID(objc.ID(rv))
-}
-func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptionReplacements(value IAVCompositionTrackFormatDescriptionReplacement) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFormatDescriptionReplacements:"), value)
-}
-
-// The format descriptions of the media samples that a track references.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcompositiontrack/formatdescriptions
-func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("formatDescriptions"))
-	return rv
-}
-func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptions(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFormatDescriptions:"), value)
 }

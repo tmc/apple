@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -96,8 +97,8 @@ type IAVAudioUnitDelay interface {
 	// Topic: Getting and setting the delay values
 
 	// The time for the input signal to reach the output.
-	DelayTime() float64
-	SetDelayTime(value float64)
+	DelayTime() foundation.NSTimeInterval
+	SetDelayTime(value foundation.NSTimeInterval)
 	// The amount of the output signal that feeds back into the delay line.
 	Feedback() float32
 	SetFeedback(value float32)
@@ -156,11 +157,11 @@ func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription un
 // of values is `0` to `2` seconds.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDelay/delayTime
-func (a AVAudioUnitDelay) DelayTime() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("delayTime"))
-	return rv
+func (a AVAudioUnitDelay) DelayTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](a.ID, objc.Sel("delayTime"))
+	return foundation.NSTimeInterval(rv)
 }
-func (a AVAudioUnitDelay) SetDelayTime(value float64) {
+func (a AVAudioUnitDelay) SetDelayTime(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelayTime:"), value)
 }
 

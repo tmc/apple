@@ -50,9 +50,9 @@ func (nc NSSoundClass) Alloc() NSSound {
 // You create a sound object with an audio file or data, which can be in any
 // format that Core Audio supports. Customize the sound by configuring its
 // properties, such as setting its playback volume and looping behavior. Call
-// the sound’s [NSSound.Play] method to begin playback. The system executes this
-// call asynchronously so that it doesn’t interrupt the functioning of your
-// app.
+// the sound’s [NSSound.Play] method to begin playback. The system executes
+// this call asynchronously so that it doesn’t interrupt the functioning of
+// your app.
 //
 // If you want to play the system beep sound, use the [beep()] (Swift) or
 // [NSBeep] (Objective-C) function.
@@ -185,8 +185,8 @@ type INSSound interface {
 	Volume() float32
 	SetVolume(value float32)
 	// The sound’s playback progress, in seconds.
-	CurrentTime() float64
-	SetCurrentTime(value float64)
+	CurrentTime() foundation.NSTimeInterval
+	SetCurrentTime(value foundation.NSTimeInterval)
 	// A Boolean that indicates whether the sound restarts playback when it reaches the end of its content.
 	Loops() bool
 	SetLoops(value bool)
@@ -197,7 +197,7 @@ type INSSound interface {
 	// Topic: Getting Sound Information
 
 	// The duration of the sound, in seconds.
-	Duration() float64
+	Duration() foundation.NSTimeInterval
 
 	// Topic: Playing Sounds
 
@@ -217,7 +217,7 @@ type INSSound interface {
 	// Writes the receiver’s data to a pasteboard.
 	WriteToPasteboard(pasteboard INSPasteboard)
 
-	// Initializes an instance with a property list object and a type string.
+	InitWithCoder(coder foundation.INSCoder) NSSound
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSSound
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -254,8 +254,8 @@ func NewNSSound() NSSound {
 //
 // The returned object can be one of the following:
 //
-// - One that’s been assigned a name with the [Name] property - One of the
-// named system sounds provided by the Application Kit framework
+// - One that’s been assigned a name with the [NSSound.Name] property - One
+// of the named system sounds provided by the Application Kit framework
 //
 // If there’s no known [NSSound] object with `soundName`, this method tries
 // to create one by searching for sound files in the application’s main
@@ -278,6 +278,13 @@ func NewNSSound() NSSound {
 // [Bundle]: https://developer.apple.com/documentation/Foundation/Bundle
 func NewSoundNamed(name NSSoundName) NSSound {
 	rv := objc.Send[objc.ID](objc.ID(getNSSoundClass().class), objc.Sel("soundNamed:"), objc.String(string(name)))
+	return NSSoundFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSSound/init(coder:)
+func NewSoundWithCoder(coder foundation.INSCoder) NSSound {
+	instance := getNSSoundClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSoundFromID(rv)
 }
 
@@ -360,32 +367,7 @@ func NewSoundWithPasteboard(pasteboard INSPasteboard) NSSound {
 	return NSSoundFromID(rv)
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSSound/init(pasteboardPropertyList:ofType:)
 func NewSoundWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSSound {
 	instance := getNSSoundClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
@@ -538,32 +520,13 @@ func (s NSSound) WriteToPasteboard(pasteboard INSPasteboard) {
 	objc.Send[objc.ID](s.ID, objc.Sel("writeToPasteboard:"), pasteboard)
 }
 
-// Initializes an instance with a property list object and a type string.
-//
-// propertyList: A property list containing data to initialize the receiver.
-//
-// By default, the property list object is an instance of [NSData]. If you
-// implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [NSPasteboardReadingAsData], the `propertyList` may be any other
-// property list object.
-//
-// type: A UTI supported by the receiver for reading (one of the types returned by
-// [ReadableTypesForPasteboard]).
-//
-// # Return Value
-//
-// An object initialized using the data in `propertyList`.
-//
-// # Discussion
-//
-// This method is considered optional because, if [ReadableTypesForPasteboard]
-// returns just a single type, and that type uses the
-// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
-// initialized using [init(coder:)] instead of this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
-//
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/AppKit/NSSound/init(coder:)
+func (s NSSound) InitWithCoder(coder foundation.INSCoder) NSSound {
+	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSSound/init(pasteboardPropertyList:ofType:)
 func (s NSSound) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSSound {
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
@@ -782,11 +745,11 @@ func (s NSSound) SetVolume(value float32) {
 // This property is not archived, copied, or stored on the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/currentTime
-func (s NSSound) CurrentTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("currentTime"))
-	return rv
+func (s NSSound) CurrentTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("currentTime"))
+	return foundation.NSTimeInterval(rv)
 }
-func (s NSSound) SetCurrentTime(value float64) {
+func (s NSSound) SetCurrentTime(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentTime:"), value)
 }
 
@@ -823,9 +786,9 @@ func (s NSSound) SetPlaybackDeviceIdentifier(value NSSoundPlaybackDeviceIdentifi
 // The duration of the sound, in seconds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/duration
-func (s NSSound) Duration() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("duration"))
-	return rv
+func (s NSSound) Duration() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](s.ID, objc.Sel("duration"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // A Boolean that indicates whether the sound is playing its audio data.

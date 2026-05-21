@@ -49,9 +49,9 @@ func (wc WebResourceClass) Alloc() WebResource {
 //
 // # Overview
 //
-// Use the [WebResource.InitWithDataURLMIMETypeTextEncodingNameFrameName] method to
-// initialize a newly created [WebResource] object. Use the other methods in
-// this class to get the properties of a [WebResource] object.
+// Use the [WebResource.InitWithDataURLMIMETypeTextEncodingNameFrameName]
+// method to initialize a newly created [WebResource] object. Use the other
+// methods in this class to get the properties of a [WebResource] object.
 //
 // # Initializing
 //
@@ -118,6 +118,7 @@ type IWebResource interface {
 	// The name of the frame. If the receiver does not represent the contents of an entire HTML frame, this is `nil`.
 	FrameName() string
 
+	InitWithCoder(coder foundation.INSCoder) WebResource
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -138,6 +139,13 @@ func NewWebResource() WebResource {
 	class := getWebResourceClass()
 	rv := objc.Send[WebResource](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(coder:)
+func NewWebResourceWithCoder(coder foundation.INSCoder) WebResource {
+	instance := getWebResourceClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return WebResourceFromID(rv)
 }
 
 // Initializes and returns a web resource instance.
@@ -186,6 +194,12 @@ func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.
 // See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)-914h4
 func (w WebResource) InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
 	rv := objc.Send[WebResource](w.ID, objc.Sel("initWithData:URL:MIMEType:textEncodingName:frameName:"), data, URL, objc.String(MIMEType), objc.String(textEncodingName), objc.String(frameName))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(coder:)
+func (w WebResource) InitWithCoder(coder foundation.INSCoder) WebResource {
+	rv := objc.Send[WebResource](w.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (w WebResource) EncodeWithCoder(coder foundation.INSCoder) {

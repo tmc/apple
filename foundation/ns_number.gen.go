@@ -52,8 +52,8 @@ func (nc NSNumberClass) Alloc() NSNumber {
 // accessing the value as a signed or unsigned `char`, `short int`, `int`,
 // `long int`, `long long int`, `float`, or `double` or as a [BOOL]. (Note
 // that number objects do not necessarily preserve the type they are created
-// with.) It also defines a [NSNumber.Compare] method to determine the ordering of two
-// [NSNumber] objects.
+// with.) It also defines a [NSNumber.Compare] method to determine the
+// ordering of two [NSNumber] objects.
 //
 // [NSNumber] is “toll-free bridged” with its Core Foundation
 // counterparts: [CFNumber] for integer and floating point values, and
@@ -68,12 +68,13 @@ func (nc NSNumberClass) Alloc() NSNumber {
 // capabilities, attempting to initialize with a value of one type and access
 // the value of another type may produce an erroneous result—for example,
 // initializing with a `double` value exceeding `FLT_MAX` and accessing its
-// [NSNumber.FloatValue], or initializing with an negative integer value and accessing
-// its [NSNumber.UnsignedIntegerValue]. In some cases, attempting to initialize with a
-// value of a type and access the value of another type may result in loss of
-// precision—for example, initializing with a `double` value with many
-// significant digits and accessing its [NSNumber.FloatValue], or initializing with a
-// large integer value and accessing its [NSNumber.CharValue].
+// [NSNumber.FloatValue], or initializing with an negative integer value and
+// accessing its [NSNumber.UnsignedIntegerValue]. In some cases, attempting to
+// initialize with a value of a type and access the value of another type may
+// result in loss of precision—for example, initializing with a `double`
+// value with many significant digits and accessing its [NSNumber.FloatValue],
+// or initializing with a large integer value and accessing its
+// [NSNumber.CharValue].
 //
 // An [NSNumber] object initialized with a value of a particular type
 // accessing the converted value of a different of type, such as `unsigned
@@ -94,13 +95,13 @@ func (nc NSNumberClass) Alloc() NSNumber {
 // primitive methods of its superclass, [NSValue]. In addition, there are two
 // requirements around the data type your subclass represents:
 //
-// - Your implementation of [NSNumber.ObjCType] must return one of “`c`”,
+// - Your implementation of [NSValue.ObjCType] must return one of “`c`”,
 // “[C]”, “`s`”, “[S]”, “`i`”, “[I]”, “`l`”,
 // “[L]”, “`q`”, “[Q]”, “`f`”, and “`d`”. This is required
 // for the other methods of [NSNumber] to behave correctly. - Your subclass
 // must override the accessor method that corresponds to the declared
-// type—for example, if your implementation of [NSNumber.ObjCType] returns “`i`”,
-// you must override [NSNumber.IntValue].
+// type—for example, if your implementation of [NSValue.ObjCType] returns
+// “`i`”, you must override [NSNumber.IntValue].
 //
 // # Initializing an NSNumber Object
 //
@@ -814,12 +815,12 @@ func (n NSNumber) InitWithUnsignedShort(value uint16) NSNumber {
 // # Discussion
 //
 // For example, if you have an [NSNumber] object that has the integer value
-// 522, sending it the [DescriptionWithLocale] message returns the string
-// “522”.
+// 522, sending it the [NSNumber.DescriptionWithLocale] message returns the
+// string “522”.
 //
 // To obtain the string representation, this method invokes [NSString]’s
-// [InitWithFormatLocale] method, supplying the format based on the type the
-// [NSNumber] object was created with:
+// [NSString.InitWithFormatLocale] method, supplying the format based on the
+// type the [NSNumber] object was created with:
 //
 // [Table data omitted]
 //
@@ -846,10 +847,10 @@ func (n NSNumber) DescriptionWithLocale(locale objectivec.IObject) string {
 //
 // # Discussion
 //
-// The [Compare] method follows the standard C rules for type conversion. For
-// example, if you compare an [NSNumber] object that has an integer value with
-// an [NSNumber] object that has a floating point value, the integer value is
-// converted to a floating-point value for comparison.
+// The [NSNumber.Compare] method follows the standard C rules for type
+// conversion. For example, if you compare an [NSNumber] object that has an
+// integer value with an [NSNumber] object that has a floating point value,
+// the integer value is converted to a floating-point value for comparison.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/compare(_:)
 func (n NSNumber) Compare(otherNumber INSNumber) NSComparisonResult {
@@ -870,10 +871,11 @@ func (n NSNumber) Compare(otherNumber INSNumber) NSComparisonResult {
 // # Discussion
 //
 // Two [NSNumber] objects are considered equal if they have the same id values
-// or if they have equivalent values (as determined by the [Compare] method).
+// or if they have equivalent values (as determined by the [NSNumber.Compare]
+// method).
 //
-// This method is more efficient than [Compare] if you know the two objects
-// are numbers.
+// This method is more efficient than [NSNumber.Compare] if you know the two
+// objects are numbers.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/isEqual(to:)
 func (n NSNumber) IsEqualToNumber(number INSNumber) bool {
@@ -1277,8 +1279,8 @@ func (n NSNumber) UnsignedShortValue() uint16 {
 //
 // # Discussion
 //
-// The string is created by invoking [DescriptionWithLocale] where locale is
-// `nil`.
+// The string is created by invoking [NSNumber.DescriptionWithLocale] where
+// locale is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/stringValue
 func (n NSNumber) StringValue() string {

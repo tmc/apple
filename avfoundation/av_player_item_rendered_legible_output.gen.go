@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -110,8 +111,8 @@ type IAVPlayerItemRenderedLegibleOutput interface {
 	// Topic: Configuring an output
 
 	// Permits advance invocation of the associated delegate, if any.
-	AdvanceIntervalForDelegateInvocation() float64
-	SetAdvanceIntervalForDelegateInvocation(value float64)
+	AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval
+	SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval)
 	// Set the video display size to use for rendering of pixel buffers.
 	VideoDisplaySize() corefoundation.CGSize
 	SetVideoDisplaySize(value corefoundation.CGSize)
@@ -151,7 +152,8 @@ func NewAVPlayerItemRenderedLegibleOutput() AVPlayerItemRenderedLegibleOutput {
 //
 // # Discussion
 //
-// You can also choose to reset the [VideoDisplaySize] value after
+// You can also choose to reset the
+// [AVPlayerItemRenderedLegibleOutput.VideoDisplaySize] value after
 // initialization or during playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutput/init(videoDisplay:)
@@ -167,7 +169,8 @@ func NewPlayerItemRenderedLegibleOutputWithVideoDisplaySize(videoDisplaySize cor
 //
 // # Discussion
 //
-// You can also choose to reset the [VideoDisplaySize] value after
+// You can also choose to reset the
+// [AVPlayerItemRenderedLegibleOutput.VideoDisplaySize] value after
 // initialization or during playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutput/init(videoDisplay:)
@@ -196,11 +199,11 @@ func (p AVPlayerItemRenderedLegibleOutput) SetDelegateQueue(delegate AVPlayerIte
 // value to call its delegate earlier than it would otherwise.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutput/advanceIntervalForDelegateInvocation
-func (p AVPlayerItemRenderedLegibleOutput) AdvanceIntervalForDelegateInvocation() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
-	return rv
+func (p AVPlayerItemRenderedLegibleOutput) AdvanceIntervalForDelegateInvocation() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](p.ID, objc.Sel("advanceIntervalForDelegateInvocation"))
+	return foundation.NSTimeInterval(rv)
 }
-func (p AVPlayerItemRenderedLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
+func (p AVPlayerItemRenderedLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
 

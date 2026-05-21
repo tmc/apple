@@ -173,8 +173,9 @@ func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
-// the `index` property of the index specifier to `objectIndex`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and sets the `index` property of the index specifier to
+// `objectIndex`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier/init(containerClassDescription:containerSpecifier:key:index:)
 func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKeyIndex(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, index int) NSIndexSpecifier {
@@ -221,8 +222,9 @@ func NewIndexSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
-// the `index` property of the index specifier to `objectIndex`.
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and sets the `index` property of the index specifier to
+// `objectIndex`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier/init(containerClassDescription:containerSpecifier:key:index:)
 func (i NSIndexSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyIndex(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, index int) NSIndexSpecifier {

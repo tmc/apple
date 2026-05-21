@@ -85,16 +85,6 @@ type IAVZoomRange interface {
 	MaxZoomFactor() float64
 	// Returns a Boolean value that indicates whether the specified zoom factor exists in the range.
 	ContainsZoomFactor(zoomFactor float64) bool
-
-	// A maximum zoom factor the format allows.
-	VideoMaxZoomFactor() float64
-	SetVideoMaxZoomFactor(value float64)
-	// A threshold at which the system upscales pixel data.
-	VideoZoomFactorUpscaleThreshold() float64
-	SetVideoZoomFactorUpscaleThreshold(value float64)
-	// A Boolean value that indicates whether the format supports zoom factors outside the range supported for depth delivery.
-	ZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported() bool
-	SetZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported(value bool)
 }
 
 // Init initializes the instance.
@@ -139,38 +129,4 @@ func (z AVZoomRange) MinZoomFactor() float64 {
 func (z AVZoomRange) MaxZoomFactor() float64 {
 	rv := objc.Send[float64](z.ID, objc.Sel("maxZoomFactor"))
 	return rv
-}
-
-// A maximum zoom factor the format allows.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/videomaxzoomfactor
-func (z AVZoomRange) VideoMaxZoomFactor() float64 {
-	rv := objc.Send[float64](z.ID, objc.Sel("videoMaxZoomFactor"))
-	return rv
-}
-func (z AVZoomRange) SetVideoMaxZoomFactor(value float64) {
-	objc.Send[struct{}](z.ID, objc.Sel("setVideoMaxZoomFactor:"), value)
-}
-
-// A threshold at which the system upscales pixel data.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/videozoomfactorupscalethreshold
-func (z AVZoomRange) VideoZoomFactorUpscaleThreshold() float64 {
-	rv := objc.Send[float64](z.ID, objc.Sel("videoZoomFactorUpscaleThreshold"))
-	return rv
-}
-func (z AVZoomRange) SetVideoZoomFactorUpscaleThreshold(value float64) {
-	objc.Send[struct{}](z.ID, objc.Sel("setVideoZoomFactorUpscaleThreshold:"), value)
-}
-
-// A Boolean value that indicates whether the format supports zoom factors
-// outside the range supported for depth delivery.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/zoomfactorsoutsideofvideozoomrangesfordepthdeliverysupported
-func (z AVZoomRange) ZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported() bool {
-	rv := objc.Send[bool](z.ID, objc.Sel("zoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported"))
-	return rv
-}
-func (z AVZoomRange) SetZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported(value bool) {
-	objc.Send[struct{}](z.ID, objc.Sel("setZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported:"), value)
 }

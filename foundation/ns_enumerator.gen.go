@@ -51,16 +51,17 @@ func (nc NSEnumeratorClass) Alloc() NSEnumerator {
 // [NSArray], [NSSet], and [NSDictionary]—which provide special
 // [NSEnumerator] objects with which to enumerate their contents. For example,
 // [NSArray] has two methods that return an [NSEnumerator] object:
-// [ObjectEnumerator] and [ReverseObjectEnumerator]. [NSDictionary] also has
-// two methods that return an [NSEnumerator] object: [KeyEnumerator] and
-// [ObjectEnumerator]. These methods let you enumerate the contents of a
-// dictionary by key or by value, respectively.
+// [NSSet.ObjectEnumerator] and [NSArray.ReverseObjectEnumerator].
+// [NSDictionary] also has two methods that return an [NSEnumerator] object:
+// [NSDictionary.KeyEnumerator] and [NSDictionary.ObjectEnumerator]. These
+// methods let you enumerate the contents of a dictionary by key or by value,
+// respectively.
 //
-// You send [NSEnumerator.NextObject] repeatedly to a newly created [NSEnumerator] object
-// to have it return the next object in the original collection. When the
-// collection is exhausted, `nil` is returned. You cannot “reset” an
-// enumerator after it has exhausted its collection. To enumerate a collection
-// again, you need a new enumerator.
+// You send [NSEnumerator.NextObject] repeatedly to a newly created
+// [NSEnumerator] object to have it return the next object in the original
+// collection. When the collection is exhausted, `nil` is returned. You cannot
+// “reset” an enumerator after it has exhausted its collection. To
+// enumerate a collection again, you need a new enumerator.
 //
 // The enumerator subclasses used by [NSArray], [NSDictionary], and [NSSet]
 // retain the collection during enumeration. When the enumeration is
@@ -175,10 +176,10 @@ func (e NSEnumerator) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 //
 // This array contains all the remaining objects of the enumerator in
 // enumerated order. It does not contain objects that have already been
-// enumerated with previous [NextObject] messages.
+// enumerated with previous [NSEnumerator.NextObject] messages.
 //
 // Accessing this property exhausts the enumerator’s collection so that
-// subsequent invocations of [NextObject] return `nil`.
+// subsequent invocations of [NSEnumerator.NextObject] return `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEnumerator/allObjects
 func (e NSEnumerator) AllObjects() []objectivec.IObject {

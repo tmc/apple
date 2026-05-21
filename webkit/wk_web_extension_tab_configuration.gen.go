@@ -56,8 +56,6 @@ func (wc WKWebExtensionTabConfigurationClass) Alloc() WKWebExtensionTabConfigura
 //
 // # Instance Properties
 //
-//   - [WKWebExtensionTabConfiguration.Index]: Indicates the position where the tab should be opened within the window.
-//   - [WKWebExtensionTabConfiguration.SetIndex]
 //   - [WKWebExtensionTabConfiguration.ParentTab]: Indicates the parent tab with which the tab should be related.
 //   - [WKWebExtensionTabConfiguration.ShouldAddToSelection]: Indicates whether the tab should be added to the current tab selection.
 //   - [WKWebExtensionTabConfiguration.ShouldBeActive]: Indicates whether the tab should be the active tab.
@@ -87,8 +85,6 @@ func WKWebExtensionTabConfigurationFromID(id objc.ID) WKWebExtensionTabConfigura
 //
 // # Instance Properties
 //
-//   - [IWKWebExtensionTabConfiguration.Index]: Indicates the position where the tab should be opened within the window.
-//   - [IWKWebExtensionTabConfiguration.SetIndex]
 //   - [IWKWebExtensionTabConfiguration.ParentTab]: Indicates the parent tab with which the tab should be related.
 //   - [IWKWebExtensionTabConfiguration.ShouldAddToSelection]: Indicates whether the tab should be added to the current tab selection.
 //   - [IWKWebExtensionTabConfiguration.ShouldBeActive]: Indicates whether the tab should be the active tab.
@@ -104,9 +100,6 @@ type IWKWebExtensionTabConfiguration interface {
 
 	// Topic: Instance Properties
 
-	// Indicates the position where the tab should be opened within the window.
-	Index() int
-	SetIndex(value int)
 	// Indicates the parent tab with which the tab should be related.
 	ParentTab() WKWebExtensionTab
 	// Indicates whether the tab should be added to the current tab selection.
@@ -144,17 +137,6 @@ func NewWKWebExtensionTabConfiguration() WKWebExtensionTabConfiguration {
 	return rv
 }
 
-// Indicates the position where the tab should be opened within the window.
-//
-// See: https://developer.apple.com/documentation/webkit/wkwebextension/tabconfiguration/index
-func (w WKWebExtensionTabConfiguration) Index() int {
-	rv := objc.Send[int](w.ID, objc.Sel("index"))
-	return rv
-}
-func (w WKWebExtensionTabConfiguration) SetIndex(value int) {
-	objc.Send[struct{}](w.ID, objc.Sel("setIndex:"), value)
-}
-
 // Indicates the parent tab with which the tab should be related.
 //
 // # Discussion
@@ -172,9 +154,9 @@ func (w WKWebExtensionTabConfiguration) ParentTab() WKWebExtensionTab {
 // # Discussion
 //
 // If this property is [YES], the tab should be part of the current selection,
-// but not necessarily become the active tab unless [ShouldBeActive] is also
-// [YES]. If this property is [NO], the tab shouldn’t be part of the current
-// selection.
+// but not necessarily become the active tab unless
+// [WKWebExtensionTabConfiguration.ShouldBeActive] is also [YES]. If this
+// property is [NO], the tab shouldn’t be part of the current selection.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/TabConfiguration/shouldAddToSelection
 func (w WKWebExtensionTabConfiguration) ShouldAddToSelection() bool {

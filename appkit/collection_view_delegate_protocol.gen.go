@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -404,13 +403,15 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexPathsWi
 // create and return the pasteboard writer—an object conforming to the
 // [NSPasteboardWriting] protocol—to use for providing the item’s data.
 // Using the object you provide, the collection view creates an
-// [NSDraggingItem] object for you and configures its [DraggingFrame] and
-// [ImageComponents] properties for you using information from the item at the
-// specified index path.
+// [NSDraggingItem] object for you and configures its
+// [NSDraggingItem.DraggingFrame] and [NSDraggingItem.ImageComponents]
+// properties for you using information from the item at the specified index
+// path.
 //
 // If you implement this method, the collection view does not call the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] of your
-// delegate or the [DraggingImageForItemsAtIndexesWithEventOffset] method of
+// delegate or the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method of
 // [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-5eyyl
@@ -450,13 +451,14 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // specified amount.
 //
 // If you do not implement this method, the collection view uses the drag
-// image returned by the [DraggingImageForItemsAtIndexesWithEventOffset]
-// method instead.
+// image returned by the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method
+// instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-898js
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:"), collectionView, indexPaths, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -547,9 +549,9 @@ func (o NSCollectionViewDelegateObject) CollectionViewUpdateDraggingItemsForDrag
 //
 // Although implementation of this method is optional, you must implement it
 // to support drops onto the associated collection view. You must also call
-// the collection view’s [RegisterForDraggedTypes] method to register the
-// types of drops it supports. If you do not perform both of these actions,
-// the collection view does not accept drops.
+// the collection view’s [NSView.RegisterForDraggedTypes] method to register
+// the types of drops it supports. If you do not perform both of these
+// actions, the collection view does not accept drops.
 //
 // When an interactive drag operation occurs, the collection view calls this
 // method to determine whether the current mouse location is a valid place to
@@ -566,7 +568,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewUpdateDraggingItemsForDrag
 // it sets the parameter to [NSCollectionViewDropBefore].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndexPath:dropOperation:)
-func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndexPath objectivec.IObject, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndexPath foundation.NSIndexPath, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndexPath:dropOperation:"), collectionView, draggingInfo, proposedDropIndexPath, proposedDropOperation)
 	return rv
 }
@@ -664,13 +666,15 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexesWithE
 // create and return the pasteboard writer—an object conforming to the
 // [NSPasteboardWriting] protocol—to use for providing the item’s data.
 // Using the object you provide, the collection view creates an
-// [NSDraggingItem] object for you and configures its [DraggingFrame] and
-// [ImageComponents] properties for you using information from the item at the
-// specified index path.
+// [NSDraggingItem] object for you and configures its
+// [NSDraggingItem.DraggingFrame] and [NSDraggingItem.ImageComponents]
+// properties for you using information from the item at the specified index
+// path.
 //
 // If you implement this method, the collection view does not call the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] of your
-// delegate or the [DraggingImageForItemsAtIndexesWithEventOffset] method of
+// delegate or the
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset] method of
 // [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-7ldvs
@@ -699,7 +703,8 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // # Discussion
 //
 // If the delegate does not implement this method, the collection view uses
-// the image returned by [DraggingImageForItemsAtIndexesWithEventOffset].
+// the image returned by
+// [NSCollectionView.DraggingImageForItemsAtIndexesWithEventOffset].
 //
 // You do not need to implement this method for your collection view to be a
 // drag source.
@@ -707,7 +712,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-4yvk5
 //
 // [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
-func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexesWithEventOffset(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
+func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexesWithEventOffset(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexes:withEvent:offset:"), collectionView, indexes, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
@@ -761,14 +766,15 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAt
 // this default behavior by changing `proposedDropOperation` or
 // `proposedDropIndex`.
 //
-// To receive drag messages, you must first send [RegisterForDraggedTypes] to
-// the collection view with the drag types you want to support.
+// To receive drag messages, you must first send
+// [NSView.RegisterForDraggedTypes] to the collection view with the drag types
+// you want to support.
 //
 // You must implement this method for your collection view to be a drag
 // destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndex:dropOperation:)
-func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex unsafe.Pointer, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex *int, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndex:dropOperation:"), collectionView, draggingInfo, proposedDropIndex, proposedDropOperation)
 	return rv
 }
@@ -843,11 +849,11 @@ type NSCollectionViewDelegateConfig struct {
 	// CanDragItemsAtIndexPathsWithEvent — Returns a Boolean indicating whether a drag operation involving the specified items can begin.
 	CanDragItemsAtIndexPathsWithEvent func(collectionView NSCollectionView, indexPaths foundation.INSSet, event NSEvent) bool
 	// DraggingImageForItemsAtIndexPathsWithEventOffset — Creates and returns a drag image to represent the specified items during a drag.
-	DraggingImageForItemsAtIndexPathsWithEventOffset func(collectionView NSCollectionView, indexPaths foundation.INSSet, event NSEvent, dragImageOffset foundation.NSPoint) NSImage
+	DraggingImageForItemsAtIndexPathsWithEventOffset func(collectionView NSCollectionView, indexPaths foundation.INSSet, event NSEvent, dragImageOffset foundation.NSPointPointer) NSImage
 	// CanDragItemsAtIndexesWithEvent — Returns a Boolean indicating whether the collection view can begin dragging the specified items.
 	CanDragItemsAtIndexesWithEvent func(collectionView NSCollectionView, indexes foundation.NSIndexSet, event NSEvent) bool
 	// DraggingImageForItemsAtIndexesWithEventOffset — Creates and returns a drag image to represent the specified items during a drag.
-	DraggingImageForItemsAtIndexesWithEventOffset func(collectionView NSCollectionView, indexes foundation.NSIndexSet, event NSEvent, dragImageOffset foundation.NSPoint) NSImage
+	DraggingImageForItemsAtIndexesWithEventOffset func(collectionView NSCollectionView, indexes foundation.NSIndexSet, event NSEvent, dragImageOffset foundation.NSPointPointer) NSImage
 }
 
 // NewNSCollectionViewDelegate creates an Objective-C object implementing the [NSCollectionViewDelegate] protocol.
@@ -1024,7 +1030,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		fn := config.DraggingImageForItemsAtIndexPathsWithEventOffset
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPoint) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				event := NSEventFromID(eventID)
@@ -1050,7 +1056,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		fn := config.DraggingImageForItemsAtIndexesWithEventOffset
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:draggingImageForItemsAtIndexes:withEvent:offset:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexesID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPoint) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexesID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexes := foundation.NSIndexSetFromID(indexesID)
 				event := NSEventFromID(eventID)

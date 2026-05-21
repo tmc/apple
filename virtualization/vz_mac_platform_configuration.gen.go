@@ -45,22 +45,25 @@ func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
 //
 // # Overview
 //
-// When creating a VM, the [VZMacPlatformConfiguration.HardwareModel] and [VZMacPlatformConfiguration.AuxiliaryStorage] depend on
-// the restore image that you use to install macOS.
+// When creating a VM, the [VZMacPlatformConfiguration.HardwareModel] and
+// [VZMacPlatformConfiguration.AuxiliaryStorage] depend on the restore image
+// that you use to install macOS.
 //
 // To choose the hardware model, start from
-// [VZMacOSRestoreImage].[VZMacPlatformConfiguration.MostFeaturefulSupportedConfiguration] to get a
-// supported configuration, then use its
-// [VZMacOSConfigurationRequirements].[VZMacPlatformConfiguration.HardwareModel] property to get the
-// hardware model.
+// [VZMacOSRestoreImage].[VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration]
+// to get a supported configuration, then use its
+// [VZMacOSConfigurationRequirements].[VZMacOSConfigurationRequirements.HardwareModel]
+// property to get the hardware model.
 //
 // Use the hardware model to set up [VZMacPlatformConfiguration] and to
 // initialize a new auxiliary storage with
-// [InitCreatingStorageAtURLHardwareModelOptionsError].
+// [VZMacAuxiliaryStorage.InitCreatingStorageAtURLHardwareModelOptionsError].
 //
 // When you save a VM to disk and load it again, you must restore the
-// [VZMacPlatformConfiguration.HardwareModel], [VZMacPlatformConfiguration.MachineIdentifier] and [VZMacPlatformConfiguration.AuxiliaryStorage] properties to
-// their original values.
+// [VZMacOSConfigurationRequirements.HardwareModel],
+// [VZMacPlatformConfiguration.MachineIdentifier] and
+// [VZMacPlatformConfiguration.AuxiliaryStorage] properties to their original
+// values.
 //
 // If you create multiple VMs from the same configuration, each should have a
 // unique `auxiliaryStorage` and `machineIdentifier`.
@@ -115,10 +118,6 @@ type IVZMacPlatformConfiguration interface {
 	// The Mac machine identifier.
 	MachineIdentifier() IVZMacMachineIdentifier
 	SetMachineIdentifier(value IVZMacMachineIdentifier)
-
-	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
-	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
-	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
 // Init initializes the instance.
@@ -161,14 +160,14 @@ func (m VZMacPlatformConfiguration) SetAuxiliaryStorage(value IVZMacAuxiliarySto
 //
 // # Discussion
 //
-// When creating a VM, the [HardwareModel] depends on the restore image that
-// you use to install macOS.
+// When creating a VM, the [VZMacPlatformConfiguration.HardwareModel] depends
+// on the restore image that you use to install macOS.
 //
 // To choose the hardware model, start from
-// [VZMacOSRestoreImage].[MostFeaturefulSupportedConfiguration] to get a
-// supported configuration, then use its
-// [VZMacOSConfigurationRequirements].[HardwareModel] property to get the
-// hardware model.
+// [VZMacOSRestoreImage].[VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration]
+// to get a supported configuration, then use its
+// [VZMacOSConfigurationRequirements].[VZMacOSConfigurationRequirements.HardwareModel]
+// property to get the hardware model.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/hardwareModel
 func (m VZMacPlatformConfiguration) HardwareModel() IVZMacHardwareModel {
@@ -194,16 +193,4 @@ func (m VZMacPlatformConfiguration) MachineIdentifier() IVZMacMachineIdentifier 
 }
 func (m VZMacPlatformConfiguration) SetMachineIdentifier(value IVZMacMachineIdentifier) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineIdentifier:"), value)
-}
-
-// This object represents the most fully featured configuration that’s
-// supported by both the current host and by this restore image.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/mostfeaturefulsupportedconfiguration
-func (m VZMacPlatformConfiguration) MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
-	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
-}
-func (m VZMacPlatformConfiguration) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }

@@ -29,27 +29,13 @@ const (
 	AlertThirdButtonReturn NSModalResponse = 1002
 )
 
-// float64 values.
+// foundation.NSTimeInterval values.
 const (
 
 	// EventDurationForever is the longest time duration possible.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSEvent/foreverDuration
-	EventDurationForever float64 = 1.7976931348623157
-
-	// SquareStatusItemLength is a status item length that is equal to the status bar’s thickness.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/squareLength
-	SquareStatusItemLength float64 = -2.0
-
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStackView/useDefaultSpacing
-	StackViewSpacingUseDefault float64 = 3.40282347
-
-	// VariableStatusItemLength is a status item length that dynamically adjusts to the width of its contents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/variableLength
-	VariableStatusItemLength float64 = -1.0
+	EventDurationForever foundation.NSTimeInterval = 1.7976931348623157
 )
 
 // NSWindowLevel values.
@@ -125,177 +111,33 @@ const (
 	SearchFieldRecentsTitleMenuItemTag int = 1000
 )
 
+// float64 values.
+const (
+
+	// SquareStatusItemLength is a status item length that is equal to the status bar’s thickness.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/squareLength
+	SquareStatusItemLength float64 = -2.0
+
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStackView/useDefaultSpacing
+	StackViewSpacingUseDefault float64 = 3.40282347
+
+	// VariableStatusItemLength is a status item length that dynamically adjusts to the width of its contents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/variableLength
+	VariableStatusItemLength float64 = -1.0
+)
+
 var (
 	// See: https://developer.apple.com/documentation/AppKit/NSAbortModalException
 	AbortModalException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSAbortPrintingException
 	AbortPrintingException foundation.NSExceptionName
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationTextAttribute
-	AccessibilityAnnotationTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityAutocorrectedTextAttribute is autocorrected text ([NSNumber] as a Boolean value).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAutocorrectedTextAttribute
-	AccessibilityAutocorrectedTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityBackgroundColorTextAttribute is text background color ([CGColorRef]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityBackgroundColorTextAttribute
-	AccessibilityBackgroundColorTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomTextAttribute
-	AccessibilityCustomTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontBoldAttribute
-	AccessibilityFontBoldAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontItalicAttribute
-	AccessibilityFontItalicAttribute foundation.NSAttributedStringKey
-	// AccessibilityFontTextAttribute is font keys ([NSDictionary]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontTextAttribute
-	AccessibilityFontTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityForegroundColorTextAttribute is text foreground color ([CGColorRef]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityForegroundColorTextAttribute
-	AccessibilityForegroundColorTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLanguageTextAttribute
-	AccessibilityLanguageTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityLinkTextAttribute is text link (`id`).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLinkTextAttribute
-	AccessibilityLinkTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemIndexTextAttribute
-	AccessibilityListItemIndexTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemLevelTextAttribute
-	AccessibilityListItemLevelTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemPrefixTextAttribute
-	AccessibilityListItemPrefixTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityMarkedMisspelledTextAttribute is misspelled text that is visibly marked as misspelled ([NSNumber] as a Boolean value). If you’re implementing a custom text-editing app, use [NSAccessibilityMarkedMisspelledTextAttribute] to ensure that VoiceOver properly identifies misspelled text to users.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMarkedMisspelledTextAttribute
-	AccessibilityMarkedMisspelledTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityMisspelledTextAttribute is misspelled text that isn’t necessarily visibly marked as misspelled ([NSNumber] as a Boolean value).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMisspelledTextAttribute
-	AccessibilityMisspelledTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityShadowTextAttribute is text shadow ([NSNumber] as a Boolean value).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityShadowTextAttribute
-	AccessibilityShadowTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityStrikethroughColorTextAttribute is text strikethrough color ([CGColorRef]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughColorTextAttribute
-	AccessibilityStrikethroughColorTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityStrikethroughTextAttribute is text strikethrough ([NSNumber] as a Boolean value).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughTextAttribute
-	AccessibilityStrikethroughTextAttribute foundation.NSAttributedStringKey
-	// AccessibilitySuperscriptTextAttribute is text superscript style ([NSNumber]). Values > 0 are superscript; values < 0 are subscript.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySuperscriptTextAttribute
-	AccessibilitySuperscriptTextAttribute foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTextAlignmentAttribute
-	AccessibilityTextAlignmentAttribute foundation.NSAttributedStringKey
-	// AccessibilityUnderlineColorTextAttribute is text underline color ([CGColorRef]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineColorTextAttribute
-	AccessibilityUnderlineColorTextAttribute foundation.NSAttributedStringKey
-	// AccessibilityUnderlineTextAttribute is text underline style ([NSNumber]).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineTextAttribute
-	AccessibilityUnderlineTextAttribute foundation.NSAttributedStringKey
-	// AdaptiveImageGlyphAttributeName is the adaptive image glyph for the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyphAttributeName
-	AdaptiveImageGlyphAttributeName foundation.NSAttributedStringKey
-	// AnimationProgressMarkNotification is posted when the current progress of a running animation reaches one of its progress marks.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
-	AnimationProgressMarkNotification foundation.NSNotificationName
-	// AntialiasThresholdChangedNotification is posted after the threshold for antialiasing changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSFont/antialiasThresholdChangedNotification
-	AntialiasThresholdChangedNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSAppKitIgnoredException
 	AppKitIgnoredException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSAppKitVirtualMemoryException
 	AppKitVirtualMemoryException foundation.NSExceptionName
-	// ApplicationDidBecomeActiveNotification is posted immediately after the app becomes active.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didBecomeActiveNotification
-	ApplicationDidBecomeActiveNotification foundation.NSNotificationName
-	// ApplicationDidChangeOcclusionStateNotification is posted when the app’s occlusion state changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeOcclusionStateNotification
-	ApplicationDidChangeOcclusionStateNotification foundation.NSNotificationName
-	// ApplicationDidChangeScreenParametersNotification is posted when the configuration of the displays attached to the computer is changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeScreenParametersNotification
-	ApplicationDidChangeScreenParametersNotification foundation.NSNotificationName
-	// ApplicationDidFinishLaunchingNotification is posted at the end of the [finishLaunching()] method to indicate that the app has completed launching and is ready to run.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
-	ApplicationDidFinishLaunchingNotification foundation.NSNotificationName
-	// ApplicationDidFinishRestoringWindowsNotification is posted when the app has finished restoring windows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishRestoringWindowsNotification
-	ApplicationDidFinishRestoringWindowsNotification foundation.NSNotificationName
-	// ApplicationDidHideNotification is posted at the end of the [hide(_:)] method to indicate that the app is now hidden.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didHideNotification
-	ApplicationDidHideNotification foundation.NSNotificationName
-	// ApplicationDidResignActiveNotification is posted immediately after the app gives up its active status to another app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didResignActiveNotification
-	ApplicationDidResignActiveNotification foundation.NSNotificationName
-	// ApplicationDidUnhideNotification is posted at the end of the [unhideWithoutActivation()] method to indicate that the app is now visible.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUnhideNotification
-	ApplicationDidUnhideNotification foundation.NSNotificationName
-	// ApplicationDidUpdateNotification is posted at the end of the [updateWindows()] method to indicate that the app has finished updating its windows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUpdateNotification
-	ApplicationDidUpdateNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataDidBecomeAvailableNotification
-	ApplicationProtectedDataDidBecomeAvailableNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataWillBecomeUnavailableNotification
-	ApplicationProtectedDataWillBecomeUnavailableNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldBeginSuppressingHighDynamicRangeContentNotification
-	ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldEndSuppressingHighDynamicRangeContentNotification
-	ApplicationShouldEndSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
-	// ApplicationWillBecomeActiveNotification is posted immediately before the app becomes active.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willBecomeActiveNotification
-	ApplicationWillBecomeActiveNotification foundation.NSNotificationName
-	// ApplicationWillFinishLaunchingNotification is posted at the start of the [finishLaunching()] method to indicate that the app has completed its initialization process and is about to finish launching.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willFinishLaunchingNotification
-	ApplicationWillFinishLaunchingNotification foundation.NSNotificationName
-	// ApplicationWillHideNotification is posted at the start of the [hide(_:)] method to indicate that the app is about to be hidden.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willHideNotification
-	ApplicationWillHideNotification foundation.NSNotificationName
-	// ApplicationWillResignActiveNotification is posted immediately before the app gives up its active status to another app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willResignActiveNotification
-	ApplicationWillResignActiveNotification foundation.NSNotificationName
-	// ApplicationWillTerminateNotification is sends a notification to terminate the app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willTerminateNotification
-	ApplicationWillTerminateNotification foundation.NSNotificationName
-	// ApplicationWillUnhideNotification is posted at the start of the [unhideWithoutActivation()] method to indicate that the app is about to become visible.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUnhideNotification
-	ApplicationWillUnhideNotification foundation.NSNotificationName
-	// ApplicationWillUpdateNotification is posted at the start of the [updateWindows()] method to indicate that the app is about to update its windows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUpdateNotification
-	ApplicationWillUpdateNotification foundation.NSNotificationName
-	// AttachmentAttributeName is the attachment for the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAttachmentAttributeName
-	AttachmentAttributeName foundation.NSAttributedStringKey
-	// BackgroundColorAttributeName is the color of the background behind the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSBackgroundColorAttributeName
-	BackgroundColorAttributeName foundation.NSAttributedStringKey
 	// See: https://developer.apple.com/documentation/AppKit/NSBadBitmapParametersException
 	BadBitmapParametersException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSBadComparisonException
@@ -308,198 +150,22 @@ var (
 	BadRTFFontTableException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSBadRTFStyleSheetException
 	BadRTFStyleSheetException foundation.NSExceptionName
-	// BaselineOffsetAttributeName is the vertical offset for the position of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSBaselineOffsetAttributeName
-	BaselineOffsetAttributeName foundation.NSAttributedStringKey
-	// BrowserColumnConfigurationDidChangeNotification is notifies the delegate when the width of a browser column has changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
-	BrowserColumnConfigurationDidChangeNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSBrowserIllegalDelegateException
 	BrowserIllegalDelegateException foundation.NSExceptionName
-	// ColorListDidChangeNotification is posted whenever a color list changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSColorList/didChangeNotification
-	ColorListDidChangeNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSColorListIOException
 	ColorListIOException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSColorListNotEditableException
 	ColorListNotEditableException foundation.NSExceptionName
-	// ColorPanelColorDidChangeNotification is posted when the color of the [NSColorPanel] is set, as when [NSColorPanel] is invoked.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSColorPanel/colorDidChangeNotification
-	ColorPanelColorDidChangeNotification foundation.NSNotificationName
-	// ComboBoxSelectionDidChangeNotification is posted after the pop-up list selection of the [NSComboBox] changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
-	ComboBoxSelectionDidChangeNotification foundation.NSNotificationName
-	// ComboBoxSelectionIsChangingNotification is posted whenever the pop-up list selection of the [NSComboBox] is changing.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionIsChangingNotification
-	ComboBoxSelectionIsChangingNotification foundation.NSNotificationName
-	// ComboBoxWillDismissNotification is posted whenever the pop-up list of the [NSComboBox] is about to be dismissed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willDismissNotification
-	ComboBoxWillDismissNotification foundation.NSNotificationName
-	// ComboBoxWillPopUpNotification is posted whenever the pop-up list of the [NSComboBox] is going to be displayed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willPopUpNotification
-	ComboBoxWillPopUpNotification foundation.NSNotificationName
-	// ContextHelpModeDidActivateNotification is posted when the application enters context-sensitive help mode. This typically happens when the user holds down the Help key.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidActivateNotification
-	ContextHelpModeDidActivateNotification foundation.NSNotificationName
-	// ContextHelpModeDidDeactivateNotification is posted when the application exits context-sensitive help mode. This happens when the user clicks the mouse button while the cursor is anywhere on the screen after displaying a context-sensitive help topic.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidDeactivateNotification
-	ContextHelpModeDidDeactivateNotification foundation.NSNotificationName
-	// ControlTextDidBeginEditingNotification is sent when a control with editable cells begins an edit session.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
-	ControlTextDidBeginEditingNotification foundation.NSNotificationName
-	// ControlTextDidChangeNotification is sent when the text in the receiving control changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
-	ControlTextDidChangeNotification foundation.NSNotificationName
-	// ControlTextDidEndEditingNotification is sent when a control with editable cells ends an editing session.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidEndEditingNotification
-	ControlTextDidEndEditingNotification foundation.NSNotificationName
-	// CursorAttributeName is the cursor object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCursorAttributeName
-	CursorAttributeName foundation.NSAttributedStringKey
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingException
 	DraggingException foundation.NSExceptionName
-	// EventTrackingRunLoopMode is the mode set when tracking events modally, such as a mouse-dragging loop.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSEventTrackingRunLoopMode
-	EventTrackingRunLoopMode foundation.NSRunLoopMode
-	// ExpansionAttributeName is the expansion factor of the text.
-	//
-	// Deprecated: Deprecated since macOS 26.2.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSExpansionAttributeName
-	ExpansionAttributeName foundation.NSAttributedStringKey
-	// FontAttributeName is the font of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSFontAttributeName
-	FontAttributeName foundation.NSAttributedStringKey
-	// FontCollectionDidChangeNotification is posted whenever a font collection is changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/didChangeNotification
-	FontCollectionDidChangeNotification foundation.NSNotificationName
-	// FontSetChangedNotification is posted after the currently-set font changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSFont/fontSetChangedNotification
-	FontSetChangedNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSFontUnavailableException
 	FontUnavailableException foundation.NSExceptionName
-	// ForegroundColorAttributeName is the color of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSForegroundColorAttributeName
-	ForegroundColorAttributeName foundation.NSAttributedStringKey
-	// GlyphInfoAttributeName is the name of a glyph info object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfoAttributeName
-	GlyphInfoAttributeName foundation.NSAttributedStringKey
 	// See: https://developer.apple.com/documentation/AppKit/NSIllegalSelectorException
 	IllegalSelectorException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSImageCacheException
 	ImageCacheException foundation.NSExceptionName
-	// ImageRepRegistryDidChangeNotification is posted whenever the image representation class registry changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/registryDidChangeNotification
-	ImageRepRegistryDidChangeNotification foundation.NSNotificationName
-	// KernAttributeName is the kerning of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSKernAttributeName
-	KernAttributeName foundation.NSAttributedStringKey
-	// LigatureAttributeName is the ligature of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSLigatureAttributeName
-	LigatureAttributeName foundation.NSAttributedStringKey
-	// LinkAttributeName is the link for the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSLinkAttributeName
-	LinkAttributeName foundation.NSAttributedStringKey
-	// MarkedClauseSegmentAttributeName is the index of the marked clause segment.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMarkedClauseSegmentAttributeName
-	MarkedClauseSegmentAttributeName foundation.NSAttributedStringKey
-	// MenuDidAddItemNotification is posted after a menu item is added to the menu.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didAddItemNotification
-	MenuDidAddItemNotification foundation.NSNotificationName
-	// MenuDidBeginTrackingNotification is posted when menu tracking begins.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didBeginTrackingNotification
-	MenuDidBeginTrackingNotification foundation.NSNotificationName
-	// MenuDidChangeItemNotification is posted after a menu item in the menu changes appearance.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didChangeItemNotification
-	MenuDidChangeItemNotification foundation.NSNotificationName
-	// MenuDidEndTrackingNotification is posted when menu tracking ends, even if no action is sent.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didEndTrackingNotification
-	MenuDidEndTrackingNotification foundation.NSNotificationName
-	// MenuDidRemoveItemNotification is posted after a menu item is removed from the menu.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didRemoveItemNotification
-	MenuDidRemoveItemNotification foundation.NSNotificationName
-	// MenuDidSendActionNotification is posted just after the application dispatches a menu item’s action method to the menu item’s target.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didSendActionNotification
-	MenuDidSendActionNotification foundation.NSNotificationName
-	// MenuWillSendActionNotification is posted just before the application dispatches a menu item’s action method to the menu item’s target.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSMenu/willSendActionNotification
-	MenuWillSendActionNotification foundation.NSNotificationName
-	// ModalPanelRunLoopMode is the mode set when waiting for input from a modal panel, such as a save or open panel.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSModalPanelRunLoopMode
-	ModalPanelRunLoopMode foundation.NSRunLoopMode
 	// See: https://developer.apple.com/documentation/AppKit/NSNibLoadingException
 	NibLoadingException foundation.NSExceptionName
-	// ObliquenessAttributeName is the obliqueness of the text.
-	//
-	// Deprecated: Deprecated since macOS 26.2.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSObliquenessAttributeName
-	ObliquenessAttributeName foundation.NSAttributedStringKey
-	// OutlineViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSOutlineView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidMoveNotification
-	OutlineViewColumnDidMoveNotification foundation.NSNotificationName
-	// OutlineViewColumnDidResizeNotification is posted whenever a column is resized in an [NSOutlineView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidResizeNotification
-	OutlineViewColumnDidResizeNotification foundation.NSNotificationName
-	// OutlineViewItemDidCollapseNotification is posted whenever an item is collapsed in an [NSOutlineView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidCollapseNotification
-	OutlineViewItemDidCollapseNotification foundation.NSNotificationName
-	// OutlineViewItemDidExpandNotification is posted whenever an item is expanded in an [NSOutlineView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidExpandNotification
-	OutlineViewItemDidExpandNotification foundation.NSNotificationName
-	// OutlineViewItemWillCollapseNotification is posted before an item is collapsed (after the user clicks the arrow but before the item is collapsed).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillCollapseNotification
-	OutlineViewItemWillCollapseNotification foundation.NSNotificationName
-	// OutlineViewItemWillExpandNotification is posted before an item is expanded (after the user clicks the arrow but before the item is collapsed).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillExpandNotification
-	OutlineViewItemWillExpandNotification foundation.NSNotificationName
-	// OutlineViewSelectionDidChangeNotification is posted after the outline view’s selection changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionDidChangeNotification
-	OutlineViewSelectionDidChangeNotification foundation.NSNotificationName
-	// OutlineViewSelectionIsChangingNotification is posted as the outline view’s selection changes (while the mouse button is still down).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionIsChangingNotification
-	OutlineViewSelectionIsChangingNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSPPDIncludeNotFoundException
 	PPDIncludeNotFoundException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSPPDIncludeStackOverflowException
@@ -508,40 +174,8 @@ var (
 	PPDIncludeStackUnderflowException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSPPDParseException
 	PPDParseException foundation.NSExceptionName
-	// ParagraphStyleAttributeName is the paragraph style of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyleAttributeName
-	ParagraphStyleAttributeName foundation.NSAttributedStringKey
 	// See: https://developer.apple.com/documentation/AppKit/NSPasteboardCommunicationException
 	PasteboardCommunicationException foundation.NSExceptionName
-	// PopUpButtonCellWillPopUpNotification is this notification is posted just before a pop-up menu is attached to its window frame.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/willPopUpNotification
-	PopUpButtonCellWillPopUpNotification foundation.NSNotificationName
-	// PopUpButtonWillPopUpNotification is posted when an [NSPopUpButton] object receives a mouse-down event—that is, when the user is about to select an item from the menu.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/willPopUpNotification
-	PopUpButtonWillPopUpNotification foundation.NSNotificationName
-	// PopoverDidCloseNotification is sent after the popover has finished animating offscreen.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didCloseNotification
-	PopoverDidCloseNotification foundation.NSNotificationName
-	// PopoverDidShowNotification is sent after the popover has finished animating onscreen.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didShowNotification
-	PopoverDidShowNotification foundation.NSNotificationName
-	// PopoverWillCloseNotification is sent before the popover is closed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willCloseNotification
-	PopoverWillCloseNotification foundation.NSNotificationName
-	// PopoverWillShowNotification is sent before the popover is shown.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willShowNotification
-	PopoverWillShowNotification foundation.NSNotificationName
-	// PreferredScrollerStyleDidChangeNotification is posted if the preferred scroller style changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScroller/preferredScrollerStyleDidChangeNotification
-	PreferredScrollerStyleDidChangeNotification foundation.NSNotificationName
 	// PrintOperationExistsException is the name of an exception raised when there is already a print operation in process.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSPrintOperationExistsException
@@ -552,150 +186,8 @@ var (
 	PrintingCommunicationException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSRTFPropertyStackOverflowException
 	RTFPropertyStackOverflowException foundation.NSExceptionName
-	// RuleEditorRowsDidChangeNotification is this notification is posted to the default notification center whenever the view’s rows change.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowsDidChangeNotification
-	RuleEditorRowsDidChangeNotification foundation.NSNotificationName
-	// ScreenColorSpaceDidChangeNotification is posted when the color space of the screen has changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScreen/colorSpaceDidChangeNotification
-	ScreenColorSpaceDidChangeNotification foundation.NSNotificationName
-	// ScrollViewDidEndLiveMagnifyNotification is posted at the end of a magnify gesture.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveMagnifyNotification
-	ScrollViewDidEndLiveMagnifyNotification foundation.NSNotificationName
-	// ScrollViewDidEndLiveScrollNotification is posted on the main thread at the end of live scroll tracking.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveScrollNotification
-	ScrollViewDidEndLiveScrollNotification foundation.NSNotificationName
-	// ScrollViewDidLiveScrollNotification is posted on the main thread after changing the clipview bounds origin due to a user-initiated event.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didLiveScrollNotification
-	ScrollViewDidLiveScrollNotification foundation.NSNotificationName
-	// ScrollViewWillStartLiveMagnifyNotification is posted at the beginning of a magnify gesture.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveMagnifyNotification
-	ScrollViewWillStartLiveMagnifyNotification foundation.NSNotificationName
-	// ScrollViewWillStartLiveScrollNotification is posted on the main thread at the beginning of user-initiated live scroll tracking (gesture scroll or scroller tracking, for example, thumb dragging).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveScrollNotification
-	ScrollViewWillStartLiveScrollNotification foundation.NSNotificationName
-	// ShadowAttributeName is the shadow of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSShadowAttributeName
-	ShadowAttributeName foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticCapitalizationNotification
-	SpellCheckerDidChangeAutomaticCapitalizationNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticDashSubstitutionNotification
-	SpellCheckerDidChangeAutomaticDashSubstitutionNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellCheckerDidChangeAutomaticInlinePredictionNotification
-	SpellCheckerDidChangeAutomaticInlinePredictionNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticPeriodSubstitutionNotification
-	SpellCheckerDidChangeAutomaticPeriodSubstitutionNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticQuoteSubstitutionNotification
-	SpellCheckerDidChangeAutomaticQuoteSubstitutionNotification foundation.NSNotificationName
-	// SpellCheckerDidChangeAutomaticSpellingCorrectionNotification is this notification is posted when the spell checker did change text using automatic spell checking correction. The are posted to the application’s default notification center.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticSpellingCorrectionNotification
-	SpellCheckerDidChangeAutomaticSpellingCorrectionNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextCompletionNotification
-	SpellCheckerDidChangeAutomaticTextCompletionNotification foundation.NSNotificationName
-	// SpellCheckerDidChangeAutomaticTextReplacementNotification is posted when the spell checker changed text using automatic text replacement. This notification is posted to the app’s default notification center.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextReplacementNotification
-	SpellCheckerDidChangeAutomaticTextReplacementNotification foundation.NSNotificationName
-	// SpellingStateAttributeName is the spelling state of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSpellingStateAttributeName
-	SpellingStateAttributeName foundation.NSAttributedStringKey
-	// SplitViewDidResizeSubviewsNotification is a notification that posts after a change to the size of some or all subviews of a split view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/didResizeSubviewsNotification
-	SplitViewDidResizeSubviewsNotification foundation.NSNotificationName
-	// SplitViewWillResizeSubviewsNotification is a notification that posts before a change to the size of some or all subviews of a split view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/willResizeSubviewsNotification
-	SplitViewWillResizeSubviewsNotification foundation.NSNotificationName
-	// StrikethroughColorAttributeName is the color of the strikethrough.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughColorAttributeName
-	StrikethroughColorAttributeName foundation.NSAttributedStringKey
-	// StrikethroughStyleAttributeName is the strikethrough style of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughStyleAttributeName
-	StrikethroughStyleAttributeName foundation.NSAttributedStringKey
-	// StrokeColorAttributeName is the color of the stroke.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStrokeColorAttributeName
-	StrokeColorAttributeName foundation.NSAttributedStringKey
-	// StrokeWidthAttributeName is the width of the stroke.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSStrokeWidthAttributeName
-	StrokeWidthAttributeName foundation.NSAttributedStringKey
-	// SuperscriptAttributeName is the superscript of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSSuperscriptAttributeName
-	SuperscriptAttributeName foundation.NSAttributedStringKey
-	// SystemColorsDidChangeNotification is sent when the system colors have changed, such as through a system control panel interface.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSColor/systemColorsDidChangeNotification
-	SystemColorsDidChangeNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSTIFFException
 	TIFFException foundation.NSExceptionName
-	// TableViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSTableView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidMoveNotification
-	TableViewColumnDidMoveNotification foundation.NSNotificationName
-	// TableViewColumnDidResizeNotification is posted whenever a column is resized in an [NSTableView] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidResizeNotification
-	TableViewColumnDidResizeNotification foundation.NSNotificationName
-	// TableViewSelectionDidChangeNotification is posted after an [NSTableView] object’s selection changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionDidChangeNotification
-	TableViewSelectionDidChangeNotification foundation.NSNotificationName
-	// TableViewSelectionIsChangingNotification is posted as an [NSTableView] object’s selection changes (while the mouse button is still down).
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionIsChangingNotification
-	TableViewSelectionIsChangingNotification foundation.NSNotificationName
-	// TextAlternativesAttributeName is the alternatives for the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternativesAttributeName
-	TextAlternativesAttributeName foundation.NSAttributedStringKey
-	// TextAlternativesSelectedAlternativeStringNotification is posted when the user selects an alternate string.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/selectedAlternativeStringNotification
-	TextAlternativesSelectedAlternativeStringNotification foundation.NSNotificationName
-	// See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageUnsupportedAttributeAddedNotification
-	TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
-	// TextDidBeginEditingNotification is posted when an [NSText] object begins any operation that changes characters or formatting attributes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
-	TextDidBeginEditingNotification foundation.NSNotificationName
-	// TextDidChangeNotification is posted after an [NSText] object performs any operation that changes characters or formatting attributes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
-	TextDidChangeNotification foundation.NSNotificationName
-	// TextDidEndEditingNotification is posted when focus leaves an [NSText] object, whether or not any operation has changed characters or formatting attributes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
-	TextDidEndEditingNotification foundation.NSNotificationName
-	// TextEffectAttributeName is an attribute that applies a text effect to the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextEffectAttributeName
-	TextEffectAttributeName foundation.NSAttributedStringKey
-	// TextHighlightColorSchemeAttributeName is the custom highlight color to apply to the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightColorSchemeAttributeName
-	TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
-	// TextHighlightStyleAttributeName is an attribute that adds a highlight color to the text to emphasize it.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightStyleAttributeName
-	TextHighlightStyleAttributeName foundation.NSAttributedStringKey
-	// TextInputContextKeyboardSelectionDidChangeNotification is posted after the selected text input source changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/keyboardSelectionDidChangeNotification
-	TextInputContextKeyboardSelectionDidChangeNotification foundation.NSNotificationName
 	// TextLineTooLongException is exception generated if a line is too long in an [NSText] object.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextLineTooLongException
@@ -704,292 +196,16 @@ var (
 	TextNoSelectionException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSTextReadException
 	TextReadException foundation.NSExceptionName
-	// TextStorageDidProcessEditingNotification is a notification that posts after a text storage finishes processing edits.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/didProcessEditingNotification
-	TextStorageDidProcessEditingNotification foundation.NSNotificationName
-	// TextStorageWillProcessEditingNotification is a notification that posts before a text storage begins processing edits.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/willProcessEditingNotification
-	TextStorageWillProcessEditingNotification foundation.NSNotificationName
-	// TextViewDidChangeSelectionNotification is posted when the selected range of characters changes.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
-	TextViewDidChangeSelectionNotification foundation.NSNotificationName
-	// TextViewDidChangeTypingAttributesNotification is posted when there is a change in the typing attributes within a text view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
-	TextViewDidChangeTypingAttributesNotification foundation.NSNotificationName
-	// TextViewDidSwitchToNSLayoutManagerNotification is posted by the framework after switching to using the compatibility mode layout manager.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didSwitchToNSLayoutManagerNotification
-	TextViewDidSwitchToNSLayoutManagerNotification foundation.NSNotificationName
-	// TextViewWillChangeNotifyingTextViewNotification is posted when a new text view is established as the text view that sends notifications.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willChangeNotifyingTextViewNotification
-	TextViewWillChangeNotifyingTextViewNotification foundation.NSNotificationName
-	// TextViewWillSwitchToNSLayoutManagerNotification is posted by the framework before switching to the compatibility mode layout manager.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willSwitchToNSLayoutManagerNotification
-	TextViewWillSwitchToNSLayoutManagerNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSTextWriteException
 	TextWriteException foundation.NSExceptionName
-	// ToolTipAttributeName is the tooltip text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSToolTipAttributeName
-	ToolTipAttributeName foundation.NSAttributedStringKey
-	// ToolbarDidRemoveItemNotification is posted after an item is removed from a toolbar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/didRemoveItemNotification
-	ToolbarDidRemoveItemNotification foundation.NSNotificationName
-	// ToolbarWillAddItemNotification is posts before the toolbar adds a new item.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/willAddItemNotification
-	ToolbarWillAddItemNotification foundation.NSNotificationName
-	// TrackingAttributeName is the amount to modify the default tracking.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTrackingAttributeName
-	TrackingAttributeName foundation.NSAttributedStringKey
 	// See: https://developer.apple.com/documentation/AppKit/NSTypedStreamVersionException
 	TypedStreamVersionException foundation.NSExceptionName
-	// UnderlineColorAttributeName is the color of the underline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineColorAttributeName
-	UnderlineColorAttributeName foundation.NSAttributedStringKey
-	// UnderlineStyleAttributeName is the underline style of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineStyleAttributeName
-	UnderlineStyleAttributeName foundation.NSAttributedStringKey
-	// VerticalGlyphFormAttributeName is the vertical glyph form of the text.
-	//
-	// Deprecated: Deprecated since macOS 26.2.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSVerticalGlyphFormAttributeName
-	VerticalGlyphFormAttributeName foundation.NSAttributedStringKey
-	// ViewBoundsDidChangeNotification is a notification that posts when the view’s bounds rectangle changes to a new value independently of the frame rectangle.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
-	ViewBoundsDidChangeNotification foundation.NSNotificationName
-	// ViewDidUpdateTrackingAreasNotification is posted whenever a view recalculates its tracking areas.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSView/didUpdateTrackingAreasNotification
-	ViewDidUpdateTrackingAreasNotification foundation.NSNotificationName
-	// ViewFrameDidChangeNotification is a notification that posts when the view’s frame rectangle changes to a new value.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
-	ViewFrameDidChangeNotification foundation.NSNotificationName
-	// WindowDidBecomeKeyNotification is a notification that the window object became the key window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeKeyNotification
-	WindowDidBecomeKeyNotification foundation.NSNotificationName
-	// WindowDidBecomeMainNotification is a notification that the window object became the main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeMainNotification
-	WindowDidBecomeMainNotification foundation.NSNotificationName
-	// WindowDidChangeBackingPropertiesNotification is a notification that the window object backing properties changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeBackingPropertiesNotification
-	WindowDidChangeBackingPropertiesNotification foundation.NSNotificationName
-	// WindowDidChangeOcclusionStateNotification is a notification that the window object’s occlusion state changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeOcclusionStateNotification
-	WindowDidChangeOcclusionStateNotification foundation.NSNotificationName
-	// WindowDidChangeScreenNotification is a notification that a portion of the window object’s frame moved onto or off of a screen.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenNotification
-	WindowDidChangeScreenNotification foundation.NSNotificationName
-	// WindowDidChangeScreenProfileNotification is a notification that the screen containing the window changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenProfileNotification
-	WindowDidChangeScreenProfileNotification foundation.NSNotificationName
-	// WindowDidDeminiaturizeNotification is a notification that the window is no longer minimized.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didDeminiaturizeNotification
-	WindowDidDeminiaturizeNotification foundation.NSNotificationName
-	// WindowDidEndLiveResizeNotification is a notification that the user resized the window object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndLiveResizeNotification
-	WindowDidEndLiveResizeNotification foundation.NSNotificationName
-	// WindowDidEndSheetNotification is a notification that the window object closed an attached sheet.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndSheetNotification
-	WindowDidEndSheetNotification foundation.NSNotificationName
-	// WindowDidEnterFullScreenNotification is a notification that the window entered full-screen mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterFullScreenNotification
-	WindowDidEnterFullScreenNotification foundation.NSNotificationName
-	// WindowDidEnterVersionBrowserNotification is a notification that the window object entered version browser mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterVersionBrowserNotification
-	WindowDidEnterVersionBrowserNotification foundation.NSNotificationName
-	// WindowDidExitFullScreenNotification is a notification that the window object exited full-screen mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitFullScreenNotification
-	WindowDidExitFullScreenNotification foundation.NSNotificationName
-	// WindowDidExitVersionBrowserNotification is a notification that the window object exited version browser mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitVersionBrowserNotification
-	WindowDidExitVersionBrowserNotification foundation.NSNotificationName
-	// WindowDidExposeNotification is a notification that a window exposed a portion of its nonretained content.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExposeNotification
-	WindowDidExposeNotification foundation.NSNotificationName
-	// WindowDidMiniaturizeNotification is a notification that the window object minimized.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMiniaturizeNotification
-	WindowDidMiniaturizeNotification foundation.NSNotificationName
-	// WindowDidMoveNotification is a notification that the window object moved.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMoveNotification
-	WindowDidMoveNotification foundation.NSNotificationName
-	// WindowDidResignKeyNotification is a notification that the window object resigned its status as key window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignKeyNotification
-	WindowDidResignKeyNotification foundation.NSNotificationName
-	// WindowDidResignMainNotification is a notification that the window object resigned its status as main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignMainNotification
-	WindowDidResignMainNotification foundation.NSNotificationName
-	// WindowDidResizeNotification is a notification that the window object size changed.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResizeNotification
-	WindowDidResizeNotification foundation.NSNotificationName
-	// WindowDidUpdateNotification is a notification that the window object received an update message.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didUpdateNotification
-	WindowDidUpdateNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSWindowServerCommunicationException
 	WindowServerCommunicationException foundation.NSExceptionName
-	// WindowWillBeginSheetNotification is a notification that the window object is about to open a sheet.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willBeginSheetNotification
-	WindowWillBeginSheetNotification foundation.NSNotificationName
-	// WindowWillCloseNotification is a notification that the window object is about to close.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willCloseNotification
-	WindowWillCloseNotification foundation.NSNotificationName
-	// WindowWillEnterFullScreenNotification is a notification that the window will enter full-screen mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterFullScreenNotification
-	WindowWillEnterFullScreenNotification foundation.NSNotificationName
-	// WindowWillEnterVersionBrowserNotification is a notification that the window object will enter version browser mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterVersionBrowserNotification
-	WindowWillEnterVersionBrowserNotification foundation.NSNotificationName
-	// WindowWillExitFullScreenNotification is a notification that the window object will exit full-screen mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitFullScreenNotification
-	WindowWillExitFullScreenNotification foundation.NSNotificationName
-	// WindowWillExitVersionBrowserNotification is a notification that the window object will exit version browser mode.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitVersionBrowserNotification
-	WindowWillExitVersionBrowserNotification foundation.NSNotificationName
-	// WindowWillMiniaturizeNotification is a notification that the window object is about to minimize.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMiniaturizeNotification
-	WindowWillMiniaturizeNotification foundation.NSNotificationName
-	// WindowWillMoveNotification is a notification that the window object is about to move.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMoveNotification
-	WindowWillMoveNotification foundation.NSNotificationName
-	// WindowWillStartLiveResizeNotification is a notification that the user is about to resize the window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willStartLiveResizeNotification
-	WindowWillStartLiveResizeNotification foundation.NSNotificationName
 	// See: https://developer.apple.com/documentation/AppKit/NSWordTablesReadException
 	WordTablesReadException foundation.NSExceptionName
 	// See: https://developer.apple.com/documentation/AppKit/NSWordTablesWriteException
 	WordTablesWriteException foundation.NSExceptionName
-	// WorkspaceAccessibilityDisplayOptionsDidChangeNotification is a notification that the workspace posts when any of the accessibility display options change.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-	WorkspaceAccessibilityDisplayOptionsDidChangeNotification foundation.NSNotificationName
-	// WorkspaceActiveSpaceDidChangeNotification is a notification that the workspace posts when a Spaces change occurs.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/activeSpaceDidChangeNotification
-	WorkspaceActiveSpaceDidChangeNotification foundation.NSNotificationName
-	// WorkspaceDidActivateApplicationNotification is a notification that the workspace posts when the Finder is about to activate an app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didActivateApplicationNotification
-	WorkspaceDidActivateApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidChangeFileLabelsNotification is a notification that the workspace posts when the Finder file labels or colors change.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
-	WorkspaceDidChangeFileLabelsNotification foundation.NSNotificationName
-	// WorkspaceDidDeactivateApplicationNotification is a notification that the workspace posts when the Finder deactivates an app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didDeactivateApplicationNotification
-	WorkspaceDidDeactivateApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidHideApplicationNotification is a notification that the workspace posts when the Finder hides an app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didHideApplicationNotification
-	WorkspaceDidHideApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidLaunchApplicationNotification is a notification that the workspace posts when a new app starts up.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didLaunchApplicationNotification
-	WorkspaceDidLaunchApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidMountNotification is a notification that the workspace posts when a new device mounts.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didMountNotification
-	WorkspaceDidMountNotification foundation.NSNotificationName
-	// WorkspaceDidRenameVolumeNotification is a notification that the workspace posts when a volume changes its name or mount path.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didRenameVolumeNotification
-	WorkspaceDidRenameVolumeNotification foundation.NSNotificationName
-	// WorkspaceDidTerminateApplicationNotification is a notification that the workspace posts when an app finishes executing.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didTerminateApplicationNotification
-	WorkspaceDidTerminateApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidUnhideApplicationNotification is a notification that the workspace posts when the Finder unhides an app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnhideApplicationNotification
-	WorkspaceDidUnhideApplicationNotification foundation.NSNotificationName
-	// WorkspaceDidUnmountNotification is a notification that the workspace posts when the Finder unmounts a device.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnmountNotification
-	WorkspaceDidUnmountNotification foundation.NSNotificationName
-	// WorkspaceDidWakeNotification is a notification that the workspace posts when the device wakes from sleep.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didWakeNotification
-	WorkspaceDidWakeNotification foundation.NSNotificationName
-	// WorkspaceScreensDidSleepNotification is a notification that the workspace posts when the device’s screen goes to sleep.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidSleepNotification
-	WorkspaceScreensDidSleepNotification foundation.NSNotificationName
-	// WorkspaceScreensDidWakeNotification is a notification that the workspace posts when the device’s screens wake.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidWakeNotification
-	WorkspaceScreensDidWakeNotification foundation.NSNotificationName
-	// WorkspaceSessionDidBecomeActiveNotification is a notification that the workspace posts after a user session switches in.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidBecomeActiveNotification
-	WorkspaceSessionDidBecomeActiveNotification foundation.NSNotificationName
-	// WorkspaceSessionDidResignActiveNotification is a notification that the workspace posts before a user session switches out.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidResignActiveNotification
-	WorkspaceSessionDidResignActiveNotification foundation.NSNotificationName
-	// WorkspaceWillLaunchApplicationNotification is a notification that the workspace posts when the Finder is about to launch an app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willLaunchApplicationNotification
-	WorkspaceWillLaunchApplicationNotification foundation.NSNotificationName
-	// WorkspaceWillPowerOffNotification is a notification that the workspace posts when the user requests a logout or powers off the device.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willPowerOffNotification
-	WorkspaceWillPowerOffNotification foundation.NSNotificationName
-	// WorkspaceWillSleepNotification is a notification that the workspace posts before the device goes to sleep.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willSleepNotification
-	WorkspaceWillSleepNotification foundation.NSNotificationName
-	// WorkspaceWillUnmountNotification is a notification that the workspace posts when the Finder is about to unmount a device.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willUnmountNotification
-	WorkspaceWillUnmountNotification foundation.NSNotificationName
-	// WritingDirectionAttributeName is the writing direction of the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSWritingDirectionAttributeName
-	WritingDirectionAttributeName foundation.NSAttributedStringKey
-	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsExclusionAttributeName
-	WritingToolsExclusionAttributeName foundation.NSAttributedStringKey
 )
 
 var (
@@ -1879,6 +1095,215 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/AnnotationAttributeKey/location
 	AccessibilityAnnotationLocation NSAccessibilityAnnotationAttributeKey
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationTextAttribute
+	AccessibilityAnnotationTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityAutocorrectedTextAttribute is autocorrected text ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAutocorrectedTextAttribute
+	AccessibilityAutocorrectedTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityBackgroundColorTextAttribute is text background color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityBackgroundColorTextAttribute
+	AccessibilityBackgroundColorTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomTextAttribute
+	AccessibilityCustomTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontBoldAttribute
+	AccessibilityFontBoldAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontItalicAttribute
+	AccessibilityFontItalicAttribute foundation.NSAttributedStringKey
+	// AccessibilityFontTextAttribute is font keys ([NSDictionary]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontTextAttribute
+	AccessibilityFontTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityForegroundColorTextAttribute is text foreground color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityForegroundColorTextAttribute
+	AccessibilityForegroundColorTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLanguageTextAttribute
+	AccessibilityLanguageTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityLinkTextAttribute is text link (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLinkTextAttribute
+	AccessibilityLinkTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemIndexTextAttribute
+	AccessibilityListItemIndexTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemLevelTextAttribute
+	AccessibilityListItemLevelTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemPrefixTextAttribute
+	AccessibilityListItemPrefixTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityMarkedMisspelledTextAttribute is misspelled text that is visibly marked as misspelled ([NSNumber] as a Boolean value). If you’re implementing a custom text-editing app, use [NSAccessibilityMarkedMisspelledTextAttribute] to ensure that VoiceOver properly identifies misspelled text to users.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMarkedMisspelledTextAttribute
+	AccessibilityMarkedMisspelledTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityMisspelledTextAttribute is misspelled text that isn’t necessarily visibly marked as misspelled ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMisspelledTextAttribute
+	AccessibilityMisspelledTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityShadowTextAttribute is text shadow ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityShadowTextAttribute
+	AccessibilityShadowTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityStrikethroughColorTextAttribute is text strikethrough color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughColorTextAttribute
+	AccessibilityStrikethroughColorTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityStrikethroughTextAttribute is text strikethrough ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughTextAttribute
+	AccessibilityStrikethroughTextAttribute foundation.NSAttributedStringKey
+	// AccessibilitySuperscriptTextAttribute is text superscript style ([NSNumber]). Values > 0 are superscript; values < 0 are subscript.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySuperscriptTextAttribute
+	AccessibilitySuperscriptTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTextAlignmentAttribute
+	AccessibilityTextAlignmentAttribute foundation.NSAttributedStringKey
+	// AccessibilityUnderlineColorTextAttribute is text underline color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineColorTextAttribute
+	AccessibilityUnderlineColorTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityUnderlineTextAttribute is text underline style ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineTextAttribute
+	AccessibilityUnderlineTextAttribute foundation.NSAttributedStringKey
+	// AdaptiveImageGlyphAttributeName is the adaptive image glyph for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyphAttributeName
+	AdaptiveImageGlyphAttributeName foundation.NSAttributedStringKey
+	// AttachmentAttributeName is the attachment for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAttachmentAttributeName
+	AttachmentAttributeName foundation.NSAttributedStringKey
+	// BackgroundColorAttributeName is the color of the background behind the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBackgroundColorAttributeName
+	BackgroundColorAttributeName foundation.NSAttributedStringKey
+	// BaselineOffsetAttributeName is the vertical offset for the position of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBaselineOffsetAttributeName
+	BaselineOffsetAttributeName foundation.NSAttributedStringKey
+	// CursorAttributeName is the cursor object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCursorAttributeName
+	CursorAttributeName foundation.NSAttributedStringKey
+	// ExpansionAttributeName is the expansion factor of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSExpansionAttributeName
+	ExpansionAttributeName foundation.NSAttributedStringKey
+	// FontAttributeName is the font of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontAttributeName
+	FontAttributeName foundation.NSAttributedStringKey
+	// ForegroundColorAttributeName is the color of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSForegroundColorAttributeName
+	ForegroundColorAttributeName foundation.NSAttributedStringKey
+	// GlyphInfoAttributeName is the name of a glyph info object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfoAttributeName
+	GlyphInfoAttributeName foundation.NSAttributedStringKey
+	// KernAttributeName is the kerning of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSKernAttributeName
+	KernAttributeName foundation.NSAttributedStringKey
+	// LigatureAttributeName is the ligature of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLigatureAttributeName
+	LigatureAttributeName foundation.NSAttributedStringKey
+	// LinkAttributeName is the link for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLinkAttributeName
+	LinkAttributeName foundation.NSAttributedStringKey
+	// MarkedClauseSegmentAttributeName is the index of the marked clause segment.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMarkedClauseSegmentAttributeName
+	MarkedClauseSegmentAttributeName foundation.NSAttributedStringKey
+	// ObliquenessAttributeName is the obliqueness of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSObliquenessAttributeName
+	ObliquenessAttributeName foundation.NSAttributedStringKey
+	// ParagraphStyleAttributeName is the paragraph style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyleAttributeName
+	ParagraphStyleAttributeName foundation.NSAttributedStringKey
+	// ShadowAttributeName is the shadow of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSShadowAttributeName
+	ShadowAttributeName foundation.NSAttributedStringKey
+	// SpellingStateAttributeName is the spelling state of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellingStateAttributeName
+	SpellingStateAttributeName foundation.NSAttributedStringKey
+	// StrikethroughColorAttributeName is the color of the strikethrough.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughColorAttributeName
+	StrikethroughColorAttributeName foundation.NSAttributedStringKey
+	// StrikethroughStyleAttributeName is the strikethrough style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughStyleAttributeName
+	StrikethroughStyleAttributeName foundation.NSAttributedStringKey
+	// StrokeColorAttributeName is the color of the stroke.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrokeColorAttributeName
+	StrokeColorAttributeName foundation.NSAttributedStringKey
+	// StrokeWidthAttributeName is the width of the stroke.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrokeWidthAttributeName
+	StrokeWidthAttributeName foundation.NSAttributedStringKey
+	// SuperscriptAttributeName is the superscript of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSuperscriptAttributeName
+	SuperscriptAttributeName foundation.NSAttributedStringKey
+	// TextAlternativesAttributeName is the alternatives for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternativesAttributeName
+	TextAlternativesAttributeName foundation.NSAttributedStringKey
+	// TextEffectAttributeName is an attribute that applies a text effect to the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextEffectAttributeName
+	TextEffectAttributeName foundation.NSAttributedStringKey
+	// TextHighlightColorSchemeAttributeName is the custom highlight color to apply to the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightColorSchemeAttributeName
+	TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
+	// TextHighlightStyleAttributeName is an attribute that adds a highlight color to the text to emphasize it.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightStyleAttributeName
+	TextHighlightStyleAttributeName foundation.NSAttributedStringKey
+	// ToolTipAttributeName is the tooltip text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolTipAttributeName
+	ToolTipAttributeName foundation.NSAttributedStringKey
+	// TrackingAttributeName is the amount to modify the default tracking.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTrackingAttributeName
+	TrackingAttributeName foundation.NSAttributedStringKey
+	// UnderlineColorAttributeName is the color of the underline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineColorAttributeName
+	UnderlineColorAttributeName foundation.NSAttributedStringKey
+	// UnderlineStyleAttributeName is the underline style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineStyleAttributeName
+	UnderlineStyleAttributeName foundation.NSAttributedStringKey
+	// VerticalGlyphFormAttributeName is the vertical glyph form of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSVerticalGlyphFormAttributeName
+	VerticalGlyphFormAttributeName foundation.NSAttributedStringKey
+	// WritingDirectionAttributeName is the writing direction of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingDirectionAttributeName
+	WritingDirectionAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsExclusionAttributeName
+	WritingToolsExclusionAttributeName foundation.NSAttributedStringKey
 )
 
 var (
@@ -2797,6 +2222,583 @@ var (
 )
 
 var (
+	// AnimationProgressMarkNotification is posted when the current progress of a running animation reaches one of its progress marks.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
+	AnimationProgressMarkNotification foundation.NSNotificationName
+	// AntialiasThresholdChangedNotification is posted after the threshold for antialiasing changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFont/antialiasThresholdChangedNotification
+	AntialiasThresholdChangedNotification foundation.NSNotificationName
+	// ApplicationDidBecomeActiveNotification is posted immediately after the app becomes active.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didBecomeActiveNotification
+	ApplicationDidBecomeActiveNotification foundation.NSNotificationName
+	// ApplicationDidChangeOcclusionStateNotification is posted when the app’s occlusion state changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeOcclusionStateNotification
+	ApplicationDidChangeOcclusionStateNotification foundation.NSNotificationName
+	// ApplicationDidChangeScreenParametersNotification is posted when the configuration of the displays attached to the computer is changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeScreenParametersNotification
+	ApplicationDidChangeScreenParametersNotification foundation.NSNotificationName
+	// ApplicationDidFinishLaunchingNotification is posted at the end of the [finishLaunching()] method to indicate that the app has completed launching and is ready to run.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
+	ApplicationDidFinishLaunchingNotification foundation.NSNotificationName
+	// ApplicationDidFinishRestoringWindowsNotification is posted when the app has finished restoring windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishRestoringWindowsNotification
+	ApplicationDidFinishRestoringWindowsNotification foundation.NSNotificationName
+	// ApplicationDidHideNotification is posted at the end of the [hide(_:)] method to indicate that the app is now hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didHideNotification
+	ApplicationDidHideNotification foundation.NSNotificationName
+	// ApplicationDidResignActiveNotification is posted immediately after the app gives up its active status to another app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didResignActiveNotification
+	ApplicationDidResignActiveNotification foundation.NSNotificationName
+	// ApplicationDidUnhideNotification is posted at the end of the [unhideWithoutActivation()] method to indicate that the app is now visible.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUnhideNotification
+	ApplicationDidUnhideNotification foundation.NSNotificationName
+	// ApplicationDidUpdateNotification is posted at the end of the [updateWindows()] method to indicate that the app has finished updating its windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUpdateNotification
+	ApplicationDidUpdateNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataDidBecomeAvailableNotification
+	ApplicationProtectedDataDidBecomeAvailableNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataWillBecomeUnavailableNotification
+	ApplicationProtectedDataWillBecomeUnavailableNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldBeginSuppressingHighDynamicRangeContentNotification
+	ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldEndSuppressingHighDynamicRangeContentNotification
+	ApplicationShouldEndSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
+	// ApplicationWillBecomeActiveNotification is posted immediately before the app becomes active.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willBecomeActiveNotification
+	ApplicationWillBecomeActiveNotification foundation.NSNotificationName
+	// ApplicationWillFinishLaunchingNotification is posted at the start of the [finishLaunching()] method to indicate that the app has completed its initialization process and is about to finish launching.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willFinishLaunchingNotification
+	ApplicationWillFinishLaunchingNotification foundation.NSNotificationName
+	// ApplicationWillHideNotification is posted at the start of the [hide(_:)] method to indicate that the app is about to be hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willHideNotification
+	ApplicationWillHideNotification foundation.NSNotificationName
+	// ApplicationWillResignActiveNotification is posted immediately before the app gives up its active status to another app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willResignActiveNotification
+	ApplicationWillResignActiveNotification foundation.NSNotificationName
+	// ApplicationWillTerminateNotification is sends a notification to terminate the app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willTerminateNotification
+	ApplicationWillTerminateNotification foundation.NSNotificationName
+	// ApplicationWillUnhideNotification is posted at the start of the [unhideWithoutActivation()] method to indicate that the app is about to become visible.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUnhideNotification
+	ApplicationWillUnhideNotification foundation.NSNotificationName
+	// ApplicationWillUpdateNotification is posted at the start of the [updateWindows()] method to indicate that the app is about to update its windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUpdateNotification
+	ApplicationWillUpdateNotification foundation.NSNotificationName
+	// BrowserColumnConfigurationDidChangeNotification is notifies the delegate when the width of a browser column has changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
+	BrowserColumnConfigurationDidChangeNotification foundation.NSNotificationName
+	// ColorListDidChangeNotification is posted whenever a color list changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorList/didChangeNotification
+	ColorListDidChangeNotification foundation.NSNotificationName
+	// ColorPanelColorDidChangeNotification is posted when the color of the [NSColorPanel] is set, as when [NSColorPanel] is invoked.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorPanel/colorDidChangeNotification
+	ColorPanelColorDidChangeNotification foundation.NSNotificationName
+	// ComboBoxSelectionDidChangeNotification is posted after the pop-up list selection of the [NSComboBox] changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
+	ComboBoxSelectionDidChangeNotification foundation.NSNotificationName
+	// ComboBoxSelectionIsChangingNotification is posted whenever the pop-up list selection of the [NSComboBox] is changing.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionIsChangingNotification
+	ComboBoxSelectionIsChangingNotification foundation.NSNotificationName
+	// ComboBoxWillDismissNotification is posted whenever the pop-up list of the [NSComboBox] is about to be dismissed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willDismissNotification
+	ComboBoxWillDismissNotification foundation.NSNotificationName
+	// ComboBoxWillPopUpNotification is posted whenever the pop-up list of the [NSComboBox] is going to be displayed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willPopUpNotification
+	ComboBoxWillPopUpNotification foundation.NSNotificationName
+	// ContextHelpModeDidActivateNotification is posted when the application enters context-sensitive help mode. This typically happens when the user holds down the Help key.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidActivateNotification
+	ContextHelpModeDidActivateNotification foundation.NSNotificationName
+	// ContextHelpModeDidDeactivateNotification is posted when the application exits context-sensitive help mode. This happens when the user clicks the mouse button while the cursor is anywhere on the screen after displaying a context-sensitive help topic.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidDeactivateNotification
+	ContextHelpModeDidDeactivateNotification foundation.NSNotificationName
+	// ControlTextDidBeginEditingNotification is sent when a control with editable cells begins an edit session.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
+	ControlTextDidBeginEditingNotification foundation.NSNotificationName
+	// ControlTextDidChangeNotification is sent when the text in the receiving control changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
+	ControlTextDidChangeNotification foundation.NSNotificationName
+	// ControlTextDidEndEditingNotification is sent when a control with editable cells ends an editing session.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidEndEditingNotification
+	ControlTextDidEndEditingNotification foundation.NSNotificationName
+	// FontCollectionDidChangeNotification is posted whenever a font collection is changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/didChangeNotification
+	FontCollectionDidChangeNotification foundation.NSNotificationName
+	// FontSetChangedNotification is posted after the currently-set font changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFont/fontSetChangedNotification
+	FontSetChangedNotification foundation.NSNotificationName
+	// ImageRepRegistryDidChangeNotification is posted whenever the image representation class registry changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/registryDidChangeNotification
+	ImageRepRegistryDidChangeNotification foundation.NSNotificationName
+	// MenuDidAddItemNotification is posted after a menu item is added to the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didAddItemNotification
+	MenuDidAddItemNotification foundation.NSNotificationName
+	// MenuDidBeginTrackingNotification is posted when menu tracking begins.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didBeginTrackingNotification
+	MenuDidBeginTrackingNotification foundation.NSNotificationName
+	// MenuDidChangeItemNotification is posted after a menu item in the menu changes appearance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didChangeItemNotification
+	MenuDidChangeItemNotification foundation.NSNotificationName
+	// MenuDidEndTrackingNotification is posted when menu tracking ends, even if no action is sent.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didEndTrackingNotification
+	MenuDidEndTrackingNotification foundation.NSNotificationName
+	// MenuDidRemoveItemNotification is posted after a menu item is removed from the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didRemoveItemNotification
+	MenuDidRemoveItemNotification foundation.NSNotificationName
+	// MenuDidSendActionNotification is posted just after the application dispatches a menu item’s action method to the menu item’s target.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didSendActionNotification
+	MenuDidSendActionNotification foundation.NSNotificationName
+	// MenuWillSendActionNotification is posted just before the application dispatches a menu item’s action method to the menu item’s target.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/willSendActionNotification
+	MenuWillSendActionNotification foundation.NSNotificationName
+	// OutlineViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidMoveNotification
+	OutlineViewColumnDidMoveNotification foundation.NSNotificationName
+	// OutlineViewColumnDidResizeNotification is posted whenever a column is resized in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidResizeNotification
+	OutlineViewColumnDidResizeNotification foundation.NSNotificationName
+	// OutlineViewItemDidCollapseNotification is posted whenever an item is collapsed in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidCollapseNotification
+	OutlineViewItemDidCollapseNotification foundation.NSNotificationName
+	// OutlineViewItemDidExpandNotification is posted whenever an item is expanded in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidExpandNotification
+	OutlineViewItemDidExpandNotification foundation.NSNotificationName
+	// OutlineViewItemWillCollapseNotification is posted before an item is collapsed (after the user clicks the arrow but before the item is collapsed).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillCollapseNotification
+	OutlineViewItemWillCollapseNotification foundation.NSNotificationName
+	// OutlineViewItemWillExpandNotification is posted before an item is expanded (after the user clicks the arrow but before the item is collapsed).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillExpandNotification
+	OutlineViewItemWillExpandNotification foundation.NSNotificationName
+	// OutlineViewSelectionDidChangeNotification is posted after the outline view’s selection changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionDidChangeNotification
+	OutlineViewSelectionDidChangeNotification foundation.NSNotificationName
+	// OutlineViewSelectionIsChangingNotification is posted as the outline view’s selection changes (while the mouse button is still down).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionIsChangingNotification
+	OutlineViewSelectionIsChangingNotification foundation.NSNotificationName
+	// PopUpButtonCellWillPopUpNotification is this notification is posted just before a pop-up menu is attached to its window frame.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/willPopUpNotification
+	PopUpButtonCellWillPopUpNotification foundation.NSNotificationName
+	// PopUpButtonWillPopUpNotification is posted when an [NSPopUpButton] object receives a mouse-down event—that is, when the user is about to select an item from the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/willPopUpNotification
+	PopUpButtonWillPopUpNotification foundation.NSNotificationName
+	// PopoverDidCloseNotification is sent after the popover has finished animating offscreen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didCloseNotification
+	PopoverDidCloseNotification foundation.NSNotificationName
+	// PopoverDidShowNotification is sent after the popover has finished animating onscreen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didShowNotification
+	PopoverDidShowNotification foundation.NSNotificationName
+	// PopoverWillCloseNotification is sent before the popover is closed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willCloseNotification
+	PopoverWillCloseNotification foundation.NSNotificationName
+	// PopoverWillShowNotification is sent before the popover is shown.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willShowNotification
+	PopoverWillShowNotification foundation.NSNotificationName
+	// PreferredScrollerStyleDidChangeNotification is posted if the preferred scroller style changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScroller/preferredScrollerStyleDidChangeNotification
+	PreferredScrollerStyleDidChangeNotification foundation.NSNotificationName
+	// RuleEditorRowsDidChangeNotification is this notification is posted to the default notification center whenever the view’s rows change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowsDidChangeNotification
+	RuleEditorRowsDidChangeNotification foundation.NSNotificationName
+	// ScreenColorSpaceDidChangeNotification is posted when the color space of the screen has changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScreen/colorSpaceDidChangeNotification
+	ScreenColorSpaceDidChangeNotification foundation.NSNotificationName
+	// ScrollViewDidEndLiveMagnifyNotification is posted at the end of a magnify gesture.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveMagnifyNotification
+	ScrollViewDidEndLiveMagnifyNotification foundation.NSNotificationName
+	// ScrollViewDidEndLiveScrollNotification is posted on the main thread at the end of live scroll tracking.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveScrollNotification
+	ScrollViewDidEndLiveScrollNotification foundation.NSNotificationName
+	// ScrollViewDidLiveScrollNotification is posted on the main thread after changing the clipview bounds origin due to a user-initiated event.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didLiveScrollNotification
+	ScrollViewDidLiveScrollNotification foundation.NSNotificationName
+	// ScrollViewWillStartLiveMagnifyNotification is posted at the beginning of a magnify gesture.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveMagnifyNotification
+	ScrollViewWillStartLiveMagnifyNotification foundation.NSNotificationName
+	// ScrollViewWillStartLiveScrollNotification is posted on the main thread at the beginning of user-initiated live scroll tracking (gesture scroll or scroller tracking, for example, thumb dragging).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveScrollNotification
+	ScrollViewWillStartLiveScrollNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticCapitalizationNotification
+	SpellCheckerDidChangeAutomaticCapitalizationNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticDashSubstitutionNotification
+	SpellCheckerDidChangeAutomaticDashSubstitutionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellCheckerDidChangeAutomaticInlinePredictionNotification
+	SpellCheckerDidChangeAutomaticInlinePredictionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticPeriodSubstitutionNotification
+	SpellCheckerDidChangeAutomaticPeriodSubstitutionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticQuoteSubstitutionNotification
+	SpellCheckerDidChangeAutomaticQuoteSubstitutionNotification foundation.NSNotificationName
+	// SpellCheckerDidChangeAutomaticSpellingCorrectionNotification is this notification is posted when the spell checker did change text using automatic spell checking correction. The are posted to the application’s default notification center.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticSpellingCorrectionNotification
+	SpellCheckerDidChangeAutomaticSpellingCorrectionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextCompletionNotification
+	SpellCheckerDidChangeAutomaticTextCompletionNotification foundation.NSNotificationName
+	// SpellCheckerDidChangeAutomaticTextReplacementNotification is posted when the spell checker changed text using automatic text replacement. This notification is posted to the app’s default notification center.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextReplacementNotification
+	SpellCheckerDidChangeAutomaticTextReplacementNotification foundation.NSNotificationName
+	// SplitViewDidResizeSubviewsNotification is a notification that posts after a change to the size of some or all subviews of a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/didResizeSubviewsNotification
+	SplitViewDidResizeSubviewsNotification foundation.NSNotificationName
+	// SplitViewWillResizeSubviewsNotification is a notification that posts before a change to the size of some or all subviews of a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/willResizeSubviewsNotification
+	SplitViewWillResizeSubviewsNotification foundation.NSNotificationName
+	// SystemColorsDidChangeNotification is sent when the system colors have changed, such as through a system control panel interface.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColor/systemColorsDidChangeNotification
+	SystemColorsDidChangeNotification foundation.NSNotificationName
+	// TableViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSTableView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidMoveNotification
+	TableViewColumnDidMoveNotification foundation.NSNotificationName
+	// TableViewColumnDidResizeNotification is posted whenever a column is resized in an [NSTableView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidResizeNotification
+	TableViewColumnDidResizeNotification foundation.NSNotificationName
+	// TableViewSelectionDidChangeNotification is posted after an [NSTableView] object’s selection changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionDidChangeNotification
+	TableViewSelectionDidChangeNotification foundation.NSNotificationName
+	// TableViewSelectionIsChangingNotification is posted as an [NSTableView] object’s selection changes (while the mouse button is still down).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionIsChangingNotification
+	TableViewSelectionIsChangingNotification foundation.NSNotificationName
+	// TextAlternativesSelectedAlternativeStringNotification is posted when the user selects an alternate string.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/selectedAlternativeStringNotification
+	TextAlternativesSelectedAlternativeStringNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageUnsupportedAttributeAddedNotification
+	TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
+	// TextDidBeginEditingNotification is posted when an [NSText] object begins any operation that changes characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
+	TextDidBeginEditingNotification foundation.NSNotificationName
+	// TextDidChangeNotification is posted after an [NSText] object performs any operation that changes characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
+	TextDidChangeNotification foundation.NSNotificationName
+	// TextDidEndEditingNotification is posted when focus leaves an [NSText] object, whether or not any operation has changed characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
+	TextDidEndEditingNotification foundation.NSNotificationName
+	// TextInputContextKeyboardSelectionDidChangeNotification is posted after the selected text input source changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/keyboardSelectionDidChangeNotification
+	TextInputContextKeyboardSelectionDidChangeNotification foundation.NSNotificationName
+	// TextStorageDidProcessEditingNotification is a notification that posts after a text storage finishes processing edits.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/didProcessEditingNotification
+	TextStorageDidProcessEditingNotification foundation.NSNotificationName
+	// TextStorageWillProcessEditingNotification is a notification that posts before a text storage begins processing edits.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/willProcessEditingNotification
+	TextStorageWillProcessEditingNotification foundation.NSNotificationName
+	// TextViewDidChangeSelectionNotification is posted when the selected range of characters changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
+	TextViewDidChangeSelectionNotification foundation.NSNotificationName
+	// TextViewDidChangeTypingAttributesNotification is posted when there is a change in the typing attributes within a text view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
+	TextViewDidChangeTypingAttributesNotification foundation.NSNotificationName
+	// TextViewDidSwitchToNSLayoutManagerNotification is posted by the framework after switching to using the compatibility mode layout manager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didSwitchToNSLayoutManagerNotification
+	TextViewDidSwitchToNSLayoutManagerNotification foundation.NSNotificationName
+	// TextViewWillChangeNotifyingTextViewNotification is posted when a new text view is established as the text view that sends notifications.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willChangeNotifyingTextViewNotification
+	TextViewWillChangeNotifyingTextViewNotification foundation.NSNotificationName
+	// TextViewWillSwitchToNSLayoutManagerNotification is posted by the framework before switching to the compatibility mode layout manager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willSwitchToNSLayoutManagerNotification
+	TextViewWillSwitchToNSLayoutManagerNotification foundation.NSNotificationName
+	// ToolbarDidRemoveItemNotification is posted after an item is removed from a toolbar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/didRemoveItemNotification
+	ToolbarDidRemoveItemNotification foundation.NSNotificationName
+	// ToolbarWillAddItemNotification is posts before the toolbar adds a new item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/willAddItemNotification
+	ToolbarWillAddItemNotification foundation.NSNotificationName
+	// ViewBoundsDidChangeNotification is a notification that posts when the view’s bounds rectangle changes to a new value independently of the frame rectangle.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
+	ViewBoundsDidChangeNotification foundation.NSNotificationName
+	// ViewDidUpdateTrackingAreasNotification is posted whenever a view recalculates its tracking areas.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/didUpdateTrackingAreasNotification
+	ViewDidUpdateTrackingAreasNotification foundation.NSNotificationName
+	// ViewFrameDidChangeNotification is a notification that posts when the view’s frame rectangle changes to a new value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
+	ViewFrameDidChangeNotification foundation.NSNotificationName
+	// WindowDidBecomeKeyNotification is a notification that the window object became the key window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeKeyNotification
+	WindowDidBecomeKeyNotification foundation.NSNotificationName
+	// WindowDidBecomeMainNotification is a notification that the window object became the main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeMainNotification
+	WindowDidBecomeMainNotification foundation.NSNotificationName
+	// WindowDidChangeBackingPropertiesNotification is a notification that the window object backing properties changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeBackingPropertiesNotification
+	WindowDidChangeBackingPropertiesNotification foundation.NSNotificationName
+	// WindowDidChangeOcclusionStateNotification is a notification that the window object’s occlusion state changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeOcclusionStateNotification
+	WindowDidChangeOcclusionStateNotification foundation.NSNotificationName
+	// WindowDidChangeScreenNotification is a notification that a portion of the window object’s frame moved onto or off of a screen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenNotification
+	WindowDidChangeScreenNotification foundation.NSNotificationName
+	// WindowDidChangeScreenProfileNotification is a notification that the screen containing the window changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenProfileNotification
+	WindowDidChangeScreenProfileNotification foundation.NSNotificationName
+	// WindowDidDeminiaturizeNotification is a notification that the window is no longer minimized.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didDeminiaturizeNotification
+	WindowDidDeminiaturizeNotification foundation.NSNotificationName
+	// WindowDidEndLiveResizeNotification is a notification that the user resized the window object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndLiveResizeNotification
+	WindowDidEndLiveResizeNotification foundation.NSNotificationName
+	// WindowDidEndSheetNotification is a notification that the window object closed an attached sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndSheetNotification
+	WindowDidEndSheetNotification foundation.NSNotificationName
+	// WindowDidEnterFullScreenNotification is a notification that the window entered full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterFullScreenNotification
+	WindowDidEnterFullScreenNotification foundation.NSNotificationName
+	// WindowDidEnterVersionBrowserNotification is a notification that the window object entered version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterVersionBrowserNotification
+	WindowDidEnterVersionBrowserNotification foundation.NSNotificationName
+	// WindowDidExitFullScreenNotification is a notification that the window object exited full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitFullScreenNotification
+	WindowDidExitFullScreenNotification foundation.NSNotificationName
+	// WindowDidExitVersionBrowserNotification is a notification that the window object exited version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitVersionBrowserNotification
+	WindowDidExitVersionBrowserNotification foundation.NSNotificationName
+	// WindowDidExposeNotification is a notification that a window exposed a portion of its nonretained content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExposeNotification
+	WindowDidExposeNotification foundation.NSNotificationName
+	// WindowDidMiniaturizeNotification is a notification that the window object minimized.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMiniaturizeNotification
+	WindowDidMiniaturizeNotification foundation.NSNotificationName
+	// WindowDidMoveNotification is a notification that the window object moved.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMoveNotification
+	WindowDidMoveNotification foundation.NSNotificationName
+	// WindowDidResignKeyNotification is a notification that the window object resigned its status as key window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignKeyNotification
+	WindowDidResignKeyNotification foundation.NSNotificationName
+	// WindowDidResignMainNotification is a notification that the window object resigned its status as main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignMainNotification
+	WindowDidResignMainNotification foundation.NSNotificationName
+	// WindowDidResizeNotification is a notification that the window object size changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResizeNotification
+	WindowDidResizeNotification foundation.NSNotificationName
+	// WindowDidUpdateNotification is a notification that the window object received an update message.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didUpdateNotification
+	WindowDidUpdateNotification foundation.NSNotificationName
+	// WindowWillBeginSheetNotification is a notification that the window object is about to open a sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willBeginSheetNotification
+	WindowWillBeginSheetNotification foundation.NSNotificationName
+	// WindowWillCloseNotification is a notification that the window object is about to close.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willCloseNotification
+	WindowWillCloseNotification foundation.NSNotificationName
+	// WindowWillEnterFullScreenNotification is a notification that the window will enter full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterFullScreenNotification
+	WindowWillEnterFullScreenNotification foundation.NSNotificationName
+	// WindowWillEnterVersionBrowserNotification is a notification that the window object will enter version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterVersionBrowserNotification
+	WindowWillEnterVersionBrowserNotification foundation.NSNotificationName
+	// WindowWillExitFullScreenNotification is a notification that the window object will exit full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitFullScreenNotification
+	WindowWillExitFullScreenNotification foundation.NSNotificationName
+	// WindowWillExitVersionBrowserNotification is a notification that the window object will exit version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitVersionBrowserNotification
+	WindowWillExitVersionBrowserNotification foundation.NSNotificationName
+	// WindowWillMiniaturizeNotification is a notification that the window object is about to minimize.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMiniaturizeNotification
+	WindowWillMiniaturizeNotification foundation.NSNotificationName
+	// WindowWillMoveNotification is a notification that the window object is about to move.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMoveNotification
+	WindowWillMoveNotification foundation.NSNotificationName
+	// WindowWillStartLiveResizeNotification is a notification that the user is about to resize the window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willStartLiveResizeNotification
+	WindowWillStartLiveResizeNotification foundation.NSNotificationName
+	// WorkspaceAccessibilityDisplayOptionsDidChangeNotification is a notification that the workspace posts when any of the accessibility display options change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
+	WorkspaceAccessibilityDisplayOptionsDidChangeNotification foundation.NSNotificationName
+	// WorkspaceActiveSpaceDidChangeNotification is a notification that the workspace posts when a Spaces change occurs.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/activeSpaceDidChangeNotification
+	WorkspaceActiveSpaceDidChangeNotification foundation.NSNotificationName
+	// WorkspaceDidActivateApplicationNotification is a notification that the workspace posts when the Finder is about to activate an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didActivateApplicationNotification
+	WorkspaceDidActivateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidChangeFileLabelsNotification is a notification that the workspace posts when the Finder file labels or colors change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
+	WorkspaceDidChangeFileLabelsNotification foundation.NSNotificationName
+	// WorkspaceDidDeactivateApplicationNotification is a notification that the workspace posts when the Finder deactivates an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didDeactivateApplicationNotification
+	WorkspaceDidDeactivateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidHideApplicationNotification is a notification that the workspace posts when the Finder hides an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didHideApplicationNotification
+	WorkspaceDidHideApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidLaunchApplicationNotification is a notification that the workspace posts when a new app starts up.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didLaunchApplicationNotification
+	WorkspaceDidLaunchApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidMountNotification is a notification that the workspace posts when a new device mounts.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didMountNotification
+	WorkspaceDidMountNotification foundation.NSNotificationName
+	// WorkspaceDidRenameVolumeNotification is a notification that the workspace posts when a volume changes its name or mount path.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didRenameVolumeNotification
+	WorkspaceDidRenameVolumeNotification foundation.NSNotificationName
+	// WorkspaceDidTerminateApplicationNotification is a notification that the workspace posts when an app finishes executing.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didTerminateApplicationNotification
+	WorkspaceDidTerminateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidUnhideApplicationNotification is a notification that the workspace posts when the Finder unhides an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnhideApplicationNotification
+	WorkspaceDidUnhideApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidUnmountNotification is a notification that the workspace posts when the Finder unmounts a device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnmountNotification
+	WorkspaceDidUnmountNotification foundation.NSNotificationName
+	// WorkspaceDidWakeNotification is a notification that the workspace posts when the device wakes from sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didWakeNotification
+	WorkspaceDidWakeNotification foundation.NSNotificationName
+	// WorkspaceScreensDidSleepNotification is a notification that the workspace posts when the device’s screen goes to sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidSleepNotification
+	WorkspaceScreensDidSleepNotification foundation.NSNotificationName
+	// WorkspaceScreensDidWakeNotification is a notification that the workspace posts when the device’s screens wake.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidWakeNotification
+	WorkspaceScreensDidWakeNotification foundation.NSNotificationName
+	// WorkspaceSessionDidBecomeActiveNotification is a notification that the workspace posts after a user session switches in.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidBecomeActiveNotification
+	WorkspaceSessionDidBecomeActiveNotification foundation.NSNotificationName
+	// WorkspaceSessionDidResignActiveNotification is a notification that the workspace posts before a user session switches out.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidResignActiveNotification
+	WorkspaceSessionDidResignActiveNotification foundation.NSNotificationName
+	// WorkspaceWillLaunchApplicationNotification is a notification that the workspace posts when the Finder is about to launch an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willLaunchApplicationNotification
+	WorkspaceWillLaunchApplicationNotification foundation.NSNotificationName
+	// WorkspaceWillPowerOffNotification is a notification that the workspace posts when the user requests a logout or powers off the device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willPowerOffNotification
+	WorkspaceWillPowerOffNotification foundation.NSNotificationName
+	// WorkspaceWillSleepNotification is a notification that the workspace posts before the device goes to sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willSleepNotification
+	WorkspaceWillSleepNotification foundation.NSNotificationName
+	// WorkspaceWillUnmountNotification is a notification that the workspace posts when the Finder is about to unmount a device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willUnmountNotification
+	WorkspaceWillUnmountNotification foundation.NSNotificationName
+)
+
+var (
 	// See: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderIn
 	AnimationTriggerOrderIn NSAnimatablePropertyKey
 	// See: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderOut
@@ -3204,6 +3206,17 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/ImageComponentKey/label
 	DraggingImageComponentLabelKey NSDraggingImageComponentKey
+)
+
+var (
+	// EventTrackingRunLoopMode is the mode set when tracking events modally, such as a mouse-dragging loop.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSEventTrackingRunLoopMode
+	EventTrackingRunLoopMode foundation.NSRunLoopMode
+	// ModalPanelRunLoopMode is the mode set when waiting for input from a modal panel, such as a save or open panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSModalPanelRunLoopMode
+	ModalPanelRunLoopMode foundation.NSRunLoopMode
 )
 
 var (

@@ -5,7 +5,6 @@ package quartzcore
 import (
 	"sync"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -49,49 +48,56 @@ func (cc CABasicAnimationClass) Alloc() CABasicAnimation {
 // # Overview
 //
 // You create an instance of [CABasicAnimation] using the inherited
-// [CABasicAnimation.AnimationWithKeyPath] method, specifying the key path of the property to
-// be animated in the render tree.
+// [CASpringAnimationClass.AnimationWithKeyPath] method, specifying the key
+// path of the property to be animated in the render tree.
 //
 // For example, you can animate a layer’s scalar (i.e. containing a single
-// value) properties such as its [CABasicAnimation.Opacity]. The following code fades in a
-// layer by animating its opacity from `0` to `1`.
+// value) properties such as its [CALayer.Opacity]. The following code fades
+// in a layer by animating its opacity from `0` to `1`.
 //
-// Non-scalar properties, such as [CABasicAnimation.BackgroundColor], can also be animated.
-// Core Animation will interpolate between the [CABasicAnimation.FromValue] color and the
-// [CABasicAnimation.ToValue] color. The animation created in the following code fades a
-// layer’s background color from red to blue.
+// Non-scalar properties, such as [CALayer.BackgroundColor], can also be
+// animated. Core Animation will interpolate between the
+// [CABasicAnimation.FromValue] color and the [CABasicAnimation.ToValue]
+// color. The animation created in the following code fades a layer’s
+// background color from red to blue.
 //
 // If you want to animate the individual components of a non-scalar property
-// with different values, you pass the values to [CABasicAnimation.ToValue] and [CABasicAnimation.FromValue] as
-// arrays. The following animation moves a layer from `(0, 0)` to `(100,
-// 100)`.
+// with different values, you pass the values to [CABasicAnimation.ToValue]
+// and [CABasicAnimation.FromValue] as arrays. The following animation moves a
+// layer from `(0, 0)` to `(100, 100)`.
 //
 // The `keyPath` can access the individual components of a property. For
 // example, the following animation stretches a layer by animating its
-// [CABasicAnimation.Transform] object’s `x` from `1` to `2`.
+// [CALayer.Transform] object’s `x` from `1` to `2`.
 //
 // # Setting Interpolation Values
 //
-// The [CABasicAnimation.FromValue], [CABasicAnimation.ByValue] and [CABasicAnimation.ToValue] properties define the values being
-// interpolated between. All are optional, and no more than two should be
-// non-`nil`. The object type should match the type of the property being
-// animated.
+// The [CABasicAnimation.FromValue], [CABasicAnimation.ByValue] and
+// [CABasicAnimation.ToValue] properties define the values being interpolated
+// between. All are optional, and no more than two should be non-`nil`. The
+// object type should match the type of the property being animated.
 //
 // The interpolation values are used as follows:
 //
-// - Both [CABasicAnimation.FromValue] and [CABasicAnimation.ToValue] are non-`nil`. Interpolates between
-// [CABasicAnimation.FromValue] and [CABasicAnimation.ToValue]. - [CABasicAnimation.FromValue] and [CABasicAnimation.ByValue] are non-`nil`.
-// Interpolates between [CABasicAnimation.FromValue] and ([CABasicAnimation.FromValue] + [CABasicAnimation.ByValue]). - [CABasicAnimation.ByValue]
-// and [CABasicAnimation.ToValue] are non-`nil`. Interpolates between ([CABasicAnimation.ToValue] - [CABasicAnimation.ByValue])
-// and [CABasicAnimation.ToValue]. - [CABasicAnimation.FromValue] is non-`nil`. Interpolates between [CABasicAnimation.FromValue]
-// and the current presentation value of the property. - [CABasicAnimation.ToValue] is
+// - Both [CABasicAnimation.FromValue] and [CABasicAnimation.ToValue] are
+// non-`nil`. Interpolates between [CABasicAnimation.FromValue] and
+// [CABasicAnimation.ToValue]. - [CABasicAnimation.FromValue] and
+// [CABasicAnimation.ByValue] are non-`nil`. Interpolates between
+// [CABasicAnimation.FromValue] and ([CABasicAnimation.FromValue] +
+// [CABasicAnimation.ByValue]). - [CABasicAnimation.ByValue] and
+// [CABasicAnimation.ToValue] are non-`nil`. Interpolates between
+// ([CABasicAnimation.ToValue] - [CABasicAnimation.ByValue]) and
+// [CABasicAnimation.ToValue]. - [CABasicAnimation.FromValue] is non-`nil`.
+// Interpolates between [CABasicAnimation.FromValue] and the current
+// presentation value of the property. - [CABasicAnimation.ToValue] is
 // non-`nil`. Interpolates between the current value of `keyPath` in the
-// target layer’s presentation layer and [CABasicAnimation.ToValue]. - [CABasicAnimation.ByValue] is
-// non-`nil`. Interpolates between the current value of `keyPath` in the
-// target layer’s presentation layer and that value plus [CABasicAnimation.ByValue]. - All
-// properties are `nil`. Interpolates between the previous value of `keyPath`
-// in the target layer’s presentation layer and the current value of
-// `keyPath` in the target layer’s presentation layer.
+// target layer’s presentation layer and [CABasicAnimation.ToValue]. -
+// [CABasicAnimation.ByValue] is non-`nil`. Interpolates between the current
+// value of `keyPath` in the target layer’s presentation layer and that
+// value plus [CABasicAnimation.ByValue]. - All properties are `nil`.
+// Interpolates between the previous value of `keyPath` in the target
+// layer’s presentation layer and the current value of `keyPath` in the
+// target layer’s presentation layer.
 //
 // # Interpolation values
 //
@@ -144,16 +150,6 @@ type ICABasicAnimation interface {
 	// Defines the value the receiver uses to perform relative interpolation.
 	ByValue() objectivec.IObject
 	SetByValue(value objectivec.IObject)
-
-	// The background color of the receiver. Animatable.
-	BackgroundColor() coregraphics.CGColorRef
-	SetBackgroundColor(value coregraphics.CGColorRef)
-	// The opacity of the receiver. Animatable.
-	Opacity() float32
-	SetOpacity(value float32)
-	// The transform applied to the layer’s contents. Animatable.
-	Transform() CATransform3D
-	SetTransform(value CATransform3D)
 }
 
 // Init initializes the instance.
@@ -236,37 +232,4 @@ func (b CABasicAnimation) ByValue() objectivec.IObject {
 }
 func (b CABasicAnimation) SetByValue(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setByValue:"), value)
-}
-
-// The background color of the receiver. Animatable.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/backgroundcolor
-func (b CABasicAnimation) BackgroundColor() coregraphics.CGColorRef {
-	rv := objc.Send[coregraphics.CGColorRef](b.ID, objc.Sel("backgroundColor"))
-	return coregraphics.CGColorRef(rv)
-}
-func (b CABasicAnimation) SetBackgroundColor(value coregraphics.CGColorRef) {
-	objc.Send[struct{}](b.ID, objc.Sel("setBackgroundColor:"), value)
-}
-
-// The opacity of the receiver. Animatable.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/opacity
-func (b CABasicAnimation) Opacity() float32 {
-	rv := objc.Send[float32](b.ID, objc.Sel("opacity"))
-	return rv
-}
-func (b CABasicAnimation) SetOpacity(value float32) {
-	objc.Send[struct{}](b.ID, objc.Sel("setOpacity:"), value)
-}
-
-// The transform applied to the layer’s contents. Animatable.
-//
-// See: https://developer.apple.com/documentation/quartzcore/calayer/transform
-func (b CABasicAnimation) Transform() CATransform3D {
-	rv := objc.Send[CATransform3D](b.ID, objc.Sel("transform"))
-	return CATransform3D(rv)
-}
-func (b CABasicAnimation) SetTransform(value CATransform3D) {
-	objc.Send[struct{}](b.ID, objc.Sel("setTransform:"), value)
 }

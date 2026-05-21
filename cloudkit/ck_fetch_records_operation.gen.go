@@ -6,7 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -64,17 +64,18 @@ func (cc CKFetchRecordsOperationClass) Alloc() CKFetchRecordsOperation {
 // require access to the main thread must redirect accordingly.
 //
 // In addition to data records, a fetch records operation can fetch the
-// current user record. The [CKFetchRecordsOperation.FetchCurrentUserRecordOperation] method returns a
-// specially configured operation object that retrieves the current user
-// record. That record is a standard [CKRecord] object that has no content
-// initially. You can add data to the user record and save it as necessary.
-// Don’t store sensitive personal information, such as passwords, in the
-// user record because other users of your app can access the discoverable
-// user record in a public database. If you must store sensitive information
-// about a user, do so in a separate record that is accessible only to that
-// user.
+// current user record. The
+// [CKFetchRecordsOperationClass.FetchCurrentUserRecordOperation] method
+// returns a specially configured operation object that retrieves the current
+// user record. That record is a standard [CKRecord] object that has no
+// content initially. You can add data to the user record and save it as
+// necessary. Don’t store sensitive personal information, such as passwords,
+// in the user record because other users of your app can access the
+// discoverable user record in a public database. If you must store sensitive
+// information about a user, do so in a separate record that is accessible
+// only to that user.
 //
-// If you assign a closure to the [CKFetchRecordsOperation.CompletionBlock] property of the operation
+// If you assign a closure to the [completionBlock] property of the operation
 // object, CloudKit calls it after the operation executes and returns its
 // results. Use a closure to perform any housekeeping tasks for the operation,
 // but don’t use it to process the results of the operation. The closure you
@@ -97,14 +98,9 @@ func (cc CKFetchRecordsOperationClass) Alloc() CKFetchRecordsOperation {
 //   - [CKFetchRecordsOperation.PerRecordProgressBlock]: The closure to execute with progress information for individual records.
 //   - [CKFetchRecordsOperation.SetPerRecordProgressBlock]
 //
-// # Instance Properties
-//
-//   - [CKFetchRecordsOperation.FetchRecordsResultBlock]: The closure to execute after CloudKit retrieves all of the records.
-//   - [CKFetchRecordsOperation.SetFetchRecordsResultBlock]
-//   - [CKFetchRecordsOperation.PerRecordResultBlock]: The closure to execute when a record becomes available.
-//   - [CKFetchRecordsOperation.SetPerRecordResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordsOperation
+//
+// [completionBlock]: https://developer.apple.com/documentation/Foundation/Operation/completionBlock
 type CKFetchRecordsOperation struct {
 	CKDatabaseOperation
 }
@@ -137,13 +133,6 @@ func CKFetchRecordsOperationFromID(id objc.ID) CKFetchRecordsOperation {
 //   - [ICKFetchRecordsOperation.PerRecordProgressBlock]: The closure to execute with progress information for individual records.
 //   - [ICKFetchRecordsOperation.SetPerRecordProgressBlock]
 //
-// # Instance Properties
-//
-//   - [ICKFetchRecordsOperation.FetchRecordsResultBlock]: The closure to execute after CloudKit retrieves all of the records.
-//   - [ICKFetchRecordsOperation.SetFetchRecordsResultBlock]
-//   - [ICKFetchRecordsOperation.PerRecordResultBlock]: The closure to execute when a record becomes available.
-//   - [ICKFetchRecordsOperation.SetPerRecordResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordsOperation
 type ICKFetchRecordsOperation interface {
 	ICKDatabaseOperation
@@ -159,23 +148,14 @@ type ICKFetchRecordsOperation interface {
 	RecordIDs() []CKRecordID
 	SetRecordIDs(value []CKRecordID)
 	// The fields of the records to fetch.
-	DesiredKeys() string
-	SetDesiredKeys(value string)
+	DesiredKeys() unsafe.Pointer
+	SetDesiredKeys(value kernel.Pointer)
 
 	// Topic: Processing Record Fetch Results
 
 	// The closure to execute with progress information for individual records.
-	PerRecordProgressBlock() func(*CKRecordID, float64)
-	SetPerRecordProgressBlock(value objc.ID)
-
-	// Topic: Instance Properties
-
-	// The closure to execute after CloudKit retrieves all of the records.
-	FetchRecordsResultBlock() unsafe.Pointer
-	SetFetchRecordsResultBlock(value unsafe.Pointer)
-	// The closure to execute when a record becomes available.
-	PerRecordResultBlock() unsafe.Pointer
-	SetPerRecordResultBlock(value unsafe.Pointer)
+	PerRecordProgressBlock() CKRecordIDFloat64Handler
+	SetPerRecordProgressBlock(value CKRecordIDFloat64Handler)
 }
 
 // Init initializes the instance.
@@ -201,8 +181,9 @@ func NewCKFetchRecordsOperation() CKFetchRecordsOperation {
 // IDs.
 //
 // recordIDs: An array of [CKRecordID] objects that represents the records you want to
-// retrieve. If you provide an empty array, you must set the [RecordIDs]
-// property before you execute the operation.
+// retrieve. If you provide an empty array, you must set the
+// [CKFetchRecordsOperation.RecordIDs] property before you execute the
+// operation.
 //
 // # Discussion
 //
@@ -228,8 +209,9 @@ func NewCKFetchRecordsOperationWithRecordIDs(recordIDs []CKRecordID) CKFetchReco
 // IDs.
 //
 // recordIDs: An array of [CKRecordID] objects that represents the records you want to
-// retrieve. If you provide an empty array, you must set the [RecordIDs]
-// property before you execute the operation.
+// retrieve. If you provide an empty array, you must set the
+// [CKFetchRecordsOperation.RecordIDs] property before you execute the
+// operation.
 //
 // # Discussion
 //
@@ -270,9 +252,9 @@ func (_CKFetchRecordsOperationClass CKFetchRecordsOperationClass) FetchCurrentUs
 // # Discussion
 //
 // Use this property to view or change the IDs of the records you want to
-// retrieve. If you use the operation that [FetchCurrentUserRecordOperation]
-// returns, CloudKit ignores the contents of this property and sets its value
-// to `nil`.
+// retrieve. If you use the operation that
+// [CKFetchRecordsOperationClass.FetchCurrentUserRecordOperation] returns,
+// CloudKit ignores the contents of this property and sets its value to `nil`.
 //
 // If you intend to specify a value other than `nil`, do so before you execute
 // the operation or add the operation to a queue. The records you fetch
@@ -294,12 +276,12 @@ func (c CKFetchRecordsOperation) SetRecordIDs(value []CKRecordID) {
 // The fields of the records to fetch.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordsoperation/desiredkeys-31bbq
-func (c CKFetchRecordsOperation) DesiredKeys() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("desiredKeys"))
-	return foundation.NSStringFromID(rv).String()
+func (c CKFetchRecordsOperation) DesiredKeys() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
+	return rv
 }
-func (c CKFetchRecordsOperation) SetDesiredKeys(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objc.String(value))
+func (c CKFetchRecordsOperation) SetDesiredKeys(value kernel.Pointer) {
+	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
 }
 
 // The closure to execute with progress information for individual records.
@@ -315,42 +297,22 @@ func (c CKFetchRecordsOperation) SetDesiredKeys(value string) {
 // the download is complete.
 //
 // The fetch operation executes this closure one or more times for each record
-// ID in the [RecordIDs] property. Each time the closure executes, it executes
-// serially with respect to the other progress closures of the operation. You
-// can use this closure to track the ongoing progress of the download
-// operation.
+// ID in the [CKFetchRecordsOperation.RecordIDs] property. Each time the
+// closure executes, it executes serially with respect to the other progress
+// closures of the operation. You can use this closure to track the ongoing
+// progress of the download operation.
 //
 // If you intend to use this closure to process results, set it before you
 // execute the operation or add the operation to a queue.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKFetchRecordsOperation/perRecordProgressBlock
-func (c CKFetchRecordsOperation) PerRecordProgressBlock() func(*CKRecordID, float64) {
+func (c CKFetchRecordsOperation) PerRecordProgressBlock() CKRecordIDFloat64Handler {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("perRecordProgressBlock"))
 	_ = rv
 	return nil
 }
-func (c CKFetchRecordsOperation) SetPerRecordProgressBlock(value objc.ID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordProgressBlock:"), value)
-}
-
-// The closure to execute after CloudKit retrieves all of the records.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordsoperation/fetchrecordsresultblock
-func (c CKFetchRecordsOperation) FetchRecordsResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("fetchRecordsResultBlock"))
-	return rv
-}
-func (c CKFetchRecordsOperation) SetFetchRecordsResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFetchRecordsResultBlock:"), value)
-}
-
-// The closure to execute when a record becomes available.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordsoperation/perrecordresultblock
-func (c CKFetchRecordsOperation) PerRecordResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordResultBlock"))
-	return rv
-}
-func (c CKFetchRecordsOperation) SetPerRecordResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordResultBlock:"), value)
+func (c CKFetchRecordsOperation) SetPerRecordProgressBlock(value CKRecordIDFloat64Handler) {
+	block, cleanup := NewCKRecordIDFloat64Block(value)
+	defer cleanup()
+	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordProgressBlock:"), block)
 }

@@ -325,27 +325,6 @@ func Vmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []
 	return result
 }
 
-var _vmnet_network_configuration_add_dhcp_reservation func(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) Vmnet_return_t
-var _vmnet_network_configuration_add_dhcp_reservationErr error
-
-func tryVmnet_network_configuration_add_dhcp_reservation(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) (Vmnet_return_t, error) {
-	if _vmnet_network_configuration_add_dhcp_reservation == nil {
-		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_add_dhcp_reservation", "26.0", _vmnet_network_configuration_add_dhcp_reservationErr)
-	}
-	return _vmnet_network_configuration_add_dhcp_reservation(config, client, reservation), nil
-}
-
-// Vmnet_network_configuration_add_dhcp_reservation.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_add_dhcp_reservation(_:_:_:)
-func Vmnet_network_configuration_add_dhcp_reservation(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) Vmnet_return_t {
-	result, callErr := tryVmnet_network_configuration_add_dhcp_reservation(config, client, reservation)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _vmnet_network_configuration_add_port_forwarding_rule func(config Vmnet_network_configuration_ref, protocol_ uint8, address_family uint8, internal_port uint16, external_port uint16, internal_address unsafe.Pointer) Vmnet_return_t
 var _vmnet_network_configuration_add_port_forwarding_ruleErr error
 
@@ -509,48 +488,6 @@ func Vmnet_network_configuration_set_external_interface(config Vmnet_network_con
 	return result
 }
 
-var _vmnet_network_configuration_set_ipv4_subnet func(config Vmnet_network_configuration_ref, subnet_addr uintptr, subnet_mask uintptr) Vmnet_return_t
-var _vmnet_network_configuration_set_ipv4_subnetErr error
-
-func tryVmnet_network_configuration_set_ipv4_subnet(config Vmnet_network_configuration_ref, subnet_addr uintptr, subnet_mask uintptr) (Vmnet_return_t, error) {
-	if _vmnet_network_configuration_set_ipv4_subnet == nil {
-		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_set_ipv4_subnet", "26.0", _vmnet_network_configuration_set_ipv4_subnetErr)
-	}
-	return _vmnet_network_configuration_set_ipv4_subnet(config, subnet_addr, subnet_mask), nil
-}
-
-// Vmnet_network_configuration_set_ipv4_subnet.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_set_ipv4_subnet(_:_:_:)
-func Vmnet_network_configuration_set_ipv4_subnet(config Vmnet_network_configuration_ref, subnet_addr uintptr, subnet_mask uintptr) Vmnet_return_t {
-	result, callErr := tryVmnet_network_configuration_set_ipv4_subnet(config, subnet_addr, subnet_mask)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _vmnet_network_configuration_set_ipv6_prefix func(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t
-var _vmnet_network_configuration_set_ipv6_prefixErr error
-
-func tryVmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) (Vmnet_return_t, error) {
-	if _vmnet_network_configuration_set_ipv6_prefix == nil {
-		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_set_ipv6_prefix", "26.0", _vmnet_network_configuration_set_ipv6_prefixErr)
-	}
-	return _vmnet_network_configuration_set_ipv6_prefix(config, prefix, len_), nil
-}
-
-// Vmnet_network_configuration_set_ipv6_prefix.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_set_ipv6_prefix(_:_:_:)
-func Vmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t {
-	result, callErr := tryVmnet_network_configuration_set_ipv6_prefix(config, prefix, len_)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _vmnet_network_configuration_set_mtu func(config Vmnet_network_configuration_ref, mtu uint32) Vmnet_return_t
 var _vmnet_network_configuration_set_mtuErr error
 
@@ -629,69 +566,6 @@ func tryVmnet_network_create_with_serialization(network unsafe.Pointer, status *
 // See: https://developer.apple.com/documentation/vmnet/vmnet_network_create_with_serialization(_:_:)
 func Vmnet_network_create_with_serialization(network unsafe.Pointer, status *Vmnet_return_t) Vmnet_network_ref {
 	result, callErr := tryVmnet_network_create_with_serialization(network, status)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _vmnet_network_get_ipv4_subnet func(network Vmnet_network_ref, subnet uintptr, mask uintptr)
-var _vmnet_network_get_ipv4_subnetErr error
-
-func tryVmnet_network_get_ipv4_subnet(network Vmnet_network_ref, subnet uintptr, mask uintptr) error {
-	if _vmnet_network_get_ipv4_subnet == nil {
-		return symbolCallError("vmnet_network_get_ipv4_subnet", "26.0", _vmnet_network_get_ipv4_subnetErr)
-	}
-	_vmnet_network_get_ipv4_subnet(network, subnet, mask)
-	return nil
-}
-
-// Vmnet_network_get_ipv4_subnet.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_network_get_ipv4_subnet(_:_:_:)
-func Vmnet_network_get_ipv4_subnet(network Vmnet_network_ref, subnet uintptr, mask uintptr) {
-	if callErr := tryVmnet_network_get_ipv4_subnet(network, subnet, mask); callErr != nil {
-		panic(callErr)
-	}
-}
-
-var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len *byte)
-var _vmnet_network_get_ipv6_prefixErr error
-
-func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) error {
-	if _vmnet_network_get_ipv6_prefix == nil {
-		return symbolCallError("vmnet_network_get_ipv6_prefix", "26.0", _vmnet_network_get_ipv6_prefixErr)
-	}
-	_vmnet_network_get_ipv6_prefix(network, prefix, unsafe.SliceData(prefix_len))
-	return nil
-}
-
-// Vmnet_network_get_ipv6_prefix.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_network_get_ipv6_prefix(_:_:_:)
-func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) {
-	if callErr := tryVmnet_network_get_ipv6_prefix(network, prefix, prefix_len); callErr != nil {
-		panic(callErr)
-	}
-}
-
-var _vmnet_port_forwarding_rule_get_details func(rule unsafe.Pointer, protocol_ *byte, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t
-var _vmnet_port_forwarding_rule_get_detailsErr error
-
-func tryVmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, internal_address uintptr, internal_port *uint16) (Vmnet_return_t, error) {
-	if _vmnet_port_forwarding_rule_get_details == nil {
-		return *new(Vmnet_return_t), symbolCallError("vmnet_port_forwarding_rule_get_details", "10.15", _vmnet_port_forwarding_rule_get_detailsErr)
-	}
-	return _vmnet_port_forwarding_rule_get_details(rule, unsafe.SliceData(protocol_), external_port, internal_address, internal_port), nil
-}
-
-// Vmnet_port_forwarding_rule_get_details.
-//
-// Deprecated: Deprecated since macOS 12.0.
-//
-// See: https://developer.apple.com/documentation/vmnet/vmnet_port_forwarding_rule_get_details(_:_:_:_:_:)
-func Vmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t {
-	result, callErr := tryVmnet_port_forwarding_rule_get_details(rule, protocol_, external_port, internal_address, internal_port)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -804,7 +678,6 @@ func init() {
 	registerFunc(&_vmnet_interface_set_event_callback, &_vmnet_interface_set_event_callbackErr, frameworkHandle, "vmnet_interface_set_event_callback", "10.10")
 	registerFunc(&_vmnet_interface_start_with_network, &_vmnet_interface_start_with_networkErr, frameworkHandle, "vmnet_interface_start_with_network", "26.0")
 	registerFunc(&_vmnet_ip_port_forwarding_rule_get_details, &_vmnet_ip_port_forwarding_rule_get_detailsErr, frameworkHandle, "vmnet_ip_port_forwarding_rule_get_details", "11.0")
-	registerFunc(&_vmnet_network_configuration_add_dhcp_reservation, &_vmnet_network_configuration_add_dhcp_reservationErr, frameworkHandle, "vmnet_network_configuration_add_dhcp_reservation", "26.0")
 	registerFunc(&_vmnet_network_configuration_add_port_forwarding_rule, &_vmnet_network_configuration_add_port_forwarding_ruleErr, frameworkHandle, "vmnet_network_configuration_add_port_forwarding_rule", "26.0")
 	registerFunc(&_vmnet_network_configuration_create, &_vmnet_network_configuration_createErr, frameworkHandle, "vmnet_network_configuration_create", "26.0")
 	registerFunc(&_vmnet_network_configuration_disable_dhcp, &_vmnet_network_configuration_disable_dhcpErr, frameworkHandle, "vmnet_network_configuration_disable_dhcp", "26.0")
@@ -813,15 +686,10 @@ func init() {
 	registerFunc(&_vmnet_network_configuration_disable_nat66, &_vmnet_network_configuration_disable_nat66Err, frameworkHandle, "vmnet_network_configuration_disable_nat66", "26.0")
 	registerFunc(&_vmnet_network_configuration_disable_router_advertisement, &_vmnet_network_configuration_disable_router_advertisementErr, frameworkHandle, "vmnet_network_configuration_disable_router_advertisement", "26.0")
 	registerFunc(&_vmnet_network_configuration_set_external_interface, &_vmnet_network_configuration_set_external_interfaceErr, frameworkHandle, "vmnet_network_configuration_set_external_interface", "26.0")
-	registerFunc(&_vmnet_network_configuration_set_ipv4_subnet, &_vmnet_network_configuration_set_ipv4_subnetErr, frameworkHandle, "vmnet_network_configuration_set_ipv4_subnet", "26.0")
-	registerFunc(&_vmnet_network_configuration_set_ipv6_prefix, &_vmnet_network_configuration_set_ipv6_prefixErr, frameworkHandle, "vmnet_network_configuration_set_ipv6_prefix", "26.0")
 	registerFunc(&_vmnet_network_configuration_set_mtu, &_vmnet_network_configuration_set_mtuErr, frameworkHandle, "vmnet_network_configuration_set_mtu", "26.0")
 	registerFunc(&_vmnet_network_copy_serialization, &_vmnet_network_copy_serializationErr, frameworkHandle, "vmnet_network_copy_serialization", "26.0")
 	registerFunc(&_vmnet_network_create, &_vmnet_network_createErr, frameworkHandle, "vmnet_network_create", "26.0")
 	registerFunc(&_vmnet_network_create_with_serialization, &_vmnet_network_create_with_serializationErr, frameworkHandle, "vmnet_network_create_with_serialization", "26.0")
-	registerFunc(&_vmnet_network_get_ipv4_subnet, &_vmnet_network_get_ipv4_subnetErr, frameworkHandle, "vmnet_network_get_ipv4_subnet", "26.0")
-	registerFunc(&_vmnet_network_get_ipv6_prefix, &_vmnet_network_get_ipv6_prefixErr, frameworkHandle, "vmnet_network_get_ipv6_prefix", "26.0")
-	registerFunc(&_vmnet_port_forwarding_rule_get_details, &_vmnet_port_forwarding_rule_get_detailsErr, frameworkHandle, "vmnet_port_forwarding_rule_get_details", "10.15")
 	registerFunc(&_vmnet_read, &_vmnet_readErr, frameworkHandle, "vmnet_read", "10.10")
 	registerFunc(&_vmnet_start_interface, &_vmnet_start_interfaceErr, frameworkHandle, "vmnet_start_interface", "10.10")
 	registerFunc(&_vmnet_stop_interface, &_vmnet_stop_interfaceErr, frameworkHandle, "vmnet_stop_interface", "10.10")

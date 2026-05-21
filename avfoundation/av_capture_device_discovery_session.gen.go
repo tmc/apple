@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -47,9 +46,10 @@ func (ac AVCaptureDeviceDiscoverySessionClass) Alloc() AVCaptureDeviceDiscoveryS
 //
 // # Overview
 //
-// After creating a device discovery session, query its [AVCaptureDeviceDiscoverySession.Devices] property to
-// find a device to use for capture. You can also key-value observe this
-// property to monitor changes to the list of available devices.
+// After creating a device discovery session, query its
+// [AVCaptureDeviceDiscoverySession.Devices] property to find a device to use
+// for capture. You can also key-value observe this property to monitor
+// changes to the list of available devices.
 //
 // # Finding devices
 //
@@ -125,8 +125,9 @@ func NewAVCaptureDeviceDiscoverySession() AVCaptureDeviceDiscoverySession {
 //
 // # Discussion
 //
-// After creating a discovery session, query its [Devices] property to examine
-// matching devices and choose one for capture.
+// After creating a discovery session, query its
+// [AVCaptureDeviceDiscoverySession.Devices] property to examine matching
+// devices and choose one for capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/DiscoverySession/init(deviceTypes:mediaType:position:)
 //
@@ -160,22 +161,4 @@ func (c AVCaptureDeviceDiscoverySession) Devices() []AVCaptureDevice {
 	return objc.ConvertSlice(rv, func(id objc.ID) AVCaptureDevice {
 		return AVCaptureDeviceFromID(id)
 	})
-}
-
-// A notification the system posts when a new capture device becomes
-// available.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/wasconnectednotification
-func (_AVCaptureDeviceDiscoverySessionClass AVCaptureDeviceDiscoverySessionClass) WasConnectedNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_AVCaptureDeviceDiscoverySessionClass.class), objc.Sel("AVCaptureDeviceWasConnectedNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
-}
-
-// A notification the system posts when an existing device becomes
-// unavailable.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/wasdisconnectednotification
-func (_AVCaptureDeviceDiscoverySessionClass AVCaptureDeviceDiscoverySessionClass) WasDisconnectedNotification() foundation.NSString {
-	rv := objc.Send[objc.ID](objc.ID(_AVCaptureDeviceDiscoverySessionClass.class), objc.Sel("AVCaptureDeviceWasDisconnectedNotification"))
-	return foundation.NSStringFromID(objc.ID(rv))
 }

@@ -5,6 +5,7 @@ package coreimage
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -87,12 +88,12 @@ type ICIRenderInfo interface {
 	// Topic: Instance Properties
 
 	// The amount of time a render spent executing kernels.
-	KernelExecutionTime() float64
+	KernelExecutionTime() foundation.NSTimeInterval
 	// The number of passes the render took.
 	PassCount() int
 	// The number of pixels the render produced executing kernels.
 	PixelsProcessed() int
-	KernelCompileTime() float64
+	KernelCompileTime() foundation.NSTimeInterval
 }
 
 // Init initializes the instance.
@@ -117,9 +118,9 @@ func NewCIRenderInfo() CIRenderInfo {
 // The amount of time a render spent executing kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderInfo/kernelExecutionTime
-func (r CIRenderInfo) KernelExecutionTime() float64 {
-	rv := objc.Send[float64](r.ID, objc.Sel("kernelExecutionTime"))
-	return rv
+func (r CIRenderInfo) KernelExecutionTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](r.ID, objc.Sel("kernelExecutionTime"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The number of passes the render took.
@@ -139,7 +140,7 @@ func (r CIRenderInfo) PixelsProcessed() int {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderInfo/kernelCompileTime
-func (r CIRenderInfo) KernelCompileTime() float64 {
-	rv := objc.Send[float64](r.ID, objc.Sel("kernelCompileTime"))
-	return rv
+func (r CIRenderInfo) KernelCompileTime() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](r.ID, objc.Sel("kernelCompileTime"))
+	return foundation.NSTimeInterval(rv)
 }

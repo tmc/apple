@@ -290,10 +290,11 @@ func (p PDFThumbnailView) SetAllowsDragging(value bool) {
 // By default, [PDFThumbnailView] allows only a single thumbnail to be
 // selected at one time. When this is the case, you can get the PDF page that
 // corresponds to the selected thumbnail using the [PDFView] method
-// [CurrentPage].
+// [PDFView.CurrentPage].
 //
-// When multiple selections are enabled, however, you must use [SelectedPages]
-// to get the pages that correspond to the set of selected thumbnails.
+// When multiple selections are enabled, however, you must use
+// [PDFThumbnailView.SelectedPages] to get the pages that correspond to the
+// set of selected thumbnails.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailView/allowsMultipleSelection
 func (p PDFThumbnailView) AllowsMultipleSelection() bool {
@@ -315,8 +316,8 @@ func (p PDFThumbnailView) SetAllowsMultipleSelection(value bool) {
 // # Discussion
 //
 // If the thumbnail view allows multiple selections (if
-// [AllowsMultipleSelection] returns true), you can use this method to get the
-// PDF pages that correspond to the selected thumbnails.
+// [PDFThumbnailView.AllowsMultipleSelection] returns true), you can use this
+// method to get the PDF pages that correspond to the selected thumbnails.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailView/selectedPages
 func (p PDFThumbnailView) SelectedPages() []PDFPage {

@@ -187,10 +187,10 @@ func (t FSTask) DidCompleteWithError(error_ foundation.NSError) {
 // should periodically update the progress object and check its `interrupted`
 // variable. The check can either complete successfully, complete with an
 // error, or enter the interrupted state. It should then call
-// [DidCompleteWithError] wtih the appropriate error value or `nil`. Finally
-// it should call `context.Work_groupXCUIElementTypeLeave()` (Swift) or
-// `dispatch_group_leave(context.Work_group())` (Objective-C) to remove itself
-// from its dispatch group.
+// [FSTask.DidCompleteWithError] wtih the appropriate error value or `nil`.
+// Finally it should call `context.Work_groupXCUIElementTypeLeave()` (Swift)
+// or `dispatch_group_leave(context.Work_group())` (Objective-C) to remove
+// itself from its dispatch group.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSTask/cancellationHandler
 //

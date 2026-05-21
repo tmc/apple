@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -89,7 +88,7 @@ type INSGlyphGenerator interface {
 	// Topic: Generating glyphs
 
 	// Generates glyphs for the specified glyph storage object ([NSLayoutManager] by default).
-	GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex unsafe.Pointer, charIndex unsafe.Pointer)
+	GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex *uint, charIndex *uint)
 }
 
 // Init initializes the instance.
@@ -122,7 +121,7 @@ func NewNSGlyphGenerator() NSGlyphGenerator {
 // generated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphGenerator/generateGlyphs(for:desiredNumberOfCharacters:glyphIndex:characterIndex:)
-func (g NSGlyphGenerator) GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex unsafe.Pointer, charIndex unsafe.Pointer) {
+func (g NSGlyphGenerator) GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex *uint, charIndex *uint) {
 	objc.Send[objc.ID](g.ID, objc.Sel("generateGlyphsForGlyphStorage:desiredNumberOfCharacters:glyphIndex:characterIndex:"), glyphStorage, nChars, glyphIndex, charIndex)
 }
 

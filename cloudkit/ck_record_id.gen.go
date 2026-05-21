@@ -4,7 +4,6 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -97,14 +96,13 @@ func (cc CKRecordIDClass) Alloc() CKRecordID {
 // Use a record ID to fetch the corresponding [CKRecord] object from a
 // database quickly. You perform the fetch operation using a
 // [CKFetchRecordsOperation] object or the
-// [FetchRecordWithIDCompletionHandler] method of the [CKDatabase] class. In
-// both cases, CloudKit returns the record asynchronously using the handler
-// you provide.
+// [CKDatabase.FetchRecordWithIDCompletionHandler] method of the [CKDatabase]
+// class. In both cases, CloudKit returns the record asynchronously using the
+// handler you provide.
 //
 // # Creating a Record ID
 //
 //   - [CKRecordID.InitWithRecordName]: Creates a new record ID with the specified name in the default zone.
-//   - [CKRecordID.CKRecordNameZoneWideShare]: The name of a share record that manages a shared record zone.
 //
 // # Getting the Record ID’s Name
 //
@@ -136,7 +134,6 @@ func CKRecordIDFromID(id objc.ID) CKRecordID {
 // # Creating a Record ID
 //
 //   - [ICKRecordID.InitWithRecordName]: Creates a new record ID with the specified name in the default zone.
-//   - [ICKRecordID.CKRecordNameZoneWideShare]: The name of a share record that manages a shared record zone.
 //
 // # Getting the Record ID’s Name
 //
@@ -154,8 +151,6 @@ type ICKRecordID interface {
 
 	// Creates a new record ID with the specified name in the default zone.
 	InitWithRecordName(recordName string) CKRecordID
-	// The name of a share record that manages a shared record zone.
-	CKRecordNameZoneWideShare() string
 
 	// Topic: Getting the Record ID’s Name
 
@@ -167,27 +162,6 @@ type ICKRecordID interface {
 	// The ID of the zone that contains the record.
 	ZoneID() ICKRecordZoneID
 
-	// The time when CloudKit first saves the record to the server.
-	CreationDate() foundation.NSDate
-	SetCreationDate(value foundation.NSDate)
-	// The ID of the user who creates the record.
-	CreatorUserRecordID() ICKRecordID
-	SetCreatorUserRecordID(value ICKRecordID)
-	// The ID of the user who most recently modified the record.
-	LastModifiedUserRecordID() ICKRecordID
-	SetLastModifiedUserRecordID(value ICKRecordID)
-	// The most recent time that CloudKit saved the record to the server.
-	ModificationDate() foundation.NSDate
-	SetModificationDate(value foundation.NSDate)
-	// The server change token for the record.
-	RecordChangeTag() string
-	SetRecordChangeTag(value string)
-	// The unique ID of the record.
-	RecordID() ICKRecordID
-	SetRecordID(value ICKRecordID)
-	// The value that your app defines to identify the type of record.
-	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -258,14 +232,6 @@ func (c CKRecordID) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// The name of a share record that manages a shared record zone.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecordnamezonewideshare
-func (c CKRecordID) CKRecordNameZoneWideShare() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("CKRecordNameZoneWideShare"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The unique name of the record.
 //
 // # Discussion
@@ -274,6 +240,8 @@ func (c CKRecordID) CKRecordNameZoneWideShare() string {
 // is always [CKRecordNameZoneWideShare].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecord/ID/recordName
+//
+// [CKRecordNameZoneWideShare]: https://developer.apple.com/documentation/CloudKit/CKRecordNameZoneWideShare
 func (c CKRecordID) RecordName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordName"))
 	return foundation.NSStringFromID(rv).String()
@@ -285,81 +253,4 @@ func (c CKRecordID) RecordName() string {
 func (c CKRecordID) ZoneID() ICKRecordZoneID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("zoneID"))
 	return CKRecordZoneIDFromID(objc.ID(rv))
-}
-
-// The time when CloudKit first saves the record to the server.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/creationdate
-func (c CKRecordID) CreationDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("creationDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (c CKRecordID) SetCreationDate(value foundation.NSDate) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCreationDate:"), value)
-}
-
-// The ID of the user who creates the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/creatoruserrecordid
-func (c CKRecordID) CreatorUserRecordID() ICKRecordID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("creatorUserRecordID"))
-	return CKRecordIDFromID(objc.ID(rv))
-}
-func (c CKRecordID) SetCreatorUserRecordID(value ICKRecordID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCreatorUserRecordID:"), value)
-}
-
-// The ID of the user who most recently modified the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/lastmodifieduserrecordid
-func (c CKRecordID) LastModifiedUserRecordID() ICKRecordID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("lastModifiedUserRecordID"))
-	return CKRecordIDFromID(objc.ID(rv))
-}
-func (c CKRecordID) SetLastModifiedUserRecordID(value ICKRecordID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setLastModifiedUserRecordID:"), value)
-}
-
-// The most recent time that CloudKit saved the record to the server.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/modificationdate
-func (c CKRecordID) ModificationDate() foundation.NSDate {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modificationDate"))
-	return foundation.NSDateFromID(objc.ID(rv))
-}
-func (c CKRecordID) SetModificationDate(value foundation.NSDate) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModificationDate:"), value)
-}
-
-// The server change token for the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/recordchangetag
-func (c CKRecordID) RecordChangeTag() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordChangeTag"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKRecordID) SetRecordChangeTag(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordChangeTag:"), objc.String(value))
-}
-
-// The unique ID of the record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/recordid
-func (c CKRecordID) RecordID() ICKRecordID {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordID"))
-	return CKRecordIDFromID(objc.ID(rv))
-}
-func (c CKRecordID) SetRecordID(value ICKRecordID) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordID:"), value)
-}
-
-// The value that your app defines to identify the type of record.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckrecord/recordtype-6v7au
-func (c CKRecordID) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
-}
-func (c CKRecordID) SetRecordType(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }

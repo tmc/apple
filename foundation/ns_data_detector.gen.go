@@ -55,8 +55,9 @@ func (nc NSDataDetectorClass) Alloc() NSDataDetector {
 // [NSDataDetector] returns are different from those that
 // [NSRegularExpression] returns. The results are one of the data detector’s
 // types and contain the corresponding properties. For example, results of
-// type [NSTextCheckingTypeDate] have a [Date], [TimeZone], and [NSDataDetector.Duration];
-// and results of type [NSTextCheckingTypeLink] have a [URL].
+// type [NSTextCheckingTypeDate] have a [NSTextCheckingResult.Date],
+// [NSTextCheckingResult.TimeZone], and [NSTextCheckingResult.Duration]; and
+// results of type [NSTextCheckingTypeLink] have a [NSTextCheckingResult.URL].
 //
 // # Examples
 //
@@ -68,22 +69,23 @@ func (nc NSDataDetectorClass) Alloc() NSDataDetector {
 //
 // After creating the data detector instance, you can determine the number of
 // matches within a range of a string using the [NSRegularExpression] method
-// [NumberOfMatchesInStringOptionsRange].
+// [NSRegularExpression.NumberOfMatchesInStringOptionsRange].
 //
 // If you’re interested only in the overall range of the first match, the
-// [NumberOfMatchesInStringOptionsRange] method provides it. However, with
-// data detectors, this is less likely than with regular expressions because
-// clients are usually interested in additional information as well.
+// [NSRegularExpression.NumberOfMatchesInStringOptionsRange] method provides
+// it. However, with data detectors, this is less likely than with regular
+// expressions because clients are usually interested in additional
+// information as well.
 //
 // The additional information available depends on the type of the result. For
 // results of type [NSTextCheckingTypeLink], it’s the [URL] property
 // that’s significant. For results of type [NSTextCheckingTypePhoneNumber] ,
 // it’s the `phoneNumber` property instead.
 //
-// The [MatchesInStringOptionsRange] method is similar to
-// [FirstMatchInStringOptionsRange], except that it returns all matches rather
-// than only the first. The following code fragment finds all the matches for
-// links and phone numbers in a string:
+// The [NSRegularExpression.MatchesInStringOptionsRange] method is similar to
+// [NSRegularExpression.FirstMatchInStringOptionsRange], except that it
+// returns all matches rather than only the first. The following code fragment
+// finds all the matches for links and phone numbers in a string:
 //
 // The [NSRegularExpression] block object enumerator is the most general and
 // flexible of the matching methods. It allows you to iterate through matches
@@ -138,22 +140,6 @@ type INSDataDetector interface {
 
 	// Returns the checking types for the data detector.
 	CheckingTypes() NSTextCheckingTypes
-
-	// Attempts to locate dates.
-	Date() NSTextCheckingType
-	SetNSTextCheckingTypeDate(value NSTextCheckingType)
-	// The duration component of a type checking result.
-	Duration() float64
-	SetDuration(value float64)
-	// Attempts to locate URL links.
-	Link() NSTextCheckingType
-	SetNSTextCheckingTypeLink(value NSTextCheckingType)
-	// The time zone component of a type checking result.
-	TimeZone() INSTimeZone
-	SetTimeZone(value INSTimeZone)
-	// The URL of a type checking result.
-	Url() INSURL
-	SetURL(value INSURL)
 }
 
 // Init initializes the instance.
@@ -175,7 +161,7 @@ func NewNSDataDetector() NSDataDetector {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+// See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/init(coder:)
 func NewDataDetectorWithCoder(coder INSCoder) NSDataDetector {
 	instance := getNSDataDetectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -329,59 +315,4 @@ func (_NSDataDetectorClass NSDataDetectorClass) DataDetectorWithTypesError(check
 func (d NSDataDetector) CheckingTypes() NSTextCheckingTypes {
 	rv := objc.Send[NSTextCheckingTypes](d.ID, objc.Sel("checkingTypes"))
 	return NSTextCheckingTypes(rv)
-}
-
-// Attempts to locate dates.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/date
-func (d NSDataDetector) Date() NSTextCheckingType {
-	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeDate"))
-	return NSTextCheckingType(rv)
-}
-func (d NSDataDetector) SetNSTextCheckingTypeDate(value NSTextCheckingType) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeDate:"), value)
-}
-
-// The duration component of a type checking result.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/duration
-func (d NSDataDetector) Duration() float64 {
-	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("duration"))
-	return float64(rv)
-}
-func (d NSDataDetector) SetDuration(value float64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDuration:"), value)
-}
-
-// Attempts to locate URL links.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/link
-func (d NSDataDetector) Link() NSTextCheckingType {
-	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeLink"))
-	return NSTextCheckingType(rv)
-}
-func (d NSDataDetector) SetNSTextCheckingTypeLink(value NSTextCheckingType) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
-}
-
-// The time zone component of a type checking result.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/timezone
-func (d NSDataDetector) TimeZone() INSTimeZone {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("timeZone"))
-	return NSTimeZoneFromID(objc.ID(rv))
-}
-func (d NSDataDetector) SetTimeZone(value INSTimeZone) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
-}
-
-// The URL of a type checking result.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/url
-func (d NSDataDetector) Url() INSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
-	return NSURLFromID(objc.ID(rv))
-}
-func (d NSDataDetector) SetURL(value INSURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setURL:"), value)
 }

@@ -3,6 +3,7 @@
 package networkextension
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/foundation"
@@ -57,6 +58,7 @@ func (nc NEPacketTunnelFlowClass) Alloc() NEPacketTunnelFlow {
 //
 // # Handling IP packets
 //
+//   - [NEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler]: Read multiple IP packets from the TUN interface.
 //   - [NEPacketTunnelFlow.WritePacketObjects]: Write multiple IP packets to the TUN interface.
 //   - [NEPacketTunnelFlow.ReadPacketsWithCompletionHandler]: Reads IP packets from the TUN interface.
 //   - [NEPacketTunnelFlow.WritePacketsWithProtocols]: Writes IP packets to the TUN interface.
@@ -81,6 +83,7 @@ func NEPacketTunnelFlowFromID(id objc.ID) NEPacketTunnelFlow {
 //
 // # Handling IP packets
 //
+//   - [INEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler]: Read multiple IP packets from the TUN interface.
 //   - [INEPacketTunnelFlow.WritePacketObjects]: Write multiple IP packets to the TUN interface.
 //   - [INEPacketTunnelFlow.ReadPacketsWithCompletionHandler]: Reads IP packets from the TUN interface.
 //   - [INEPacketTunnelFlow.WritePacketsWithProtocols]: Writes IP packets to the TUN interface.
@@ -91,10 +94,12 @@ type INEPacketTunnelFlow interface {
 
 	// Topic: Handling IP packets
 
+	// Read multiple IP packets from the TUN interface.
+	ReadPacketObjectsWithCompletionHandler(completionHandler NEPacketArrayHandler)
 	// Write multiple IP packets to the TUN interface.
 	WritePacketObjects(packets []NEPacket) bool
 	// Reads IP packets from the TUN interface.
-	ReadPacketsWithCompletionHandler(completionHandler VoidHandler)
+	ReadPacketsWithCompletionHandler(completionHandler NSDataArrayNSNumberArrayHandler)
 	// Writes IP packets to the TUN interface.
 	WritePacketsWithProtocols(packets []foundation.NSData, protocols []foundation.NSNumber) bool
 }
@@ -116,6 +121,14 @@ func NewNEPacketTunnelFlow() NEPacketTunnelFlow {
 	class := getNEPacketTunnelFlowClass()
 	rv := objc.Send[NEPacketTunnelFlow](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// Read multiple IP packets from the TUN interface.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow/readPacketObjects(completionHandler:)
+func (p NEPacketTunnelFlow) ReadPacketObjectsWithCompletionHandler(completionHandler NEPacketArrayHandler) {
+	_block0, _ := NewNEPacketArrayBlock(completionHandler)
+	objc.Send[objc.ID](p.ID, objc.Sel("readPacketObjectsWithCompletionHandler:"), _block0)
 }
 
 // Write multiple IP packets to the TUN interface.
@@ -143,8 +156,8 @@ func (p NEPacketTunnelFlow) WritePacketObjects(packets []NEPacket) bool {
 // execution in order to continue to receive packets from the TUN interface.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow/readPackets(completionHandler:)
-func (p NEPacketTunnelFlow) ReadPacketsWithCompletionHandler(completionHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(completionHandler)
+func (p NEPacketTunnelFlow) ReadPacketsWithCompletionHandler(completionHandler NSDataArrayNSNumberArrayHandler) {
+	_block0, _ := NewNSDataArrayNSNumberArrayBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("readPacketsWithCompletionHandler:"), _block0)
 }
 
@@ -164,4 +177,23 @@ func (p NEPacketTunnelFlow) ReadPacketsWithCompletionHandler(completionHandler V
 func (p NEPacketTunnelFlow) WritePacketsWithProtocols(packets []foundation.NSData, protocols []foundation.NSNumber) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writePackets:withProtocols:"), objectivec.IObjectSliceToNSArray(packets), objectivec.IObjectSliceToNSArray(protocols))
 	return rv
+}
+
+// ReadPacketObjects is a synchronous wrapper around [NEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (p NEPacketTunnelFlow) ReadPacketObjects(ctx context.Context) ([]NEPacket, error) {
+	done := make(chan []NEPacket, 1)
+	p.ReadPacketObjectsWithCompletionHandler(func(val *[]NEPacket) {
+		var out []NEPacket
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

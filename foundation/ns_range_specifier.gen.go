@@ -180,9 +180,9 @@ func NewRangeSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and
-// initializes the instance with the object specifiers representing the
-// starting element, `startSpec`, and the ending element, `endSpec`, of a
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and initializes the instance with the object specifiers representing
+// the starting element, `startSpec`, and the ending element, `endSpec`, of a
 // range of elements in the container.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRangeSpecifier/init(containerClassDescription:containerSpecifier:key:start:end:)
@@ -230,9 +230,9 @@ func NewRangeSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 // # Discussion
 //
 // Invokes the super class’s
-// [InitWithContainerClassDescriptionContainerSpecifierKey] method and
-// initializes the instance with the object specifiers representing the
-// starting element, `startSpec`, and the ending element, `endSpec`, of a
+// [NSWhoseSpecifier.InitWithContainerClassDescriptionContainerSpecifierKey]
+// method and initializes the instance with the object specifiers representing
+// the starting element, `startSpec`, and the ending element, `endSpec`, of a
 // range of elements in the container.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRangeSpecifier/init(containerClassDescription:containerSpecifier:key:start:end:)

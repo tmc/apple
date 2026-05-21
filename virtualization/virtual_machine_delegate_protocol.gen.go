@@ -72,8 +72,8 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMa
 // which results in the disconnection of the network attachment. This can
 // happen in many situations such as initial boot, device reset, reboot, and
 // so on. The system may invoke this method several times during a VM’s life
-// cycle. After the system calls this method, the [Attachment] property is
-// `nil`.
+// cycle. After the system calls this method, the [VZNetworkDevice.Attachment]
+// property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:networkDevice:attachmentWasDisconnectedWithError:)
 func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError(virtualMachine IVZVirtualMachine, networkDevice IVZNetworkDevice, error_ foundation.NSError) {

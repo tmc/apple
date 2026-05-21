@@ -58,9 +58,9 @@ func (nc NSSavePanelClass) Alloc() NSSavePanel {
 // file. You can also add custom UI for your app using an accessory view.
 //
 // An [NSSavePanel] object reports user interactions to its associated
-// [NSSavePanel.Delegate] object, which must adopt the [NSOpenSavePanelDelegate] protocol.
-// Use your delegate object to validate the user’s selection and respond to
-// user interactions with the panel.
+// [NSSavePanel.Delegate] object, which must adopt the
+// [NSOpenSavePanelDelegate] protocol. Use your delegate object to validate
+// the user’s selection and respond to user interactions with the panel.
 //
 // In macOS 10.15, the system always displays the Save dialog in a separate
 // process, regardless of whether the app is sandboxed. When the user saves
@@ -327,7 +327,7 @@ func NewNSSavePanel() NSSavePanel {
 // controller.
 //
 // contentViewController: The view controller that provides the main content view for the window. The
-// window’s [ContentView] property is set to
+// window’s [NSWindow.ContentView] property is set to
 // `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
@@ -342,10 +342,10 @@ func NewNSSavePanel() NSSavePanel {
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
-// set to the initial size of [ContentView] (that is, the size of
+// set to the initial size of [NSWindow.ContentView] (that is, the size of
 // `contentViewController“XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
-// keep the window instance alive.
+// [NSWindow.ReleasedWhenClosed] set to false, and it must be explicitly
+// retained to keep the window instance alive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewSavePanelWindowWithContentViewController(contentViewController INSViewController) NSSavePanel {
@@ -399,7 +399,8 @@ func NewSavePanelWithCoder(coder foundation.INSCoder) NSSavePanel {
 // virtual memory load on the window server.
 //
 // The new window creates a view to be its default content view. You can
-// replace it with your own object by setting the [ContentView] property.
+// replace it with your own object by setting the [NSWindow.ContentView]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
 //
@@ -476,8 +477,8 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 // method. The completion handler block runs after the user dismisses the
 // panel, but while the panel may still be onscreen. If you need to dismiss
 // the panel from the screen—for example, if the completion block displays
-// an alert—close the panel by calling its [OrderOut] method with the value
-// `nil`.
+// an alert—close the panel by calling its [NSWindow.OrderOut] method with
+// the value `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/beginSheetModal(for:completionHandler:)
 func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ModalResponseHandler) {
@@ -515,8 +516,8 @@ func (s NSSavePanel) BeginWithCompletionHandler(handler ModalResponseHandler) {
 //
 // # Discussion
 //
-// This method invokes [NSApplication]’s [RunModalForWindow] method with
-// `self` as the argument.
+// This method invokes [NSApplication]’s [NSApplication.RunModalForWindow]
+// method with `self` as the argument.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/runModal()
 func (s NSSavePanel) RunModal() NSModalResponse {
@@ -648,7 +649,8 @@ func (s NSSavePanel) SetNameFieldLabel(value string) {
 // # Discussion
 //
 // The value of this property must not be `nil`. Note that the filename may
-// not display an extension if the value of [ExtensionHidden] is true.
+// not display an extension if the value of [NSSavePanel.ExtensionHidden] is
+// true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/nameFieldStringValue
 func (s NSSavePanel) NameFieldStringValue() string {
@@ -723,9 +725,9 @@ func (s NSSavePanel) SetShowsTagField(value bool) {
 //
 // # Discussion
 //
-// When the value of [ShowsTagField] is true, use this property to provide an
-// array of strings that represent the initial tag names to display in the
-// panel. If you set the property to `nil` or an empty array, the panel
+// When the value of [NSSavePanel.ShowsTagField] is true, use this property to
+// provide an array of strings that represent the initial tag names to display
+// in the panel. If you set the property to `nil` or an empty array, the panel
 // displays no initial tag names.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/tagNames
@@ -765,7 +767,7 @@ func (s NSSavePanel) SetCanCreateDirectories(value bool) {
 // extensions” is false, the panel displays the Hide Extension menu item.
 // The default value of this property is false.
 //
-// Use the [ExtensionHidden] property to hide or shows extensions.
+// Use the [NSSavePanel.ExtensionHidden] property to hide or shows extensions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/canSelectHiddenExtension
 func (s NSSavePanel) CanSelectHiddenExtension() bool {
@@ -834,8 +836,8 @@ func (s NSSavePanel) IsExpanded() bool {
 // Defaults to an empty array that indicates that you can use any file type.
 // If you don’t provide an extension, the system uses the first preferred
 // extension in the array for the save panel. If you specify a type that
-// isn’t in the array and [AllowsOtherFileTypes] is [YES], the system
-// presents another dialog when prompting you to save.
+// isn’t in the array and [NSSavePanel.AllowsOtherFileTypes] is [YES], the
+// system presents another dialog when prompting you to save.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/allowedContentTypes
 func (s NSSavePanel) AllowedContentTypes() []uniformtypeidentifiers.UTType {

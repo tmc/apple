@@ -55,7 +55,7 @@ var (
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFileTypeKey
 	AVAudioFileTypeKey string
 	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mutestatekey
-	AVAudioSessionMuteStateKey foundation.NSString
+	AVAudioSessionMuteStateKey string
 	// AVAudioUnitComponentTagsDidChangeNotification is a notification that indicates when component tags change.
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentTagsDidChangeNotification
@@ -720,7 +720,13 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionMuteStateKey"); err == nil && ptr != 0 {
-		AVAudioSessionMuteStateKey = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVAudioSessionMuteStateKey = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationBack"); err == nil && ptr != 0 {

@@ -543,8 +543,8 @@ func (o MTL4ComputeCommandEncoderObject) GenerateMipmapsForTexture(texture MTLTe
 // You typically use this command for:
 //
 // - Textures the CPU accesses for an extended period of time. - Textures with
-// a [StorageMode] property that’s [MTLStorageModeShared] or
-// [MTLStorageModeManaged].
+// a [MTLTextureDescriptor.StorageMode] property that’s
+// [MTLStorageModeShared] or [MTLStorageModeManaged].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/optimizeContents(forCPUAccess:)
 func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForCPUAccess(texture MTLTexture) {
@@ -569,8 +569,8 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForCPUAccess(texture MT
 // You typically use this command for:
 //
 // - Textures the CPU accesses for an extended period of time. - Textures with
-// a [StorageMode] property that’s [MTLStorageModeShared] or
-// [MTLStorageModeManaged].
+// a [MTLTextureDescriptor.StorageMode] property that’s
+// [MTLStorageModeShared] or [MTLStorageModeManaged].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/optimizeContents(forCPUAccess:slice:level:)
 func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForCPUAccessSliceLevel(texture MTLTexture, slice uint, level uint) {
@@ -591,8 +591,8 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForCPUAccessSliceLevel(
 // You typically run this command for:
 //
 // - Textures the GPU accesses for an extended period of time. - Textures with
-// a [StorageMode] property that’s [MTLStorageModeShared] or
-// [MTLStorageModeManaged].
+// a [MTLTextureDescriptor.StorageMode] property that’s
+// [MTLStorageModeShared] or [MTLStorageModeManaged].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/optimizeContents(forGPUAccess:)
 func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForGPUAccess(texture MTLTexture) {
@@ -618,8 +618,8 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForGPUAccess(texture MT
 // You typically run this command for:
 //
 // - Textures the GPU accesses for an extended period of time. - Textures with
-// a [StorageMode] property that’s [MTLStorageModeShared] or
-// [MTLStorageModeManaged].
+// a [MTLTextureDescriptor.StorageMode] property that’s
+// [MTLStorageModeShared] or [MTLStorageModeManaged].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/optimizeContents(forGPUAccess:slice:level:)
 func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForGPUAccessSliceLevel(texture MTLTexture, slice uint, level uint) {

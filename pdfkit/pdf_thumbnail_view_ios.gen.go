@@ -5,6 +5,7 @@
 package pdfkit
 
 import (
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -13,7 +14,7 @@ func (p PDFThumbnailView) ContentInset() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("contentInset"))
 	return rv
 }
-func (p PDFThumbnailView) SetContentInset(value unsafe.Pointer) {
+func (p PDFThumbnailView) SetContentInset(value kernel.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentInset:"), value)
 }
 

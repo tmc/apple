@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -73,8 +74,6 @@ func (ac AVCaptureVideoDataOutputClass) Alloc() AVCaptureVideoDataOutput {
 //
 // # Retrieving supported video types
 //
-//   - [AVCaptureVideoDataOutput.AvailableVideoPixelFormatTypes]: The video pixel formats the output supports.
-//   - [AVCaptureVideoDataOutput.SetAvailableVideoPixelFormatTypes]
 //   - [AVCaptureVideoDataOutput.AvailableVideoCodecTypes]: The video codecs that the output supports.
 //   - [AVCaptureVideoDataOutput.AvailableVideoCodecTypesForAssetWriterWithOutputFileType]: The video codecs that the output supports for writing video to the output file.
 //
@@ -118,8 +117,6 @@ func AVCaptureVideoDataOutputFromID(id objc.ID) AVCaptureVideoDataOutput {
 //
 // # Retrieving supported video types
 //
-//   - [IAVCaptureVideoDataOutput.AvailableVideoPixelFormatTypes]: The video pixel formats the output supports.
-//   - [IAVCaptureVideoDataOutput.SetAvailableVideoPixelFormatTypes]
 //   - [IAVCaptureVideoDataOutput.AvailableVideoCodecTypes]: The video codecs that the output supports.
 //   - [IAVCaptureVideoDataOutput.AvailableVideoCodecTypesForAssetWriterWithOutputFileType]: The video codecs that the output supports for writing video to the output file.
 //
@@ -145,7 +142,7 @@ type IAVCaptureVideoDataOutput interface {
 	PreservesDynamicHDRMetadata() bool
 	SetPreservesDynamicHDRMetadata(value bool)
 	// Indicates the recommended media timescale for the video track.
-	RecommendedMediaTimeScaleForAssetWriter() int32
+	RecommendedMediaTimeScaleForAssetWriter() coremedia.CMTimeScale
 	// Recommends movie-level metadata for a particular video codec type and output file type, to be used with an asset writer input.
 	RecommendedMovieMetadataForVideoCodecTypeAssetWriterOutputFileType(videoCodecType AVVideoCodecType, outputFileType AVFileType) []AVMetadataItem
 	// Returns a video settings dictionary appropriate for capturing video to a file with the specified codec and type.
@@ -157,9 +154,6 @@ type IAVCaptureVideoDataOutput interface {
 
 	// Topic: Retrieving supported video types
 
-	// The video pixel formats the output supports.
-	AvailableVideoPixelFormatTypes() uint32
-	SetAvailableVideoPixelFormatTypes(value uint32)
 	// The video codecs that the output supports.
 	AvailableVideoCodecTypes() []string
 	// The video codecs that the output supports for writing video to the output file.
@@ -214,17 +208,17 @@ func NewAVCaptureVideoDataOutput() AVCaptureVideoDataOutput {
 //
 // The value of this property is an array of [AVMetadataItem] objects
 // representing the collection of top-level metadata to be written in each
-// output file. This array is suitable to use as the [Metadata] property
-// before you have called [startWriting()]. For more details see
+// output file. This array is suitable to use as the [AVAssetWriter.Metadata]
+// property before you have called [startWriting()]. For more details see
 // [startWriting()].
 //
 // The `videoCodecType` string you provide must be present in
-// [AvailableVideoCodecTypesForAssetWriterWithOutputFileType] array, or an
-// [NSInvalidArgumentException] is thrown.
+// [AVCaptureVideoDataOutput.AvailableVideoCodecTypesForAssetWriterWithOutputFileType]
+// array, or an [NSInvalidArgumentException] is thrown.
 //
 // For clients writing files using a ProRes Raw codec type, white balance must
 // be locked (call
-// [SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler])
+// [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler])
 // before querying this property, or an [NSIvalidArgumentException] is thrown.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/recommendedMovieMetadata(forVideoCodecType:assetWriterOutputFileType:)
@@ -256,7 +250,7 @@ func (c AVCaptureVideoDataOutput) RecommendedMovieMetadataForVideoCodecTypeAsset
 //
 // This dictionary contains keys and values described in [Video settings] and
 // is suitable for use when creating an [AVAssetWriterInput] with the
-// [InitWithMediaTypeOutputSettings] initializer.
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettings] initializer.
 //
 // For QuickTime movie and ISO file types, the recommended video settings
 // produce output comparable to that of [AVCaptureMovieFileOutput].
@@ -309,9 +303,9 @@ func (c AVCaptureVideoDataOutput) RecommendedVideoSettingsForVideoCodecTypeAsset
 //
 // This dictionary contains keys and values described in [Video settings] and
 // is suitable for use when creating an [AVAssetWriterInput] with the
-// [InitWithMediaTypeOutputSettings] initializer. For QuickTime movie and ISO
-// file types, the recommended video settings produce output comparable to
-// that of [AVCaptureMovieFileOutput].
+// [AVAssetWriterInput.InitWithMediaTypeOutputSettings] initializer. For
+// QuickTime movie and ISO file types, the recommended video settings produce
+// output comparable to that of [AVCaptureMovieFileOutput].
 //
 // Note that the dictionary of settings is dependent on the current
 // configuration of the output’s [AVCaptureSession] and its inputs. The
@@ -361,15 +355,16 @@ func (c AVCaptureVideoDataOutput) AvailableVideoCodecTypesForAssetWriterWithOutp
 //
 // If the queue is blocked when new frames are captured, those frames will be
 // automatically dropped at a time determined by the value of the
-// [AlwaysDiscardsLateVideoFrames] property. This allows you to process
-// existing frames on the same queue without having to manage the potential
-// memory usage increases that would otherwise occur when that processing is
-// unable to keep up with the rate of incoming frames.
+// [AVCaptureVideoDataOutput.AlwaysDiscardsLateVideoFrames] property. This
+// allows you to process existing frames on the same queue without having to
+// manage the potential memory usage increases that would otherwise occur when
+// that processing is unable to keep up with the rate of incoming frames.
 //
 // If your frame processing is consistently unable to keep up with the rate of
-// incoming frames, you should consider using the [MinFrameDuration] property,
-// which will generally yield better performance characteristics and more
-// consistent frame rates than frame dropping alone.
+// incoming frames, you should consider using the
+// [AVCaptureVideoDataOutput.MinFrameDuration] property, which will generally
+// yield better performance characteristics and more consistent frame rates
+// than frame dropping alone.
 //
 // If you need to minimize the chances of frames being dropped, you should
 // specify a queue on which a sufficiently small amount of processing is being
@@ -409,27 +404,36 @@ func (c AVCaptureVideoDataOutput) SetSampleBufferDelegateQueue(sampleBufferDeleg
 // [AVVideoCleanApertureKey], [AVVideoScalingModeKey],
 // [AVVideoColorPropertiesKey], and [AVVideoAllowWideColorKey]. - For
 // uncompressed video output, you can also use
-// [kCVPixelBufferPixelFormatTypeKey], [KCVPixelBufferWidthKey], and
-// [KCVPixelBufferHeightKey], in addition to the compressed video output keys.
+// [kCVPixelBufferPixelFormatTypeKey], [kCVPixelBufferWidthKey], and
+// [kCVPixelBufferHeightKey], in addition to the compressed video output keys.
 //
-// You can use [AvailableVideoPixelFormatTypes] and [AvailableVideoCodecTypes]
-// to get a list of the supported pixel formats and video codecs,
-// respectively. The width and height need to match the [VideoOrientation]
-// specified in the output’s [AVCaptureConnection], otherwise the system
-// throws an [InvalidArgumentException]. The aspect ratio of the width and
-// height also need to match the aspect ratio of the source’s
-// [ActiveFormat], corrected for the connection’s [VideoOrientation],
-// otherwise the system throws an [InvalidArgumentException]. If the width or
-// height exceeds the source’s `activeFormat`‘s width or height, the
-// system throws an [InvalidArgumentException]. Don’t change the width and
-// height if [DeliversPreviewSizedOutputBuffers] is true, otherwise the system
-// throws an [InvalidArgumentException].
+// You can use [availableVideoPixelFormatTypes] and
+// [AVCaptureVideoDataOutput.AvailableVideoCodecTypes] to get a list of the
+// supported pixel formats and video codecs, respectively. The width and
+// height need to match the [AVCaptureConnection.VideoOrientation] specified
+// in the output’s [AVCaptureConnection], otherwise the system throws an
+// [invalidArgumentException]. The aspect ratio of the width and height also
+// need to match the aspect ratio of the source’s
+// [AVCaptureDevice.ActiveFormat], corrected for the connection’s
+// [AVCaptureConnection.VideoOrientation], otherwise the system throws an
+// [invalidArgumentException]. If the width or height exceeds the source’s
+// `activeFormat`‘s width or height, the system throws an
+// [invalidArgumentException]. Don’t change the width and height if
+// [AVCaptureVideoDataOutput.DeliversPreviewSizedOutputBuffers] is true,
+// otherwise the system throws an [invalidArgumentException].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/videoSettings
 //
 // [AVVideoAllowWideColorKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoAllowWideColorKey
+// [AVVideoCleanApertureKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCleanApertureKey
 // [AVVideoColorPropertiesKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoColorPropertiesKey
+// [AVVideoPixelAspectRatioKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoPixelAspectRatioKey
+// [AVVideoScalingModeKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoScalingModeKey
+// [availableVideoPixelFormatTypes]: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/availableVideoPixelFormatTypes
+// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// [kCVPixelBufferHeightKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
 // [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+// [kCVPixelBufferWidthKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
 func (c AVCaptureVideoDataOutput) VideoSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("videoSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -495,20 +499,9 @@ func (c AVCaptureVideoDataOutput) SetPreservesDynamicHDRMetadata(value bool) {
 // inputs. It is never less than 600. It may or may not be a multiple of 600.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/recommendedMediaTimeScaleForAssetWriter
-func (c AVCaptureVideoDataOutput) RecommendedMediaTimeScaleForAssetWriter() int32 {
-	rv := objc.Send[int32](c.ID, objc.Sel("recommendedMediaTimeScaleForAssetWriter"))
-	return rv
-}
-
-// The video pixel formats the output supports.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturevideodataoutput/availablevideopixelformattypes
-func (c AVCaptureVideoDataOutput) AvailableVideoPixelFormatTypes() uint32 {
-	rv := objc.Send[uint32](c.ID, objc.Sel("availableVideoPixelFormatTypes"))
-	return rv
-}
-func (c AVCaptureVideoDataOutput) SetAvailableVideoPixelFormatTypes(value uint32) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAvailableVideoPixelFormatTypes:"), value)
+func (c AVCaptureVideoDataOutput) RecommendedMediaTimeScaleForAssetWriter() coremedia.CMTimeScale {
+	rv := objc.Send[coremedia.CMTimeScale](c.ID, objc.Sel("recommendedMediaTimeScaleForAssetWriter"))
+	return coremedia.CMTimeScale(rv)
 }
 
 // The video codecs that the output supports.
@@ -517,8 +510,9 @@ func (c AVCaptureVideoDataOutput) SetAvailableVideoPixelFormatTypes(value uint32
 //
 // The value contains an array of video codecs that the output supports.
 // Specify the codec it uses by setting a supported value for the
-// [AVVideoCodecKey] entry in its [VideoSettings] dictionary. The first format
-// in the returned list is the most efficient output format.
+// [AVVideoCodecKey] entry in its [AVCaptureVideoDataOutput.VideoSettings]
+// dictionary. The first format in the returned list is the most efficient
+// output format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/availableVideoCodecTypes
 //
@@ -534,7 +528,8 @@ func (c AVCaptureVideoDataOutput) AvailableVideoCodecTypes() []string {
 //
 // The delegate receives sample buffers after they are captured.
 //
-// You set the delegate using [SetSampleBufferDelegateQueue].
+// You set the delegate using
+// [AVCaptureVideoDataOutput.SetSampleBufferDelegateQueue].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/sampleBufferDelegate
 func (c AVCaptureVideoDataOutput) SampleBufferDelegate() AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -546,7 +541,8 @@ func (c AVCaptureVideoDataOutput) SampleBufferDelegate() AVCaptureVideoDataOutpu
 //
 // # Discussion
 //
-// You set the queue using [SetSampleBufferDelegateQueue].
+// You set the queue using
+// [AVCaptureVideoDataOutput.SetSampleBufferDelegateQueue].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/sampleBufferCallbackQueue
 func (c AVCaptureVideoDataOutput) SampleBufferCallbackQueue() dispatch.Queue {
@@ -560,8 +556,8 @@ func (c AVCaptureVideoDataOutput) SampleBufferCallbackQueue() dispatch.Queue {
 //
 // This value contains an array of video formats, in unspecified order, that
 // the output supports. You can set the format by specifying it as the
-// [kCVPixelBufferPixelFormatTypeKey] entry in the output’s [VideoSettings]
-// dictionary.
+// [kCVPixelBufferPixelFormatTypeKey] entry in the output’s
+// [AVCaptureVideoDataOutput.VideoSettings] dictionary.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/availableVideoCVPixelFormatTypes
 //

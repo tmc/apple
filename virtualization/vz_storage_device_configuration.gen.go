@@ -48,8 +48,9 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 //
 // Don’t create a [VZStorageDeviceConfiguration] object directly. Instead,
 // instantiate one of its subclasses, such as
-// [VZVirtioBlockDeviceConfiguration]. Use the [VZStorageDeviceConfiguration.Attachment] property of this
-// class to access the device’s underlying storage.
+// [VZVirtioBlockDeviceConfiguration]. Use the
+// [VZStorageDeviceConfiguration.Attachment] property of this class to access
+// the device’s underlying storage.
 //
 // # Getting the attachment point
 //

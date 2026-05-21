@@ -4,8 +4,8 @@ package coreml
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,28 +49,28 @@ func (mc MLParameterKeyClass) Alloc() MLParameterKey {
 //
 // Use an [MLParameterKey] to retrieve a model’s parameter value using:
 //
-// - The model’s [ParameterValueForKeyError] method - The [MLParameterKey.Parameters]
-// dictionary of an [MLModelConfiguration] - The [MLParameterKey.Parameters] dictionary of an
-// [MLUpdateContext]
+// - The model’s [MLModel.ParameterValueForKeyError] method - The
+// [MLModelConfiguration.Parameters] dictionary of an [MLModelConfiguration] -
+// The [MLUpdateContext.Parameters] dictionary of an [MLUpdateContext]
 //
 // # Overriding model and layer parameters
 //
 // To override a model’s default parameter values:
 //
 // - Create an [MLModelConfiguration] instance. - Use an [MLParameterKey] for
-// each parameter to set its value in the model configuration’s [MLParameterKey.Parameters]
-// dictionary. - Create a new model instance using
-// [ModelWithContentsOfURLConfigurationError] with your custom model
-// configuration.
+// each parameter to set its value in the model configuration’s
+// [MLModelConfiguration.Parameters] dictionary. - Create a new model instance
+// using [MLModelClass.ModelWithContentsOfURLConfigurationError] with your
+// custom model configuration.
 //
 // # Configuring update parameters
 //
 // To configure the update parameters for an [MLUpdateTask]:
 //
 // - Create an [MLModelConfiguration] instance. - Use an [MLParameterKey] for
-// each parameter to set its value in the model configuration’s [MLParameterKey.Parameters]
-// dictionary. - Create a new update task with your custom model
-// configuration.
+// each parameter to set its value in the model configuration’s
+// [MLModelConfiguration.Parameters] dictionary. - Create a new update task
+// with your custom model configuration.
 //
 // See [Personalizing a Model with On-Device Updates].
 //
@@ -110,19 +110,6 @@ type IMLParameterKey interface {
 
 	// Creates a copy of a parameter key and adds the scope to it.
 	ScopedTo(scope string) IMLParameterKey
-
-	// The list of available compute devices that the model’s prediction methods use.
-	AvailableComputeDevices() unsafe.Pointer
-	SetAvailableComputeDevices(value unsafe.Pointer)
-	// The configuration of the model set during initialization.
-	Configuration() IMLModelConfiguration
-	SetConfiguration(value IMLModelConfiguration)
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() IMLModelDescription
-	SetModelDescription(value IMLModelDescription)
-	// A dictionary of configuration settings your app can override when loading a model.
-	Parameters() IMLParameterKey
-	SetParameters(value IMLParameterKey)
 }
 
 // Init initializes the instance.
@@ -142,6 +129,13 @@ func NewMLParameterKey() MLParameterKey {
 	class := getMLParameterKeyClass()
 	rv := objc.Send[MLParameterKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLKey/init(coder:)
+func NewParameterKeyWithCoder(coder foundation.INSCoder) MLParameterKey {
+	instance := getMLParameterKeyClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLParameterKeyFromID(rv)
 }
 
 // Creates a copy of a parameter key and adds the scope to it.
@@ -178,59 +172,13 @@ func (p MLParameterKey) ScopedTo(scope string) IMLParameterKey {
 	return MLParameterKeyFromID(rv)
 }
 
-// The list of available compute devices that the model’s prediction methods
-// use.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/availablecomputedevices-6klyt
-func (p MLParameterKey) AvailableComputeDevices() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("availableComputeDevices"))
-	return rv
-}
-func (p MLParameterKey) SetAvailableComputeDevices(value unsafe.Pointer) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAvailableComputeDevices:"), value)
-}
-
-// The configuration of the model set during initialization.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/configuration
-func (p MLParameterKey) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("configuration"))
-	return MLModelConfigurationFromID(objc.ID(rv))
-}
-func (p MLParameterKey) SetConfiguration(value IMLModelConfiguration) {
-	objc.Send[struct{}](p.ID, objc.Sel("setConfiguration:"), value)
-}
-
-// Model information you use at runtime during development, which Xcode also
-// displays in its Core ML model editor view.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodel/modeldescription
-func (p MLParameterKey) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelDescription"))
-	return MLModelDescriptionFromID(objc.ID(rv))
-}
-func (p MLParameterKey) SetModelDescription(value IMLModelDescription) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
-}
-
-// A dictionary of configuration settings your app can override when loading a
-// model.
-//
-// See: https://developer.apple.com/documentation/coreml/mlmodelconfiguration/parameters
-func (p MLParameterKey) Parameters() IMLParameterKey {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("parameters"))
-	return MLParameterKeyFromID(objc.ID(rv))
-}
-func (p MLParameterKey) SetParameters(value IMLParameterKey) {
-	objc.Send[struct{}](p.ID, objc.Sel("setParameters:"), value)
-}
-
 // The key you use to access the number of neighbors that adjusts the affinity
 // of a k-nearest-neighbor model.
 //
 // # Discussion
 //
-// The value type for the [NumberOfNeighbors] key is an [Int64].
+// The value type for the [MLParameterKeyClass.NumberOfNeighbors] key is an
+// [Int64].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/numberOfNeighbors
 //
@@ -244,7 +192,8 @@ func (_MLParameterKeyClass MLParameterKeyClass) NumberOfNeighbors() MLParameterK
 //
 // # Discussion
 //
-// The value type for the [LinkedModelFileName] key is a [String].
+// The value type for the [MLParameterKeyClass.LinkedModelFileName] key is a
+// [String].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/linkedModelFileName
 //
@@ -258,7 +207,8 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelFileName() MLParamete
 //
 // # Discussion
 //
-// The value type for the [LinkedModelSearchPath] key is a [String].
+// The value type for the [MLParameterKeyClass.LinkedModelSearchPath] key is a
+// [String].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/linkedModelSearchPath
 //
@@ -272,9 +222,10 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelSearchPath() MLParame
 //
 // # Discussion
 //
-// The value type for the [Weights] key is an [MLMultiArray]. You must scope
-// this key with the name of the specific neural network layer whose weights
-// you’d like to access. See [ScopedTo].
+// The value type for the [MLParameterKeyClass.Weights] key is an
+// [MLMultiArray]. You must scope this key with the name of the specific
+// neural network layer whose weights you’d like to access. See
+// [MLParameterKey.ScopedTo].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/weights
 func (_MLParameterKeyClass MLParameterKeyClass) Weights() MLParameterKey {
@@ -286,9 +237,10 @@ func (_MLParameterKeyClass MLParameterKeyClass) Weights() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Biases] key is an [MLMultiArray]. You must scope
-// this key with the name of the specific neural network layer whose biases
-// you’d like to access. See [ScopedTo].
+// The value type for the [MLParameterKeyClass.Biases] key is an
+// [MLMultiArray]. You must scope this key with the name of the specific
+// neural network layer whose biases you’d like to access. See
+// [MLParameterKey.ScopedTo].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/biases
 func (_MLParameterKeyClass MLParameterKeyClass) Biases() MLParameterKey {
@@ -300,14 +252,15 @@ func (_MLParameterKeyClass MLParameterKeyClass) Biases() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [LearningRate] key is a [Double].
+// The value type for the [MLParameterKeyClass.LearningRate] key is a
+// [Double].
 //
 // To modify a model’s learning rate midway through an [MLUpdateTask], use
-// its [ResumeWithParameters] method to set a new value for the model’s
-// learning rate. You do this in the progress handler that you specified in
-// the [MLUpdateProgressHandlers] instance when you created the update task
-// using
-// [UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError].
+// its [MLUpdateTask.ResumeWithParameters] method to set a new value for the
+// model’s learning rate. You do this in the progress handler that you
+// specified in the [MLUpdateProgressHandlers] instance when you created the
+// update task using
+// [MLUpdateTaskClass.UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError].
 //
 // See [Personalizing a Model with On-Device Updates].
 //
@@ -325,7 +278,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) LearningRate() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Momentum] key is a [Double].
+// The value type for the [MLParameterKeyClass.Momentum] key is a [Double].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/momentum
 //
@@ -339,7 +292,8 @@ func (_MLParameterKeyClass MLParameterKeyClass) Momentum() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [MiniBatchSize] key is an [Int64].
+// The value type for the [MLParameterKeyClass.MiniBatchSize] key is an
+// [Int64].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/miniBatchSize
 //
@@ -353,7 +307,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) MiniBatchSize() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Beta1] key is a [Double].
+// The value type for the [MLParameterKeyClass.Beta1] key is a [Double].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/beta1
 //
@@ -367,7 +321,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta1() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Beta2] key is a [Double].
+// The value type for the [MLParameterKeyClass.Beta2] key is a [Double].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/beta2
 //
@@ -381,7 +335,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta2() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Eps] key is a [Double].
+// The value type for the [MLParameterKeyClass.Eps] key is a [Double].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/eps
 //
@@ -395,7 +349,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) Eps() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Epochs] key is an [Int64].
+// The value type for the [MLParameterKeyClass.Epochs] key is an [Int64].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/epochs
 //
@@ -410,7 +364,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) Epochs() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Shuffle] key is an [Bool].
+// The value type for the [MLParameterKeyClass.Shuffle] key is an [Bool].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/shuffle
 //
@@ -425,7 +379,7 @@ func (_MLParameterKeyClass MLParameterKeyClass) Shuffle() MLParameterKey {
 //
 // # Discussion
 //
-// The value type for the [Seed] key is an [Int64].
+// The value type for the [MLParameterKeyClass.Seed] key is an [Int64].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/seed
 //

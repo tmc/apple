@@ -177,10 +177,11 @@ func (o NSTableViewDataSourceObject) TableViewAcceptDropRowDropOperation(tableVi
 //
 // # Discussion
 //
-// The data source may retarget a drop by calling [SetDropRowDropOperation]
-// and returning something other than [NSDragOperationNone]. A data source
-// might retarget for various reasons, such as to provide better visual
-// feedback when inserting into a sorted position.
+// The data source may retarget a drop by calling
+// [NSTableView.SetDropRowDropOperation] and returning something other than
+// [NSDragOperationNone]. A data source might retarget for various reasons,
+// such as to provide better visual feedback when inserting into a sorted
+// position.
 //
 // To propose a drop on the second row, `row` would be 2 and `operation` would
 // be [NSTableViewDropOn]. To propose a drop below the last row, `row` would
@@ -211,7 +212,7 @@ func (o NSTableViewDataSourceObject) TableViewValidateDropProposedRowProposedDro
 //
 // The dragged item order will directly match the pasteboard writer array used
 // to begin the dragging session with the [NSView] method
-// [BeginDraggingSessionWithItemsEventSource]. Hence, the order is
+// [NSView.BeginDraggingSessionWithItemsEventSource]. Hence, the order is
 // deterministic, and can be used in [TableViewAcceptDropRowDropOperation]
 // when enumerating the [NSDraggingInfo] pasteboard classes.
 //
@@ -232,12 +233,12 @@ func (o NSTableViewDataSourceObject) TableViewDraggingSessionWillBeginAtPointFor
 // Required for multi-image dragging. Typically this will involve invoking
 // [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock] on
 // the `draggingInfo` parameter value and setting the `draggingItem`
-// object’s [ImageComponentsProvider] to a proper image based on the
-// content.
+// object’s [NSDraggingItem.ImageComponentsProvider] to a proper image based
+// on the content.
 //
 // For view-based table views, you can use the [NSTableCellView] method
-// [DraggingImageComponents]. For cell-based tables, use the [NSCell] method
-// [DraggingImageComponentsWithFrameInView].
+// [NSTableCellView.DraggingImageComponents]. For cell-based tables, use the
+// [NSCell] method [NSCell.DraggingImageComponentsWithFrameInView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:updateDraggingItemsForDrag:)
 func (o NSTableViewDataSourceObject) TableViewUpdateDraggingItemsForDrag(tableView INSTableView, draggingInfo NSDraggingInfo) {
@@ -278,7 +279,8 @@ func (o NSTableViewDataSourceObject) TableViewDraggingSessionEndedAtPointOperati
 // The data source typically sorts and reloads the data, and adjusts the
 // selections accordingly. If you need to know the current sort descriptors
 // and the data source doesn’t manage them itself, you can get the current
-// sort descriptors by sending `aTableView` a [SortDescriptors] message.
+// sort descriptors by sending `aTableView` a [NSTableView.SortDescriptors]
+// message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:sortDescriptorsDidChange:)
 func (o NSTableViewDataSourceObject) TableViewSortDescriptorsDidChange(tableView INSTableView, oldDescriptors []foundation.NSSortDescriptor) {

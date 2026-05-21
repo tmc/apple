@@ -50,9 +50,11 @@ func (nc NSPageLayoutClass) Alloc() NSPageLayout {
 //
 // A page layout panel is typically displayed in response to the user
 // selecting the Page Setup menu item. You obtain an instance with the
-// [PageLayout] class method. The pane can then be run as a sheet using
-// [NSPageLayout.BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo] or
-// modally using [NSPageLayout.RunModal] or [NSPageLayout.RunModalWithPrintInfo].
+// [NSPageLayoutClass.PageLayout] class method. The pane can then be run as a
+// sheet using
+// [NSPageLayout.BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo]
+// or modally using [NSPageLayout.RunModal] or
+// [NSPageLayout.RunModalWithPrintInfo].
 //
 // For design guidance, see [Human Interface Guidelines].
 //
@@ -245,9 +247,9 @@ func (p NSPageLayout) AccessoryControllers() []NSViewController {
 // # Discussion
 //
 // The NSPrintInfo object is set using the
-// [BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo] or
-// [RunModalWithPrintInfo] method. The shared NSPrintInfo object is used if
-// the receiver is run using [RunModal].
+// [NSPageLayout.BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo]
+// or [NSPageLayout.RunModalWithPrintInfo] method. The shared NSPrintInfo
+// object is used if the receiver is run using [NSPageLayout.RunModal].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/printInfo
 func (p NSPageLayout) PrintInfo() INSPrintInfo {

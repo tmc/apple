@@ -49,10 +49,11 @@ func (fc FSContainerStatusClass) Alloc() FSContainerStatus {
 //
 // This type contains two properties:
 //
-// - The [FSContainerStatus.State] value that indicates the state of the container, such as
-// [FSContainerStateReady] or [FSContainerStateBlocked]. - The [FSContainerStatus.Status] is an
-// error (optional in Swift, nullable in Objective-C) that provides further
-// information about the state, such as why the container is blocked.
+// - The [FSContainerStatus.State] value that indicates the state of the
+// container, such as [FSContainerStateReady] or [FSContainerStateBlocked]. -
+// The [FSContainerStatus.Status] is an error (optional in Swift, nullable in
+// Objective-C) that provides further information about the state, such as why
+// the container is blocked.
 //
 // Examples of statuses that require intervention include errors that indicate
 // the container isn’t ready (POSIX [EAGAIN] or [ENOTCONN]), the container
@@ -180,8 +181,9 @@ func (c FSContainerStatus) Status() foundation.NSError {
 //
 // # Discussion
 //
-// This value is a [FSContainerStatus] with a [State] that is [Active], and
-// has a [Status] that is `nil`.
+// This value is a [FSContainerStatus] with a [FSContainerStatus.State] that
+// is [FSContainerStatusClass.Active], and has a [FSContainerStatus.Status]
+// that is `nil`.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/active
 func (_FSContainerStatusClass FSContainerStatusClass) Active() FSContainerStatus {
@@ -193,8 +195,9 @@ func (_FSContainerStatusClass FSContainerStatusClass) Active() FSContainerStatus
 //
 // # Discussion
 //
-// This value is a [FSContainerStatus] with a [State] that is [Ready], and a
-// [Status] that is `nil`.
+// This value is a [FSContainerStatus] with a [FSContainerStatus.State] that
+// is [FSContainerStatusClass.Ready], and a [FSContainerStatus.Status] that is
+// `nil`.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/ready
 func (_FSContainerStatusClass FSContainerStatusClass) Ready() FSContainerStatus {

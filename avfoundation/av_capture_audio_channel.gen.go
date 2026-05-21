@@ -114,10 +114,6 @@ type IAVCaptureAudioChannel interface {
 	AveragePowerLevel() float32
 	// The peak hold power level in decibels.
 	PeakHoldLevel() float32
-
-	// The connections between inputs and outputs that a capture session contains.
-	Connections() IAVCaptureConnection
-	SetConnections(value IAVCaptureConnection)
 }
 
 // Init initializes the instance.
@@ -189,15 +185,4 @@ func (c AVCaptureAudioChannel) AveragePowerLevel() float32 {
 func (c AVCaptureAudioChannel) PeakHoldLevel() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("peakHoldLevel"))
 	return rv
-}
-
-// The connections between inputs and outputs that a capture session contains.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcapturesession/connections
-func (c AVCaptureAudioChannel) Connections() IAVCaptureConnection {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("connections"))
-	return AVCaptureConnectionFromID(objc.ID(rv))
-}
-func (c AVCaptureAudioChannel) SetConnections(value IAVCaptureConnection) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConnections:"), value)
 }

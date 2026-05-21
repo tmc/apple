@@ -767,10 +767,6 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/wasInterruptedNotification
 	AVCaptureSessionWasInterruptedNotification foundation.NSNotificationName
-	// AVFoundationErrorDomain is the error domain of AVFoundation errors.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVFoundationErrorDomain
-	AVFoundationErrorDomain foundation.NSErrorDomain
 	// AVPlaybackCoordinatorOtherParticipantsDidChangeNotification is a notification that the coordinator posts when its other participants change.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/otherParticipantsDidChangeNotification
@@ -967,6 +963,13 @@ var (
 )
 
 var ()
+
+var (
+	// AVFoundationErrorDomain is the error domain of AVFoundation errors.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVFoundationErrorDomain
+	AVFoundationErrorDomain foundation.NSErrorDomain
+)
 
 var ()
 

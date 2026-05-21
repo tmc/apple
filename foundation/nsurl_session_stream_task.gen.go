@@ -52,10 +52,11 @@ func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 //
 // The [NSURLSessionStreamTask] class provides an interface a TCP/IP
 // connection created via [NSURLSession]. Tasks may be created from an
-// [NSURLSession] using the [StreamTaskWithHostNamePort] and
-// [StreamTaskWithNetService] methods. They may also be created as a result of
-// an [NSURLSessionDataTask] being upgraded via the HTTP `Upgrade:` response
-// header and appropriate use of the [HTTPShouldUsePipelining] option of
+// [NSURLSession] using the [NSURLSession.StreamTaskWithHostNamePort] and
+// [NSURLSession.StreamTaskWithNetService] methods. They may also be created
+// as a result of an [NSURLSessionDataTask] being upgraded via the HTTP
+// `Upgrade:` response header and appropriate use of the
+// [NSURLSessionConfiguration.HTTPShouldUsePipelining] option of
 // [NSURLSessionConfiguration].
 //
 // A [NSURLSessionStreamTask] object performs asynchronous reads and writes,
@@ -66,7 +67,8 @@ func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 //
 // When working with APIs that accept [NSStream] objects, you can create
 // [NSInputStream] and [NSOutputStream] objects from an
-// [NSURLSessionStreamTask] object by calling the [CaptureStreams] method.
+// [NSURLSessionStreamTask] object by calling the
+// [NSURLSessionStreamTask.CaptureStreams] method.
 //
 // # Reading and writing data
 //
@@ -133,7 +135,7 @@ type IURLSessionStreamTask interface {
 	// Topic: Reading and writing data
 
 	// Asynchronously reads a number of bytes from the stream, and calls a handler upon completion.
-	ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataErrorHandler)
+	ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataBoolErrorHandler)
 	// Asynchronously writes the specified data to the stream, and calls a handler upon completion.
 	WriteDataTimeoutCompletionHandler(data INSData, timeout float64, completionHandler ErrorHandler)
 
@@ -153,10 +155,6 @@ type IURLSessionStreamTask interface {
 
 	// Completes any enqueued reads and writes, and establishes a secure connection.
 	StartSecureConnection()
-
-	// A Boolean value that determines whether the session should use HTTP pipelining.
-	HttpShouldUsePipelining() bool
-	SetHTTPShouldUsePipelining(value bool)
 }
 
 // Init initializes the instance.
@@ -200,8 +198,8 @@ func NewURLSessionStreamTask() URLSessionStreamTask {
 // successful.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/readData(ofMinLength:maxLength:timeout:completionHandler:)
-func (u URLSessionStreamTask) ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataErrorHandler) {
-	_block3, _ := NewDataErrorBlock(completionHandler)
+func (u URLSessionStreamTask) ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataBoolErrorHandler) {
+	_block3, _ := NewDataBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("readDataOfMinLength:maxLength:timeout:completionHandler:"), minBytes, maxBytes, timeout, _block3)
 }
 
@@ -248,9 +246,10 @@ func (u URLSessionStreamTask) CaptureStreams() {
 // # Discussion
 //
 // You may continue to write data using the
-// [WriteDataTimeoutCompletionHandler] method after calling this method. Any
-// calls to [ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler] after
-// calling this method will result in an error.
+// [NSURLSessionStreamTask.WriteDataTimeoutCompletionHandler] method after
+// calling this method. Any calls to
+// [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
+// after calling this method will result in an error.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/closeRead()
 func (u URLSessionStreamTask) CloseRead() {
@@ -263,8 +262,9 @@ func (u URLSessionStreamTask) CloseRead() {
 // # Discussion
 //
 // You may continue to read data using the
-// [ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler] method after calling
-// this method. Any calls to [WriteDataTimeoutCompletionHandler] after calling
+// [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
+// method after calling this method. Any calls to
+// [NSURLSessionStreamTask.WriteDataTimeoutCompletionHandler] after calling
 // this method will result in an error.
 //
 // Because the server may continue to write bytes to the client, it is
@@ -287,18 +287,6 @@ func (u URLSessionStreamTask) CloseWrite() {
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/startSecureConnection()
 func (u URLSessionStreamTask) StartSecureConnection() {
 	objc.Send[objc.ID](u.ID, objc.Sel("startSecureConnection"))
-}
-
-// A Boolean value that determines whether the session should use HTTP
-// pipelining.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/httpshouldusepipelining
-func (u URLSessionStreamTask) HttpShouldUsePipelining() bool {
-	rv := objc.Send[bool](u.ID, objc.Sel("HTTPShouldUsePipelining"))
-	return rv
-}
-func (u URLSessionStreamTask) SetHTTPShouldUsePipelining(value bool) {
-	objc.Send[struct{}](u.ID, objc.Sel("setHTTPShouldUsePipelining:"), value)
 }
 
 // WriteDataTimeout is a synchronous wrapper around [URLSessionStreamTask.WriteDataTimeoutCompletionHandler].

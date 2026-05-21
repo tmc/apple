@@ -54,9 +54,9 @@ func (uc UnitMassClass) Alloc() UnitMass {
 // accelerating it. The SI unit for mass is the kilogram (kg), which defined
 // in terms of the mass of the international prototype kilogram.
 //
-// The [NSUnitMass] class defines its [BaseUnit] as [Kilograms], and provides
-// the following units, which [NSUnitConverterLinear] converters initialize
-// with the given coefficients:
+// The [NSUnitMass] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitMassClass.Kilograms], and provides the following units, which
+// [NSUnitConverterLinear] converters initialize with the given coefficients:
 //
 // [Table data omitted]
 //

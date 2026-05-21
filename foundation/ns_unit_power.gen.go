@@ -53,9 +53,10 @@ func (uc UnitPowerClass) Alloc() UnitPower {
 // Power is the amount of energy used over time. The SI unit for power is the
 // watt (W), which is derived as one joule per second (1W = 1J / 1s).
 //
-// The [NSUnitPower] class defines its [BaseUnit] as [Watts], and provides the
-// following units, which are initialized using [NSUnitConverterLinear]
-// converters with the specified coefficients:
+// The [NSUnitPower] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitPowerClass.Watts], and provides the following units, which are
+// initialized using [NSUnitConverterLinear] converters with the specified
+// coefficients:
 //
 // [Table data omitted]
 //

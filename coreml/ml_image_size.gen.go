@@ -83,9 +83,7 @@ type IMLImageSize interface {
 	// The width of an image feature in pixels.
 	PixelsWide() int
 
-	// An array of image sizes a model’s image feature accepts as input or produces as output.
-	EnumeratedImageSizes() IMLImageSize
-	SetEnumeratedImageSizes(value IMLImageSize)
+	InitWithCoder(coder foundation.INSCoder) MLImageSize
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -108,6 +106,18 @@ func NewMLImageSize() MLImageSize {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLImageSize/init(coder:)
+func NewImageSizeWithCoder(coder foundation.INSCoder) MLImageSize {
+	instance := getMLImageSizeClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLImageSizeFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLImageSize/init(coder:)
+func (i MLImageSize) InitWithCoder(coder foundation.INSCoder) MLImageSize {
+	rv := objc.Send[MLImageSize](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (i MLImageSize) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -126,16 +136,4 @@ func (i MLImageSize) PixelsHigh() int {
 func (i MLImageSize) PixelsWide() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
 	return rv
-}
-
-// An array of image sizes a model’s image feature accepts as input or
-// produces as output.
-//
-// See: https://developer.apple.com/documentation/coreml/mlimagesizeconstraint/enumeratedimagesizes
-func (i MLImageSize) EnumeratedImageSizes() IMLImageSize {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("enumeratedImageSizes"))
-	return MLImageSizeFromID(objc.ID(rv))
-}
-func (i MLImageSize) SetEnumeratedImageSizes(value IMLImageSize) {
-	objc.Send[struct{}](i.ID, objc.Sel("setEnumeratedImageSizes:"), value)
 }

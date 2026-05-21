@@ -5,9 +5,7 @@ package vision
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNCoreMLRequest] class.
@@ -51,8 +49,8 @@ func (vc VNCoreMLRequestClass) Alloc() VNCoreMLRequest {
 // different observation type, depending on the kind of [MLModel] object you
 // use:
 //
-// - If the model predicts a single feature, the model’s [VNCoreMLRequest.ModelDescription]
-// object has a non-`nil` value for [VNCoreMLRequest.PredictedFeatureName] and Vision treats
+// - If the model predicts a single feature, the model’s [modelDescription]
+// object has a non-`nil` value for [predictedFeatureName] and Vision treats
 // the model as a classifier. The results are [VNClassificationObservation]
 // objects. - If the model’s outputs include at least one output with a
 // feature type of [MLFeatureType.image], Vision treats that model as an
@@ -71,14 +69,12 @@ func (vc VNCoreMLRequestClass) Alloc() VNCoreMLRequest {
 //   - [VNCoreMLRequest.ImageCropAndScaleOption]: An optional setting that tells the Vision algorithm how to scale an input image.
 //   - [VNCoreMLRequest.SetImageCropAndScaleOption]
 //
-// # Identifying Request Revisions
-//
-//   - [VNCoreMLRequest.VNCoreMLRequestRevision1]: A constant for specifying revision 1 of a Core ML request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLRequest
 //
 // [MLFeatureType.image]: https://developer.apple.com/documentation/CoreML/MLFeatureType/image
 // [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
+// [modelDescription]: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
+// [predictedFeatureName]: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
 type VNCoreMLRequest struct {
 	VNImageBasedRequest
 }
@@ -106,10 +102,6 @@ func VNCoreMLRequestFromID(id objc.ID) VNCoreMLRequest {
 //   - [IVNCoreMLRequest.ImageCropAndScaleOption]: An optional setting that tells the Vision algorithm how to scale an input image.
 //   - [IVNCoreMLRequest.SetImageCropAndScaleOption]
 //
-// # Identifying Request Revisions
-//
-//   - [IVNCoreMLRequest.VNCoreMLRequestRevision1]: A constant for specifying revision 1 of a Core ML request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLRequest
 type IVNCoreMLRequest interface {
 	IVNImageBasedRequest
@@ -128,21 +120,6 @@ type IVNCoreMLRequest interface {
 	// An optional setting that tells the Vision algorithm how to scale an input image.
 	ImageCropAndScaleOption() VNImageCropAndScaleOption
 	SetImageCropAndScaleOption(value VNImageCropAndScaleOption)
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 1 of a Core ML request.
-	VNCoreMLRequestRevision1() int
-
-	// The level of confidence in the observation’s accuracy.
-	Confidence() VNConfidence
-	SetConfidence(value VNConfidence)
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() objectivec.IObject
-	SetModelDescription(value objectivec.IObject)
-	// The name of the primary prediction feature output description.
-	PredictedFeatureName() string
-	SetPredictedFeatureName(value string)
 }
 
 // Init initializes the instance.
@@ -172,7 +149,7 @@ func NewVNCoreMLRequest() VNCoreMLRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewCoreMLRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNCoreMLRequest {
@@ -304,46 +281,4 @@ func (c VNCoreMLRequest) ImageCropAndScaleOption() VNImageCropAndScaleOption {
 }
 func (c VNCoreMLRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageCropAndScaleOption:"), value)
-}
-
-// A constant for specifying revision 1 of a Core ML request.
-//
-// See: https://developer.apple.com/documentation/vision/vncoremlrequestrevision1
-func (c VNCoreMLRequest) VNCoreMLRequestRevision1() int {
-	rv := objc.Send[int](c.ID, objc.Sel("VNCoreMLRequestRevision1"))
-	return rv
-}
-
-// The level of confidence in the observation’s accuracy.
-//
-// See: https://developer.apple.com/documentation/vision/vnobservation/confidence
-func (c VNCoreMLRequest) Confidence() VNConfidence {
-	rv := objc.Send[VNConfidence](c.ID, objc.Sel("confidence"))
-	return VNConfidence(rv)
-}
-func (c VNCoreMLRequest) SetConfidence(value VNConfidence) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConfidence:"), value)
-}
-
-// Model information you use at runtime during development, which Xcode also
-// displays in its Core ML model editor view.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (c VNCoreMLRequest) ModelDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
-	return objectivec.Object{ID: rv}
-}
-func (c VNCoreMLRequest) SetModelDescription(value objectivec.IObject) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
-}
-
-// The name of the primary prediction feature output description.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
-func (c VNCoreMLRequest) PredictedFeatureName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictedFeatureName"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c VNCoreMLRequest) SetPredictedFeatureName(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPredictedFeatureName:"), objc.String(value))
 }

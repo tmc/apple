@@ -4,9 +4,7 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -54,13 +52,14 @@ func (cc CKDiscoverAllUserIdentitiesOperationClass) Alloc() CKDiscoverAllUserIde
 //
 // Although your app doesn’t need authorization to use the Contacts database
 // to execute this operation, if it has authorization, you can use the
-// [CKDiscoverAllUserIdentitiesOperation.ContactIdentifiers] property on any returned user identity to fetch the
-// corresponding Contact record from the database.
+// [CKUserIdentity.ContactIdentifiers] property on any returned user identity
+// to fetch the corresponding Contact record from the database.
 //
 // Before CloudKit can return a user’s identity, you must ask for their
-// permission by calling [RequestApplicationPermissionCompletionHandler]. Do
-// this as part of any onboarding where you can highlight the benefits of
-// being discoverable within the context of your app.
+// permission by calling
+// [CKContainer.RequestApplicationPermissionCompletionHandler]. Do this as
+// part of any onboarding where you can highlight the benefits of being
+// discoverable within the context of your app.
 //
 // The operation executes the handlers you provide on an internal queue it
 // manages. You must provide handlers capable of executing on a background
@@ -75,7 +74,7 @@ func (cc CKDiscoverAllUserIdentitiesOperationClass) Alloc() CKDiscoverAllUserIde
 // CloudKit operations have a default QoS of [QualityOfService.default].
 // Operations with this service level are discretionary. The system schedules
 // their execution at an optimal time according to battery level and network
-// conditions, among other factors. Use the [CKDiscoverAllUserIdentitiesOperation.QualityOfService] property to set
+// conditions, among other factors. Use the [qualityOfService] property to set
 // a more appropriate QoS for the operation.
 //
 // The following example shows how to create the operation, configure its
@@ -86,15 +85,11 @@ func (cc CKDiscoverAllUserIdentitiesOperationClass) Alloc() CKDiscoverAllUserIde
 //   - [CKDiscoverAllUserIdentitiesOperation.UserIdentityDiscoveredBlock]: The closure to execute for each user identity.
 //   - [CKDiscoverAllUserIdentitiesOperation.SetUserIdentityDiscoveredBlock]
 //
-// # Instance Properties
-//
-//   - [CKDiscoverAllUserIdentitiesOperation.DiscoverAllUserIdentitiesResultBlock]: The closure to execute when the operation finishes.
-//   - [CKDiscoverAllUserIdentitiesOperation.SetDiscoverAllUserIdentitiesResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKDiscoverAllUserIdentitiesOperation
 //
 // [QualityOfService.default]: https://developer.apple.com/documentation/Foundation/QualityOfService/default
 // [discoverAllUserIdentitiesCompletionBlock]: https://developer.apple.com/documentation/CloudKit/CKDiscoverAllUserIdentitiesOperation/discoverAllUserIdentitiesCompletionBlock
+// [qualityOfService]: https://developer.apple.com/documentation/Foundation/Operation/qualityOfService
 type CKDiscoverAllUserIdentitiesOperation struct {
 	CKOperation
 }
@@ -117,11 +112,6 @@ func CKDiscoverAllUserIdentitiesOperationFromID(id objc.ID) CKDiscoverAllUserIde
 //   - [ICKDiscoverAllUserIdentitiesOperation.UserIdentityDiscoveredBlock]: The closure to execute for each user identity.
 //   - [ICKDiscoverAllUserIdentitiesOperation.SetUserIdentityDiscoveredBlock]
 //
-// # Instance Properties
-//
-//   - [ICKDiscoverAllUserIdentitiesOperation.DiscoverAllUserIdentitiesResultBlock]: The closure to execute when the operation finishes.
-//   - [ICKDiscoverAllUserIdentitiesOperation.SetDiscoverAllUserIdentitiesResultBlock]
-//
 // See: https://developer.apple.com/documentation/CloudKit/CKDiscoverAllUserIdentitiesOperation
 type ICKDiscoverAllUserIdentitiesOperation interface {
 	ICKOperation
@@ -131,16 +121,6 @@ type ICKDiscoverAllUserIdentitiesOperation interface {
 	// The closure to execute for each user identity.
 	UserIdentityDiscoveredBlock() CKUserIdentityHandler
 	SetUserIdentityDiscoveredBlock(value CKUserIdentityHandler)
-
-	// Topic: Instance Properties
-
-	// The closure to execute when the operation finishes.
-	DiscoverAllUserIdentitiesResultBlock() unsafe.Pointer
-	SetDiscoverAllUserIdentitiesResultBlock(value unsafe.Pointer)
-
-	// Identifiers that match contacts in the local Contacts database.
-	ContactIdentifiers() string
-	SetContactIdentifiers(value string)
 }
 
 // Init initializes the instance.
@@ -187,26 +167,4 @@ func (c CKDiscoverAllUserIdentitiesOperation) SetUserIdentityDiscoveredBlock(val
 	block, cleanup := NewCKUserIdentityBlock(value)
 	defer cleanup()
 	objc.Send[struct{}](c.ID, objc.Sel("setUserIdentityDiscoveredBlock:"), block)
-}
-
-// The closure to execute when the operation finishes.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckdiscoveralluseridentitiesoperation/discoveralluseridentitiesresultblock
-func (c CKDiscoverAllUserIdentitiesOperation) DiscoverAllUserIdentitiesResultBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("discoverAllUserIdentitiesResultBlock"))
-	return rv
-}
-func (c CKDiscoverAllUserIdentitiesOperation) SetDiscoverAllUserIdentitiesResultBlock(value unsafe.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDiscoverAllUserIdentitiesResultBlock:"), value)
-}
-
-// Identifiers that match contacts in the local Contacts database.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckuseridentity/contactidentifiers
-func (c CKDiscoverAllUserIdentitiesOperation) ContactIdentifiers() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("contactIdentifiers"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CKDiscoverAllUserIdentitiesOperation) SetContactIdentifiers(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContactIdentifiers:"), objc.String(value))
 }

@@ -50,8 +50,8 @@ func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
 //
 // # Discussion
 //
-// Sent inside [ProcessEditing] right before fixing attributes. Delegates can
-// change the characters or attributes.
+// Sent inside [NSTextStorage.ProcessEditing] right before fixing attributes.
+// Delegates can change the characters or attributes.
 //
 // The delegate can verify the changed state of the text storage object and
 // make changes to the text storage object’s characters or attributes to
@@ -77,8 +77,8 @@ func (o NSTextStorageDelegateObject) TextStorageWillProcessEditingRangeChangeInL
 //
 // # Discussion
 //
-// Sent inside [ProcessEditing] right before notifying layout managers.
-// Delegates can change the attributes.
+// Sent inside [NSTextStorage.ProcessEditing] right before notifying layout
+// managers. Delegates can change the attributes.
 //
 // The delegate can verify the final state of the text storage object; it
 // can’t change the text storage object’s characters without leaving it in

@@ -456,7 +456,7 @@ func (p PDFView) DrawPageToContext(page IPDFPage, context coregraphics.CGContext
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToSelection] and [GoToLastPage].
+// such as [PDFView.GoToSelection] and [PDFView.GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/goBack(_:)
 func (p PDFView) GoBack(sender objectivec.IObject) {
@@ -468,7 +468,7 @@ func (p PDFView) GoBack(sender objectivec.IObject) {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToSelection] and [GoToLastPage].
+// such as [PDFView.GoToSelection] and [PDFView.GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/goForward(_:)
 func (p PDFView) GoForward(sender objectivec.IObject) {
@@ -589,7 +589,7 @@ func (p PDFView) GoToSelection(selection IPDFSelection) {
 //
 // This method is called automatically from [PDFView] methods that affect the
 // visible layout (such as `setDocument(_:)`, `setDisplayBox(_:)` or
-// [ZoomIn]).
+// [PDFView.ZoomIn]).
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/layoutDocumentView()
 func (p PDFView) LayoutDocumentView() {
@@ -639,8 +639,9 @@ func (p PDFView) PrintWithInfoAutoRotate(printInfo appkit.NSPrintInfo, doRotate 
 // up or down to best fit the paper size. If `pageScaling` is set to
 // `kPDFPrintPageScaleDownToFit`, only large pages are scaled down to fit;
 // small pages are not scaled up to fit. Specifying `kPDFPrintPageScaleNone`
-// for `pageScaling` is equivalent to calling [PrintWithInfoAutoRotate]. See
-// PDFDocument for more information on page-scaling types.
+// for `pageScaling` is equivalent to calling
+// [PDFView.PrintWithInfoAutoRotate]. See PDFDocument for more information on
+// page-scaling types.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/print(with:autoRotate:pageScaling:)
 func (p PDFView) PrintWithInfoAutoRotatePageScaling(printInfo appkit.NSPrintInfo, doRotate bool, scale PDFPrintScalingMode) {
@@ -850,7 +851,7 @@ func (p PDFView) SetBackgroundColor(value appkit.NSColor) {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToSelection] and [GoToLastPage].
+// such as [PDFView.GoToSelection] and [PDFView.GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/canGoBack
 func (p PDFView) CanGoBack() bool {
@@ -864,7 +865,7 @@ func (p PDFView) CanGoBack() bool {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToSelection] and [GoToLastPage].
+// such as [PDFView.GoToSelection] and [PDFView.GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/canGoForward
 func (p PDFView) CanGoForward() bool {

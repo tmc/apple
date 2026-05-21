@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -59,34 +60,37 @@ func (pc ProgressClass) Alloc() Progress {
 // Using the methods of this class, your code can report the progress it’s
 // currently making toward completing a task, including progress in related
 // subtasks. You can create instances of this class using the
-// [InitWithParentUserInfo] instance method or the
-// [ProgressWithTotalUnitCount] class method.
+// [NSProgress.InitWithParentUserInfo] instance method or the
+// [NSProgressClass.ProgressWithTotalUnitCount] class method.
 //
 // Progress objects have many properties that you can use to observe and
-// report current progress. For instance, the [TotalUnitCount] property
-// represents the total number of units of work, and the [CompletedUnitCount]
-// and [FractionCompleted] properties represent how much of that work is
-// complete. The [FractionCompleted] property is useful for updating progress
+// report current progress. For instance, the [NSProgress.TotalUnitCount]
+// property represents the total number of units of work, and the
+// [NSProgress.CompletedUnitCount] and [NSProgress.FractionCompleted]
+// properties represent how much of that work is complete. The
+// [NSProgress.FractionCompleted] property is useful for updating progress
 // indicators or textual descriptors. To check whether progress is complete,
-// test the [Finished] property.
+// test the [NSProgress.Finished] property.
 //
 // The following code shows a sample method that reports the progress of
 // performing an operation on a piece of data. When creating the progress
-// object, you set the value of its [TotalUnitCount] property to a suitable
-// batch size for the operation, and the [CompletedUnitCount] count is `0`.
-// Each time the loop executes and processes a batch of data, you increment
-// the progress object’s [CompletedUnitCount] property appropriately.
+// object, you set the value of its [NSProgress.TotalUnitCount] property to a
+// suitable batch size for the operation, and the
+// [NSProgress.CompletedUnitCount] count is `0`. Each time the loop executes
+// and processes a batch of data, you increment the progress object’s
+// [NSProgress.CompletedUnitCount] property appropriately.
 //
-// Each of the properties of a progress object, including [TotalUnitCount],
-// [CompletedUnitCount], and [FractionCompleted], support key-value observing
-// (KVO). This makes it extremely easy for a view or window controller object
-// to observe the properties, and update UI elements, such as progress
-// indicators, when the values change. It also means that there is a nonzero
-// cost to updating the values of those properties, so avoid using a unit
-// count that is too granular. If you’re iterating over a large dataset, for
-// example, and each operation takes only a trivial amount of time, divide the
-// work into batches so you can update the unit count once per batch rather
-// than once per iteration.
+// Each of the properties of a progress object, including
+// [NSProgress.TotalUnitCount], [NSProgress.CompletedUnitCount], and
+// [NSProgress.FractionCompleted], support key-value observing (KVO). This
+// makes it extremely easy for a view or window controller object to observe
+// the properties, and update UI elements, such as progress indicators, when
+// the values change. It also means that there is a nonzero cost to updating
+// the values of those properties, so avoid using a unit count that is too
+// granular. If you’re iterating over a large dataset, for example, and each
+// operation takes only a trivial amount of time, divide the work into batches
+// so you can update the unit count once per batch rather than once per
+// iteration.
 //
 // # Reporting Progress for Multiple Operations
 //
@@ -102,8 +106,8 @@ func (pc ProgressClass) Alloc() Progress {
 // progress instance, the system allocates a portion of the containing
 // progress instance’s pending unit count. When the suboperation’s
 // progress object completes, the containing progress object’s
-// [CompletedUnitCount] property automatically increases by a predefined
-// amount.
+// [NSProgress.CompletedUnitCount] property automatically increases by a
+// predefined amount.
 //
 // You add suboperation progress objects to your tree implicitly or
 // explicitly.
@@ -119,16 +123,18 @@ func (pc ProgressClass) Alloc() Progress {
 // downloading and copying files on disk. You can use a single progress object
 // to track the entire task, but it’s easier to manage each subtask using a
 // separate progress object. You start by creating an overall progress object
-// with a suitable total unit count, call [BecomeCurrentWithPendingUnitCount],
-// then create your suboperation progress objects before finally calling
-// [ResignCurrent].
+// with a suitable total unit count, call
+// [NSProgress.BecomeCurrentWithPendingUnitCount], then create your
+// suboperation progress objects before finally calling
+// [NSProgress.ResignCurrent].
 //
 // The system divides the pending unit count that you specify in the first
 // method equally among the suboperation progress objects you create between
 // these two method calls. Each suboperation progress object maintains its own
-// internal unit count. When the suboperation object’s [CompletedUnitCount]
-// equals or exceeds its [TotalUnitCount], the system increases the containing
-// progress object’s [CompletedUnitCount] by the assigned portion of the
+// internal unit count. When the suboperation object’s
+// [NSProgress.CompletedUnitCount] equals or exceeds its
+// [NSProgress.TotalUnitCount], the system increases the containing progress
+// object’s [NSProgress.CompletedUnitCount] by the assigned portion of the
 // original pending unit count.
 //
 // In the following example, the overall progress object has 100 units. The
@@ -138,15 +144,16 @@ func (pc ProgressClass) Alloc() Progress {
 // completed unit count by 50.
 //
 // If you don’t create any suboperation progress objects between the calls
-// to [BecomeCurrentWithPendingUnitCount] and [ResignCurrent], the containing
-// progress object automatically updates its [CompletedUnitCount] by adding
-// the pending units.
+// to [NSProgress.BecomeCurrentWithPendingUnitCount] and
+// [NSProgress.ResignCurrent], the containing progress object automatically
+// updates its [NSProgress.CompletedUnitCount] by adding the pending units.
 //
 // # Adding a Progress Operation Explicitly
 //
-// To add a progress operation explicitly, call [AddChildWithPendingUnitCount]
-// on the containing progress object. The value for the pending unit count is
-// the amount of the containing progress object’s [TotalUnitCount] that the
+// To add a progress operation explicitly, call
+// [NSProgress.AddChildWithPendingUnitCount] on the containing progress
+// object. The value for the pending unit count is the amount of the
+// containing progress object’s [NSProgress.TotalUnitCount] that the
 // suboperation consumes, which conforms to the [NSProgressReporting]
 // protocol.
 //
@@ -455,7 +462,7 @@ func NewProgress() Progress {
 // parentProgressOrNil: The containing [NSProgress] object, if any, to notify when reporting
 // progress, or to consult when checking for cancellation.
 //
-// The only valid values are [CurrentProgress] or `nil`.
+// The only valid values are [NSProgressClass.CurrentProgress] or `nil`.
 //
 // userInfoOrNil: The optional user information dictionary for the progress object.
 //
@@ -477,19 +484,20 @@ func NewProgressWithParentUserInfo(parentProgressOrNil INSProgress, userInfoOrNi
 // # Discussion
 //
 // If a current progress object exists, the initializer uses it to set the
-// value of the [TotalUnitCount] property.
+// value of the [NSProgress.TotalUnitCount] property.
 //
 // In many cases, you can precede code that does a substantial amount of work
 // with an invocation of this method, then repeatedly set the
-// [CompletedUnitCount] or [Cancelled] property in the loop that does the
-// work.
+// [NSProgress.CompletedUnitCount] or [NSProgress.Cancelled] property in the
+// loop that does the work.
 //
 // You can invoke this method on one thread and then message the returned
 // [NSProgress] on another thread. For example, you can capture the created
 // progress instance in a block that you pass to [dispatch_async]. In that
-// block, you can invoke methods like [BecomeCurrentWithPendingUnitCount] or
-// [ResignCurrent], and set the [CompletedUnitCount] or [Cancelled] properties
-// as your app finishes its work.
+// block, you can invoke methods like
+// [NSProgress.BecomeCurrentWithPendingUnitCount] or
+// [NSProgress.ResignCurrent], and set the [NSProgress.CompletedUnitCount] or
+// [NSProgress.Cancelled] properties as your app finishes its work.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/init(totalUnitCount:)
 //
@@ -515,15 +523,16 @@ func NewProgressWithTotalUnitCount(unitCount int64) Progress {
 //
 // In many cases, you can precede code that does a substantial amount of work
 // with an invocation of this method, then repeatedly set the
-// [CompletedUnitCount] or [Cancelled] property in the loop that does the
-// work.
+// [NSProgress.CompletedUnitCount] or [NSProgress.Cancelled] property in the
+// loop that does the work.
 //
 // You can invoke this method on one thread and then message the returned
 // [NSProgress] on another thread. For example, you can capture the created
 // progress instance in a block that you pass to [dispatch_async]. In that
-// block, you can invoke methods like [BecomeCurrentWithPendingUnitCount] or
-// [ResignCurrent], and set the [CompletedUnitCount] or [Cancelled] properties
-// as your app finishes its work.
+// block, you can invoke methods like
+// [NSProgress.BecomeCurrentWithPendingUnitCount] or
+// [NSProgress.ResignCurrent], and set the [NSProgress.CompletedUnitCount] or
+// [NSProgress.Cancelled] properties as your app finishes its work.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/init(totalUnitCount:parent:pendingUnitCount:)
 //
@@ -538,7 +547,7 @@ func NewProgressWithTotalUnitCountParentPendingUnitCount(unitCount int64, parent
 // parentProgressOrNil: The containing [NSProgress] object, if any, to notify when reporting
 // progress, or to consult when checking for cancellation.
 //
-// The only valid values are [CurrentProgress] or `nil`.
+// The only valid values are [NSProgressClass.CurrentProgress] or `nil`.
 //
 // userInfoOrNil: The optional user information dictionary for the progress object.
 //
@@ -557,14 +566,14 @@ func (p Progress) InitWithParentUserInfo(parentProgressOrNil INSProgress, userIn
 // perform.
 //
 // unitCount: The number of units of work for the next progress object that initializes
-// when you invoke [InitWithParentUserInfo] in the current thread with this
-// progress object as the containing progress object.
+// when you invoke [NSProgress.InitWithParentUserInfo] in the current thread
+// with this progress object as the containing progress object.
 //
 // The number represents the portion of work to perform in relation to the
 // total number of units of work, which is the value of the progress
-// object’s [TotalUnitCount] property. The units of work for this parameter
-// must be the same units of work in the progress object’s [TotalUnitCount]
-// property.
+// object’s [NSProgress.TotalUnitCount] property. The units of work for this
+// parameter must be the same units of work in the progress object’s
+// [NSProgress.TotalUnitCount] property.
 //
 // # Discussion
 //
@@ -598,7 +607,7 @@ func (p Progress) AddChildWithPendingUnitCount(child INSProgress, inUnitCount in
 // # Discussion
 //
 // This method restores the current progress object to what it was before
-// invoking [BecomeCurrentWithPendingUnitCount].
+// invoking [NSProgress.BecomeCurrentWithPendingUnitCount].
 //
 // Use this method after building your tree of progress objects, as
 // [NSProgress] describes.
@@ -612,9 +621,9 @@ func (p Progress) ResignCurrent() {
 //
 // # Discussion
 //
-// This method invokes the block for [CancellationHandler], if there is one,
-// and ensures that any subsequent reads of the [Cancelled] property return
-// true.
+// This method invokes the block for [NSProgress.CancellationHandler], if
+// there is one, and ensures that any subsequent reads of the
+// [NSProgress.Cancelled] property return true.
 //
 // If the receiver has suboperations, the system cancels their progress as
 // well.
@@ -628,8 +637,9 @@ func (p Progress) Cancel() {
 //
 // # Discussion
 //
-// This method invokes the block for [PausingHandler], if there is one, and
-// ensures that any subsequent reads of the [Paused] property return true.
+// This method invokes the block for [NSProgress.PausingHandler], if there is
+// one, and ensures that any subsequent reads of the [NSProgress.Paused]
+// property return true.
 //
 // If the receiver has suboperations, the system pauses their progress as
 // well.
@@ -643,8 +653,9 @@ func (p Progress) Pause() {
 //
 // # Discussion
 //
-// This method invokes the block for [ResumingHandler], if there is one, and
-// ensures that any subsequent reads of the [Paused] property return false.
+// This method invokes the block for [NSProgress.ResumingHandler], if there is
+// one, and ensures that any subsequent reads of the [NSProgress.Paused]
+// property return false.
 //
 // If the receiver has suboperations, the system resumes their progress as
 // well.
@@ -663,9 +674,10 @@ func (p Progress) Resume() {
 //
 // # Discussion
 //
-// Use this method to set a value in the [UserInfo] dictionary, with
-// appropriate KVO notification for properties with values that can depend on
-// values in the user info dictionary, like [LocalizedDescription].
+// Use this method to set a value in the [NSProgress.UserInfo] dictionary,
+// with appropriate KVO notification for properties with values that can
+// depend on values in the user info dictionary, like
+// [NSProgress.LocalizedDescription].
 //
 // Supply a value of `nil` to remove an existing dictionary entry for a
 // specified key.
@@ -682,23 +694,25 @@ func (p Progress) SetUserInfoObjectForKey(objectOrNil objectivec.IObject, key NS
 // Entries in the user info dictionary determine whether another process can
 // discover the progress object to observe it, and how it does that. For
 // example, a [fileURLKey] entry makes a progress object discoverable by
-// corresponding invokers of [AddSubscriberForFileURLWithPublishingHandler].
-// The system constrains access to the published progress URL with your app
-// sandbox. If you can’t see the file due to the app’s sandbox
-// restrictions, you can’t observe the progress on it.
+// corresponding invokers of
+// [NSProgressClass.AddSubscriberForFileURLWithPublishingHandler]. The system
+// constrains access to the published progress URL with your app sandbox. If
+// you can’t see the file due to the app’s sandbox restrictions, you
+// can’t observe the progress on it.
 //
 // When you make a progress object observable by other processes, you must
-// ensure that at least [LocalizedDescription], [Indeterminate], and
-// [FractionCompleted] always work when you send proxies of your progress
-// object in other processes. You make [Indeterminate] and [FractionCompleted]
-// work by accurately setting the total and completed unit counts of the
-// progress. You make [LocalizedDescription] work by setting the value of the
+// ensure that at least [NSProgress.LocalizedDescription],
+// [NSProgress.Indeterminate], and [NSProgress.FractionCompleted] always work
+// when you send proxies of your progress object in other processes. You make
+// [NSProgress.Indeterminate] and [NSProgress.FractionCompleted] work by
+// accurately setting the total and completed unit counts of the progress. You
+// make [NSProgress.LocalizedDescription] work by setting the value of the
 // kind property to something valid, like [file], and then fulfilling the
 // requirements for that kind of progress.
 //
-// You can instead set the value of [LocalizedDescription] directly, but
-// that’s not perfectly reliable because other processes might be using a
-// different localization than yours.
+// You can instead set the value of [NSProgress.LocalizedDescription]
+// directly, but that’s not perfectly reliable because other processes might
+// be using a different localization than yours.
 //
 // You can publish an instance of [NSProgress] one time only.
 //
@@ -727,8 +741,9 @@ func (p Progress) Unpublish() {
 // block to increment the current progress object. This function retrieves the
 // current progress object, does the work you specify in the block. When the
 // block is complete, this function increments the current progress object.
-// This function is the same as calling [BecomeCurrentWithPendingUnitCount],
-// doing the work you specify in the block, and calling [ResignCurrent].
+// This function is the same as calling
+// [NSProgress.BecomeCurrentWithPendingUnitCount], doing the work you specify
+// in the block, and calling [NSProgress.ResignCurrent].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProgress/performAsCurrentWithPendingUnitCount:usingBlock:
 func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64, work VoidHandler) {
@@ -749,16 +764,16 @@ func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64
 //
 // Use this method to create the top-level progress object that your custom
 // classes return. The receiver of the returned progress object can add it to
-// a progress tree using [AddChildWithPendingUnitCount].
+// a progress tree using [NSProgress.AddChildWithPendingUnitCount].
 //
 // You’re responsible for updating the progress count of the created
 // progress object. You can invoke this method on one thread and then message
 // the returned [NSProgress] on another thread. For example, you can capture
 // the created progress instance in a block that you pass to [dispatch_async].
 // In that block, you can invoke methods like
-// [BecomeCurrentWithPendingUnitCount] or [ResignCurrent], and set the
-// [CompletedUnitCount] or [Cancelled] properties as your app finishes its
-// work.
+// [NSProgress.BecomeCurrentWithPendingUnitCount] or
+// [NSProgress.ResignCurrent], and set the [NSProgress.CompletedUnitCount] or
+// [NSProgress.Cancelled] properties as your app finishes its work.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/discreteProgress(totalUnitCount:)
 //
@@ -776,18 +791,18 @@ func (_ProgressClass ProgressClass) DiscreteProgressWithTotalUnitCount(unitCount
 //
 // # Discussion
 //
-// If you invoke [BecomeCurrentWithPendingUnitCount] on the current thread,
-// this method returns the progress instance.
+// If you invoke [NSProgress.BecomeCurrentWithPendingUnitCount] on the current
+// thread, this method returns the progress instance.
 //
-// Use this per-thread [CurrentProgress] value to allow code that performs
-// work to report useful progress even when it’s widely separated from the
-// code that actually presents progress information to the user, and without
-// requiring layers of intervening code to pass around an [NSProgress]
-// instance.
+// Use this per-thread [NSProgressClass.CurrentProgress] value to allow code
+// that performs work to report useful progress even when it’s widely
+// separated from the code that actually presents progress information to the
+// user, and without requiring layers of intervening code to pass around an
+// [NSProgress] instance.
 //
 // To ensure that you report progress in known units of work, you typically
 // work with a suboperation progress object that you create by calling
-// [DiscreteProgressWithTotalUnitCount].
+// [NSProgressClass.DiscreteProgressWithTotalUnitCount].
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/current()
 func (_ProgressClass ProgressClass) CurrentProgress() NSProgress {
@@ -800,9 +815,7 @@ func (_ProgressClass ProgressClass) CurrentProgress() NSProgress {
 // url: The URL of the file to observe.
 //
 // publishingHandler: A closure that the system invokes when a progress object that represents a
-// file operation matching the specified URL calls [Publish].
-//
-// publishingHandler is a [foundation.NSProgressPublishingHandler].
+// file operation matching the specified URL calls [NSProgress.Publish].
 //
 // # Return Value
 //
@@ -811,21 +824,21 @@ func (_ProgressClass ProgressClass) CurrentProgress() NSProgress {
 // # Discussion
 //
 // The system invokes the passed-in block when a progress object calls
-// [Publish] with a [fileURLKey] user info dictionary entry that’s a URL
-// that is the same as this method’s URL, or that is an item that the URL
-// directly contains. The progress object that passes to your block is a proxy
-// of the published progress object. The passed-in block may return another
-// block. If it does, the system invokes the returned block when the observed
-// progress object invokes [Unpublish], the publishing process terminates, or
-// you invoke [RemoveSubscriber]. The system invokes the blocks you provide on
-// the main thread.
+// [NSProgress.Publish] with a [fileURLKey] user info dictionary entry
+// that’s a URL that is the same as this method’s URL, or that is an item
+// that the URL directly contains. The progress object that passes to your
+// block is a proxy of the published progress object. The passed-in block may
+// return another block. If it does, the system invokes the returned block
+// when the observed progress object invokes [NSProgress.Unpublish], the
+// publishing process terminates, or you invoke
+// [NSProgressClass.RemoveSubscriber]. The system invokes the blocks you
+// provide on the main thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/addSubscriber(forFileURL:withPublishingHandler:)
 //
 // [fileURLKey]: https://developer.apple.com/documentation/Foundation/ProgressUserInfoKey/fileURLKey
-func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler ErrorHandler) objectivec.IObject {
-	_block1, _ := NewErrorBlock(publishingHandler)
-	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, _block1)
+func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler unsafe.Pointer) objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, publishingHandler)
 	return objectivec.Object{ID: rv}
 }
 
@@ -835,9 +848,10 @@ func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler
 //
 // # Discussion
 //
-// If the block for [AddSubscriberForFileURLWithPublishingHandler] returns a
+// If the block for
+// [NSProgressClass.AddSubscriberForFileURLWithPublishingHandler] returns a
 // closure, the system invokes that closure on the main thread when you invoke
-// [RemoveSubscriber].
+// [NSProgressClass.RemoveSubscriber].
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/removeSubscriber(_:)
 func (_ProgressClass ProgressClass) RemoveSubscriber(subscriber objectivec.IObject) {
@@ -854,7 +868,8 @@ func (_ProgressClass ProgressClass) RemoveSubscriber(subscriber objectivec.IObje
 //
 // For any other kind of [NSProgress], the unit of measurement doesn’t
 // matter as long as it’s consistent. You can report the values to the user
-// in the [LocalizedDescription] and [LocalizedAdditionalDescription].
+// in the [NSProgress.LocalizedDescription] and
+// [NSProgress.LocalizedAdditionalDescription].
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/totalUnitCount
 //
@@ -879,7 +894,8 @@ func (p Progress) SetTotalUnitCount(value int64) {
 //
 // For any other kind of [NSProgress], the unit of measurement doesn’t
 // matter as long as it’s consistent. You can report the values to the user
-// in the [LocalizedDescription] and [LocalizedAdditionalDescription].
+// in the [NSProgress.LocalizedDescription] and
+// [NSProgress.LocalizedAdditionalDescription].
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/completedUnitCount
 //
@@ -899,10 +915,10 @@ func (p Progress) SetCompletedUnitCount(value int64) {
 // # Discussion
 //
 // If you don’t specify your own custom value for this property,
-// [NSProgress] uses the value of the [Kind] property to determine how to use
-// the values of other properties, as well as values in the user info
-// dictionary, to return an automatically computed string. If it fails to do
-// that, it returns an empty string.
+// [NSProgress] uses the value of the [NSProgress.Kind] property to determine
+// how to use the values of other properties, as well as values in the user
+// info dictionary, to return an automatically computed string. If it fails to
+// do that, it returns an empty string.
 //
 // The `localizedDescription` represents a general description of the work the
 // receiver tracks. Depending on the kind of progress, the completed and total
@@ -930,16 +946,16 @@ func (p Progress) SetLocalizedDescription(value string) {
 // # Discussion
 //
 // If you don’t specify your own custom value for this property,
-// [NSProgress] uses the value of the [Kind] property to determine how to use
-// the values of other properties, as well as values in the user info
-// dictionary, to return an automatically computed string. If it fails to do
-// that, it returns an empty string.
+// [NSProgress] uses the value of the [NSProgress.Kind] property to determine
+// how to use the values of other properties, as well as values in the user
+// info dictionary, to return an automatically computed string. If it fails to
+// do that, it returns an empty string.
 //
-// The [LocalizedAdditionalDescription] is more specific than
-// [LocalizedDescription] about the work the receiver is tracking at any
-// particular moment. Depending on the kind of progress, the completed and
-// total unit counts, and other parameters, localized additional descriptions
-// resemble the following:
+// The [NSProgress.LocalizedAdditionalDescription] is more specific than
+// [NSProgress.LocalizedDescription] about the work the receiver is tracking
+// at any particular moment. Depending on the kind of progress, the completed
+// and total unit counts, and other parameters, localized additional
+// descriptions resemble the following:
 //
 // - 3 of 10 files - 123 KB of 789.1 MB - 3.3 MB of 103.92 GB – 2 hours
 // remaining - 1.61 GB of 3.22 GB (2 KB/sec) – 2 minutes remaining - 1
@@ -970,9 +986,9 @@ func (p Progress) SetLocalizedAdditionalDescription(value string) {
 // value from progress reporters to progress observers.
 //
 // If an [NSProgress] is cancelable, implement the ability to cancel progress
-// either by setting a block for the [CancellationHandler] property, or by
-// polling the [Cancelled] property periodically while performing the relevant
-// work.
+// either by setting a block for the [NSProgress.CancellationHandler]
+// property, or by polling the [NSProgress.Cancelled] property periodically
+// while performing the relevant work.
 //
 // It’s valid for the value of this property to change during the lifetime
 // of an [NSProgress] object. By default, [NSProgress] is KVO-compliant for
@@ -1010,8 +1026,8 @@ func (p Progress) IsCancelled() bool {
 // # Discussion
 //
 // If the receiver is a suboperation of another progress object, the system
-// invokes the [CancellationHandler] block when canceling the containing
-// progress object.
+// invokes the [NSProgress.CancellationHandler] block when canceling the
+// containing progress object.
 //
 // # Special Considerations
 //
@@ -1046,8 +1062,9 @@ func (p Progress) SetCancellationHandler(value VoidHandler) {
 // from progress reporters to progress observers.
 //
 // If an [NSProgress] is pausable, implement the ability to pause either by
-// setting a block for the [PausingHandler] property, or by polling the
-// [Paused] property periodically while performing the relevant work.
+// setting a block for the [NSProgress.PausingHandler] property, or by polling
+// the [NSProgress.Paused] property periodically while performing the relevant
+// work.
 //
 // It’s valid for the value of this property to change during the lifetime
 // of an [NSProgress] object. By default, [NSProgress] is KVO-compliant for
@@ -1085,8 +1102,8 @@ func (p Progress) IsPaused() bool {
 // # Discussion
 //
 // If the receiver is a suboperation of another progress object, the system
-// invokes the [PausingHandler] block when pausing the containing progress
-// object.
+// invokes the [NSProgress.PausingHandler] block when pausing the containing
+// progress object.
 //
 // # Special Considerations
 //
@@ -1113,18 +1130,19 @@ func (p Progress) SetPausingHandler(value VoidHandler) {
 //
 // # Discussion
 //
-// Use [Indeterminate] progress only when you’re unable to determine a
-// reasonable value for either [CompletedUnitCount] or [TotalUnitCount].
-// Progress is indeterminate when the value of the [TotalUnitCount] or
-// [CompletedUnitCount] is less than zero or if both values are zero. When
-// progress is indeterminate, [FractionCompleted] returns `0.0` and [Finished]
+// Use [NSProgress.Indeterminate] progress only when you’re unable to
+// determine a reasonable value for either [NSProgress.CompletedUnitCount] or
+// [NSProgress.TotalUnitCount]. Progress is indeterminate when the value of
+// the [NSProgress.TotalUnitCount] or [NSProgress.CompletedUnitCount] is less
+// than zero or if both values are zero. When progress is indeterminate,
+// [NSProgress.FractionCompleted] returns `0.0` and [NSProgress.Finished]
 // returns `false`.
 //
 // By default, [NSProgress] is KVO-compliant for this property. It sends
 // notifications on the same thread that updates the property.
 //
 // The following code snippet clarifies the behavior for setting both
-// [TotalUnitCount] and [CompletedUnitCount] to `0`.
+// [NSProgress.TotalUnitCount] and [NSProgress.CompletedUnitCount] to `0`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isIndeterminate
 func (p Progress) IsIndeterminate() bool {
@@ -1138,16 +1156,17 @@ func (p Progress) IsIndeterminate() bool {
 // # Discussion
 //
 // If the receiver object doesn’t have any suboperations,
-// [FractionCompleted] is generally the result of dividing
-// [CompletedUnitCount] by [TotalUnitCount]. Setting both [TotalUnitCount] and
-// [CompletedUnitCount] properties to zero indicates that there is no progress
-// to track. In this case, the [Indeterminate] property returns false and the
-// [FractionCompleted] property returns `0.0`.
+// [NSProgress.FractionCompleted] is generally the result of dividing
+// [NSProgress.CompletedUnitCount] by [NSProgress.TotalUnitCount]. Setting
+// both [NSProgress.TotalUnitCount] and [NSProgress.CompletedUnitCount]
+// properties to zero indicates that there is no progress to track. In this
+// case, the [NSProgress.Indeterminate] property returns false and the
+// [NSProgress.FractionCompleted] property returns `0.0`.
 //
-// If the receiver does have suboperations, [FractionCompleted] reflects
-// progress from those progress objects in addition to its own
-// [CompletedUnitCount]. When the suboperations finish, the
-// [CompletedUnitCount] of the containing progress object updates.
+// If the receiver does have suboperations, [NSProgress.FractionCompleted]
+// reflects progress from those progress objects in addition to its own
+// [NSProgress.CompletedUnitCount]. When the suboperations finish, the
+// [NSProgress.CompletedUnitCount] of the containing progress object updates.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/fractionCompleted
 func (p Progress) FractionCompleted() float64 {
@@ -1159,8 +1178,8 @@ func (p Progress) FractionCompleted() float64 {
 //
 // # Discussion
 //
-// A progress object finishes when the [CompletedUnitCount] equals or exceeds
-// the [TotalUnitCount].
+// A progress object finishes when the [NSProgress.CompletedUnitCount] equals
+// or exceeds the [NSProgress.TotalUnitCount].
 //
 // By default, [NSProgress] is KVO-compliant for this property. It sends
 // notifications on the same thread that updates the property.
@@ -1176,8 +1195,8 @@ func (p Progress) IsFinished() bool {
 // # Discussion
 //
 // If the receiver is a suboperation of another progress object, the system
-// invokes the [ResumingHandler] block when pausing the containing progress
-// object.
+// invokes the [NSProgress.ResumingHandler] block when pausing the containing
+// progress object.
 //
 // # Special Considerations
 //
@@ -1206,10 +1225,11 @@ func (p Progress) SetResumingHandler(value VoidHandler) {
 // This property identifies the kind of progress for the progress object, such
 // as [file]. It can be `nil`.
 //
-// If you set a non-`nil` value to [Kind], the default [LocalizedDescription]
-// getter uses the kind of progress. The [LocalizedDescription] getter
-// determines how to use the values of other properties, along with values in
-// the user info dictionary, to create a string representation.
+// If you set a non-`nil` value to [NSProgress.Kind], the default
+// [NSProgress.LocalizedDescription] getter uses the kind of progress. The
+// [NSProgress.LocalizedDescription] getter determines how to use the values
+// of other properties, along with values in the user info dictionary, to
+// create a string representation.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/kind
 //
@@ -1227,7 +1247,7 @@ func (p Progress) SetKind(value NSProgressKind) {
 // # Discussion
 //
 // A KVO-compliant dictionary that changes in response to
-// [SetUserInfoObjectForKey]. The dictionary sends all of its KVO
+// [NSProgress.SetUserInfoObjectForKey]. The dictionary sends all of its KVO
 // notifications on the thread that updates the property.
 //
 // Some entries have meanings that the [NSProgress] class recognizes. For more
@@ -1244,8 +1264,8 @@ func (p Progress) UserInfo() INSDictionary {
 //
 // # Discussion
 //
-// Set this value when the [Kind] property is [file] to describe the kind of
-// file operation.
+// Set this value when the [NSProgress.Kind] property is [file] to describe
+// the kind of file operation.
 //
 // If present, [NSProgress] presents additional information in its localized
 // description by setting a value in the `userInfo` dictionary.
@@ -1265,8 +1285,9 @@ func (p Progress) SetFileOperationKind(value NSProgressFileOperationKind) {
 //
 // # Discussion
 //
-// Set this value for a progress that you [Publish] to subscribers that
-// register for updates using [AddSubscriberForFileURLWithPublishingHandler].
+// Set this value for a progress that you [NSProgress.Publish] to subscribers
+// that register for updates using
+// [NSProgressClass.AddSubscriberForFileURLWithPublishingHandler].
 //
 // If present, [NSProgress] presents additional information in its localized
 // description by setting a value in the `userInfo` dictionary.
@@ -1286,10 +1307,10 @@ func (p Progress) SetFileURL(value INSURL) {
 // # Discussion
 //
 // The publish and subscribe mechanism is generally , in that when you invoke
-// [AddSubscriberForFileURLWithPublishingHandler], the system invokes your
-// block for every relevant published and unpublished progress object.
-// Sometimes you need to implement behavior, in which you do something either
-// exactly when new progress begins or not at all.
+// [NSProgressClass.AddSubscriberForFileURLWithPublishingHandler], the system
+// invokes your block for every relevant published and unpublished progress
+// object. Sometimes you need to implement behavior, in which you do something
+// either exactly when new progress begins or not at all.
 //
 // In the example above, the Dock doesn’t animate file icons when this
 // method returns true.

@@ -376,8 +376,8 @@ func (s NSScriptCommandDescription) EncodeWithCoder(coder INSCoder) {
 //
 // In an Apple event that specifies a script command, two four character
 // codes—the event class and event ID—together identify the command. You
-// use this method to obtain the event class. You use [AppleEventCode] to
-// obtain the event ID.
+// use this method to obtain the event class. You use
+// [NSScriptCommandDescription.AppleEventCode] to obtain the event ID.
 //
 // For example, commands in AppleScript’s Core suite, such as `clone`,
 // `count`, and `create`, have an event class code of `'core'`. This code and
@@ -400,8 +400,9 @@ func (s NSScriptCommandDescription) AppleEventClassCode() uint32 {
 // # Discussion
 //
 // This value of the event ID returned by this method, together with the event
-// class code returned by [AppleEventClassCode], specifies the necessary
-// information for identifying and dispatching an Apple event.
+// class code returned by [NSScriptCommandDescription.AppleEventClassCode],
+// specifies the necessary information for identifying and dispatching an
+// Apple event.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/appleEventCode
 func (s NSScriptCommandDescription) AppleEventCode() uint32 {

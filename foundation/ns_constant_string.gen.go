@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -141,7 +142,21 @@ func NewConstantStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poi
 	return NSConstantStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// `cString` must be a zero-terminated C string in the default C string
+// encoding, and may not be [NULL]. Returns an initialized object, which might
+// be different from the original receiver.
+//
+// To create an immutable string from an immutable C string buffer, do not
+// attempt to use this method. Instead, use
+// [NSString.InitWithCStringNoCopyLengthFreeWhenDone].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:)-vkuo
 func NewConstantStringWithCString(bytes string) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")))
@@ -155,17 +170,50 @@ func NewConstantStringWithCStringEncoding(nullTerminatedCString string, encoding
 	return NSConstantStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
-func NewConstantStringWithCStringLength(bytes string, length uint) NSConstantString {
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// This method converts `length` * `sizeof(char)` bytes from `cString` and
+// doesn’t stop short at a zero character. `cString` must contain bytes in
+// the default C-string encoding and may not be [NULL]. Returns an initialized
+// object, which might be different from the original receiver.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:length:)-5ure3
+func NewConstantStringWithCStringLength(bytes unsafe.Pointer, length int) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), bytes, length)
 	return NSConstantStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
-func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes string, length uint, freeBuffer bool) NSConstantString {
+// Initializes the receiver, a newly allocated [NSString] object, by
+// converting the data in a given C-string from the default C-string encoding
+// into the Unicode character encoding.
+//
+// # Discussion
+//
+// This method converts `length` * `sizeof(char)` bytes from `cString` and
+// doesn’t stop short at a zero character. `cString` must contain data in
+// the default C-string encoding and may not be [NULL]. The receiver becomes
+// the owner of `cString`; if `flag` is true it will free the memory when it
+// no longer needs it, but if `flag` is false it won’t. Returns an
+// initialized object, which might be different from the original receiver.
+//
+// You can use this method to create an immutable string from an immutable
+// (`const char *`) C-string buffer. If you receive a warning message, you can
+// disregard it; its purpose is simply to warn you that the C string passed as
+// the method’s first argument may be modified. If you make certain the
+// `freeWhenDone` argument to `initWithStringNoCopy` is false, the C string
+// passed as the method’s first argument cannot be modified, so you can
+// safely use `initWithStringNoCopy` to create an immutable string from an
+// immutable (`const char *`) C-string buffer.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(CStringNoCopy:length:freeWhenDone:)-86dm2
+func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length int, freeBuffer bool) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length, freeBuffer)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), bytes, length, freeBuffer)
 	return NSConstantStringFromID(rv)
 }
 
@@ -293,7 +341,7 @@ func NewConstantStringWithContentsOfFileEncodingError(path string, enc uint) (NS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSConstantString, error) {
+func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -304,7 +352,19 @@ func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc unsaf
 	return NSConstantStringFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
+// Initializes the receiver, a newly allocated [NSString] object, by reading
+// data from the location named by a given URL.
+//
+// # Discussion
+//
+// Initializes the receiver, a newly allocated [NSString] object, by reading
+// data from the location named by `aURL`. If the contents begin with a
+// byte-order mark (`U+FEFF` or `U+FFFE`), interprets the contents as UTF-16
+// code units; otherwise interprets the contents as data in the default C
+// string encoding. Returns an initialized object, which might be different
+// from the original receiver, or `nil` if the location can’t be opened.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfURL:)
 func NewConstantStringWithContentsOfURL(url INSURL) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
@@ -324,7 +384,7 @@ func NewConstantStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSCo
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewConstantStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSConstantString, error) {
+func NewConstantStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -377,10 +437,10 @@ func NewConstantStringWithDataEncoding(data INSData, encoding uint) NSConstantSt
 // Pass a comma-separated list of variadic arguments to substitute into
 // `format`.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:
 //
@@ -413,16 +473,16 @@ func NewConstantStringWithFormat(format string) NSConstantString {
 // This method is meant to be called from within a variadic function, where
 // the argument list will be available.
 //
-// This method invokes [InitWithFormatLocaleArguments] without applying any
-// localization. This is useful, for example, when working with fixed-format
-// representations of information that is written out and read back in at a
-// later time.
+// This method invokes [NSString.InitWithFormatLocaleArguments] without
+// applying any localization. This is useful, for example, when working with
+// fixed-format representations of information that is written out and read
+// back in at a later time.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(format:arguments:)
 //
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-func NewConstantStringWithFormatArguments(format string, argList unsafe.Pointer) NSConstantString {
+func NewConstantStringWithFormatArguments(format string, argList kernel.VaList) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:arguments:"), objc.String(format), argList)
 	return NSConstantStringFromID(rv)
@@ -448,7 +508,8 @@ func NewConstantStringWithFormatArguments(format string, argList unsafe.Pointer)
 // Pass comma-separated list of trailing variadic arguments to substitute into
 // `format`.
 //
-// Invokes [InitWithFormatLocaleArguments] with `locale` as the locale.
+// Invokes [NSString.InitWithFormatLocaleArguments] with `locale` as the
+// locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithFormat:locale:
 //
@@ -470,8 +531,8 @@ func NewConstantStringWithFormatLocale(format string, locale objectivec.IObject)
 // specifiers. This value must not be `nil`.
 //
 // locale: An [NSLocale] object specifying the locale to use. To use the current
-// locale (specified by user preferences), pass [NSLocale] [CurrentLocale]].
-// To use the system locale, pass `nil`.
+// locale (specified by user preferences), pass [NSLocale]
+// [NSLocaleClass.CurrentLocale]]. To use the system locale, pass `nil`.
 //
 // For legacy support, this may be an instance of [NSDictionary] containing
 // locale information.
@@ -499,7 +560,7 @@ func NewConstantStringWithFormatLocale(format string, locale objectivec.IObject)
 // [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 // [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
-func NewConstantStringWithFormatLocaleArguments(format string, locale objectivec.IObject, argList unsafe.Pointer) NSConstantString {
+func NewConstantStringWithFormatLocaleArguments(format string, locale objectivec.IObject, argList kernel.VaList) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:arguments:"), objc.String(format), locale, argList)
 	return NSConstantStringFromID(rv)
@@ -530,7 +591,7 @@ func NewConstantStringWithUTF8String(nullTerminatedCString string) NSConstantStr
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
-func NewConstantStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSConstantString, error) {
+func NewConstantStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList kernel.VaList) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
@@ -554,7 +615,7 @@ func NewConstantStringWithValidatedFormatValidFormatSpecifiersError(format strin
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
-func NewConstantStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSConstantString, error) {
+func NewConstantStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList kernel.VaList) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))

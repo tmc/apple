@@ -85,7 +85,6 @@ type IMTLVertexBufferLayoutDescriptorArray interface {
 	// Returns the state of the specified vertex buffer layout.
 	ObjectAtIndexedSubscript(index uint) IMTLVertexBufferLayoutDescriptor
 
-	MTLBufferLayoutStrideDynamic() int
 	// Sets the state of the specified vertex buffer layout.
 	SetObjectAtIndexedSubscript(bufferDesc IMTLVertexBufferLayoutDescriptor, index uint)
 }
@@ -138,10 +137,4 @@ func (v MTLVertexBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uin
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptorArray/setObject:atIndexedSubscript:
 func (v MTLVertexBufferLayoutDescriptorArray) SetObjectAtIndexedSubscript(bufferDesc IMTLVertexBufferLayoutDescriptor, index uint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setObject:atIndexedSubscript:"), bufferDesc, index)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
-func (v MTLVertexBufferLayoutDescriptorArray) MTLBufferLayoutStrideDynamic() int {
-	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
-	return rv
 }

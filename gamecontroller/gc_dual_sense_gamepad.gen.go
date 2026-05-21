@@ -51,9 +51,9 @@ func (gc GCDualSenseGamepadClass) Alloc() GCDualSenseGamepad {
 // you can emulate the feeling of pulling back a bow string, firing a weapon,
 // or pulling a lever.
 //
-// This profile also supports motion — that is, the controller’s [GCDualSenseGamepad.Motion]
-// property is non-nil. If you hold the controller in front of you, the
-// direction of the axes are:
+// This profile also supports motion — that is, the controller’s
+// [GCController.Motion] property is non-nil. If you hold the controller in
+// front of you, the direction of the axes are:
 //
 // - The positive x-axis points to your right. - The positive y-axis points up
 // out of the USB-C port. - The positive z-axis starts at the touchpad and

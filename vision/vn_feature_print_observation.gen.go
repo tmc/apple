@@ -130,6 +130,13 @@ func NewVNFeaturePrintObservation() VNFeaturePrintObservation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Vision/VNObservation/init(coder:)
+func NewFeaturePrintObservationWithCoder(coder foundation.INSCoder) VNFeaturePrintObservation {
+	instance := getVNFeaturePrintObservationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return VNFeaturePrintObservationFromID(rv)
+}
+
 // Computes the distance between two feature print observations.
 //
 // outDistance: A pointer to store the calculated distance value.
@@ -160,7 +167,8 @@ func (f VNFeaturePrintObservation) ComputeDistanceToFeaturePrintObservationError
 // # Discussion
 //
 // The data is divided into separate elements. Determine the type of element
-// using [ElementType], and the number of elements using [ElementCount].
+// using [VNFeaturePrintObservation.ElementType], and the number of elements
+// using [VNFeaturePrintObservation.ElementCount].
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/data
 func (f VNFeaturePrintObservation) Data() foundation.NSData {

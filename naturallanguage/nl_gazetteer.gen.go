@@ -53,14 +53,15 @@ func (nc NLGazetteerClass) Alloc() NLGazetteer {
 // Use an [NLGazetteer] to augment an [NLTagger] when you need to tag a
 // specific set of terms (single words or short phrases) with a label.
 // Typically, you add one gazetteer per language, or one language-independent
-// gazetteer, to an [NLTagger] with its [SetGazetteersForTagScheme] method.
-// The tagger uses its gazetteers to look up each term it processes. If a
-// gazetteer has a label for a term, the tagger uses that label to tag the
-// term, instead of inferring a tag itself.
+// gazetteer, to an [NLTagger] with its [NLTagger.SetGazetteersForTagScheme]
+// method. The tagger uses its gazetteers to look up each term it processes.
+// If a gazetteer has a label for a term, the tagger uses that label to tag
+// the term, instead of inferring a tag itself.
 //
 // Typically, you create a gazetteer at development time, such as in a macOS
 // playground, with Create ML’s [MLGazetteer]. Alternatively, you can create
-// an [NLGazetteer] at runtime by using [NLGazetteer.InitWithDictionaryLanguageError].
+// an [NLGazetteer] at runtime by using
+// [NLGazetteer.InitWithDictionaryLanguageError].
 //
 // # Creating a Gazetteer
 //

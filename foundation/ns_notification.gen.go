@@ -59,8 +59,9 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 // any. [NSNotification] objects are immutable.
 //
 // You don’t usually create your own notifications directly, but instead
-// call the [NSNotificationCenter] methods [PostNotificationNameObject] and
-// [PostNotificationNameObjectUserInfo].
+// call the [NSNotificationCenter] methods
+// [NSNotificationCenter.PostNotificationNameObject] and
+// [NSNotificationCenter.PostNotificationNameObjectUserInfo].
 //
 // # Object Comparison
 //
@@ -77,10 +78,11 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 //
 // [NSNotificationCenter] is a class cluster with no instance variables. As
 // such, you must subclass [NSNotification] and override the primitive methods
-// [Name], [NSNotification.GetObject], and [UserInfo]. You can choose any designated
-// initializer you like, but be sure that your initializer does not call
-// [NSNotification.Init] on `super` ([NSNotification] is not meant to be instantiated
-// directly, and its `init` method raises an exception).
+// [NSNotification.Name], [NSNotification.GetObject], and
+// [NSNotification.UserInfo]. You can choose any designated initializer you
+// like, but be sure that your initializer does not call [NSNotification.Init]
+// on `super` ([NSNotification] is not meant to be instantiated directly, and
+// its `init` method raises an exception).
 //
 // # Creating Notifications
 //

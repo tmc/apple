@@ -71,10 +71,6 @@ func VZMacOSBootLoaderFromID(id objc.ID) VZMacOSBootLoader {
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader
 type IVZMacOSBootLoader interface {
 	IVZBootLoader
-
-	// The hardware platform to use.
-	Platform() IVZPlatformConfiguration
-	SetPlatform(value IVZPlatformConfiguration)
 }
 
 // Init initializes the instance.
@@ -94,15 +90,4 @@ func NewVZMacOSBootLoader() VZMacOSBootLoader {
 	class := getVZMacOSBootLoaderClass()
 	rv := objc.Send[VZMacOSBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// The hardware platform to use.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/platform
-func (m VZMacOSBootLoader) Platform() IVZPlatformConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("platform"))
-	return VZPlatformConfigurationFromID(objc.ID(rv))
-}
-func (m VZMacOSBootLoader) SetPlatform(value IVZPlatformConfiguration) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlatform:"), value)
 }

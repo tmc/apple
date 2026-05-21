@@ -33,10 +33,6 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCaptureErrorDomain
 	MTLCaptureErrorDomain foundation.NSErrorDomain
-	// MTLCommandBufferEncoderInfoErrorKey is a key to a command buffer error’s user information dictionary that retrieves additional information about a GPU’s runtime error.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfoErrorKey
-	MTLCommandBufferEncoderInfoErrorKey foundation.NSErrorUserInfoKey
 	// MTLCommandBufferErrorDomain is the domain for Metal command buffer errors.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBufferErrorDomain
@@ -65,8 +61,13 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensorDomain
 	MTLTensorDomain foundation.NSErrorDomain
-	// See: https://developer.apple.com/documentation/Metal/NSProcessInfoPerformanceProfileDidChangeNotification
-	ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
+)
+
+var (
+	// MTLCommandBufferEncoderInfoErrorKey is a key to a command buffer error’s user information dictionary that retrieves additional information about a GPU’s runtime error.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfoErrorKey
+	MTLCommandBufferEncoderInfoErrorKey foundation.NSErrorUserInfoKey
 )
 
 var ()
@@ -93,6 +94,11 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Metal/NSDeviceCertification/iPhonePerformanceGaming
 	DeviceCertificationiPhonePerformanceGaming NSDeviceCertification
+)
+
+var (
+	// See: https://developer.apple.com/documentation/Metal/NSProcessInfoPerformanceProfileDidChangeNotification
+	ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
 )
 
 var ()

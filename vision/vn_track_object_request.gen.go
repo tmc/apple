@@ -55,11 +55,6 @@ func (vc VNTrackObjectRequestClass) Alloc() VNTrackObjectRequest {
 //   - [VNTrackObjectRequest.InitWithDetectedObjectObservation]: Creates a new object tracking request with a detected object observation.
 //   - [VNTrackObjectRequest.InitWithDetectedObjectObservationCompletionHandler]: Creates a new object tracking request with a detected object observation.
 //
-// # Identifying Request Revisions
-//
-//   - [VNTrackObjectRequest.VNTrackObjectRequestRevision2]: A constant for specifying revision 2 of the object tracking request.
-//   - [VNTrackObjectRequest.VNTrackObjectRequestRevision1]: A constant for specifying revision 1 of the object tracking request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest
 type VNTrackObjectRequest struct {
 	VNTrackingRequest
@@ -83,11 +78,6 @@ func VNTrackObjectRequestFromID(id objc.ID) VNTrackObjectRequest {
 //   - [IVNTrackObjectRequest.InitWithDetectedObjectObservation]: Creates a new object tracking request with a detected object observation.
 //   - [IVNTrackObjectRequest.InitWithDetectedObjectObservationCompletionHandler]: Creates a new object tracking request with a detected object observation.
 //
-// # Identifying Request Revisions
-//
-//   - [IVNTrackObjectRequest.VNTrackObjectRequestRevision2]: A constant for specifying revision 2 of the object tracking request.
-//   - [IVNTrackObjectRequest.VNTrackObjectRequestRevision1]: A constant for specifying revision 1 of the object tracking request.
-//
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest
 type IVNTrackObjectRequest interface {
 	IVNTrackingRequest
@@ -98,13 +88,6 @@ type IVNTrackObjectRequest interface {
 	InitWithDetectedObjectObservation(observation IVNDetectedObjectObservation) VNTrackObjectRequest
 	// Creates a new object tracking request with a detected object observation.
 	InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest
-
-	// Topic: Identifying Request Revisions
-
-	// A constant for specifying revision 2 of the object tracking request.
-	VNTrackObjectRequestRevision2() int
-	// A constant for specifying revision 1 of the object tracking request.
-	VNTrackObjectRequestRevision1() int
 }
 
 // Init initializes the instance.
@@ -134,7 +117,7 @@ func NewVNTrackObjectRequest() VNTrackObjectRequest {
 //
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
-// [PerformRequestsError].
+// [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func NewTrackObjectRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackObjectRequest {
@@ -187,21 +170,5 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[VNTrackObjectRequest](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
-	return rv
-}
-
-// A constant for specifying revision 2 of the object tracking request.
-//
-// See: https://developer.apple.com/documentation/vision/vntrackobjectrequestrevision2
-func (t VNTrackObjectRequest) VNTrackObjectRequestRevision2() int {
-	rv := objc.Send[int](t.ID, objc.Sel("VNTrackObjectRequestRevision2"))
-	return rv
-}
-
-// A constant for specifying revision 1 of the object tracking request.
-//
-// See: https://developer.apple.com/documentation/vision/vntrackobjectrequestrevision1
-func (t VNTrackObjectRequest) VNTrackObjectRequestRevision1() int {
-	rv := objc.Send[int](t.ID, objc.Sel("VNTrackObjectRequestRevision1"))
 	return rv
 }

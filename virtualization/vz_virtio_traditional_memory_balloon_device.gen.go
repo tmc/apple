@@ -56,19 +56,21 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditiona
 // You don’t create a [VZVirtioTraditionalMemoryBalloonDevice] object
 // directly. Instead, create a
 // [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] object and assign it
-// to the [VZVirtioTraditionalMemoryBalloonDevice.MemoryBalloonDevices] property of your virtual machine
-// configuration. In response, the virtual machine creates this object and
-// assigns it to its [VZVirtioTraditionalMemoryBalloonDevice.MemoryBalloonDevices] property.
+// to the [VZVirtualMachineConfiguration.MemoryBalloonDevices] property of
+// your virtual machine configuration. In response, the virtual machine
+// creates this object and assigns it to its
+// [VZVirtualMachine.MemoryBalloonDevices] property.
 //
 // To use a memory balloon device, change the value in the
-// [VZVirtioTraditionalMemoryBalloonDevice.TargetVirtualMachineMemorySize] property when your virtual machine is
-// running. If the new value is smaller than the amount of currently assigned
-// memory, the guest system may return a list of unused memory pages using the
-// memory balloon device. If it does, the virtual machine releases those pages
-// back to the host computer. If it doesn’t return any memory pages, the
-// virtual machine leaves the guest’s memory size unchanged. If the new
-// value is larger than the amount of currently assigned memory, the virtual
-// machine reserves more pages for the guest operating system.
+// [VZVirtioTraditionalMemoryBalloonDevice.TargetVirtualMachineMemorySize]
+// property when your virtual machine is running. If the new value is smaller
+// than the amount of currently assigned memory, the guest system may return a
+// list of unused memory pages using the memory balloon device. If it does,
+// the virtual machine releases those pages back to the host computer. If it
+// doesn’t return any memory pages, the virtual machine leaves the guest’s
+// memory size unchanged. If the new value is larger than the amount of
+// currently assigned memory, the virtual machine reserves more pages for the
+// guest operating system.
 //
 // For optimal performance, the guest operating system should compact its
 // memory before returning any pages back to the memory balloon device.
@@ -148,15 +150,16 @@ func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloo
 //
 // The new value you specify must be a multiple of 1 megabyte — that is,
 // 1024 * 1024 bytes. The value must also be less than or equal to the value
-// in the [MemorySize] property of your [VZVirtualMachineConfiguration]
-// object. If you specify a value that isn’t rounded to the nearest
-// megabyte, the virtual machine rounds the memory size down to the nearest
-// megabyte. If the resulting value is less than the value in
-// [MinimumAllowedMemorySize], the virtual machine rounds up to the minimum
-// value.
+// in the [VZVirtualMachineConfiguration.MemorySize] property of your
+// [VZVirtualMachineConfiguration] object. If you specify a value that isn’t
+// rounded to the nearest megabyte, the virtual machine rounds the memory size
+// down to the nearest megabyte. If the resulting value is less than the value
+// in [VZVirtualMachineConfigurationClass.MinimumAllowedMemorySize], the
+// virtual machine rounds up to the minimum value.
 //
 // The virtual machine sets the initial value of this property to the value in
-// the [MemorySize] property of your configuration object.
+// the [VZVirtualMachineConfiguration.MemorySize] property of your
+// configuration object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioTraditionalMemoryBalloonDevice/targetVirtualMachineMemorySize
 func (v VZVirtioTraditionalMemoryBalloonDevice) TargetVirtualMachineMemorySize() uint64 {

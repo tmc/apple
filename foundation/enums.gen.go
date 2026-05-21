@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type NS int
+type NS uint
 
 const (
 	// NSASCIIStringEncoding: Strict 7-bit ASCII encoding within 8-bit chars; ASCII values 0…127 only.
@@ -283,8 +283,8 @@ const (
 	NS_LittleEndian NS = 1
 	// NS_UnknownByteOrder: The byte order is unknown.
 	NS_UnknownByteOrder NS = 0
-	// Deprecated.
-	NSUndefinedDateComponent NS = -9223372036854775808
+	// Deprecated: use NSDateComponentUndefined.
+	NSUndefinedDateComponent NS = 9223372036854775807
 )
 
 func (e NS) String() string {
@@ -481,8 +481,6 @@ func (e NS) String() string {
 		return "NSXPCConnectionInvalid"
 	case NSXPCConnectionReplyInvalid:
 		return "NSXPCConnectionReplyInvalid"
-	case NSUndefinedDateComponent:
-		return "NSUndefinedDateComponent"
 	default:
 		return fmt.Sprintf("NS(%d)", e)
 	}
@@ -1053,37 +1051,37 @@ const (
 	NSCalendarUnitYear NSCalendarUnit = 4
 	// NSCalendarUnitYearForWeekOfYear: Identifier for the week-counting year unit.
 	NSCalendarUnitYearForWeekOfYear NSCalendarUnit = 16384
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitCalendar.
 	NSCalendarCalendarUnit NSCalendarUnit = 1048576
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitDay.
 	NSDayCalendarUnit NSCalendarUnit = 16
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitEra.
 	NSEraCalendarUnit NSCalendarUnit = 2
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitHour.
 	NSHourCalendarUnit NSCalendarUnit = 32
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitMinute.
 	NSMinuteCalendarUnit NSCalendarUnit = 64
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitMonth.
 	NSMonthCalendarUnit NSCalendarUnit = 8
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitQuarter.
 	NSQuarterCalendarUnit NSCalendarUnit = 2048
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitSecond.
 	NSSecondCalendarUnit NSCalendarUnit = 128
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitTimeZone.
 	NSTimeZoneCalendarUnit NSCalendarUnit = 2097152
 	// Deprecated.
 	NSWeekCalendarUnit NSCalendarUnit = 256
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitWeekOfMonth.
 	NSWeekOfMonthCalendarUnit NSCalendarUnit = 4096
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitWeekOfYear.
 	NSWeekOfYearCalendarUnit NSCalendarUnit = 8192
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitWeekday.
 	NSWeekdayCalendarUnit NSCalendarUnit = 512
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitWeekdayOrdinal.
 	NSWeekdayOrdinalCalendarUnit NSCalendarUnit = 1024
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitYear.
 	NSYearCalendarUnit NSCalendarUnit = 4
-	// Deprecated.
+	// Deprecated: use NSCalendarUnitYearForWeekOfYear.
 	NSYearForWeekOfYearCalendarUnit NSCalendarUnit = 16384
 )
 
@@ -1401,8 +1399,8 @@ const (
 	NSDataWritingFileProtectionNone NSDataWritingOptions = 0x10000000
 	// NSDataWritingWithoutOverwriting: An option that attempts to write data to a file and fails with an error if the destination file already exists.
 	NSDataWritingWithoutOverwriting NSDataWritingOptions = 2
-	// Deprecated.
-	NSAtomicWrite NSDataWritingOptions = 4026531841
+	// Deprecated: use NSDataWritingAtomic.
+	NSAtomicWrite NSDataWritingOptions = 1
 )
 
 func (e NSDataWritingOptions) String() string {
@@ -1423,8 +1421,6 @@ func (e NSDataWritingOptions) String() string {
 		return "NSDataWritingFileProtectionNone"
 	case NSDataWritingWithoutOverwriting:
 		return "NSDataWritingWithoutOverwriting"
-	case NSAtomicWrite:
-		return "NSAtomicWrite"
 	default:
 		return fmt.Sprintf("NSDataWritingOptions(%d)", e)
 	}
@@ -2644,7 +2640,7 @@ const (
 	NSJSONReadingMutableLeaves NSJSONReadingOptions = 2
 	// NSJSONReadingTopLevelDictionaryAssumed: Specifies that the parser assumes the top level of the JSON data is a dictionary, even if it doesn’t begin and end with curly braces.
 	NSJSONReadingTopLevelDictionaryAssumed NSJSONReadingOptions = 16
-	// Deprecated.
+	// Deprecated: use NSJSONReadingFragmentsAllowed.
 	NSJSONReadingAllowFragments NSJSONReadingOptions = 4
 )
 
@@ -5528,7 +5524,7 @@ func (e NSWhoseSubelementIdentifier) String() string {
 type NSWrapCalendar uint
 
 const (
-	// Deprecated.
+	// Deprecated: use NSCalendar.Options.wrapComponents.
 	NSWrapCalendarComponents NSWrapCalendar = 1
 )
 

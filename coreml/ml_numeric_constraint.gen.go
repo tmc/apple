@@ -87,9 +87,7 @@ type IMLNumericConstraint interface {
 	// A set of the numbers allowed in this constraint.
 	EnumeratedNumbers() foundation.INSSet
 
-	// The constraints of this paramter description value, if and only if the value is numerical.
-	NumericConstraint() IMLNumericConstraint
-	SetNumericConstraint(value IMLNumericConstraint)
+	InitWithCoder(coder foundation.INSCoder) MLNumericConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -112,6 +110,18 @@ func NewMLNumericConstraint() MLNumericConstraint {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/init(coder:)
+func NewNumericConstraintWithCoder(coder foundation.INSCoder) MLNumericConstraint {
+	instance := getMLNumericConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLNumericConstraintFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/init(coder:)
+func (n MLNumericConstraint) InitWithCoder(coder foundation.INSCoder) MLNumericConstraint {
+	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (n MLNumericConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -138,16 +148,4 @@ func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
-}
-
-// The constraints of this paramter description value, if and only if the
-// value is numerical.
-//
-// See: https://developer.apple.com/documentation/coreml/mlparameterdescription/numericconstraint
-func (n MLNumericConstraint) NumericConstraint() IMLNumericConstraint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("numericConstraint"))
-	return MLNumericConstraintFromID(objc.ID(rv))
-}
-func (n MLNumericConstraint) SetNumericConstraint(value IMLNumericConstraint) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNumericConstraint:"), value)
 }

@@ -27,8 +27,8 @@ import (
 // # Discussion
 //
 // Use this method to create and initialize a toolbar item with property
-// values from a [UIBarButtonItem], such as [Title], [Image], [Action], and
-// [Target].
+// values from a [UIBarButtonItem], such as [NSToolbarItem.Title],
+// [NSToolbarItem.Image], [NSToolbarItem.Action], and [NSToolbarItem.Target].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:barButtonItem:)
 //

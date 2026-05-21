@@ -201,9 +201,10 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGrou
 //
 // # Discussion
 //
-// When you set a value for the [InterItemSpacing] property after using this
-// initializer, the group keeps the same number of items and automatically
-// resizes them to add the extra specified spacing between them.
+// When you set a value for the [NSCollectionLayoutGroup.InterItemSpacing]
+// property after using this initializer, the group keeps the same number of
+// items and automatically resizes them to add the extra specified spacing
+// between them.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/horizontal(layoutSize:subitem:count:)
 func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGroupWithLayoutSizeSubitemCount(layoutSize INSCollectionLayoutSize, subitem INSCollectionLayoutItem, count int) NSCollectionLayoutGroup {
@@ -229,9 +230,10 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 //
 // # Discussion
 //
-// When you set a value for the [InterItemSpacing] property after using this
-// initializer, the group keeps the same number of items and automatically
-// resizes them to add the extra specified spacing between them.
+// When you set a value for the [NSCollectionLayoutGroup.InterItemSpacing]
+// property after using this initializer, the group keeps the same number of
+// items and automatically resizes them to add the extra specified spacing
+// between them.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/vertical(layoutSize:subitem:count:)
 func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupWithLayoutSizeSubitemCount(layoutSize INSCollectionLayoutSize, subitem INSCollectionLayoutItem, count int) NSCollectionLayoutGroup {

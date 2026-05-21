@@ -2,87 +2,123 @@
 
 // Package corefoundation provides Go bindings for the CoreFoundation framework.
 //
-// Access low-level functions, primitive data types, and various collection types that are bridged seamlessly with the Foundation framework.
+// Access low-level functions, primitive data types, and various collection
+// types that are bridged seamlessly with the Foundation framework.
 //
-// Core Foundation is a framework that provides fundamental software services useful to application services, application environments, and to applications themselves. Core Foundation also provides abstractions for common data types, facilitates internationalization with Unicode string storage, and offers a suite of utilities such as plug-in support, XML property lists, URL resource access, and preferences.
+// Core Foundation is a framework that provides fundamental software services
+// useful to application services, application environments, and to
+// applications themselves. Core Foundation also provides abstractions for
+// common data types, facilitates internationalization with Unicode string
+// storage, and offers a suite of utilities such as plug-in support, XML
+// property lists, URL resource access, and preferences.
 //
 // # Utilities
 //
-//   - Base Utilities ([CFComparatorFunction], [CFIndex], [CFOptionFlags], [CFRange], [CFComparisonResult])
-//   - Byte-Order Utilities ([CFSwappedFloat32], [CFSwappedFloat64], [CFByteOrder])
-//   - Core Foundation URL Access Utilities ([CFURLError])
-//   - Preferences Utilities
-//   - Socket Name Server Utilities
-//   - Time Utilities ([CFAbsoluteTime], [CFGregorianDate], [CFGregorianUnits], [CFTimeInterval], [CFGregorianUnitFlags])
+//   - [Base Utilities] ([CFComparatorFunction], [CFIndex], [CFOptionFlags], [CFRange], [CFComparisonResult])
+//   - [Byte-Order Utilities] ([CFSwappedFloat32], [CFSwappedFloat64], [CFByteOrder])
+//   - [Core Foundation URL Access Utilities] ([CFURLError])
+//   - [Preferences Utilities]
+//   - [Socket Name Server Utilities]
+//   - [Time Utilities] ([CFAbsoluteTime], [CFGregorianDate], [CFGregorianUnits], [CFTimeInterval], [CFGregorianUnitFlags])
 //
 // # Opaque Types
 //
-//   - CFAllocator ([CFAllocatorAllocateCallBack], [CFAllocatorCopyDescriptionCallBack], [CFAllocatorDeallocateCallBack], [CFAllocatorPreferredSizeCallBack], [CFAllocatorReallocateCallBack])
-//   - CFArray ([CFArrayApplierFunction], [CFArrayCopyDescriptionCallBack], [CFArrayEqualCallBack], [CFArrayReleaseCallBack], [CFArrayRetainCallBack])
-//   - CFAttributedString
-//   - CFBag ([CFBagApplierFunction], [CFBagCopyDescriptionCallBack], [CFBagEqualCallBack], [CFBagHashCallBack], [CFBagReleaseCallBack])
-//   - CFBinaryHeap ([CFBinaryHeapApplierFunction], [CFBinaryHeapCallBacks], [CFBinaryHeapCompareContext])
-//   - CFBitVector ([CFBit])
-//   - CFBoolean
-//   - CFBundle ([CFBundleRefNum])
-//   - CFCalendar ([CFCalendarUnit])
-//   - CFCharacterSet ([CFCharacterSetPredefinedSet])
-//   - CFData ([CFDataSearchFlags])
-//   - CFDate
-//   - CFDateFormatter ([CFDateFormatterStyle])
-//   - CFDictionary ([CFDictionaryApplierFunction], [CFDictionaryCopyDescriptionCallBack], [CFDictionaryEqualCallBack], [CFDictionaryHashCallBack], [CFDictionaryReleaseCallBack])
-//   - CFError
-//   - CFFileDescriptor ([CFFileDescriptorNativeDescriptor], [CFFileDescriptorCallBack], [CFFileDescriptorContext])
-//   - CFFileSecurity: Encapsulates a file system object’s security information in a Core Foundation object.
-//   - CFLocale ([CFLocaleLanguageDirection])
-//   - CFMachPort ([CFMachPortCallBack], [CFMachPortInvalidationCallBack], [CFMachPortContext])
-//   - CFMessagePort ([CFMessagePortCallBack], [CFMessagePortInvalidationCallBack], [CFMessagePortContext])
-//   - CFMutableArray
-//   - CFMutableAttributedString
-//   - CFMutableBag
-//   - CFMutableBitVector
-//   - CFMutableCharacterSet
-//   - CFMutableData
-//   - CFMutableDictionary
-//   - CFMutableSet
-//   - CFMutableString ([CFStringNormalizationForm])
-//   - CFNotificationCenter ([CFNotificationCallback], [CFNotificationSuspensionBehavior])
-//   - CFNull
-//   - CFNumber ([CFNumberType])
-//   - CFNumberFormatter ([CFNumberFormatterStyle], [CFNumberFormatterOptionFlags], [CFNumberFormatterPadPosition], [CFNumberFormatterRoundingMode])
-//   - CFPlugIn ([CFPlugInDynamicRegisterFunction], [CFPlugInFactoryFunction], [CFPlugInUnloadFunction])
-//   - CFPlugInInstance ([CFPlugInInstanceDeallocateInstanceDataFunction], [CFPlugInInstanceGetInterfaceFunction])
-//   - CFPropertyList ([CFPropertyListMutabilityOptions], [CFPropertyListFormat])
-//   - CFReadStream ([CFReadStreamClientCallBack], [CFStreamClientContext])
-//   - CFRunLoop
-//   - CFRunLoopObserver ([CFRunLoopObserverCallBack], [CFRunLoopObserverContext], [CFRunLoopActivity])
-//   - CFRunLoopSource ([CFRunLoopSourceContext], [CFRunLoopSourceContext1])
-//   - CFRunLoopTimer ([CFRunLoopTimerCallBack], [CFRunLoopTimerContext])
-//   - CFSet ([CFSetApplierFunction], [CFSetCopyDescriptionCallBack], [CFSetEqualCallBack], [CFSetHashCallBack], [CFSetReleaseCallBack])
-//   - CFSocket ([CFSocketCallBack], [CFSocketContext], [CFSocketNativeHandle], [CFSocketSignature], [CFSocketCallBackType])
-//   - CFString ([CFStringEncoding], [CFStringEncodings], [CFStringCompareFlags], [CFStringInlineBuffer], [CFStringBuiltInEncodings])
-//   - CFStringTokenizer ([CFStringTokenizerTokenType])
-//   - CFTimeZone ([CFTimeZoneNameStyle])
-//   - CFTree ([CFTreeApplierFunction], [CFTreeCopyDescriptionCallBack], [CFTreeReleaseCallBack], [CFTreeRetainCallBack], [CFTreeContext])
-//   - CFURL ([CFURLBookmarkCreationOptions], [CFURLBookmarkFileCreationOptions], [CFURLBookmarkResolutionOptions], [CFURLComponentType], [CFURLPathStyle])
-//   - CFUserNotification ([CFUserNotificationCallBack])
-//   - CFURLEnumerator: A reference to a  object.
-//   - CFUUID ([CFUUIDBytes])
-//   - CFWriteStream ([CFWriteStreamClientCallBack])
-//   - CFXMLNode ([CFXMLAttributeDeclarationInfo], [CFXMLAttributeListDeclarationInfo], [CFXMLDocumentInfo], [CFXMLDocumentTypeInfo], [CFXMLElementInfo])
-//   - CFXMLParser ([CFXMLParserAddChildCallBack], [CFXMLParserCopyDescriptionCallBack], [CFXMLParserCreateXMLStructureCallBack], [CFXMLParserEndXMLStructureCallBack], [CFXMLParserHandleErrorCallBack])
-//   - CFXMLTree
+//   - [CFAllocatorRef] ([CFAllocatorAllocateCallBack], [CFAllocatorCopyDescriptionCallBack], [CFAllocatorDeallocateCallBack], [CFAllocatorPreferredSizeCallBack], [CFAllocatorReallocateCallBack])
+//   - [CFArrayRef] ([CFArrayApplierFunction], [CFArrayCopyDescriptionCallBack], [CFArrayEqualCallBack], [CFArrayReleaseCallBack], [CFArrayRetainCallBack])
+//   - [CFAttributedStringRef]
+//   - [CFBagRef] ([CFBagApplierFunction], [CFBagCopyDescriptionCallBack], [CFBagEqualCallBack], [CFBagHashCallBack], [CFBagReleaseCallBack])
+//   - [CFBinaryHeapRef] ([CFBinaryHeapApplierFunction], [CFBinaryHeapCallBacks], [CFBinaryHeapCompareContext])
+//   - [CFBitVectorRef] ([CFBit])
+//   - [CFBooleanRef]
+//   - [CFBundleRef] ([CFBundleRefNum])
+//   - [CFCalendarRef] ([CFCalendarUnit])
+//   - [CFCharacterSetRef] ([CFCharacterSetPredefinedSet])
+//   - [CFDataRef] ([CFDataSearchFlags])
+//   - [CFDateRef]
+//   - [CFDateFormatterRef] ([CFDateFormatterStyle])
+//   - [CFDictionaryRef] ([CFDictionaryApplierFunction], [CFDictionaryCopyDescriptionCallBack], [CFDictionaryEqualCallBack], [CFDictionaryHashCallBack], [CFDictionaryReleaseCallBack])
+//   - [CFErrorRef]
+//   - [CFFileDescriptorRef] ([CFFileDescriptorNativeDescriptor], [CFFileDescriptorCallBack], [CFFileDescriptorContext])
+//   - [CFFileSecurityRef]: Encapsulates a file system object’s security information in a Core Foundation object.
+//   - [CFLocaleRef] ([CFLocaleLanguageDirection])
+//   - [CFMachPortRef] ([CFMachPortCallBack], [CFMachPortInvalidationCallBack], [CFMachPortContext])
+//   - [CFMessagePortRef] ([CFMessagePortCallBack], [CFMessagePortInvalidationCallBack], [CFMessagePortContext])
+//   - [CFMutableArrayRef]
+//   - [CFMutableAttributedStringRef]
+//   - [CFMutableBagRef]
+//   - [CFMutableBitVectorRef]
+//   - [CFMutableCharacterSetRef]
+//   - [CFMutableDataRef]
+//   - [CFMutableDictionaryRef]
+//   - [CFMutableSetRef]
+//   - [CFMutableStringRef] ([CFStringNormalizationForm])
+//   - [CFNotificationCenterRef] ([CFNotificationCallback], [CFNotificationSuspensionBehavior])
+//   - [CFNullRef]
+//   - [CFNumberRef] ([CFNumberType])
+//   - [CFNumberFormatterRef] ([CFNumberFormatterStyle], [CFNumberFormatterOptionFlags], [CFNumberFormatterPadPosition], [CFNumberFormatterRoundingMode])
+//   - [CFPlugInRef] ([CFPlugInDynamicRegisterFunction], [CFPlugInFactoryFunction], [CFPlugInUnloadFunction])
+//   - [CFPlugInInstanceRef] ([CFPlugInInstanceDeallocateInstanceDataFunction], [CFPlugInInstanceGetInterfaceFunction])
+//   - [CFPropertyListRef] ([CFPropertyListMutabilityOptions], [CFPropertyListFormat])
+//   - [CFReadStreamRef] ([CFReadStreamClientCallBack], [CFStreamClientContext])
+//   - [CFRunLoopRef]
+//   - [CFRunLoopObserverRef] ([CFRunLoopObserverCallBack], [CFRunLoopObserverContext], [CFRunLoopActivity])
+//   - [CFRunLoopSourceRef] ([CFRunLoopSourceContext], [CFRunLoopSourceContext1])
+//   - [CFRunLoopTimerRef] ([CFRunLoopTimerCallBack], [CFRunLoopTimerContext])
+//   - [CFSetRef] ([CFSetApplierFunction], [CFSetCopyDescriptionCallBack], [CFSetEqualCallBack], [CFSetHashCallBack], [CFSetReleaseCallBack])
+//   - [CFSocketRef] ([CFSocketCallBack], [CFSocketContext], [CFSocketNativeHandle], [CFSocketSignature], [CFSocketCallBackType])
+//   - [CFStringRef] ([CFStringEncoding], [CFStringEncodings], [CFStringCompareFlags], [CFStringInlineBuffer], [CFStringBuiltInEncodings])
+//   - [CFStringTokenizerRef] ([CFStringTokenizerTokenType])
+//   - [CFTimeZoneRef] ([CFTimeZoneNameStyle])
+//   - [CFTreeRef] ([CFTreeApplierFunction], [CFTreeCopyDescriptionCallBack], [CFTreeReleaseCallBack], [CFTreeRetainCallBack], [CFTreeContext])
+//   - [CFURLRef] ([CFURLBookmarkCreationOptions], [CFURLBookmarkFileCreationOptions], [CFURLBookmarkResolutionOptions], [CFURLComponentType], [CFURLPathStyle])
+//   - [CFUserNotificationRef] ([CFUserNotificationCallBack])
+//   - [CFURLEnumeratorRef]: A reference to a object.
+//   - [CFUUIDRef] ([CFUUIDBytes])
+//   - [CFWriteStreamRef] ([CFWriteStreamClientCallBack])
+//   - CFXMLNodeRef ([CFXMLAttributeDeclarationInfo], [CFXMLAttributeListDeclarationInfo], [CFXMLDocumentInfo], [CFXMLDocumentTypeInfo], [CFXMLElementInfo])
+//   - [CFXMLParserRef] ([CFXMLParserAddChildCallBack], [CFXMLParserCopyDescriptionCallBack], [CFXMLParserCreateXMLStructureCallBack], [CFXMLParserEndXMLStructureCallBack], [CFXMLParserHandleErrorCallBack])
+//   - [CFXMLTreeRef]
 //
 // # Variables
 //
-//   - kCFURLUbiquitousItemIsSyncPausedKey
-//   - kCFURLUbiquitousItemSupportedSyncControlsKey
+//   - [KCFBanglaCalendar]
+//   - [KCFDangiCalendar]
+//   - [KCFGujaratiCalendar]
+//   - [KCFKannadaCalendar]
+//   - [KCFMalayalamCalendar]
+//   - [KCFMarathiCalendar]
+//   - [KCFOdiaCalendar]
+//   - [KCFTamilCalendar]
+//   - [KCFTeluguCalendar]
+//   - [KCFVietnameseCalendar]
+//   - [KCFVikramCalendar]
+//   - [KCFURLUbiquitousItemIsSyncPausedKey]
+//   - [KCFURLUbiquitousItemSupportedSyncControlsKey]
+//   - kCFUserNotificationAlertAccessibilityIdentifierKey
+//   - kCFUserNotificationAlternateButtonAccessibilityIdentifierKey
+//   - kCFUserNotificationDefaultButtonAccessibilityIdentifierKey
+//   - kCFUserNotificationOtherButtonAccessibilityIdentifierKey
 //
 // # Functions
 //
-//   - CFAttributedStringGetStatisticalWritingDirections(_:_:_:_:_:)
+//   - [CFAllocatorCreateWithZone]
+//   - [CFAttributedStringGetStatisticalWritingDirections]
 //
-// [CoreFoundation Documentation]: https://developer.apple.com/documentation/CoreFoundation
+// # Macros
+//
+//   - CF_HEADER_AUDIT_BEGIN
+//   - CF_HEADER_AUDIT_END
+//   - CF_SWIFT_MAIN_ACTOR
+//   - CF_SWIFT_NONISOLATED
+//   - CF_SWIFT_NONSENDABLE
+//   - CF_SWIFT_SENDABLE//
+//
+// [Base Utilities]: https://developer.apple.com/documentation/corefoundation/base-utilities
+// [Byte-Order Utilities]: https://developer.apple.com/documentation/corefoundation/byte-order-utilities
+// [Core Foundation URL Access Utilities]: https://developer.apple.com/documentation/corefoundation/core-foundation-url-access-utilities
+// [Preferences Utilities]: https://developer.apple.com/documentation/corefoundation/preferences-utilities
+// [Socket Name Server Utilities]: https://developer.apple.com/documentation/corefoundation/socket-name-server-utilities
+// [Time Utilities]: https://developer.apple.com/documentation/corefoundation/time-utilities
 package corefoundation
 
 import (

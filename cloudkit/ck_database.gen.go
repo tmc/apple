@@ -6,7 +6,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -74,10 +73,11 @@ func (cc CKDatabaseClass) Alloc() CKDatabase {
 // following:
 //
 // - Create an instance of [CKOperationConfiguration] and set its
-// [CKDatabase.QualityOfService] property to the preferred value. - Call the databaseʼs
-// [configuredWith(configuration:group:body:)] method and provide the
-// configuration and a trailing closure. - In the closure, use the provided
-// database to execute the relevant methods at the preferred QoS.
+// [CKOperationConfiguration.QualityOfService] property to the preferred
+// value. - Call the databaseʼs [configuredWith(configuration:group:body:)]
+// method and provide the configuration and a trailing closure. - In the
+// closure, use the provided database to execute the relevant methods at the
+// preferred QoS.
 //
 // # Fetching Records
 //
@@ -90,12 +90,17 @@ func (cc CKDatabaseClass) Alloc() CKDatabase {
 //
 // # Fetching Record Zones
 //
+//   - [CKDatabase.FetchAllRecordZonesWithCompletionHandler]: Fetches all record zones from the current database.
 //   - [CKDatabase.FetchRecordZoneWithIDCompletionHandler]: Fetches a specific record zone.
 //
 // # Modifying Record Zones
 //
 //   - [CKDatabase.SaveRecordZoneCompletionHandler]: Saves a specific record zone.
 //   - [CKDatabase.DeleteRecordZoneWithIDCompletionHandler]: Deletes a specific record zone.
+//
+// # Fetching Subscriptions
+//
+//   - [CKDatabase.FetchAllSubscriptionsWithCompletionHandler]: Fetches all subscriptions from the current database.
 //
 // # Modifying Subscriptions
 //
@@ -139,12 +144,17 @@ func CKDatabaseFromID(id objc.ID) CKDatabase {
 //
 // # Fetching Record Zones
 //
+//   - [ICKDatabase.FetchAllRecordZonesWithCompletionHandler]: Fetches all record zones from the current database.
 //   - [ICKDatabase.FetchRecordZoneWithIDCompletionHandler]: Fetches a specific record zone.
 //
 // # Modifying Record Zones
 //
 //   - [ICKDatabase.SaveRecordZoneCompletionHandler]: Saves a specific record zone.
 //   - [ICKDatabase.DeleteRecordZoneWithIDCompletionHandler]: Deletes a specific record zone.
+//
+// # Fetching Subscriptions
+//
+//   - [ICKDatabase.FetchAllSubscriptionsWithCompletionHandler]: Fetches all subscriptions from the current database.
 //
 // # Modifying Subscriptions
 //
@@ -176,6 +186,8 @@ type ICKDatabase interface {
 
 	// Topic: Fetching Record Zones
 
+	// Fetches all record zones from the current database.
+	FetchAllRecordZonesWithCompletionHandler(completionHandler CKRecordZoneArrayErrorHandler)
 	// Fetches a specific record zone.
 	FetchRecordZoneWithIDCompletionHandler(zoneID ICKRecordZoneID, completionHandler CKRecordZoneErrorHandler)
 
@@ -185,6 +197,11 @@ type ICKDatabase interface {
 	SaveRecordZoneCompletionHandler(zone ICKRecordZone, completionHandler CKRecordZoneErrorHandler)
 	// Deletes a specific record zone.
 	DeleteRecordZoneWithIDCompletionHandler(zoneID ICKRecordZoneID, completionHandler CKRecordZoneIDErrorHandler)
+
+	// Topic: Fetching Subscriptions
+
+	// Fetches all subscriptions from the current database.
+	FetchAllSubscriptionsWithCompletionHandler(completionHandler CKSubscriptionArrayErrorHandler)
 
 	// Topic: Modifying Subscriptions
 
@@ -200,10 +217,6 @@ type ICKDatabase interface {
 
 	// The type of database.
 	DatabaseScope() CKDatabaseScope
-
-	// The priority that the system uses when it allocates resources to the operations that use this configuration.
-	QualityOfService() foundation.NSQualityOfService
-	SetQualityOfService(value foundation.NSQualityOfService)
 }
 
 // Init initializes the instance.
@@ -306,6 +319,25 @@ func (c CKDatabase) DeleteRecordWithIDCompletionHandler(recordID ICKRecordID, co
 	objc.Send[objc.ID](c.ID, objc.Sel("deleteRecordWithID:completionHandler:"), recordID, _block1)
 }
 
+// Fetches all record zones from the current database.
+//
+// completionHandler: The closure to execute with the fetch results.
+//
+// # Discussion
+//
+// The completion handler takes the following parameters:
+//
+// - An array of fetched record zones, or `nil` if there’s an error. When
+// present, the array contains at least one record zone, the default zone. -
+// An error if a problem occurs, or `nil` if CloudKit successfully fetches all
+// record zones.
+//
+// See: https://developer.apple.com/documentation/CloudKit/CKDatabase/fetchAllRecordZones(completionHandler:)
+func (c CKDatabase) FetchAllRecordZonesWithCompletionHandler(completionHandler CKRecordZoneArrayErrorHandler) {
+	_block0, _ := NewCKRecordZoneArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](c.ID, objc.Sel("fetchAllRecordZonesWithCompletionHandler:"), _block0)
+}
+
 // Fetches a specific record zone.
 //
 // zoneID: The identifier of the record zone to fetch.
@@ -382,6 +414,28 @@ func (c CKDatabase) DeleteRecordZoneWithIDCompletionHandler(zoneID ICKRecordZone
 	objc.Send[objc.ID](c.ID, objc.Sel("deleteRecordZoneWithID:completionHandler:"), zoneID, _block1)
 }
 
+// Fetches all subscriptions from the current database.
+//
+// completionHandler: The closure to execute with the fetch results.
+//
+// # Discussion
+//
+// The completion handler takes the following parameters:
+//
+// - The database’s subscriptions, or `nil` if CloudKit can’t provide the
+// subscriptions. - An error if a problem occurs, or `nil` if the fetch
+// completes successfully.
+//
+// For information on a more configurable way to fetch all subscriptions from
+// a specific database, see
+// [CKFetchSubscriptionsOperationClass.FetchAllSubscriptionsOperation].
+//
+// See: https://developer.apple.com/documentation/CloudKit/CKDatabase/fetchAllSubscriptions(completionHandler:)
+func (c CKDatabase) FetchAllSubscriptionsWithCompletionHandler(completionHandler CKSubscriptionArrayErrorHandler) {
+	_block0, _ := NewCKSubscriptionArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](c.ID, objc.Sel("fetchAllSubscriptionsWithCompletionHandler:"), _block0)
+}
+
 // Saves a specific subscription.
 //
 // subscription: The subscription to save.
@@ -414,13 +468,14 @@ func (c CKDatabase) SaveSubscriptionCompletionHandler(subscription ICKSubscripti
 // # Discussion
 //
 // Configure the operation fully before you call this method. Prior to the
-// operation executing, CloudKit sets its [Database] property to the current
-// database. The operation executes at the priority and quality of service
-// (QoS) that you specify using the [queuePriority] and [QualityOfService]
-// properties.
+// operation executing, CloudKit sets its [CKDatabaseOperation.Database]
+// property to the current database. The operation executes at the priority
+// and quality of service (QoS) that you specify using the [queuePriority] and
+// [qualityOfService] properties.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKDatabase/add(_:)
 //
+// [qualityOfService]: https://developer.apple.com/documentation/Foundation/Operation/qualityOfService
 // [queuePriority]: https://developer.apple.com/documentation/Foundation/Operation/queuePriority-swift.property
 func (c CKDatabase) AddOperation(operation ICKDatabaseOperation) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addOperation:"), operation)
@@ -438,18 +493,6 @@ func (c CKDatabase) AddOperation(operation ICKDatabaseOperation) {
 func (c CKDatabase) DatabaseScope() CKDatabaseScope {
 	rv := objc.Send[CKDatabaseScope](c.ID, objc.Sel("databaseScope"))
 	return CKDatabaseScope(rv)
-}
-
-// The priority that the system uses when it allocates resources to the
-// operations that use this configuration.
-//
-// See: https://developer.apple.com/documentation/cloudkit/ckoperation/configuration-swift.class/qualityofservice
-func (c CKDatabase) QualityOfService() foundation.NSQualityOfService {
-	rv := objc.Send[foundation.NSQualityOfService](c.ID, objc.Sel("qualityOfService"))
-	return foundation.NSQualityOfService(rv)
-}
-func (c CKDatabase) SetQualityOfService(value foundation.NSQualityOfService) {
-	objc.Send[struct{}](c.ID, objc.Sel("setQualityOfService:"), value)
 }
 
 // FetchRecordWithID is a synchronous wrapper around [CKDatabase.FetchRecordWithIDCompletionHandler].
@@ -509,6 +552,29 @@ func (c CKDatabase) DeleteRecordWithID(ctx context.Context, recordID ICKRecordID
 	}
 }
 
+// FetchAllRecordZones is a synchronous wrapper around [CKDatabase.FetchAllRecordZonesWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (c CKDatabase) FetchAllRecordZones(ctx context.Context) ([]CKRecordZone, error) {
+	type result struct {
+		val []CKRecordZone
+		err error
+	}
+	done := make(chan result, 1)
+	c.FetchAllRecordZonesWithCompletionHandler(func(val *[]CKRecordZone, err error) {
+		var out []CKRecordZone
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
 // FetchRecordZoneWithID is a synchronous wrapper around [CKDatabase.FetchRecordZoneWithIDCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (c CKDatabase) FetchRecordZoneWithID(ctx context.Context, zoneID ICKRecordZoneID) (*CKRecordZone, error) {
@@ -557,6 +623,29 @@ func (c CKDatabase) DeleteRecordZoneWithID(ctx context.Context, zoneID ICKRecord
 	done := make(chan result, 1)
 	c.DeleteRecordZoneWithIDCompletionHandler(zoneID, func(val *CKRecordZoneID, err error) {
 		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// FetchAllSubscriptions is a synchronous wrapper around [CKDatabase.FetchAllSubscriptionsWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (c CKDatabase) FetchAllSubscriptions(ctx context.Context) ([]CKSubscription, error) {
+	type result struct {
+		val []CKSubscription
+		err error
+	}
+	done := make(chan result, 1)
+	c.FetchAllSubscriptionsWithCompletionHandler(func(val *[]CKSubscription, err error) {
+		var out []CKSubscription
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
 	})
 	select {
 	case r := <-done:

@@ -117,12 +117,13 @@ func MTLBufferObjectFromID(id objc.ID) MTLBufferObject {
 // not be able to immediately reflect changes to the underlying buffer that
 // come from a render or kernel function.
 //
-// If this buffer’s [StorageMode] is [MTLStorageModeManaged], and a render
-// or kernel function modifies it, the CPU can access the new values through a
-// texture after calling the [SynchronizeResource] method. CPU memory
-// operations are only coherent between command buffer boundaries. GPU
-// barriers guard its memory operations to buffers and textures so that each
-// operation finishes running before the next one begins.
+// If this buffer’s [MTLTextureDescriptor.StorageMode] is
+// [MTLStorageModeManaged], and a render or kernel function modifies it, the
+// CPU can access the new values through a texture after calling the
+// [SynchronizeResource] method. CPU memory operations are only coherent
+// between command buffer boundaries. GPU barriers guard its memory operations
+// to buffers and textures so that each operation finishes running before the
+// next one begins.
 //
 // You can create multiple, nonoverlapping textures that use the same buffer;
 // however, the GPU serializes memory operations to those textures.
@@ -182,7 +183,7 @@ func (o MTLBufferObject) RemoveAllDebugMarkers() {
 //
 // The device instance that this buffer belongs to and the device you pass to
 // the method both need to have the same nonzero peer group identifier
-// ([PeerGroupID]). This buffer needs to use the private storage mode
+// ([peerGroupID]). This buffer needs to use the private storage mode
 // ([MTLStorageModePrivate]).
 //
 // A remote view doesn’t allocate any storage for the new buffer; it
@@ -194,6 +195,7 @@ func (o MTLBufferObject) RemoveAllDebugMarkers() {
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeRemoteBufferView(_:)
 //
 // [Transferring data between connected GPUs]: https://developer.apple.com/documentation/Metal/transferring-data-between-connected-gpus
+// [peerGroupID]: https://developer.apple.com/documentation/Metal/MTLDevice/peerGroupID
 func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRemoteBufferViewForDevice:"), device)
 	return MTLBufferObjectFromID(rv)
@@ -211,11 +213,13 @@ func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffe
 //
 // # Discussion
 //
-// `offset` must be 0 when [Usage] contains [MTLTensorUsageMachineLearning].
+// `offset` must be 0 when [MTLTensorDescriptor.Usage] contains
+// [MTLTensorUsageMachineLearning].
 //
-// When [DataType] is a sub-byte [MTLTensorDataType], `offset` must be aligned
-// to 128 bytes. Although only required for sub-byte types, applying 128-byte
-// alignment for all [MTLTensorDataType] values improves performance.
+// When [MTLTensorDescriptor.DataType] is a sub-byte [MTLTensorDataType],
+// `offset` must be aligned to 128 bytes. Although only required for sub-byte
+// types, applying 128-byte alignment for all [MTLTensorDataType] values
+// improves performance.
 //
 // See [MTLTensorDescriptor] for more information.
 //

@@ -479,7 +479,7 @@ func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
 // # Discussion
 //
 // This property gets its value by copying from the
-// [SupportIndirectCommandBuffers] property of the
+// [MTLRenderPipelineDescriptor.SupportIndirectCommandBuffers] property of the
 // [MTLRenderPipelineDescriptor] instance as the GPU device creates the
 // pipeline state.
 //

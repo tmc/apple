@@ -55,7 +55,7 @@ const (
 	LABiometryTypeOpticID LABiometryType = 4
 	// LABiometryTypeTouchID: The device supports Touch ID.
 	LABiometryTypeTouchID LABiometryType = 1
-	// Deprecated.
+	// Deprecated: use LABiometryTypeNone.
 	LABiometryNone LABiometryType = 0
 )
 
@@ -158,7 +158,7 @@ const (
 	LAErrorTouchIDNotAvailable LAError = -6
 	// Deprecated.
 	LAErrorTouchIDNotEnrolled LAError = -7
-	// Deprecated.
+	// Deprecated: use LAErrorCompanionNotAvailable.
 	LAErrorWatchNotAvailable LAError = -11
 )
 
@@ -211,9 +211,9 @@ const (
 	LAPolicyDeviceOwnerAuthenticationWithCompanion LAPolicy = 3
 	// LAPolicyDeviceOwnerAuthenticationWithWristDetection: User authentication with wrist detection on watchOS.
 	LAPolicyDeviceOwnerAuthenticationWithWristDetection LAPolicy = 5
-	// Deprecated.
+	// Deprecated: use LAPolicyDeviceOwnerAuthenticationWithBiometricsOrCompanion.
 	LAPolicyDeviceOwnerAuthenticationWithBiometricsOrWatch LAPolicy = 4
-	// Deprecated.
+	// Deprecated: use LAPolicyDeviceOwnerAuthenticationWithCompanion.
 	LAPolicyDeviceOwnerAuthenticationWithWatch LAPolicy = 3
 )
 

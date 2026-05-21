@@ -6,6 +6,7 @@ package webkit
 
 import (
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // A view controller that presents a web view loaded with the pop-up page for
@@ -18,14 +19,14 @@ import (
 //
 // It contains a web view preloaded with the pop-up page and automatically
 // adjusts its `preferredContentSize` to fit the web view’s content size.
-// The [PresentsPopup] property should be checked to determine the
-// availability of a pop-up before using this property.
+// The [WKWebExtensionAction.PresentsPopup] property should be checked to
+// determine the availability of a pop-up before using this property.
 //
 // Dismissing the view controller will close the pop-up and unload the web
 // view.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/popupViewController
-func (w WKWebExtensionAction) PopupViewController() objc.ID {
+func (w WKWebExtensionAction) PopupViewController() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("popupViewController"))
-	return rv
+	return objectivec.Object{ID: rv}
 }

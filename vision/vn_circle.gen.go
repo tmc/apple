@@ -112,6 +112,7 @@ type IVNCircle interface {
 	// Determines if a ring around this circle’s circumference contains the specified point.
 	ContainsPointInCircumferentialRingOfWidth(point IVNPoint, ringWidth float64) bool
 
+	InitWithCoder(coder foundation.INSCoder) VNCircle
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -157,6 +158,13 @@ func NewCircleWithCenterDiameter(center IVNPoint, diameter float64) VNCircle {
 func NewCircleWithCenterRadius(center IVNPoint, radius float64) VNCircle {
 	instance := getVNCircleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCenter:radius:"), center, radius)
+	return VNCircleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNCircle/init(coder:)
+func NewCircleWithCoder(coder foundation.INSCoder) VNCircle {
+	instance := getVNCircleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VNCircleFromID(rv)
 }
 
@@ -213,6 +221,12 @@ func (c VNCircle) ContainsPoint(point IVNPoint) bool {
 // See: https://developer.apple.com/documentation/Vision/VNCircle/contains(_:inCircumferentialRingOfWidth:)
 func (c VNCircle) ContainsPointInCircumferentialRingOfWidth(point IVNPoint, ringWidth float64) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsPoint:inCircumferentialRingOfWidth:"), point, ringWidth)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Vision/VNCircle/init(coder:)
+func (c VNCircle) InitWithCoder(coder foundation.INSCoder) VNCircle {
+	rv := objc.Send[VNCircle](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (c VNCircle) EncodeWithCoder(coder foundation.INSCoder) {

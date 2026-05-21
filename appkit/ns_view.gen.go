@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"context"
 	"sync"
 	"unsafe"
 
@@ -71,13 +70,14 @@ func (nc NSViewClass) Alloc() NSView {
 // about this class’s interface. For any view, there are many methods that
 // you can use as-is. The following methods are commonly used.
 //
-// - [NSView.Frame] returns the location and size of the [NSView] object. - [NSView.Bounds]
-// returns the internal origin and size of the [NSView] object. -
-// [NSView.NeedsDisplay] determines whether the [NSView] object needs to be redrawn.
-// - [Window] returns the [NSWindow] object that contains the [NSView] object.
-// - [NSView.DrawRect] draws the [NSView] object. (All subclasses must implement this
-// method, but it’s rarely invoked explicitly.) An alternative to drawing is
-// to update the layer directly using the [NSView.UpdateLayer] method.
+// - [NSView.Frame] returns the location and size of the [NSView] object. -
+// [NSView.Bounds] returns the internal origin and size of the [NSView]
+// object. - [NSView.NeedsDisplay] determines whether the [NSView] object
+// needs to be redrawn. - [NSView.Window] returns the [NSWindow] object that
+// contains the [NSView] object. - [NSView.DrawRect] draws the [NSView]
+// object. (All subclasses must implement this method, but it’s rarely
+// invoked explicitly.) An alternative to drawing is to update the layer
+// directly using the [NSView.UpdateLayer] method.
 //
 // For more information on how [NSView] instances handle event and action
 // messages, see [Cocoa Event Handling Guide]. For more information on
@@ -106,10 +106,14 @@ func (nc NSViewClass) Alloc() NSView {
 // view. Therefore, don’t call `super` if your view implements any of the
 // following methods and handles the event:
 //
-// - [MouseDown] - [MouseDragged] - [MouseUp] - [MouseMoved] - [MouseEntered]
-// - [MouseExited] - [RightMouseDragged] - [RightMouseUp] - [OtherMouseDown] -
-// [OtherMouseDragged] - [OtherMouseUp] - [ScrollWheel] - [KeyDown] - [KeyUp]
-// - [FlagsChanged] - [TabletPoint] - [TabletProximity]
+// - [NSResponder.MouseDown] - [NSResponder.MouseDragged] -
+// [NSResponder.MouseUp] - [NSResponder.MouseMoved] -
+// [NSResponder.MouseEntered] - [NSResponder.MouseExited] -
+// [NSResponder.RightMouseDragged] - [NSResponder.RightMouseUp] -
+// [NSResponder.OtherMouseDown] - [NSResponder.OtherMouseDragged] -
+// [NSResponder.OtherMouseUp] - [NSResponder.ScrollWheel] -
+// [NSResponder.KeyDown] - [NSResponder.KeyUp] - [NSResponder.FlagsChanged] -
+// [NSResponder.TabletPoint] - [NSResponder.TabletProximity]
 //
 // If your view descends from a class other than [NSView], call `super` to let
 // the parent view handle any events that you don’t.
@@ -440,9 +444,9 @@ type INSView interface {
 	// Establishes  an area for tracking mouse-entered and mouse-exited events within the view and returns a tag that identifies the tracking rectangle.
 	AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGRect, owner objectivec.IObject, data unsafe.Pointer, flag bool) NSTrackingRectTag
 	// Overridden by subclasses to adjust page height during automatic pagination.
-	AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldTop float64, oldBottom float64, bottomLimit float64)
+	AdjustPageHeightNewTopBottomLimit(newBottom *float64, oldTop float64, oldBottom float64, bottomLimit float64)
 	// Overridden by subclasses to adjust page width during automatic pagination.
-	AdjustPageWidthNewLeftRightLimit(newRight unsafe.Pointer, oldLeft float64, oldRight float64, rightLimit float64)
+	AdjustPageWidthNewLeftRightLimit(newRight *float64, oldLeft float64, oldRight float64, rightLimit float64)
 	// Overridden by subclasses to modify a given rectangle, returning the altered rectangle.
 	AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect
 	// Returns the view’s alignment rectangle for a given frame.
@@ -458,7 +462,7 @@ type INSView interface {
 	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object proportionally to the distance of an event that occurs outside of it.
 	Autoscroll(event INSEvent) bool
 	// Returns a backing store pixel-aligned rectangle in local view coordinates.
-	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect
+	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect
 	// Invoked at the beginning of the printing session, this method sets up the current graphics context.
 	BeginDocument()
 	// Initiates a dragging session with a group of dragging items.
@@ -561,9 +565,9 @@ type INSView interface {
 	// Returns the view’s frame for a given alignment rectangle.
 	FrameForAlignmentRect(alignmentRect corefoundation.CGRect) corefoundation.CGRect
 	// Returns by indirection a list of nonoverlapping rectangles that define the area the view is being asked to draw in [draw(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/draw(_:)>).
-	GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count unsafe.Pointer)
+	GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count *int)
 	// Returns a list of rectangles indicating the newly exposed areas of the view.
-	GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count unsafe.Pointer)
+	GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count *int)
 	// Returns the farthest descendant of the view in the view hierarchy (including itself) that contains a specified point, or `nil` if that point lies completely outside the view.
 	HitTest(point corefoundation.CGPoint) INSView
 	// Invalidates the view’s intrinsic content size.
@@ -571,7 +575,7 @@ type INSView interface {
 	// Returns a Boolean value that indicates whether the view is a subview of the specified view.
 	IsDescendantOf(view INSView) bool
 	// Returns a Boolean value that indicates whether the view handles page boundaries.
-	KnowsPageRange(range_ foundation.NSRange) bool
+	KnowsPageRange(range_ foundation.NSRangePointer) bool
 	// Perform layout in concert with the constraint-based layout system.
 	Layout()
 	LayoutGuideForLayoutRegion(layoutRegion INSViewLayoutRegion) INSLayoutGuide
@@ -685,7 +689,7 @@ type INSView interface {
 	// Shows a window displaying the definition of the attributed string at the specified point.
 	ShowDefinitionForAttributedStringAtPoint(attrString foundation.NSAttributedString, textBaselineOrigin corefoundation.CGPoint)
 	// Shows a window displaying the definition of the specified range of the attributed string.
-	ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider RangeHandler)
+	ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider CGPointNSRangeHandler)
 	// Orders the view’s immediate subviews using the specified comparator function.
 	SortSubviewsUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
 	// Translates the view’s coordinate system so that its origin moves to a new location.
@@ -820,7 +824,8 @@ func (v NSView) PrepareForReuse() {
 // # Discussion
 //
 // Subclasses can override this method to return true if the view should be
-// sent a [MouseDown] message for an initial mouse-down event, false if not.
+// sent a [NSResponder.MouseDown] message for an initial mouse-down event,
+// false if not.
 //
 // The view can either return a value unconditionally or use the location of
 // `event` to determine whether or not it wants the event. The default
@@ -893,7 +898,7 @@ func (v NSView) AddConstraints(constraints []NSLayoutConstraint) {
 // intended for use with rotated views. You should explicitly confine a cursor
 // rectangle to the view’s visible rectangle to prevent improper behavior.
 //
-// This method is intended to be invoked only by the [ResetCursorRects]
+// This method is intended to be invoked only by the [NSView.ResetCursorRects]
 // method. If invoked in any other way, the resulting cursor rectangle will be
 // discarded the next time the view’s cursor rectangles are rebuilt.
 //
@@ -926,8 +931,9 @@ func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
 // # Discussion
 //
 // This method adds the provided layout guide to the end of the view’s
-// [LayoutGuides] array. It also assigns the view to the guide’s
-// [OwningView] property. Each guide can have only one owning view.
+// [NSView.LayoutGuides] array. It also assigns the view to the guide’s
+// [NSLayoutGuide.OwningView] property. Each guide can have only one owning
+// view.
 //
 // After the guide has been added to a view, it can participate in Auto Layout
 // constraints with that view’s hierarchy.
@@ -946,11 +952,11 @@ func (v NSView) AddLayoutGuide(guide INSLayoutGuide) {
 //
 // This method also sets the view as the next responder of `aView`.
 //
-// The view retains `aView`. If you use [RemoveFromSuperview] to remove
+// The view retains `aView`. If you use [NSView.RemoveFromSuperview] to remove
 // `aView` from the view hierarchy, `aView` is released. If you want to keep
 // using `aView` after removing it from the view hierarchy (if, for example,
 // you are swapping through a number of views), you must retain it before
-// invoking [RemoveFromSuperview].
+// invoking [NSView.RemoveFromSuperview].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/addSubview(_:)
 func (v NSView) AddSubview(view INSView) {
@@ -973,11 +979,11 @@ func (v NSView) AddSubview(view INSView) {
 //
 // This method also sets the view as the next responder of `aView`.
 //
-// The view retains `aView`. If you use [RemoveFromSuperview] to remove
+// The view retains `aView`. If you use [NSView.RemoveFromSuperview] to remove
 // `aView` from the view hierarchy, `aView` is released. If you want to keep
 // using `aView` after removing it from the view hierarchy (if, for example,
 // you are swapping through a number of views), you must retain it before
-// invoking [RemoveFromSuperview].
+// invoking [NSView.RemoveFromSuperview].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/addSubview(_:positioned:relativeTo:)
 func (v NSView) AddSubviewPositionedRelativeTo(view INSView, place NSWindowOrderingMode, otherView INSView) {
@@ -1042,7 +1048,8 @@ func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
 //
 // owner: The object that gets sent the event messages. It can be the view itself or
 // some other object (such as an NSCursor or a custom drawing tool object), as
-// long as it responds to both [MouseEntered] and [MouseExited].
+// long as it responds to both [NSResponder.MouseEntered] and
+// [NSResponder.MouseExited].
 //
 // data: Data stored in the [NSEvent] object for each tracking event.
 //
@@ -1064,13 +1071,14 @@ func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
 // Tracking rectangles provide a general mechanism that can be used to trigger
 // actions based on the cursor location (for example, a status bar or hint
 // field that provides information on the item the cursor lies over). To
-// simply change the cursor over a particular area, use [AddCursorRectCursor].
-// If you must use tracking rectangles to change the cursor, the [NSCursor]
-// class specification describes the additional methods that must be invoked
-// to change cursors by using tracking rectangles.
+// simply change the cursor over a particular area, use
+// [NSView.AddCursorRectCursor]. If you must use tracking rectangles to change
+// the cursor, the [NSCursor] class specification describes the additional
+// methods that must be invoked to change cursors by using tracking
+// rectangles.
 //
 // In macOS 10.5 and later, tracking areas provide a greater range of
-// functionality (see [AddTrackingArea]).
+// functionality (see [NSView.AddTrackingArea]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/addTrackingRect(_:owner:userData:assumeInside:)
 func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGRect, owner objectivec.IObject, data unsafe.Pointer, flag bool) NSTrackingRectTag {
@@ -1090,13 +1098,13 @@ func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGR
 // in the view’s coordinate system.
 //
 // bottomLimit: The topmost [CGFloat] value `newBottom` can be set to, as calculated using
-// the value of the [HeightAdjustLimit] property.
+// the value of the [NSView.HeightAdjustLimit] property.
 //
 // # Discussion
 //
-// This method is invoked by [Print]. The view can raise the bottom edge and
-// return the new value in `newBottom`, allowing it to prevent items such as
-// lines of text from being divided across pages. If `bottomLimit` is
+// This method is invoked by [NSView.Print]. The view can raise the bottom
+// edge and return the new value in `newBottom`, allowing it to prevent items
+// such as lines of text from being divided across pages. If `bottomLimit` is
 // exceeded, the pagination mechanism simply uses `bottomLimit` for the bottom
 // edge.
 //
@@ -1115,7 +1123,7 @@ func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGR
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldTop float64, oldBottom float64, bottomLimit float64) {
+func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom *float64, oldTop float64, oldBottom float64, bottomLimit float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageHeightNew:top:bottom:limit:"), newBottom, oldTop, oldBottom, bottomLimit)
 }
 
@@ -1131,13 +1139,13 @@ func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldT
 // the view’s coordinate system.
 //
 // rightLimit: The leftmost [CGFloat] value `newRight` can be set to, as calculated using
-// the value of the [WidthAdjustLimit] property.
+// the value of the [NSView.WidthAdjustLimit] property.
 //
 // # Discussion
 //
-// This method is invoked by [Print]. The view can pull in the right edge and
-// return the new value in `newRight`, allowing it to prevent items such as
-// small images or text columns from being divided across pages. If
+// This method is invoked by [NSView.Print]. The view can pull in the right
+// edge and return the new value in `newRight`, allowing it to prevent items
+// such as small images or text columns from being divided across pages. If
 // `rightLimit` is exceeded, the pagination mechanism simply uses `rightLimit`
 // for the right edge.
 //
@@ -1156,7 +1164,7 @@ func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldT
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 // [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-func (v NSView) AdjustPageWidthNewLeftRightLimit(newRight unsafe.Pointer, oldLeft float64, oldRight float64, rightLimit float64) {
+func (v NSView) AdjustPageWidthNewLeftRightLimit(newRight *float64, oldLeft float64, oldRight float64, rightLimit float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageWidthNew:left:right:limit:"), newRight, oldLeft, oldRight, rightLimit)
 }
 
@@ -1174,8 +1182,8 @@ func (v NSView) AdjustPageWidthNewLeftRightLimit(newRight unsafe.Pointer, oldLef
 // implementation simply returns `newVisible`.
 //
 // [NSClipView] only invokes this method during automatic or user controlled
-// scrolling. Its [ScrollToPoint] method doesn’t invoke this method, so you
-// can still force a scroll to an arbitrary point.
+// scrolling. Its [NSClipView.ScrollToPoint] method doesn’t invoke this
+// method, so you can still force a scroll to an arbitrary point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/adjustScroll(_:)
 func (v NSView) AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect {
@@ -1200,12 +1208,12 @@ func (v NSView) AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CG
 // as shadows or reflections.
 //
 // The default implementation returns the view’s frame modified by the
-// insets specified by the view’s [AlignmentRectInsets] method. Most custom
-// views can override [AlignmentRectInsets] to specify the location of their
-// content within their frame. Custom views that require arbitrary
-// transformations can override [AlignmentRectForFrame] and
-// [FrameForAlignmentRect] to describe the location of their content. These
-// two methods must always be inverses of each other.
+// insets specified by the view’s [NSView.AlignmentRectInsets] method. Most
+// custom views can override [NSView.AlignmentRectInsets] to specify the
+// location of their content within their frame. Custom views that require
+// arbitrary transformations can override [NSView.AlignmentRectForFrame] and
+// [NSView.FrameForAlignmentRect] to describe the location of their content.
+// These two methods must always be inverses of each other.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/alignmentRect(forFrame:)
 func (v NSView) AlignmentRectForFrame(frame corefoundation.CGRect) corefoundation.CGRect {
@@ -1349,7 +1357,7 @@ func (v NSView) Autoscroll(event INSEvent) bool {
 //
 // [AlignmentOptions]: https://developer.apple.com/documentation/Foundation/AlignmentOptions
 // [NSIntegralRectWithOptions(_:_:)]: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
-func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect {
+func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.NSAlignmentOptions) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
 	return corefoundation.CGRect(rv)
 }
@@ -1362,10 +1370,10 @@ func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options fo
 // Note that this method may be invoked in a subthread.
 //
 // Override it to configure printing related settings. You should store your
-// settings in the object returned by [NSPrintInfo]’s [SharedPrintInfo]
-// class method, which is guaranteed to return an instance specific to the
-// thread in which you invoke this method. If you override this method, call
-// the superclass implementation.
+// settings in the object returned by [NSPrintInfo]’s
+// [NSPrintInfoClass.SharedPrintInfo] class method, which is guaranteed to
+// return an instance specific to the thread in which you invoke this method.
+// If you override this method, call the superclass implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/beginDocument()
 func (v NSView) BeginDocument() {
@@ -1453,7 +1461,7 @@ func (v NSView) BitmapImageRepForCachingDisplayInRect(rect corefoundation.CGRect
 //
 // bitmapImageRep: An [NSBitmapImageRep] object. For pixel-format compatibility,
 // `bitmapImageRep` should have been obtained from
-// [BitmapImageRepForCachingDisplayInRect].
+// [NSView.BitmapImageRepForCachingDisplayInRect].
 //
 // # Discussion
 //
@@ -2018,7 +2026,7 @@ func (v NSView) DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.NSD
 //
 // # Discussion
 //
-// This method is invoked by [AddSubview].
+// This method is invoked by [NSView.AddSubview].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/didAddSubview(_:)
 func (v NSView) DidAddSubview(subview INSView) {
@@ -2036,26 +2044,29 @@ func (v NSView) DidAddSubview(subview INSView) {
 // # Discussion
 //
 // This method is called only if the contextual menu had been opened and the
-// view has previously received the [WillOpenMenuWithEvent] method. When the
-// view receives [DidCloseMenuWithEvent], it should reset its visual state, if
-// necessary. For example, if a table view selected a row in response to a
-// contextual menu being displayed, this method could deselect the row.
+// view has previously received the [NSView.WillOpenMenuWithEvent] method.
+// When the view receives [NSView.DidCloseMenuWithEvent], it should reset its
+// visual state, if necessary. For example, if a table view selected a row in
+// response to a contextual menu being displayed, this method could deselect
+// the row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/didCloseMenu(_:with:)
 func (v NSView) DidCloseMenuWithEvent(menu INSMenu, event INSEvent) {
 	objc.Send[objc.ID](v.ID, objc.Sel("didCloseMenu:withEvent:"), menu, event)
 }
 
-// Invalidates all cursor rectangles set up using [AddCursorRectCursor].
+// Invalidates all cursor rectangles set up using
+// [NSView.AddCursorRectCursor].
 //
 // # Discussion
 //
 // You need never invoke this method directly; neither is it typically invoked
 // during the invalidation of cursor rectangles. [NSWindow] automatically
-// invalidates cursor rectangles in response to [InvalidateCursorRectsForView]
-// and before the view’s cursor rectangles are reestablished using
-// [ResetCursorRects]. This method is invoked just before the view is removed
-// from a window and when the view is deallocated.
+// invalidates cursor rectangles in response to
+// [NSWindow.InvalidateCursorRectsForView] and before the view’s cursor
+// rectangles are reestablished using [NSView.ResetCursorRects]. This method
+// is invoked just before the view is removed from a window and when the view
+// is deallocated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/discardCursorRects()
 func (v NSView) DiscardCursorRects() {
@@ -2063,7 +2074,7 @@ func (v NSView) DiscardCursorRects() {
 }
 
 // Displays the view and all its subviews if possible, invoking each of the
-// [NSView] methods [lockFocus()], [DrawRect], and [unlockFocus()] as
+// [NSView] methods [lockFocus()], [NSView.DrawRect], and [unlockFocus()] as
 // necessary.
 //
 // # Discussion
@@ -2085,11 +2096,11 @@ func (v NSView) Display() {
 //
 // # Discussion
 //
-// This method invokes the [NSView] methods [lockFocus()], [DrawRect], and
-// [unlockFocus()] as necessary. If the view isn’t opaque, this method backs
-// up the view hierarchy to the first opaque ancestor, calculates the portion
-// of the opaque ancestor covered by the view, and begins displaying from
-// there.
+// This method invokes the [NSView] methods [lockFocus()], [NSView.DrawRect],
+// and [unlockFocus()] as necessary. If the view isn’t opaque, this method
+// backs up the view hierarchy to the first opaque ancestor, calculates the
+// portion of the opaque ancestor covered by the view, and begins displaying
+// from there.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/displayIfNeeded()
 //
@@ -2099,17 +2110,17 @@ func (v NSView) DisplayIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeeded"))
 }
 
-// Acts as [DisplayIfNeeded], except that this method doesn’t back up to the
-// first opaque ancestor—it simply causes the view and its descendants to
-// execute their drawing code.
+// Acts as [NSView.DisplayIfNeeded], except that this method doesn’t back up
+// to the first opaque ancestor—it simply causes the view and its
+// descendants to execute their drawing code.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/displayIfNeededIgnoringOpacity()
 func (v NSView) DisplayIfNeededIgnoringOpacity() {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededIgnoringOpacity"))
 }
 
-// Acts as [DisplayIfNeeded], confining drawing to a specified region of the
-// view.
+// Acts as [NSView.DisplayIfNeeded], confining drawing to a specified region
+// of the view.
 //
 // rect: A rectangle defining the region to be redrawn. It should be specified in
 // the coordinate system of the view.
@@ -2119,8 +2130,8 @@ func (v NSView) DisplayIfNeededInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededInRect:"), rect)
 }
 
-// Acts as [DisplayIfNeeded], but confining drawing to `aRect` and not backing
-// up to the first opaque ancestor—it simply causes the view and its
+// Acts as [NSView.DisplayIfNeeded], but confining drawing to `aRect` and not
+// backing up to the first opaque ancestor—it simply causes the view and its
 // descendants to execute their drawing code.
 //
 // rect: A rectangle defining the region to be redrawn. It should be specified in
@@ -2145,8 +2156,8 @@ func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selecto
 	return quartzcore.CADisplayLinkFromID(rv)
 }
 
-// Acts as [Display], but confining drawing to a rectangular region of the
-// view.
+// Acts as [NSView.Display], but confining drawing to a rectangular region of
+// the view.
 //
 // rect: A rectangle defining the region of the view to be redrawn; it should be
 // specified in the coordinate system of the view.
@@ -2179,9 +2190,9 @@ func (v NSView) DisplayRectIgnoringOpacity(rect corefoundation.CGRect) {
 //
 // # Discussion
 //
-// Acts as [Display], but confines drawing to `aRect`. This method initiates
-// drawing with the view, even if the view is not opaque. Appropriate scaling
-// factors for the view are obtained from `context`.
+// Acts as [NSView.Display], but confines drawing to `aRect`. This method
+// initiates drawing with the view, even if the view is not opaque.
+// Appropriate scaling factors for the view are obtained from `context`.
 //
 // If the `context` parameter represents the context for the window containing
 // the view, then all of the necessary transformations are applied. This
@@ -2368,17 +2379,18 @@ func (v NSView) DrawPageBorderWithSize(borderSize corefoundation.CGSize) {
 // little work as possible. The `dirtyRect` parameter helps you achieve better
 // performance by specifying the portion of the view that needs to be drawn.
 // You should always limit drawing to the content inside this rectangle. For
-// even better performance, you can call the [GetRectsBeingDrawnCount] method
-// and use the list of rectangles returned by that method to limit drawing
-// even further. You can also use the [NeedsToDrawRect] method test whether
-// objects in a particular rectangle need to be drawn.
+// even better performance, you can call the [NSView.GetRectsBeingDrawnCount]
+// method and use the list of rectangles returned by that method to limit
+// drawing even further. You can also use the [NSView.NeedsToDrawRect] method
+// test whether objects in a particular rectangle need to be drawn.
 //
 // The default implementation does nothing. Subclasses should override this
 // method if they do custom drawing. Prior to calling this method, AppKit
 // creates an appropriate drawing context and configures it for drawing to the
 // view; you do not need to configure the drawing context yourself. If your
-// app manages content using its layer object instead, use the [UpdateLayer]
-// method to update your layer instead of overriding this method.
+// app manages content using its layer object instead, use the
+// [NSView.UpdateLayer] method to update your layer instead of overriding this
+// method.
 //
 // If your custom view is a direct [NSView] subclass, you do not need to call
 // `super`. For all other views, call `super` at some point in your
@@ -2453,11 +2465,13 @@ func (v NSView) EndPage() {
 //
 // If you do not wish to capture the screen when going to full screen mode,
 // you can add [fullScreenModeApplicationPresentationOptions] to the options
-// dictionary with the value returned by the [PresentationOptions].
+// dictionary with the value returned by the
+// [NSApplication.PresentationOptions].
 //
 // When the [fullScreenModeApplicationPresentationOptions] options is
-// specified, exiting full screen mode using [ExitFullScreenModeWithOptions]
-// will restore the previously active [PresentationOptions].
+// specified, exiting full screen mode using
+// [NSView.ExitFullScreenModeWithOptions] will restore the previously active
+// [NSApplication.PresentationOptions].
 //
 // # Special Considerations
 //
@@ -2502,8 +2516,9 @@ func (v NSView) ExerciseAmbiguityInLayout() {
 // # Discussion
 //
 // When the [fullScreenModeApplicationPresentationOptions] options is
-// specified when [EnterFullScreenModeWithOptions] is invoked, exiting full
-// screen mode will restore the previously active [PresentationOptions].
+// specified when [NSView.EnterFullScreenModeWithOptions] is invoked, exiting
+// full screen mode will restore the previously active
+// [NSApplication.PresentationOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/exitFullScreenMode(options:)
 //
@@ -2529,12 +2544,12 @@ func (v NSView) ExitFullScreenModeWithOptions(options foundation.INSDictionary) 
 // as shadows or reflections.
 //
 // The default implementation returns `alignmentRect` modified by the insets
-// specified by the view’s [AlignmentRectInsets] method. Most custom views
-// can override [AlignmentRectInsets] to specify the location of their content
-// within their frame. Custom views that require arbitrary transformations can
-// override [AlignmentRectForFrame] and [FrameForAlignmentRect] to describe
-// the location of their content. These two methods must always be inverses of
-// each other.
+// specified by the view’s [NSView.AlignmentRectInsets] method. Most custom
+// views can override [NSView.AlignmentRectInsets] to specify the location of
+// their content within their frame. Custom views that require arbitrary
+// transformations can override [NSView.AlignmentRectForFrame] and
+// [NSView.FrameForAlignmentRect] to describe the location of their content.
+// These two methods must always be inverses of each other.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/frame(forAlignmentRect:)
 func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) corefoundation.CGRect {
@@ -2543,7 +2558,7 @@ func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) coref
 }
 
 // Returns by indirection a list of nonoverlapping rectangles that define the
-// area the view is being asked to draw in [DrawRect].
+// area the view is being asked to draw in [NSView.DrawRect].
 //
 // rects: On return, contains a list of nonoverlapping rectangles defining areas to
 // be drawn in. The rectangles returned in `rects` are in the coordinate space
@@ -2553,23 +2568,24 @@ func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) coref
 //
 // # Discussion
 //
-// An implementation of [DrawRect] can use this information to test whether
-// objects or regions within the view intersect with the rectangles in the
-// list, and thereby avoid unnecessary drawing that would be completely
+// An implementation of [NSView.DrawRect] can use this information to test
+// whether objects or regions within the view intersect with the rectangles in
+// the list, and thereby avoid unnecessary drawing that would be completely
 // clipped away.
 //
-// The [NeedsToDrawRect] method gives you a convenient way to test individual
-// objects for intersection with the area being drawn in [DrawRect]. However,
-// you may want to retrieve and directly inspect the rectangle list if this is
-// a more efficient way to perform intersection testing.
+// The [NSView.NeedsToDrawRect] method gives you a convenient way to test
+// individual objects for intersection with the area being drawn in
+// [NSView.DrawRect]. However, you may want to retrieve and directly inspect
+// the rectangle list if this is a more efficient way to perform intersection
+// testing.
 //
-// You should send this message only from within a [DrawRect] implementation.
-// The `aRect` parameter of [DrawRect] is the rectangle enclosing the returned
-// list of rectangles; you can use it in an initial pass to reject objects
-// that are clearly outside the area to be drawn.
+// You should send this message only from within a [NSView.DrawRect]
+// implementation. The `aRect` parameter of [NSView.DrawRect] is the rectangle
+// enclosing the returned list of rectangles; you can use it in an initial
+// pass to reject objects that are clearly outside the area to be drawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/getRectsBeingDrawn(_:count:)
-func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count unsafe.Pointer) {
+func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count *int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getRectsBeingDrawn:count:"), objc.CArray(rects), count)
 }
 
@@ -2587,8 +2603,8 @@ func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count uns
 // If your view does not support content preservation during live resizing,
 // the entire area of your view is returned in the `exposedRects` parameter.
 // To support content preservation, override the
-// [PreservesContentDuringLiveResize] property in your view and have your
-// implementation return true.
+// [NSView.PreservesContentDuringLiveResize] property in your view and have
+// your implementation return true.
 //
 // If the view decreased in both height and width, the list of returned
 // rectangles will be empty. If the view increased in both height and width
@@ -2597,7 +2613,7 @@ func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count uns
 // indicating the exposed area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/getRectsExposedDuringLiveResize(_:count:)
-func (v NSView) GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count unsafe.Pointer) {
+func (v NSView) GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count *int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getRectsExposedDuringLiveResize:count:"), objc.CArray(exposedRects), count)
 }
 
@@ -2683,7 +2699,7 @@ func (v NSView) IsDescendantOf(view INSView) bool {
 // handles page boundaries.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/knowsPageRange(_:)
-func (v NSView) KnowsPageRange(range_ foundation.NSRange) bool {
+func (v NSView) KnowsPageRange(range_ foundation.NSRangePointer) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("knowsPageRange:"), range_)
 	return rv
 }
@@ -2694,8 +2710,8 @@ func (v NSView) KnowsPageRange(range_ foundation.NSRange) bool {
 //
 // Override this method if your custom view needs to perform custom layout not
 // expressible using the constraint-based layout system. In this case you are
-// responsible for setting [NeedsLayout] to true when something that impacts
-// your custom layout changes.
+// responsible for setting [NSView.NeedsLayout] to true when something that
+// impacts your custom layout changes.
 //
 // You may not invalidate any constraints as part of your layout phase, nor
 // invalidate the layout of your superview or views outside of your view
@@ -2722,9 +2738,9 @@ func (v NSView) LayoutGuideForLayoutRegion(layoutRegion INSViewLayoutRegion) INS
 // Before displaying a view that uses constraints-based layout the system
 // invokes this method to ensure that the layout of the view and its subviews
 // is up to date. This method updates the layout if needed, first invoking
-// [UpdateConstraintsForSubtreeIfNeeded] to ensure that all constraints are up
-// to date. This method is called automatically by the system, but may be
-// invoked manually if you need to examine the most up to date layout.
+// [NSView.UpdateConstraintsForSubtreeIfNeeded] to ensure that all constraints
+// are up to date. This method is called automatically by the system, but may
+// be invoked manually if you need to examine the most up to date layout.
 //
 // Subclasses should not override this method.
 //
@@ -2733,8 +2749,8 @@ func (v NSView) LayoutSubtreeIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("layoutSubtreeIfNeeded"))
 }
 
-// Invoked by [Print] to determine the location of the region of the view
-// being printed on the physical page.
+// Invoked by [NSView.Print] to determine the location of the region of the
+// view being printed on the physical page.
 //
 // rect: A rectangle defining a region of the view; it is expressed in the default
 // coordinate system of the page.
@@ -2750,10 +2766,10 @@ func (v NSView) LayoutSubtreeIfNeeded() {
 // The default implementation places `aRect` according to the status of the
 // [NSPrintInfo] object for the print job. By default it places the image in
 // the upper-left corner of the page, but if the [NSPrintInfo] methods
-// [HorizontallyCentered] or [VerticallyCentered] return true, it centers a
-// single-page image along the appropriate axis. A multiple-page document,
-// however, is always placed so the divided pieces can be assembled at their
-// edges.
+// [NSPrintInfo.HorizontallyCentered] or [NSPrintInfo.VerticallyCentered]
+// return true, it centers a single-page image along the appropriate axis. A
+// multiple-page document, however, is always placed so the divided pieces can
+// be assembled at their edges.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/locationOfPrintRect(_:)
 func (v NSView) LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint {
@@ -2834,11 +2850,11 @@ func (v NSView) MouseInRect(point corefoundation.CGPoint, rect corefoundation.CG
 //
 // # Discussion
 //
-// You typically send this message from within a [DrawRect] implementation. It
-// gives you a convenient way to determine whether any part of a given
-// graphical entity might need to be drawn. It is optimized to efficiently
-// reject any rectangle that lies outside the bounding box of the area that
-// the view is being asked to draw in [DrawRect].
+// You typically send this message from within a [NSView.DrawRect]
+// implementation. It gives you a convenient way to determine whether any part
+// of a given graphical entity might need to be drawn. It is optimized to
+// efficiently reject any rectangle that lies outside the bounding box of the
+// area that the view is being asked to draw in [NSView.DrawRect].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/needsToDraw(_:)
 func (v NSView) NeedsToDrawRect(rect corefoundation.CGRect) bool {
@@ -2861,8 +2877,8 @@ func (v NSView) NeedsToDrawRect(rect corefoundation.CGRect) bool {
 //
 // If, however, a view is showing a focus ring around some part of its content
 // (an [NSImage], perhaps), and that content changes, the client must provide
-// notification by invoking this method so that [FocusRingMaskBounds] and
-// [DrawFocusRingMask] will be invoked to redraw the focus ring.
+// notification by invoking this method so that [NSView.FocusRingMaskBounds]
+// and [NSView.DrawFocusRingMask] will be invoked to redraw the focus ring.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/noteFocusRingMaskChanged()
 func (v NSView) NoteFocusRingMaskChanged() {
@@ -2927,7 +2943,7 @@ func (v NSView) PerformDragOperation(sender NSDraggingInfo) bool {
 // content than makes sense for your app. If the user scrolls the content,
 // AppKit resets the current overdraw region and starts asking your app for
 // content again. You can also reset the current overdraw region by assigning
-// a value to the [PreparedContentRect] property.
+// a value to the [NSView.PreparedContentRect] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/prepareContent(in:)
 func (v NSView) PrepareContentInRect(rect corefoundation.CGRect) {
@@ -2991,13 +3007,13 @@ func (v NSView) RectForLayoutRegion(layoutRegion INSViewLayoutRegion) corefounda
 //
 // # Discussion
 //
-// If the view responded true to an earlier [KnowsPageRange] message, this
-// method is invoked for each page it specified in the out parameters of that
-// message. The view is later made to display this rectangle in order to
+// If the view responded true to an earlier [NSView.KnowsPageRange] message,
+// this method is invoked for each page it specified in the out parameters of
+// that message. The view is later made to display this rectangle in order to
 // generate the image for this page.
 //
-// If an [NSView] object responds false to [KnowsPageRange], this method
-// isn’t invoked by the printing mechanism.
+// If an [NSView] object responds false to [NSView.KnowsPageRange], this
+// method isn’t invoked by the printing mechanism.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rectForPage(_:)
 func (v NSView) RectForPage(page int) corefoundation.CGRect {
@@ -3090,7 +3106,8 @@ func (v NSView) RegisterForDraggedTypes(newTypes []string) {
 // # Discussion
 //
 // This method operates on tooltips created using either
-// [AddToolTipRectOwnerUserData] or set using the [ToolTip] property.
+// [NSView.AddToolTipRectOwnerUserData] or set using the [NSView.ToolTip]
+// property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/removeAllToolTips()
 func (v NSView) RemoveAllToolTips() {
@@ -3119,19 +3136,19 @@ func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
 // Completely removes a cursor rectangle from the view.
 //
 // rect: A rectangle defining a region of the view. Must match a value previously
-// specified using [AddCursorRectCursor].
+// specified using [NSView.AddCursorRectCursor].
 //
 // object: An object representing a cursor. Must match a value previously specified
-// using [AddCursorRectCursor].
+// using [NSView.AddCursorRectCursor].
 //
 // # Discussion
 //
-// You should rarely need to use this method. The [ResetCursorRects] method,
-// which is called when the cursor rectangles need to be rebuilt, should
-// establish only the cursor rectangles needed. If you implement
-// [ResetCursorRects] in this way, you can then simply modify the state that
-// [ResetCursorRects] uses to build its cursor rectangles and then invoke the
-// [NSWindow] method [InvalidateCursorRectsForView].
+// You should rarely need to use this method. The [NSView.ResetCursorRects]
+// method, which is called when the cursor rectangles need to be rebuilt,
+// should establish only the cursor rectangles needed. If you implement
+// [NSView.ResetCursorRects] in this way, you can then simply modify the state
+// that [NSView.ResetCursorRects] uses to build its cursor rectangles and then
+// invoke the [NSWindow] method [NSWindow.InvalidateCursorRectsForView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/removeCursorRect(_:cursor:)
 func (v NSView) RemoveCursorRectCursor(rect corefoundation.CGRect, object INSCursor) {
@@ -3168,8 +3185,8 @@ func (v NSView) RemoveFromSuperview() {
 // before sending this message and to release it as appropriate when adding it
 // as a subview of another view.
 //
-// Unlike its counterpart, [RemoveFromSuperview], this method can be safely
-// invoked during display.
+// Unlike its counterpart, [NSView.RemoveFromSuperview], this method can be
+// safely invoked during display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/removeFromSuperviewWithoutNeedingDisplay()
 func (v NSView) RemoveFromSuperviewWithoutNeedingDisplay() {
@@ -3197,8 +3214,9 @@ func (v NSView) RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer) 
 // # Discussion
 //
 // This method removes the provided layout guide from the view’s
-// [LayoutGuides] array. It also sets the guide’s [OwningView] property to
-// `nil`. Finally, it removes any constraints to the layout guide.
+// [NSView.LayoutGuides] array. It also sets the guide’s
+// [NSLayoutGuide.OwningView] property to `nil`. Finally, it removes any
+// constraints to the layout guide.
 //
 // Layout guides cannot participate in Auto Layout constraints unless they are
 // added by a view in the view hierarchy.
@@ -3211,7 +3229,7 @@ func (v NSView) RemoveLayoutGuide(guide INSLayoutGuide) {
 // Removes the tooltip identified by specified tag.
 //
 // tag: An integer tag that is the value returned by a previous
-// [AddToolTipRectOwnerUserData] message.
+// [NSView.AddToolTipRectOwnerUserData] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/removeToolTip(_:)
 func (v NSView) RemoveToolTip(tag NSToolTipTag) {
@@ -3230,7 +3248,7 @@ func (v NSView) RemoveTrackingArea(trackingArea INSTrackingArea) {
 // Removes the tracking rectangle identified by a tag.
 //
 // tag: An integer value identifying a tracking rectangle. It was returned by a
-// previously sent [AddTrackingRectOwnerUserDataAssumeInside] message.
+// previously sent [NSView.AddTrackingRectOwnerUserDataAssumeInside] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/removeTrackingRect(_:)
 func (v NSView) RemoveTrackingRect(tag NSTrackingRectTag) {
@@ -3266,14 +3284,14 @@ func (v NSView) ReplaceSubviewWith(oldView INSView, newView INSView) {
 //
 // # Discussion
 //
-// A subclass’s implementation must invoke [AddCursorRectCursor] for each
-// cursor rectangle it wants to establish. The default implementation does
-// nothing.
+// A subclass’s implementation must invoke [NSView.AddCursorRectCursor] for
+// each cursor rectangle it wants to establish. The default implementation
+// does nothing.
 //
 // Application code should never invoke this method directly; it’s invoked
 // automatically as described in “[Responding to User Events and
-// Actions].” Use the [InvalidateCursorRectsForView] method instead to
-// explicitly rebuild cursor rectangles.
+// Actions].” Use the [NSWindow.InvalidateCursorRectsForView] method instead
+// to explicitly rebuild cursor rectangles.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/resetCursorRects()
 //
@@ -3292,7 +3310,7 @@ func (v NSView) ResetCursorRects() {
 // If the view is configured to autoresize its subviews, this method is
 // automatically invoked by any method that changes the view’s frame size.
 //
-// The default implementation sends [ResizeWithOldSuperviewSize] to the
+// The default implementation sends [NSView.ResizeWithOldSuperviewSize] to the
 // view’s subviews with `oldBoundsSize` as the argument. You shouldn’t
 // invoke this method directly, but you can override it to define a specific
 // resizing behavior.
@@ -3309,12 +3327,12 @@ func (v NSView) ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize) {
 // # Discussion
 //
 // This method is normally invoked automatically from
-// [ResizeSubviewsWithOldSize].
+// [NSView.ResizeSubviewsWithOldSize].
 //
 // The default implementation resizes the view according to the autoresizing
-// options specified by the [AutoresizingMask] property. You shouldn’t
-// invoke this method directly, but you can override it to define a specific
-// resizing behavior.
+// options specified by the [NSView.AutoresizingMask] property. You
+// shouldn’t invoke this method directly, but you can override it to define
+// a specific resizing behavior.
 //
 // If you override this method and call `super` as part of your
 // implementation, you should be sure to call `super` before making changes to
@@ -3332,15 +3350,17 @@ func (v NSView) ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize) {
 //
 // # Discussion
 //
-// See the [BoundsRotation] method description for more information. This
-// method neither redisplays the view nor marks it as needing display. You
-// must do this yourself by calling the [Display] method or setting the
-// [NeedsDisplay] property.
+// See the [NSView.BoundsRotation] method description for more information.
+// This method neither redisplays the view nor marks it as needing display.
+// You must do this yourself by calling the [NSView.Display] method or setting
+// the [NSView.NeedsDisplay] property.
 //
-// This method posts an [BoundsDidChangeNotification] to the default
+// This method posts an [boundsDidChangeNotification] to the default
 // notification center if the view is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rotate(byDegrees:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) RotateByAngle(angle float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rotateByAngle:"), angle)
 }
@@ -3434,10 +3454,10 @@ func (v NSView) RulerViewShouldAddMarker(ruler INSRulerView, marker INSRulerMark
 // marker; if the client returns false the marker doesn’t move.
 //
 // The user’s ability to move a marker is typically set on the marker
-// itself, using NSRulerMarker’s [Movable] method. You should use this
-// client view method only when the marker’s movability can vary depending
-// on a variable condition (for example, if graphic items can be locked down
-// to prevent them from being inadvertently moved).
+// itself, using NSRulerMarker’s [NSRulerMarker.Movable] method. You should
+// use this client view method only when the marker’s movability can vary
+// depending on a variable condition (for example, if graphic items can be
+// locked down to prevent them from being inadvertently moved).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:shouldMove:)
 func (v NSView) RulerViewShouldMoveMarker(ruler INSRulerView, marker INSRulerMarker) bool {
@@ -3455,10 +3475,10 @@ func (v NSView) RulerViewShouldMoveMarker(ruler INSRulerView, marker INSRulerMar
 // user drags the marker.
 //
 // The user’s ability to remove a marker is typically set on the marker
-// itself, using NSRulerMarker’s [Removable] method. You should use this
-// client view method only when the marker’s removability can vary while the
-// user drags it (for example, if the user must press the Shift key to remove
-// a marker).
+// itself, using NSRulerMarker’s [NSRulerMarker.Removable] method. You
+// should use this client view method only when the marker’s removability
+// can vary while the user drags it (for example, if the user must press the
+// Shift key to remove a marker).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:shouldRemove:)
 func (v NSView) RulerViewShouldRemoveMarker(ruler INSRulerView, marker INSRulerMarker) bool {
@@ -3528,13 +3548,15 @@ func (v NSView) RulerViewWillSetClientView(ruler INSRulerView, newClient INSView
 // rectangle remains unchanged.
 //
 // This method does not redisplay the view or mark it as needing display. You
-// must do this yourself by calling the [Display] method or setting the
-// [NeedsDisplay] property.
+// must do this yourself by calling the [NSView.Display] method or setting the
+// [NSView.NeedsDisplay] property.
 //
-// This method posts an [BoundsDidChangeNotification] to the default
+// This method posts an [boundsDidChangeNotification] to the default
 // notification center if the view is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/scaleUnitSquare(to:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("scaleUnitSquareToSize:"), newUnitSize)
 }
@@ -3549,10 +3571,10 @@ func (v NSView) ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize) {
 //
 // # Discussion
 //
-// The superview of `clipView` should then send a [ScrollToPoint] message to
-// `clipView` with `point` as the argument. This mechanism is provided so the
-// [NSClipView] object’s superview can coordinate scrolling of multiple
-// tiled clip views.
+// The superview of `clipView` should then send a [NSClipView.ScrollToPoint]
+// message to `clipView` with `point` as the argument. This mechanism is
+// provided so the [NSClipView] object’s superview can coordinate scrolling
+// of multiple tiled clip views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:to:)
 func (v NSView) ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint) {
@@ -3594,10 +3616,10 @@ func (v NSView) ScrollRectToVisible(rect corefoundation.CGRect) bool {
 // In setting the new bounds origin, this method effectively shifts the
 // view’s coordinate system so `newOrigin` lies at the origin of the
 // view’s frame rectangle. It neither redisplays the view nor marks it as
-// needing display. Set the [NeedsDisplay] property to true when you want the
-// view to be redisplayed.
+// needing display. Set the [NSView.NeedsDisplay] property to true when you
+// want the view to be redisplayed.
 //
-// This method posts an [BoundsDidChangeNotification] to the default
+// This method posts an [boundsDidChangeNotification] to the default
 // notification center if the view is configured to do so.
 //
 // After calling this method, [NSView] creates an internal transform (or
@@ -3608,6 +3630,8 @@ func (v NSView) ScrollRectToVisible(rect corefoundation.CGRect) bool {
 // skewed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/setBoundsOrigin(_:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) SetBoundsOrigin(newOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setBoundsOrigin:"), newOrigin)
 }
@@ -3623,9 +3647,10 @@ func (v NSView) SetBoundsOrigin(newOrigin corefoundation.CGPoint) {
 // For example, a view object with a frame size of (100.0, 100.0) and a bounds
 // size of (200.0, 100.0) draws half as wide along the x axis. This method
 // neither redisplays the view nor marks it as needing display. Set the
-// [NeedsDisplay] property to true when you want the view to be redisplayed.
+// [NSView.NeedsDisplay] property to true when you want the view to be
+// redisplayed.
 //
-// This method posts an [BoundsDidChangeNotification] to the default
+// This method posts an [boundsDidChangeNotification] to the default
 // notification center if the view is configured to do so.
 //
 // After calling this method, [NSView] creates an internal transform (or
@@ -3636,6 +3661,8 @@ func (v NSView) SetBoundsOrigin(newOrigin corefoundation.CGPoint) {
 // skewed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/setBoundsSize(_:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) SetBoundsSize(newSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setBoundsSize:"), newSize)
 }
@@ -3701,14 +3728,16 @@ func (v NSView) SetContentHuggingPriorityForOrientation(priority NSLayoutPriorit
 // # Discussion
 //
 // Changing the frame does not mark the view as needing to be displayed. Set
-// the [NeedsDisplay] property to true when you want the view to be
+// the [NSView.NeedsDisplay] property to true when you want the view to be
 // redisplayed.
 //
 // Changing the frame origin results in the posting of an
-// [FrameDidChangeNotification] to the default notification center if the view
+// [frameDidChangeNotification] to the default notification center if the view
 // is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/setFrameOrigin(_:)
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setFrameOrigin:"), newOrigin)
 }
@@ -3722,11 +3751,11 @@ func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
 // # Discussion
 //
 // Changing the frame does not mark the view as needing to be displayed. Set
-// the [NeedsDisplay] property to true when you want the view to be
+// the [NSView.NeedsDisplay] property to true when you want the view to be
 // redisplayed.
 //
 // Changing the frame size results in the posting of an
-// [FrameDidChangeNotification] to the default notification center if the view
+// [frameDidChangeNotification] to the default notification center if the view
 // is configured to do so.
 //
 // In macOS 10.4 and later, you can override this method to support content
@@ -3736,6 +3765,8 @@ func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
 // be redrawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/setFrameSize(_:)
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (v NSView) SetFrameSize(newSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setFrameSize:"), newSize)
 }
@@ -3788,14 +3819,15 @@ func (v NSView) SetNeedsDisplayInRect(invalidRect corefoundation.CGRect) {
 // An [NSView] subclass that allows dragging should implement this method to
 // return true if `theEvent` is potentially the beginning of a dragging
 // session or of some other context where window ordering isn’t appropriate.
-// This method is invoked before a [MouseDown] message for `theEvent` is sent.
-// The default implementation returns false.
+// This method is invoked before a [NSResponder.MouseDown] message for
+// `theEvent` is sent. The default implementation returns false.
 //
 // If, after delaying window ordering, the view actually initiates a dragging
-// session or similar operation, it should also send a [PreventWindowOrdering]
-// message to [NSApp], which completely prevents the window from ordering
-// forward and the activation from becoming active. [PreventWindowOrdering] is
-// sent automatically by the “ and “ methods of [NSView].
+// session or similar operation, it should also send a
+// [NSApplication.PreventWindowOrdering] message to [NSApp], which completely
+// prevents the window from ordering forward and the activation from becoming
+// active. [NSApplication.PreventWindowOrdering] is sent automatically by the
+// “ and “ methods of [NSView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/shouldDelayWindowOrdering(for:)
 func (v NSView) ShouldDelayWindowOrderingForEvent(event INSEvent) bool {
@@ -3863,8 +3895,8 @@ func (v NSView) ShowDefinitionForAttributedStringAtPoint(attrString foundation.N
 // necessary scrolling before calling this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/showDefinition(for:range:options:baselineOriginProvider:)
-func (v NSView) ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider RangeHandler) {
-	_block3, _ := NewRangeBlock(originProvider)
+func (v NSView) ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider CGPointNSRangeHandler) {
+	_block3, _ := NewCGPointNSRangeBlock(originProvider)
 	objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:range:options:baselineOriginProvider:"), attrString, targetRange, options, _block3)
 }
 
@@ -3896,8 +3928,8 @@ func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, con
 // In the process, the origin of the view’s bounds rectangle is shifted by
 // (`–translation.X()`, `–translation.Y()`). This method neither
 // redisplays the view nor marks it as needing display. You must do this
-// yourself by calling the [Display] method or setting the [NeedsDisplay]
-// property.
+// yourself by calling the [NSView.Display] method or setting the
+// [NSView.NeedsDisplay] property.
 //
 // Note the difference between this method and setting the bounds origin.
 // Translation effectively moves the image inside the bounds rectangle, while
@@ -3905,10 +3937,12 @@ func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, con
 // The two are in a sense inverse, although translation is cumulative, and
 // setting the bounds origin is absolute.
 //
-// This method posts an [BoundsDidChangeNotification] to the default
+// This method posts an [boundsDidChangeNotification] to the default
 // notification center if the view is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/translateOrigin(to:)
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) TranslateOriginToPoint(translation corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("translateOriginToPoint:"), translation)
 }
@@ -3960,11 +3994,11 @@ func (v NSView) UnregisterDraggedTypes() {
 //
 // Override this method to optimize changes to your constraints.
 //
-// To schedule a change, set the view’s [NeedsUpdateConstraints] property to
-// true. The system then calls your implementation of [UpdateConstraints]
-// before the layout occurs. This lets you verify that all necessary
-// constraints for your content are in place at a time when your custom
-// view’s properties are not changing.
+// To schedule a change, set the view’s [NSView.NeedsUpdateConstraints]
+// property to true. The system then calls your implementation of
+// [NSView.UpdateConstraints] before the layout occurs. This lets you verify
+// that all necessary constraints for your content are in place at a time when
+// your custom view’s properties are not changing.
 //
 // Your implementation must be as efficient as possible. Do not deactivate all
 // your constraints, then reactivate the ones you need. Instead, your app must
@@ -3973,9 +4007,9 @@ func (v NSView) UnregisterDraggedTypes() {
 // pass, you must ensure that you have the appropriate constraints for the
 // app’s current state.
 //
-// Do not set the [NeedsUpdateConstraints] property inside your
-// implementation. Setting [NeedsUpdateConstraints] to true schedules another
-// update pass, creating a feedback loop.
+// Do not set the [NSView.NeedsUpdateConstraints] property inside your
+// implementation. Setting [NSView.NeedsUpdateConstraints] to true schedules
+// another update pass, creating a feedback loop.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/updateConstraints()
 func (v NSView) UpdateConstraints() {
@@ -4035,17 +4069,18 @@ func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
 //
 // You use this method to optimize the rendering of your view in situations
 // where you can represent your views contents entirely using a layer object.
-// If your view’s [WantsUpdateLayer] property is true, the view calls this
-// method instead of [DrawRect] during the view update cycle. Custom views can
-// override this method and use it to modify the properties of the underlying
-// layer object. Modifying layer properties is a much more efficient way to
-// update your view than is redrawing its content each time something changes.
+// If your view’s [NSView.WantsUpdateLayer] property is true, the view calls
+// this method instead of [NSView.DrawRect] during the view update cycle.
+// Custom views can override this method and use it to modify the properties
+// of the underlying layer object. Modifying layer properties is a much more
+// efficient way to update your view than is redrawing its content each time
+// something changes.
 //
 // When you want to update the contents of your layer, mark the view as dirty
-// by setting its [NeedsDisplay] property to true. Doing so adds the view to
-// the list of views that need to be refreshed during the next update cycle.
-// During that update cycle, this method is called if the [WantsUpdateLayer]
-// property is still true.
+// by setting its [NSView.NeedsDisplay] property to true. Doing so adds the
+// view to the list of views that need to be refreshed during the next update
+// cycle. During that update cycle, this method is called if the
+// [NSView.WantsUpdateLayer] property is still true.
 //
 // Your implementation of this method should not call `super`.
 //
@@ -4092,25 +4127,25 @@ func (v NSView) ViewDidChangeEffectiveAppearance() {
 //
 // # Discussion
 //
-// In the simple case, a view is sent [ViewWillStartLiveResize] before the
-// first resize operation on the containing window and [ViewDidEndLiveResize]
-// after the last resize operation. A view that is repeatedly added and
-// removed from a window during live resize will receive only one
-// [ViewWillStartLiveResize] (on the first time it is added to the window) and
-// one [ViewDidEndLiveResize] (when the window has completed the live resize
-// operation). This allows a superview such as [NSBrowser] object to add and
-// remove its [NSMatrix] subviews during live resize without the [NSMatrix]
-// receiving multiple calls to these methods.
+// In the simple case, a view is sent [NSView.ViewWillStartLiveResize] before
+// the first resize operation on the containing window and
+// [NSView.ViewDidEndLiveResize] after the last resize operation. A view that
+// is repeatedly added and removed from a window during live resize will
+// receive only one [NSView.ViewWillStartLiveResize] (on the first time it is
+// added to the window) and one [NSView.ViewDidEndLiveResize] (when the window
+// has completed the live resize operation). This allows a superview such as
+// [NSBrowser] object to add and remove its [NSMatrix] subviews during live
+// resize without the [NSMatrix] receiving multiple calls to these methods.
 //
 // A view might allocate data structures to cache-drawing information in
-// [ViewWillStartLiveResize] and should clean up these data structures in
-// [ViewDidEndLiveResize]. In addition, a view that does optimized drawing
-// during live resize might need to do full drawing after
-// [ViewDidEndLiveResize]. However, you should not assume that a view has a
-// drawing context in [ViewDidEndLiveResize] (since it may have been removed
-// from the window during live resize). A view that needs to redraw itself
-// after live resize should set its [NeedsDisplay] property to true in
-// [ViewDidEndLiveResize].
+// [NSView.ViewWillStartLiveResize] and should clean up these data structures
+// in [NSView.ViewDidEndLiveResize]. In addition, a view that does optimized
+// drawing during live resize might need to do full drawing after
+// [NSView.ViewDidEndLiveResize]. However, you should not assume that a view
+// has a drawing context in [NSView.ViewDidEndLiveResize] (since it may have
+// been removed from the window during live resize). A view that needs to
+// redraw itself after live resize should set its [NSView.NeedsDisplay]
+// property to true in [NSView.ViewDidEndLiveResize].
 //
 // A view subclass should call `super` from these methods.
 //
@@ -4124,7 +4159,7 @@ func (v NSView) ViewDidEndLiveResize() {
 //
 // # Discussion
 //
-// The view receives this message when its [HiddenOrHasHiddenAncestor]
+// The view receives this message when its [NSView.HiddenOrHasHiddenAncestor]
 // property changes from false to true. This happens when the view or an
 // ancestor is marked as hidden, or when the view or an ancestor is inserted
 // into a new view hierarchy.
@@ -4153,9 +4188,9 @@ func (v NSView) ViewDidMoveToSuperview() {
 // The default implementation does nothing; subclasses can override this
 // method to perform whatever actions are necessary.
 //
-// If the view’s [Window] property is `nil`, that result signifies that the
-// view was removed from its window and does not currently reside in any
-// window.
+// If the view’s [NSView.Window] property is `nil`, that result signifies
+// that the view was removed from its window and does not currently reside in
+// any window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/viewDidMoveToWindow()
 func (v NSView) ViewDidMoveToWindow() {
@@ -4188,10 +4223,10 @@ func (v NSView) ViewDidUnhide() {
 // Subclasses can override this method to move or resize views, mark
 // additional areas as requiring display, or take other actions that can best
 // be deferred until they are required for drawing. During the recursion,
-// setting the [NeedsDisplay] property or sending the [SetNeedsDisplayInRect]
-// message to views in the hierarchy that are about to be drawn is valid and
-// supported, and affects the assessment of the total area to be rendered in
-// that drawing pass.
+// setting the [NSView.NeedsDisplay] property or sending the
+// [NSView.SetNeedsDisplayInRect] message to views in the hierarchy that are
+// about to be drawn is valid and supported, and affects the assessment of the
+// total area to be rendered in that drawing pass.
 //
 // The following is an example of a generic subclass implementation:
 //
@@ -4238,7 +4273,7 @@ func (v NSView) ViewWillMoveToSuperview(newSuperview INSView) {
 // window, passing `nil` for the `newWindow` parameter. AppKit does not
 // necessarily call this method when closing a window, though. Closing a
 // window usually just hides the window. Closed windows are deallocated only
-// if their [ReleasedWhenClosed] method returns true.
+// if their [NSWindow.ReleasedWhenClosed] method returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/viewWillMove(toWindow:)
 func (v NSView) ViewWillMoveToWindow(newWindow INSWindow) {
@@ -4250,25 +4285,26 @@ func (v NSView) ViewWillMoveToWindow(newWindow INSWindow) {
 //
 // # Discussion
 //
-// In the simple case, a view is sent [ViewWillStartLiveResize] before the
-// first resize operation on the containing window and [ViewDidEndLiveResize]
-// after the last resize operation. A view that is repeatedly added and
-// removed from a window during live resize will receive only one
-// [ViewWillStartLiveResize] (on the first time it is added to the window) and
-// one [ViewDidEndLiveResize] (when the window has completed the live resize
-// operation). This allows a superview such as [NSBrowser] object to add and
-// remove its [NSMatrix] subviews during live resize without the [NSMatrix]
-// object receiving multiple calls to these methods.
+// In the simple case, a view is sent [NSView.ViewWillStartLiveResize] before
+// the first resize operation on the containing window and
+// [NSView.ViewDidEndLiveResize] after the last resize operation. A view that
+// is repeatedly added and removed from a window during live resize will
+// receive only one [NSView.ViewWillStartLiveResize] (on the first time it is
+// added to the window) and one [NSView.ViewDidEndLiveResize] (when the window
+// has completed the live resize operation). This allows a superview such as
+// [NSBrowser] object to add and remove its [NSMatrix] subviews during live
+// resize without the [NSMatrix] object receiving multiple calls to these
+// methods.
 //
 // A view might allocate data structures to cache-drawing information in
-// [ViewWillStartLiveResize] and should clean up these data structures in
-// [ViewDidEndLiveResize]. In addition, a view that does optimized drawing
-// during live resize might need to do full drawing after
-// [ViewDidEndLiveResize]. However, you should not assume that a view has a
-// drawing context in [ViewDidEndLiveResize] (since it may have been removed
-// from the window during live resize). A view that needs to redraw itself
-// after live resize should set its [NeedsDisplay] property to true in
-// [ViewDidEndLiveResize].
+// [NSView.ViewWillStartLiveResize] and should clean up these data structures
+// in [NSView.ViewDidEndLiveResize]. In addition, a view that does optimized
+// drawing during live resize might need to do full drawing after
+// [NSView.ViewDidEndLiveResize]. However, you should not assume that a view
+// has a drawing context in [NSView.ViewDidEndLiveResize] (since it may have
+// been removed from the window during live resize). A view that needs to
+// redraw itself after live resize should set its [NSView.NeedsDisplay]
+// property to true in [NSView.ViewDidEndLiveResize].
 //
 // A view subclass should call `super` from these methods.
 //
@@ -4334,9 +4370,9 @@ func (v NSView) WillOpenMenuWithEvent(menu INSMenu, event INSEvent) {
 //
 // # Discussion
 //
-// This method is invoked when `subview` receives a [RemoveFromSuperview]
-// message or `subview` is removed from the view due to it being added to
-// another view with [AddSubview].
+// This method is invoked when `subview` receives a
+// [NSView.RemoveFromSuperview] message or `subview` is removed from the view
+// due to it being added to another view with [NSView.AddSubview].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/willRemoveSubview(_:)
 func (v NSView) WillRemoveSubview(subview INSView) {
@@ -4466,8 +4502,9 @@ func (v NSView) SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets) {
 // frame.
 //
 // Custom views whose content location can’t be expressed by a simple set of
-// insets should override [AlignmentRectForFrame] and [FrameForAlignmentRect]
-// to describe their custom transform between alignment rectangle and frame.
+// insets should override [NSView.AlignmentRectForFrame] and
+// [NSView.FrameForAlignmentRect] to describe their custom transform between
+// alignment rectangle and frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/alignmentRectInsets
 //
@@ -4532,7 +4569,7 @@ func (v NSView) SetAlphaValue(value float64) {
 // # Discussion
 //
 // When the value of this property is true and the view’s frame changes, the
-// view automatically calls the [ResizeSubviewsWithOldSize] method to
+// view automatically calls the [NSView.ResizeSubviewsWithOldSize] method to
 // facilitate the resizing of its subviews. When the value of this property is
 // false, the view does not autoresize its subviews.
 //
@@ -4554,11 +4591,12 @@ func (v NSView) SetAutoresizesSubviews(value bool) {
 //
 // The value of this property is an integer bit mask specified by combining
 // the options described in [NSView.AutoresizingMask]. This mask is used by
-// the [ResizeWithOldSuperviewSize] method when the view needs to be resized.
+// the [NSView.ResizeWithOldSuperviewSize] method when the view needs to be
+// resized.
 //
 // If the autoresizing mask is set to [NSViewNotSizable] (that is, if none of
 // the options are set), the view does not resize at all. When more than one
-// option along an axis is set, the [ResizeWithOldSuperviewSize] method
+// option along an axis is set, the [NSView.ResizeWithOldSuperviewSize] method
 // distributes the size difference as evenly as possible among the flexible
 // portions. For example, if [NSViewWidthSizable] and [NSViewMaxXMargin] are
 // set and the superview’s width has increased by `10.0` points, the
@@ -4651,10 +4689,10 @@ func (v NSView) BottomAnchor() INSLayoutYAxisAnchor {
 // property saves the rectangle you set. If you add a rotation factor to the
 // view, however, that factor is also reflected in the returned bounds
 // rectangle. You can determine if a rotation factor is in effect by getting
-// the value of the [BoundsRotation] property.
+// the value of the [NSView.BoundsRotation] property.
 //
 // Changing the bounds does not mark the view as needing to be displayed. Set
-// the [NeedsDisplay] property to true when you want the view to be
+// the [NSView.NeedsDisplay] property to true when you want the view to be
 // redisplayed. After changing the bounds rectangle, the view creates an
 // internal transform, a tool for manipulating coordinates, (or appends these
 // changes to an existing internal transform) to convert from frame
@@ -4664,13 +4702,14 @@ func (v NSView) BottomAnchor() INSLayoutYAxisAnchor {
 // skewed. For more information, see [View Coordinates].
 //
 // Changing the value of this property results in the posting of an
-// [BoundsDidChangeNotification] to the default notification center if the
+// [boundsDidChangeNotification] to the default notification center if the
 // view is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/bounds
 //
 // [NSOpenGLContext]: https://developer.apple.com/documentation/AppKit/NSOpenGLContext
 // [View Coordinates]: https://developer.apple.com/documentation/AppKit/view-coordinates
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
@@ -4689,7 +4728,8 @@ func (v NSView) SetBounds(value corefoundation.CGRect) {
 // system origin, (0.0, 0.0), which need not coincide with that of the frame
 // rectangle or the bounds rectangle. Changing the value of this property
 // neither redisplays the view nor marks it as needing display. Set the
-// [NeedsDisplay] property to true when you want the view to be redisplayed.
+// [NSView.NeedsDisplay] property to true when you want the view to be
+// redisplayed.
 //
 // Bounds rotation affects the orientation of the drawing within the view
 // object’s frame rectangle, but not the orientation of the frame rectangle
@@ -4698,7 +4738,7 @@ func (v NSView) SetBounds(value corefoundation.CGRect) {
 // rectangle—it must also contain some areas that aren’t visible. This can
 // cause unnecessary drawing to be requested, which may affect performance. It
 // may be better in many cases to rotate the coordinate system in the
-// [DrawRect] method rather than use this method.
+// [NSView.DrawRect] method rather than use this method.
 //
 // After changing the value of this property, the view creates an internal
 // transform (or appends these changes to an existing internal transform) to
@@ -4708,10 +4748,12 @@ func (v NSView) SetBounds(value corefoundation.CGRect) {
 // appear skewed.
 //
 // Changing the value of this property results in the posting of an
-// [BoundsDidChangeNotification] to the default notification center if the
+// [boundsDidChangeNotification] to the default notification center if the
 // view is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/boundsRotation
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) BoundsRotation() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("boundsRotation"))
 	return rv
@@ -4727,7 +4769,7 @@ func (v NSView) SetBoundsRotation(value float64) {
 // When the value of this property is true, the view can become the key view.
 // In order to become the key view, the view must be visible, it must be
 // installed in a window that supports keyboard entry, and the view’s
-// [AcceptsFirstResponder] method must return true.
+// [NSResponder.AcceptsFirstResponder] method must return true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/canBecomeKeyView
 func (v NSView) CanBecomeKeyView() bool {
@@ -4740,12 +4782,12 @@ func (v NSView) CanBecomeKeyView() bool {
 //
 // # Discussion
 //
-// If your view’s [DrawRect] implementation can draw safely on a background
-// thread, set this property to true. Doing so gives AppKit the ability to run
-// your view’s drawing code off the app’s main thread, which can improve
-// performance. The view’s window must also have its
-// [AllowsConcurrentViewDrawing] property set to true (the default) for
-// threaded view drawing to occur.
+// If your view’s [NSView.DrawRect] implementation can draw safely on a
+// background thread, set this property to true. Doing so gives AppKit the
+// ability to run your view’s drawing code off the app’s main thread,
+// which can improve performance. The view’s window must also have its
+// [NSWindow.AllowsConcurrentViewDrawing] property set to true (the default)
+// for threaded view drawing to occur.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/canDrawConcurrently
 func (v NSView) CanDrawConcurrently() bool {
@@ -4763,12 +4805,13 @@ func (v NSView) SetCanDrawConcurrently(value bool) {
 //
 // When the value of this property is true, any subviews that have an
 // implicitly created layer—that is, layers for which you did not explicitly
-// set the [WantsLayer] property to true—draw their contents into the
+// set the [NSView.WantsLayer] property to true—draw their contents into the
 // current view’s layer. In other words, the subviews do not get a layer of
 // their own. Instead, they draw their content into the parent view’s layer.
 // All views involved in the operation draw their content using their
-// [DrawRect] method. They do not use the [UpdateLayer] method to update their
-// layer contents, even if the [WantsUpdateLayer] property is set to true.
+// [NSView.DrawRect] method. They do not use the [NSView.UpdateLayer] method
+// to update their layer contents, even if the [NSView.WantsUpdateLayer]
+// property is set to true.
 //
 // Use this property to flatten the layer hierarchy for a layer-backed view
 // and its subviews. Flattening a layer hierarchy reduces the number of layers
@@ -4840,8 +4883,9 @@ func (v NSView) CenterYAnchor() INSLayoutYAxisAnchor {
 // Setting this value to true causes the view, and its subviews, to clip
 // themselves to the bounds of the view. Setting it to false prevents views
 // and subviews whose frames extend beyond the visible bounds of the view from
-// clipping themselves. A value of false has no effect on [HitTest] but does
-// affect [VisibleRect], as well as the area drawn inside [DrawRect].
+// clipping themselves. A value of false has no effect on [NSView.HitTest] but
+// does affect [NSView.VisibleRect], as well as the area drawn inside
+// [NSView.DrawRect].
 //
 // By default this value is false. In macOS 13 and earlier, the default value
 // is true.
@@ -4852,18 +4896,19 @@ func (v NSView) CenterYAnchor() INSLayoutYAxisAnchor {
 //
 // - Showing or hiding UI elements by setting a parent’s frame size to zero.
 // To hide a view hierarchy by shrinking the parent view, or positioning a
-// child view outside a parent’s bounds, set the [ClipsToBounds] property of
-// the parent view to true. Alternatively, set [Hidden] to true on the parent
-// view instead. - Filling the `dirtyRect` of a view inside [DrawRect]. It’s
-// a common practice to set the background color on a view by calling
-// [SetFill] on a background color and then calling [fill(using:)] on the
-// `dirtyRect` parameter passed into an override of [DrawRect]. Because the
-// `dirtyRect` now extends outside your view’s bounds, call [fill(using:)]
-// on the view’s bounds instead of the `dirtyRect`, or set the view’s
-// [ClipsToBounds] to true. - Differentiating a view’s bounds from its
-// `dirtyRect`. Use the `dirtyRect` parameter passed to [DrawRect] to
-// determine what to draw, not where to draw it. Use the view’s [Bounds] to
-// determine the layout of what your view draws.
+// child view outside a parent’s bounds, set the [NSView.ClipsToBounds]
+// property of the parent view to true. Alternatively, set [NSView.Hidden] to
+// true on the parent view instead. - Filling the `dirtyRect` of a view inside
+// [NSView.DrawRect]. It’s a common practice to set the background color on
+// a view by calling [NSColor.SetFill] on a background color and then calling
+// [fill(using:)] on the `dirtyRect` parameter passed into an override of
+// [NSView.DrawRect]. Because the `dirtyRect` now extends outside your
+// view’s bounds, call [fill(using:)] on the view’s bounds instead of the
+// `dirtyRect`, or set the view’s [NSView.ClipsToBounds] to true. -
+// Differentiating a view’s bounds from its `dirtyRect`. Use the `dirtyRect`
+// parameter passed to [NSView.DrawRect] to determine what to draw, not where
+// to draw it. Use the view’s [NSView.Bounds] to determine the layout of
+// what your view draws.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/clipsToBounds
 //
@@ -5091,16 +5136,18 @@ func (v NSView) FocusRingMaskBounds() corefoundation.CGRect {
 //
 // Changing the value in this property does not cause the view to draw the
 // actual focus ring. You are responsible for drawing the focus ring in your
-// view’s [DrawRect] method whenever your view is made the first responder.
+// view’s [NSView.DrawRect] method whenever your view is made the first
+// responder.
 //
 // To ensure the correct redrawing of focus rings, note that AppKit may
 // automatically draw parts of a window in addition to those that are marked
 // as needing display. For example, AppKit may redraw parts of the first
-// responder view in an app’s key window, if that view’s [FocusRingType]
-// property is set to a value other than [NSFocusRingTypeNone]. If your view
-// can become first responder, but doesn’t draw a focus ring, set
-// [FocusRingType] to [NSFocusRingTypeNone] to prevent AppKit from
-// unnecessarily redrawing the view’s focus ring.
+// responder view in an app’s key window, if that view’s
+// [NSView.FocusRingType] property is set to a value other than
+// [NSFocusRingTypeNone]. If your view can become first responder, but
+// doesn’t draw a focus ring, set [NSView.FocusRingType] to
+// [NSFocusRingTypeNone] to prevent AppKit from unnecessarily redrawing the
+// view’s focus ring.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/focusRingType
 //
@@ -5120,26 +5167,29 @@ func (v NSView) SetFocusRingType(value NSFocusRingType) {
 //
 // Changing the value of this property repositions and resizes the view within
 // the coordinate system of its superview. Changing the frame does not mark
-// the view as needing to be displayed. Set the [NeedsDisplay] property to
-// true when you want the view to be redisplayed.
+// the view as needing to be displayed. Set the [NSView.NeedsDisplay] property
+// to true when you want the view to be redisplayed.
 //
 // If your view does not use a custom bounds rectangle, this method also sets
 // the view’s bounds to match the size of the new frame. You can specify a
-// custom bounds rectangle by changing the [Bounds] property or by calling the
-// [SetBoundsOrigin] or [SetBoundsSize] method explicitly. Once set, the view
-// creates an internal transform to convert from frame coordinates to bounds
-// coordinates. As long as the width-to-height ratio of the two coordinate
-// systems remains the same, your content appears normal. If the ratios
-// differ, your content may appear skewed.
+// custom bounds rectangle by changing the [NSView.Bounds] property or by
+// calling the [NSView.SetBoundsOrigin] or [NSView.SetBoundsSize] method
+// explicitly. Once set, the view creates an internal transform to convert
+// from frame coordinates to bounds coordinates. As long as the
+// width-to-height ratio of the two coordinate systems remains the same, your
+// content appears normal. If the ratios differ, your content may appear
+// skewed.
 //
 // The frame rectangle may be rotated relative to its superview’s coordinate
-// system. For more information, see the [FrameRotation] property.
+// system. For more information, see the [NSView.FrameRotation] property.
 //
 // Changing the value of this property results in the posting of an
-// [FrameDidChangeNotification] to the default notification center if the view
+// [frameDidChangeNotification] to the default notification center if the view
 // is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/frame
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (v NSView) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
@@ -5175,14 +5225,16 @@ func (v NSView) SetFrameCenterRotation(value float64) {
 // Positive values indicate counterclockwise rotation. Negative values
 // indicate clockwise rotation. Rotation is performed around the origin of the
 // frame rectangle. Changing the value of this property does not mark the view
-// as needing to be displayed. Set the [NeedsDisplay] property to true when
-// you want the view to be redisplayed.
+// as needing to be displayed. Set the [NSView.NeedsDisplay] property to true
+// when you want the view to be redisplayed.
 //
 // Changing the frame rotation value results in the posting of an
-// [FrameDidChangeNotification] to the default notification center if the view
+// [frameDidChangeNotification] to the default notification center if the view
 // is configured to do so.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/frameRotation
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (v NSView) FrameRotation() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("frameRotation"))
 	return rv
@@ -5223,7 +5275,7 @@ func (v NSView) SetGestureRecognizers(value []NSGestureRecognizer) {
 // process involves laying out the view, accessing the property can be an
 // expensive operation but it can also provide useful debugging information.
 // AppKit automatically calls this method when a window is asked to visualize
-// its constraints using the [VisualizeConstraints] method.
+// its constraints using the [NSWindow.VisualizeConstraints] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/hasAmbiguousLayout
 func (v NSView) HasAmbiguousLayout() bool {
@@ -5239,7 +5291,7 @@ func (v NSView) HasAmbiguousLayout() bool {
 //
 // The value of this property is a floating point number in the range `0.0` to
 // `1.0`. This fraction is used to calculate the bottom edge limit for an
-// [AdjustPageHeightNewTopBottomLimit] message.
+// [NSView.AdjustPageHeightNewTopBottomLimit] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/heightAdjustLimit
 func (v NSView) HeightAdjustLimit() float64 {
@@ -5274,7 +5326,7 @@ func (v NSView) HeightAnchor() INSLayoutDimension {
 // view hierarchy. Thus, if the view has a hidden ancestor, the value of this
 // property may still be false even though the view itself is not visible. To
 // determine whether a view is effectively hidden, for whatever reason, get
-// the value of the [HiddenOrHasHiddenAncestor] property instead.
+// the value of the [NSView.HiddenOrHasHiddenAncestor] property instead.
 //
 // A hidden view disappears from its window and does not receive input events.
 // It remains in its superview’s list of subviews, however, and participates
@@ -5286,9 +5338,9 @@ func (v NSView) HeightAnchor() INSLayoutDimension {
 // property.
 //
 // Hiding the view that is the window’s current first responder causes the
-// view’s next valid key view ([NextValidKeyView]) to become the new first
-// responder. A hidden view remains in the [NextKeyView] chain of views it was
-// previously part of, but is ignored during keyboard navigation.
+// view’s next valid key view ([NSView.NextValidKeyView]) to become the new
+// first responder. A hidden view remains in the [NSView.NextKeyView] chain of
+// views it was previously part of, but is ignored during keyboard navigation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isHidden
 func (v NSView) IsHidden() bool {
@@ -5304,12 +5356,12 @@ func (v NSView) SetHidden(value bool) {
 //
 // # Discussion
 //
-// The value of this property is true if the value of the [Hidden] property is
-// true for the current view or any of its ancestors in the view hierarchy.
-// This property does not account for other reasons why a view might be
-// considered hidden, such as being positioned outside its superview’s
-// bounds, not having a window, or residing in a window that is offscreen or
-// overlapped by another window.
+// The value of this property is true if the value of the [NSView.Hidden]
+// property is true for the current view or any of its ancestors in the view
+// hierarchy. This property does not account for other reasons why a view
+// might be considered hidden, such as being positioned outside its
+// superview’s bounds, not having a window, or residing in a window that is
+// offscreen or overlapped by another window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isHiddenOrHasHiddenAncestor
 func (v NSView) IsHiddenOrHasHiddenAncestor() bool {
@@ -5357,7 +5409,7 @@ func (v NSView) IsInFullScreenMode() bool {
 // AppKit sets the value of this property to true when a live resizing
 // operation involving the view is underway. Use this property to determine
 // when to optimize your view’s drawing behavior. Typically, you access this
-// property from your [DrawRect] method and use the value to change the
+// property from your [NSView.DrawRect] method and use the value to change the
 // fidelity of the content you draw, or to draw your content more efficiently.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/inLiveResize
@@ -5467,18 +5519,19 @@ func (v NSView) SetLayer(value quartzcore.CALayer) {
 //
 // The content placement determines how the backing layer’s existing cached
 // content image will be mapped into the layer as the layer is resized. It is
-// analogous to, and underpinned by, the [ContentsGravity] property of the
+// analogous to, and underpinned by, the [contentsGravity] property of the
 // [CALayer] class. The default value of this property is
 // [NSViewLayerContentsPlacementScaleAxesIndependently]. For a list of
 // supported values, see [NSView.LayerContentsPlacement].
 //
 // For additional information about the performance impacts of this property,
-// see the [LayerContentsRedrawPolicy] property.
+// see the [NSView.LayerContentsRedrawPolicy] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/layerContentsPlacement-swift.property
 //
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [NSView.LayerContentsPlacement]: https://developer.apple.com/documentation/AppKit/NSView/LayerContentsPlacement-swift.enum
+// [contentsGravity]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsGravity
 func (v NSView) LayerContentsPlacement() NSViewLayerContentsPlacement {
 	rv := objc.Send[NSViewLayerContentsPlacement](v.ID, objc.Sel("layerContentsPlacement"))
 	return NSViewLayerContentsPlacement(rv)
@@ -5491,34 +5544,38 @@ func (v NSView) SetLayerContentsPlacement(value NSViewLayerContentsPlacement) {
 //
 // # Discussion
 //
-// The [LayerContentsRedrawPolicy] and [LayerContentsPlacement] settings can
-// have significant impacts on performance. If you do not need to redraw your
-// view during each frame update cycle, or if you are willing to accept an
-// approximation of the view’s intermediate appearance during potentially
-// brief animations in exchange for an animation performance and smoothness
-// benefit, you can change the value of this property to one of the modes that
-// does not require constant redrawing. When you do so, you must also specify
-// the desired layer content placement for the view. The content placement
-// determines how the backing layer’s existing cached content image will be
-// mapped into the layer as the layer is resized. It is analogous to, and
-// underpinned by, the [ContentsGravity] property of the [CALayer] class.
+// The [NSView.LayerContentsRedrawPolicy] and [NSView.LayerContentsPlacement]
+// settings can have significant impacts on performance. If you do not need to
+// redraw your view during each frame update cycle, or if you are willing to
+// accept an approximation of the view’s intermediate appearance during
+// potentially brief animations in exchange for an animation performance and
+// smoothness benefit, you can change the value of this property to one of the
+// modes that does not require constant redrawing. When you do so, you must
+// also specify the desired layer content placement for the view. The content
+// placement determines how the backing layer’s existing cached content
+// image will be mapped into the layer as the layer is resized. It is
+// analogous to, and underpinned by, the [contentsGravity] property of the
+// [CALayer] class.
 //
 // For a view that has no associated layer, or that has been assigned a
-// developer-provided layer (a layer-hosting view) using the [Layer] property,
-// the default contents redraw policy is [NSViewLayerContentsRedrawNever] and
-// the [LayerContentsPlacement] property is set to
-// [NSViewLayerContentsPlacementScaleAxesIndependently]. These policies tell
-// AppKit not to replace the layer’s content and to provide the same content
-// placement as the [Resize] option.For a layer-backed view—that is, a view
-// for which AppKit created the layer—AppKit sets the contents redraw policy
-// to [NSViewLayerContentsRedrawDuringViewResize] by default. This policy
-// forces the view’s content to be continually redrawn into the view’s
-// backing layer during animated resizing of the view, which produces correct
-// but not optimal performance results.
+// developer-provided layer (a layer-hosting view) using the [NSView.Layer]
+// property, the default contents redraw policy is
+// [NSViewLayerContentsRedrawNever] and the [NSView.LayerContentsPlacement]
+// property is set to [NSViewLayerContentsPlacementScaleAxesIndependently].
+// These policies tell AppKit not to replace the layer’s content and to
+// provide the same content placement as the [resize] option.For a
+// layer-backed view—that is, a view for which AppKit created the
+// layer—AppKit sets the contents redraw policy to
+// [NSViewLayerContentsRedrawDuringViewResize] by default. This policy forces
+// the view’s content to be continually redrawn into the view’s backing
+// layer during animated resizing of the view, which produces correct but not
+// optimal performance results.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/layerContentsRedrawPolicy-swift.property
 //
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
+// [contentsGravity]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsGravity
+// [resize]: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resize
 func (v NSView) LayerContentsRedrawPolicy() NSViewLayerContentsRedrawPolicy {
 	rv := objc.Send[NSViewLayerContentsRedrawPolicy](v.ID, objc.Sel("layerContentsRedrawPolicy"))
 	return NSViewLayerContentsRedrawPolicy(rv)
@@ -5542,10 +5599,10 @@ func (v NSView) SetLayerContentsRedrawPolicy(value NSViewLayerContentsRedrawPoli
 // layer triggers an exception.
 //
 // You do not need to modify this property if you assigned the filters using
-// the [BackgroundFilters], [CompositingFilter], or [ContentFilters]
-// properties of the view. Those methods automatically let AppKit know that it
-// needs to render the layer hierarchy in-process. Set it only if you set the
-// filters on the layer directly.
+// the [NSView.BackgroundFilters], [NSView.CompositingFilter], or
+// [NSView.ContentFilters] properties of the view. Those methods automatically
+// let AppKit know that it needs to render the layer hierarchy in-process. Set
+// it only if you set the filters on the layer directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/layerUsesCoreImageFilters
 func (v NSView) LayerUsesCoreImageFilters() bool {
@@ -5671,11 +5728,11 @@ func (v NSView) SetNeedsDisplay(value bool) {
 // # Discussion
 //
 // You only ever need to change the value of this property if your view
-// implements the [Layout] method because it has custom layout that is not
-// expressible in the constraint-based layout system. Setting this property to
-// true lets the system know that the view’s layout needs to be updated
-// before it is drawn. The system checks the value of this property prior to
-// applying constraint-based layout rules for the view.
+// implements the [NSView.Layout] method because it has custom layout that is
+// not expressible in the constraint-based layout system. Setting this
+// property to true lets the system know that the view’s layout needs to be
+// updated before it is drawn. The system checks the value of this property
+// prior to applying constraint-based layout rules for the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/needsLayout
 func (v NSView) NeedsLayout() bool {
@@ -5694,8 +5751,8 @@ func (v NSView) SetNeedsLayout(value bool) {
 // The default value of this property is false. Subclasses can override this
 // property and use their implementation to determine if the view requires its
 // panel to become the key window so that it can handle keyboard input and
-// navigation. Such a subclass should also override [AcceptsFirstResponder] to
-// return true.
+// navigation. Such a subclass should also override
+// [NSResponder.AcceptsFirstResponder] to return true.
 //
 // This property is also used in keyboard navigation. It determines if a mouse
 // click should give focus to a view—that is, make it the first responder).
@@ -5721,9 +5778,9 @@ func (v NSView) NeedsPanelToBecomeKey() bool {
 // constraints need to be updated at some point in the future. The next time
 // the layout process happens, the constraint-based layout system uses the
 // value of this property to determine whether it needs to call
-// [UpdateConstraints] on the view. Use this as an optimization tool to batch
-// constraint changes. Updating constraints all at once just before they are
-// needed ensures that you don’t needlessly recalculate constraints when
+// [NSView.UpdateConstraints] on the view. Use this as an optimization tool to
+// batch constraint changes. Updating constraints all at once just before they
+// are needed ensures that you don’t needlessly recalculate constraints when
 // multiple changes are made to your view in between layout passes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/needsUpdateConstraints
@@ -5842,23 +5899,26 @@ func (v NSView) PageHeader() foundation.NSAttributedString {
 // # Discussion
 //
 // When the value of this property is true and the view’s bounds rectangle
-// changes to a new value, the view posts a [BoundsDidChangeNotification] to
+// changes to a new value, the view posts a [boundsDidChangeNotification] to
 // the default notification center. The notification is not posted when you
 // set the bounds rectangle to the value it already has. The default value of
 // this property is true.
 //
 // If the value of this property is currently false and the bounds have
 // changed, changing the value to true causes the view to post a
-// [BoundsDidChangeNotification] notification immediately. This happens even
+// [boundsDidChangeNotification] notification immediately. This happens even
 // when there has been no net change in the view’s bounds rectangle.
 //
 // The following methods and properties can trigger a frame change
 // notification:
 //
-// - [Bounds] - [SetBoundsOrigin] - [SetBoundsSize] - [BoundsRotation] -
-// [TranslateOriginToPoint] - [ScaleUnitSquareToSize] - [RotateByAngle]
+// - [NSView.Bounds] - [NSView.SetBoundsOrigin] - [NSView.SetBoundsSize] -
+// [NSView.BoundsRotation] - [NSView.TranslateOriginToPoint] -
+// [NSView.ScaleUnitSquareToSize] - [NSView.RotateByAngle]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/postsBoundsChangedNotifications
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
 func (v NSView) PostsBoundsChangedNotifications() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("postsBoundsChangedNotifications"))
 	return rv
@@ -5873,25 +5933,25 @@ func (v NSView) SetPostsBoundsChangedNotifications(value bool) {
 // # Discussion
 //
 // When the value of this property is true and the view’s frame rectangle
-// changes to a new value, the view posts a [FrameDidChangeNotification] to
+// changes to a new value, the view posts a [frameDidChangeNotification] to
 // the default notification center. The notification is not posted when you
 // set the frame rectangle to the value it already has. The default value of
 // this property is true.
 //
 // If the value of this property is currently false and and the frame has
 // changed, changing the value to true causes the view to post a
-// [FrameDidChangeNotification] notification immediately. This happens even
+// [frameDidChangeNotification] notification immediately. This happens even
 // when there has been no net change in the view’s frame rectangle.
 //
 // The following methods and properties can trigger a frame change
 // notification:
 //
-// - [Frame]
-// - [SetFrameOrigin]
-// - [SetFrameSize]
-// - [FrameRotation]
+// - [NSView.Frame] - [NSView.SetFrameOrigin] - [NSView.SetFrameSize] -
+// [NSView.FrameRotation]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/postsFrameChangedNotifications
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
 func (v NSView) PostsFrameChangedNotifications() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("postsFrameChangedNotifications"))
 	return rv
@@ -5934,8 +5994,8 @@ func (v NSView) SetPreparedContentRect(value corefoundation.CGRect) {
 // preservation, override this property and return true. Content preservation
 // lets your view decide what to redraw during a live resize operation. If
 // your view supports this feature, you should also provide a custom
-// implementation of the [SetFrameSize] method that invalidates the portions
-// of your view that actually need to be redrawn.
+// implementation of the [NSView.SetFrameSize] method that invalidates the
+// portions of your view that actually need to be redrawn.
 //
 // For information on how to implement this feature in your views, see [Cocoa
 // Performance Guidelines].
@@ -6006,7 +6066,7 @@ func (v NSView) PreviousValidKeyView() INSView {
 // # Discussion
 //
 // The default implementation first tries the window’s [NSDocument] display
-// name ([DisplayName]), then the window’s title.
+// name ([NSDocument.DisplayName]), then the window’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/printJobTitle
 func (v NSView) PrintJobTitle() string {
@@ -6026,8 +6086,8 @@ func (v NSView) PrintJobTitle() string {
 //
 // If your view does not support content preservation during live resizing,
 // the rectangle will be empty. To support content preservation, override the
-// [PreservesContentDuringLiveResize] property in your view and have your
-// implementation return true.
+// [NSView.PreservesContentDuringLiveResize] property in your view and have
+// your implementation return true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rectPreservedDuringLiveResize
 func (v NSView) RectPreservedDuringLiveResize() corefoundation.CGRect {
@@ -6043,7 +6103,7 @@ func (v NSView) RectPreservedDuringLiveResize() corefoundation.CGRect {
 // corresponds to a [Uniform Type Identifier]. The array elements are in no
 // particular order, but the array is guaranteed not to contain duplicate
 // entries. To register your view’s drag types, use the
-// [RegisterForDraggedTypes] method.
+// [NSView.RegisterForDraggedTypes] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/registeredDraggedTypes
 //
@@ -6079,9 +6139,9 @@ func (v NSView) RightAnchor() INSLayoutXAxisAnchor {
 // # Discussion
 //
 // The value of this property is true if the view or any of its ancestors has
-// had its [FrameRotation] or [BoundsRotation] properties modified at any
-// time. The value is still true if the rotation factor is changed to a
-// nonzero value and then back to 0.
+// had its [NSView.FrameRotation] or [NSView.BoundsRotation] properties
+// modified at any time. The value is still true if the rotation factor is
+// changed to a nonzero value and then back to 0.
 //
 // Use this information to optimize drawing and coordinate calculation. Do not
 // use it to reflect the exact state of the view’s coordinate system.
@@ -6099,9 +6159,9 @@ func (v NSView) IsRotatedFromBase() bool {
 // # Discussion
 //
 // The value of this property is true if the view or any of its ancestors has
-// had its [FrameRotation] or [BoundsRotation] properties modified at any
-// time. The value is still true if the rotation factor is changed to a
-// nonzero value and then back to 0.
+// had its [NSView.FrameRotation] or [NSView.BoundsRotation] properties
+// modified at any time. The value is still true if the rotation factor is
+// changed to a nonzero value and then back to 0.
 //
 // Use this information to optimize drawing and coordinate calculation. Do not
 // use it to reflect the exact state of the view’s coordinate system.
@@ -6119,9 +6179,9 @@ func (v NSView) IsRotatedOrScaledFromBase() bool {
 // A view’s safe area reflects the portion of the view not covered by the
 // window’s title bar or any ancestor views. This property reflects the
 // superview’s safe area plus any additional insets you specify in the
-// [AdditionalSafeAreaInsets] property. If the view is not currently installed
-// in a view hierarchy, or is not yet visible onscreen, the insets in this
-// property are `0`.
+// [NSView.AdditionalSafeAreaInsets] property. If the view is not currently
+// installed in a view hierarchy, or is not yet visible onscreen, the insets
+// in this property are `0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/safeAreaInsets
 func (v NSView) SafeAreaInsets() foundation.NSEdgeInsets {
@@ -6216,12 +6276,12 @@ func (v NSView) SetShadow(value INSShadow) {
 // subviews en masse, replace all of the view’s subviews with a new set of
 // subviews, or remove all the view’s subviews. When you assign a valid, new
 // array of subviews, the system performs required sorting and sends
-// [AddSubview] and [RemoveFromSuperview] messages as necessary to leave the
-// property with the requested new array. Any member of the new array that
-// isn’t already a subview of the view is added. Any member of the view’s
-// existing `subviews` array that isn’t in the new array is removed. Any
-// views that are in both [Subviews] and the new array are moved in the
-// subviews array as needed, without being removed and re-added.
+// [NSView.AddSubview] and [NSView.RemoveFromSuperview] messages as necessary
+// to leave the property with the requested new array. Any member of the new
+// array that isn’t already a subview of the view is added. Any member of
+// the view’s existing `subviews` array that isn’t in the new array is
+// removed. Any views that are in both [NSView.Subviews] and the new array are
+// moved in the subviews array as needed, without being removed and re-added.
 //
 // This property marks the affected view and window areas as needing display.
 //
@@ -6242,8 +6302,8 @@ func (v NSView) SetSubviews(value []NSView) {
 //
 // The superview is the immediate ancestor of the current view. The value of
 // this property is `nil` when the view is not installed in a view hierarchy.
-// To set the value of this property, use the [AddSubview] method to embed the
-// current view inside another view.
+// To set the value of this property, use the [NSView.AddSubview] method to
+// embed the current view inside another view.
 //
 // When checking the value of this property iteratively or recursively, be
 // sure to compare the superview object to the content view of the window to
@@ -6371,10 +6431,10 @@ func (v NSView) SetTranslatesAutoresizingMaskIntoConstraints(value bool) {
 //
 // In macOS 10.9 and later, if no layout direction is set explicitly, this
 // property contains the value reported by the app’s
-// [UserInterfaceLayoutDirection] property. In prior versions of macOS, it
-// returns the value [NSUserInterfaceLayoutDirectionLeftToRight] by default.
-// Certain AppKit subclasses, such as [NSOutlineView], respect the value
-// returned by this method and adjust their layout accordingly.
+// [NSApplication.UserInterfaceLayoutDirection] property. In prior versions of
+// macOS, it returns the value [NSUserInterfaceLayoutDirectionLeftToRight] by
+// default. Certain AppKit subclasses, such as [NSOutlineView], respect the
+// value returned by this method and adjust their layout accordingly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/userInterfaceLayoutDirection
 func (v NSView) UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection {
@@ -6416,7 +6476,7 @@ func (v NSView) SetVerticalContentSizeConstraintActive(value bool) {
 // During a printing operation the visible rectangle is further clipped to the
 // page being imaged.
 //
-// [ClipsToBounds] affects this property.
+// [NSView.ClipsToBounds] affects this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
 func (v NSView) VisibleRect() corefoundation.CGRect {
@@ -6436,10 +6496,10 @@ func (v NSView) VisibleRect() corefoundation.CGRect {
 //
 // The default value of this property is true. When the value of this property
 // is true, AppKit sets the current clipping region to the bounds of the view
-// prior to calling that view’s [DrawRect] method. Subclasses may override
-// this property and return false to suppress this default clipping behavior.
-// You might do this to avoid the cost of setting up, enforcing, and cleaning
-// up the clipping path. If you do change the value to false, you are
+// prior to calling that view’s [NSView.DrawRect] method. Subclasses may
+// override this property and return false to suppress this default clipping
+// behavior. You might do this to avoid the cost of setting up, enforcing, and
+// cleaning up the clipping path. If you do change the value to false, you are
 // responsible for doing your own clipping or constraining drawing
 // appropriately. Failure to do so could the view to corrupt the contents of
 // other views in the window.
@@ -6466,29 +6526,29 @@ func (v NSView) WantsDefaultClipping() bool {
 // underlying layer object. This cached content can then be manipulated in
 // ways that are more performant than redrawing the view contents explicitly.
 // AppKit automatically creates the underlying layer object (using the
-// [BackingLayer] method) and handles the caching of the view’s content. If
-// the [WantsUpdateLayer] method returns false, you should not interact with
-// the underlying layer object directly. Instead, use the methods of this
-// class to make any changes to the view and its layer. If [WantsUpdateLayer]
-// returns true, it is acceptable (and appropriate) to modify the layer in the
-// view’s [UpdateLayer] method.
+// [NSView.BackingLayer] method) and handles the caching of the view’s
+// content. If the [NSView.WantsUpdateLayer] method returns false, you should
+// not interact with the underlying layer object directly. Instead, use the
+// methods of this class to make any changes to the view and its layer. If
+// [NSView.WantsUpdateLayer] returns true, it is acceptable (and appropriate)
+// to modify the layer in the view’s [NSView.UpdateLayer] method.
 //
 // For layer-backed views, you can flatten the layer hierarchy by setting the
-// [CanDrawSubviewsIntoLayer] property to true. To prevent a subview from
-// having its contents flattened into this view’s layer, explicitly set the
-// value of the subview’s [WantsLayer] property to true.
+// [NSView.CanDrawSubviewsIntoLayer] property to true. To prevent a subview
+// from having its contents flattened into this view’s layer, explicitly set
+// the value of the subview’s [NSView.WantsLayer] property to true.
 //
 // In addition to creating a layer-backed view, you can create a layer-hosting
-// view by assigning a layer directly to the view’s [Layer] property. In a
-// layer-hosting view, you are responsible for managing the view’s layer. To
-// create a layer-hosting view, you must set the [Layer] property first and
-// then set this property to true. The order in which you set the values of
-// these properties is crucial.
+// view by assigning a layer directly to the view’s [NSView.Layer] property.
+// In a layer-hosting view, you are responsible for managing the view’s
+// layer. To create a layer-hosting view, you must set the [NSView.Layer]
+// property first and then set this property to true. The order in which you
+// set the values of these properties is crucial.
 //
 // In a layer-hosting view, do not rely on the view for drawing. Similarly, do
 // not add subviews to a layer-hosting view. The root layer—that is, the
-// layer you set using the [Layer] property—becomes the root layer of the
-// layer tree. Any manipulations of that layer tree must be done using the
+// layer you set using the [NSView.Layer] property—becomes the root layer of
+// the layer tree. Any manipulations of that layer tree must be done using the
 // Core Animation interfaces. You still use the view for handling mouse and
 // keyboard events, but drawing must be handled by Core Animation.
 //
@@ -6532,24 +6592,24 @@ func (v NSView) SetWantsRestingTouches(value bool) {
 // # Discussion
 //
 // A view can update its contents using one of two techniques. It can draw
-// those contents using its [DrawRect] method or it can modify its underlying
-// layer object directly. During the view update cycle, each dirty view calls
-// this method on itself to determine which technique to use. The default
-// implementation of this method returns false, which causes the view to use
-// its [DrawRect] method.
+// those contents using its [NSView.DrawRect] method or it can modify its
+// underlying layer object directly. During the view update cycle, each dirty
+// view calls this method on itself to determine which technique to use. The
+// default implementation of this method returns false, which causes the view
+// to use its [NSView.DrawRect] method.
 //
 // If your view is layer-backed and updates itself by modifying its layer,
 // override this property and change the return value to true. Modifying the
 // layer is significantly faster than redrawing the layer contents using
-// [DrawRect]. If you override this property to be true, you must also
-// override the [UpdateLayer] method of your view and use it to make the
-// changes to your layer. Do not modify your layer in your implementation of
-// this property. Your implementation should return true or false quickly and
-// not perform other tasks.
+// [NSView.DrawRect]. If you override this property to be true, you must also
+// override the [NSView.UpdateLayer] method of your view and use it to make
+// the changes to your layer. Do not modify your layer in your implementation
+// of this property. Your implementation should return true or false quickly
+// and not perform other tasks.
 //
-// If the [CanDrawSubviewsIntoLayer] property is set to true, the view ignores
-// the value returned by this method. Instead, the view always uses its
-// [DrawRect] method to draw its content.
+// If the [NSView.CanDrawSubviewsIntoLayer] property is set to true, the view
+// ignores the value returned by this method. Instead, the view always uses
+// its [NSView.DrawRect] method to draw its content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/wantsUpdateLayer
 func (v NSView) WantsUpdateLayer() bool {
@@ -6565,7 +6625,7 @@ func (v NSView) WantsUpdateLayer() bool {
 //
 // The value of this property is a floating point number in the range `0.0` to
 // `1.0`. This fraction is used to calculate the right edge limit for a
-// [AdjustPageWidthNewLeftRightLimit] message.
+// [NSView.AdjustPageWidthNewLeftRightLimit] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/widthAdjustLimit
 func (v NSView) WidthAdjustLimit() float64 {
@@ -6631,9 +6691,10 @@ func (_NSViewClass NSViewClass) IsCompatibleWithResponsiveScrolling() bool {
 //
 // # Discussion
 //
-// If the value in the [FocusRingType] property is [NSFocusRingTypeDefault],
-// the view can call this class method to find out what type of focus ring is
-// the default. The view is free to ignore the default setting.
+// If the value in the [NSView.FocusRingType] property is
+// [NSFocusRingTypeDefault], the view can call this class method to find out
+// what type of focus ring is the default. The view is free to ignore the
+// default setting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/defaultFocusRingType
 //
@@ -6685,6 +6746,2586 @@ func (_NSViewClass NSViewClass) FocusView() NSView {
 func (_NSViewClass NSViewClass) RequiresConstraintBasedLayout() bool {
 	rv := objc.Send[bool](objc.ID(_NSViewClass.class), objc.Sel("requiresConstraintBasedLayout"))
 	return rv
+}
+
+// Protocol methods for NSAccessibilityElementProtocol
+
+// Returns the accessibility element’s frame in screen coordinates.
+//
+// # Return Value
+//
+// The element’s frame in screen coordinates.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityFrame] property. This method is called whenever accessibility
+// clients request the [size] or [position] attributes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
+//
+// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
+// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
+func (o NSView) AccessibilityFrame() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
+	return rv
+}
+
+// Returns the accessibility element’s parent in the accessibility
+// hierarchy.
+//
+// # Return Value
+//
+// The element’s parent in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityParent] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
+//
+// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+func (o NSView) AccessibilityParent() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
+	return objectivec.Object{ID: rv}
+}
+
+// Returns the accessibility element’s identity.
+//
+// # Return Value
+//
+// Returns the unique ID for the accessibility element. It is often used in
+// automated testing.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityIdentifier] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
+//
+// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+func (o NSView) AccessibilityIdentifier() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns a Boolean value that indicates whether the accessibility element
+// has the keyboard focus.
+//
+// # Return Value
+//
+// true if this element has the keyboard focus; otherwise, false.
+//
+// # Discussion
+//
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityFocused] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
+//
+// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+func (o NSView) IsAccessibilityFocused() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
+	return rv
+}
+
+// Protocol methods for NSAccessibilityProtocol
+
+// Returns a Boolean value that determines whether the accessibility element
+// participates in the accessibility hierarchy.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityElement()
+func (o NSView) IsAccessibilityElement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// responds to user events.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEnabled()
+func (o NSView) IsAccessibilityEnabled() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
+	return rv
+}
+
+// Returns a Boolean value that indicates whether assistive apps can invoke
+// the specified selector on the accessibility element.
+//
+// selector: The selector to check.
+//
+// # Return Value
+//
+// true, if accessibility clients can call the selector; otherwise, false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
+func (o NSView) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelectorAllowed:"), selector)
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// contains protected content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityProtectedContent()
+func (o NSView) IsAccessibilityProtectedContent() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// is currently in a selected state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelected()
+func (o NSView) IsAccessibilitySelected() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// must have content for successful submission of a form.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityRequired()
+func (o NSView) IsAccessibilityRequired() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
+	return rv
+}
+
+// Returns the substring for the specified range.
+//
+// range: A range of characters contained by the element.
+//
+// # Return Value
+//
+// The substring specified by the given range.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityString(for:)
+func (o NSView) AccessibilityStringForRange(range_ foundation.NSRange) string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityStringForRange:"), range_)
+	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns the attributed substring for the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// An attributed string representing the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedString(for:)
+func (o NSView) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
+// Returns the rich text format (RTF) data that describes the specified range
+// of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// A data object containing an RTF representation of the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
+func (o NSView) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRTFForRange:"), range_)
+	return foundation.NSDataFromID(rv)
+}
+
+// Returns the rectangle that encloses the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+//
+// The rectangle that encloses the specified characters.
+//
+// # Discussion
+//
+// If the range crosses a line boundary, the returned rectangle fully encloses
+// all the lines of characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame(for:)
+func (o NSView) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrameForRange:"), range_)
+	return rv
+}
+
+// Returns the line number for the line that contains the specified character
+// index.
+//
+// index: The index for a character.
+//
+// # Return Value
+//
+// The line number for the line holding the specified character index.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLine(for:)
+func (o NSView) AccessibilityLineForIndex(index int) int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityLineForIndex:"), index)
+	return rv
+}
+
+// Returns the range of characters for the glyph that includes the specified
+// character.
+//
+// index: The specified character.
+//
+// # Return Value
+//
+// The range of characters for the glyph.
+//
+// # Discussion
+//
+// This value always includes the specified character but may include
+// additional characters if that character is part of a multicharacter glyph.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-6kv3
+func (o NSView) AccessibilityRangeForIndex(index int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForIndex:"), index)
+	return rv
+}
+
+// Returns a range of characters that all have the same style as the specified
+// character.
+//
+// index: The index of the specified character.
+//
+// # Return Value
+//
+// A range of characters with the same style as the specified character.
+//
+// # Discussion
+//
+// This method returns a range of characters that meet two conditions: The
+// range must include the specified character, and all the other characters in
+// the range must match the specified character’s style. If none of the
+// adjacent characters match the specified character’s style, the method
+// returns only the specified character.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityStyleRange(for:)
+func (o NSView) AccessibilityStyleRangeForIndex(index int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityStyleRangeForIndex:"), index)
+	return rv
+}
+
+// Returns the range of characters in the specified line.
+//
+// line: The line number to be examined.
+//
+// # Return Value
+//
+// The range of characters for the specified line number. If the line ends
+// with a newline character, including the newline is preferred.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(forLine:)
+func (o NSView) AccessibilityRangeForLine(line int) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForLine:"), line)
+	return rv
+}
+
+// Returns the range of characters for the glyph at the specified point.
+//
+// point: A point in screen coordinates.
+//
+// # Return Value
+//
+// The range of characters that make up the glyph at the given point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
+func (o NSView) AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForPosition:"), point)
+	return rv
+}
+
+// Returns the Boolean value that determines whether the accessibility
+// element’s alternative UI is currently visible.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityAlternateUIVisible()
+func (o NSView) IsAccessibilityAlternateUIVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the window is the app’s
+// main window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMain()
+func (o NSView) IsAccessibilityMain() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
+	return rv
+}
+
+// Returns the Boolean value that determines whether the window is in a
+// minimized state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMinimized()
+func (o NSView) IsAccessibilityMinimized() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the window is modal.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
+func (o NSView) IsAccessibilityModal() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the app is the frontmost
+// app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFrontmost()
+func (o NSView) IsAccessibilityFrontmost() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the app is in a hidden
+// state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityHidden()
+func (o NSView) IsAccessibilityHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility
+// element’s grid is in row major order or in column major order.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityOrderedByRow()
+func (o NSView) IsAccessibilityOrderedByRow() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the accessibility element
+// is in an expanded state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityExpanded()
+func (o NSView) IsAccessibilityExpanded() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
+	return rv
+}
+
+// Returns a Boolean value that determines whether the row is disclosing other
+// rows.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityDisclosed()
+func (o NSView) IsAccessibilityDisclosed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
+	return rv
+}
+
+// Returns the cell at the specified column and row.
+//
+// column: The column index.
+//
+// row: The row index.
+//
+// # Return Value
+//
+// The cell specified by the column and row indexes.
+//
+// # Discussion
+//
+// This property is required for all elements that function as cell-based
+// tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCell(forColumn:row:)
+func (o NSView) AccessibilityCellForColumnRow(column int, row int) objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCellForColumn:row:"), column, row)
+	return objectivec.Object{ID: rv}
+}
+
+// Converts the provided point in screen coordinates to a point in the layout
+// area’s coordinate system.
+//
+// point: A point in the screen’s coordinate system.
+//
+// # Return Value
+//
+// A point in the layout area’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutPoint(forScreenPoint:)
+func (o NSView) AccessibilityLayoutPointForScreenPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityLayoutPointForScreenPoint:"), point)
+	return rv
+}
+
+// Converts the provided size in screen coordinates to a size in the layout
+// area’s coordinate system.
+//
+// size: A size in the screen’s coordinate system.
+//
+// # Return Value
+//
+// A size in the layout area’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutSize(forScreenSize:)
+func (o NSView) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityLayoutSizeForScreenSize:"), size)
+	return rv
+}
+
+// Converts the provided point in the layout area’s coordinates to a point
+// in the screen’s coordinate system.
+//
+// point: A point in the layout area’s coordinate system.
+//
+// # Return Value
+//
+// A point in the screen’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenPoint(forLayoutPoint:)
+func (o NSView) AccessibilityScreenPointForLayoutPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityScreenPointForLayoutPoint:"), point)
+	return rv
+}
+
+// Converts the provided size in the layout area’s coordinates to a size in
+// the screen’s coordinate system.
+//
+// size: A size in the layout area’s coordinate system.
+//
+// # Return Value
+//
+// A size in the screen’s coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
+func (o NSView) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityScreenSizeForLayoutSize:"), size)
+	return rv
+}
+
+// Returns a Boolean value that indicates whether the accessibility element is
+// in an edited state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEdited()
+func (o NSView) IsAccessibilityEdited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
+	return rv
+}
+
+// Cancels the current operation.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformCancel()
+func (o NSView) AccessibilityPerformCancel() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformCancel"))
+	return rv
+}
+
+// Simulates pressing Return in the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that take keyboard input, such as a text field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformConfirm()
+func (o NSView) AccessibilityPerformConfirm() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformConfirm"))
+	return rv
+}
+
+// Selects the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on selectable elements, such as a menu item.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPick()
+func (o NSView) AccessibilityPerformPick() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPick"))
+	return rv
+}
+
+// Simulates clicking the accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that behave like buttons.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPress()
+func (o NSView) AccessibilityPerformPress() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
+	return rv
+}
+
+// Displays the accessibility element’s alternative UI.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method to trigger changes to the UI due to a mouse-hover or
+// similar event.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowAlternateUI()
+func (o NSView) AccessibilityPerformShowAlternateUI() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowAlternateUI"))
+	return rv
+}
+
+// Returns to the accessibility element’s original UI.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Call this method after successfully calling
+// [AccessibilityPerformShowAlternateUI] to return to the original UI.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowDefaultUI()
+func (o NSView) AccessibilityPerformShowDefaultUI() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowDefaultUI"))
+	return rv
+}
+
+// Displays the menu accessibility element.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method to display the contextual menu for the element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowMenu()
+func (o NSView) AccessibilityPerformShowMenu() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowMenu"))
+	return rv
+}
+
+// Brings the window to the front.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// The window behaves as if you had clicked on the window’s title bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformRaise()
+func (o NSView) AccessibilityPerformRaise() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformRaise"))
+	return rv
+}
+
+// Increments the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that have an adjustable [accessibilityValue]
+// property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSView) AccessibilityPerformIncrement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
+	return rv
+}
+
+// Decrements the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements that have an adjustable [accessibilityValue]
+// property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDecrement()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSView) AccessibilityPerformDecrement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
+	return rv
+}
+
+// Deletes the accessibility element’s value.
+//
+// # Return Value
+//
+// true if the action was successfully triggered; otherwise, false. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// # Discussion
+//
+// Use this method on elements with values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDelete()
+func (o NSView) AccessibilityPerformDelete() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDelete"))
+	return rv
+}
+
+// The activation point for the user interface element.
+//
+// # Discussion
+//
+// The activation point in screen coordinates.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityActivationPoint
+func (o NSView) AccessibilityActivationPoint() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
+	return corefoundation.CGPoint(rv)
+}
+
+func (o NSView) SetAccessibilityActivationPoint(value corefoundation.CGPoint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), value)
+}
+
+// The allowed values for the slider accessibility element.
+//
+// # Discussion
+//
+// Use this property if the slider can be set only to predefined values (for
+// example, if the slider’s level indicator automatically snaps to the
+// closest integer values between 0 and 100).
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAllowedValues
+func (o NSView) AccessibilityAllowedValues() []foundation.NSNumber {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
+	result := make([]foundation.NSNumber, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSNumberFromID(id)
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilityAllowedValues(value []foundation.NSNumber) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// A Boolean value that determines whether the accessibility element’s
+// alternative UI is currently visible.
+//
+// # Discussion
+//
+// Use this property for elements that present an alternative UI—for
+// example, when the pointer hovers over an interface element for a few
+// seconds.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
+func (o NSView) AccessibilityAlternateUIVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityAlternateUIVisible(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), value)
+}
+
+// The child accessibility element with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityApplicationFocusedUIElement
+func (o NSView) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityApplicationFocusedUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAttributedUserInputLabels
+func (o NSView) AccessibilityAttributedUserInputLabels() []foundation.NSAttributedString {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
+	result := make([]foundation.NSAttributedString, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSAttributedStringFromID(id)
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilityAttributedUserInputLabels(value []foundation.NSAttributedString) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The child accessibility element that represents the window’s cancel
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCancelButton
+func (o NSView) AccessibilityCancelButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityCancelButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), value)
+}
+
+// The child accessibility elements in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property contains references to child elements in the accessibility
+// hierarchy. If you create an [NSView] subclass, you don’t typically need
+// to set this value. The system automatically populates the
+// `accessibilityChildren` property with descendants in the view hierarchy
+// that are also in the accessibility hierarchy. If you use an
+// [NSAccessibilityElement] subclass to represent an interface element that is
+// not backed by a view, you can either set the `accessibilityChildren`
+// property or you can call the
+// [NSAccessibilityElement.AccessibilityAddChildElement] convenience method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSView) AccessibilityChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), value)
+}
+
+// An array of child accessibility elements in order for linear navigation.
+//
+// # Discussion
+//
+// The array should match all elements found in [accessibilityChildren],
+// rearranged in an easily navigable order.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildrenInNavigationOrder
+//
+// [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSView) AccessibilityChildrenInNavigationOrder() []objectivec.IObject {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilityChildrenInNavigationOrder(value []objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The clear button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityClearButton
+func (o NSView) AccessibilityClearButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityClearButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), value)
+}
+
+// The child accessibility element that represents the window’s close
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCloseButton
+func (o NSView) AccessibilityCloseButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityCloseButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), value)
+}
+
+// The number of columns in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnCount
+func (o NSView) AccessibilityColumnCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityColumnCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), value)
+}
+
+// The column header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
+func (o NSView) AccessibilityColumnHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityColumnHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), value)
+}
+
+// The column index range of the cell.
+//
+// # Discussion
+//
+// This property contains the column’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnIndexRange
+func (o NSView) AccessibilityColumnIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSView) SetAccessibilityColumnIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), value)
+}
+
+// The column titles for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnTitles
+func (o NSView) AccessibilityColumnTitles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityColumnTitles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), value)
+}
+
+// The column accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
+func (o NSView) AccessibilityColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), value)
+}
+
+// The contents of the current accessibility element.
+//
+// # Discussion
+//
+// This property is used by container elements. It holds an array of the
+// container’s contents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityContents
+func (o NSView) AccessibilityContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), value)
+}
+
+// The critical value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a critical stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCriticalValue
+func (o NSView) AccessibilityCriticalValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityCriticalValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), value)
+}
+
+// The custom actions of the current accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomActions
+func (o NSView) AccessibilityCustomActions() []NSAccessibilityCustomAction {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
+	result := make([]NSAccessibilityCustomAction, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomActionFromID(id)
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilityCustomActions(value []NSAccessibilityCustomAction) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The custom rotors of the current accessibility element.
+//
+// # Discussion
+//
+// Custom rotors are lists of items of a specific category. For example, a
+// “headings” rotor returns a list of headings a given document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomRotors
+func (o NSView) AccessibilityCustomRotors() []NSAccessibilityCustomRotor {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
+	result := make([]NSAccessibilityCustomRotor, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomRotorFromID(id)
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilityCustomRotors(value []NSAccessibilityCustomRotor) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The decrement button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDecrementButton
+func (o NSView) AccessibilityDecrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityDecrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), value)
+}
+
+// The child accessibility element that represents the window’s default
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDefaultButton
+func (o NSView) AccessibilityDefaultButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityDefaultButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), value)
+}
+
+// A Boolean value that determines whether the row is disclosing other rows.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
+func (o NSView) AccessibilityDisclosed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityDisclosed(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), value)
+}
+
+// The row disclosing the current row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedByRow
+func (o NSView) AccessibilityDisclosedByRow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityDisclosedByRow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), value)
+}
+
+// The rows that the current row discloses.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedRows
+func (o NSView) AccessibilityDisclosedRows() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityDisclosedRows(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), value)
+}
+
+// The indention level for the row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosureLevel
+func (o NSView) AccessibilityDisclosureLevel() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityDisclosureLevel(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), value)
+}
+
+// The URL for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDocument
+func (o NSView) AccessibilityDocument() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityDocument(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(value))
+}
+
+// A Boolean value that indicates whether the accessibility element is in an
+// edited state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
+func (o NSView) AccessibilityEdited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityEdited(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element
+// participates in the accessibility hierarchy.
+//
+// # Discussion
+//
+// Use this property to expose this object to accessibility clients as a
+// functional interface element. For example, when you place a button in a
+// window, the system typically creates a button cell inside a button control
+// inside a container view inside a window. Users, however, don’t care about
+// the view hierarchy details. They should only be told that there’s a
+// button in a window.
+//
+// If this property is set to false, accessibility clients ignore this
+// element. By default, [NSView] and its subclasses set this value to false;
+// however, if your [NSView] subclass adopts one of the accessibility
+// protocols, the system changes the default value to true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
+func (o NSView) AccessibilityElement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityElement(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element responds
+// to user events.
+//
+// # Discussion
+//
+// Returns YES if the element is enabled; otherwise, NO. Enabled elements
+// respond to user events.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
+func (o NSView) AccessibilityEnabled() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityEnabled(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is in an
+// expanded state.
+//
+// # Discussion
+//
+// Use this property on elements that can expand to reveal additional
+// information, such as outline rows and combo boxes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
+func (o NSView) AccessibilityExpanded() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityExpanded(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), value)
+}
+
+// The icon for the app’s menu bar extra.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExtrasMenuBar
+func (o NSView) AccessibilityExtrasMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityExtrasMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), value)
+}
+
+// The filename for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFilename
+func (o NSView) AccessibilityFilename() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityFilename(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the accessibility element has the
+// keyboard focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+func (o NSView) AccessibilityFocused() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityFocused(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), value)
+}
+
+// The child window with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocusedWindow
+func (o NSView) AccessibilityFocusedWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityFocusedWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), value)
+}
+
+// The accessibility element’s frame in screen coordinates.
+//
+// # Discussion
+//
+// This property is accessed by the system whenever an accessibility client
+// requests the element’s size or position.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+func (o NSView) SetAccessibilityFrame(value corefoundation.CGRect) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), value)
+}
+
+// A Boolean value that determines whether the app is the frontmost app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
+func (o NSView) AccessibilityFrontmost() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityFrontmost(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), value)
+}
+
+// The child accessibility element that represents the window’s full-screen
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFullScreenButton
+func (o NSView) AccessibilityFullScreenButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityFullScreenButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), value)
+}
+
+// The child accessibility element that represents the window’s grow area.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityGrowArea
+func (o NSView) AccessibilityGrowArea() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityGrowArea(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), value)
+}
+
+// The drag handle accessibility elements for the layout item element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHandles
+func (o NSView) AccessibilityHandles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityHandles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), value)
+}
+
+// The header for the table view.
+//
+// # Discussion
+//
+// Use this property on a table view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHeader
+func (o NSView) AccessibilityHeader() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityHeader(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), value)
+}
+
+// The help text for the accessibility element.
+//
+// # Discussion
+//
+// Use this property only when the results of activating this element are not
+// obvious from the element’s label. This string functions as a tooltip. For
+// example, VoiceOver reads this string when you pause over a control. To help
+// ensure that accessibility clients like VoiceOver read the help text with
+// the proper inflection, begin this string with a verb, capitalize the first
+// letter, and end the string with a period. Always localize this string. The
+// default value is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHelp
+func (o NSView) AccessibilityHelp() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityHelp(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the app is in a hidden state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
+func (o NSView) AccessibilityHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityHidden(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), value)
+}
+
+// The horizontal scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalScrollBar
+func (o NSView) AccessibilityHorizontalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityHorizontalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), value)
+}
+
+// A description of the layout area’s horizontal units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnitDescription
+func (o NSView) AccessibilityHorizontalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityHorizontalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for horizontal values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSView) AccessibilityHorizontalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSView) SetAccessibilityHorizontalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), value)
+}
+
+// The accessibility element’s identity.
+//
+// # Discussion
+//
+// This property holds the unique ID for the accessibility element. It is
+// often used in automated testing.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+func (o NSView) SetAccessibilityIdentifier(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(value))
+}
+
+// The increment button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIncrementButton
+func (o NSView) AccessibilityIncrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityIncrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), value)
+}
+
+// The index of the row or column that the accessibility element represents.
+//
+// # Discussion
+//
+// Use this property for any element that can be accessed through an index:
+// cells, rows, columns, and so forth.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
+func (o NSView) AccessibilityIndex() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityIndex(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), value)
+}
+
+// The line number that contains the insertion point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityInsertionPointLineNumber
+func (o NSView) AccessibilityInsertionPointLineNumber() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityInsertionPointLineNumber(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), value)
+}
+
+// A short description of the accessibility element.
+//
+// # Discussion
+//
+// Do not include the accessibility element’s type in the label (for
+// example, write [Play], not `Play button`.). If possible, use a single word.
+// To help ensure that accessibility clients such as VoiceOver read the label
+// with the correct intonation, start this label with a capital letter. Do not
+// put a period at the end. Always localize the label.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
+func (o NSView) AccessibilityLabel() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityLabel(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(value))
+}
+
+// The child label elements for the slider accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelUIElements
+func (o NSView) AccessibilityLabelUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityLabelUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), value)
+}
+
+// The value of the label accessibility element.
+//
+// # Discussion
+//
+// Use this property on a slider element’s labels.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelValue
+func (o NSView) AccessibilityLabelValue() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("accessibilityLabelValue"))
+	return float32(rv)
+}
+
+func (o NSView) SetAccessibilityLabelValue(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), value)
+}
+
+// The elements that have links with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to define a relationship between different user interface
+// elements. For example, use this property to link a list item with contents
+// displayed in another pane or window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLinkedUIElements
+func (o NSView) AccessibilityLinkedUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityLinkedUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), value)
+}
+
+// A Boolean value that determines whether the window is the app’s main
+// window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
+func (o NSView) AccessibilityMain() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityMain(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), value)
+}
+
+// The app’s main window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMainWindow
+func (o NSView) AccessibilityMainWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMainWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), value)
+}
+
+// The user interface element that functions as a marker group for the ruler
+// accessibility element.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerGroupUIElement
+func (o NSView) AccessibilityMarkerGroupUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMarkerGroupUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), value)
+}
+
+// A human-readable description of the marker type.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerTypeDescription
+func (o NSView) AccessibilityMarkerTypeDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityMarkerTypeDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(value))
+}
+
+// An array of marker accessibility elements for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerUIElements
+func (o NSView) AccessibilityMarkerUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityMarkerUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), value)
+}
+
+// The marker values for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerValues
+func (o NSView) AccessibilityMarkerValues() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMarkerValues(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), value)
+}
+
+// The maximum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// maximum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMaxValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSView) AccessibilityMaxValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMaxValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), value)
+}
+
+// The app’s menu bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMenuBar
+func (o NSView) AccessibilityMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), value)
+}
+
+// The minimum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// minimum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSView) AccessibilityMinValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMinValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), value)
+}
+
+// The child accessibility element that represents the window’s minimize
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimizeButton
+func (o NSView) AccessibilityMinimizeButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityMinimizeButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), value)
+}
+
+// A Boolean value that determines whether this window is in a minimized
+// state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
+func (o NSView) AccessibilityMinimized() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityMinimized(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), value)
+}
+
+// A Boolean value that determines whether the window is modal.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
+func (o NSView) AccessibilityModal() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityModal(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), value)
+}
+
+// The contents that follow the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNextContents
+func (o NSView) AccessibilityNextContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityNextContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), value)
+}
+
+// The number of characters in the text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNumberOfCharacters
+func (o NSView) AccessibilityNumberOfCharacters() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityNumberOfCharacters(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element’s grid
+// is in row major order or in column major order.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+// Set the property to true if the grid is ordered row major; otherwise, set
+// to false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
+func (o NSView) AccessibilityOrderedByRow() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityOrderedByRow(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), value)
+}
+
+// The orientation of the accessibility element.
+//
+// # Discussion
+//
+// This property can hold either the [NSAccessibilityOrientationHorizontal]
+// value or the [NSAccessibilityOrientationVertical] value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrientation
+func (o NSView) AccessibilityOrientation() NSAccessibilityOrientation {
+	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
+	return NSAccessibilityOrientation(rv)
+}
+
+func (o NSView) SetAccessibilityOrientation(value NSAccessibilityOrientation) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), value)
+}
+
+// The overflow button for the toolbar.
+//
+// # Discussion
+//
+// Use this property on a toolbar element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOverflowButton
+func (o NSView) AccessibilityOverflowButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityOverflowButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), value)
+}
+
+// The accessibility element’s parent in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property must contain a reference to another element in the
+// accessibility hierarchy. If you create an [NSView] subclass, you don’t
+// typically need to set this value. The system automatically sets the parent
+// to the nearest ancestor in the view hierarchy that is also in the
+// accessibility hierarchy. If you use an [NSAccessibilityElement] subclass to
+// represent an interface element that is not backed by a view, you can either
+// set the parent property or you can call the
+// [NSAccessibilityElementClass.AccessibilityElementWithRoleFrameLabelParent]
+// convenience method, which sets it automatically.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+func (o NSView) SetAccessibilityParent(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), value)
+}
+
+// The placeholder value for the accessibility element.
+//
+// # Discussion
+//
+// Use this property for accessibility elements that support placeholder
+// values, such as text fields.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPlaceholderValue
+func (o NSView) AccessibilityPlaceholderValue() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityPlaceholderValue(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(value))
+}
+
+// The contents that precede the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPreviousContents
+func (o NSView) AccessibilityPreviousContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityPreviousContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element contains
+// protected content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
+func (o NSView) AccessibilityProtectedContent() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityProtectedContent(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), value)
+}
+
+// The child accessibility element that represents the window’s proxy icon.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProxy
+func (o NSView) AccessibilityProxy() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityProxy(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element must have
+// content for successful submission of a form.
+//
+// # Discussion
+//
+// Returns YES if the element is required to have content; otherwise, NO.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
+func (o NSView) AccessibilityRequired() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilityRequired(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), value)
+}
+
+// The type of interface element that the accessibility element represents.
+//
+// # Discussion
+//
+// This property contains a nonlocalized string that defines the element’s
+// role in the app. For a list of possible roles, see [Roles]. This property
+// is set automatically when you adopt one of the accessibility protocols.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSView) AccessibilityRole() NSAccessibilityRole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
+	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSView) SetAccessibilityRole(value NSAccessibilityRole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(value)))
+}
+
+// A localized, human-intelligible description of the accessibility
+// element’s role, such as .
+//
+// # Discussion
+//
+// This property is set automatically based on the value of the
+// [accessibilityRole] property; however, you can customize the value of this
+// property to better describe your element’s role. Keep role descriptions
+// short. If possible, use a single word. These descriptions should be noun
+// phrases, all lowercase, with no period at the end.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
+//
+// [accessibilityRole]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSView) AccessibilityRoleDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityRoleDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(value))
+}
+
+// The number of rows in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowCount
+func (o NSView) AccessibilityRowCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
+	return int(rv)
+}
+
+func (o NSView) SetAccessibilityRowCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), value)
+}
+
+// The row header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
+func (o NSView) AccessibilityRowHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityRowHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), value)
+}
+
+// The row index range of the cell.
+//
+// # Discussion
+//
+// This property contains the row’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowIndexRange
+func (o NSView) AccessibilityRowIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSView) SetAccessibilityRowIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), value)
+}
+
+// The row accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
+func (o NSView) AccessibilityRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), value)
+}
+
+// The type of markers for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of marker types,
+// see [NSAccessibilityRulerMarkerType].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRulerMarkerType
+//
+// [NSAccessibilityRulerMarkerType]: https://developer.apple.com/documentation/AppKit/NSAccessibilityRulerMarkerType
+func (o NSView) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
+	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
+	return NSAccessibilityRulerMarkerType(rv)
+}
+
+func (o NSView) SetAccessibilityRulerMarkerType(value NSAccessibilityRulerMarkerType) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), value)
+}
+
+// The search button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchButton
+func (o NSView) AccessibilitySearchButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilitySearchButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), value)
+}
+
+// The search menu for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchMenu
+func (o NSView) AccessibilitySearchMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilitySearchMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is
+// currently in a selected state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
+func (o NSView) AccessibilitySelected() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
+	return bool(rv)
+}
+
+func (o NSView) SetAccessibilitySelected(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), value)
+}
+
+// The currently selected cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
+func (o NSView) AccessibilitySelectedCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySelectedCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), value)
+}
+
+// The accessibility element’s currently selected children.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
+func (o NSView) AccessibilitySelectedChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySelectedChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), value)
+}
+
+// The currently selected columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
+func (o NSView) AccessibilitySelectedColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySelectedColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), value)
+}
+
+// The currently selected rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+func (o NSView) AccessibilitySelectedRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySelectedRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), value)
+}
+
+// The currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedText
+func (o NSView) AccessibilitySelectedText() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilitySelectedText(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(value))
+}
+
+// The range of the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRange
+func (o NSView) AccessibilitySelectedTextRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSView) SetAccessibilitySelectedTextRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), value)
+}
+
+// An array of ranges for the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRanges
+func (o NSView) AccessibilitySelectedTextRanges() []foundation.NSValue {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
+	result := make([]foundation.NSValue, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSValueFromID(id)
+	}
+	return result
+}
+
+func (o NSView) SetAccessibilitySelectedTextRanges(value []foundation.NSValue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The list of elements that the accessibility element is a title for.
+//
+// # Discussion
+//
+// Use on a static text label to associate that label with one or more user
+// interface elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityServesAsTitleForUIElements
+func (o NSView) AccessibilityServesAsTitleForUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityServesAsTitleForUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), value)
+}
+
+// The range of characters that the accessibility element displays.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedCharacterRange
+func (o NSView) AccessibilitySharedCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSView) SetAccessibilitySharedCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), value)
+}
+
+// An array of elements that shares the keyboard focus with the accessibility
+// element.
+//
+// # Discussion
+//
+// Use this property to manage elements that share the keyboard focus—for
+// example, a search field with completion menu below it.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedFocusElements
+func (o NSView) AccessibilitySharedFocusElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySharedFocusElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), value)
+}
+
+// Other elements that share text with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedTextUIElements
+func (o NSView) AccessibilitySharedTextUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySharedTextUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), value)
+}
+
+// The menu currently displaying for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityShownMenu
+func (o NSView) AccessibilityShownMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityShownMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), value)
+}
+
+// The accessibility element’s sort direction.
+//
+// # Discussion
+//
+// Used by an element with an [button] role and an
+// [NSAccessibilitySortButtonRole] subrole. For a list of possible sort
+// directions, see [NSAccessibilitySortDirection].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySortDirection
+//
+// [NSAccessibilitySortButtonRole]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortButtonRole
+// [NSAccessibilitySortDirection]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortDirection
+// [button]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/button
+func (o NSView) AccessibilitySortDirection() NSAccessibilitySortDirection {
+	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
+	return NSAccessibilitySortDirection(rv)
+}
+
+func (o NSView) SetAccessibilitySortDirection(value NSAccessibilitySortDirection) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), value)
+}
+
+// An array that contains the views and splitter bar from the split view.
+//
+// # Discussion
+//
+// Use this property on a split view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySplitters
+func (o NSView) AccessibilitySplitters() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilitySplitters(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), value)
+}
+
+// The specialized interface element type that the accessibility element
+// represents.
+//
+// # Discussion
+//
+// For a list of possible subroles, see [Subroles].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySubrole
+func (o NSView) AccessibilitySubrole() NSAccessibilitySubrole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
+	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSView) SetAccessibilitySubrole(value NSAccessibilitySubrole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(value)))
+}
+
+// The tab accessibility elements for the tab view.
+//
+// # Discussion
+//
+// Use this property on a tab view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTabs
+func (o NSView) AccessibilityTabs() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityTabs(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), value)
+}
+
+// The title of the accessibility element—for example, a button’s visible
+// text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitle
+func (o NSView) AccessibilityTitle() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityTitle(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(value))
+}
+
+// A static text element that represents the accessibility element’s title.
+//
+// # Discussion
+//
+// Use this property to associate a static text label with another
+// element—for example, to associate a label with its corresponding text
+// field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitleUIElement
+func (o NSView) AccessibilityTitleUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityTitleUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), value)
+}
+
+// The child accessibility element that represents the window’s toolbar
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityToolbarButton
+func (o NSView) AccessibilityToolbarButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityToolbarButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), value)
+}
+
+// The top-level element that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTopLevelUIElement
+func (o NSView) AccessibilityTopLevelUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityTopLevelUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), value)
+}
+
+// The URL for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityURL
+func (o NSView) AccessibilityURL() foundation.NSURL {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
+	return foundation.NSURLFromID(rv)
+}
+
+func (o NSView) SetAccessibilityURL(value foundation.NSURL) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), value)
+}
+
+// A human-readable description of the ruler’s units.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnitDescription
+func (o NSView) AccessibilityUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(value))
+}
+
+// The units for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of units, see
+// [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSView) AccessibilityUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSView) SetAccessibilityUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUserInputLabels
+func (o NSView) AccessibilityUserInputLabels() []string {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
+	return objc.ConvertSliceToStrings(rvIDs)
+}
+
+func (o NSView) SetAccessibilityUserInputLabels(value []string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), objectivec.StringSliceToNSArray(value))
+}
+
+// The accessibility element’s value.
+//
+// # Discussion
+//
+// The accessibility protocols for roles that support values typically
+// redefine this property to take a more specific value type. For example, the
+// [staticText] protocol uses [NSString] values, and the [progressIndicator]
+// protocol uses [NSNumber] values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [progressIndicator]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/progressIndicator
+// [staticText]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/staticText
+func (o NSView) AccessibilityValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), value)
+}
+
+// A human-readable description of the accessibility element’s value.
+//
+// # Discussion
+//
+// Use this property to provide a more useful description of the accessibility
+// element’s raw value. For example, you might set the value to `600`, but
+// set the description to `10 minutes`. Always localize this description.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValueDescription
+func (o NSView) AccessibilityValueDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityValueDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(value))
+}
+
+// The vertical scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalScrollBar
+func (o NSView) AccessibilityVerticalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityVerticalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), value)
+}
+
+// A description of the layout area’s vertical units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnitDescription
+func (o NSView) AccessibilityVerticalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSView) SetAccessibilityVerticalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for vertical values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSView) AccessibilityVerticalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSView) SetAccessibilityVerticalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), value)
+}
+
+// The visible cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
+func (o NSView) AccessibilityVisibleCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityVisibleCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), value)
+}
+
+// The range of visible characters in the document.
+//
+// # Discussion
+//
+// Use this property to store the range for entire lines. Characters that are
+// horizontally clipped are included in this range.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
+func (o NSView) AccessibilityVisibleCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSView) SetAccessibilityVisibleCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), value)
+}
+
+// The accessibility element’s visible child accessibility elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleChildren
+func (o NSView) AccessibilityVisibleChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityVisibleChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), value)
+}
+
+// The visible columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
+func (o NSView) AccessibilityVisibleColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityVisibleColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), value)
+}
+
+// The visible rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
+func (o NSView) AccessibilityVisibleRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityVisibleRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), value)
+}
+
+// The warning value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a warning stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWarningValue
+func (o NSView) AccessibilityWarningValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityWarningValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), value)
+}
+
+// The window that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindow
+func (o NSView) AccessibilityWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), value)
+}
+
+// An array that contains all the app’s windows.
+//
+// # Discussion
+//
+// Use on the app element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindows
+func (o NSView) AccessibilityWindows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSView) SetAccessibilityWindows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), value)
+}
+
+// The child accessibility element that represents the window’s zoom button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityZoomButton
+func (o NSView) AccessibilityZoomButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSView) SetAccessibilityZoomButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), value)
 }
 
 // Protocol methods for NSAppearanceCustomization
@@ -6739,19 +9380,4 @@ func (o NSView) SetAppearance(value INSAppearance) {
 // [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
 func (o NSView) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
-}
-
-// ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProviderSync is a synchronous wrapper around [NSView.ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider].
-// It blocks until the completion handler fires or the context is cancelled.
-func (v NSView) ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProviderSync(ctx context.Context, attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary) (foundation.NSRange, error) {
-	done := make(chan foundation.NSRange, 1)
-	v.ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString, targetRange, options, func(val foundation.NSRange) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return foundation.NSRange{}, ctx.Err()
-	}
 }

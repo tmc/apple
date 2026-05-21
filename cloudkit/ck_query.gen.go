@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -297,7 +298,7 @@ type ICKQuery interface {
 
 	// The record type to search.
 	RecordType() unsafe.Pointer
-	SetRecordType(value unsafe.Pointer)
+	SetRecordType(value kernel.Pointer)
 	// The predicate to use for matching records.
 	Predicate() foundation.NSPredicate
 	// The sort descriptors for organizing the query’s results.
@@ -357,7 +358,7 @@ func (c CKQuery) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKQuery) SetRecordType(value unsafe.Pointer) {
+func (c CKQuery) SetRecordType(value kernel.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }
 

@@ -59,13 +59,13 @@ func (ac AVMetadataItemClass) Alloc() AVMetadataItem {
 // (QuickTime metadata and user data) or MP3 (ID3). However, a single asset
 // may contain metadata values across multiple key spaces. To retrieve an
 // asset’s complete collection of format-specific metadata, you use its
-// [AVMetadataItem.Metadata] property. - There are several common metadata values, such as a
+// [metadata] property. - There are several common metadata values, such as a
 // movie’s creation date or description, that can exist across multiple key
 // spaces. To help normalize access to this common metadata, the framework
 // provides a common key space that gives access to a limited set of metadata
 // values common to several key spaces. This makes it easy to retrieve
 // commonly used metadata without concern for the specific format. To retrieve
-// an asset’s collection of common metadata, you use its [AVMetadataItem.CommonMetadata]
+// an asset’s collection of common metadata, you use its [commonMetadata]
 // property.
 //
 // Metadata items have keys that accord with the specification of the
@@ -111,6 +111,8 @@ func (ac AVMetadataItemClass) Alloc() AVMetadataItem {
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem
 //
 // [AVFoundation]: https://developer.apple.com/documentation/AVFoundation
+// [commonMetadata]: https://developer.apple.com/documentation/AVFoundation/AVAsset/commonMetadata
+// [metadata]: https://developer.apple.com/documentation/AVFoundation/AVAsset/metadata
 type AVMetadataItem struct {
 	objectivec.Object
 }
@@ -192,12 +194,6 @@ type IAVMetadataItem interface {
 	// The IETF BCP 47 (RFC 4646) language identifier of the metadata item.
 	ExtendedLanguageTag() string
 
-	// The metadata items an asset contains for common metadata identifiers that provide a value.
-	CommonMetadata() IAVMetadataItem
-	SetCommonMetadata(value IAVMetadataItem)
-	// An array of metadata items for all metadata identifiers for which a value is available.
-	Metadata() IAVMetadataItem
-	SetMetadata(value IAVMetadataItem)
 	// Tells the object to load the values of any of the specified keys that aren’t already loaded.
 	LoadValuesAsynchronouslyForKeysCompletionHandler(keys []string, handler VoidHandler)
 	// Reports whether the value for a given key is immediately available without blocking.
@@ -499,12 +495,13 @@ func (m AVMetadataItem) Key() objectivec.IObject {
 //
 // # Discussion
 //
-// This value contains the key that most closely corresponds to the [Key]
-// property, but that belongs to the common key space. You can use this key to
-// locate metadata items irrespective of the underlying media format.
+// This value contains the key that most closely corresponds to the
+// [AVMetadataItem.Key] property, but that belongs to the common key space.
+// You can use this key to locate metadata items irrespective of the
+// underlying media format.
 //
-// If the value of the [KeySpace] property is [common], this property value
-// contains the same key as the [Key] property.
+// If the value of the [AVMetadataItem.KeySpace] property is [common], this
+// property value contains the same key as the [AVMetadataItem.Key] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/commonKey
 //
@@ -583,30 +580,6 @@ func (m AVMetadataItem) Locale() foundation.NSLocale {
 func (m AVMetadataItem) ExtendedLanguageTag() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extendedLanguageTag"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// The metadata items an asset contains for common metadata identifiers that
-// provide a value.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avasset/commonmetadata
-func (m AVMetadataItem) CommonMetadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("commonMetadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (m AVMetadataItem) SetCommonMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCommonMetadata:"), value)
-}
-
-// An array of metadata items for all metadata identifiers for which a value
-// is available.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avasset/metadata
-func (m AVMetadataItem) Metadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (m AVMetadataItem) SetMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 
 // Protocol methods for AVAsynchronousKeyValueLoading

@@ -122,18 +122,6 @@ type INEProxyServer interface {
 	Password() string
 	SetPassword(value string)
 
-	// A Boolean indicating if a static HTTP proxy will be used.
-	HttpEnabled() bool
-	SetHTTPEnabled(value bool)
-	// An
-	HttpServer() INEProxyServer
-	SetHTTPServer(value INEProxyServer)
-	// A Boolean indicating if a static HTTPS proxy will be used.
-	HttpsEnabled() bool
-	SetHTTPSEnabled(value bool)
-	// An
-	HttpsServer() INEProxyServer
-	SetHTTPSServer(value INEProxyServer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -233,48 +221,4 @@ func (p NEProxyServer) Password() string {
 }
 func (p NEProxyServer) SetPassword(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPassword:"), objc.String(value))
-}
-
-// A Boolean indicating if a static HTTP proxy will be used.
-//
-// See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpenabled
-func (p NEProxyServer) HttpEnabled() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("HTTPEnabled"))
-	return rv
-}
-func (p NEProxyServer) SetHTTPEnabled(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHTTPEnabled:"), value)
-}
-
-// An
-//
-// See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpserver
-func (p NEProxyServer) HttpServer() INEProxyServer {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("HTTPServer"))
-	return NEProxyServerFromID(objc.ID(rv))
-}
-func (p NEProxyServer) SetHTTPServer(value INEProxyServer) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHTTPServer:"), value)
-}
-
-// A Boolean indicating if a static HTTPS proxy will be used.
-//
-// See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpsenabled
-func (p NEProxyServer) HttpsEnabled() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("HTTPSEnabled"))
-	return rv
-}
-func (p NEProxyServer) SetHTTPSEnabled(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSEnabled:"), value)
-}
-
-// An
-//
-// See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpsserver
-func (p NEProxyServer) HttpsServer() INEProxyServer {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("HTTPSServer"))
-	return NEProxyServerFromID(objc.ID(rv))
-}
-func (p NEProxyServer) SetHTTPSServer(value INEProxyServer) {
-	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSServer:"), value)
 }

@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -58,11 +57,11 @@ func (nc NSTypesetterClass) Alloc() NSTypesetter {
 //
 // [NSTypesetter] provides concrete subclasses with default implementation
 // interfacing with the Cocoa text system. By subclassing [NSTypesetter], an
-// application can override the [NSTypesetter.LayoutParagraphAtPoint] method to integrate a
-// custom typesetting engine into the Cocoa text system. On the other hand, an
-// application can subclass [NSATSTypesetter] and override the glyph storage
-// interface to integrate the concrete subclass into its own custom layout
-// system.
+// application can override the [NSTypesetter.LayoutParagraphAtPoint] method
+// to integrate a custom typesetting engine into the Cocoa text system. On the
+// other hand, an application can subclass [NSATSTypesetter] and override the
+// glyph storage interface to integrate the concrete subclass into its own
+// custom layout system.
 //
 // [NSTypesetter] methods belong to three categories: glyph storage interface
 // methods, layout phase interface methods, and core typesetter methods. The
@@ -102,7 +101,8 @@ func (nc NSTypesetterClass) Alloc() NSTypesetter {
 // [NSTypesetter.SetNotShownAttributeForGlyphRange] -
 // [NSTypesetter.SetDrawsOutsideLineFragmentForGlyphRange] -
 // [NSTypesetter.SetLocationWithAdvancementsForStartOfGlyphRange] -
-// [NSTypesetter.SetAttachmentSizeForGlyphRange] - [NSTypesetter.SetBidiLevelsForGlyphRange]
+// [NSTypesetter.SetAttachmentSizeForGlyphRange] -
+// [NSTypesetter.SetBidiLevelsForGlyphRange]
 //
 // # Layout Phase Interface
 //
@@ -110,10 +110,11 @@ func (nc NSTypesetterClass) Alloc() NSTypesetter {
 // modifying line fragments, controlling line breaking and hyphenation, and
 // controlling the behavior of tabs and other control glyphs.
 //
-// - [NSTypesetter.WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset] -
-// [NSTypesetter.ShouldBreakLineByWordBeforeCharacterAtIndex] -
+// - [NSTypesetter.WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset]
+// - [NSTypesetter.ShouldBreakLineByWordBeforeCharacterAtIndex] -
 // [NSTypesetter.ShouldBreakLineByHyphenatingBeforeCharacterAtIndex] -
-// [NSTypesetter.HyphenationFactorForGlyphAtIndex] - [NSTypesetter.HyphenCharacterForGlyphAtIndex] -
+// [NSTypesetter.HyphenationFactorForGlyphAtIndex] -
+// [NSTypesetter.HyphenCharacterForGlyphAtIndex] -
 // [NSTypesetter.BoundingBoxForControlGlyphAtIndexForTextContainerProposedLineFragmentGlyphPositionCharacterIndex]
 //
 // # Getting information about glyphs
@@ -403,7 +404,7 @@ type INSTypesetter interface {
 	// Topic: Laying out a paragraph
 
 	// Lays out glyphs in the current glyph range until the next paragraph separator is reached.
-	LayoutParagraphAtPoint(lineFragmentOrigin foundation.NSPoint) uint
+	LayoutParagraphAtPoint(lineFragmentOrigin foundation.NSPointPointer) uint
 	// Sets up layout parameters at the beginning of a paragraph.
 	BeginParagraph()
 	// Sets up layout parameters at the end of a paragraph.
@@ -421,13 +422,13 @@ type INSTypesetter interface {
 	// Topic: Laying out glyphs
 
 	// Lays out glyphs in the specified layout manager starting at a specified glyph.
-	LayoutGlyphsInLayoutManagerStartingAtGlyphIndexMaxNumberOfLineFragmentsNextGlyphIndex(layoutManager INSLayoutManager, startGlyphIndex uint, maxNumLines uint, nextGlyph unsafe.Pointer)
+	LayoutGlyphsInLayoutManagerStartingAtGlyphIndexMaxNumberOfLineFragmentsNextGlyphIndex(layoutManager INSLayoutManager, startGlyphIndex uint, maxNumLines uint, nextGlyph *uint)
 	// Returns the bounding rectangle for the specified control glyph with the specified parameters.
 	BoundingBoxForControlGlyphAtIndexForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(glyphIndex uint, textContainer INSTextContainer, proposedRect corefoundation.CGRect, glyphPosition corefoundation.CGPoint, charIndex uint) corefoundation.CGRect
 	// Calculates the line fragment rectangle and line fragment used rectangle for blank lines.
-	GetLineFragmentRectUsedRectForParagraphSeparatorGlyphRangeAtProposedOrigin(lineFragmentRect foundation.NSRect, lineFragmentUsedRect foundation.NSRect, paragraphSeparatorGlyphRange foundation.NSRange, lineOrigin corefoundation.CGPoint)
+	GetLineFragmentRectUsedRectForParagraphSeparatorGlyphRangeAtProposedOrigin(lineFragmentRect foundation.NSRectPointer, lineFragmentUsedRect foundation.NSRectPointer, paragraphSeparatorGlyphRange foundation.NSRange, lineOrigin corefoundation.CGPoint)
 	// Calculates line fragment rectangle, line fragment used rectangle, and remaining rectangle for a line fragment.
-	GetLineFragmentRectUsedRectRemainingRectForStartingGlyphAtIndexProposedRectLineSpacingParagraphSpacingBeforeParagraphSpacingAfter(lineFragmentRect foundation.NSRect, lineFragmentUsedRect foundation.NSRect, remainingRect foundation.NSRect, startingGlyphIndex uint, proposedRect corefoundation.CGRect, lineSpacing float64, paragraphSpacingBefore float64, paragraphSpacingAfter float64)
+	GetLineFragmentRectUsedRectRemainingRectForStartingGlyphAtIndexProposedRectLineSpacingParagraphSpacingBeforeParagraphSpacingAfter(lineFragmentRect foundation.NSRectPointer, lineFragmentUsedRect foundation.NSRectPointer, remainingRect foundation.NSRectPointer, startingGlyphIndex uint, proposedRect corefoundation.CGRect, lineSpacing float64, paragraphSpacingBefore float64, paragraphSpacingAfter float64)
 	// Returns the hyphen character to be inserted after the specified glyph.
 	HyphenCharacterForGlyphAtIndex(glyphIndex uint) uint32
 	// Returns the hyphenation factor in effect at a specified location.
@@ -437,26 +438,26 @@ type INSTypesetter interface {
 	// Returns whether the line being laid out should be broken by a word break at the specified character.
 	ShouldBreakLineByWordBeforeCharacterAtIndex(charIndex uint) bool
 	// Called by the typesetter just prior to storing the actual line fragment rectangle location in the layout manager.
-	WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(lineRect foundation.NSRect, glyphRange foundation.NSRange, usedRect foundation.NSRect, baselineOffset unsafe.Pointer)
+	WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(lineRect foundation.NSRectPointer, glyphRange foundation.NSRange, usedRect foundation.NSRectPointer, baselineOffset *float64)
 	// Sets whether to force the layout manager to invalidate the specified portion of the glyph cache when invalidating layout.
 	SetHardInvalidationForGlyphRange(flag bool, glyphRange foundation.NSRange)
 
 	// Topic: Interfacing with Glyph Storage
 
 	// Returns the range for the characters in the receiver’s text store that are mapped to the specified glyphs.
-	CharacterRangeForGlyphRangeActualGlyphRange(glyphRange foundation.NSRange, actualGlyphRange foundation.NSRange) foundation.NSRange
+	CharacterRangeForGlyphRangeActualGlyphRange(glyphRange foundation.NSRange, actualGlyphRange foundation.NSRangePointer) foundation.NSRange
 	// Returns the range for the glyphs mapped to the characters of the text store in the specified range.
-	GlyphRangeForCharacterRangeActualCharacterRange(charRange foundation.NSRange, actualCharRange foundation.NSRange) foundation.NSRange
+	GlyphRangeForCharacterRangeActualCharacterRange(charRange foundation.NSRange, actualCharRange foundation.NSRangePointer) foundation.NSRange
 	// Sets the size the specified glyphs (assumed to be attachments) will be asked to draw themselves at.
 	SetAttachmentSizeForGlyphRange(attachmentSize corefoundation.CGSize, glyphRange foundation.NSRange)
 	// Sets the direction of the specified glyphs for bidirectional text.
-	SetBidiLevelsForGlyphRange(levels unsafe.Pointer, glyphRange foundation.NSRange)
+	SetBidiLevelsForGlyphRange(levels *uint8, glyphRange foundation.NSRange)
 	// Sets whether the specified glyphs exceed the bounds of the line fragment in which they are laid out.
 	SetDrawsOutsideLineFragmentForGlyphRange(flag bool, glyphRange foundation.NSRange)
 	// Sets the line fragment rectangle where the specified glyphs are laid out.
 	SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(fragmentRect corefoundation.CGRect, glyphRange foundation.NSRange, usedRect corefoundation.CGRect, baselineOffset float64)
 	// Sets the location where the specified glyphs are laid out.
-	SetLocationWithAdvancementsForStartOfGlyphRange(location corefoundation.CGPoint, advancements unsafe.Pointer, glyphRange foundation.NSRange)
+	SetLocationWithAdvancementsForStartOfGlyphRange(location corefoundation.CGPoint, advancements *float64, glyphRange foundation.NSRange)
 	// Sets whether the specified glyphs are not shown.
 	SetNotShownAttributeForGlyphRange(flag bool, glyphRange foundation.NSRange)
 
@@ -618,8 +619,9 @@ func (t NSTypesetter) LineSpacingAfterGlyphAtIndexWithProposedLineFragmentRect(g
 // the bottom of the line fragment rectangle specified by `rect` (but not to
 // the used line fragment rectangle for that line). Paragraph spacing added
 // after a paragraph correlates to the value returned by the
-// [ParagraphSpacing] method of [NSParagraphStyle], which you can set using
-// the [ParagraphSpacing] method of [NSMutableParagraphStyle].
+// [NSParagraphStyle.ParagraphSpacing] method of [NSParagraphStyle], which you
+// can set using the [NSParagraphStyle.ParagraphSpacing] method of
+// [NSMutableParagraphStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/paragraphSpacing(afterGlyphAt:withProposedLineFragmentRect:)
 func (t NSTypesetter) ParagraphSpacingAfterGlyphAtIndexWithProposedLineFragmentRect(glyphIndex uint, rect corefoundation.CGRect) float64 {
@@ -645,8 +647,10 @@ func (t NSTypesetter) ParagraphSpacingAfterGlyphAtIndexWithProposedLineFragmentR
 // the top of the line fragment rectangle specified by `rect` (but not to the
 // used line fragment rectangle for that line). Paragraph spacing added before
 // a paragraph correlates to the value returned by the
-// [ParagraphSpacingBefore] method of [NSParagraphStyle], which you can set
-// using the [ParagraphSpacingBefore] method of [NSMutableParagraphStyle].
+// [NSParagraphStyle.ParagraphSpacingBefore] method of [NSParagraphStyle],
+// which you can set using the
+// [NSMutableParagraphStyle.ParagraphSpacingBefore] method of
+// [NSMutableParagraphStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/paragraphSpacing(beforeGlyphAt:withProposedLineFragmentRect:)
 func (t NSTypesetter) ParagraphSpacingBeforeGlyphAtIndexWithProposedLineFragmentRect(glyphIndex uint, rect corefoundation.CGRect) float64 {
@@ -669,11 +673,12 @@ func (t NSTypesetter) ParagraphSpacingBeforeGlyphAtIndexWithProposedLineFragment
 // # Discussion
 //
 // Concrete subclasses must implement this method. A concrete implementation
-// must invoke [BeginParagraph], [BeginLineWithGlyphAtIndex],
-// [EndLineWithGlyphRange], and [EndParagraph].
+// must invoke [NSTypesetter.BeginParagraph],
+// [NSTypesetter.BeginLineWithGlyphAtIndex],
+// [NSTypesetter.EndLineWithGlyphRange], and [NSTypesetter.EndParagraph].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/layoutParagraph(at:)
-func (t NSTypesetter) LayoutParagraphAtPoint(lineFragmentOrigin foundation.NSPoint) uint {
+func (t NSTypesetter) LayoutParagraphAtPoint(lineFragmentOrigin foundation.NSPointPointer) uint {
 	rv := objc.Send[uint](t.ID, objc.Sel("layoutParagraphAtPoint:"), lineFragmentOrigin)
 	return rv
 }
@@ -683,7 +688,7 @@ func (t NSTypesetter) LayoutParagraphAtPoint(lineFragmentOrigin foundation.NSPoi
 // # Discussion
 //
 // Concrete subclasses should invoke this method at the beginning of their
-// [LayoutParagraphAtPoint] implementation.
+// [NSTypesetter.LayoutParagraphAtPoint] implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/beginParagraph()
 func (t NSTypesetter) BeginParagraph() {
@@ -695,7 +700,7 @@ func (t NSTypesetter) BeginParagraph() {
 // # Discussion
 //
 // Concrete subclasses should invoke this method at the end of their
-// [LayoutParagraphAtPoint] implementation.
+// [NSTypesetter.LayoutParagraphAtPoint] implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/endParagraph()
 func (t NSTypesetter) EndParagraph() {
@@ -708,8 +713,8 @@ func (t NSTypesetter) EndParagraph() {
 //
 // # Discussion
 //
-// Concrete subclass implementations of [LayoutParagraphAtPoint] should invoke
-// this method at the beginning of each line.
+// Concrete subclass implementations of [NSTypesetter.LayoutParagraphAtPoint]
+// should invoke this method at the beginning of each line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/beginLine(withGlyphAt:)
 func (t NSTypesetter) BeginLineWithGlyphAtIndex(glyphIndex uint) {
@@ -722,8 +727,8 @@ func (t NSTypesetter) BeginLineWithGlyphAtIndex(glyphIndex uint) {
 //
 // # Discussion
 //
-// Concrete subclass implementations of [LayoutParagraphAtPoint] should invoke
-// this method at the end of each line.
+// Concrete subclass implementations of [NSTypesetter.LayoutParagraphAtPoint]
+// should invoke this method at the end of each line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/endLine(withGlyphRange:)
 func (t NSTypesetter) EndLineWithGlyphRange(lineGlyphRange foundation.NSRange) {
@@ -769,7 +774,7 @@ func (t NSTypesetter) LayoutCharactersInRangeForLayoutManagerMaximumNumberOfLine
 // nextGlyph: On return, set to the index of the next glyph that needs to be laid out.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/layoutGlyphs(in:startingAtGlyphIndex:maxNumberOfLineFragments:nextGlyphIndex:)
-func (t NSTypesetter) LayoutGlyphsInLayoutManagerStartingAtGlyphIndexMaxNumberOfLineFragmentsNextGlyphIndex(layoutManager INSLayoutManager, startGlyphIndex uint, maxNumLines uint, nextGlyph unsafe.Pointer) {
+func (t NSTypesetter) LayoutGlyphsInLayoutManagerStartingAtGlyphIndexMaxNumberOfLineFragmentsNextGlyphIndex(layoutManager INSLayoutManager, startGlyphIndex uint, maxNumLines uint, nextGlyph *uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("layoutGlyphsInLayoutManager:startingAtGlyphIndex:maxNumberOfLineFragments:nextGlyphIndex:"), layoutManager, startGlyphIndex, maxNumLines, nextGlyph)
 }
 
@@ -822,7 +827,7 @@ func (t NSTypesetter) BoundingBoxForControlGlyphAtIndexForTextContainerProposedL
 // lineOrigin: The origin point of the line fragment rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/getLineFragmentRect(_:usedRect:forParagraphSeparatorGlyphRange:atProposedOrigin:)
-func (t NSTypesetter) GetLineFragmentRectUsedRectForParagraphSeparatorGlyphRangeAtProposedOrigin(lineFragmentRect foundation.NSRect, lineFragmentUsedRect foundation.NSRect, paragraphSeparatorGlyphRange foundation.NSRange, lineOrigin corefoundation.CGPoint) {
+func (t NSTypesetter) GetLineFragmentRectUsedRectForParagraphSeparatorGlyphRangeAtProposedOrigin(lineFragmentRect foundation.NSRectPointer, lineFragmentUsedRect foundation.NSRectPointer, paragraphSeparatorGlyphRange foundation.NSRange, lineOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("getLineFragmentRect:usedRect:forParagraphSeparatorGlyphRange:atProposedOrigin:"), lineFragmentRect, lineFragmentUsedRect, paragraphSeparatorGlyphRange, lineOrigin)
 }
 
@@ -856,7 +861,7 @@ func (t NSTypesetter) GetLineFragmentRectUsedRectForParagraphSeparatorGlyphRange
 // rectangle; line spacing is included in both.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/getLineFragmentRect(_:usedRect:remaining:forStartingGlyphAt:proposedRect:lineSpacing:paragraphSpacingBefore:paragraphSpacingAfter:)
-func (t NSTypesetter) GetLineFragmentRectUsedRectRemainingRectForStartingGlyphAtIndexProposedRectLineSpacingParagraphSpacingBeforeParagraphSpacingAfter(lineFragmentRect foundation.NSRect, lineFragmentUsedRect foundation.NSRect, remainingRect foundation.NSRect, startingGlyphIndex uint, proposedRect corefoundation.CGRect, lineSpacing float64, paragraphSpacingBefore float64, paragraphSpacingAfter float64) {
+func (t NSTypesetter) GetLineFragmentRectUsedRectRemainingRectForStartingGlyphAtIndexProposedRectLineSpacingParagraphSpacingBeforeParagraphSpacingAfter(lineFragmentRect foundation.NSRectPointer, lineFragmentUsedRect foundation.NSRectPointer, remainingRect foundation.NSRectPointer, startingGlyphIndex uint, proposedRect corefoundation.CGRect, lineSpacing float64, paragraphSpacingBefore float64, paragraphSpacingAfter float64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("getLineFragmentRect:usedRect:remainingRect:forStartingGlyphAtIndex:proposedRect:lineSpacing:paragraphSpacingBefore:paragraphSpacingAfter:"), lineFragmentRect, lineFragmentUsedRect, remainingRect, startingGlyphIndex, proposedRect, lineSpacing, paragraphSpacingBefore, paragraphSpacingAfter)
 }
 
@@ -970,8 +975,8 @@ func (t NSTypesetter) ShouldBreakLineByWordBeforeCharacterAtIndex(charIndex uint
 // # Discussion
 //
 // Called by the typesetter just prior to calling
-// [SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset] which stores the
-// actual line fragment rectangle location in the layout manager.
+// [NSTypesetter.SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset] which
+// stores the actual line fragment rectangle location in the layout manager.
 //
 // A subclass can override this method to customize the text layout process.
 // For example, it could change the shape of the line fragment rectangle. The
@@ -979,7 +984,7 @@ func (t NSTypesetter) ShouldBreakLineByWordBeforeCharacterAtIndex(charIndex uint
 // valid (for example, that it lies within the text container).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/willSetLineFragmentRect(_:forGlyphRange:usedRect:baselineOffset:)
-func (t NSTypesetter) WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(lineRect foundation.NSRect, glyphRange foundation.NSRange, usedRect foundation.NSRect, baselineOffset unsafe.Pointer) {
+func (t NSTypesetter) WillSetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(lineRect foundation.NSRectPointer, glyphRange foundation.NSRange, usedRect foundation.NSRectPointer, baselineOffset *float64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("willSetLineFragmentRect:forGlyphRange:usedRect:baselineOffset:"), lineRect, glyphRange, usedRect, baselineOffset)
 }
 
@@ -1014,7 +1019,7 @@ func (t NSTypesetter) SetHardInvalidationForGlyphRange(flag bool, glyphRange fou
 // A subclass can override this method to interact with custom glyph storage.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/characterRange(forGlyphRange:actualGlyphRange:)
-func (t NSTypesetter) CharacterRangeForGlyphRangeActualGlyphRange(glyphRange foundation.NSRange, actualGlyphRange foundation.NSRange) foundation.NSRange {
+func (t NSTypesetter) CharacterRangeForGlyphRangeActualGlyphRange(glyphRange foundation.NSRange, actualGlyphRange foundation.NSRangePointer) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("characterRangeForGlyphRange:actualGlyphRange:"), glyphRange, actualGlyphRange)
 	return foundation.NSRange(rv)
 }
@@ -1036,7 +1041,7 @@ func (t NSTypesetter) CharacterRangeForGlyphRangeActualGlyphRange(glyphRange fou
 // A subclass can override this method to interact with custom glyph storage.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/glyphRange(forCharacterRange:actualCharacterRange:)
-func (t NSTypesetter) GlyphRangeForCharacterRangeActualCharacterRange(charRange foundation.NSRange, actualCharRange foundation.NSRange) foundation.NSRange {
+func (t NSTypesetter) GlyphRangeForCharacterRangeActualCharacterRange(charRange foundation.NSRange, actualCharRange foundation.NSRangePointer) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("glyphRangeForCharacterRange:actualCharacterRange:"), charRange, actualCharRange)
 	return foundation.NSRange(rv)
 }
@@ -1070,7 +1075,7 @@ func (t NSTypesetter) SetAttachmentSizeForGlyphRange(attachmentSize corefoundati
 // A subclass can override this method to interact with custom glyph storage.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/setBidiLevels(_:forGlyphRange:)
-func (t NSTypesetter) SetBidiLevelsForGlyphRange(levels unsafe.Pointer, glyphRange foundation.NSRange) {
+func (t NSTypesetter) SetBidiLevelsForGlyphRange(levels *uint8, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setBidiLevels:forGlyphRange:"), levels, glyphRange)
 }
 
@@ -1127,7 +1132,7 @@ func (t NSTypesetter) SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(fra
 // x-coordinate of `location` is expressed relative to the line fragment
 // rectangle origin, and the y-coordinate is expressed relative to the
 // baseline previously specified by
-// [SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset].
+// [NSTypesetter.SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset].
 //
 // advancements: The nominal glyph advance width specified in the font metric information.
 //
@@ -1142,12 +1147,12 @@ func (t NSTypesetter) SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset(fra
 //
 // Before setting the location for a glyph range, you must specify line
 // fragment rectangle with
-// [SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset].
+// [NSTypesetter.SetLineFragmentRectForGlyphRangeUsedRectBaselineOffset].
 //
 // A subclass can override this method to interact with custom glyph storage.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/setLocation(_:withAdvancements:forStartOfGlyphRange:)
-func (t NSTypesetter) SetLocationWithAdvancementsForStartOfGlyphRange(location corefoundation.CGPoint, advancements unsafe.Pointer, glyphRange foundation.NSRange) {
+func (t NSTypesetter) SetLocationWithAdvancementsForStartOfGlyphRange(location corefoundation.CGPoint, advancements *float64, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setLocation:withAdvancements:forStartOfGlyphRange:"), location, advancements, glyphRange)
 }
 
@@ -1226,7 +1231,7 @@ func (_NSTypesetterClass NSTypesetterClass) SharedSystemTypesetterForBehavior(be
 // the screen.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/printingAdjustment(in:forNominallySpacedGlyphRange:packedGlyphs:count:)
-func (_NSTypesetterClass NSTypesetterClass) PrintingAdjustmentInLayoutManagerForNominallySpacedGlyphRangePackedGlyphsCount(layoutMgr INSLayoutManager, nominallySpacedGlyphsRange foundation.NSRange, packedGlyphs unsafe.Pointer, packedGlyphsCount uint) corefoundation.CGSize {
+func (_NSTypesetterClass NSTypesetterClass) PrintingAdjustmentInLayoutManagerForNominallySpacedGlyphRangePackedGlyphsCount(layoutMgr INSLayoutManager, nominallySpacedGlyphsRange foundation.NSRange, packedGlyphs *uint8, packedGlyphsCount uint) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](objc.ID(_NSTypesetterClass.class), objc.Sel("printingAdjustmentInLayoutManager:forNominallySpacedGlyphRange:packedGlyphs:count:"), layoutMgr, nominallySpacedGlyphsRange, objc.CArray(packedGlyphs), packedGlyphsCount)
 	return corefoundation.CGSize(rv)
 }
@@ -1446,8 +1451,8 @@ func (t NSTypesetter) ParagraphSeparatorCharacterRange() foundation.NSRange {
 // # Discussion
 //
 // The default implementation tries to use the [NSTextView] method
-// [TypingAttributes] if possible; otherwise, it uses the attributes for the
-// last character.
+// [NSTextView.TypingAttributes] if possible; otherwise, it uses the
+// attributes for the last character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/attributesForExtraLineFragment
 func (t NSTypesetter) AttributesForExtraLineFragment() foundation.INSDictionary {

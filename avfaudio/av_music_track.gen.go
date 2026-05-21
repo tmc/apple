@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -95,11 +96,6 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //
 //   - [AVMusicTrack.EnumerateEventsInRangeUsingBlock]: Iterates through the music events within the track.
 //
-// # Getting the End of Track Timestamp
-//
-//   - [AVMusicTrack.AVMusicTimeStampEndOfTrack]: A timestamp you use to access all events in a music track through a beat range.
-//   - [AVMusicTrack.SetAVMusicTimeStampEndOfTrack]
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type AVMusicTrack struct {
 	objectivec.Object
@@ -168,11 +164,6 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //
 //   - [IAVMusicTrack.EnumerateEventsInRangeUsingBlock]: Iterates through the music events within the track.
 //
-// # Getting the End of Track Timestamp
-//
-//   - [IAVMusicTrack.AVMusicTimeStampEndOfTrack]: A timestamp you use to access all events in a music track through a beat range.
-//   - [IAVMusicTrack.SetAVMusicTimeStampEndOfTrack]
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type IAVMusicTrack interface {
 	objectivec.IObject
@@ -200,8 +191,8 @@ type IAVMusicTrack interface {
 	LengthInBeats() AVMusicTimeStamp
 	SetLengthInBeats(value AVMusicTimeStamp)
 	// The total duration of the track, in seconds.
-	LengthInSeconds() float64
-	SetLengthInSeconds(value float64)
+	LengthInSeconds() foundation.NSTimeInterval
+	SetLengthInSeconds(value foundation.NSTimeInterval)
 
 	// Topic: Configuring the Track Destinations
 
@@ -243,12 +234,6 @@ type IAVMusicTrack interface {
 
 	// Iterates through the music events within the track.
 	EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block AVMusicEventEnumerationBlock)
-
-	// Topic: Getting the End of Track Timestamp
-
-	// A timestamp you use to access all events in a music track through a beat range.
-	AVMusicTimeStampEndOfTrack() float64
-	SetAVMusicTimeStampEndOfTrack(value float64)
 }
 
 // Init initializes the instance.
@@ -510,11 +495,11 @@ func (m AVMusicTrack) SetLengthInBeats(value AVMusicTimeStamp) {
 // calculated length.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/lengthInSeconds
-func (m AVMusicTrack) LengthInSeconds() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("lengthInSeconds"))
-	return rv
+func (m AVMusicTrack) LengthInSeconds() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("lengthInSeconds"))
+	return foundation.NSTimeInterval(rv)
 }
-func (m AVMusicTrack) SetLengthInSeconds(value float64) {
+func (m AVMusicTrack) SetLengthInSeconds(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLengthInSeconds:"), value)
 }
 
@@ -522,12 +507,12 @@ func (m AVMusicTrack) SetLengthInSeconds(value float64) {
 //
 // # Discussion
 //
-// This property and a [DestinationMIDIEndpoint] are mutually exclusive. You
-// must attach the audio to an audio engine to receive events. The track must
-// be part of the [AVAudioSequencer] you associate with the same engine. When
-// playing, the track sends it’s events to that [AVAudioUnit]. You can’t
-// change the destination audio unit while the track’s sequence is in a
-// playing state.
+// This property and a [AVMusicTrack.DestinationMIDIEndpoint] are mutually
+// exclusive. You must attach the audio to an audio engine to receive events.
+// The track must be part of the [AVAudioSequencer] you associate with the
+// same engine. When playing, the track sends it’s events to that
+// [AVAudioUnit]. You can’t change the destination audio unit while the
+// track’s sequence is in a playing state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationAudioUnit
 func (m AVMusicTrack) DestinationAudioUnit() IAVAudioUnit {
@@ -542,7 +527,8 @@ func (m AVMusicTrack) SetDestinationAudioUnit(value IAVAudioUnit) {
 //
 // # Discussion
 //
-// If you don’t set [LoopRange], the framework loops the full track.
+// If you don’t set [AVMusicTrack.LoopRange], the framework loops the full
+// track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isLoopingEnabled
 func (m AVMusicTrack) IsLoopingEnabled() bool {
@@ -582,16 +568,4 @@ func (m AVMusicTrack) NumberOfLoops() int {
 }
 func (m AVMusicTrack) SetNumberOfLoops(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfLoops:"), value)
-}
-
-// A timestamp you use to access all events in a music track through a beat
-// range.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avmusictimestampendoftrack
-func (m AVMusicTrack) AVMusicTimeStampEndOfTrack() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("AVMusicTimeStampEndOfTrack"))
-	return rv
-}
-func (m AVMusicTrack) SetAVMusicTimeStampEndOfTrack(value float64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAVMusicTimeStampEndOfTrack:"), value)
 }

@@ -49,10 +49,10 @@ func (nc NSTableCellViewClass) Alloc() NSTableCellView {
 //
 // # Overview
 //
-// The [ImageView] and [TextField] properties are connected in Interface
-// Builder. Additional properties can be added by subclassing
-// [NSTableCellView] and adding the required properties and connecting them
-// programmatically or in Interface Builder.
+// The [NSTableCellView.ImageView] and [NSTableCellView.TextField] properties
+// are connected in Interface Builder. Additional properties can be added by
+// subclassing [NSTableCellView] and adding the required properties and
+// connecting them programmatically or in Interface Builder.
 //
 // The `objectValue` is used when setting the value of the view cell by the
 // [TableViewObjectValueForTableColumnRow] method in the
@@ -284,7 +284,7 @@ func (t NSTableCellView) SetTextField(value INSTextField) {
 //
 // The default implementation automatically forwards calls to all subviews
 // that implement “ or are an NSControl, which have [NSCell] classes that
-// respond to [BackgroundStyle].
+// respond to [NSCell.BackgroundStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableCellView/backgroundStyle
 func (t NSTableCellView) BackgroundStyle() NSBackgroundStyle {
@@ -300,8 +300,9 @@ func (t NSTableCellView) SetBackgroundStyle(value NSBackgroundStyle) {
 // # Discussion
 //
 // The `rowSizeStyle` property is set by the [NSTableView] to its
-// [EffectiveRowSizeStyle]. The cell view will layout the [TextField] and
-// [ImageView] based on the `rowSizeStyle`.
+// [NSTableView.EffectiveRowSizeStyle]. The cell view will layout the
+// [NSTableCellView.TextField] and [NSTableCellView.ImageView] based on the
+// `rowSizeStyle`.
 //
 // A value of [NSTableViewRowSizeStyleDefault] should never be set on the cell
 // view, as it is an appropriate value only for the table as it returns the
@@ -321,8 +322,9 @@ func (t NSTableCellView) SetRowSizeStyle(value NSTableViewRowSizeStyle) {
 // # Discussion
 //
 // The default implementation of this method returns an array of up to two
-// [NSDraggingImageComponent] instances – one for the [ImageView] and
-// another for the [TextField] (unless the property is `nil`).
+// [NSDraggingImageComponent] instances – one for the
+// [NSTableCellView.ImageView] and another for the [NSTableCellView.TextField]
+// (unless the property is `nil`).
 //
 // These method can be subclassed and overridden to provide a custom set of
 // [NSDraggingImageComponent] objects to create the drag image from this view.

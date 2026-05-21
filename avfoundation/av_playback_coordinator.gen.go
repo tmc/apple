@@ -203,9 +203,10 @@ func (p AVPlaybackCoordinator) ParticipantLimitForWaitingOutSuspensionsWithReaso
 // # Discussion
 //
 // This method provides additional configuration of the values your app sets
-// for the [SuspensionReasonsThatTriggerWaiting] property. When a coordinator
-// decides whether one participant’s suspensions cause others to wait, it
-// also considers any participant limits that you set on the group.
+// for the [AVPlaybackCoordinator.SuspensionReasonsThatTriggerWaiting]
+// property. When a coordinator decides whether one participant’s
+// suspensions cause others to wait, it also considers any participant limits
+// that you set on the group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/setParticipantLimit(_:forWaitingOutSuspensionsWithReason:)
 func (p AVPlaybackCoordinator) SetParticipantLimitForWaitingOutSuspensionsWithReason(participantLimit int, reason AVCoordinatedPlaybackSuspensionReason) {
@@ -224,7 +225,8 @@ func (p AVPlaybackCoordinator) SetParticipantLimitForWaitingOutSuspensionsWithRe
 //
 // # Discussion
 //
-// End a suspension by calling its [End] or [EndProposingNewTime] method.
+// End a suspension by calling its [AVCoordinatedPlaybackSuspension.End] or
+// [AVCoordinatedPlaybackSuspension.EndProposingNewTime] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/beginSuspension(for:)
 func (p AVPlaybackCoordinator) BeginSuspensionForReason(suspensionReason AVCoordinatedPlaybackSuspensionReason) IAVCoordinatedPlaybackSuspension {

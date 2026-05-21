@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,8 +55,8 @@ func (ac AVCaptureTimecodeGeneratorClass) Alloc() AVCaptureTimecodeGenerator {
 // input (MTC). Suitable for playback, recording, or other time-sensitive
 // operations where precise timecode metadata is required.
 //
-// Use the [AVCaptureTimecodeGenerator.StartSynchronizationWithTimecodeSource] method to set up the
-// desired timecode source.
+// Use the [AVCaptureTimecodeGenerator.StartSynchronizationWithTimecodeSource]
+// method to set up the desired timecode source.
 //
 // # Generating timecode
 //
@@ -146,11 +147,11 @@ type IAVCaptureTimecodeGenerator interface {
 	// Topic: Configuring the generator
 
 	// The maximum time interval allowed for source synchronization attempts before timing out.
-	SynchronizationTimeout() float64
-	SetSynchronizationTimeout(value float64)
+	SynchronizationTimeout() foundation.NSTimeInterval
+	SetSynchronizationTimeout(value foundation.NSTimeInterval)
 	// The time offset, in seconds, applied to the generated timecode.
-	TimecodeAlignmentOffset() float64
-	SetTimecodeAlignmentOffset(value float64)
+	TimecodeAlignmentOffset() foundation.NSTimeInterval
+	SetTimecodeAlignmentOffset(value foundation.NSTimeInterval)
 	// The frame duration that the generator will use to generate timecodes.
 	TimecodeFrameDuration() coremedia.CMTime
 	SetTimecodeFrameDuration(value coremedia.CMTime)
@@ -214,8 +215,9 @@ func (c AVCaptureTimecodeGenerator) StartSynchronizationWithTimecodeSource(sourc
 //
 // callbackQueue: The dispatch queue on which the delegate methods are invoked. The
 // `callbackQueue` parameter may not be `nil`, except when setting the
-// [AVCaptureTimecodeGeneratorDelegate] to `nil`, otherwise [SetDelegateQueue]
-// throws an [NSInvalidArgumentException].
+// [AVCaptureTimecodeGeneratorDelegate] to `nil`, otherwise
+// [AVCaptureTimecodeGenerator.SetDelegateQueue] throws an
+// [NSInvalidArgumentException].
 //
 // # Discussion
 //
@@ -288,11 +290,11 @@ func (c AVCaptureTimecodeGenerator) AvailableSources() []AVCaptureTimecodeSource
 // method fires, informing you of the event. The default value is 15 seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/synchronizationTimeout
-func (c AVCaptureTimecodeGenerator) SynchronizationTimeout() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("synchronizationTimeout"))
-	return rv
+func (c AVCaptureTimecodeGenerator) SynchronizationTimeout() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](c.ID, objc.Sel("synchronizationTimeout"))
+	return foundation.NSTimeInterval(rv)
 }
-func (c AVCaptureTimecodeGenerator) SetSynchronizationTimeout(value float64) {
+func (c AVCaptureTimecodeGenerator) SetSynchronizationTimeout(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSynchronizationTimeout:"), value)
 }
 
@@ -305,11 +307,11 @@ func (c AVCaptureTimecodeGenerator) SetSynchronizationTimeout(value float64) {
 // is 0 seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/timecodeAlignmentOffset
-func (c AVCaptureTimecodeGenerator) TimecodeAlignmentOffset() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("timecodeAlignmentOffset"))
-	return rv
+func (c AVCaptureTimecodeGenerator) TimecodeAlignmentOffset() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](c.ID, objc.Sel("timecodeAlignmentOffset"))
+	return foundation.NSTimeInterval(rv)
 }
-func (c AVCaptureTimecodeGenerator) SetTimecodeAlignmentOffset(value float64) {
+func (c AVCaptureTimecodeGenerator) SetTimecodeAlignmentOffset(value foundation.NSTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimecodeAlignmentOffset:"), value)
 }
 
@@ -328,8 +330,9 @@ func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value coremedia.CMT
 //
 // # Discussion
 //
-// You can use your [Delegate] to receive real-time timecode updates.
-// Implement the “ method in your delegate to handle updates.
+// You can use your [AVCaptureTimecodeGenerator.Delegate] to receive real-time
+// timecode updates. Implement the “ method in your delegate to handle
+// updates.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/delegate
 func (c AVCaptureTimecodeGenerator) Delegate() AVCaptureTimecodeGeneratorDelegate {
@@ -341,8 +344,8 @@ func (c AVCaptureTimecodeGenerator) Delegate() AVCaptureTimecodeGeneratorDelegat
 //
 // # Discussion
 //
-// Provides the queue set in [SetDelegateQueue]. If no delegate is assigned,
-// this property is `nil`.
+// Provides the queue set in [AVCaptureTimecodeGenerator.SetDelegateQueue]. If
+// no delegate is assigned, this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/delegateCallbackQueue
 func (c AVCaptureTimecodeGenerator) DelegateCallbackQueue() dispatch.Queue {

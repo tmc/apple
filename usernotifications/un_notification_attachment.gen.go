@@ -81,22 +81,15 @@ func (uc UNNotificationAttachmentClass) Alloc() UNNotificationAttachment {
 //
 // When creating an attachment, you can specify optional details about how to
 // present the thumbnail image for the image or movie. Use the
-// [UNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailClippingRectKey] option to use
+// [UNNotificationAttachmentOptionsThumbnailClippingRectKey] option to use
 // only the specified portion of an image as a thumbnail. For animated images
-// and movies, use the [UNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailTimeKey]
+// and movies, use the [UNNotificationAttachmentOptionsThumbnailTimeKey]
 // option to select which frame to use for the thumbnail image.
 //
 // The system limits the amount of storage space allocated for attachments for
 // each app. To delete attachments, use the methods of the
 // [UNUserNotificationCenter] class to remove the notification requests that
 // contain those attachments.
-//
-// # Creating an Attachment
-//
-//   - [UNNotificationAttachment.UNNotificationAttachmentOptionsTypeHintKey]: A hint about an attachment’s file type.
-//   - [UNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailHiddenKey]: A Boolean value indicating whether the system hides the attachment’s thumbnail.
-//   - [UNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailClippingRectKey]: The clipping rectangle for a thumbnail image.
-//   - [UNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailTimeKey]: The frame number of an animation to use as a thumbnail image.
 //
 // # Getting the Attachment Contents
 //
@@ -105,6 +98,9 @@ func (uc UNNotificationAttachmentClass) Alloc() UNNotificationAttachment {
 //   - [UNNotificationAttachment.Type]: The UTI type of the attachment.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment
+//
+// [UNNotificationAttachmentOptionsThumbnailClippingRectKey]: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachmentOptionsThumbnailClippingRectKey
+// [UNNotificationAttachmentOptionsThumbnailTimeKey]: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachmentOptionsThumbnailTimeKey
 type UNNotificationAttachment struct {
 	objectivec.Object
 }
@@ -121,13 +117,6 @@ func UNNotificationAttachmentFromID(id objc.ID) UNNotificationAttachment {
 
 // An interface definition for the [UNNotificationAttachment] class.
 //
-// # Creating an Attachment
-//
-//   - [IUNNotificationAttachment.UNNotificationAttachmentOptionsTypeHintKey]: A hint about an attachment’s file type.
-//   - [IUNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailHiddenKey]: A Boolean value indicating whether the system hides the attachment’s thumbnail.
-//   - [IUNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailClippingRectKey]: The clipping rectangle for a thumbnail image.
-//   - [IUNNotificationAttachment.UNNotificationAttachmentOptionsThumbnailTimeKey]: The frame number of an animation to use as a thumbnail image.
-//
 // # Getting the Attachment Contents
 //
 //   - [IUNNotificationAttachment.Identifier]: The unique identifier for the attachment.
@@ -137,17 +126,6 @@ func UNNotificationAttachmentFromID(id objc.ID) UNNotificationAttachment {
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment
 type IUNNotificationAttachment interface {
 	objectivec.IObject
-
-	// Topic: Creating an Attachment
-
-	// A hint about an attachment’s file type.
-	UNNotificationAttachmentOptionsTypeHintKey() string
-	// A Boolean value indicating whether the system hides the attachment’s thumbnail.
-	UNNotificationAttachmentOptionsThumbnailHiddenKey() string
-	// The clipping rectangle for a thumbnail image.
-	UNNotificationAttachmentOptionsThumbnailClippingRectKey() string
-	// The frame number of an animation to use as a thumbnail image.
-	UNNotificationAttachmentOptionsThumbnailTimeKey() string
 
 	// Topic: Getting the Attachment Contents
 
@@ -224,39 +202,6 @@ func NewUNNotificationAttachmentWithIdentifierURLOptionsError(identifier string,
 
 func (u UNNotificationAttachment) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// A hint about an attachment’s file type.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationattachmentoptionstypehintkey
-func (u UNNotificationAttachment) UNNotificationAttachmentOptionsTypeHintKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationAttachmentOptionsTypeHintKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A Boolean value indicating whether the system hides the attachment’s
-// thumbnail.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationattachmentoptionsthumbnailhiddenkey
-func (u UNNotificationAttachment) UNNotificationAttachmentOptionsThumbnailHiddenKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationAttachmentOptionsThumbnailHiddenKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The clipping rectangle for a thumbnail image.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationattachmentoptionsthumbnailclippingrectkey
-func (u UNNotificationAttachment) UNNotificationAttachmentOptionsThumbnailClippingRectKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationAttachmentOptionsThumbnailClippingRectKey"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The frame number of an animation to use as a thumbnail image.
-//
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationattachmentoptionsthumbnailtimekey
-func (u UNNotificationAttachment) UNNotificationAttachmentOptionsThumbnailTimeKey() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("UNNotificationAttachmentOptionsThumbnailTimeKey"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // The unique identifier for the attachment.

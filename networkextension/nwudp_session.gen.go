@@ -277,7 +277,8 @@ func (n NWUDPSession) Endpoint() INWEndpoint {
 	return NWEndpointFromID(objc.ID(rv))
 }
 
-// The current evaluated path for the session’s [ResolvedEndpoint] property.
+// The current evaluated path for the session’s
+// [NWUDPSession.ResolvedEndpoint] property.
 //
 // # Discussion
 //

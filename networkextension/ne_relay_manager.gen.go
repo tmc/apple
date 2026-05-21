@@ -50,8 +50,8 @@ func (nc NERelayManagerClass) Alloc() NERelayManager {
 //
 // When your app starts up, access the shared instance of the relay manager,
 // and load existing settings from the preferences using
-// [NERelayManager.LoadFromPreferencesWithCompletionHandler]. You can define your relay
-// server configuration, and persist it by calling
+// [NERelayManager.LoadFromPreferencesWithCompletionHandler]. You can define
+// your relay server configuration, and persist it by calling
 // [NERelayManager.SaveToPreferencesWithCompletionHandler].
 //
 // # Managing relay configurations
@@ -74,10 +74,6 @@ func (nc NERelayManagerClass) Alloc() NERelayManager {
 //   - [NERelayManager.SetLocalizedDescription]
 //   - [NERelayManager.OnDemandRules]: An array of rules you use to determine which networks the relay uses.
 //   - [NERelayManager.SetOnDemandRules]
-//
-// # Handling errors
-//
-//   - [NERelayManager.NERelayErrorDomain]: The domain for errors resulting from calls to the relay manager.
 //
 // # Instance Properties
 //
@@ -132,10 +128,6 @@ func NERelayManagerFromID(id objc.ID) NERelayManager {
 //   - [INERelayManager.OnDemandRules]: An array of rules you use to determine which networks the relay uses.
 //   - [INERelayManager.SetOnDemandRules]
 //
-// # Handling errors
-//
-//   - [INERelayManager.NERelayErrorDomain]: The domain for errors resulting from calls to the relay manager.
-//
 // # Instance Properties
 //
 //   - [INERelayManager.ExcludedFQDNs]
@@ -185,11 +177,6 @@ type INERelayManager interface {
 	OnDemandRules() []NEOnDemandRule
 	SetOnDemandRules(value []NEOnDemandRule)
 
-	// Topic: Handling errors
-
-	// The domain for errors resulting from calls to the relay manager.
-	NERelayErrorDomain() string
-
 	// Topic: Instance Properties
 
 	ExcludedFQDNs() []string
@@ -203,7 +190,7 @@ type INERelayManager interface {
 
 	// Topic: Instance Methods
 
-	GetLastClientErrorsCompletionHandler(seconds float64, completionHandler ErrorHandler)
+	GetLastClientErrorsCompletionHandler(seconds foundation.NSTimeInterval, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -235,8 +222,8 @@ func NewNERelayManager() NERelayManager {
 // # Discussion
 //
 // You must call this method at least once before calling
-// [SaveToPreferencesWithCompletionHandler] for the first time after your app
-// launches.
+// [NERelayManager.SaveToPreferencesWithCompletionHandler] for the first time
+// after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/loadFromPreferences(completionHandler:)
 //
@@ -255,8 +242,9 @@ func (r NERelayManager) LoadFromPreferencesWithCompletionHandler(completionHandl
 //
 // # Discussion
 //
-// You must call [LoadFromPreferencesWithCompletionHandler] at least once
-// before calling this method the first time after your app launches.
+// You must call [NERelayManager.LoadFromPreferencesWithCompletionHandler] at
+// least once before calling this method the first time after your app
+// launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/saveToPreferences(completionHandler:)
 //
@@ -277,8 +265,8 @@ func (r NERelayManager) SaveToPreferencesWithCompletionHandler(completionHandler
 //
 // After you remove your configuration, the [NERelayManager] object still
 // contains the configuration parameters. Calling
-// [LoadFromPreferencesWithCompletionHandler] clears out the configuration
-// parameters from the [NERelayManager] object.
+// [NERelayManager.LoadFromPreferencesWithCompletionHandler] clears out the
+// configuration parameters from the [NERelayManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/removeFromPreferences(completionHandler:)
 //
@@ -289,7 +277,7 @@ func (r NERelayManager) RemoveFromPreferencesWithCompletionHandler(completionHan
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/getLastClientErrors(_:completionHandler:)
-func (r NERelayManager) GetLastClientErrorsCompletionHandler(seconds float64, completionHandler ErrorHandler) {
+func (r NERelayManager) GetLastClientErrorsCompletionHandler(seconds foundation.NSTimeInterval, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](r.ID, objc.Sel("getLastClientErrors:completionHandler:"), seconds, _block1)
 }
@@ -304,6 +292,22 @@ func (r NERelayManager) GetLastClientErrorsCompletionHandler(seconds float64, co
 func (_NERelayManagerClass NERelayManagerClass) SharedManager() NERelayManager {
 	rv := objc.Send[objc.ID](objc.ID(_NERelayManagerClass.class), objc.Sel("sharedManager"))
 	return NERelayManagerFromID(rv)
+}
+
+// Asynchronously reads all the relay configurations previously created and
+// saved by the calling app.
+//
+// completionHandler: A block that receives an array of [NERelayManager] objects. If the system
+// failed to read any [NERelay] configurations read from the disk, the array
+// is passes to the block is empty. The [NSError] passed to this block is
+// `nil` if the load operation succeeded, non-`nil` otherwise.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/loadAllManagersFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
+func (_NERelayManagerClass NERelayManagerClass) LoadAllManagersFromPreferencesWithCompletionHandler(completionHandler NERelayManagerArrayErrorHandler) {
+	_block0, _ := NewNERelayManagerArrayErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NERelayManagerClass.class), objc.Sel("loadAllManagersFromPreferencesWithCompletionHandler:"), _block0)
 }
 
 // A Boolean used to toggle the enabled state of the relay configuration.
@@ -359,7 +363,8 @@ func (r NERelayManager) SetMatchDomains(value []string) {
 //
 // # Discussion
 //
-// Excluded domains take precedence over domains listed in [MatchDomains].
+// Excluded domains take precedence over domains listed in
+// [NERelayManager.MatchDomains].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/excludedDomains
 func (r NERelayManager) ExcludedDomains() []string {
@@ -404,14 +409,6 @@ func (r NERelayManager) OnDemandRules() []NEOnDemandRule {
 }
 func (r NERelayManager) SetOnDemandRules(value []NEOnDemandRule) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOnDemandRules:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// The domain for errors resulting from calls to the relay manager.
-//
-// See: https://developer.apple.com/documentation/networkextension/nerelayerrordomain
-func (r NERelayManager) NERelayErrorDomain() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("NERelayErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // # Discussion
@@ -520,9 +517,32 @@ func (r NERelayManager) RemoveFromPreferences(ctx context.Context) error {
 	}
 }
 
+// LoadAllManagersFromPreferences is a synchronous wrapper around [NERelayManager.LoadAllManagersFromPreferencesWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (rc NERelayManagerClass) LoadAllManagersFromPreferences(ctx context.Context) ([]NERelayManager, error) {
+	type result struct {
+		val []NERelayManager
+		err error
+	}
+	done := make(chan result, 1)
+	rc.LoadAllManagersFromPreferencesWithCompletionHandler(func(val *[]NERelayManager, err error) {
+		var out []NERelayManager
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
 // GetLastClientErrors is a synchronous wrapper around [NERelayManager.GetLastClientErrorsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (r NERelayManager) GetLastClientErrors(ctx context.Context, seconds float64) error {
+func (r NERelayManager) GetLastClientErrors(ctx context.Context, seconds foundation.NSTimeInterval) error {
 	done := make(chan error, 1)
 	r.GetLastClientErrorsCompletionHandler(seconds, func(err error) {
 		done <- err

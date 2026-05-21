@@ -120,8 +120,6 @@ type IMTL4ArgumentTableDescriptor interface {
 	// Controls whether Metal should reserve memory for attribute strides in the argument table.
 	SupportAttributeStrides() bool
 	SetSupportAttributeStrides(value bool)
-
-	MTL4CommandQueueErrorDomain() string
 }
 
 // Init initializes the instance.
@@ -234,10 +232,4 @@ func (m MTL4ArgumentTableDescriptor) SupportAttributeStrides() bool {
 }
 func (m MTL4ArgumentTableDescriptor) SetSupportAttributeStrides(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportAttributeStrides:"), value)
-}
-
-// See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
-func (m MTL4ArgumentTableDescriptor) MTL4CommandQueueErrorDomain() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

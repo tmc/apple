@@ -52,7 +52,8 @@ func (cc CKNotificationClass) Alloc() CKNotification {
 // notifications. In both cases, the object indicates the changed data.
 //
 // [CKNotification] is an abstract class. When you create a notification from
-// a payload dictionary, the [CKNotification.NotificationFromRemoteNotificationDictionary]
+// a payload dictionary, the
+// [CKRecordZoneNotificationClass.NotificationFromRemoteNotificationDictionary]
 // method returns an instance of the appropriate subclass. Similarly, when you
 // fetch notifications from a container, you receive instances of a concrete
 // subclass. [CKNotification] provides information about the push notification
@@ -190,8 +191,8 @@ type ICKNotification interface {
 	// The name of the action group that corresponds to this notification.
 	Category() string
 	// The ID of the subscription that triggers the notification.
-	SubscriptionID() string
-	SetSubscriptionID(value string)
+	SubscriptionID() CKSubscriptionID
+	SetSubscriptionID(value CKSubscriptionID)
 	// The ID of the user record that creates the subscription that generates the push notification.
 	SubscriptionOwnerUserRecordID() ICKRecordID
 	// The notification’s title.
@@ -301,10 +302,13 @@ func (c CKNotification) ContainerIdentifier() string {
 // following list shows the properties that CloudKit removes, and the order
 // for removing them:
 //
-// - [ContainerIdentifier] - Keys that subclasses of [CKNotification] define.
-// - [SoundName] - [AlertLaunchImage] - [AlertActionLocalizationKey] -
-// [AlertBody] - [AlertLocalizationArgs] - [AlertLocalizationKey] - [Badge] -
-// [NotificationID]
+// - [CKNotification.ContainerIdentifier] - Keys that subclasses of
+// [CKNotification] define. - [CKNotification.SoundName] -
+// [CKNotification.AlertLaunchImage] -
+// [CKNotification.AlertActionLocalizationKey] - [CKNotification.AlertBody] -
+// [CKNotification.AlertLocalizationArgs] -
+// [CKNotification.AlertLocalizationKey] - [CKNotification.Badge] -
+// [CKNotification.NotificationID]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKNotification/isPruned
 func (c CKNotification) IsPruned() bool {
@@ -331,8 +335,8 @@ func (c CKNotification) AlertBody() string {
 //
 // When the system delivers a push notification to your app, it gets the text
 // for the alert body by looking up the specified key in your app’s
-// `Localizable.Strings()` file. CloudKit ignores the value in [AlertBody] if
-// you set this property.
+// `Localizable.Strings()` file. CloudKit ignores the value in
+// [CKNotification.AlertBody] if you set this property.
 //
 // .
 //
@@ -442,12 +446,12 @@ func (c CKNotification) Category() string {
 // The ID of the subscription that triggers the notification.
 //
 // See: https://developer.apple.com/documentation/cloudkit/cknotification/subscriptionid-16ygj
-func (c CKNotification) SubscriptionID() string {
+func (c CKNotification) SubscriptionID() CKSubscriptionID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("subscriptionID"))
-	return foundation.NSStringFromID(rv).String()
+	return CKSubscriptionID(foundation.NSStringFromID(rv).String())
 }
-func (c CKNotification) SetSubscriptionID(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionID:"), objc.String(value))
+func (c CKNotification) SetSubscriptionID(value CKSubscriptionID) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionID:"), objc.String(string(value)))
 }
 
 // The ID of the user record that creates the subscription that generates the
@@ -475,7 +479,8 @@ func (c CKNotification) SubscriptionOwnerUserRecordID() ICKRecordID {
 //
 // # Discussion
 //
-// The system ignores this property if [TitleLocalizationKey] has a value.
+// The system ignores this property if [CKNotification.TitleLocalizationKey]
+// has a value.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKNotification/title
 func (c CKNotification) Title() string {
@@ -488,7 +493,7 @@ func (c CKNotification) Title() string {
 //
 // # Discussion
 //
-// This property takes precedence over [Title].
+// This property takes precedence over [CKNotification.Title].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKNotification/titleLocalizationKey
 func (c CKNotification) TitleLocalizationKey() string {
@@ -525,7 +530,8 @@ func (c CKNotification) TitleLocalizationArgs() []string {
 //
 // # Discussion
 //
-// The system ignores this property if [SubtitleLocalizationKey] has a value.
+// The system ignores this property if
+// [CKNotification.SubtitleLocalizationKey] has a value.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKNotification/subtitle
 func (c CKNotification) Subtitle() string {
@@ -538,7 +544,7 @@ func (c CKNotification) Subtitle() string {
 //
 // # Discussion
 //
-// This property takes precedence over [Subtitle].
+// This property takes precedence over [CKNotification.Subtitle].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKNotification/subtitleLocalizationKey
 func (c CKNotification) SubtitleLocalizationKey() string {

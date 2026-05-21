@@ -56,9 +56,10 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 // server, which handles the I/O operations.
 //
 // The NBD client attempts to connect to the NBD server referred to by the URL
-// used when you started the VM with [StartWithCompletionHandler]. However,
-// it’s important to note that a connection attempt isn’t made when the
-// framework initializes the attachment object.
+// used when you started the VM with
+// [VZVirtualMachine.StartWithCompletionHandler]. However, it’s important to
+// note that a connection attempt isn’t made when the framework initializes
+// the attachment object.
 //
 // Reconnection attempts take place throughout the life cycle of the VM when
 // the NBD client encounters a recoverable error such as connection timeout
@@ -146,7 +147,7 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	// Creates a new network block device (NBD) storage attachment from an NDB Uniform Resource Indicator (URI) represented as a URL that you provide.
 	InitWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
 	// Creates a new network block device storage attachment from an NBD Uniform Resource Indicator (URI) represented as a URL, timeout value, and read-only and synchronization modes that you provide.
-	InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
+	InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout foundation.NSTimeInterval, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
 
 	// Topic: Getting information about the attachment point
 
@@ -155,7 +156,7 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	// The mode in which the NBD client synchronizes data with the NBD server.
 	SynchronizationMode() VZDiskSynchronizationMode
 	// The timeout value in seconds for the connection between the client and server.
-	Timeout() float64
+	Timeout() foundation.NSTimeInterval
 	// The URL that refers to the NBD server to which the NBD client will connect.
 	URL() foundation.NSURL
 
@@ -229,7 +230,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.NSU
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
-func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout foundation.NSTimeInterval, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZNetworkBlockDeviceStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
@@ -284,7 +285,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout foundation.NSTimeInterval, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -369,9 +370,9 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) SynchronizationMode() VZDis
 // delegate method.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/timeout
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() float64 {
-	rv := objc.Send[float64](n.ID, objc.Sel("timeout"))
-	return rv
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() foundation.NSTimeInterval {
+	rv := objc.Send[foundation.NSTimeInterval](n.ID, objc.Sel("timeout"))
+	return foundation.NSTimeInterval(rv)
 }
 
 // The URL that refers to the NBD server to which the NBD client will connect.

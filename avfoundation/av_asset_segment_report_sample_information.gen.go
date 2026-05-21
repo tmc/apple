@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/coremedia"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -91,22 +90,6 @@ type IAVAssetSegmentReportSampleInformation interface {
 	Length() int
 	// A Boolean value that indicates whether the sample is a key frame.
 	IsSyncSample() bool
-
-	// The duration of a track.
-	Duration() coremedia.CMTime
-	SetDuration(value coremedia.CMTime)
-	// The earliest presentation timestamp (PTS) for this track.
-	EarliestPresentationTimeStamp() coremedia.CMTime
-	SetEarliestPresentationTimeStamp(value coremedia.CMTime)
-	// Information about the first video sample in a track.
-	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
-	SetFirstVideoSampleInformation(value IAVAssetSegmentReportSampleInformation)
-	// The type of media a track contains.
-	MediaType() AVMediaType
-	SetMediaType(value AVMediaType)
-	// A persistent unique identifier for a track.
-	TrackID() int32
-	SetTrackID(value int32)
 }
 
 // Init initializes the instance.
@@ -132,8 +115,9 @@ func NewAVAssetSegmentReportSampleInformation() AVAssetSegmentReportSampleInform
 //
 // # Discussion
 //
-// This timestamp may be different from the [EarliestPresentationTimeStamp] if
-// the video’s author encodes it using frame reordering.
+// This timestamp may be different from the
+// [AVAssetSegmentTrackReport.EarliestPresentationTimeStamp] if the video’s
+// author encodes it using frame reordering.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/presentationTimeStamp
 func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() coremedia.CMTime {
@@ -163,59 +147,4 @@ func (a AVAssetSegmentReportSampleInformation) Length() int {
 func (a AVAssetSegmentReportSampleInformation) IsSyncSample() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSyncSample"))
 	return rv
-}
-
-// The duration of a track.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/duration
-func (a AVAssetSegmentReportSampleInformation) Duration() coremedia.CMTime {
-	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("duration"))
-	return coremedia.CMTime(rv)
-}
-func (a AVAssetSegmentReportSampleInformation) SetDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
-}
-
-// The earliest presentation timestamp (PTS) for this track.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/earliestpresentationtimestamp
-func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() coremedia.CMTime {
-	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("earliestPresentationTimeStamp"))
-	return coremedia.CMTime(rv)
-}
-func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value coremedia.CMTime) {
-	objc.Send[struct{}](a.ID, objc.Sel("setEarliestPresentationTimeStamp:"), value)
-}
-
-// Information about the first video sample in a track.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/firstvideosampleinformation
-func (a AVAssetSegmentReportSampleInformation) FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("firstVideoSampleInformation"))
-	return AVAssetSegmentReportSampleInformationFromID(objc.ID(rv))
-}
-func (a AVAssetSegmentReportSampleInformation) SetFirstVideoSampleInformation(value IAVAssetSegmentReportSampleInformation) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFirstVideoSampleInformation:"), value)
-}
-
-// The type of media a track contains.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/mediatype
-func (a AVAssetSegmentReportSampleInformation) MediaType() AVMediaType {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mediaType"))
-	return AVMediaType(foundation.NSStringFromID(rv).String())
-}
-func (a AVAssetSegmentReportSampleInformation) SetMediaType(value AVMediaType) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMediaType:"), objc.String(string(value)))
-}
-
-// A persistent unique identifier for a track.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/trackid
-func (a AVAssetSegmentReportSampleInformation) TrackID() int32 {
-	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
-	return rv
-}
-func (a AVAssetSegmentReportSampleInformation) SetTrackID(value int32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setTrackID:"), value)
 }

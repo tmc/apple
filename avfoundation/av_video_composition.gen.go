@@ -161,7 +161,7 @@ type IAVVideoComposition interface {
 	// The YCbCr matrix used for video composition.
 	ColorYCbCrMatrix() string
 	// A custom compositor class to use.
-	CustomVideoCompositorClass() objc.Class
+	CustomVideoCompositorClass() objectivec.Class
 	// The output buffers of the video composition can be specified with the outputBufferDescription. The value is an array of CMTagCollectionRef objects that describes the output buffers.
 	OutputBufferDescription() foundation.INSArray
 	// Indicates the spatial configurations that are available to associate with the output of the video composition.
@@ -180,7 +180,7 @@ type IAVVideoComposition interface {
 	// Topic: Identifying source tracks
 
 	// An identifier of the source track from which the video composition derives frame timing.
-	SourceTrackIDForFrameTiming() int32
+	SourceTrackIDForFrameTiming() coremedia.CMPersistentTrackID
 	// The identifiers of source sample data tracks in the composition that the compositor requires to compose frames.
 	SourceSampleDataTrackIDs() []foundation.NSNumber
 
@@ -223,7 +223,8 @@ func NewAVVideoComposition() AVVideoComposition {
 //
 // Apple discourages using this method in iOS 16, tvOS 16, and macOS 13 or
 // later. Create a video composition asynchronously using
-// [VideoCompositionWithPropertiesOfAssetCompletionHandler] instead.
+// [AVVideoCompositionClass.VideoCompositionWithPropertiesOfAssetCompletionHandler]
+// instead.
 //
 // This method creates the video composition object and configures it with the
 // values and instructions suitable for presenting the video tracks of the
@@ -231,16 +232,18 @@ func NewAVVideoComposition() AVVideoComposition {
 // spatial properties and time ranges of the specified asset’s video tracks.
 // It also configures the object properties in the following way:
 //
-// - The value of the [FrameDuration] property is short enough to accommodate
-// the greatest nominal frame rate value among the asset’s video tracks, as
-// indicated by the [nominalFrameRate] property of each track. If all its
-// tracks have a nominal frame rate of `0`, it uses a frame rate of 30 frames
-// per second, with the frame duration set accordingly. - The value of the
-// [RenderSize] property depends on whether the asset is an [AVComposition]
-// object. For an [AVComposition], the render size is the composition’s
-// [NaturalSize] value, and for other assets, its a size large enough to
-// encompass all of its video tracks. - The value of the [RenderScale]
-// property is `1.0`. - The value of the [AnimationTool] property is `nil`.
+// - The value of the [AVVideoComposition.FrameDuration] property is short
+// enough to accommodate the greatest nominal frame rate value among the
+// asset’s video tracks, as indicated by the [nominalFrameRate] property of
+// each track. If all its tracks have a nominal frame rate of `0`, it uses a
+// frame rate of 30 frames per second, with the frame duration set
+// accordingly. - The value of the [AVVideoComposition.RenderSize] property
+// depends on whether the asset is an [AVComposition] object. For an
+// [AVComposition], the render size is the composition’s
+// [AVComposition.NaturalSize] value, and for other assets, its a size large
+// enough to encompass all of its video tracks. - The value of the
+// [AVVideoComposition.RenderScale] property is `1.0`. - The value of the
+// [AVVideoComposition.AnimationTool] property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/init(propertiesOf:)
 //
@@ -297,16 +300,18 @@ func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDele
 // spatial properties and time ranges of the specified asset’s video tracks.
 // It also configures the object properties in the following way:
 //
-// - The value of the [FrameDuration] property is short enough to accommodate
-// the greatest nominal frame rate value among the asset’s video tracks, as
-// indicated by the [nominalFrameRate] property of each track. If all its
-// tracks have a nominal frame rate of `0`, it uses a frame rate of 30 frames
-// per second, with the frame duration set accordingly. - The value of the
-// [RenderSize] property depends on whether the asset is an [AVComposition]
-// object. For an [AVComposition], the render size is the composition’s
-// [NaturalSize] value, and for other assets, its a size large enough to
-// encompass all of its video tracks. - The value of the [RenderScale]
-// property is `1.0`. - The value of the [AnimationTool] property is `nil`.
+// - The value of the [AVVideoComposition.FrameDuration] property is short
+// enough to accommodate the greatest nominal frame rate value among the
+// asset’s video tracks, as indicated by the [nominalFrameRate] property of
+// each track. If all its tracks have a nominal frame rate of `0`, it uses a
+// frame rate of 30 frames per second, with the frame duration set
+// accordingly. - The value of the [AVVideoComposition.RenderSize] property
+// depends on whether the asset is an [AVComposition] object. For an
+// [AVComposition], the render size is the composition’s
+// [AVComposition.NaturalSize] value, and for other assets, its a size large
+// enough to encompass all of its video tracks. - The value of the
+// [AVVideoComposition.RenderScale] property is `1.0`. - The value of the
+// [AVVideoComposition.AnimationTool] property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/videoComposition(withPropertiesOf:completionHandler:)
 //
@@ -425,9 +430,9 @@ func (v AVVideoComposition) ColorYCbCrMatrix() string {
 // protocol.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/customVideoCompositorClass
-func (v AVVideoComposition) CustomVideoCompositorClass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("customVideoCompositorClass"))
-	return rv
+func (v AVVideoComposition) CustomVideoCompositorClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("customVideoCompositorClass"))
+	return objectivec.Class(rv)
 }
 
 // The output buffers of the video composition can be specified with the
@@ -501,14 +506,14 @@ func (v AVVideoComposition) Instructions() []objectivec.IObject {
 //
 // If an empty edit is encountered in the source asset’s track, the
 // compositor composes frames as needed up to the frequency specified in
-// [FrameDuration] property. Otherwise the frame timing for the video
-// composition is derived from the source asset’s track with the
+// [AVVideoComposition.FrameDuration] property. Otherwise the frame timing for
+// the video composition is derived from the source asset’s track with the
 // corresponding ID.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/sourceTrackIDForFrameTiming
-func (v AVVideoComposition) SourceTrackIDForFrameTiming() int32 {
-	rv := objc.Send[int32](v.ID, objc.Sel("sourceTrackIDForFrameTiming"))
-	return rv
+func (v AVVideoComposition) SourceTrackIDForFrameTiming() coremedia.CMPersistentTrackID {
+	rv := objc.Send[coremedia.CMPersistentTrackID](v.ID, objc.Sel("sourceTrackIDForFrameTiming"))
+	return coremedia.CMPersistentTrackID(rv)
 }
 
 // The identifiers of source sample data tracks in the composition that the

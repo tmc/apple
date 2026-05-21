@@ -311,8 +311,8 @@ type INSRuleEditor interface {
 	// Topic: Supporting Bindings
 
 	// The class used to create a new row in the “rows” binding.
-	RowClass() objc.Class
-	SetRowClass(value objc.Class)
+	RowClass() objectivec.Class
+	SetRowClass(value objectivec.Class)
 	// The key path for the row type.
 	RowTypeKeyPath() string
 	SetRowTypeKeyPath(value string)
@@ -720,10 +720,10 @@ func (r NSRuleEditor) SetFormattingDictionary(value foundation.INSDictionary) {
 // from which it was loaded. If it finds a strings file resource with the
 // given name, [NSRuleEditor] loads it and sets it as the formatting
 // dictionary for the receiver. You can obtain the resulting dictionary using
-// the [FormattingDictionary] property].
+// the [NSRuleEditor.FormattingDictionary] property].
 //
-// If you assign a new dictionary to the [FormattingDictionary] property, it
-// sets the current to formatting strings file name to `nil`.
+// If you assign a new dictionary to the [NSRuleEditor.FormattingDictionary]
+// property, it sets the current to formatting strings file name to `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/formattingStringsFilename
 func (r NSRuleEditor) FormattingStringsFilename() string {
@@ -772,11 +772,11 @@ func (r NSRuleEditor) Predicate() foundation.NSPredicate {
 // The default is [NSMutableDictionary].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowClass
-func (r NSRuleEditor) RowClass() objc.Class {
-	rv := objc.Send[objc.Class](r.ID, objc.Sel("rowClass"))
-	return rv
+func (r NSRuleEditor) RowClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](r.ID, objc.Sel("rowClass"))
+	return objectivec.Class(rv)
 }
-func (r NSRuleEditor) SetRowClass(value objc.Class) {
+func (r NSRuleEditor) SetRowClass(value objectivec.Class) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowClass:"), value)
 }
 

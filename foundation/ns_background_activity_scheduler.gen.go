@@ -66,7 +66,8 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 //
 // # Create a Scheduler
 //
-// To initialize a scheduler, call [NSBackgroundActivityScheduler.InitWithIdentifier] for
+// To initialize a scheduler, call
+// [NSBackgroundActivityScheduler.InitWithIdentifier] for
 // [NSBackgroundActivityScheduler], and pass it a unique identifier string in
 // reverse DNS notation (`nil` and zero-length strings are not allowed) that
 // remains constant across launches of your application.
@@ -75,18 +76,21 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 //
 // Configure the scheduler with any of the following scheduling properties:
 //
-// - [NSBackgroundActivityScheduler.Repeats]—If set to true, the activity is rescheduled at the specified
-// interval after finishing. - [NSBackgroundActivityScheduler.Interval]—For repeating schedulers, the
+// - [NSBackgroundActivityScheduler.Repeats]—If set to true, the activity is
+// rescheduled at the specified interval after finishing. -
+// [NSBackgroundActivityScheduler.Interval]—For repeating schedulers, the
 // average interval between invocations of the activity. For nonrepeating
 // schedulers, `interval` is the suggested interval of time between scheduling
-// the activity and the invocation of the activity. - [NSBackgroundActivityScheduler.Tolerance]—The amount
-// of time before or after the nominal fire date when the activity should be
-// invoked. The nominal fire date is calculated by using the interval combined
-// with the previous fire date or the time when the activity is started. These
-// two properties create a window in time, during which the activity may be
+// the activity and the invocation of the activity. -
+// [NSBackgroundActivityScheduler.Tolerance]—The amount of time before or
+// after the nominal fire date when the activity should be invoked. The
+// nominal fire date is calculated by using the interval combined with the
+// previous fire date or the time when the activity is started. These two
+// properties create a window in time, during which the activity may be
 // scheduled. The system will more aggressively schedule the activity as it
 // nears the end of the grace period after the nominal fire date. The default
-// value is half the interval. - [NSBackgroundActivityScheduler.QualityOfService]—The default value is
+// value is half the interval. -
+// [NSBackgroundActivityScheduler.QualityOfService]—The default value is
 // [NSQualityOfServiceBackground]. If you upgrade the quality of service above
 // this level, the system schedules the activity more aggressively. The
 // default value is the recommended value for most activities. For information
@@ -107,9 +111,9 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 // of code to execute when the scheduler runs, as shown in the following
 // example. The block will be called on a serial background queue appropriate
 // for the level of quality of service specified. The system automatically
-// uses the [BeginActivityWithOptionsReason] method (of [NSProcessInfo]) while
-// invoking the block, choosing appropriate options based on the specified
-// quality of service.
+// uses the [NSProcessInfo.BeginActivityWithOptionsReason] method (of
+// [NSProcessInfo]) while invoking the block, choosing appropriate options
+// based on the specified quality of service.
 //
 // When your block is called, it’s passed a completion handler as an
 // argument. Configure the block to invoke this handler, passing it a result
@@ -118,8 +122,10 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 // deferred ([NSBackgroundActivityResultDeferred]) and rescheduled for a later
 // time. Failure to invoke the completion handler results in the activity not
 // being rescheduled. For work that will be deferred and rescheduled, the
-// block may optionally adjust scheduler properties, such as [NSBackgroundActivityScheduler.Interval] or
-// [NSBackgroundActivityScheduler.Tolerance], before calling the completion handler.
+// block may optionally adjust scheduler properties, such as
+// [NSBackgroundActivityScheduler.Interval] or
+// [NSBackgroundActivityScheduler.Tolerance], before calling the completion
+// handler.
 //
 // # Scheduling background activity
 //
@@ -128,17 +134,18 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 // It’s conceivable that while a lengthy activity is running, conditions may
 // change, resulting in the activity now requiring deferral. For example,
 // perhaps the user has unplugged the Mac and it’s now running on battery
-// power. Your activity can call [NSBackgroundActivityScheduler.ShouldDefer] to determine whether this has
-// occurred. A value of true indicates that the block should finish what
-// it’s currently doing and invoke its completion handler with a value of
-// [NSBackgroundActivityResultDeferred]. See the following example.
+// power. Your activity can call [NSBackgroundActivityScheduler.ShouldDefer]
+// to determine whether this has occurred. A value of true indicates that the
+// block should finish what it’s currently doing and invoke its completion
+// handler with a value of [NSBackgroundActivityResultDeferred]. See the
+// following example.
 //
 // # Detecting deferred background activity
 //
 // # Stop Activity
 //
-// Call [NSBackgroundActivityScheduler.Invalidate] to stop scheduling an activity, as shown in the following
-// example.
+// Call [NSBackgroundActivityScheduler.Invalidate] to stop scheduling an
+// activity, as shown in the following example.
 //
 // # Stopping background activity
 //
@@ -435,12 +442,14 @@ func (b NSBackgroundActivityScheduler) ShouldDefer() bool {
 // # Discussion
 //
 // A nominal fire date for scheduled background activity is calculated based
-// on a combination of the [Interval] property value and the time the activity
-// began or the last execution date. The [Tolerance] property specifies a
-// grace period—a range of time before and after the nominal fire date,
-// during which the activity may be invoked. As the activity nears the end of
-// its grace period, the system schedules the activity more aggressively. The
-// default tolerance period is half the value of the [Interval] property. See
+// on a combination of the [NSBackgroundActivityScheduler.Interval] property
+// value and the time the activity began or the last execution date. The
+// [NSBackgroundActivityScheduler.Tolerance] property specifies a grace
+// period—a range of time before and after the nominal fire date, during
+// which the activity may be invoked. As the activity nears the end of its
+// grace period, the system schedules the activity more aggressively. The
+// default tolerance period is half the value of the
+// [NSBackgroundActivityScheduler.Interval] property. See
 // [NSBackgroundActivityScheduler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/tolerance

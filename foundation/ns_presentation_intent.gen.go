@@ -211,8 +211,8 @@ func NewNSPresentationIntent() NSPresentationIntent {
 // # Discussion
 //
 // Two intents are equivalent if their attributes match. This method doesn’t
-// consider the [Identity] property of the intents when determining their
-// equivalence.
+// consider the [NSPresentationIntent.Identity] property of the intents when
+// determining their equivalence.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/isEquivalentToPresentationIntent:
 func (p NSPresentationIntent) IsEquivalentToPresentationIntent(other INSPresentationIntent) bool {

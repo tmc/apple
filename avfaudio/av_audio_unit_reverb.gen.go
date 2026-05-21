@@ -48,7 +48,8 @@ func (ac AVAudioUnitReverbClass) Alloc() AVAudioUnitReverb {
 //
 // A reverb simulates the acoustic characteristics of a particular
 // environment. Use the different presets to simulate a particular space and
-// blend it in with the original signal using the [AVAudioUnitReverb.WetDryMix] property.
+// blend it in with the original signal using the
+// [AVAudioUnitReverb.WetDryMix] property.
 //
 // # Configure the reverb
 //

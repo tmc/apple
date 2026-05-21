@@ -112,7 +112,7 @@ func NewVZUSBControllerConfiguration() VZUSBControllerConfiguration {
 //
 // This list represents a set of USB devices that a VM starts with. For each
 // entry in the list, the system creates a corresponding runtime object in the
-// [UsbDevices] property.
+// [VZUSBController.UsbDevices] property.
 //
 // The list is empty by default.
 //

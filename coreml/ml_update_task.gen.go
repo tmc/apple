@@ -176,8 +176,9 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:completionHandler:)
 func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.NSURL, trainingData MLBatchProvider, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
+	_block2, _ := NewMLUpdateContextBlock(completionHandler)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:completionHandler:error:"), modelURL, trainingData, completionHandler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:completionHandler:error:"), modelURL, trainingData, _block2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
@@ -200,8 +201,9 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:configuration:completionHandler:)
 func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.NSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
+	_block3, _ := NewMLUpdateContextBlock(completionHandler)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:completionHandler:error:"), modelURL, trainingData, configuration, completionHandler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:completionHandler:error:"), modelURL, trainingData, configuration, _block3, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)

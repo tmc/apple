@@ -107,10 +107,6 @@ type IAVTextStyleRule interface {
 	TextMarkupAttributes() foundation.INSDictionary
 	// A string that identifies the text to which the attributes should apply.
 	TextSelector() string
-
-	// An array of text style rules that specify the formatting and presentation of Web Video Text Tracks (WebVTT) subtitles.
-	TextStyleRules() IAVTextStyleRule
-	SetTextStyleRules(value IAVTextStyleRule)
 }
 
 // Init initializes the instance.
@@ -143,8 +139,9 @@ func NewAVTextStyleRule() AVTextStyleRule {
 //
 // # Discussion
 //
-// This method sets the [TextSelector] property of the style object to `nil`,
-// which causes the rules to be applied to all of the text in the media item.
+// This method sets the [AVTextStyleRule.TextSelector] property of the style
+// object to `nil`, which causes the rules to be applied to all of the text in
+// the media item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/init(textMarkupAttributes:)
 func NewTextStyleRuleWithTextMarkupAttributes(textMarkupAttributes foundation.INSDictionary) AVTextStyleRule {
@@ -189,8 +186,9 @@ func NewTextStyleRuleWithTextMarkupAttributesTextSelector(textMarkupAttributes f
 //
 // # Discussion
 //
-// This method sets the [TextSelector] property of the style object to `nil`,
-// which causes the rules to be applied to all of the text in the media item.
+// This method sets the [AVTextStyleRule.TextSelector] property of the style
+// object to `nil`, which causes the rules to be applied to all of the text in
+// the media item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/init(textMarkupAttributes:)
 func (t AVTextStyleRule) InitWithTextMarkupAttributes(textMarkupAttributes foundation.INSDictionary) AVTextStyleRule {
@@ -236,7 +234,7 @@ func (t AVTextStyleRule) InitWithTextMarkupAttributesTextSelector(textMarkupAttr
 //
 // Use this method to create new text style rule objects based on data you
 // previously converted to a property-list format using the
-// [PropertyListForTextStyleRules] class method.
+// [AVTextStyleRuleClass.PropertyListForTextStyleRules] class method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/textStyleRules(fromPropertyList:)
 func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRulesFromPropertyList(plist objectivec.IObject) []AVTextStyleRule {
@@ -281,8 +279,9 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) PropertyListForTextStyleRules(
 //
 // # Discussion
 //
-// This method sets the [TextSelector] property of the style object to `nil`,
-// which causes the rules to be applied to all of the text in the media item.
+// This method sets the [AVTextStyleRule.TextSelector] property of the style
+// object to `nil`, which causes the rules to be applied to all of the text in
+// the media item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/textStyleRuleWithTextMarkupAttributes:
 func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRuleWithTextMarkupAttributes(textMarkupAttributes foundation.INSDictionary) AVTextStyleRule {
@@ -341,16 +340,4 @@ func (t AVTextStyleRule) TextMarkupAttributes() foundation.INSDictionary {
 func (t AVTextStyleRule) TextSelector() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelector"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// An array of text style rules that specify the formatting and presentation
-// of Web Video Text Tracks (WebVTT) subtitles.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avplayeritem/textstylerules
-func (t AVTextStyleRule) TextStyleRules() IAVTextStyleRule {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStyleRules"))
-	return AVTextStyleRuleFromID(objc.ID(rv))
-}
-func (t AVTextStyleRule) SetTextStyleRules(value IAVTextStyleRule) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTextStyleRules:"), value)
 }

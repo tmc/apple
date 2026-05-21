@@ -50,7 +50,8 @@ func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
 // # Overview
 //
 // To set up a new VM compatible with the restore image, use
-// [VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration] to obtain the [VZMacOSRestoreImage.HardwareModel] of the
+// [VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration] to obtain the
+// [VZMacPlatformConfiguration.HardwareModel] of the
 // [VZMacPlatformConfiguration]. Then, create a [VZMacOSRestoreImage] object
 // by loading an installation media file. Initialize a [VZMacOSInstaller]
 // object with this [VZMacOSRestoreImage] object to install the operating
@@ -106,10 +107,6 @@ type IVZMacOSRestoreImage interface {
 	OperatingSystemVersion() foundation.NSOperatingSystemVersion
 	// The URL of this restore image.
 	URL() foundation.NSURL
-
-	// The Mac hardware model.
-	HardwareModel() IVZMacHardwareModel
-	SetHardwareModel(value IVZMacHardwareModel)
 }
 
 // Init initializes the instance.
@@ -137,8 +134,8 @@ func NewVZMacOSRestoreImage() VZMacOSRestoreImage {
 //
 // Construct a [VZMacOSInstaller] object with a [VZMacOSRestoreImage] loaded
 // from a file on the local file system. A [VZMacOSRestoreImage] fetched with
-// the [FetchLatestSupportedWithCompletionHandler] method has a URL property
-// that refers to a restore image on the network.
+// the [VZMacOSRestoreImageClass.FetchLatestSupportedWithCompletionHandler]
+// method has a URL property that refers to a restore image on the network.
 //
 // To use a network restore image, download the file to disk (using
 // [URLSession] or similar API). After downloading the restore image, you can
@@ -206,39 +203,19 @@ func (m VZMacOSRestoreImage) OperatingSystemVersion() foundation.NSOperatingSyst
 //
 // # Discussion
 //
-// If the restore image loaded using [LoadFileURLCompletionHandler], the value
-// of this property is a file URL.
+// If the restore image loaded using
+// [VZMacOSRestoreImageClass.LoadFileURLCompletionHandler], the value of this
+// property is a file URL.
 //
 // If you obtain the restore image by fetching it from a server, use
-// [FetchLatestSupportedWithCompletionHandler] and set the value of this
-// property to a network URL for the installation media file.
+// [VZMacOSRestoreImageClass.FetchLatestSupportedWithCompletionHandler] and
+// set the value of this property to a network URL for the installation media
+// file.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/url
 func (m VZMacOSRestoreImage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
-}
-
-// The Mac hardware model.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
-func (m VZMacOSRestoreImage) HardwareModel() IVZMacHardwareModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
-	return VZMacHardwareModelFromID(objc.ID(rv))
-}
-func (m VZMacOSRestoreImage) SetHardwareModel(value IVZMacHardwareModel) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
-}
-
-// Fetches the latest restore image supported by this host from the network.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/latestsupported
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LatestSupported() VZMacOSRestoreImage {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("fetchLatestSupportedWithCompletionHandler:"))
-	return VZMacOSRestoreImageFromID(objc.ID(rv))
-}
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) SetFetchLatestSupportedWithCompletionHandler(value VZMacOSRestoreImage) {
-	objc.Send[struct{}](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("setFetchLatestSupportedWithCompletionHandler::"), value)
 }
 
 // FetchLatestSupported is a synchronous wrapper around [VZMacOSRestoreImage.FetchLatestSupportedWithCompletionHandler].

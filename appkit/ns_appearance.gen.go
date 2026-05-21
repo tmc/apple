@@ -161,9 +161,6 @@ type INSAppearance interface {
 	// Specifies whether the current appearance allows vibrancy.
 	AllowsVibrancy() bool
 
-	// The appearance of the receiver, in an
-	Appearance() INSAppearance
-	SetAppearance(value INSAppearance)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -323,17 +320,6 @@ func (a NSAppearance) Name() NSAppearanceName {
 func (a NSAppearance) AllowsVibrancy() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("allowsVibrancy"))
 	return rv
-}
-
-// The appearance of the receiver, in an
-//
-// See: https://developer.apple.com/documentation/appkit/nsappearancecustomization/appearance
-func (a NSAppearance) Appearance() INSAppearance {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("appearance"))
-	return NSAppearanceFromID(objc.ID(rv))
-}
-func (a NSAppearance) SetAppearance(value INSAppearance) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAppearance:"), value)
 }
 
 // The appearance that the system uses for color and asset resolution, and

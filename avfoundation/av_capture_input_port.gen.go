@@ -113,10 +113,6 @@ type IAVCaptureInputPort interface {
 
 	// The input object that owns the port.
 	Input() IAVCaptureInput
-
-	// The ports available on a capture input.
-	Ports() IAVCaptureInputPort
-	SetPorts(value IAVCaptureInputPort)
 }
 
 // Init initializes the instance.
@@ -198,15 +194,4 @@ func (c AVCaptureInputPort) Clock() coremedia.CMClockRef {
 func (c AVCaptureInputPort) Input() IAVCaptureInput {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("input"))
 	return AVCaptureInputFromID(objc.ID(rv))
-}
-
-// The ports available on a capture input.
-//
-// See: https://developer.apple.com/documentation/avfoundation/avcaptureinput/ports
-func (c AVCaptureInputPort) Ports() IAVCaptureInputPort {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("ports"))
-	return AVCaptureInputPortFromID(objc.ID(rv))
-}
-func (c AVCaptureInputPort) SetPorts(value IAVCaptureInputPort) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPorts:"), value)
 }

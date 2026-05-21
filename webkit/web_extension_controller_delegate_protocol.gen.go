@@ -228,14 +228,16 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenWindow
 // # Discussion
 //
 // This method is called in response to the extension’s scripts or when
-// invoking [PerformActionForTab] if the action has a popup.
+// invoking [WKWebExtensionContext.PerformActionForTab] if the action has a
+// popup.
 //
 // The associated tab, if applicable, can be located through the
-// [AssociatedTab] property of the `action` parameter. This delegate method is
-// called when the web view for the popup is fully loaded and ready to
-// display. Implementing this method is needed if the app intends to support
-// programmatically showing the popup by the extension, although it is
-// recommended for handling both programmatic and user-initiated cases.
+// [WKWebExtensionAction.AssociatedTab] property of the `action` parameter.
+// This delegate method is called when the web view for the popup is fully
+// loaded and ready to display. Implementing this method is needed if the app
+// intends to support programmatically showing the popup by the extension,
+// although it is recommended for handling both programmatic and
+// user-initiated cases.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:presentActionPopup:for:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerPresentPopupForActionForExtensionContextCompletionHandler(controller IWKWebExtensionController, action IWKWebExtensionAction, context IWKWebExtensionContext, completionHandler ErrorHandler) {

@@ -18,11 +18,11 @@ import (
 // capability allows a seamless handover from Wi-Fi to cellular, aimed at
 // making both interfaces more efficient and improving the user experience.
 //
-// The [MultipathServiceType] property defines which policy the Multipath TCP
-// stack uses to schedule traffic across Wi-Fi and cellular interfaces. The
-// default value is `none`, meaning Multipath TCP is disabled. You can also
-// select handover mode, which provides seamless handover between Wi-Fi and
-// cellular.
+// The [NSURLSessionConfiguration.MultipathServiceType] property defines which
+// policy the Multipath TCP stack uses to schedule traffic across Wi-Fi and
+// cellular interfaces. The default value is `none`, meaning Multipath TCP is
+// disabled. You can also select handover mode, which provides seamless
+// handover between Wi-Fi and cellular.
 //
 // Multipath TCP requires server support. Resources for Linux-based systems
 // are available at [https://mptcp.dev].

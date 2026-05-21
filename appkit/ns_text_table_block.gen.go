@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -133,6 +134,13 @@ func NewNSTextTableBlock() NSTextTableBlock {
 	class := getNSTextTableBlockClass()
 	rv := objc.Send[NSTextTableBlock](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextBlock/init(coder:)
+func NewTextTableBlockWithCoder(coder foundation.INSCoder) NSTextTableBlock {
+	instance := getNSTextTableBlockClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return NSTextTableBlockFromID(rv)
 }
 
 // Returns an initialized text table block.

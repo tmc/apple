@@ -103,12 +103,6 @@ type INEIPv6Route interface {
 	GatewayAddress() string
 	SetGatewayAddress(value string)
 
-	// The IPv6 network traffic that the system routes to the primary physical interface, not the TUN interface.
-	ExcludedRoutes() INEIPv6Route
-	SetExcludedRoutes(value INEIPv6Route)
-	// The IPv6 network traffic that the system routes to the TUN interface.
-	IncludedRoutes() INEIPv6Route
-	SetIncludedRoutes(value INEIPv6Route)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -230,27 +224,4 @@ func (i NEIPv6Route) GatewayAddress() string {
 }
 func (i NEIPv6Route) SetGatewayAddress(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setGatewayAddress:"), objc.String(value))
-}
-
-// The IPv6 network traffic that the system routes to the primary physical
-// interface, not the TUN interface.
-//
-// See: https://developer.apple.com/documentation/networkextension/neipv6settings/excludedroutes
-func (i NEIPv6Route) ExcludedRoutes() INEIPv6Route {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("excludedRoutes"))
-	return NEIPv6RouteFromID(objc.ID(rv))
-}
-func (i NEIPv6Route) SetExcludedRoutes(value INEIPv6Route) {
-	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), value)
-}
-
-// The IPv6 network traffic that the system routes to the TUN interface.
-//
-// See: https://developer.apple.com/documentation/networkextension/neipv6settings/includedroutes
-func (i NEIPv6Route) IncludedRoutes() INEIPv6Route {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("includedRoutes"))
-	return NEIPv6RouteFromID(objc.ID(rv))
-}
-func (i NEIPv6Route) SetIncludedRoutes(value INEIPv6Route) {
-	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), value)
 }

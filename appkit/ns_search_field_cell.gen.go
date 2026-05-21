@@ -61,8 +61,8 @@ func (nc NSSearchFieldCellClass) Alloc() NSSearchFieldCell {
 // its target. You can query the cell’s string value for the current text to
 // search for. Do not rely on the sender of the action to be an [NSMenu]
 // object because the menu may change. If you need to change the menu, modify
-// the search menu template and update the value in the [NSSearchFieldCell.SearchMenuTemplate]
-// property.
+// the search menu template and update the value in the
+// [NSSearchFieldCell.SearchMenuTemplate] property.
 //
 // # Managing buttons
 //

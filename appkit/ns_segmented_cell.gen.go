@@ -52,7 +52,8 @@ func (nc NSSegmentedCellClass) Alloc() NSSegmentedCell {
 //
 // Use the methods of [NSSegmentedCell] to customize the attributes of a
 // segmented control. To customize the appearance of individual segments, you
-// can also subclass and override the [NSSegmentedCell.DrawSegmentInFrameWithView] method.
+// can also subclass and override the
+// [NSSegmentedCell.DrawSegmentInFrameWithView] method.
 //
 // # Specifying the Number of Segments
 //
@@ -338,8 +339,8 @@ func NewSegmentedCellWithCoder(coder foundation.INSCoder) NSSegmentedCell {
 // If the control allows only a single selection, this method deselects any
 // other selected segments.
 //
-// If the [TrackingMode] property of the segmented cell is set to
-// [NSSegmentSwitchTrackingMomentary], then attempting to set the selected
+// If the [NSSegmentedCell.TrackingMode] property of the segmented cell is set
+// to [NSSegmentSwitchTrackingMomentary], then attempting to set the selected
 // state of the segment will have no effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedCell/setSelected(_:forSegment:)
@@ -360,8 +361,8 @@ func (s NSSegmentedCell) SetSelectedForSegment(selected bool, segment int) {
 // # Discussion
 //
 // Typically, you use Interface Builder to specify the tag for each segment.
-// You may also set this value programmatically using the [SetTagForSegment]
-// method.
+// You may also set this value programmatically using the
+// [NSSegmentedCell.SetTagForSegment] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedCell/selectSegment(withTag:)
 func (s NSSegmentedCell) SelectSegmentWithTag(tag int) bool {
@@ -722,7 +723,7 @@ func (s NSSegmentedCell) DrawSegmentInFrameWithView(segment int, frame corefound
 // # Discussion
 //
 // The interior background style describes the surface drawn onto in
-// [DrawInteriorWithFrameInView].
+// [NSCell.DrawInteriorWithFrameInView].
 //
 // This is both an override point and a useful method to call. In a custom
 // segment cell with a custom bezel, you can override this method to describe

@@ -81,9 +81,6 @@ type IMTLBinaryArchiveDescriptor interface {
 	// A URL to a Metal binary archive file.
 	Url() foundation.NSURL
 	SetUrl(value foundation.NSURL)
-
-	// The domain for Metal binary archive errors.
-	MTLBinaryArchiveDomain() string
 }
 
 // Init initializes the instance.
@@ -119,12 +116,4 @@ func (b MTLBinaryArchiveDescriptor) Url() foundation.NSURL {
 }
 func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.NSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setUrl:"), value)
-}
-
-// The domain for Metal binary archive errors.
-//
-// See: https://developer.apple.com/documentation/metal/mtlbinaryarchivedomain
-func (b MTLBinaryArchiveDescriptor) MTLBinaryArchiveDomain() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("MTLBinaryArchiveDomain"))
-	return foundation.NSStringFromID(rv).String()
 }

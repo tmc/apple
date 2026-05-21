@@ -63,21 +63,23 @@ func (uc UNNotificationServiceExtensionClass) Alloc() UNNotificationServiceExten
 // contains a subclass for you to modify. Use the methods of that subclass to
 // implement your app extension’s behavior. When your app receives a remote
 // notification for your app, the system loads your extension and calls its
-// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler] method given the
-// following conditions:
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
+// method given the following conditions:
 //
 // - Your app has configured the remote notification to display an alert. -
 // The remote notification’s `aps` dictionary includes the `mutable-content`
 // key with the value set to `1`.
 //
-// The [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler] method performs the
-// main work of your extension. You use that method to make any changes to the
-// notification’s content. That method has a limited amount of time to
-// perform its task and execute the provided completion block. If your method
-// doesn’t finish in time, the system calls the
-// [UNNotificationServiceExtension.ServiceExtensionTimeWillExpire] method to give you one last chance to
-// submit your changes. If you don’t update the notification content before
-// time expires, the system displays the original content.
+// The
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
+// method performs the main work of your extension. You use that method to
+// make any changes to the notification’s content. That method has a limited
+// amount of time to perform its task and execute the provided completion
+// block. If your method doesn’t finish in time, the system calls the
+// [UNNotificationServiceExtension.ServiceExtensionTimeWillExpire] method to
+// give you one last chance to submit your changes. If you don’t update the
+// notification content before time expires, the system displays the original
+// content.
 //
 // As for any app extension, you deliver a notification service app extension
 // class as a bundle inside your app. The template that Xcode provides
@@ -94,9 +96,10 @@ func (uc UNNotificationServiceExtensionClass) Alloc() UNNotificationServiceExten
 //
 // The Xcode templates provide a subclass of [UNNotificationServiceExtension]
 // for you to modify. You must implement the
-// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler] method and use it to
-// process incoming notifications. It’s also strongly recommended that you
-// override the [UNNotificationServiceExtension.ServiceExtensionTimeWillExpire] method.
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
+// method and use it to process incoming notifications. It’s also strongly
+// recommended that you override the
+// [UNNotificationServiceExtension.ServiceExtensionTimeWillExpire] method.
 //
 // # Processing Notifications
 //
@@ -193,9 +196,9 @@ func NewUNNotificationServiceExtension() UNNotificationServiceExtension {
 // Your extension has a limited amount of time (no more than 30 seconds) to
 // modify the content and execute the `contentHandler` block. If you don’t
 // execute that block in a timely manner, the system calls your extension’s
-// [ServiceExtensionTimeWillExpire] method to give you one last chance to
-// execute the block. If you don’t, the system presents the notification’s
-// original content to the user.
+// [UNNotificationServiceExtension.ServiceExtensionTimeWillExpire] method to
+// give you one last chance to execute the block. If you don’t, the system
+// presents the notification’s original content to the user.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationServiceExtension/didReceive(_:withContentHandler:)
 func (u UNNotificationServiceExtension) DidReceiveNotificationRequestWithContentHandler(request IUNNotificationRequest, contentHandler UNNotificationContentHandler) {
@@ -207,15 +210,17 @@ func (u UNNotificationServiceExtension) DidReceiveNotificationRequestWithContent
 //
 // # Discussion
 //
-// If your [DidReceiveNotificationRequestWithContentHandler] method takes too
-// long to execute its completion block, the system calls this method on a
-// separate thread to give you one last chance to execute the block. Use this
-// method to execute the block as quickly as possible. Doing so might mean
-// providing some fallback content. For example, if your extension is still
-// downloading an image file with the intent of attaching it to the
-// notification’s content, update the notification’s alert text to
-// indicate that an image download is in progress. If you fail to execute the
-// completion block from the [DidReceiveNotificationRequestWithContentHandler]
+// If your
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
+// method takes too long to execute its completion block, the system calls
+// this method on a separate thread to give you one last chance to execute the
+// block. Use this method to execute the block as quickly as possible. Doing
+// so might mean providing some fallback content. For example, if your
+// extension is still downloading an image file with the intent of attaching
+// it to the notification’s content, update the notification’s alert text
+// to indicate that an image download is in progress. If you fail to execute
+// the completion block from the
+// [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
 // method in time, the system displays the notification’s original content.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationServiceExtension/serviceExtensionTimeWillExpire()

@@ -64,11 +64,11 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //
 // A gesture recognizer operates on events in a specific view (or in any of
 // that view’s subviews). After creating a gesture recognizer, attach it to
-// one of your views using the [AddGestureRecognizer] method. Events received
-// by your app are forwarded automatically to any relevant gesture recognizers
-// before they are sent to the corresponding view. The gesture recognizer can
-// delay the further progression of the events until recognition is complete
-// or allow the events to be delivered normally.
+// one of your views using the [NSView.AddGestureRecognizer] method. Events
+// received by your app are forwarded automatically to any relevant gesture
+// recognizers before they are sent to the corresponding view. The gesture
+// recognizer can delay the further progression of the events until
+// recognition is complete or allow the events to be delivered normally.
 //
 // A gesture recognizer can detect gestures that are either discrete or
 // continuous in nature. A click gesture is discrete because it involves a
@@ -119,10 +119,10 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //
 // The Changed state is optional and may occur multiple times before the
 // Cancelled or Ended state is reached. Many state transitions cause the
-// gesture recognizer to call its action method. Setting the [NSGestureRecognizer.State] property
-// to [NSGestureRecognizerStateChanged] while monitoring events also calls the
-// action method. You can use these calls to update the state of your app or
-// update any custom animations.
+// gesture recognizer to call its action method. Setting the
+// [NSGestureRecognizer.State] property to [NSGestureRecognizerStateChanged]
+// while monitoring events also calls the action method. You can use these
+// calls to update the state of your app or update any custom animations.
 //
 // For a list of possible states, see the constants in
 // [NSGestureRecognizer.State].
@@ -144,15 +144,16 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //
 // When creating your own gesture recognizer subclass:
 //
-// - Implement the [NSGestureRecognizer.Reset] method and any other relevant methods in Methods
-// for Subclasses. - Override the [NSGestureRecognizer.LocationInView] method as needed to specify
-// an appropriate point for your gesture.
+// - Implement the [NSGestureRecognizer.Reset] method and any other relevant
+// methods in Methods for Subclasses. - Override the
+// [NSGestureRecognizer.LocationInView] method as needed to specify an
+// appropriate point for your gesture.
 //
 // AppKit waits for a mouse-down event, magnify event, or rotation event to
 // occur before starting the gesture recognition process. A gesture recognizer
 // that used only key-down events to recognize its gesture would not have its
-// [NSGestureRecognizer.KeyDown] method called until a mouse-down, magnify, or rotation event
-// started the recognition process.
+// [NSGestureRecognizer.KeyDown] method called until a mouse-down, magnify, or
+// rotation event started the recognition process.
 //
 // # Alternatives to Subclassing
 //
@@ -380,8 +381,8 @@ type INSGestureRecognizer interface {
 	// Topic: Accessing the Target and Action
 
 	// The action method to call when the gesture is recognized.
-	Action() objc.SEL
-	SetAction(value objc.SEL)
+	Action() objectivec.SEL
+	SetAction(value objectivec.SEL)
 	// The object that implements the action method.
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
@@ -653,8 +654,8 @@ func (g NSGestureRecognizer) Reset() {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysPrimaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/mouseDown(with:)
 func (g NSGestureRecognizer) MouseDown(event INSEvent) {
@@ -674,8 +675,8 @@ func (g NSGestureRecognizer) MouseDown(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysPrimaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/mouseDragged(with:)
 func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
@@ -695,8 +696,8 @@ func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysPrimaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/mouseUp(with:)
 func (g NSGestureRecognizer) MouseUp(event INSEvent) {
@@ -716,8 +717,8 @@ func (g NSGestureRecognizer) MouseUp(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysOtherMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/otherMouseDown(with:)
 func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
@@ -737,8 +738,8 @@ func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysOtherMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/otherMouseDragged(with:)
 func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
@@ -758,8 +759,8 @@ func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysOtherMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysOtherMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/otherMouseUp(with:)
 func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
@@ -779,8 +780,8 @@ func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysSecondaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/rightMouseDown(with:)
 func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
@@ -800,8 +801,8 @@ func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysSecondaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/rightMouseDragged(with:)
 func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
@@ -821,8 +822,8 @@ func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysSecondaryMouseButtonEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysSecondaryMouseButtonEvents] property to control
+// whether `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/rightMouseUp(with:)
 func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
@@ -841,8 +842,8 @@ func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysMagnificationEvents] property to control whether `event` is
-// propagated to the view.
+// [NSGestureRecognizer.DelaysMagnificationEvents] property to control whether
+// `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/magnify(with:)
 func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
@@ -862,8 +863,8 @@ func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
-// [DelaysRotationEvents] property to control whether `event` is propagated to
-// the view.
+// [NSGestureRecognizer.DelaysRotationEvents] property to control whether
+// `event` is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/rotate(with:)
 func (g NSGestureRecognizer) RotateWithEvent(event INSEvent) {
@@ -979,8 +980,9 @@ func (g NSGestureRecognizer) ShouldRequireFailureOfGestureRecognizer(otherGestur
 //
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
-// recognizer receives events before any views do. Use the [DelaysKeyEvents]
-// property to control whether `event` is propagated to the view.
+// recognizer receives events before any views do. Use the
+// [NSGestureRecognizer.DelaysKeyEvents] property to control whether `event`
+// is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/keyDown(with:)
 func (g NSGestureRecognizer) KeyDown(event INSEvent) {
@@ -998,8 +1000,9 @@ func (g NSGestureRecognizer) KeyDown(event INSEvent) {
 //
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
-// recognizer receives events before any views do. Use the [DelaysKeyEvents]
-// property to control whether `event` is propagated to the view.
+// recognizer receives events before any views do. Use the
+// [NSGestureRecognizer.DelaysKeyEvents] property to control whether `event`
+// is propagated to the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/keyUp(with:)
 func (g NSGestureRecognizer) KeyUp(event INSEvent) {
@@ -1133,11 +1136,11 @@ func (g NSGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
 // and perform appropriate tasks based on that state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/action
-func (g NSGestureRecognizer) Action() objc.SEL {
+func (g NSGestureRecognizer) Action() objectivec.SEL {
 	rv := objc.Send[objc.SEL](g.ID, objc.Sel("action"))
-	return rv
+	return objectivec.SEL(rv)
 }
-func (g NSGestureRecognizer) SetAction(value objc.SEL) {
+func (g NSGestureRecognizer) SetAction(value objectivec.SEL) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAction:"), value)
 }
 
@@ -1146,7 +1149,7 @@ func (g NSGestureRecognizer) SetAction(value objc.SEL) {
 // # Discussion
 //
 // The object in this property must implement the method specified by the
-// [Action] property.
+// [NSGestureRecognizer.Action] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/target
 func (g NSGestureRecognizer) Target() objectivec.IObject {
@@ -1183,9 +1186,9 @@ func (g NSGestureRecognizer) State() NSGestureRecognizerState {
 //
 // # Discussion
 //
-// To attach a gesture recognizer to a view, call the [AddGestureRecognizer]
-// method of the view. If the gesture recognizer is not attached to a view,
-// the value in this property is `nil`.
+// To attach a gesture recognizer to a view, call the
+// [NSView.AddGestureRecognizer] method of the view. If the gesture recognizer
+// is not attached to a view, the value in this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/view
 func (g NSGestureRecognizer) View() INSView {
@@ -1380,7 +1383,8 @@ func (g NSGestureRecognizer) SetDelegate(value NSGestureRecognizerDelegate) {
 // Ideally, you should avoid changing the pressure configuration during
 // recognition, as the gesture may complete before the configuration has time
 // to take effect. If you do need to change the pressure configuration during
-// recognition, call the [Set] method of [PressureConfiguration].
+// recognition, call the [NSPressureConfiguration.Set] method of
+// [NSGestureRecognizer.PressureConfiguration].
 //
 // Once the gesture ends or if recognition fails, the pressure configuration
 // resets to the current view’s pressure configuration, if any, for the

@@ -69,12 +69,12 @@ func (uc URLSessionClass) Alloc() URLSession {
 // simultaneous connections to make to a single host, whether connections can
 // use the cellular network, and so on.
 //
-// [NSURLSession] has a singleton [SharedSession] session (which doesn’t
-// have a configuration object) for basic requests. It’s not as customizable
-// as sessions you create, but it serves as a good starting point if you have
-// very limited requirements. You access this session by calling the shared
-// class method. For other kinds of sessions, you create a [NSURLSession] with
-// one of three kinds of configurations:
+// [NSURLSession] has a singleton [NSURLSessionClass.SharedSession] session
+// (which doesn’t have a configuration object) for basic requests. It’s
+// not as customizable as sessions you create, but it serves as a good
+// starting point if you have very limited requirements. You access this
+// session by calling the shared class method. For other kinds of sessions,
+// you create a [NSURLSession] with one of three kinds of configurations:
 //
 // - A default session behaves much like the shared session, but lets you
 // configure it. You can also assign a delegate to the default session to
@@ -118,7 +118,8 @@ func (uc URLSessionClass) Alloc() URLSession {
 // Each task you create with the session calls back to the session’s
 // delegate, using the methods defined in [NSURLSessionTaskDelegate]. You can
 // also intercept these callbacks before they reach the session delegate by
-// populating a separate [Delegate] that’s specific to the task.
+// populating a separate [NSURLSessionTask.Delegate] that’s specific to the
+// task.
 //
 // # Asynchronicity and URL sessions
 //
@@ -230,6 +231,7 @@ func (uc URLSessionClass) Alloc() URLSession {
 //   - [URLSession.FinishTasksAndInvalidate]: Invalidates the session, allowing any outstanding tasks to finish.
 //   - [URLSession.FlushWithCompletionHandler]: Flushes cookies and credentials to disk, clears transient caches, and ensures that future requests occur on a new TCP connection.
 //   - [URLSession.GetTasksWithCompletionHandler]: Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
+//   - [URLSession.GetAllTasksWithCompletionHandler]: Asynchronously calls a completion callback with all tasks in a session
 //   - [URLSession.InvalidateAndCancel]: Cancels all outstanding tasks and then invalidates the session.
 //   - [URLSession.ResetWithCompletionHandler]: Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
 //   - [URLSession.SessionDescription]: An app-defined descriptive label for the session.
@@ -315,6 +317,7 @@ func NSURLSessionFromID(id objc.ID) URLSession { return URLSessionFromID(id) }
 //   - [IURLSession.FinishTasksAndInvalidate]: Invalidates the session, allowing any outstanding tasks to finish.
 //   - [IURLSession.FlushWithCompletionHandler]: Flushes cookies and credentials to disk, clears transient caches, and ensures that future requests occur on a new TCP connection.
 //   - [IURLSession.GetTasksWithCompletionHandler]: Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
+//   - [IURLSession.GetAllTasksWithCompletionHandler]: Asynchronously calls a completion callback with all tasks in a session
 //   - [IURLSession.InvalidateAndCancel]: Cancels all outstanding tasks and then invalidates the session.
 //   - [IURLSession.ResetWithCompletionHandler]: Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
 //   - [IURLSession.SessionDescription]: An app-defined descriptive label for the session.
@@ -400,7 +403,9 @@ type IURLSession interface {
 	// Flushes cookies and credentials to disk, clears transient caches, and ensures that future requests occur on a new TCP connection.
 	FlushWithCompletionHandler(completionHandler VoidHandler)
 	// Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
-	GetTasksWithCompletionHandler(completionHandler VoidHandler)
+	GetTasksWithCompletionHandler(completionHandler NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler)
+	// Asynchronously calls a completion callback with all tasks in a session
+	GetAllTasksWithCompletionHandler(completionHandler NSURLSessionTaskArrayHandler)
 	// Cancels all outstanding tasks and then invalidates the session.
 	InvalidateAndCancel()
 	// Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
@@ -440,8 +445,8 @@ func NewURLSession() URLSession {
 // # Discussion
 //
 // Calling this method is equivalent to calling
-// [SessionWithConfigurationDelegateDelegateQueue] with a `nil` delegate and
-// queue.
+// [NSURLSessionClass.SessionWithConfigurationDelegateDelegateQueue] with a
+// `nil` delegate and queue.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/init(configuration:)
 func NewURLSessionWithConfiguration(configuration INSURLSessionConfiguration) URLSession {
@@ -488,9 +493,10 @@ func NewURLSessionWithConfigurationDelegateDelegateQueue(configuration INSURLSes
 //
 // # Discussion
 //
-// After you create the task, you must start it by calling its [Resume]
-// method. The task calls methods on the session’s delegate to provide you
-// with the response metadata, response data, and so on.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method. The task calls methods on the session’s
+// delegate to provide you with the response metadata, response data, and so
+// on.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/dataTask(with:)-10dy7
 func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
@@ -507,8 +513,8 @@ func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
 // handler is executed on the delegate queue.
 //
 // If you pass `nil`, only the session delegate methods are called when the
-// task completes, making this method equivalent to the [DataTaskWithRequest]
-// method.
+// task completes, making this method equivalent to the
+// [NSURLSession.DataTaskWithRequest] method.
 //
 // This completion handler takes the following parameters:
 //
@@ -524,8 +530,8 @@ func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
 //
 // # Discussion
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // By using the completion handler, the task bypasses calls to delegate
 // methods for response and data delivery, and instead provides any resulting
@@ -565,8 +571,8 @@ func (u URLSession) DataTaskWithURLCompletionHandler(url INSURL, completionHandl
 // By creating a task based on a request object, you can tune various aspects
 // of the task’s behavior, including the cache policy and timeout interval.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/dataTask(with:)-7jpys
 func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionDataTask {
@@ -584,8 +590,8 @@ func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionData
 // handler is executed on the delegate queue.
 //
 // If you pass `nil`, only the session delegate methods are called when the
-// task completes, making this method equivalent to the [DataTaskWithRequest]
-// method.
+// task completes, making this method equivalent to the
+// [NSURLSession.DataTaskWithRequest] method.
 //
 // This completion handler takes the following parameters:
 //
@@ -613,8 +619,8 @@ func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionData
 // You should pass a `nil` completion handler when creating tasks in sessions
 // whose delegates include a [URLSessionDataTaskDidReceiveData] method.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `data` parameter of the
 // completion handler block contains the resource data, and the `error`
@@ -641,8 +647,8 @@ func (u URLSession) DataTaskWithRequestCompletionHandler(request INSURLRequest, 
 //
 // # Discussion
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(with:)-1onj
 func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
@@ -660,7 +666,7 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 //
 // If you pass `nil`, only the session delegate methods are called when the
 // task completes, making this method equivalent to the
-// [DownloadTaskWithRequest] method.
+// [NSURLSession.DownloadTaskWithRequest] method.
 //
 // This completion handler takes the following parameters:
 //
@@ -689,8 +695,8 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 // whose delegates include a [URLSessionDownloadTaskDidFinishDownloadingToURL]
 // method.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `location` parameter of the
 // completion handler block contains the location of the temporary file, and
@@ -724,10 +730,10 @@ func (u URLSession) DownloadTaskWithURLCompletionHandler(url INSURL, completionH
 // By creating a task based on a request object, you can tune various aspects
 // of the task’s behavior, including the cache policy and timeout interval.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method. The task calls methods on the session’s delegate to provide you
-// with progress notifications, the location of the resulting temporary file,
-// and so on.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method. The task calls methods on the session’s
+// delegate to provide you with progress notifications, the location of the
+// resulting temporary file, and so on.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(with:)-3fb7s
 func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSessionDownloadTask {
@@ -747,7 +753,7 @@ func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSession
 //
 // If you pass `nil`, only the session delegate methods are called when the
 // task completes, making this method equivalent to the
-// [DownloadTaskWithRequest] method.
+// [NSURLSession.DownloadTaskWithRequest] method.
 //
 // `location`: The location of a temporary file where the server’s response
 // is stored. You must move this file or open it for reading before your
@@ -777,8 +783,8 @@ func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSession
 // whose delegates include a [URLSessionDownloadTaskDidFinishDownloadingToURL]
 // method.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `location` parameter of the
 // completion handler block contains the location of the temporary file, and
@@ -805,13 +811,13 @@ func (u URLSession) DownloadTaskWithRequestCompletionHandler(request INSURLReque
 //
 // # Discussion
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // This method is equivalent to the
-// [DownloadTaskWithResumeDataCompletionHandler] with a `nil` completion
-// handler. For detailed usage information, including ways to obtain a resume
-// data object, see that method.
+// [NSURLSession.DownloadTaskWithResumeDataCompletionHandler] with a `nil`
+// completion handler. For detailed usage information, including ways to
+// obtain a resume data object, see that method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(withResumeData:)
 func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSessionDownloadTask {
@@ -829,7 +835,7 @@ func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSession
 //
 // If you pass `nil`, only the session delegate methods are called when the
 // task completes, making this method equivalent to the
-// [DownloadTaskWithResumeData] method.
+// [NSURLSession.DownloadTaskWithResumeData] method.
 //
 // `location`: The location of a temporary file where the server’s response
 // is stored. You must move this file or open it for reading before your
@@ -858,15 +864,15 @@ func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSession
 // Your app can obtain a `resumeData` object in two ways:
 //
 // - If your app cancels an existing transfer by calling
-// [CancelByProducingResumeData], the session object passes a `resumeData`
-// object to the completion handler that you provided in that call. - If a
-// transfer fails, the session object provides an [NSError] object either to
-// its delegate or to the task’s completion handler. In that object, the
-// [NSURLSessionDownloadTaskResumeData] key in the `userInfo` dictionary
-// contains a `resumeData` object.
+// [NSURLSessionDownloadTask.CancelByProducingResumeData], the session object
+// passes a `resumeData` object to the completion handler that you provided in
+// that call. - If a transfer fails, the session object provides an [NSError]
+// object either to its delegate or to the task’s completion handler. In
+// that object, the [NSURLSessionDownloadTaskResumeData] key in the `userInfo`
+// dictionary contains a `resumeData` object.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `location` parameter of the
 // completion handler block contains the location of the temporary file, and
@@ -904,9 +910,10 @@ func (u URLSession) DownloadTaskWithResumeDataCompletionHandler(resumeData INSDa
 // object so that you can provide metadata for the upload, like HTTP request
 // headers.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method. The task calls methods on the session’s delegate to provide you
-// with the upload’s progress, response metadata, response data, and so on.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method. The task calls methods on the session’s
+// delegate to provide you with the upload’s progress, response metadata,
+// response data, and so on.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(with:from:)
 func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyData INSData) INSURLSessionUploadTask {
@@ -927,7 +934,7 @@ func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyDat
 //
 // If you pass `nil`, only the session delegate methods are called when the
 // task completes, making this method equivalent to the
-// [UploadTaskWithRequestFromData] method.
+// [NSURLSession.UploadTaskWithRequestFromData] method.
 //
 // This completion handler takes the following parameters:
 //
@@ -948,9 +955,9 @@ func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyDat
 // object so that you can provide metadata for the upload, like HTTP request
 // headers.
 //
-// Unlike [UploadTaskWithRequestFromData], this method returns the response
-// body after it has been received in full, and does not require you to write
-// a custom delegate to obtain the response body.
+// Unlike [NSURLSession.UploadTaskWithRequestFromData], this method returns
+// the response body after it has been received in full, and does not require
+// you to write a custom delegate to obtain the response body.
 //
 // By using a completion handler, the task bypasses calls to delegate methods
 // for response and data delivery, and instead provides any resulting data,
@@ -963,8 +970,8 @@ func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyDat
 // observing to watch for changes to the task’s status to determine when it
 // completes.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `data` parameter of the
 // completion handler block contains the resource data, and the `error`
@@ -1000,9 +1007,10 @@ func (u URLSession) UploadTaskWithRequestFromDataCompletionHandler(request INSUR
 // object so that you can provide metadata for the upload, like HTTP request
 // headers.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method. The task calls methods on the session’s delegate to provide you
-// with the upload’s progress, response metadata, response data, and so on.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method. The task calls methods on the session’s
+// delegate to provide you with the upload’s progress, response metadata,
+// response data, and so on.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(with:fromFile:)
 func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL INSURL) INSURLSessionUploadTask {
@@ -1023,7 +1031,7 @@ func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL
 //
 // If you pass `nil`, only the session delegate methods are called when the
 // task completes, making this method equivalent to the
-// [UploadTaskWithRequestFromFile] method.
+// [NSURLSession.UploadTaskWithRequestFromFile] method.
 //
 // This completion handler takes the following parameters:
 //
@@ -1044,9 +1052,9 @@ func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL
 // object so that you can provide metadata for the upload, like HTTP request
 // headers.
 //
-// Unlike [UploadTaskWithRequestFromFile], this method returns the response
-// body after it has been received in full, and does not require you to write
-// a custom delegate to obtain the response body.
+// Unlike [NSURLSession.UploadTaskWithRequestFromFile], this method returns
+// the response body after it has been received in full, and does not require
+// you to write a custom delegate to obtain the response body.
 //
 // By using a completion handler, the task bypasses calls to delegate methods
 // for response and data delivery, and instead provides any resulting data,
@@ -1059,8 +1067,8 @@ func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL
 // response data, use key-value observing to watch for changes to the task’s
 // status to determine when it completes.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // If the request completes successfully, the `data` parameter of the
 // completion handler block contains the resource data, and the `error`
@@ -1096,11 +1104,12 @@ func (u URLSession) UploadTaskWithRequestFromFileCompletionHandler(request INSUR
 // object so that you can provide metadata for the upload, such as HTTP
 // request headers.
 //
-// After you create the task, you must start it by calling its [Resume]
-// method. The task calls methods on the session’s delegate to provide you
-// with the upload’s progress, response metadata, response data, and so on.
-// The session’s delegate must have a [URLSessionTaskNeedNewBodyStream]
-// method that provides the body data to upload.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method. The task calls methods on the session’s
+// delegate to provide you with the upload’s progress, response metadata,
+// response data, and so on. The session’s delegate must have a
+// [URLSessionTaskNeedNewBodyStream] method that provides the body data to
+// upload.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(withStreamedRequest:)
 func (u URLSession) UploadTaskWithStreamedRequest(request INSURLRequest) INSURLSessionUploadTask {
@@ -1161,8 +1170,8 @@ func (u URLSession) UploadTaskWithResumeDataCompletionHandler(resumeData INSData
 //
 // # Discussion
 //
-// After you create the task, you must start it by calling its [Resume]
-// method.
+// After you create the task, you must start it by calling its
+// [NSURLSessionTask.Resume] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/streamTask(withHostName:port:)
 func (u URLSession) StreamTaskWithHostNamePort(hostname string, port int) INSURLSessionStreamTask {
@@ -1190,8 +1199,9 @@ func (u URLSession) WebSocketTaskWithURL(url INSURL) INSURLSessionWebSocketTask 
 //
 // # Discussion
 //
-// You can modify the request’s properties prior to calling [Resume] on the
-// task. The task uses these properties during the HTTP handshake phase.
+// You can modify the request’s properties prior to calling
+// [NSURLSessionTask.Resume] on the task. The task uses these properties
+// during the HTTP handshake phase.
 //
 // To add custom protocols, add a header with the key
 // `Sec-WebSocket-Protocol`, and a comma-separated list of protocols you want
@@ -1233,7 +1243,8 @@ func (u URLSession) WebSocketTaskWithURLProtocols(url INSURL, protocols []string
 // delegate, then breaks references to the delegate and callback objects.
 // After invalidation, session objects cannot be reused.
 //
-// To cancel all outstanding tasks, call [InvalidateAndCancel] instead.
+// To cancel all outstanding tasks, call [NSURLSession.InvalidateAndCancel]
+// instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/finishTasksAndInvalidate()
 func (u URLSession) FinishTasksAndInvalidate() {
@@ -1265,9 +1276,19 @@ func (u URLSession) FlushWithCompletionHandler(completionHandler VoidHandler) {
 // invalidated after completing, failing, or being cancelled.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/getTasksWithCompletionHandler(_:)
-func (u URLSession) GetTasksWithCompletionHandler(completionHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(completionHandler)
+func (u URLSession) GetTasksWithCompletionHandler(completionHandler NSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayHandler) {
+	_block0, _ := NewNSURLSessionDataTaskArrayNSURLSessionUploadTaskArrayNSURLSessionDownloadTaskArrayBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getTasksWithCompletionHandler:"), _block0)
+}
+
+// Asynchronously calls a completion callback with all tasks in a session
+//
+// completionHandler: The completion handler to call with the list of tasks.
+//
+// See: https://developer.apple.com/documentation/Foundation/URLSession/getAllTasks(completionHandler:)
+func (u URLSession) GetAllTasksWithCompletionHandler(completionHandler NSURLSessionTaskArrayHandler) {
+	_block0, _ := NewNSURLSessionTaskArrayBlock(completionHandler)
+	objc.Send[objc.ID](u.ID, objc.Sel("getAllTasksWithCompletionHandler:"), _block0)
 }
 
 // Cancels all outstanding tasks and then invalidates the session.
@@ -1278,7 +1299,7 @@ func (u URLSession) GetTasksWithCompletionHandler(completionHandler VoidHandler)
 // broken. After invalidation, session objects cannot be reused.
 //
 // To allow outstanding tasks to run until completion, call
-// [FinishTasksAndInvalidate] instead.
+// [NSURLSession.FinishTasksAndInvalidate] instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/invalidateAndCancel()
 func (u URLSession) InvalidateAndCancel() {
@@ -1389,8 +1410,9 @@ func (u URLSession) SetSessionDescription(value string) {
 //
 // The shared session uses the shared [NSURLCache], [NSHTTPCookieStorage], and
 // [NSURLCredentialStorage] objects, uses a shared custom networking protocol
-// list (configured with [RegisterClass] and [UnregisterClass]), and is based
-// on a default configuration.
+// list (configured with [NSURLProtocolClass.RegisterClass] and
+// [NSURLProtocolClass.UnregisterClass]), and is based on a default
+// configuration.
 //
 // In general, when working with a shared session, you should avoid
 // customizing the cache, cookie storage, or credential storage (unless you
@@ -1421,6 +1443,25 @@ func (u URLSession) Flush(ctx context.Context) error {
 		return nil
 	case <-ctx.Done():
 		return ctx.Err()
+	}
+}
+
+// GetAllTasks is a synchronous wrapper around [URLSession.GetAllTasksWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u URLSession) GetAllTasks(ctx context.Context) ([]NSURLSessionTask, error) {
+	done := make(chan []NSURLSessionTask, 1)
+	u.GetAllTasksWithCompletionHandler(func(val *[]NSURLSessionTask) {
+		var out []NSURLSessionTask
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 }
 

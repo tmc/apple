@@ -48,7 +48,8 @@ func (cc CKSyncEngineSentRecordZoneChangesEventClass) Alloc() CKSyncEngineSentRe
 // # Overview
 //
 // If a record save succeeded, you should encode the system fields of this
-// record to use the next time you save. See [EncodeSystemFieldsWithCoder].
+// record to use the next time you save. See
+// [CKRecord.EncodeSystemFieldsWithCoder].
 //
 // If a record deletion succeeded, you should remove any local system fields
 // for that record.

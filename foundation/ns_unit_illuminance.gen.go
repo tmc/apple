@@ -54,7 +54,8 @@ func (uc UnitIlluminanceClass) Alloc() UnitIlluminance {
 // illuminance is the lux (lx), which is derived as one lumen per square meter
 // (1lm / 1m2).
 //
-// The [NSUnitIlluminance] class defines its [BaseUnit] as [Lux].
+// The [NSUnitIlluminance] class defines its [NSDimensionClass.BaseUnit] as
+// [NSUnitIlluminanceClass.Lux].
 //
 // [Table data omitted]
 //
@@ -145,4 +146,12 @@ func NewUnitIlluminanceWithSymbolConverter(symbol string, converter INSUnitConve
 	instance := getUnitIlluminanceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:converter:"), objc.String(symbol), converter)
 	return UnitIlluminanceFromID(rv)
+}
+
+// The lux unit of illuminance.
+//
+// See: https://developer.apple.com/documentation/Foundation/UnitIlluminance/lux
+func (_UnitIlluminanceClass UnitIlluminanceClass) Lux() NSUnitIlluminance {
+	rv := objc.Send[objc.ID](objc.ID(_UnitIlluminanceClass.class), objc.Sel("lux"))
+	return NSUnitIlluminanceFromID(objc.ID(rv))
 }

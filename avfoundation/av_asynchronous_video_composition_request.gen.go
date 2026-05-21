@@ -122,7 +122,7 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// The identifiers of tracks that contain source metadata.
 	SourceSampleDataTrackIDs() []foundation.NSNumber
 	// Returns a source timed metadata group for the track that contains the specified identifier.
-	SourceTimedMetadataByTrackID(trackID int32) IAVTimedMetadataGroup
+	SourceTimedMetadataByTrackID(trackID coremedia.CMPersistentTrackID) IAVTimedMetadataGroup
 	// The identifiers of tracks that contain source video.
 	SourceTrackIDs() []foundation.NSNumber
 
@@ -138,7 +138,7 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// The method that the custom compositor calls when composition succeeds.
 	FinishWithComposedTaggedBufferGroup(taggedBufferGroup coremedia.CMTaggedBufferGroupRef)
 	// Returns the source CMTaggedBufferGroupRef for the given track ID.
-	SourceTaggedBufferGroupByTrackID(trackID int32) coremedia.CMTaggedBufferGroupRef
+	SourceTaggedBufferGroupByTrackID(trackID coremedia.CMPersistentTrackID) coremedia.CMTaggedBufferGroupRef
 }
 
 // Init initializes the instance.
@@ -170,7 +170,7 @@ func NewAVAsynchronousVideoCompositionRequest() AVAsynchronousVideoCompositionRe
 // A timed metadata group, or `nil` if not found.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTimedMetadata(byTrackID:)
-func (a AVAsynchronousVideoCompositionRequest) SourceTimedMetadataByTrackID(trackID int32) IAVTimedMetadataGroup {
+func (a AVAsynchronousVideoCompositionRequest) SourceTimedMetadataByTrackID(trackID coremedia.CMPersistentTrackID) IAVTimedMetadataGroup {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sourceTimedMetadataByTrackID:"), trackID)
 	return AVTimedMetadataGroupFromID(rv)
 }
@@ -244,7 +244,7 @@ func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGro
 // when supportsSourceTaggedBuffers is YES.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTaggedBufferGroupByTrackID:
-func (a AVAsynchronousVideoCompositionRequest) SourceTaggedBufferGroupByTrackID(trackID int32) coremedia.CMTaggedBufferGroupRef {
+func (a AVAsynchronousVideoCompositionRequest) SourceTaggedBufferGroupByTrackID(trackID coremedia.CMPersistentTrackID) coremedia.CMTaggedBufferGroupRef {
 	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](a.ID, objc.Sel("sourceTaggedBufferGroupByTrackID:"), trackID)
 	return coremedia.CMTaggedBufferGroupRef(rv)
 }

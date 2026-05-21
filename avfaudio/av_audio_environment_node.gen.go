@@ -4,7 +4,6 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -66,12 +65,12 @@ func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
 // To set the node’s output to a multichannel format, use an [AVAudioFormat]
 // that has one of the following [Audio Channel Layout Tags]:
 //
-// - [KAudioChannelLayoutTag_AudioUnit_4] -
-// [KAudioChannelLayoutTag_AudioUnit_5_0] -
-// [KAudioChannelLayoutTag_AudioUnit_6_0] -
-// [KAudioChannelLayoutTag_AudioUnit_7_0] -
-// [KAudioChannelLayoutTag_AudioUnit_7_0_Front] -
-// [KAudioChannelLayoutTag_AudioUnit_8]
+// - [kAudioChannelLayoutTag_AudioUnit_4] -
+// [kAudioChannelLayoutTag_AudioUnit_5_0] -
+// [kAudioChannelLayoutTag_AudioUnit_6_0] -
+// [kAudioChannelLayoutTag_AudioUnit_7_0] -
+// [kAudioChannelLayoutTag_AudioUnit_7_0_Front] -
+// [kAudioChannelLayoutTag_AudioUnit_8]
 //
 // # Getting and Setting Positional Properties
 //
@@ -111,6 +110,12 @@ func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
 //
 // [AVAudio3DMixingSourceMode]: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixingSourceMode
 // [Audio Channel Layout Tags]: https://developer.apple.com/documentation/CoreAudioTypes/audio-channel-layout-tags
+// [kAudioChannelLayoutTag_AudioUnit_4]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_4
+// [kAudioChannelLayoutTag_AudioUnit_5_0]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_5_0
+// [kAudioChannelLayoutTag_AudioUnit_6_0]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_6_0
+// [kAudioChannelLayoutTag_AudioUnit_7_0]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0
+// [kAudioChannelLayoutTag_AudioUnit_7_0_Front]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0_Front
+// [kAudioChannelLayoutTag_AudioUnit_8]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_8
 type AVAudioEnvironmentNode struct {
 	AVAudioNode
 }
@@ -208,25 +213,6 @@ type IAVAudioEnvironmentNode interface {
 
 	// An unused input bus.
 	NextAvailableInputBus() AVAudioNodeBus
-
-	// A quadraphonic symmetrical layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_4() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_4(value unsafe.Pointer)
-	// A 5-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_5_0() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_5_0(value unsafe.Pointer)
-	// A 6-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_6_0() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_6_0(value unsafe.Pointer)
-	// A 7-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_7_0() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_7_0(value unsafe.Pointer)
-	// An alternate 7-channel surround-based layout, for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_7_0_Front() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value unsafe.Pointer)
-	// An octagonal symmetrical layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_8() unsafe.Pointer
-	SetKAudioChannelLayoutTag_AudioUnit_8(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -388,7 +374,7 @@ func (a AVAudioEnvironmentNode) SetListenerPosition(value AVAudio3DPoint) {
 // pitch of `0.0` degrees, and a roll of `0.0` degrees.
 //
 // Changing this property results in a corresponding change in the
-// [ListenerVectorOrientation] property.
+// [AVAudioEnvironmentNode.ListenerVectorOrientation] property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/listenerAngularOrientation
 func (a AVAudioEnvironmentNode) ListenerAngularOrientation() AVAudio3DAngularOrientation {
@@ -410,7 +396,7 @@ func (a AVAudioEnvironmentNode) SetListenerAngularOrientation(value AVAudio3DAng
 // vector as `(0, 1, 0)`.
 //
 // Changing this property results in a corresponding change in the
-// [ListenerAngularOrientation] property.
+// [AVAudioEnvironmentNode.ListenerAngularOrientation] property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/listenerVectorOrientation
 func (a AVAudioEnvironmentNode) ListenerVectorOrientation() AVAudio3DVectorOrientation {
@@ -517,72 +503,6 @@ func (a AVAudioEnvironmentNode) SetListenerHeadTrackingEnabled(value bool) {
 func (a AVAudioEnvironmentNode) NextAvailableInputBus() AVAudioNodeBus {
 	rv := objc.Send[AVAudioNodeBus](a.ID, objc.Sel("nextAvailableInputBus"))
 	return AVAudioNodeBus(rv)
-}
-
-// A quadraphonic symmetrical layout, recommended for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_4
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_4() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_4"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_4(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_4:"), value)
-}
-
-// A 5-channel surround-based layout, recommended for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_5_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_5_0() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_5_0"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_5_0(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_5_0:"), value)
-}
-
-// A 6-channel surround-based layout, recommended for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_6_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_6_0() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_6_0"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_6_0(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_6_0:"), value)
-}
-
-// A 7-channel surround-based layout, recommended for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_7_0:"), value)
-}
-
-// An alternate 7-channel surround-based layout, for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0_Front
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0_Front() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0_Front"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_7_0_Front:"), value)
-}
-
-// An octagonal symmetrical layout, recommended for use by audio units.
-//
-// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_8
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_8() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_8"))
-	return rv
-}
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_8(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_8:"), value)
 }
 
 // Protocol methods for AVAudioMixing
@@ -697,8 +617,8 @@ func (o AVAudioEnvironmentNode) SetSourceMode(value AVAudio3DMixingSourceMode) {
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
-// [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
-// instance.
+// [AVAudioEnvironmentNode.ApplicableRenderingAlgorithms] function of the
+// [AVAudioEnvironmentNode] instance.
 //
 // The default rendering algorithm is
 // [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the

@@ -54,13 +54,14 @@ func (nc NSImageSymbolConfigurationClass) Alloc() NSImageSymbolConfiguration {
 // to scale or style the image.
 //
 // [NSImageSymbolConfiguration] objects are immutable after you create them.
-// If you use the [NSImageSymbolConfiguration.ConfigurationByApplyingConfiguration] method on the object,
-// the new image attributes replace any previous attributes you supplied.
-// After creating a symbol configuration object, assign it to the
-// [NSImageSymbolConfiguration.SymbolConfiguration] property of the [NSImageView] object you use to
-// display the image. If you draw the image directly, use the
-// [ImageWithSymbolConfiguration] method to create a new image that contains
-// the new attributes.
+// If you use the
+// [NSImageSymbolConfiguration.ConfigurationByApplyingConfiguration] method on
+// the object, the new image attributes replace any previous attributes you
+// supplied. After creating a symbol configuration object, assign it to the
+// [NSImageView.SymbolConfiguration] property of the [NSImageView] object you
+// use to display the image. If you draw the image directly, use the
+// [NSImage.ImageWithSymbolConfiguration] method to create a new image that
+// contains the new attributes.
 //
 // For design guidance, see [Human Interface Guidelines].
 //
@@ -101,9 +102,6 @@ type INSImageSymbolConfiguration interface {
 	// Creates a configuration object by applying the values from the configuration you specify.
 	ConfigurationByApplyingConfiguration(configuration INSImageSymbolConfiguration) INSImageSymbolConfiguration
 
-	// Specifies a combination of point size, weight, and scale to use when sizing and displaying symbol images.
-	SymbolConfiguration() INSImageSymbolConfiguration
-	SetSymbolConfiguration(value INSImageSymbolConfiguration)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -286,26 +284,25 @@ func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) Configur
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
+// Creates a configuration that specifies that the symbol should prefer its
+// hierarchical variant, if one exists.
+//
+// # Discussion
+//
+// If the symbol doesn’t support hierarchical, the result will be a
+// monochrome (templated) symbol.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/preferringHierarchical()
 func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) ConfigurationPreferringHierarchical() NSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_NSImageSymbolConfigurationClass.class), objc.Sel("configurationPreferringHierarchical"))
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
+// Creates a configuration that specifies that the symbol should prefer its
+// monochrome variant.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/preferringMonochrome()
 func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) ConfigurationPreferringMonochrome() NSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_NSImageSymbolConfigurationClass.class), objc.Sel("configurationPreferringMonochrome"))
 	return NSImageSymbolConfigurationFromID(rv)
-}
-
-// Specifies a combination of point size, weight, and scale to use when sizing
-// and displaying symbol images.
-//
-// See: https://developer.apple.com/documentation/appkit/nsimageview/symbolconfiguration
-func (i NSImageSymbolConfiguration) SymbolConfiguration() INSImageSymbolConfiguration {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("symbolConfiguration"))
-	return NSImageSymbolConfigurationFromID(objc.ID(rv))
-}
-func (i NSImageSymbolConfiguration) SetSymbolConfiguration(value INSImageSymbolConfiguration) {
-	objc.Send[struct{}](i.ID, objc.Sel("setSymbolConfiguration:"), value)
 }

@@ -4,17 +4,18 @@
 //
 // Provides mechanisms to register and block disk mount or unmount events.
 //
-// For related documentation, see [Mac Technology Overview](<https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067>).
+// For related documentation, see Mac Technology Overview.
 //
 // # Variables
 //
+//   - [KDADiskDescriptionFSKitPrefix]
+//   - [KDADiskDescriptionRepairRunningKey]
+//
+// # Enumeration Cases
+//
 //   - kDADiskClaimOptionDefault
-//   - kDADiskDescriptionFSKitPrefix
-//   - kDADiskDescriptionRepairRunningKey
 //   - kDADiskEjectOptionDefault
 //   - kDADiskMountOptionNoFollow
-//
-// [DiskArbitration Documentation]: https://developer.apple.com/documentation/DiskArbitration
 package diskarbitration
 
 import (

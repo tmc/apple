@@ -48,7 +48,7 @@ func NSPasteboardItemDataProviderObjectFromID(id objc.ID) NSPasteboardItemDataPr
 // # Discussion
 //
 // The receiver was previously set as the provider using
-// [SetDataProviderForTypes].
+// [NSPasteboardItem.SetDataProviderForTypes].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItemDataProvider/pasteboard(_:item:provideDataForType:)
 func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pasteboard INSPasteboard, item INSPasteboardItem, type_ NSPasteboardType) {

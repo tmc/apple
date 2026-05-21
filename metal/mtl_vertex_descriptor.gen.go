@@ -57,8 +57,8 @@ func (mc MTLVertexDescriptorClass) Alloc() MTLVertexDescriptor {
 // pipeline state, you use an [MTLVertexDescriptor] instance to establish the
 // vertex layout for the function associated with the pipeline. Create and
 // configure an [MTLVertexDescriptor] instance, then use this instance to set
-// the [VertexDescriptor] property of the [MTLRenderPipelineDescriptor]
-// instance.
+// the [MTLRenderPipelineDescriptor.VertexDescriptor] property of the
+// [MTLRenderPipelineDescriptor] instance.
 //
 // # Setting default values
 //
@@ -111,11 +111,6 @@ type IMTLVertexDescriptor interface {
 	Attributes() IMTLVertexAttributeDescriptorArray
 	// An array of state data that describes how data are fetched by a vertex shader function when rendering primitives.
 	Layouts() IMTLVertexBufferLayoutDescriptorArray
-
-	MTLBufferLayoutStrideDynamic() int
-	// The organization of vertex data in an attribute’s argument table.
-	VertexDescriptor() IMTLVertexDescriptor
-	SetVertexDescriptor(value IMTLVertexDescriptor)
 }
 
 // Init initializes the instance.
@@ -141,9 +136,10 @@ func NewMTLVertexDescriptor() MTLVertexDescriptor {
 //
 // # Discussion
 //
-// After reset, each element of the [Attributes] array has a default vertex
-// attribute descriptor, and each element of the [Layouts] array has a default
-// vertex buffer layout descriptor.
+// After reset, each element of the [MTLVertexDescriptor.Attributes] array has
+// a default vertex attribute descriptor, and each element of the
+// [MTLVertexDescriptor.Layouts] array has a default vertex buffer layout
+// descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexDescriptor/reset()
 func (v MTLVertexDescriptor) Reset() {
@@ -154,7 +150,8 @@ func (v MTLVertexDescriptor) Reset() {
 //
 // # Return Value
 //
-// A default object with allocated arrays in the [Attributes] and [Layouts]
+// A default object with allocated arrays in the
+// [MTLVertexDescriptor.Attributes] and [MTLVertexDescriptor.Layouts]
 // properties.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexDescriptor/vertexDescriptor
@@ -179,21 +176,4 @@ func (v MTLVertexDescriptor) Attributes() IMTLVertexAttributeDescriptorArray {
 func (v MTLVertexDescriptor) Layouts() IMTLVertexBufferLayoutDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("layouts"))
 	return MTLVertexBufferLayoutDescriptorArrayFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
-func (v MTLVertexDescriptor) MTLBufferLayoutStrideDynamic() int {
-	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
-	return rv
-}
-
-// The organization of vertex data in an attribute’s argument table.
-//
-// See: https://developer.apple.com/documentation/metal/mtlrenderpipelinedescriptor/vertexdescriptor
-func (v MTLVertexDescriptor) VertexDescriptor() IMTLVertexDescriptor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("vertexDescriptor"))
-	return MTLVertexDescriptorFromID(objc.ID(rv))
-}
-func (v MTLVertexDescriptor) SetVertexDescriptor(value IMTLVertexDescriptor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVertexDescriptor:"), value)
 }
