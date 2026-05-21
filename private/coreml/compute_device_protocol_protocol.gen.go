@@ -8,8 +8,6 @@ import (
 )
 
 // MLComputeDeviceProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDeviceProtocol
 type MLComputeDeviceProtocol interface {
 	objectivec.IObject
 }

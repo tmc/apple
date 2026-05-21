@@ -48,8 +48,6 @@ func (ec EspressoDataFrameImageAttachmentClass) Alloc() EspressoDataFrameImageAt
 //   - [EspressoDataFrameImageAttachment.CopyAsImageGrayscaleOrBGRA]
 //   - [EspressoDataFrameImageAttachment.NChannels]
 //   - [EspressoDataFrameImageAttachment.SetNChannels]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment
 type EspressoDataFrameImageAttachment struct {
 	EspressoDataFrameAttachment
 }
@@ -69,8 +67,6 @@ var _ IEspressoDataFrameImageAttachment = EspressoDataFrameImageAttachment{}
 //   - [IEspressoDataFrameImageAttachment.CopyAsImageGrayscaleOrBGRA]
 //   - [IEspressoDataFrameImageAttachment.NChannels]
 //   - [IEspressoDataFrameImageAttachment.SetNChannels]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment
 type IEspressoDataFrameImageAttachment interface {
 	IEspressoDataFrameAttachment
 
@@ -100,19 +96,16 @@ func NewEspressoDataFrameImageAttachment() EspressoDataFrameImageAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/copyAsImageGrayscaleOrBGRA
 func (e EspressoDataFrameImageAttachment) CopyAsImageGrayscaleOrBGRA() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("copyAsImageGrayscaleOrBGRA"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/createCVPixelBufferFromvImage:withPixelFormat:
 func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentClass) CreateCVPixelBufferFromvImageWithPixelFormat(image unsafe.Pointer, format uint32) corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_EspressoDataFrameImageAttachmentClass.class), objc.Sel("createCVPixelBufferFromvImage:withPixelFormat:"), image, format)
 	return corevideo.CVImageBufferRef(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/nChannels
 func (e EspressoDataFrameImageAttachment) NChannels() int {
 	rv := objc.Send[int](e.ID, objc.Sel("nChannels"))
 	return rv

@@ -56,8 +56,6 @@ func (wc WSHIDEventDeliveryManagerServerClass) Alloc() WSHIDEventDeliveryManager
 //   - [WSHIDEventDeliveryManagerServer.Description]
 //   - [WSHIDEventDeliveryManagerServer.Hash]
 //   - [WSHIDEventDeliveryManagerServer.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer
 type WSHIDEventDeliveryManagerServer struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ IWSHIDEventDeliveryManagerServer = WSHIDEventDeliveryManagerServer{}
 //   - [IWSHIDEventDeliveryManagerServer.Description]
 //   - [IWSHIDEventDeliveryManagerServer.Hash]
 //   - [IWSHIDEventDeliveryManagerServer.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer
 type IWSHIDEventDeliveryManagerServer interface {
 	objectivec.IObject
 
@@ -100,7 +96,7 @@ type IWSHIDEventDeliveryManagerServer interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -122,66 +118,47 @@ func NewWSHIDEventDeliveryManagerServer() WSHIDEventDeliveryManagerServer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/_init
 func (w WSHIDEventDeliveryManagerServer) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/activate
 func (w WSHIDEventDeliveryManagerServer) Activate() {
 	objc.Send[objc.ID](w.ID, objc.Sel("activate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/appendDescriptionToStream:
 func (w WSHIDEventDeliveryManagerServer) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/deliveryManagerForAuditToken:
 func (w WSHIDEventDeliveryManagerServer) DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/permittedRuleChangeMaskForAuditToken:
 func (w WSHIDEventDeliveryManagerServer) PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](w.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/sharedInstance
 func (_WSHIDEventDeliveryManagerServerClass WSHIDEventDeliveryManagerServerClass) SharedInstance() WSHIDEventDeliveryManagerServer {
 	rv := objc.Send[objc.ID](objc.ID(_WSHIDEventDeliveryManagerServerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDEventDeliveryManagerServerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/debugDescription
 func (w WSHIDEventDeliveryManagerServer) DebugDescription() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/description
 func (w WSHIDEventDeliveryManagerServer) Description() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/hash
 func (w WSHIDEventDeliveryManagerServer) Hash() uint64 {
 	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/server
 func (w WSHIDEventDeliveryManagerServer) Server() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("server"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryManagerServer/superclass
-func (w WSHIDEventDeliveryManagerServer) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](w.ID, objc.Sel("superclass"))
-	return rv
+func (w WSHIDEventDeliveryManagerServer) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

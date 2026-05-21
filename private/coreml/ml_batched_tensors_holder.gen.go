@@ -48,8 +48,6 @@ func (mc MLBatchedTensorsHolderClass) Alloc() MLBatchedTensorsHolder {
 //   - [MLBatchedTensorsHolder.BatchedTensors]
 //   - [MLBatchedTensorsHolder.NumberOfTensors]
 //   - [MLBatchedTensorsHolder.InitWithBatchedTensorsNumberOfTensors]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder
 type MLBatchedTensorsHolder struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IMLBatchedTensorsHolder = MLBatchedTensorsHolder{}
 //   - [IMLBatchedTensorsHolder.BatchedTensors]
 //   - [IMLBatchedTensorsHolder.NumberOfTensors]
 //   - [IMLBatchedTensorsHolder.InitWithBatchedTensorsNumberOfTensors]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder
 type IMLBatchedTensorsHolder interface {
 	objectivec.IObject
 
@@ -100,26 +96,21 @@ func NewMLBatchedTensorsHolder() MLBatchedTensorsHolder {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder/initWithBatchedTensors:numberOfTensors:
 func NewBatchedTensorsHolderWithBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) MLBatchedTensorsHolder {
 	instance := getMLBatchedTensorsHolderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBatchedTensors:numberOfTensors:"), tensors, tensors2)
 	return MLBatchedTensorsHolderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder/initWithBatchedTensors:numberOfTensors:
 func (m MLBatchedTensorsHolder) InitWithBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) MLBatchedTensorsHolder {
 	rv := objc.Send[MLBatchedTensorsHolder](m.ID, objc.Sel("initWithBatchedTensors:numberOfTensors:"), tensors, tensors2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder/batchedTensors
 func (m MLBatchedTensorsHolder) BatchedTensors() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchedTensors"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedTensorsHolder/numberOfTensors
 func (m MLBatchedTensorsHolder) NumberOfTensors() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfTensors"))
 	return rv

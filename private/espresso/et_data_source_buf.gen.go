@@ -49,8 +49,6 @@ func (ec ETDataSourceBufClass) Alloc() ETDataSourceBuf {
 //   - [ETDataSourceBuf.DataPointAtIndex]
 //   - [ETDataSourceBuf.NumberOfDataPoints]
 //   - [ETDataSourceBuf.SetBlobsNumberOfDataPointsNonBatches]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf
 type ETDataSourceBuf struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IETDataSourceBuf = ETDataSourceBuf{}
 //   - [IETDataSourceBuf.DataPointAtIndex]
 //   - [IETDataSourceBuf.NumberOfDataPoints]
 //   - [IETDataSourceBuf.SetBlobsNumberOfDataPointsNonBatches]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf
 type IETDataSourceBuf interface {
 	objectivec.IObject
 
@@ -103,25 +99,18 @@ func NewETDataSourceBuf() ETDataSourceBuf {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/dataAtIndex:key:
 func (e ETDataSourceBuf) DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/dataPointAtIndex:
 func (e ETDataSourceBuf) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/numberOfDataPoints
 func (e ETDataSourceBuf) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/setBlobs:numberOfDataPoints:nonBatches:
 func (e ETDataSourceBuf) SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int, batches unsafe.Pointer) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setBlobs:numberOfDataPoints:nonBatches:"), blobs, points, batches)
 }

@@ -60,8 +60,6 @@ func (ec EspressoConvolutionWeightsForMPSClass) Alloc() EspressoConvolutionWeigh
 //   - [EspressoConvolutionWeightsForMPS.Description]
 //   - [EspressoConvolutionWeightsForMPS.Hash]
 //   - [EspressoConvolutionWeightsForMPS.Superclass]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS
 type EspressoConvolutionWeightsForMPS struct {
 	objectivec.Object
 }
@@ -92,8 +90,6 @@ var _ IEspressoConvolutionWeightsForMPS = EspressoConvolutionWeightsForMPS{}
 //   - [IEspressoConvolutionWeightsForMPS.Description]
 //   - [IEspressoConvolutionWeightsForMPS.Hash]
 //   - [IEspressoConvolutionWeightsForMPS.Superclass]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS
 type IEspressoConvolutionWeightsForMPS interface {
 	objectivec.IObject
 
@@ -112,7 +108,7 @@ type IEspressoConvolutionWeightsForMPS interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -134,94 +130,67 @@ func NewEspressoConvolutionWeightsForMPS() EspressoConvolutionWeightsForMPS {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
 func NewEspressoConvolutionWeightsForMPSWithParams(params ConvolutionUniforms) EspressoConvolutionWeightsForMPS {
 	instance := getEspressoConvolutionWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoConvolutionWeightsForMPSFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/biasTerms
 func (e EspressoConvolutionWeightsForMPS) BiasTerms() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasTerms"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/dataType
 func (e EspressoConvolutionWeightsForMPS) DataType() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("dataType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/descriptor
 func (e EspressoConvolutionWeightsForMPS) Descriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("descriptor"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/label
 func (e EspressoConvolutionWeightsForMPS) Label() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("label"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/lookupTableForUInt8Kernel
 func (e EspressoConvolutionWeightsForMPS) LookupTableForUInt8Kernel() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("lookupTableForUInt8Kernel"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/purge
 func (e EspressoConvolutionWeightsForMPS) Purge() {
 	objc.Send[objc.ID](e.ID, objc.Sel("purge"))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/rangesForUInt8Kernel
 func (e EspressoConvolutionWeightsForMPS) RangesForUInt8Kernel() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("rangesForUInt8Kernel"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/ready
 func (e EspressoConvolutionWeightsForMPS) Ready() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("ready"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/weights
 func (e EspressoConvolutionWeightsForMPS) Weights() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weights"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
 func (e EspressoConvolutionWeightsForMPS) InitWithParams(params ConvolutionUniforms) EspressoConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoConvolutionWeightsForMPS](e.ID, objc.Sel("initWithParams:"), params)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/debugDescription
 func (e EspressoConvolutionWeightsForMPS) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/description
 func (e EspressoConvolutionWeightsForMPS) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/hash
 func (e EspressoConvolutionWeightsForMPS) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/superclass
-func (e EspressoConvolutionWeightsForMPS) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
-	return rv
+func (e EspressoConvolutionWeightsForMPS) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -42,7 +42,6 @@ func (tc TextToSpeechVoiceDatabaseClientClass) Alloc() TextToSpeechVoiceDatabase
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseClient
 type TextToSpeechVoiceDatabaseClient struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechVoiceDatabaseClientFromID(id objc.ID) TextToSpeechVoiceDatabase
 // ITextToSpeechVoiceDatabaseClient embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoiceDatabaseClient] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseClient
 type ITextToSpeechVoiceDatabaseClient interface {
 	objectivec.IObject
 }

@@ -42,7 +42,6 @@ func (cc CoreMLMetalAsyncEventClass) Alloc() CoreMLMetalAsyncEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalAsyncEvent
 type CoreMLMetalAsyncEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMetalAsyncEventFromID(id objc.ID) CoreMLMetalAsyncEvent {
 // ICoreMLMetalAsyncEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMetalAsyncEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalAsyncEvent
 type ICoreMLMetalAsyncEvent interface {
 	objectivec.IObject
 }

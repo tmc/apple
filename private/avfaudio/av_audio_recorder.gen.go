@@ -51,14 +51,11 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 //   - [AVAudioRecorder.PrivCommonCleanup]
 //   - [AVAudioRecorder.PrivRemoveSessionPropertyListeners]
 //   - [AVAudioRecorder.PrivSetDelegate]
-//   - [AVAudioRecorder.Record]
 //   - [AVAudioRecorder.SetInstantaneousMetering]
 //   - [AVAudioRecorder.Url]
 //   - [AVAudioRecorder.MeteringEnabled]
 //   - [AVAudioRecorder.SetMeteringEnabled]
 //   - [AVAudioRecorder.Recording]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder
 type AVAudioRecorder struct {
 	objectivec.Object
 }
@@ -81,14 +78,11 @@ var _ IAVAudioRecorder = AVAudioRecorder{}
 //   - [IAVAudioRecorder.PrivCommonCleanup]
 //   - [IAVAudioRecorder.PrivRemoveSessionPropertyListeners]
 //   - [IAVAudioRecorder.PrivSetDelegate]
-//   - [IAVAudioRecorder.Record]
 //   - [IAVAudioRecorder.SetInstantaneousMetering]
 //   - [IAVAudioRecorder.Url]
 //   - [IAVAudioRecorder.MeteringEnabled]
 //   - [IAVAudioRecorder.SetMeteringEnabled]
 //   - [IAVAudioRecorder.Recording]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder
 type IAVAudioRecorder interface {
 	objectivec.IObject
 
@@ -100,9 +94,8 @@ type IAVAudioRecorder interface {
 	PrivCommonCleanup()
 	PrivRemoveSessionPropertyListeners()
 	PrivSetDelegate(delegate objectivec.IObject)
-	Record() bool
 	SetInstantaneousMetering(metering bool)
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	MeteringEnabled() bool
 	SetMeteringEnabled(value bool)
 	Recording() bool
@@ -127,50 +120,30 @@ func NewAVAudioRecorder() AVAudioRecorder {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/baseInit
 func (a AVAudioRecorder) BaseInit() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("baseInit"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/finishedRecording:
 func (a AVAudioRecorder) FinishedRecording(recording objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishedRecording:"), recording)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/instantaneousMetering
 func (a AVAudioRecorder) InstantaneousMetering() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("instantaneousMetering"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/privCommonCleanup
 func (a AVAudioRecorder) PrivCommonCleanup() {
 	objc.Send[objc.ID](a.ID, objc.Sel("privCommonCleanup"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/privRemoveSessionPropertyListeners
 func (a AVAudioRecorder) PrivRemoveSessionPropertyListeners() {
 	objc.Send[objc.ID](a.ID, objc.Sel("privRemoveSessionPropertyListeners"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/privSetDelegate:
 func (a AVAudioRecorder) PrivSetDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("privSetDelegate:"), delegate)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/record
-func (a AVAudioRecorder) Record() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("record"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/setInstantaneousMetering:
 func (a AVAudioRecorder) SetInstantaneousMetering(metering bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setInstantaneousMetering:"), metering)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/meteringEnabled
 func (a AVAudioRecorder) MeteringEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
@@ -178,15 +151,11 @@ func (a AVAudioRecorder) MeteringEnabled() bool {
 func (a AVAudioRecorder) SetMeteringEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/recording
 func (a AVAudioRecorder) Recording() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recording"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/url
-func (a AVAudioRecorder) Url() foundation.INSURL {
+func (a AVAudioRecorder) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

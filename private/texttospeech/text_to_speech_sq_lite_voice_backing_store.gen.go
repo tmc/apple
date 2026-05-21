@@ -42,7 +42,6 @@ func (tc TextToSpeechSQLiteVoiceBackingStoreClass) Alloc() TextToSpeechSQLiteVoi
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SQLiteVoiceBackingStore
 type TextToSpeechSQLiteVoiceBackingStore struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechSQLiteVoiceBackingStoreFromID(id objc.ID) TextToSpeechSQLiteVoi
 // ITextToSpeechSQLiteVoiceBackingStore embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSQLiteVoiceBackingStore] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SQLiteVoiceBackingStore
 type ITextToSpeechSQLiteVoiceBackingStore interface {
 	objectivec.IObject
 }

@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSSQLiteReaderClass) Alloc() TextToSpeechTTSSQLiteReader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSQLiteReader
 type TextToSpeechTTSSQLiteReader struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSSQLiteReaderFromID(id objc.ID) TextToSpeechTTSSQLiteReader {
 // ITextToSpeechTTSSQLiteReader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSQLiteReader] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSQLiteReader
 type ITextToSpeechTTSSQLiteReader interface {
 	objectivec.IObject
 }

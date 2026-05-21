@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceSetOrderingWeightOperationClass) Alloc() SLSBridgedSpace
 //   - [SLSBridgedSpaceSetOrderingWeightOperation.SpaceID]
 //   - [SLSBridgedSpaceSetOrderingWeightOperation.Weight]
 //   - [SLSBridgedSpaceSetOrderingWeightOperation.InitWithSpaceIDWeight]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation
 type SLSBridgedSpaceSetOrderingWeightOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceSetOrderingWeightOperation = SLSBridgedSpaceSetOrderingWei
 //   - [ISLSBridgedSpaceSetOrderingWeightOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetOrderingWeightOperation.Weight]
 //   - [ISLSBridgedSpaceSetOrderingWeightOperation.InitWithSpaceIDWeight]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation
 type ISLSBridgedSpaceSetOrderingWeightOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceSetOrderingWeightOperation() SLSBridgedSpaceSetOrderingWe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation/initWithCoder:
 func NewSLSBridgedSpaceSetOrderingWeightOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetOrderingWeightOperation {
 	instance := getSLSBridgedSpaceSetOrderingWeightOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation/initWithSpaceID:weight:
 func NewSLSBridgedSpaceSetOrderingWeightOperationWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
 	instance := getSLSBridgedSpaceSetOrderingWeightOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation/initWithSpaceID:weight:
 func (s SLSBridgedSpaceSetOrderingWeightOperation) InitWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
 	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation/spaceID
 func (s SLSBridgedSpaceSetOrderingWeightOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetOrderingWeightOperation/weight
 func (s SLSBridgedSpaceSetOrderingWeightOperation) Weight() int {
 	rv := objc.Send[int](s.ID, objc.Sel("weight"))
 	return rv

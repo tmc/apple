@@ -5,9 +5,10 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSAudioFormat] class.
@@ -54,8 +55,6 @@ func (tc TTSAudioFormatClass) Alloc() TTSAudioFormat {
 //   - [TTSAudioFormat.SetStreamDescription]
 //   - [TTSAudioFormat.InitWithStreamDescription]
 //   - [TTSAudioFormat.InitWithStreamDescriptionChannelLayoutTag]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat
 type TTSAudioFormat struct {
 	objectivec.Object
 }
@@ -81,8 +80,6 @@ var _ ITTSAudioFormat = TTSAudioFormat{}
 //   - [ITTSAudioFormat.SetStreamDescription]
 //   - [ITTSAudioFormat.InitWithStreamDescription]
 //   - [ITTSAudioFormat.InitWithStreamDescriptionChannelLayoutTag]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat
 type ITTSAudioFormat interface {
 	objectivec.IObject
 
@@ -93,10 +90,10 @@ type ITTSAudioFormat interface {
 	ChannelLayoutTag() uint32
 	SetChannelLayoutTag(value uint32)
 	SampleRate() float64
-	StreamDescription() AudioStreamBasicDescription
-	SetStreamDescription(value AudioStreamBasicDescription)
-	InitWithStreamDescription(description AudioStreamBasicDescription) TTSAudioFormat
-	InitWithStreamDescriptionChannelLayoutTag(description AudioStreamBasicDescription, tag uint32) TTSAudioFormat
+	StreamDescription() coreaudiotypes.AudioStreamBasicDescription
+	SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription)
+	InitWithStreamDescription(description coreaudiotypes.AudioStreamBasicDescription) TTSAudioFormat
+	InitWithStreamDescriptionChannelLayoutTag(description coreaudiotypes.AudioStreamBasicDescription, tag uint32) TTSAudioFormat
 }
 
 // Init initializes the instance.
@@ -118,45 +115,35 @@ func NewTTSAudioFormat() TTSAudioFormat {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:
-func NewTTSAudioFormatWithStreamDescription(description AudioStreamBasicDescription) TTSAudioFormat {
+func NewTTSAudioFormatWithStreamDescription(description coreaudiotypes.AudioStreamBasicDescription) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), description)
 	return TTSAudioFormatFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:channelLayoutTag:
-func NewTTSAudioFormatWithStreamDescriptionChannelLayoutTag(description AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
+func NewTTSAudioFormatWithStreamDescriptionChannelLayoutTag(description coreaudiotypes.AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
 	return TTSAudioFormatFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:
-func (t TTSAudioFormat) InitWithStreamDescription(description AudioStreamBasicDescription) TTSAudioFormat {
+func (t TTSAudioFormat) InitWithStreamDescription(description coreaudiotypes.AudioStreamBasicDescription) TTSAudioFormat {
 	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:"), description)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:channelLayoutTag:
-func (t TTSAudioFormat) InitWithStreamDescriptionChannelLayoutTag(description AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
+func (t TTSAudioFormat) InitWithStreamDescriptionChannelLayoutTag(description coreaudiotypes.AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
 	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/avFormat
 func (t TTSAudioFormat) AvFormat() avfaudio.AVAudioFormat {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avFormat"))
 	return avfaudio.AVAudioFormatFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/channelCount
 func (t TTSAudioFormat) ChannelCount() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("channelCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/channelLayoutTag
 func (t TTSAudioFormat) ChannelLayoutTag() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("channelLayoutTag"))
 	return rv
@@ -164,19 +151,14 @@ func (t TTSAudioFormat) ChannelLayoutTag() uint32 {
 func (t TTSAudioFormat) SetChannelLayoutTag(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannelLayoutTag:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/sampleRate
 func (t TTSAudioFormat) SampleRate() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("sampleRate"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/streamDescription
-func (t TTSAudioFormat) StreamDescription() AudioStreamBasicDescription {
-	rv := objc.Send[AudioStreamBasicDescription](t.ID, objc.Sel("streamDescription"))
-	_ = rv
-	return AudioStreamBasicDescription{}
+func (t TTSAudioFormat) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
+	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](t.ID, objc.Sel("streamDescription"))
+	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
-func (t TTSAudioFormat) SetStreamDescription(value AudioStreamBasicDescription) {
+func (t TTSAudioFormat) SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStreamDescription:"), value)
 }

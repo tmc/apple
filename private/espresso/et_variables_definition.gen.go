@@ -49,8 +49,6 @@ func (ec ETVariablesDefinitionClass) Alloc() ETVariablesDefinition {
 //   - [ETVariablesDefinition.LayerNames]
 //   - [ETVariablesDefinition.SetLayerNames]
 //   - [ETVariablesDefinition.InitForLayersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETVariablesDefinition
 type ETVariablesDefinition struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IETVariablesDefinition = ETVariablesDefinition{}
 //   - [IETVariablesDefinition.LayerNames]
 //   - [IETVariablesDefinition.SetLayerNames]
 //   - [IETVariablesDefinition.InitForLayersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETVariablesDefinition
 type IETVariablesDefinition interface {
 	objectivec.IObject
 
@@ -101,7 +97,6 @@ func NewETVariablesDefinition() ETVariablesDefinition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariablesDefinition/initForLayers:error:
 func NewETVariablesDefinitionForLayersError(layers objectivec.IObject) (ETVariablesDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETVariablesDefinitionClass().Alloc()
@@ -113,7 +108,6 @@ func NewETVariablesDefinitionForLayersError(layers objectivec.IObject) (ETVariab
 	return ETVariablesDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariablesDefinition/initForLayers:error:
 func (e ETVariablesDefinition) InitForLayersError(layers objectivec.IObject) (ETVariablesDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initForLayers:error:"), layers, unsafe.Pointer(&errorPtr))
@@ -125,7 +119,6 @@ func (e ETVariablesDefinition) InitForLayersError(layers objectivec.IObject) (ET
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariablesDefinition/layerNames
 func (e ETVariablesDefinition) LayerNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))

@@ -8,14 +8,10 @@ import (
 )
 
 // NSSecureCoding protocol.
-//
-// See: https://developer.apple.com/documentation/Network/NSSecureCoding
 type NSSecureCoding interface {
 	objectivec.IObject
 
 	// SupportsSecureCoding protocol.
-	//
-	// See: https://developer.apple.com/documentation/Network/NSSecureCoding/supportsSecureCoding
 	SupportsSecureCoding() bool
 }
 
@@ -36,7 +32,6 @@ func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Network/NSSecureCoding/supportsSecureCoding
 func (o NSSecureCodingObject) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsSecureCoding"))
 	return rv

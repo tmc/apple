@@ -50,8 +50,6 @@ func (mc MLCustomModelLoaderClass) Alloc() MLCustomModelLoader {
 //   - [MLCustomModelLoader.Description]
 //   - [MLCustomModelLoader.Hash]
 //   - [MLCustomModelLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader
 type MLCustomModelLoader struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IMLCustomModelLoader = MLCustomModelLoader{}
 //   - [IMLCustomModelLoader.Description]
 //   - [IMLCustomModelLoader.Hash]
 //   - [IMLCustomModelLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader
 type IMLCustomModelLoader interface {
 	objectivec.IObject
 
@@ -82,7 +78,7 @@ type IMLCustomModelLoader interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -104,7 +100,6 @@ func NewMLCustomModelLoader() MLCustomModelLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/customModelWithName:modelDescription:modelConfiguration:parameterDictionary:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) CustomModelWithNameModelDescriptionModelConfigurationParameterDictionaryError(name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomModelLoaderClass.class), objc.Sel("customModelWithName:modelDescription:modelConfiguration:parameterDictionary:error:"), name, description, configuration, dictionary, unsafe.Pointer(&errorPtr))
@@ -115,8 +110,6 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) CustomModelWithNameMod
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/loadModelFromSpecification:configuration:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomModelLoaderClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -127,8 +120,6 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) LoadModelFromSpecifica
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/parametersFromCustomModelSpec:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) ParametersFromCustomModelSpecError(spec unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomModelLoaderClass.class), objc.Sel("parametersFromCustomModelSpec:error:"), spec, unsafe.Pointer(&errorPtr))
@@ -140,26 +131,19 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) ParametersFromCustomMo
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/debugDescription
 func (m MLCustomModelLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/description
 func (m MLCustomModelLoader) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/hash
 func (m MLCustomModelLoader) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/superclass
-func (m MLCustomModelLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLCustomModelLoader) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

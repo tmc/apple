@@ -55,8 +55,6 @@ func (sc SLSIconAppearanceConfigurationClass) Alloc() SLSIconAppearanceConfigura
 //   - [SLSIconAppearanceConfiguration.OtherIconTintColor]
 //   - [SLSIconAppearanceConfiguration.SetOtherIconTintColor]
 //   - [SLSIconAppearanceConfiguration.Save]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration
 type SLSIconAppearanceConfiguration struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ISLSIconAppearanceConfiguration = SLSIconAppearanceConfiguration{}
 //   - [ISLSIconAppearanceConfiguration.OtherIconTintColor]
 //   - [ISLSIconAppearanceConfiguration.SetOtherIconTintColor]
 //   - [ISLSIconAppearanceConfiguration.Save]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration
 type ISLSIconAppearanceConfiguration interface {
 	objectivec.IObject
 
@@ -121,7 +117,6 @@ func NewSLSIconAppearanceConfiguration() SLSIconAppearanceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:
 func (s SLSIconAppearanceConfiguration) _initWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme uint32, name uint32, color coregraphics.CGColorRef, theme2 uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"), theme, name, color, theme2)
 	return objectivec.Object{ID: rv}
@@ -140,19 +135,15 @@ func (s SLSIconAppearanceConfiguration) InitWithIconAppearanceThemeIconTintColor
 func (s SLSIconAppearanceConfiguration) CanInitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/save
 func (s SLSIconAppearanceConfiguration) Save() {
 	objc.Send[objc.ID](s.ID, objc.Sel("save"))
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/fetchCurrentIconAppearanceConfiguration
 func (_SLSIconAppearanceConfigurationClass SLSIconAppearanceConfigurationClass) FetchCurrentIconAppearanceConfiguration() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSIconAppearanceConfigurationClass.class), objc.Sel("fetchCurrentIconAppearanceConfiguration"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/appearanceTheme
 func (s SLSIconAppearanceConfiguration) AppearanceTheme() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appearanceTheme"))
 	return rv
@@ -160,8 +151,6 @@ func (s SLSIconAppearanceConfiguration) AppearanceTheme() uint32 {
 func (s SLSIconAppearanceConfiguration) SetAppearanceTheme(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAppearanceTheme:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/iconAppearanceTheme
 func (s SLSIconAppearanceConfiguration) IconAppearanceTheme() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("iconAppearanceTheme"))
 	return rv
@@ -169,8 +158,6 @@ func (s SLSIconAppearanceConfiguration) IconAppearanceTheme() uint32 {
 func (s SLSIconAppearanceConfiguration) SetIconAppearanceTheme(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIconAppearanceTheme:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/iconTintColorName
 func (s SLSIconAppearanceConfiguration) IconTintColorName() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("iconTintColorName"))
 	return rv
@@ -178,8 +165,6 @@ func (s SLSIconAppearanceConfiguration) IconTintColorName() uint32 {
 func (s SLSIconAppearanceConfiguration) SetIconTintColorName(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIconTintColorName:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/otherIconTintColor
 func (s SLSIconAppearanceConfiguration) OtherIconTintColor() coregraphics.CGColorRef {
 	rv := objc.Send[coregraphics.CGColorRef](s.ID, objc.Sel("otherIconTintColor"))
 	return coregraphics.CGColorRef(rv)

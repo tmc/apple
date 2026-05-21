@@ -46,8 +46,6 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 //
 //   - [VZVirtioSocketDevice._configurationOptions]
 //   - [VZVirtioSocketDevice._setDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice
 type VZVirtioSocketDevice struct {
 	VZSocketDevice
 }
@@ -66,8 +64,6 @@ var _ IVZVirtioSocketDevice = VZVirtioSocketDevice{}
 //
 //   - [IVZVirtioSocketDevice._configurationOptions]
 //   - [IVZVirtioSocketDevice._setDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice
 type IVZVirtioSocketDevice interface {
 	IVZSocketDevice
 
@@ -96,7 +92,6 @@ func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/_configurationOptions
 func (v VZVirtioSocketDevice) _configurationOptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configurationOptions"))
 	return objectivec.Object{ID: rv}
@@ -115,8 +110,6 @@ func (v VZVirtioSocketDevice) ConfigurationOptions() (objectivec.IObject, error)
 func (v VZVirtioSocketDevice) CanConfigurationOptions() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_configurationOptions"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/_setDelegate:
 func (v VZVirtioSocketDevice) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
 }

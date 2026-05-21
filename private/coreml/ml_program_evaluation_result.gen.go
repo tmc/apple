@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -48,8 +49,6 @@ func (mc MLProgramEvaluationResultClass) Alloc() MLProgramEvaluationResult {
 //   - [MLProgramEvaluationResult.SetEvaluationMetrics]
 //   - [MLProgramEvaluationResult.Loss]
 //   - [MLProgramEvaluationResult.SetLoss]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult
 type MLProgramEvaluationResult struct {
 	objectivec.Object
 }
@@ -70,15 +69,13 @@ var _ IMLProgramEvaluationResult = MLProgramEvaluationResult{}
 //   - [IMLProgramEvaluationResult.SetEvaluationMetrics]
 //   - [IMLProgramEvaluationResult.Loss]
 //   - [IMLProgramEvaluationResult.SetLoss]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult
 type IMLProgramEvaluationResult interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	EvaluationMetrics() objectivec.IObject
-	SetEvaluationMetrics(value objectivec.IObject)
+	EvaluationMetrics() unsafe.Pointer
+	SetEvaluationMetrics(value unsafe.Pointer)
 	Loss() float64
 	SetLoss(value float64)
 }
@@ -102,16 +99,13 @@ func NewMLProgramEvaluationResult() MLProgramEvaluationResult {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult/evaluationMetrics
-func (m MLProgramEvaluationResult) EvaluationMetrics() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluationMetrics"))
-	return objectivec.Object{ID: rv}
+func (m MLProgramEvaluationResult) EvaluationMetrics() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("evaluationMetrics"))
+	return rv
 }
-func (m MLProgramEvaluationResult) SetEvaluationMetrics(value objectivec.IObject) {
+func (m MLProgramEvaluationResult) SetEvaluationMetrics(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEvaluationMetrics:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult/loss
 func (m MLProgramEvaluationResult) Loss() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("loss"))
 	return rv

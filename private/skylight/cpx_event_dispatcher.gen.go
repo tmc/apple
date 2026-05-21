@@ -52,8 +52,6 @@ func (cc CPXEventDispatcherClass) Alloc() CPXEventDispatcher {
 //   - [CPXEventDispatcher.Description]
 //   - [CPXEventDispatcher.Hash]
 //   - [CPXEventDispatcher.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher
 type CPXEventDispatcher struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ ICPXEventDispatcher = CPXEventDispatcher{}
 //   - [ICPXEventDispatcher.Description]
 //   - [ICPXEventDispatcher.Hash]
 //   - [ICPXEventDispatcher.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher
 type ICPXEventDispatcher interface {
 	objectivec.IObject
 
@@ -90,7 +86,7 @@ type ICPXEventDispatcher interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,41 +108,29 @@ func NewCPXEventDispatcher() CPXEventDispatcher {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postBackgroundEvent:
 func (c CPXEventDispatcher) PostBackgroundEvent(event SLSEventRecord) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postBackgroundEvent:"), event)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postEvent:toConnectionID:
 func (c CPXEventDispatcher) PostEventToConnectionID(event SLSEventRecord, id uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postEvent:toDestination:
 func (c CPXEventDispatcher) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toDestination:"), event, destination)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/debugDescription
 func (c CPXEventDispatcher) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/description
 func (c CPXEventDispatcher) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/hash
 func (c CPXEventDispatcher) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/superclass
-func (c CPXEventDispatcher) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXEventDispatcher) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

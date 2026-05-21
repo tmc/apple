@@ -50,8 +50,6 @@ func (sc SLSSigningKeyClass) Alloc() SLSSigningKey {
 //   - [SLSSigningKey.SigningContext]
 //   - [SLSSigningKey.InitWithCoder]
 //   - [SLSSigningKey.InitWithData]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey
 type SLSSigningKey struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ISLSSigningKey = SLSSigningKey{}
 //   - [ISLSSigningKey.SigningContext]
 //   - [ISLSSigningKey.InitWithCoder]
 //   - [ISLSSigningKey.InitWithData]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey
 type ISLSSigningKey interface {
 	objectivec.IObject
 
@@ -106,62 +102,46 @@ func NewSLSSigningKey() SLSSigningKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/initWithCoder:
 func NewSLSSigningKeyWithCoder(coder objectivec.IObject) SLSSigningKey {
 	instance := getSLSSigningKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSigningKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/initWithData:
 func NewSLSSigningKeyWithData(data objectivec.IObject) SLSSigningKey {
 	instance := getSLSSigningKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return SLSSigningKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/createSignatureForMessage:
 func (s SLSSigningKey) CreateSignatureForMessage(message objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createSignatureForMessage:"), message)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/encodeWithCoder:
 func (s SLSSigningKey) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/signingContext
 func (s SLSSigningKey) SigningContext() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("signingContext"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/initWithCoder:
 func (s SLSSigningKey) InitWithCoder(coder foundation.INSCoder) SLSSigningKey {
 	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/initWithData:
 func (s SLSSigningKey) InitWithData(data objectivec.IObject) SLSSigningKey {
 	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/key
 func (_SLSSigningKeyClass SLSSigningKeyClass) Key() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("key"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/keyWithData:
 func (_SLSSigningKeyClass SLSSigningKeyClass) KeyWithData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("keyWithData:"), data)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSigningKey/supportsSecureCoding
 func (_SLSSigningKeyClass SLSSigningKeyClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLSSigningKeyClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

@@ -53,8 +53,6 @@ func (dc DIEncryptionCreatorClass) Alloc() DIEncryptionCreator {
 //   - [DIEncryptionCreator.CreateParams]
 //   - [DIEncryptionCreator.SetCreateParams]
 //   - [DIEncryptionCreator.CreateWithXpcHandlerError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator
 type DIEncryptionCreator struct {
 	DIEncryptionFrontend
 }
@@ -77,8 +75,6 @@ var _ IDIEncryptionCreator = DIEncryptionCreator{}
 //   - [IDIEncryptionCreator.CreateParams]
 //   - [IDIEncryptionCreator.SetCreateParams]
 //   - [IDIEncryptionCreator.CreateWithXpcHandlerError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator
 type IDIEncryptionCreator interface {
 	IDIEncryptionFrontend
 
@@ -111,21 +107,18 @@ func NewDIEncryptionCreator() DIEncryptionCreator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func NewDIEncryptionCreatorWithCoder(coder objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionCreatorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func NewDIEncryptionCreatorWithParams(params objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionCreatorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/addPublicKeyEntryWithXpcHandler:error:
 func (d DIEncryptionCreator) AddPublicKeyEntryWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addPublicKeyEntryWithXpcHandler:error:"), handler, unsafe.Pointer(&errorPtr))
@@ -139,8 +132,6 @@ func (d DIEncryptionCreator) AddPublicKeyEntryWithXpcHandlerError(handler object
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/addSymmetricKeyEntryWithError:
 func (d DIEncryptionCreator) AddSymmetricKeyEntryWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addSymmetricKeyEntryWithError:"), unsafe.Pointer(&errorPtr))
@@ -154,8 +145,6 @@ func (d DIEncryptionCreator) AddSymmetricKeyEntryWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/createAndStoreInSystemKeychainWithAccount:error:
 func (d DIEncryptionCreator) CreateAndStoreInSystemKeychainWithAccountError(account objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createAndStoreInSystemKeychainWithAccount:error:"), account, unsafe.Pointer(&errorPtr))
@@ -169,8 +158,6 @@ func (d DIEncryptionCreator) CreateAndStoreInSystemKeychainWithAccountError(acco
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/createWithXpcHandler:error:
 func (d DIEncryptionCreator) CreateWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createWithXpcHandler:error:"), handler, unsafe.Pointer(&errorPtr))
@@ -185,7 +172,6 @@ func (d DIEncryptionCreator) CreateWithXpcHandlerError(handler objectivec.IObjec
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/getPublicKeyWithCertificate:error:
 func (_DIEncryptionCreatorClass DIEncryptionCreatorClass) GetPublicKeyWithCertificateError(certificate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIEncryptionCreatorClass.class), objc.Sel("getPublicKeyWithCertificate:error:"), certificate, unsafe.Pointer(&errorPtr))
@@ -197,7 +183,6 @@ func (_DIEncryptionCreatorClass DIEncryptionCreatorClass) GetPublicKeyWithCertif
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/createParams
 func (d DIEncryptionCreator) CreateParams() IDICreateParams {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("createParams"))
 	return DICreateParamsFromID(objc.ID(rv))

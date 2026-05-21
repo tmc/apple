@@ -56,8 +56,6 @@ func (cc CPXKeyEventSequenceTrackerProviderDefaultClass) Alloc() CPXKeyEventSequ
 //   - [CPXKeyEventSequenceTrackerProviderDefault.Description]
 //   - [CPXKeyEventSequenceTrackerProviderDefault.Hash]
 //   - [CPXKeyEventSequenceTrackerProviderDefault.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault
 type CPXKeyEventSequenceTrackerProviderDefault struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ ICPXKeyEventSequenceTrackerProviderDefault = CPXKeyEventSequenceTrackerPro
 //   - [ICPXKeyEventSequenceTrackerProviderDefault.Description]
 //   - [ICPXKeyEventSequenceTrackerProviderDefault.Hash]
 //   - [ICPXKeyEventSequenceTrackerProviderDefault.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault
 type ICPXKeyEventSequenceTrackerProviderDefault interface {
 	objectivec.IObject
 
@@ -100,7 +96,7 @@ type ICPXKeyEventSequenceTrackerProviderDefault interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -122,62 +118,44 @@ func NewCPXKeyEventSequenceTrackerProviderDefault() CPXKeyEventSequenceTrackerPr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/eventLimit
 func (c CPXKeyEventSequenceTrackerProviderDefault) EventLimit() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("eventLimit"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/structuralRegionForID:
 func (c CPXKeyEventSequenceTrackerProviderDefault) StructuralRegionForID(id uint64) WSStructuralRegionRef {
 	rv := objc.Send[WSStructuralRegionRef](c.ID, objc.Sel("structuralRegionForID:"), id)
 	return WSStructuralRegionRef(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/windowByID:
 func (c CPXKeyEventSequenceTrackerProviderDefault) WindowByID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("windowByID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/windowHeightForWindow:
 func (c CPXKeyEventSequenceTrackerProviderDefault) WindowHeightForWindow(window unsafe.Pointer) uint16 {
 	rv := objc.Send[uint16](c.ID, objc.Sel("windowHeightForWindow:"), window)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/currentRegionID
 func (c CPXKeyEventSequenceTrackerProviderDefault) CurrentRegionID() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("currentRegionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/debugDescription
 func (c CPXKeyEventSequenceTrackerProviderDefault) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/description
 func (c CPXKeyEventSequenceTrackerProviderDefault) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/hash
 func (c CPXKeyEventSequenceTrackerProviderDefault) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/mainDisplayHeight
 func (c CPXKeyEventSequenceTrackerProviderDefault) MainDisplayHeight() uint16 {
 	rv := objc.Send[uint16](c.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProviderDefault/superclass
-func (c CPXKeyEventSequenceTrackerProviderDefault) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXKeyEventSequenceTrackerProviderDefault) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

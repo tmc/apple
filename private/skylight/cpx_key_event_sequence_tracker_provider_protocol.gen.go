@@ -10,39 +10,25 @@ import (
 )
 
 // CPXKeyEventSequenceTrackerProvider protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider
 type CPXKeyEventSequenceTrackerProvider interface {
 	objectivec.IObject
 
 	// CurrentRegionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/currentRegionID
 	CurrentRegionID() uint64
 
 	// EventLimit protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/eventLimit
 	EventLimit() uint64
 
 	// MainDisplayHeight protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/mainDisplayHeight
 	MainDisplayHeight() uint16
 
 	// StructuralRegionForID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/structuralRegionForID:
 	StructuralRegionForID(id uint64) WSStructuralRegionRef
 
 	// WindowByID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/windowByID:
 	WindowByID(id uint32) unsafe.Pointer
 
 	// WindowHeightForWindow protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/windowHeightForWindow:
 	WindowHeightForWindow(window unsafe.Pointer) uint16
 }
 
@@ -63,37 +49,26 @@ func CPXKeyEventSequenceTrackerProviderObjectFromID(id objc.ID) CPXKeyEventSeque
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/currentRegionID
 func (o CPXKeyEventSequenceTrackerProviderObject) CurrentRegionID() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("currentRegionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/eventLimit
 func (o CPXKeyEventSequenceTrackerProviderObject) EventLimit() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("eventLimit"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/mainDisplayHeight
 func (o CPXKeyEventSequenceTrackerProviderObject) MainDisplayHeight() uint16 {
 	rv := objc.Send[uint16](o.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/structuralRegionForID:
 func (o CPXKeyEventSequenceTrackerProviderObject) StructuralRegionForID(id uint64) WSStructuralRegionRef {
 	rv := objc.Send[WSStructuralRegionRef](o.ID, objc.Sel("structuralRegionForID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/windowByID:
 func (o CPXKeyEventSequenceTrackerProviderObject) WindowByID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("windowByID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTrackerProvider/windowHeightForWindow:
 func (o CPXKeyEventSequenceTrackerProviderObject) WindowHeightForWindow(window unsafe.Pointer) uint16 {
 	rv := objc.Send[uint16](o.ID, objc.Sel("windowHeightForWindow:"), window)
 	return rv

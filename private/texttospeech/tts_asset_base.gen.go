@@ -55,8 +55,6 @@ func (tc TTSAssetBaseClass) Alloc() TTSAssetBase {
 //   - [TTSAssetBase.MasteredVersion]
 //   - [TTSAssetBase.SetMasteredVersion]
 //   - [TTSAssetBase.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase
 type TTSAssetBase struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ITTSAssetBase = TTSAssetBase{}
 //   - [ITTSAssetBase.MasteredVersion]
 //   - [ITTSAssetBase.SetMasteredVersion]
 //   - [ITTSAssetBase.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase
 type ITTSAssetBase interface {
 	objectivec.IObject
 
@@ -121,31 +117,25 @@ func NewTTSAssetBase() TTSAssetBase {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/initWithCoder:
 func NewTTSAssetBaseWithCoder(coder objectivec.IObject) TTSAssetBase {
 	instance := getTTSAssetBaseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSAssetBaseFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/encodeWithCoder:
 func (t TTSAssetBase) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/initWithCoder:
 func (t TTSAssetBase) InitWithCoder(coder foundation.INSCoder) TTSAssetBase {
 	rv := objc.Send[TTSAssetBase](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/supportsSecureCoding
 func (_TTSAssetBaseClass TTSAssetBaseClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_TTSAssetBaseClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/bundleIdentifier
 func (t TTSAssetBase) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -153,8 +143,6 @@ func (t TTSAssetBase) BundleIdentifier() string {
 func (t TTSAssetBase) SetBundleIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/compatibilityVersion
 func (t TTSAssetBase) CompatibilityVersion() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("compatibilityVersion"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -162,8 +150,6 @@ func (t TTSAssetBase) CompatibilityVersion() foundation.NSNumber {
 func (t TTSAssetBase) SetCompatibilityVersion(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompatibilityVersion:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/contentVersion
 func (t TTSAssetBase) ContentVersion() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentVersion"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -171,8 +157,6 @@ func (t TTSAssetBase) ContentVersion() foundation.NSNumber {
 func (t TTSAssetBase) SetContentVersion(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContentVersion:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAssetBase/masteredVersion
 func (t TTSAssetBase) MasteredVersion() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("masteredVersion"))
 	return foundation.NSStringFromID(rv).String()

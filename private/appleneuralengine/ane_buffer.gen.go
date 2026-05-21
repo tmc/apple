@@ -51,8 +51,6 @@ func (ac ANEBufferClass) Alloc() ANEBuffer {
 //   - [ANEBuffer.SymbolIndex]
 //   - [ANEBuffer.InitWithCoder]
 //   - [ANEBuffer.InitWithIOSurfaceObjectSymbolIndexSource]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer
 type ANEBuffer struct {
 	objectivec.Object
 }
@@ -75,15 +73,13 @@ var _ IANEBuffer = ANEBuffer{}
 //   - [IANEBuffer.SymbolIndex]
 //   - [IANEBuffer.InitWithCoder]
 //   - [IANEBuffer.InitWithIOSurfaceObjectSymbolIndexSource]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer
 type IANEBuffer interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	EncodeWithCoder(coder foundation.INSCoder)
-	IoSurfaceObject() *ANEIOSurfaceObject
+	IoSurfaceObject() IANEIOSurfaceObject
 	Source() int64
 	SymbolIndex() foundation.NSNumber
 	InitWithCoder(coder foundation.INSCoder) ANEBuffer
@@ -109,66 +105,47 @@ func NewANEBuffer() ANEBuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithCoder:
 func NewANEBufferWithCoder(coder objectivec.IObject) ANEBuffer {
 	instance := getANEBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithIOSurfaceObject:symbolIndex:source:
 func NewANEBufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer {
 	instance := getANEBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return ANEBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/encodeWithCoder:
 func (a ANEBuffer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithCoder:
 func (a ANEBuffer) InitWithCoder(coder foundation.INSCoder) ANEBuffer {
 	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithIOSurfaceObject:symbolIndex:source:
 func (a ANEBuffer) InitWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer {
 	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/bufferWithIOSurfaceObject:symbolIndex:source:
 func (_ANEBufferClass ANEBufferClass) BufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEBufferClass.class), objc.Sel("bufferWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/supportsSecureCoding
 func (_ANEBufferClass ANEBufferClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEBufferClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/ioSurfaceObject
-func (a ANEBuffer) IoSurfaceObject() *ANEIOSurfaceObject {
+func (a ANEBuffer) IoSurfaceObject() IANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("ioSurfaceObject"))
-	if rv == 0 {
-		return nil
-	}
-	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
-	return &val
+	return ANEIOSurfaceObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/source
 func (a ANEBuffer) Source() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("source"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/symbolIndex
 func (a ANEBuffer) SymbolIndex() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("symbolIndex"))
 	return foundation.NSNumberFromID(objc.ID(rv))

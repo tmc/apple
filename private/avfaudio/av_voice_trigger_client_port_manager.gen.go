@@ -70,8 +70,6 @@ func (ac AVVoiceTriggerClientPortManagerClass) Alloc() AVVoiceTriggerClientPortM
 //   - [AVVoiceTriggerClientPortManager.SetMuteStateChangeNotificationBlock]
 //   - [AVVoiceTriggerClientPortManager.SetRunningStateChangeNotificationBlock]
 //   - [AVVoiceTriggerClientPortManager.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager
 type AVVoiceTriggerClientPortManager struct {
 	objectivec.Object
 }
@@ -113,8 +111,6 @@ var _ IAVVoiceTriggerClientPortManager = AVVoiceTriggerClientPortManager{}
 //   - [IAVVoiceTriggerClientPortManager.SetMuteStateChangeNotificationBlock]
 //   - [IAVVoiceTriggerClientPortManager.SetRunningStateChangeNotificationBlock]
 //   - [IAVVoiceTriggerClientPortManager.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager
 type IAVVoiceTriggerClientPortManager interface {
 	objectivec.IObject
 
@@ -166,39 +162,26 @@ func NewAVVoiceTriggerClientPortManager() AVVoiceTriggerClientPortManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/callMuteStateChangeNotificationBlock:
 func (a AVVoiceTriggerClientPortManager) CallMuteStateChangeNotificationBlock(block bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("callMuteStateChangeNotificationBlock:"), block)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/callRunningStateChangeNotificationBlock:
 func (a AVVoiceTriggerClientPortManager) CallRunningStateChangeNotificationBlock(block bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("callRunningStateChangeNotificationBlock:"), block)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/notifyMuteStateChanged
 func (a AVVoiceTriggerClientPortManager) NotifyMuteStateChanged() {
 	objc.Send[objc.ID](a.ID, objc.Sel("notifyMuteStateChanged"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/notifyRunningStateChangedWithHysteresis
 func (a AVVoiceTriggerClientPortManager) NotifyRunningStateChangedWithHysteresis() {
 	objc.Send[objc.ID](a.ID, objc.Sel("notifyRunningStateChangedWithHysteresis"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/setMuteStateChangeNotificationBlock:
 func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("setMuteStateChangeNotificationBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/setRunningStateChangeNotificationBlock:
 func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("setRunningStateChangeNotificationBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:
 func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler, block2 VoidHandler) AVVoiceTriggerClientPortManager {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(block2)
@@ -206,7 +189,6 @@ func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/deviceID
 func (a AVVoiceTriggerClientPortManager) DeviceID() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("deviceID"))
 	return rv
@@ -214,8 +196,6 @@ func (a AVVoiceTriggerClientPortManager) DeviceID() uint32 {
 func (a AVVoiceTriggerClientPortManager) SetDeviceID(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDeviceID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/generation
 func (a AVVoiceTriggerClientPortManager) Generation() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("generation"))
 	return rv
@@ -223,8 +203,6 @@ func (a AVVoiceTriggerClientPortManager) Generation() int64 {
 func (a AVVoiceTriggerClientPortManager) SetGeneration(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGeneration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/hysteresisDurationSeconds
 func (a AVVoiceTriggerClientPortManager) HysteresisDurationSeconds() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("hysteresisDurationSeconds"))
 	return rv
@@ -232,8 +210,6 @@ func (a AVVoiceTriggerClientPortManager) HysteresisDurationSeconds() float32 {
 func (a AVVoiceTriggerClientPortManager) SetHysteresisDurationSeconds(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHysteresisDurationSeconds:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/lastRunningStateSent
 func (a AVVoiceTriggerClientPortManager) LastRunningStateSent() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("lastRunningStateSent"))
 	return rv
@@ -241,8 +217,6 @@ func (a AVVoiceTriggerClientPortManager) LastRunningStateSent() bool {
 func (a AVVoiceTriggerClientPortManager) SetLastRunningStateSent(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLastRunningStateSent:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/listeningEnabled
 func (a AVVoiceTriggerClientPortManager) ListeningEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("listeningEnabled"))
 	return rv
@@ -250,8 +224,6 @@ func (a AVVoiceTriggerClientPortManager) ListeningEnabled() bool {
 func (a AVVoiceTriggerClientPortManager) SetListeningEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setListeningEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/muteStateChangeNotificationRegistered
 func (a AVVoiceTriggerClientPortManager) MuteStateChangeNotificationRegistered() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("muteStateChangeNotificationRegistered"))
 	return rv
@@ -259,8 +231,6 @@ func (a AVVoiceTriggerClientPortManager) MuteStateChangeNotificationRegistered()
 func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationRegistered(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMuteStateChangeNotificationRegistered:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/portType
 func (a AVVoiceTriggerClientPortManager) PortType() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("portType"))
 	return rv
@@ -268,8 +238,6 @@ func (a AVVoiceTriggerClientPortManager) PortType() uint64 {
 func (a AVVoiceTriggerClientPortManager) SetPortType(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPortType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/queue
 func (a AVVoiceTriggerClientPortManager) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -277,8 +245,6 @@ func (a AVVoiceTriggerClientPortManager) Queue() objectivec.Object {
 func (a AVVoiceTriggerClientPortManager) SetQueue(value objectivec.Object) {
 	objc.Send[struct{}](a.ID, objc.Sel("setQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/runningStateChangeNotificationRegistered
 func (a AVVoiceTriggerClientPortManager) RunningStateChangeNotificationRegistered() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("runningStateChangeNotificationRegistered"))
 	return rv

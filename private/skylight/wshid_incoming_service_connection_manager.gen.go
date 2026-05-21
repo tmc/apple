@@ -54,8 +54,6 @@ func (wc WSHIDIncomingServiceConnectionManagerClass) Alloc() WSHIDIncomingServic
 //   - [WSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryManagerConnection]
 //   - [WSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryObserverConnection]
 //   - [WSHIDIncomingServiceConnectionManager.IncomingServiceConnectionDidRevoke]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager
 type WSHIDIncomingServiceConnectionManager struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ var _ IWSHIDIncomingServiceConnectionManager = WSHIDIncomingServiceConnectionMan
 //   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryManagerConnection]
 //   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryObserverConnection]
 //   - [IWSHIDIncomingServiceConnectionManager.IncomingServiceConnectionDidRevoke]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager
 type IWSHIDIncomingServiceConnectionManager interface {
 	objectivec.IObject
 
@@ -120,13 +116,10 @@ func NewWSHIDIncomingServiceConnectionManager() WSHIDIncomingServiceConnectionMa
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_init
 func (w WSHIDIncomingServiceConnectionManager) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_appendDescriptionToStream:
 func (w WSHIDIncomingServiceConnectionManager) _queue_appendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("_queue_appendDescriptionToStream:"), stream)
 }
@@ -145,8 +138,6 @@ func (w WSHIDIncomingServiceConnectionManager) Queue_appendDescriptionToStream(s
 func (w WSHIDIncomingServiceConnectionManager) CanQueue_appendDescriptionToStream() bool {
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_deliveryManagerForAuditToken:
 func (w WSHIDIncomingServiceConnectionManager) _queue_deliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
@@ -165,8 +156,6 @@ func (w WSHIDIncomingServiceConnectionManager) Queue_deliveryManagerForAuditToke
 func (w WSHIDIncomingServiceConnectionManager) CanQueue_deliveryManagerForAuditToken() bool {
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_description
 func (w WSHIDIncomingServiceConnectionManager) _queue_description() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_description"))
 	return objectivec.Object{ID: rv}
@@ -185,8 +174,6 @@ func (w WSHIDIncomingServiceConnectionManager) Queue_description() (objectivec.I
 func (w WSHIDIncomingServiceConnectionManager) CanQueue_description() bool {
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_description"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_eventDeliveryObserverServiceForAuditToken:
 func (w WSHIDIncomingServiceConnectionManager) _queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
@@ -205,33 +192,22 @@ func (w WSHIDIncomingServiceConnectionManager) Queue_eventDeliveryObserverServic
 func (w WSHIDIncomingServiceConnectionManager) CanQueue_eventDeliveryObserverServiceForAuditToken() bool {
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/appendDescriptionToStream:
 func (w WSHIDIncomingServiceConnectionManager) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/didUpdateEventDeliveryManagerForSession
 func (w WSHIDIncomingServiceConnectionManager) DidUpdateEventDeliveryManagerForSession() {
 	objc.Send[objc.ID](w.ID, objc.Sel("didUpdateEventDeliveryManagerForSession"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/handleIncomingDeliveryManagerConnection:
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryManagerConnection(connection objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryManagerConnection:"), connection)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/handleIncomingDeliveryObserverConnection:
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryObserverConnection(connection objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryObserverConnection:"), connection)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/incomingServiceConnectionDidRevoke:
 func (w WSHIDIncomingServiceConnectionManager) IncomingServiceConnectionDidRevoke(revoke objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("incomingServiceConnectionDidRevoke:"), revoke)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/sharedInstance
 func (_WSHIDIncomingServiceConnectionManagerClass WSHIDIncomingServiceConnectionManagerClass) SharedInstance() WSHIDIncomingServiceConnectionManager {
 	rv := objc.Send[objc.ID](objc.ID(_WSHIDIncomingServiceConnectionManagerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDIncomingServiceConnectionManagerFromID(rv)

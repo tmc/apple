@@ -48,8 +48,6 @@ func (bc BlankDiskImageCreatorClass) Alloc() BlankDiskImageCreator {
 //
 //   - [BlankDiskImageCreator.CreateImageWithNumBlocksError]
 //   - [BlankDiskImageCreator.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator
 type BlankDiskImageCreator struct {
 	BaseDiskImageCreator
 }
@@ -68,15 +66,13 @@ var _ IBlankDiskImageCreator = BlankDiskImageCreator{}
 //
 //   - [IBlankDiskImageCreator.CreateImageWithNumBlocksError]
 //   - [IBlankDiskImageCreator.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator
 type IBlankDiskImageCreator interface {
 	IBaseDiskImageCreator
 
 	// Topic: Methods
 
 	CreateImageWithNumBlocksError(numBlocks uint64) (bool, error)
-	InitWithURLError(url foundation.INSURL) (BlankDiskImageCreator, error)
+	InitWithURLError(url foundation.NSURL) (BlankDiskImageCreator, error)
 }
 
 // Init initializes the instance.
@@ -98,8 +94,7 @@ func NewBlankDiskImageCreator() BlankDiskImageCreator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/initWithURL:defaultFormat:error:
-func NewBlankDiskImageCreatorWithURLDefaultFormatError(url foundation.INSURL, format int64) (BlankDiskImageCreator, error) {
+func NewBlankDiskImageCreatorWithURLDefaultFormatError(url foundation.NSURL, format int64) (BlankDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBlankDiskImageCreatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
@@ -110,8 +105,7 @@ func NewBlankDiskImageCreatorWithURLDefaultFormatError(url foundation.INSURL, fo
 	return BlankDiskImageCreatorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator/initWithURL:error:
-func NewBlankDiskImageCreatorWithURLError(url foundation.INSURL) (BlankDiskImageCreator, error) {
+func NewBlankDiskImageCreatorWithURLError(url foundation.NSURL) (BlankDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBlankDiskImageCreatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -122,7 +116,6 @@ func NewBlankDiskImageCreatorWithURLError(url foundation.INSURL) (BlankDiskImage
 	return BlankDiskImageCreatorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator/createImageWithNumBlocks:error:
 func (b BlankDiskImageCreator) CreateImageWithNumBlocksError(numBlocks uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](b.ID, objc.Sel("createImageWithNumBlocks:error:"), numBlocks, unsafe.Pointer(&errorPtr))
@@ -136,9 +129,7 @@ func (b BlankDiskImageCreator) CreateImageWithNumBlocksError(numBlocks uint64) (
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator/initWithURL:error:
-func (b BlankDiskImageCreator) InitWithURLError(url foundation.INSURL) (BlankDiskImageCreator, error) {
+func (b BlankDiskImageCreator) InitWithURLError(url foundation.NSURL) (BlankDiskImageCreator, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

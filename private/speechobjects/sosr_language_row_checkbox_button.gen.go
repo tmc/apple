@@ -47,8 +47,6 @@ func (sc SOSRLanguageRowCheckboxButtonClass) Alloc() SOSRLanguageRowCheckboxButt
 //
 //   - [SOSRLanguageRowCheckboxButton.LocaleIdentifier]
 //   - [SOSRLanguageRowCheckboxButton.SetLocaleIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowCheckboxButton
 type SOSRLanguageRowCheckboxButton struct {
 	appkit.NSButton
 }
@@ -67,8 +65,6 @@ var _ ISOSRLanguageRowCheckboxButton = SOSRLanguageRowCheckboxButton{}
 //
 //   - [ISOSRLanguageRowCheckboxButton.LocaleIdentifier]
 //   - [ISOSRLanguageRowCheckboxButton.SetLocaleIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowCheckboxButton
 type ISOSRLanguageRowCheckboxButton interface {
 	appkit.INSButton
 
@@ -97,7 +93,6 @@ func NewSOSRLanguageRowCheckboxButton() SOSRLanguageRowCheckboxButton {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowCheckboxButton/localeIdentifier
 func (s SOSRLanguageRowCheckboxButton) LocaleIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return foundation.NSStringFromID(rv).String()

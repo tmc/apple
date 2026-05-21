@@ -42,7 +42,6 @@ func (cc CPXSpecialKeyStateClass) Alloc() CPXSpecialKeyState {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyState
 type CPXSpecialKeyState struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CPXSpecialKeyStateFromID(id objc.ID) CPXSpecialKeyState {
 var _ ICPXSpecialKeyState = CPXSpecialKeyState{}
 
 // An interface definition for the [CPXSpecialKeyState] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyState
 type ICPXSpecialKeyState interface {
 	objectivec.IObject
 }

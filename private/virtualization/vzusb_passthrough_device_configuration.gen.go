@@ -46,7 +46,6 @@ func (vc VZUSBPassthroughDeviceConfigurationClass) Alloc() VZUSBPassthroughDevic
 // # Methods
 //
 //   - [VZUSBPassthroughDeviceConfiguration.Accessory]
-//   - [VZUSBPassthroughDeviceConfiguration.EncodeWithEncoder]
 //   - [VZUSBPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [VZUSBPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [VZUSBPassthroughDeviceConfiguration.Signature]
@@ -57,8 +56,6 @@ func (vc VZUSBPassthroughDeviceConfigurationClass) Alloc() VZUSBPassthroughDevic
 //   - [VZUSBPassthroughDeviceConfiguration.Description]
 //   - [VZUSBPassthroughDeviceConfiguration.Hash]
 //   - [VZUSBPassthroughDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration
 type VZUSBPassthroughDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -76,7 +73,6 @@ var _ IVZUSBPassthroughDeviceConfiguration = VZUSBPassthroughDeviceConfiguration
 // # Methods
 //
 //   - [IVZUSBPassthroughDeviceConfiguration.Accessory]
-//   - [IVZUSBPassthroughDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZUSBPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [IVZUSBPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [IVZUSBPassthroughDeviceConfiguration.Signature]
@@ -87,25 +83,22 @@ var _ IVZUSBPassthroughDeviceConfiguration = VZUSBPassthroughDeviceConfiguration
 //   - [IVZUSBPassthroughDeviceConfiguration.Description]
 //   - [IVZUSBPassthroughDeviceConfiguration.Hash]
 //   - [IVZUSBPassthroughDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration
 type IVZUSBPassthroughDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	Accessory() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	IsDuplicateConfiguration(configuration objectivec.IObject) bool
 	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
-	Signature() foundation.INSData
+	Signature() foundation.NSData
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
 	InitWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,74 +120,49 @@ func NewVZUSBPassthroughDeviceConfiguration() VZUSBPassthroughDeviceConfiguratio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/initWithDevice:
 func NewVZUSBPassthroughDeviceConfigurationWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration {
 	instance := getVZUSBPassthroughDeviceConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return VZUSBPassthroughDeviceConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/accessory
 func (v VZUSBPassthroughDeviceConfiguration) Accessory() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("accessory"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/encodeWithEncoder:
-func (v VZUSBPassthroughDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/isDuplicateConfiguration:
 func (v VZUSBPassthroughDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/makeUSBDeviceWithVirtualMachine:
 func (v VZUSBPassthroughDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/initWithDevice:
 func (v VZUSBPassthroughDeviceConfiguration) InitWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration {
 	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDevice:"), device)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/debugDescription
 func (v VZUSBPassthroughDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/description
 func (v VZUSBPassthroughDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/hash
 func (v VZUSBPassthroughDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/signature
-func (v VZUSBPassthroughDeviceConfiguration) Signature() foundation.INSData {
+func (v VZUSBPassthroughDeviceConfiguration) Signature() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("signature"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/superclass
-func (v VZUSBPassthroughDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZUSBPassthroughDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDeviceConfiguration/uuid
 func (v VZUSBPassthroughDeviceConfiguration) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))

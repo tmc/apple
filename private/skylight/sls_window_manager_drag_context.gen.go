@@ -58,8 +58,6 @@ func (sc SLSWindowManagerDragContextClass) Alloc() SLSWindowManagerDragContext {
 //   - [SLSWindowManagerDragContext.SetTimestamp]
 //   - [SLSWindowManagerDragContext.WindowID]
 //   - [SLSWindowManagerDragContext.SetWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext
 type SLSWindowManagerDragContext struct {
 	objectivec.Object
 }
@@ -89,8 +87,6 @@ var _ ISLSWindowManagerDragContext = SLSWindowManagerDragContext{}
 //   - [ISLSWindowManagerDragContext.SetTimestamp]
 //   - [ISLSWindowManagerDragContext.WindowID]
 //   - [ISLSWindowManagerDragContext.SetWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext
 type ISLSWindowManagerDragContext interface {
 	objectivec.IObject
 
@@ -130,7 +126,6 @@ func NewSLSWindowManagerDragContext() SLSWindowManagerDragContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/accessibilityState
 func (s SLSWindowManagerDragContext) AccessibilityState() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("accessibilityState"))
 	return rv
@@ -138,14 +133,10 @@ func (s SLSWindowManagerDragContext) AccessibilityState() uint64 {
 func (s SLSWindowManagerDragContext) SetAccessibilityState(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAccessibilityState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/defaultWindowOrigin
 func (s SLSWindowManagerDragContext) DefaultWindowOrigin() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("defaultWindowOrigin"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/dragOffset
 func (s SLSWindowManagerDragContext) DragOffset() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("dragOffset"))
 	return corefoundation.CGPoint(rv)
@@ -153,8 +144,6 @@ func (s SLSWindowManagerDragContext) DragOffset() corefoundation.CGPoint {
 func (s SLSWindowManagerDragContext) SetDragOffset(value corefoundation.CGPoint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDragOffset:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/mouseLocation
 func (s SLSWindowManagerDragContext) MouseLocation() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("mouseLocation"))
 	return corefoundation.CGPoint(rv)
@@ -162,8 +151,6 @@ func (s SLSWindowManagerDragContext) MouseLocation() corefoundation.CGPoint {
 func (s SLSWindowManagerDragContext) SetMouseLocation(value corefoundation.CGPoint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMouseLocation:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/proposedWindowOrigin
 func (s SLSWindowManagerDragContext) ProposedWindowOrigin() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("proposedWindowOrigin"))
 	return corefoundation.CGPoint(rv)
@@ -171,8 +158,6 @@ func (s SLSWindowManagerDragContext) ProposedWindowOrigin() corefoundation.CGPoi
 func (s SLSWindowManagerDragContext) SetProposedWindowOrigin(value corefoundation.CGPoint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setProposedWindowOrigin:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/timestamp
 func (s SLSWindowManagerDragContext) Timestamp() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("timestamp"))
 	return rv
@@ -180,8 +165,6 @@ func (s SLSWindowManagerDragContext) Timestamp() uint64 {
 func (s SLSWindowManagerDragContext) SetTimestamp(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTimestamp:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerDragContext/windowID
 func (s SLSWindowManagerDragContext) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

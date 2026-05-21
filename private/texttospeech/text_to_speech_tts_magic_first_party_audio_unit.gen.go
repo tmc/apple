@@ -46,8 +46,6 @@ func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Alloc() TextToSpeechTTSMa
 // # Methods
 //
 //   - [TextToSpeechTTSMagicFirstPartyAudioUnit.InitWithComponentDescriptionOptionsError]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit
 type TextToSpeechTTSMagicFirstPartyAudioUnit struct {
 	TTSFirstPartyAudioUnit
 }
@@ -65,8 +63,6 @@ var _ ITextToSpeechTTSMagicFirstPartyAudioUnit = TextToSpeechTTSMagicFirstPartyA
 // # Methods
 //
 //   - [ITextToSpeechTTSMagicFirstPartyAudioUnit.InitWithComponentDescriptionOptionsError]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit
 type ITextToSpeechTTSMagicFirstPartyAudioUnit interface {
 	ITTSFirstPartyAudioUnit
 
@@ -94,7 +90,6 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstParty
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
 func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	instance := getTextToSpeechTTSMagicFirstPartyAudioUnitClass().Alloc()
@@ -106,13 +101,12 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return TextToSpeechTTSMagicFirstPartyAudioUnit{}, foundation.NSErrorFrom(errorPtr)
+		return *new(TextToSpeechTTSMagicFirstPartyAudioUnit), foundation.NSErrorFrom(errorPtr)
 	}
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 

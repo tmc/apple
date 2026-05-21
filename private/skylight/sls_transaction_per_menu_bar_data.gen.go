@@ -42,7 +42,6 @@ func (sc SLSTransactionPerMenuBarDataClass) Alloc() SLSTransactionPerMenuBarData
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSTransactionPerMenuBarData
 type SLSTransactionPerMenuBarData struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SLSTransactionPerMenuBarDataFromID(id objc.ID) SLSTransactionPerMenuBarData
 var _ ISLSTransactionPerMenuBarData = SLSTransactionPerMenuBarData{}
 
 // An interface definition for the [SLSTransactionPerMenuBarData] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSTransactionPerMenuBarData
 type ISLSTransactionPerMenuBarData interface {
 	objectivec.IObject
 }

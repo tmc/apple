@@ -43,7 +43,6 @@ func (ac AVAudioSinkNodeClass) Alloc() AVAudioSinkNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode
 type AVAudioSinkNode struct {
 	AVAudioNode
 }
@@ -57,8 +56,6 @@ func AVAudioSinkNodeFromID(id objc.ID) AVAudioSinkNode {
 var _ IAVAudioSinkNode = AVAudioSinkNode{}
 
 // An interface definition for the [AVAudioSinkNode] class.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode
 type IAVAudioSinkNode interface {
 	IAVAudioNode
 }
@@ -82,14 +79,12 @@ func NewAVAudioSinkNode() AVAudioSinkNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioSinkNodeWithImpl(impl unsafe.Pointer) AVAudioSinkNode {
 	instance := getAVAudioSinkNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSinkNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/pullInputBlockFromReceiverBlock:
 func (_AVAudioSinkNodeClass AVAudioSinkNodeClass) PullInputBlockFromReceiverBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromReceiverBlock:"), _block0)

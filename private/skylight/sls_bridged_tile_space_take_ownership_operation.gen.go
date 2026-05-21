@@ -46,8 +46,6 @@ func (sc SLSBridgedTileSpaceTakeOwnershipOperationClass) Alloc() SLSBridgedTileS
 //
 //   - [SLSBridgedTileSpaceTakeOwnershipOperation.SpaceID]
 //   - [SLSBridgedTileSpaceTakeOwnershipOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation
 type SLSBridgedTileSpaceTakeOwnershipOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedTileSpaceTakeOwnershipOperation = SLSBridgedTileSpaceTakeOwners
 //
 //   - [ISLSBridgedTileSpaceTakeOwnershipOperation.SpaceID]
 //   - [ISLSBridgedTileSpaceTakeOwnershipOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation
 type ISLSBridgedTileSpaceTakeOwnershipOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedTileSpaceTakeOwnershipOperation() SLSBridgedTileSpaceTakeOwner
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation/initWithCoder:
 func NewSLSBridgedTileSpaceTakeOwnershipOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceTakeOwnershipOperation {
 	instance := getSLSBridgedTileSpaceTakeOwnershipOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceTakeOwnershipOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation/initWithSpaceID:
 func NewSLSBridgedTileSpaceTakeOwnershipOperationWithSpaceID(id uint64) SLSBridgedTileSpaceTakeOwnershipOperation {
 	instance := getSLSBridgedTileSpaceTakeOwnershipOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedTileSpaceTakeOwnershipOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation/initWithSpaceID:
 func (s SLSBridgedTileSpaceTakeOwnershipOperation) InitWithSpaceID(id uint64) SLSBridgedTileSpaceTakeOwnershipOperation {
 	rv := objc.Send[SLSBridgedTileSpaceTakeOwnershipOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceTakeOwnershipOperation/spaceID
 func (s SLSBridgedTileSpaceTakeOwnershipOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

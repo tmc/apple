@@ -41,7 +41,6 @@ func (ec EspressoPassCompleteFixpointOptimizationClass) Alloc() EspressoPassComp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_complete_fixpoint_optimization
 type EspressoPassCompleteFixpointOptimization struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_complete_fixpoint_optimizationFromID(id objc.ID) EspressoPassC
 var _ IEspressoPassCompleteFixpointOptimization = EspressoPassCompleteFixpointOptimization{}
 
 // An interface definition for the [EspressoPassCompleteFixpointOptimization] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_complete_fixpoint_optimization
 type IEspressoPassCompleteFixpointOptimization interface {
 	IEspressoCustomPass
 }

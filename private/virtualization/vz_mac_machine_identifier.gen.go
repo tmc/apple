@@ -52,8 +52,6 @@ func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
 //   - [VZMacMachineIdentifier.Description]
 //   - [VZMacMachineIdentifier.Hash]
 //   - [VZMacMachineIdentifier.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier
 type VZMacMachineIdentifier struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IVZMacMachineIdentifier = VZMacMachineIdentifier{}
 //   - [IVZMacMachineIdentifier.Description]
 //   - [IVZMacMachineIdentifier.Hash]
 //   - [IVZMacMachineIdentifier.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier
 type IVZMacMachineIdentifier interface {
 	objectivec.IObject
 
@@ -86,11 +82,11 @@ type IVZMacMachineIdentifier interface {
 
 	_ECID() uint64
 	_ECIDChecksDisabled() bool
-	_serialNumber() *VZMacSerialNumber
+	_serialNumber() IVZMacSerialNumber
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,7 +108,6 @@ func NewVZMacMachineIdentifier() VZMacMachineIdentifier {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierForVirtualMachineClone
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineClone() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
 	return objectivec.Object{ID: rv}
@@ -131,8 +126,6 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifie
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineClone() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"), ecid, number)
 	return objectivec.Object{ID: rv}
@@ -151,8 +144,6 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifie
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineCloneWithECIDSerialNumber() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierForVirtualMachineCloneWithSerialNumber:
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineCloneWithSerialNumber(number objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"), number)
 	return objectivec.Object{ID: rv}
@@ -171,8 +162,6 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifie
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineCloneWithSerialNumber() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierWithECID:serialNumber:
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"), ecid, number)
 	return objectivec.Object{ID: rv}
@@ -191,8 +180,6 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifie
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierWithECIDSerialNumber() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierWithSerialNumber:
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierWithSerialNumber(number objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:"), number)
 	return objectivec.Object{ID: rv}
@@ -212,7 +199,6 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECID
 func (v VZMacMachineIdentifier) _ECID() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("_ECID"))
 	return rv
@@ -230,8 +216,6 @@ func (v VZMacMachineIdentifier) ECID() (uint64, error) {
 	}
 	return v._ECID(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECIDChecksDisabled
 func (v VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_ECIDChecksDisabled"))
 	return rv
@@ -249,15 +233,9 @@ func (v VZMacMachineIdentifier) ECIDChecksDisabled() (bool, error) {
 	}
 	return v._ECIDChecksDisabled(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_serialNumber
-func (v VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
+func (v VZMacMachineIdentifier) _serialNumber() IVZMacSerialNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_serialNumber"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZMacSerialNumberFromID(objc.ID(rv))
-	return &val
+	return VZMacSerialNumberFromID(objc.ID(rv))
 }
 
 // CanSerialNumber reports whether the receiver responds to the private selector _serialNumber.
@@ -266,33 +244,25 @@ func (v VZMacMachineIdentifier) CanSerialNumber() bool {
 }
 
 // SerialNumber is an exported wrapper for the private property _serialNumber.
-func (v VZMacMachineIdentifier) SerialNumber() (*VZMacSerialNumber, error) {
+func (v VZMacMachineIdentifier) SerialNumber() (IVZMacSerialNumber, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_serialNumber")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_serialNumber"}
 	}
 	return v._serialNumber(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/debugDescription
 func (v VZMacMachineIdentifier) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/description
 func (v VZMacMachineIdentifier) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/hash
 func (v VZMacMachineIdentifier) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/superclass
-func (v VZMacMachineIdentifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZMacMachineIdentifier) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

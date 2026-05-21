@@ -48,8 +48,6 @@ func (sc SLSBridgedAddWindowsToSpacesOperationClass) Alloc() SLSBridgedAddWindow
 //   - [SLSBridgedAddWindowsToSpacesOperation.Spaces]
 //   - [SLSBridgedAddWindowsToSpacesOperation.Windows]
 //   - [SLSBridgedAddWindowsToSpacesOperation.InitWithWindowsSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation
 type SLSBridgedAddWindowsToSpacesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedAddWindowsToSpacesOperation = SLSBridgedAddWindowsToSpacesOpera
 //   - [ISLSBridgedAddWindowsToSpacesOperation.Spaces]
 //   - [ISLSBridgedAddWindowsToSpacesOperation.Windows]
 //   - [ISLSBridgedAddWindowsToSpacesOperation.InitWithWindowsSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation
 type ISLSBridgedAddWindowsToSpacesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedAddWindowsToSpacesOperation() SLSBridgedAddWindowsToSpacesOper
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation/initWithCoder:
 func NewSLSBridgedAddWindowsToSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
 	instance := getSLSBridgedAddWindowsToSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedAddWindowsToSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation/initWithWindows:spaces:
 func NewSLSBridgedAddWindowsToSpacesOperationWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
 	instance := getSLSBridgedAddWindowsToSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return SLSBridgedAddWindowsToSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation/initWithWindows:spaces:
 func (s SLSBridgedAddWindowsToSpacesOperation) InitWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
 	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation/spaces
 func (s SLSBridgedAddWindowsToSpacesOperation) Spaces() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedAddWindowsToSpacesOperation/windows
 func (s SLSBridgedAddWindowsToSpacesOperation) Windows() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))

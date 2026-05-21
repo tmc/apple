@@ -60,8 +60,6 @@ func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
 //   - [AVAudioPlayer.MeteringEnabled]
 //   - [AVAudioPlayer.SetMeteringEnabled]
 //   - [AVAudioPlayer.Playing]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer
 type AVAudioPlayer struct {
 	objectivec.Object
 }
@@ -93,8 +91,6 @@ var _ IAVAudioPlayer = AVAudioPlayer{}
 //   - [IAVAudioPlayer.MeteringEnabled]
 //   - [IAVAudioPlayer.SetMeteringEnabled]
 //   - [IAVAudioPlayer.Playing]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer
 type IAVAudioPlayer interface {
 	objectivec.IObject
 
@@ -109,7 +105,7 @@ type IAVAudioPlayer interface {
 	SetMixToUplink(uplink bool)
 	SetSTSLabel(sTSLabel objectivec.IObject)
 	SetUseInjectionDevice(device bool)
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	UseInjectionDevice() bool
 	InitBase() AVAudioPlayer
 	MeteringEnabled() bool
@@ -136,74 +132,51 @@ func NewAVAudioPlayer() AVAudioPlayer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/initBase
 func NewAudioPlayerBase() AVAudioPlayer {
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initBase"))
 	return AVAudioPlayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/STSLabel
 func (a AVAudioPlayer) STSLabel() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("STSLabel"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/decodeError:
 func (a AVAudioPlayer) DecodeError(error_ objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("decodeError:"), error_)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/finishedPlaying:
 func (a AVAudioPlayer) FinishedPlaying(playing objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishedPlaying:"), playing)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/impl
 func (a AVAudioPlayer) Impl() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("impl"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/mixToUplink
 func (a AVAudioPlayer) MixToUplink() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("mixToUplink"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/privRemoveSessionListener
 func (a AVAudioPlayer) PrivRemoveSessionListener() {
 	objc.Send[objc.ID](a.ID, objc.Sel("privRemoveSessionListener"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/setMixToUplink:
 func (a AVAudioPlayer) SetMixToUplink(uplink bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setMixToUplink:"), uplink)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/setSTSLabel:
 func (a AVAudioPlayer) SetSTSLabel(sTSLabel objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setSTSLabel:"), sTSLabel)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/setUseInjectionDevice:
 func (a AVAudioPlayer) SetUseInjectionDevice(device bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setUseInjectionDevice:"), device)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/useInjectionDevice
 func (a AVAudioPlayer) UseInjectionDevice() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("useInjectionDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/initBase
 func (a AVAudioPlayer) InitBase() AVAudioPlayer {
 	rv := objc.Send[AVAudioPlayer](a.ID, objc.Sel("initBase"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/meteringEnabled
 func (a AVAudioPlayer) MeteringEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
@@ -211,15 +184,11 @@ func (a AVAudioPlayer) MeteringEnabled() bool {
 func (a AVAudioPlayer) SetMeteringEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/playing
 func (a AVAudioPlayer) Playing() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/url
-func (a AVAudioPlayer) Url() foundation.INSURL {
+func (a AVAudioPlayer) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

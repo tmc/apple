@@ -42,7 +42,6 @@ func (tc TextToSpeechPTParserClass) Alloc() TextToSpeechPTParser {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.PTParser
 type TextToSpeechPTParser struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechPTParserFromID(id objc.ID) TextToSpeechPTParser {
 // ITextToSpeechPTParser embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechPTParser] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.PTParser
 type ITextToSpeechPTParser interface {
 	objectivec.IObject
 }

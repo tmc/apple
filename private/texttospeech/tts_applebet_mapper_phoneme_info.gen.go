@@ -51,8 +51,6 @@ func (tc TTSApplebetMapperPhonemeInfoClass) Alloc() TTSApplebetMapperPhonemeInfo
 //   - [TTSApplebetMapperPhonemeInfo.SetPhoneme]
 //   - [TTSApplebetMapperPhonemeInfo.StartTime]
 //   - [TTSApplebetMapperPhonemeInfo.SetStartTime]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo
 type TTSApplebetMapperPhonemeInfo struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ITTSApplebetMapperPhonemeInfo = TTSApplebetMapperPhonemeInfo{}
 //   - [ITTSApplebetMapperPhonemeInfo.SetPhoneme]
 //   - [ITTSApplebetMapperPhonemeInfo.StartTime]
 //   - [ITTSApplebetMapperPhonemeInfo.SetStartTime]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo
 type ITTSApplebetMapperPhonemeInfo interface {
 	objectivec.IObject
 
@@ -109,7 +105,6 @@ func NewTTSApplebetMapperPhonemeInfo() TTSApplebetMapperPhonemeInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo/endTime
 func (t TTSApplebetMapperPhonemeInfo) EndTime() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("endTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -117,8 +112,6 @@ func (t TTSApplebetMapperPhonemeInfo) EndTime() foundation.NSNumber {
 func (t TTSApplebetMapperPhonemeInfo) SetEndTime(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEndTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo/phoneme
 func (t TTSApplebetMapperPhonemeInfo) Phoneme() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
 	return foundation.NSStringFromID(rv).String()
@@ -126,8 +119,6 @@ func (t TTSApplebetMapperPhonemeInfo) Phoneme() string {
 func (t TTSApplebetMapperPhonemeInfo) SetPhoneme(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo/startTime
 func (t TTSApplebetMapperPhonemeInfo) StartTime() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("startTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))

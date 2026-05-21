@@ -42,7 +42,6 @@ func (cc CoreMLMetalBufferAllocatorClass) Alloc() CoreMLMetalBufferAllocator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalBufferAllocator
 type CoreMLMetalBufferAllocator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMetalBufferAllocatorFromID(id objc.ID) CoreMLMetalBufferAllocator {
 // ICoreMLMetalBufferAllocator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMetalBufferAllocator] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalBufferAllocator
 type ICoreMLMetalBufferAllocator interface {
 	objectivec.IObject
 }

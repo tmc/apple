@@ -49,8 +49,6 @@ func (sc SLSBridgedGetSpacePermittedResizeDirectionsOperationClass) Alloc() SLSB
 //   - [SLSBridgedGetSpacePermittedResizeDirectionsOperation.SpaceID]
 //   - [SLSBridgedGetSpacePermittedResizeDirectionsOperation.VerticalIndex]
 //   - [SLSBridgedGetSpacePermittedResizeDirectionsOperation.InitWithSpaceIDVerticalIndexHorizontalIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation
 type SLSBridgedGetSpacePermittedResizeDirectionsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -72,8 +70,6 @@ var _ ISLSBridgedGetSpacePermittedResizeDirectionsOperation = SLSBridgedGetSpace
 //   - [ISLSBridgedGetSpacePermittedResizeDirectionsOperation.SpaceID]
 //   - [ISLSBridgedGetSpacePermittedResizeDirectionsOperation.VerticalIndex]
 //   - [ISLSBridgedGetSpacePermittedResizeDirectionsOperation.InitWithSpaceIDVerticalIndexHorizontalIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation
 type ISLSBridgedGetSpacePermittedResizeDirectionsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -105,45 +101,35 @@ func NewSLSBridgedGetSpacePermittedResizeDirectionsOperation() SLSBridgedGetSpac
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/initWithCoder:
 func NewSLSBridgedGetSpacePermittedResizeDirectionsOperationWithCoder(coder objectivec.IObject) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	instance := getSLSBridgedGetSpacePermittedResizeDirectionsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedGetSpacePermittedResizeDirectionsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/initWithSpaceID:verticalIndex:horizontalIndex:
 func NewSLSBridgedGetSpacePermittedResizeDirectionsOperationWithSpaceIDVerticalIndexHorizontalIndex(id uint64, index uint64, index2 uint64) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	instance := getSLSBridgedGetSpacePermittedResizeDirectionsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
 	return SLSBridgedGetSpacePermittedResizeDirectionsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/makeResultWithSpaceResizeDirections:
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) MakeResultWithSpaceResizeDirections(directions uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/initWithSpaceID:verticalIndex:horizontalIndex:
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) InitWithSpaceIDVerticalIndexHorizontalIndex(id uint64, index uint64, index2 uint64) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/horizontalIndex
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) HorizontalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/spaceID
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpacePermittedResizeDirectionsOperation/verticalIndex
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) VerticalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv

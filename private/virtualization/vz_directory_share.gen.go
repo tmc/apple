@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
 //   - [VZDirectoryShare.Description]
 //   - [VZDirectoryShare.Hash]
 //   - [VZDirectoryShare.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare
 type VZDirectoryShare struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZDirectoryShare = VZDirectoryShare{}
 //   - [IVZDirectoryShare.Description]
 //   - [IVZDirectoryShare.Hash]
 //   - [IVZDirectoryShare.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare
 type IVZDirectoryShare interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_share() objectivec.IObject
+	_share() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZDirectoryShare() VZDirectoryShare {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/_init
 func (v VZDirectoryShare) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/_share
-func (v VZDirectoryShare) _share() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_share"))
-	return objectivec.Object{ID: rv}
+func (v VZDirectoryShare) _share() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_share"))
+	return rv
 }
 
 // CanShare reports whether the receiver responds to the private selector _share.
@@ -127,33 +122,25 @@ func (v VZDirectoryShare) CanShare() bool {
 }
 
 // Share is an exported wrapper for the private property _share.
-func (v VZDirectoryShare) Share() (objectivec.IObject, error) {
+func (v VZDirectoryShare) Share() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_share")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_share"}
 	}
 	return v._share(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/debugDescription
 func (v VZDirectoryShare) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/description
 func (v VZDirectoryShare) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/hash
 func (v VZDirectoryShare) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/superclass
-func (v VZDirectoryShare) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZDirectoryShare) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

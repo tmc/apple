@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -42,11 +43,6 @@ func (dc DiskImageParamsUDIFXPCClass) Alloc() DiskImageParamsUDIFXPC {
 	return rv
 }
 
-// # Methods
-//
-//   - [DiskImageParamsUDIFXPC.InitWithBackendXPCHeader]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsUDIF_XPC
 type DiskImageParamsUDIFXPC struct {
 	DiskImageParamsXPC
 }
@@ -65,18 +61,8 @@ func DiskImageParamsUDIF_XPCFromID(id objc.ID) DiskImageParamsUDIFXPC {
 var _ IDiskImageParamsUDIFXPC = DiskImageParamsUDIFXPC{}
 
 // An interface definition for the [DiskImageParamsUDIFXPC] class.
-//
-// # Methods
-//
-//   - [IDiskImageParamsUDIFXPC.InitWithBackendXPCHeader]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsUDIF_XPC
 type IDiskImageParamsUDIFXPC interface {
 	IDiskImageParamsXPC
-
-	// Topic: Methods
-
-	InitWithBackendXPCHeader(xpc objectivec.IObject, header objectivec.IObject) DiskImageParamsUDIFXPC
 }
 
 // Init initializes the instance.
@@ -98,36 +84,26 @@ func NewDiskImageParamsUDIFXPC() DiskImageParamsUDIFXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsUDIF_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsUDIF_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsUDIF_XPC/initWithBackendXPC:header:
-func NewDiskImageParamsUDIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, header objectivec.IObject) DiskImageParamsUDIFXPC {
+func NewDiskImageParamsUDIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, header unsafe.Pointer) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsUDIF_XPC/initWithCoder:
 func NewDiskImageParamsUDIF_XPCWithCoder(coder objectivec.IObject) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsUDIFXPCFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsUDIF_XPC/initWithBackendXPC:header:
-func (d DiskImageParamsUDIFXPC) InitWithBackendXPCHeader(xpc objectivec.IObject, header objectivec.IObject) DiskImageParamsUDIFXPC {
-	rv := objc.Send[DiskImageParamsUDIFXPC](d.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
-	return rv
 }

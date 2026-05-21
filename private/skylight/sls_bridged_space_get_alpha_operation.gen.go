@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceGetAlphaOperationClass) Alloc() SLSBridgedSpaceGetAlphaO
 //   - [SLSBridgedSpaceGetAlphaOperation.MakeResultWithFloatValue]
 //   - [SLSBridgedSpaceGetAlphaOperation.SpaceID]
 //   - [SLSBridgedSpaceGetAlphaOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation
 type SLSBridgedSpaceGetAlphaOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceGetAlphaOperation = SLSBridgedSpaceGetAlphaOperation{}
 //   - [ISLSBridgedSpaceGetAlphaOperation.MakeResultWithFloatValue]
 //   - [ISLSBridgedSpaceGetAlphaOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetAlphaOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation
 type ISLSBridgedSpaceGetAlphaOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceGetAlphaOperation() SLSBridgedSpaceGetAlphaOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation/initWithCoder:
 func NewSLSBridgedSpaceGetAlphaOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetAlphaOperation {
 	instance := getSLSBridgedSpaceGetAlphaOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetAlphaOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation/initWithSpaceID:
 func NewSLSBridgedSpaceGetAlphaOperationWithSpaceID(id uint64) SLSBridgedSpaceGetAlphaOperation {
 	instance := getSLSBridgedSpaceGetAlphaOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetAlphaOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation/makeResultWithFloatValue:
 func (s SLSBridgedSpaceGetAlphaOperation) MakeResultWithFloatValue(value float32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithFloatValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation/initWithSpaceID:
 func (s SLSBridgedSpaceGetAlphaOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetAlphaOperation {
 	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetAlphaOperation/spaceID
 func (s SLSBridgedSpaceGetAlphaOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

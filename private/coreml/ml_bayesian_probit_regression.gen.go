@@ -53,12 +53,10 @@ func (mc MLBayesianProbitRegressionClass) Alloc() MLBayesianProbitRegression {
 //   - [MLBayesianProbitRegression.CreateRegressorResult]
 //   - [MLBayesianProbitRegression.GetArrayFeatureValue]
 //   - [MLBayesianProbitRegression.GetFeatureValueForNameWithType]
-//   - [MLBayesianProbitRegression.GetOneHotFeatureValuesError]
 //   - [MLBayesianProbitRegression.GetOptimism]
 //   - [MLBayesianProbitRegression.GetSamplingScale]
 //   - [MLBayesianProbitRegression.GetSamplingTruncation]
 //   - [MLBayesianProbitRegression.IsEqualToBopr]
-//   - [MLBayesianProbitRegression.Model]
 //   - [MLBayesianProbitRegression.RegressOptionsError]
 //   - [MLBayesianProbitRegression.Reset]
 //   - [MLBayesianProbitRegression.ResetToLastCheckpointBeforeDate]
@@ -75,8 +73,6 @@ func (mc MLBayesianProbitRegressionClass) Alloc() MLBayesianProbitRegression {
 //   - [MLBayesianProbitRegression.Description]
 //   - [MLBayesianProbitRegression.Hash]
 //   - [MLBayesianProbitRegression.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression
 type MLBayesianProbitRegression struct {
 	objectivec.Object
 }
@@ -99,12 +95,10 @@ func MLBayesianProbitRegressionFromID(id objc.ID) MLBayesianProbitRegression {
 //   - [IMLBayesianProbitRegression.CreateRegressorResult]
 //   - [IMLBayesianProbitRegression.GetArrayFeatureValue]
 //   - [IMLBayesianProbitRegression.GetFeatureValueForNameWithType]
-//   - [IMLBayesianProbitRegression.GetOneHotFeatureValuesError]
 //   - [IMLBayesianProbitRegression.GetOptimism]
 //   - [IMLBayesianProbitRegression.GetSamplingScale]
 //   - [IMLBayesianProbitRegression.GetSamplingTruncation]
 //   - [IMLBayesianProbitRegression.IsEqualToBopr]
-//   - [IMLBayesianProbitRegression.Model]
 //   - [IMLBayesianProbitRegression.RegressOptionsError]
 //   - [IMLBayesianProbitRegression.Reset]
 //   - [IMLBayesianProbitRegression.ResetToLastCheckpointBeforeDate]
@@ -121,8 +115,6 @@ func MLBayesianProbitRegressionFromID(id objc.ID) MLBayesianProbitRegression {
 //   - [IMLBayesianProbitRegression.Description]
 //   - [IMLBayesianProbitRegression.Hash]
 //   - [IMLBayesianProbitRegression.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression
 type IMLBayesianProbitRegression interface {
 	IMLRegressor
 
@@ -134,12 +126,10 @@ type IMLBayesianProbitRegression interface {
 	CreateRegressorResult(result Prediction) objectivec.IObject
 	GetArrayFeatureValue(value objectivec.IObject) objectivec.IObject
 	GetFeatureValueForNameWithType(value objectivec.IObject, name objectivec.IObject, type_ int64) float64
-	GetOneHotFeatureValuesError(values objectivec.IObject) (objectivec.IObject, error)
 	GetOptimism(optimism objectivec.IObject) float64
 	GetSamplingScale(scale objectivec.IObject) float64
 	GetSamplingTruncation(truncation objectivec.IObject) float64
 	IsEqualToBopr(bopr objectivec.IObject) bool
-	Model() objectivec.IObject
 	RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	Reset()
 	ResetToLastCheckpointBeforeDate(date objectivec.IObject)
@@ -155,7 +145,7 @@ type IMLBayesianProbitRegression interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -177,21 +167,18 @@ func NewMLBayesianProbitRegression() MLBayesianProbitRegression {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithDescription:numberOfFeatures:priorMean:
 func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:
 func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithSpecification:configuration:error:
 func NewBayesianProbitRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLBayesianProbitRegressionClass().Alloc()
@@ -203,13 +190,10 @@ func NewBayesianProbitRegressionWithSpecificationConfigurationError(specificatio
 	return MLBayesianProbitRegressionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/FeatureCount
 func (m MLBayesianProbitRegression) FeatureCount() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("FeatureCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/convertOutputFeatureToPredictionValues:event:importance:error:
 func (m MLBayesianProbitRegression) ConvertOutputFeatureToPredictionValuesEventImportanceError(values objectivec.IObject) (bool, float64, error) {
 	var event bool
 	var importance float64
@@ -224,73 +208,37 @@ func (m MLBayesianProbitRegression) ConvertOutputFeatureToPredictionValuesEventI
 	}
 	return event, importance, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/createCheckpoint
 func (m MLBayesianProbitRegression) CreateCheckpoint() {
 	objc.Send[objc.ID](m.ID, objc.Sel("createCheckpoint"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/createRegressorResult:
 func (m MLBayesianProbitRegression) CreateRegressorResult(result Prediction) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("createRegressorResult:"), result)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getArrayFeatureValue:
 func (m MLBayesianProbitRegression) GetArrayFeatureValue(value objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("getArrayFeatureValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getFeatureValue:forName:withType:
 func (m MLBayesianProbitRegression) GetFeatureValueForNameWithType(value objectivec.IObject, name objectivec.IObject, type_ int64) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("getFeatureValue:forName:withType:"), value, name, type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getOneHotFeatureValues:error:
-func (m MLBayesianProbitRegression) GetOneHotFeatureValuesError(values objectivec.IObject) (objectivec.IObject, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("getOneHotFeatureValues:error:"), values, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return objectivec.Object{ID: rv}, nil
-
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getOptimism:
 func (m MLBayesianProbitRegression) GetOptimism(optimism objectivec.IObject) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("getOptimism:"), optimism)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getSamplingScale:
 func (m MLBayesianProbitRegression) GetSamplingScale(scale objectivec.IObject) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("getSamplingScale:"), scale)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/getSamplingTruncation:
 func (m MLBayesianProbitRegression) GetSamplingTruncation(truncation objectivec.IObject) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("getSamplingTruncation:"), truncation)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/isEqualToBopr:
 func (m MLBayesianProbitRegression) IsEqualToBopr(bopr objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToBopr:"), bopr)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/model
-func (m MLBayesianProbitRegression) Model() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/regress:options:error:
 func (m MLBayesianProbitRegression) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
@@ -301,42 +249,28 @@ func (m MLBayesianProbitRegression) RegressOptionsError(regress objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/reset
 func (m MLBayesianProbitRegression) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/resetToLastCheckpointBeforeDate:
 func (m MLBayesianProbitRegression) ResetToLastCheckpointBeforeDate(date objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("resetToLastCheckpointBeforeDate:"), date)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/saveModelToSpecification:
 func (m MLBayesianProbitRegression) SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/setFeatureCount:
 func (m MLBayesianProbitRegression) SetFeatureCount(count uint64) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setFeatureCount:"), count)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/setInputFeatureName:to:
 func (m MLBayesianProbitRegression) SetInputFeatureNameTo(name []objectivec.IObject, to objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setInputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/setOutputFeatureName:to:
 func (m MLBayesianProbitRegression) SetOutputFeatureNameTo(name []objectivec.IObject, to objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setOutputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/updateModelFromFeatures:toTarget:error:
 func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetError(features objectivec.IObject, target objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("updateModelFromFeatures:toTarget:error:"), features, target, unsafe.Pointer(&errorPtr))
@@ -350,8 +284,6 @@ func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetError(feature
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/updateModelFromFeatures:toTarget:options:error:
 func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetOptionsError(features objectivec.IObject, target objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("updateModelFromFeatures:toTarget:options:error:"), features, target, options, unsafe.Pointer(&errorPtr))
@@ -365,20 +297,14 @@ func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetOptionsError(
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithDescription:numberOfFeatures:priorMean:
 func (m MLBayesianProbitRegression) InitWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
 	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:
 func (m MLBayesianProbitRegression) InitWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
 	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/initWithSpecification:configuration:error:
 func (m MLBayesianProbitRegression) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -390,7 +316,6 @@ func (m MLBayesianProbitRegression) InitWithSpecificationConfigurationError(spec
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/loadModelFromSpecification:configuration:error:
 func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -401,9 +326,7 @@ func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) LoadMode
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/modelWithContentsOfURL:error:
-func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ModelWithContentsOfURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ModelWithContentsOfURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -413,39 +336,28 @@ func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ModelWit
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/setFeatureName:to:descriptions:
 func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) SetFeatureNameToDescriptions(name []objectivec.IObject, to objectivec.IObject, descriptions objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("setFeatureName:to:descriptions:"), objectivec.IObjectSliceToNSArray(name), to, descriptions)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/validateModelDescription:
 func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ValidateModelDescription(description objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("validateModelDescription:"), description)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/debugDescription
 func (m MLBayesianProbitRegression) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/description
 func (m MLBayesianProbitRegression) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/hash
 func (m MLBayesianProbitRegression) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBayesianProbitRegression/superclass
-func (m MLBayesianProbitRegression) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLBayesianProbitRegression) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

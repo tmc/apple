@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -52,8 +53,6 @@ func (vc VZDirectorySharingDeviceConfigurationClass) Alloc() VZDirectorySharingD
 //   - [VZDirectorySharingDeviceConfiguration.Description]
 //   - [VZDirectorySharingDeviceConfiguration.Hash]
 //   - [VZDirectorySharingDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration
 type VZDirectorySharingDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -77,8 +76,6 @@ var _ IVZDirectorySharingDeviceConfiguration = VZDirectorySharingDeviceConfigura
 //   - [IVZDirectorySharingDeviceConfiguration.Description]
 //   - [IVZDirectorySharingDeviceConfiguration.Hash]
 //   - [IVZDirectorySharingDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration
 type IVZDirectorySharingDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -86,11 +83,11 @@ type IVZDirectorySharingDeviceConfiguration interface {
 
 	_init() objectivec.IObject
 	_makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
-	_directorySharingDevice() objectivec.IObject
+	_directorySharingDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,13 +109,10 @@ func NewVZDirectorySharingDeviceConfiguration() VZDirectorySharingDeviceConfigur
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/_init
 func (v VZDirectorySharingDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:
 func (v VZDirectorySharingDeviceConfiguration) _makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
@@ -138,10 +132,9 @@ func (v VZDirectorySharingDeviceConfiguration) CanMakeDirectorySharingDeviceForV
 	return objc.RespondsToSelector(v.ID, objc.Sel("_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/_directorySharingDevice
-func (v VZDirectorySharingDeviceConfiguration) _directorySharingDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_directorySharingDevice"))
-	return objectivec.Object{ID: rv}
+func (v VZDirectorySharingDeviceConfiguration) _directorySharingDevice() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_directorySharingDevice"))
+	return rv
 }
 
 // CanDirectorySharingDevice reports whether the receiver responds to the private selector _directorySharingDevice.
@@ -150,33 +143,25 @@ func (v VZDirectorySharingDeviceConfiguration) CanDirectorySharingDevice() bool 
 }
 
 // DirectorySharingDevice is an exported wrapper for the private property _directorySharingDevice.
-func (v VZDirectorySharingDeviceConfiguration) DirectorySharingDevice() (objectivec.IObject, error) {
+func (v VZDirectorySharingDeviceConfiguration) DirectorySharingDevice() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_directorySharingDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_directorySharingDevice"}
 	}
 	return v._directorySharingDevice(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/debugDescription
 func (v VZDirectorySharingDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/description
 func (v VZDirectorySharingDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/hash
 func (v VZDirectorySharingDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/superclass
-func (v VZDirectorySharingDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZDirectorySharingDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

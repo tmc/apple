@@ -61,8 +61,6 @@ func (cc CPXFocusManagerDataSourceLaunchServicesClass) Alloc() CPXFocusManagerDa
 //   - [CPXFocusManagerDataSourceLaunchServices.Description]
 //   - [CPXFocusManagerDataSourceLaunchServices.Hash]
 //   - [CPXFocusManagerDataSourceLaunchServices.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices
 type CPXFocusManagerDataSourceLaunchServices struct {
 	objectivec.Object
 }
@@ -94,8 +92,6 @@ var _ ICPXFocusManagerDataSourceLaunchServices = CPXFocusManagerDataSourceLaunch
 //   - [ICPXFocusManagerDataSourceLaunchServices.Description]
 //   - [ICPXFocusManagerDataSourceLaunchServices.Hash]
 //   - [ICPXFocusManagerDataSourceLaunchServices.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices
 type ICPXFocusManagerDataSourceLaunchServices interface {
 	objectivec.IObject
 
@@ -115,7 +111,7 @@ type ICPXFocusManagerDataSourceLaunchServices interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -137,97 +133,68 @@ func NewCPXFocusManagerDataSourceLaunchServices() CPXFocusManagerDataSourceLaunc
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/initWithLaunchServicesProvider:processManager:
 func NewCPXFocusManagerDataSourceLaunchServicesWithLaunchServicesProviderProcessManager(provider objectivec.IObject, manager objectivec.IObject) CPXFocusManagerDataSourceLaunchServices {
 	instance := getCPXFocusManagerDataSourceLaunchServicesClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLaunchServicesProvider:processManager:"), provider, manager)
 	return CPXFocusManagerDataSourceLaunchServicesFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/addToPermittedFrontList:
 func (c CPXFocusManagerDataSourceLaunchServices) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](c.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/appendDescriptionToStream:
 func (c CPXFocusManagerDataSourceLaunchServices) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/getProcessToBringForwardAtNextCheckin:
 func (c CPXFocusManagerDataSourceLaunchServices) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/isProcessPermittedToBeFrontmost:
 func (c CPXFocusManagerDataSourceLaunchServices) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/isProcessToBringForwardAtNextCheckin:
 func (c CPXFocusManagerDataSourceLaunchServices) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/keyThiefConnectionID
 func (c CPXFocusManagerDataSourceLaunchServices) KeyThiefConnectionID() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/removeFromPermittedFrontList:
 func (c CPXFocusManagerDataSourceLaunchServices) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](c.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/setKeyThiefConnectionID:
 func (c CPXFocusManagerDataSourceLaunchServices) SetKeyThiefConnectionID(id uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setKeyThiefConnectionID:"), id)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/setProcessToBringForwardAtNextCheckin:
 func (c CPXFocusManagerDataSourceLaunchServices) SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/initWithLaunchServicesProvider:processManager:
 func (c CPXFocusManagerDataSourceLaunchServices) InitWithLaunchServicesProviderProcessManager(provider objectivec.IObject, manager objectivec.IObject) CPXFocusManagerDataSourceLaunchServices {
 	rv := objc.Send[CPXFocusManagerDataSourceLaunchServices](c.ID, objc.Sel("initWithLaunchServicesProvider:processManager:"), provider, manager)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/debugDescription
 func (c CPXFocusManagerDataSourceLaunchServices) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/description
 func (c CPXFocusManagerDataSourceLaunchServices) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/frontmostProcess
 func (c CPXFocusManagerDataSourceLaunchServices) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("frontmostProcess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/hash
 func (c CPXFocusManagerDataSourceLaunchServices) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSourceLaunchServices/superclass
-func (c CPXFocusManagerDataSourceLaunchServices) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXFocusManagerDataSourceLaunchServices) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -8,8 +8,6 @@ import (
 )
 
 // BKHIDEventDeliveryManagerServerRuleChangeAuthority protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BKHIDEventDeliveryManagerServerRuleChangeAuthority
 type BKHIDEventDeliveryManagerServerRuleChangeAuthority interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func BKHIDEventDeliveryManagerServerRuleChangeAuthorityObjectFromID(id objc.ID) 
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BKHIDEventDeliveryManagerServerRuleChangeAuthority/permittedRuleChangeMaskForAuditToken:
 func (o BKHIDEventDeliveryManagerServerRuleChangeAuthorityObject) PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
 	return rv

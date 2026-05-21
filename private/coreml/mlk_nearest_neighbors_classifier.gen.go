@@ -49,12 +49,10 @@ func (mc MLKNearestNeighborsClassifierClass) Alloc() MLKNearestNeighborsClassifi
 //
 //   - [MLKNearestNeighborsClassifier.CancelUpdate]
 //   - [MLKNearestNeighborsClassifier.ComputeClassProbabilitiesFrom]
-//   - [MLKNearestNeighborsClassifier.ComputeKClosestLabels]
 //   - [MLKNearestNeighborsClassifier.ContinueWithUpdate]
 //   - [MLKNearestNeighborsClassifier.SetContinueWithUpdate]
 //   - [MLKNearestNeighborsClassifier.DefaultLabel]
 //   - [MLKNearestNeighborsClassifier.SetDefaultLabel]
-//   - [MLKNearestNeighborsClassifier.ExtractNearestNeighborLabelsDistancesIndicesFrom]
 //   - [MLKNearestNeighborsClassifier.Index]
 //   - [MLKNearestNeighborsClassifier.SetIndex]
 //   - [MLKNearestNeighborsClassifier.IndexType]
@@ -91,9 +89,6 @@ func (mc MLKNearestNeighborsClassifierClass) Alloc() MLKNearestNeighborsClassifi
 //   - [MLKNearestNeighborsClassifier.SetWeightingScheme]
 //   - [MLKNearestNeighborsClassifier.WriteToURLError]
 //   - [MLKNearestNeighborsClassifier.InitWithDescriptionConfigurationParametersDataPointsLabelsError]
-//   - [MLKNearestNeighborsClassifier.Metadata]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier
 type MLKNearestNeighborsClassifier struct {
 	MLModel
 }
@@ -112,12 +107,10 @@ var _ IMLKNearestNeighborsClassifier = MLKNearestNeighborsClassifier{}
 //
 //   - [IMLKNearestNeighborsClassifier.CancelUpdate]
 //   - [IMLKNearestNeighborsClassifier.ComputeClassProbabilitiesFrom]
-//   - [IMLKNearestNeighborsClassifier.ComputeKClosestLabels]
 //   - [IMLKNearestNeighborsClassifier.ContinueWithUpdate]
 //   - [IMLKNearestNeighborsClassifier.SetContinueWithUpdate]
 //   - [IMLKNearestNeighborsClassifier.DefaultLabel]
 //   - [IMLKNearestNeighborsClassifier.SetDefaultLabel]
-//   - [IMLKNearestNeighborsClassifier.ExtractNearestNeighborLabelsDistancesIndicesFrom]
 //   - [IMLKNearestNeighborsClassifier.Index]
 //   - [IMLKNearestNeighborsClassifier.SetIndex]
 //   - [IMLKNearestNeighborsClassifier.IndexType]
@@ -154,9 +147,6 @@ var _ IMLKNearestNeighborsClassifier = MLKNearestNeighborsClassifier{}
 //   - [IMLKNearestNeighborsClassifier.SetWeightingScheme]
 //   - [IMLKNearestNeighborsClassifier.WriteToURLError]
 //   - [IMLKNearestNeighborsClassifier.InitWithDescriptionConfigurationParametersDataPointsLabelsError]
-//   - [IMLKNearestNeighborsClassifier.Metadata]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier
 type IMLKNearestNeighborsClassifier interface {
 	IMLModel
 
@@ -164,14 +154,12 @@ type IMLKNearestNeighborsClassifier interface {
 
 	CancelUpdate()
 	ComputeClassProbabilitiesFrom(probabilities []objectivec.IObject, from unsafe.Pointer)
-	ComputeKClosestLabels(labels objectivec.IObject) objectivec.IObject
 	ContinueWithUpdate() bool
 	SetContinueWithUpdate(value bool)
 	DefaultLabel() objectivec.Object
 	SetDefaultLabel(value objectivec.Object)
-	ExtractNearestNeighborLabelsDistancesIndicesFrom(labels []objectivec.IObject, distances []objectivec.IObject, indices []objectivec.IObject, from objectivec.IObject)
-	Index() objectivec.IObject
-	SetIndex(value objectivec.IObject)
+	Index() unsafe.Pointer
+	SetIndex(value unsafe.Pointer)
 	IndexType() int64
 	SetIndexType(value int64)
 	InputMultiArrayError(array objectivec.IObject) (objectivec.IObject, error)
@@ -198,15 +186,14 @@ type IMLKNearestNeighborsClassifier interface {
 	SetProgressHandlersDispatchQueue(value objectivec.Object)
 	ResumeUpdate()
 	ResumeUpdateWithParameters(parameters objectivec.IObject)
-	SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject)
+	SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject)
 	UpdateModelWithData(data objectivec.IObject)
 	UpdateParameters() foundation.INSDictionary
 	SetUpdateParameters(value foundation.INSDictionary)
 	WeightingScheme() int64
 	SetWeightingScheme(value int64)
-	WriteToURLError(url foundation.INSURL) (bool, error)
+	WriteToURLError(url foundation.NSURL) (bool, error)
 	InitWithDescriptionConfigurationParametersDataPointsLabelsError(description objectivec.IObject, configuration objectivec.IObject, parameters objectivec.IObject, points unsafe.Pointer, labels objectivec.IObject) (MLKNearestNeighborsClassifier, error)
-	Metadata() IMLModelMetadata
 }
 
 // Init initializes the instance.
@@ -228,7 +215,6 @@ func NewMLKNearestNeighborsClassifier() MLKNearestNeighborsClassifier {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewKNearestNeighborsClassifierDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
@@ -240,7 +226,6 @@ func NewKNearestNeighborsClassifierDescriptionOnlyWithSpecificationConfiguration
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewKNearestNeighborsClassifierInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
@@ -252,35 +237,30 @@ func NewKNearestNeighborsClassifierInterfaceAndMetadataWithCompiledArchiveError(
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/initWithCoder:
 func NewKNearestNeighborsClassifierWithCoder(coder objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewKNearestNeighborsClassifierWithConfiguration(configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewKNearestNeighborsClassifierWithDescription(description objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewKNearestNeighborsClassifierWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/initWithDescription:configuration:parameters:dataPoints:labels:error:
 func NewKNearestNeighborsClassifierWithDescriptionConfigurationParametersDataPointsLabelsError(description objectivec.IObject, configuration objectivec.IObject, parameters objectivec.IObject, points unsafe.Pointer, labels objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
@@ -292,35 +272,18 @@ func NewKNearestNeighborsClassifierWithDescriptionConfigurationParametersDataPoi
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewKNearestNeighborsClassifierWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/cancelUpdate
 func (m MLKNearestNeighborsClassifier) CancelUpdate() {
 	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/computeClassProbabilities:from:
 func (m MLKNearestNeighborsClassifier) ComputeClassProbabilitiesFrom(probabilities []objectivec.IObject, from unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeClassProbabilities:from:"), objectivec.IObjectSliceToNSArray(probabilities), from)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/computeKClosestLabels:
-func (m MLKNearestNeighborsClassifier) ComputeKClosestLabels(labels objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeKClosestLabels:"), labels)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/extractNearestNeighborLabels:distances:indices:from:
-func (m MLKNearestNeighborsClassifier) ExtractNearestNeighborLabelsDistancesIndicesFrom(labels []objectivec.IObject, distances []objectivec.IObject, indices []objectivec.IObject, from objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("extractNearestNeighborLabels:distances:indices:from:"), objectivec.IObjectSliceToNSArray(labels), objectivec.IObjectSliceToNSArray(distances), objectivec.IObjectSliceToNSArray(indices), from)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/inputMultiArray:error:
 func (m MLKNearestNeighborsClassifier) InputMultiArrayError(array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputMultiArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -331,14 +294,10 @@ func (m MLKNearestNeighborsClassifier) InputMultiArrayError(array objectivec.IOb
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/packageOutputWithPredictedLabel:classProbabilities:nearestLabels:nearestDistances:nearestFeatureIndices:
 func (m MLKNearestNeighborsClassifier) PackageOutputWithPredictedLabelClassProbabilitiesNearestLabelsNearestDistancesNearestFeatureIndices(label objectivec.IObject, probabilities objectivec.IObject, labels objectivec.IObject, distances objectivec.IObject, indices objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("packageOutputWithPredictedLabel:classProbabilities:nearestLabels:nearestDistances:nearestFeatureIndices:"), label, probabilities, labels, distances, indices)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/parameterValueForKey:error:
 func (m MLKNearestNeighborsClassifier) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -349,8 +308,6 @@ func (m MLKNearestNeighborsClassifier) ParameterValueForKeyError(key objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/predictionFromFeatures:options:error:
 func (m MLKNearestNeighborsClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -361,30 +318,19 @@ func (m MLKNearestNeighborsClassifier) PredictionFromFeaturesOptionsError(featur
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/resumeUpdate
 func (m MLKNearestNeighborsClassifier) ResumeUpdate() {
 	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/resumeUpdateWithParameters:
 func (m MLKNearestNeighborsClassifier) ResumeUpdateWithParameters(parameters objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/setUpdateProgressHandlers:dispatchQueue:
-func (m MLKNearestNeighborsClassifier) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
-	_block0, _ := NewErrorBlock(handlers)
-	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
+func (m MLKNearestNeighborsClassifier) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/updateModelWithData:
 func (m MLKNearestNeighborsClassifier) UpdateModelWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/writeToURL:error:
-func (m MLKNearestNeighborsClassifier) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (m MLKNearestNeighborsClassifier) WriteToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -397,8 +343,6 @@ func (m MLKNearestNeighborsClassifier) WriteToURLError(url foundation.INSURL) (b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/initWithDescription:configuration:parameters:dataPoints:labels:error:
 func (m MLKNearestNeighborsClassifier) InitWithDescriptionConfigurationParametersDataPointsLabelsError(description objectivec.IObject, configuration objectivec.IObject, parameters objectivec.IObject, points unsafe.Pointer, labels objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDescription:configuration:parameters:dataPoints:labels:error:"), description, configuration, parameters, points, labels, unsafe.Pointer(&errorPtr))
@@ -410,7 +354,6 @@ func (m MLKNearestNeighborsClassifier) InitWithDescriptionConfigurationParameter
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/compileSpecification:toArchive:options:error:
 func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLKNearestNeighborsClassifierClass.class), objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options, unsafe.Pointer(&errorPtr))
@@ -421,8 +364,6 @@ func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) Co
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/compiledVersionForSpecification:options:error:
 func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLKNearestNeighborsClassifierClass.class), objc.Sel("compiledVersionForSpecification:options:error:"), specification, options, unsafe.Pointer(&errorPtr))
@@ -433,8 +374,6 @@ func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) Co
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLKNearestNeighborsClassifierClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -445,14 +384,11 @@ func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) Lo
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/supportsSecureCoding
 func (_MLKNearestNeighborsClassifierClass MLKNearestNeighborsClassifierClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLKNearestNeighborsClassifierClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/continueWithUpdate
 func (m MLKNearestNeighborsClassifier) ContinueWithUpdate() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("continueWithUpdate"))
 	return rv
@@ -460,8 +396,6 @@ func (m MLKNearestNeighborsClassifier) ContinueWithUpdate() bool {
 func (m MLKNearestNeighborsClassifier) SetContinueWithUpdate(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/defaultLabel
 func (m MLKNearestNeighborsClassifier) DefaultLabel() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultLabel"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -469,17 +403,13 @@ func (m MLKNearestNeighborsClassifier) DefaultLabel() objectivec.Object {
 func (m MLKNearestNeighborsClassifier) SetDefaultLabel(value objectivec.Object) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefaultLabel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/index
-func (m MLKNearestNeighborsClassifier) Index() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("index"))
-	return objectivec.Object{ID: rv}
+func (m MLKNearestNeighborsClassifier) Index() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("index"))
+	return rv
 }
-func (m MLKNearestNeighborsClassifier) SetIndex(value objectivec.IObject) {
+func (m MLKNearestNeighborsClassifier) SetIndex(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/indexType
 func (m MLKNearestNeighborsClassifier) IndexType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("indexType"))
 	return rv
@@ -487,8 +417,6 @@ func (m MLKNearestNeighborsClassifier) IndexType() int64 {
 func (m MLKNearestNeighborsClassifier) SetIndexType(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/labelType
 func (m MLKNearestNeighborsClassifier) LabelType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("labelType"))
 	return rv
@@ -496,8 +424,6 @@ func (m MLKNearestNeighborsClassifier) LabelType() int64 {
 func (m MLKNearestNeighborsClassifier) SetLabelType(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabelType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/labelsForDataPoints
 func (m MLKNearestNeighborsClassifier) LabelsForDataPoints() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelsForDataPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -505,8 +431,6 @@ func (m MLKNearestNeighborsClassifier) LabelsForDataPoints() foundation.INSArray
 func (m MLKNearestNeighborsClassifier) SetLabelsForDataPoints(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabelsForDataPoints:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/labelsSet
 func (m MLKNearestNeighborsClassifier) LabelsSet() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelsSet"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
@@ -514,14 +438,6 @@ func (m MLKNearestNeighborsClassifier) LabelsSet() foundation.INSOrderedSet {
 func (m MLKNearestNeighborsClassifier) SetLabelsSet(value foundation.INSOrderedSet) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabelsSet:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/metadata
-func (m MLKNearestNeighborsClassifier) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
-	return MLModelMetadataFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/nearestDistancesFeatureName
 func (m MLKNearestNeighborsClassifier) NearestDistancesFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestDistancesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
@@ -529,8 +445,6 @@ func (m MLKNearestNeighborsClassifier) NearestDistancesFeatureName() string {
 func (m MLKNearestNeighborsClassifier) SetNearestDistancesFeatureName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNearestDistancesFeatureName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/nearestLabelsFeatureName
 func (m MLKNearestNeighborsClassifier) NearestLabelsFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestLabelsFeatureName"))
 	return foundation.NSStringFromID(rv).String()
@@ -538,8 +452,6 @@ func (m MLKNearestNeighborsClassifier) NearestLabelsFeatureName() string {
 func (m MLKNearestNeighborsClassifier) SetNearestLabelsFeatureName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNearestLabelsFeatureName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/numberOfDimensions
 func (m MLKNearestNeighborsClassifier) NumberOfDimensions() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDimensions"))
 	return rv
@@ -547,8 +459,6 @@ func (m MLKNearestNeighborsClassifier) NumberOfDimensions() uint64 {
 func (m MLKNearestNeighborsClassifier) SetNumberOfDimensions(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfDimensions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/parameterContainer
 func (m MLKNearestNeighborsClassifier) ParameterContainer() IMLParameterContainer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
@@ -556,8 +466,6 @@ func (m MLKNearestNeighborsClassifier) ParameterContainer() IMLParameterContaine
 func (m MLKNearestNeighborsClassifier) SetParameterContainer(value IMLParameterContainer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/progressHandlers
 func (m MLKNearestNeighborsClassifier) ProgressHandlers() IMLUpdateProgressHandlers {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
@@ -565,8 +473,6 @@ func (m MLKNearestNeighborsClassifier) ProgressHandlers() IMLUpdateProgressHandl
 func (m MLKNearestNeighborsClassifier) SetProgressHandlers(value IMLUpdateProgressHandlers) {
 	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/progressHandlersDispatchQueue
 func (m MLKNearestNeighborsClassifier) ProgressHandlersDispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -574,8 +480,6 @@ func (m MLKNearestNeighborsClassifier) ProgressHandlersDispatchQueue() objective
 func (m MLKNearestNeighborsClassifier) SetProgressHandlersDispatchQueue(value objectivec.Object) {
 	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/updateParameters
 func (m MLKNearestNeighborsClassifier) UpdateParameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -583,8 +487,6 @@ func (m MLKNearestNeighborsClassifier) UpdateParameters() foundation.INSDictiona
 func (m MLKNearestNeighborsClassifier) SetUpdateParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUpdateParameters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifier/weightingScheme
 func (m MLKNearestNeighborsClassifier) WeightingScheme() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("weightingScheme"))
 	return rv

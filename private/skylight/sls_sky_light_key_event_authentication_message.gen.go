@@ -46,8 +46,6 @@ func (sc SLSSkyLightKeyEventAuthenticationMessageClass) Alloc() SLSSkyLightKeyEv
 //
 //   - [SLSSkyLightKeyEventAuthenticationMessage.CharCode]
 //   - [SLSSkyLightKeyEventAuthenticationMessage.Repeat]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightKeyEventAuthenticationMessage
 type SLSSkyLightKeyEventAuthenticationMessage struct {
 	SLSSkyLightEventAuthenticationMessage
 }
@@ -66,8 +64,6 @@ var _ ISLSSkyLightKeyEventAuthenticationMessage = SLSSkyLightKeyEventAuthenticat
 //
 //   - [ISLSSkyLightKeyEventAuthenticationMessage.CharCode]
 //   - [ISLSSkyLightKeyEventAuthenticationMessage.Repeat]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightKeyEventAuthenticationMessage
 type ISLSSkyLightKeyEventAuthenticationMessage interface {
 	ISLSSkyLightEventAuthenticationMessage
 
@@ -96,41 +92,34 @@ func NewSLSSkyLightKeyEventAuthenticationMessage() SLSSkyLightKeyEventAuthentica
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithBasis:signature:
 func NewSLSSkyLightKeyEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithCoder:
 func NewSLSSkyLightKeyEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
 func NewSLSSkyLightKeyEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightKeyEventAuthenticationMessage/initWithMessageInitData:
 func NewSLSSkyLightKeyEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightKeyEventAuthenticationMessage/charCode
 func (s SLSSkyLightKeyEventAuthenticationMessage) CharCode() uint16 {
 	rv := objc.Send[uint16](s.ID, objc.Sel("charCode"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightKeyEventAuthenticationMessage/repeat
 func (s SLSSkyLightKeyEventAuthenticationMessage) Repeat() int16 {
 	rv := objc.Send[int16](s.ID, objc.Sel("repeat"))
 	return rv

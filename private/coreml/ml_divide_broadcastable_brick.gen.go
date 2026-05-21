@@ -58,8 +58,6 @@ func (mc MLDivideBroadcastableBrickClass) Alloc() MLDivideBroadcastableBrick {
 //   - [MLDivideBroadcastableBrick.Description]
 //   - [MLDivideBroadcastableBrick.Hash]
 //   - [MLDivideBroadcastableBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick
 type MLDivideBroadcastableBrick struct {
 	objectivec.Object
 }
@@ -89,8 +87,6 @@ var _ IMLDivideBroadcastableBrick = MLDivideBroadcastableBrick{}
 //   - [IMLDivideBroadcastableBrick.Description]
 //   - [IMLDivideBroadcastableBrick.Hash]
 //   - [IMLDivideBroadcastableBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick
 type IMLDivideBroadcastableBrick interface {
 	objectivec.IObject
 
@@ -108,7 +104,7 @@ type IMLDivideBroadcastableBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -130,86 +126,61 @@ func NewMLDivideBroadcastableBrick() MLDivideBroadcastableBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/initWithParameters:
 func NewDivideBroadcastableBrickWithParameters(parameters objectivec.IObject) MLDivideBroadcastableBrick {
 	instance := getMLDivideBroadcastableBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLDivideBroadcastableBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLDivideBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/hasGPUSupport
 func (m MLDivideBroadcastableBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/setupForInputShapes:withParameters:
 func (m MLDivideBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/initWithParameters:
 func (m MLDivideBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLDivideBroadcastableBrick {
 	rv := objc.Send[MLDivideBroadcastableBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/debugDescription
 func (m MLDivideBroadcastableBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/description
 func (m MLDivideBroadcastableBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/hash
 func (m MLDivideBroadcastableBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/inputRanks
 func (m MLDivideBroadcastableBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/inputShapes
 func (m MLDivideBroadcastableBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/outputRanks
 func (m MLDivideBroadcastableBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/outputShapes
 func (m MLDivideBroadcastableBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/shapeInfoNeeded
 func (m MLDivideBroadcastableBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDivideBroadcastableBrick/superclass
-func (m MLDivideBroadcastableBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLDivideBroadcastableBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

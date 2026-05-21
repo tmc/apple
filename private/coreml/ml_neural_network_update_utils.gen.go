@@ -45,7 +45,6 @@ func (mc MLNeuralNetworkUpdateUtilsClass) Alloc() MLNeuralNetworkUpdateUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils
 type MLNeuralNetworkUpdateUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLNeuralNetworkUpdateUtilsFromID(id objc.ID) MLNeuralNetworkUpdateUtils {
 var _ IMLNeuralNetworkUpdateUtils = MLNeuralNetworkUpdateUtils{}
 
 // An interface definition for the [MLNeuralNetworkUpdateUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils
 type IMLNeuralNetworkUpdateUtils interface {
 	objectivec.IObject
 }
@@ -84,19 +81,14 @@ func NewMLNeuralNetworkUpdateUtils() MLNeuralNetworkUpdateUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/createClassLabelToIndexMapWith:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) CreateClassLabelToIndexMapWith(with objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("createClassLabelToIndexMapWith:"), with)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadParameterDescriptionsAndContainerFromUpdateParametersModelDescription(parameters unsafe.Pointer, description objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:"), parameters, description)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/loadUpdateParameters:fromCompiledArchive:error:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadUpdateParametersFromCompiledArchiveError(parameters unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("loadUpdateParameters:fromCompiledArchive:error:"), parameters, archive, unsafe.Pointer(&errorPtr))

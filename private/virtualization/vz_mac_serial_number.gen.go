@@ -47,8 +47,6 @@ func (vc VZMacSerialNumberClass) Alloc() VZMacSerialNumber {
 //
 //   - [VZMacSerialNumber.String]
 //   - [VZMacSerialNumber.InitWithString]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacSerialNumber
 type VZMacSerialNumber struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IVZMacSerialNumber = VZMacSerialNumber{}
 //
 //   - [IVZMacSerialNumber.String]
 //   - [IVZMacSerialNumber.InitWithString]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacSerialNumber
 type IVZMacSerialNumber interface {
 	objectivec.IObject
 
@@ -97,20 +93,17 @@ func NewVZMacSerialNumber() VZMacSerialNumber {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacSerialNumber/initWithString:
 func NewVZMacSerialNumberWithString(string_ objectivec.IObject) VZMacSerialNumber {
 	instance := getVZMacSerialNumberClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), string_)
 	return VZMacSerialNumberFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacSerialNumber/initWithString:
 func (v VZMacSerialNumber) InitWithString(string_ objectivec.IObject) VZMacSerialNumber {
 	rv := objc.Send[VZMacSerialNumber](v.ID, objc.Sel("initWithString:"), string_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacSerialNumber/string
 func (v VZMacSerialNumber) String() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()

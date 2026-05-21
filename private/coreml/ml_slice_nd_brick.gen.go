@@ -64,8 +64,6 @@ func (mc MLSliceNDBrickClass) Alloc() MLSliceNDBrick {
 //   - [MLSliceNDBrick.Description]
 //   - [MLSliceNDBrick.Hash]
 //   - [MLSliceNDBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick
 type MLSliceNDBrick struct {
 	objectivec.Object
 }
@@ -101,8 +99,6 @@ var _ IMLSliceNDBrick = MLSliceNDBrick{}
 //   - [IMLSliceNDBrick.Description]
 //   - [IMLSliceNDBrick.Hash]
 //   - [IMLSliceNDBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick
 type IMLSliceNDBrick interface {
 	objectivec.IObject
 
@@ -126,7 +122,7 @@ type IMLSliceNDBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -148,122 +144,85 @@ func NewMLSliceNDBrick() MLSliceNDBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/initWithParameters:
 func NewSliceNDBrickWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
 	instance := getMLSliceNDBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSliceNDBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLSliceNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/hasGPUSupport
 func (m MLSliceNDBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/setupForInputShapes:withParameters:
 func (m MLSliceNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/initWithParameters:
 func (m MLSliceNDBrick) InitWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
 	rv := objc.Send[MLSliceNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/begin_ids
 func (m MLSliceNDBrick) Begin_ids() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("begin_ids"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/begin_masks
 func (m MLSliceNDBrick) Begin_masks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("begin_masks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/debugDescription
 func (m MLSliceNDBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/description
 func (m MLSliceNDBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/end_ids
 func (m MLSliceNDBrick) End_ids() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("end_ids"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/end_masks
 func (m MLSliceNDBrick) End_masks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("end_masks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/hash
 func (m MLSliceNDBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/inputRanks
 func (m MLSliceNDBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/inputShapes
 func (m MLSliceNDBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/outputRanks
 func (m MLSliceNDBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/outputShapes
 func (m MLSliceNDBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/rank
 func (m MLSliceNDBrick) Rank() int {
 	rv := objc.Send[int](m.ID, objc.Sel("rank"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/shapeInfoNeeded
 func (m MLSliceNDBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/strides
 func (m MLSliceNDBrick) Strides() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("strides"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSliceNDBrick/superclass
-func (m MLSliceNDBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLSliceNDBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

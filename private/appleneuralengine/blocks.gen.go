@@ -23,11 +23,26 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// DictionaryErrorHandler is the signature for a completion handler block.
+// BoolHandler handles completion with a primitive value.
 //
 // Used by:
 //   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
-type DictionaryErrorHandler = func(*foundation.INSDictionary, error)
+type BoolHandler = func(bool)
+
+// NewBoolBlock wraps a Go [BoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
+func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // ErrorHandler is the signature for a completion handler block.
 //
@@ -47,6 +62,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 

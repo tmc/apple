@@ -8,8 +8,6 @@ import (
 )
 
 // VZGuestAgent protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGuestAgent
 type VZGuestAgent interface {
 	objectivec.IObject
 }

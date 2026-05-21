@@ -47,8 +47,6 @@ func (sc SLSBridgedCopyAssociatedWindowsOperationClass) Alloc() SLSBridgedCopyAs
 //   - [SLSBridgedCopyAssociatedWindowsOperation.MakeResultWithNumbers]
 //   - [SLSBridgedCopyAssociatedWindowsOperation.WindowID]
 //   - [SLSBridgedCopyAssociatedWindowsOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation
 type SLSBridgedCopyAssociatedWindowsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedCopyAssociatedWindowsOperation = SLSBridgedCopyAssociatedWindow
 //   - [ISLSBridgedCopyAssociatedWindowsOperation.MakeResultWithNumbers]
 //   - [ISLSBridgedCopyAssociatedWindowsOperation.WindowID]
 //   - [ISLSBridgedCopyAssociatedWindowsOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation
 type ISLSBridgedCopyAssociatedWindowsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedCopyAssociatedWindowsOperation() SLSBridgedCopyAssociatedWindo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation/initWithCoder:
 func NewSLSBridgedCopyAssociatedWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyAssociatedWindowsOperation {
 	instance := getSLSBridgedCopyAssociatedWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyAssociatedWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation/initWithWindowID:
 func NewSLSBridgedCopyAssociatedWindowsOperationWithWindowID(id uint32) SLSBridgedCopyAssociatedWindowsOperation {
 	instance := getSLSBridgedCopyAssociatedWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSBridgedCopyAssociatedWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation/makeResultWithNumbers:
 func (s SLSBridgedCopyAssociatedWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation/initWithWindowID:
 func (s SLSBridgedCopyAssociatedWindowsOperation) InitWithWindowID(id uint32) SLSBridgedCopyAssociatedWindowsOperation {
 	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyAssociatedWindowsOperation/windowID
 func (s SLSBridgedCopyAssociatedWindowsOperation) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

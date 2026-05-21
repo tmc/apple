@@ -8,14 +8,10 @@ import (
 )
 
 // SLDataTimelineProcess protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcess
 type SLDataTimelineProcess interface {
 	objectivec.IObject
 
 	// Pid protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcess/pid
 	Pid() int
 }
 
@@ -36,13 +32,10 @@ func SLDataTimelineProcessObjectFromID(id objc.ID) SLDataTimelineProcessObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcess/pid
 func (o SLDataTimelineProcessObject) Pid() int {
 	rv := objc.Send[int](o.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcess/windowData
 func (o SLDataTimelineProcessObject) WindowData() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowData"))
 	return objectivec.Object{ID: rv}

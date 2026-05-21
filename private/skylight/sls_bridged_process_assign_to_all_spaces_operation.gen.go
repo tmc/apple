@@ -46,8 +46,6 @@ func (sc SLSBridgedProcessAssignToAllSpacesOperationClass) Alloc() SLSBridgedPro
 //
 //   - [SLSBridgedProcessAssignToAllSpacesOperation.Process]
 //   - [SLSBridgedProcessAssignToAllSpacesOperation.InitWithProcess]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation
 type SLSBridgedProcessAssignToAllSpacesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedProcessAssignToAllSpacesOperation = SLSBridgedProcessAssignToAl
 //
 //   - [ISLSBridgedProcessAssignToAllSpacesOperation.Process]
 //   - [ISLSBridgedProcessAssignToAllSpacesOperation.InitWithProcess]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation
 type ISLSBridgedProcessAssignToAllSpacesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedProcessAssignToAllSpacesOperation() SLSBridgedProcessAssignToA
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation/initWithCoder:
 func NewSLSBridgedProcessAssignToAllSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedProcessAssignToAllSpacesOperation {
 	instance := getSLSBridgedProcessAssignToAllSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation/initWithProcess:
 func NewSLSBridgedProcessAssignToAllSpacesOperationWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
 	instance := getSLSBridgedProcessAssignToAllSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation/initWithProcess:
 func (s SLSBridgedProcessAssignToAllSpacesOperation) InitWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
 	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("initWithProcess:"), process)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToAllSpacesOperation/process
 func (s SLSBridgedProcessAssignToAllSpacesOperation) Process() int {
 	rv := objc.Send[int](s.ID, objc.Sel("process"))
 	return rv

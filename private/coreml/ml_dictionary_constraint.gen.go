@@ -48,10 +48,7 @@ func (mc MLDictionaryConstraintClass) Alloc() MLDictionaryConstraint {
 // # Methods
 //
 //   - [MLDictionaryConstraint.IsAllowedValueError]
-//   - [MLDictionaryConstraint.InitWithCoder]
 //   - [MLDictionaryConstraint.InitWithKeyType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint
 type MLDictionaryConstraint struct {
 	objectivec.Object
 }
@@ -69,17 +66,13 @@ var _ IMLDictionaryConstraint = MLDictionaryConstraint{}
 // # Methods
 //
 //   - [IMLDictionaryConstraint.IsAllowedValueError]
-//   - [IMLDictionaryConstraint.InitWithCoder]
 //   - [IMLDictionaryConstraint.InitWithKeyType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint
 type IMLDictionaryConstraint interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	IsAllowedValueError(value objectivec.IObject) (bool, error)
-	InitWithCoder(coder foundation.INSCoder) MLDictionaryConstraint
 	InitWithKeyType(type_ int64) MLDictionaryConstraint
 }
 
@@ -102,21 +95,12 @@ func NewMLDictionaryConstraint() MLDictionaryConstraint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithCoder:
-func NewDictionaryConstraintWithCoder(coder objectivec.IObject) MLDictionaryConstraint {
-	instance := getMLDictionaryConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLDictionaryConstraintFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithKeyType:
 func NewDictionaryConstraintWithKeyType(type_ int64) MLDictionaryConstraint {
 	instance := getMLDictionaryConstraintClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyType:"), type_)
 	return MLDictionaryConstraintFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/isAllowedValue:error:
 func (m MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
@@ -130,32 +114,19 @@ func (m MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithCoder:
-func (m MLDictionaryConstraint) InitWithCoder(coder foundation.INSCoder) MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithKeyType:
 func (m MLDictionaryConstraint) InitWithKeyType(type_ int64) MLDictionaryConstraint {
 	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("initWithKeyType:"), type_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/constraintWithInt64Keys
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) ConstraintWithInt64Keys() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithInt64Keys"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/constraintWithStringKeys
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) ConstraintWithStringKeys() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithStringKeys"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/supportsSecureCoding
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

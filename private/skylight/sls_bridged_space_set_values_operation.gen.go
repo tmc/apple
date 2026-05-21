@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceSetValuesOperationClass) Alloc() SLSBridgedSpaceSetValue
 //   - [SLSBridgedSpaceSetValuesOperation.SpaceID]
 //   - [SLSBridgedSpaceSetValuesOperation.Values]
 //   - [SLSBridgedSpaceSetValuesOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation
 type SLSBridgedSpaceSetValuesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceSetValuesOperation = SLSBridgedSpaceSetValuesOperation{}
 //   - [ISLSBridgedSpaceSetValuesOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetValuesOperation.Values]
 //   - [ISLSBridgedSpaceSetValuesOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation
 type ISLSBridgedSpaceSetValuesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceSetValuesOperation() SLSBridgedSpaceSetValuesOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation/initWithCoder:
 func NewSLSBridgedSpaceSetValuesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
 	instance := getSLSBridgedSpaceSetValuesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetValuesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation/initWithSpaceID:values:
 func NewSLSBridgedSpaceSetValuesOperationWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
 	instance := getSLSBridgedSpaceSetValuesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return SLSBridgedSpaceSetValuesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation/initWithSpaceID:values:
 func (s SLSBridgedSpaceSetValuesOperation) InitWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
 	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation/spaceID
 func (s SLSBridgedSpaceSetValuesOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetValuesOperation/values
 func (s SLSBridgedSpaceSetValuesOperation) Values() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

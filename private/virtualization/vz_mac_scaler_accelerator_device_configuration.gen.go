@@ -41,7 +41,6 @@ func (vc VZMacScalerAcceleratorDeviceConfigurationClass) Alloc() VZMacScalerAcce
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacScalerAcceleratorDeviceConfiguration
 type VZMacScalerAcceleratorDeviceConfiguration struct {
 	VZAcceleratorDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZMacScalerAcceleratorDeviceConfigurationFromID(id objc.ID) VZMacScalerAcce
 var _ IVZMacScalerAcceleratorDeviceConfiguration = VZMacScalerAcceleratorDeviceConfiguration{}
 
 // An interface definition for the [VZMacScalerAcceleratorDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacScalerAcceleratorDeviceConfiguration
 type IVZMacScalerAcceleratorDeviceConfiguration interface {
 	IVZAcceleratorDeviceConfiguration
 }

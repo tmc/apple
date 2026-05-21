@@ -48,8 +48,6 @@ func (sc SLSBridgedMoveWindowsToManagedSpaceOperationClass) Alloc() SLSBridgedMo
 //   - [SLSBridgedMoveWindowsToManagedSpaceOperation.SpaceID]
 //   - [SLSBridgedMoveWindowsToManagedSpaceOperation.Windows]
 //   - [SLSBridgedMoveWindowsToManagedSpaceOperation.InitWithWindowsSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation
 type SLSBridgedMoveWindowsToManagedSpaceOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedMoveWindowsToManagedSpaceOperation = SLSBridgedMoveWindowsToMan
 //   - [ISLSBridgedMoveWindowsToManagedSpaceOperation.SpaceID]
 //   - [ISLSBridgedMoveWindowsToManagedSpaceOperation.Windows]
 //   - [ISLSBridgedMoveWindowsToManagedSpaceOperation.InitWithWindowsSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation
 type ISLSBridgedMoveWindowsToManagedSpaceOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedMoveWindowsToManagedSpaceOperation() SLSBridgedMoveWindowsToMa
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation/initWithCoder:
 func NewSLSBridgedMoveWindowsToManagedSpaceOperationWithCoder(coder objectivec.IObject) SLSBridgedMoveWindowsToManagedSpaceOperation {
 	instance := getSLSBridgedMoveWindowsToManagedSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedMoveWindowsToManagedSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation/initWithWindows:spaceID:
 func NewSLSBridgedMoveWindowsToManagedSpaceOperationWithWindowsSpaceID(windows objectivec.IObject, id uint64) SLSBridgedMoveWindowsToManagedSpaceOperation {
 	instance := getSLSBridgedMoveWindowsToManagedSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:spaceID:"), windows, id)
 	return SLSBridgedMoveWindowsToManagedSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation/initWithWindows:spaceID:
 func (s SLSBridgedMoveWindowsToManagedSpaceOperation) InitWithWindowsSpaceID(windows objectivec.IObject, id uint64) SLSBridgedMoveWindowsToManagedSpaceOperation {
 	rv := objc.Send[SLSBridgedMoveWindowsToManagedSpaceOperation](s.ID, objc.Sel("initWithWindows:spaceID:"), windows, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation/spaceID
 func (s SLSBridgedMoveWindowsToManagedSpaceOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveWindowsToManagedSpaceOperation/windows
 func (s SLSBridgedMoveWindowsToManagedSpaceOperation) Windows() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))

@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,8 +53,6 @@ func (sc SLDataTimelineProcessEntryClass) Alloc() SLDataTimelineProcessEntry {
 //   - [SLDataTimelineProcessEntry.Pid]
 //   - [SLDataTimelineProcessEntry.WindowData]
 //   - [SLDataTimelineProcessEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry
 type SLDataTimelineProcessEntry struct {
 	objectivec.Object
 }
@@ -78,8 +77,6 @@ var _ ISLDataTimelineProcessEntry = SLDataTimelineProcessEntry{}
 //   - [ISLDataTimelineProcessEntry.Pid]
 //   - [ISLDataTimelineProcessEntry.WindowData]
 //   - [ISLDataTimelineProcessEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry
 type ISLDataTimelineProcessEntry interface {
 	objectivec.IObject
 
@@ -91,7 +88,7 @@ type ISLDataTimelineProcessEntry interface {
 	OnScreenVisible() uint64
 	OrderedOut() uint64
 	Pid() int
-	WindowData() objectivec.IObject
+	WindowData() unsafe.Pointer
 	InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry
 }
 
@@ -114,63 +111,47 @@ func NewSLDataTimelineProcessEntry() SLDataTimelineProcessEntry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/initWithXPCObject:
 func NewSLDataTimelineProcessEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry {
 	instance := getSLDataTimelineProcessEntryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineProcessEntryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/createXPCObject
 func (s SLDataTimelineProcessEntry) CreateXPCObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/initWithXPCObject:
 func (s SLDataTimelineProcessEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry {
 	rv := objc.Send[SLDataTimelineProcessEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/entryWithXPCObject:
 func (_SLDataTimelineProcessEntryClass SLDataTimelineProcessEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineProcessEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/offScreen
 func (s SLDataTimelineProcessEntry) OffScreen() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("offScreen"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/onScreenOccluded
 func (s SLDataTimelineProcessEntry) OnScreenOccluded() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("onScreenOccluded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/onScreenVisible
 func (s SLDataTimelineProcessEntry) OnScreenVisible() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("onScreenVisible"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/orderedOut
 func (s SLDataTimelineProcessEntry) OrderedOut() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("orderedOut"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/pid
 func (s SLDataTimelineProcessEntry) Pid() int {
 	rv := objc.Send[int](s.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessEntry/windowData
-func (s SLDataTimelineProcessEntry) WindowData() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windowData"))
-	return objectivec.Object{ID: rv}
+func (s SLDataTimelineProcessEntry) WindowData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("windowData"))
+	return rv
 }

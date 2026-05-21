@@ -47,8 +47,6 @@ func (sc SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass) Alloc() SLS
 //   - [SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.MakeResultWithWindowID]
 //   - [SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.SpaceID]
 //   - [SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation
 type SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation = SLSBridgedTileSpa
 //   - [ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.MakeResultWithWindowID]
 //   - [ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.SpaceID]
 //   - [ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation
 type ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperation() SLSBridgedTileSp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation/initWithCoder:
 func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	instance := getSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation/initWithSpaceID:
 func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationWithSpaceID(id uint64) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	instance := getSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation/makeResultWithWindowID:
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) MakeResultWithWindowID(id uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithWindowID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation/initWithSpaceID:
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) InitWithSpaceID(id uint64) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation/spaceID
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

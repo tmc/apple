@@ -46,14 +46,10 @@ func (vc VZPCIDeviceConfigurationClass) Alloc() VZPCIDeviceConfiguration {
 // # Methods
 //
 //   - [VZPCIDeviceConfiguration._init]
-//   - [VZPCIDeviceConfiguration._pciDevice]
-//   - [VZPCIDeviceConfiguration.EncodeWithEncoder]
 //   - [VZPCIDeviceConfiguration.DebugDescription]
 //   - [VZPCIDeviceConfiguration.Description]
 //   - [VZPCIDeviceConfiguration.Hash]
 //   - [VZPCIDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration
 type VZPCIDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -71,26 +67,20 @@ var _ IVZPCIDeviceConfiguration = VZPCIDeviceConfiguration{}
 // # Methods
 //
 //   - [IVZPCIDeviceConfiguration._init]
-//   - [IVZPCIDeviceConfiguration._pciDevice]
-//   - [IVZPCIDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZPCIDeviceConfiguration.DebugDescription]
 //   - [IVZPCIDeviceConfiguration.Description]
 //   - [IVZPCIDeviceConfiguration.Hash]
 //   - [IVZPCIDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration
 type IVZPCIDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_pciDevice() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,58 +102,24 @@ func NewVZPCIDeviceConfiguration() VZPCIDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/_init
 func (v VZPCIDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/_pciDevice
-func (v VZPCIDeviceConfiguration) _pciDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pciDevice"))
-	return objectivec.Object{ID: rv}
-}
-
-// PciDevice is an exported wrapper for the private method _pciDevice.
-func (v VZPCIDeviceConfiguration) PciDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_pciDevice")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_pciDevice"}
-		return nil, err
-	}
-	return v._pciDevice(), nil
-}
-
-// CanPciDevice reports whether the receiver responds to the private selector _pciDevice.
-func (v VZPCIDeviceConfiguration) CanPciDevice() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_pciDevice"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/encodeWithEncoder:
-func (v VZPCIDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/debugDescription
 func (v VZPCIDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/description
 func (v VZPCIDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/hash
 func (v VZPCIDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/superclass
-func (v VZPCIDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZPCIDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

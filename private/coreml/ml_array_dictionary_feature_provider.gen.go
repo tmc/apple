@@ -51,8 +51,6 @@ func (mc MLArrayDictionaryFeatureProviderClass) Alloc() MLArrayDictionaryFeature
 //   - [MLArrayDictionaryFeatureProvider.FeaturesAtIndex]
 //   - [MLArrayDictionaryFeatureProvider.InitWithCoder]
 //   - [MLArrayDictionaryFeatureProvider.InitWithDictionaryFeatureProviderArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider
 type MLArrayDictionaryFeatureProvider struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IMLArrayDictionaryFeatureProvider = MLArrayDictionaryFeatureProvider{}
 //   - [IMLArrayDictionaryFeatureProvider.FeaturesAtIndex]
 //   - [IMLArrayDictionaryFeatureProvider.InitWithCoder]
 //   - [IMLArrayDictionaryFeatureProvider.InitWithDictionaryFeatureProviderArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider
 type IMLArrayDictionaryFeatureProvider interface {
 	objectivec.IObject
 
@@ -109,56 +105,43 @@ func NewMLArrayDictionaryFeatureProvider() MLArrayDictionaryFeatureProvider {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithCoder:
 func NewArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithDictionaryFeatureProviderArray:
 func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/encodeWithCoder:
 func (m MLArrayDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/featuresAtIndex:
 func (m MLArrayDictionaryFeatureProvider) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithCoder:
 func (m MLArrayDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLArrayDictionaryFeatureProvider {
 	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithDictionaryFeatureProviderArray:
 func (m MLArrayDictionaryFeatureProvider) InitWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/supportsSecureCoding
 func (_MLArrayDictionaryFeatureProviderClass MLArrayDictionaryFeatureProviderClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLArrayDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/array
 func (m MLArrayDictionaryFeatureProvider) Array() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("array"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/count
 func (m MLArrayDictionaryFeatureProvider) Count() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv

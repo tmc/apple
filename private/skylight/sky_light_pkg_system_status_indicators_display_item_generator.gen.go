@@ -42,7 +42,6 @@ func (sc SkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorClass) Alloc() Sky
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsDisplayItemGenerator
 type SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorFromID(id objc.ID) Sky
 // ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsDisplayItemGenerator
 type ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator interface {
 	objectivec.IObject
 }

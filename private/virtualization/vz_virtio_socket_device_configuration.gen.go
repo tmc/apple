@@ -41,7 +41,6 @@ func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceCon
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDeviceConfiguration
 type VZVirtioSocketDeviceConfiguration struct {
 	VZSocketDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioSocketDeviceConfigurationFromID(id objc.ID) VZVirtioSocketDeviceCon
 var _ IVZVirtioSocketDeviceConfiguration = VZVirtioSocketDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioSocketDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDeviceConfiguration
 type IVZVirtioSocketDeviceConfiguration interface {
 	IVZSocketDeviceConfiguration
 }

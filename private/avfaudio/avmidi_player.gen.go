@@ -49,8 +49,6 @@ func (ac AVMIDIPlayerClass) Alloc() AVMIDIPlayer {
 //   - [AVMIDIPlayer.HostTimeForBeats]
 //   - [AVMIDIPlayer.InitBase]
 //   - [AVMIDIPlayer.Playing]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer
 type AVMIDIPlayer struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IAVMIDIPlayer = AVMIDIPlayer{}
 //   - [IAVMIDIPlayer.HostTimeForBeats]
 //   - [IAVMIDIPlayer.InitBase]
 //   - [IAVMIDIPlayer.Playing]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer
 type IAVMIDIPlayer interface {
 	objectivec.IObject
 
@@ -105,37 +101,28 @@ func NewAVMIDIPlayer() AVMIDIPlayer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/initBase
 func NewMIDIPlayerBase() AVMIDIPlayer {
 	instance := getAVMIDIPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initBase"))
 	return AVMIDIPlayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/beatsForHostTime:
 func (a AVMIDIPlayer) BeatsForHostTime(time uint64) float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("beatsForHostTime:"), time)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/destroyBase
 func (a AVMIDIPlayer) DestroyBase() {
 	objc.Send[objc.ID](a.ID, objc.Sel("destroyBase"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/hostTimeForBeats:
 func (a AVMIDIPlayer) HostTimeForBeats(beats float64) uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hostTimeForBeats:"), beats)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/initBase
 func (a AVMIDIPlayer) InitBase() AVMIDIPlayer {
 	rv := objc.Send[AVMIDIPlayer](a.ID, objc.Sel("initBase"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/playing
 func (a AVMIDIPlayer) Playing() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
 	return rv

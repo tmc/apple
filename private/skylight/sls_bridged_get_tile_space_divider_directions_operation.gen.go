@@ -47,8 +47,6 @@ func (sc SLSBridgedGetTileSpaceDividerDirectionsOperationClass) Alloc() SLSBridg
 //   - [SLSBridgedGetTileSpaceDividerDirectionsOperation.MakeResultWithSpaceResizeDirections]
 //   - [SLSBridgedGetTileSpaceDividerDirectionsOperation.SpaceID]
 //   - [SLSBridgedGetTileSpaceDividerDirectionsOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation
 type SLSBridgedGetTileSpaceDividerDirectionsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedGetTileSpaceDividerDirectionsOperation = SLSBridgedGetTileSpace
 //   - [ISLSBridgedGetTileSpaceDividerDirectionsOperation.MakeResultWithSpaceResizeDirections]
 //   - [ISLSBridgedGetTileSpaceDividerDirectionsOperation.SpaceID]
 //   - [ISLSBridgedGetTileSpaceDividerDirectionsOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation
 type ISLSBridgedGetTileSpaceDividerDirectionsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedGetTileSpaceDividerDirectionsOperation() SLSBridgedGetTileSpac
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation/initWithCoder:
 func NewSLSBridgedGetTileSpaceDividerDirectionsOperationWithCoder(coder objectivec.IObject) SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	instance := getSLSBridgedGetTileSpaceDividerDirectionsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedGetTileSpaceDividerDirectionsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation/initWithSpaceID:
 func NewSLSBridgedGetTileSpaceDividerDirectionsOperationWithSpaceID(id uint64) SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	instance := getSLSBridgedGetTileSpaceDividerDirectionsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedGetTileSpaceDividerDirectionsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation/makeResultWithSpaceResizeDirections:
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) MakeResultWithSpaceResizeDirections(directions uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation/initWithSpaceID:
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) InitWithSpaceID(id uint64) SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetTileSpaceDividerDirectionsOperation/spaceID
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

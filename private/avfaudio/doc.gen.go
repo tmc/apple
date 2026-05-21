@@ -5,8 +5,8 @@
 // # Key Types
 //
 //   - [AVVoiceController]
-//   - [AVSpeechSynthesisVoice]
 //   - [AVVCAudioDeviceManager]
+//   - [AVSpeechSynthesisVoice]
 //   - [AVVoiceTriggerClient]
 //   - [AVSpeechSynthesizer]
 //   - [AVVCMetricsManager]

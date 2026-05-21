@@ -10,19 +10,13 @@ import (
 )
 
 // CPXConnectionManaging protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging
 type CPXConnectionManaging interface {
 	objectivec.IObject
 
 	// ConnectionForID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/connectionForID:
 	ConnectionForID(id uint32) unsafe.Pointer
 
 	// PidForConnection protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/pidForConnection:
 	PidForConnection(connection CGXConnection) int
 }
 
@@ -43,13 +37,10 @@ func CPXConnectionManagingObjectFromID(id objc.ID) CPXConnectionManagingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/connectionForID:
 func (o CPXConnectionManagingObject) ConnectionForID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("connectionForID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/pidForConnection:
 func (o CPXConnectionManagingObject) PidForConnection(connection CGXConnection) int {
 	rv := objc.Send[int](o.ID, objc.Sel("pidForConnection:"), connection)
 	return rv

@@ -42,7 +42,6 @@ func (sc SOSRLanguageRowTextViewClass) Alloc() SOSRLanguageRowTextView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowTextView
 type SOSRLanguageRowTextView struct {
 	appkit.NSTextField
 }
@@ -56,8 +55,6 @@ func SOSRLanguageRowTextViewFromID(id objc.ID) SOSRLanguageRowTextView {
 var _ ISOSRLanguageRowTextView = SOSRLanguageRowTextView{}
 
 // An interface definition for the [SOSRLanguageRowTextView] class.
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowTextView
 type ISOSRLanguageRowTextView interface {
 	appkit.INSTextField
 }

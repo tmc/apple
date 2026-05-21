@@ -45,14 +45,9 @@ func (vc VZBinaryBootLoaderClass) Alloc() VZBinaryBootLoader {
 
 // # Methods
 //
-//   - [VZBinaryBootLoader._bootLoaderForConfiguration]
-//   - [VZBinaryBootLoader.EncodeWithEncoder]
 //   - [VZBinaryBootLoader.EntryPointAddress]
 //   - [VZBinaryBootLoader.Segments]
-//   - [VZBinaryBootLoader.Validate]
 //   - [VZBinaryBootLoader.InitWithSegmentsEntryPointAddress]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader
 type VZBinaryBootLoader struct {
 	VZBootLoader
 }
@@ -69,24 +64,16 @@ var _ IVZBinaryBootLoader = VZBinaryBootLoader{}
 //
 // # Methods
 //
-//   - [IVZBinaryBootLoader._bootLoaderForConfiguration]
-//   - [IVZBinaryBootLoader.EncodeWithEncoder]
 //   - [IVZBinaryBootLoader.EntryPointAddress]
 //   - [IVZBinaryBootLoader.Segments]
-//   - [IVZBinaryBootLoader.Validate]
 //   - [IVZBinaryBootLoader.InitWithSegmentsEntryPointAddress]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader
 type IVZBinaryBootLoader interface {
 	IVZBootLoader
 
 	// Topic: Methods
 
-	_bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	EntryPointAddress() uint64
 	Segments() foundation.INSArray
-	Validate() objectivec.IObject
 	InitWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader
 }
 
@@ -109,58 +96,21 @@ func NewVZBinaryBootLoader() VZBinaryBootLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/initWithSegments:entryPointAddress:
 func NewVZBinaryBootLoaderWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
 	instance := getVZBinaryBootLoaderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
 	return VZBinaryBootLoaderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/_bootLoaderForConfiguration:
-func (v VZBinaryBootLoader) _bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bootLoaderForConfiguration:"), configuration)
-	return objectivec.Object{ID: rv}
-}
-
-// BootLoaderForConfiguration is an exported wrapper for the private method _bootLoaderForConfiguration.
-func (v VZBinaryBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_bootLoaderForConfiguration:"}
-		return nil, err
-	}
-	return v._bootLoaderForConfiguration(configuration), nil
-}
-
-// CanBootLoaderForConfiguration reports whether the receiver responds to the private selector _bootLoaderForConfiguration:.
-func (v VZBinaryBootLoader) CanBootLoaderForConfiguration() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/encodeWithEncoder:
-func (v VZBinaryBootLoader) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/validate
-func (v VZBinaryBootLoader) Validate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("validate"))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/initWithSegments:entryPointAddress:
 func (v VZBinaryBootLoader) InitWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
 	rv := objc.Send[VZBinaryBootLoader](v.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/entryPointAddress
 func (v VZBinaryBootLoader) EntryPointAddress() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("entryPointAddress"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/segments
 func (v VZBinaryBootLoader) Segments() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("segments"))
 	return foundation.NSArrayFromID(objc.ID(rv))

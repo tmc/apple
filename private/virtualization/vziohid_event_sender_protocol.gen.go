@@ -8,14 +8,10 @@ import (
 )
 
 // _VZIOHIDEventSender protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEventSender
 type VZIOHIDEventSender interface {
 	objectivec.IObject
 
 	// SendIOHIDEventsHidDeviceIndex protocol.
-	//
-	// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEventSender/sendIOHIDEvents:hidDeviceIndex:
 	SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32)
 }
 
@@ -36,7 +32,6 @@ func VZIOHIDEventSenderObjectFromID(id objc.ID) VZIOHIDEventSenderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEventSender/sendIOHIDEvents:hidDeviceIndex:
 func (o VZIOHIDEventSenderObject) SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
 }

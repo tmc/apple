@@ -51,8 +51,6 @@ func (sc SLSBridgedSpaceClientDrivenMoveSpacersToPointOperationClass) Alloc() SL
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.Point]
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.VerticalIndex]
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation
 type SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -75,8 +73,6 @@ var _ ISLSBridgedSpaceClientDrivenMoveSpacersToPointOperation = SLSBridgedSpaceC
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.Point]
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.VerticalIndex]
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointOperation.InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation
 type ISLSBridgedSpaceClientDrivenMoveSpacersToPointOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -109,51 +105,39 @@ func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointOperation() SLSBridgedSpace
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/initWithCoder:
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointOperationWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptions(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64) SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:"), id, index, index2, point, options)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptions(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64) SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation {
 	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation](s.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:"), id, index, index2, point, options)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/drivingSpaceID
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) DrivingSpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("drivingSpaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/horizontalIndex
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) HorizontalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/options
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) Options() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/point
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) Point() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation/verticalIndex
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointOperation) VerticalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv

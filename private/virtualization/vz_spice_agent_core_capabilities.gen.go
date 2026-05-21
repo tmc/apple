@@ -46,8 +46,6 @@ func (vc VZSpiceAgentCoreCapabilitiesClass) Alloc() VZSpiceAgentCoreCapabilities
 //
 //   - [VZSpiceAgentCoreCapabilities.Clipboard]
 //   - [VZSpiceAgentCoreCapabilities.SetClipboard]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreCapabilities
 type VZSpiceAgentCoreCapabilities struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IVZSpiceAgentCoreCapabilities = VZSpiceAgentCoreCapabilities{}
 //
 //   - [IVZSpiceAgentCoreCapabilities.Clipboard]
 //   - [IVZSpiceAgentCoreCapabilities.SetClipboard]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreCapabilities
 type IVZSpiceAgentCoreCapabilities interface {
 	objectivec.IObject
 
@@ -96,7 +92,6 @@ func NewVZSpiceAgentCoreCapabilities() VZSpiceAgentCoreCapabilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreCapabilities/clipboard
 func (v VZSpiceAgentCoreCapabilities) Clipboard() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("clipboard"))
 	return rv

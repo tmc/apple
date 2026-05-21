@@ -46,8 +46,6 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 //
 //   - [VZDiskImageStorageDeviceAttachment._updateDiskSize]
 //   - [VZDiskImageStorageDeviceAttachment.ReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment
 type VZDiskImageStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
 }
@@ -66,8 +64,6 @@ var _ IVZDiskImageStorageDeviceAttachment = VZDiskImageStorageDeviceAttachment{}
 //
 //   - [IVZDiskImageStorageDeviceAttachment._updateDiskSize]
 //   - [IVZDiskImageStorageDeviceAttachment.ReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment
 type IVZDiskImageStorageDeviceAttachment interface {
 	IVZStorageDeviceAttachment
 
@@ -96,7 +92,6 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_updateDiskSize:
 func (v VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_updateDiskSize:"), size)
 }
@@ -116,7 +111,6 @@ func (v VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_updateDiskSize:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_diskImageStorageDeviceAttachmentWithDiskImage:
 func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) _diskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"), image)
 	return objectivec.Object{ID: rv}
@@ -136,7 +130,6 @@ func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmen
 	return objc.RespondsToSelector(objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/readOnly
 func (v VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv

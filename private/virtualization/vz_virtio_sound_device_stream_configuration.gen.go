@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDevic
 //   - [VZVirtioSoundDeviceStreamConfiguration.Description]
 //   - [VZVirtioSoundDeviceStreamConfiguration.Hash]
 //   - [VZVirtioSoundDeviceStreamConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration
 type VZVirtioSoundDeviceStreamConfiguration struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZVirtioSoundDeviceStreamConfiguration = VZVirtioSoundDeviceStreamConfigu
 //   - [IVZVirtioSoundDeviceStreamConfiguration.Description]
 //   - [IVZVirtioSoundDeviceStreamConfiguration.Hash]
 //   - [IVZVirtioSoundDeviceStreamConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration
 type IVZVirtioSoundDeviceStreamConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_stream() objectivec.IObject
+	_stream() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZVirtioSoundDeviceStreamConfiguration() VZVirtioSoundDeviceStreamConfig
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/_init
 func (v VZVirtioSoundDeviceStreamConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/_stream
-func (v VZVirtioSoundDeviceStreamConfiguration) _stream() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_stream"))
-	return objectivec.Object{ID: rv}
+func (v VZVirtioSoundDeviceStreamConfiguration) _stream() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_stream"))
+	return rv
 }
 
 // CanStream reports whether the receiver responds to the private selector _stream.
@@ -127,33 +122,25 @@ func (v VZVirtioSoundDeviceStreamConfiguration) CanStream() bool {
 }
 
 // Stream is an exported wrapper for the private property _stream.
-func (v VZVirtioSoundDeviceStreamConfiguration) Stream() (objectivec.IObject, error) {
+func (v VZVirtioSoundDeviceStreamConfiguration) Stream() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_stream")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_stream"}
 	}
 	return v._stream(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/debugDescription
 func (v VZVirtioSoundDeviceStreamConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/description
 func (v VZVirtioSoundDeviceStreamConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/hash
 func (v VZVirtioSoundDeviceStreamConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/superclass
-func (v VZVirtioSoundDeviceStreamConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZVirtioSoundDeviceStreamConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

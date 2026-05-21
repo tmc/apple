@@ -8,8 +8,6 @@ import (
 )
 
 // SLSDisplayControlServiceProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayControlServiceProtocol
 type SLSDisplayControlServiceProtocol interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func SLSDisplayControlServiceProtocolObjectFromID(id objc.ID) SLSDisplayControlS
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayControlServiceProtocol/service
 func (o SLSDisplayControlServiceProtocolObject) Service() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("service"))
 	return objectivec.Object{ID: rv}

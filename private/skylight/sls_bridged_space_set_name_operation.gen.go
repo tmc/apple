@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceSetNameOperationClass) Alloc() SLSBridgedSpaceSetNameOpe
 //   - [SLSBridgedSpaceSetNameOperation.Name]
 //   - [SLSBridgedSpaceSetNameOperation.SpaceID]
 //   - [SLSBridgedSpaceSetNameOperation.InitWithSpaceIDName]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation
 type SLSBridgedSpaceSetNameOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceSetNameOperation = SLSBridgedSpaceSetNameOperation{}
 //   - [ISLSBridgedSpaceSetNameOperation.Name]
 //   - [ISLSBridgedSpaceSetNameOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetNameOperation.InitWithSpaceIDName]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation
 type ISLSBridgedSpaceSetNameOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceSetNameOperation() SLSBridgedSpaceSetNameOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation/initWithCoder:
 func NewSLSBridgedSpaceSetNameOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetNameOperation {
 	instance := getSLSBridgedSpaceSetNameOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetNameOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation/initWithSpaceID:name:
 func NewSLSBridgedSpaceSetNameOperationWithSpaceIDName(id uint64, name objectivec.IObject) SLSBridgedSpaceSetNameOperation {
 	instance := getSLSBridgedSpaceSetNameOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:name:"), id, name)
 	return SLSBridgedSpaceSetNameOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation/initWithSpaceID:name:
 func (s SLSBridgedSpaceSetNameOperation) InitWithSpaceIDName(id uint64, name objectivec.IObject) SLSBridgedSpaceSetNameOperation {
 	rv := objc.Send[SLSBridgedSpaceSetNameOperation](s.ID, objc.Sel("initWithSpaceID:name:"), id, name)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation/name
 func (s SLSBridgedSpaceSetNameOperation) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetNameOperation/spaceID
 func (s SLSBridgedSpaceSetNameOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

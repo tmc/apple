@@ -65,8 +65,6 @@ func (mc MLE5OutputPortClass) Alloc() MLE5OutputPort {
 //   - [MLE5OutputPort.Description]
 //   - [MLE5OutputPort.Hash]
 //   - [MLE5OutputPort.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort
 type MLE5OutputPort struct {
 	objectivec.Object
 }
@@ -101,8 +99,6 @@ var _ IMLE5OutputPort = MLE5OutputPort{}
 //   - [IMLE5OutputPort.Description]
 //   - [IMLE5OutputPort.Hash]
 //   - [IMLE5OutputPort.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort
 type IMLE5OutputPort interface {
 	objectivec.IObject
 
@@ -125,7 +121,7 @@ type IMLE5OutputPort interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -147,14 +143,12 @@ func NewMLE5OutputPort() MLE5OutputPort {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/initWithPortHandle:name:featureDescription:
 func NewE5OutputPortWithPortHandleNameFeatureDescription(handle E5rtIOPortRef, name objectivec.IObject, description objectivec.IObject) MLE5OutputPort {
 	instance := getMLE5OutputPortClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
 	return MLE5OutputPortFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/prepareWithOptions:error:
 func (m MLE5OutputPort) PrepareWithOptionsError(options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("prepareWithOptions:error:"), options, unsafe.Pointer(&errorPtr))
@@ -168,26 +162,19 @@ func (m MLE5OutputPort) PrepareWithOptionsError(options objectivec.IObject) (boo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/reset
 func (m MLE5OutputPort) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/reusableForOutputBacking:willBindDirectly:
 func (m MLE5OutputPort) ReusableForOutputBackingWillBindDirectly(backing objectivec.IObject) (bool, bool) {
 	var directly bool
 	rv := objc.Send[bool](m.ID, objc.Sel("reusableForOutputBacking:willBindDirectly:"), backing, unsafe.Pointer(&directly))
 	return directly, rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/initWithPortHandle:name:featureDescription:
 func (m MLE5OutputPort) InitWithPortHandleNameFeatureDescription(handle E5rtIOPortRef, name objectivec.IObject, description objectivec.IObject) MLE5OutputPort {
 	rv := objc.Send[MLE5OutputPort](m.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/binder
 func (m MLE5OutputPort) Binder() IMLE5OutputPortBinder {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("binder"))
 	return MLE5OutputPortBinderFromID(objc.ID(rv))
@@ -195,56 +182,38 @@ func (m MLE5OutputPort) Binder() IMLE5OutputPortBinder {
 func (m MLE5OutputPort) SetBinder(value IMLE5OutputPortBinder) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBinder:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/boundFeatureDirectly
 func (m MLE5OutputPort) BoundFeatureDirectly() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("boundFeatureDirectly"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/debugDescription
 func (m MLE5OutputPort) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/description
 func (m MLE5OutputPort) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/featureDescription
 func (m MLE5OutputPort) FeatureDescription() IMLFeatureDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureDescription"))
 	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/featureValue
 func (m MLE5OutputPort) FeatureValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/hash
 func (m MLE5OutputPort) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/name
 func (m MLE5OutputPort) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/outputBackingWasDirectlyBound
 func (m MLE5OutputPort) OutputBackingWasDirectlyBound() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("outputBackingWasDirectlyBound"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/pixelBufferPool
 func (m MLE5OutputPort) PixelBufferPool() IMLPixelBufferPool {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
@@ -252,15 +221,11 @@ func (m MLE5OutputPort) PixelBufferPool() IMLPixelBufferPool {
 func (m MLE5OutputPort) SetPixelBufferPool(value IMLPixelBufferPool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/portHandle
 func (m MLE5OutputPort) PortHandle() E5rtIOPortRef {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("portHandle"))
 	return E5rtIOPortRef(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5OutputPort/superclass
-func (m MLE5OutputPort) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLE5OutputPort) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

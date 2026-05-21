@@ -41,7 +41,6 @@ func (dc DIBaseAgentDelegateClass) Alloc() DIBaseAgentDelegate {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentDelegate
 type DIBaseAgentDelegate struct {
 	DIBaseServiceDelegate
 }
@@ -55,8 +54,6 @@ func DIBaseAgentDelegateFromID(id objc.ID) DIBaseAgentDelegate {
 var _ IDIBaseAgentDelegate = DIBaseAgentDelegate{}
 
 // An interface definition for the [DIBaseAgentDelegate] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentDelegate
 type IDIBaseAgentDelegate interface {
 	IDIBaseServiceDelegate
 }

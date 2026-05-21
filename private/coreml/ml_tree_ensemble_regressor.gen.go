@@ -55,8 +55,6 @@ func (mc MLTreeEnsembleRegressorClass) Alloc() MLTreeEnsembleRegressor {
 //   - [MLTreeEnsembleRegressor.Description]
 //   - [MLTreeEnsembleRegressor.Hash]
 //   - [MLTreeEnsembleRegressor.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor
 type MLTreeEnsembleRegressor struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ func MLTreeEnsembleRegressorFromID(id objc.ID) MLTreeEnsembleRegressor {
 //   - [IMLTreeEnsembleRegressor.Description]
 //   - [IMLTreeEnsembleRegressor.Hash]
 //   - [IMLTreeEnsembleRegressor.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor
 type IMLTreeEnsembleRegressor interface {
 	IMLRegressor
 
@@ -97,7 +93,7 @@ type IMLTreeEnsembleRegressor interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -119,13 +115,10 @@ func NewMLTreeEnsembleRegressor() MLTreeEnsembleRegressor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/modelData
 func (m MLTreeEnsembleRegressor) ModelData() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/regress:options:error:
 func (m MLTreeEnsembleRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
@@ -136,14 +129,10 @@ func (m MLTreeEnsembleRegressor) RegressOptionsError(regress objectivec.IObject,
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/scalarRegress:
 func (m MLTreeEnsembleRegressor) ScalarRegress(regress []float64) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("scalarRegress:"), regress)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/scalarRegress:error:
 func (m MLTreeEnsembleRegressor) ScalarRegressError(regress objectivec.IObject) (float64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[float64](m.ID, objc.Sel("scalarRegress:error:"), regress, unsafe.Pointer(&errorPtr))
@@ -154,13 +143,10 @@ func (m MLTreeEnsembleRegressor) ScalarRegressError(regress objectivec.IObject) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/vectorRegress:dest:
 func (m MLTreeEnsembleRegressor) VectorRegressDest(regress []float64, dest []float64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("vectorRegress:dest:"), regress, dest)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/compileSpecification:toArchive:options:error:
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLTreeEnsembleRegressorClass.class), objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options, unsafe.Pointer(&errorPtr))
@@ -171,8 +157,6 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) CompileSpecifi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/compiledVersionForSpecification:options:error:
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLTreeEnsembleRegressorClass.class), objc.Sel("compiledVersionForSpecification:options:error:"), specification, options, unsafe.Pointer(&errorPtr))
@@ -183,8 +167,6 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) CompiledVersio
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLTreeEnsembleRegressorClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -195,8 +177,6 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromC
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/loadModelFromSpecification:configuration:error:
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLTreeEnsembleRegressorClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -207,8 +187,6 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromS
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/loadModelFromSpecificationWithCompilationOptions:options:error:
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromSpecificationWithCompilationOptionsOptionsError(options unsafe.Pointer, options2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLTreeEnsembleRegressorClass.class), objc.Sel("loadModelFromSpecificationWithCompilationOptions:options:error:"), options, options2, unsafe.Pointer(&errorPtr))
@@ -220,26 +198,19 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromS
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/debugDescription
 func (m MLTreeEnsembleRegressor) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/description
 func (m MLTreeEnsembleRegressor) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/hash
 func (m MLTreeEnsembleRegressor) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleRegressor/superclass
-func (m MLTreeEnsembleRegressor) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLTreeEnsembleRegressor) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

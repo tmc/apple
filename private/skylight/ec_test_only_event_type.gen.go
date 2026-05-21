@@ -48,8 +48,6 @@ func (ec ECTestOnlyEventTypeClass) Alloc() ECTestOnlyEventType {
 //   - [ECTestOnlyEventType.CgType]
 //   - [ECTestOnlyEventType.HidType]
 //   - [ECTestOnlyEventType.IsCGType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType
 type ECTestOnlyEventType struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IECTestOnlyEventType = ECTestOnlyEventType{}
 //   - [IECTestOnlyEventType.CgType]
 //   - [IECTestOnlyEventType.HidType]
 //   - [IECTestOnlyEventType.IsCGType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType
 type IECTestOnlyEventType interface {
 	objectivec.IObject
 
@@ -102,25 +98,18 @@ func NewECTestOnlyEventType() ECTestOnlyEventType {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType/cgSubType
 func (e ECTestOnlyEventType) CgSubType() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("cgSubType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType/cgType
 func (e ECTestOnlyEventType) CgType() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("cgType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType/hidType
 func (e ECTestOnlyEventType) HidType() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("hidType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventType/isCGType
 func (e ECTestOnlyEventType) IsCGType() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isCGType"))
 	return rv

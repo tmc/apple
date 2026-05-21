@@ -42,7 +42,6 @@ func (tc TTSSpeakUPAUManagerClass) Alloc() TTSSpeakUPAUManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager
 type TTSSpeakUPAUManager struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TTSSpeakUPAUManagerFromID(id objc.ID) TTSSpeakUPAUManager {
 var _ ITTSSpeakUPAUManager = TTSSpeakUPAUManager{}
 
 // An interface definition for the [TTSSpeakUPAUManager] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager
 type ITTSSpeakUPAUManager interface {
 	objectivec.IObject
 }
@@ -81,14 +78,11 @@ func NewTTSSpeakUPAUManager() TTSSpeakUPAUManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager/component
 func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() AudioComponentDescription {
 	rv := objc.Send[AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
 	_ = rv
 	return AudioComponentDescription{}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager/registerAU
 func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) RegisterAU() {
 	objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("registerAU"))
 }

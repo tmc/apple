@@ -63,8 +63,6 @@ func (tc TTSRuleReplacementClass) Alloc() TTSRuleReplacement {
 //   - [TTSRuleReplacement.Ruleset]
 //   - [TTSRuleReplacement.SetRuleset]
 //   - [TTSRuleReplacement.SetPostMatch]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement
 type TTSRuleReplacement struct {
 	objectivec.Object
 }
@@ -98,8 +96,6 @@ var _ ITTSRuleReplacement = TTSRuleReplacement{}
 //   - [ITTSRuleReplacement.Ruleset]
 //   - [ITTSRuleReplacement.SetRuleset]
 //   - [ITTSRuleReplacement.SetPostMatch]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement
 type ITTSRuleReplacement interface {
 	objectivec.IObject
 
@@ -143,19 +139,15 @@ func NewTTSRuleReplacement() TTSRuleReplacement {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/effectiveIndex
 func (t TTSRuleReplacement) EffectiveIndex() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("effectiveIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/setPostMatch:
 func (t TTSRuleReplacement) SetPostMatch(match VoidHandler) {
 	_block0, _ := NewVoidBlock(match)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPostMatch:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/group
 func (t TTSRuleReplacement) Group() ITTSRuleGroup {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("group"))
 	return TTSRuleGroupFromID(objc.ID(rv))
@@ -163,14 +155,10 @@ func (t TTSRuleReplacement) Group() ITTSRuleGroup {
 func (t TTSRuleReplacement) SetGroup(value ITTSRuleGroup) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGroup:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/identifier
 func (t TTSRuleReplacement) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/index
 func (t TTSRuleReplacement) Index() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("index"))
 	return rv
@@ -178,8 +166,6 @@ func (t TTSRuleReplacement) Index() uint64 {
 func (t TTSRuleReplacement) SetIndex(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIndex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/isTerminalRule
 func (t TTSRuleReplacement) IsTerminalRule() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTerminalRule"))
 	return rv
@@ -187,8 +173,6 @@ func (t TTSRuleReplacement) IsTerminalRule() bool {
 func (t TTSRuleReplacement) SetIsTerminalRule(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsTerminalRule:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/originalRulesetIndex
 func (t TTSRuleReplacement) OriginalRulesetIndex() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("originalRulesetIndex"))
 	return rv
@@ -196,8 +180,6 @@ func (t TTSRuleReplacement) OriginalRulesetIndex() uint32 {
 func (t TTSRuleReplacement) SetOriginalRulesetIndex(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalRulesetIndex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/regex
 func (t TTSRuleReplacement) Regex() ITTSRegex {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regex"))
 	return TTSRegexFromID(objc.ID(rv))
@@ -205,8 +187,6 @@ func (t TTSRuleReplacement) Regex() ITTSRegex {
 func (t TTSRuleReplacement) SetRegex(value ITTSRegex) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRegex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/replacement
 func (t TTSRuleReplacement) Replacement() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()
@@ -214,8 +194,6 @@ func (t TTSRuleReplacement) Replacement() string {
 func (t TTSRuleReplacement) SetReplacement(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/ruleset
 func (t TTSRuleReplacement) Ruleset() ITTSRuleset {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleset"))
 	return TTSRulesetFromID(objc.ID(rv))

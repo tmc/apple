@@ -57,8 +57,6 @@ func (wc WSEventDeliveryManagerClass) Alloc() WSEventDeliveryManager {
 //   - [WSEventDeliveryManager.TransactionAssertionWithReason]
 //   - [WSEventDeliveryManager.ValidateTokenAndEnvironmentForEventProcessManagerOutReason]
 //   - [WSEventDeliveryManager.InitWithObserverService]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager
 type WSEventDeliveryManager struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IWSEventDeliveryManager = WSEventDeliveryManager{}
 //   - [IWSEventDeliveryManager.TransactionAssertionWithReason]
 //   - [IWSEventDeliveryManager.ValidateTokenAndEnvironmentForEventProcessManagerOutReason]
 //   - [IWSEventDeliveryManager.InitWithObserverService]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager
 type IWSEventDeliveryManager interface {
 	objectivec.IObject
 
@@ -97,7 +93,7 @@ type IWSEventDeliveryManager interface {
 	BkDeliveryManager() unsafe.Pointer
 	BkEventDeliveryObserverService() unsafe.Pointer
 	DeferEventsMatchingPredicateToTargetWithReason(predicate objectivec.IObject, target objectivec.IObject, reason objectivec.IObject) objectivec.IObject
-	DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event objectivec.IObject) objectivec.IObject
+	DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event unsafe.Pointer) objectivec.IObject
 	DeliveryGraphDescription() objectivec.IObject
 	DescriptionOfResolutionPathForEventDescriptorSenderDescriptor(descriptor objectivec.IObject, descriptor2 objectivec.IObject) objectivec.IObject
 	DestinationsForEvent(event SLSEventRecord) objectivec.IObject
@@ -127,86 +123,62 @@ func NewWSEventDeliveryManager() WSEventDeliveryManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/initWithObserverService:
 func NewWSEventDeliveryManagerWithObserverService(service objectivec.IObject) WSEventDeliveryManager {
 	instance := getWSEventDeliveryManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObserverService:"), service)
 	return WSEventDeliveryManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/deferEventsMatchingPredicate:toTarget:withReason:
 func (w WSEventDeliveryManager) DeferEventsMatchingPredicateToTargetWithReason(predicate objectivec.IObject, target objectivec.IObject, reason objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deferEventsMatchingPredicate:toTarget:withReason:"), predicate, target, reason)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/deliveryChainsForDeferringTarget:event:
-func (w WSEventDeliveryManager) DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event objectivec.IObject) objectivec.IObject {
+func (w WSEventDeliveryManager) DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryChainsForDeferringTarget:event:"), target, event)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/deliveryGraphDescription
 func (w WSEventDeliveryManager) DeliveryGraphDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryGraphDescription"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/descriptionOfResolutionPathForEventDescriptor:senderDescriptor:
 func (w WSEventDeliveryManager) DescriptionOfResolutionPathForEventDescriptorSenderDescriptor(descriptor objectivec.IObject, descriptor2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("descriptionOfResolutionPathForEventDescriptor:senderDescriptor:"), descriptor, descriptor2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/destinationsForEvent:
 func (w WSEventDeliveryManager) DestinationsForEvent(event SLSEventRecord) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("destinationsForEvent:"), event)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/dispatchDiscreteEventsForReason:withRules:
 func (w WSEventDeliveryManager) DispatchDiscreteEventsForReasonWithRules(reason objectivec.IObject, rules objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("dispatchDiscreteEventsForReason:withRules:"), reason, rules)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/resolveDestinationsForEvent:startingFromPID:
 func (w WSEventDeliveryManager) ResolveDestinationsForEventStartingFromPID(event SLSEventRecord, pid int) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("resolveDestinationsForEvent:startingFromPID:"), event, pid)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/transactionAssertionWithReason:
 func (w WSEventDeliveryManager) TransactionAssertionWithReason(reason objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("transactionAssertionWithReason:"), reason)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/validateTokenAndEnvironmentForEvent:processManager:outReason:
 func (w WSEventDeliveryManager) ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("validateTokenAndEnvironmentForEvent:processManager:outReason:"), event, manager, objectivec.IObjectSliceToNSArray(reason))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/initWithObserverService:
 func (w WSEventDeliveryManager) InitWithObserverService(service objectivec.IObject) WSEventDeliveryManager {
 	rv := objc.Send[WSEventDeliveryManager](w.ID, objc.Sel("initWithObserverService:"), service)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/possibleIOHIDKeyboardEventUsageForVirtualKeyCode:
 func (_WSEventDeliveryManagerClass WSEventDeliveryManagerClass) PossibleIOHIDKeyboardEventUsageForVirtualKeyCode(code uint32) uint32 {
 	rv := objc.Send[uint32](objc.ID(_WSEventDeliveryManagerClass.class), objc.Sel("possibleIOHIDKeyboardEventUsageForVirtualKeyCode:"), code)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/bkDeliveryManager
 func (w WSEventDeliveryManager) BkDeliveryManager() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkDeliveryManager"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventDeliveryManager/bkEventDeliveryObserverService
 func (w WSEventDeliveryManager) BkEventDeliveryObserverService() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkEventDeliveryObserverService"))
 	return rv

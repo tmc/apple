@@ -45,10 +45,9 @@ func (ac AVAudioOutputNodeClass) Alloc() AVAudioOutputNode {
 
 // # Methods
 //
+//   - [AVAudioOutputNode.ManualRenderingFormat]
 //   - [AVAudioOutputNode.ManualRenderingMaximumFrameCount]
 //   - [AVAudioOutputNode.SetManualRenderingPCMFormatMaximumFrameCount]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type AVAudioOutputNode struct {
 	AVAudioIONode
 }
@@ -65,15 +64,15 @@ var _ IAVAudioOutputNode = AVAudioOutputNode{}
 //
 // # Methods
 //
+//   - [IAVAudioOutputNode.ManualRenderingFormat]
 //   - [IAVAudioOutputNode.ManualRenderingMaximumFrameCount]
 //   - [IAVAudioOutputNode.SetManualRenderingPCMFormatMaximumFrameCount]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type IAVAudioOutputNode interface {
 	IAVAudioIONode
 
 	// Topic: Methods
 
+	ManualRenderingFormat() objectivec.IObject
 	ManualRenderingMaximumFrameCount() uint32
 	SetManualRenderingPCMFormatMaximumFrameCount(pCMFormat objectivec.IObject, count uint32) bool
 }
@@ -97,27 +96,26 @@ func NewAVAudioOutputNode() AVAudioOutputNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/initWithIOUnit:isInput:
 func NewAudioOutputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioOutputNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioOutputNodeWithImpl(impl unsafe.Pointer) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioOutputNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode/manualRenderingMaximumFrameCount
+func (a AVAudioOutputNode) ManualRenderingFormat() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("manualRenderingFormat"))
+	return objectivec.Object{ID: rv}
+}
 func (a AVAudioOutputNode) ManualRenderingMaximumFrameCount() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("manualRenderingMaximumFrameCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode/setManualRenderingPCMFormat:maximumFrameCount:
 func (a AVAudioOutputNode) SetManualRenderingPCMFormatMaximumFrameCount(pCMFormat objectivec.IObject, count uint32) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingPCMFormat:maximumFrameCount:"), pCMFormat, count)
 	return rv

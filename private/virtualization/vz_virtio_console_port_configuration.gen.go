@@ -41,7 +41,6 @@ func (vc VZVirtioConsolePortConfigurationClass) Alloc() VZVirtioConsolePortConfi
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsolePortConfiguration
 type VZVirtioConsolePortConfiguration struct {
 	VZConsolePortConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioConsolePortConfigurationFromID(id objc.ID) VZVirtioConsolePortConfi
 var _ IVZVirtioConsolePortConfiguration = VZVirtioConsolePortConfiguration{}
 
 // An interface definition for the [VZVirtioConsolePortConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsolePortConfiguration
 type IVZVirtioConsolePortConfiguration interface {
 	IVZConsolePortConfiguration
 }

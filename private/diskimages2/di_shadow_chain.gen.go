@@ -65,8 +65,6 @@ func (dc DIShadowChainClass) Alloc() DIShadowChain {
 //   - [DIShadowChain.TopDiskImageNumBlocks]
 //   - [DIShadowChain.VerifyNodesError]
 //   - [DIShadowChain.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain
 type DIShadowChain struct {
 	objectivec.Object
 }
@@ -101,14 +99,12 @@ var _ IDIShadowChain = DIShadowChain{}
 //   - [IDIShadowChain.TopDiskImageNumBlocks]
 //   - [IDIShadowChain.VerifyNodesError]
 //   - [IDIShadowChain.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain
 type IDIShadowChain interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ActiveShadowURL() foundation.INSURL
+	ActiveShadowURL() foundation.NSURL
 	AddShadowNodesError(nodes objectivec.IObject) (bool, error)
 	AddShadowNodesWrapReadOnlyError(nodes objectivec.IObject, only bool) (bool, error)
 	AddShadowURLsError(uRLs objectivec.IObject) (bool, error)
@@ -147,14 +143,12 @@ func NewDIShadowChain() DIShadowChain {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/initWithCoder:
 func NewDIShadowChainWithCoder(coder objectivec.IObject) DIShadowChain {
 	instance := getDIShadowChainClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIShadowChainFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/addShadowNodes:error:
 func (d DIShadowChain) AddShadowNodesError(nodes objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addShadowNodes:error:"), nodes, unsafe.Pointer(&errorPtr))
@@ -168,8 +162,6 @@ func (d DIShadowChain) AddShadowNodesError(nodes objectivec.IObject) (bool, erro
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/addShadowNodes:wrapReadOnly:error:
 func (d DIShadowChain) AddShadowNodesWrapReadOnlyError(nodes objectivec.IObject, only bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addShadowNodes:wrapReadOnly:error:"), nodes, only, unsafe.Pointer(&errorPtr))
@@ -183,8 +175,6 @@ func (d DIShadowChain) AddShadowNodesWrapReadOnlyError(nodes objectivec.IObject,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/addShadowURLs:error:
 func (d DIShadowChain) AddShadowURLsError(uRLs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addShadowURLs:error:"), uRLs, unsafe.Pointer(&errorPtr))
@@ -198,18 +188,12 @@ func (d DIShadowChain) AddShadowURLsError(uRLs objectivec.IObject) (bool, error)
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/encodeWithCoder:
 func (d DIShadowChain) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/openWritable:createNonExisting:
 func (d DIShadowChain) OpenWritableCreateNonExisting(writable bool, existing bool) {
 	objc.Send[objc.ID](d.ID, objc.Sel("openWritable:createNonExisting:"), writable, existing)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/statWithError:
 func (d DIShadowChain) StatWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("statWithError:"), unsafe.Pointer(&errorPtr))
@@ -220,8 +204,6 @@ func (d DIShadowChain) StatWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/verifyNodes:error:
 func (d DIShadowChain) VerifyNodesError(nodes objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("verifyNodes:error:"), nodes, unsafe.Pointer(&errorPtr))
@@ -235,62 +217,44 @@ func (d DIShadowChain) VerifyNodesError(nodes objectivec.IObject) (bool, error) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/initWithCoder:
 func (d DIShadowChain) InitWithCoder(coder foundation.INSCoder) DIShadowChain {
 	rv := objc.Send[DIShadowChain](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/supportsSecureCoding
 func (_DIShadowChainClass DIShadowChainClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DIShadowChainClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/activeShadowURL
-func (d DIShadowChain) ActiveShadowURL() foundation.INSURL {
+func (d DIShadowChain) ActiveShadowURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeShadowURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/hasBaseImageCache
 func (d DIShadowChain) HasBaseImageCache() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("hasBaseImageCache"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/isEmpty
 func (d DIShadowChain) IsEmpty() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEmpty"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/mountPoints
 func (d DIShadowChain) MountPoints() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/nodes
 func (d DIShadowChain) Nodes() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("nodes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/nonCacheNodes
 func (d DIShadowChain) NonCacheNodes() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("nonCacheNodes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/shadowStats
 func (d DIShadowChain) ShadowStats() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowStats"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/shouldValidate
 func (d DIShadowChain) ShouldValidate() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidate"))
 	return rv
@@ -298,8 +262,6 @@ func (d DIShadowChain) ShouldValidate() bool {
 func (d DIShadowChain) SetShouldValidate(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIShadowChain/topDiskImageNumBlocks
 func (d DIShadowChain) TopDiskImageNumBlocks() int64 {
 	rv := objc.Send[int64](d.ID, objc.Sel("topDiskImageNumBlocks"))
 	return rv

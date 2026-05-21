@@ -42,7 +42,6 @@ func (tc TextToSpeechAXVoiceLoaderClass) Alloc() TextToSpeechAXVoiceLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXVoiceLoader
 type TextToSpeechAXVoiceLoader struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAXVoiceLoaderFromID(id objc.ID) TextToSpeechAXVoiceLoader {
 // ITextToSpeechAXVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXVoiceLoader] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXVoiceLoader
 type ITextToSpeechAXVoiceLoader interface {
 	objectivec.IObject
 }

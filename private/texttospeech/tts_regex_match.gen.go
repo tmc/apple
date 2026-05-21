@@ -49,8 +49,6 @@ func (tc TTSRegexMatchClass) Alloc() TTSRegexMatch {
 //   - [TTSRegexMatch.SetCaptureGroups]
 //   - [TTSRegexMatch.Utf8Range]
 //   - [TTSRegexMatch.SetUtf8Range]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch
 type TTSRegexMatch struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ ITTSRegexMatch = TTSRegexMatch{}
 //   - [ITTSRegexMatch.SetCaptureGroups]
 //   - [ITTSRegexMatch.Utf8Range]
 //   - [ITTSRegexMatch.SetUtf8Range]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch
 type ITTSRegexMatch interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewTTSRegexMatch() TTSRegexMatch {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch/captureGroups
 func (t TTSRegexMatch) CaptureGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("captureGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -111,8 +106,6 @@ func (t TTSRegexMatch) CaptureGroups() foundation.INSArray {
 func (t TTSRegexMatch) SetCaptureGroups(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCaptureGroups:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch/utf8Range
 func (t TTSRegexMatch) Utf8Range() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
 	return foundation.NSRange(rv)

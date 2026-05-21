@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceFinishedResizeForRectOperationClass) Alloc() SLSBridgedS
 //   - [SLSBridgedSpaceFinishedResizeForRectOperation.Rect]
 //   - [SLSBridgedSpaceFinishedResizeForRectOperation.SpaceID]
 //   - [SLSBridgedSpaceFinishedResizeForRectOperation.InitWithSpaceIDRect]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation
 type SLSBridgedSpaceFinishedResizeForRectOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceFinishedResizeForRectOperation = SLSBridgedSpaceFinishedRe
 //   - [ISLSBridgedSpaceFinishedResizeForRectOperation.Rect]
 //   - [ISLSBridgedSpaceFinishedResizeForRectOperation.SpaceID]
 //   - [ISLSBridgedSpaceFinishedResizeForRectOperation.InitWithSpaceIDRect]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation
 type ISLSBridgedSpaceFinishedResizeForRectOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceFinishedResizeForRectOperation() SLSBridgedSpaceFinishedR
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation/initWithCoder:
 func NewSLSBridgedSpaceFinishedResizeForRectOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceFinishedResizeForRectOperation {
 	instance := getSLSBridgedSpaceFinishedResizeForRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceFinishedResizeForRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation/initWithSpaceID:rect:
 func NewSLSBridgedSpaceFinishedResizeForRectOperationWithSpaceIDRect(id uint64, rect corefoundation.CGRect) SLSBridgedSpaceFinishedResizeForRectOperation {
 	instance := getSLSBridgedSpaceFinishedResizeForRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
 	return SLSBridgedSpaceFinishedResizeForRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation/initWithSpaceID:rect:
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) InitWithSpaceIDRect(id uint64, rect corefoundation.CGRect) SLSBridgedSpaceFinishedResizeForRectOperation {
 	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation/rect
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) Rect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceFinishedResizeForRectOperation/spaceID
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

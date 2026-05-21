@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionRemoveIdentityTransposesClass) Alloc() Esp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_remove_identity_transposes
 type EspressoPassStrengthReductionRemoveIdentityTransposes struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_remove_identity_transposesFromID(id objc.ID
 var _ IEspressoPassStrengthReductionRemoveIdentityTransposes = EspressoPassStrengthReductionRemoveIdentityTransposes{}
 
 // An interface definition for the [EspressoPassStrengthReductionRemoveIdentityTransposes] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_remove_identity_transposes
 type IEspressoPassStrengthReductionRemoveIdentityTransposes interface {
 	IEspressoCustomPass
 }

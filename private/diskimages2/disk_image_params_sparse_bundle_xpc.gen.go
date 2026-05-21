@@ -42,7 +42,6 @@ func (dc DiskImageParamsSparseBundleXPCClass) Alloc() DiskImageParamsSparseBundl
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsSparseBundle_XPC
 type DiskImageParamsSparseBundleXPC struct {
 	DiskImageParamsXPC
 }
@@ -61,8 +60,6 @@ func DiskImageParamsSparseBundle_XPCFromID(id objc.ID) DiskImageParamsSparseBund
 var _ IDiskImageParamsSparseBundleXPC = DiskImageParamsSparseBundleXPC{}
 
 // An interface definition for the [DiskImageParamsSparseBundleXPC] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsSparseBundle_XPC
 type IDiskImageParamsSparseBundleXPC interface {
 	IDiskImageParamsXPC
 }
@@ -86,21 +83,18 @@ func NewDiskImageParamsSparseBundleXPC() DiskImageParamsSparseBundleXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsSparseBundle_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsSparseBundle_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
 func NewDiskImageParamsSparseBundle_XPCWithCoder(coder objectivec.IObject) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)

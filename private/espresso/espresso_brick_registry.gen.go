@@ -42,7 +42,6 @@ func (ec EspressoBrickRegistryClass) Alloc() EspressoBrickRegistry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickRegistry
 type EspressoBrickRegistry struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func EspressoBrickRegistryFromID(id objc.ID) EspressoBrickRegistry {
 var _ IEspressoBrickRegistry = EspressoBrickRegistry{}
 
 // An interface definition for the [EspressoBrickRegistry] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickRegistry
 type IEspressoBrickRegistry interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewEspressoBrickRegistry() EspressoBrickRegistry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickRegistry/registerBrickClass:
-func (_EspressoBrickRegistryClass EspressoBrickRegistryClass) RegisterBrickClass(class objc.Class) {
+func (_EspressoBrickRegistryClass EspressoBrickRegistryClass) RegisterBrickClass(class objectivec.Class) {
 	objc.Send[objc.ID](objc.ID(_EspressoBrickRegistryClass.class), objc.Sel("registerBrickClass:"), class)
 }

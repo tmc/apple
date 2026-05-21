@@ -43,7 +43,6 @@ func (mc MLInternalNLPModelWriterClass) Alloc() MLInternalNLPModelWriter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter
 type MLInternalNLPModelWriter struct {
 	objectivec.Object
 }
@@ -57,8 +56,6 @@ func MLInternalNLPModelWriterFromID(id objc.ID) MLInternalNLPModelWriter {
 var _ IMLInternalNLPModelWriter = MLInternalNLPModelWriter{}
 
 // An interface definition for the [MLInternalNLPModelWriter] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter
 type IMLInternalNLPModelWriter interface {
 	objectivec.IObject
 }
@@ -82,26 +79,19 @@ func NewMLInternalNLPModelWriter() MLInternalNLPModelWriter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter/saveCustomSentenceClassifierModelToURL:modelData:stringInputName:classname:NSError:
-func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSentenceClassifierModelToURLModelDataStringInputNameClassnameNSError(url foundation.INSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
+func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSentenceClassifierModelToURLModelDataStringInputNameClassnameNSError(url foundation.NSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalNLPModelWriterClass.class), objc.Sel("saveCustomSentenceClassifierModelToURL:modelData:stringInputName:classname:NSError:"), url, data, name, classname, objectivec.IObjectSliceToNSArray(sError))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter/saveCustomSentenceModelToURL:modelData:stringInputName:classname:NSError:
-func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSentenceModelToURLModelDataStringInputNameClassnameNSError(url foundation.INSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
+func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSentenceModelToURLModelDataStringInputNameClassnameNSError(url foundation.NSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalNLPModelWriterClass.class), objc.Sel("saveCustomSentenceModelToURL:modelData:stringInputName:classname:NSError:"), url, data, name, classname, objectivec.IObjectSliceToNSArray(sError))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter/saveCustomSequenceModelToURL:modelData:stringInputName:classname:NSError:
-func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSequenceModelToURLModelDataStringInputNameClassnameNSError(url foundation.INSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
+func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomSequenceModelToURLModelDataStringInputNameClassnameNSError(url foundation.NSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalNLPModelWriterClass.class), objc.Sel("saveCustomSequenceModelToURL:modelData:stringInputName:classname:NSError:"), url, data, name, classname, objectivec.IObjectSliceToNSArray(sError))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLInternalNLPModelWriter/saveCustomWordTaggingModelToURL:modelData:stringInputName:classname:NSError:
-func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomWordTaggingModelToURLModelDataStringInputNameClassnameNSError(url foundation.INSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
+func (_MLInternalNLPModelWriterClass MLInternalNLPModelWriterClass) SaveCustomWordTaggingModelToURLModelDataStringInputNameClassnameNSError(url foundation.NSURL, data objectivec.IObject, name objectivec.IObject, classname objectivec.IObject, sError []objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalNLPModelWriterClass.class), objc.Sel("saveCustomWordTaggingModelToURL:modelData:stringInputName:classname:NSError:"), url, data, name, classname, objectivec.IObjectSliceToNSArray(sError))
 	return rv
 }

@@ -50,8 +50,6 @@ func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 //   - [VZConsolePortConfiguration.Description]
 //   - [VZConsolePortConfiguration.Hash]
 //   - [VZConsolePortConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration
 type VZConsolePortConfiguration struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IVZConsolePortConfiguration = VZConsolePortConfiguration{}
 //   - [IVZConsolePortConfiguration.Description]
 //   - [IVZConsolePortConfiguration.Hash]
 //   - [IVZConsolePortConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration
 type IVZConsolePortConfiguration interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type IVZConsolePortConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -106,32 +102,24 @@ func NewVZConsolePortConfiguration() VZConsolePortConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/_init
 func (v VZConsolePortConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/debugDescription
 func (v VZConsolePortConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/description
 func (v VZConsolePortConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/hash
 func (v VZConsolePortConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/superclass
-func (v VZConsolePortConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZConsolePortConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

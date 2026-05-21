@@ -55,8 +55,6 @@ func (ac ANEInMemoryModelDescriptorClass) Alloc() ANEInMemoryModelDescriptor {
 //   - [ANEInMemoryModelDescriptor.Weights]
 //   - [ANEInMemoryModelDescriptor.WeightsHash]
 //   - [ANEInMemoryModelDescriptor.InitWithNetworkTextWeightsOptionsPlistIsMILModel]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor
 type ANEInMemoryModelDescriptor struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IANEInMemoryModelDescriptor = ANEInMemoryModelDescriptor{}
 //   - [IANEInMemoryModelDescriptor.Weights]
 //   - [IANEInMemoryModelDescriptor.WeightsHash]
 //   - [IANEInMemoryModelDescriptor.InitWithNetworkTextWeightsOptionsPlistIsMILModel]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor
 type IANEInMemoryModelDescriptor interface {
 	objectivec.IObject
 
@@ -93,9 +89,9 @@ type IANEInMemoryModelDescriptor interface {
 	HexStringIdentifier() objectivec.IObject
 	IsEqualToInMemoryModelDescriptor(descriptor objectivec.IObject) bool
 	IsMILModel() bool
-	NetworkText() foundation.INSData
+	NetworkText() foundation.NSData
 	NetworkTextHash() string
-	OptionsPlist() foundation.INSData
+	OptionsPlist() foundation.NSData
 	OptionsPlistHash() string
 	Weights() foundation.INSDictionary
 	WeightsHash() string
@@ -121,80 +117,58 @@ func NewANEInMemoryModelDescriptor() ANEInMemoryModelDescriptor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/initWithNetworkText:weights:optionsPlist:isMILModel:
 func NewANEInMemoryModelDescriptorWithNetworkTextWeightsOptionsPlistIsMILModel(text objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, mILModel bool) ANEInMemoryModelDescriptor {
 	instance := getANEInMemoryModelDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
 	return ANEInMemoryModelDescriptorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/hexStringIdentifier
 func (a ANEInMemoryModelDescriptor) HexStringIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/isEqualToInMemoryModelDescriptor:
 func (a ANEInMemoryModelDescriptor) IsEqualToInMemoryModelDescriptor(descriptor objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEqualToInMemoryModelDescriptor:"), descriptor)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/initWithNetworkText:weights:optionsPlist:isMILModel:
 func (a ANEInMemoryModelDescriptor) InitWithNetworkTextWeightsOptionsPlistIsMILModel(text objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, mILModel bool) ANEInMemoryModelDescriptor {
 	rv := objc.Send[ANEInMemoryModelDescriptor](a.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/modelWithMILText:weights:optionsPlist:
 func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWithMILTextWeightsOptionsPlist(mILText objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithMILText:weights:optionsPlist:"), mILText, weights, plist)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/modelWithNetworkDescription:weights:optionsPlist:
 func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWithNetworkDescriptionWeightsOptionsPlist(description objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithNetworkDescription:weights:optionsPlist:"), description, weights, plist)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/isMILModel
 func (a ANEInMemoryModelDescriptor) IsMILModel() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isMILModel"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/networkText
-func (a ANEInMemoryModelDescriptor) NetworkText() foundation.INSData {
+func (a ANEInMemoryModelDescriptor) NetworkText() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("networkText"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/networkTextHash
 func (a ANEInMemoryModelDescriptor) NetworkTextHash() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("networkTextHash"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/optionsPlist
-func (a ANEInMemoryModelDescriptor) OptionsPlist() foundation.INSData {
+func (a ANEInMemoryModelDescriptor) OptionsPlist() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("optionsPlist"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/optionsPlistHash
 func (a ANEInMemoryModelDescriptor) OptionsPlistHash() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("optionsPlistHash"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/weights
 func (a ANEInMemoryModelDescriptor) Weights() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weights"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelDescriptor/weightsHash
 func (a ANEInMemoryModelDescriptor) WeightsHash() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightsHash"))
 	return foundation.NSStringFromID(rv).String()

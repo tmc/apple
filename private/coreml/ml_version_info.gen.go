@@ -53,8 +53,6 @@ func (mc MLVersionInfoClass) Alloc() MLVersionInfo {
 //   - [MLVersionInfo.VersionNumberString]
 //   - [MLVersionInfo.VersionString]
 //   - [MLVersionInfo.InitWithMajorMinorPatchVariant]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo
 type MLVersionInfo struct {
 	objectivec.Object
 }
@@ -79,8 +77,6 @@ var _ IMLVersionInfo = MLVersionInfo{}
 //   - [IMLVersionInfo.VersionNumberString]
 //   - [IMLVersionInfo.VersionString]
 //   - [IMLVersionInfo.InitWithMajorMinorPatchVariant]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo
 type IMLVersionInfo interface {
 	objectivec.IObject
 
@@ -115,74 +111,54 @@ func NewMLVersionInfo() MLVersionInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/initWithMajor:minor:patch:variant:
 func NewVersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
 	instance := getMLVersionInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return MLVersionInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/olderThan:
 func (m MLVersionInfo) OlderThan(than objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("olderThan:"), than)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/initWithMajor:minor:patch:variant:
 func (m MLVersionInfo) InitWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
 	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionInfoWithMajor:minor:patch:variant:
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionInfoWithString:
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionInfoWithStringProgressive:
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithStringProgressive(progressive objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithStringProgressive:"), progressive)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/majorVersion
 func (m MLVersionInfo) MajorVersion() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("majorVersion"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/minorVersion
 func (m MLVersionInfo) MinorVersion() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("minorVersion"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/patchVersion
 func (m MLVersionInfo) PatchVersion() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("patchVersion"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/variantString
 func (m MLVersionInfo) VariantString() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("variantString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionNumberString
 func (m MLVersionInfo) VersionNumberString() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionNumberString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionString
 func (m MLVersionInfo) VersionString() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()

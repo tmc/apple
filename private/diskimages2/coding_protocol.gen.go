@@ -8,8 +8,6 @@ import (
 )
 
 // NSCoding protocol.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/NSCoding
 type NSCoding interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/NSCoding/encodeWithCoder:
 func (o NSCodingObject) EncodeWithCoder(coder objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }

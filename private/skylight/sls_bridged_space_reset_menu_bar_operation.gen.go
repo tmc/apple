@@ -46,8 +46,6 @@ func (sc SLSBridgedSpaceResetMenuBarOperationClass) Alloc() SLSBridgedSpaceReset
 //
 //   - [SLSBridgedSpaceResetMenuBarOperation.SpaceID]
 //   - [SLSBridgedSpaceResetMenuBarOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation
 type SLSBridgedSpaceResetMenuBarOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedSpaceResetMenuBarOperation = SLSBridgedSpaceResetMenuBarOperati
 //
 //   - [ISLSBridgedSpaceResetMenuBarOperation.SpaceID]
 //   - [ISLSBridgedSpaceResetMenuBarOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation
 type ISLSBridgedSpaceResetMenuBarOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedSpaceResetMenuBarOperation() SLSBridgedSpaceResetMenuBarOperat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation/initWithCoder:
 func NewSLSBridgedSpaceResetMenuBarOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceResetMenuBarOperation {
 	instance := getSLSBridgedSpaceResetMenuBarOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceResetMenuBarOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation/initWithSpaceID:
 func NewSLSBridgedSpaceResetMenuBarOperationWithSpaceID(id uint64) SLSBridgedSpaceResetMenuBarOperation {
 	instance := getSLSBridgedSpaceResetMenuBarOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceResetMenuBarOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation/initWithSpaceID:
 func (s SLSBridgedSpaceResetMenuBarOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceResetMenuBarOperation {
 	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceResetMenuBarOperation/spaceID
 func (s SLSBridgedSpaceResetMenuBarOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

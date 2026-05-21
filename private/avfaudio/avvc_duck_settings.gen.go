@@ -50,8 +50,6 @@ func (ac AVVCDuckSettingsClass) Alloc() AVVCDuckSettings {
 //   - [AVVCDuckSettings.SetDuckOverride]
 //   - [AVVCDuckSettings.FadeDuration]
 //   - [AVVCDuckSettings.SetFadeDuration]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings
 type AVVCDuckSettings struct {
 	objectivec.Object
 }
@@ -74,8 +72,6 @@ var _ IAVVCDuckSettings = AVVCDuckSettings{}
 //   - [IAVVCDuckSettings.SetDuckOverride]
 //   - [IAVVCDuckSettings.FadeDuration]
 //   - [IAVVCDuckSettings.SetFadeDuration]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings
 type IAVVCDuckSettings interface {
 	objectivec.IObject
 
@@ -108,7 +104,6 @@ func NewAVVCDuckSettings() AVVCDuckSettings {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/duckLevel
 func (a AVVCDuckSettings) DuckLevel() IAVVCDuckLevel {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckLevel"))
 	return AVVCDuckLevelFromID(objc.ID(rv))
@@ -116,8 +111,6 @@ func (a AVVCDuckSettings) DuckLevel() IAVVCDuckLevel {
 func (a AVVCDuckSettings) SetDuckLevel(value IAVVCDuckLevel) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuckLevel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/duckOverride
 func (a AVVCDuckSettings) DuckOverride() IAVVCDuckOverride {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckOverride"))
 	return AVVCDuckOverrideFromID(objc.ID(rv))
@@ -125,8 +118,6 @@ func (a AVVCDuckSettings) DuckOverride() IAVVCDuckOverride {
 func (a AVVCDuckSettings) SetDuckOverride(value IAVVCDuckOverride) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuckOverride:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/fadeDuration
 func (a AVVCDuckSettings) FadeDuration() IAVVCDuckFadeDuration {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fadeDuration"))
 	return AVVCDuckFadeDurationFromID(objc.ID(rv))

@@ -41,7 +41,6 @@ func (ec EspressoPassFoldConstantsClass) Alloc() EspressoPassFoldConstants {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fold_constants
 type EspressoPassFoldConstants struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fold_constantsFromID(id objc.ID) EspressoPassFoldConstants {
 var _ IEspressoPassFoldConstants = EspressoPassFoldConstants{}
 
 // An interface definition for the [EspressoPassFoldConstants] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fold_constants
 type IEspressoPassFoldConstants interface {
 	IEspressoCustomPass
 }

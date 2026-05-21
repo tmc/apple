@@ -52,8 +52,6 @@ func (wc WSUberEventProcessorClass) Alloc() WSUberEventProcessor {
 //   - [WSUberEventProcessor.Description]
 //   - [WSUberEventProcessor.Hash]
 //   - [WSUberEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor
 type WSUberEventProcessor struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IWSUberEventProcessor = WSUberEventProcessor{}
 //   - [IWSUberEventProcessor.Description]
 //   - [IWSUberEventProcessor.Hash]
 //   - [IWSUberEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor
 type IWSUberEventProcessor interface {
 	objectivec.IObject
 
@@ -90,7 +86,7 @@ type IWSUberEventProcessor interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,50 +108,37 @@ func NewWSUberEventProcessor() WSUberEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/initWithSession:
 func NewWSUberEventProcessorWithSession(session CGXSession) WSUberEventProcessor {
 	instance := getWSUberEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSUberEventProcessorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/clearEventState
 func (w WSUberEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](w.ID, objc.Sel("clearEventState"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/processEvent:context:dispatcher:
 func (w WSUberEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/initWithSession:
 func (w WSUberEventProcessor) InitWithSession(session CGXSession) WSUberEventProcessor {
 	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/debugDescription
 func (w WSUberEventProcessor) DebugDescription() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/description
 func (w WSUberEventProcessor) Description() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/hash
 func (w WSUberEventProcessor) Hash() uint64 {
 	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/superclass
-func (w WSUberEventProcessor) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](w.ID, objc.Sel("superclass"))
-	return rv
+func (w WSUberEventProcessor) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -47,8 +47,6 @@ func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
 //   - [VZMacOSBootLoader._romURL]
 //   - [VZMacOSBootLoader.Set_romURL]
 //   - [VZMacOSBootLoader._setROMURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader
 type VZMacOSBootLoader struct {
 	VZBootLoader
 }
@@ -68,16 +66,14 @@ var _ IVZMacOSBootLoader = VZMacOSBootLoader{}
 //   - [IVZMacOSBootLoader._romURL]
 //   - [IVZMacOSBootLoader.Set_romURL]
 //   - [IVZMacOSBootLoader._setROMURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader
 type IVZMacOSBootLoader interface {
 	IVZBootLoader
 
 	// Topic: Methods
 
-	_romURL() foundation.INSURL
-	Set_romURL(value foundation.INSURL)
-	_setROMURL(romurl foundation.INSURL)
+	_romURL() foundation.NSURL
+	Set_romURL(value foundation.NSURL)
+	_setROMURL(romurl foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -99,13 +95,12 @@ func NewVZMacOSBootLoader() VZMacOSBootLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader/_setROMURL:
-func (v VZMacOSBootLoader) _setROMURL(romurl foundation.INSURL) {
+func (v VZMacOSBootLoader) _setROMURL(romurl foundation.NSURL) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setROMURL:"), romurl)
 }
 
 // SetROMURL is an exported wrapper for the private method _setROMURL.
-func (v VZMacOSBootLoader) SetROMURL(romurl foundation.INSURL) error {
+func (v VZMacOSBootLoader) SetROMURL(romurl foundation.NSURL) error {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_setROMURL:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setROMURL:"}
 		return err
@@ -119,8 +114,7 @@ func (v VZMacOSBootLoader) CanSetROMURL() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setROMURL:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader/_romURL
-func (v VZMacOSBootLoader) _romURL() foundation.INSURL {
+func (v VZMacOSBootLoader) _romURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_romURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -131,12 +125,12 @@ func (v VZMacOSBootLoader) CanRomURL() bool {
 }
 
 // RomURL is an exported wrapper for the private property _romURL.
-func (v VZMacOSBootLoader) RomURL() (foundation.INSURL, error) {
+func (v VZMacOSBootLoader) RomURL() (foundation.NSURL, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_romURL")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_romURL"}
+		return foundation.NSURL{}, &objc.UnrecognizedSelectorError{Selector: "_romURL"}
 	}
 	return v._romURL(), nil
 }
-func (v VZMacOSBootLoader) Set_romURL(value foundation.INSURL) {
+func (v VZMacOSBootLoader) Set_romURL(value foundation.NSURL) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_romURL:"), value)
 }

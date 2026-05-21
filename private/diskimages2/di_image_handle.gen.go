@@ -45,10 +45,7 @@ func (dc DIImageHandleClass) Alloc() DIImageHandle {
 
 // # Methods
 //
-//   - [DIImageHandle.MoveDiskImage]
 //   - [DIImageHandle.InitWithDiskImageLockableResources]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle
 type DIImageHandle struct {
 	objectivec.Object
 }
@@ -65,16 +62,12 @@ var _ IDIImageHandle = DIImageHandle{}
 //
 // # Methods
 //
-//   - [IDIImageHandle.MoveDiskImage]
 //   - [IDIImageHandle.InitWithDiskImageLockableResources]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle
 type IDIImageHandle interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	MoveDiskImage() objectivec.IObject
 	InitWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle
 }
 
@@ -97,20 +90,12 @@ func NewDIImageHandle() DIImageHandle {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle/initWithDiskImage:lockableResources:
 func NewDIImageHandleWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
 	instance := getDIImageHandleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
 	return DIImageHandleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle/moveDiskImage
-func (d DIImageHandle) MoveDiskImage() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("moveDiskImage"))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle/initWithDiskImage:lockableResources:
 func (d DIImageHandle) InitWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
 	rv := objc.Send[DIImageHandle](d.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
 	return rv

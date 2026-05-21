@@ -8,8 +8,6 @@ import (
 )
 
 // MPSGraphViewerNodePropertySPI protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/MPSGraphViewerNodePropertySPI
 type MPSGraphViewerNodePropertySPI interface {
 	objectivec.IObject
 }
@@ -31,19 +29,14 @@ func MPSGraphViewerNodePropertySPIObjectFromID(id objc.ID) MPSGraphViewerNodePro
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/MPSGraphViewerNodePropertySPI/jsonDictionary
 func (o MPSGraphViewerNodePropertySPIObject) JsonDictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("jsonDictionary"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/MPSGraphViewerNodePropertySPI/name
 func (o MPSGraphViewerNodePropertySPIObject) Name() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/MPSGraphViewerNodePropertySPI/type
 func (o MPSGraphViewerNodePropertySPIObject) Type() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("type"))
 	return objectivec.Object{ID: rv}

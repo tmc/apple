@@ -9,6 +9,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -145,8 +146,6 @@ func (tc TTSSpeechSynthesizerClass) Alloc() TTSSpeechSynthesizer {
 //   - [TTSSpeechSynthesizer.SetVolume]
 //   - [TTSSpeechSynthesizer.Voucher]
 //   - [TTSSpeechSynthesizer.SetVoucher]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer
 type TTSSpeechSynthesizer struct {
 	objectivec.Object
 }
@@ -260,8 +259,6 @@ var _ ITTSSpeechSynthesizer = TTSSpeechSynthesizer{}
 //   - [ITTSSpeechSynthesizer.SetVolume]
 //   - [ITTSSpeechSynthesizer.Voucher]
 //   - [ITTSSpeechSynthesizer.SetVoucher]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer
 type ITTSSpeechSynthesizer interface {
 	objectivec.IObject
 
@@ -289,8 +286,8 @@ type ITTSSpeechSynthesizer interface {
 	ContinueSpeakingWithError() (bool, error)
 	CoreSynth() unsafe.Pointer
 	SetCoreSynth(value unsafe.Pointer)
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value kernel.Pointer)
 	DelegateTargetQueue() objectivec.Object
 	SetDelegateTargetQueue(value objectivec.Object)
 	Footprint() int64
@@ -325,7 +322,7 @@ type ITTSSpeechSynthesizer interface {
 	SkipLuthorRules() bool
 	SetSkipLuthorRules(value bool)
 	SpeakingRequestClientContext() unsafe.Pointer
-	SetSpeakingRequestClientContext(value unsafe.Pointer)
+	SetSpeakingRequestClientContext(value kernel.Pointer)
 	SpeechRequestDidStopWithSuccessPhonemesSpokenError(request objectivec.IObject, success bool, spoken objectivec.IObject, error_ objectivec.IObject)
 	SpeechRequestWithMarker(request objectivec.IObject, marker objectivec.IObject)
 	SpeechRequestDidContinue(continue_ objectivec.IObject)
@@ -338,8 +335,8 @@ type ITTSSpeechSynthesizer interface {
 	StartSpeakingSSMLWithLanguageCodeRequestError(ssml objectivec.IObject, code objectivec.IObject, request []objectivec.IObject) (bool, error)
 	StartSpeakingStringError(string_ objectivec.IObject) (bool, error)
 	StartSpeakingStringRequestError(string_ objectivec.IObject, request []objectivec.IObject) (bool, error)
-	StartSpeakingStringToURLWithLanguageCodeError(string_ objectivec.IObject, url foundation.INSURL, code objectivec.IObject) (bool, error)
-	StartSpeakingStringToURLWithLanguageCodeRequestError(string_ objectivec.IObject, url foundation.INSURL, code objectivec.IObject, request []objectivec.IObject) (bool, error)
+	StartSpeakingStringToURLWithLanguageCodeError(string_ objectivec.IObject, url foundation.NSURL, code objectivec.IObject) (bool, error)
+	StartSpeakingStringToURLWithLanguageCodeRequestError(string_ objectivec.IObject, url foundation.NSURL, code objectivec.IObject, request []objectivec.IObject) (bool, error)
 	StartSpeakingStringWithLanguageCodeError(string_ objectivec.IObject, code objectivec.IObject) (bool, error)
 	StartSpeakingStringWithLanguageCodeJobIdentifierRequestError(string_ objectivec.IObject, code objectivec.IObject, identifier objectivec.IObject, request []objectivec.IObject) (bool, error)
 	StartSpeakingStringWithLanguageCodeRequestError(string_ objectivec.IObject, code objectivec.IObject, request []objectivec.IObject) (bool, error)
@@ -385,7 +382,6 @@ func NewTTSSpeechSynthesizer() TTSSpeechSynthesizer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_continueSpeakingRequest:withError:
 func (t TTSSpeechSynthesizer) _continueSpeakingRequestWithError(request objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("_continueSpeakingRequest:withError:"), request, unsafe.Pointer(&errorPtr))
@@ -399,8 +395,6 @@ func (t TTSSpeechSynthesizer) _continueSpeakingRequestWithError(request objectiv
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_makeRequestForVoice:andLanguageCode:
 func (t TTSSpeechSynthesizer) _makeRequestForVoiceAndLanguageCode(voice objectivec.IObject, code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_makeRequestForVoice:andLanguageCode:"), voice, code)
 	return objectivec.Object{ID: rv}
@@ -419,8 +413,6 @@ func (t TTSSpeechSynthesizer) MakeRequestForVoiceAndLanguageCode(voice objective
 func (t TTSSpeechSynthesizer) CanMakeRequestForVoiceAndLanguageCode() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_makeRequestForVoice:andLanguageCode:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_mediaServicesDied
 func (t TTSSpeechSynthesizer) _mediaServicesDied() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_mediaServicesDied"))
 }
@@ -439,8 +431,6 @@ func (t TTSSpeechSynthesizer) MediaServicesDied() error {
 func (t TTSSpeechSynthesizer) CanMediaServicesDied() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_mediaServicesDied"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_pauseSpeakingRequest:atNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) _pauseSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("_pauseSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -454,8 +444,6 @@ func (t TTSSpeechSynthesizer) _pauseSpeakingRequestAtNextBoundarySynchronouslyEr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_preprocessText:languageCode:
 func (t TTSSpeechSynthesizer) _preprocessTextLanguageCode(text objectivec.IObject, code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_preprocessText:languageCode:"), text, code)
 	return objectivec.Object{ID: rv}
@@ -474,8 +462,6 @@ func (t TTSSpeechSynthesizer) PreprocessTextLanguageCode(text objectivec.IObject
 func (t TTSSpeechSynthesizer) CanPreprocessTextLanguageCode() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_preprocessText:languageCode:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_processMarker:forRequest:
 func (t TTSSpeechSynthesizer) _processMarkerForRequest(marker objectivec.IObject, request objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processMarker:forRequest:"), marker, request)
 	return objectivec.Object{ID: rv}
@@ -494,8 +480,6 @@ func (t TTSSpeechSynthesizer) ProcessMarkerForRequest(marker objectivec.IObject,
 func (t TTSSpeechSynthesizer) CanProcessMarkerForRequest() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processMarker:forRequest:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_resolveVoiceForLanguage:
 func (t TTSSpeechSynthesizer) _resolveVoiceForLanguage(language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_resolveVoiceForLanguage:"), language)
 	return objectivec.Object{ID: rv}
@@ -514,13 +498,9 @@ func (t TTSSpeechSynthesizer) ResolveVoiceForLanguage(language objectivec.IObjec
 func (t TTSSpeechSynthesizer) CanResolveVoiceForLanguage() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resolveVoiceForLanguage:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_setDelegate:
 func (t TTSSpeechSynthesizer) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_setDelegate:"), delegate)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:
 func (t TTSSpeechSynthesizer) _startSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError(string_ objectivec.IObject, sSMLString objectivec.IObject, code objectivec.IObject, id objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:"), string_, sSMLString, code, id, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -548,8 +528,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringOrSSMLStringWithLanguageCodeJob
 func (t TTSSpeechSynthesizer) CanStartSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_stopSpeakingRequest:atNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) _stopSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("_stopSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -563,8 +541,6 @@ func (t TTSSpeechSynthesizer) _stopSpeakingRequestAtNextBoundarySynchronouslyErr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/continueSpeakingRequest:withError:
 func (t TTSSpeechSynthesizer) ContinueSpeakingRequestWithError(request objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("continueSpeakingRequest:withError:"), request, unsafe.Pointer(&errorPtr))
@@ -578,8 +554,6 @@ func (t TTSSpeechSynthesizer) ContinueSpeakingRequestWithError(request objective
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/continueSpeakingWithError:
 func (t TTSSpeechSynthesizer) ContinueSpeakingWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("continueSpeakingWithError:"), unsafe.Pointer(&errorPtr))
@@ -593,38 +567,26 @@ func (t TTSSpeechSynthesizer) ContinueSpeakingWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/footprint
 func (t TTSSpeechSynthesizer) Footprint() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("footprint"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/getPerVoiceSettings
 func (t TTSSpeechSynthesizer) GetPerVoiceSettings() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("getPerVoiceSettings"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/isSpeaking
 func (t TTSSpeechSynthesizer) IsSpeaking() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSpeaking"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/maximumRate
 func (t TTSSpeechSynthesizer) MaximumRate() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("maximumRate"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/minimumRate
 func (t TTSSpeechSynthesizer) MinimumRate() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("minimumRate"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pauseSpeakingAtNextBoundary:error:
 func (t TTSSpeechSynthesizer) PauseSpeakingAtNextBoundaryError(boundary int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("pauseSpeakingAtNextBoundary:error:"), boundary, unsafe.Pointer(&errorPtr))
@@ -638,8 +600,6 @@ func (t TTSSpeechSynthesizer) PauseSpeakingAtNextBoundaryError(boundary int64) (
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pauseSpeakingAtNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) PauseSpeakingAtNextBoundarySynchronouslyError(boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("pauseSpeakingAtNextBoundary:synchronously:error:"), boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -653,8 +613,6 @@ func (t TTSSpeechSynthesizer) PauseSpeakingAtNextBoundarySynchronouslyError(boun
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pauseSpeakingRequest:atNextBoundary:error:
 func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundaryError(request objectivec.IObject, boundary int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("pauseSpeakingRequest:atNextBoundary:error:"), request, boundary, unsafe.Pointer(&errorPtr))
@@ -668,8 +626,6 @@ func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundaryError(request ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pauseSpeakingRequest:atNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("pauseSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -683,56 +639,36 @@ func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundarySynchronouslyErr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/resolvedVoiceIdentifierForLanguageCode:
 func (t TTSSpeechSynthesizer) ResolvedVoiceIdentifierForLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resolvedVoiceIdentifierForLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/setAudioBufferCallback:
 func (t TTSSpeechSynthesizer) SetAudioBufferCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](t.ID, objc.Sel("setAudioBufferCallback:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/setFootprint:
 func (t TTSSpeechSynthesizer) SetFootprint(footprint int64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setFootprint:"), footprint)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechRequest:didStopWithSuccess:phonemesSpoken:error:
 func (t TTSSpeechSynthesizer) SpeechRequestDidStopWithSuccessPhonemesSpokenError(request objectivec.IObject, success bool, spoken objectivec.IObject, error_ objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("speechRequest:didStopWithSuccess:phonemesSpoken:error:"), request, success, spoken, error_)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechRequest:withMarker:
 func (t TTSSpeechSynthesizer) SpeechRequestWithMarker(request objectivec.IObject, marker objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("speechRequest:withMarker:"), request, marker)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechRequestDidContinue:
 func (t TTSSpeechSynthesizer) SpeechRequestDidContinue(continue_ objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("speechRequestDidContinue:"), continue_)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechRequestDidPause:
 func (t TTSSpeechSynthesizer) SpeechRequestDidPause(pause objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("speechRequestDidPause:"), pause)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechRequestDidStart:
 func (t TTSSpeechSynthesizer) SpeechRequestDidStart(start objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("speechRequestDidStart:"), start)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechString
 func (t TTSSpeechSynthesizer) SpeechString() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechString"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingSSML:withLanguageCode:jobIdentifier:request:error:
 func (t TTSSpeechSynthesizer) StartSpeakingSSMLWithLanguageCodeJobIdentifierRequestError(ssml objectivec.IObject, code objectivec.IObject, identifier objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingSSML:withLanguageCode:jobIdentifier:request:error:"), ssml, code, identifier, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -746,8 +682,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingSSMLWithLanguageCodeJobIdentifierRequ
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingSSML:withLanguageCode:request:error:
 func (t TTSSpeechSynthesizer) StartSpeakingSSMLWithLanguageCodeRequestError(ssml objectivec.IObject, code objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingSSML:withLanguageCode:request:error:"), ssml, code, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -761,8 +695,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingSSMLWithLanguageCodeRequestError(ssml
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:error:
 func (t TTSSpeechSynthesizer) StartSpeakingStringError(string_ objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:error:"), string_, unsafe.Pointer(&errorPtr))
@@ -776,8 +708,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringError(string_ objectivec.IObjec
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:request:error:
 func (t TTSSpeechSynthesizer) StartSpeakingStringRequestError(string_ objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:request:error:"), string_, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -791,9 +721,7 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringRequestError(string_ objectivec
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:toURL:withLanguageCode:error:
-func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeError(string_ objectivec.IObject, url foundation.INSURL, code objectivec.IObject) (bool, error) {
+func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeError(string_ objectivec.IObject, url foundation.NSURL, code objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:toURL:withLanguageCode:error:"), string_, url, code, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -806,9 +734,7 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeError(stri
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:toURL:withLanguageCode:request:error:
-func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeRequestError(string_ objectivec.IObject, url foundation.INSURL, code objectivec.IObject, request []objectivec.IObject) (bool, error) {
+func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeRequestError(string_ objectivec.IObject, url foundation.NSURL, code objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:toURL:withLanguageCode:request:error:"), string_, url, code, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -821,8 +747,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringToURLWithLanguageCodeRequestErr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:withLanguageCode:error:
 func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeError(string_ objectivec.IObject, code objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:withLanguageCode:error:"), string_, code, unsafe.Pointer(&errorPtr))
@@ -836,8 +760,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeError(string_ o
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:withLanguageCode:jobIdentifier:request:error:
 func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeJobIdentifierRequestError(string_ objectivec.IObject, code objectivec.IObject, identifier objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:withLanguageCode:jobIdentifier:request:error:"), string_, code, identifier, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -851,8 +773,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeJobIdentifierRe
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/startSpeakingString:withLanguageCode:request:error:
 func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeRequestError(string_ objectivec.IObject, code objectivec.IObject, request []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startSpeakingString:withLanguageCode:request:error:"), string_, code, objectivec.IObjectSliceToNSArray(request), unsafe.Pointer(&errorPtr))
@@ -866,8 +786,6 @@ func (t TTSSpeechSynthesizer) StartSpeakingStringWithLanguageCodeRequestError(st
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/stopSpeakingAtNextBoundary:error:
 func (t TTSSpeechSynthesizer) StopSpeakingAtNextBoundaryError(boundary int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("stopSpeakingAtNextBoundary:error:"), boundary, unsafe.Pointer(&errorPtr))
@@ -881,8 +799,6 @@ func (t TTSSpeechSynthesizer) StopSpeakingAtNextBoundaryError(boundary int64) (b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/stopSpeakingAtNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) StopSpeakingAtNextBoundarySynchronouslyError(boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("stopSpeakingAtNextBoundary:synchronously:error:"), boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -896,8 +812,6 @@ func (t TTSSpeechSynthesizer) StopSpeakingAtNextBoundarySynchronouslyError(bound
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/stopSpeakingRequest:atNextBoundary:error:
 func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundaryError(request objectivec.IObject, boundary int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("stopSpeakingRequest:atNextBoundary:error:"), request, boundary, unsafe.Pointer(&errorPtr))
@@ -911,8 +825,6 @@ func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundaryError(request obj
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/stopSpeakingRequest:atNextBoundary:synchronously:error:
 func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("stopSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
@@ -926,35 +838,24 @@ func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundarySynchronouslyErro
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/testingLastRuleConversion
 func (t TTSSpeechSynthesizer) TestingLastRuleConversion() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("testingLastRuleConversion"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/testingSetLastRuleConversion:replacement:
 func (t TTSSpeechSynthesizer) TestingSetLastRuleConversionReplacement(conversion objectivec.IObject, replacement objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("testingSetLastRuleConversion:replacement:"), conversion, replacement)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/updateCoreSynthSubstitutions
 func (t TTSSpeechSynthesizer) UpdateCoreSynthSubstitutions() {
 	objc.Send[objc.ID](t.ID, objc.Sel("updateCoreSynthSubstitutions"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/useSpecificAudioSession:
 func (t TTSSpeechSynthesizer) UseSpecificAudioSession(session uint32) {
 	objc.Send[objc.ID](t.ID, objc.Sel("useSpecificAudioSession:"), session)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/voiceResolver
 func (t TTSSpeechSynthesizer) VoiceResolver() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceResolver"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_speechVoiceForIdentifier:language:footprint:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) _speechVoiceForIdentifierLanguageFootprint(identifier objectivec.IObject, language objectivec.IObject, footprint int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("_speechVoiceForIdentifier:language:footprint:"), identifier, language, footprint)
 	return objectivec.Object{ID: rv}
@@ -973,74 +874,51 @@ func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) SpeechVoiceForIdenti
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) CanSpeechVoiceForIdentifierLanguageFootprint() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("_speechVoiceForIdentifier:language:footprint:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/audioFileSettingsForVoice:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) AudioFileSettingsForVoice(voice objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("audioFileSettingsForVoice:"), voice)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/availableLanguageCodes
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) AvailableLanguageCodes() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("availableLanguageCodes"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/combinedProsodyMarkupForIdentifier:string:rate:pitch:volume:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) CombinedProsodyMarkupForIdentifierStringRatePitchVolume(identifier objectivec.IObject, string_ objectivec.IObject, rate objectivec.IObject, pitch objectivec.IObject, volume objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("combinedProsodyMarkupForIdentifier:string:rate:pitch:volume:"), identifier, string_, rate, pitch, volume)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/employSpeechMarkupForType:identifier:withLanguage:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) EmploySpeechMarkupForTypeIdentifierWithLanguage(type_ int64, identifier objectivec.IObject, language objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("employSpeechMarkupForType:identifier:withLanguage:"), type_, identifier, language)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/genericMarkMarkupForIdentifier:name:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) GenericMarkMarkupForIdentifierName(identifier objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("genericMarkMarkupForIdentifier:name:"), identifier, name)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/isSystemVoice:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) IsSystemVoice(voice objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("isSystemVoice:"), voice)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/remapVoiceIdentifier:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) RemapVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("remapVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechMarkupStringForType:forIdentifier:string:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) SpeechMarkupStringForTypeForIdentifierString(type_ int64, identifier objectivec.IObject, string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("speechMarkupStringForType:forIdentifier:string:"), type_, identifier, string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/supportedIPAPhonemeLanguages
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) SupportedIPAPhonemeLanguages() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("supportedIPAPhonemeLanguages"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/unavailableVoiceIdentifiers
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) UnavailableVoiceIdentifiers() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("unavailableVoiceIdentifiers"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/voiceForIdentifier:
 func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) VoiceForIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("voiceForIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/audioDeviceId
 func (t TTSSpeechSynthesizer) AudioDeviceId() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioDeviceId"))
 	return rv
@@ -1048,8 +926,6 @@ func (t TTSSpeechSynthesizer) AudioDeviceId() uint32 {
 func (t TTSSpeechSynthesizer) SetAudioDeviceId(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioDeviceId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/audioEffects
 func (t TTSSpeechSynthesizer) AudioEffects() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioEffects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1057,8 +933,6 @@ func (t TTSSpeechSynthesizer) AudioEffects() foundation.INSArray {
 func (t TTSSpeechSynthesizer) SetAudioEffects(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioEffects:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/audioQueueFlags
 func (t TTSSpeechSynthesizer) AudioQueueFlags() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
 	return rv
@@ -1066,8 +940,6 @@ func (t TTSSpeechSynthesizer) AudioQueueFlags() uint32 {
 func (t TTSSpeechSynthesizer) SetAudioQueueFlags(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/bundleIdentifier
 func (t TTSSpeechSynthesizer) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -1075,8 +947,6 @@ func (t TTSSpeechSynthesizer) BundleIdentifier() string {
 func (t TTSSpeechSynthesizer) SetBundleIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/coreSynth
 func (t TTSSpeechSynthesizer) CoreSynth() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("coreSynth"))
 	return rv
@@ -1084,17 +954,13 @@ func (t TTSSpeechSynthesizer) CoreSynth() unsafe.Pointer {
 func (t TTSSpeechSynthesizer) SetCoreSynth(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCoreSynth:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/delegate
-func (t TTSSpeechSynthesizer) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (t TTSSpeechSynthesizer) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("delegate"))
+	return rv
 }
-func (t TTSSpeechSynthesizer) SetDelegate(value objectivec.IObject) {
+func (t TTSSpeechSynthesizer) SetDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/delegateTargetQueue
 func (t TTSSpeechSynthesizer) DelegateTargetQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("delegateTargetQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -1102,8 +968,6 @@ func (t TTSSpeechSynthesizer) DelegateTargetQueue() objectivec.Object {
 func (t TTSSpeechSynthesizer) SetDelegateTargetQueue(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegateTargetQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/ignoreSubstitutions
 func (t TTSSpeechSynthesizer) IgnoreSubstitutions() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("ignoreSubstitutions"))
 	return rv
@@ -1111,8 +975,6 @@ func (t TTSSpeechSynthesizer) IgnoreSubstitutions() bool {
 func (t TTSSpeechSynthesizer) SetIgnoreSubstitutions(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIgnoreSubstitutions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/normalizedRate
 func (t TTSSpeechSynthesizer) NormalizedRate() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("normalizedRate"))
 	return rv
@@ -1120,8 +982,6 @@ func (t TTSSpeechSynthesizer) NormalizedRate() float32 {
 func (t TTSSpeechSynthesizer) SetNormalizedRate(value float32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNormalizedRate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/outputChannels
 func (t TTSSpeechSynthesizer) OutputChannels() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputChannels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1129,8 +989,6 @@ func (t TTSSpeechSynthesizer) OutputChannels() foundation.INSArray {
 func (t TTSSpeechSynthesizer) SetOutputChannels(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOutputChannels:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/perVoiceSettings
 func (t TTSSpeechSynthesizer) PerVoiceSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("perVoiceSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -1138,8 +996,6 @@ func (t TTSSpeechSynthesizer) PerVoiceSettings() foundation.INSDictionary {
 func (t TTSSpeechSynthesizer) SetPerVoiceSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPerVoiceSettings:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/phonemeSubstitutions
 func (t TTSSpeechSynthesizer) PhonemeSubstitutions() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phonemeSubstitutions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1147,8 +1003,6 @@ func (t TTSSpeechSynthesizer) PhonemeSubstitutions() foundation.INSArray {
 func (t TTSSpeechSynthesizer) SetPhonemeSubstitutions(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhonemeSubstitutions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pitch
 func (t TTSSpeechSynthesizer) Pitch() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("pitch"))
 	return rv
@@ -1156,8 +1010,6 @@ func (t TTSSpeechSynthesizer) Pitch() float32 {
 func (t TTSSpeechSynthesizer) SetPitch(value float32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPitch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/rate
 func (t TTSSpeechSynthesizer) Rate() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("rate"))
 	return rv
@@ -1165,8 +1017,6 @@ func (t TTSSpeechSynthesizer) Rate() float32 {
 func (t TTSSpeechSynthesizer) SetRate(value float32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/requestClientIdentifier
 func (t TTSSpeechSynthesizer) RequestClientIdentifier() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("requestClientIdentifier"))
 	return rv
@@ -1174,14 +1024,10 @@ func (t TTSSpeechSynthesizer) RequestClientIdentifier() uint64 {
 func (t TTSSpeechSynthesizer) SetRequestClientIdentifier(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRequestClientIdentifier:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/resolvedVoiceIdentifier
 func (t TTSSpeechSynthesizer) ResolvedVoiceIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resolvedVoiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/skipLuthorRules
 func (t TTSSpeechSynthesizer) SkipLuthorRules() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("skipLuthorRules"))
 	return rv
@@ -1189,17 +1035,13 @@ func (t TTSSpeechSynthesizer) SkipLuthorRules() bool {
 func (t TTSSpeechSynthesizer) SetSkipLuthorRules(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSkipLuthorRules:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speakingRequestClientContext
 func (t TTSSpeechSynthesizer) SpeakingRequestClientContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("speakingRequestClientContext"))
 	return rv
 }
-func (t TTSSpeechSynthesizer) SetSpeakingRequestClientContext(value unsafe.Pointer) {
+func (t TTSSpeechSynthesizer) SetSpeakingRequestClientContext(value kernel.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSpeakingRequestClientContext:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/speechSource
 func (t TTSSpeechSynthesizer) SpeechSource() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechSource"))
 	return foundation.NSStringFromID(rv).String()
@@ -1207,8 +1049,6 @@ func (t TTSSpeechSynthesizer) SpeechSource() string {
 func (t TTSSpeechSynthesizer) SetSpeechSource(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSpeechSource:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/supportsAccurateWordCallbacks
 func (t TTSSpeechSynthesizer) SupportsAccurateWordCallbacks() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("supportsAccurateWordCallbacks"))
 	return rv
@@ -1216,8 +1056,6 @@ func (t TTSSpeechSynthesizer) SupportsAccurateWordCallbacks() bool {
 func (t TTSSpeechSynthesizer) SetSupportsAccurateWordCallbacks(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSupportsAccurateWordCallbacks:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/synthesizeSilently
 func (t TTSSpeechSynthesizer) SynthesizeSilently() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("synthesizeSilently"))
 	return rv
@@ -1225,8 +1063,6 @@ func (t TTSSpeechSynthesizer) SynthesizeSilently() bool {
 func (t TTSSpeechSynthesizer) SetSynthesizeSilently(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSynthesizeSilently:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/userSubstitutions
 func (t TTSSpeechSynthesizer) UserSubstitutions() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("userSubstitutions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1234,8 +1070,6 @@ func (t TTSSpeechSynthesizer) UserSubstitutions() foundation.INSArray {
 func (t TTSSpeechSynthesizer) SetUserSubstitutions(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUserSubstitutions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/voiceIdentifier
 func (t TTSSpeechSynthesizer) VoiceIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -1243,8 +1077,6 @@ func (t TTSSpeechSynthesizer) VoiceIdentifier() string {
 func (t TTSSpeechSynthesizer) SetVoiceIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/volume
 func (t TTSSpeechSynthesizer) Volume() float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("volume"))
 	return rv
@@ -1252,8 +1084,6 @@ func (t TTSSpeechSynthesizer) Volume() float32 {
 func (t TTSSpeechSynthesizer) SetVolume(value float32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVolume:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/voucher
 func (t TTSSpeechSynthesizer) Voucher() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voucher"))
 	return objectivec.ObjectFromID(objc.ID(rv))

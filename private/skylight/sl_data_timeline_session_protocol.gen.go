@@ -8,24 +8,16 @@ import (
 )
 
 // SLDataTimelineSession protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession
 type SLDataTimelineSession interface {
 	objectivec.IObject
 
 	// AuditID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/auditID
 	AuditID() int
 
 	// CgID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/cgID
 	CgID() uint32
 
 	// CurrentSnapshotMember protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/currentSnapshotMember
 	CurrentSnapshotMember() bool
 }
 
@@ -46,25 +38,18 @@ func SLDataTimelineSessionObjectFromID(id objc.ID) SLDataTimelineSessionObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/auditID
 func (o SLDataTimelineSessionObject) AuditID() int {
 	rv := objc.Send[int](o.ID, objc.Sel("auditID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/cgID
 func (o SLDataTimelineSessionObject) CgID() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("cgID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/currentSnapshotMember
 func (o SLDataTimelineSessionObject) CurrentSnapshotMember() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("currentSnapshotMember"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSession/processData
 func (o SLDataTimelineSessionObject) ProcessData() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("processData"))
 	return objectivec.Object{ID: rv}

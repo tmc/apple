@@ -53,8 +53,6 @@ func (mc MLComputeDataSourceClass) Alloc() MLComputeDataSource {
 //   - [MLComputeDataSource.DataDictionary]
 //   - [MLComputeDataSource.OneHotEncodedDataFromFeatureValueWithNNEngineError]
 //   - [MLComputeDataSource.InitWithFeatureProviderForPredictionNeuralNetworkEngineError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource
 type MLComputeDataSource struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IMLComputeDataSource = MLComputeDataSource{}
 //   - [IMLComputeDataSource.DataDictionary]
 //   - [IMLComputeDataSource.OneHotEncodedDataFromFeatureValueWithNNEngineError]
 //   - [IMLComputeDataSource.InitWithFeatureProviderForPredictionNeuralNetworkEngineError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource
 type IMLComputeDataSource interface {
 	objectivec.IObject
 
@@ -111,7 +107,6 @@ func NewMLComputeDataSource() MLComputeDataSource {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLComputeDataSourceClass().Alloc()
@@ -123,7 +118,6 @@ func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineErro
 	return MLComputeDataSourceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromChanneledPixelType:channelOrderIsBGR:error:
 func (m MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError(type_ corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromChanneledPixelType:channelOrderIsBGR:error:"), type_, bgr, unsafe.Pointer(&errorPtr))
@@ -134,8 +128,6 @@ func (m MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelBuffer:channelOrderIsBGR:error:
 func (m MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
@@ -146,8 +138,6 @@ func (m MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelTypeGray8:error:
 func (m MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVImageBufferRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromPixelTypeGray8:error:"), gray8, unsafe.Pointer(&errorPtr))
@@ -158,8 +148,6 @@ func (m MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVIm
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/oneHotEncodedDataFromFeatureValue:withNNEngine:error:
 func (m MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(value objectivec.IObject, nNEngine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("oneHotEncodedDataFromFeatureValue:withNNEngine:error:"), value, nNEngine, unsafe.Pointer(&errorPtr))
@@ -170,8 +158,6 @@ func (m MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func (m MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
@@ -183,7 +169,6 @@ func (m MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEn
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataDictionary
 func (m MLComputeDataSource) DataDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

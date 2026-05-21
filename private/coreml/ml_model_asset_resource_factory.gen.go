@@ -57,8 +57,6 @@ func (mc MLModelAssetResourceFactoryClass) Alloc() MLModelAssetResourceFactory {
 //   - [MLModelAssetResourceFactory.ModelWithConfigurationError]
 //   - [MLModelAssetResourceFactory.StructureLoadQueue]
 //   - [MLModelAssetResourceFactory.InitWithImpl]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory
 type MLModelAssetResourceFactory struct {
 	objectivec.Object
 }
@@ -85,16 +83,14 @@ var _ IMLModelAssetResourceFactory = MLModelAssetResourceFactory{}
 //   - [IMLModelAssetResourceFactory.ModelWithConfigurationError]
 //   - [IMLModelAssetResourceFactory.StructureLoadQueue]
 //   - [IMLModelAssetResourceFactory.InitWithImpl]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory
 type IMLModelAssetResourceFactory interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	CompiledModelURL() foundation.INSURL
+	CompiledModelURL() foundation.NSURL
 	DescriptionLoadQueue() objectivec.Object
-	Impl() objectivec.IObject
+	Impl() unsafe.Pointer
 	ModelAssetDescriptionWithCompletionHandler(handler ErrorHandler)
 	ModelLoadQueue() objectivec.Object
 	ModelStructureWithCompletionHandler(handler ErrorHandler)
@@ -123,32 +119,24 @@ func NewMLModelAssetResourceFactory() MLModelAssetResourceFactory {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/initWithImpl:
 func NewModelAssetResourceFactoryWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
 	instance := getMLModelAssetResourceFactoryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return MLModelAssetResourceFactoryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/modelAssetDescriptionWithCompletionHandler:
 func (m MLModelAssetResourceFactory) ModelAssetDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescriptionWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/modelStructureWithCompletionHandler:
 func (m MLModelAssetResourceFactory) ModelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/modelWithConfiguration:completionHandler:
 func (m MLModelAssetResourceFactory) ModelWithConfigurationCompletionHandler(configuration objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelWithConfiguration:completionHandler:"), configuration, _block1)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/modelWithConfiguration:error:
 func (m MLModelAssetResourceFactory) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -159,21 +147,16 @@ func (m MLModelAssetResourceFactory) ModelWithConfigurationError(configuration o
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/initWithImpl:
 func (m MLModelAssetResourceFactory) InitWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
 	rv := objc.Send[MLModelAssetResourceFactory](m.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/resourceFactoryWithArchiveData:
 func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) ResourceFactoryWithArchiveData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetResourceFactoryClass.class), objc.Sel("resourceFactoryWithArchiveData:"), data)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/resourceFactoryWithModelURL:error:
-func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) ResourceFactoryWithModelURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) ResourceFactoryWithModelURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetResourceFactoryClass.class), objc.Sel("resourceFactoryWithModelURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -184,31 +167,22 @@ func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) Resour
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/compiledModelURL
-func (m MLModelAssetResourceFactory) CompiledModelURL() foundation.INSURL {
+func (m MLModelAssetResourceFactory) CompiledModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/descriptionLoadQueue
 func (m MLModelAssetResourceFactory) DescriptionLoadQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptionLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/impl
-func (m MLModelAssetResourceFactory) Impl() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("impl"))
-	return objectivec.Object{ID: rv}
+func (m MLModelAssetResourceFactory) Impl() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("impl"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/modelLoadQueue
 func (m MLModelAssetResourceFactory) ModelLoadQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactory/structureLoadQueue
 func (m MLModelAssetResourceFactory) StructureLoadQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("structureLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

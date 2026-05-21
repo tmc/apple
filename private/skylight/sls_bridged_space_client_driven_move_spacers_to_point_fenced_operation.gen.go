@@ -52,8 +52,6 @@ func (sc SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass) Allo
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.Point]
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.VerticalIndex]
 //   - [SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation
 type SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -77,8 +75,6 @@ var _ ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation = SLSBridged
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.Point]
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.VerticalIndex]
 //   - [ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation.InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation
 type ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -112,57 +108,43 @@ func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation() SLSBridge
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/initWithCoder:
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64, port uint32) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64, port uint32) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/drivingSpaceID
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) DrivingSpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("drivingSpaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/fencePort
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) FencePort() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("fencePort"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/horizontalIndex
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) HorizontalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/options
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Options() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/point
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Point() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation/verticalIndex
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) VerticalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv

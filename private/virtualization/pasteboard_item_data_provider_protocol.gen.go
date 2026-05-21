@@ -8,8 +8,6 @@ import (
 )
 
 // NSPasteboardItemDataProvider protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/NSPasteboardItemDataProvider
 type NSPasteboardItemDataProvider interface {
 	objectivec.IObject
 }
@@ -31,12 +29,9 @@ func NSPasteboardItemDataProviderObjectFromID(id objc.ID) NSPasteboardItemDataPr
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/NSPasteboardItemDataProvider/pasteboard:item:provideDataForType:
 func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pasteboard objectivec.IObject, item objectivec.IObject, type_ objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/NSPasteboardItemDataProvider/pasteboardFinishedWithDataProvider:
 func (o NSPasteboardItemDataProviderObject) PasteboardFinishedWithDataProvider(provider objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboardFinishedWithDataProvider:"), provider)
 }

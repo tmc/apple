@@ -41,7 +41,6 @@ func (ec EspressoPassFastspeechClass) Alloc() EspressoPassFastspeech {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fastspeech
 type EspressoPassFastspeech struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fastspeechFromID(id objc.ID) EspressoPassFastspeech {
 var _ IEspressoPassFastspeech = EspressoPassFastspeech{}
 
 // An interface definition for the [EspressoPassFastspeech] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fastspeech
 type IEspressoPassFastspeech interface {
 	IEspressoCustomPass
 }

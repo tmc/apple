@@ -42,7 +42,6 @@ func (tc TextToSpeechDebouncerClass) Alloc() TextToSpeechDebouncer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.Debouncer
 type TextToSpeechDebouncer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechDebouncerFromID(id objc.ID) TextToSpeechDebouncer {
 // ITextToSpeechDebouncer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechDebouncer] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.Debouncer
 type ITextToSpeechDebouncer interface {
 	objectivec.IObject
 }

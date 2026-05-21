@@ -49,8 +49,6 @@ func (mc MLAppleAudioFeatureExtractorClass) Alloc() MLAppleAudioFeatureExtractor
 //   - [MLAppleAudioFeatureExtractor.Parameters]
 //   - [MLAppleAudioFeatureExtractor.PredictionFromFeaturesOptionsError]
 //   - [MLAppleAudioFeatureExtractor.InitWithParametersModelDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor
 type MLAppleAudioFeatureExtractor struct {
 	MLModel
 }
@@ -70,8 +68,6 @@ var _ IMLAppleAudioFeatureExtractor = MLAppleAudioFeatureExtractor{}
 //   - [IMLAppleAudioFeatureExtractor.Parameters]
 //   - [IMLAppleAudioFeatureExtractor.PredictionFromFeaturesOptionsError]
 //   - [IMLAppleAudioFeatureExtractor.InitWithParametersModelDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor
 type IMLAppleAudioFeatureExtractor interface {
 	IMLModel
 
@@ -101,7 +97,6 @@ func NewMLAppleAudioFeatureExtractor() MLAppleAudioFeatureExtractor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleAudioFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
@@ -113,7 +108,6 @@ func NewAppleAudioFeatureExtractorDescriptionOnlyWithSpecificationConfigurationE
 	return MLAppleAudioFeatureExtractorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleAudioFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
@@ -125,35 +119,30 @@ func NewAppleAudioFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(a
 	return MLAppleAudioFeatureExtractorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleAudioFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleAudioFeatureExtractorWithDescription(description objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleAudioFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleAudioFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/initWithParameters:modelDescription:configuration:error:
 func NewAppleAudioFeatureExtractorWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
@@ -165,7 +154,6 @@ func NewAppleAudioFeatureExtractorWithParametersModelDescriptionConfigurationErr
 	return MLAppleAudioFeatureExtractorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/predictionFromFeatures:options:error:
 func (m MLAppleAudioFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -176,8 +164,6 @@ func (m MLAppleAudioFeatureExtractor) PredictionFromFeaturesOptionsError(feature
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/initWithParameters:modelDescription:configuration:error:
 func (m MLAppleAudioFeatureExtractor) InitWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))
@@ -189,7 +175,6 @@ func (m MLAppleAudioFeatureExtractor) InitWithParametersModelDescriptionConfigur
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/loadModelFromSpecification:configuration:error:
 func (_MLAppleAudioFeatureExtractorClass MLAppleAudioFeatureExtractorClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLAppleAudioFeatureExtractorClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -201,7 +186,6 @@ func (_MLAppleAudioFeatureExtractorClass MLAppleAudioFeatureExtractorClass) Load
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/parameters
 func (m MLAppleAudioFeatureExtractor) Parameters() IMLAppleAudioFeatureExtractorParameters {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleAudioFeatureExtractorParametersFromID(objc.ID(rv))

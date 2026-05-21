@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -48,8 +49,6 @@ func (sc SLSDisplayWallGroupClass) Alloc() SLSDisplayWallGroup {
 //   - [SLSDisplayWallGroup.DisplayIDs]
 //   - [SLSDisplayWallGroup.GroupID]
 //   - [SLSDisplayWallGroup.InitWithCGDisplayWallGroup]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup
 type SLSDisplayWallGroup struct {
 	objectivec.Object
 }
@@ -69,8 +68,6 @@ var _ ISLSDisplayWallGroup = SLSDisplayWallGroup{}
 //   - [ISLSDisplayWallGroup.DisplayIDs]
 //   - [ISLSDisplayWallGroup.GroupID]
 //   - [ISLSDisplayWallGroup.InitWithCGDisplayWallGroup]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup
 type ISLSDisplayWallGroup interface {
 	objectivec.IObject
 
@@ -78,7 +75,7 @@ type ISLSDisplayWallGroup interface {
 
 	DisplayIDs() foundation.INSArray
 	GroupID() foundation.NSNumber
-	InitWithCGDisplayWallGroup(group objectivec.IObject) SLSDisplayWallGroup
+	InitWithCGDisplayWallGroup(group unsafe.Pointer) SLSDisplayWallGroup
 }
 
 // Init initializes the instance.
@@ -100,26 +97,21 @@ func NewSLSDisplayWallGroup() SLSDisplayWallGroup {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup/initWithCGDisplayWallGroup:
-func NewSLSDisplayWallGroupWithCGDisplayWallGroup(group objectivec.IObject) SLSDisplayWallGroup {
+func NewSLSDisplayWallGroupWithCGDisplayWallGroup(group unsafe.Pointer) SLSDisplayWallGroup {
 	instance := getSLSDisplayWallGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
 	return SLSDisplayWallGroupFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup/initWithCGDisplayWallGroup:
-func (s SLSDisplayWallGroup) InitWithCGDisplayWallGroup(group objectivec.IObject) SLSDisplayWallGroup {
+func (s SLSDisplayWallGroup) InitWithCGDisplayWallGroup(group unsafe.Pointer) SLSDisplayWallGroup {
 	rv := objc.Send[SLSDisplayWallGroup](s.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup/displayIDs
 func (s SLSDisplayWallGroup) DisplayIDs() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIDs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallGroup/groupID
 func (s SLSDisplayWallGroup) GroupID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))

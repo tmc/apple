@@ -46,8 +46,6 @@ func (mc MLAppleAudioFeatureExtractorParametersClass) Alloc() MLAppleAudioFeatur
 //
 //   - [MLAppleAudioFeatureExtractorParameters.FeatureExtractorParameters]
 //   - [MLAppleAudioFeatureExtractorParameters.InitWithSoundPrintParameters]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters
 type MLAppleAudioFeatureExtractorParameters struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IMLAppleAudioFeatureExtractorParameters = MLAppleAudioFeatureExtractorPara
 //
 //   - [IMLAppleAudioFeatureExtractorParameters.FeatureExtractorParameters]
 //   - [IMLAppleAudioFeatureExtractorParameters.InitWithSoundPrintParameters]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters
 type IMLAppleAudioFeatureExtractorParameters interface {
 	objectivec.IObject
 
@@ -96,20 +92,17 @@ func NewMLAppleAudioFeatureExtractorParameters() MLAppleAudioFeatureExtractorPar
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters/initWithSoundPrintParameters:
 func NewAppleAudioFeatureExtractorParametersWithSoundPrintParameters(parameters objectivec.IObject) MLAppleAudioFeatureExtractorParameters {
 	instance := getMLAppleAudioFeatureExtractorParametersClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSoundPrintParameters:"), parameters)
 	return MLAppleAudioFeatureExtractorParametersFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters/initWithSoundPrintParameters:
 func (m MLAppleAudioFeatureExtractorParameters) InitWithSoundPrintParameters(parameters objectivec.IObject) MLAppleAudioFeatureExtractorParameters {
 	rv := objc.Send[MLAppleAudioFeatureExtractorParameters](m.ID, objc.Sel("initWithSoundPrintParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters/featureExtractorParameters
 func (m MLAppleAudioFeatureExtractorParameters) FeatureExtractorParameters() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureExtractorParameters"))
 	return objectivec.Object{ID: rv}

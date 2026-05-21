@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -47,8 +48,6 @@ func (mc MLMetalDeviceChangeInfoClass) Alloc() MLMetalDeviceChangeInfo {
 //   - [MLMetalDeviceChangeInfo.ChangeType]
 //   - [MLMetalDeviceChangeInfo.MetalDevice]
 //   - [MLMetalDeviceChangeInfo.InitWithMetalDeviceChangeType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo
 type MLMetalDeviceChangeInfo struct {
 	objectivec.Object
 }
@@ -68,15 +67,13 @@ var _ IMLMetalDeviceChangeInfo = MLMetalDeviceChangeInfo{}
 //   - [IMLMetalDeviceChangeInfo.ChangeType]
 //   - [IMLMetalDeviceChangeInfo.MetalDevice]
 //   - [IMLMetalDeviceChangeInfo.InitWithMetalDeviceChangeType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo
 type IMLMetalDeviceChangeInfo interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	ChangeType() int64
-	MetalDevice() objectivec.IObject
+	MetalDevice() unsafe.Pointer
 	InitWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo
 }
 
@@ -99,27 +96,22 @@ func NewMLMetalDeviceChangeInfo() MLMetalDeviceChangeInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo/initWithMetalDevice:changeType:
 func NewMetalDeviceChangeInfoWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
 	instance := getMLMetalDeviceChangeInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
 	return MLMetalDeviceChangeInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo/initWithMetalDevice:changeType:
 func (m MLMetalDeviceChangeInfo) InitWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
 	rv := objc.Send[MLMetalDeviceChangeInfo](m.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo/changeType
 func (m MLMetalDeviceChangeInfo) ChangeType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("changeType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceChangeInfo/metalDevice
-func (m MLMetalDeviceChangeInfo) MetalDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metalDevice"))
-	return objectivec.Object{ID: rv}
+func (m MLMetalDeviceChangeInfo) MetalDevice() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("metalDevice"))
+	return rv
 }

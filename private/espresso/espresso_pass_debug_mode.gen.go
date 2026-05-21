@@ -41,7 +41,6 @@ func (ec EspressoPassDebugModeClass) Alloc() EspressoPassDebugMode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_debug_mode
 type EspressoPassDebugMode struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_debug_modeFromID(id objc.ID) EspressoPassDebugMode {
 var _ IEspressoPassDebugMode = EspressoPassDebugMode{}
 
 // An interface definition for the [EspressoPassDebugMode] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_debug_mode
 type IEspressoPassDebugMode interface {
 	IEspressoCustomPass
 }

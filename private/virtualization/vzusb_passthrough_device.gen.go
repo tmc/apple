@@ -60,8 +60,6 @@ func (vc VZUSBPassthroughDeviceClass) Alloc() VZUSBPassthroughDevice {
 //   - [VZUSBPassthroughDevice.Description]
 //   - [VZUSBPassthroughDevice.Hash]
 //   - [VZUSBPassthroughDevice.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice
 type VZUSBPassthroughDevice struct {
 	objectivec.Object
 }
@@ -92,15 +90,13 @@ var _ IVZUSBPassthroughDevice = VZUSBPassthroughDevice{}
 //   - [IVZUSBPassthroughDevice.Description]
 //   - [IVZUSBPassthroughDevice.Hash]
 //   - [IVZUSBPassthroughDevice.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice
 type IVZUSBPassthroughDevice interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Configuration() *VZUSBPassthroughDeviceConfiguration
-	SetConfiguration(value *VZUSBPassthroughDeviceConfiguration)
+	Configuration() IVZUSBPassthroughDeviceConfiguration
+	SetConfiguration(value IVZUSBPassthroughDeviceConfiguration)
 	IsPointingDevice() bool
 	Signature() objectivec.IObject
 	UsbController() IVZUSBController
@@ -112,7 +108,7 @@ type IVZUSBPassthroughDevice interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -134,7 +130,6 @@ func NewVZUSBPassthroughDevice() VZUSBPassthroughDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/initWithConfiguration:error:
 func NewVZUSBPassthroughDeviceWithConfigurationError(configuration objectivec.IObject) (VZUSBPassthroughDevice, error) {
 	var errorPtr objc.ID
 	instance := getVZUSBPassthroughDeviceClass().Alloc()
@@ -146,72 +141,48 @@ func NewVZUSBPassthroughDeviceWithConfigurationError(configuration objectivec.IO
 	return VZUSBPassthroughDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/signature
 func (v VZUSBPassthroughDevice) Signature() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/initWithConfiguration:error:
 func (v VZUSBPassthroughDevice) InitWithConfigurationError(configuration objectivec.IObject) (VZUSBPassthroughDevice, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZUSBPassthroughDevice{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZUSBPassthroughDevice), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZUSBPassthroughDeviceFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/configuration
-func (v VZUSBPassthroughDevice) Configuration() *VZUSBPassthroughDeviceConfiguration {
+func (v VZUSBPassthroughDevice) Configuration() IVZUSBPassthroughDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configuration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZUSBPassthroughDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZUSBPassthroughDeviceConfigurationFromID(objc.ID(rv))
 }
-func (v VZUSBPassthroughDevice) SetConfiguration(value *VZUSBPassthroughDeviceConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZUSBPassthroughDevice) SetConfiguration(value IVZUSBPassthroughDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/debugDescription
 func (v VZUSBPassthroughDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/description
 func (v VZUSBPassthroughDevice) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/hash
 func (v VZUSBPassthroughDevice) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/isPointingDevice
 func (v VZUSBPassthroughDevice) IsPointingDevice() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPointingDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/superclass
-func (v VZUSBPassthroughDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZUSBPassthroughDevice) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/usbController
 func (v VZUSBPassthroughDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
@@ -219,14 +190,10 @@ func (v VZUSBPassthroughDevice) UsbController() IVZUSBController {
 func (v VZUSBPassthroughDevice) SetUsbController(value IVZUSBController) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsbController:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/uuid
 func (v VZUSBPassthroughDevice) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/virtualMachine
 func (v VZUSBPassthroughDevice) VirtualMachine() IVZVirtualMachine {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("virtualMachine"))
 	return VZVirtualMachineFromID(objc.ID(rv))

@@ -41,7 +41,6 @@ func (ec EspressoPassMergePytorchLayernormClass) Alloc() EspressoPassMergePytorc
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_pytorch_layernorm
 type EspressoPassMergePytorchLayernorm struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_merge_pytorch_layernormFromID(id objc.ID) EspressoPassMergePyt
 var _ IEspressoPassMergePytorchLayernorm = EspressoPassMergePytorchLayernorm{}
 
 // An interface definition for the [EspressoPassMergePytorchLayernorm] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_pytorch_layernorm
 type IEspressoPassMergePytorchLayernorm interface {
 	IEspressoCustomPass
 }

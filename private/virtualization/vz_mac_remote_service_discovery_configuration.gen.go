@@ -49,8 +49,6 @@ func (vc VZMacRemoteServiceDiscoveryConfigurationClass) Alloc() VZMacRemoteServi
 //   - [VZMacRemoteServiceDiscoveryConfiguration.SetGuestServiceAllowList]
 //   - [VZMacRemoteServiceDiscoveryConfiguration.HostServiceAllowList]
 //   - [VZMacRemoteServiceDiscoveryConfiguration.SetHostServiceAllowList]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration
 type VZMacRemoteServiceDiscoveryConfiguration struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IVZMacRemoteServiceDiscoveryConfiguration = VZMacRemoteServiceDiscoveryCon
 //   - [IVZMacRemoteServiceDiscoveryConfiguration.SetGuestServiceAllowList]
 //   - [IVZMacRemoteServiceDiscoveryConfiguration.HostServiceAllowList]
 //   - [IVZMacRemoteServiceDiscoveryConfiguration.SetHostServiceAllowList]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration
 type IVZMacRemoteServiceDiscoveryConfiguration interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewVZMacRemoteServiceDiscoveryConfiguration() VZMacRemoteServiceDiscoveryCo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration/guestServiceAllowList
 func (v VZMacRemoteServiceDiscoveryConfiguration) GuestServiceAllowList() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestServiceAllowList"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -111,8 +106,6 @@ func (v VZMacRemoteServiceDiscoveryConfiguration) GuestServiceAllowList() founda
 func (v VZMacRemoteServiceDiscoveryConfiguration) SetGuestServiceAllowList(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGuestServiceAllowList:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration/hostServiceAllowList
 func (v VZMacRemoteServiceDiscoveryConfiguration) HostServiceAllowList() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("hostServiceAllowList"))
 	return foundation.NSArrayFromID(objc.ID(rv))

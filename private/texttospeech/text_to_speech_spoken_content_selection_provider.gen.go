@@ -45,8 +45,6 @@ func (tc TextToSpeechSpokenContentSelectionProviderClass) Alloc() TextToSpeechSp
 // # Methods
 //
 //   - [TextToSpeechSpokenContentSelectionProvider.SiriVoiceChanged]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SpokenContentSelectionProvider
 type TextToSpeechSpokenContentSelectionProvider struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ func TextToSpeechSpokenContentSelectionProviderFromID(id objc.ID) TextToSpeechSp
 // # Methods
 //
 //   - [ITextToSpeechSpokenContentSelectionProvider.SiriVoiceChanged]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SpokenContentSelectionProvider
 type ITextToSpeechSpokenContentSelectionProvider interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewTextToSpeechSpokenContentSelectionProvider() TextToSpeechSpokenContentSe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SpokenContentSelectionProvider/siriVoiceChanged
 func (t TextToSpeechSpokenContentSelectionProvider) SiriVoiceChanged() {
 	objc.Send[objc.ID](t.ID, objc.Sel("siriVoiceChanged"))
 }

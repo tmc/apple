@@ -8,19 +8,13 @@ import (
 )
 
 // SLDataTimelineConnection protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection
 type SLDataTimelineConnection interface {
 	objectivec.IObject
 
 	// Close protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection/close
 	Close()
 
 	// Connected protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection/connected
 	Connected() bool
 }
 
@@ -41,18 +35,13 @@ func SLDataTimelineConnectionObjectFromID(id objc.ID) SLDataTimelineConnectionOb
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection/close
 func (o SLDataTimelineConnectionObject) Close() {
 	objc.Send[struct{}](o.ID, objc.Sel("close"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection/connected
 func (o SLDataTimelineConnectionObject) Connected() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("connected"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConnection/name
 func (o SLDataTimelineConnectionObject) Name() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}

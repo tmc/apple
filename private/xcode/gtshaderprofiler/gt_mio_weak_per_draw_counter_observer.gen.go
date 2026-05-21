@@ -4,7 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -47,8 +49,6 @@ func (gc GTMioWeakPerDrawCounterObserverClass) Alloc() GTMioWeakPerDrawCounterOb
 //   - [GTMioWeakPerDrawCounterObserver.Observer]
 //   - [GTMioWeakPerDrawCounterObserver.SetObserver]
 //   - [GTMioWeakPerDrawCounterObserver.InitWithObserver]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver
 type GTMioWeakPerDrawCounterObserver struct {
 	objectivec.Object
 }
@@ -68,15 +68,13 @@ var _ IGTMioWeakPerDrawCounterObserver = GTMioWeakPerDrawCounterObserver{}
 //   - [IGTMioWeakPerDrawCounterObserver.Observer]
 //   - [IGTMioWeakPerDrawCounterObserver.SetObserver]
 //   - [IGTMioWeakPerDrawCounterObserver.InitWithObserver]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver
 type IGTMioWeakPerDrawCounterObserver interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Observer() objectivec.IObject
-	SetObserver(value objectivec.IObject)
+	Observer() unsafe.Pointer
+	SetObserver(value kernel.Pointer)
 	InitWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver
 }
 
@@ -99,24 +97,21 @@ func NewGTMioWeakPerDrawCounterObserver() GTMioWeakPerDrawCounterObserver {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver/initWithObserver:
 func NewGTMioWeakPerDrawCounterObserverWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver {
 	instance := getGTMioWeakPerDrawCounterObserverClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObserver:"), observer)
 	return GTMioWeakPerDrawCounterObserverFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver/initWithObserver:
 func (g GTMioWeakPerDrawCounterObserver) InitWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver {
 	rv := objc.Send[GTMioWeakPerDrawCounterObserver](g.ID, objc.Sel("initWithObserver:"), observer)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver/observer
-func (g GTMioWeakPerDrawCounterObserver) Observer() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("observer"))
-	return objectivec.Object{ID: rv}
+func (g GTMioWeakPerDrawCounterObserver) Observer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("observer"))
+	return rv
 }
-func (g GTMioWeakPerDrawCounterObserver) SetObserver(value objectivec.IObject) {
+func (g GTMioWeakPerDrawCounterObserver) SetObserver(value kernel.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setObserver:"), value)
 }

@@ -42,7 +42,6 @@ func (vc VZObserverProxyClass) Alloc() VZObserverProxy {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZObserverProxy
 type VZObserverProxy struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZObserverProxyFromID(id objc.ID) VZObserverProxy {
 var _ IVZObserverProxy = VZObserverProxy{}
 
 // An interface definition for the [VZObserverProxy] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZObserverProxy
 type IVZObserverProxy interface {
 	objectivec.IObject
 }

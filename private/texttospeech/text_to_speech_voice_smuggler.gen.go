@@ -42,7 +42,6 @@ func (tc TextToSpeechVoiceSmugglerClass) Alloc() TextToSpeechVoiceSmuggler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceSmuggler
 type TextToSpeechVoiceSmuggler struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechVoiceSmugglerFromID(id objc.ID) TextToSpeechVoiceSmuggler {
 var _ ITextToSpeechVoiceSmuggler = TextToSpeechVoiceSmuggler{}
 
 // An interface definition for the [TextToSpeechVoiceSmuggler] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceSmuggler
 type ITextToSpeechVoiceSmuggler interface {
 	objectivec.IObject
 }

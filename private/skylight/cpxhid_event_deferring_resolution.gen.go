@@ -57,8 +57,6 @@ func (cc CPXHIDEventDeferringResolutionClass) Alloc() CPXHIDEventDeferringResolu
 //   - [CPXHIDEventDeferringResolution.Description]
 //   - [CPXHIDEventDeferringResolution.Hash]
 //   - [CPXHIDEventDeferringResolution.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution
 type CPXHIDEventDeferringResolution struct {
 	objectivec.Object
 }
@@ -86,8 +84,6 @@ var _ ICPXHIDEventDeferringResolution = CPXHIDEventDeferringResolution{}
 //   - [ICPXHIDEventDeferringResolution.Description]
 //   - [ICPXHIDEventDeferringResolution.Hash]
 //   - [ICPXHIDEventDeferringResolution.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution
 type ICPXHIDEventDeferringResolution interface {
 	objectivec.IObject
 
@@ -103,7 +99,7 @@ type ICPXHIDEventDeferringResolution interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -125,81 +121,59 @@ func NewCPXHIDEventDeferringResolution() CPXHIDEventDeferringResolution {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/initWithProcess:
 func NewCPXHIDEventDeferringResolutionWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/initWithProcess:connectionID:
 func NewCPXHIDEventDeferringResolutionWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/initWithProcess:
 func (c CPXHIDEventDeferringResolution) InitWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
 	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:"), process)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/initWithProcess:connectionID:
 func (c CPXHIDEventDeferringResolution) InitWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
 	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/connectionID
 func (c CPXHIDEventDeferringResolution) ConnectionID() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("connectionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/debugDescription
 func (c CPXHIDEventDeferringResolution) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/description
 func (c CPXHIDEventDeferringResolution) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/environment
 func (c CPXHIDEventDeferringResolution) Environment() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("environment"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/hash
 func (c CPXHIDEventDeferringResolution) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/pid
 func (c CPXHIDEventDeferringResolution) Pid() int {
 	rv := objc.Send[int](c.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/processRecord
 func (c CPXHIDEventDeferringResolution) ProcessRecord() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRecord"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/superclass
-func (c CPXHIDEventDeferringResolution) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXHIDEventDeferringResolution) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolution/token
 func (c CPXHIDEventDeferringResolution) Token() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("token"))
 	return rv

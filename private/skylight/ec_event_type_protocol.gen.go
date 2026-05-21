@@ -8,29 +8,19 @@ import (
 )
 
 // ECEventType protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECEventType
 type ECEventType interface {
 	objectivec.IObject
 
 	// CgSubType protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECEventType/cgSubType
 	CgSubType() uint64
 
 	// CgType protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECEventType/cgType
 	CgType() uint32
 
 	// HidType protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECEventType/hidType
 	HidType() uint32
 
 	// IsCGType protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECEventType/isCGType
 	IsCGType() bool
 }
 
@@ -51,25 +41,18 @@ func ECEventTypeObjectFromID(id objc.ID) ECEventTypeObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECEventType/cgSubType
 func (o ECEventTypeObject) CgSubType() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("cgSubType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECEventType/cgType
 func (o ECEventTypeObject) CgType() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("cgType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECEventType/hidType
 func (o ECEventTypeObject) HidType() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("hidType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECEventType/isCGType
 func (o ECEventTypeObject) IsCGType() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isCGType"))
 	return rv

@@ -45,8 +45,6 @@ func (vc VZMouseEventClass) Alloc() VZMouseEvent {
 // # Methods
 //
 //   - [VZMouseEvent.InitWithPressedButtonsDeltaXDeltaY]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent
 type VZMouseEvent struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZMouseEvent = VZMouseEvent{}
 // # Methods
 //
 //   - [IVZMouseEvent.InitWithPressedButtonsDeltaXDeltaY]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent
 type IVZMouseEvent interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewVZMouseEvent() VZMouseEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent/initWithPressedButtons:deltaX:deltaY:
 func NewVZMouseEventWithPressedButtonsDeltaXDeltaY(buttons int64, x float64, y float64) VZMouseEvent {
 	instance := getVZMouseEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPressedButtons:deltaX:deltaY:"), buttons, x, y)
 	return VZMouseEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent/initWithPressedButtons:deltaX:deltaY:
 func (v VZMouseEvent) InitWithPressedButtonsDeltaXDeltaY(buttons int64, x float64, y float64) VZMouseEvent {
 	rv := objc.Send[VZMouseEvent](v.ID, objc.Sel("initWithPressedButtons:deltaX:deltaY:"), buttons, x, y)
 	return rv

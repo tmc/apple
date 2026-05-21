@@ -42,7 +42,6 @@ func (mc MLE5ExecutionStreamOperationPoolFactoryClass) Alloc() MLE5ExecutionStre
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPoolFactory
 type MLE5ExecutionStreamOperationPoolFactory struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLE5ExecutionStreamOperationPoolFactoryFromID(id objc.ID) MLE5ExecutionStre
 var _ IMLE5ExecutionStreamOperationPoolFactory = MLE5ExecutionStreamOperationPoolFactory{}
 
 // An interface definition for the [MLE5ExecutionStreamOperationPoolFactory] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPoolFactory
 type IMLE5ExecutionStreamOperationPoolFactory interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewMLE5ExecutionStreamOperationPoolFactory() MLE5ExecutionStreamOperationPo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPoolFactory/createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:
 func (_MLE5ExecutionStreamOperationPoolFactoryClass MLE5ExecutionStreamOperationPoolFactoryClass) CreatePoolFromLibraryFunctionNameModelDescriptionModelConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLE5ExecutionStreamOperationPoolFactoryClass.class), objc.Sel("createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return objectivec.Object{ID: rv}

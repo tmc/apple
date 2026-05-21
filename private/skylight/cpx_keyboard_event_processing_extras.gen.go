@@ -55,8 +55,6 @@ func (cc CPXKeyboardEventProcessingExtrasClass) Alloc() CPXKeyboardEventProcessi
 //   - [CPXKeyboardEventProcessingExtras.Description]
 //   - [CPXKeyboardEventProcessingExtras.Hash]
 //   - [CPXKeyboardEventProcessingExtras.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras
 type CPXKeyboardEventProcessingExtras struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ICPXKeyboardEventProcessingExtras = CPXKeyboardEventProcessingExtras{}
 //   - [ICPXKeyboardEventProcessingExtras.Description]
 //   - [ICPXKeyboardEventProcessingExtras.Hash]
 //   - [ICPXKeyboardEventProcessingExtras.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras
 type ICPXKeyboardEventProcessingExtras interface {
 	objectivec.IObject
 
@@ -99,7 +95,7 @@ type ICPXKeyboardEventProcessingExtras interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -121,66 +117,47 @@ func NewCPXKeyboardEventProcessingExtras() CPXKeyboardEventProcessingExtras {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/initWithWindow:windowHeight:mainDisplayHeight:
 func NewCPXKeyboardEventProcessingExtrasWithWindowWindowHeightMainDisplayHeight(window uint32, height uint16, height2 uint16) CPXKeyboardEventProcessingExtras {
 	instance := getCPXKeyboardEventProcessingExtrasClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
 	return CPXKeyboardEventProcessingExtrasFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/appendDescriptionToStream:
 func (c CPXKeyboardEventProcessingExtras) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/applyToEvent:
 func (c CPXKeyboardEventProcessingExtras) ApplyToEvent(event SLSEventRecord) {
 	objc.Send[objc.ID](c.ID, objc.Sel("applyToEvent:"), event)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/initWithWindow:windowHeight:mainDisplayHeight:
 func (c CPXKeyboardEventProcessingExtras) InitWithWindowWindowHeightMainDisplayHeight(window uint32, height uint16, height2 uint16) CPXKeyboardEventProcessingExtras {
 	rv := objc.Send[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/debugDescription
 func (c CPXKeyboardEventProcessingExtras) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/description
 func (c CPXKeyboardEventProcessingExtras) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/hash
 func (c CPXKeyboardEventProcessingExtras) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/mainDisplayHeight
 func (c CPXKeyboardEventProcessingExtras) MainDisplayHeight() uint16 {
 	rv := objc.Send[uint16](c.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/superclass
-func (c CPXKeyboardEventProcessingExtras) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXKeyboardEventProcessingExtras) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/window
 func (c CPXKeyboardEventProcessingExtras) Window() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("window"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/windowHeight
 func (c CPXKeyboardEventProcessingExtras) WindowHeight() uint16 {
 	rv := objc.Send[uint16](c.ID, objc.Sel("windowHeight"))
 	return rv

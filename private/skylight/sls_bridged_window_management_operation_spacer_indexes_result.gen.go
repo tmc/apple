@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationSpacerIndexesResultClass) Alloc() SL
 //   - [SLSBridgedWindowManagementOperationSpacerIndexesResult.HorizontalIndex]
 //   - [SLSBridgedWindowManagementOperationSpacerIndexesResult.VerticalIndex]
 //   - [SLSBridgedWindowManagementOperationSpacerIndexesResult.InitWithVerticalIndexHorizontalIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult
 type SLSBridgedWindowManagementOperationSpacerIndexesResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedWindowManagementOperationSpacerIndexesResult = SLSBridgedWindow
 //   - [ISLSBridgedWindowManagementOperationSpacerIndexesResult.HorizontalIndex]
 //   - [ISLSBridgedWindowManagementOperationSpacerIndexesResult.VerticalIndex]
 //   - [ISLSBridgedWindowManagementOperationSpacerIndexesResult.InitWithVerticalIndexHorizontalIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult
 type ISLSBridgedWindowManagementOperationSpacerIndexesResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -99,33 +95,27 @@ func NewSLSBridgedWindowManagementOperationSpacerIndexesResult() SLSBridgedWindo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationSpacerIndexesResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	instance := getSLSBridgedWindowManagementOperationSpacerIndexesResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpacerIndexesResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult/initWithVerticalIndex:horizontalIndex:
 func NewSLSBridgedWindowManagementOperationSpacerIndexesResultWithVerticalIndexHorizontalIndex(index uint64, index2 uint64) SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	instance := getSLSBridgedWindowManagementOperationSpacerIndexesResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
 	return SLSBridgedWindowManagementOperationSpacerIndexesResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult/initWithVerticalIndex:horizontalIndex:
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) InitWithVerticalIndexHorizontalIndex(index uint64, index2 uint64) SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult/horizontalIndex
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) HorizontalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpacerIndexesResult/verticalIndex
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) VerticalIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv

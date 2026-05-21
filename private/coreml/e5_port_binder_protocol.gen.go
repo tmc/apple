@@ -8,14 +8,10 @@ import (
 )
 
 // MLE5PortBinder protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder
 type MLE5PortBinder interface {
 	objectivec.IObject
 
 	// Reset protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/reset
 	Reset()
 }
 
@@ -36,18 +32,13 @@ func MLE5PortBinderObjectFromID(id objc.ID) MLE5PortBinderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/pixelBufferPool
 func (o MLE5PortBinderObject) PixelBufferPool() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pixelBufferPool"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/reset
 func (o MLE5PortBinderObject) Reset() {
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/setPixelBufferPool:
 func (o MLE5PortBinderObject) SetPixelBufferPool(pool objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPixelBufferPool:"), pool)
 }

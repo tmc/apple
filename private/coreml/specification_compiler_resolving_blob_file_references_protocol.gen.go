@@ -10,8 +10,6 @@ import (
 )
 
 // MLSpecificationCompilerResolvingBlobFileReferences protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompilerResolvingBlobFileReferences
 type MLSpecificationCompilerResolvingBlobFileReferences interface {
 	objectivec.IObject
 }
@@ -33,7 +31,6 @@ func MLSpecificationCompilerResolvingBlobFileReferencesObjectFromID(id objc.ID) 
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompilerResolvingBlobFileReferences/compileSpecification:blobMapping:toArchive:options:error:
 func (o MLSpecificationCompilerResolvingBlobFileReferencesObject) CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options)
 	if err != nil {

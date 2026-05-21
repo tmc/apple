@@ -42,7 +42,6 @@ func (cc CoreMLMultiArrayStorageClass) Alloc() CoreMLMultiArrayStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MultiArrayStorage
 type CoreMLMultiArrayStorage struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMultiArrayStorageFromID(id objc.ID) CoreMLMultiArrayStorage {
 // ICoreMLMultiArrayStorage embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMultiArrayStorage] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MultiArrayStorage
 type ICoreMLMultiArrayStorage interface {
 	objectivec.IObject
 }

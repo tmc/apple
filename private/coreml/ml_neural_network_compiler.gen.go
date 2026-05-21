@@ -45,7 +45,6 @@ func (mc MLNeuralNetworkCompilerClass) Alloc() MLNeuralNetworkCompiler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler
 type MLNeuralNetworkCompiler struct {
 	MLModel
 }
@@ -59,8 +58,6 @@ func MLNeuralNetworkCompilerFromID(id objc.ID) MLNeuralNetworkCompiler {
 var _ IMLNeuralNetworkCompiler = MLNeuralNetworkCompiler{}
 
 // An interface definition for the [MLNeuralNetworkCompiler] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler
 type IMLNeuralNetworkCompiler interface {
 	IMLModel
 }
@@ -84,7 +81,6 @@ func NewMLNeuralNetworkCompiler() MLNeuralNetworkCompiler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
@@ -96,7 +92,6 @@ func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
@@ -108,35 +103,30 @@ func NewNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archiv
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewNeuralNetworkCompilerWithConfiguration(configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewNeuralNetworkCompilerWithDescription(description objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewNeuralNetworkCompilerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewNeuralNetworkCompilerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/_compileSpecification:blobMapping:toArchive:options:error:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) _compileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("_compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options, unsafe.Pointer(&errorPtr))
@@ -147,13 +137,9 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) _compileSpecif
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/collectEspressoModelDetails:modelPath:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CollectEspressoModelDetailsModelPath(details unsafe.Pointer, path unsafe.Pointer) {
 	objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("collectEspressoModelDetails:modelPath:"), details, path)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/collectNNModelDetailsFromArchive:spec:error:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CollectNNModelDetailsFromArchiveSpecError(archive unsafe.Pointer, spec unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("collectNNModelDetailsFromArchive:spec:error:"), archive, spec, unsafe.Pointer(&errorPtr))
@@ -167,8 +153,6 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CollectNNModel
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/compileSpecification:blobMapping:toArchive:options:error:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options, unsafe.Pointer(&errorPtr))
@@ -179,8 +163,6 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompileSpecifi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/compileSpecification:toArchive:options:error:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options, unsafe.Pointer(&errorPtr))
@@ -191,8 +173,6 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompileSpecifi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/compiledVersionForSpecification:options:error:
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("compiledVersionForSpecification:options:error:"), specification, options, unsafe.Pointer(&errorPtr))
@@ -203,14 +183,10 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompiledVersio
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/iOS17CompilerVersionInfo
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) IOS17CompilerVersionInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS17CompilerVersionInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkCompiler/iOS18CompilerVersionInfo
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) IOS18CompilerVersionInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS18CompilerVersionInfo"))
 	return objectivec.Object{ID: rv}

@@ -42,7 +42,6 @@ func (vc VZDisplayPresenterClass) Alloc() VZDisplayPresenter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDisplayPresenter
 type VZDisplayPresenter struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZDisplayPresenterFromID(id objc.ID) VZDisplayPresenter {
 var _ IVZDisplayPresenter = VZDisplayPresenter{}
 
 // An interface definition for the [VZDisplayPresenter] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDisplayPresenter
 type IVZDisplayPresenter interface {
 	objectivec.IObject
 }

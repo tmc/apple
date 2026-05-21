@@ -45,8 +45,6 @@ func (vc VZVNCSecurityConfigurationClass) Alloc() VZVNCSecurityConfiguration {
 // # Methods
 //
 //   - [VZVNCSecurityConfiguration._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCSecurityConfiguration
 type VZVNCSecurityConfiguration struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZVNCSecurityConfiguration = VZVNCSecurityConfiguration{}
 // # Methods
 //
 //   - [IVZVNCSecurityConfiguration._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCSecurityConfiguration
 type IVZVNCSecurityConfiguration interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZVNCSecurityConfiguration() VZVNCSecurityConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCSecurityConfiguration/_init
 func (v VZVNCSecurityConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}

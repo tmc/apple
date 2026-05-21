@@ -49,8 +49,6 @@ func (nc NNLayerInfoClass) Alloc() NNLayerInfo {
 //   - [NNLayerInfo.ConcatenatedInputNames]
 //   - [NNLayerInfo.Type]
 //   - [NNLayerInfo.InitWithTypeConcatenatedInputNamesBidirectional]
-//
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo
 type NNLayerInfo struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ INNLayerInfo = NNLayerInfo{}
 //   - [INNLayerInfo.ConcatenatedInputNames]
 //   - [INNLayerInfo.Type]
 //   - [INNLayerInfo.InitWithTypeConcatenatedInputNamesBidirectional]
-//
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo
 type INNLayerInfo interface {
 	objectivec.IObject
 
@@ -103,32 +99,25 @@ func NewNNLayerInfo() NNLayerInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo/initWithType:concatenatedInputNames:bidirectional:
 func NewNNLayerInfoWithTypeConcatenatedInputNamesBidirectional(type_ objectivec.IObject, names objectivec.IObject, bidirectional bool) NNLayerInfo {
 	instance := getNNLayerInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
 	return NNLayerInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo/initWithType:concatenatedInputNames:bidirectional:
 func (n NNLayerInfo) InitWithTypeConcatenatedInputNamesBidirectional(type_ objectivec.IObject, names objectivec.IObject, bidirectional bool) NNLayerInfo {
 	rv := objc.Send[NNLayerInfo](n.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo/bidirectional
 func (n NNLayerInfo) Bidirectional() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("bidirectional"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo/concatenatedInputNames
 func (n NNLayerInfo) ConcatenatedInputNames() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("concatenatedInputNames"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_NNLayerInfo/type
 func (n NNLayerInfo) Type() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()

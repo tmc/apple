@@ -50,8 +50,6 @@ func (tc TTSAUSSEWrapperClass) Alloc() TTSAUSSEWrapper {
 //   - [TTSAUSSEWrapper.CancelSpeechRequest]
 //   - [TTSAUSSEWrapper.SynthesizeSpeechRequest]
 //   - [TTSAUSSEWrapper.InitWithAudioUnit]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper
 type TTSAUSSEWrapper struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ITTSAUSSEWrapper = TTSAUSSEWrapper{}
 //   - [ITTSAUSSEWrapper.CancelSpeechRequest]
 //   - [ITTSAUSSEWrapper.SynthesizeSpeechRequest]
 //   - [ITTSAUSSEWrapper.InitWithAudioUnit]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper
 type ITTSAUSSEWrapper interface {
 	objectivec.IObject
 
@@ -106,36 +102,28 @@ func NewTTSAUSSEWrapper() TTSAUSSEWrapper {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/initWithAudioUnit:
 func NewTTSAUSSEWrapperWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper {
 	instance := getTTSAUSSEWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioUnit:"), unit)
 	return TTSAUSSEWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/cancelSpeechRequest
 func (t TTSAUSSEWrapper) CancelSpeechRequest() {
 	objc.Send[objc.ID](t.ID, objc.Sel("cancelSpeechRequest"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/synthesizeSpeechRequest:
 func (t TTSAUSSEWrapper) SynthesizeSpeechRequest(request objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("synthesizeSpeechRequest:"), request)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/initWithAudioUnit:
 func (t TTSAUSSEWrapper) InitWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper {
 	rv := objc.Send[TTSAUSSEWrapper](t.ID, objc.Sel("initWithAudioUnit:"), unit)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/makeAU:
 func (_TTSAUSSEWrapperClass TTSAUSSEWrapperClass) MakeAU(au objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAUSSEWrapperClass.class), objc.Sel("makeAU:"), au)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/audioUnit
 func (t TTSAUSSEWrapper) AudioUnit() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("audioUnit"))
 	return rv

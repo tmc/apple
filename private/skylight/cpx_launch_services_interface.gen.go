@@ -55,8 +55,6 @@ func (cc CPXLaunchServicesInterfaceClass) Alloc() CPXLaunchServicesInterface {
 //   - [CPXLaunchServicesInterface.RunningApplications]
 //   - [CPXLaunchServicesInterface.SessionID]
 //   - [CPXLaunchServicesInterface.InitWithSessionID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface
 type CPXLaunchServicesInterface struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ICPXLaunchServicesInterface = CPXLaunchServicesInterface{}
 //   - [ICPXLaunchServicesInterface.RunningApplications]
 //   - [ICPXLaunchServicesInterface.SessionID]
 //   - [ICPXLaunchServicesInterface.InitWithSessionID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface
 type ICPXLaunchServicesInterface interface {
 	objectivec.IObject
 
@@ -121,68 +117,49 @@ func NewCPXLaunchServicesInterface() CPXLaunchServicesInterface {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/initWithSessionID:
 func NewCPXLaunchServicesInterfaceWithSessionID(id int) CPXLaunchServicesInterface {
 	instance := getCPXLaunchServicesInterfaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSessionID:"), id)
 	return CPXLaunchServicesInterfaceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/addToPermittedFrontASNList:
 func (c CPXLaunchServicesInterface) AddToPermittedFrontASNList(aSNList LSASNRef) int {
 	rv := objc.Send[int](c.ID, objc.Sel("addToPermittedFrontASNList:"), aSNList)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/applicationInformationSeed:
 func (c CPXLaunchServicesInterface) ApplicationInformationSeed(seed LSASNRef) int {
 	rv := objc.Send[int](c.ID, objc.Sel("applicationInformationSeed:"), seed)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/applicationType:
 func (c CPXLaunchServicesInterface) ApplicationType(type_ LSASNRef) byte {
 	rv := objc.Send[byte](c.ID, objc.Sel("applicationType:"), type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/removeFromPermittedFrontASNList:
 func (c CPXLaunchServicesInterface) RemoveFromPermittedFrontASNList(aSNList LSASNRef) int {
 	rv := objc.Send[int](c.ID, objc.Sel("removeFromPermittedFrontASNList:"), aSNList)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/initWithSessionID:
 func (c CPXLaunchServicesInterface) InitWithSessionID(id int) CPXLaunchServicesInterface {
 	rv := objc.Send[CPXLaunchServicesInterface](c.ID, objc.Sel("initWithSessionID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/frontApplication
 func (c CPXLaunchServicesInterface) FrontApplication() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("frontApplication"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/frontApplicationSeed
 func (c CPXLaunchServicesInterface) FrontApplicationSeed() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("frontApplicationSeed"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/permittedFrontApplications
 func (c CPXLaunchServicesInterface) PermittedFrontApplications() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("permittedFrontApplications"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/runningApplications
 func (c CPXLaunchServicesInterface) RunningApplications() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("runningApplications"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesInterface/sessionID
 func (c CPXLaunchServicesInterface) SessionID() int {
 	rv := objc.Send[int](c.ID, objc.Sel("sessionID"))
 	return rv

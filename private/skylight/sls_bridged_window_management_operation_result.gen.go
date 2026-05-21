@@ -48,8 +48,6 @@ func (sc SLSBridgedWindowManagementOperationResultClass) Alloc() SLSBridgedWindo
 //   - [SLSBridgedWindowManagementOperationResult._init]
 //   - [SLSBridgedWindowManagementOperationResult.EncodeWithCoder]
 //   - [SLSBridgedWindowManagementOperationResult.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult
 type SLSBridgedWindowManagementOperationResult struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedWindowManagementOperationResult = SLSBridgedWindowManagementOpe
 //   - [ISLSBridgedWindowManagementOperationResult._init]
 //   - [ISLSBridgedWindowManagementOperationResult.EncodeWithCoder]
 //   - [ISLSBridgedWindowManagementOperationResult.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult
 type ISLSBridgedWindowManagementOperationResult interface {
 	objectivec.IObject
 
@@ -100,31 +96,24 @@ func NewSLSBridgedWindowManagementOperationResult() SLSBridgedWindowManagementOp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationResult {
 	instance := getSLSBridgedWindowManagementOperationResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult/_init
 func (s SLSBridgedWindowManagementOperationResult) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult/encodeWithCoder:
 func (s SLSBridgedWindowManagementOperationResult) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult/initWithCoder:
 func (s SLSBridgedWindowManagementOperationResult) InitWithCoder(coder foundation.INSCoder) SLSBridgedWindowManagementOperationResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationResult](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationResult/supportsSecureCoding
 func (_SLSBridgedWindowManagementOperationResultClass SLSBridgedWindowManagementOperationResultClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLSBridgedWindowManagementOperationResultClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

@@ -41,7 +41,6 @@ func (vc VZVirtioSoundDeviceClass) Alloc() VZVirtioSoundDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioSoundDevice
 type VZVirtioSoundDevice struct {
 	VZAudioDevice
 }
@@ -55,8 +54,6 @@ func VZVirtioSoundDeviceFromID(id objc.ID) VZVirtioSoundDevice {
 var _ IVZVirtioSoundDevice = VZVirtioSoundDevice{}
 
 // An interface definition for the [VZVirtioSoundDevice] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioSoundDevice
 type IVZVirtioSoundDevice interface {
 	IVZAudioDevice
 }

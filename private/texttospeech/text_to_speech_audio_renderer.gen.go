@@ -42,7 +42,6 @@ func (tc TextToSpeechAudioRendererClass) Alloc() TextToSpeechAudioRenderer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AudioRenderer
 type TextToSpeechAudioRenderer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAudioRendererFromID(id objc.ID) TextToSpeechAudioRenderer {
 // ITextToSpeechAudioRenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAudioRenderer] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AudioRenderer
 type ITextToSpeechAudioRenderer interface {
 	objectivec.IObject
 }

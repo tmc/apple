@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceCopyTileSpacesOperationClass) Alloc() SLSBridgedSpaceCop
 //   - [SLSBridgedSpaceCopyTileSpacesOperation.MakeResultWithNumbers]
 //   - [SLSBridgedSpaceCopyTileSpacesOperation.SpaceID]
 //   - [SLSBridgedSpaceCopyTileSpacesOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation
 type SLSBridgedSpaceCopyTileSpacesOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceCopyTileSpacesOperation = SLSBridgedSpaceCopyTileSpacesOpe
 //   - [ISLSBridgedSpaceCopyTileSpacesOperation.MakeResultWithNumbers]
 //   - [ISLSBridgedSpaceCopyTileSpacesOperation.SpaceID]
 //   - [ISLSBridgedSpaceCopyTileSpacesOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation
 type ISLSBridgedSpaceCopyTileSpacesOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceCopyTileSpacesOperation() SLSBridgedSpaceCopyTileSpacesOp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation/initWithCoder:
 func NewSLSBridgedSpaceCopyTileSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyTileSpacesOperation {
 	instance := getSLSBridgedSpaceCopyTileSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyTileSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation/initWithSpaceID:
 func NewSLSBridgedSpaceCopyTileSpacesOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyTileSpacesOperation {
 	instance := getSLSBridgedSpaceCopyTileSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyTileSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation/makeResultWithNumbers:
 func (s SLSBridgedSpaceCopyTileSpacesOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation/initWithSpaceID:
 func (s SLSBridgedSpaceCopyTileSpacesOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyTileSpacesOperation {
 	rv := objc.Send[SLSBridgedSpaceCopyTileSpacesOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyTileSpacesOperation/spaceID
 func (s SLSBridgedSpaceCopyTileSpacesOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

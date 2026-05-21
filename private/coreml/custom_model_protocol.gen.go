@@ -8,8 +8,6 @@ import (
 )
 
 // MLCustomModel protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModel
 type MLCustomModel interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModel/predictionFromFeatures:options:error:
 func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options)
 	if err != nil {
@@ -39,8 +36,6 @@ func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(features objecti
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModel/predictionsFromBatch:options:error:
 func (o MLCustomModelObject) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options)
 	if err != nil {

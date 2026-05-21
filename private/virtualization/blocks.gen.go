@@ -22,7 +22,6 @@ import (
 //   - [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
-//   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
 //   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
@@ -32,7 +31,6 @@ import (
 //   - [VZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
 //   - [VZXHCIController.AttachDeviceCompletionHandler]
 //   - [VZXHCIController.DetachDeviceCompletionHandler]
-//   - [VZXHCIController._capturePassthroughDevicesWithCompletionHandler]
 type ErrorHandler = func(error)
 
 // NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
@@ -51,7 +49,6 @@ type ErrorHandler = func(error)
 //   - [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
-//   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
 //   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
@@ -61,7 +58,6 @@ type ErrorHandler = func(error)
 //   - [VZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
 //   - [VZXHCIController.AttachDeviceCompletionHandler]
 //   - [VZXHCIController.DetachDeviceCompletionHandler]
-//   - [VZXHCIController._capturePassthroughDevicesWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -69,6 +65,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
+	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 

@@ -71,8 +71,6 @@ func (tc TTSRulesetRunnerClass) Alloc() TTSRulesetRunner {
 //   - [TTSRulesetRunner.ShouldAbort]
 //   - [TTSRulesetRunner.SetShouldAbort]
 //   - [TTSRulesetRunner.UnloadRuleset]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner
 type TTSRulesetRunner struct {
 	objectivec.Object
 }
@@ -113,8 +111,6 @@ var _ ITTSRulesetRunner = TTSRulesetRunner{}
 //   - [ITTSRulesetRunner.ShouldAbort]
 //   - [ITTSRulesetRunner.SetShouldAbort]
 //   - [ITTSRulesetRunner.UnloadRuleset]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner
 type ITTSRulesetRunner interface {
 	objectivec.IObject
 
@@ -165,7 +161,6 @@ func NewTTSRulesetRunner() TTSRulesetRunner {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_computeActiveRanges:withIgnoreRanges:
 func (t TTSRulesetRunner) _computeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"), ranges, ranges2)
 	return objectivec.Object{ID: rv}
@@ -184,8 +179,6 @@ func (t TTSRulesetRunner) ComputeActiveRangesWithIgnoreRanges(ranges objectivec.
 func (t TTSRulesetRunner) CanComputeActiveRangesWithIgnoreRanges() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_ignoreRangesForString:
 func (t TTSRulesetRunner) _ignoreRangesForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ignoreRangesForString:"), string_)
 	return objectivec.Object{ID: rv}
@@ -204,8 +197,6 @@ func (t TTSRulesetRunner) IgnoreRangesForString(string_ objectivec.IObject) (obj
 func (t TTSRulesetRunner) CanIgnoreRangesForString() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_ignoreRangesForString:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processSpeechString:startingAt:currentRecursionDepth:
 func (t TTSRulesetRunner) _processSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"), string_, at, depth)
 	return objectivec.Object{ID: rv}
@@ -224,8 +215,6 @@ func (t TTSRulesetRunner) ProcessSpeechStringStartingAtCurrentRecursionDepth(str
 func (t TTSRulesetRunner) CanProcessSpeechStringStartingAtCurrentRecursionDepth() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processTemplateReplacementTextForText:replacement:cString:
 func (t TTSRulesetRunner) _processTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"), text, replacement, unsafe.Pointer(unsafe.StringData(string_+"\x00")))
 	return objectivec.Object{ID: rv}
@@ -244,8 +233,6 @@ func (t TTSRulesetRunner) ProcessTemplateReplacementTextForTextReplacementCStrin
 func (t TTSRulesetRunner) CanProcessTemplateReplacementTextForTextReplacementCString() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_recomputeRuleOrdering
 func (t TTSRulesetRunner) _recomputeRuleOrdering() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_recomputeRuleOrdering"))
 }
@@ -264,52 +251,35 @@ func (t TTSRulesetRunner) RecomputeRuleOrdering() error {
 func (t TTSRulesetRunner) CanRecomputeRuleOrdering() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_recomputeRuleOrdering"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/cancelProcessing
 func (t TTSRulesetRunner) CancelProcessing() {
 	objc.Send[objc.ID](t.ID, objc.Sel("cancelProcessing"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/loadRuleSet:
 func (t TTSRulesetRunner) LoadRuleSet(set objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("loadRuleSet:"), set)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/processText:
 func (t TTSRulesetRunner) ProcessText(text objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("processText:"), text)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/reset
 func (t TTSRulesetRunner) Reset() {
 	objc.Send[objc.ID](t.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setMatchLogger:
 func (t TTSRulesetRunner) SetMatchLogger(logger VoidHandler) {
 	_block0, _ := NewVoidBlock(logger)
 	objc.Send[objc.ID](t.ID, objc.Sel("setMatchLogger:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setPostRuleWriter:
 func (t TTSRulesetRunner) SetPostRuleWriter(writer VoidHandler) {
 	_block0, _ := NewVoidBlock(writer)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPostRuleWriter:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setPreRuleWriter:
 func (t TTSRulesetRunner) SetPreRuleWriter(writer VoidHandler) {
 	_block0, _ := NewVoidBlock(writer)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPreRuleWriter:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/unloadRuleset:
 func (t TTSRulesetRunner) UnloadRuleset(ruleset objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("unloadRuleset:"), ruleset)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/executing
 func (t TTSRulesetRunner) Executing() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("executing"))
 	return rv
@@ -317,8 +287,6 @@ func (t TTSRulesetRunner) Executing() bool {
 func (t TTSRulesetRunner) SetExecuting(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExecuting:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/regexExecutionQueue
 func (t TTSRulesetRunner) RegexExecutionQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexExecutionQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -326,14 +294,10 @@ func (t TTSRulesetRunner) RegexExecutionQueue() objectivec.Object {
 func (t TTSRulesetRunner) SetRegexExecutionQueue(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRegexExecutionQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleCount
 func (t TTSRulesetRunner) RuleCount() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleCount"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleReplacements
 func (t TTSRulesetRunner) RuleReplacements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacements"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -341,8 +305,6 @@ func (t TTSRulesetRunner) RuleReplacements() foundation.INSArray {
 func (t TTSRulesetRunner) SetRuleReplacements(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRuleReplacements:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleSets
 func (t TTSRulesetRunner) RuleSets() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleSets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -350,8 +312,6 @@ func (t TTSRulesetRunner) RuleSets() foundation.INSArray {
 func (t TTSRulesetRunner) SetRuleSets(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRuleSets:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/shouldAbort
 func (t TTSRulesetRunner) ShouldAbort() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("shouldAbort"))
 	return rv

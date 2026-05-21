@@ -54,8 +54,6 @@ func (mc MLGKDecisionTreeClass) Alloc() MLGKDecisionTree {
 //   - [MLGKDecisionTree._objectStore]
 //   - [MLGKDecisionTree.Set_objectStore]
 //   - [MLGKDecisionTree._saveModelAssetWithModelToPathWithError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree
 type MLGKDecisionTree struct {
 	objectivec.Object
 }
@@ -81,8 +79,6 @@ var _ IMLGKDecisionTree = MLGKDecisionTree{}
 //   - [IMLGKDecisionTree._objectStore]
 //   - [IMLGKDecisionTree.Set_objectStore]
 //   - [IMLGKDecisionTree._saveModelAssetWithModelToPathWithError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree
 type IMLGKDecisionTree interface {
 	objectivec.IObject
 
@@ -118,13 +114,10 @@ func NewMLGKDecisionTree() MLGKDecisionTree {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_init
 func (m MLGKDecisionTree) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_initWithFlattenedTree:
 func (m MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_initWithFlattenedTree:"), tree)
 	return objectivec.Object{ID: rv}
@@ -143,8 +136,6 @@ func (m MLGKDecisionTree) InitWithFlattenedTree(tree objectivec.IObject) (object
 func (m MLGKDecisionTree) CanInitWithFlattenedTree() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_initWithFlattenedTree:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_loadModelAssetWithModelAtPath:withError:
 func (m MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
 }
@@ -163,8 +154,6 @@ func (m MLGKDecisionTree) LoadModelAssetWithModelAtPathWithError(path objectivec
 func (m MLGKDecisionTree) CanLoadModelAssetWithModelAtPathWithError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_makeInferenceFromAnswers:withError:
 func (m MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
 	return objectivec.Object{ID: rv}
@@ -183,8 +172,6 @@ func (m MLGKDecisionTree) MakeInferenceFromAnswersWithError(answers objectivec.I
 func (m MLGKDecisionTree) CanMakeInferenceFromAnswersWithError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_saveModelAssetWithModelToPath:withError:
 func (m MLGKDecisionTree) _saveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
 	return rv
@@ -204,7 +191,6 @@ func (m MLGKDecisionTree) CanSaveModelAssetWithModelToPathWithError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"))
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_attributes
 func (m MLGKDecisionTree) _attributes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_attributes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -225,8 +211,6 @@ func (m MLGKDecisionTree) Attributes() (foundation.INSArray, error) {
 func (m MLGKDecisionTree) Set_attributes(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_attributes:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_objectStore
 func (m MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_objectStore"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))

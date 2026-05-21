@@ -41,7 +41,6 @@ func (ec EspressoPassMergeChannelNormClass) Alloc() EspressoPassMergeChannelNorm
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
 type EspressoPassMergeChannelNorm struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_merge_channel_normFromID(id objc.ID) EspressoPassMergeChannelN
 var _ IEspressoPassMergeChannelNorm = EspressoPassMergeChannelNorm{}
 
 // An interface definition for the [EspressoPassMergeChannelNorm] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
 type IEspressoPassMergeChannelNorm interface {
 	IEspressoCustomPass
 }

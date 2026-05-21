@@ -62,8 +62,6 @@ func (mc ModelKeyServerAPIFetchKeyResponseClass) Alloc() ModelKeyServerAPIFetchK
 //   - [ModelKeyServerAPIFetchKeyResponse.Success]
 //   - [ModelKeyServerAPIFetchKeyResponse.SetSuccess]
 //   - [ModelKeyServerAPIFetchKeyResponse.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse
 type ModelKeyServerAPIFetchKeyResponse struct {
 	objectivec.Object
 }
@@ -98,8 +96,6 @@ func ModelKeyServerAPIFetchKeyResponseFromID(id objc.ID) ModelKeyServerAPIFetchK
 //   - [IModelKeyServerAPIFetchKeyResponse.Success]
 //   - [IModelKeyServerAPIFetchKeyResponse.SetSuccess]
 //   - [IModelKeyServerAPIFetchKeyResponse.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse
 type IModelKeyServerAPIFetchKeyResponse interface {
 	IPBCodable
 
@@ -144,51 +140,35 @@ func NewModelKeyServerAPIFetchKeyResponse() ModelKeyServerAPIFetchKeyResponse {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/StringAsResult:
 func (m ModelKeyServerAPIFetchKeyResponse) StringAsResult(result objectivec.IObject) int {
 	rv := objc.Send[int](m.ID, objc.Sel("StringAsResult:"), result)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/clearOneofValuesForResult
 func (m ModelKeyServerAPIFetchKeyResponse) ClearOneofValuesForResult() {
 	objc.Send[objc.ID](m.ID, objc.Sel("clearOneofValuesForResult"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/copyTo:
 func (m ModelKeyServerAPIFetchKeyResponse) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/dictionaryRepresentation
 func (m ModelKeyServerAPIFetchKeyResponse) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/mergeFrom:
 func (m ModelKeyServerAPIFetchKeyResponse) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/readFrom:
 func (m ModelKeyServerAPIFetchKeyResponse) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/resultAsString:
 func (m ModelKeyServerAPIFetchKeyResponse) ResultAsString(string_ int) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resultAsString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/writeTo:
 func (m ModelKeyServerAPIFetchKeyResponse) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/error
 func (m ModelKeyServerAPIFetchKeyResponse) Error() IModelKeyServerAPIResultError {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return ModelKeyServerAPIResultErrorFromID(objc.ID(rv))
@@ -196,14 +176,10 @@ func (m ModelKeyServerAPIFetchKeyResponse) Error() IModelKeyServerAPIResultError
 func (m ModelKeyServerAPIFetchKeyResponse) SetError(value IModelKeyServerAPIResultError) {
 	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/hasError
 func (m ModelKeyServerAPIFetchKeyResponse) HasError() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasError"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/hasResult
 func (m ModelKeyServerAPIFetchKeyResponse) HasResult() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasResult"))
 	return rv
@@ -211,14 +187,10 @@ func (m ModelKeyServerAPIFetchKeyResponse) HasResult() bool {
 func (m ModelKeyServerAPIFetchKeyResponse) SetHasResult(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHasResult:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/hasSuccess
 func (m ModelKeyServerAPIFetchKeyResponse) HasSuccess() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasSuccess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/result
 func (m ModelKeyServerAPIFetchKeyResponse) Result() int {
 	rv := objc.Send[int](m.ID, objc.Sel("result"))
 	return rv
@@ -226,8 +198,6 @@ func (m ModelKeyServerAPIFetchKeyResponse) Result() int {
 func (m ModelKeyServerAPIFetchKeyResponse) SetResult(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setResult:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResponse/success
 func (m ModelKeyServerAPIFetchKeyResponse) Success() IModelKeyServerAPIFetchKeyResult {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("success"))
 	return ModelKeyServerAPIFetchKeyResultFromID(objc.ID(rv))

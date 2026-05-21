@@ -42,7 +42,6 @@ func (dc DiskImageParamsPluginXPCClass) Alloc() DiskImageParamsPluginXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsPlugin_XPC
 type DiskImageParamsPluginXPC struct {
 	DiskImageParamsXPC
 }
@@ -61,8 +60,6 @@ func DiskImageParamsPlugin_XPCFromID(id objc.ID) DiskImageParamsPluginXPC {
 var _ IDiskImageParamsPluginXPC = DiskImageParamsPluginXPC{}
 
 // An interface definition for the [DiskImageParamsPluginXPC] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsPlugin_XPC
 type IDiskImageParamsPluginXPC interface {
 	IDiskImageParamsXPC
 }
@@ -86,21 +83,18 @@ func NewDiskImageParamsPluginXPC() DiskImageParamsPluginXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsPlugin_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsPlugin_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
 func NewDiskImageParamsPlugin_XPCWithCoder(coder objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)

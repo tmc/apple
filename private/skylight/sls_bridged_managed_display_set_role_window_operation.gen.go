@@ -49,8 +49,6 @@ func (sc SLSBridgedManagedDisplaySetRoleWindowOperationClass) Alloc() SLSBridged
 //   - [SLSBridgedManagedDisplaySetRoleWindowOperation.Role]
 //   - [SLSBridgedManagedDisplaySetRoleWindowOperation.WindowID]
 //   - [SLSBridgedManagedDisplaySetRoleWindowOperation.InitWithDisplayIdentifierRoleWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation
 type SLSBridgedManagedDisplaySetRoleWindowOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedManagedDisplaySetRoleWindowOperation = SLSBridgedManagedDisplay
 //   - [ISLSBridgedManagedDisplaySetRoleWindowOperation.Role]
 //   - [ISLSBridgedManagedDisplaySetRoleWindowOperation.WindowID]
 //   - [ISLSBridgedManagedDisplaySetRoleWindowOperation.InitWithDisplayIdentifierRoleWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation
 type ISLSBridgedManagedDisplaySetRoleWindowOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedManagedDisplaySetRoleWindowOperation() SLSBridgedManagedDispla
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/initWithCoder:
 func NewSLSBridgedManagedDisplaySetRoleWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaySetRoleWindowOperation {
 	instance := getSLSBridgedManagedDisplaySetRoleWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaySetRoleWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/initWithDisplayIdentifier:role:windowID:
 func NewSLSBridgedManagedDisplaySetRoleWindowOperationWithDisplayIdentifierRoleWindowID(identifier objectivec.IObject, role uint64, id uint32) SLSBridgedManagedDisplaySetRoleWindowOperation {
 	instance := getSLSBridgedManagedDisplaySetRoleWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
 	return SLSBridgedManagedDisplaySetRoleWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/initWithDisplayIdentifier:role:windowID:
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) InitWithDisplayIdentifierRoleWindowID(identifier objectivec.IObject, role uint64, id uint32) SLSBridgedManagedDisplaySetRoleWindowOperation {
 	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/displayIdentifier
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) DisplayIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/role
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) Role() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("role"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetRoleWindowOperation/windowID
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

@@ -41,7 +41,6 @@ func (vc VZMacHostBatterySourceClass) Alloc() VZMacHostBatterySource {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacHostBatterySource
 type VZMacHostBatterySource struct {
 	VZMacBatterySource
 }
@@ -55,8 +54,6 @@ func VZMacHostBatterySourceFromID(id objc.ID) VZMacHostBatterySource {
 var _ IVZMacHostBatterySource = VZMacHostBatterySource{}
 
 // An interface definition for the [VZMacHostBatterySource] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacHostBatterySource
 type IVZMacHostBatterySource interface {
 	IVZMacBatterySource
 }

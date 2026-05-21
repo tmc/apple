@@ -56,8 +56,6 @@ func (gc GTShaderProfilerCounterGroupInfoClass) Alloc() GTShaderProfilerCounterG
 //   - [GTShaderProfilerCounterGroupInfo.ValueRange]
 //   - [GTShaderProfilerCounterGroupInfo.InitWithSpecParent]
 //   - [GTShaderProfilerCounterGroupInfo.Description]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo
 type GTShaderProfilerCounterGroupInfo struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ IGTShaderProfilerCounterGroupInfo = GTShaderProfilerCounterGroupInfo{}
 //   - [IGTShaderProfilerCounterGroupInfo.ValueRange]
 //   - [IGTShaderProfilerCounterGroupInfo.InitWithSpecParent]
 //   - [IGTShaderProfilerCounterGroupInfo.Description]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo
 type IGTShaderProfilerCounterGroupInfo interface {
 	objectivec.IObject
 
@@ -124,80 +120,58 @@ func NewGTShaderProfilerCounterGroupInfo() GTShaderProfilerCounterGroupInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/initWithSpec:parent:
 func NewGTShaderProfilerCounterGroupInfoWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterGroupInfo {
 	instance := getGTShaderProfilerCounterGroupInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
 	return GTShaderProfilerCounterGroupInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/initWithSpec:parent:
 func (g GTShaderProfilerCounterGroupInfo) InitWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterGroupInfo {
 	rv := objc.Send[GTShaderProfilerCounterGroupInfo](g.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/stringToResourceLink:
 func (_GTShaderProfilerCounterGroupInfoClass GTShaderProfilerCounterGroupInfoClass) StringToResourceLink(link objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](objc.ID(_GTShaderProfilerCounterGroupInfoClass.class), objc.Sel("stringToResourceLink:"), link)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/basisCondition
 func (g GTShaderProfilerCounterGroupInfo) BasisCondition() int {
 	rv := objc.Send[int](g.ID, objc.Sel("basisCondition"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/basisCounter
 func (g GTShaderProfilerCounterGroupInfo) BasisCounter() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("basisCounter"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/counters
 func (g GTShaderProfilerCounterGroupInfo) Counters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/description
 func (g GTShaderProfilerCounterGroupInfo) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/displayStyle
 func (g GTShaderProfilerCounterGroupInfo) DisplayStyle() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("displayStyle"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/maskInCompute
 func (g GTShaderProfilerCounterGroupInfo) MaskInCompute() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("maskInCompute"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/name
 func (g GTShaderProfilerCounterGroupInfo) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/resourceLink
 func (g GTShaderProfilerCounterGroupInfo) ResourceLink() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("resourceLink"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/sumCounterIndex
 func (g GTShaderProfilerCounterGroupInfo) SumCounterIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("sumCounterIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/valueRange
 func (g GTShaderProfilerCounterGroupInfo) ValueRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](g.ID, objc.Sel("valueRange"))
 	return foundation.NSRange(rv)

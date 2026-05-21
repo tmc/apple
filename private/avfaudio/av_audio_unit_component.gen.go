@@ -51,8 +51,6 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 //   - [AVAudioUnitComponent.LocaleChanged]
 //   - [AVAudioUnitComponent.ValidateWithResultsInCompletionHandler]
 //   - [AVAudioUnitComponent.SandboxSafe]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent
 type AVAudioUnitComponent struct {
 	objectivec.Object
 }
@@ -74,15 +72,13 @@ var _ IAVAudioUnitComponent = AVAudioUnitComponent{}
 //   - [IAVAudioUnitComponent.LocaleChanged]
 //   - [IAVAudioUnitComponent.ValidateWithResultsInCompletionHandler]
 //   - [IAVAudioUnitComponent.SandboxSafe]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent
 type IAVAudioUnitComponent interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	GetTypeName(name uint32) objectivec.IObject
-	ComponentURL() foundation.INSURL
+	ComponentURL() foundation.NSURL
 	LocaleChanged()
 	ValidateWithResultsInCompletionHandler(results objectivec.IObject, handler ErrorHandler) bool
 	SandboxSafe() bool
@@ -107,31 +103,23 @@ func NewAVAudioUnitComponent() AVAudioUnitComponent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/GetTypeName:
 func (a AVAudioUnitComponent) GetTypeName(name uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("GetTypeName:"), name)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/localeChanged
 func (a AVAudioUnitComponent) LocaleChanged() {
 	objc.Send[objc.ID](a.ID, objc.Sel("localeChanged"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/validateWithResults:inCompletionHandler:
 func (a AVAudioUnitComponent) ValidateWithResultsInCompletionHandler(results objectivec.IObject, handler ErrorHandler) bool {
 	_block1, _ := NewErrorBlock(handler)
 	rv := objc.Send[bool](a.ID, objc.Sel("validateWithResults:inCompletionHandler:"), results, _block1)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/componentURL
-func (a AVAudioUnitComponent) ComponentURL() foundation.INSURL {
+func (a AVAudioUnitComponent) ComponentURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("componentURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/sandboxSafe
 func (a AVAudioUnitComponent) SandboxSafe() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("sandboxSafe"))
 	return rv

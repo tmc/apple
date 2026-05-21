@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSPronunciationUtilsClass) Alloc() TextToSpeechTTSPronunci
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSPronunciationUtils
 type TextToSpeechTTSPronunciationUtils struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSPronunciationUtilsFromID(id objc.ID) TextToSpeechTTSPronunci
 // ITextToSpeechTTSPronunciationUtils embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSPronunciationUtils] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSPronunciationUtils
 type ITextToSpeechTTSPronunciationUtils interface {
 	objectivec.IObject
 }

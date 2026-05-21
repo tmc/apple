@@ -49,8 +49,6 @@ func (mc MLSNVGGishFrontendProcessingClass) Alloc() MLSNVGGishFrontendProcessing
 //   - [MLSNVGGishFrontendProcessing.ModelDescription]
 //   - [MLSNVGGishFrontendProcessing.PredictionFromFeaturesOptionsError]
 //   - [MLSNVGGishFrontendProcessing.InitWithModelDescriptionParameterDictionaryError]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing
 type MLSNVGGishFrontendProcessing struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IMLSNVGGishFrontendProcessing = MLSNVGGishFrontendProcessing{}
 //   - [IMLSNVGGishFrontendProcessing.ModelDescription]
 //   - [IMLSNVGGishFrontendProcessing.PredictionFromFeaturesOptionsError]
 //   - [IMLSNVGGishFrontendProcessing.InitWithModelDescriptionParameterDictionaryError]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing
 type IMLSNVGGishFrontendProcessing interface {
 	objectivec.IObject
 
@@ -101,7 +97,6 @@ func NewMLSNVGGishFrontendProcessing() MLSNVGGishFrontendProcessing {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing/initWithModelDescription:parameterDictionary:error:
 func NewMLSNVGGishFrontendProcessingWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNVGGishFrontendProcessing, error) {
 	var errorPtr objc.ID
 	instance := getMLSNVGGishFrontendProcessingClass().Alloc()
@@ -113,7 +108,6 @@ func NewMLSNVGGishFrontendProcessingWithModelDescriptionParameterDictionaryError
 	return MLSNVGGishFrontendProcessingFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing/predictionFromFeatures:options:error:
 func (m MLSNVGGishFrontendProcessing) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -124,20 +118,17 @@ func (m MLSNVGGishFrontendProcessing) PredictionFromFeaturesOptionsError(feature
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing/initWithModelDescription:parameterDictionary:error:
 func (m MLSNVGGishFrontendProcessing) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNVGGishFrontendProcessing, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLSNVGGishFrontendProcessing{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLSNVGGishFrontendProcessing), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLSNVGGishFrontendProcessingFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFrontendProcessing/modelDescription
 func (m MLSNVGGishFrontendProcessing) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))

@@ -47,8 +47,6 @@ func (mc MLIdentityClass) Alloc() MLIdentity {
 // # Methods
 //
 //   - [MLIdentity.PredictionFromFeaturesOptionsError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLIdentity
 type MLIdentity struct {
 	MLModel
 }
@@ -66,8 +64,6 @@ var _ IMLIdentity = MLIdentity{}
 // # Methods
 //
 //   - [IMLIdentity.PredictionFromFeaturesOptionsError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLIdentity
 type IMLIdentity interface {
 	IMLModel
 
@@ -95,7 +91,6 @@ func NewMLIdentity() MLIdentity {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
@@ -107,7 +102,6 @@ func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification
 	return MLIdentityFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
@@ -119,35 +113,30 @@ func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Poin
 	return MLIdentityFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLIdentityFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewIdentityWithDescription(description objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLIdentityFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewIdentityWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLIdentityFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLIdentityFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLIdentity/predictionFromFeatures:options:error:
 func (m MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -159,7 +148,6 @@ func (m MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObje
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLIdentity/loadModelFromSpecification:configuration:error:
 func (_MLIdentityClass MLIdentityClass) LoadModelFromSpecificationConfigurationError(specification MLModelSpecificationRef, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLIdentityClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))

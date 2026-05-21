@@ -78,8 +78,6 @@ func (ac AVSpeechSynthesizerClass) Alloc() AVSpeechSynthesizer {
 //   - [AVSpeechSynthesizer.SupportsAccurateWordCallbacks]
 //   - [AVSpeechSynthesizer.Paused]
 //   - [AVSpeechSynthesizer.Speaking]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer
 type AVSpeechSynthesizer struct {
 	objectivec.Object
 }
@@ -129,8 +127,6 @@ var _ IAVSpeechSynthesizer = AVSpeechSynthesizer{}
 //   - [IAVSpeechSynthesizer.SupportsAccurateWordCallbacks]
 //   - [IAVSpeechSynthesizer.Paused]
 //   - [IAVSpeechSynthesizer.Speaking]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer
 type IAVSpeechSynthesizer interface {
 	objectivec.IObject
 
@@ -190,7 +186,6 @@ func NewAVSpeechSynthesizer() AVSpeechSynthesizer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_applyWebKitBehaviors
 func (a AVSpeechSynthesizer) _applyWebKitBehaviors() {
 	objc.Send[objc.ID](a.ID, objc.Sel("_applyWebKitBehaviors"))
 }
@@ -209,8 +204,6 @@ func (a AVSpeechSynthesizer) ApplyWebKitBehaviors() error {
 func (a AVSpeechSynthesizer) CanApplyWebKitBehaviors() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_applyWebKitBehaviors"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_convertBoundary:
 func (a AVSpeechSynthesizer) _convertBoundary(boundary int64) int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("_convertBoundary:"), boundary)
 	return rv
@@ -229,8 +222,6 @@ func (a AVSpeechSynthesizer) ConvertBoundary(boundary int64) (int64, error) {
 func (a AVSpeechSynthesizer) CanConvertBoundary() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_convertBoundary:"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_enqueueNextJob
 func (a AVSpeechSynthesizer) _enqueueNextJob() {
 	objc.Send[objc.ID](a.ID, objc.Sel("_enqueueNextJob"))
 }
@@ -249,8 +240,6 @@ func (a AVSpeechSynthesizer) EnqueueNextJob() error {
 func (a AVSpeechSynthesizer) CanEnqueueNextJob() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_enqueueNextJob"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_handleSpeechDone:successful:
 func (a AVSpeechSynthesizer) _handleSpeechDoneSuccessful(done objectivec.IObject, successful bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("_handleSpeechDone:successful:"), done, successful)
 }
@@ -269,8 +258,6 @@ func (a AVSpeechSynthesizer) HandleSpeechDoneSuccessful(done objectivec.IObject,
 func (a AVSpeechSynthesizer) CanHandleSpeechDoneSuccessful() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_handleSpeechDone:successful:"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_speakUtterance:
 func (a AVSpeechSynthesizer) _speakUtterance(utterance objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("_speakUtterance:"), utterance)
 }
@@ -289,86 +276,57 @@ func (a AVSpeechSynthesizer) SpeakUtterance(utterance objectivec.IObject) error 
 func (a AVSpeechSynthesizer) CanSpeakUtterance() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_speakUtterance:"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/audioQueueFlags
 func (a AVSpeechSynthesizer) AudioQueueFlags() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/coreSynth
 func (a AVSpeechSynthesizer) CoreSynth() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("coreSynth"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isInAudioInterruption
 func (a AVSpeechSynthesizer) IsInAudioInterruption() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInAudioInterruption"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/processSpeechJobFinished:successful:
 func (a AVSpeechSynthesizer) ProcessSpeechJobFinishedSuccessful(finished objectivec.IObject, successful bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("processSpeechJobFinished:successful:"), finished, successful)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setActiveOptions
 func (a AVSpeechSynthesizer) SetActiveOptions() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("setActiveOptions"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setAudioQueueFlags:
 func (a AVSpeechSynthesizer) SetAudioQueueFlags(flags uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setAudioQueueFlags:"), flags)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setAudioSessionInactiveTimeout:
 func (a AVSpeechSynthesizer) SetAudioSessionInactiveTimeout(timeout float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setAudioSessionInactiveTimeout:"), timeout)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setSetActiveOptions:
 func (a AVSpeechSynthesizer) SetSetActiveOptions(options uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setSetActiveOptions:"), options)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setSkipLuthorRules:
 func (a AVSpeechSynthesizer) SetSkipLuthorRules(rules objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setSkipLuthorRules:"), rules)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/setSupportsAccurateWordCallbacks:
 func (a AVSpeechSynthesizer) SetSupportsAccurateWordCallbacks(callbacks objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setSupportsAccurateWordCallbacks:"), callbacks)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/skipLuthorRules
 func (a AVSpeechSynthesizer) SkipLuthorRules() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("skipLuthorRules"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/speechManager
 func (a AVSpeechSynthesizer) SpeechManager() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechManager"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/speechQueue
 func (a AVSpeechSynthesizer) SpeechQueue() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechQueue"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/supportsAccurateWordCallbacks
 func (a AVSpeechSynthesizer) SupportsAccurateWordCallbacks() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportsAccurateWordCallbacks"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_supportsSpeakingWithPersonalVoices
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) _supportsSpeakingWithPersonalVoices() bool {
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
 	return rv
@@ -387,14 +345,11 @@ func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) SupportsSpeakingWithPe
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) CanSupportsSpeakingWithPersonalVoices() bool {
 	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isSoftAppUsageProtectionDisabled
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) IsSoftAppUsageProtectionDisabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("isSoftAppUsageProtectionDisabled"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/audioDeviceId
 func (a AVSpeechSynthesizer) AudioDeviceId() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("audioDeviceId"))
 	return rv
@@ -402,8 +357,6 @@ func (a AVSpeechSynthesizer) AudioDeviceId() uint32 {
 func (a AVSpeechSynthesizer) SetAudioDeviceId(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioDeviceId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/detectSSMLAndModifyUtterances
 func (a AVSpeechSynthesizer) DetectSSMLAndModifyUtterances() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("detectSSMLAndModifyUtterances"))
 	return rv
@@ -411,8 +364,6 @@ func (a AVSpeechSynthesizer) DetectSSMLAndModifyUtterances() bool {
 func (a AVSpeechSynthesizer) SetDetectSSMLAndModifyUtterances(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDetectSSMLAndModifyUtterances:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/inflightUtterance
 func (a AVSpeechSynthesizer) InflightUtterance() IAVSpeechUtterance {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inflightUtterance"))
 	return AVSpeechUtteranceFromID(objc.ID(rv))
@@ -420,8 +371,6 @@ func (a AVSpeechSynthesizer) InflightUtterance() IAVSpeechUtterance {
 func (a AVSpeechSynthesizer) SetInflightUtterance(value IAVSpeechUtterance) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInflightUtterance:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/initializedWebKitUsage
 func (a AVSpeechSynthesizer) InitializedWebKitUsage() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("initializedWebKitUsage"))
 	return rv
@@ -429,8 +378,6 @@ func (a AVSpeechSynthesizer) InitializedWebKitUsage() bool {
 func (a AVSpeechSynthesizer) SetInitializedWebKitUsage(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInitializedWebKitUsage:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isInternalSynth
 func (a AVSpeechSynthesizer) IsInternalSynth() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInternalSynth"))
 	return rv
@@ -438,20 +385,14 @@ func (a AVSpeechSynthesizer) IsInternalSynth() bool {
 func (a AVSpeechSynthesizer) SetIsInternalSynth(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIsInternalSynth:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/paused
 func (a AVSpeechSynthesizer) Paused() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("paused"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/speaking
 func (a AVSpeechSynthesizer) Speaking() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("speaking"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/speechSource
 func (a AVSpeechSynthesizer) SpeechSource() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechSource"))
 	return foundation.NSStringFromID(rv).String()

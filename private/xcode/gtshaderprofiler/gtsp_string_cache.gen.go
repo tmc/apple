@@ -42,7 +42,6 @@ func (gc GTSPStringCacheClass) Alloc() GTSPStringCache {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTSPStringCache
 type GTSPStringCache struct {
 	GTShaderProfilerStringCache
 }
@@ -56,8 +55,6 @@ func GTSPStringCacheFromID(id objc.ID) GTSPStringCache {
 var _ IGTSPStringCache = GTSPStringCache{}
 
 // An interface definition for the [GTSPStringCache] class.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTSPStringCache
 type IGTSPStringCache interface {
 	IGTShaderProfilerStringCache
 }
@@ -81,7 +78,6 @@ func NewGTSPStringCache() GTSPStringCache {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/initWithCoder:
 func NewGTSPStringCacheWithCoder(coder objectivec.IObject) GTSPStringCache {
 	instance := getGTSPStringCacheClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)

@@ -47,8 +47,6 @@ func (vc VZSerialPortClass) Alloc() VZSerialPort {
 //   - [VZSerialPort.Attachment]
 //   - [VZSerialPort.SetAttachment]
 //   - [VZSerialPort.Type]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort
 type VZSerialPort struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IVZSerialPort = VZSerialPort{}
 //   - [IVZSerialPort.Attachment]
 //   - [IVZSerialPort.SetAttachment]
 //   - [IVZSerialPort.Type]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort
 type IVZSerialPort interface {
 	objectivec.IObject
 
@@ -99,7 +95,6 @@ func NewVZSerialPort() VZSerialPort {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort/attachment
 func (v VZSerialPort) Attachment() IVZSerialPortAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
 	return VZSerialPortAttachmentFromID(objc.ID(rv))
@@ -107,8 +102,6 @@ func (v VZSerialPort) Attachment() IVZSerialPortAttachment {
 func (v VZSerialPort) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort/type
 func (v VZSerialPort) Type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("type"))
 	return rv

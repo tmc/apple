@@ -41,7 +41,6 @@ func (ec EspressoPassRemoveReshapeAroundRank2SoftmaxClass) Alloc() EspressoPassR
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
 type EspressoPassRemoveReshapeAroundRank2Softmax struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_remove_reshape_around_rank2_softmaxFromID(id objc.ID) Espresso
 var _ IEspressoPassRemoveReshapeAroundRank2Softmax = EspressoPassRemoveReshapeAroundRank2Softmax{}
 
 // An interface definition for the [EspressoPassRemoveReshapeAroundRank2Softmax] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
 type IEspressoPassRemoveReshapeAroundRank2Softmax interface {
 	IEspressoCustomPass
 }

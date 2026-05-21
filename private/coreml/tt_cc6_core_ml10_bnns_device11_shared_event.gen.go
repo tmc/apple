@@ -42,7 +42,6 @@ func (tc TtCC6CoreML10BNNSDevice11SharedEventClass) Alloc() TtCC6CoreML10BNNSDev
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML10BNNSDevice11SharedEvent
 type TtCC6CoreML10BNNSDevice11SharedEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC6CoreML10BNNSDevice11SharedEventFromID(id objc.ID) TtCC6CoreML10BNNSDev
 // ITtCC6CoreML10BNNSDevice11SharedEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC6CoreML10BNNSDevice11SharedEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML10BNNSDevice11SharedEvent
 type ITtCC6CoreML10BNNSDevice11SharedEvent interface {
 	objectivec.IObject
 }

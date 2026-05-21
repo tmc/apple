@@ -80,8 +80,6 @@ func (dc DYWorkloadGPUTimelineInfoClass) Alloc() DYWorkloadGPUTimelineInfo {
 //   - [DYWorkloadGPUTimelineInfo.InitWithCoder]
 //   - [DYWorkloadGPUTimelineInfo.Version]
 //   - [DYWorkloadGPUTimelineInfo.SetVersion]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo
 type DYWorkloadGPUTimelineInfo struct {
 	objectivec.Object
 }
@@ -132,8 +130,6 @@ var _ IDYWorkloadGPUTimelineInfo = DYWorkloadGPUTimelineInfo{}
 //   - [IDYWorkloadGPUTimelineInfo.InitWithCoder]
 //   - [IDYWorkloadGPUTimelineInfo.Version]
 //   - [IDYWorkloadGPUTimelineInfo.SetVersion]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo
 type IDYWorkloadGPUTimelineInfo interface {
 	objectivec.IObject
 
@@ -194,67 +190,49 @@ func NewDYWorkloadGPUTimelineInfo() DYWorkloadGPUTimelineInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/initWithCoder:
 func NewDYWorkloadGPUTimelineInfoWithCoder(coder objectivec.IObject) DYWorkloadGPUTimelineInfo {
 	instance := getDYWorkloadGPUTimelineInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYWorkloadGPUTimelineInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/createCounterGroup
 func (d DYWorkloadGPUTimelineInfo) CreateCounterGroup() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("createCounterGroup"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/encodeWithCoder:
 func (d DYWorkloadGPUTimelineInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/enumerateEncoderDerivedData:
 func (d DYWorkloadGPUTimelineInfo) EnumerateEncoderDerivedData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedData:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/enumerateEncoderDerivedDataAtIndex:withBlock:
 func (d DYWorkloadGPUTimelineInfo) EnumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/isMio
 func (d DYWorkloadGPUTimelineInfo) IsMio() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isMio"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/mGPUTimelineInfoAtIndex:
 func (d DYWorkloadGPUTimelineInfo) MGPUTimelineInfoAtIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mGPUTimelineInfoAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/metalFXCallDuration:
 func (d DYWorkloadGPUTimelineInfo) MetalFXCallDuration(duration uint64) uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/initWithCoder:
 func (d DYWorkloadGPUTimelineInfo) InitWithCoder(coder foundation.INSCoder) DYWorkloadGPUTimelineInfo {
 	rv := objc.Send[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/supportsSecureCoding
 func (_DYWorkloadGPUTimelineInfoClass DYWorkloadGPUTimelineInfoClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DYWorkloadGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/aggregatedGPUTimelineInfo
 func (d DYWorkloadGPUTimelineInfo) AggregatedGPUTimelineInfo() IDYGPUTimelineInfo {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("aggregatedGPUTimelineInfo"))
 	return DYGPUTimelineInfoFromID(objc.ID(rv))
@@ -262,8 +240,6 @@ func (d DYWorkloadGPUTimelineInfo) AggregatedGPUTimelineInfo() IDYGPUTimelineInf
 func (d DYWorkloadGPUTimelineInfo) SetAggregatedGPUTimelineInfo(value IDYGPUTimelineInfo) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAggregatedGPUTimelineInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/coalescedEncoderInfo
 func (d DYWorkloadGPUTimelineInfo) CoalescedEncoderInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("coalescedEncoderInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -271,8 +247,6 @@ func (d DYWorkloadGPUTimelineInfo) CoalescedEncoderInfo() foundation.INSDictiona
 func (d DYWorkloadGPUTimelineInfo) SetCoalescedEncoderInfo(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoalescedEncoderInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/consistentStateAchieved
 func (d DYWorkloadGPUTimelineInfo) ConsistentStateAchieved() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("consistentStateAchieved"))
 	return rv
@@ -280,8 +254,6 @@ func (d DYWorkloadGPUTimelineInfo) ConsistentStateAchieved() bool {
 func (d DYWorkloadGPUTimelineInfo) SetConsistentStateAchieved(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setConsistentStateAchieved:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/coreCounts
 func (d DYWorkloadGPUTimelineInfo) CoreCounts() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("coreCounts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -289,8 +261,6 @@ func (d DYWorkloadGPUTimelineInfo) CoreCounts() foundation.INSArray {
 func (d DYWorkloadGPUTimelineInfo) SetCoreCounts(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoreCounts:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/counterGroups
 func (d DYWorkloadGPUTimelineInfo) CounterGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("counterGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -298,8 +268,6 @@ func (d DYWorkloadGPUTimelineInfo) CounterGroups() foundation.INSArray {
 func (d DYWorkloadGPUTimelineInfo) SetCounterGroups(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCounterGroups:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/derivedEncoderCounterInfo
 func (d DYWorkloadGPUTimelineInfo) DerivedEncoderCounterInfo() IDYGPUDerivedEncoderCounterInfo {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedEncoderCounterInfo"))
 	return DYGPUDerivedEncoderCounterInfoFromID(objc.ID(rv))
@@ -307,8 +275,6 @@ func (d DYWorkloadGPUTimelineInfo) DerivedEncoderCounterInfo() IDYGPUDerivedEnco
 func (d DYWorkloadGPUTimelineInfo) SetDerivedEncoderCounterInfo(value IDYGPUDerivedEncoderCounterInfo) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedEncoderCounterInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/mGPUTimelineInfos
 func (d DYWorkloadGPUTimelineInfo) MGPUTimelineInfos() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mGPUTimelineInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -316,8 +282,6 @@ func (d DYWorkloadGPUTimelineInfo) MGPUTimelineInfos() foundation.INSArray {
 func (d DYWorkloadGPUTimelineInfo) SetMGPUTimelineInfos(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMGPUTimelineInfos:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/perRingSampledDerivedCounters
 func (d DYWorkloadGPUTimelineInfo) PerRingSampledDerivedCounters() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("perRingSampledDerivedCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -325,8 +289,6 @@ func (d DYWorkloadGPUTimelineInfo) PerRingSampledDerivedCounters() foundation.IN
 func (d DYWorkloadGPUTimelineInfo) SetPerRingSampledDerivedCounters(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPerRingSampledDerivedCounters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/profiledState
 func (d DYWorkloadGPUTimelineInfo) ProfiledState() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("profiledState"))
 	return rv
@@ -334,8 +296,6 @@ func (d DYWorkloadGPUTimelineInfo) ProfiledState() uint32 {
 func (d DYWorkloadGPUTimelineInfo) SetProfiledState(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setProfiledState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/restoreTimestamps
 func (d DYWorkloadGPUTimelineInfo) RestoreTimestamps() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("restoreTimestamps"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -343,8 +303,6 @@ func (d DYWorkloadGPUTimelineInfo) RestoreTimestamps() foundation.INSArray {
 func (d DYWorkloadGPUTimelineInfo) SetRestoreTimestamps(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRestoreTimestamps:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/timeBaseDenominator
 func (d DYWorkloadGPUTimelineInfo) TimeBaseDenominator() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("timeBaseDenominator"))
 	return rv
@@ -352,8 +310,6 @@ func (d DYWorkloadGPUTimelineInfo) TimeBaseDenominator() uint32 {
 func (d DYWorkloadGPUTimelineInfo) SetTimeBaseDenominator(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeBaseDenominator:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/timeBaseNumerator
 func (d DYWorkloadGPUTimelineInfo) TimeBaseNumerator() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("timeBaseNumerator"))
 	return rv
@@ -361,8 +317,6 @@ func (d DYWorkloadGPUTimelineInfo) TimeBaseNumerator() uint32 {
 func (d DYWorkloadGPUTimelineInfo) SetTimeBaseNumerator(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeBaseNumerator:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYWorkloadGPUTimelineInfo/version
 func (d DYWorkloadGPUTimelineInfo) Version() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("version"))
 	return rv

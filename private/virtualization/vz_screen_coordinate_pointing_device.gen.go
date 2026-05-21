@@ -45,8 +45,6 @@ func (vc VZScreenCoordinatePointingDeviceClass) Alloc() VZScreenCoordinatePointi
 // # Methods
 //
 //   - [VZScreenCoordinatePointingDevice.SendPointerEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointingDevice
 type VZScreenCoordinatePointingDevice struct {
 	VZPointingDevice
 }
@@ -64,8 +62,6 @@ var _ IVZScreenCoordinatePointingDevice = VZScreenCoordinatePointingDevice{}
 // # Methods
 //
 //   - [IVZScreenCoordinatePointingDevice.SendPointerEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointingDevice
 type IVZScreenCoordinatePointingDevice interface {
 	IVZPointingDevice
 
@@ -93,14 +89,12 @@ func NewVZScreenCoordinatePointingDevice() VZScreenCoordinatePointingDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/initWithType:virtualMachine:pointingDeviceIndex:
 func NewVZScreenCoordinatePointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZScreenCoordinatePointingDevice {
 	instance := getVZScreenCoordinatePointingDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZScreenCoordinatePointingDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointingDevice/sendPointerEvents:
 func (v VZScreenCoordinatePointingDevice) SendPointerEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendPointerEvents:"), events)
 }

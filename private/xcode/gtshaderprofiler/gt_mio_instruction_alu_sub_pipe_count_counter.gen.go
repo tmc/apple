@@ -46,8 +46,6 @@ func (gc GTMioInstructionALUSubPipeCountCounterClass) Alloc() GTMioInstructionAL
 //
 //   - [GTMioInstructionALUSubPipeCountCounter.SubPipe]
 //   - [GTMioInstructionALUSubPipeCountCounter.InitWithContainerInstructionCategoryScopeScopeIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionALUSubPipeCountCounter
 type GTMioInstructionALUSubPipeCountCounter struct {
 	GTMioCounterData
 }
@@ -66,8 +64,6 @@ var _ IGTMioInstructionALUSubPipeCountCounter = GTMioInstructionALUSubPipeCountC
 //
 //   - [IGTMioInstructionALUSubPipeCountCounter.SubPipe]
 //   - [IGTMioInstructionALUSubPipeCountCounter.InitWithContainerInstructionCategoryScopeScopeIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionALUSubPipeCountCounter
 type IGTMioInstructionALUSubPipeCountCounter interface {
 	IGTMioCounterData
 
@@ -96,27 +92,23 @@ func NewGTMioInstructionALUSubPipeCountCounter() GTMioInstructionALUSubPipeCount
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/initWithContainer:index:scope:scopeIndex:
 func NewGTMioInstructionALUSubPipeCountCounterWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioInstructionALUSubPipeCountCounter {
 	instance := getGTMioInstructionALUSubPipeCountCounterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
 	return GTMioInstructionALUSubPipeCountCounterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionALUSubPipeCountCounter/initWithContainer:instructionCategory:scope:scopeIndex:
 func NewGTMioInstructionALUSubPipeCountCounterWithContainerInstructionCategoryScopeScopeIndex(container unsafe.Pointer, category uint16, scope uint16, index uint64) GTMioInstructionALUSubPipeCountCounter {
 	instance := getGTMioInstructionALUSubPipeCountCounterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
 	return GTMioInstructionALUSubPipeCountCounterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionALUSubPipeCountCounter/initWithContainer:instructionCategory:scope:scopeIndex:
 func (g GTMioInstructionALUSubPipeCountCounter) InitWithContainerInstructionCategoryScopeScopeIndex(container unsafe.Pointer, category uint16, scope uint16, index uint64) GTMioInstructionALUSubPipeCountCounter {
 	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionALUSubPipeCountCounter/subPipe
 func (g GTMioInstructionALUSubPipeCountCounter) SubPipe() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("subPipe"))
 	return rv

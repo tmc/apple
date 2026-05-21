@@ -52,8 +52,6 @@ func (ec ETDataPointClass) Alloc() ETDataPoint {
 //   - [ETDataPoint.IterateBuffersByKey]
 //   - [ETDataPoint.SetDataSizeForKeyFreeWhenDone]
 //   - [ETDataPoint.SetImageForKey]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint
 type ETDataPoint struct {
 	objectivec.Object
 }
@@ -76,18 +74,16 @@ var _ IETDataPoint = ETDataPoint{}
 //   - [IETDataPoint.IterateBuffersByKey]
 //   - [IETDataPoint.SetDataSizeForKeyFreeWhenDone]
 //   - [IETDataPoint.SetImageForKey]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint
 type IETDataPoint interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	BufferWithKey(key objectivec.IObject) unsafe.Pointer
-	GetSampleData() objectivec.IObject
+	GetSampleData() unsafe.Pointer
 	ImageWithKey(key objectivec.IObject) unsafe.Pointer
 	IterateBuffersByKey(key VoidHandler)
-	SetDataSizeForKeyFreeWhenDone(data unsafe.Pointer, size uint64, key objectivec.IObject, done bool)
+	SetDataSizeForKeyFreeWhenDone(data *float32, size uint64, key objectivec.IObject, done bool)
 	SetImageForKey(image unsafe.Pointer, key objectivec.IObject)
 }
 
@@ -110,36 +106,25 @@ func NewETDataPoint() ETDataPoint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/bufferWithKey:
 func (e ETDataPoint) BufferWithKey(key objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithKey:"), key)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/getSampleData
-func (e ETDataPoint) GetSampleData() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getSampleData"))
-	return objectivec.Object{ID: rv}
+func (e ETDataPoint) GetSampleData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("getSampleData"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/imageWithKey:
 func (e ETDataPoint) ImageWithKey(key objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("imageWithKey:"), key)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/iterateBuffersByKey:
 func (e ETDataPoint) IterateBuffersByKey(key VoidHandler) {
 	_block0, _ := NewVoidBlock(key)
 	objc.Send[objc.ID](e.ID, objc.Sel("iterateBuffersByKey:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/setData:size:forKey:freeWhenDone:
-func (e ETDataPoint) SetDataSizeForKeyFreeWhenDone(data unsafe.Pointer, size uint64, key objectivec.IObject, done bool) {
+func (e ETDataPoint) SetDataSizeForKeyFreeWhenDone(data *float32, size uint64, key objectivec.IObject, done bool) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), data, size, key, done)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPoint/setImage:forKey:
 func (e ETDataPoint) SetImageForKey(image unsafe.Pointer, key objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setImage:forKey:"), image, key)
 }

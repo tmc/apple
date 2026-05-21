@@ -46,8 +46,6 @@ func (ac AVAudioUnitSamplerClass) Alloc() AVAudioUnitSampler {
 //
 //   - [AVAudioUnitSampler.MasterGain]
 //   - [AVAudioUnitSampler.SetMasterGain]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler
 type AVAudioUnitSampler struct {
 	AVAudioUnitMIDIInstrument
 }
@@ -66,8 +64,6 @@ var _ IAVAudioUnitSampler = AVAudioUnitSampler{}
 //
 //   - [IAVAudioUnitSampler.MasterGain]
 //   - [IAVAudioUnitSampler.SetMasterGain]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler
 type IAVAudioUnitSampler interface {
 	IAVAudioUnitMIDIInstrument
 
@@ -96,14 +92,12 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitSamplerWithImpl(impl unsafe.Pointer) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSamplerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler/masterGain
 func (a AVAudioUnitSampler) MasterGain() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("masterGain"))
 	return rv

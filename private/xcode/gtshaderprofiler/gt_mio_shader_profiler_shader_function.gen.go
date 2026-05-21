@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -57,8 +58,6 @@ func (gc GTMioShaderProfilerShaderFunctionClass) Alloc() GTMioShaderProfilerShad
 //   - [GTMioShaderProfilerShaderFunction.Description]
 //   - [GTMioShaderProfilerShaderFunction.Hash]
 //   - [GTMioShaderProfilerShaderFunction.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction
 type GTMioShaderProfilerShaderFunction struct {
 	objectivec.Object
 }
@@ -87,8 +86,6 @@ var _ IGTMioShaderProfilerShaderFunction = GTMioShaderProfilerShaderFunction{}
 //   - [IGTMioShaderProfilerShaderFunction.Description]
 //   - [IGTMioShaderProfilerShaderFunction.Hash]
 //   - [IGTMioShaderProfilerShaderFunction.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction
 type IGTMioShaderProfilerShaderFunction interface {
 	objectivec.IObject
 
@@ -101,11 +98,11 @@ type IGTMioShaderProfilerShaderFunction interface {
 	ObjectId() uint64
 	PointerId() uint64
 	Type() uint32
-	InitWithInfoTraceData(info objectivec.IObject, data objectivec.IObject) GTMioShaderProfilerShaderFunction
+	InitWithInfoTraceData(info unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerShaderFunction
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,80 +124,57 @@ func NewGTMioShaderProfilerShaderFunction() GTMioShaderProfilerShaderFunction {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/initWithInfo:traceData:
-func NewGTMioShaderProfilerShaderFunctionWithInfoTraceData(info objectivec.IObject, data objectivec.IObject) GTMioShaderProfilerShaderFunction {
+func NewGTMioShaderProfilerShaderFunctionWithInfoTraceData(info unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerShaderFunction {
 	instance := getGTMioShaderProfilerShaderFunctionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInfo:traceData:"), info, data)
 	return GTMioShaderProfilerShaderFunctionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/initWithInfo:traceData:
-func (g GTMioShaderProfilerShaderFunction) InitWithInfoTraceData(info objectivec.IObject, data objectivec.IObject) GTMioShaderProfilerShaderFunction {
+func (g GTMioShaderProfilerShaderFunction) InitWithInfoTraceData(info unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerShaderFunction {
 	rv := objc.Send[GTMioShaderProfilerShaderFunction](g.ID, objc.Sel("initWithInfo:traceData:"), info, data)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/debugDescription
 func (g GTMioShaderProfilerShaderFunction) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/description
 func (g GTMioShaderProfilerShaderFunction) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/filePath
 func (g GTMioShaderProfilerShaderFunction) FilePath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("filePath"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/hash
 func (g GTMioShaderProfilerShaderFunction) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/index
 func (g GTMioShaderProfilerShaderFunction) Index() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/libraryObjectId
 func (g GTMioShaderProfilerShaderFunction) LibraryObjectId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("libraryObjectId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/name
 func (g GTMioShaderProfilerShaderFunction) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/objectId
 func (g GTMioShaderProfilerShaderFunction) ObjectId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("objectId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/pointerId
 func (g GTMioShaderProfilerShaderFunction) PointerId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("pointerId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/superclass
-func (g GTMioShaderProfilerShaderFunction) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
-	return rv
+func (g GTMioShaderProfilerShaderFunction) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerShaderFunction/type
 func (g GTMioShaderProfilerShaderFunction) Type() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("type"))
 	return rv

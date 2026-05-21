@@ -5,10 +5,10 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSWordMarker] class.
@@ -56,8 +56,6 @@ func (tc TTSWordMarkerClass) Alloc() TTSWordMarker {
 //   - [TTSWordMarker.Description]
 //   - [TTSWordMarker.Hash]
 //   - [TTSWordMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker
 type TTSWordMarker struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ ITTSWordMarker = TTSWordMarker{}
 //   - [ITTSWordMarker.Description]
 //   - [ITTSWordMarker.Hash]
 //   - [ITTSWordMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker
 type ITTSWordMarker interface {
 	objectivec.IObject
 
@@ -100,7 +96,7 @@ type ITTSWordMarker interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -122,13 +118,10 @@ func NewTTSWordMarker() TTSWordMarker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/avMark
 func (t TTSWordMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/byteOffset
 func (t TTSWordMarker) ByteOffset() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
@@ -136,38 +129,26 @@ func (t TTSWordMarker) ByteOffset() int64 {
 func (t TTSWordMarker) SetByteOffset(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/debugDescription
 func (t TTSWordMarker) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/description
 func (t TTSWordMarker) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/hash
 func (t TTSWordMarker) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/markType
 func (t TTSWordMarker) MarkType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/superclass
-func (t TTSWordMarker) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
-	return rv
+func (t TTSWordMarker) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSWordMarker/wordRange
 func (t TTSWordMarker) WordRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("wordRange"))
 	return foundation.NSRange(rv)

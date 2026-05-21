@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceSetAbsoluteLevelOperationClass) Alloc() SLSBridgedSpaceS
 //   - [SLSBridgedSpaceSetAbsoluteLevelOperation.Level]
 //   - [SLSBridgedSpaceSetAbsoluteLevelOperation.SpaceID]
 //   - [SLSBridgedSpaceSetAbsoluteLevelOperation.InitWithSpaceIDLevel]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation
 type SLSBridgedSpaceSetAbsoluteLevelOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceSetAbsoluteLevelOperation = SLSBridgedSpaceSetAbsoluteLeve
 //   - [ISLSBridgedSpaceSetAbsoluteLevelOperation.Level]
 //   - [ISLSBridgedSpaceSetAbsoluteLevelOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetAbsoluteLevelOperation.InitWithSpaceIDLevel]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation
 type ISLSBridgedSpaceSetAbsoluteLevelOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceSetAbsoluteLevelOperation() SLSBridgedSpaceSetAbsoluteLev
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation/initWithCoder:
 func NewSLSBridgedSpaceSetAbsoluteLevelOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetAbsoluteLevelOperation {
 	instance := getSLSBridgedSpaceSetAbsoluteLevelOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetAbsoluteLevelOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation/initWithSpaceID:level:
 func NewSLSBridgedSpaceSetAbsoluteLevelOperationWithSpaceIDLevel(id uint64, level int) SLSBridgedSpaceSetAbsoluteLevelOperation {
 	instance := getSLSBridgedSpaceSetAbsoluteLevelOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:level:"), id, level)
 	return SLSBridgedSpaceSetAbsoluteLevelOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation/initWithSpaceID:level:
 func (s SLSBridgedSpaceSetAbsoluteLevelOperation) InitWithSpaceIDLevel(id uint64, level int) SLSBridgedSpaceSetAbsoluteLevelOperation {
 	rv := objc.Send[SLSBridgedSpaceSetAbsoluteLevelOperation](s.ID, objc.Sel("initWithSpaceID:level:"), id, level)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation/level
 func (s SLSBridgedSpaceSetAbsoluteLevelOperation) Level() int {
 	rv := objc.Send[int](s.ID, objc.Sel("level"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetAbsoluteLevelOperation/spaceID
 func (s SLSBridgedSpaceSetAbsoluteLevelOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

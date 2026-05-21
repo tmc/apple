@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -47,8 +48,6 @@ func (vc VZCustomMMIODeviceDelegateProviderClass) Alloc() VZCustomMMIODeviceDele
 //   - [VZCustomMMIODeviceDelegateProvider.Delegate]
 //   - [VZCustomMMIODeviceDelegateProvider.DeviceQueue]
 //   - [VZCustomMMIODeviceDelegateProvider.InitWithDeviceQueueDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider
 type VZCustomMMIODeviceDelegateProvider struct {
 	VZCustomMMIODeviceProvider
 }
@@ -68,14 +67,12 @@ var _ IVZCustomMMIODeviceDelegateProvider = VZCustomMMIODeviceDelegateProvider{}
 //   - [IVZCustomMMIODeviceDelegateProvider.Delegate]
 //   - [IVZCustomMMIODeviceDelegateProvider.DeviceQueue]
 //   - [IVZCustomMMIODeviceDelegateProvider.InitWithDeviceQueueDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider
 type IVZCustomMMIODeviceDelegateProvider interface {
 	IVZCustomMMIODeviceProvider
 
 	// Topic: Methods
 
-	Delegate() objectivec.IObject
+	Delegate() unsafe.Pointer
 	DeviceQueue() objectivec.Object
 	InitWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomMMIODeviceDelegateProvider
 }
@@ -99,26 +96,21 @@ func NewVZCustomMMIODeviceDelegateProvider() VZCustomMMIODeviceDelegateProvider 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider/initWithDeviceQueue:delegate:
 func NewVZCustomMMIODeviceDelegateProviderWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomMMIODeviceDelegateProvider {
 	instance := getVZCustomMMIODeviceDelegateProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return VZCustomMMIODeviceDelegateProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider/initWithDeviceQueue:delegate:
 func (v VZCustomMMIODeviceDelegateProvider) InitWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomMMIODeviceDelegateProvider {
 	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider/delegate
-func (v VZCustomMMIODeviceDelegateProvider) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZCustomMMIODeviceDelegateProvider) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceDelegateProvider/deviceQueue
 func (v VZCustomMMIODeviceDelegateProvider) DeviceQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

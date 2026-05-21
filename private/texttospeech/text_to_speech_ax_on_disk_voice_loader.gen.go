@@ -42,7 +42,6 @@ func (tc TextToSpeechAXOnDiskVoiceLoaderClass) Alloc() TextToSpeechAXOnDiskVoice
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXOnDiskVoiceLoader
 type TextToSpeechAXOnDiskVoiceLoader struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAXOnDiskVoiceLoaderFromID(id objc.ID) TextToSpeechAXOnDiskVoice
 // ITextToSpeechAXOnDiskVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXOnDiskVoiceLoader] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXOnDiskVoiceLoader
 type ITextToSpeechAXOnDiskVoiceLoader interface {
 	objectivec.IObject
 }

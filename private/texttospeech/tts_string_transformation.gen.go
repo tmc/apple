@@ -55,8 +55,6 @@ func (tc TTSStringTransformationClass) Alloc() TTSStringTransformation {
 //   - [TTSStringTransformation.SetReplacement]
 //   - [TTSStringTransformation.SizeDelta]
 //   - [TTSStringTransformation.InitWithRangeAndReplacement]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation
 type TTSStringTransformation struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ITTSStringTransformation = TTSStringTransformation{}
 //   - [ITTSStringTransformation.SetReplacement]
 //   - [ITTSStringTransformation.SizeDelta]
 //   - [ITTSStringTransformation.InitWithRangeAndReplacement]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation
 type ITTSStringTransformation interface {
 	objectivec.IObject
 
@@ -121,26 +117,21 @@ func NewTTSStringTransformation() TTSStringTransformation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/initWithRange:andReplacement:
 func NewTTSStringTransformationWithRangeAndReplacement(range_ foundation.NSRange, replacement objectivec.IObject) TTSStringTransformation {
 	instance := getTTSStringTransformationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
 	return TTSStringTransformationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/sizeDelta
 func (t TTSStringTransformation) SizeDelta() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("sizeDelta"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/initWithRange:andReplacement:
 func (t TTSStringTransformation) InitWithRangeAndReplacement(range_ foundation.NSRange, replacement objectivec.IObject) TTSStringTransformation {
 	rv := objc.Send[TTSStringTransformation](t.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/finalRange
 func (t TTSStringTransformation) FinalRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("finalRange"))
 	return foundation.NSRange(rv)
@@ -148,8 +139,6 @@ func (t TTSStringTransformation) FinalRange() foundation.NSRange {
 func (t TTSStringTransformation) SetFinalRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFinalRange:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/offsetFromEnd
 func (t TTSStringTransformation) OffsetFromEnd() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("offsetFromEnd"))
 	return rv
@@ -157,8 +146,6 @@ func (t TTSStringTransformation) OffsetFromEnd() uint64 {
 func (t TTSStringTransformation) SetOffsetFromEnd(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOffsetFromEnd:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/range
 func (t TTSStringTransformation) Range() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("range"))
 	return foundation.NSRange(rv)
@@ -166,8 +153,6 @@ func (t TTSStringTransformation) Range() foundation.NSRange {
 func (t TTSStringTransformation) SetRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRange:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStringTransformation/replacement
 func (t TTSStringTransformation) Replacement() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()

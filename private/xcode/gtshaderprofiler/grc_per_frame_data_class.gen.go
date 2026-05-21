@@ -42,7 +42,6 @@ func (gc GRCPerFrameDataClassClass) Alloc() GRCPerFrameDataClass {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GRCPerFrameDataClass
 type GRCPerFrameDataClass struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func GRCPerFrameDataClassFromID(id objc.ID) GRCPerFrameDataClass {
 var _ IGRCPerFrameDataClass = GRCPerFrameDataClass{}
 
 // An interface definition for the [GRCPerFrameDataClass] class.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GRCPerFrameDataClass
 type IGRCPerFrameDataClass interface {
 	objectivec.IObject
 }

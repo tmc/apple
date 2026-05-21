@@ -48,8 +48,6 @@ func (sc SLSBridgedManagedDisplaySetCurrentSpaceOperationClass) Alloc() SLSBridg
 //   - [SLSBridgedManagedDisplaySetCurrentSpaceOperation.DisplayIdentifier]
 //   - [SLSBridgedManagedDisplaySetCurrentSpaceOperation.SpaceID]
 //   - [SLSBridgedManagedDisplaySetCurrentSpaceOperation.InitWithDisplayIdentifierSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation
 type SLSBridgedManagedDisplaySetCurrentSpaceOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedManagedDisplaySetCurrentSpaceOperation = SLSBridgedManagedDispl
 //   - [ISLSBridgedManagedDisplaySetCurrentSpaceOperation.DisplayIdentifier]
 //   - [ISLSBridgedManagedDisplaySetCurrentSpaceOperation.SpaceID]
 //   - [ISLSBridgedManagedDisplaySetCurrentSpaceOperation.InitWithDisplayIdentifierSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation
 type ISLSBridgedManagedDisplaySetCurrentSpaceOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedManagedDisplaySetCurrentSpaceOperation() SLSBridgedManagedDisp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation/initWithCoder:
 func NewSLSBridgedManagedDisplaySetCurrentSpaceOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaySetCurrentSpaceOperation {
 	instance := getSLSBridgedManagedDisplaySetCurrentSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaySetCurrentSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation/initWithDisplayIdentifier:spaceID:
 func NewSLSBridgedManagedDisplaySetCurrentSpaceOperationWithDisplayIdentifierSpaceID(identifier objectivec.IObject, id uint64) SLSBridgedManagedDisplaySetCurrentSpaceOperation {
 	instance := getSLSBridgedManagedDisplaySetCurrentSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:spaceID:"), identifier, id)
 	return SLSBridgedManagedDisplaySetCurrentSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation/initWithDisplayIdentifier:spaceID:
 func (s SLSBridgedManagedDisplaySetCurrentSpaceOperation) InitWithDisplayIdentifierSpaceID(identifier objectivec.IObject, id uint64) SLSBridgedManagedDisplaySetCurrentSpaceOperation {
 	rv := objc.Send[SLSBridgedManagedDisplaySetCurrentSpaceOperation](s.ID, objc.Sel("initWithDisplayIdentifier:spaceID:"), identifier, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation/displayIdentifier
 func (s SLSBridgedManagedDisplaySetCurrentSpaceOperation) DisplayIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetCurrentSpaceOperation/spaceID
 func (s SLSBridgedManagedDisplaySetCurrentSpaceOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

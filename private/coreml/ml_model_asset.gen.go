@@ -72,8 +72,6 @@ func (mc MLModelAssetClass) Alloc() MLModelAsset {
 //   - [MLModelAsset.InitWithResourceFactoryConfiguration]
 //   - [MLModelAsset.InitWithURLConfigurationError]
 //   - [MLModelAsset.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset
 type MLModelAsset struct {
 	objectivec.Object
 }
@@ -114,8 +112,6 @@ var _ IMLModelAsset = MLModelAsset{}
 //   - [IMLModelAsset.InitWithResourceFactoryConfiguration]
 //   - [IMLModelAsset.InitWithURLConfigurationError]
 //   - [IMLModelAsset.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset
 type IMLModelAsset interface {
 	objectivec.IObject
 
@@ -123,10 +119,10 @@ type IMLModelAsset interface {
 
 	ArchiveData() foundation.INSDictionary
 	SetArchiveData(value foundation.INSDictionary)
-	Classifier() objectivec.IObject
+	Classifier() unsafe.Pointer
 	ClassifierWithError() (objectivec.IObject, error)
-	CompiledModelURL() foundation.INSURL
-	CompiledURL() foundation.INSURL
+	CompiledModelURL() foundation.NSURL
+	CompiledURL() foundation.NSURL
 	DescriptionVendor() IMLModelAssetDescriptionVendor
 	LastConfiguration() IMLModelConfiguration
 	SetLastConfiguration(value IMLModelConfiguration)
@@ -136,15 +132,15 @@ type IMLModelAsset interface {
 	ModelVendor() IMLModelAssetModelVendor
 	ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error)
 	ModelWithError() (objectivec.IObject, error)
-	Regressor() objectivec.IObject
+	Regressor() unsafe.Pointer
 	RegressorWithError() (objectivec.IObject, error)
 	ResourceFactory() IMLModelAssetResourceFactory
 	StorageType() int64
 	StructureVendor() IMLModelAssetModelStructureVendor
 	InitWithArchiveData(data objectivec.IObject) MLModelAsset
 	InitWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset
-	InitWithURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (MLModelAsset, error)
-	InitWithURLError(url foundation.INSURL) (MLModelAsset, error)
+	InitWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error)
+	InitWithURLError(url foundation.NSURL) (MLModelAsset, error)
 }
 
 // Init initializes the instance.
@@ -166,22 +162,19 @@ func NewMLModelAsset() MLModelAsset {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithArchiveData:
 func NewModelAssetWithArchiveData(data objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArchiveData:"), data)
 	return MLModelAssetFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithResourceFactory:configuration:
 func NewModelAssetWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
 	return MLModelAssetFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithURL:configuration:error:
-func NewModelAssetWithURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (MLModelAsset, error) {
+func NewModelAssetWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
@@ -192,8 +185,7 @@ func NewModelAssetWithURLConfigurationError(url foundation.INSURL, configuration
 	return MLModelAssetFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithURL:error:
-func NewModelAssetWithURLError(url foundation.INSURL) (MLModelAsset, error) {
+func NewModelAssetWithURLError(url foundation.NSURL) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -204,7 +196,6 @@ func NewModelAssetWithURLError(url foundation.INSURL) (MLModelAsset, error) {
 	return MLModelAssetFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/classifierWithError:
 func (m MLModelAsset) ClassifierWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classifierWithError:"), unsafe.Pointer(&errorPtr))
@@ -215,20 +206,14 @@ func (m MLModelAsset) ClassifierWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/load:
 func (m MLModelAsset) Load(load []objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("load:"), objectivec.IObjectSliceToNSArray(load))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelStructureWithCompletionHandler:
 func (m MLModelAsset) ModelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelWithConfiguration:error:
 func (m MLModelAsset) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -239,8 +224,6 @@ func (m MLModelAsset) ModelWithConfigurationError(configuration objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelWithError:
 func (m MLModelAsset) ModelWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelWithError:"), unsafe.Pointer(&errorPtr))
@@ -251,8 +234,6 @@ func (m MLModelAsset) ModelWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/regressorWithError:
 func (m MLModelAsset) RegressorWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regressorWithError:"), unsafe.Pointer(&errorPtr))
@@ -263,27 +244,19 @@ func (m MLModelAsset) RegressorWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/storageType
 func (m MLModelAsset) StorageType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("storageType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithArchiveData:
 func (m MLModelAsset) InitWithArchiveData(data objectivec.IObject) MLModelAsset {
 	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("initWithArchiveData:"), data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithResourceFactory:configuration:
 func (m MLModelAsset) InitWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
 	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithURL:configuration:error:
-func (m MLModelAsset) InitWithURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (MLModelAsset, error) {
+func (m MLModelAsset) InitWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -293,9 +266,7 @@ func (m MLModelAsset) InitWithURLConfigurationError(url foundation.INSURL, confi
 	return MLModelAssetFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/initWithURL:error:
-func (m MLModelAsset) InitWithURLError(url foundation.INSURL) (MLModelAsset, error) {
+func (m MLModelAsset) InitWithURLError(url foundation.NSURL) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -306,7 +277,6 @@ func (m MLModelAsset) InitWithURLError(url foundation.INSURL) (MLModelAsset, err
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/_modelAssetWithSpecificationData:blobMapping:error:
 func (_MLModelAssetClass MLModelAssetClass) _modelAssetWithSpecificationDataBlobMappingError(data objectivec.IObject, mapping objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("_modelAssetWithSpecificationData:blobMapping:error:"), data, mapping, unsafe.Pointer(&errorPtr))
@@ -317,9 +287,7 @@ func (_MLModelAssetClass MLModelAssetClass) _modelAssetWithSpecificationDataBlob
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/fetchNetworkURLFromCompiledModelAtURL:error:
-func (_MLModelAssetClass MLModelAssetClass) FetchNetworkURLFromCompiledModelAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) FetchNetworkURLFromCompiledModelAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("fetchNetworkURLFromCompiledModelAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -329,15 +297,11 @@ func (_MLModelAssetClass MLModelAssetClass) FetchNetworkURLFromCompiledModelAtUR
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/isANESupported
 func (_MLModelAssetClass MLModelAssetClass) IsANESupported() bool {
 	rv := objc.Send[bool](objc.ID(_MLModelAssetClass.class), objc.Sel("isANESupported"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetDataByLoadingBlobFileReferencesInModelSpecificationAtURL:blobMapping:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByLoadingBlobFileReferencesInModelSpecificationAtURLBlobMappingError(url foundation.INSURL, mapping []objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByLoadingBlobFileReferencesInModelSpecificationAtURLBlobMappingError(url foundation.NSURL, mapping []objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetDataByLoadingBlobFileReferencesInModelSpecificationAtURL:blobMapping:error:"), url, objectivec.IObjectSliceToNSArray(mapping), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -347,9 +311,7 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByLoadingBlobFileRefer
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetDataByResolvingBlobFileReferencesIntoInMemoryValuesInModelSpecificationAtURL:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByResolvingBlobFileReferencesIntoInMemoryValuesInModelSpecificationAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByResolvingBlobFileReferencesIntoInMemoryValuesInModelSpecificationAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetDataByResolvingBlobFileReferencesIntoInMemoryValuesInModelSpecificationAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -359,8 +321,6 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByResolvingBlobFileRef
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecification:compilerOptions:error:
 func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationCompilerOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecification:compilerOptions:error:"), specification, options, unsafe.Pointer(&errorPtr))
@@ -371,8 +331,6 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationCompilerO
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecification:error:
 func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationError(specification unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
@@ -383,8 +341,6 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationError(spe
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecificationData:blobMapping:error:
 func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationDataBlobMappingError(data objectivec.IObject, mapping objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecificationData:blobMapping:error:"), data, mapping, unsafe.Pointer(&errorPtr))
@@ -395,8 +351,6 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationDataBlobM
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecificationData:error:
 func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecificationData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -407,9 +361,7 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationDataError
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecificationURL:compilerOptions:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLCompilerOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLCompilerOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecificationURL:compilerOptions:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -419,9 +371,7 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLCompil
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithSpecificationURL:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithSpecificationURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -431,9 +381,7 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithSpecificationURLError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithURL:configuration:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -443,9 +391,7 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLConfigurationError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelAssetWithURL:error:
-func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetClass.class), objc.Sel("modelAssetWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -455,8 +401,6 @@ func (_MLModelAssetClass MLModelAssetClass) ModelAssetWithURLError(url foundatio
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/needsANECompilationForModelAtURL:result:error:
 func (_MLModelAssetClass MLModelAssetClass) NeedsANECompilationForModelAtURLResultError(url foundation.NSURL) (bool, error) {
 	var result bool
 	var errorPtr objc.ID
@@ -470,9 +414,7 @@ func (_MLModelAssetClass MLModelAssetClass) NeedsANECompilationForModelAtURLResu
 	}
 	return result, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/purgeANEBinaryForModelAtURL:error:
-func (_MLModelAssetClass MLModelAssetClass) PurgeANEBinaryForModelAtURLError(url foundation.INSURL) (bool, error) {
+func (_MLModelAssetClass MLModelAssetClass) PurgeANEBinaryForModelAtURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLModelAssetClass.class), objc.Sel("purgeANEBinaryForModelAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -485,9 +427,7 @@ func (_MLModelAssetClass MLModelAssetClass) PurgeANEBinaryForModelAtURLError(url
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/purgeANEIRForModelAtURL:error:
-func (_MLModelAssetClass MLModelAssetClass) PurgeANEIRForModelAtURLError(url foundation.INSURL) (bool, error) {
+func (_MLModelAssetClass MLModelAssetClass) PurgeANEIRForModelAtURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLModelAssetClass.class), objc.Sel("purgeANEIRForModelAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -501,7 +441,6 @@ func (_MLModelAssetClass MLModelAssetClass) PurgeANEIRForModelAtURLError(url fou
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/archiveData
 func (m MLModelAsset) ArchiveData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("archiveData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -509,32 +448,22 @@ func (m MLModelAsset) ArchiveData() foundation.INSDictionary {
 func (m MLModelAsset) SetArchiveData(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setArchiveData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/classifier
-func (m MLModelAsset) Classifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classifier"))
-	return objectivec.Object{ID: rv}
+func (m MLModelAsset) Classifier() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("classifier"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/compiledModelURL
-func (m MLModelAsset) CompiledModelURL() foundation.INSURL {
+func (m MLModelAsset) CompiledModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/compiledURL
-func (m MLModelAsset) CompiledURL() foundation.INSURL {
+func (m MLModelAsset) CompiledURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/descriptionVendor
 func (m MLModelAsset) DescriptionVendor() IMLModelAssetDescriptionVendor {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptionVendor"))
 	return MLModelAssetDescriptionVendorFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/lastConfiguration
 func (m MLModelAsset) LastConfiguration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("lastConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
@@ -542,32 +471,22 @@ func (m MLModelAsset) LastConfiguration() IMLModelConfiguration {
 func (m MLModelAsset) SetLastConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLastConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/model
 func (m MLModelAsset) Model() IMLModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelVendor
 func (m MLModelAsset) ModelVendor() IMLModelAssetModelVendor {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVendor"))
 	return MLModelAssetModelVendorFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/regressor
-func (m MLModelAsset) Regressor() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("regressor"))
-	return objectivec.Object{ID: rv}
+func (m MLModelAsset) Regressor() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("regressor"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/resourceFactory
 func (m MLModelAsset) ResourceFactory() IMLModelAssetResourceFactory {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
 	return MLModelAssetResourceFactoryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/structureVendor
 func (m MLModelAsset) StructureVendor() IMLModelAssetModelStructureVendor {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("structureVendor"))
 	return MLModelAssetModelStructureVendorFromID(objc.ID(rv))

@@ -49,8 +49,6 @@ func (sc SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass) Alloc() SLSB
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.Size]
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.TileSpaceID]
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.InitWithTileSpaceIDSizeFencePort]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation
 type SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation = SLSBridgedTileSpac
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.Size]
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.TileSpaceID]
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation.InitWithTileSpaceIDSizeFencePort]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation
 type ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperation() SLSBridgedTileSpa
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/initWithCoder:
 func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/initWithTileSpaceID:size:fencePort:
 func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationWithTileSpaceIDSizeFencePort(id uint64, size corefoundation.CGSize, port uint32) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
 	return SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/initWithTileSpaceID:size:fencePort:
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) InitWithTileSpaceIDSizeFencePort(id uint64, size corefoundation.CGSize, port uint32) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/fencePort
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) FencePort() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("fencePort"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/size
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation/tileSpaceID
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) TileSpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("tileSpaceID"))
 	return rv

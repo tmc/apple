@@ -51,8 +51,6 @@ func (sc SLSRemoteViewEventClientDefaultConfigClass) Alloc() SLSRemoteViewEventC
 //   - [SLSRemoteViewEventClientDefaultConfig.Description]
 //   - [SLSRemoteViewEventClientDefaultConfig.Hash]
 //   - [SLSRemoteViewEventClientDefaultConfig.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig
 type SLSRemoteViewEventClientDefaultConfig struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ISLSRemoteViewEventClientDefaultConfig = SLSRemoteViewEventClientDefaultCo
 //   - [ISLSRemoteViewEventClientDefaultConfig.Description]
 //   - [ISLSRemoteViewEventClientDefaultConfig.Hash]
 //   - [ISLSRemoteViewEventClientDefaultConfig.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig
 type ISLSRemoteViewEventClientDefaultConfig interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type ISLSRemoteViewEventClientDefaultConfig interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,38 +105,28 @@ func NewSLSRemoteViewEventClientDefaultConfig() SLSRemoteViewEventClientDefaultC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/connection
 func (s SLSRemoteViewEventClientDefaultConfig) Connection() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/serviceInterface
 func (s SLSRemoteViewEventClientDefaultConfig) ServiceInterface() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("serviceInterface"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/debugDescription
 func (s SLSRemoteViewEventClientDefaultConfig) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/description
 func (s SLSRemoteViewEventClientDefaultConfig) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/hash
 func (s SLSRemoteViewEventClientDefaultConfig) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_SLSRemoteViewEventClientDefaultConfig/superclass
-func (s SLSRemoteViewEventClientDefaultConfig) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
-	return rv
+func (s SLSRemoteViewEventClientDefaultConfig) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

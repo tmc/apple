@@ -58,8 +58,6 @@ func (vc VZMacGraphicsDeviceConfigurationClass) Alloc() VZMacGraphicsDeviceConfi
 //   - [VZMacGraphicsDeviceConfiguration._setEnableProcessIsolation]
 //   - [VZMacGraphicsDeviceConfiguration._setImplicitlyAddsVideoToolboxDevice]
 //   - [VZMacGraphicsDeviceConfiguration._setPrefersLowPower]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration
 type VZMacGraphicsDeviceConfiguration struct {
 	VZGraphicsDeviceConfiguration
 }
@@ -91,8 +89,6 @@ var _ IVZMacGraphicsDeviceConfiguration = VZMacGraphicsDeviceConfiguration{}
 //   - [IVZMacGraphicsDeviceConfiguration._setEnableProcessIsolation]
 //   - [IVZMacGraphicsDeviceConfiguration._setImplicitlyAddsVideoToolboxDevice]
 //   - [IVZMacGraphicsDeviceConfiguration._setPrefersLowPower]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration
 type IVZMacGraphicsDeviceConfiguration interface {
 	IVZGraphicsDeviceConfiguration
 
@@ -134,7 +130,6 @@ func NewVZMacGraphicsDeviceConfiguration() VZMacGraphicsDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setDeviceFeatureLevel:
 func (v VZMacGraphicsDeviceConfiguration) _setDeviceFeatureLevel(level int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDeviceFeatureLevel:"), level)
 }
@@ -153,8 +148,6 @@ func (v VZMacGraphicsDeviceConfiguration) SetDeviceFeatureLevel(level int64) err
 func (v VZMacGraphicsDeviceConfiguration) CanSetDeviceFeatureLevel() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDeviceFeatureLevel:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setDisplayPortCount:
 func (v VZMacGraphicsDeviceConfiguration) _setDisplayPortCount(count uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDisplayPortCount:"), count)
 }
@@ -173,8 +166,6 @@ func (v VZMacGraphicsDeviceConfiguration) SetDisplayPortCount(count uint64) erro
 func (v VZMacGraphicsDeviceConfiguration) CanSetDisplayPortCount() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayPortCount:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setEnableProcessIsolation:
 func (v VZMacGraphicsDeviceConfiguration) _setEnableProcessIsolation(isolation bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setEnableProcessIsolation:"), isolation)
 }
@@ -193,8 +184,6 @@ func (v VZMacGraphicsDeviceConfiguration) SetEnableProcessIsolation(isolation bo
 func (v VZMacGraphicsDeviceConfiguration) CanSetEnableProcessIsolation() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setEnableProcessIsolation:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setImplicitlyAddsVideoToolboxDevice:
 func (v VZMacGraphicsDeviceConfiguration) _setImplicitlyAddsVideoToolboxDevice(device bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"), device)
 }
@@ -213,8 +202,6 @@ func (v VZMacGraphicsDeviceConfiguration) SetImplicitlyAddsVideoToolboxDevice(de
 func (v VZMacGraphicsDeviceConfiguration) CanSetImplicitlyAddsVideoToolboxDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setPrefersLowPower:
 func (v VZMacGraphicsDeviceConfiguration) _setPrefersLowPower(power bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPrefersLowPower:"), power)
 }
@@ -234,7 +221,6 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetPrefersLowPower() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPrefersLowPower:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_maximumAllowedDisplayCount
 func (_VZMacGraphicsDeviceConfigurationClass VZMacGraphicsDeviceConfigurationClass) _maximumAllowedDisplayCount() uint64 {
 	rv := objc.Send[uint64](objc.ID(_VZMacGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
 	return rv
@@ -254,7 +240,6 @@ func (_VZMacGraphicsDeviceConfigurationClass VZMacGraphicsDeviceConfigurationCla
 	return objc.RespondsToSelector(objc.ID(_VZMacGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_deviceFeatureLevel
 func (v VZMacGraphicsDeviceConfiguration) _deviceFeatureLevel() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
@@ -275,8 +260,6 @@ func (v VZMacGraphicsDeviceConfiguration) DeviceFeatureLevel() (int64, error) {
 func (v VZMacGraphicsDeviceConfiguration) Set_deviceFeatureLevel(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_deviceFeatureLevel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_displayPortCount
 func (v VZMacGraphicsDeviceConfiguration) _displayPortCount() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("_displayPortCount"))
 	return rv
@@ -297,8 +280,6 @@ func (v VZMacGraphicsDeviceConfiguration) DisplayPortCount() (uint64, error) {
 func (v VZMacGraphicsDeviceConfiguration) Set_displayPortCount(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_displayPortCount:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_enableProcessIsolation
 func (v VZMacGraphicsDeviceConfiguration) _enableProcessIsolation() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_enableProcessIsolation"))
 	return rv
@@ -319,8 +300,6 @@ func (v VZMacGraphicsDeviceConfiguration) EnableProcessIsolation() (bool, error)
 func (v VZMacGraphicsDeviceConfiguration) Set_enableProcessIsolation(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_enableProcessIsolation:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_implicitlyAddsVideoToolboxDevice
 func (v VZMacGraphicsDeviceConfiguration) _implicitlyAddsVideoToolboxDevice() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
 	return rv
@@ -341,8 +320,6 @@ func (v VZMacGraphicsDeviceConfiguration) ImplicitlyAddsVideoToolboxDevice() (bo
 func (v VZMacGraphicsDeviceConfiguration) Set_implicitlyAddsVideoToolboxDevice(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_implicitlyAddsVideoToolboxDevice:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_prefersLowPower
 func (v VZMacGraphicsDeviceConfiguration) _prefersLowPower() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv

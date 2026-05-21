@@ -5,10 +5,10 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSPhonemeMarker] class.
@@ -59,8 +59,6 @@ func (tc TTSPhonemeMarkerClass) Alloc() TTSPhonemeMarker {
 //   - [TTSPhonemeMarker.Description]
 //   - [TTSPhonemeMarker.Hash]
 //   - [TTSPhonemeMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker
 type TTSPhonemeMarker struct {
 	objectivec.Object
 }
@@ -90,8 +88,6 @@ var _ ITTSPhonemeMarker = TTSPhonemeMarker{}
 //   - [ITTSPhonemeMarker.Description]
 //   - [ITTSPhonemeMarker.Hash]
 //   - [ITTSPhonemeMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker
 type ITTSPhonemeMarker interface {
 	objectivec.IObject
 
@@ -109,7 +105,7 @@ type ITTSPhonemeMarker interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -131,13 +127,11 @@ func NewTTSPhonemeMarker() TTSPhonemeMarker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/toAVMarkAtOffset:
 func (t TTSPhonemeMarker) ToAVMarkAtOffset(offset int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("toAVMarkAtOffset:"), offset)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/alphabet
 func (t TTSPhonemeMarker) Alphabet() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("alphabet"))
 	return rv
@@ -145,14 +139,10 @@ func (t TTSPhonemeMarker) Alphabet() int64 {
 func (t TTSPhonemeMarker) SetAlphabet(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlphabet:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/avMark
 func (t TTSPhonemeMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/byteOffset
 func (t TTSPhonemeMarker) ByteOffset() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
@@ -160,32 +150,22 @@ func (t TTSPhonemeMarker) ByteOffset() int64 {
 func (t TTSPhonemeMarker) SetByteOffset(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/debugDescription
 func (t TTSPhonemeMarker) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/description
 func (t TTSPhonemeMarker) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/hash
 func (t TTSPhonemeMarker) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/markType
 func (t TTSPhonemeMarker) MarkType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/phoneme
 func (t TTSPhonemeMarker) Phoneme() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
 	return foundation.NSStringFromID(rv).String()
@@ -193,9 +173,7 @@ func (t TTSPhonemeMarker) Phoneme() string {
 func (t TTSPhonemeMarker) SetPhoneme(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/superclass
-func (t TTSPhonemeMarker) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
-	return rv
+func (t TTSPhonemeMarker) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

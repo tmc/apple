@@ -8,8 +8,6 @@ import (
 )
 
 // ECAuthenticationKey protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationKey
 type ECAuthenticationKey interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func ECAuthenticationKeyObjectFromID(id objc.ID) ECAuthenticationKeyObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationKey/createSignatureForMessage:
 func (o ECAuthenticationKeyObject) CreateSignatureForMessage(message objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("createSignatureForMessage:"), message)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationKey/signingContext
 func (o ECAuthenticationKeyObject) SigningContext() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("signingContext"))
 	return objectivec.Object{ID: rv}

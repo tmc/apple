@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -49,8 +50,6 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 //   - [VZUSBController._releasePassthroughDevices]
 //   - [VZUSBController.Delegate]
 //   - [VZUSBController.SetDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController
 type VZUSBController struct {
 	objectivec.Object
 }
@@ -72,18 +71,16 @@ var _ IVZUSBController = VZUSBController{}
 //   - [IVZUSBController._releasePassthroughDevices]
 //   - [IVZUSBController.Delegate]
 //   - [IVZUSBController.SetDelegate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController
 type IVZUSBController interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_capturePassthroughDevicesWithCompletionHandler(handler ErrorHandler)
+	_capturePassthroughDevicesWithCompletionHandler(handler unsafe.Pointer)
 	_initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject
 	_releasePassthroughDevices()
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -105,14 +102,12 @@ func NewVZUSBController() VZUSBController {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_capturePassthroughDevicesWithCompletionHandler:
-func (v VZUSBController) _capturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) {
-	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"), _block0)
+func (v VZUSBController) _capturePassthroughDevicesWithCompletionHandler(handler unsafe.Pointer) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"), handler)
 }
 
 // CapturePassthroughDevicesWithCompletionHandler is an exported wrapper for the private method _capturePassthroughDevicesWithCompletionHandler.
-func (v VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) error {
+func (v VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler unsafe.Pointer) error {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_capturePassthroughDevicesWithCompletionHandler:"}
 		return err
@@ -125,8 +120,6 @@ func (v VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler 
 func (v VZUSBController) CanCapturePassthroughDevicesWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_initWithVirtualMachine:usbControllerIndex:usbDevices:
 func (v VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
 	return objectivec.Object{ID: rv}
@@ -145,8 +138,6 @@ func (v VZUSBController) InitWithVirtualMachineUsbControllerIndexUsbDevices(mach
 func (v VZUSBController) CanInitWithVirtualMachineUsbControllerIndexUsbDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_releasePassthroughDevices
 func (v VZUSBController) _releasePassthroughDevices() {
 	objc.Send[objc.ID](v.ID, objc.Sel("_releasePassthroughDevices"))
 }
@@ -166,11 +157,10 @@ func (v VZUSBController) CanReleasePassthroughDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_releasePassthroughDevices"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBController/delegate
-func (v VZUSBController) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZUSBController) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-func (v VZUSBController) SetDelegate(value objectivec.IObject) {
+func (v VZUSBController) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }

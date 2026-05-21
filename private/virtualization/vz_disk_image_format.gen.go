@@ -51,8 +51,6 @@ func (vc VZDiskImageFormatClass) Alloc() VZDiskImageFormat {
 //   - [VZDiskImageFormat.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [VZDiskImageFormat.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [VZDiskImageFormat.Identifier]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat
 type VZDiskImageFormat struct {
 	objectivec.Object
 }
@@ -74,8 +72,6 @@ var _ IVZDiskImageFormat = VZDiskImageFormat{}
 //   - [IVZDiskImageFormat.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [IVZDiskImageFormat.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [IVZDiskImageFormat.Identifier]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat
 type IVZDiskImageFormat interface {
 	objectivec.IObject
 
@@ -83,8 +79,8 @@ type IVZDiskImageFormat interface {
 
 	CanCreateDynamicDiskImages() bool
 	CanCreateFixedDiskImages() bool
-	CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.INSURL, size uint64, handler ErrorHandler) objectivec.IObject
-	CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.INSURL, size uint64, handler ErrorHandler) objectivec.IObject
+	CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject
+	CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject
 	Identifier() string
 }
 
@@ -107,45 +103,34 @@ func NewVZDiskImageFormat() VZDiskImageFormat {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/createDynamicDiskImageWithURL:suggestedSize:completionHandler:
-func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.INSURL, size uint64, handler ErrorHandler) objectivec.IObject {
+func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject {
 	_block2, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("createDynamicDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/createFixedDiskImageWithURL:suggestedSize:completionHandler:
-func (v VZDiskImageFormat) CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.INSURL, size uint64, handler ErrorHandler) objectivec.IObject {
+func (v VZDiskImageFormat) CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject {
 	_block2, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("createFixedDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/rawDiskImageFormat
 func (_VZDiskImageFormatClass VZDiskImageFormatClass) RawDiskImageFormat() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("rawDiskImageFormat"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/supportedFormats
 func (_VZDiskImageFormatClass VZDiskImageFormatClass) SupportedFormats() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("supportedFormats"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/canCreateDynamicDiskImages
 func (v VZDiskImageFormat) CanCreateDynamicDiskImages() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canCreateDynamicDiskImages"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/canCreateFixedDiskImages
 func (v VZDiskImageFormat) CanCreateFixedDiskImages() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canCreateFixedDiskImages"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDiskImageFormat/identifier
 func (v VZDiskImageFormat) Identifier() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -153,7 +138,7 @@ func (v VZDiskImageFormat) Identifier() string {
 
 // CreateDynamicDiskImageWithURLSuggestedSize is a synchronous wrapper around [VZDiskImageFormat.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSize(ctx context.Context, url foundation.INSURL, size uint64) error {
+func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSize(ctx context.Context, url foundation.NSURL, size uint64) error {
 	done := make(chan error, 1)
 	v.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url, size, func(err error) {
 		done <- err
@@ -168,7 +153,7 @@ func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSize(ctx contex
 
 // CreateFixedDiskImageWithURLSuggestedSize is a synchronous wrapper around [VZDiskImageFormat.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZDiskImageFormat) CreateFixedDiskImageWithURLSuggestedSize(ctx context.Context, url foundation.INSURL, size uint64) error {
+func (v VZDiskImageFormat) CreateFixedDiskImageWithURLSuggestedSize(ctx context.Context, url foundation.NSURL, size uint64) error {
 	done := make(chan error, 1)
 	v.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url, size, func(err error) {
 		done <- err

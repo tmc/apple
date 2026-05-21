@@ -47,8 +47,6 @@ func (mc MLModelStructureProgramNamedValueTypeClass) Alloc() MLModelStructurePro
 //
 //   - [MLModelStructureProgramNamedValueType.InitWithMILNamedValueType]
 //   - [MLModelStructureProgramNamedValueType.InitWithNameType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType
 type MLModelStructureProgramNamedValueType struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IMLModelStructureProgramNamedValueType = MLModelStructureProgramNamedValue
 //
 //   - [IMLModelStructureProgramNamedValueType.InitWithMILNamedValueType]
 //   - [IMLModelStructureProgramNamedValueType.InitWithNameType]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType
 type IMLModelStructureProgramNamedValueType interface {
 	objectivec.IObject
 
@@ -97,27 +93,22 @@ func NewMLModelStructureProgramNamedValueType() MLModelStructureProgramNamedValu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/initWithMILNamedValueType:
 func NewModelStructureProgramNamedValueTypeWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMILNamedValueType:"), type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/initWithName:type:
 func NewModelStructureProgramNamedValueTypeWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:type:"), name, type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/initWithMILNamedValueType:
 func (m MLModelStructureProgramNamedValueType) InitWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
 	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithMILNamedValueType:"), type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/initWithName:type:
 func (m MLModelStructureProgramNamedValueType) InitWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
 	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithName:type:"), name, type_)
 	return rv

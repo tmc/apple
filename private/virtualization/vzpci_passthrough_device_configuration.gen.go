@@ -44,8 +44,6 @@ func (vc VZPCIPassthroughDeviceConfigurationClass) Alloc() VZPCIPassthroughDevic
 // # Methods
 //
 //   - [VZPCIPassthroughDeviceConfiguration.InitWithDomainBusDeviceFunction]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration
 type VZPCIPassthroughDeviceConfiguration struct {
 	VZPCIDeviceConfiguration
 }
@@ -63,8 +61,6 @@ var _ IVZPCIPassthroughDeviceConfiguration = VZPCIPassthroughDeviceConfiguration
 // # Methods
 //
 //   - [IVZPCIPassthroughDeviceConfiguration.InitWithDomainBusDeviceFunction]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration
 type IVZPCIPassthroughDeviceConfiguration interface {
 	IVZPCIDeviceConfiguration
 
@@ -92,14 +88,12 @@ func NewVZPCIPassthroughDeviceConfiguration() VZPCIPassthroughDeviceConfiguratio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration/initWithDomain:bus:device:function:
 func NewVZPCIPassthroughDeviceConfigurationWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
 	instance := getVZPCIPassthroughDeviceConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
 	return VZPCIPassthroughDeviceConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration/initWithDomain:bus:device:function:
 func (v VZPCIPassthroughDeviceConfiguration) InitWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
 	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
 	return rv

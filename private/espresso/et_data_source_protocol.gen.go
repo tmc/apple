@@ -8,14 +8,10 @@ import (
 )
 
 // ETDataSource protocol.
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSource
 type ETDataSource interface {
 	objectivec.IObject
 
 	// NumberOfDataPoints protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ETDataSource/numberOfDataPoints
 	NumberOfDataPoints() int
 }
 
@@ -36,13 +32,10 @@ func ETDataSourceObjectFromID(id objc.ID) ETDataSourceObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSource/dataPointAtIndex:
 func (o ETDataSourceObject) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSource/numberOfDataPoints
 func (o ETDataSourceObject) NumberOfDataPoints() int {
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfDataPoints"))
 	return rv

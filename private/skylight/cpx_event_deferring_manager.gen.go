@@ -47,8 +47,6 @@ func (cc CPXEventDeferringManagerClass) Alloc() CPXEventDeferringManager {
 //   - [CPXEventDeferringManager.EnforcedPolicy]
 //   - [CPXEventDeferringManager.UpdatePolicyReason]
 //   - [CPXEventDeferringManager.InitWithDeliveryManagerProcessManagerConnectionManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager
 type CPXEventDeferringManager struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ ICPXEventDeferringManager = CPXEventDeferringManager{}
 //   - [ICPXEventDeferringManager.EnforcedPolicy]
 //   - [ICPXEventDeferringManager.UpdatePolicyReason]
 //   - [ICPXEventDeferringManager.InitWithDeliveryManagerProcessManagerConnectionManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager
 type ICPXEventDeferringManager interface {
 	objectivec.IObject
 
@@ -99,25 +95,20 @@ func NewCPXEventDeferringManager() CPXEventDeferringManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/initWithDeliveryManager:processManager:connectionManager:
 func NewCPXEventDeferringManagerWithDeliveryManagerProcessManagerConnectionManager(manager objectivec.IObject, manager2 objectivec.IObject, manager3 objectivec.IObject) CPXEventDeferringManager {
 	instance := getCPXEventDeferringManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
 	return CPXEventDeferringManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/updatePolicy:reason:
 func (c CPXEventDeferringManager) UpdatePolicyReason(policy objectivec.IObject, reason objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("updatePolicy:reason:"), policy, reason)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/initWithDeliveryManager:processManager:connectionManager:
 func (c CPXEventDeferringManager) InitWithDeliveryManagerProcessManagerConnectionManager(manager objectivec.IObject, manager2 objectivec.IObject, manager3 objectivec.IObject) CPXEventDeferringManager {
 	rv := objc.Send[CPXEventDeferringManager](c.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/_symbolicLinkTokenForProcess:
 func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) _symbolicLinkTokenForProcess(process CPSProcessRec) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:"), process)
 	return objectivec.Object{ID: rv}
@@ -137,7 +128,6 @@ func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) CanSymbolicL
 	return objc.RespondsToSelector(objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:"))
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/enforcedPolicy
 func (c CPXEventDeferringManager) EnforcedPolicy() ICPXEventDeferringPolicy {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("enforcedPolicy"))
 	return CPXEventDeferringPolicyFromID(objc.ID(rv))

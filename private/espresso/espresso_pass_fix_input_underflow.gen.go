@@ -41,7 +41,6 @@ func (ec EspressoPassFixInputUnderflowClass) Alloc() EspressoPassFixInputUnderfl
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fix_input_underflow
 type EspressoPassFixInputUnderflow struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fix_input_underflowFromID(id objc.ID) EspressoPassFixInputUnde
 var _ IEspressoPassFixInputUnderflow = EspressoPassFixInputUnderflow{}
 
 // An interface definition for the [EspressoPassFixInputUnderflow] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fix_input_underflow
 type IEspressoPassFixInputUnderflow interface {
 	IEspressoCustomPass
 }

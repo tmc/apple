@@ -46,8 +46,6 @@ func (mc MyMPSCNNConvolutionGradientStateClass) Alloc() MyMPSCNNConvolutionGradi
 //
 //   - [MyMPSCNNConvolutionGradientState.SourceHeight]
 //   - [MyMPSCNNConvolutionGradientState.SourceWidth]
-//
-// See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState
 type MyMPSCNNConvolutionGradientState struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ func MyMPSCNNConvolutionGradientStateFromID(id objc.ID) MyMPSCNNConvolutionGradi
 //
 //   - [IMyMPSCNNConvolutionGradientState.SourceHeight]
 //   - [IMyMPSCNNConvolutionGradientState.SourceWidth]
-//
-// See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState
 type IMyMPSCNNConvolutionGradientState interface {
 	IMPSCNNConvolutionGradientState
 
@@ -96,13 +92,10 @@ func NewMyMPSCNNConvolutionGradientState() MyMPSCNNConvolutionGradientState {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState/sourceHeight
 func (m MyMPSCNNConvolutionGradientState) SourceHeight() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("sourceHeight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState/sourceWidth
 func (m MyMPSCNNConvolutionGradientState) SourceWidth() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("sourceWidth"))
 	return rv

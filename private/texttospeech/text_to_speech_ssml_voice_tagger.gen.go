@@ -45,8 +45,6 @@ func (tc TextToSpeechSSMLVoiceTaggerClass) Alloc() TextToSpeechSSMLVoiceTagger {
 // # Methods
 //
 //   - [TextToSpeechSSMLVoiceTagger.TagSSML]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLVoiceTagger
 type TextToSpeechSSMLVoiceTagger struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ ITextToSpeechSSMLVoiceTagger = TextToSpeechSSMLVoiceTagger{}
 // # Methods
 //
 //   - [ITextToSpeechSSMLVoiceTagger.TagSSML]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLVoiceTagger
 type ITextToSpeechSSMLVoiceTagger interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewTextToSpeechSSMLVoiceTagger() TextToSpeechSSMLVoiceTagger {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLVoiceTagger/tagSSML:
 func (t TextToSpeechSSMLVoiceTagger) TagSSML(ssml objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tagSSML:"), ssml)
 	return objectivec.Object{ID: rv}

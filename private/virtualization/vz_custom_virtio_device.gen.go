@@ -55,8 +55,6 @@ func (vc VZCustomVirtioDeviceClass) Alloc() VZCustomVirtioDevice {
 //   - [VZCustomVirtioDevice.QueueAtIndex]
 //   - [VZCustomVirtioDevice.RequestDeviceReset]
 //   - [VZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice
 type VZCustomVirtioDevice struct {
 	objectivec.Object
 }
@@ -81,15 +79,13 @@ var _ IVZCustomVirtioDevice = VZCustomVirtioDevice{}
 //   - [IVZCustomVirtioDevice.QueueAtIndex]
 //   - [IVZCustomVirtioDevice.RequestDeviceReset]
 //   - [IVZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice
 type IVZCustomVirtioDevice interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value unsafe.Pointer)
 	DeviceQueue() objectivec.Object
 	DriverFeaturesAtError(at uint32) (uint32, error)
 	GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject
@@ -117,7 +113,6 @@ func NewVZCustomVirtioDevice() VZCustomVirtioDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/driverFeaturesAt:error:
 func (v VZCustomVirtioDevice) DriverFeaturesAtError(at uint32) (uint32, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint32](v.ID, objc.Sel("driverFeaturesAt:error:"), at, unsafe.Pointer(&errorPtr))
@@ -128,40 +123,29 @@ func (v VZCustomVirtioDevice) DriverFeaturesAtError(at uint32) (uint32, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/guestMemoryAtPhysicalAddress:length:
 func (v VZCustomVirtioDevice) GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:"), address, length)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/queueAtIndex:
 func (v VZCustomVirtioDevice) QueueAtIndex(index uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("queueAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/requestDeviceReset
 func (v VZCustomVirtioDevice) RequestDeviceReset() {
 	objc.Send[objc.ID](v.ID, objc.Sel("requestDeviceReset"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/updateDeviceSpecificConfiguration:completionHandler:
 func (v VZCustomVirtioDevice) UpdateDeviceSpecificConfigurationCompletionHandler(configuration objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("updateDeviceSpecificConfiguration:completionHandler:"), configuration, _block1)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/delegate
-func (v VZCustomVirtioDevice) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZCustomVirtioDevice) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-func (v VZCustomVirtioDevice) SetDelegate(value objectivec.IObject) {
+func (v VZCustomVirtioDevice) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevice/deviceQueue
 func (v VZCustomVirtioDevice) DeviceQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

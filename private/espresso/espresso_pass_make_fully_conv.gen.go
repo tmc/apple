@@ -41,7 +41,6 @@ func (ec EspressoPassMakeFullyConvClass) Alloc() EspressoPassMakeFullyConv {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
 type EspressoPassMakeFullyConv struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_make_fully_convFromID(id objc.ID) EspressoPassMakeFullyConv {
 var _ IEspressoPassMakeFullyConv = EspressoPassMakeFullyConv{}
 
 // An interface definition for the [EspressoPassMakeFullyConv] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
 type IEspressoPassMakeFullyConv interface {
 	IEspressoCustomPass
 }

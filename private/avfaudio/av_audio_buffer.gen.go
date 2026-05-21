@@ -48,8 +48,6 @@ func (ac AVAudioBufferClass) Alloc() AVAudioBuffer {
 //   - [AVAudioBuffer.ByteLength]
 //   - [AVAudioBuffer.SetByteLength]
 //   - [AVAudioBuffer.InitWithFormatByteCapacity]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer
 type AVAudioBuffer struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IAVAudioBuffer = AVAudioBuffer{}
 //   - [IAVAudioBuffer.ByteLength]
 //   - [IAVAudioBuffer.SetByteLength]
 //   - [IAVAudioBuffer.InitWithFormatByteCapacity]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer
 type IAVAudioBuffer interface {
 	objectivec.IObject
 
@@ -102,31 +98,23 @@ func NewAVAudioBuffer() AVAudioBuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func NewAudioBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
 	instance := getAVAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return AVAudioBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/byteCapacity
 func (a AVAudioBuffer) ByteCapacity() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("byteCapacity"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/byteLength
 func (a AVAudioBuffer) ByteLength() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("byteLength"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/setByteLength:
 func (a AVAudioBuffer) SetByteLength(length uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setByteLength:"), length)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func (a AVAudioBuffer) InitWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
 	rv := objc.Send[AVAudioBuffer](a.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return rv

@@ -66,8 +66,6 @@ func (dc DIDataPartitionClass) Alloc() DIDataPartition {
 //   - [DIDataPartition.ResizeFileSystemWithNumBlocksError]
 //   - [DIDataPartition.VolumeBSDName]
 //   - [DIDataPartition.SetVolumeBSDName]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition
 type DIDataPartition struct {
 	objectivec.Object
 }
@@ -103,8 +101,6 @@ var _ IDIDataPartition = DIDataPartition{}
 //   - [IDIDataPartition.ResizeFileSystemWithNumBlocksError]
 //   - [IDIDataPartition.VolumeBSDName]
 //   - [IDIDataPartition.SetVolumeBSDName]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition
 type IDIDataPartition interface {
 	objectivec.IObject
 
@@ -150,7 +146,6 @@ func NewDIDataPartition() DIDataPartition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/findPartitionWithDeviceBSDName:error:
 func (d DIDataPartition) FindPartitionWithDeviceBSDNameError(bSDName objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("findPartitionWithDeviceBSDName:error:"), bSDName, unsafe.Pointer(&errorPtr))
@@ -164,8 +159,6 @@ func (d DIDataPartition) FindPartitionWithDeviceBSDNameError(bSDName objectivec.
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/findVolumeBSDNameWithError:
 func (d DIDataPartition) FindVolumeBSDNameWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("findVolumeBSDNameWithError:"), unsafe.Pointer(&errorPtr))
@@ -179,8 +172,6 @@ func (d DIDataPartition) FindVolumeBSDNameWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/formatWithVolumeName:error:
 func (d DIDataPartition) FormatWithVolumeNameError(name objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("formatWithVolumeName:error:"), name, unsafe.Pointer(&errorPtr))
@@ -194,14 +185,10 @@ func (d DIDataPartition) FormatWithVolumeNameError(name objectivec.IObject) (boo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/getFileSystemMinimalBlocks:
 func (d DIDataPartition) GetFileSystemMinimalBlocks(blocks []objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("getFileSystemMinimalBlocks:"), objectivec.IObjectSliceToNSArray(blocks))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/newMountVolumeWithDiskArb:error:
 func (d DIDataPartition) NewMountVolumeWithDiskArbError(arb objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("newMountVolumeWithDiskArb:error:"), arb, unsafe.Pointer(&errorPtr))
@@ -212,8 +199,6 @@ func (d DIDataPartition) NewMountVolumeWithDiskArbError(arb objectivec.IObject) 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/resizeFileSystemToMinimumWithError:
 func (d DIDataPartition) ResizeFileSystemToMinimumWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("resizeFileSystemToMinimumWithError:"), unsafe.Pointer(&errorPtr))
@@ -227,8 +212,6 @@ func (d DIDataPartition) ResizeFileSystemToMinimumWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/resizeFileSystemWithNumBlocks:error:
 func (d DIDataPartition) ResizeFileSystemWithNumBlocksError(blocks uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("resizeFileSystemWithNumBlocks:error:"), blocks, unsafe.Pointer(&errorPtr))
@@ -243,7 +226,6 @@ func (d DIDataPartition) ResizeFileSystemWithNumBlocksError(blocks uint64) (bool
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/findPartitionSchemeWithIOMedia:error:
 func (_DIDataPartitionClass DIDataPartitionClass) FindPartitionSchemeWithIOMediaError(iOMedia objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIDataPartitionClass.class), objc.Sel("findPartitionSchemeWithIOMedia:error:"), iOMedia, unsafe.Pointer(&errorPtr))
@@ -254,8 +236,6 @@ func (_DIDataPartitionClass DIDataPartitionClass) FindPartitionSchemeWithIOMedia
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/newMountURLWithError:
 func (_DIDataPartitionClass DIDataPartitionClass) NewMountURLWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIDataPartitionClass.class), objc.Sel("newMountURLWithError:"), unsafe.Pointer(&errorPtr))
@@ -267,13 +247,10 @@ func (_DIDataPartitionClass DIDataPartitionClass) NewMountURLWithError() (object
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/GPTTypeID
 func (d DIDataPartition) GPTTypeID() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("GPTTypeID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/blockSize
 func (d DIDataPartition) BlockSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
@@ -281,8 +258,6 @@ func (d DIDataPartition) BlockSize() uint64 {
 func (d DIDataPartition) SetBlockSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/ioMedia
 func (d DIDataPartition) IoMedia() IDIIOMedia {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMedia"))
 	return DIIOMediaFromID(objc.ID(rv))
@@ -290,8 +265,6 @@ func (d DIDataPartition) IoMedia() IDIIOMedia {
 func (d DIDataPartition) SetIoMedia(value IDIIOMedia) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/ioMediaUUID
 func (d DIDataPartition) IoMediaUUID() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMediaUUID"))
 	return foundation.NSStringFromID(rv).String()
@@ -299,14 +272,10 @@ func (d DIDataPartition) IoMediaUUID() string {
 func (d DIDataPartition) SetIoMediaUUID(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIoMediaUUID:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/mediaContentUUID
 func (d DIDataPartition) MediaContentUUID() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mediaContentUUID"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/numBlocks
 func (d DIDataPartition) NumBlocks() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
 	return rv
@@ -314,8 +283,6 @@ func (d DIDataPartition) NumBlocks() uint64 {
 func (d DIDataPartition) SetNumBlocks(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIDataPartition/volumeBSDName
 func (d DIDataPartition) VolumeBSDName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("volumeBSDName"))
 	return foundation.NSStringFromID(rv).String()

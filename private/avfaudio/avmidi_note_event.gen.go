@@ -42,7 +42,6 @@ func (ac AVMIDINoteEventClass) Alloc() AVMIDINoteEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDINoteEvent
 type AVMIDINoteEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func AVMIDINoteEventFromID(id objc.ID) AVMIDINoteEvent {
 // IAVMIDINoteEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [AVMIDINoteEvent] class.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMIDINoteEvent
 type IAVMIDINoteEvent interface {
 	IAVMusicEvent
 }

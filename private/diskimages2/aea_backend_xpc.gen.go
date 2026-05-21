@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -47,8 +48,6 @@ func (ac AEABackendXPCClass) Alloc() AEABackendXPC {
 //   - [AEABackendXPC.BaseBackendXPC]
 //   - [AEABackendXPC.Key]
 //   - [AEABackendXPC.InitWithBackendKey]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC
 type AEABackendXPC struct {
 	BackendXPC
 }
@@ -68,16 +67,14 @@ var _ IAEABackendXPC = AEABackendXPC{}
 //   - [IAEABackendXPC.BaseBackendXPC]
 //   - [IAEABackendXPC.Key]
 //   - [IAEABackendXPC.InitWithBackendKey]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC
 type IAEABackendXPC interface {
 	IBackendXPC
 
 	// Topic: Methods
 
 	BaseBackendXPC() IBackendXPC
-	Key() objectivec.IObject
-	InitWithBackendKey(backend objectivec.IObject, key objectivec.IObject) AEABackendXPC
+	Key() unsafe.Pointer
+	InitWithBackendKey(backend objectivec.IObject, key unsafe.Pointer) AEABackendXPC
 }
 
 // Init initializes the instance.
@@ -99,34 +96,28 @@ func NewAEABackendXPC() AEABackendXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC/initWithBackend:key:
-func NewAEABackendXPCWithBackendKey(backend objectivec.IObject, key objectivec.IObject) AEABackendXPC {
+func NewAEABackendXPCWithBackendKey(backend objectivec.IObject, key unsafe.Pointer) AEABackendXPC {
 	instance := getAEABackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:key:"), backend, key)
 	return AEABackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC/initWithCoder:
 func NewAEABackendXPCWithCoder(coder objectivec.IObject) AEABackendXPC {
 	instance := getAEABackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return AEABackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC/initWithBackend:key:
-func (a AEABackendXPC) InitWithBackendKey(backend objectivec.IObject, key objectivec.IObject) AEABackendXPC {
+func (a AEABackendXPC) InitWithBackendKey(backend objectivec.IObject, key unsafe.Pointer) AEABackendXPC {
 	rv := objc.Send[AEABackendXPC](a.ID, objc.Sel("initWithBackend:key:"), backend, key)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC/baseBackendXPC
 func (a AEABackendXPC) BaseBackendXPC() IBackendXPC {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/AEABackendXPC/key
-func (a AEABackendXPC) Key() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("key"))
-	return objectivec.Object{ID: rv}
+func (a AEABackendXPC) Key() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("key"))
+	return rv
 }

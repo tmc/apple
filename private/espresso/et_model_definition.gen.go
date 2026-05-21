@@ -57,8 +57,6 @@ func (ec ETModelDefinitionClass) Alloc() ETModelDefinition {
 //   - [ETModelDefinition.InitWithInferenceNetworkPathError]
 //   - [ETModelDefinition.InitWithInferenceNetworkPathInferenceInputsInferenceOutputsError]
 //   - [ETModelDefinition.InitWithTrainingNetworkPathInferenceInputsInferenceOutputsTrainingInputsTrainingOutputsTrainingControlVariableNameWithInitializerError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition
 type ETModelDefinition struct {
 	objectivec.Object
 }
@@ -86,8 +84,6 @@ var _ IETModelDefinition = ETModelDefinition{}
 //   - [IETModelDefinition.InitWithInferenceNetworkPathError]
 //   - [IETModelDefinition.InitWithInferenceNetworkPathInferenceInputsInferenceOutputsError]
 //   - [IETModelDefinition.InitWithTrainingNetworkPathInferenceInputsInferenceOutputsTrainingInputsTrainingOutputsTrainingControlVariableNameWithInitializerError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition
 type IETModelDefinition interface {
 	objectivec.IObject
 
@@ -97,7 +93,7 @@ type IETModelDefinition interface {
 	Inputs() foundation.INSArray
 	IsTrainingGlobalName() string
 	LayerNames() foundation.INSArray
-	ModelURL() foundation.INSURL
+	ModelURL() foundation.NSURL
 	Outputs() foundation.INSArray
 	TrainingInputs() foundation.INSArray
 	TrainingOutputs() foundation.INSArray
@@ -125,7 +121,6 @@ func NewETModelDefinition() ETModelDefinition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithInferenceNetworkPath:error:
 func NewETModelDefinitionWithInferenceNetworkPathError(path objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
@@ -137,7 +132,6 @@ func NewETModelDefinitionWithInferenceNetworkPathError(path objectivec.IObject) 
 	return ETModelDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithInferenceNetworkPath:inferenceInputs:inferenceOutputs:error:
 func NewETModelDefinitionWithInferenceNetworkPathInferenceInputsInferenceOutputsError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
@@ -149,7 +143,6 @@ func NewETModelDefinitionWithInferenceNetworkPathInferenceInputsInferenceOutputs
 	return ETModelDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithTrainingNetworkPath:inferenceInputs:inferenceOutputs:trainingInputs:trainingOutputs:trainingControlVariableName:withInitializer:error:
 func NewETModelDefinitionWithTrainingNetworkPathInferenceInputsInferenceOutputsTrainingInputsTrainingOutputsTrainingControlVariableNameWithInitializerError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, inputs2 objectivec.IObject, outputs2 objectivec.IObject, name objectivec.IObject, initializer objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
@@ -161,7 +154,6 @@ func NewETModelDefinitionWithTrainingNetworkPathInferenceInputsInferenceOutputsT
 	return ETModelDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithInferenceNetworkPath:error:
 func (e ETModelDefinition) InitWithInferenceNetworkPathError(path objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithInferenceNetworkPath:error:"), path, unsafe.Pointer(&errorPtr))
@@ -172,8 +164,6 @@ func (e ETModelDefinition) InitWithInferenceNetworkPathError(path objectivec.IOb
 	return ETModelDefinitionFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithInferenceNetworkPath:inferenceInputs:inferenceOutputs:error:
 func (e ETModelDefinition) InitWithInferenceNetworkPathInferenceInputsInferenceOutputsError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithInferenceNetworkPath:inferenceInputs:inferenceOutputs:error:"), path, inputs, outputs, unsafe.Pointer(&errorPtr))
@@ -184,8 +174,6 @@ func (e ETModelDefinition) InitWithInferenceNetworkPathInferenceInputsInferenceO
 	return ETModelDefinitionFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initWithTrainingNetworkPath:inferenceInputs:inferenceOutputs:trainingInputs:trainingOutputs:trainingControlVariableName:withInitializer:error:
 func (e ETModelDefinition) InitWithTrainingNetworkPathInferenceInputsInferenceOutputsTrainingInputsTrainingOutputsTrainingControlVariableNameWithInitializerError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, inputs2 objectivec.IObject, outputs2 objectivec.IObject, name objectivec.IObject, initializer objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithTrainingNetworkPath:inferenceInputs:inferenceOutputs:trainingInputs:trainingOutputs:trainingControlVariableName:withInitializer:error:"), path, inputs, outputs, inputs2, outputs2, name, initializer, unsafe.Pointer(&errorPtr))
@@ -197,49 +185,34 @@ func (e ETModelDefinition) InitWithTrainingNetworkPathInferenceInputsInferenceOu
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/initializer
 func (e ETModelDefinition) Initializer() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initializer"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/inputs
 func (e ETModelDefinition) Inputs() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/isTrainingGlobalName
 func (e ETModelDefinition) IsTrainingGlobalName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("isTrainingGlobalName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/layerNames
 func (e ETModelDefinition) LayerNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/modelURL
-func (e ETModelDefinition) ModelURL() foundation.INSURL {
+func (e ETModelDefinition) ModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/outputs
 func (e ETModelDefinition) Outputs() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/trainingInputs
 func (e ETModelDefinition) TrainingInputs() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("trainingInputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefinition/trainingOutputs
 func (e ETModelDefinition) TrainingOutputs() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("trainingOutputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))

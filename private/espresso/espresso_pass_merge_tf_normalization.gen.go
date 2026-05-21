@@ -41,7 +41,6 @@ func (ec EspressoPassMergeTfNormalizationClass) Alloc() EspressoPassMergeTfNorma
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
 type EspressoPassMergeTfNormalization struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_merge_tf_normalizationFromID(id objc.ID) EspressoPassMergeTfNo
 var _ IEspressoPassMergeTfNormalization = EspressoPassMergeTfNormalization{}
 
 // An interface definition for the [EspressoPassMergeTfNormalization] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
 type IEspressoPassMergeTfNormalization interface {
 	IEspressoCustomPass
 }

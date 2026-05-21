@@ -8,8 +8,6 @@ import (
 )
 
 // ETTaskContext protocol.
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTaskContext
 type ETTaskContext interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func ETTaskContextObjectFromID(id objc.ID) ETTaskContextObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskContext/doInferenceOnData:error:
 func (o ETTaskContextObject) DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("doInferenceOnData:error:"), data)
 	if err != nil {
@@ -39,14 +36,10 @@ func (o ETTaskContextObject) DoInferenceOnDataError(data objectivec.IObject) (ob
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskContext/getTensorNamed:
 func (o ETTaskContextObject) GetTensorNamed(named objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("getTensorNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskContext/saveNetwork:inplace:error:
 func (o ETTaskContextObject) SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("saveNetwork:inplace:error:"), network, inplace)
 	if err != nil {
@@ -54,8 +47,6 @@ func (o ETTaskContextObject) SaveNetworkInplaceError(network objectivec.IObject,
 	}
 	return rv, nil
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskContext/setTensorNamed:withValue:error:
 func (o ETTaskContextObject) SetTensorNamedWithValueError(named objectivec.IObject, value objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setTensorNamed:withValue:error:"), named, value)
 	if err != nil {

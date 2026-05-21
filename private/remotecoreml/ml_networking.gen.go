@@ -63,8 +63,6 @@ func (mc MLNetworkingClass) Alloc() MLNetworking {
 //   - [MLNetworking.Stop]
 //   - [MLNetworking.InitConnection]
 //   - [MLNetworking.InitListener]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking
 type MLNetworking struct {
 	objectivec.Object
 }
@@ -99,8 +97,6 @@ var _ IMLNetworking = MLNetworking{}
 //   - [IMLNetworking.Stop]
 //   - [IMLNetworking.InitConnection]
 //   - [IMLNetworking.InitListener]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking
 type IMLNetworking interface {
 	objectivec.IObject
 
@@ -111,7 +107,7 @@ type IMLNetworking interface {
 	IsClient() bool
 	Listener() objectivec.Object
 	LogType() objectivec.Object
-	NwOptions() *MLNetworkOptions
+	NwOptions() uint
 	Parameters() objectivec.Object
 	Protocol_stack() objectivec.Object
 	Q() objectivec.Object
@@ -145,71 +141,51 @@ func NewMLNetworking() MLNetworking {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/initConnection:
 func NewMLNetworkingConnection(connection objectivec.IObject) MLNetworking {
 	instance := getMLNetworkingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initConnection:"), connection)
 	return MLNetworkingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/initListener:
 func NewMLNetworkingListener(listener objectivec.IObject) MLNetworking {
 	instance := getMLNetworkingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initListener:"), listener)
 	return MLNetworkingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/receiveLoop:
 func (m MLNetworking) ReceiveLoop(loop VoidHandler) {
 	_block0, _ := NewVoidBlock(loop)
 	objc.Send[objc.ID](m.ID, objc.Sel("receiveLoop:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/restartConnection
 func (m MLNetworking) RestartConnection() {
 	objc.Send[objc.ID](m.ID, objc.Sel("restartConnection"))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/sendData:
 func (m MLNetworking) SendData(data objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sendData:"), data)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/setListenerReceiveDataCallBack:
 func (m MLNetworking) SetListenerReceiveDataCallBack(back VoidHandler) {
 	_block0, _ := NewVoidBlock(back)
 	objc.Send[objc.ID](m.ID, objc.Sel("setListenerReceiveDataCallBack:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/setReceiveDataCallBack:
 func (m MLNetworking) SetReceiveDataCallBack(back VoidHandler) {
 	_block0, _ := NewVoidBlock(back)
 	objc.Send[objc.ID](m.ID, objc.Sel("setReceiveDataCallBack:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/startConnection
 func (m MLNetworking) StartConnection() {
 	objc.Send[objc.ID](m.ID, objc.Sel("startConnection"))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/stop
 func (m MLNetworking) Stop() {
 	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/initConnection:
 func (m MLNetworking) InitConnection(connection objectivec.IObject) MLNetworking {
 	rv := objc.Send[MLNetworking](m.ID, objc.Sel("initConnection:"), connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/initListener:
 func (m MLNetworking) InitListener(listener objectivec.IObject) MLNetworking {
 	rv := objc.Send[MLNetworking](m.ID, objc.Sel("initListener:"), listener)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/connection
 func (m MLNetworking) Connection() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -217,48 +193,30 @@ func (m MLNetworking) Connection() objectivec.Object {
 func (m MLNetworking) SetConnection(value objectivec.Object) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConnection:"), value)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/isClient
 func (m MLNetworking) IsClient() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isClient"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/listener
 func (m MLNetworking) Listener() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("listener"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/logType
 func (m MLNetworking) LogType() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("logType"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/nwOptions
-func (m MLNetworking) NwOptions() *MLNetworkOptions {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkOptionsFromID(objc.ID(rv))
-	return &val
+func (m MLNetworking) NwOptions() uint {
+	rv := objc.Send[uint](m.ID, objc.Sel("nwOptions"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/parameters
 func (m MLNetworking) Parameters() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/protocol_stack
 func (m MLNetworking) Protocol_stack() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("protocol_stack"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/q
 func (m MLNetworking) Q() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
 	return objectivec.ObjectFromID(objc.ID(rv))

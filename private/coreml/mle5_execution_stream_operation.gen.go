@@ -107,8 +107,6 @@ func (mc MLE5ExecutionStreamOperationClass) Alloc() MLE5ExecutionStreamOperation
 //   - [MLE5ExecutionStreamOperation.WaitSharedEventsBoundToESOP]
 //   - [MLE5ExecutionStreamOperation.SetWaitSharedEventsBoundToESOP]
 //   - [MLE5ExecutionStreamOperation.InitWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation
 type MLE5ExecutionStreamOperation struct {
 	objectivec.Object
 }
@@ -185,8 +183,6 @@ var _ IMLE5ExecutionStreamOperation = MLE5ExecutionStreamOperation{}
 //   - [IMLE5ExecutionStreamOperation.WaitSharedEventsBoundToESOP]
 //   - [IMLE5ExecutionStreamOperation.SetWaitSharedEventsBoundToESOP]
 //   - [IMLE5ExecutionStreamOperation.InitWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation
 type IMLE5ExecutionStreamOperation interface {
 	objectivec.IObject
 
@@ -215,10 +211,10 @@ type IMLE5ExecutionStreamOperation interface {
 	_reusableForWaitSyncPointsAllInputsUseDirectBinding(points objectivec.IObject, binding bool) bool
 	_updateCompletionEventFutureValuesWithCompletionSyncPoint(point objectivec.IObject)
 	_updateWaitEventFutureValuesWithWaitSyncPoints(points objectivec.IObject)
-	AsyncSubmissionError() foundation.INSError
-	SetAsyncSubmissionError(value foundation.INSError)
-	CompletionSharedEventBoundToESOP() objectivec.IObject
-	SetCompletionSharedEventBoundToESOP(value objectivec.IObject)
+	AsyncSubmissionError() foundation.NSError
+	SetAsyncSubmissionError(value foundation.NSError)
+	CompletionSharedEventBoundToESOP() unsafe.Pointer
+	SetCompletionSharedEventBoundToESOP(value unsafe.Pointer)
 	DebugLabel() string
 	DirectlyBoundInputFeatureNames() foundation.INSArray
 	DirectlyBoundOutputFeatureNames() foundation.INSArray
@@ -230,7 +226,7 @@ type IMLE5ExecutionStreamOperation interface {
 	ModelSignpostId() uint64
 	OperationHandle() E5rtExecutionStreamOperationRef
 	SetOperationHandle(value E5rtExecutionStreamOperationRef)
-	OutputFeatures() objectivec.IObject
+	OutputFeatures() unsafe.Pointer
 	OutputPorts() foundation.INSArray
 	SetOutputPorts(value foundation.INSArray)
 	PixelBufferPool() IMLPixelBufferPool
@@ -273,14 +269,12 @@ func NewMLE5ExecutionStreamOperation() MLE5ExecutionStreamOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:
 func NewE5ExecutionStreamOperationWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
 	instance := getMLE5ExecutionStreamOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
 	return MLE5ExecutionStreamOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindCompletionSyncPointDirectlyIfPossible:
 func (m MLE5ExecutionStreamOperation) _bindCompletionSyncPointDirectlyIfPossible(possible objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"), possible)
 }
@@ -299,8 +293,6 @@ func (m MLE5ExecutionStreamOperation) BindCompletionSyncPointDirectlyIfPossible(
 func (m MLE5ExecutionStreamOperation) CanBindCompletionSyncPointDirectlyIfPossible() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:
 func (m MLE5ExecutionStreamOperation) _bindEventToWaitForCopyingInputFeaturesAfterSyncPoints(features objectivec.IObject, points objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"), features, points)
 }
@@ -319,8 +311,6 @@ func (m MLE5ExecutionStreamOperation) BindEventToWaitForCopyingInputFeaturesAfte
 func (m MLE5ExecutionStreamOperation) CanBindEventToWaitForCopyingInputFeaturesAfterSyncPoints() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindInputFeaturesAndWaitEvents:options:error:
 func (m MLE5ExecutionStreamOperation) _bindInputFeaturesAndWaitEventsOptionsError(events objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_bindInputFeaturesAndWaitEvents:options:error:"), events, options, unsafe.Pointer(&errorPtr))
@@ -348,8 +338,6 @@ func (m MLE5ExecutionStreamOperation) BindInputFeaturesAndWaitEventsOptionsError
 func (m MLE5ExecutionStreamOperation) CanBindInputFeaturesAndWaitEventsOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindInputFeaturesAndWaitEvents:options:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:
 func (m MLE5ExecutionStreamOperation) _bindNewCompletionEventsDirectlyWithCompletionSyncPoint(point objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"), point)
 }
@@ -368,8 +356,6 @@ func (m MLE5ExecutionStreamOperation) BindNewCompletionEventsDirectlyWithComplet
 func (m MLE5ExecutionStreamOperation) CanBindNewCompletionEventsDirectlyWithCompletionSyncPoint() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindNewWaitEventsDirectlyWithWaitSyncPoints:
 func (m MLE5ExecutionStreamOperation) _bindNewWaitEventsDirectlyWithWaitSyncPoints(points objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:"), points)
 }
@@ -388,8 +374,6 @@ func (m MLE5ExecutionStreamOperation) BindNewWaitEventsDirectlyWithWaitSyncPoint
 func (m MLE5ExecutionStreamOperation) CanBindNewWaitEventsDirectlyWithWaitSyncPoints() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindOutputPortsWithOptions:error:
 func (m MLE5ExecutionStreamOperation) _bindOutputPortsWithOptionsError(options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_bindOutputPortsWithOptions:error:"), options, unsafe.Pointer(&errorPtr))
@@ -417,8 +401,6 @@ func (m MLE5ExecutionStreamOperation) BindOutputPortsWithOptionsError(options ob
 func (m MLE5ExecutionStreamOperation) CanBindOutputPortsWithOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindOutputPortsWithOptions:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindWaitEventsDirectly:
 func (m MLE5ExecutionStreamOperation) _bindWaitEventsDirectly(directly objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_bindWaitEventsDirectly:"), directly)
 }
@@ -437,8 +419,6 @@ func (m MLE5ExecutionStreamOperation) BindWaitEventsDirectly(directly objectivec
 func (m MLE5ExecutionStreamOperation) CanBindWaitEventsDirectly() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindWaitEventsDirectly:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_copyInputFeatures:error:
 func (m MLE5ExecutionStreamOperation) _copyInputFeaturesError(features objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_copyInputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -466,8 +446,6 @@ func (m MLE5ExecutionStreamOperation) CopyInputFeaturesError(features objectivec
 func (m MLE5ExecutionStreamOperation) CanCopyInputFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_copyInputFeatures:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationAndReturnError:
 func (m MLE5ExecutionStreamOperation) _createOperationAndReturnError() (E5rtExecutionStreamOperationRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_createOperationAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -492,8 +470,6 @@ func (m MLE5ExecutionStreamOperation) CreateOperationAndReturnError() (E5rtExecu
 func (m MLE5ExecutionStreamOperation) CanCreateOperationAndReturnError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_createOperationAndReturnError:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationWithRetryCount:error:
 func (m MLE5ExecutionStreamOperation) _createOperationWithRetryCountError(count int64) (E5rtExecutionStreamOperationRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_createOperationWithRetryCount:error:"), count, unsafe.Pointer(&errorPtr))
@@ -518,8 +494,6 @@ func (m MLE5ExecutionStreamOperation) CreateOperationWithRetryCountError(count i
 func (m MLE5ExecutionStreamOperation) CanCreateOperationWithRetryCountError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_createOperationWithRetryCount:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_directlyBoundFeatureNamesForPorts:
 func (m MLE5ExecutionStreamOperation) _directlyBoundFeatureNamesForPorts(ports objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"), ports)
 	return objectivec.Object{ID: rv}
@@ -538,8 +512,6 @@ func (m MLE5ExecutionStreamOperation) DirectlyBoundFeatureNamesForPorts(ports ob
 func (m MLE5ExecutionStreamOperation) CanDirectlyBoundFeatureNamesForPorts() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_inoutPortNames
 func (m MLE5ExecutionStreamOperation) _inoutPortNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_inoutPortNames"))
 	return objectivec.Object{ID: rv}
@@ -558,8 +530,6 @@ func (m MLE5ExecutionStreamOperation) InoutPortNames() (objectivec.IObject, erro
 func (m MLE5ExecutionStreamOperation) CanInoutPortNames() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_inoutPortNames"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_inputPortNames
 func (m MLE5ExecutionStreamOperation) _inputPortNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_inputPortNames"))
 	return objectivec.Object{ID: rv}
@@ -578,8 +548,6 @@ func (m MLE5ExecutionStreamOperation) InputPortNames() (objectivec.IObject, erro
 func (m MLE5ExecutionStreamOperation) CanInputPortNames() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_inputPortNames"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_multiArrayFeatureFromStateFeature:
 func (m MLE5ExecutionStreamOperation) _multiArrayFeatureFromStateFeature(feature objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_multiArrayFeatureFromStateFeature:"), feature)
 	return objectivec.Object{ID: rv}
@@ -598,8 +566,6 @@ func (m MLE5ExecutionStreamOperation) MultiArrayFeatureFromStateFeature(feature 
 func (m MLE5ExecutionStreamOperation) CanMultiArrayFeatureFromStateFeature() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_multiArrayFeatureFromStateFeature:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfInoutPorts:featureDescriptionsByName:error:
 func (m MLE5ExecutionStreamOperation) _newArrayOfInoutPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_newArrayOfInoutPorts:featureDescriptionsByName:error:"), ports, name, unsafe.Pointer(&errorPtr))
@@ -624,8 +590,6 @@ func (m MLE5ExecutionStreamOperation) NewArrayOfInoutPortsFeatureDescriptionsByN
 func (m MLE5ExecutionStreamOperation) CanNewArrayOfInoutPortsFeatureDescriptionsByNameError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_newArrayOfInoutPorts:featureDescriptionsByName:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfInputPorts:featureDescriptionsByName:error:
 func (m MLE5ExecutionStreamOperation) _newArrayOfInputPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_newArrayOfInputPorts:featureDescriptionsByName:error:"), ports, name, unsafe.Pointer(&errorPtr))
@@ -650,8 +614,6 @@ func (m MLE5ExecutionStreamOperation) NewArrayOfInputPortsFeatureDescriptionsByN
 func (m MLE5ExecutionStreamOperation) CanNewArrayOfInputPortsFeatureDescriptionsByNameError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_newArrayOfInputPorts:featureDescriptionsByName:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfOutputPorts:featureDescriptionsByName:error:
 func (m MLE5ExecutionStreamOperation) _newArrayOfOutputPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_newArrayOfOutputPorts:featureDescriptionsByName:error:"), ports, name, unsafe.Pointer(&errorPtr))
@@ -676,8 +638,6 @@ func (m MLE5ExecutionStreamOperation) NewArrayOfOutputPortsFeatureDescriptionsBy
 func (m MLE5ExecutionStreamOperation) CanNewArrayOfOutputPortsFeatureDescriptionsByNameError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_newArrayOfOutputPorts:featureDescriptionsByName:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_outputPortNames
 func (m MLE5ExecutionStreamOperation) _outputPortNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_outputPortNames"))
 	return objectivec.Object{ID: rv}
@@ -696,8 +656,6 @@ func (m MLE5ExecutionStreamOperation) OutputPortNames() (objectivec.IObject, err
 func (m MLE5ExecutionStreamOperation) CanOutputPortNames() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_outputPortNames"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_prepareInputPortsForFeatures:error:
 func (m MLE5ExecutionStreamOperation) _prepareInputPortsForFeaturesError(features objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_prepareInputPortsForFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -725,8 +683,6 @@ func (m MLE5ExecutionStreamOperation) PrepareInputPortsForFeaturesError(features
 func (m MLE5ExecutionStreamOperation) CanPrepareInputPortsForFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_prepareInputPortsForFeatures:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:
 func (m MLE5ExecutionStreamOperation) _reusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point objectivec.IObject, binding bool) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"), point, binding)
 	return rv
@@ -745,8 +701,6 @@ func (m MLE5ExecutionStreamOperation) ReusableForCompletionSyncPointAllOutputBac
 func (m MLE5ExecutionStreamOperation) CanReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_reusableForWaitSyncPoints:allInputsUseDirectBinding:
 func (m MLE5ExecutionStreamOperation) _reusableForWaitSyncPointsAllInputsUseDirectBinding(points objectivec.IObject, binding bool) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"), points, binding)
 	return rv
@@ -765,8 +719,6 @@ func (m MLE5ExecutionStreamOperation) ReusableForWaitSyncPointsAllInputsUseDirec
 func (m MLE5ExecutionStreamOperation) CanReusableForWaitSyncPointsAllInputsUseDirectBinding() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_updateCompletionEventFutureValuesWithCompletionSyncPoint:
 func (m MLE5ExecutionStreamOperation) _updateCompletionEventFutureValuesWithCompletionSyncPoint(point objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"), point)
 }
@@ -785,8 +737,6 @@ func (m MLE5ExecutionStreamOperation) UpdateCompletionEventFutureValuesWithCompl
 func (m MLE5ExecutionStreamOperation) CanUpdateCompletionEventFutureValuesWithCompletionSyncPoint() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_updateWaitEventFutureValuesWithWaitSyncPoints:
 func (m MLE5ExecutionStreamOperation) _updateWaitEventFutureValuesWithWaitSyncPoints(points objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:"), points)
 }
@@ -805,8 +755,6 @@ func (m MLE5ExecutionStreamOperation) UpdateWaitEventFutureValuesWithWaitSyncPoi
 func (m MLE5ExecutionStreamOperation) CanUpdateWaitEventFutureValuesWithWaitSyncPoints() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/preloadAndReturnError:
 func (m MLE5ExecutionStreamOperation) PreloadAndReturnError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("preloadAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -820,8 +768,6 @@ func (m MLE5ExecutionStreamOperation) PreloadAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/prepareAsyncSubmissionForInputFeatures:options:error:
 func (m MLE5ExecutionStreamOperation) PrepareAsyncSubmissionForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("prepareAsyncSubmissionForInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -835,8 +781,6 @@ func (m MLE5ExecutionStreamOperation) PrepareAsyncSubmissionForInputFeaturesOpti
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/prepareForInputFeatures:options:error:
 func (m MLE5ExecutionStreamOperation) PrepareForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("prepareForInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -850,19 +794,13 @@ func (m MLE5ExecutionStreamOperation) PrepareForInputFeaturesOptionsError(featur
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/reset
 func (m MLE5ExecutionStreamOperation) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/reusableForInputFeatures:options:
 func (m MLE5ExecutionStreamOperation) ReusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("reusableForInputFeatures:options:"), features, options)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/serializeInferenceFrameDataForOptions:error:
 func (m MLE5ExecutionStreamOperation) SerializeInferenceFrameDataForOptionsError(options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("serializeInferenceFrameDataForOptions:error:"), options, unsafe.Pointer(&errorPtr))
@@ -876,56 +814,41 @@ func (m MLE5ExecutionStreamOperation) SerializeInferenceFrameDataForOptionsError
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:
 func (m MLE5ExecutionStreamOperation) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
 	rv := objc.Send[MLE5ExecutionStreamOperation](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/asyncSubmissionError
-func (m MLE5ExecutionStreamOperation) AsyncSubmissionError() foundation.INSError {
+func (m MLE5ExecutionStreamOperation) AsyncSubmissionError() foundation.NSError {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("asyncSubmissionError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-func (m MLE5ExecutionStreamOperation) SetAsyncSubmissionError(value foundation.INSError) {
+func (m MLE5ExecutionStreamOperation) SetAsyncSubmissionError(value foundation.NSError) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAsyncSubmissionError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/completionSharedEventBoundToESOP
-func (m MLE5ExecutionStreamOperation) CompletionSharedEventBoundToESOP() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("completionSharedEventBoundToESOP"))
-	return objectivec.Object{ID: rv}
+func (m MLE5ExecutionStreamOperation) CompletionSharedEventBoundToESOP() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("completionSharedEventBoundToESOP"))
+	return rv
 }
-func (m MLE5ExecutionStreamOperation) SetCompletionSharedEventBoundToESOP(value objectivec.IObject) {
+func (m MLE5ExecutionStreamOperation) SetCompletionSharedEventBoundToESOP(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCompletionSharedEventBoundToESOP:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/debugLabel
 func (m MLE5ExecutionStreamOperation) DebugLabel() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugLabel"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/directlyBoundInputFeatureNames
 func (m MLE5ExecutionStreamOperation) DirectlyBoundInputFeatureNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("directlyBoundInputFeatureNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/directlyBoundOutputFeatureNames
 func (m MLE5ExecutionStreamOperation) DirectlyBoundOutputFeatureNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("directlyBoundOutputFeatureNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/functionName
 func (m MLE5ExecutionStreamOperation) FunctionName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/inputPorts
 func (m MLE5ExecutionStreamOperation) InputPorts() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -933,26 +856,18 @@ func (m MLE5ExecutionStreamOperation) InputPorts() foundation.INSArray {
 func (m MLE5ExecutionStreamOperation) SetInputPorts(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInputPorts:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/modelConfiguration
 func (m MLE5ExecutionStreamOperation) ModelConfiguration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/modelDescription
 func (m MLE5ExecutionStreamOperation) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/modelSignpostId
 func (m MLE5ExecutionStreamOperation) ModelSignpostId() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/operationHandle
 func (m MLE5ExecutionStreamOperation) OperationHandle() E5rtExecutionStreamOperationRef {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("operationHandle"))
 	return E5rtExecutionStreamOperationRef(rv)
@@ -960,14 +875,10 @@ func (m MLE5ExecutionStreamOperation) OperationHandle() E5rtExecutionStreamOpera
 func (m MLE5ExecutionStreamOperation) SetOperationHandle(value E5rtExecutionStreamOperationRef) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOperationHandle:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/outputFeatures
-func (m MLE5ExecutionStreamOperation) OutputFeatures() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFeatures"))
-	return objectivec.Object{ID: rv}
+func (m MLE5ExecutionStreamOperation) OutputFeatures() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("outputFeatures"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/outputPorts
 func (m MLE5ExecutionStreamOperation) OutputPorts() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -975,8 +886,6 @@ func (m MLE5ExecutionStreamOperation) OutputPorts() foundation.INSArray {
 func (m MLE5ExecutionStreamOperation) SetOutputPorts(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOutputPorts:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/pixelBufferPool
 func (m MLE5ExecutionStreamOperation) PixelBufferPool() IMLPixelBufferPool {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
@@ -984,14 +893,10 @@ func (m MLE5ExecutionStreamOperation) PixelBufferPool() IMLPixelBufferPool {
 func (m MLE5ExecutionStreamOperation) SetPixelBufferPool(value IMLPixelBufferPool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/programLibrary
 func (m MLE5ExecutionStreamOperation) ProgramLibrary() IMLE5ProgramLibrary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/shapeHash
 func (m MLE5ExecutionStreamOperation) ShapeHash() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeHash"))
 	return foundation.NSStringFromID(rv).String()
@@ -999,8 +904,6 @@ func (m MLE5ExecutionStreamOperation) ShapeHash() string {
 func (m MLE5ExecutionStreamOperation) SetShapeHash(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShapeHash:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/state
 func (m MLE5ExecutionStreamOperation) State() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("state"))
 	return rv
@@ -1008,8 +911,6 @@ func (m MLE5ExecutionStreamOperation) State() int64 {
 func (m MLE5ExecutionStreamOperation) SetState(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/statePorts
 func (m MLE5ExecutionStreamOperation) StatePorts() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("statePorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1017,14 +918,10 @@ func (m MLE5ExecutionStreamOperation) StatePorts() foundation.INSArray {
 func (m MLE5ExecutionStreamOperation) SetStatePorts(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStatePorts:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/waitEventListener
 func (m MLE5ExecutionStreamOperation) WaitEventListener() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("waitEventListener"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/waitSharedEventsBoundToESOP
 func (m MLE5ExecutionStreamOperation) WaitSharedEventsBoundToESOP() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("waitSharedEventsBoundToESOP"))
 	return foundation.NSArrayFromID(objc.ID(rv))

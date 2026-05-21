@@ -50,8 +50,6 @@ func (mc MLSupportVectorClassifierClass) Alloc() MLSupportVectorClassifier {
 //   - [MLSupportVectorClassifier.Engine]
 //   - [MLSupportVectorClassifier.SetEngine]
 //   - [MLSupportVectorClassifier.InitWithEngineDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier
 type MLSupportVectorClassifier struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ func MLSupportVectorClassifierFromID(id objc.ID) MLSupportVectorClassifier {
 //   - [IMLSupportVectorClassifier.Engine]
 //   - [IMLSupportVectorClassifier.SetEngine]
 //   - [IMLSupportVectorClassifier.InitWithEngineDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier
 type IMLSupportVectorClassifier interface {
 	IMLClassifier
 
@@ -104,7 +100,6 @@ func NewMLSupportVectorClassifier() MLSupportVectorClassifier {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/initWithEngine:description:configuration:error:
 func NewSupportVectorClassifierWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLSupportVectorClassifierClass().Alloc()
@@ -116,7 +111,6 @@ func NewSupportVectorClassifierWithEngineDescriptionConfigurationError(engine ob
 	return MLSupportVectorClassifierFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/classify:options:error:
 func (m MLSupportVectorClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
@@ -127,8 +121,6 @@ func (m MLSupportVectorClassifier) ClassifyOptionsError(classify objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/initWithEngine:description:configuration:error:
 func (m MLSupportVectorClassifier) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorClassifier, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
@@ -140,13 +132,11 @@ func (m MLSupportVectorClassifier) InitWithEngineDescriptionConfigurationError(e
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/featureValueWithObject:
 func (_MLSupportVectorClassifierClass MLSupportVectorClassifierClass) FeatureValueWithObject(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSupportVectorClassifierClass.class), objc.Sel("featureValueWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/engine
 func (m MLSupportVectorClassifier) Engine() IMLSVMEngine {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
 	return MLSVMEngineFromID(objc.ID(rv))

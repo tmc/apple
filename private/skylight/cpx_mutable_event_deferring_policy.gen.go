@@ -41,7 +41,6 @@ func (cc CPXMutableEventDeferringPolicyClass) Alloc() CPXMutableEventDeferringPo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXMutableEventDeferringPolicy
 type CPXMutableEventDeferringPolicy struct {
 	CPXEventDeferringPolicy
 }
@@ -55,8 +54,6 @@ func CPXMutableEventDeferringPolicyFromID(id objc.ID) CPXMutableEventDeferringPo
 var _ ICPXMutableEventDeferringPolicy = CPXMutableEventDeferringPolicy{}
 
 // An interface definition for the [CPXMutableEventDeferringPolicy] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXMutableEventDeferringPolicy
 type ICPXMutableEventDeferringPolicy interface {
 	ICPXEventDeferringPolicy
 }

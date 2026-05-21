@@ -59,8 +59,6 @@ func (ec EspressoFaceDetectedObjectClass) Alloc() EspressoFaceDetectedObject {
 //   - [EspressoFaceDetectedObject.Description]
 //   - [EspressoFaceDetectedObject.Hash]
 //   - [EspressoFaceDetectedObject.Superclass]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject
 type EspressoFaceDetectedObject struct {
 	objectivec.Object
 }
@@ -90,8 +88,6 @@ var _ IEspressoFaceDetectedObject = EspressoFaceDetectedObject{}
 //   - [IEspressoFaceDetectedObject.Description]
 //   - [IEspressoFaceDetectedObject.Hash]
 //   - [IEspressoFaceDetectedObject.Superclass]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject
 type IEspressoFaceDetectedObject interface {
 	objectivec.IObject
 
@@ -109,7 +105,7 @@ type IEspressoFaceDetectedObject interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -131,20 +127,17 @@ func NewEspressoFaceDetectedObject() EspressoFaceDetectedObject {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/initWithOptionsXloc:yloc:size:confidence:
 func NewEspressoFaceDetectedObjectWithOptionsXlocYlocSizeConfidence(xloc float32, yloc float32, size float32, confidence float32) EspressoFaceDetectedObject {
 	instance := getEspressoFaceDetectedObjectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
 	return EspressoFaceDetectedObjectFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/initWithOptionsXloc:yloc:size:confidence:
 func (e EspressoFaceDetectedObject) InitWithOptionsXlocYlocSizeConfidence(xloc float32, yloc float32, size float32, confidence float32) EspressoFaceDetectedObject {
 	rv := objc.Send[EspressoFaceDetectedObject](e.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/bounds
 func (e EspressoFaceDetectedObject) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](e.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
@@ -152,8 +145,6 @@ func (e EspressoFaceDetectedObject) Bounds() corefoundation.CGRect {
 func (e EspressoFaceDetectedObject) SetBounds(value corefoundation.CGRect) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBounds:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/center
 func (e EspressoFaceDetectedObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](e.ID, objc.Sel("center"))
 	return corefoundation.CGPoint(rv)
@@ -161,8 +152,6 @@ func (e EspressoFaceDetectedObject) Center() corefoundation.CGPoint {
 func (e EspressoFaceDetectedObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCenter:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/confidence
 func (e EspressoFaceDetectedObject) Confidence() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("confidence"))
 	return rv
@@ -170,26 +159,18 @@ func (e EspressoFaceDetectedObject) Confidence() float32 {
 func (e EspressoFaceDetectedObject) SetConfidence(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setConfidence:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/debugDescription
 func (e EspressoFaceDetectedObject) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/description
 func (e EspressoFaceDetectedObject) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/hash
 func (e EspressoFaceDetectedObject) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/objectType
 func (e EspressoFaceDetectedObject) ObjectType() int64 {
 	rv := objc.Send[int64](e.ID, objc.Sel("objectType"))
 	return rv
@@ -197,9 +178,7 @@ func (e EspressoFaceDetectedObject) ObjectType() int64 {
 func (e EspressoFaceDetectedObject) SetObjectType(value int64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setObjectType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoFaceDetectedObject/superclass
-func (e EspressoFaceDetectedObject) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
-	return rv
+func (e EspressoFaceDetectedObject) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

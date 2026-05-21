@@ -46,8 +46,6 @@ func (sc SLSSkyLightGestureEventAuthenticationMessageClass) Alloc() SLSSkyLightG
 //
 //   - [SLSSkyLightGestureEventAuthenticationMessage.GestureHidType]
 //   - [SLSSkyLightGestureEventAuthenticationMessage.GesturePhase]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage
 type SLSSkyLightGestureEventAuthenticationMessage struct {
 	SLSSkyLightEventAuthenticationMessage
 }
@@ -66,8 +64,6 @@ var _ ISLSSkyLightGestureEventAuthenticationMessage = SLSSkyLightGestureEventAut
 //
 //   - [ISLSSkyLightGestureEventAuthenticationMessage.GestureHidType]
 //   - [ISLSSkyLightGestureEventAuthenticationMessage.GesturePhase]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage
 type ISLSSkyLightGestureEventAuthenticationMessage interface {
 	ISLSSkyLightEventAuthenticationMessage
 
@@ -96,41 +92,34 @@ func NewSLSSkyLightGestureEventAuthenticationMessage() SLSSkyLightGestureEventAu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithBasis:signature:
 func NewSLSSkyLightGestureEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithCoder:
 func NewSLSSkyLightGestureEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
 func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage/initWithMessageInitData:
 func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage/gestureHidType
 func (s SLSSkyLightGestureEventAuthenticationMessage) GestureHidType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("gestureHidType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage/gesturePhase
 func (s SLSSkyLightGestureEventAuthenticationMessage) GesturePhase() byte {
 	rv := objc.Send[byte](s.ID, objc.Sel("gesturePhase"))
 	return rv

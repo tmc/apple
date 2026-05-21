@@ -45,8 +45,6 @@ func (vc VZSmartMagnifyEventClass) Alloc() VZSmartMagnifyEvent {
 // # Methods
 //
 //   - [VZSmartMagnifyEvent.InitWithEvent]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent
 type VZSmartMagnifyEvent struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZSmartMagnifyEvent = VZSmartMagnifyEvent{}
 // # Methods
 //
 //   - [IVZSmartMagnifyEvent.InitWithEvent]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent
 type IVZSmartMagnifyEvent interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewVZSmartMagnifyEvent() VZSmartMagnifyEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent/initWithEvent:
 func NewVZSmartMagnifyEventWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
 	instance := getVZSmartMagnifyEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZSmartMagnifyEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent/initWithEvent:
 func (v VZSmartMagnifyEvent) InitWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
 	rv := objc.Send[VZSmartMagnifyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv

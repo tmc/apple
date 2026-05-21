@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -46,8 +47,6 @@ func (vc VZDebugStubClass) Alloc() VZDebugStub {
 //
 //   - [VZDebugStub._debugStub]
 //   - [VZDebugStub._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDebugStub
 type VZDebugStub struct {
 	objectivec.Object
 }
@@ -66,14 +65,12 @@ var _ IVZDebugStub = VZDebugStub{}
 //
 //   - [IVZDebugStub._debugStub]
 //   - [IVZDebugStub._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDebugStub
 type IVZDebugStub interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_debugStub() objectivec.IObject
+	_debugStub() unsafe.Pointer
 	_init() objectivec.IObject
 }
 
@@ -96,16 +93,14 @@ func NewVZDebugStub() VZDebugStub {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDebugStub/_init
 func (v VZDebugStub) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDebugStub/_debugStub
-func (v VZDebugStub) _debugStub() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
-	return objectivec.Object{ID: rv}
+func (v VZDebugStub) _debugStub() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_debugStub"))
+	return rv
 }
 
 // CanDebugStub reports whether the receiver responds to the private selector _debugStub.
@@ -114,7 +109,7 @@ func (v VZDebugStub) CanDebugStub() bool {
 }
 
 // DebugStub is an exported wrapper for the private property _debugStub.
-func (v VZDebugStub) DebugStub() (objectivec.IObject, error) {
+func (v VZDebugStub) DebugStub() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_debugStub")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_debugStub"}
 	}

@@ -42,7 +42,6 @@ func (cc CoreMLMLModelTensorAsyncEventClass) Alloc() CoreMLMLModelTensorAsyncEve
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLModelTensorAsyncEvent
 type CoreMLMLModelTensorAsyncEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLModelTensorAsyncEventFromID(id objc.ID) CoreMLMLModelTensorAsyncEve
 // ICoreMLMLModelTensorAsyncEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLModelTensorAsyncEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLModelTensorAsyncEvent
 type ICoreMLMLModelTensorAsyncEvent interface {
 	objectivec.IObject
 }

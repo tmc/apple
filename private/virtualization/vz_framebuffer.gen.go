@@ -46,8 +46,6 @@ func (vc VZFramebufferClass) Alloc() VZFramebuffer {
 // # Methods
 //
 //   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebuffer
 type VZFramebuffer struct {
 	objectivec.Object
 }
@@ -65,8 +63,6 @@ var _ IVZFramebuffer = VZFramebuffer{}
 // # Methods
 //
 //   - [IVZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebuffer
 type IVZFramebuffer interface {
 	objectivec.IObject
 
@@ -94,7 +90,6 @@ func NewVZFramebuffer() VZFramebuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebuffer/_takeScreenshotWithCompletionHandler:imageConversionBlock:
 func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlock(handler VoidHandler, block VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	_block1, _ := NewVoidBlock(block)

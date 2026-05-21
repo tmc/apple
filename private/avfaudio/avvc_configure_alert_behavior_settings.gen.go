@@ -53,8 +53,6 @@ func (ac AVVCConfigureAlertBehaviorSettingsClass) Alloc() AVVCConfigureAlertBeha
 //   - [AVVCConfigureAlertBehaviorSettings.StreamID]
 //   - [AVVCConfigureAlertBehaviorSettings.SetStreamID]
 //   - [AVVCConfigureAlertBehaviorSettings.InitWithStreamID]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings
 type AVVCConfigureAlertBehaviorSettings struct {
 	objectivec.Object
 }
@@ -80,8 +78,6 @@ var _ IAVVCConfigureAlertBehaviorSettings = AVVCConfigureAlertBehaviorSettings{}
 //   - [IAVVCConfigureAlertBehaviorSettings.StreamID]
 //   - [IAVVCConfigureAlertBehaviorSettings.SetStreamID]
 //   - [IAVVCConfigureAlertBehaviorSettings.InitWithStreamID]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings
 type IAVVCConfigureAlertBehaviorSettings interface {
 	objectivec.IObject
 
@@ -117,20 +113,17 @@ func NewAVVCConfigureAlertBehaviorSettings() AVVCConfigureAlertBehaviorSettings 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/initWithStreamID:
 func NewVCConfigureAlertBehaviorSettingsWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
 	instance := getAVVCConfigureAlertBehaviorSettingsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:"), id)
 	return AVVCConfigureAlertBehaviorSettingsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/initWithStreamID:
 func (a AVVCConfigureAlertBehaviorSettings) InitWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
 	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("initWithStreamID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/startAlert
 func (a AVVCConfigureAlertBehaviorSettings) StartAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
 	return rv
@@ -138,8 +131,6 @@ func (a AVVCConfigureAlertBehaviorSettings) StartAlert() int64 {
 func (a AVVCConfigureAlertBehaviorSettings) SetStartAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/stopAlert
 func (a AVVCConfigureAlertBehaviorSettings) StopAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
@@ -147,8 +138,6 @@ func (a AVVCConfigureAlertBehaviorSettings) StopAlert() int64 {
 func (a AVVCConfigureAlertBehaviorSettings) SetStopAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/stopOnErrorAlert
 func (a AVVCConfigureAlertBehaviorSettings) StopOnErrorAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
@@ -156,8 +145,6 @@ func (a AVVCConfigureAlertBehaviorSettings) StopOnErrorAlert() int64 {
 func (a AVVCConfigureAlertBehaviorSettings) SetStopOnErrorAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/streamID
 func (a AVVCConfigureAlertBehaviorSettings) StreamID() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
 	return rv

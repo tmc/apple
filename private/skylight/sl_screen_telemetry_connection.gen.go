@@ -57,8 +57,6 @@ func (sc SLScreenTelemetryConnectionClass) Alloc() SLScreenTelemetryConnection {
 //   - [SLScreenTelemetryConnection.UpdateBlock]
 //   - [SLScreenTelemetryConnection.ZeroingContainer]
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection
 type SLScreenTelemetryConnection struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ ISLScreenTelemetryConnection = SLScreenTelemetryConnection{}
 //   - [ISLScreenTelemetryConnection.UpdateBlock]
 //   - [ISLScreenTelemetryConnection.ZeroingContainer]
 //   - [ISLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection
 type ISLScreenTelemetryConnection interface {
 	objectivec.IObject
 
@@ -127,41 +123,30 @@ func NewSLScreenTelemetryConnection() SLScreenTelemetryConnection {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/close
 func (s SLScreenTelemetryConnection) Close() {
 	objc.Send[objc.ID](s.ID, objc.Sel("close"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/closedWithError:
 func (s SLScreenTelemetryConnection) ClosedWithError(error_ objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("closedWithError:"), error_)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/connectUsingXPCConnection:andConfigMessage:
 func (s SLScreenTelemetryConnection) ConnectUsingXPCConnectionAndConfigMessage(xPCConnection objectivec.IObject, message objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("connectUsingXPCConnection:andConfigMessage:"), xPCConnection, message)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/handleMessage:
 func (s SLScreenTelemetryConnection) HandleMessage(message objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("handleMessage:"), message)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/initWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:
 func (s SLScreenTelemetryConnection) InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock(width uint32, height uint32, rows uint32, columns uint32, interval float64, queue objectivec.IObject, block VoidHandler) SLScreenTelemetryConnection {
 	_block6, _ := NewVoidBlock(block)
 	rv := objc.Send[SLScreenTelemetryConnection](s.ID, objc.Sel("initWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/connectionWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:
 func (_SLScreenTelemetryConnectionClass SLScreenTelemetryConnectionClass) ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock(width uint32, height uint32, rows uint32, columns uint32, interval float64, queue objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block6, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_SLScreenTelemetryConnectionClass.class), objc.Sel("connectionWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/closed
 func (s SLScreenTelemetryConnection) Closed() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("closed"))
 	return rv
@@ -169,8 +154,6 @@ func (s SLScreenTelemetryConnection) Closed() bool {
 func (s SLScreenTelemetryConnection) SetClosed(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setClosed:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/connection
 func (s SLScreenTelemetryConnection) Connection() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -178,21 +161,15 @@ func (s SLScreenTelemetryConnection) Connection() objectivec.Object {
 func (s SLScreenTelemetryConnection) SetConnection(value objectivec.Object) {
 	objc.Send[struct{}](s.ID, objc.Sel("setConnection:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/queue
 func (s SLScreenTelemetryConnection) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/updateBlock
 func (s SLScreenTelemetryConnection) UpdateBlock() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlock"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLScreenTelemetryConnection/zeroingContainer
 func (s SLScreenTelemetryConnection) ZeroingContainer() ISLSZeroingWeakContainer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroingContainer"))
 	return SLSZeroingWeakContainerFromID(objc.ID(rv))

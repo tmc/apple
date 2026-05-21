@@ -42,7 +42,6 @@ func (tc TTSFormatArgumentClass) Alloc() TTSFormatArgument {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSFormatArgument
 type TTSFormatArgument struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TTSFormatArgumentFromID(id objc.ID) TTSFormatArgument {
 var _ ITTSFormatArgument = TTSFormatArgument{}
 
 // An interface definition for the [TTSFormatArgument] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSFormatArgument
 type ITTSFormatArgument interface {
 	objectivec.IObject
 }

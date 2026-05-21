@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZUSBMassStorageDevice] class.
@@ -56,8 +57,6 @@ func (vc VZUSBMassStorageDeviceClass) Alloc() VZUSBMassStorageDevice {
 //   - [VZUSBMassStorageDevice.Superclass]
 //   - [VZUSBMassStorageDevice.UsbController]
 //   - [VZUSBMassStorageDevice.SetUsbController]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice
 type VZUSBMassStorageDevice struct {
 	VZStorageDevice
 }
@@ -86,8 +85,6 @@ var _ IVZUSBMassStorageDevice = VZUSBMassStorageDevice{}
 //   - [IVZUSBMassStorageDevice.Superclass]
 //   - [IVZUSBMassStorageDevice.UsbController]
 //   - [IVZUSBMassStorageDevice.SetUsbController]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice
 type IVZUSBMassStorageDevice interface {
 	IVZStorageDevice
 
@@ -102,7 +99,7 @@ type IVZUSBMassStorageDevice interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 	UsbController() IVZUSBController
 	SetUsbController(value IVZUSBController)
 }
@@ -126,7 +123,6 @@ func NewVZUSBMassStorageDevice() VZUSBMassStorageDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/configuration
 func (v VZUSBMassStorageDevice) Configuration() IVZUSBMassStorageDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configuration"))
 	return VZUSBMassStorageDeviceConfigurationFromID(objc.ID(rv))
@@ -134,38 +130,26 @@ func (v VZUSBMassStorageDevice) Configuration() IVZUSBMassStorageDeviceConfigura
 func (v VZUSBMassStorageDevice) SetConfiguration(value IVZUSBMassStorageDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/debugDescription
 func (v VZUSBMassStorageDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/description
 func (v VZUSBMassStorageDevice) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/hash
 func (v VZUSBMassStorageDevice) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/isPointingDevice
 func (v VZUSBMassStorageDevice) IsPointingDevice() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPointingDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/superclass
-func (v VZUSBMassStorageDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZUSBMassStorageDevice) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/usbController
 func (v VZUSBMassStorageDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
@@ -173,14 +157,10 @@ func (v VZUSBMassStorageDevice) UsbController() IVZUSBController {
 func (v VZUSBMassStorageDevice) SetUsbController(value IVZUSBController) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsbController:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/usbMassStorageConfiguration
 func (v VZUSBMassStorageDevice) UsbMassStorageConfiguration() IVZUSBMassStorageDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbMassStorageConfiguration"))
 	return VZUSBMassStorageDeviceConfigurationFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDevice/virtualMachine
 func (v VZUSBMassStorageDevice) VirtualMachine() IVZVirtualMachine {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("virtualMachine"))
 	return VZVirtualMachineFromID(objc.ID(rv))

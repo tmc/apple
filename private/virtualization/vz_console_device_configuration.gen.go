@@ -55,8 +55,6 @@ func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration
 //   - [VZConsoleDeviceConfiguration.Description]
 //   - [VZConsoleDeviceConfiguration.Hash]
 //   - [VZConsoleDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration
 type VZConsoleDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -81,8 +79,6 @@ var _ IVZConsoleDeviceConfiguration = VZConsoleDeviceConfiguration{}
 //   - [IVZConsoleDeviceConfiguration.Description]
 //   - [IVZConsoleDeviceConfiguration.Hash]
 //   - [IVZConsoleDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration
 type IVZConsoleDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -91,11 +87,11 @@ type IVZConsoleDeviceConfiguration interface {
 	_init() objectivec.IObject
 	MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	ValidateWithError() (bool, error)
-	_consoleDevice() objectivec.IObject
+	_consoleDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -117,19 +113,14 @@ func NewVZConsoleDeviceConfiguration() VZConsoleDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/_init
 func (v VZConsoleDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:
 func (v VZConsoleDeviceConfiguration) MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/validateWithError:
 func (v VZConsoleDeviceConfiguration) ValidateWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("validateWithError:"), unsafe.Pointer(&errorPtr))
@@ -144,10 +135,9 @@ func (v VZConsoleDeviceConfiguration) ValidateWithError() (bool, error) {
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/_consoleDevice
-func (v VZConsoleDeviceConfiguration) _consoleDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_consoleDevice"))
-	return objectivec.Object{ID: rv}
+func (v VZConsoleDeviceConfiguration) _consoleDevice() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_consoleDevice"))
+	return rv
 }
 
 // CanConsoleDevice reports whether the receiver responds to the private selector _consoleDevice.
@@ -156,33 +146,25 @@ func (v VZConsoleDeviceConfiguration) CanConsoleDevice() bool {
 }
 
 // ConsoleDevice is an exported wrapper for the private property _consoleDevice.
-func (v VZConsoleDeviceConfiguration) ConsoleDevice() (objectivec.IObject, error) {
+func (v VZConsoleDeviceConfiguration) ConsoleDevice() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_consoleDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_consoleDevice"}
 	}
 	return v._consoleDevice(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/debugDescription
 func (v VZConsoleDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/description
 func (v VZConsoleDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/hash
 func (v VZConsoleDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/superclass
-func (v VZConsoleDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZConsoleDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

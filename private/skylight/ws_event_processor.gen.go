@@ -61,8 +61,6 @@ func (wc WSEventProcessorClass) Alloc() WSEventProcessor {
 //   - [WSEventProcessor.Description]
 //   - [WSEventProcessor.Hash]
 //   - [WSEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor
 type WSEventProcessor struct {
 	objectivec.Object
 }
@@ -94,15 +92,13 @@ var _ IWSEventProcessor = WSEventProcessor{}
 //   - [IWSEventProcessor.Description]
 //   - [IWSEventProcessor.Hash]
 //   - [IWSEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor
 type IWSEventProcessor interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	AnnotateAnnotationParams(annotate SLSEventRecord, params objectivec.IObject) int
-	Annotate_internalAnnotationParamsWindowConnEventRegionIDIsCapturedDefaultWindowOverrideCaptureCid(annotate_internal SLSEventRecord, params objectivec.IObject, conn uint32, id unsafe.Pointer, captured bool, window bool, cid unsafe.Pointer) int
+	Annotate_internalAnnotationParamsWindowConnEventRegionIDIsCapturedDefaultWindowOverrideCaptureCid(annotate_internal SLSEventRecord, params objectivec.IObject, conn uint32, id *uint64, captured bool, window bool, cid *bool) int
 	Can_handle(can_handle SLSEventRecord) bool
 	ClearEventState()
 	CreateAnnotationParams(params SLSEventRecord) objectivec.IObject
@@ -115,7 +111,7 @@ type IWSEventProcessor interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -137,95 +133,66 @@ func NewWSEventProcessor() WSEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSEventProcessorWithSession(session CGXSession) WSEventProcessor {
 	instance := getWSEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSEventProcessorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/annotate:annotationParams:
 func (w WSEventProcessor) AnnotateAnnotationParams(annotate SLSEventRecord, params objectivec.IObject) int {
 	rv := objc.Send[int](w.ID, objc.Sel("annotate:annotationParams:"), annotate, params)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/annotate_internal:annotationParams:windowConn:eventRegionID:isCaptured:defaultWindow:overrideCaptureCid:
-func (w WSEventProcessor) Annotate_internalAnnotationParamsWindowConnEventRegionIDIsCapturedDefaultWindowOverrideCaptureCid(annotate_internal SLSEventRecord, params objectivec.IObject, conn uint32, id unsafe.Pointer, captured bool, window bool, cid unsafe.Pointer) int {
+func (w WSEventProcessor) Annotate_internalAnnotationParamsWindowConnEventRegionIDIsCapturedDefaultWindowOverrideCaptureCid(annotate_internal SLSEventRecord, params objectivec.IObject, conn uint32, id *uint64, captured bool, window bool, cid *bool) int {
 	rv := objc.Send[int](w.ID, objc.Sel("annotate_internal:annotationParams:windowConn:eventRegionID:isCaptured:defaultWindow:overrideCaptureCid:"), annotate_internal, params, conn, id, captured, window, cid)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/can_handle:
 func (w WSEventProcessor) Can_handle(can_handle SLSEventRecord) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("can_handle:"), can_handle)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/clearEventState
 func (w WSEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](w.ID, objc.Sel("clearEventState"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/createAnnotationParams:
 func (w WSEventProcessor) CreateAnnotationParams(params SLSEventRecord) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("createAnnotationParams:"), params)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/event_dispatch:annotationParams:dispatcher:
 func (w WSEventProcessor) Event_dispatchAnnotationParamsDispatcher(event_dispatch SLSEventRecord, params objectivec.IObject, dispatcher objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("event_dispatch:annotationParams:dispatcher:"), event_dispatch, params, dispatcher)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/event_find_window:
 func (w WSEventProcessor) Event_find_window(event_find_window SLSEventRecord) {
 	objc.Send[objc.ID](w.ID, objc.Sel("event_find_window:"), event_find_window)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/post_event_annotate:annotationParams:isCaptured:isInkingEvent:annotateWindow:annotateConnection:eventRegion:
 func (w WSEventProcessor) Post_event_annotateAnnotationParamsIsCapturedIsInkingEventAnnotateWindowAnnotateConnectionEventRegion(post_event_annotate SLSEventRecord, params objectivec.IObject, captured bool, event bool, window unsafe.Pointer, connection CGXConnection, region WSStructuralRegionRef) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("post_event_annotate:annotationParams:isCaptured:isInkingEvent:annotateWindow:annotateConnection:eventRegion:"), post_event_annotate, params, captured, event, window, connection, region)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/processEvent:context:dispatcher:
 func (w WSEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/route_annotate_event:annotationParams:dispatcher:
 func (w WSEventProcessor) Route_annotate_eventAnnotationParamsDispatcher(route_annotate_event SLSEventRecord, params objectivec.IObject, dispatcher objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("route_annotate_event:annotationParams:dispatcher:"), route_annotate_event, params, dispatcher)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func (w WSEventProcessor) InitWithSession(session CGXSession) WSEventProcessor {
 	rv := objc.Send[WSEventProcessor](w.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/debugDescription
 func (w WSEventProcessor) DebugDescription() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/description
 func (w WSEventProcessor) Description() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/hash
 func (w WSEventProcessor) Hash() uint64 {
 	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/superclass
-func (w WSEventProcessor) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](w.ID, objc.Sel("superclass"))
-	return rv
+func (w WSEventProcessor) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

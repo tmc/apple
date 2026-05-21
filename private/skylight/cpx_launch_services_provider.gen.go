@@ -52,8 +52,6 @@ func (cc CPXLaunchServicesProviderClass) Alloc() CPXLaunchServicesProvider {
 //   - [CPXLaunchServicesProvider.Description]
 //   - [CPXLaunchServicesProvider.Hash]
 //   - [CPXLaunchServicesProvider.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider
 type CPXLaunchServicesProvider struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ ICPXLaunchServicesProvider = CPXLaunchServicesProvider{}
 //   - [ICPXLaunchServicesProvider.Description]
 //   - [ICPXLaunchServicesProvider.Hash]
 //   - [ICPXLaunchServicesProvider.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider
 type ICPXLaunchServicesProvider interface {
 	objectivec.IObject
 
@@ -90,7 +86,7 @@ type ICPXLaunchServicesProvider interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,31 +108,23 @@ func NewCPXLaunchServicesProvider() CPXLaunchServicesProvider {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/_init
 func (c CPXLaunchServicesProvider) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/debugDescription
 func (c CPXLaunchServicesProvider) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/description
 func (c CPXLaunchServicesProvider) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/hash
 func (c CPXLaunchServicesProvider) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/launchServicesInterface
 func (c CPXLaunchServicesProvider) LaunchServicesInterface() ICPXLaunchServicesInterface {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("launchServicesInterface"))
 	return CPXLaunchServicesInterfaceFromID(objc.ID(rv))
@@ -144,9 +132,7 @@ func (c CPXLaunchServicesProvider) LaunchServicesInterface() ICPXLaunchServicesI
 func (c CPXLaunchServicesProvider) SetLaunchServicesInterface(value ICPXLaunchServicesInterface) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLaunchServicesInterface:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProvider/superclass
-func (c CPXLaunchServicesProvider) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXLaunchServicesProvider) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

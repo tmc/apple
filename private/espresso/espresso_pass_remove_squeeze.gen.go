@@ -41,7 +41,6 @@ func (ec EspressoPassRemoveSqueezeClass) Alloc() EspressoPassRemoveSqueeze {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze
 type EspressoPassRemoveSqueeze struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_remove_squeezeFromID(id objc.ID) EspressoPassRemoveSqueeze {
 var _ IEspressoPassRemoveSqueeze = EspressoPassRemoveSqueeze{}
 
 // An interface definition for the [EspressoPassRemoveSqueeze] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze
 type IEspressoPassRemoveSqueeze interface {
 	IEspressoCustomPass
 }

@@ -42,7 +42,6 @@ func (vc VZPluginServiceClass) Alloc() VZPluginService {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginService
 type VZPluginService struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZPluginServiceFromID(id objc.ID) VZPluginService {
 var _ IVZPluginService = VZPluginService{}
 
 // An interface definition for the [VZPluginService] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginService
 type IVZPluginService interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewVZPluginService() VZPluginService {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginService/xpcMain
 func (_VZPluginServiceClass VZPluginServiceClass) XpcMain() int {
 	rv := objc.Send[int](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
 	return rv

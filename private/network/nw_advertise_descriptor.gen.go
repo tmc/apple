@@ -56,8 +56,6 @@ func (nc NWAdvertiseDescriptorClass) Alloc() NWAdvertiseDescriptor {
 //   - [NWAdvertiseDescriptor.SetTxtRecord]
 //   - [NWAdvertiseDescriptor.InitWithDescriptor]
 //   - [NWAdvertiseDescriptor.InitWithNameTypeDomain]
-//
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor
 type NWAdvertiseDescriptor struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ INWAdvertiseDescriptor = NWAdvertiseDescriptor{}
 //   - [INWAdvertiseDescriptor.SetTxtRecord]
 //   - [INWAdvertiseDescriptor.InitWithDescriptor]
 //   - [INWAdvertiseDescriptor.InitWithNameTypeDomain]
-//
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor
 type INWAdvertiseDescriptor interface {
 	objectivec.IObject
 
@@ -99,8 +95,8 @@ type INWAdvertiseDescriptor interface {
 	InternalDescriptor() objectivec.Object
 	SetInternalDescriptor(value objectivec.Object)
 	PrivateDescription() objectivec.IObject
-	TxtRecord() foundation.INSData
-	SetTxtRecord(value foundation.INSData)
+	TxtRecord() foundation.NSData
+	SetTxtRecord(value foundation.NSData)
 	InitWithDescriptor(descriptor objectivec.IObject) NWAdvertiseDescriptor
 	InitWithNameTypeDomain(name objectivec.IObject, type_ objectivec.IObject, domain objectivec.IObject) NWAdvertiseDescriptor
 }
@@ -124,63 +120,47 @@ func NewNWAdvertiseDescriptor() NWAdvertiseDescriptor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/initWithDescriptor:
 func NewNWAdvertiseDescriptorWithDescriptor(descriptor objectivec.IObject) NWAdvertiseDescriptor {
 	instance := getNWAdvertiseDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescriptor:"), descriptor)
 	return NWAdvertiseDescriptorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/initWithName:type:domain:
 func NewNWAdvertiseDescriptorWithNameTypeDomain(name objectivec.IObject, type_ objectivec.IObject, domain objectivec.IObject) NWAdvertiseDescriptor {
 	instance := getNWAdvertiseDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:type:domain:"), name, type_, domain)
 	return NWAdvertiseDescriptorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/descriptionWithIndent:showFullContent:
 func (n NWAdvertiseDescriptor) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/privateDescription
 func (n NWAdvertiseDescriptor) PrivateDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("privateDescription"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/initWithDescriptor:
 func (n NWAdvertiseDescriptor) InitWithDescriptor(descriptor objectivec.IObject) NWAdvertiseDescriptor {
 	rv := objc.Send[NWAdvertiseDescriptor](n.ID, objc.Sel("initWithDescriptor:"), descriptor)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/initWithName:type:domain:
 func (n NWAdvertiseDescriptor) InitWithNameTypeDomain(name objectivec.IObject, type_ objectivec.IObject, domain objectivec.IObject) NWAdvertiseDescriptor {
 	rv := objc.Send[NWAdvertiseDescriptor](n.ID, objc.Sel("initWithName:type:domain:"), name, type_, domain)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/bonjourServiceDomain
 func (n NWAdvertiseDescriptor) BonjourServiceDomain() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("bonjourServiceDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/bonjourServiceName
 func (n NWAdvertiseDescriptor) BonjourServiceName() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("bonjourServiceName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/bonjourServiceType
 func (n NWAdvertiseDescriptor) BonjourServiceType() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("bonjourServiceType"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/internalDescriptor
 func (n NWAdvertiseDescriptor) InternalDescriptor() objectivec.Object {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalDescriptor"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -188,12 +168,10 @@ func (n NWAdvertiseDescriptor) InternalDescriptor() objectivec.Object {
 func (n NWAdvertiseDescriptor) SetInternalDescriptor(value objectivec.Object) {
 	objc.Send[struct{}](n.ID, objc.Sel("setInternalDescriptor:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Network/NWAdvertiseDescriptor/txtRecord
-func (n NWAdvertiseDescriptor) TxtRecord() foundation.INSData {
+func (n NWAdvertiseDescriptor) TxtRecord() foundation.NSData {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("txtRecord"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (n NWAdvertiseDescriptor) SetTxtRecord(value foundation.INSData) {
+func (n NWAdvertiseDescriptor) SetTxtRecord(value foundation.NSData) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTxtRecord:"), value)
 }

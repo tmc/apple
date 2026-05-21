@@ -42,7 +42,6 @@ func (tc TtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionSche
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler
 type TtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionSchedule
 // ITtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler
 type ITtC6CoreMLP33E8DC9B772C73548EA5F31AD4BCEEE43A29AsyncComputeFunctionScheduler interface {
 	objectivec.IObject
 }

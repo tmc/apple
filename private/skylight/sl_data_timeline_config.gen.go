@@ -64,8 +64,6 @@ func (sc SLDataTimelineConfigClass) Alloc() SLDataTimelineConfig {
 //   - [SLDataTimelineConfig.UpdateBlockQueue]
 //   - [SLDataTimelineConfig.SetUpdateBlockQueue]
 //   - [SLDataTimelineConfig.InitWithNameAndUpdateBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig
 type SLDataTimelineConfig struct {
 	objectivec.Object
 }
@@ -99,8 +97,6 @@ var _ ISLDataTimelineConfig = SLDataTimelineConfig{}
 //   - [ISLDataTimelineConfig.UpdateBlockQueue]
 //   - [ISLDataTimelineConfig.SetUpdateBlockQueue]
 //   - [ISLDataTimelineConfig.InitWithNameAndUpdateBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig
 type ISLDataTimelineConfig interface {
 	objectivec.IObject
 
@@ -144,15 +140,13 @@ func NewSLDataTimelineConfig() SLDataTimelineConfig {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/addInfoOption:
 func (s SLDataTimelineConfig) AddInfoOption(option objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addInfoOption:"), option)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/createCancellableMachRecvSourceWithQueue:cancelAction:error:
 func (s SLDataTimelineConfig) CreateCancellableMachRecvSourceWithQueueCancelActionError(queue objectivec.IObject, action func()) (objectivec.IObject, error) {
+	_block1, _ := NewVoidBlock(action)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:cancelAction:error:"), queue, action, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:cancelAction:error:"), queue, _block1, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -160,94 +154,66 @@ func (s SLDataTimelineConfig) CreateCancellableMachRecvSourceWithQueueCancelActi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/createNoSenderRecvPairWithQueue:errorHandler:eventHandler:
 func (s SLDataTimelineConfig) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler(queue objectivec.IObject, handler VoidHandler, handler2 VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(handler)
 	_block2, _ := NewVoidBlock(handler2)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createNoSenderRecvPairWithQueue:errorHandler:eventHandler:"), queue, _block1, _block2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/createXPCObject
 func (s SLDataTimelineConfig) CreateXPCObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/establishConnectionWithResultBlock:
 func (s SLDataTimelineConfig) EstablishConnectionWithResultBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("establishConnectionWithResultBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/requestReportIntervalValue:forKey:
 func (s SLDataTimelineConfig) RequestReportIntervalValueForKey(value uint16, key objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("requestReportIntervalValue:forKey:"), value, key)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/requestSampleIntervalValue:forKey:
 func (s SLDataTimelineConfig) RequestSampleIntervalValueForKey(value uint16, key objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("requestSampleIntervalValue:forKey:"), value, key)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/setTargetQueue:
 func (s SLDataTimelineConfig) SetTargetQueue(queue objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setTargetQueue:"), queue)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/initWithName:andUpdateBlock:
 func (s SLDataTimelineConfig) InitWithNameAndUpdateBlock(name objectivec.IObject, block VoidHandler) SLDataTimelineConfig {
 	_block1, _ := NewVoidBlock(block)
 	rv := objc.Send[SLDataTimelineConfig](s.ID, objc.Sel("initWithName:andUpdateBlock:"), name, _block1)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/configWithName:andUpdateBlock:
 func (_SLDataTimelineConfigClass SLDataTimelineConfigClass) ConfigWithNameAndUpdateBlock(name objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineConfigClass.class), objc.Sel("configWithName:andUpdateBlock:"), name, _block1)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/connectionQueue
 func (s SLDataTimelineConfig) ConnectionQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("connectionQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/infoOptions
 func (s SLDataTimelineConfig) InfoOptions() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("infoOptions"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/name
 func (s SLDataTimelineConfig) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/reportIntervals
 func (s SLDataTimelineConfig) ReportIntervals() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("reportIntervals"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/sampleIntervals
 func (s SLDataTimelineConfig) SampleIntervals() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sampleIntervals"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/updateBlock
 func (s SLDataTimelineConfig) UpdateBlock() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlock"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineConfig/updateBlockQueue
 func (s SLDataTimelineConfig) UpdateBlockQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlockQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

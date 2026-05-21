@@ -3,39 +3,13 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
-// DictionaryHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [SLSBrightnessControl.RegisterForNotificationsWithBlock]
-type DictionaryHandler = func(*foundation.INSDictionary)
-
-// ErrorHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [CPXRemoteViewEventPendingConnection.InitWithConnectionHandler]
-//   - [CPXRemoteViewEventPendingConnection.SetHandler]
-type ErrorHandler = func()
-
-// NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [CPXRemoteViewEventPendingConnection.InitWithConnectionHandler]
-//   - [CPXRemoteViewEventPendingConnection.SetHandler]
-func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block) {
-		handler()
-	})
-	return objc.ID(block), func() { block.Release() }
-}
 
 // NumberErrorHandler is the signature for a completion handler block.
 //
@@ -64,11 +38,38 @@ func NewNumberErrorBlock(handler NumberErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// ObjectHandler handles completion with a primitive value.
+//
+// Used by:
+//   - [SLSBrightnessControl.RegisterForNotificationsWithBlock]
+type ObjectHandler = func(objectivec.IObject)
+
+// NewObjectBlock wraps a Go [ObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [SLSBrightnessControl.RegisterForNotificationsWithBlock]
+func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
+		var val objectivec.IObject
+		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(valID)
+			val = &obj
+		}
+		handler(val)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // SLDataTimelineProcessHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [SLDataTimelineSessionProcessCollection.ProcessesApplyBlock]
-type SLDataTimelineProcessHandler = func(*objectivec.Object)
+type SLDataTimelineProcessHandler = func(*kernel.Pointer)
 
 // NewSLDataTimelineProcessBlock wraps a Go [SLDataTimelineProcessHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -80,10 +81,9 @@ func NewSLDataTimelineProcessBlock(handler SLDataTimelineProcessHandler) (objc.I
 		return 0, func() {}
 	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *objectivec.Object
+		var result *kernel.Pointer
 		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := objectivec.ObjectFromID(resultID)
+			v := kernel.Pointer(resultID)
 			result = &v
 		}
 		handler(result)
@@ -95,7 +95,7 @@ func NewSLDataTimelineProcessBlock(handler SLDataTimelineProcessHandler) (objc.I
 //
 // Used by:
 //   - [SLDataTimelineSnapshotCollection.SnapshotsApplyBlock]
-type SLDataTimelineServerSnapshotHandler = func(*objectivec.Object)
+type SLDataTimelineServerSnapshotHandler = func(*kernel.Pointer)
 
 // NewSLDataTimelineServerSnapshotBlock wraps a Go [SLDataTimelineServerSnapshotHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -107,10 +107,9 @@ func NewSLDataTimelineServerSnapshotBlock(handler SLDataTimelineServerSnapshotHa
 		return 0, func() {}
 	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *objectivec.Object
+		var result *kernel.Pointer
 		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := objectivec.ObjectFromID(resultID)
+			v := kernel.Pointer(resultID)
 			result = &v
 		}
 		handler(result)
@@ -122,7 +121,7 @@ func NewSLDataTimelineServerSnapshotBlock(handler SLDataTimelineServerSnapshotHa
 //
 // Used by:
 //   - [SLDataTimelineServerSnapshot.SessionsApplyBlock]
-type SLDataTimelineSessionHandler = func(*objectivec.Object)
+type SLDataTimelineSessionHandler = func(*kernel.Pointer)
 
 // NewSLDataTimelineSessionBlock wraps a Go [SLDataTimelineSessionHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -134,13 +133,45 @@ func NewSLDataTimelineSessionBlock(handler SLDataTimelineSessionHandler) (objc.I
 		return 0, func() {}
 	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *objectivec.Object
+		var result *kernel.Pointer
 		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := objectivec.ObjectFromID(resultID)
+			v := kernel.Pointer(resultID)
 			result = &v
 		}
 		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// UnsafePointerHandler handles completion with a primitive value.
+//
+// Used by:
+//   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayPowerControlClientProtocol.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSGUIClientProtocol.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSGUIClientProtocol.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSXPCServiceProtocol.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock]
+type UnsafePointerHandler = func(unsafe.Pointer)
+
+// NewUnsafePointerBlock wraps a Go [UnsafePointerHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSDisplayPowerControlClientProtocol.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSGUIClientProtocol.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSGUIClientProtocol.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
+//   - [SLSXPCServiceProtocol.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock]
+func NewUnsafePointerBlock(handler UnsafePointerHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -177,21 +208,15 @@ func NewSLDataTimelineSessionBlock(handler SLDataTimelineSessionHandler) (objc.I
 //   - [SLSDisplayControlClient.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.SetNotification]
-//   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayController.RegisterForNotificationsWithBlock]
 //   - [SLSDisplayManager.RegisterPowerStateNotificationRegistrationIDSendInitialStateQueueRefconNotificationOptionNotificationBlockNotificationPayloadBlock]
 //   - [SLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayPowerControlClientProtocol.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSEventAuthenticationMessage.ValidateWithOptionsAndResultBlock]
 //   - [SLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [SLSFullScreenPidReporter.SetDisconnectHandler]
 //   - [SLSGUIClient.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSGUIClient.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSGUIClientProtocol.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSGUIClientProtocol.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSRemoteViewEventClient.ActivateWithHandlerInvalidationHandler]
 //   - [SLSRemoteViewEventClient.SendEventToHostFullDispatchReply]
 //   - [SLSRemoteViewEventClient.ServicePassEventUpstreamToHostFullDispatchReply]
@@ -208,7 +233,6 @@ func NewSLDataTimelineSessionBlock(handler SLDataTimelineSessionHandler) (objc.I
 //   - [SLSXPCService.SetClientNotificationBlock]
 //   - [SLSXPCService.SetErrorBlock]
 //   - [SLSXPCService.SetNotificationBlock]
-//   - [SLSXPCServiceProtocol.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock]
 //   - [SLScreenTelemetryConnection.ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLSharingSessionManager.SetDelegateBlock]
@@ -247,21 +271,15 @@ type VoidHandler = func()
 //   - [SLSDisplayControlClient.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.SetNotification]
-//   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayController.RegisterForNotificationsWithBlock]
 //   - [SLSDisplayManager.RegisterPowerStateNotificationRegistrationIDSendInitialStateQueueRefconNotificationOptionNotificationBlockNotificationPayloadBlock]
 //   - [SLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplayPowerControlClientProtocol.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSEventAuthenticationMessage.ValidateWithOptionsAndResultBlock]
 //   - [SLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [SLSFullScreenPidReporter.SetDisconnectHandler]
 //   - [SLSGUIClient.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSGUIClient.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSGUIClientProtocol.ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSGUIClientProtocol.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSRemoteViewEventClient.ActivateWithHandlerInvalidationHandler]
 //   - [SLSRemoteViewEventClient.SendEventToHostFullDispatchReply]
 //   - [SLSRemoteViewEventClient.ServicePassEventUpstreamToHostFullDispatchReply]
@@ -278,7 +296,6 @@ type VoidHandler = func()
 //   - [SLSXPCService.SetClientNotificationBlock]
 //   - [SLSXPCService.SetErrorBlock]
 //   - [SLSXPCService.SetNotificationBlock]
-//   - [SLSXPCServiceProtocol.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock]
 //   - [SLScreenTelemetryConnection.ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLSharingSessionManager.SetDelegateBlock]

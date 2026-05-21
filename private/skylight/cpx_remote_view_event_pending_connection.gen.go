@@ -58,8 +58,6 @@ func (cc CPXRemoteViewEventPendingConnectionClass) Alloc() CPXRemoteViewEventPen
 //   - [CPXRemoteViewEventPendingConnection.Description]
 //   - [CPXRemoteViewEventPendingConnection.Hash]
 //   - [CPXRemoteViewEventPendingConnection.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection
 type CPXRemoteViewEventPendingConnection struct {
 	objectivec.Object
 }
@@ -88,8 +86,6 @@ var _ ICPXRemoteViewEventPendingConnection = CPXRemoteViewEventPendingConnection
 //   - [ICPXRemoteViewEventPendingConnection.Description]
 //   - [ICPXRemoteViewEventPendingConnection.Hash]
 //   - [ICPXRemoteViewEventPendingConnection.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection
 type ICPXRemoteViewEventPendingConnection interface {
 	objectivec.IObject
 
@@ -102,11 +98,11 @@ type ICPXRemoteViewEventPendingConnection interface {
 	Handler() ICPXRemoteViewEventServer
 	SetHandler(value ICPXRemoteViewEventServer)
 	RejectConnection()
-	InitWithConnectionHandler(connection objectivec.IObject, handler ErrorHandler) CPXRemoteViewEventPendingConnection
+	InitWithConnectionHandler(connection objectivec.IObject, handler objectivec.IObject) CPXRemoteViewEventPendingConnection
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -128,60 +124,42 @@ func NewCPXRemoteViewEventPendingConnection() CPXRemoteViewEventPendingConnectio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/initWithConnection:handler:
 func NewCPXRemoteViewEventPendingConnectionWithConnectionHandler(connection objectivec.IObject, handler objectivec.IObject) CPXRemoteViewEventPendingConnection {
 	instance := getCPXRemoteViewEventPendingConnectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
 	return CPXRemoteViewEventPendingConnectionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/acceptConnection
 func (c CPXRemoteViewEventPendingConnection) AcceptConnection() {
 	objc.Send[objc.ID](c.ID, objc.Sel("acceptConnection"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/activate
 func (c CPXRemoteViewEventPendingConnection) Activate() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("activate"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/connection:revokedWithEvent:
 func (c CPXRemoteViewEventPendingConnection) ConnectionRevokedWithEvent(connection objectivec.IObject, event objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/rejectConnection
 func (c CPXRemoteViewEventPendingConnection) RejectConnection() {
 	objc.Send[objc.ID](c.ID, objc.Sel("rejectConnection"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/initWithConnection:handler:
-func (c CPXRemoteViewEventPendingConnection) InitWithConnectionHandler(connection objectivec.IObject, handler ErrorHandler) CPXRemoteViewEventPendingConnection {
-	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("initWithConnection:handler:"), connection, _block1)
+func (c CPXRemoteViewEventPendingConnection) InitWithConnectionHandler(connection objectivec.IObject, handler objectivec.IObject) CPXRemoteViewEventPendingConnection {
+	rv := objc.Send[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/connection
 func (c CPXRemoteViewEventPendingConnection) Connection() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connection"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/debugDescription
 func (c CPXRemoteViewEventPendingConnection) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/description
 func (c CPXRemoteViewEventPendingConnection) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/handler
 func (c CPXRemoteViewEventPendingConnection) Handler() ICPXRemoteViewEventServer {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("handler"))
 	return CPXRemoteViewEventServerFromID(objc.ID(rv))
@@ -189,15 +167,11 @@ func (c CPXRemoteViewEventPendingConnection) Handler() ICPXRemoteViewEventServer
 func (c CPXRemoteViewEventPendingConnection) SetHandler(value ICPXRemoteViewEventServer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHandler:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/hash
 func (c CPXRemoteViewEventPendingConnection) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXRemoteViewEventPendingConnection/superclass
-func (c CPXRemoteViewEventPendingConnection) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXRemoteViewEventPendingConnection) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

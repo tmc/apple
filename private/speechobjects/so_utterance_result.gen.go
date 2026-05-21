@@ -67,8 +67,6 @@ func (sc SOUtteranceResultClass) Alloc() SOUtteranceResult {
 //   - [SOUtteranceResult.Type]
 //   - [SOUtteranceResult.SetType]
 //   - [SOUtteranceResult.InitWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult
 type SOUtteranceResult struct {
 	objectivec.Object
 }
@@ -107,8 +105,6 @@ var _ ISOUtteranceResult = SOUtteranceResult{}
 //   - [ISOUtteranceResult.Type]
 //   - [ISOUtteranceResult.SetType]
 //   - [ISOUtteranceResult.InitWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult
 type ISOUtteranceResult interface {
 	objectivec.IObject
 
@@ -157,14 +153,12 @@ func NewSOUtteranceResult() SOUtteranceResult {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/initWithType:startTime:endTime:text:textVariants:commandIdentifier:
 func NewSOUtteranceResultWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier(type_ objectivec.IObject, time float64, time2 float64, text objectivec.IObject, variants objectivec.IObject, identifier objectivec.IObject) SOUtteranceResult {
 	instance := getSOUtteranceResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
 	return SOUtteranceResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/_dictionary
 func (s SOUtteranceResult) _dictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_dictionary"))
 	return objectivec.Object{ID: rv}
@@ -183,8 +177,6 @@ func (s SOUtteranceResult) Dictionary() (objectivec.IObject, error) {
 func (s SOUtteranceResult) CanDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/_initWithDictionary:
 func (s SOUtteranceResult) _initWithDictionary(dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
@@ -203,8 +195,6 @@ func (s SOUtteranceResult) InitWithDictionary(dictionary objectivec.IObject) (ob
 func (s SOUtteranceResult) CanInitWithDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithDictionary:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/_normalizeTimesAgainstTimeInterval:
 func (s SOUtteranceResult) _normalizeTimesAgainstTimeInterval(interval float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"), interval)
 }
@@ -223,14 +213,11 @@ func (s SOUtteranceResult) NormalizeTimesAgainstTimeInterval(interval float64) e
 func (s SOUtteranceResult) CanNormalizeTimesAgainstTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/initWithType:startTime:endTime:text:textVariants:commandIdentifier:
 func (s SOUtteranceResult) InitWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier(type_ objectivec.IObject, time float64, time2 float64, text objectivec.IObject, variants objectivec.IObject, identifier objectivec.IObject) SOUtteranceResult {
 	rv := objc.Send[SOUtteranceResult](s.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/audioFilePath
 func (s SOUtteranceResult) AudioFilePath() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioFilePath"))
 	return foundation.NSStringFromID(rv).String()
@@ -238,8 +225,6 @@ func (s SOUtteranceResult) AudioFilePath() string {
 func (s SOUtteranceResult) SetAudioFilePath(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAudioFilePath:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/commandIdentifier
 func (s SOUtteranceResult) CommandIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -247,8 +232,6 @@ func (s SOUtteranceResult) CommandIdentifier() string {
 func (s SOUtteranceResult) SetCommandIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCommandIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/creationDate
 func (s SOUtteranceResult) CreationDate() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("creationDate"))
 	return rv
@@ -256,8 +239,6 @@ func (s SOUtteranceResult) CreationDate() float64 {
 func (s SOUtteranceResult) SetCreationDate(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/endTime
 func (s SOUtteranceResult) EndTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("endTime"))
 	return rv
@@ -265,8 +246,6 @@ func (s SOUtteranceResult) EndTime() float64 {
 func (s SOUtteranceResult) SetEndTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEndTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/prependedSilenceDuration
 func (s SOUtteranceResult) PrependedSilenceDuration() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("prependedSilenceDuration"))
 	return rv
@@ -274,8 +253,6 @@ func (s SOUtteranceResult) PrependedSilenceDuration() float64 {
 func (s SOUtteranceResult) SetPrependedSilenceDuration(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPrependedSilenceDuration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/startTime
 func (s SOUtteranceResult) StartTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("startTime"))
 	return rv
@@ -283,8 +260,6 @@ func (s SOUtteranceResult) StartTime() float64 {
 func (s SOUtteranceResult) SetStartTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStartTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/text
 func (s SOUtteranceResult) Text() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
@@ -292,8 +267,6 @@ func (s SOUtteranceResult) Text() string {
 func (s SOUtteranceResult) SetText(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setText:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/textVariants
 func (s SOUtteranceResult) TextVariants() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("textVariants"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -301,8 +274,6 @@ func (s SOUtteranceResult) TextVariants() foundation.INSArray {
 func (s SOUtteranceResult) SetTextVariants(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTextVariants:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/type
 func (s SOUtteranceResult) Type() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()

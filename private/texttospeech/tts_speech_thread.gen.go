@@ -48,15 +48,13 @@ func (tc TTSSpeechThreadClass) Alloc() TTSSpeechThread {
 //   - [TTSSpeechThread.Stop]
 //   - [TTSSpeechThread.Voucher]
 //   - [TTSSpeechThread.SetVoucher]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechThread
 type TTSSpeechThread struct {
-	foundation.Thread
+	foundation.NSThread
 }
 
 // TTSSpeechThreadFromID constructs a [TTSSpeechThread] from an objc.ID.
 func TTSSpeechThreadFromID(id objc.ID) TTSSpeechThread {
-	return TTSSpeechThread{Thread: foundation.ThreadFromID(id)}
+	return TTSSpeechThread{NSThread: foundation.NSThreadFromID(id)}
 }
 
 // Ensure TTSSpeechThread implements ITTSSpeechThread.
@@ -69,8 +67,6 @@ var _ ITTSSpeechThread = TTSSpeechThread{}
 //   - [ITTSSpeechThread.Stop]
 //   - [ITTSSpeechThread.Voucher]
 //   - [ITTSSpeechThread.SetVoucher]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechThread
 type ITTSSpeechThread interface {
 	foundation.IThread
 
@@ -100,12 +96,10 @@ func NewTTSSpeechThread() TTSSpeechThread {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechThread/stop
 func (t TTSSpeechThread) Stop() {
 	objc.Send[objc.ID](t.ID, objc.Sel("stop"))
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechThread/voucher
 func (t TTSSpeechThread) Voucher() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voucher"))
 	return objectivec.ObjectFromID(objc.ID(rv))

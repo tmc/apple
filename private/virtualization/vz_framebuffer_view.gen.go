@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
@@ -53,8 +54,6 @@ func (vc VZFramebufferViewClass) Alloc() VZFramebufferView {
 //   - [VZFramebufferView.DisplayProtectionOptions]
 //   - [VZFramebufferView.Framebuffer]
 //   - [VZFramebufferView.SetFramebuffer]
-//   - [VZFramebufferView.FramebufferDidUpdateCursor]
-//   - [VZFramebufferView.FramebufferDidUpdateFrame]
 //   - [VZFramebufferView.FramebufferDidUpdateGraphicsOrientation]
 //   - [VZFramebufferView.FramebufferDidUpdateColorSpace]
 //   - [VZFramebufferView.FramebufferSize]
@@ -67,8 +66,6 @@ func (vc VZFramebufferViewClass) Alloc() VZFramebufferView {
 //   - [VZFramebufferView.Description]
 //   - [VZFramebufferView.Hash]
 //   - [VZFramebufferView.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView
 type VZFramebufferView struct {
 	appkit.NSView
 }
@@ -91,8 +88,6 @@ var _ IVZFramebufferView = VZFramebufferView{}
 //   - [IVZFramebufferView.DisplayProtectionOptions]
 //   - [IVZFramebufferView.Framebuffer]
 //   - [IVZFramebufferView.SetFramebuffer]
-//   - [IVZFramebufferView.FramebufferDidUpdateCursor]
-//   - [IVZFramebufferView.FramebufferDidUpdateFrame]
 //   - [IVZFramebufferView.FramebufferDidUpdateGraphicsOrientation]
 //   - [IVZFramebufferView.FramebufferDidUpdateColorSpace]
 //   - [IVZFramebufferView.FramebufferSize]
@@ -105,8 +100,6 @@ var _ IVZFramebufferView = VZFramebufferView{}
 //   - [IVZFramebufferView.Description]
 //   - [IVZFramebufferView.Hash]
 //   - [IVZFramebufferView.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView
 type IVZFramebufferView interface {
 	appkit.INSView
 
@@ -116,14 +109,12 @@ type IVZFramebufferView interface {
 	Cursor() appkit.NSCursor
 	SetCursor(value appkit.NSCursor)
 	DisplayProtectionOptions() foundation.NSNumber
-	Framebuffer() *VZFramebuffer
-	SetFramebuffer(value *VZFramebuffer)
-	FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor objectivec.IObject)
-	FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame objectivec.IObject)
+	Framebuffer() IVZFramebuffer
+	SetFramebuffer(value IVZFramebuffer)
 	FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64)
 	FramebufferDidUpdateColorSpace(space objectivec.IObject)
 	FramebufferSize() corefoundation.CGSize
-	GetDisplayProtectionOptions() objectivec.IObject
+	GetDisplayProtectionOptions() unsafe.Pointer
 	ShowsCursor() bool
 	SetShowsCursor(value bool)
 	SuppressFrameUpdates() bool
@@ -131,7 +122,7 @@ type IVZFramebufferView interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -153,53 +144,33 @@ func NewVZFramebufferView() VZFramebufferView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/initWithCoder:
 func NewVZFramebufferViewWithCoder(coder objectivec.IObject) VZFramebufferView {
 	instance := getVZFramebufferViewClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VZFramebufferViewFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/initWithFrame:
 func NewVZFramebufferViewWithFrame(frame corefoundation.CGRect) VZFramebufferView {
 	instance := getVZFramebufferViewClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frame)
 	return VZFramebufferViewFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/actionForLayer:forKey:
 func (v VZFramebufferView) ActionForLayerForKey(layer objectivec.IObject, key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("actionForLayer:forKey:"), layer, key)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebuffer:didUpdateCursor:
-func (v VZFramebufferView) FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateCursor:"), framebuffer, cursor)
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebuffer:didUpdateFrame:
-func (v VZFramebufferView) FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateFrame:"), framebuffer, frame)
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebuffer:didUpdateGraphicsOrientation:
 func (v VZFramebufferView) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebufferDidUpdateColorSpace:
 func (v VZFramebufferView) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/getDisplayProtectionOptions
-func (v VZFramebufferView) GetDisplayProtectionOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("getDisplayProtectionOptions"))
-	return objectivec.Object{ID: rv}
+func (v VZFramebufferView) GetDisplayProtectionOptions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("getDisplayProtectionOptions"))
+	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/cursor
 func (v VZFramebufferView) Cursor() appkit.NSCursor {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("cursor"))
 	return appkit.NSCursorFromID(objc.ID(rv))
@@ -207,55 +178,33 @@ func (v VZFramebufferView) Cursor() appkit.NSCursor {
 func (v VZFramebufferView) SetCursor(value appkit.NSCursor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCursor:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/debugDescription
 func (v VZFramebufferView) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/description
 func (v VZFramebufferView) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/displayProtectionOptions
 func (v VZFramebufferView) DisplayProtectionOptions() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayProtectionOptions"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebuffer
-func (v VZFramebufferView) Framebuffer() *VZFramebuffer {
+func (v VZFramebufferView) Framebuffer() IVZFramebuffer {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("framebuffer"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZFramebufferFromID(objc.ID(rv))
-	return &val
+	return VZFramebufferFromID(objc.ID(rv))
 }
-func (v VZFramebufferView) SetFramebuffer(value *VZFramebuffer) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setFramebuffer:"), objc.ID(0))
-		return
-	}
+func (v VZFramebufferView) SetFramebuffer(value IVZFramebuffer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFramebuffer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebufferSize
 func (v VZFramebufferView) FramebufferSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("framebufferSize"))
 	return corefoundation.CGSize(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/hash
 func (v VZFramebufferView) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/showsCursor
 func (v VZFramebufferView) ShowsCursor() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("showsCursor"))
 	return rv
@@ -263,14 +212,10 @@ func (v VZFramebufferView) ShowsCursor() bool {
 func (v VZFramebufferView) SetShowsCursor(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShowsCursor:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/superclass
-func (v VZFramebufferView) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZFramebufferView) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/suppressFrameUpdates
 func (v VZFramebufferView) SuppressFrameUpdates() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("suppressFrameUpdates"))
 	return rv

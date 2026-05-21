@@ -61,8 +61,6 @@ func (mc MLSplitNDBrickClass) Alloc() MLSplitNDBrick {
 //   - [MLSplitNDBrick.Description]
 //   - [MLSplitNDBrick.Hash]
 //   - [MLSplitNDBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick
 type MLSplitNDBrick struct {
 	objectivec.Object
 }
@@ -95,8 +93,6 @@ var _ IMLSplitNDBrick = MLSplitNDBrick{}
 //   - [IMLSplitNDBrick.Description]
 //   - [IMLSplitNDBrick.Hash]
 //   - [IMLSplitNDBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick
 type IMLSplitNDBrick interface {
 	objectivec.IObject
 
@@ -117,7 +113,7 @@ type IMLSplitNDBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -139,104 +135,73 @@ func NewMLSplitNDBrick() MLSplitNDBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/initWithParameters:
 func NewSplitNDBrickWithParameters(parameters objectivec.IObject) MLSplitNDBrick {
 	instance := getMLSplitNDBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSplitNDBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLSplitNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/hasGPUSupport
 func (m MLSplitNDBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/setupForInputShapes:withParameters:
 func (m MLSplitNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/initWithParameters:
 func (m MLSplitNDBrick) InitWithParameters(parameters objectivec.IObject) MLSplitNDBrick {
 	rv := objc.Send[MLSplitNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/axis
 func (m MLSplitNDBrick) Axis() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/debugDescription
 func (m MLSplitNDBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/description
 func (m MLSplitNDBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/hash
 func (m MLSplitNDBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/inputRanks
 func (m MLSplitNDBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/inputShapes
 func (m MLSplitNDBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/numSplits
 func (m MLSplitNDBrick) NumSplits() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("numSplits"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/outputRanks
 func (m MLSplitNDBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/outputShapes
 func (m MLSplitNDBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/shapeInfoNeeded
 func (m MLSplitNDBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/splitSizes
 func (m MLSplitNDBrick) SplitSizes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("splitSizes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSplitNDBrick/superclass
-func (m MLSplitNDBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLSplitNDBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

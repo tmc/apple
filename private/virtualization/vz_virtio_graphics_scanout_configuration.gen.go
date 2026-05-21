@@ -41,7 +41,6 @@ func (vc VZVirtioGraphicsScanoutConfigurationClass) Alloc() VZVirtioGraphicsScan
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanoutConfiguration
 type VZVirtioGraphicsScanoutConfiguration struct {
 	VZGraphicsDisplayConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioGraphicsScanoutConfigurationFromID(id objc.ID) VZVirtioGraphicsScan
 var _ IVZVirtioGraphicsScanoutConfiguration = VZVirtioGraphicsScanoutConfiguration{}
 
 // An interface definition for the [VZVirtioGraphicsScanoutConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanoutConfiguration
 type IVZVirtioGraphicsScanoutConfiguration interface {
 	IVZGraphicsDisplayConfiguration
 }

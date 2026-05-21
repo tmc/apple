@@ -8,14 +8,10 @@ import (
 )
 
 // SLSDisplayPowerControlClientProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClientProtocol
 type SLSDisplayPowerControlClientProtocol interface {
 	objectivec.IObject
 
 	// TerminateConnection protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClientProtocol/terminateConnection:
 	TerminateConnection(connection []objectivec.IObject)
 }
 
@@ -36,7 +32,6 @@ func SLSDisplayPowerControlClientProtocolObjectFromID(id objc.ID) SLSDisplayPowe
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClientProtocol/requestStateChange:error:
 func (o SLSDisplayPowerControlClientProtocolObject) RequestStateChangeError(change objectivec.IObject) (uint64, error) {
 	rv, err := objc.SendWithError[uint64](o.ID, objc.Sel("requestStateChange:error:"), change)
 	if err != nil {
@@ -44,8 +39,6 @@ func (o SLSDisplayPowerControlClientProtocolObject) RequestStateChangeError(chan
 	}
 	return rv, nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClientProtocol/terminateConnection:
 func (o SLSDisplayPowerControlClientProtocolObject) TerminateConnection(connection []objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("terminateConnection:"), objectivec.IObjectSliceToNSArray(connection))
 }

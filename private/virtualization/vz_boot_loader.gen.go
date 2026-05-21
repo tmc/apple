@@ -50,8 +50,6 @@ func (vc VZBootLoaderClass) Alloc() VZBootLoader {
 //   - [VZBootLoader.Description]
 //   - [VZBootLoader.Hash]
 //   - [VZBootLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader
 type VZBootLoader struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IVZBootLoader = VZBootLoader{}
 //   - [IVZBootLoader.Description]
 //   - [IVZBootLoader.Hash]
 //   - [IVZBootLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader
 type IVZBootLoader interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type IVZBootLoader interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -106,32 +102,24 @@ func NewVZBootLoader() VZBootLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/_init
 func (v VZBootLoader) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/debugDescription
 func (v VZBootLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/description
 func (v VZBootLoader) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/hash
 func (v VZBootLoader) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/superclass
-func (v VZBootLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZBootLoader) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

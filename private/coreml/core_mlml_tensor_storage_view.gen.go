@@ -42,7 +42,6 @@ func (cc CoreMLMLTensorStorageViewClass) Alloc() CoreMLMLTensorStorageView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLTensorStorageView
 type CoreMLMLTensorStorageView struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLTensorStorageViewFromID(id objc.ID) CoreMLMLTensorStorageView {
 // ICoreMLMLTensorStorageView embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLTensorStorageView] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLTensorStorageView
 type ICoreMLMLTensorStorageView interface {
 	objectivec.IObject
 }

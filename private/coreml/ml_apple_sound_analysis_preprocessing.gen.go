@@ -48,8 +48,6 @@ func (mc MLAppleSoundAnalysisPreprocessingClass) Alloc() MLAppleSoundAnalysisPre
 //
 //   - [MLAppleSoundAnalysisPreprocessing.PredictionFromFeaturesOptionsError]
 //   - [MLAppleSoundAnalysisPreprocessing.InitWithDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing
 type MLAppleSoundAnalysisPreprocessing struct {
 	MLModel
 }
@@ -68,8 +66,6 @@ var _ IMLAppleSoundAnalysisPreprocessing = MLAppleSoundAnalysisPreprocessing{}
 //
 //   - [IMLAppleSoundAnalysisPreprocessing.PredictionFromFeaturesOptionsError]
 //   - [IMLAppleSoundAnalysisPreprocessing.InitWithDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing
 type IMLAppleSoundAnalysisPreprocessing interface {
 	IMLModel
 
@@ -98,7 +94,6 @@ func NewMLAppleSoundAnalysisPreprocessing() MLAppleSoundAnalysisPreprocessing {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleSoundAnalysisPreprocessingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -110,7 +105,6 @@ func NewAppleSoundAnalysisPreprocessingDescriptionOnlyWithSpecificationConfigura
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleSoundAnalysisPreprocessingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -122,28 +116,24 @@ func NewAppleSoundAnalysisPreprocessingInterfaceAndMetadataWithCompiledArchiveEr
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleSoundAnalysisPreprocessingWithConfiguration(configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleSoundAnalysisPreprocessingWithDescription(description objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleSoundAnalysisPreprocessingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/initWithDescription:configuration:error:
 func NewAppleSoundAnalysisPreprocessingWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -155,14 +145,12 @@ func NewAppleSoundAnalysisPreprocessingWithDescriptionConfigurationError(descrip
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleSoundAnalysisPreprocessingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/predictionFromFeatures:options:error:
 func (m MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -173,8 +161,6 @@ func (m MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(fe
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/initWithDescription:configuration:error:
 func (m MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDescription:configuration:error:"), description, configuration, unsafe.Pointer(&errorPtr))
@@ -186,7 +172,6 @@ func (m MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/loadModelFromSpecification:configuration:error:
 func (_MLAppleSoundAnalysisPreprocessingClass MLAppleSoundAnalysisPreprocessingClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLAppleSoundAnalysisPreprocessingClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))

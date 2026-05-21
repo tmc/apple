@@ -5,9 +5,11 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -94,8 +96,6 @@ func (sc SLSSpaceWindowManagerClass) Alloc() SLSSpaceWindowManager {
 //   - [SLSSpaceWindowManager.Valid]
 //   - [SLSSpaceWindowManager.SetValid]
 //   - [SLSSpaceWindowManager.InitWithConnectionIDDelegateCapabilities]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager
 type SLSSpaceWindowManager struct {
 	objectivec.Object
 }
@@ -159,8 +159,6 @@ var _ ISLSSpaceWindowManager = SLSSpaceWindowManager{}
 //   - [ISLSSpaceWindowManager.Valid]
 //   - [ISLSSpaceWindowManager.SetValid]
 //   - [ISLSSpaceWindowManager.InitWithConnectionIDDelegateCapabilities]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager
 type ISLSSpaceWindowManager interface {
 	objectivec.IObject
 
@@ -180,7 +178,7 @@ type ISLSSpaceWindowManager interface {
 	_spaceRemoveWindow(_space uint64, window uint32)
 	_spaceChangedDisplay(display uint64)
 	_spaceWithIDCreateIfNeeded(id uint64, needed bool) objectivec.IObject
-	_updateSpaceWithData(data objectivec.IObject)
+	_updateSpaceWithData(data unsafe.Pointer)
 	Activate()
 	AddWindowsToSpacesRemovingFromTransaction(windows objectivec.IObject, spaces objectivec.IObject, from uint32, transaction SLSTransactionRef)
 	BatchedDelegate() objectivec.IObject
@@ -190,8 +188,8 @@ type ISLSSpaceWindowManager interface {
 	SetCapabilities(value uint64)
 	ConnectionID() uint32
 	SetConnectionID(value uint32)
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value kernel.Pointer)
 	DisplayCurrentSpaces() foundation.INSDictionary
 	SetDisplayCurrentSpaces(value foundation.INSDictionary)
 	DisplaySpaceList() foundation.INSDictionary
@@ -234,14 +232,12 @@ func NewSLSSpaceWindowManager() SLSSpaceWindowManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/initWithConnectionID:delegate:capabilities:
 func NewSLSSpaceWindowManagerWithConnectionIDDelegateCapabilities(id uint32, delegate objectivec.IObject, capabilities uint64) SLSSpaceWindowManager {
 	instance := getSLSSpaceWindowManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
 	return SLSSpaceWindowManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_beginBatch
 func (s SLSSpaceWindowManager) _beginBatch() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_beginBatch"))
 }
@@ -260,8 +256,6 @@ func (s SLSSpaceWindowManager) BeginBatch() error {
 func (s SLSSpaceWindowManager) CanBeginBatch() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_beginBatch"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_checkDisplayState:
 func (s SLSSpaceWindowManager) _checkDisplayState(state objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_checkDisplayState:"), state)
 }
@@ -280,8 +274,6 @@ func (s SLSSpaceWindowManager) CheckDisplayState(state objectivec.IObject) error
 func (s SLSSpaceWindowManager) CanCheckDisplayState() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_checkDisplayState:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_checkSpaceMovedToDisplay:displayUUID:
 func (s SLSSpaceWindowManager) _checkSpaceMovedToDisplayDisplayUUID(display objectivec.IObject, uuid objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"), display, uuid)
 }
@@ -300,8 +292,6 @@ func (s SLSSpaceWindowManager) CheckSpaceMovedToDisplayDisplayUUID(display objec
 func (s SLSSpaceWindowManager) CanCheckSpaceMovedToDisplayDisplayUUID() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_endBatch
 func (s SLSSpaceWindowManager) _endBatch() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_endBatch"))
 }
@@ -320,8 +310,6 @@ func (s SLSSpaceWindowManager) EndBatch() error {
 func (s SLSSpaceWindowManager) CanEndBatch() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_endBatch"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_fullRebuildSpaceChange:
 func (s SLSSpaceWindowManager) _fullRebuildSpaceChange(change uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_fullRebuildSpaceChange:"), change)
 }
@@ -340,8 +328,6 @@ func (s SLSSpaceWindowManager) FullRebuildSpaceChange(change uint64) error {
 func (s SLSSpaceWindowManager) CanFullRebuildSpaceChange() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpaceChange:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_fullRebuildSpacesChanged
 func (s SLSSpaceWindowManager) _fullRebuildSpacesChanged() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_fullRebuildSpacesChanged"))
 }
@@ -360,8 +346,6 @@ func (s SLSSpaceWindowManager) FullRebuildSpacesChanged() error {
 func (s SLSSpaceWindowManager) CanFullRebuildSpacesChanged() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpacesChanged"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_getDisplayUUIDForSpace:
 func (s SLSSpaceWindowManager) _getDisplayUUIDForSpace(space uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_getDisplayUUIDForSpace:"), space)
 	return objectivec.Object{ID: rv}
@@ -380,8 +364,6 @@ func (s SLSSpaceWindowManager) GetDisplayUUIDForSpace(space uint64) (objectivec.
 func (s SLSSpaceWindowManager) CanGetDisplayUUIDForSpace() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_getDisplayUUIDForSpace:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_performBatchingCallouts:
 func (s SLSSpaceWindowManager) _performBatchingCallouts(callouts VoidHandler) {
 	_block0, _ := NewVoidBlock(callouts)
 	objc.Send[objc.ID](s.ID, objc.Sel("_performBatchingCallouts:"), _block0)
@@ -401,8 +383,6 @@ func (s SLSSpaceWindowManager) PerformBatchingCallouts(callouts VoidHandler) err
 func (s SLSSpaceWindowManager) CanPerformBatchingCallouts() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_performBatchingCallouts:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_postActiveDisplayChange
 func (s SLSSpaceWindowManager) _postActiveDisplayChange() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_postActiveDisplayChange"))
 }
@@ -421,8 +401,6 @@ func (s SLSSpaceWindowManager) PostActiveDisplayChange() error {
 func (s SLSSpaceWindowManager) CanPostActiveDisplayChange() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_postActiveDisplayChange"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_removeSpace:
 func (s SLSSpaceWindowManager) _removeSpace(space uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_removeSpace:"), space)
 }
@@ -441,8 +419,6 @@ func (s SLSSpaceWindowManager) RemoveSpace(space uint64) error {
 func (s SLSSpaceWindowManager) CanRemoveSpace() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_removeSpace:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_space:addWindow:
 func (s SLSSpaceWindowManager) _spaceAddWindow(_space uint64, window uint32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_space:addWindow:"), _space, window)
 }
@@ -461,8 +437,6 @@ func (s SLSSpaceWindowManager) SpaceAddWindow(_space uint64, window uint32) erro
 func (s SLSSpaceWindowManager) CanSpaceAddWindow() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_space:addWindow:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_space:removeWindow:
 func (s SLSSpaceWindowManager) _spaceRemoveWindow(_space uint64, window uint32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_space:removeWindow:"), _space, window)
 }
@@ -481,8 +455,6 @@ func (s SLSSpaceWindowManager) SpaceRemoveWindow(_space uint64, window uint32) e
 func (s SLSSpaceWindowManager) CanSpaceRemoveWindow() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_space:removeWindow:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_spaceChangedDisplay:
 func (s SLSSpaceWindowManager) _spaceChangedDisplay(display uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_spaceChangedDisplay:"), display)
 }
@@ -501,8 +473,6 @@ func (s SLSSpaceWindowManager) SpaceChangedDisplay(display uint64) error {
 func (s SLSSpaceWindowManager) CanSpaceChangedDisplay() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceChangedDisplay:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_spaceWithID:createIfNeeded:
 func (s SLSSpaceWindowManager) _spaceWithIDCreateIfNeeded(id uint64, needed bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_spaceWithID:createIfNeeded:"), id, needed)
 	return objectivec.Object{ID: rv}
@@ -521,14 +491,12 @@ func (s SLSSpaceWindowManager) SpaceWithIDCreateIfNeeded(id uint64, needed bool)
 func (s SLSSpaceWindowManager) CanSpaceWithIDCreateIfNeeded() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceWithID:createIfNeeded:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_updateSpaceWithData:
-func (s SLSSpaceWindowManager) _updateSpaceWithData(data objectivec.IObject) {
+func (s SLSSpaceWindowManager) _updateSpaceWithData(data unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateSpaceWithData:"), data)
 }
 
 // UpdateSpaceWithData is an exported wrapper for the private method _updateSpaceWithData.
-func (s SLSSpaceWindowManager) UpdateSpaceWithData(data objectivec.IObject) error {
+func (s SLSSpaceWindowManager) UpdateSpaceWithData(data unsafe.Pointer) error {
 	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_updateSpaceWithData:"}
 		return err
@@ -541,72 +509,47 @@ func (s SLSSpaceWindowManager) UpdateSpaceWithData(data objectivec.IObject) erro
 func (s SLSSpaceWindowManager) CanUpdateSpaceWithData() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/activate
 func (s SLSSpaceWindowManager) Activate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("activate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/addWindows:toSpaces:removingFrom:transaction:
 func (s SLSSpaceWindowManager) AddWindowsToSpacesRemovingFromTransaction(windows objectivec.IObject, spaces objectivec.IObject, from uint32, transaction SLSTransactionRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addWindows:toSpaces:removingFrom:transaction:"), windows, spaces, from, transaction)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/batchedDelegate
 func (s SLSSpaceWindowManager) BatchedDelegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("batchedDelegate"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/invalidate
 func (s SLSSpaceWindowManager) Invalidate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/isWindowPresentOnUnmanagedSpaces:
 func (s SLSSpaceWindowManager) IsWindowPresentOnUnmanagedSpaces(spaces uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isWindowPresentOnUnmanagedSpaces:"), spaces)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/moveDraggedWindow:toPoint:mouseLocation:timestamp:transaction:
 func (s SLSSpaceWindowManager) MoveDraggedWindowToPointMouseLocationTimestampTransaction(window uint32, point corefoundation.CGPoint, location corefoundation.CGPoint, timestamp uint64, transaction SLSTransactionRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("moveDraggedWindow:toPoint:mouseLocation:timestamp:transaction:"), window, point, location, timestamp, transaction)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/rebuildMenuBarOnSpace:frontConnection:transaction:
 func (s SLSSpaceWindowManager) RebuildMenuBarOnSpaceFrontConnectionTransaction(space uint64, connection uint32, transaction SLSTransactionRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("rebuildMenuBarOnSpace:frontConnection:transaction:"), space, connection, transaction)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/requestSpaceSwitchForWindow:transaction:
 func (s SLSSpaceWindowManager) RequestSpaceSwitchForWindowTransaction(window uint32, transaction SLSTransactionRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("requestSpaceSwitchForWindow:transaction:"), window, transaction)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/setGlobalWindowVisibilityList:transaction:
 func (s SLSSpaceWindowManager) SetGlobalWindowVisibilityListTransaction(list objectivec.IObject, transaction SLSTransactionRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setGlobalWindowVisibilityList:transaction:"), list, transaction)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/spaceWithID:
 func (s SLSSpaceWindowManager) SpaceWithID(id uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaceWithID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/synchronize
 func (s SLSSpaceWindowManager) Synchronize() {
 	objc.Send[objc.ID](s.ID, objc.Sel("synchronize"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/initWithConnectionID:delegate:capabilities:
 func (s SLSSpaceWindowManager) InitWithConnectionIDDelegateCapabilities(id uint32, delegate objectivec.IObject, capabilities uint64) SLSSpaceWindowManager {
 	rv := objc.Send[SLSSpaceWindowManager](s.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/beganBatch
 func (s SLSSpaceWindowManager) BeganBatch() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("beganBatch"))
 	return rv
@@ -614,8 +557,6 @@ func (s SLSSpaceWindowManager) BeganBatch() bool {
 func (s SLSSpaceWindowManager) SetBeganBatch(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBeganBatch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/capabilities
 func (s SLSSpaceWindowManager) Capabilities() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("capabilities"))
 	return rv
@@ -623,8 +564,6 @@ func (s SLSSpaceWindowManager) Capabilities() uint64 {
 func (s SLSSpaceWindowManager) SetCapabilities(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCapabilities:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/connectionID
 func (s SLSSpaceWindowManager) ConnectionID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("connectionID"))
 	return rv
@@ -632,17 +571,13 @@ func (s SLSSpaceWindowManager) ConnectionID() uint32 {
 func (s SLSSpaceWindowManager) SetConnectionID(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setConnectionID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/delegate
-func (s SLSSpaceWindowManager) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (s SLSSpaceWindowManager) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	return rv
 }
-func (s SLSSpaceWindowManager) SetDelegate(value objectivec.IObject) {
+func (s SLSSpaceWindowManager) SetDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/displayCurrentSpaces
 func (s SLSSpaceWindowManager) DisplayCurrentSpaces() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayCurrentSpaces"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -650,8 +585,6 @@ func (s SLSSpaceWindowManager) DisplayCurrentSpaces() foundation.INSDictionary {
 func (s SLSSpaceWindowManager) SetDisplayCurrentSpaces(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayCurrentSpaces:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/displaySpaceList
 func (s SLSSpaceWindowManager) DisplaySpaceList() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displaySpaceList"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -659,8 +592,6 @@ func (s SLSSpaceWindowManager) DisplaySpaceList() foundation.INSDictionary {
 func (s SLSSpaceWindowManager) SetDisplaySpaceList(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplaySpaceList:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/displaysHaveSeparateSpaces
 func (s SLSSpaceWindowManager) DisplaysHaveSeparateSpaces() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("displaysHaveSeparateSpaces"))
 	return rv
@@ -668,8 +599,6 @@ func (s SLSSpaceWindowManager) DisplaysHaveSeparateSpaces() bool {
 func (s SLSSpaceWindowManager) SetDisplaysHaveSeparateSpaces(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplaysHaveSeparateSpaces:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/nestedCalloutCount
 func (s SLSSpaceWindowManager) NestedCalloutCount() int64 {
 	rv := objc.Send[int64](s.ID, objc.Sel("nestedCalloutCount"))
 	return rv
@@ -677,8 +606,6 @@ func (s SLSSpaceWindowManager) NestedCalloutCount() int64 {
 func (s SLSSpaceWindowManager) SetNestedCalloutCount(value int64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNestedCalloutCount:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/spaces
 func (s SLSSpaceWindowManager) Spaces() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -686,8 +613,6 @@ func (s SLSSpaceWindowManager) Spaces() foundation.INSDictionary {
 func (s SLSSpaceWindowManager) SetSpaces(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpaces:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/valid
 func (s SLSSpaceWindowManager) Valid() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("valid"))
 	return rv

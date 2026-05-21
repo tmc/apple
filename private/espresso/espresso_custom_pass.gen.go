@@ -46,8 +46,6 @@ func (ec EspressoCustomPassClass) Alloc() EspressoCustomPass {
 // # Methods
 //
 //   - [EspressoCustomPass.RunOnNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass
 type EspressoCustomPass struct {
 	objectivec.Object
 }
@@ -65,8 +63,6 @@ var _ IEspressoCustomPass = EspressoCustomPass{}
 // # Methods
 //
 //   - [IEspressoCustomPass.RunOnNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass
 type IEspressoCustomPass interface {
 	objectivec.IObject
 
@@ -94,7 +90,6 @@ func NewEspressoCustomPass() EspressoCustomPass {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass/runOnNetwork:
 func (e EspressoCustomPass) RunOnNetwork(network unsafe.Pointer) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("runOnNetwork:"), network)
 	return rv

@@ -41,7 +41,6 @@ func (wc WSSystemDefinedEventProcessorClass) Alloc() WSSystemDefinedEventProcess
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSSystemDefinedEventProcessor
 type WSSystemDefinedEventProcessor struct {
 	WSEventProcessor
 }
@@ -55,8 +54,6 @@ func WSSystemDefinedEventProcessorFromID(id objc.ID) WSSystemDefinedEventProcess
 var _ IWSSystemDefinedEventProcessor = WSSystemDefinedEventProcessor{}
 
 // An interface definition for the [WSSystemDefinedEventProcessor] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSSystemDefinedEventProcessor
 type IWSSystemDefinedEventProcessor interface {
 	IWSEventProcessor
 }
@@ -80,7 +77,6 @@ func NewWSSystemDefinedEventProcessor() WSSystemDefinedEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSSystemDefinedEventProcessorWithSession(session CGXSession) WSSystemDefinedEventProcessor {
 	instance := getWSSystemDefinedEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)

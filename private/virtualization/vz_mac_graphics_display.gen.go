@@ -52,8 +52,6 @@ func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
 //   - [VZMacGraphicsDisplay._displayMode]
 //   - [VZMacGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [VZMacGraphicsDisplay.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay
 type VZMacGraphicsDisplay struct {
 	VZGraphicsDisplay
 }
@@ -75,8 +73,6 @@ var _ IVZMacGraphicsDisplay = VZMacGraphicsDisplay{}
 //   - [IVZMacGraphicsDisplay._displayMode]
 //   - [IVZMacGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [IVZMacGraphicsDisplay.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay
 type IVZMacGraphicsDisplay interface {
 	IVZGraphicsDisplay
 
@@ -108,7 +104,6 @@ func NewVZMacGraphicsDisplay() VZMacGraphicsDisplay {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/initWithConfiguration:error:
 func NewMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
 	instance := getVZMacGraphicsDisplayClass().Alloc()
@@ -120,14 +115,12 @@ func NewMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObjec
 	return VZMacGraphicsDisplayFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func NewMacGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZMacGraphicsDisplay {
 	instance := getVZMacGraphicsDisplayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZMacGraphicsDisplayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_connectionType
 func (v VZMacGraphicsDisplay) _connectionType() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_connectionType"))
 	return rv
@@ -146,8 +139,6 @@ func (v VZMacGraphicsDisplay) ConnectionType() (int64, error) {
 func (v VZMacGraphicsDisplay) CanConnectionType() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_connectionType"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayIdentifier
 func (v VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
 	return objectivec.Object{ID: rv}
@@ -166,8 +157,6 @@ func (v VZMacGraphicsDisplay) DisplayIdentifier() (objectivec.IObject, error) {
 func (v VZMacGraphicsDisplay) CanDisplayIdentifier() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_displayIdentifier"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayMode
 func (v VZMacGraphicsDisplay) _displayMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_displayMode"))
 	return rv
@@ -186,8 +175,6 @@ func (v VZMacGraphicsDisplay) DisplayMode() (int64, error) {
 func (v VZMacGraphicsDisplay) CanDisplayMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_displayMode"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/reconfigureWithConfiguration:error:
 func (v VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("reconfigureWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -201,8 +188,6 @@ func (v VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/initWithConfiguration:error:
 func (v VZMacGraphicsDisplay) InitWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))

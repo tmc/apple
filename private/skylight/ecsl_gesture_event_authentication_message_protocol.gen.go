@@ -8,19 +8,13 @@ import (
 )
 
 // ECSLGestureEventAuthenticationMessage protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECSLGestureEventAuthenticationMessage
 type ECSLGestureEventAuthenticationMessage interface {
 	objectivec.IObject
 
 	// GestureHidType protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECSLGestureEventAuthenticationMessage/gestureHidType
 	GestureHidType() uint32
 
 	// GesturePhase protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECSLGestureEventAuthenticationMessage/gesturePhase
 	GesturePhase() byte
 }
 
@@ -41,13 +35,10 @@ func ECSLGestureEventAuthenticationMessageObjectFromID(id objc.ID) ECSLGestureEv
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECSLGestureEventAuthenticationMessage/gestureHidType
 func (o ECSLGestureEventAuthenticationMessageObject) GestureHidType() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("gestureHidType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECSLGestureEventAuthenticationMessage/gesturePhase
 func (o ECSLGestureEventAuthenticationMessageObject) GesturePhase() byte {
 	rv := objc.Send[byte](o.ID, objc.Sel("gesturePhase"))
 	return rv

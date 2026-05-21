@@ -47,8 +47,6 @@ func (ec ETOpaqueCopyClass) Alloc() ETOpaqueCopy {
 //
 //   - [ETOpaqueCopy.GetBlob]
 //   - [ETOpaqueCopy.InitWithAbstractBlobContainer]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOpaqueCopy
 type ETOpaqueCopy struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IETOpaqueCopy = ETOpaqueCopy{}
 //
 //   - [IETOpaqueCopy.GetBlob]
 //   - [IETOpaqueCopy.InitWithAbstractBlobContainer]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOpaqueCopy
 type IETOpaqueCopy interface {
 	objectivec.IObject
 
@@ -97,20 +93,16 @@ func NewETOpaqueCopy() ETOpaqueCopy {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOpaqueCopy/initWithAbstractBlobContainer:
 func NewETOpaqueCopyWithAbstractBlobContainer(container unsafe.Pointer) ETOpaqueCopy {
 	instance := getETOpaqueCopyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
 	return ETOpaqueCopyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOpaqueCopy/getBlob
 func (e ETOpaqueCopy) GetBlob() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("getBlob"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETOpaqueCopy/initWithAbstractBlobContainer:
 func (e ETOpaqueCopy) InitWithAbstractBlobContainer(container unsafe.Pointer) ETOpaqueCopy {
 	rv := objc.Send[ETOpaqueCopy](e.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
 	return rv

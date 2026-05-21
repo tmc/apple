@@ -41,7 +41,6 @@ func (ec EspressoPassFuseGruActivationClass) Alloc() EspressoPassFuseGruActivati
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gru_activation
 type EspressoPassFuseGruActivation struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_gru_activationFromID(id objc.ID) EspressoPassFuseGruActiv
 var _ IEspressoPassFuseGruActivation = EspressoPassFuseGruActivation{}
 
 // An interface definition for the [EspressoPassFuseGruActivation] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gru_activation
 type IEspressoPassFuseGruActivation interface {
 	IEspressoCustomPass
 }

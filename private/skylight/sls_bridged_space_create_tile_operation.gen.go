@@ -49,8 +49,6 @@ func (sc SLSBridgedSpaceCreateTileOperationClass) Alloc() SLSBridgedSpaceCreateT
 //   - [SLSBridgedSpaceCreateTileOperation.SpaceID]
 //   - [SLSBridgedSpaceCreateTileOperation.Values]
 //   - [SLSBridgedSpaceCreateTileOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation
 type SLSBridgedSpaceCreateTileOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedSpaceCreateTileOperation = SLSBridgedSpaceCreateTileOperation{}
 //   - [ISLSBridgedSpaceCreateTileOperation.SpaceID]
 //   - [ISLSBridgedSpaceCreateTileOperation.Values]
 //   - [ISLSBridgedSpaceCreateTileOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation
 type ISLSBridgedSpaceCreateTileOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedSpaceCreateTileOperation() SLSBridgedSpaceCreateTileOperation 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/initWithCoder:
 func NewSLSBridgedSpaceCreateTileOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
 	instance := getSLSBridgedSpaceCreateTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCreateTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/initWithSpaceID:values:
 func NewSLSBridgedSpaceCreateTileOperationWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
 	instance := getSLSBridgedSpaceCreateTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return SLSBridgedSpaceCreateTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/makeResultWithSpaceID:
 func (s SLSBridgedSpaceCreateTileOperation) MakeResultWithSpaceID(id uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/initWithSpaceID:values:
 func (s SLSBridgedSpaceCreateTileOperation) InitWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
 	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/spaceID
 func (s SLSBridgedSpaceCreateTileOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCreateTileOperation/values
 func (s SLSBridgedSpaceCreateTileOperation) Values() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

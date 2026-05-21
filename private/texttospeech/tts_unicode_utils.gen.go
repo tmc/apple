@@ -44,7 +44,6 @@ func (tc TTSUnicodeUtilsClass) Alloc() TTSUnicodeUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSUnicodeUtils
 type TTSUnicodeUtils struct {
 	objectivec.Object
 }
@@ -58,8 +57,6 @@ func TTSUnicodeUtilsFromID(id objc.ID) TTSUnicodeUtils {
 var _ ITTSUnicodeUtils = TTSUnicodeUtils{}
 
 // An interface definition for the [TTSUnicodeUtils] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSUnicodeUtils
 type ITTSUnicodeUtils interface {
 	objectivec.IObject
 }
@@ -83,20 +80,15 @@ func NewTTSUnicodeUtils() TTSUnicodeUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSUnicodeUtils/codePointToUtf8ByteSize:
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) CodePointToUtf8ByteSize(size uint32) byte {
 	rv := objc.Send[byte](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("codePointToUtf8ByteSize:"), size)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSUnicodeUtils/utf16RangeFromUTF8Range:chars:size:
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf16RangeFromUTF8RangeCharsSize(uTF8Range foundation.NSRange, chars string, size uint64) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf16RangeFromUTF8Range:chars:size:"), uTF8Range, unsafe.Pointer(unsafe.StringData(chars+"\x00")), size)
 	return foundation.NSRange(rv)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSUnicodeUtils/utf8RangeFromUTF16Range:chars:size:
-func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf8RangeFromUTF16RangeCharsSize(uTF16Range foundation.NSRange, chars unsafe.Pointer, size uint64) foundation.NSRange {
+func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf8RangeFromUTF16RangeCharsSize(uTF16Range foundation.NSRange, chars *uint16, size uint64) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf8RangeFromUTF16Range:chars:size:"), uTF16Range, chars, size)
 	return foundation.NSRange(rv)
 }

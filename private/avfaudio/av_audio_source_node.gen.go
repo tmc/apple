@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioSourceNode] class.
@@ -50,8 +51,6 @@ func (ac AVAudioSourceNodeClass) Alloc() AVAudioSourceNode {
 //   - [AVAudioSourceNode.Description]
 //   - [AVAudioSourceNode.Hash]
 //   - [AVAudioSourceNode.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode
 type AVAudioSourceNode struct {
 	AVAudioNode
 }
@@ -72,8 +71,6 @@ var _ IAVAudioSourceNode = AVAudioSourceNode{}
 //   - [IAVAudioSourceNode.Description]
 //   - [IAVAudioSourceNode.Hash]
 //   - [IAVAudioSourceNode.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode
 type IAVAudioSourceNode interface {
 	IAVAudioNode
 
@@ -82,7 +79,7 @@ type IAVAudioSourceNode interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -104,41 +101,32 @@ func NewAVAudioSourceNode() AVAudioSourceNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioSourceNodeWithImpl(impl unsafe.Pointer) AVAudioSourceNode {
 	instance := getAVAudioSourceNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSourceNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/pullInputBlockFromRenderBlock:
 func (_AVAudioSourceNodeClass AVAudioSourceNodeClass) PullInputBlockFromRenderBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_AVAudioSourceNodeClass.class), objc.Sel("pullInputBlockFromRenderBlock:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/debugDescription
 func (a AVAudioSourceNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/description
 func (a AVAudioSourceNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/hash
 func (a AVAudioSourceNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/superclass
-func (a AVAudioSourceNode) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
-	return rv
+func (a AVAudioSourceNode) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
 
 // PullInputBlockFromRenderBlockSync is a synchronous wrapper around [AVAudioSourceNode.PullInputBlockFromRenderBlock].

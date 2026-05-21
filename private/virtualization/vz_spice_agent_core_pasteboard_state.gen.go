@@ -42,7 +42,6 @@ func (vc VZSpiceAgentCorePasteboardStateClass) Alloc() VZSpiceAgentCorePasteboar
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCorePasteboardState
 type VZSpiceAgentCorePasteboardState struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZSpiceAgentCorePasteboardStateFromID(id objc.ID) VZSpiceAgentCorePasteboar
 var _ IVZSpiceAgentCorePasteboardState = VZSpiceAgentCorePasteboardState{}
 
 // An interface definition for the [VZSpiceAgentCorePasteboardState] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCorePasteboardState
 type IVZSpiceAgentCorePasteboardState interface {
 	objectivec.IObject
 }

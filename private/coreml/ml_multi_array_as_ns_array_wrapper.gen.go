@@ -48,8 +48,6 @@ func (mc MLMultiArrayAsNSArrayWrapperClass) Alloc() MLMultiArrayAsNSArrayWrapper
 //   - [MLMultiArrayAsNSArrayWrapper.MultiArray]
 //   - [MLMultiArrayAsNSArrayWrapper.SetMultiArray]
 //   - [MLMultiArrayAsNSArrayWrapper.InitWrappingMultiArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper
 type MLMultiArrayAsNSArrayWrapper struct {
 	foundation.NSArray
 }
@@ -69,8 +67,6 @@ var _ IMLMultiArrayAsNSArrayWrapper = MLMultiArrayAsNSArrayWrapper{}
 //   - [IMLMultiArrayAsNSArrayWrapper.MultiArray]
 //   - [IMLMultiArrayAsNSArrayWrapper.SetMultiArray]
 //   - [IMLMultiArrayAsNSArrayWrapper.InitWrappingMultiArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper
 type IMLMultiArrayAsNSArrayWrapper interface {
 	foundation.INSArray
 
@@ -100,20 +96,17 @@ func NewMLMultiArrayAsNSArrayWrapper() MLMultiArrayAsNSArrayWrapper {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper/initWrappingMultiArray:
 func NewMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	instance := getMLMultiArrayAsNSArrayWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWrappingMultiArray:"), array)
 	return MLMultiArrayAsNSArrayWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper/initWrappingMultiArray:
 func (m MLMultiArrayAsNSArrayWrapper) InitWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("initWrappingMultiArray:"), array)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper/multiArray
 func (m MLMultiArrayAsNSArrayWrapper) MultiArray() IMLMultiArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArray"))
 	return MLMultiArrayFromID(objc.ID(rv))

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -58,8 +59,6 @@ func (mc MLProgramContextClass) Alloc() MLProgramContext {
 //   - [MLProgramContext.TrainFunctionLossName]
 //   - [MLProgramContext.SetTrainFunctionLossName]
 //   - [MLProgramContext.InitWithExecutionStateFunctionNameToStateMap]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext
 type MLProgramContext struct {
 	objectivec.Object
 }
@@ -89,15 +88,13 @@ var _ IMLProgramContext = MLProgramContext{}
 //   - [IMLProgramContext.TrainFunctionLossName]
 //   - [IMLProgramContext.SetTrainFunctionLossName]
 //   - [IMLProgramContext.InitWithExecutionStateFunctionNameToStateMap]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext
 type IMLProgramContext interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ExecutionState() objectivec.IObject
-	SetExecutionState(value objectivec.IObject)
+	ExecutionState() unsafe.Pointer
+	SetExecutionState(value unsafe.Pointer)
 	ForwardFunctionLossName() string
 	SetForwardFunctionLossName(value string)
 	FunctionNameToInputLayersNames() foundation.INSDictionary
@@ -130,29 +127,24 @@ func NewMLProgramContext() MLProgramContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/initWithExecutionState:functionNameToStateMap:
 func NewProgramContextWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
 	instance := getMLProgramContextClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
 	return MLProgramContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/initWithExecutionState:functionNameToStateMap:
 func (m MLProgramContext) InitWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
 	rv := objc.Send[MLProgramContext](m.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/executionState
-func (m MLProgramContext) ExecutionState() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionState"))
-	return objectivec.Object{ID: rv}
+func (m MLProgramContext) ExecutionState() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("executionState"))
+	return rv
 }
-func (m MLProgramContext) SetExecutionState(value objectivec.IObject) {
+func (m MLProgramContext) SetExecutionState(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setExecutionState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/forwardFunctionLossName
 func (m MLProgramContext) ForwardFunctionLossName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("forwardFunctionLossName"))
 	return foundation.NSStringFromID(rv).String()
@@ -160,8 +152,6 @@ func (m MLProgramContext) ForwardFunctionLossName() string {
 func (m MLProgramContext) SetForwardFunctionLossName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setForwardFunctionLossName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/functionNameToInputLayersNames
 func (m MLProgramContext) FunctionNameToInputLayersNames() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToInputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -169,8 +159,6 @@ func (m MLProgramContext) FunctionNameToInputLayersNames() foundation.INSDiction
 func (m MLProgramContext) SetFunctionNameToInputLayersNames(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToInputLayersNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/functionNameToOutputLayersNames
 func (m MLProgramContext) FunctionNameToOutputLayersNames() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToOutputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -178,8 +166,6 @@ func (m MLProgramContext) FunctionNameToOutputLayersNames() foundation.INSDictio
 func (m MLProgramContext) SetFunctionNameToOutputLayersNames(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToOutputLayersNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/functionNameToStateMap
 func (m MLProgramContext) FunctionNameToStateMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToStateMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -187,8 +173,6 @@ func (m MLProgramContext) FunctionNameToStateMap() foundation.INSDictionary {
 func (m MLProgramContext) SetFunctionNameToStateMap(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToStateMap:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContext/trainFunctionLossName
 func (m MLProgramContext) TrainFunctionLossName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainFunctionLossName"))
 	return foundation.NSStringFromID(rv).String()

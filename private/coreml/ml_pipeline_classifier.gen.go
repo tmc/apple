@@ -66,8 +66,6 @@ func (mc MLPipelineClassifierClass) Alloc() MLPipelineClassifier {
 //   - [MLPipelineClassifier.RecordsPredictionEvent]
 //   - [MLPipelineClassifier.Superclass]
 //   - [MLPipelineClassifier.SupportsConcurrentSubmissions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier
 type MLPipelineClassifier struct {
 	objectivec.Object
 }
@@ -103,8 +101,6 @@ func MLPipelineClassifierFromID(id objc.ID) MLPipelineClassifier {
 //   - [IMLPipelineClassifier.RecordsPredictionEvent]
 //   - [IMLPipelineClassifier.Superclass]
 //   - [IMLPipelineClassifier.SupportsConcurrentSubmissions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier
 type IMLPipelineClassifier interface {
 	IMLClassifier
 
@@ -113,10 +109,10 @@ type IMLPipelineClassifier interface {
 	ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler ErrorHandler)
 	ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	EnableInstrumentsTracing()
-	Engine() unsafe.Pointer
-	SetEngine(value *MLPipeline)
+	Engine() MLPipeline
+	SetEngine(value MLPipeline)
 	ExecutionSchedule() objectivec.IObject
-	Pipeline() unsafe.Pointer
+	Pipeline() MLPipeline
 	SignpostID() uint64
 	InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineClassifier, error)
 	Configuration() IMLModelConfiguration
@@ -127,7 +123,7 @@ type IMLPipelineClassifier interface {
 	ModelDescription() IMLModelDescription
 	PredictionTypeForKTrace() uint64
 	RecordsPredictionEvent() bool
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 	SupportsConcurrentSubmissions() bool
 }
 
@@ -150,7 +146,6 @@ func NewMLPipelineClassifier() MLPipelineClassifier {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/initWithEngine:description:configuration:error:
 func NewPipelineClassifierWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLPipelineClassifierClass().Alloc()
@@ -162,13 +157,10 @@ func NewPipelineClassifierWithEngineDescriptionConfigurationError(engine objecti
 	return MLPipelineClassifierFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/classify:options:completionHandler:
 func (m MLPipelineClassifier) ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("classify:options:completionHandler:"), classify, options, _block2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/classify:options:error:
 func (m MLPipelineClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
@@ -179,19 +171,13 @@ func (m MLPipelineClassifier) ClassifyOptionsError(classify objectivec.IObject, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/enableInstrumentsTracing
 func (m MLPipelineClassifier) EnableInstrumentsTracing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/executionSchedule
 func (m MLPipelineClassifier) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/initWithEngine:description:configuration:error:
 func (m MLPipelineClassifier) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineClassifier, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
@@ -203,82 +189,57 @@ func (m MLPipelineClassifier) InitWithEngineDescriptionConfigurationError(engine
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/configuration
 func (m MLPipelineClassifier) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/debugDescription
 func (m MLPipelineClassifier) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/description
 func (m MLPipelineClassifier) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/engine
-func (m MLPipelineClassifier) Engine() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("engine"))
-	return rv
+func (m MLPipelineClassifier) Engine() MLPipeline {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
+	return MLPipelineObjectFromID(rv)
 }
-func (m MLPipelineClassifier) SetEngine(value *MLPipeline) {
+func (m MLPipelineClassifier) SetEngine(value MLPipeline) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/hash
 func (m MLPipelineClassifier) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/metadata
 func (m MLPipelineClassifier) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/modelDescription
 func (m MLPipelineClassifier) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/pipeline
-func (m MLPipelineClassifier) Pipeline() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("pipeline"))
-	return rv
+func (m MLPipelineClassifier) Pipeline() MLPipeline {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
+	return MLPipelineObjectFromID(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/predictionTypeForKTrace
 func (m MLPipelineClassifier) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/recordsPredictionEvent
 func (m MLPipelineClassifier) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/signpostID
 func (m MLPipelineClassifier) SignpostID() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/superclass
-func (m MLPipelineClassifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLPipelineClassifier) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineClassifier/supportsConcurrentSubmissions
 func (m MLPipelineClassifier) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv

@@ -8,8 +8,6 @@ import (
 )
 
 // MLNeuralNetwork protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetwork
 type MLNeuralNetwork interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLNeuralNetworkObjectFromID(id objc.ID) MLNeuralNetworkObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetwork/evaluate:error:
 func (o MLNeuralNetworkObject) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("evaluate:error:"), evaluate)
 	if err != nil {

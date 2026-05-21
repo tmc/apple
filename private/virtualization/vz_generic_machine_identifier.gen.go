@@ -49,8 +49,6 @@ func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 //   - [VZGenericMachineIdentifier.Description]
 //   - [VZGenericMachineIdentifier.Hash]
 //   - [VZGenericMachineIdentifier.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier
 type VZGenericMachineIdentifier struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IVZGenericMachineIdentifier = VZGenericMachineIdentifier{}
 //   - [IVZGenericMachineIdentifier.Description]
 //   - [IVZGenericMachineIdentifier.Hash]
 //   - [IVZGenericMachineIdentifier.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier
 type IVZGenericMachineIdentifier interface {
 	objectivec.IObject
 
@@ -81,7 +77,7 @@ type IVZGenericMachineIdentifier interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -103,26 +99,19 @@ func NewVZGenericMachineIdentifier() VZGenericMachineIdentifier {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/debugDescription
 func (v VZGenericMachineIdentifier) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/description
 func (v VZGenericMachineIdentifier) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/hash
 func (v VZGenericMachineIdentifier) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/superclass
-func (v VZGenericMachineIdentifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZGenericMachineIdentifier) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

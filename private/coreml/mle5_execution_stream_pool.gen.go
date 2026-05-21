@@ -55,8 +55,6 @@ func (mc MLE5ExecutionStreamPoolClass) Alloc() MLE5ExecutionStreamPool {
 //   - [MLE5ExecutionStreamPool.SerialQueue]
 //   - [MLE5ExecutionStreamPool.TakeOut]
 //   - [MLE5ExecutionStreamPool.InitWithModelConfigurationModelSignpostId]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool
 type MLE5ExecutionStreamPool struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IMLE5ExecutionStreamPool = MLE5ExecutionStreamPool{}
 //   - [IMLE5ExecutionStreamPool.SerialQueue]
 //   - [IMLE5ExecutionStreamPool.TakeOut]
 //   - [IMLE5ExecutionStreamPool.InitWithModelConfigurationModelSignpostId]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool
 type IMLE5ExecutionStreamPool interface {
 	objectivec.IObject
 
@@ -121,14 +117,12 @@ func NewMLE5ExecutionStreamPool() MLE5ExecutionStreamPool {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/initWithModelConfiguration:modelSignpostId:
 func NewE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
 	instance := getMLE5ExecutionStreamPoolClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
 	return MLE5ExecutionStreamPoolFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/_emitMappingTracepointForStream:
 func (m MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_emitMappingTracepointForStream:"), stream)
 }
@@ -147,54 +141,37 @@ func (m MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objective
 func (m MLE5ExecutionStreamPool) CanEmitMappingTracepointForStream() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_emitMappingTracepointForStream:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/enableInstrumentsTracing
 func (m MLE5ExecutionStreamPool) EnableInstrumentsTracing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/putBack:
 func (m MLE5ExecutionStreamPool) PutBack(back objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/takeOut
 func (m MLE5ExecutionStreamPool) TakeOut() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("takeOut"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/initWithModelConfiguration:modelSignpostId:
 func (m MLE5ExecutionStreamPool) InitWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
 	rv := objc.Send[MLE5ExecutionStreamPool](m.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/allStreams
 func (m MLE5ExecutionStreamPool) AllStreams() foundation.INSSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("allStreams"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelConfiguration
 func (m MLE5ExecutionStreamPool) ModelConfiguration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelSignpostId
 func (m MLE5ExecutionStreamPool) ModelSignpostId() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/pool
 func (m MLE5ExecutionStreamPool) Pool() foundation.INSSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/serialQueue
 func (m MLE5ExecutionStreamPool) SerialQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

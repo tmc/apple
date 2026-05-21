@@ -48,8 +48,6 @@ func (vc VZKeyEventClass) Alloc() VZKeyEvent {
 //   - [VZKeyEvent.Type]
 //   - [VZKeyEvent.InitWithEvent]
 //   - [VZKeyEvent.InitWithTypeKeyCode]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent
 type VZKeyEvent struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IVZKeyEvent = VZKeyEvent{}
 //   - [IVZKeyEvent.Type]
 //   - [IVZKeyEvent.InitWithEvent]
 //   - [IVZKeyEvent.InitWithTypeKeyCode]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent
 type IVZKeyEvent interface {
 	objectivec.IObject
 
@@ -102,39 +98,31 @@ func NewVZKeyEvent() VZKeyEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/initWithEvent:
 func NewVZKeyEventWithEvent(event objectivec.IObject) VZKeyEvent {
 	instance := getVZKeyEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZKeyEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/initWithType:keyCode:
 func NewVZKeyEventWithTypeKeyCode(type_ int64, code uint16) VZKeyEvent {
 	instance := getVZKeyEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:keyCode:"), type_, code)
 	return VZKeyEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/initWithEvent:
 func (v VZKeyEvent) InitWithEvent(event objectivec.IObject) VZKeyEvent {
 	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/initWithType:keyCode:
 func (v VZKeyEvent) InitWithTypeKeyCode(type_ int64, code uint16) VZKeyEvent {
 	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("initWithType:keyCode:"), type_, code)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/keyCode
 func (v VZKeyEvent) KeyCode() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("keyCode"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyEvent/type
 func (v VZKeyEvent) Type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("type"))
 	return rv

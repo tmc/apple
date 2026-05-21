@@ -8,8 +8,6 @@ import (
 )
 
 // NSSoundDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/NSSoundDelegate
 type NSSoundDelegate interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/NSSoundDelegate/sound:didFinishPlaying:
 func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound objectivec.IObject, playing bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
 }

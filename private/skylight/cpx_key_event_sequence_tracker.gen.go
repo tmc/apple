@@ -48,8 +48,6 @@ func (cc CPXKeyEventSequenceTrackerClass) Alloc() CPXKeyEventSequenceTracker {
 //   - [CPXKeyEventSequenceTracker.DestinationForEventExtras]
 //   - [CPXKeyEventSequenceTracker.NoteKeyEventProcessedDestination]
 //   - [CPXKeyEventSequenceTracker.InitWithProvider]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker
 type CPXKeyEventSequenceTracker struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ ICPXKeyEventSequenceTracker = CPXKeyEventSequenceTracker{}
 //   - [ICPXKeyEventSequenceTracker.DestinationForEventExtras]
 //   - [ICPXKeyEventSequenceTracker.NoteKeyEventProcessedDestination]
 //   - [ICPXKeyEventSequenceTracker.InitWithProvider]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker
 type ICPXKeyEventSequenceTracker interface {
 	objectivec.IObject
 
@@ -102,32 +98,24 @@ func NewCPXKeyEventSequenceTracker() CPXKeyEventSequenceTracker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/initWithProvider:
 func NewCPXKeyEventSequenceTrackerWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker {
 	instance := getCPXKeyEventSequenceTrackerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProvider:"), provider)
 	return CPXKeyEventSequenceTrackerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/count
 func (c CPXKeyEventSequenceTracker) Count() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("count"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/destinationForEvent:extras:
 func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:extras:"), event, objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/noteKeyEventProcessed:destination:
 func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("noteKeyEventProcessed:destination:"), processed, destination)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/initWithProvider:
 func (c CPXKeyEventSequenceTracker) InitWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker {
 	rv := objc.Send[CPXKeyEventSequenceTracker](c.ID, objc.Sel("initWithProvider:"), provider)
 	return rv

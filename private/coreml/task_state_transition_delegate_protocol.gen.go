@@ -12,14 +12,10 @@ import (
 var _ = fmt.Sprintf
 
 // MLTaskStateTransitionDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate
 type MLTaskStateTransitionDelegate interface {
 	objectivec.IObject
 
 	// OnCancellation protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onCancellation
 	OnCancellation()
 }
 
@@ -40,27 +36,18 @@ func MLTaskStateTransitionDelegateObjectFromID(id objc.ID) MLTaskStateTransition
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onCancellation
 func (o MLTaskStateTransitionDelegateObject) OnCancellation() {
 	objc.Send[struct{}](o.ID, objc.Sel("onCancellation"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onCompletionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnCompletionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onCompletionWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onFailureWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnFailureWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onFailureWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onResumptionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnResumptionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onResumptionWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onSuspensionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnSuspensionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
 }
@@ -69,10 +56,6 @@ func (o MLTaskStateTransitionDelegateObject) OnSuspensionWithTaskContext(context
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
 // returns false for them — matching the Objective-C delegate pattern exactly.
-//
-// See [Apple Documentation] for protocol details.
-//
-// [Apple Documentation]: https://developer.apple.com/documentation/coreml/mltaskstatetransitiondelegate
 type MLTaskStateTransitionDelegateConfig struct {
 
 	// Other Methods
@@ -87,10 +70,6 @@ type MLTaskStateTransitionDelegateConfig struct {
 //
 // The returned [MLTaskStateTransitionDelegateObject] satisfies the [MLTaskStateTransitionDelegate] interface
 // and can be passed directly to SetDelegate and similar methods.
-//
-// See [Apple Documentation] for protocol details.
-//
-// [Apple Documentation]: https://developer.apple.com/documentation/coreml/mltaskstatetransitiondelegate
 func NewMLTaskStateTransitionDelegate(config MLTaskStateTransitionDelegateConfig) MLTaskStateTransitionDelegateObject {
 	n := delegateClassCounter.Add(1)
 	className := fmt.Sprintf("GoMLTaskStateTransitionDelegate_%d", n)

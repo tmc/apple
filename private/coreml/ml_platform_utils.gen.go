@@ -42,7 +42,6 @@ func (mc MLPlatformUtilsClass) Alloc() MLPlatformUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPlatformUtils
 type MLPlatformUtils struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLPlatformUtilsFromID(id objc.ID) MLPlatformUtils {
 var _ IMLPlatformUtils = MLPlatformUtils{}
 
 // An interface definition for the [MLPlatformUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPlatformUtils
 type IMLPlatformUtils interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewMLPlatformUtils() MLPlatformUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPlatformUtils/isInternalBuild
 func (_MLPlatformUtilsClass MLPlatformUtilsClass) IsInternalBuild() bool {
 	rv := objc.Send[bool](objc.ID(_MLPlatformUtilsClass.class), objc.Sel("isInternalBuild"))
 	return rv

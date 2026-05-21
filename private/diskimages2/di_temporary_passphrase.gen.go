@@ -48,8 +48,6 @@ func (dc DITemporaryPassphraseClass) Alloc() DITemporaryPassphrase {
 //   - [DITemporaryPassphrase.Buf]
 //   - [DITemporaryPassphrase.SetBuf]
 //   - [DITemporaryPassphrase.InitWithPassphrase]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase
 type DITemporaryPassphrase struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IDITemporaryPassphrase = DITemporaryPassphrase{}
 //   - [IDITemporaryPassphrase.Buf]
 //   - [IDITemporaryPassphrase.SetBuf]
 //   - [IDITemporaryPassphrase.InitWithPassphrase]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase
 type IDITemporaryPassphrase interface {
 	objectivec.IObject
 
@@ -100,20 +96,17 @@ func NewDITemporaryPassphrase() DITemporaryPassphrase {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase/initWithPassphrase:
 func NewDITemporaryPassphraseWithPassphrase(passphrase string) DITemporaryPassphrase {
 	instance := getDITemporaryPassphraseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return DITemporaryPassphraseFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase/initWithPassphrase:
 func (d DITemporaryPassphrase) InitWithPassphrase(passphrase string) DITemporaryPassphrase {
 	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase/buf
 func (d DITemporaryPassphrase) Buf() string {
 	rv := objc.Send[*byte](d.ID, objc.Sel("buf"))
 	return objc.GoString(rv)

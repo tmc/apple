@@ -8,8 +8,6 @@ import (
 )
 
 // MLStatefulModelEngine protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLStatefulModelEngine
 type MLStatefulModelEngine interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLStatefulModelEngineObjectFromID(id objc.ID) MLStatefulModelEngineObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLStatefulModelEngine/newRequestForModel:inputFeatures:usingState:options:error:
 func (o MLStatefulModelEngineObject) NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options)
 	if err != nil {
@@ -39,14 +36,10 @@ func (o MLStatefulModelEngineObject) NewRequestForModelInputFeaturesUsingStateOp
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLStatefulModelEngine/newStateWithClientBuffers:
 func (o MLStatefulModelEngineObject) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLStatefulModelEngine/predictionFromFeatures:usingState:options:error:
 func (o MLStatefulModelEngineObject) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options)
 	if err != nil {

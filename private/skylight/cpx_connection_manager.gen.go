@@ -53,8 +53,6 @@ func (cc CPXConnectionManagerClass) Alloc() CPXConnectionManager {
 //   - [CPXConnectionManager.Description]
 //   - [CPXConnectionManager.Hash]
 //   - [CPXConnectionManager.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager
 type CPXConnectionManager struct {
 	objectivec.Object
 }
@@ -78,8 +76,6 @@ var _ ICPXConnectionManager = CPXConnectionManager{}
 //   - [ICPXConnectionManager.Description]
 //   - [ICPXConnectionManager.Hash]
 //   - [ICPXConnectionManager.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager
 type ICPXConnectionManager interface {
 	objectivec.IObject
 
@@ -91,7 +87,7 @@ type ICPXConnectionManager interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -113,51 +109,38 @@ func NewCPXConnectionManager() CPXConnectionManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/initWithSession:
 func NewCPXConnectionManagerWithSession(session uintptr) CPXConnectionManager {
 	instance := getCPXConnectionManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXConnectionManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/connectionForID:
 func (c CPXConnectionManager) ConnectionForID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connectionForID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/pidForConnection:
 func (c CPXConnectionManager) PidForConnection(connection CGXConnection) int {
 	rv := objc.Send[int](c.ID, objc.Sel("pidForConnection:"), connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/initWithSession:
 func (c CPXConnectionManager) InitWithSession(session uintptr) CPXConnectionManager {
 	rv := objc.Send[CPXConnectionManager](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/debugDescription
 func (c CPXConnectionManager) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/description
 func (c CPXConnectionManager) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/hash
 func (c CPXConnectionManager) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/superclass
-func (c CPXConnectionManager) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXConnectionManager) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

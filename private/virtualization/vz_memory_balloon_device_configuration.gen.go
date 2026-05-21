@@ -51,8 +51,6 @@ func (vc VZMemoryBalloonDeviceConfigurationClass) Alloc() VZMemoryBalloonDeviceC
 //   - [VZMemoryBalloonDeviceConfiguration.Description]
 //   - [VZMemoryBalloonDeviceConfiguration.Hash]
 //   - [VZMemoryBalloonDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration
 type VZMemoryBalloonDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZMemoryBalloonDeviceConfiguration = VZMemoryBalloonDeviceConfiguration{}
 //   - [IVZMemoryBalloonDeviceConfiguration.Description]
 //   - [IVZMemoryBalloonDeviceConfiguration.Hash]
 //   - [IVZMemoryBalloonDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration
 type IVZMemoryBalloonDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IVZMemoryBalloonDeviceConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,38 +105,28 @@ func NewVZMemoryBalloonDeviceConfiguration() VZMemoryBalloonDeviceConfiguration 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/_init
 func (v VZMemoryBalloonDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/makeMemoryBalloonDeviceForVirtualMachine:memoryBalloonDeviceIndex:maxTargetMemorySize:
 func (v VZMemoryBalloonDeviceConfiguration) MakeMemoryBalloonDeviceForVirtualMachineMemoryBalloonDeviceIndexMaxTargetMemorySize(machine objectivec.IObject, index uint64, size uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeMemoryBalloonDeviceForVirtualMachine:memoryBalloonDeviceIndex:maxTargetMemorySize:"), machine, index, size)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/debugDescription
 func (v VZMemoryBalloonDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/description
 func (v VZMemoryBalloonDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/hash
 func (v VZMemoryBalloonDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDeviceConfiguration/superclass
-func (v VZMemoryBalloonDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZMemoryBalloonDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

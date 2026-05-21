@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionTransposeReshapeToFlattenSqueezeClass) All
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze
 type EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeezeFromID(
 var _ IEspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze = EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze{}
 
 // An interface definition for the [EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze
 type IEspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze interface {
 	IEspressoCustomPass
 }

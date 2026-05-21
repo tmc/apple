@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -46,8 +47,6 @@ func (ac AVVCMicUsageReporterClass) Alloc() AVVCMicUsageReporter {
 //
 //   - [AVVCMicUsageReporter._getAuditToken]
 //   - [AVVCMicUsageReporter.ReportMicUsage]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter
 type AVVCMicUsageReporter struct {
 	objectivec.Object
 }
@@ -66,14 +65,12 @@ var _ IAVVCMicUsageReporter = AVVCMicUsageReporter{}
 //
 //   - [IAVVCMicUsageReporter._getAuditToken]
 //   - [IAVVCMicUsageReporter.ReportMicUsage]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter
 type IAVVCMicUsageReporter interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_getAuditToken(token objectivec.IObject) bool
+	_getAuditToken(token unsafe.Pointer) bool
 	ReportMicUsage(usage bool)
 }
 
@@ -96,14 +93,13 @@ func NewAVVCMicUsageReporter() AVVCMicUsageReporter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter/_getAuditToken:
-func (a AVVCMicUsageReporter) _getAuditToken(token objectivec.IObject) bool {
+func (a AVVCMicUsageReporter) _getAuditToken(token unsafe.Pointer) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("_getAuditToken:"), token)
 	return rv
 }
 
 // GetAuditToken is an exported wrapper for the private method _getAuditToken.
-func (a AVVCMicUsageReporter) GetAuditToken(token objectivec.IObject) (bool, error) {
+func (a AVVCMicUsageReporter) GetAuditToken(token unsafe.Pointer) (bool, error) {
 	if !objc.RespondsToSelector(a.ID, objc.Sel("_getAuditToken:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_getAuditToken:"}
 		return false, err
@@ -115,13 +111,10 @@ func (a AVVCMicUsageReporter) GetAuditToken(token objectivec.IObject) (bool, err
 func (a AVVCMicUsageReporter) CanGetAuditToken() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_getAuditToken:"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter/reportMicUsage:
 func (a AVVCMicUsageReporter) ReportMicUsage(usage bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("reportMicUsage:"), usage)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter/sharedInstance
 func (_AVVCMicUsageReporterClass AVVCMicUsageReporterClass) SharedInstance() AVVCMicUsageReporter {
 	rv := objc.Send[objc.ID](objc.ID(_AVVCMicUsageReporterClass.class), objc.Sel("sharedInstance"))
 	return AVVCMicUsageReporterFromID(rv)

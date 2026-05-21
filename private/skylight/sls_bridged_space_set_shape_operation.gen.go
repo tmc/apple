@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceSetShapeOperationClass) Alloc() SLSBridgedSpaceSetShapeO
 //   - [SLSBridgedSpaceSetShapeOperation.CopyShape]
 //   - [SLSBridgedSpaceSetShapeOperation.SpaceID]
 //   - [SLSBridgedSpaceSetShapeOperation.InitWithSpaceIDShape]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation
 type SLSBridgedSpaceSetShapeOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceSetShapeOperation = SLSBridgedSpaceSetShapeOperation{}
 //   - [ISLSBridgedSpaceSetShapeOperation.CopyShape]
 //   - [ISLSBridgedSpaceSetShapeOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetShapeOperation.InitWithSpaceIDShape]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation
 type ISLSBridgedSpaceSetShapeOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceSetShapeOperation() SLSBridgedSpaceSetShapeOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation/initWithCoder:
 func NewSLSBridgedSpaceSetShapeOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetShapeOperation {
 	instance := getSLSBridgedSpaceSetShapeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetShapeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation/initWithSpaceID:shape:
 func NewSLSBridgedSpaceSetShapeOperationWithSpaceIDShape(id uint64, shape uintptr) SLSBridgedSpaceSetShapeOperation {
 	instance := getSLSBridgedSpaceSetShapeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
 	return SLSBridgedSpaceSetShapeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation/copyShape
 func (s SLSBridgedSpaceSetShapeOperation) CopyShape() uintptr {
 	rv := objc.Send[uintptr](s.ID, objc.Sel("copyShape"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation/initWithSpaceID:shape:
 func (s SLSBridgedSpaceSetShapeOperation) InitWithSpaceIDShape(id uint64, shape uintptr) SLSBridgedSpaceSetShapeOperation {
 	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetShapeOperation/spaceID
 func (s SLSBridgedSpaceSetShapeOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

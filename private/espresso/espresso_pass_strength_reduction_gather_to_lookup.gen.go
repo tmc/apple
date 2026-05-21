@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionGatherToLookupClass) Alloc() EspressoPassS
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_lookup
 type EspressoPassStrengthReductionGatherToLookup struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_gather_to_lookupFromID(id objc.ID) Espresso
 var _ IEspressoPassStrengthReductionGatherToLookup = EspressoPassStrengthReductionGatherToLookup{}
 
 // An interface definition for the [EspressoPassStrengthReductionGatherToLookup] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_lookup
 type IEspressoPassStrengthReductionGatherToLookup interface {
 	IEspressoCustomPass
 }

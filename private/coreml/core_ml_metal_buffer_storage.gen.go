@@ -42,7 +42,6 @@ func (cc CoreMLMetalBufferStorageClass) Alloc() CoreMLMetalBufferStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalBufferStorage
 type CoreMLMetalBufferStorage struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMetalBufferStorageFromID(id objc.ID) CoreMLMetalBufferStorage {
 // ICoreMLMetalBufferStorage embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMetalBufferStorage] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalBufferStorage
 type ICoreMLMetalBufferStorage interface {
 	objectivec.IObject
 }

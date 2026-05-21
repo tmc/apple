@@ -45,15 +45,11 @@ func (vc VZBiometricDeviceConfigurationClass) Alloc() VZBiometricDeviceConfigura
 
 // # Methods
 //
-//   - [VZBiometricDeviceConfiguration._biometricDeviceWithPlatform]
 //   - [VZBiometricDeviceConfiguration._init]
-//   - [VZBiometricDeviceConfiguration.EncodeWithEncoder]
 //   - [VZBiometricDeviceConfiguration.DebugDescription]
 //   - [VZBiometricDeviceConfiguration.Description]
 //   - [VZBiometricDeviceConfiguration.Hash]
 //   - [VZBiometricDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration
 type VZBiometricDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -70,27 +66,21 @@ var _ IVZBiometricDeviceConfiguration = VZBiometricDeviceConfiguration{}
 //
 // # Methods
 //
-//   - [IVZBiometricDeviceConfiguration._biometricDeviceWithPlatform]
 //   - [IVZBiometricDeviceConfiguration._init]
-//   - [IVZBiometricDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZBiometricDeviceConfiguration.DebugDescription]
 //   - [IVZBiometricDeviceConfiguration.Description]
 //   - [IVZBiometricDeviceConfiguration.Hash]
 //   - [IVZBiometricDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration
 type IVZBiometricDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_biometricDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject
 	_init() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,58 +102,24 @@ func NewVZBiometricDeviceConfiguration() VZBiometricDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/_biometricDeviceWithPlatform:
-func (v VZBiometricDeviceConfiguration) _biometricDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_biometricDeviceWithPlatform:"), platform)
-	return objectivec.Object{ID: rv}
-}
-
-// BiometricDeviceWithPlatform is an exported wrapper for the private method _biometricDeviceWithPlatform.
-func (v VZBiometricDeviceConfiguration) BiometricDeviceWithPlatform(platform objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_biometricDeviceWithPlatform:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_biometricDeviceWithPlatform:"}
-		return nil, err
-	}
-	return v._biometricDeviceWithPlatform(platform), nil
-}
-
-// CanBiometricDeviceWithPlatform reports whether the receiver responds to the private selector _biometricDeviceWithPlatform:.
-func (v VZBiometricDeviceConfiguration) CanBiometricDeviceWithPlatform() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_biometricDeviceWithPlatform:"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/_init
 func (v VZBiometricDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/encodeWithEncoder:
-func (v VZBiometricDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/debugDescription
 func (v VZBiometricDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/description
 func (v VZBiometricDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/hash
 func (v VZBiometricDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/superclass
-func (v VZBiometricDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZBiometricDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

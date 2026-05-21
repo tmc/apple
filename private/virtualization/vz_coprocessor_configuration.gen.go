@@ -45,16 +45,12 @@ func (vc VZCoprocessorConfigurationClass) Alloc() VZCoprocessorConfiguration {
 
 // # Methods
 //
-//   - [VZCoprocessorConfiguration._coprocessor]
 //   - [VZCoprocessorConfiguration._init]
-//   - [VZCoprocessorConfiguration.EncodeWithEncoder]
 //   - [VZCoprocessorConfiguration.MakeCoprocessorForVirtualMachineCoprocessorIndex]
 //   - [VZCoprocessorConfiguration.DebugDescription]
 //   - [VZCoprocessorConfiguration.Description]
 //   - [VZCoprocessorConfiguration.Hash]
 //   - [VZCoprocessorConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration
 type VZCoprocessorConfiguration struct {
 	objectivec.Object
 }
@@ -71,29 +67,23 @@ var _ IVZCoprocessorConfiguration = VZCoprocessorConfiguration{}
 //
 // # Methods
 //
-//   - [IVZCoprocessorConfiguration._coprocessor]
 //   - [IVZCoprocessorConfiguration._init]
-//   - [IVZCoprocessorConfiguration.EncodeWithEncoder]
 //   - [IVZCoprocessorConfiguration.MakeCoprocessorForVirtualMachineCoprocessorIndex]
 //   - [IVZCoprocessorConfiguration.DebugDescription]
 //   - [IVZCoprocessorConfiguration.Description]
 //   - [IVZCoprocessorConfiguration.Hash]
 //   - [IVZCoprocessorConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration
 type IVZCoprocessorConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_coprocessor() objectivec.IObject
 	_init() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	MakeCoprocessorForVirtualMachineCoprocessorIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -115,64 +105,28 @@ func NewVZCoprocessorConfiguration() VZCoprocessorConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/_coprocessor
-func (v VZCoprocessorConfiguration) _coprocessor() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_coprocessor"))
-	return objectivec.Object{ID: rv}
-}
-
-// Coprocessor is an exported wrapper for the private method _coprocessor.
-func (v VZCoprocessorConfiguration) Coprocessor() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_coprocessor")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_coprocessor"}
-		return nil, err
-	}
-	return v._coprocessor(), nil
-}
-
-// CanCoprocessor reports whether the receiver responds to the private selector _coprocessor.
-func (v VZCoprocessorConfiguration) CanCoprocessor() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_coprocessor"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/_init
 func (v VZCoprocessorConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/encodeWithEncoder:
-func (v VZCoprocessorConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/makeCoprocessorForVirtualMachine:coprocessorIndex:
 func (v VZCoprocessorConfiguration) MakeCoprocessorForVirtualMachineCoprocessorIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeCoprocessorForVirtualMachine:coprocessorIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/debugDescription
 func (v VZCoprocessorConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/description
 func (v VZCoprocessorConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/hash
 func (v VZCoprocessorConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/superclass
-func (v VZCoprocessorConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZCoprocessorConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

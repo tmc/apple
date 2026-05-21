@@ -8,19 +8,13 @@ import (
 )
 
 // ECVersionedPID protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECVersionedPID
 type ECVersionedPID interface {
 	objectivec.IObject
 
 	// Pid protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECVersionedPID/pid
 	Pid() int
 
 	// Version protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECVersionedPID/version
 	Version() uint32
 }
 
@@ -41,13 +35,10 @@ func ECVersionedPIDObjectFromID(id objc.ID) ECVersionedPIDObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECVersionedPID/pid
 func (o ECVersionedPIDObject) Pid() int {
 	rv := objc.Send[int](o.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECVersionedPID/version
 func (o ECVersionedPIDObject) Version() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("version"))
 	return rv

@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,8 +59,6 @@ func (sc SLVirtualDisplayModeClass) Alloc() SLVirtualDisplayMode {
 //   - [SLVirtualDisplayMode.SizeInPixels]
 //   - [SLVirtualDisplayMode.SizeInPoints]
 //   - [SLVirtualDisplayMode.InitWithSizeInPixelsSizeInPointsRefreshRateError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode
 type SLVirtualDisplayMode struct {
 	objectivec.Object
 }
@@ -88,8 +87,6 @@ var _ ISLVirtualDisplayMode = SLVirtualDisplayMode{}
 //   - [ISLVirtualDisplayMode.SizeInPixels]
 //   - [ISLVirtualDisplayMode.SizeInPoints]
 //   - [ISLVirtualDisplayMode.InitWithSizeInPixelsSizeInPointsRefreshRateError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode
 type ISLVirtualDisplayMode interface {
 	objectivec.IObject
 
@@ -104,9 +101,9 @@ type ISLVirtualDisplayMode interface {
 	RefreshDeadline() float64
 	SetRefreshDeadline(value float64)
 	RefreshRate() float32
-	SizeInPixels() objectivec.IObject
-	SizeInPoints() objectivec.IObject
-	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels objectivec.IObject, points objectivec.IObject, rate float32) (SLVirtualDisplayMode, error)
+	SizeInPixels() unsafe.Pointer
+	SizeInPoints() unsafe.Pointer
+	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error)
 }
 
 // Init initializes the instance.
@@ -128,8 +125,7 @@ func NewSLVirtualDisplayMode() SLVirtualDisplayMode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/initWithSizeInPixels:sizeInPoints:refreshRate:error:
-func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels objectivec.IObject, points objectivec.IObject, rate float32) (SLVirtualDisplayMode, error) {
+func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayModeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
@@ -140,20 +136,15 @@ func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels 
 	return SLVirtualDisplayModeFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/dictionaryRepresentation
 func (s SLVirtualDisplayMode) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/isEqualToMode:
 func (s SLVirtualDisplayMode) IsEqualToMode(mode objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToMode:"), mode)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/initWithSizeInPixels:sizeInPoints:refreshRate:error:
-func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels objectivec.IObject, points objectivec.IObject, rate float32) (SLVirtualDisplayMode, error) {
+func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -164,19 +155,15 @@ func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(p
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/modeWithBackendMode:
 func (_SLVirtualDisplayModeClass SLVirtualDisplayModeClass) ModeWithBackendMode(mode objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithBackendMode:"), mode)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/modeWithDictionaryRepresentation:
 func (_SLVirtualDisplayModeClass SLVirtualDisplayModeClass) ModeWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/eotf
 func (s SLVirtualDisplayMode) Eotf() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("eotf"))
 	return rv
@@ -184,8 +171,6 @@ func (s SLVirtualDisplayMode) Eotf() uint64 {
 func (s SLVirtualDisplayMode) SetEotf(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEotf:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/options
 func (s SLVirtualDisplayMode) Options() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
 	return rv
@@ -193,8 +178,6 @@ func (s SLVirtualDisplayMode) Options() uint64 {
 func (s SLVirtualDisplayMode) SetOptions(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/refreshDeadline
 func (s SLVirtualDisplayMode) RefreshDeadline() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("refreshDeadline"))
 	return rv
@@ -202,21 +185,15 @@ func (s SLVirtualDisplayMode) RefreshDeadline() float64 {
 func (s SLVirtualDisplayMode) SetRefreshDeadline(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRefreshDeadline:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/refreshRate
 func (s SLVirtualDisplayMode) RefreshRate() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("refreshRate"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/sizeInPixels
-func (s SLVirtualDisplayMode) SizeInPixels() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sizeInPixels"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayMode) SizeInPixels() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInPixels"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayMode/sizeInPoints
-func (s SLVirtualDisplayMode) SizeInPoints() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sizeInPoints"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayMode) SizeInPoints() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInPoints"))
+	return rv
 }

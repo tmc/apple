@@ -42,7 +42,6 @@ func (cc CPXKeyDownDestinationClass) Alloc() CPXKeyDownDestination {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXKeyDownDestination
 type CPXKeyDownDestination struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CPXKeyDownDestinationFromID(id objc.ID) CPXKeyDownDestination {
 var _ ICPXKeyDownDestination = CPXKeyDownDestination{}
 
 // An interface definition for the [CPXKeyDownDestination] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXKeyDownDestination
 type ICPXKeyDownDestination interface {
 	objectivec.IObject
 }

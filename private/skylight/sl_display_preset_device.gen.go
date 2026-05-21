@@ -4,8 +4,9 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -83,8 +84,6 @@ func (sc SLDisplayPresetDeviceClass) Alloc() SLDisplayPresetDevice {
 //   - [SLDisplayPresetDevice.SetUserAdjustmentData]
 //   - [SLDisplayPresetDevice.SetUserAdjustmentForPresetWithData]
 //   - [SLDisplayPresetDevice.InitWithService]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice
 type SLDisplayPresetDevice struct {
 	objectivec.Object
 }
@@ -139,8 +138,6 @@ var _ ISLDisplayPresetDevice = SLDisplayPresetDevice{}
 //   - [ISLDisplayPresetDevice.SetUserAdjustmentData]
 //   - [ISLDisplayPresetDevice.SetUserAdjustmentForPresetWithData]
 //   - [ISLDisplayPresetDevice.InitWithService]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice
 type ISLDisplayPresetDevice interface {
 	objectivec.IObject
 
@@ -148,7 +145,7 @@ type ISLDisplayPresetDevice interface {
 
 	ActivePresetIndex() uint32
 	ContainerId() objectivec.IObject
-	CopyCFContainerId() string
+	CopyCFContainerId() corefoundation.CFUUID
 	CopyCalibrationInfo() objectivec.IObject
 	CopyCustomPresetInfo() objectivec.IObject
 	CopyPresetAtIndex(index uint32) objectivec.IObject
@@ -159,7 +156,7 @@ type ISLDisplayPresetDevice interface {
 	FactoryDefaultPresetIndex() uint32
 	FactoryResetWithType(type_ byte) bool
 	GetUserAdjustmentPowerLimit() float32
-	GetUserAdjustmentRangeWithInput(range_ uint32, input objectivec.IObject) objectivec.IObject
+	GetUserAdjustmentRangeWithInput(range_ uint32, input unsafe.Pointer) unsafe.Pointer
 	InvalidateLiveUserAdjustmentForPreset(preset uint32) bool
 	InvalidateUserAdjustment() bool
 	InvalidateUserAdjustmentForPreset(preset uint32) bool
@@ -173,7 +170,7 @@ type ISLDisplayPresetDevice interface {
 	IsUserAdjustmentValidForPreset(preset uint32) bool
 	PresetCapabilities() objectivec.IObject
 	PresetCount() uint32
-	PresetUUIDAtIndexToBytes(index uint32, bytes objectivec.IObject) bool
+	PresetUUIDAtIndexToBytes(index uint32, bytes unsafe.Pointer) bool
 	ResetPresetAtIndex(index uint32) bool
 	ResetProController()
 	SetActivePresetIndex(index uint32) bool
@@ -205,253 +202,172 @@ func NewSLDisplayPresetDevice() SLDisplayPresetDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/initWithService:
 func NewSLDisplayPresetDeviceWithService(service uint32) SLDisplayPresetDevice {
 	instance := getSLDisplayPresetDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithService:"), service)
 	return SLDisplayPresetDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/activePresetIndex
 func (s SLDisplayPresetDevice) ActivePresetIndex() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("activePresetIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/containerId
 func (s SLDisplayPresetDevice) ContainerId() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("containerId"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyCFContainerId
-func (s SLDisplayPresetDevice) CopyCFContainerId() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyCFContainerId"))
-	return foundation.NSStringFromID(rv).String()
+func (s SLDisplayPresetDevice) CopyCFContainerId() corefoundation.CFUUID {
+	rv := objc.Send[corefoundation.CFUUIDRef](s.ID, objc.Sel("copyCFContainerId"))
+	return corefoundation.CFUUID(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyCalibrationInfo
 func (s SLDisplayPresetDevice) CopyCalibrationInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyCalibrationInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyCustomPresetInfo
 func (s SLDisplayPresetDevice) CopyCustomPresetInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyCustomPresetInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyPresetAtIndex:
 func (s SLDisplayPresetDevice) CopyPresetAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyPresetAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyPresetDataAtIndex:
 func (s SLDisplayPresetDevice) CopyPresetDataAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyPresetDataAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyUserAdjustment
 func (s SLDisplayPresetDevice) CopyUserAdjustment() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyUserAdjustment"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyUserAdjustmentData
 func (s SLDisplayPresetDevice) CopyUserAdjustmentData() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyUserAdjustmentData"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/copyUserAdjustmentForPreset:
 func (s SLDisplayPresetDevice) CopyUserAdjustmentForPreset(preset uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyUserAdjustmentForPreset:"), preset)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/factoryDefaultPresetIndex
 func (s SLDisplayPresetDevice) FactoryDefaultPresetIndex() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("factoryDefaultPresetIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/factoryResetWithType:
 func (s SLDisplayPresetDevice) FactoryResetWithType(type_ byte) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("factoryResetWithType:"), type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/getUserAdjustmentPowerLimit
 func (s SLDisplayPresetDevice) GetUserAdjustmentPowerLimit() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("getUserAdjustmentPowerLimit"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/getUserAdjustmentRange:withInput:
-func (s SLDisplayPresetDevice) GetUserAdjustmentRangeWithInput(range_ uint32, input objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("getUserAdjustmentRange:withInput:"), range_, input)
-	return objectivec.Object{ID: rv}
+func (s SLDisplayPresetDevice) GetUserAdjustmentRangeWithInput(range_ uint32, input unsafe.Pointer) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("getUserAdjustmentRange:withInput:"), range_, input)
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/invalidateLiveUserAdjustmentForPreset:
 func (s SLDisplayPresetDevice) InvalidateLiveUserAdjustmentForPreset(preset uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("invalidateLiveUserAdjustmentForPreset:"), preset)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/invalidateUserAdjustment
 func (s SLDisplayPresetDevice) InvalidateUserAdjustment() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("invalidateUserAdjustment"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/invalidateUserAdjustmentForPreset:
 func (s SLDisplayPresetDevice) InvalidateUserAdjustmentForPreset(preset uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("invalidateUserAdjustmentForPreset:"), preset)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isLiveUserAdjustmentSupported
 func (s SLDisplayPresetDevice) IsLiveUserAdjustmentSupported() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isLiveUserAdjustmentSupported"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isPerPresetUserAdjustmentSupported
 func (s SLDisplayPresetDevice) IsPerPresetUserAdjustmentSupported() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPerPresetUserAdjustmentSupported"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isPresetValidAtIndex:
 func (s SLDisplayPresetDevice) IsPresetValidAtIndex(index uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPresetValidAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isPresetWritableAtIndex:
 func (s SLDisplayPresetDevice) IsPresetWritableAtIndex(index uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPresetWritableAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isUserAdjustmentSupported
 func (s SLDisplayPresetDevice) IsUserAdjustmentSupported() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isUserAdjustmentSupported"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isUserAdjustmentValid
 func (s SLDisplayPresetDevice) IsUserAdjustmentValid() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isUserAdjustmentValid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isUserAdjustmentValidForAnyPreset
 func (s SLDisplayPresetDevice) IsUserAdjustmentValidForAnyPreset() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isUserAdjustmentValidForAnyPreset"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/isUserAdjustmentValidForPreset:
 func (s SLDisplayPresetDevice) IsUserAdjustmentValidForPreset(preset uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isUserAdjustmentValidForPreset:"), preset)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/presetCapabilities
 func (s SLDisplayPresetDevice) PresetCapabilities() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("presetCapabilities"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/presetCount
 func (s SLDisplayPresetDevice) PresetCount() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("presetCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/presetUUIDAtIndex:toBytes:
-func (s SLDisplayPresetDevice) PresetUUIDAtIndexToBytes(index uint32, bytes objectivec.IObject) bool {
+func (s SLDisplayPresetDevice) PresetUUIDAtIndexToBytes(index uint32, bytes unsafe.Pointer) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("presetUUIDAtIndex:toBytes:"), index, bytes)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/resetPresetAtIndex:
 func (s SLDisplayPresetDevice) ResetPresetAtIndex(index uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("resetPresetAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/resetProController
 func (s SLDisplayPresetDevice) ResetProController() {
 	objc.Send[objc.ID](s.ID, objc.Sel("resetProController"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setActivePresetIndex:
 func (s SLDisplayPresetDevice) SetActivePresetIndex(index uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setActivePresetIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setCustomPresetDataAtIndex:withData:
 func (s SLDisplayPresetDevice) SetCustomPresetDataAtIndexWithData(index uint32, data objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setCustomPresetDataAtIndex:withData:"), index, data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setPresetAtIndex:withData:
 func (s SLDisplayPresetDevice) SetPresetAtIndexWithData(index uint32, data objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setPresetAtIndex:withData:"), index, data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setPresetDataAtIndex:withData:
 func (s SLDisplayPresetDevice) SetPresetDataAtIndexWithData(index uint32, data objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setPresetDataAtIndex:withData:"), index, data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setUserAdjustment:
 func (s SLDisplayPresetDevice) SetUserAdjustment(adjustment objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setUserAdjustment:"), adjustment)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setUserAdjustmentData:
 func (s SLDisplayPresetDevice) SetUserAdjustmentData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setUserAdjustmentData:"), data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/setUserAdjustmentForPreset:withData:
 func (s SLDisplayPresetDevice) SetUserAdjustmentForPresetWithData(preset uint32, data objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setUserAdjustmentForPreset:withData:"), preset, data)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/initWithService:
 func (s SLDisplayPresetDevice) InitWithService(service uint32) SLDisplayPresetDevice {
 	rv := objc.Send[SLDisplayPresetDevice](s.ID, objc.Sel("initWithService:"), service)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/luminanceCorrectionFactorForWhitepoint:
 func (_SLDisplayPresetDeviceClass SLDisplayPresetDeviceClass) LuminanceCorrectionFactorForWhitepoint(whitepoint objectivec.IObject) float32 {
 	rv := objc.Send[float32](objc.ID(_SLDisplayPresetDeviceClass.class), objc.Sel("luminanceCorrectionFactorForWhitepoint:"), whitepoint)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/presetDeviceWithService:
 func (_SLDisplayPresetDeviceClass SLDisplayPresetDeviceClass) PresetDeviceWithService(service uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLDisplayPresetDeviceClass.class), objc.Sel("presetDeviceWithService:"), service)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDevice/userAdjustmentLuminanceCorrectionFactorForWhitepoint:
 func (_SLDisplayPresetDeviceClass SLDisplayPresetDeviceClass) UserAdjustmentLuminanceCorrectionFactorForWhitepoint(whitepoint objectivec.IObject) float32 {
 	rv := objc.Send[float32](objc.ID(_SLDisplayPresetDeviceClass.class), objc.Sel("userAdjustmentLuminanceCorrectionFactorForWhitepoint:"), whitepoint)
 	return rv

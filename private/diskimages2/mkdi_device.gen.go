@@ -53,8 +53,6 @@ func (mc MKDIDeviceClass) Alloc() MKDIDevice {
 //   - [MKDIDevice.ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError]
 //   - [MKDIDevice.UpdatePartitionMapWithError]
 //   - [MKDIDevice.InitWithBSDNameNumBlocksBlockSizeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice
 type MKDIDevice struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IMKDIDevice = MKDIDevice{}
 //   - [IMKDIDevice.ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError]
 //   - [IMKDIDevice.UpdatePartitionMapWithError]
 //   - [IMKDIDevice.InitWithBSDNameNumBlocksBlockSizeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice
 type IMKDIDevice interface {
 	objectivec.IObject
 
@@ -111,7 +107,6 @@ func NewMKDIDevice() MKDIDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/initWithBSDName:numBlocks:blockSize:error:
 func NewMKDIDeviceWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IObject, blocks uint64, size int) (MKDIDevice, error) {
 	var errorPtr objc.ID
 	instance := getMKDIDeviceClass().Alloc()
@@ -123,7 +118,6 @@ func NewMKDIDeviceWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IObject,
 	return MKDIDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/partitionDiskWithGPTTypeID:error:
 func (m MKDIDevice) PartitionDiskWithGPTTypeIDError(id uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("partitionDiskWithGPTTypeID:error:"), id, unsafe.Pointer(&errorPtr))
@@ -137,8 +131,6 @@ func (m MKDIDevice) PartitionDiskWithGPTTypeIDError(id uint64) (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/resizeDataPartitionWithPartitionUUID:partitionNumBlocks:error:
 func (m MKDIDevice) ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError(uuid objectivec.IObject, blocks uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("resizeDataPartitionWithPartitionUUID:partitionNumBlocks:error:"), uuid, blocks, unsafe.Pointer(&errorPtr))
@@ -152,8 +144,6 @@ func (m MKDIDevice) ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError(
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/updatePartitionMapWithError:
 func (m MKDIDevice) UpdatePartitionMapWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("updatePartitionMapWithError:"), unsafe.Pointer(&errorPtr))
@@ -167,8 +157,6 @@ func (m MKDIDevice) UpdatePartitionMapWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/initWithBSDName:numBlocks:blockSize:error:
 func (m MKDIDevice) InitWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IObject, blocks uint64, size int) (MKDIDevice, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBSDName:numBlocks:blockSize:error:"), bSDName, blocks, size, unsafe.Pointer(&errorPtr))
@@ -180,13 +168,10 @@ func (m MKDIDevice) InitWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IO
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/blockSize
 func (m MKDIDevice) BlockSize() int {
 	rv := objc.Send[int](m.ID, objc.Sel("blockSize"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/mediaRef
 func (m MKDIDevice) MediaRef() MKMediaRef {
 	rv := objc.Send[MKMediaRef](m.ID, objc.Sel("mediaRef"))
 	return MKMediaRef(rv)

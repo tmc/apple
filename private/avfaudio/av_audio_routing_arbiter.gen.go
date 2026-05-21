@@ -54,8 +54,6 @@ func (ac AVAudioRoutingArbiterClass) Alloc() AVAudioRoutingArbiter {
 //   - [AVAudioRoutingArbiter.CreateBTSessionWithCategoryModeFlags]
 //   - [AVAudioRoutingArbiter.DispatchQueue]
 //   - [AVAudioRoutingArbiter.SetDispatchQueue]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter
 type AVAudioRoutingArbiter struct {
 	objectivec.Object
 }
@@ -78,8 +76,6 @@ var _ IAVAudioRoutingArbiter = AVAudioRoutingArbiter{}
 //   - [IAVAudioRoutingArbiter.CreateBTSessionWithCategoryModeFlags]
 //   - [IAVAudioRoutingArbiter.DispatchQueue]
 //   - [IAVAudioRoutingArbiter.SetDispatchQueue]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter
 type IAVAudioRoutingArbiter interface {
 	objectivec.IObject
 
@@ -112,13 +108,10 @@ func NewAVAudioRoutingArbiter() AVAudioRoutingArbiter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/beginArbitrationWithAudioSessionCategory:mode:options:completionHandler:
 func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptionsCompletionHandler(category objectivec.IObject, mode objectivec.IObject, options uint64, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("beginArbitrationWithAudioSessionCategory:mode:options:completionHandler:"), category, mode, options, _block3)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/beginArbitrationWithAudioSessionCategory:mode:options:error:
 func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptionsError(category objectivec.IObject, mode objectivec.IObject, options uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("beginArbitrationWithAudioSessionCategory:mode:options:error:"), category, mode, options, unsafe.Pointer(&errorPtr))
@@ -132,19 +125,14 @@ func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptio
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/beginArbitrationWithBTSessionCategory:mode:flags:completionHandler:
 func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int, mode int, flags uint32, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("beginArbitrationWithBTSessionCategory:mode:flags:completionHandler:"), category, mode, flags, _block3)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/createBTSessionWithCategory:mode:flags:
 func (a AVAudioRoutingArbiter) CreateBTSessionWithCategoryModeFlags(category int, mode int, flags uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("createBTSessionWithCategory:mode:flags:"), category, mode, flags)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/dispatchQueue
 func (a AVAudioRoutingArbiter) DispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

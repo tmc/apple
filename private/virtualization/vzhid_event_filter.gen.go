@@ -48,8 +48,6 @@ func (vc VZHIDEventFilterClass) Alloc() VZHIDEventFilter {
 //   - [VZHIDEventFilter.GetHIDReportsFromHIDEvent]
 //   - [VZHIDEventFilter.GetHIDReportsFromNSEvent]
 //   - [VZHIDEventFilter.UpdateCoordinateTransformIsFlipped]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter
 type VZHIDEventFilter struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IVZHIDEventFilter = VZHIDEventFilter{}
 //   - [IVZHIDEventFilter.GetHIDReportsFromHIDEvent]
 //   - [IVZHIDEventFilter.GetHIDReportsFromNSEvent]
 //   - [IVZHIDEventFilter.UpdateCoordinateTransformIsFlipped]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter
 type IVZHIDEventFilter interface {
 	objectivec.IObject
 
@@ -100,30 +96,22 @@ func NewVZHIDEventFilter() VZHIDEventFilter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/getHIDReportsFromHIDEvent:
 func (v VZHIDEventFilter) GetHIDReportsFromHIDEvent(hIDEvent uintptr) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getHIDReportsFromHIDEvent:"), hIDEvent)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/getHIDReportsFromNSEvent:
 func (v VZHIDEventFilter) GetHIDReportsFromNSEvent(nSEvent objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getHIDReportsFromNSEvent:"), nSEvent)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/updateCoordinateTransform:isFlipped:
 func (v VZHIDEventFilter) UpdateCoordinateTransformIsFlipped(transform corefoundation.CGRect, flipped bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateCoordinateTransform:isFlipped:"), transform, flipped)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/hasEventTranslators
 func (_VZHIDEventFilterClass VZHIDEventFilterClass) HasEventTranslators() bool {
 	rv := objc.Send[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("hasEventTranslators"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/isEnabled
 func (_VZHIDEventFilterClass VZHIDEventFilterClass) IsEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("isEnabled"))
 	return rv

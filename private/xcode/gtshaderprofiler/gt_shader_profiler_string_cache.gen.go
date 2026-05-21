@@ -50,8 +50,6 @@ func (gc GTShaderProfilerStringCacheClass) Alloc() GTShaderProfilerStringCache {
 //   - [GTShaderProfilerStringCache.StringFromIndex]
 //   - [GTShaderProfilerStringCache.Strings]
 //   - [GTShaderProfilerStringCache.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache
 type GTShaderProfilerStringCache struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IGTShaderProfilerStringCache = GTShaderProfilerStringCache{}
 //   - [IGTShaderProfilerStringCache.StringFromIndex]
 //   - [IGTShaderProfilerStringCache.Strings]
 //   - [IGTShaderProfilerStringCache.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache
 type IGTShaderProfilerStringCache interface {
 	objectivec.IObject
 
@@ -106,43 +102,33 @@ func NewGTShaderProfilerStringCache() GTShaderProfilerStringCache {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/initWithCoder:
 func NewGTShaderProfilerStringCacheWithCoder(coder objectivec.IObject) GTShaderProfilerStringCache {
 	instance := getGTShaderProfilerStringCacheClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerStringCacheFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/addString:
 func (g GTShaderProfilerStringCache) AddString(string_ objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/encodeWithCoder:
 func (g GTShaderProfilerStringCache) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/stringFromIndex:
 func (g GTShaderProfilerStringCache) StringFromIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringFromIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/initWithCoder:
 func (g GTShaderProfilerStringCache) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerStringCache {
 	rv := objc.Send[GTShaderProfilerStringCache](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/supportsSecureCoding
 func (_GTShaderProfilerStringCacheClass GTShaderProfilerStringCacheClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTShaderProfilerStringCacheClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/strings
 func (g GTShaderProfilerStringCache) Strings() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("strings"))
 	return foundation.NSArrayFromID(objc.ID(rv))

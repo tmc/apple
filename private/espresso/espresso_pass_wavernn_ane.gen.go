@@ -41,7 +41,6 @@ func (ec EspressoPassWavernnAneClass) Alloc() EspressoPassWavernnAne {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_wavernn_ane
 type EspressoPassWavernnAne struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_wavernn_aneFromID(id objc.ID) EspressoPassWavernnAne {
 var _ IEspressoPassWavernnAne = EspressoPassWavernnAne{}
 
 // An interface definition for the [EspressoPassWavernnAne] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_wavernn_ane
 type IEspressoPassWavernnAne interface {
 	IEspressoCustomPass
 }

@@ -42,7 +42,6 @@ func (vc VZVirtualMachineAccessorManagerClass) Alloc() VZVirtualMachineAccessorM
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessorManager
 type VZVirtualMachineAccessorManager struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZVirtualMachineAccessorManagerFromID(id objc.ID) VZVirtualMachineAccessorM
 var _ IVZVirtualMachineAccessorManager = VZVirtualMachineAccessorManager{}
 
 // An interface definition for the [VZVirtualMachineAccessorManager] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessorManager
 type IVZVirtualMachineAccessorManager interface {
 	objectivec.IObject
 }

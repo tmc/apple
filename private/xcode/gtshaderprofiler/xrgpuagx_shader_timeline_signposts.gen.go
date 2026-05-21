@@ -56,8 +56,6 @@ func (xc XRGPUAGXShaderTimelineSignpostsClass) Alloc() XRGPUAGXShaderTimelineSig
 //   - [XRGPUAGXShaderTimelineSignposts.Start]
 //   - [XRGPUAGXShaderTimelineSignposts.Stop]
 //   - [XRGPUAGXShaderTimelineSignposts.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts
 type XRGPUAGXShaderTimelineSignposts struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IXRGPUAGXShaderTimelineSignposts = XRGPUAGXShaderTimelineSignposts{}
 //   - [IXRGPUAGXShaderTimelineSignposts.Start]
 //   - [IXRGPUAGXShaderTimelineSignposts.Stop]
 //   - [IXRGPUAGXShaderTimelineSignposts.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts
 type IXRGPUAGXShaderTimelineSignposts interface {
 	objectivec.IObject
 
@@ -94,7 +90,7 @@ type IXRGPUAGXShaderTimelineSignposts interface {
 	Encode() objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 	EnumerateKickIds(ids VoidHandler)
-	GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count unsafe.Pointer)
+	GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count *uint64)
 	Load(load objectivec.IObject) bool
 	Start() bool
 	Stop()
@@ -120,14 +116,12 @@ func NewXRGPUAGXShaderTimelineSignposts() XRGPUAGXShaderTimelineSignposts {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/initWithCoder:
 func NewXRGPUAGXShaderTimelineSignpostsWithCoder(coder objectivec.IObject) XRGPUAGXShaderTimelineSignposts {
 	instance := getXRGPUAGXShaderTimelineSignpostsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return XRGPUAGXShaderTimelineSignpostsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/_setupExtractor
 func (x XRGPUAGXShaderTimelineSignposts) _setupExtractor() {
 	objc.Send[objc.ID](x.ID, objc.Sel("_setupExtractor"))
 }
@@ -146,53 +140,36 @@ func (x XRGPUAGXShaderTimelineSignposts) SetupExtractor() error {
 func (x XRGPUAGXShaderTimelineSignposts) CanSetupExtractor() bool {
 	return objc.RespondsToSelector(x.ID, objc.Sel("_setupExtractor"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/encode
 func (x XRGPUAGXShaderTimelineSignposts) Encode() objectivec.IObject {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("encode"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/encodeWithCoder:
 func (x XRGPUAGXShaderTimelineSignposts) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/enumerateKickIds:
 func (x XRGPUAGXShaderTimelineSignposts) EnumerateKickIds(ids VoidHandler) {
 	_block0, _ := NewVoidBlock(ids)
 	objc.Send[objc.ID](x.ID, objc.Sel("enumerateKickIds:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/getShaders:count:
-func (x XRGPUAGXShaderTimelineSignposts) GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count unsafe.Pointer) {
+func (x XRGPUAGXShaderTimelineSignposts) GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count *uint64) {
 	objc.Send[objc.ID](x.ID, objc.Sel("getShaders:count:"), objc.CArray(shaders), count)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/load:
 func (x XRGPUAGXShaderTimelineSignposts) Load(load objectivec.IObject) bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("load:"), load)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/start
 func (x XRGPUAGXShaderTimelineSignposts) Start() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("start"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/stop
 func (x XRGPUAGXShaderTimelineSignposts) Stop() {
 	objc.Send[objc.ID](x.ID, objc.Sel("stop"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/initWithCoder:
 func (x XRGPUAGXShaderTimelineSignposts) InitWithCoder(coder foundation.INSCoder) XRGPUAGXShaderTimelineSignposts {
 	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/fromData:error:
 func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass) FromDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_XRGPUAGXShaderTimelineSignpostsClass.class), objc.Sel("fromData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -203,8 +180,6 @@ func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/fromFile:error:
 func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass) FromFileError(file objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_XRGPUAGXShaderTimelineSignpostsClass.class), objc.Sel("fromFile:error:"), file, unsafe.Pointer(&errorPtr))
@@ -215,8 +190,6 @@ func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/supportsSecureCoding
 func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_XRGPUAGXShaderTimelineSignpostsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

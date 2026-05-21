@@ -8,8 +8,6 @@ import (
 )
 
 // _MLNeuralNetworkTensorDataStoring protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkTensorDataStoring
 type MLNeuralNetworkTensorDataStoring interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func MLNeuralNetworkTensorDataStoringObjectFromID(id objc.ID) MLNeuralNetworkTen
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkTensorDataStoring/tensorDataForOffset:expectedLength:
 func (o MLNeuralNetworkTensorDataStoringObject) TensorDataForOffsetExpectedLength(offset uint64, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tensorDataForOffset:expectedLength:"), offset, length)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkTensorDataStoring/writeToFile:error:
 func (o MLNeuralNetworkTensorDataStoringObject) WriteToFileError(file objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("writeToFile:error:"), file)
 	if err != nil {

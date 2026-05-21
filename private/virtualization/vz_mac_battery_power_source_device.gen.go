@@ -53,8 +53,6 @@ func (vc VZMacBatteryPowerSourceDeviceClass) Alloc() VZMacBatteryPowerSourceDevi
 //   - [VZMacBatteryPowerSourceDevice.Description]
 //   - [VZMacBatteryPowerSourceDevice.Hash]
 //   - [VZMacBatteryPowerSourceDevice.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice
 type VZMacBatteryPowerSourceDevice struct {
 	VZPowerSourceDevice
 }
@@ -79,8 +77,6 @@ var _ IVZMacBatteryPowerSourceDevice = VZMacBatteryPowerSourceDevice{}
 //   - [IVZMacBatteryPowerSourceDevice.Description]
 //   - [IVZMacBatteryPowerSourceDevice.Hash]
 //   - [IVZMacBatteryPowerSourceDevice.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice
 type IVZMacBatteryPowerSourceDevice interface {
 	IVZPowerSourceDevice
 
@@ -88,12 +84,12 @@ type IVZMacBatteryPowerSourceDevice interface {
 
 	BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64)
 	BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64)
-	Source() *VZMacBatterySource
-	SetSource(value *VZMacBatterySource)
+	Source() IVZMacBatterySource
+	SetSource(value IVZMacBatterySource)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -115,53 +111,33 @@ func NewVZMacBatteryPowerSourceDevice() VZMacBatteryPowerSourceDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/batterySource:didUpdateCharge:
 func (v VZMacBatteryPowerSourceDevice) BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("batterySource:didUpdateCharge:"), source, charge)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/batterySource:didUpdateConnectivity:
 func (v VZMacBatteryPowerSourceDevice) BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("batterySource:didUpdateConnectivity:"), source, connectivity)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/debugDescription
 func (v VZMacBatteryPowerSourceDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/description
 func (v VZMacBatteryPowerSourceDevice) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/hash
 func (v VZMacBatteryPowerSourceDevice) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/source
-func (v VZMacBatteryPowerSourceDevice) Source() *VZMacBatterySource {
+func (v VZMacBatteryPowerSourceDevice) Source() IVZMacBatterySource {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("source"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZMacBatterySourceFromID(objc.ID(rv))
-	return &val
+	return VZMacBatterySourceFromID(objc.ID(rv))
 }
-func (v VZMacBatteryPowerSourceDevice) SetSource(value *VZMacBatterySource) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setSource:"), objc.ID(0))
-		return
-	}
+func (v VZMacBatteryPowerSourceDevice) SetSource(value IVZMacBatterySource) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/superclass
-func (v VZMacBatteryPowerSourceDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZMacBatteryPowerSourceDevice) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

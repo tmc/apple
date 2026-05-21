@@ -45,7 +45,6 @@ func (mc MLCompilerClass) Alloc() MLCompiler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler
 type MLCompiler struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLCompilerFromID(id objc.ID) MLCompiler {
 var _ IMLCompiler = MLCompiler{}
 
 // An interface definition for the [MLCompiler] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler
 type IMLCompiler interface {
 	objectivec.IObject
 }
@@ -84,7 +81,6 @@ func NewMLCompiler() MLCompiler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_compileSpecification:blobMapping:toArchive:options:error:
 func (_MLCompilerClass MLCompilerClass) _compileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options, unsafe.Pointer(&errorPtr))
@@ -95,9 +91,7 @@ func (_MLCompilerClass MLCompilerClass) _compileSpecificationBlobMappingToArchiv
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:
-func (_MLCompilerClass MLCompilerClass) _compileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url foundation.INSURL, url2 foundation.INSURL, name objectivec.IObject, description objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) _compileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url foundation.NSURL, url2 foundation.NSURL, name objectivec.IObject, description objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:"), url, url2, name, description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -109,7 +103,7 @@ func (_MLCompilerClass MLCompilerClass) _compileSpecificationAtURLToURLCompiledM
 }
 
 // CompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError is an exported wrapper for the private method _compileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError.
-func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url foundation.INSURL, url2 foundation.INSURL, name objectivec.IObject, description objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url foundation.NSURL, url2 foundation.NSURL, name objectivec.IObject, description objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:"}
 		return nil, err
@@ -121,9 +115,7 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLCompiledMo
 func (_MLCompilerClass MLCompilerClass) CanCompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_loadSpecificationAtURL:to:error:
-func (_MLCompilerClass MLCompilerClass) _loadSpecificationAtURLToError(url foundation.INSURL, to unsafe.Pointer) (bool, error) {
+func (_MLCompilerClass MLCompilerClass) _loadSpecificationAtURLToError(url foundation.NSURL, to unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:"), url, to, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -138,7 +130,7 @@ func (_MLCompilerClass MLCompilerClass) _loadSpecificationAtURLToError(url found
 }
 
 // LoadSpecificationAtURLToError is an exported wrapper for the private method _loadSpecificationAtURLToError.
-func (_MLCompilerClass MLCompilerClass) LoadSpecificationAtURLToError(url foundation.INSURL, to unsafe.Pointer) (bool, error) {
+func (_MLCompilerClass MLCompilerClass) LoadSpecificationAtURLToError(url foundation.NSURL, to unsafe.Pointer) (bool, error) {
 	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_loadSpecificationAtURL:to:error:"}
 		return false, err
@@ -150,8 +142,6 @@ func (_MLCompilerClass MLCompilerClass) LoadSpecificationAtURLToError(url founda
 func (_MLCompilerClass MLCompilerClass) CanLoadSpecificationAtURLToError() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateFeatures:withFeatures:
 func (_MLCompilerClass MLCompilerClass) _updateFeaturesWithFeatures(features unsafe.Pointer, features2 objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"), features, features2)
 }
@@ -170,8 +160,6 @@ func (_MLCompilerClass MLCompilerClass) UpdateFeaturesWithFeatures(features unsa
 func (_MLCompilerClass MLCompilerClass) CanUpdateFeaturesWithFeatures() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateMetadata:withMetadata:
 func (_MLCompilerClass MLCompilerClass) _updateMetadataWithMetadata(metadata unsafe.Pointer, metadata2 objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"), metadata, metadata2)
 }
@@ -190,8 +178,6 @@ func (_MLCompilerClass MLCompilerClass) UpdateMetadataWithMetadata(metadata unsa
 func (_MLCompilerClass MLCompilerClass) CanUpdateMetadataWithMetadata() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateSpecification:withModelDescription:
 func (_MLCompilerClass MLCompilerClass) _updateSpecificationWithModelDescription(specification unsafe.Pointer, description objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:"), specification, description)
 }
@@ -210,9 +196,7 @@ func (_MLCompilerClass MLCompilerClass) UpdateSpecificationWithModelDescription(
 func (_MLCompilerClass MLCompilerClass) CanUpdateSpecificationWithModelDescription() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/addMLProgramToCompiledModelAtURL:error:
-func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("addMLProgramToCompiledModelAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -222,9 +206,7 @@ func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLError(ur
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/addMLProgramToCompiledModelAtURL:withCompilationMode:dryRun:oarchiveForModelCompilation:compilerEvent:error:
-func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLWithCompilationModeDryRunOarchiveForModelCompilationCompilerEventError(url foundation.INSURL, mode int, run bool, compilation unsafe.Pointer, event objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLWithCompilationModeDryRunOarchiveForModelCompilationCompilerEventError(url foundation.NSURL, mode int, run bool, compilation unsafe.Pointer, event objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("addMLProgramToCompiledModelAtURL:withCompilationMode:dryRun:oarchiveForModelCompilation:compilerEvent:error:"), url, mode, run, compilation, event, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -234,15 +216,11 @@ func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLWithComp
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/canAddMLProgramToCompiledModelAtURL:
-func (_MLCompilerClass MLCompilerClass) CanAddMLProgramToCompiledModelAtURL(url foundation.INSURL) bool {
+func (_MLCompilerClass MLCompilerClass) CanAddMLProgramToCompiledModelAtURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("canAddMLProgramToCompiledModelAtURL:"), url)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileModelAtURL:toURL:options:error:
-func (_MLCompilerClass MLCompilerClass) CompileModelAtURLToURLOptionsError(url foundation.INSURL, url2 foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompileModelAtURLToURLOptionsError(url foundation.NSURL, url2 foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileModelAtURL:toURL:options:error:"), url, url2, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -252,9 +230,7 @@ func (_MLCompilerClass MLCompilerClass) CompileModelAtURLToURLOptionsError(url f
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileSpecification:blobMapping:compilerClass:toArchive:options:error:
-func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingCompilerClassToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, class objc.Class, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingCompilerClassToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, class objectivec.Class, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileSpecification:blobMapping:compilerClass:toArchive:options:error:"), specification, mapping, class, archive, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -264,8 +240,6 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingCompilerC
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileSpecification:blobMapping:toArchive:options:compilerEvent:error:
 func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingToArchiveOptionsCompilerEventError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject, event objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileSpecification:blobMapping:toArchive:options:compilerEvent:error:"), specification, mapping, archive, options, event, unsafe.Pointer(&errorPtr))
@@ -276,8 +250,6 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingToArchive
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileSpecification:blobMapping:toArchive:options:error:
 func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options, unsafe.Pointer(&errorPtr))
@@ -288,8 +260,6 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationBlobMappingToArchive
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileSpecification:toArchive:options:error:
 func (_MLCompilerClass MLCompilerClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options, unsafe.Pointer(&errorPtr))
@@ -300,9 +270,7 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationToArchiveOptionsErro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compileSpecificationAtURL:toURL:options:error:
-func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLOptionsError(url foundation.INSURL, url2 foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLOptionsError(url foundation.NSURL, url2 foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compileSpecificationAtURL:toURL:options:error:"), url, url2, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -312,9 +280,7 @@ func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLOptionsErr
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compiledVersionForModelAtURL:options:error:
-func (_MLCompilerClass MLCompilerClass) CompiledVersionForModelAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompiledVersionForModelAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compiledVersionForModelAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -324,8 +290,6 @@ func (_MLCompilerClass MLCompilerClass) CompiledVersionForModelAtURLOptionsError
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compiledVersionForSpecification:options:error:
 func (_MLCompilerClass MLCompilerClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compiledVersionForSpecification:options:error:"), specification, options, unsafe.Pointer(&errorPtr))
@@ -336,9 +300,7 @@ func (_MLCompilerClass MLCompilerClass) CompiledVersionForSpecificationOptionsEr
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/compiledVersionForSpecificationAtURL:options:error:
-func (_MLCompilerClass MLCompilerClass) CompiledVersionForSpecificationAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) CompiledVersionForSpecificationAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("compiledVersionForSpecificationAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -348,9 +310,7 @@ func (_MLCompilerClass MLCompilerClass) CompiledVersionForSpecificationAtURLOpti
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/contentsOfDirectoryAtURL:error:
-func (_MLCompilerClass MLCompilerClass) ContentsOfDirectoryAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLCompilerClass MLCompilerClass) ContentsOfDirectoryAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("contentsOfDirectoryAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -360,9 +320,7 @@ func (_MLCompilerClass MLCompilerClass) ContentsOfDirectoryAtURLError(url founda
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/encryptCompiledModelAtURL:options:error:
-func (_MLCompilerClass MLCompilerClass) EncryptCompiledModelAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error) {
+func (_MLCompilerClass MLCompilerClass) EncryptCompiledModelAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("encryptCompiledModelAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -375,9 +333,7 @@ func (_MLCompilerClass MLCompilerClass) EncryptCompiledModelAtURLOptionsError(ur
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/encryptFileAtURL:options:error:
-func (_MLCompilerClass MLCompilerClass) EncryptFileAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error) {
+func (_MLCompilerClass MLCompilerClass) EncryptFileAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("encryptFileAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -390,8 +346,6 @@ func (_MLCompilerClass MLCompilerClass) EncryptFileAtURLOptionsError(url foundat
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/fillCompilerEvent:withMetadataFromModelAt:error:
 func (_MLCompilerClass MLCompilerClass) FillCompilerEventWithMetadataFromModelAtError(event objectivec.IObject, at objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("fillCompilerEvent:withMetadataFromModelAt:error:"), event, at, unsafe.Pointer(&errorPtr))
@@ -405,9 +359,7 @@ func (_MLCompilerClass MLCompilerClass) FillCompilerEventWithMetadataFromModelAt
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/fingerprintSpecificationAtURL:toArchive:hash:error:
-func (_MLCompilerClass MLCompilerClass) FingerprintSpecificationAtURLToArchiveHashError(url foundation.INSURL, archive unsafe.Pointer, hash objectivec.IObject) (bool, error) {
+func (_MLCompilerClass MLCompilerClass) FingerprintSpecificationAtURLToArchiveHashError(url foundation.NSURL, archive unsafe.Pointer, hash objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("fingerprintSpecificationAtURL:toArchive:hash:error:"), url, archive, hash, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -420,14 +372,10 @@ func (_MLCompilerClass MLCompilerClass) FingerprintSpecificationAtURLToArchiveHa
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/hashSpecificationAtURL:
-func (_MLCompilerClass MLCompilerClass) HashSpecificationAtURL(url foundation.INSURL) objectivec.IObject {
+func (_MLCompilerClass MLCompilerClass) HashSpecificationAtURL(url foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("hashSpecificationAtURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/storeEncryptionInfoInCompiledArchive:options:error:
 func (_MLCompilerClass MLCompilerClass) StoreEncryptionInfoInCompiledArchiveOptionsError(archive unsafe.Pointer, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("storeEncryptionInfoInCompiledArchive:options:error:"), archive, options, unsafe.Pointer(&errorPtr))
@@ -441,8 +389,6 @@ func (_MLCompilerClass MLCompilerClass) StoreEncryptionInfoInCompiledArchiveOpti
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompiler/versionInfo
 func (_MLCompilerClass MLCompilerClass) VersionInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("versionInfo"))
 	return objectivec.Object{ID: rv}

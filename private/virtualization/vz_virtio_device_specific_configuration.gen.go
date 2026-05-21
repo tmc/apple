@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -46,8 +47,6 @@ func (vc VZVirtioDeviceSpecificConfigurationClass) Alloc() VZVirtioDeviceSpecifi
 //
 //   - [VZVirtioDeviceSpecificConfiguration._configuration]
 //   - [VZVirtioDeviceSpecificConfiguration._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioDeviceSpecificConfiguration
 type VZVirtioDeviceSpecificConfiguration struct {
 	objectivec.Object
 }
@@ -66,14 +65,12 @@ var _ IVZVirtioDeviceSpecificConfiguration = VZVirtioDeviceSpecificConfiguration
 //
 //   - [IVZVirtioDeviceSpecificConfiguration._configuration]
 //   - [IVZVirtioDeviceSpecificConfiguration._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioDeviceSpecificConfiguration
 type IVZVirtioDeviceSpecificConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_configuration() objectivec.IObject
+	_configuration() unsafe.Pointer
 	_init() objectivec.IObject
 }
 
@@ -96,16 +93,14 @@ func NewVZVirtioDeviceSpecificConfiguration() VZVirtioDeviceSpecificConfiguratio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioDeviceSpecificConfiguration/_init
 func (v VZVirtioDeviceSpecificConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioDeviceSpecificConfiguration/_configuration
-func (v VZVirtioDeviceSpecificConfiguration) _configuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
-	return objectivec.Object{ID: rv}
+func (v VZVirtioDeviceSpecificConfiguration) _configuration() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_configuration"))
+	return rv
 }
 
 // CanConfiguration reports whether the receiver responds to the private selector _configuration.
@@ -114,7 +109,7 @@ func (v VZVirtioDeviceSpecificConfiguration) CanConfiguration() bool {
 }
 
 // Configuration is an exported wrapper for the private property _configuration.
-func (v VZVirtioDeviceSpecificConfiguration) Configuration() (objectivec.IObject, error) {
+func (v VZVirtioDeviceSpecificConfiguration) Configuration() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_configuration")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_configuration"}
 	}

@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationStringsResultClass) Alloc() SLSBridg
 //
 //   - [SLSBridgedWindowManagementOperationStringsResult.Strings]
 //   - [SLSBridgedWindowManagementOperationStringsResult.InitWithStrings]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult
 type SLSBridgedWindowManagementOperationStringsResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWindowManagementOperationStringsResult = SLSBridgedWindowManage
 //
 //   - [ISLSBridgedWindowManagementOperationStringsResult.Strings]
 //   - [ISLSBridgedWindowManagementOperationStringsResult.InitWithStrings]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult
 type ISLSBridgedWindowManagementOperationStringsResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWindowManagementOperationStringsResult() SLSBridgedWindowManag
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationStringsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
 	instance := getSLSBridgedWindowManagementOperationStringsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationStringsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult/initWithStrings:
 func NewSLSBridgedWindowManagementOperationStringsResultWithStrings(strings objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
 	instance := getSLSBridgedWindowManagementOperationStringsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStrings:"), strings)
 	return SLSBridgedWindowManagementOperationStringsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult/initWithStrings:
 func (s SLSBridgedWindowManagementOperationStringsResult) InitWithStrings(strings objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("initWithStrings:"), strings)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringsResult/strings
 func (s SLSBridgedWindowManagementOperationStringsResult) Strings() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("strings"))
 	return foundation.NSArrayFromID(objc.ID(rv))

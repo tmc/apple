@@ -56,8 +56,6 @@ func (dc DYGPUDerivedEncoderCounterInfoClass) Alloc() DYGPUDerivedEncoderCounter
 //   - [DYGPUDerivedEncoderCounterInfo.EncoderInfos]
 //   - [DYGPUDerivedEncoderCounterInfo.SetEncoderInfos]
 //   - [DYGPUDerivedEncoderCounterInfo.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo
 type DYGPUDerivedEncoderCounterInfo struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ IDYGPUDerivedEncoderCounterInfo = DYGPUDerivedEncoderCounterInfo{}
 //   - [IDYGPUDerivedEncoderCounterInfo.EncoderInfos]
 //   - [IDYGPUDerivedEncoderCounterInfo.SetEncoderInfos]
 //   - [IDYGPUDerivedEncoderCounterInfo.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo
 type IDYGPUDerivedEncoderCounterInfo interface {
 	objectivec.IObject
 
@@ -95,11 +91,11 @@ type IDYGPUDerivedEncoderCounterInfo interface {
 	_enumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler)
 	DerivedCounterNames() foundation.INSArray
 	SetDerivedCounterNames(value foundation.INSArray)
-	DerivedCounters() foundation.INSData
-	SetDerivedCounters(value foundation.INSData)
+	DerivedCounters() foundation.NSData
+	SetDerivedCounters(value foundation.NSData)
 	EncodeWithCoder(coder foundation.INSCoder)
-	EncoderInfos() foundation.INSData
-	SetEncoderInfos(value foundation.INSData)
+	EncoderInfos() foundation.NSData
+	SetEncoderInfos(value foundation.NSData)
 	InitWithCoder(coder foundation.INSCoder) DYGPUDerivedEncoderCounterInfo
 }
 
@@ -122,14 +118,12 @@ func NewDYGPUDerivedEncoderCounterInfo() DYGPUDerivedEncoderCounterInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/initWithCoder:
 func NewDYGPUDerivedEncoderCounterInfoWithCoder(coder objectivec.IObject) DYGPUDerivedEncoderCounterInfo {
 	instance := getDYGPUDerivedEncoderCounterInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYGPUDerivedEncoderCounterInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/_enumerateEncoderDerivedData:
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedData:"), _block0)
@@ -149,8 +143,6 @@ func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedData(data VoidHan
 func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedData() bool {
 	return objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedData:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/_enumerateEncoderDerivedDataAtIndex:withBlock:
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
@@ -170,25 +162,19 @@ func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedDataAtIndexWithBl
 func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedDataAtIndexWithBlock() bool {
 	return objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/encodeWithCoder:
 func (d DYGPUDerivedEncoderCounterInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/initWithCoder:
 func (d DYGPUDerivedEncoderCounterInfo) InitWithCoder(coder foundation.INSCoder) DYGPUDerivedEncoderCounterInfo {
 	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/supportsSecureCoding
 func (_DYGPUDerivedEncoderCounterInfoClass DYGPUDerivedEncoderCounterInfoClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DYGPUDerivedEncoderCounterInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/derivedCounterNames
 func (d DYGPUDerivedEncoderCounterInfo) DerivedCounterNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -196,22 +182,18 @@ func (d DYGPUDerivedEncoderCounterInfo) DerivedCounterNames() foundation.INSArra
 func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounterNames(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/derivedCounters
-func (d DYGPUDerivedEncoderCounterInfo) DerivedCounters() foundation.INSData {
+func (d DYGPUDerivedEncoderCounterInfo) DerivedCounters() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounters"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounters(value foundation.INSData) {
+func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounters(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/encoderInfos
-func (d DYGPUDerivedEncoderCounterInfo) EncoderInfos() foundation.INSData {
+func (d DYGPUDerivedEncoderCounterInfo) EncoderInfos() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("encoderInfos"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUDerivedEncoderCounterInfo) SetEncoderInfos(value foundation.INSData) {
+func (d DYGPUDerivedEncoderCounterInfo) SetEncoderInfos(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncoderInfos:"), value)
 }
 

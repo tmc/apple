@@ -81,15 +81,12 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //   - [MLMultiArray.InitWithArrayDataType]
 //   - [MLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError]
 //   - [MLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider]
-//   - [MLMultiArray.InitWithCoder]
 //   - [MLMultiArray.InitWithPixelBufferShapeStrides]
 //   - [MLMultiArray.InitWithPixelBufferShapeStridesMutableShapedBufferProvider]
 //   - [MLMultiArray.InitWithScalarsShapeDataType]
 //   - [MLMultiArray.InitWithShapeDataTypeStorageOrderBufferAlignment]
 //   - [MLMultiArray.InitWithShapeDataTypeStorageOrderError]
 //   - [MLMultiArray.Contiguous]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray
 type MLMultiArray struct {
 	objectivec.Object
 }
@@ -138,15 +135,12 @@ var _ IMLMultiArray = MLMultiArray{}
 //   - [IMLMultiArray.InitWithArrayDataType]
 //   - [IMLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError]
 //   - [IMLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider]
-//   - [IMLMultiArray.InitWithCoder]
 //   - [IMLMultiArray.InitWithPixelBufferShapeStrides]
 //   - [IMLMultiArray.InitWithPixelBufferShapeStridesMutableShapedBufferProvider]
 //   - [IMLMultiArray.InitWithScalarsShapeDataType]
 //   - [IMLMultiArray.InitWithShapeDataTypeStorageOrderBufferAlignment]
 //   - [IMLMultiArray.InitWithShapeDataTypeStorageOrderError]
 //   - [IMLMultiArray.Contiguous]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray
 type IMLMultiArray interface {
 	objectivec.IObject
 
@@ -163,7 +157,7 @@ type IMLMultiArray interface {
 	IsContiguous() bool
 	IsContiguousInOrder(order int64) bool
 	IsEqualToMultiArray(array objectivec.IObject) bool
-	MtlBuffer() objectivec.IObject
+	MtlBuffer() unsafe.Pointer
 	MultiArrayBuffer() unsafe.Pointer
 	MultiArrayViewExpandingDimensionsAtAxis(axis int64) objectivec.IObject
 	MutableBytes() unsafe.Pointer
@@ -184,7 +178,6 @@ type IMLMultiArray interface {
 	InitWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArray
 	InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, deallocator func(), provider func()) (MLMultiArray, error)
 	InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, provider VoidHandler) MLMultiArray
-	InitWithCoder(coder foundation.INSCoder) MLMultiArray
 	InitWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray
 	InitWithPixelBufferShapeStridesMutableShapedBufferProvider(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject, provider VoidHandler) MLMultiArray
 	InitWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray
@@ -212,42 +205,30 @@ func NewMLMultiArray() MLMultiArray {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithArray:dataType:
 func NewMultiArrayWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:dataType:"), array, type_)
 	return MLMultiArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithCoder:
-func NewMultiArrayWithCoder(coder objectivec.IObject) MLMultiArray {
-	instance := getMLMultiArrayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLMultiArrayFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:
 func NewMultiArrayWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return MLMultiArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithScalars:shape:dataType:
 func NewMultiArrayWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithScalars:shape:dataType:"), scalars, shape, type_)
 	return MLMultiArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:storageOrder:bufferAlignment:
 func NewMultiArrayWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:storageOrder:bufferAlignment:"), shape, type_, order, alignment)
 	return MLMultiArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:storageOrder:error:
 func NewMultiArrayWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArray, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiArrayClass().Alloc()
@@ -259,7 +240,6 @@ func NewMultiArrayWithShapeDataTypeStorageOrderError(shape objectivec.IObject, t
 	return MLMultiArrayFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/copyIntoMultiArray:error:
 func (m MLMultiArray) CopyIntoMultiArrayError(array objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("copyIntoMultiArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -273,88 +253,60 @@ func (m MLMultiArray) CopyIntoMultiArrayError(array objectivec.IObject) (bool, e
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/debugQuickLookObject
 func (m MLMultiArray) DebugQuickLookObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/doublePointer
 func (m MLMultiArray) DoublePointer() []float64 {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("doublePointer"))
 	return objc.ConvertSlice(rv, func(id objc.ID) float64 {
 		return float64(id)
 	})
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/fillWithNumber:
 func (m MLMultiArray) FillWithNumber(number objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("fillWithNumber:"), number)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/float32Pointer
 func (m MLMultiArray) Float32Pointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("float32Pointer"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getContiguousFirstMajorFloat32BufferWithHandler:
 func (m MLMultiArray) GetContiguousFirstMajorFloat32BufferWithHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("getContiguousFirstMajorFloat32BufferWithHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/isContiguous
 func (m MLMultiArray) IsContiguous() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isContiguous"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/isContiguousInOrder:
 func (m MLMultiArray) IsContiguousInOrder(order int64) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isContiguousInOrder:"), order)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/isEqualToMultiArray:
 func (m MLMultiArray) IsEqualToMultiArray(array objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToMultiArray:"), array)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayBuffer
 func (m MLMultiArray) MultiArrayBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("multiArrayBuffer"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayViewExpandingDimensionsAtAxis:
 func (m MLMultiArray) MultiArrayViewExpandingDimensionsAtAxis(axis int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArrayViewExpandingDimensionsAtAxis:"), axis)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/numberArray
 func (m MLMultiArray) NumberArray() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("numberArray"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/numberAtOffset:
 func (m MLMultiArray) NumberAtOffset(offset uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("numberAtOffset:"), offset)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/offsetForKeyedSubscript:
 func (m MLMultiArray) OffsetForKeyedSubscript(subscript objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("offsetForKeyedSubscript:"), subscript)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderTo32BGRAPixelBuffer:channelOrderIsBGR:error:
 func (m MLMultiArray) RenderTo32BGRAPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("renderTo32BGRAPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
@@ -368,8 +320,6 @@ func (m MLMultiArray) RenderTo32BGRAPixelBufferChannelOrderIsBGRError(buffer cor
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToCVPixelBuffer:channelOrderIsBGR:error:
 func (m MLMultiArray) RenderToCVPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("renderToCVPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
@@ -383,8 +333,6 @@ func (m MLMultiArray) RenderToCVPixelBufferChannelOrderIsBGRError(buffer corevid
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToOneComponent16HalfPixelBuffer:error:
 func (m MLMultiArray) RenderToOneComponent16HalfPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("renderToOneComponent16HalfPixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
@@ -398,8 +346,6 @@ func (m MLMultiArray) RenderToOneComponent16HalfPixelBufferError(buffer corevide
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToOneComponent8PixelBuffer:error:
 func (m MLMultiArray) RenderToOneComponent8PixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("renderToOneComponent8PixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
@@ -413,13 +359,9 @@ func (m MLMultiArray) RenderToOneComponent8PixelBufferError(buffer corevideo.CVI
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/setNumber:atOffset:
 func (m MLMultiArray) SetNumberAtOffset(number objectivec.IObject, offset uint64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setNumber:atOffset:"), number, offset)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/setRangeWithRawData:destIndex:error:
 func (m MLMultiArray) SetRangeWithRawDataDestIndexError(data objectivec.IObject, index uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("setRangeWithRawData:destIndex:error:"), data, index, unsafe.Pointer(&errorPtr))
@@ -433,8 +375,6 @@ func (m MLMultiArray) SetRangeWithRawDataDestIndexError(data objectivec.IObject,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/sliceAtOrigin:shape:squeeze:error:
 func (m MLMultiArray) SliceAtOriginShapeSqueezeError(origin objectivec.IObject, shape objectivec.IObject, squeeze bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("sliceAtOrigin:shape:squeeze:error:"), origin, shape, squeeze, unsafe.Pointer(&errorPtr))
@@ -445,14 +385,10 @@ func (m MLMultiArray) SliceAtOriginShapeSqueezeError(origin objectivec.IObject, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/squeeze
 func (m MLMultiArray) Squeeze() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("squeeze"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/squeezeDimensions:error:
 func (m MLMultiArray) SqueezeDimensionsError(dimensions objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("squeezeDimensions:error:"), dimensions, unsafe.Pointer(&errorPtr))
@@ -463,8 +399,6 @@ func (m MLMultiArray) SqueezeDimensionsError(dimensions objectivec.IObject) (obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/vectorizeIntoMultiArray:storageOrder:error:
 func (m MLMultiArray) VectorizeIntoMultiArrayStorageOrderError(array objectivec.IObject, order int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("vectorizeIntoMultiArray:storageOrder:error:"), array, order, unsafe.Pointer(&errorPtr))
@@ -478,17 +412,15 @@ func (m MLMultiArray) VectorizeIntoMultiArrayStorageOrderError(array objectivec.
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithArray:dataType:
 func (m MLMultiArray) InitWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArray {
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithArray:dataType:"), array, type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithBytesNoCopy:shape:dataType:strides:deallocator:mutableShapedBufferProvider:error:
 func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, deallocator func(), provider func()) (MLMultiArray, error) {
+	_block4, _ := NewVoidBlock(deallocator)
+	_block5, _ := NewVoidBlock(provider)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBytesNoCopy:shape:dataType:strides:deallocator:mutableShapedBufferProvider:error:"), copy_, shape, type_, strides, deallocator, provider, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBytesNoCopy:shape:dataType:strides:deallocator:mutableShapedBufferProvider:error:"), copy_, shape, type_, strides, _block4, _block5, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLMultiArray{}, foundation.NSErrorFrom(errorPtr)
@@ -496,46 +428,28 @@ func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableS
 	return MLMultiArrayFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithBytesNoCopy:shape:dataType:strides:mutableShapedBufferProvider:
 func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, provider VoidHandler) MLMultiArray {
 	_block4, _ := NewVoidBlock(provider)
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithBytesNoCopy:shape:dataType:strides:mutableShapedBufferProvider:"), copy_, shape, type_, strides, _block4)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithCoder:
-func (m MLMultiArray) InitWithCoder(coder foundation.INSCoder) MLMultiArray {
-	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:
 func (m MLMultiArray) InitWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:mutableShapedBufferProvider:
 func (m MLMultiArray) InitWithPixelBufferShapeStridesMutableShapedBufferProvider(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject, provider VoidHandler) MLMultiArray {
 	_block3, _ := NewVoidBlock(provider)
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithPixelBuffer:shape:strides:mutableShapedBufferProvider:"), buffer, shape, strides, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithScalars:shape:dataType:
 func (m MLMultiArray) InitWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray {
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithScalars:shape:dataType:"), scalars, shape, type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:storageOrder:bufferAlignment:
 func (m MLMultiArray) InitWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArray {
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithShape:dataType:storageOrder:bufferAlignment:"), shape, type_, order, alignment)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:storageOrder:error:
 func (m MLMultiArray) InitWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArray, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithShape:dataType:storageOrder:error:"), shape, type_, order, unsafe.Pointer(&errorPtr))
@@ -547,13 +461,10 @@ func (m MLMultiArray) InitWithShapeDataTypeStorageOrderError(shape objectivec.IO
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/_multiArrayByConcatenatingMultiArrays:alongAxis:dataType:
 func (_MLMultiArrayClass MLMultiArrayClass) _multiArrayByConcatenatingMultiArraysAlongAxisDataType(arrays objectivec.IObject, axis int64, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("_multiArrayByConcatenatingMultiArrays:alongAxis:dataType:"), arrays, axis, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/_shapeOfNestedArray:error:
 func (_MLMultiArrayClass MLMultiArrayClass) _shapeOfNestedArrayError(array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("_shapeOfNestedArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -578,14 +489,10 @@ func (_MLMultiArrayClass MLMultiArrayClass) ShapeOfNestedArrayError(array object
 func (_MLMultiArrayClass MLMultiArrayClass) CanShapeOfNestedArrayError() bool {
 	return objc.RespondsToSelector(objc.ID(_MLMultiArrayClass.class), objc.Sel("_shapeOfNestedArray:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/cppStorageOrder:
 func (_MLMultiArrayClass MLMultiArrayClass) CppStorageOrder(order int64) int {
 	rv := objc.Send[int](objc.ID(_MLMultiArrayClass.class), objc.Sel("cppStorageOrder:"), order)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/doubleMatrixWithValues:error:
 func (_MLMultiArrayClass MLMultiArrayClass) DoubleMatrixWithValuesError(values objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("doubleMatrixWithValues:error:"), values, unsafe.Pointer(&errorPtr))
@@ -596,14 +503,10 @@ func (_MLMultiArrayClass MLMultiArrayClass) DoubleMatrixWithValuesError(values o
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/doubleMultiArrayWithCopyOfMultiArray:
 func (_MLMultiArrayClass MLMultiArrayClass) DoubleMultiArrayWithCopyOfMultiArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("doubleMultiArrayWithCopyOfMultiArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/doubleMultiArrayWithShape:valueArray:error:
 func (_MLMultiArrayClass MLMultiArrayClass) DoubleMultiArrayWithShapeValueArrayError(shape objectivec.IObject, array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("doubleMultiArrayWithShape:valueArray:error:"), shape, array, unsafe.Pointer(&errorPtr))
@@ -614,14 +517,10 @@ func (_MLMultiArrayClass MLMultiArrayClass) DoubleMultiArrayWithShapeValueArrayE
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/doubleVectorWithValues:
 func (_MLMultiArrayClass MLMultiArrayClass) DoubleVectorWithValues(values objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("doubleVectorWithValues:"), values)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/float32MatrixWithValues:error:
 func (_MLMultiArrayClass MLMultiArrayClass) Float32MatrixWithValuesError(values objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("float32MatrixWithValues:error:"), values, unsafe.Pointer(&errorPtr))
@@ -632,8 +531,6 @@ func (_MLMultiArrayClass MLMultiArrayClass) Float32MatrixWithValuesError(values 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getShapeOfArrayOfSameLengthArrays:numberOfRows:numberOfColumns:error:
 func (_MLMultiArrayClass MLMultiArrayClass) GetShapeOfArrayOfSameLengthArraysNumberOfRowsNumberOfColumnsError(arrays objectivec.IObject) (uint64, uint64, error) {
 	var rows uint64
 	var columns uint64
@@ -648,14 +545,10 @@ func (_MLMultiArrayClass MLMultiArrayClass) GetShapeOfArrayOfSameLengthArraysNum
 	}
 	return rows, columns, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayByConcatenatingMultiArrays:alongAxis:dataType:
 func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayByConcatenatingMultiArraysAlongAxisDataType(arrays objectivec.IObject, axis int64, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("multiArrayByConcatenatingMultiArrays:alongAxis:dataType:"), arrays, axis, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayOwningBufferObjectOfPort:error:
 func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayOwningBufferObjectOfPortError(port E5rtIOPortRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("multiArrayOwningBufferObjectOfPort:error:"), port, unsafe.Pointer(&errorPtr))
@@ -666,8 +559,6 @@ func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayOwningBufferObjectOfPortEr
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/newMultiArrayForState:strides:dtype:error:
 func (_MLMultiArrayClass MLMultiArrayClass) NewMultiArrayForStateStridesDtypeError(state objectivec.IObject, strides objectivec.IObject, dtype int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("newMultiArrayForState:strides:dtype:error:"), state, strides, dtype, unsafe.Pointer(&errorPtr))
@@ -678,8 +569,6 @@ func (_MLMultiArrayClass MLMultiArrayClass) NewMultiArrayForStateStridesDtypeErr
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferBGRA8FromMultiArrayCHW:channelOrderIsBGR:error:
 func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferBGRA8FromMultiArrayCHWChannelOrderIsBGRError(chw objectivec.IObject, bgr bool) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferBGRA8FromMultiArrayCHW:channelOrderIsBGR:error:"), chw, bgr, unsafe.Pointer(&errorPtr))
@@ -690,8 +579,6 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferBGRA8FromMultiArrayCHWCha
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferGray16HalfFromMultiArrayHW:error:
 func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray16HalfFromMultiArrayHWError(hw objectivec.IObject) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray16HalfFromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
@@ -702,8 +589,6 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray16HalfFromMultiArrayH
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferGray8FromMultiArrayHW:error:
 func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray8FromMultiArrayHWError(hw objectivec.IObject) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray8FromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
@@ -714,27 +599,19 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray8FromMultiArrayHWErro
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/stringForDataType:
 func (_MLMultiArrayClass MLMultiArrayClass) StringForDataType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("stringForDataType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/supportsSecureCoding
 func (_MLMultiArrayClass MLMultiArrayClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLMultiArrayClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/validateMultiArrays:forConcatenatingAlongAxis:normalizedAxis:reason:
 func (_MLMultiArrayClass MLMultiArrayClass) ValidateMultiArraysForConcatenatingAlongAxisNormalizedAxisReason(arrays objectivec.IObject, axis int64, reason []objectivec.IObject) (uint64, bool) {
 	var axis2 uint64
 	rv := objc.Send[bool](objc.ID(_MLMultiArrayClass.class), objc.Sel("validateMultiArrays:forConcatenatingAlongAxis:normalizedAxis:reason:"), arrays, axis, unsafe.Pointer(&axis2), reason)
 	return axis2, rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/validateNestedArray:error:
 func (_MLMultiArrayClass MLMultiArrayClass) ValidateNestedArrayError(array objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLMultiArrayClass.class), objc.Sel("validateNestedArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -749,37 +626,26 @@ func (_MLMultiArrayClass MLMultiArrayClass) ValidateNestedArrayError(array objec
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/backingPixelBufferWasLocked
 func (m MLMultiArray) BackingPixelBufferWasLocked() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("backingPixelBufferWasLocked"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/bytes
 func (m MLMultiArray) Bytes() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("bytes"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/contiguous
 func (m MLMultiArray) Contiguous() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("contiguous"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/mtlBuffer
-func (m MLMultiArray) MtlBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mtlBuffer"))
-	return objectivec.Object{ID: rv}
+func (m MLMultiArray) MtlBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("mtlBuffer"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/mutableBytes
 func (m MLMultiArray) MutableBytes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("mutableBytes"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/numberOfBytesPerElement
 func (m MLMultiArray) NumberOfBytesPerElement() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfBytesPerElement"))
 	return rv

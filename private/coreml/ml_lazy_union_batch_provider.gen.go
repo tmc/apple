@@ -53,8 +53,6 @@ func (mc MLLazyUnionBatchProviderClass) Alloc() MLLazyUnionBatchProvider {
 //   - [MLLazyUnionBatchProvider.Second]
 //   - [MLLazyUnionBatchProvider.SetSecond]
 //   - [MLLazyUnionBatchProvider.InitWithFeaturesFromAddedToFeaturesFromError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider
 type MLLazyUnionBatchProvider struct {
 	objectivec.Object
 }
@@ -78,8 +76,6 @@ var _ IMLLazyUnionBatchProvider = MLLazyUnionBatchProvider{}
 //   - [IMLLazyUnionBatchProvider.Second]
 //   - [IMLLazyUnionBatchProvider.SetSecond]
 //   - [IMLLazyUnionBatchProvider.InitWithFeaturesFromAddedToFeaturesFromError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider
 type IMLLazyUnionBatchProvider interface {
 	objectivec.IObject
 
@@ -87,10 +83,10 @@ type IMLLazyUnionBatchProvider interface {
 
 	Count() int64
 	FeaturesAtIndex(index int64) objectivec.IObject
-	First() objectivec.IObject
-	SetFirst(value objectivec.IObject)
-	Second() objectivec.IObject
-	SetSecond(value objectivec.IObject)
+	First() unsafe.Pointer
+	SetFirst(value unsafe.Pointer)
+	Second() unsafe.Pointer
+	SetSecond(value unsafe.Pointer)
 	InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error)
 }
 
@@ -113,7 +109,6 @@ func NewMLLazyUnionBatchProvider() MLLazyUnionBatchProvider {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/initWithFeaturesFrom:addedToFeaturesFrom:error:
 func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLLazyUnionBatchProviderClass().Alloc()
@@ -125,13 +120,10 @@ func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from obje
 	return MLLazyUnionBatchProviderFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/featuresAtIndex:
 func (m MLLazyUnionBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/initWithFeaturesFrom:addedToFeaturesFrom:error:
 func (m MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))
@@ -143,26 +135,21 @@ func (m MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(f
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/count
 func (m MLLazyUnionBatchProvider) Count() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/first
-func (m MLLazyUnionBatchProvider) First() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("first"))
-	return objectivec.Object{ID: rv}
+func (m MLLazyUnionBatchProvider) First() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("first"))
+	return rv
 }
-func (m MLLazyUnionBatchProvider) SetFirst(value objectivec.IObject) {
+func (m MLLazyUnionBatchProvider) SetFirst(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFirst:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/second
-func (m MLLazyUnionBatchProvider) Second() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("second"))
-	return objectivec.Object{ID: rv}
+func (m MLLazyUnionBatchProvider) Second() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("second"))
+	return rv
 }
-func (m MLLazyUnionBatchProvider) SetSecond(value objectivec.IObject) {
+func (m MLLazyUnionBatchProvider) SetSecond(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSecond:"), value)
 }

@@ -47,8 +47,6 @@ func (ec EspressoProfilingANEcompilerAnalyticsClass) Alloc() EspressoProfilingAN
 //
 //   - [EspressoProfilingANEcompilerAnalytics.Compiler_analytics_file_names]
 //   - [EspressoProfilingANEcompilerAnalytics.SetCompiler_analytics_file_names]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingANEcompilerAnalytics
 type EspressoProfilingANEcompilerAnalytics struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IEspressoProfilingANEcompilerAnalytics = EspressoProfilingANEcompilerAnaly
 //
 //   - [IEspressoProfilingANEcompilerAnalytics.Compiler_analytics_file_names]
 //   - [IEspressoProfilingANEcompilerAnalytics.SetCompiler_analytics_file_names]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingANEcompilerAnalytics
 type IEspressoProfilingANEcompilerAnalytics interface {
 	objectivec.IObject
 
@@ -97,7 +93,6 @@ func NewEspressoProfilingANEcompilerAnalytics() EspressoProfilingANEcompilerAnal
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingANEcompilerAnalytics/compiler_analytics_file_names
 func (e EspressoProfilingANEcompilerAnalytics) Compiler_analytics_file_names() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("compiler_analytics_file_names"))
 	return foundation.NSArrayFromID(objc.ID(rv))

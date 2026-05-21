@@ -5,6 +5,7 @@ package espresso
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -48,8 +49,6 @@ func (ec EspressoDataFrameStorageExecutorClass) Alloc() EspressoDataFrameStorage
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor
 type EspressoDataFrameStorageExecutor struct {
 	objectivec.Object
 }
@@ -69,16 +68,14 @@ var _ IEspressoDataFrameStorageExecutor = EspressoDataFrameStorageExecutor{}
 //   - [IEspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [IEspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex]
 //   - [IEspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor
 type IEspressoDataFrameStorageExecutor interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network objectivec.IObject, block VoidHandler)
-	ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler)
-	ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler)
+	ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler)
+	ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler, index VoidHandler)
+	ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block VoidHandler, index VoidHandler)
 }
 
 // Init initializes the instance.
@@ -100,21 +97,16 @@ func NewEspressoDataFrameStorageExecutor() EspressoDataFrameStorageExecutor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network objectivec.IObject, block VoidHandler) {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler) {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler, index VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	_block3, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler) {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block VoidHandler, index VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
@@ -122,7 +114,7 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkRefe
 
 // ExecuteDataFrameStorageWithNetworkBlockSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockSync(ctx context.Context, storage objectivec.IObject, network objectivec.IObject) error {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer) error {
 	done := make(chan struct{}, 1)
 	e.ExecuteDataFrameStorageWithNetworkBlock(storage, network, func() {
 		done <- struct{}{}
@@ -137,7 +129,7 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBloc
 
 // ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network objectivec.IObject, block VoidHandler) error {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, block VoidHandler) error {
 	done := make(chan struct{}, 1)
 	e.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage, network, block, func() {
 		done <- struct{}{}
@@ -152,7 +144,7 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBloc
 
 // ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler) error {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block VoidHandler) error {
 	done := make(chan struct{}, 1)
 	e.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage, network, network2, block, func() {
 		done <- struct{}{}

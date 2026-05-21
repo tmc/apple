@@ -54,8 +54,6 @@ func (dc DIStatFSClass) Alloc() DIStatFS {
 //   - [DIStatFS.SupportsBarrier]
 //   - [DIStatFS.InitWithCoder]
 //   - [DIStatFS.InitWithFileDescriptorError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS
 type DIStatFS struct {
 	objectivec.Object
 }
@@ -80,8 +78,6 @@ var _ IDIStatFS = DIStatFS{}
 //   - [IDIStatFS.SupportsBarrier]
 //   - [IDIStatFS.InitWithCoder]
 //   - [IDIStatFS.InitWithFileDescriptorError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS
 type IDIStatFS interface {
 	objectivec.IObject
 
@@ -91,7 +87,7 @@ type IDIStatFS interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 	LogWithHeader(header objectivec.IObject)
 	MountedFrom() string
-	MountedOnURL() foundation.INSURL
+	MountedOnURL() foundation.NSURL
 	SupportsBarrier() bool
 	InitWithCoder(coder foundation.INSCoder) DIStatFS
 	InitWithFileDescriptorError(descriptor int) (DIStatFS, error)
@@ -116,14 +112,12 @@ func NewDIStatFS() DIStatFS {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/initWithCoder:
 func NewDIStatFSWithCoder(coder objectivec.IObject) DIStatFS {
 	instance := getDIStatFSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStatFSFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/initWithFileDescriptor:error:
 func NewDIStatFSWithFileDescriptorError(descriptor int) (DIStatFS, error) {
 	var errorPtr objc.ID
 	instance := getDIStatFSClass().Alloc()
@@ -135,23 +129,16 @@ func NewDIStatFSWithFileDescriptorError(descriptor int) (DIStatFS, error) {
 	return DIStatFSFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/encodeWithCoder:
 func (d DIStatFS) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/logWithHeader:
 func (d DIStatFS) LogWithHeader(header objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("logWithHeader:"), header)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/initWithCoder:
 func (d DIStatFS) InitWithCoder(coder foundation.INSCoder) DIStatFS {
 	rv := objc.Send[DIStatFS](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/initWithFileDescriptor:error:
 func (d DIStatFS) InitWithFileDescriptorError(descriptor int) (DIStatFS, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFileDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
@@ -163,31 +150,23 @@ func (d DIStatFS) InitWithFileDescriptorError(descriptor int) (DIStatFS, error) 
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/supportsSecureCoding
 func (_DIStatFSClass DIStatFSClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DIStatFSClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/blockSize
 func (d DIStatFS) BlockSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/mountedFrom
 func (d DIStatFS) MountedFrom() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountedFrom"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/mountedOnURL
-func (d DIStatFS) MountedOnURL() foundation.INSURL {
+func (d DIStatFS) MountedOnURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountedOnURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatFS/supportsBarrier
 func (d DIStatFS) SupportsBarrier() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("supportsBarrier"))
 	return rv

@@ -42,7 +42,6 @@ func (mc MLRemoteCoreMLErrorsClass) Alloc() MLRemoteCoreMLErrors {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors
 type MLRemoteCoreMLErrors struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLRemoteCoreMLErrorsFromID(id objc.ID) MLRemoteCoreMLErrors {
 var _ IMLRemoteCoreMLErrors = MLRemoteCoreMLErrors{}
 
 // An interface definition for the [MLRemoteCoreMLErrors] class.
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors
 type IMLRemoteCoreMLErrors interface {
 	objectivec.IObject
 }
@@ -81,13 +78,10 @@ func NewMLRemoteCoreMLErrors() MLRemoteCoreMLErrors {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors/clientTimeoutErrorForMethod:
 func (_MLRemoteCoreMLErrorsClass MLRemoteCoreMLErrorsClass) ClientTimeoutErrorForMethod(method objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLRemoteCoreMLErrorsClass.class), objc.Sel("clientTimeoutErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors/createErrorWithCode:description:
 func (_MLRemoteCoreMLErrorsClass MLRemoteCoreMLErrorsClass) CreateErrorWithCodeDescription(code int64, description objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLRemoteCoreMLErrorsClass.class), objc.Sel("createErrorWithCode:description:"), code, description)
 	return objectivec.Object{ID: rv}

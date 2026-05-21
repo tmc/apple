@@ -42,7 +42,6 @@ func (cc CoreMLMLModelTensorSharedEventClass) Alloc() CoreMLMLModelTensorSharedE
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLModelTensorSharedEvent
 type CoreMLMLModelTensorSharedEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLModelTensorSharedEventFromID(id objc.ID) CoreMLMLModelTensorSharedE
 // ICoreMLMLModelTensorSharedEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLModelTensorSharedEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLModelTensorSharedEvent
 type ICoreMLMLModelTensorSharedEvent interface {
 	objectivec.IObject
 }

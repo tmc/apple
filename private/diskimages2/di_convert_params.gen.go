@@ -92,8 +92,6 @@ func (dc DIConvertParamsClass) Alloc() DIConvertParams {
 //   - [DIConvertParams.InitForInplaceWithURLError]
 //   - [DIConvertParams.InitWithInputURLOutputURLError]
 //   - [DIConvertParams.InitWithInputURLOutputURLShadowURLsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams
 type DIConvertParams struct {
 	DIBaseParams
 }
@@ -154,8 +152,6 @@ var _ IDIConvertParams = DIConvertParams{}
 //   - [IDIConvertParams.InitForInplaceWithURLError]
 //   - [IDIConvertParams.InitWithInputURLOutputURLError]
 //   - [IDIConvertParams.InitWithInputURLOutputURLShadowURLsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams
 type IDIConvertParams interface {
 	IDIBaseParams
 
@@ -199,12 +195,12 @@ type IDIConvertParams interface {
 	TemporaryPassphrase() IDITemporaryPassphrase
 	UseFormatMappingInfo() bool
 	SetUseFormatMappingInfo(value bool)
-	ValidateFileWithURLError(url foundation.INSURL) (bool, error)
+	ValidateFileWithURLError(url foundation.NSURL) (bool, error)
 	ValidateSquashFormats() bool
 	InitForInplaceWithExistingParamsError(params objectivec.IObject) (DIConvertParams, error)
-	InitForInplaceWithURLError(url foundation.INSURL) (DIConvertParams, error)
-	InitWithInputURLOutputURLError(url foundation.INSURL, url2 foundation.INSURL) (DIConvertParams, error)
-	InitWithInputURLOutputURLShadowURLsError(url foundation.INSURL, url2 foundation.INSURL, uRLs objectivec.IObject) (DIConvertParams, error)
+	InitForInplaceWithURLError(url foundation.NSURL) (DIConvertParams, error)
+	InitWithInputURLOutputURLError(url foundation.NSURL, url2 foundation.NSURL) (DIConvertParams, error)
+	InitWithInputURLOutputURLShadowURLsError(url foundation.NSURL, url2 foundation.NSURL, uRLs objectivec.IObject) (DIConvertParams, error)
 }
 
 // Init initializes the instance.
@@ -226,7 +222,6 @@ func NewDIConvertParams() DIConvertParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initForInplaceWithExistingParams:error:
 func NewDIConvertParamsForInplaceWithExistingParamsError(params objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
@@ -238,8 +233,7 @@ func NewDIConvertParamsForInplaceWithExistingParamsError(params objectivec.IObje
 	return DIConvertParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initForInplaceWithURL:error:
-func NewDIConvertParamsForInplaceWithURLError(url foundation.INSURL) (DIConvertParams, error) {
+func NewDIConvertParamsForInplaceWithURLError(url foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForInplaceWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -250,15 +244,13 @@ func NewDIConvertParamsForInplaceWithURLError(url foundation.INSURL) (DIConvertP
 	return DIConvertParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initWithCoder:
 func NewDIConvertParamsWithCoder(coder objectivec.IObject) DIConvertParams {
 	instance := getDIConvertParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIConvertParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initWithInputURL:outputURL:error:
-func NewDIConvertParamsWithInputURLOutputURLError(url foundation.INSURL, url2 foundation.INSURL) (DIConvertParams, error) {
+func NewDIConvertParamsWithInputURLOutputURLError(url foundation.NSURL, url2 foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:error:"), url, url2, unsafe.Pointer(&errorPtr))
@@ -269,8 +261,7 @@ func NewDIConvertParamsWithInputURLOutputURLError(url foundation.INSURL, url2 fo
 	return DIConvertParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initWithInputURL:outputURL:shadowURLs:error:
-func NewDIConvertParamsWithInputURLOutputURLShadowURLsError(url foundation.INSURL, url2 foundation.INSURL, uRLs objectivec.IObject) (DIConvertParams, error) {
+func NewDIConvertParamsWithInputURLOutputURLShadowURLsError(url foundation.NSURL, url2 foundation.NSURL, uRLs objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:shadowURLs:error:"), url, url2, uRLs, unsafe.Pointer(&errorPtr))
@@ -281,8 +272,7 @@ func NewDIConvertParamsWithInputURLOutputURLShadowURLsError(url foundation.INSUR
 	return DIConvertParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
-func NewDIConvertParamsWithURLError(url foundation.INSURL) (DIConvertParams, error) {
+func NewDIConvertParamsWithURLError(url foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -293,14 +283,11 @@ func NewDIConvertParamsWithURLError(url foundation.INSURL) (DIConvertParams, err
 	return DIConvertParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/convertWithCompletionBlock:
 func (d DIConvertParams) ConvertWithCompletionBlock(block VoidHandler) objectivec.IObject {
 	_block0, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("convertWithCompletionBlock:"), _block0)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/copyUpdatedOutputURLWithError:
 func (d DIConvertParams) CopyUpdatedOutputURLWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyUpdatedOutputURLWithError:"), unsafe.Pointer(&errorPtr))
@@ -311,14 +298,10 @@ func (d DIConvertParams) CopyUpdatedOutputURLWithError() (objectivec.IObject, er
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/isInputURLDevice
 func (d DIConvertParams) IsInputURLDevice() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isInputURLDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/onConvertCompletionWithInError:outError:
 func (d DIConvertParams) OnConvertCompletionWithInErrorOutError(error_ objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("onConvertCompletionWithInError:outError:"), error_, unsafe.Pointer(&errorPtr))
@@ -332,8 +315,6 @@ func (d DIConvertParams) OnConvertCompletionWithInErrorOutError(error_ objective
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/openDeviceAsRootWithError:
 func (d DIConvertParams) OpenDeviceAsRootWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("openDeviceAsRootWithError:"), unsafe.Pointer(&errorPtr))
@@ -344,8 +325,6 @@ func (d DIConvertParams) OpenDeviceAsRootWithError() (objectivec.IObject, error)
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/prepareConvertWithError:
 func (d DIConvertParams) PrepareConvertWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("prepareConvertWithError:"), unsafe.Pointer(&errorPtr))
@@ -356,8 +335,6 @@ func (d DIConvertParams) PrepareConvertWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/prepareParamsForSquashWithError:
 func (d DIConvertParams) PrepareParamsForSquashWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("prepareParamsForSquashWithError:"), unsafe.Pointer(&errorPtr))
@@ -371,8 +348,6 @@ func (d DIConvertParams) PrepareParamsForSquashWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/prepareParamsWithError:
 func (d DIConvertParams) PrepareParamsWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("prepareParamsWithError:"), unsafe.Pointer(&errorPtr))
@@ -386,8 +361,6 @@ func (d DIConvertParams) PrepareParamsWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/setPassphrase:encryptionMethod:error:
 func (d DIConvertParams) SetPassphraseEncryptionMethodError(passphrase string, method uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:encryptionMethod:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), method, unsafe.Pointer(&errorPtr))
@@ -401,8 +374,6 @@ func (d DIConvertParams) SetPassphraseEncryptionMethodError(passphrase string, m
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/setPassphrase:error:
 func (d DIConvertParams) SetPassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), unsafe.Pointer(&errorPtr))
@@ -416,15 +387,11 @@ func (d DIConvertParams) SetPassphraseError(passphrase string) (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/shouldPerformInplaceSquash
 func (d DIConvertParams) ShouldPerformInplaceSquash() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldPerformInplaceSquash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/validateFileWithURL:error:
-func (d DIConvertParams) ValidateFileWithURLError(url foundation.INSURL) (bool, error) {
+func (d DIConvertParams) ValidateFileWithURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("validateFileWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -437,14 +404,10 @@ func (d DIConvertParams) ValidateFileWithURLError(url foundation.INSURL) (bool, 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/validateSquashFormats
 func (d DIConvertParams) ValidateSquashFormats() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("validateSquashFormats"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initForInplaceWithExistingParams:error:
 func (d DIConvertParams) InitForInplaceWithExistingParamsError(params objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initForInplaceWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
@@ -455,9 +418,7 @@ func (d DIConvertParams) InitForInplaceWithExistingParamsError(params objectivec
 	return DIConvertParamsFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initForInplaceWithURL:error:
-func (d DIConvertParams) InitForInplaceWithURLError(url foundation.INSURL) (DIConvertParams, error) {
+func (d DIConvertParams) InitForInplaceWithURLError(url foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initForInplaceWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -467,9 +428,7 @@ func (d DIConvertParams) InitForInplaceWithURLError(url foundation.INSURL) (DICo
 	return DIConvertParamsFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initWithInputURL:outputURL:error:
-func (d DIConvertParams) InitWithInputURLOutputURLError(url foundation.INSURL, url2 foundation.INSURL) (DIConvertParams, error) {
+func (d DIConvertParams) InitWithInputURLOutputURLError(url foundation.NSURL, url2 foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithInputURL:outputURL:error:"), url, url2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -479,9 +438,7 @@ func (d DIConvertParams) InitWithInputURLOutputURLError(url foundation.INSURL, u
 	return DIConvertParamsFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/initWithInputURL:outputURL:shadowURLs:error:
-func (d DIConvertParams) InitWithInputURLOutputURLShadowURLsError(url foundation.INSURL, url2 foundation.INSURL, uRLs objectivec.IObject) (DIConvertParams, error) {
+func (d DIConvertParams) InitWithInputURLOutputURLShadowURLsError(url foundation.NSURL, url2 foundation.NSURL, uRLs objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithInputURL:outputURL:shadowURLs:error:"), url, url2, uRLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -492,7 +449,6 @@ func (d DIConvertParams) InitWithInputURLOutputURLShadowURLsError(url foundation
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/certificate
 func (d DIConvertParams) Certificate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("certificate"))
 	return foundation.NSStringFromID(rv).String()
@@ -500,8 +456,6 @@ func (d DIConvertParams) Certificate() string {
 func (d DIConvertParams) SetCertificate(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/conversionMethod
 func (d DIConvertParams) ConversionMethod() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("conversionMethod"))
 	return rv
@@ -509,8 +463,6 @@ func (d DIConvertParams) ConversionMethod() uint64 {
 func (d DIConvertParams) SetConversionMethod(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setConversionMethod:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/encryptionMethod
 func (d DIConvertParams) EncryptionMethod() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("encryptionMethod"))
 	return rv
@@ -518,14 +470,10 @@ func (d DIConvertParams) EncryptionMethod() uint64 {
 func (d DIConvertParams) SetEncryptionMethod(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/inPlaceConversion
 func (d DIConvertParams) InPlaceConversion() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("inPlaceConversion"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/maxRawUDIFRunSize
 func (d DIConvertParams) MaxRawUDIFRunSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("maxRawUDIFRunSize"))
 	return rv
@@ -533,8 +481,6 @@ func (d DIConvertParams) MaxRawUDIFRunSize() uint64 {
 func (d DIConvertParams) SetMaxRawUDIFRunSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxRawUDIFRunSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/outputFormat
 func (d DIConvertParams) OutputFormat() int64 {
 	rv := objc.Send[int64](d.ID, objc.Sel("outputFormat"))
 	return rv
@@ -542,8 +488,6 @@ func (d DIConvertParams) OutputFormat() int64 {
 func (d DIConvertParams) SetOutputFormat(value int64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOutputFormat:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/outputParams
 func (d DIConvertParams) OutputParams() IDIBaseParams {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("outputParams"))
 	return DIBaseParamsFromID(objc.ID(rv))
@@ -551,8 +495,6 @@ func (d DIConvertParams) OutputParams() IDIBaseParams {
 func (d DIConvertParams) SetOutputParams(value IDIBaseParams) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOutputParams:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/outputURL
 func (d DIConvertParams) OutputURL() IDIURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("outputURL"))
 	return DIURLFromID(objc.ID(rv))
@@ -560,8 +502,6 @@ func (d DIConvertParams) OutputURL() IDIURL {
 func (d DIConvertParams) SetOutputURL(value IDIURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOutputURL:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/passphrase
 func (d DIConvertParams) Passphrase() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("passphrase"))
 	return rv
@@ -569,8 +509,6 @@ func (d DIConvertParams) Passphrase() bool {
 func (d DIConvertParams) SetPassphrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/publicKey
 func (d DIConvertParams) PublicKey() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("publicKey"))
 	return foundation.NSStringFromID(rv).String()
@@ -578,14 +516,10 @@ func (d DIConvertParams) PublicKey() string {
 func (d DIConvertParams) SetPublicKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/shadowURLs
 func (d DIConvertParams) ShadowURLs() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowURLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/shouldValidateShadows
 func (d DIConvertParams) ShouldValidateShadows() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
 	return rv
@@ -593,8 +527,6 @@ func (d DIConvertParams) ShouldValidateShadows() bool {
 func (d DIConvertParams) SetShouldValidateShadows(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/sparseBundleBandSize
 func (d DIConvertParams) SparseBundleBandSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
 	return rv
@@ -602,14 +534,10 @@ func (d DIConvertParams) SparseBundleBandSize() uint64 {
 func (d DIConvertParams) SetSparseBundleBandSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/temporaryPassphrase
 func (d DIConvertParams) TemporaryPassphrase() IDITemporaryPassphrase {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIConvertParams/useFormatMappingInfo
 func (d DIConvertParams) UseFormatMappingInfo() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("useFormatMappingInfo"))
 	return rv

@@ -41,7 +41,6 @@ func (vc VZVirtioConsoleDeviceConfigurationClass) Alloc() VZVirtioConsoleDeviceC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceConfiguration
 type VZVirtioConsoleDeviceConfiguration struct {
 	VZConsoleDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioConsoleDeviceConfigurationFromID(id objc.ID) VZVirtioConsoleDeviceC
 var _ IVZVirtioConsoleDeviceConfiguration = VZVirtioConsoleDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioConsoleDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceConfiguration
 type IVZVirtioConsoleDeviceConfiguration interface {
 	IVZConsoleDeviceConfiguration
 }

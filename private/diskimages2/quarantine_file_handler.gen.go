@@ -56,8 +56,6 @@ func (qc QuarantineFileHandlerClass) Alloc() QuarantineFileHandler {
 //   - [QuarantineFileHandler.InitWithBackendError]
 //   - [QuarantineFileHandler.InitWithFDError]
 //   - [QuarantineFileHandler.InitWithFlagError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler
 type QuarantineFileHandler struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IQuarantineFileHandler = QuarantineFileHandler{}
 //   - [IQuarantineFileHandler.InitWithBackendError]
 //   - [IQuarantineFileHandler.InitWithFDError]
 //   - [IQuarantineFileHandler.InitWithFlagError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler
 type IQuarantineFileHandler interface {
 	objectivec.IObject
 
@@ -96,7 +92,7 @@ type IQuarantineFileHandler interface {
 	IsQuarantined() bool
 	QtFile() QtnFileRef
 	SetQtFile(value QtnFileRef)
-	InitWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error)
+	InitWithBackendError(backend unsafe.Pointer) (QuarantineFileHandler, error)
 	InitWithFDError(fd int) (QuarantineFileHandler, error)
 	InitWithFlagError(flag uint32) (QuarantineFileHandler, error)
 }
@@ -120,8 +116,7 @@ func NewQuarantineFileHandler() QuarantineFileHandler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithBackend:error:
-func NewQuarantineFileHandlerWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error) {
+func NewQuarantineFileHandlerWithBackendError(backend unsafe.Pointer) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:error:"), backend, unsafe.Pointer(&errorPtr))
@@ -132,7 +127,6 @@ func NewQuarantineFileHandlerWithBackendError(backend objectivec.IObject) (Quara
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFD:error:
 func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
@@ -144,7 +138,6 @@ func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) 
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFlag:error:
 func NewQuarantineFileHandlerWithFlagError(flag uint32) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
@@ -156,7 +149,6 @@ func NewQuarantineFileHandlerWithFlagError(flag uint32) (QuarantineFileHandler, 
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/applyMountPointsWithBSDName:error:
 func (q QuarantineFileHandler) ApplyMountPointsWithBSDNameError(bSDName objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](q.ID, objc.Sel("applyMountPointsWithBSDName:error:"), bSDName, unsafe.Pointer(&errorPtr))
@@ -170,8 +162,6 @@ func (q QuarantineFileHandler) ApplyMountPointsWithBSDNameError(bSDName objectiv
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/checkErrorWithQtnInitResult:error:
 func (q QuarantineFileHandler) CheckErrorWithQtnInitResultError(result int) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](q.ID, objc.Sel("checkErrorWithQtnInitResult:error:"), result, unsafe.Pointer(&errorPtr))
@@ -185,8 +175,6 @@ func (q QuarantineFileHandler) CheckErrorWithQtnInitResultError(result int) (boo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/getFileInfoWithError:
 func (q QuarantineFileHandler) GetFileInfoWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("getFileInfoWithError:"), unsafe.Pointer(&errorPtr))
@@ -197,9 +185,7 @@ func (q QuarantineFileHandler) GetFileInfoWithError() (objectivec.IObject, error
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithBackend:error:
-func (q QuarantineFileHandler) InitWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error) {
+func (q QuarantineFileHandler) InitWithBackendError(backend unsafe.Pointer) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("initWithBackend:error:"), backend, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -209,8 +195,6 @@ func (q QuarantineFileHandler) InitWithBackendError(backend objectivec.IObject) 
 	return QuarantineFileHandlerFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFD:error:
 func (q QuarantineFileHandler) InitWithFDError(fd int) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("initWithFD:error:"), fd, unsafe.Pointer(&errorPtr))
@@ -221,8 +205,6 @@ func (q QuarantineFileHandler) InitWithFDError(fd int) (QuarantineFileHandler, e
 	return QuarantineFileHandlerFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFlag:error:
 func (q QuarantineFileHandler) InitWithFlagError(flag uint32) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("initWithFlag:error:"), flag, unsafe.Pointer(&errorPtr))
@@ -234,13 +216,10 @@ func (q QuarantineFileHandler) InitWithFlagError(flag uint32) (QuarantineFileHan
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/isQuarantined
 func (q QuarantineFileHandler) IsQuarantined() bool {
 	rv := objc.Send[bool](q.ID, objc.Sel("isQuarantined"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/qtFile
 func (q QuarantineFileHandler) QtFile() QtnFileRef {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("qtFile"))
 	return QtnFileRef(rv)

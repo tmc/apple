@@ -41,7 +41,6 @@ func (ec EspressoPassFuseConvBatchnormClass) Alloc() EspressoPassFuseConvBatchno
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
 type EspressoPassFuseConvBatchnorm struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_conv_batchnormFromID(id objc.ID) EspressoPassFuseConvBatc
 var _ IEspressoPassFuseConvBatchnorm = EspressoPassFuseConvBatchnorm{}
 
 // An interface definition for the [EspressoPassFuseConvBatchnorm] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
 type IEspressoPassFuseConvBatchnorm interface {
 	IEspressoCustomPass
 }

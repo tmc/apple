@@ -41,7 +41,6 @@ func (ec EspressoPassRemoveSqueezeExpanddims1dOpsClass) Alloc() EspressoPassRemo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
 type EspressoPassRemoveSqueezeExpanddims1dOps struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_remove_squeeze_expanddims_1d_opsFromID(id objc.ID) EspressoPas
 var _ IEspressoPassRemoveSqueezeExpanddims1dOps = EspressoPassRemoveSqueezeExpanddims1dOps{}
 
 // An interface definition for the [EspressoPassRemoveSqueezeExpanddims1dOps] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
 type IEspressoPassRemoveSqueezeExpanddims1dOps interface {
 	IEspressoCustomPass
 }

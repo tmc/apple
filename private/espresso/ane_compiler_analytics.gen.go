@@ -63,8 +63,6 @@ func (ac ANECompilerAnalyticsClass) Alloc() ANECompilerAnalytics {
 //   - [ANECompilerAnalytics.StringForAnalyticsType]
 //   - [ANECompilerAnalytics.TaskInfoAt]
 //   - [ANECompilerAnalytics.InitWithBuffer]
-//
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics
 type ANECompilerAnalytics struct {
 	objectivec.Object
 }
@@ -97,14 +95,12 @@ var _ IANECompilerAnalytics = ANECompilerAnalytics{}
 //   - [IANECompilerAnalytics.StringForAnalyticsType]
 //   - [IANECompilerAnalytics.TaskInfoAt]
 //   - [IANECompilerAnalytics.InitWithBuffer]
-//
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics
 type IANECompilerAnalytics interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	AnalyticsBuffer() foundation.INSData
+	AnalyticsBuffer() foundation.NSData
 	BufferSizeInBytes() foundation.NSNumber
 	DataInfoAt(at uint64) *appleneuralengine.AnalyticsDataRef
 	GetBOOLDataValueAt(at uint64) bool
@@ -141,104 +137,74 @@ func NewANECompilerAnalytics() ANECompilerAnalytics {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/initWithBuffer:
 func NewANECompilerAnalyticsWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics {
 	instance := getANECompilerAnalyticsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBuffer:"), buffer)
 	return ANECompilerAnalyticsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/dataInfoAt:
 func (a ANECompilerAnalytics) DataInfoAt(at uint64) *appleneuralengine.AnalyticsDataRef {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("dataInfoAt:"), at)
 	return (*appleneuralengine.AnalyticsDataRef)(rv)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/getBOOLDataValueAt:
 func (a ANECompilerAnalytics) GetBOOLDataValueAt(at uint64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("getBOOLDataValueAt:"), at)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/getDataValueAt:
 func (a ANECompilerAnalytics) GetDataValueAt(at uint64) uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("getDataValueAt:"), at)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/groupInfoAt:
 func (a ANECompilerAnalytics) GroupInfoAt(at uint64) *appleneuralengine.AnalyticsGroupInfoRef {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("groupInfoAt:"), at)
 	return (*appleneuralengine.AnalyticsGroupInfoRef)(rv)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/layerInfoAt:
 func (a ANECompilerAnalytics) LayerInfoAt(at uint64) *appleneuralengine.AnalyticsLayerInfoRef {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("layerInfoAt:"), at)
 	return (*appleneuralengine.AnalyticsLayerInfoRef)(rv)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/offsetTableAt:count:
 func (a ANECompilerAnalytics) OffsetTableAtCount(at uint64, count uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("offsetTableAt:count:"), at, count)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/populateAnalytics
 func (a ANECompilerAnalytics) PopulateAnalytics() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("populateAnalytics"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/procedureInfoAt:
 func (a ANECompilerAnalytics) ProcedureInfoAt(at uint64) *appleneuralengine.AnalyticsProcedureInfoRef {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("procedureInfoAt:"), at)
 	return (*appleneuralengine.AnalyticsProcedureInfoRef)(rv)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/serialize
 func (a ANECompilerAnalytics) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/stringForAnalyticsType:
 func (a ANECompilerAnalytics) StringForAnalyticsType(type_ uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stringForAnalyticsType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/taskInfoAt:
 func (a ANECompilerAnalytics) TaskInfoAt(at uint64) *appleneuralengine.AnalyticsTaskInfoRef {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("taskInfoAt:"), at)
 	return (*appleneuralengine.AnalyticsTaskInfoRef)(rv)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/initWithBuffer:
 func (a ANECompilerAnalytics) InitWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics {
 	rv := objc.Send[ANECompilerAnalytics](a.ID, objc.Sel("initWithBuffer:"), buffer)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/objectWithBuffer:
 func (_ANECompilerAnalyticsClass ANECompilerAnalyticsClass) ObjectWithBuffer(buffer objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerAnalyticsClass.class), objc.Sel("objectWithBuffer:"), buffer)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/analyticsBuffer
-func (a ANECompilerAnalytics) AnalyticsBuffer() foundation.INSData {
+func (a ANECompilerAnalytics) AnalyticsBuffer() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("analyticsBuffer"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/bufferSizeInBytes
 func (a ANECompilerAnalytics) BufferSizeInBytes() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bufferSizeInBytes"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANECompilerAnalytics/procedureAnalytics
 func (a ANECompilerAnalytics) ProcedureAnalytics() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureAnalytics"))
 	return foundation.NSArrayFromID(objc.ID(rv))

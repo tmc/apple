@@ -44,7 +44,6 @@ func (mc MLFeatureTypeUtilsClass) Alloc() MLFeatureTypeUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils
 type MLFeatureTypeUtils struct {
 	objectivec.Object
 }
@@ -58,8 +57,6 @@ func MLFeatureTypeUtilsFromID(id objc.ID) MLFeatureTypeUtils {
 var _ IMLFeatureTypeUtils = MLFeatureTypeUtils{}
 
 // An interface definition for the [MLFeatureTypeUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils
 type IMLFeatureTypeUtils interface {
 	objectivec.IObject
 }
@@ -83,19 +80,14 @@ func NewMLFeatureTypeUtils() MLFeatureTypeUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/canShapeArrayBePromotedFrom:to:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) CanShapeArrayBePromotedFromTo(from objectivec.IObject, to objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("canShapeArrayBePromotedFrom:to:"), from, to)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/descriptionForType:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) DescriptionForType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("descriptionForType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/featureDescriptionWithName:consistentWithFeatureValues:error:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureDescriptionWithNameConsistentWithFeatureValuesError(name objectivec.IObject, values objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureDescriptionWithName:consistentWithFeatureValues:error:"), name, values, unsafe.Pointer(&errorPtr))
@@ -106,14 +98,10 @@ func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureDescriptionWithNa
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/featureTypeForObject:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureTypeForObject(object objectivec.IObject) int64 {
 	rv := objc.Send[int64](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureTypeForObject:"), object)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/featureTypeForValuesInArray:error:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureTypeForValuesInArrayError(array objectivec.IObject) (int64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int64](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureTypeForValuesInArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -124,8 +112,6 @@ func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureTypeForValuesInAr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureTypeUtils/featureValuesWithConsistentTypeFromArray:error:
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureValuesWithConsistentTypeFromArrayError(array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureValuesWithConsistentTypeFromArray:error:"), array, unsafe.Pointer(&errorPtr))

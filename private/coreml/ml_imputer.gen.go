@@ -49,8 +49,6 @@ func (mc MLImputerClass) Alloc() MLImputer {
 //   - [MLImputer.ImputeValue]
 //   - [MLImputer.ReplaceValue]
 //   - [MLImputer.InitWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLImputer
 type MLImputer struct {
 	MLModelEngine
 }
@@ -70,8 +68,6 @@ var _ IMLImputer = MLImputer{}
 //   - [IMLImputer.ImputeValue]
 //   - [IMLImputer.ReplaceValue]
 //   - [IMLImputer.InitWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLImputer
 type IMLImputer interface {
 	IMLModelEngine
 
@@ -101,14 +97,12 @@ func NewMLImputer() MLImputer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewImputerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLImputerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:
 func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
 	var errorPtr objc.ID
 	instance := getMLImputerClass().Alloc()
@@ -120,14 +114,12 @@ func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrder
 	return MLImputerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewImputerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLImputerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:
 func (m MLImputer) InitWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, value, value2, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
@@ -139,7 +131,6 @@ func (m MLImputer) InitWithImputeValueReplaceValueInputDescriptionOutputDescript
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/imputeValueFrom:replaceValue:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:
 func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesError(from objectivec.IObject, value objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLImputerClass.class), objc.Sel("imputeValueFrom:replaceValue:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:"), from, value, name, description, description2, names, names2, unsafe.Pointer(&errorPtr))
@@ -150,8 +141,6 @@ func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueDataTransformer
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/imputeValueFrom:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:
 func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesError(from objectivec.IObject, value objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLImputerClass.class), objc.Sel("imputeValueFrom:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:"), from, value, description, description2, names, names2, unsafe.Pointer(&errorPtr))
@@ -162,8 +151,6 @@ func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueInputDescriptio
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/loadModelFromSpecification:configuration:error:
 func (_MLImputerClass MLImputerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLImputerClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -175,13 +162,10 @@ func (_MLImputerClass MLImputerClass) LoadModelFromSpecificationConfigurationErr
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/imputeValue
 func (m MLImputer) ImputeValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("imputeValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLImputer/replaceValue
 func (m MLImputer) ReplaceValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("replaceValue"))
 	return MLFeatureValueFromID(objc.ID(rv))

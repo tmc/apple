@@ -48,8 +48,6 @@ func (sc SLSBridgedManagedDisplaySetIsAnimatingOperationClass) Alloc() SLSBridge
 //   - [SLSBridgedManagedDisplaySetIsAnimatingOperation.DisplayIdentifier]
 //   - [SLSBridgedManagedDisplaySetIsAnimatingOperation.IsAnimating]
 //   - [SLSBridgedManagedDisplaySetIsAnimatingOperation.InitWithDisplayIdentifierIsAnimating]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation
 type SLSBridgedManagedDisplaySetIsAnimatingOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedManagedDisplaySetIsAnimatingOperation = SLSBridgedManagedDispla
 //   - [ISLSBridgedManagedDisplaySetIsAnimatingOperation.DisplayIdentifier]
 //   - [ISLSBridgedManagedDisplaySetIsAnimatingOperation.IsAnimating]
 //   - [ISLSBridgedManagedDisplaySetIsAnimatingOperation.InitWithDisplayIdentifierIsAnimating]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation
 type ISLSBridgedManagedDisplaySetIsAnimatingOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedManagedDisplaySetIsAnimatingOperation() SLSBridgedManagedDispl
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation/initWithCoder:
 func NewSLSBridgedManagedDisplaySetIsAnimatingOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	instance := getSLSBridgedManagedDisplaySetIsAnimatingOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaySetIsAnimatingOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation/initWithDisplayIdentifier:isAnimating:
 func NewSLSBridgedManagedDisplaySetIsAnimatingOperationWithDisplayIdentifierIsAnimating(identifier objectivec.IObject, animating bool) SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	instance := getSLSBridgedManagedDisplaySetIsAnimatingOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
 	return SLSBridgedManagedDisplaySetIsAnimatingOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation/initWithDisplayIdentifier:isAnimating:
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) InitWithDisplayIdentifierIsAnimating(identifier objectivec.IObject, animating bool) SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation/displayIdentifier
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) DisplayIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaySetIsAnimatingOperation/isAnimating
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) IsAnimating() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAnimating"))
 	return rv

@@ -113,8 +113,6 @@ func (gc GTMioShaderBinaryDataClass) Alloc() GTMioShaderBinaryData {
 //   - [GTMioShaderBinaryData.Description]
 //   - [GTMioShaderBinaryData.Hash]
 //   - [GTMioShaderBinaryData.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData
 type GTMioShaderBinaryData struct {
 	objectivec.Object
 }
@@ -197,8 +195,6 @@ var _ IGTMioShaderBinaryData = GTMioShaderBinaryData{}
 //   - [IGTMioShaderBinaryData.Description]
 //   - [IGTMioShaderBinaryData.Hash]
 //   - [IGTMioShaderBinaryData.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData
 type IGTMioShaderBinaryData interface {
 	objectivec.IObject
 
@@ -207,11 +203,11 @@ type IGTMioShaderBinaryData interface {
 	Address() uint64
 	AddressForInstructionAtIndex(index uint32) uint64
 	BinaryRangeIndexForInstructionIndex(index uint32) uint32
-	CachedISAFileURL() foundation.INSURL
+	CachedISAFileURL() foundation.NSURL
 	Cost() unsafe.Pointer
 	CostCount() uint64
-	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool
-	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool
+	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
+	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
 	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 	Costs() unsafe.Pointer
 	DebugBinaryRangeCount() uint64
@@ -257,9 +253,9 @@ type IGTMioShaderBinaryData interface {
 	ProgramType() uint16
 	TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64
 	TraceCount() uint64
-	TraceData() objectivec.IObject
+	TraceData() unsafe.Pointer
 	Traces() unsafe.Pointer
-	TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer
+	TracesForProgramTypeCount(type_ uint16, count *uint64) unsafe.Pointer
 	UsedInDataMaster(master uint16) bool
 	UsedInDylib() bool
 	UsedInEncoder(encoder uint64) bool
@@ -269,7 +265,7 @@ type IGTMioShaderBinaryData interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -291,404 +287,273 @@ func NewGTMioShaderBinaryData() GTMioShaderBinaryData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/initWithBinaryData:parent:index:
 func NewGTMioShaderBinaryDataWithBinaryDataParentIndex(data unsafe.Pointer, parent objectivec.IObject, index uint64) GTMioShaderBinaryData {
 	instance := getGTMioShaderBinaryDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
 	return GTMioShaderBinaryDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/addressForInstructionAtIndex:
 func (g GTMioShaderBinaryData) AddressForInstructionAtIndex(index uint32) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("addressForInstructionAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/binaryRangeIndexForInstructionIndex:
 func (g GTMioShaderBinaryData) BinaryRangeIndexForInstructionIndex(index uint32) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("binaryRangeIndexForInstructionIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/cachedISAFileURL
-func (g GTMioShaderBinaryData) CachedISAFileURL() foundation.INSURL {
+func (g GTMioShaderBinaryData) CachedISAFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cachedISAFileURL"))
 	return foundation.NSURLFromID(rv)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:
-func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:"), range_, scope, identifier, cost, instructions)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:
-func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:"), line, index, scope, identifier, cost, instructions)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForScope:scopeIdentifier:cost:
 func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugFilePathForDebugLocationAtIndex:
 func (g GTMioShaderBinaryData) DebugFilePathForDebugLocationAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFilePathForDebugLocationAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugFunctionNameForDebugLocationAtIndex:
 func (g GTMioShaderBinaryData) DebugFunctionNameForDebugLocationAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFunctionNameForDebugLocationAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugLocationAtIndex:
 func (g GTMioShaderBinaryData) DebugLocationAtIndex(index uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugLocationAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugRangeForInstructionAtIndex:
 func (g GTMioShaderBinaryData) DebugRangeForInstructionAtIndex(index uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugRangeForInstructionAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugStringForStringIndex:
 func (g GTMioShaderBinaryData) DebugStringForStringIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugStringForStringIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateBinaryRangesForFile:line:enumerator:
 func (g GTMioShaderBinaryData) EnumerateBinaryRangesForFileLineEnumerator(file uint32, line uint32, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForFile:line:enumerator:"), file, line, _block2)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateDrawsWithProgramType:enumerator:
 func (g GTMioShaderBinaryData) EnumerateDrawsWithProgramTypeEnumerator(type_ uint16, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsWithProgramType:enumerator:"), type_, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateEncoderCosts:
 func (g GTMioShaderBinaryData) EnumerateEncoderCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEncoderCosts:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateEntryPoints:
 func (g GTMioShaderBinaryData) EnumerateEntryPoints(points VoidHandler) {
 	_block0, _ := NewVoidBlock(points)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEntryPoints:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateInstructionsForBinaryRange:enumerator:
 func (g GTMioShaderBinaryData) EnumerateInstructionsForBinaryRangeEnumerator(range_ uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForBinaryRange:enumerator:"), range_, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateLinesForFile:enumerator:
 func (g GTMioShaderBinaryData) EnumerateLinesForFileEnumerator(file uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateLinesForFile:enumerator:"), file, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumeratePerDrawCosts:
 func (g GTMioShaderBinaryData) EnumeratePerDrawCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePerDrawCosts:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumeratePipelineStateCosts:
 func (g GTMioShaderBinaryData) EnumeratePipelineStateCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStateCosts:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumeratePipelineStatesWithProgramType:enumerator:
 func (g GTMioShaderBinaryData) EnumeratePipelineStatesWithProgramTypeEnumerator(type_ uint16, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStatesWithProgramType:enumerator:"), type_, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/enumerateTraces:
 func (g GTMioShaderBinaryData) EnumerateTraces(traces VoidHandler) {
 	_block0, _ := NewVoidBlock(traces)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateTraces:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/fullPathIndexForFilePath:
 func (g GTMioShaderBinaryData) FullPathIndexForFilePath(path objectivec.IObject) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("fullPathIndexForFilePath:"), path)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCost:scope:scopeIdentifier:cost:
 func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("instructionCost:scope:scopeIdentifier:cost:"), cost, scope, identifier, cost2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCostsForDraw:
 func (g GTMioShaderBinaryData) InstructionCostsForDraw(draw uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForDraw:"), draw)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCostsForEncoder:
 func (g GTMioShaderBinaryData) InstructionCostsForEncoder(encoder uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForEncoder:"), encoder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCostsForPipelineState:
 func (g GTMioShaderBinaryData) InstructionCostsForPipelineState(state uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForPipelineState:"), state)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCostsForScope:scopeIdentifier:
 func (g GTMioShaderBinaryData) InstructionCostsForScopeScopeIdentifier(scope uint16, identifier uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForScope:scopeIdentifier:"), scope, identifier)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCountForScope:scopeIdentifier:dataMaster:
 func (g GTMioShaderBinaryData) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/isaForInstructionAtIndex:
 func (g GTMioShaderBinaryData) IsaForInstructionAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/isaForInstructionAtIndex:count:
 func (g GTMioShaderBinaryData) IsaForInstructionAtIndexCount(index uint32, count uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:count:"), index, count)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/isaPrefixForInstructionAtIndex:
 func (g GTMioShaderBinaryData) IsaPrefixForInstructionAtIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrefixForInstructionAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/liveRegisterForInstructionAtIndex:
 func (g GTMioShaderBinaryData) LiveRegisterForInstructionAtIndex(index uint32) int {
 	rv := objc.Send[int](g.ID, objc.Sel("liveRegisterForInstructionAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/totalCostForScope:scopeIdentifier:dataMaster:
 func (g GTMioShaderBinaryData) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/tracesForProgramType:count:
-func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer {
+func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count *uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("tracesForProgramType:count:"), type_, count)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDataMaster:
 func (g GTMioShaderBinaryData) UsedInDataMaster(master uint16) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("usedInDataMaster:"), master)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInEncoder:
 func (g GTMioShaderBinaryData) UsedInEncoder(encoder uint64) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("usedInEncoder:"), encoder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInPipelineState:
 func (g GTMioShaderBinaryData) UsedInPipelineState(state uint64) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("usedInPipelineState:"), state)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInProgramType:
 func (g GTMioShaderBinaryData) UsedInProgramType(type_ uint16) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("usedInProgramType:"), type_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/initWithBinaryData:parent:index:
 func (g GTMioShaderBinaryData) InitWithBinaryDataParentIndex(data unsafe.Pointer, parent objectivec.IObject, index uint64) GTMioShaderBinaryData {
 	rv := objc.Send[GTMioShaderBinaryData](g.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/address
 func (g GTMioShaderBinaryData) Address() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("address"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/cost
 func (g GTMioShaderBinaryData) Cost() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cost"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costCount
 func (g GTMioShaderBinaryData) CostCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costs
 func (g GTMioShaderBinaryData) Costs() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costs"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugBinaryRangeCount
 func (g GTMioShaderBinaryData) DebugBinaryRangeCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("debugBinaryRangeCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugBinaryRanges
 func (g GTMioShaderBinaryData) DebugBinaryRanges() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugBinaryRanges"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugDescription
 func (g GTMioShaderBinaryData) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugLocationCount
 func (g GTMioShaderBinaryData) DebugLocationCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("debugLocationCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugLocations
 func (g GTMioShaderBinaryData) DebugLocations() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugLocations"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/debugStrings
 func (g GTMioShaderBinaryData) DebugStrings() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/description
 func (g GTMioShaderBinaryData) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/duration
 func (g GTMioShaderBinaryData) Duration() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("duration"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/hasRaytracing
 func (g GTMioShaderBinaryData) HasRaytracing() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("hasRaytracing"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/hash
 func (g GTMioShaderBinaryData) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/index
 func (g GTMioShaderBinaryData) Index() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCosts
 func (g GTMioShaderBinaryData) InstructionCosts() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCosts"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionExecuted
 func (g GTMioShaderBinaryData) InstructionExecuted() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionExecuted"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionInfo
 func (g GTMioShaderBinaryData) InstructionInfo() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionInfo"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionInfoCount
 func (g GTMioShaderBinaryData) InstructionInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionInfoCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/internal
 func (g GTMioShaderBinaryData) Internal() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("internal"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/isaStrings
 func (g GTMioShaderBinaryData) IsaStrings() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/programType
 func (g GTMioShaderBinaryData) ProgramType() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/superclass
-func (g GTMioShaderBinaryData) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
-	return rv
+func (g GTMioShaderBinaryData) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/traceCount
 func (g GTMioShaderBinaryData) TraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/traceData
-func (g GTMioShaderBinaryData) TraceData() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("traceData"))
-	return objectivec.Object{ID: rv}
+func (g GTMioShaderBinaryData) TraceData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traceData"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/traces
 func (g GTMioShaderBinaryData) Traces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDylib
 func (g GTMioShaderBinaryData) UsedInDylib() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("usedInDylib"))
 	return rv

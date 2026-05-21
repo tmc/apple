@@ -55,8 +55,6 @@ func (gc GTShaderProfilerAnalyzerClass) Alloc() GTShaderProfilerAnalyzer {
 //   - [GTShaderProfilerAnalyzer.GenerateMCAOutputCallback]
 //   - [GTShaderProfilerAnalyzer.GenerateRegisterPressureView]
 //   - [GTShaderProfilerAnalyzer.InitWithToolchainBinaryGpu]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer
 type GTShaderProfilerAnalyzer struct {
 	objectivec.Object
 }
@@ -80,8 +78,6 @@ var _ IGTShaderProfilerAnalyzer = GTShaderProfilerAnalyzer{}
 //   - [IGTShaderProfilerAnalyzer.GenerateMCAOutputCallback]
 //   - [IGTShaderProfilerAnalyzer.GenerateRegisterPressureView]
 //   - [IGTShaderProfilerAnalyzer.InitWithToolchainBinaryGpu]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer
 type IGTShaderProfilerAnalyzer interface {
 	objectivec.IObject
 
@@ -89,7 +85,7 @@ type IGTShaderProfilerAnalyzer interface {
 
 	_executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error)
 	_generateMCAOutputSync(sync bool) MCAOutput
-	Binary() objectivec.IObject
+	Binary() unsafe.Pointer
 	GenerateFullMCAReport(mCAReport VoidHandler)
 	GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler)
 	GenerateRegisterPressureView(view VoidHandler)
@@ -115,14 +111,12 @@ func NewGTShaderProfilerAnalyzer() GTShaderProfilerAnalyzer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/initWithToolchain:binary:gpu:
 func NewGTShaderProfilerAnalyzerWithToolchainBinaryGpu(toolchain objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerAnalyzer {
 	instance := getGTShaderProfilerAnalyzerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
 	return GTShaderProfilerAnalyzerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:
 func (g GTShaderProfilerAnalyzer) _executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](g.ID, objc.Sel("_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:"), task, arguments, environment, objectivec.IObjectSliceToNSArray(output), directory, description, unsafe.Pointer(&errorPtr))
@@ -150,8 +144,6 @@ func (g GTShaderProfilerAnalyzer) ExecuteTaskArgumentsEnvironmentStandardOutputW
 func (g GTShaderProfilerAnalyzer) CanExecuteTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/_generateMCAOutputSync:
 func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) MCAOutput {
 	rv := objc.Send[MCAOutput](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
 	_ = rv
@@ -171,35 +163,26 @@ func (g GTShaderProfilerAnalyzer) GenerateMCAOutputSync(sync bool) (MCAOutput, e
 func (g GTShaderProfilerAnalyzer) CanGenerateMCAOutputSync() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_generateMCAOutputSync:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateFullMCAReport:
 func (g GTShaderProfilerAnalyzer) GenerateFullMCAReport(mCAReport VoidHandler) {
 	_block0, _ := NewVoidBlock(mCAReport)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateFullMCAReport:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateMCAOutput:callback:
 func (g GTShaderProfilerAnalyzer) GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler) {
 	_block1, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateMCAOutput:callback:"), mCAOutput, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateRegisterPressureView:
 func (g GTShaderProfilerAnalyzer) GenerateRegisterPressureView(view VoidHandler) {
 	_block0, _ := NewVoidBlock(view)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateRegisterPressureView:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/initWithToolchain:binary:gpu:
 func (g GTShaderProfilerAnalyzer) InitWithToolchainBinaryGpu(toolchain objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerAnalyzer {
 	rv := objc.Send[GTShaderProfilerAnalyzer](g.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/binary
-func (g GTShaderProfilerAnalyzer) Binary() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
-	return objectivec.Object{ID: rv}
+func (g GTShaderProfilerAnalyzer) Binary() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
+	return rv
 }
 
 // GenerateFullMCAReportSync is a synchronous wrapper around [GTShaderProfilerAnalyzer.GenerateFullMCAReport].

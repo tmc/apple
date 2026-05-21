@@ -58,8 +58,6 @@ func (sc SLWindowMirroringContextClass) Alloc() SLWindowMirroringContext {
 //   - [SLWindowMirroringContext.SetShieldWindowID]
 //   - [SLWindowMirroringContext.SrcDisplayID]
 //   - [SLWindowMirroringContext.InitWithDisplay]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext
 type SLWindowMirroringContext struct {
 	objectivec.Object
 }
@@ -89,8 +87,6 @@ var _ ISLWindowMirroringContext = SLWindowMirroringContext{}
 //   - [ISLWindowMirroringContext.SetShieldWindowID]
 //   - [ISLWindowMirroringContext.SrcDisplayID]
 //   - [ISLWindowMirroringContext.InitWithDisplay]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext
 type ISLWindowMirroringContext interface {
 	objectivec.IObject
 
@@ -130,71 +126,50 @@ func NewSLWindowMirroringContext() SLWindowMirroringContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/initWithDisplay:
 func NewSLWindowMirroringContextWithDisplay(display objectivec.IObject) SLWindowMirroringContext {
 	instance := getSLWindowMirroringContextClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
 	return SLWindowMirroringContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/currentSession
 func (s SLWindowMirroringContext) CurrentSession() {
 	objc.Send[objc.ID](s.ID, objc.Sel("currentSession"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/currentShieldWindowID
 func (s SLWindowMirroringContext) CurrentShieldWindowID() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("currentShieldWindowID"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/extend
 func (s SLWindowMirroringContext) Extend() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("extend"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/filter
 func (s SLWindowMirroringContext) Filter() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/mirrorTo:
 func (s SLWindowMirroringContext) MirrorTo(to objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("mirrorTo:"), to)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/mirrorTo:withFilter:showCursor:
 func (s SLWindowMirroringContext) MirrorToWithFilterShowCursor(to objectivec.IObject, filter objectivec.IObject, cursor bool) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("mirrorTo:withFilter:showCursor:"), to, filter, cursor)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/resetSession
 func (s SLWindowMirroringContext) ResetSession() {
 	objc.Send[objc.ID](s.ID, objc.Sel("resetSession"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/setupSession
 func (s SLWindowMirroringContext) SetupSession() {
 	objc.Send[objc.ID](s.ID, objc.Sel("setupSession"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/initWithDisplay:
 func (s SLWindowMirroringContext) InitWithDisplay(display objectivec.IObject) SLWindowMirroringContext {
 	rv := objc.Send[SLWindowMirroringContext](s.ID, objc.Sel("initWithDisplay:"), display)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/displayID
 func (s SLWindowMirroringContext) DisplayID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/shieldWindowID
 func (s SLWindowMirroringContext) ShieldWindowID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindowID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -202,8 +177,6 @@ func (s SLWindowMirroringContext) ShieldWindowID() foundation.NSNumber {
 func (s SLWindowMirroringContext) SetShieldWindowID(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShieldWindowID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringContext/srcDisplayID
 func (s SLWindowMirroringContext) SrcDisplayID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("srcDisplayID"))
 	return foundation.NSNumberFromID(objc.ID(rv))

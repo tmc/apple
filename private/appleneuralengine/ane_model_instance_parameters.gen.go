@@ -50,8 +50,6 @@ func (ac ANEModelInstanceParametersClass) Alloc() ANEModelInstanceParameters {
 //   - [ANEModelInstanceParameters.ProcedureArray]
 //   - [ANEModelInstanceParameters.InitWithCoder]
 //   - [ANEModelInstanceParameters.InitWithProcedureDataProcedureArray]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters
 type ANEModelInstanceParameters struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IANEModelInstanceParameters = ANEModelInstanceParameters{}
 //   - [IANEModelInstanceParameters.ProcedureArray]
 //   - [IANEModelInstanceParameters.InitWithCoder]
 //   - [IANEModelInstanceParameters.InitWithProcedureDataProcedureArray]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters
 type IANEModelInstanceParameters interface {
 	objectivec.IObject
 
@@ -106,56 +102,43 @@ func NewANEModelInstanceParameters() ANEModelInstanceParameters {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/initWithCoder:
 func NewANEModelInstanceParametersWithCoder(coder objectivec.IObject) ANEModelInstanceParameters {
 	instance := getANEModelInstanceParametersClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEModelInstanceParametersFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/initWithProcedureData:procedureArray:
 func NewANEModelInstanceParametersWithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) ANEModelInstanceParameters {
 	instance := getANEModelInstanceParametersClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
 	return ANEModelInstanceParametersFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/encodeWithCoder:
 func (a ANEModelInstanceParameters) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/initWithCoder:
 func (a ANEModelInstanceParameters) InitWithCoder(coder foundation.INSCoder) ANEModelInstanceParameters {
 	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/initWithProcedureData:procedureArray:
 func (a ANEModelInstanceParameters) InitWithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) ANEModelInstanceParameters {
 	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/supportsSecureCoding
 func (_ANEModelInstanceParametersClass ANEModelInstanceParametersClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/withProcedureData:procedureArray:
 func (_ANEModelInstanceParametersClass ANEModelInstanceParametersClass) WithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("withProcedureData:procedureArray:"), data, array)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/instanceName
 func (a ANEModelInstanceParameters) InstanceName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("instanceName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/procedureArray
 func (a ANEModelInstanceParameters) ProcedureArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))

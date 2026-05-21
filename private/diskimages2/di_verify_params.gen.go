@@ -51,8 +51,6 @@ func (dc DIVerifyParamsClass) Alloc() DIVerifyParams {
 //   - [DIVerifyParams.SetShouldValidateShadows]
 //   - [DIVerifyParams.VerifyWithError]
 //   - [DIVerifyParams.InitWithURLShadowURLsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams
 type DIVerifyParams struct {
 	DIBaseParams
 }
@@ -73,8 +71,6 @@ var _ IDIVerifyParams = DIVerifyParams{}
 //   - [IDIVerifyParams.SetShouldValidateShadows]
 //   - [IDIVerifyParams.VerifyWithError]
 //   - [IDIVerifyParams.InitWithURLShadowURLsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams
 type IDIVerifyParams interface {
 	IDIBaseParams
 
@@ -83,7 +79,7 @@ type IDIVerifyParams interface {
 	ShouldValidateShadows() bool
 	SetShouldValidateShadows(value bool)
 	VerifyWithError() (bool, error)
-	InitWithURLShadowURLsError(url foundation.INSURL, uRLs objectivec.IObject) (DIVerifyParams, error)
+	InitWithURLShadowURLsError(url foundation.NSURL, uRLs objectivec.IObject) (DIVerifyParams, error)
 }
 
 // Init initializes the instance.
@@ -105,15 +101,13 @@ func NewDIVerifyParams() DIVerifyParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIVerifyParamsWithCoder(coder objectivec.IObject) DIVerifyParams {
 	instance := getDIVerifyParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIVerifyParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams/initWithURL:error:
-func NewDIVerifyParamsWithURLError(url foundation.INSURL) (DIVerifyParams, error) {
+func NewDIVerifyParamsWithURLError(url foundation.NSURL) (DIVerifyParams, error) {
 	var errorPtr objc.ID
 	instance := getDIVerifyParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -124,8 +118,7 @@ func NewDIVerifyParamsWithURLError(url foundation.INSURL) (DIVerifyParams, error
 	return DIVerifyParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams/initWithURL:shadowURLs:error:
-func NewDIVerifyParamsWithURLShadowURLsError(url foundation.INSURL, uRLs objectivec.IObject) (DIVerifyParams, error) {
+func NewDIVerifyParamsWithURLShadowURLsError(url foundation.NSURL, uRLs objectivec.IObject) (DIVerifyParams, error) {
 	var errorPtr objc.ID
 	instance := getDIVerifyParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, uRLs, unsafe.Pointer(&errorPtr))
@@ -136,7 +129,6 @@ func NewDIVerifyParamsWithURLShadowURLsError(url foundation.INSURL, uRLs objecti
 	return DIVerifyParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams/verifyWithError:
 func (d DIVerifyParams) VerifyWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("verifyWithError:"), unsafe.Pointer(&errorPtr))
@@ -150,9 +142,7 @@ func (d DIVerifyParams) VerifyWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams/initWithURL:shadowURLs:error:
-func (d DIVerifyParams) InitWithURLShadowURLsError(url foundation.INSURL, uRLs objectivec.IObject) (DIVerifyParams, error) {
+func (d DIVerifyParams) InitWithURLShadowURLsError(url foundation.NSURL, uRLs objectivec.IObject) (DIVerifyParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, uRLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -163,7 +153,6 @@ func (d DIVerifyParams) InitWithURLShadowURLsError(url foundation.INSURL, uRLs o
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIVerifyParams/shouldValidateShadows
 func (d DIVerifyParams) ShouldValidateShadows() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
 	return rv

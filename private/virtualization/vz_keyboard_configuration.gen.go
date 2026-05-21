@@ -51,8 +51,6 @@ func (vc VZKeyboardConfigurationClass) Alloc() VZKeyboardConfiguration {
 //   - [VZKeyboardConfiguration.Description]
 //   - [VZKeyboardConfiguration.Hash]
 //   - [VZKeyboardConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration
 type VZKeyboardConfiguration struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZKeyboardConfiguration = VZKeyboardConfiguration{}
 //   - [IVZKeyboardConfiguration.Description]
 //   - [IVZKeyboardConfiguration.Hash]
 //   - [IVZKeyboardConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration
 type IVZKeyboardConfiguration interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IVZKeyboardConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,38 +105,28 @@ func NewVZKeyboardConfiguration() VZKeyboardConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/_init
 func (v VZKeyboardConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/makeKeyboardForVirtualMachine:deviceIdentifier:
 func (v VZKeyboardConfiguration) MakeKeyboardForVirtualMachineDeviceIdentifier(machine objectivec.IObject, identifier uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeKeyboardForVirtualMachine:deviceIdentifier:"), machine, identifier)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/debugDescription
 func (v VZKeyboardConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/description
 func (v VZKeyboardConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/hash
 func (v VZKeyboardConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardConfiguration/superclass
-func (v VZKeyboardConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZKeyboardConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

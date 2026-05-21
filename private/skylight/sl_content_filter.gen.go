@@ -70,8 +70,6 @@ func (sc SLContentFilterClass) Alloc() SLContentFilter {
 //   - [SLContentFilter.InitWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications]
 //   - [SLContentFilter.InitWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS]
 //   - [SLContentFilter.InitWithDisplayWindow]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter
 type SLContentFilter struct {
 	objectivec.Object
 }
@@ -113,8 +111,6 @@ var _ ISLContentFilter = SLContentFilter{}
 //   - [ISLContentFilter.InitWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications]
 //   - [ISLContentFilter.InitWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS]
 //   - [ISLContentFilter.InitWithDisplayWindow]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter
 type ISLContentFilter interface {
 	objectivec.IObject
 
@@ -166,138 +162,104 @@ func NewSLContentFilter() SLContentFilter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithCoder:
 func NewSLContentFilterWithCoder(coder objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDesktopIndependentWindow:
 func NewSLContentFilterWithDesktopIndependentWindow(window uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:
 func NewSLContentFilterWithDisplay(display uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:application:
 func NewSLContentFilterWithDisplayApplication(display uint32, application objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:application:"), display, application)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:
 func NewSLContentFilterWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:
 func NewSLContentFilterWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, pids objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject, pids2 objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:window:
 func NewSLContentFilterWithDisplayWindow(display uint32, window uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:window:"), display, window)
 	return SLContentFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/encodeWithCoder:
 func (s SLContentFilter) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/excludeMenuBar:
 func (s SLContentFilter) ExcludeMenuBar(bar bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("excludeMenuBar:"), bar)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/getFilterType
 func (s SLContentFilter) GetFilterType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("getFilterType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithCoder:
 func (s SLContentFilter) InitWithCoder(coder foundation.INSCoder) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDesktopIndependentWindow:
 func (s SLContentFilter) InitWithDesktopIndependentWindow(window uint32) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:
 func (s SLContentFilter) InitWithDisplay(display uint32) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:"), display)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:application:
 func (s SLContentFilter) InitWithDisplayApplication(display uint32, application objectivec.IObject) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:application:"), display, application)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:
 func (s SLContentFilter) InitWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:
 func (s SLContentFilter) InitWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, pids objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject, pids2 objectivec.IObject) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/initWithDisplay:window:
 func (s SLContentFilter) InitWithDisplayWindow(display uint32, window uint32) SLContentFilter {
 	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:window:"), display, window)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/supportsSecureCoding
 func (_SLContentFilterClass SLContentFilterClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLContentFilterClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/applicationID
 func (s SLContentFilter) ApplicationID() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("applicationID"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/displayID
 func (s SLContentFilter) DisplayID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("displayID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/excludedApplications
 func (s SLContentFilter) ExcludedApplications() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/excludedPIDS
 func (s SLContentFilter) ExcludedPIDS() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -305,20 +267,14 @@ func (s SLContentFilter) ExcludedPIDS() foundation.INSSet {
 func (s SLContentFilter) SetExcludedPIDS(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/excludedWindows
 func (s SLContentFilter) ExcludedWindows() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/filterType
 func (s SLContentFilter) FilterType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("filterType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/hideMenuBar
 func (s SLContentFilter) HideMenuBar() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hideMenuBar"))
 	return rv
@@ -326,14 +282,10 @@ func (s SLContentFilter) HideMenuBar() bool {
 func (s SLContentFilter) SetHideMenuBar(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHideMenuBar:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/includedApplications
 func (s SLContentFilter) IncludedApplications() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/includedPIDS
 func (s SLContentFilter) IncludedPIDS() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -341,20 +293,14 @@ func (s SLContentFilter) IncludedPIDS() foundation.INSSet {
 func (s SLContentFilter) SetIncludedPIDS(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/includedWindows
 func (s SLContentFilter) IncludedWindows() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/shareAll
 func (s SLContentFilter) ShareAll() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("shareAll"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentFilter/windowID
 func (s SLContentFilter) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

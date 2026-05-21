@@ -41,7 +41,6 @@ func (ec EspressoPassTransposeInnerProductWeightsClass) Alloc() EspressoPassTran
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_transpose_inner_product_weights
 type EspressoPassTransposeInnerProductWeights struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_transpose_inner_product_weightsFromID(id objc.ID) EspressoPass
 var _ IEspressoPassTransposeInnerProductWeights = EspressoPassTransposeInnerProductWeights{}
 
 // An interface definition for the [EspressoPassTransposeInnerProductWeights] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_transpose_inner_product_weights
 type IEspressoPassTransposeInnerProductWeights interface {
 	IEspressoCustomPass
 }

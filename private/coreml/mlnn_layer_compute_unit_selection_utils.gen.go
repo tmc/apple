@@ -45,7 +45,6 @@ func (mc MLNNLayerComputeUnitSelectionUtilsClass) Alloc() MLNNLayerComputeUnitSe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils
 type MLNNLayerComputeUnitSelectionUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLNNLayerComputeUnitSelectionUtilsFromID(id objc.ID) MLNNLayerComputeUnitSe
 var _ IMLNNLayerComputeUnitSelectionUtils = MLNNLayerComputeUnitSelectionUtils{}
 
 // An interface definition for the [MLNNLayerComputeUnitSelectionUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils
 type IMLNNLayerComputeUnitSelectionUtils interface {
 	objectivec.IObject
 }
@@ -84,7 +81,6 @@ func NewMLNNLayerComputeUnitSelectionUtils() MLNNLayerComputeUnitSelectionUtils 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils/getLayerHints:error:
 func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtilsClass) GetLayerHintsError(hints objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNNLayerComputeUnitSelectionUtilsClass.class), objc.Sel("getLayerHints:error:"), hints, unsafe.Pointer(&errorPtr))
@@ -95,8 +91,6 @@ func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtil
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils/getLayerTypes:error:
 func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtilsClass) GetLayerTypesError(types objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNNLayerComputeUnitSelectionUtilsClass.class), objc.Sel("getLayerTypes:error:"), types, unsafe.Pointer(&errorPtr))
@@ -107,8 +101,6 @@ func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtil
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils/getNetJson:error:
 func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtilsClass) GetNetJsonError(json objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNNLayerComputeUnitSelectionUtilsClass.class), objc.Sel("getNetJson:error:"), json, unsafe.Pointer(&errorPtr))
@@ -119,8 +111,6 @@ func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtil
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils/undoLastHintUpdate:error:
 func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtilsClass) UndoLastHintUpdateError(update objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLNNLayerComputeUnitSelectionUtilsClass.class), objc.Sel("undoLastHintUpdate:error:"), update, unsafe.Pointer(&errorPtr))
@@ -134,8 +124,6 @@ func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtil
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNNLayerComputeUnitSelectionUtils/updateHints:hints:error:
 func (_MLNNLayerComputeUnitSelectionUtilsClass MLNNLayerComputeUnitSelectionUtilsClass) UpdateHintsHintsError(hints objectivec.IObject, hints2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLNNLayerComputeUnitSelectionUtilsClass.class), objc.Sel("updateHints:hints:error:"), hints, hints2, unsafe.Pointer(&errorPtr))

@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationPropertyListDictionaryResultClass) A
 //
 //   - [SLSBridgedWindowManagementOperationPropertyListDictionaryResult.PropertyListDictionary]
 //   - [SLSBridgedWindowManagementOperationPropertyListDictionaryResult.InitWithPropertyListDictionary]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult
 type SLSBridgedWindowManagementOperationPropertyListDictionaryResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWindowManagementOperationPropertyListDictionaryResult = SLSBrid
 //
 //   - [ISLSBridgedWindowManagementOperationPropertyListDictionaryResult.PropertyListDictionary]
 //   - [ISLSBridgedWindowManagementOperationPropertyListDictionaryResult.InitWithPropertyListDictionary]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult
 type ISLSBridgedWindowManagementOperationPropertyListDictionaryResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResult() SLSBri
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListDictionaryResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationPropertyListDictionaryResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult/initWithPropertyListDictionary:
 func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResultWithPropertyListDictionary(dictionary objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListDictionaryResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
 	return SLSBridgedWindowManagementOperationPropertyListDictionaryResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult/initWithPropertyListDictionary:
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) InitWithPropertyListDictionary(dictionary objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListDictionaryResult/propertyListDictionary
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) PropertyListDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("propertyListDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

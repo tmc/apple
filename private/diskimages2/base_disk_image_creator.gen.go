@@ -87,8 +87,6 @@ func (bc BaseDiskImageCreatorClass) Alloc() BaseDiskImageCreator {
 //   - [BaseDiskImageCreator.VolumeName]
 //   - [BaseDiskImageCreator.SetVolumeName]
 //   - [BaseDiskImageCreator.InitWithURLDefaultFormatError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator
 type BaseDiskImageCreator struct {
 	objectivec.Object
 }
@@ -145,14 +143,12 @@ var _ IBaseDiskImageCreator = BaseDiskImageCreator{}
 //   - [IBaseDiskImageCreator.VolumeName]
 //   - [IBaseDiskImageCreator.SetVolumeName]
 //   - [IBaseDiskImageCreator.InitWithURLDefaultFormatError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator
 type IBaseDiskImageCreator interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	BlockSize() uint32
 	SetBlockSize(value uint32)
 	Certificate() string
@@ -185,13 +181,13 @@ type IBaseDiskImageCreator interface {
 	SetPassphraseEncryptionMethod(passphrase string, method uint64)
 	SparseBundleBandSize() uint64
 	SetSparseBundleBandSize(value uint64)
-	SymmetricKey() foundation.INSData
-	SetSymmetricKey(value foundation.INSData)
+	SymmetricKey() foundation.NSData
+	SetSymmetricKey(value foundation.NSData)
 	TemporaryPassphrase() IDITemporaryPassphrase
 	SetTemporaryPassphrase(value IDITemporaryPassphrase)
 	VolumeName() string
 	SetVolumeName(value string)
-	InitWithURLDefaultFormatError(url foundation.INSURL, format int64) (BaseDiskImageCreator, error)
+	InitWithURLDefaultFormatError(url foundation.NSURL, format int64) (BaseDiskImageCreator, error)
 }
 
 // Init initializes the instance.
@@ -213,8 +209,7 @@ func NewBaseDiskImageCreator() BaseDiskImageCreator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/initWithURL:defaultFormat:error:
-func NewBaseDiskImageCreatorWithURLDefaultFormatError(url foundation.INSURL, format int64) (BaseDiskImageCreator, error) {
+func NewBaseDiskImageCreatorWithURLDefaultFormatError(url foundation.NSURL, format int64) (BaseDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBaseDiskImageCreatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
@@ -225,7 +220,6 @@ func NewBaseDiskImageCreatorWithURLDefaultFormatError(url foundation.INSURL, for
 	return BaseDiskImageCreatorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/createEmptyImageWithError:
 func (b BaseDiskImageCreator) CreateEmptyImageWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("createEmptyImageWithError:"), unsafe.Pointer(&errorPtr))
@@ -236,8 +230,6 @@ func (b BaseDiskImageCreator) CreateEmptyImageWithError() (objectivec.IObject, e
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/ejectWithError:
 func (b BaseDiskImageCreator) EjectWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](b.ID, objc.Sel("ejectWithError:"), unsafe.Pointer(&errorPtr))
@@ -251,8 +243,6 @@ func (b BaseDiskImageCreator) EjectWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/formatImageWithCreateParams:error:
 func (b BaseDiskImageCreator) FormatImageWithCreateParamsError(params objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("formatImageWithCreateParams:error:"), params, unsafe.Pointer(&errorPtr))
@@ -263,8 +253,6 @@ func (b BaseDiskImageCreator) FormatImageWithCreateParamsError(params objectivec
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/newAttachWithCreateParams:error:
 func (b BaseDiskImageCreator) NewAttachWithCreateParamsError(params objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("newAttachWithCreateParams:error:"), params, unsafe.Pointer(&errorPtr))
@@ -275,8 +263,6 @@ func (b BaseDiskImageCreator) NewAttachWithCreateParamsError(params objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/newMKDIDeviceWithError:
 func (b BaseDiskImageCreator) NewMKDIDeviceWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("newMKDIDeviceWithError:"), unsafe.Pointer(&errorPtr))
@@ -287,8 +273,6 @@ func (b BaseDiskImageCreator) NewMKDIDeviceWithError() (objectivec.IObject, erro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/partitionDiskWithError:
 func (b BaseDiskImageCreator) PartitionDiskWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](b.ID, objc.Sel("partitionDiskWithError:"), unsafe.Pointer(&errorPtr))
@@ -302,14 +286,10 @@ func (b BaseDiskImageCreator) PartitionDiskWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/setPassphrase:encryptionMethod:
 func (b BaseDiskImageCreator) SetPassphraseEncryptionMethod(passphrase string, method uint64) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setPassphrase:encryptionMethod:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), method)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/initWithURL:defaultFormat:error:
-func (b BaseDiskImageCreator) InitWithURLDefaultFormatError(url foundation.INSURL, format int64) (BaseDiskImageCreator, error) {
+func (b BaseDiskImageCreator) InitWithURLDefaultFormatError(url foundation.NSURL, format int64) (BaseDiskImageCreator, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -320,35 +300,25 @@ func (b BaseDiskImageCreator) InitWithURLDefaultFormatError(url foundation.INSUR
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/debugLogsEnabled
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) DebugLogsEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("debugLogsEnabled"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/forwardLogs
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) ForwardLogs() bool {
 	rv := objc.Send[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("forwardLogs"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/setDebugLogsEnabled:
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) SetDebugLogsEnabled(enabled bool) {
 	objc.Send[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setDebugLogsEnabled:"), enabled)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/setForwardLogs:
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) SetForwardLogs(logs bool) {
 	objc.Send[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setForwardLogs:"), logs)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/URL
-func (b BaseDiskImageCreator) URL() foundation.INSURL {
+func (b BaseDiskImageCreator) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/blockSize
 func (b BaseDiskImageCreator) BlockSize() uint32 {
 	rv := objc.Send[uint32](b.ID, objc.Sel("blockSize"))
 	return rv
@@ -356,8 +326,6 @@ func (b BaseDiskImageCreator) BlockSize() uint32 {
 func (b BaseDiskImageCreator) SetBlockSize(value uint32) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBlockSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/certificate
 func (b BaseDiskImageCreator) Certificate() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("certificate"))
 	return foundation.NSStringFromID(rv).String()
@@ -365,8 +333,6 @@ func (b BaseDiskImageCreator) Certificate() string {
 func (b BaseDiskImageCreator) SetCertificate(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/dataPartition
 func (b BaseDiskImageCreator) DataPartition() IDIDataPartition {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("dataPartition"))
 	return DIDataPartitionFromID(objc.ID(rv))
@@ -374,8 +340,6 @@ func (b BaseDiskImageCreator) DataPartition() IDIDataPartition {
 func (b BaseDiskImageCreator) SetDataPartition(value IDIDataPartition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setDataPartition:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/devBSDName
 func (b BaseDiskImageCreator) DevBSDName() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("devBSDName"))
 	return foundation.NSStringFromID(rv).String()
@@ -383,8 +347,6 @@ func (b BaseDiskImageCreator) DevBSDName() string {
 func (b BaseDiskImageCreator) SetDevBSDName(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setDevBSDName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/encryptionMethod
 func (b BaseDiskImageCreator) EncryptionMethod() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("encryptionMethod"))
 	return rv
@@ -392,8 +354,6 @@ func (b BaseDiskImageCreator) EncryptionMethod() uint64 {
 func (b BaseDiskImageCreator) SetEncryptionMethod(value uint64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setEncryptionMethod:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/fileSystem
 func (b BaseDiskImageCreator) FileSystem() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("fileSystem"))
 	return rv
@@ -401,8 +361,6 @@ func (b BaseDiskImageCreator) FileSystem() uint64 {
 func (b BaseDiskImageCreator) SetFileSystem(value uint64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFileSystem:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/imageFormat
 func (b BaseDiskImageCreator) ImageFormat() int64 {
 	rv := objc.Send[int64](b.ID, objc.Sel("imageFormat"))
 	return rv
@@ -410,14 +368,10 @@ func (b BaseDiskImageCreator) ImageFormat() int64 {
 func (b BaseDiskImageCreator) SetImageFormat(value int64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageFormat:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/mutableSymmetricKey
 func (b BaseDiskImageCreator) MutableSymmetricKey() foundation.NSMutableData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("mutableSymmetricKey"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/numBlocks
 func (b BaseDiskImageCreator) NumBlocks() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("numBlocks"))
 	return rv
@@ -425,8 +379,6 @@ func (b BaseDiskImageCreator) NumBlocks() uint64 {
 func (b BaseDiskImageCreator) SetNumBlocks(value uint64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNumBlocks:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/passphrase
 func (b BaseDiskImageCreator) Passphrase() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("passphrase"))
 	return rv
@@ -434,8 +386,6 @@ func (b BaseDiskImageCreator) Passphrase() bool {
 func (b BaseDiskImageCreator) SetPassphrase(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setPassphrase:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/publicKey
 func (b BaseDiskImageCreator) PublicKey() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("publicKey"))
 	return foundation.NSStringFromID(rv).String()
@@ -443,8 +393,6 @@ func (b BaseDiskImageCreator) PublicKey() string {
 func (b BaseDiskImageCreator) SetPublicKey(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/readPassphraseFlags
 func (b BaseDiskImageCreator) ReadPassphraseFlags() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("readPassphraseFlags"))
 	return rv
@@ -452,8 +400,6 @@ func (b BaseDiskImageCreator) ReadPassphraseFlags() uint64 {
 func (b BaseDiskImageCreator) SetReadPassphraseFlags(value uint64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setReadPassphraseFlags:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/sparseBundleBandSize
 func (b BaseDiskImageCreator) SparseBundleBandSize() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("sparseBundleBandSize"))
 	return rv
@@ -461,17 +407,13 @@ func (b BaseDiskImageCreator) SparseBundleBandSize() uint64 {
 func (b BaseDiskImageCreator) SetSparseBundleBandSize(value uint64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/symmetricKey
-func (b BaseDiskImageCreator) SymmetricKey() foundation.INSData {
+func (b BaseDiskImageCreator) SymmetricKey() foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("symmetricKey"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (b BaseDiskImageCreator) SetSymmetricKey(value foundation.INSData) {
+func (b BaseDiskImageCreator) SetSymmetricKey(value foundation.NSData) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSymmetricKey:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/temporaryPassphrase
 func (b BaseDiskImageCreator) TemporaryPassphrase() IDITemporaryPassphrase {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
@@ -479,8 +421,6 @@ func (b BaseDiskImageCreator) TemporaryPassphrase() IDITemporaryPassphrase {
 func (b BaseDiskImageCreator) SetTemporaryPassphrase(value IDITemporaryPassphrase) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTemporaryPassphrase:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/volumeName
 func (b BaseDiskImageCreator) VolumeName() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("volumeName"))
 	return foundation.NSStringFromID(rv).String()

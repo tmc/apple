@@ -59,8 +59,6 @@ func (mc MLTileBrickClass) Alloc() MLTileBrick {
 //   - [MLTileBrick.Description]
 //   - [MLTileBrick.Hash]
 //   - [MLTileBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick
 type MLTileBrick struct {
 	objectivec.Object
 }
@@ -91,8 +89,6 @@ var _ IMLTileBrick = MLTileBrick{}
 //   - [IMLTileBrick.Description]
 //   - [IMLTileBrick.Hash]
 //   - [IMLTileBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick
 type IMLTileBrick interface {
 	objectivec.IObject
 
@@ -111,7 +107,7 @@ type IMLTileBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -133,92 +129,65 @@ func NewMLTileBrick() MLTileBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/initWithParameters:
 func NewTileBrickWithParameters(parameters objectivec.IObject) MLTileBrick {
 	instance := getMLTileBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLTileBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLTileBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/hasGPUSupport
 func (m MLTileBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/setupForInputShapes:withParameters:
 func (m MLTileBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/initWithParameters:
 func (m MLTileBrick) InitWithParameters(parameters objectivec.IObject) MLTileBrick {
 	rv := objc.Send[MLTileBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/debugDescription
 func (m MLTileBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/description
 func (m MLTileBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/hash
 func (m MLTileBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/inputRanks
 func (m MLTileBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/inputShapes
 func (m MLTileBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/outputRanks
 func (m MLTileBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/outputShapes
 func (m MLTileBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/reps
 func (m MLTileBrick) Reps() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("reps"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/shapeInfoNeeded
 func (m MLTileBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLTileBrick/superclass
-func (m MLTileBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLTileBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

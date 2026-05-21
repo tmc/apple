@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZUSBMouseConfiguration] class.
@@ -42,11 +41,6 @@ func (vc VZUSBMouseConfigurationClass) Alloc() VZUSBMouseConfiguration {
 	return rv
 }
 
-// # Methods
-//
-//   - [VZUSBMouseConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBMouseConfiguration
 type VZUSBMouseConfiguration struct {
 	VZPointingDeviceConfiguration
 }
@@ -60,18 +54,8 @@ func VZUSBMouseConfigurationFromID(id objc.ID) VZUSBMouseConfiguration {
 var _ IVZUSBMouseConfiguration = VZUSBMouseConfiguration{}
 
 // An interface definition for the [VZUSBMouseConfiguration] class.
-//
-// # Methods
-//
-//   - [IVZUSBMouseConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBMouseConfiguration
 type IVZUSBMouseConfiguration interface {
 	IVZPointingDeviceConfiguration
-
-	// Topic: Methods
-
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -91,10 +75,4 @@ func NewVZUSBMouseConfiguration() VZUSBMouseConfiguration {
 	class := getVZUSBMouseConfigurationClass()
 	rv := objc.Send[VZUSBMouseConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBMouseConfiguration/encodeWithEncoder:
-func (v VZUSBMouseConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
 }

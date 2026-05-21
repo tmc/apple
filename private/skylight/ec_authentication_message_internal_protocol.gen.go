@@ -8,8 +8,6 @@ import (
 )
 
 // ECAuthenticationMessageInternal protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageInternal
 type ECAuthenticationMessageInternal interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func ECAuthenticationMessageInternalObjectFromID(id objc.ID) ECAuthenticationMes
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageInternal/copySignedByKey:
 func (o ECAuthenticationMessageInternalObject) CopySignedByKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("copySignedByKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageInternal/signature
 func (o ECAuthenticationMessageInternalObject) Signature() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}

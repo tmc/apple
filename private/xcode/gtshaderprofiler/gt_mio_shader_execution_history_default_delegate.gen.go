@@ -51,8 +51,6 @@ func (gc GTMioShaderExecutionHistoryDefaultDelegateClass) Alloc() GTMioShaderExe
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Description]
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Hash]
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate
 type GTMioShaderExecutionHistoryDefaultDelegate struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IGTMioShaderExecutionHistoryDefaultDelegate = GTMioShaderExecutionHistoryD
 //   - [IGTMioShaderExecutionHistoryDefaultDelegate.Description]
 //   - [IGTMioShaderExecutionHistoryDefaultDelegate.Hash]
 //   - [IGTMioShaderExecutionHistoryDefaultDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate
 type IGTMioShaderExecutionHistoryDefaultDelegate interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IGTMioShaderExecutionHistoryDefaultDelegate interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,43 +105,32 @@ func NewGTMioShaderExecutionHistoryDefaultDelegate() GTMioShaderExecutionHistory
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/executionHistoryProcessClique:total:
 func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique GTMioUSCCliqueMetadata, total uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryProcessClique:total:"), clique, total)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/uniqueIdentifierForFile:debugFunctionName:line:column:
 func (g GTMioShaderExecutionHistoryDefaultDelegate) UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("uniqueIdentifierForFile:debugFunctionName:line:column:"), file, name, line, column)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/shared
 func (_GTMioShaderExecutionHistoryDefaultDelegateClass GTMioShaderExecutionHistoryDefaultDelegateClass) Shared() GTMioShaderExecutionHistoryDefaultDelegate {
 	rv := objc.Send[objc.ID](objc.ID(_GTMioShaderExecutionHistoryDefaultDelegateClass.class), objc.Sel("shared"))
 	return GTMioShaderExecutionHistoryDefaultDelegateFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/debugDescription
 func (g GTMioShaderExecutionHistoryDefaultDelegate) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/description
 func (g GTMioShaderExecutionHistoryDefaultDelegate) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/hash
 func (g GTMioShaderExecutionHistoryDefaultDelegate) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/superclass
-func (g GTMioShaderExecutionHistoryDefaultDelegate) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
-	return rv
+func (g GTMioShaderExecutionHistoryDefaultDelegate) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

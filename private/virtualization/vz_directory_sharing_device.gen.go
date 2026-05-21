@@ -45,8 +45,6 @@ func (vc VZDirectorySharingDeviceClass) Alloc() VZDirectorySharingDevice {
 // # Methods
 //
 //   - [VZDirectorySharingDevice._initWithVirtualMachineDirectorySharingDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice
 type VZDirectorySharingDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZDirectorySharingDevice = VZDirectorySharingDevice{}
 // # Methods
 //
 //   - [IVZDirectorySharingDevice._initWithVirtualMachineDirectorySharingDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice
 type IVZDirectorySharingDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZDirectorySharingDevice() VZDirectorySharingDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice/_initWithVirtualMachine:directorySharingDeviceIndex:
 func (v VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}

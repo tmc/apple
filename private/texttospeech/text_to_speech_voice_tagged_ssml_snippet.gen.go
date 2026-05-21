@@ -51,8 +51,6 @@ func (tc TextToSpeechVoiceTaggedSSMLSnippetClass) Alloc() TextToSpeechVoiceTagge
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.SetSsml]
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.VoiceName]
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.SetVoiceName]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet
 type TextToSpeechVoiceTaggedSSMLSnippet struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ITextToSpeechVoiceTaggedSSMLSnippet = TextToSpeechVoiceTaggedSSMLSnippet{}
 //   - [ITextToSpeechVoiceTaggedSSMLSnippet.SetSsml]
 //   - [ITextToSpeechVoiceTaggedSSMLSnippet.VoiceName]
 //   - [ITextToSpeechVoiceTaggedSSMLSnippet.SetVoiceName]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet
 type ITextToSpeechVoiceTaggedSSMLSnippet interface {
 	objectivec.IObject
 
@@ -109,7 +105,6 @@ func NewTextToSpeechVoiceTaggedSSMLSnippet() TextToSpeechVoiceTaggedSSMLSnippet 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet/language
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Language() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
@@ -117,8 +112,6 @@ func (t TextToSpeechVoiceTaggedSSMLSnippet) Language() string {
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetLanguage(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet/ssml
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Ssml() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssml"))
 	return foundation.NSStringFromID(rv).String()
@@ -126,8 +119,6 @@ func (t TextToSpeechVoiceTaggedSSMLSnippet) Ssml() string {
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetSsml(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSsml:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet/voiceName
 func (t TextToSpeechVoiceTaggedSSMLSnippet) VoiceName() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceName"))
 	return foundation.NSStringFromID(rv).String()

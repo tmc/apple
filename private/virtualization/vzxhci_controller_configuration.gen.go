@@ -41,7 +41,6 @@ func (vc VZXHCIControllerConfigurationClass) Alloc() VZXHCIControllerConfigurati
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZXHCIControllerConfiguration
 type VZXHCIControllerConfiguration struct {
 	VZUSBControllerConfiguration
 }
@@ -55,8 +54,6 @@ func VZXHCIControllerConfigurationFromID(id objc.ID) VZXHCIControllerConfigurati
 var _ IVZXHCIControllerConfiguration = VZXHCIControllerConfiguration{}
 
 // An interface definition for the [VZXHCIControllerConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZXHCIControllerConfiguration
 type IVZXHCIControllerConfiguration interface {
 	IVZUSBControllerConfiguration
 }

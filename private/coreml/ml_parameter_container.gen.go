@@ -57,8 +57,6 @@ func (mc MLParameterContainerClass) Alloc() MLParameterContainer {
 //   - [MLParameterContainer.SetCurrentValueForKeyError]
 //   - [MLParameterContainer.ValidateParameterValueGivenConstraint]
 //   - [MLParameterContainer.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer
 type MLParameterContainer struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ IMLParameterContainer = MLParameterContainer{}
 //   - [IMLParameterContainer.SetCurrentValueForKeyError]
 //   - [IMLParameterContainer.ValidateParameterValueGivenConstraint]
 //   - [IMLParameterContainer.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer
 type IMLParameterContainer interface {
 	objectivec.IObject
 
@@ -123,19 +119,15 @@ func NewMLParameterContainer() MLParameterContainer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/initWithCoder:
 func NewParameterContainerWithCoder(coder objectivec.IObject) MLParameterContainer {
 	instance := getMLParameterContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLParameterContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/encodeWithCoder:
 func (m MLParameterContainer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/setCurrentValue:forKey:error:
 func (m MLParameterContainer) SetCurrentValueForKeyError(value objectivec.IObject, key objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("setCurrentValue:forKey:error:"), value, key, unsafe.Pointer(&errorPtr))
@@ -149,32 +141,24 @@ func (m MLParameterContainer) SetCurrentValueForKeyError(value objectivec.IObjec
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/validateParameterValue:givenConstraint:
 func (m MLParameterContainer) ValidateParameterValueGivenConstraint(value objectivec.IObject, constraint objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("validateParameterValue:givenConstraint:"), value, constraint)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/initWithCoder:
 func (m MLParameterContainer) InitWithCoder(coder foundation.INSCoder) MLParameterContainer {
 	rv := objc.Send[MLParameterContainer](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/parameterContainerFor:descriptions:
 func (_MLParameterContainerClass MLParameterContainerClass) ParameterContainerForDescriptions(for_ objectivec.IObject, descriptions objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterContainerClass.class), objc.Sel("parameterContainerFor:descriptions:"), for_, descriptions)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/supportsSecureCoding
 func (_MLParameterContainerClass MLParameterContainerClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLParameterContainerClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/currentParameterValues
 func (m MLParameterContainer) CurrentParameterValues() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("currentParameterValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -182,8 +166,6 @@ func (m MLParameterContainer) CurrentParameterValues() foundation.INSDictionary 
 func (m MLParameterContainer) SetCurrentParameterValues(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurrentParameterValues:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/parameterDescriptions
 func (m MLParameterContainer) ParameterDescriptions() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterDescriptions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -191,8 +173,6 @@ func (m MLParameterContainer) ParameterDescriptions() foundation.INSDictionary {
 func (m MLParameterContainer) SetParameterDescriptions(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setParameterDescriptions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterContainer/parameterKeys
 func (m MLParameterContainer) ParameterKeys() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterKeys"))
 	return foundation.NSArrayFromID(objc.ID(rv))

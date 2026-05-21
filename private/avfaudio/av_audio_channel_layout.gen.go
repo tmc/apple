@@ -5,7 +5,6 @@ package avfaudio
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,9 +45,6 @@ func (ac AVAudioChannelLayoutClass) Alloc() AVAudioChannelLayout {
 // # Methods
 //
 //   - [AVAudioChannelLayout.LayoutSize]
-//   - [AVAudioChannelLayout.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout
 type AVAudioChannelLayout struct {
 	objectivec.Object
 }
@@ -66,16 +62,12 @@ var _ IAVAudioChannelLayout = AVAudioChannelLayout{}
 // # Methods
 //
 //   - [IAVAudioChannelLayout.LayoutSize]
-//   - [IAVAudioChannelLayout.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout
 type IAVAudioChannelLayout interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	LayoutSize() uint64
-	InitWithCoder(coder foundation.INSCoder) AVAudioChannelLayout
 }
 
 // Init initializes the instance.
@@ -97,26 +89,11 @@ func NewAVAudioChannelLayout() AVAudioChannelLayout {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/initWithCoder:
-func NewAudioChannelLayoutWithCoder(coder objectivec.IObject) AVAudioChannelLayout {
-	instance := getAVAudioChannelLayoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return AVAudioChannelLayoutFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/layoutSize
 func (a AVAudioChannelLayout) LayoutSize() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("layoutSize"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/initWithCoder:
-func (a AVAudioChannelLayout) InitWithCoder(coder foundation.INSCoder) AVAudioChannelLayout {
-	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/supportsSecureCoding
 func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

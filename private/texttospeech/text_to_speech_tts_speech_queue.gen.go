@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSSpeechQueueClass) Alloc() TextToSpeechTTSSpeechQueue {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechQueue
 type TextToSpeechTTSSpeechQueue struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSSpeechQueueFromID(id objc.ID) TextToSpeechTTSSpeechQueue {
 // ITextToSpeechTTSSpeechQueue embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSpeechQueue] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechQueue
 type ITextToSpeechTTSSpeechQueue interface {
 	objectivec.IObject
 }

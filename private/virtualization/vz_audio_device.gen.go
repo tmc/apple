@@ -45,8 +45,6 @@ func (vc VZAudioDeviceClass) Alloc() VZAudioDevice {
 // # Methods
 //
 //   - [VZAudioDevice._initWithVirtualMachineAudioDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZAudioDevice
 type VZAudioDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZAudioDevice = VZAudioDevice{}
 // # Methods
 //
 //   - [IVZAudioDevice._initWithVirtualMachineAudioDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZAudioDevice
 type IVZAudioDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZAudioDevice() VZAudioDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZAudioDevice/_initWithVirtualMachine:audioDeviceIndex:
 func (v VZAudioDevice) _initWithVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:audioDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}

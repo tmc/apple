@@ -10,29 +10,19 @@ import (
 )
 
 // MLNearestNeighborsIndex protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex
 type MLNearestNeighborsIndex interface {
 	objectivec.IObject
 
 	// DataPointCount protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/dataPointCount
 	DataPointCount() uint64
 
 	// FindNearestNeighborsToIndex protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/findNearestNeighbors:toIndex:
-	FindNearestNeighborsToIndex(neighbors uint64, index uint64) objectivec.IObject
+	FindNearestNeighborsToIndex(neighbors uint64, index uint64) unsafe.Pointer
 
 	// FindNearestNeighborsToQueryPoint protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/findNearestNeighbors:toQueryPoint:
-	FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) objectivec.IObject
+	FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) unsafe.Pointer
 
 	// UpdateWithDataError protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/updateWithData:error:
 	UpdateWithDataError(data unsafe.Pointer) (bool, error)
 }
 
@@ -53,25 +43,18 @@ func MLNearestNeighborsIndexObjectFromID(id objc.ID) MLNearestNeighborsIndexObje
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/dataPointCount
 func (o MLNearestNeighborsIndexObject) DataPointCount() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("dataPointCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/findNearestNeighbors:toIndex:
-func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToIndex(neighbors uint64, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
-	return objectivec.Object{ID: rv}
+func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToIndex(neighbors uint64, index uint64) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/findNearestNeighbors:toQueryPoint:
-func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
-	return objectivec.Object{ID: rv}
+func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsIndex/updateWithData:error:
 func (o MLNearestNeighborsIndexObject) UpdateWithDataError(data unsafe.Pointer) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("updateWithData:error:"), data)
 	if err != nil {

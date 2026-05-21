@@ -42,7 +42,6 @@ func (tc TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechR
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer
 type TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRende
 // ITtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer
 type ITtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer interface {
 	objectivec.IObject
 }

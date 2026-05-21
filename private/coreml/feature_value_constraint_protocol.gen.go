@@ -8,8 +8,6 @@ import (
 )
 
 // MLFeatureValueConstraint protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureValueConstraint
 type MLFeatureValueConstraint interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLFeatureValueConstraintObjectFromID(id objc.ID) MLFeatureValueConstraintOb
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureValueConstraint/isAllowedValue:error:
 func (o MLFeatureValueConstraintObject) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("isAllowedValue:error:"), value)
 	if err != nil {

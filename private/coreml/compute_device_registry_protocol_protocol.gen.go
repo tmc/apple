@@ -8,8 +8,6 @@ import (
 )
 
 // MLComputeDeviceRegistryProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDeviceRegistryProtocol
 type MLComputeDeviceRegistryProtocol interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func MLComputeDeviceRegistryProtocolObjectFromID(id objc.ID) MLComputeDeviceRegi
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDeviceRegistryProtocol/registeredComputeDevices
 func (o MLComputeDeviceRegistryProtocolObject) RegisteredComputeDevices() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("registeredComputeDevices"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputeDeviceRegistryProtocol/sharedRegistry
 func (o MLComputeDeviceRegistryProtocolObject) SharedRegistry() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharedRegistry"))
 	return objectivec.Object{ID: rv}

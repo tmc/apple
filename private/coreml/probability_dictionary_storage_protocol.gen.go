@@ -8,19 +8,13 @@ import (
 )
 
 // MLProbabilityDictionaryStorage protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage
 type MLProbabilityDictionaryStorage interface {
 	objectivec.IObject
 
 	// Count protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage/count
 	Count() uint64
 
 	// MaxElementIndex protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage/maxElementIndex
 	MaxElementIndex() uint64
 }
 
@@ -41,19 +35,14 @@ func MLProbabilityDictionaryStorageObjectFromID(id objc.ID) MLProbabilityDiction
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage/count
 func (o MLProbabilityDictionaryStorageObject) Count() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("count"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage/maxElementIndex
 func (o MLProbabilityDictionaryStorageObject) MaxElementIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryStorage/probabilityAtIndex:
 func (o MLProbabilityDictionaryStorageObject) ProbabilityAtIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}

@@ -54,8 +54,6 @@ func (ec EspressoDataFrameStorageClass) Alloc() EspressoDataFrameStorage {
 //   - [EspressoDataFrameStorage.MappedFiles]
 //   - [EspressoDataFrameStorage.SetMappedFiles]
 //   - [EspressoDataFrameStorage.NumberOfDataFrames]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage
 type EspressoDataFrameStorage struct {
 	objectivec.Object
 }
@@ -80,8 +78,6 @@ var _ IEspressoDataFrameStorage = EspressoDataFrameStorage{}
 //   - [IEspressoDataFrameStorage.MappedFiles]
 //   - [IEspressoDataFrameStorage.SetMappedFiles]
 //   - [IEspressoDataFrameStorage.NumberOfDataFrames]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage
 type IEspressoDataFrameStorage interface {
 	objectivec.IObject
 
@@ -116,19 +112,15 @@ func NewEspressoDataFrameStorage() EspressoDataFrameStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/dataFrameAtIndex:
 func (e EspressoDataFrameStorage) DataFrameAtIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrameAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/numberOfDataFrames
 func (e EspressoDataFrameStorage) NumberOfDataFrames() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataFrames"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/dataFrameStorageFromPath:error:
 func (_EspressoDataFrameStorageClass EspressoDataFrameStorageClass) DataFrameStorageFromPathError(path objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_EspressoDataFrameStorageClass.class), objc.Sel("dataFrameStorageFromPath:error:"), path, unsafe.Pointer(&errorPtr))
@@ -140,7 +132,6 @@ func (_EspressoDataFrameStorageClass EspressoDataFrameStorageClass) DataFrameSto
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/baseFilename
 func (e EspressoDataFrameStorage) BaseFilename() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("baseFilename"))
 	return foundation.NSStringFromID(rv).String()
@@ -148,8 +139,6 @@ func (e EspressoDataFrameStorage) BaseFilename() string {
 func (e EspressoDataFrameStorage) SetBaseFilename(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBaseFilename:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/dataFrames
 func (e EspressoDataFrameStorage) DataFrames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -157,8 +146,6 @@ func (e EspressoDataFrameStorage) DataFrames() foundation.INSArray {
 func (e EspressoDataFrameStorage) SetDataFrames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataFrames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/mappedFiles
 func (e EspressoDataFrameStorage) MappedFiles() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("mappedFiles"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

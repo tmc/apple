@@ -42,7 +42,6 @@ func (cc CoreMLMetalDeviceClass) Alloc() CoreMLMetalDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalDevice
 type CoreMLMetalDevice struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMetalDeviceFromID(id objc.ID) CoreMLMetalDevice {
 // ICoreMLMetalDevice embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMetalDevice] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalDevice
 type ICoreMLMetalDevice interface {
 	objectivec.IObject
 }

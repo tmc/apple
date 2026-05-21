@@ -42,7 +42,6 @@ func (tc TextToSpeechVoiceDatabaseXPCClass) Alloc() TextToSpeechVoiceDatabaseXPC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseXPC
 type TextToSpeechVoiceDatabaseXPC struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechVoiceDatabaseXPCFromID(id objc.ID) TextToSpeechVoiceDatabaseXPC
 // ITextToSpeechVoiceDatabaseXPC embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoiceDatabaseXPC] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseXPC
 type ITextToSpeechVoiceDatabaseXPC interface {
 	objectivec.IObject
 }

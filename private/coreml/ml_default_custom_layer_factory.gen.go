@@ -47,8 +47,6 @@ func (mc MLDefaultCustomLayerFactoryClass) Alloc() MLDefaultCustomLayerFactory {
 // # Methods
 //
 //   - [MLDefaultCustomLayerFactory.CreateCustomLayerWithParametersError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory
 type MLDefaultCustomLayerFactory struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IMLDefaultCustomLayerFactory = MLDefaultCustomLayerFactory{}
 // # Methods
 //
 //   - [IMLDefaultCustomLayerFactory.CreateCustomLayerWithParametersError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory
 type IMLDefaultCustomLayerFactory interface {
 	objectivec.IObject
 
@@ -95,7 +91,6 @@ func NewMLDefaultCustomLayerFactory() MLDefaultCustomLayerFactory {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory/createCustomLayer:withParameters:error:
 func (m MLDefaultCustomLayerFactory) CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("createCustomLayer:withParameters:error:"), layer, parameters, unsafe.Pointer(&errorPtr))

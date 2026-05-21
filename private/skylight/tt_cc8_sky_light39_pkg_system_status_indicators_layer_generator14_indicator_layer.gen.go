@@ -43,7 +43,6 @@ func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer struct {
 	quartzcore.CALayer
 }
@@ -57,8 +56,6 @@ func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromI
 var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer{}
 
 // An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer interface {
 	quartzcore.ICALayer
 }
@@ -82,14 +79,12 @@ func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer()
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer/initWithCoder:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer/initWithLayer:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)

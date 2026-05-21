@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
 //   - [VZNetworkDeviceAttachment.Description]
 //   - [VZNetworkDeviceAttachment.Hash]
 //   - [VZNetworkDeviceAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment
 type VZNetworkDeviceAttachment struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZNetworkDeviceAttachment = VZNetworkDeviceAttachment{}
 //   - [IVZNetworkDeviceAttachment.Description]
 //   - [IVZNetworkDeviceAttachment.Hash]
 //   - [IVZNetworkDeviceAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment
 type IVZNetworkDeviceAttachment interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_attachment() objectivec.IObject
+	_attachment() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZNetworkDeviceAttachment() VZNetworkDeviceAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/_init
 func (v VZNetworkDeviceAttachment) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/_attachment
-func (v VZNetworkDeviceAttachment) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
-	return objectivec.Object{ID: rv}
+func (v VZNetworkDeviceAttachment) _attachment() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	return rv
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
@@ -127,33 +122,25 @@ func (v VZNetworkDeviceAttachment) CanAttachment() bool {
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (v VZNetworkDeviceAttachment) Attachment() (objectivec.IObject, error) {
+func (v VZNetworkDeviceAttachment) Attachment() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
 	return v._attachment(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/debugDescription
 func (v VZNetworkDeviceAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/description
 func (v VZNetworkDeviceAttachment) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/hash
 func (v VZNetworkDeviceAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/superclass
-func (v VZNetworkDeviceAttachment) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZNetworkDeviceAttachment) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

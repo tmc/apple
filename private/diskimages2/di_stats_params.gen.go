@@ -49,8 +49,6 @@ func (dc DIStatsParamsClass) Alloc() DIStatsParams {
 //   - [DIStatsParams.StatInstanceID]
 //   - [DIStatsParams.StatsWithError]
 //   - [DIStatsParams.InitWithURLInstanceIdError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams
 type DIStatsParams struct {
 	DIBaseParams
 }
@@ -70,8 +68,6 @@ var _ IDIStatsParams = DIStatsParams{}
 //   - [IDIStatsParams.StatInstanceID]
 //   - [IDIStatsParams.StatsWithError]
 //   - [IDIStatsParams.InitWithURLInstanceIdError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams
 type IDIStatsParams interface {
 	IDIBaseParams
 
@@ -79,7 +75,7 @@ type IDIStatsParams interface {
 
 	StatInstanceID() foundation.NSUUID
 	StatsWithError() (objectivec.IObject, error)
-	InitWithURLInstanceIdError(url foundation.INSURL, id objectivec.IObject) (DIStatsParams, error)
+	InitWithURLInstanceIdError(url foundation.NSURL, id objectivec.IObject) (DIStatsParams, error)
 }
 
 // Init initializes the instance.
@@ -101,15 +97,13 @@ func NewDIStatsParams() DIStatsParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams/initWithCoder:
 func NewDIStatsParamsWithCoder(coder objectivec.IObject) DIStatsParams {
 	instance := getDIStatsParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStatsParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
-func NewDIStatsParamsWithURLError(url foundation.INSURL) (DIStatsParams, error) {
+func NewDIStatsParamsWithURLError(url foundation.NSURL) (DIStatsParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStatsParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -120,8 +114,7 @@ func NewDIStatsParamsWithURLError(url foundation.INSURL) (DIStatsParams, error) 
 	return DIStatsParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams/initWithURL:instanceId:error:
-func NewDIStatsParamsWithURLInstanceIdError(url foundation.INSURL, id objectivec.IObject) (DIStatsParams, error) {
+func NewDIStatsParamsWithURLInstanceIdError(url foundation.NSURL, id objectivec.IObject) (DIStatsParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStatsParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:instanceId:error:"), url, id, unsafe.Pointer(&errorPtr))
@@ -132,7 +125,6 @@ func NewDIStatsParamsWithURLInstanceIdError(url foundation.INSURL, id objectivec
 	return DIStatsParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams/statsWithError:
 func (d DIStatsParams) StatsWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("statsWithError:"), unsafe.Pointer(&errorPtr))
@@ -143,9 +135,7 @@ func (d DIStatsParams) StatsWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams/initWithURL:instanceId:error:
-func (d DIStatsParams) InitWithURLInstanceIdError(url foundation.INSURL, id objectivec.IObject) (DIStatsParams, error) {
+func (d DIStatsParams) InitWithURLInstanceIdError(url foundation.NSURL, id objectivec.IObject) (DIStatsParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:instanceId:error:"), url, id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -156,7 +146,6 @@ func (d DIStatsParams) InitWithURLInstanceIdError(url foundation.INSURL, id obje
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStatsParams/statInstanceID
 func (d DIStatsParams) StatInstanceID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("statInstanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))

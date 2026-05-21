@@ -44,7 +44,6 @@ func (vc VZBridgedNetworkInterfaceClass) Alloc() VZBridgedNetworkInterface {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkInterface
 type VZBridgedNetworkInterface struct {
 	objectivec.Object
 }
@@ -58,8 +57,6 @@ func VZBridgedNetworkInterfaceFromID(id objc.ID) VZBridgedNetworkInterface {
 var _ IVZBridgedNetworkInterface = VZBridgedNetworkInterface{}
 
 // An interface definition for the [VZBridgedNetworkInterface] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkInterface
 type IVZBridgedNetworkInterface interface {
 	objectivec.IObject
 }
@@ -83,7 +80,6 @@ func NewVZBridgedNetworkInterface() VZBridgedNetworkInterface {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkInterface/_interfaceWithIdentifier:error:
 func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) _interfaceWithIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VZBridgedNetworkInterfaceClass.class), objc.Sel("_interfaceWithIdentifier:error:"), identifier, unsafe.Pointer(&errorPtr))

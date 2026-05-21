@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationNumbersResultClass) Alloc() SLSBridg
 //
 //   - [SLSBridgedWindowManagementOperationNumbersResult.Numbers]
 //   - [SLSBridgedWindowManagementOperationNumbersResult.InitWithNumbers]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult
 type SLSBridgedWindowManagementOperationNumbersResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWindowManagementOperationNumbersResult = SLSBridgedWindowManage
 //
 //   - [ISLSBridgedWindowManagementOperationNumbersResult.Numbers]
 //   - [ISLSBridgedWindowManagementOperationNumbersResult.InitWithNumbers]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult
 type ISLSBridgedWindowManagementOperationNumbersResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWindowManagementOperationNumbersResult() SLSBridgedWindowManag
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationNumbersResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationNumbersResult {
 	instance := getSLSBridgedWindowManagementOperationNumbersResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationNumbersResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult/initWithNumbers:
 func NewSLSBridgedWindowManagementOperationNumbersResultWithNumbers(numbers objectivec.IObject) SLSBridgedWindowManagementOperationNumbersResult {
 	instance := getSLSBridgedWindowManagementOperationNumbersResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNumbers:"), numbers)
 	return SLSBridgedWindowManagementOperationNumbersResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult/initWithNumbers:
 func (s SLSBridgedWindowManagementOperationNumbersResult) InitWithNumbers(numbers objectivec.IObject) SLSBridgedWindowManagementOperationNumbersResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationNumbersResult](s.ID, objc.Sel("initWithNumbers:"), numbers)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationNumbersResult/numbers
 func (s SLSBridgedWindowManagementOperationNumbersResult) Numbers() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("numbers"))
 	return foundation.NSArrayFromID(objc.ID(rv))

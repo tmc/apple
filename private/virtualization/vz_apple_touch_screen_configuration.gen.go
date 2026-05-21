@@ -48,8 +48,6 @@ func (vc VZAppleTouchScreenConfigurationClass) Alloc() VZAppleTouchScreenConfigu
 //   - [VZAppleTouchScreenConfiguration._registryProperties]
 //   - [VZAppleTouchScreenConfiguration.Set_registryProperties]
 //   - [VZAppleTouchScreenConfiguration._setRegistryProperties]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration
 type VZAppleTouchScreenConfiguration struct {
 	VZMultiTouchDeviceConfiguration
 }
@@ -69,8 +67,6 @@ var _ IVZAppleTouchScreenConfiguration = VZAppleTouchScreenConfiguration{}
 //   - [IVZAppleTouchScreenConfiguration._registryProperties]
 //   - [IVZAppleTouchScreenConfiguration.Set_registryProperties]
 //   - [IVZAppleTouchScreenConfiguration._setRegistryProperties]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration
 type IVZAppleTouchScreenConfiguration interface {
 	IVZMultiTouchDeviceConfiguration
 
@@ -100,7 +96,6 @@ func NewVZAppleTouchScreenConfiguration() VZAppleTouchScreenConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration/_setRegistryProperties:
 func (v VZAppleTouchScreenConfiguration) _setRegistryProperties(properties objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setRegistryProperties:"), properties)
 }
@@ -120,7 +115,6 @@ func (v VZAppleTouchScreenConfiguration) CanSetRegistryProperties() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setRegistryProperties:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration/_registryProperties
 func (v VZAppleTouchScreenConfiguration) _registryProperties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_registryProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

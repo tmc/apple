@@ -49,8 +49,6 @@ func (sc SLSBridgedManagedDisplaysCopyRoleWindowsOperationClass) Alloc() SLSBrid
 //   - [SLSBridgedManagedDisplaysCopyRoleWindowsOperation.MakeResultWithNumbers]
 //   - [SLSBridgedManagedDisplaysCopyRoleWindowsOperation.Role]
 //   - [SLSBridgedManagedDisplaysCopyRoleWindowsOperation.InitWithDisplayIdentifiersRole]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation
 type SLSBridgedManagedDisplaysCopyRoleWindowsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedManagedDisplaysCopyRoleWindowsOperation = SLSBridgedManagedDisp
 //   - [ISLSBridgedManagedDisplaysCopyRoleWindowsOperation.MakeResultWithNumbers]
 //   - [ISLSBridgedManagedDisplaysCopyRoleWindowsOperation.Role]
 //   - [ISLSBridgedManagedDisplaysCopyRoleWindowsOperation.InitWithDisplayIdentifiersRole]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation
 type ISLSBridgedManagedDisplaysCopyRoleWindowsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperation() SLSBridgedManagedDis
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/initWithCoder:
 func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	instance := getSLSBridgedManagedDisplaysCopyRoleWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaysCopyRoleWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/initWithDisplayIdentifiers:role:
 func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperationWithDisplayIdentifiersRole(identifiers objectivec.IObject, role uint64) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	instance := getSLSBridgedManagedDisplaysCopyRoleWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
 	return SLSBridgedManagedDisplaysCopyRoleWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/makeResultWithNumbers:
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/initWithDisplayIdentifiers:role:
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) InitWithDisplayIdentifiersRole(identifiers objectivec.IObject, role uint64) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/displayIdentifiers
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) DisplayIdentifiers() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifiers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedManagedDisplaysCopyRoleWindowsOperation/role
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) Role() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("role"))
 	return rv

@@ -49,8 +49,6 @@ func (dc DIStackParamsClass) Alloc() DIStackParams {
 //
 //   - [DIStackParams.AppendWithURLIsCacheError]
 //   - [DIStackParams.AppendWithURLIsCacheNumBlocksError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStackParams
 type DIStackParams struct {
 	DIBaseParams
 }
@@ -69,15 +67,13 @@ var _ IDIStackParams = DIStackParams{}
 //
 //   - [IDIStackParams.AppendWithURLIsCacheError]
 //   - [IDIStackParams.AppendWithURLIsCacheNumBlocksError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIStackParams
 type IDIStackParams interface {
 	IDIBaseParams
 
 	// Topic: Methods
 
-	AppendWithURLIsCacheError(url foundation.INSURL, cache bool) (bool, error)
-	AppendWithURLIsCacheNumBlocksError(url foundation.INSURL, cache bool, blocks uint64) (bool, error)
+	AppendWithURLIsCacheError(url foundation.NSURL, cache bool) (bool, error)
+	AppendWithURLIsCacheNumBlocksError(url foundation.NSURL, cache bool, blocks uint64) (bool, error)
 }
 
 // Init initializes the instance.
@@ -99,15 +95,13 @@ func NewDIStackParams() DIStackParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIStackParamsWithCoder(coder objectivec.IObject) DIStackParams {
 	instance := getDIStackParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStackParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/initWithURL:error:
-func NewDIStackParamsWithURLError(url foundation.INSURL) (DIStackParams, error) {
+func NewDIStackParamsWithURLError(url foundation.NSURL) (DIStackParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStackParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -118,8 +112,7 @@ func NewDIStackParamsWithURLError(url foundation.INSURL) (DIStackParams, error) 
 	return DIStackParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/appendWithURL:isCache:error:
-func (d DIStackParams) AppendWithURLIsCacheError(url foundation.INSURL, cache bool) (bool, error) {
+func (d DIStackParams) AppendWithURLIsCacheError(url foundation.NSURL, cache bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendWithURL:isCache:error:"), url, cache, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -132,9 +125,7 @@ func (d DIStackParams) AppendWithURLIsCacheError(url foundation.INSURL, cache bo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/appendWithURL:isCache:numBlocks:error:
-func (d DIStackParams) AppendWithURLIsCacheNumBlocksError(url foundation.INSURL, cache bool, blocks uint64) (bool, error) {
+func (d DIStackParams) AppendWithURLIsCacheNumBlocksError(url foundation.NSURL, cache bool, blocks uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendWithURL:isCache:numBlocks:error:"), url, cache, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

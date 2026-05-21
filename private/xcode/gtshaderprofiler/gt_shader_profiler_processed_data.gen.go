@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,8 +61,6 @@ func (gc GTShaderProfilerProcessedDataClass) Alloc() GTShaderProfilerProcessedDa
 //   - [GTShaderProfilerProcessedData.SetTimelineInfo]
 //   - [GTShaderProfilerProcessedData.InitWithCoder]
 //   - [GTShaderProfilerProcessedData.InitWithMioData]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData
 type GTShaderProfilerProcessedData struct {
 	objectivec.Object
 }
@@ -91,20 +90,18 @@ var _ IGTShaderProfilerProcessedData = GTShaderProfilerProcessedData{}
 //   - [IGTShaderProfilerProcessedData.SetTimelineInfo]
 //   - [IGTShaderProfilerProcessedData.InitWithCoder]
 //   - [IGTShaderProfilerProcessedData.InitWithMioData]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData
 type IGTShaderProfilerProcessedData interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ArchiveToURLError(url foundation.INSURL) (bool, error)
+	ArchiveToURLError(url foundation.NSURL) (bool, error)
 	EncodeWithCoder(coder foundation.INSCoder)
 	GpuGeneration() uint32
 	SetGpuGeneration(value uint32)
 	MioData() IGTMioTraceData
-	ShaderProfilerResult() objectivec.IObject
-	SetShaderProfilerResult(value objectivec.IObject)
+	ShaderProfilerResult() unsafe.Pointer
+	SetShaderProfilerResult(value kernel.Pointer)
 	StreamData() IGTShaderProfilerStreamData
 	SetStreamData(value IGTShaderProfilerStreamData)
 	TimelineInfo() IDYWorkloadGPUTimelineInfo
@@ -132,22 +129,19 @@ func NewGTShaderProfilerProcessedData() GTShaderProfilerProcessedData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/initWithCoder:
 func NewGTShaderProfilerProcessedDataWithCoder(coder objectivec.IObject) GTShaderProfilerProcessedData {
 	instance := getGTShaderProfilerProcessedDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerProcessedDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/initWithMioData:
 func NewGTShaderProfilerProcessedDataWithMioData(data objectivec.IObject) GTShaderProfilerProcessedData {
 	instance := getGTShaderProfilerProcessedDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMioData:"), data)
 	return GTShaderProfilerProcessedDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/archiveToURL:error:
-func (g GTShaderProfilerProcessedData) ArchiveToURLError(url foundation.INSURL) (bool, error) {
+func (g GTShaderProfilerProcessedData) ArchiveToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](g.ID, objc.Sel("archiveToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -160,25 +154,18 @@ func (g GTShaderProfilerProcessedData) ArchiveToURLError(url foundation.INSURL) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/encodeWithCoder:
 func (g GTShaderProfilerProcessedData) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/initWithCoder:
 func (g GTShaderProfilerProcessedData) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerProcessedData {
 	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/initWithMioData:
 func (g GTShaderProfilerProcessedData) InitWithMioData(data objectivec.IObject) GTShaderProfilerProcessedData {
 	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithMioData:"), data)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/dataFromData:error:
 func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) DataFromDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerProcessedDataClass.class), objc.Sel("dataFromData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -189,9 +176,7 @@ func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) Da
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/dataFromURL:error:
-func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) DataFromURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) DataFromURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerProcessedDataClass.class), objc.Sel("dataFromURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -201,14 +186,11 @@ func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) Da
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/supportsSecureCoding
 func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTShaderProfilerProcessedDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/gpuGeneration
 func (g GTShaderProfilerProcessedData) GpuGeneration() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
@@ -216,23 +198,17 @@ func (g GTShaderProfilerProcessedData) GpuGeneration() uint32 {
 func (g GTShaderProfilerProcessedData) SetGpuGeneration(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGpuGeneration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/mioData
 func (g GTShaderProfilerProcessedData) MioData() IGTMioTraceData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
 	return GTMioTraceDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/shaderProfilerResult
-func (g GTShaderProfilerProcessedData) ShaderProfilerResult() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderProfilerResult"))
-	return objectivec.Object{ID: rv}
+func (g GTShaderProfilerProcessedData) ShaderProfilerResult() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
+	return rv
 }
-func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value objectivec.IObject) {
+func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value kernel.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShaderProfilerResult:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/streamData
 func (g GTShaderProfilerProcessedData) StreamData() IGTShaderProfilerStreamData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
@@ -240,8 +216,6 @@ func (g GTShaderProfilerProcessedData) StreamData() IGTShaderProfilerStreamData 
 func (g GTShaderProfilerProcessedData) SetStreamData(value IGTShaderProfilerStreamData) {
 	objc.Send[struct{}](g.ID, objc.Sel("setStreamData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/timelineInfo
 func (g GTShaderProfilerProcessedData) TimelineInfo() IDYWorkloadGPUTimelineInfo {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineInfo"))
 	return DYWorkloadGPUTimelineInfoFromID(objc.ID(rv))

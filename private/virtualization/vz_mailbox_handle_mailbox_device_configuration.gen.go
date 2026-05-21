@@ -41,7 +41,6 @@ func (vc VZMailboxHandleMailboxDeviceConfigurationClass) Alloc() VZMailboxHandle
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMailboxHandleMailboxDeviceConfiguration
 type VZMailboxHandleMailboxDeviceConfiguration struct {
 	VZMailboxDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZMailboxHandleMailboxDeviceConfigurationFromID(id objc.ID) VZMailboxHandle
 var _ IVZMailboxHandleMailboxDeviceConfiguration = VZMailboxHandleMailboxDeviceConfiguration{}
 
 // An interface definition for the [VZMailboxHandleMailboxDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMailboxHandleMailboxDeviceConfiguration
 type IVZMailboxHandleMailboxDeviceConfiguration interface {
 	IVZMailboxDeviceConfiguration
 }

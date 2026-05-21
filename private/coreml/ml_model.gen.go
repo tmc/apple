@@ -57,6 +57,7 @@ func (mc MLModelClass) Alloc() MLModel {
 //   - [MLModel.EnableInstrumentsTracingIfNeeded]
 //   - [MLModel.ExecutionSchedule]
 //   - [MLModel.InternalEngine]
+//   - [MLModel.Metadata]
 //   - [MLModel.ModelPath]
 //   - [MLModel.NeuralNetwork]
 //   - [MLModel.NewRequestForModelInputFeaturesOptionsError]
@@ -99,8 +100,6 @@ func (mc MLModelClass) Alloc() MLModel {
 //   - [MLModel.ModelDescription]
 //   - [MLModel.SetModelDescription]
 //   - [MLModel.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel
 type MLModel struct {
 	objectivec.Object
 }
@@ -126,6 +125,7 @@ var _ IMLModel = MLModel{}
 //   - [IMLModel.EnableInstrumentsTracingIfNeeded]
 //   - [IMLModel.ExecutionSchedule]
 //   - [IMLModel.InternalEngine]
+//   - [IMLModel.Metadata]
 //   - [IMLModel.ModelPath]
 //   - [IMLModel.NeuralNetwork]
 //   - [IMLModel.NewRequestForModelInputFeaturesOptionsError]
@@ -168,15 +168,13 @@ var _ IMLModel = MLModel{}
 //   - [IMLModel.ModelDescription]
 //   - [IMLModel.SetModelDescription]
 //   - [IMLModel.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel
 type IMLModel interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	CancelPredictionRequest(request objectivec.IObject)
-	Classifier() objectivec.IObject
+	Classifier() unsafe.Pointer
 	DebugQuickLookObject() objectivec.IObject
 	DecryptSession() IMLFairPlayDecryptSession
 	SetDecryptSession(value IMLFairPlayDecryptSession)
@@ -184,8 +182,9 @@ type IMLModel interface {
 	EnableInstrumentsTracingIfNeeded()
 	ExecutionSchedule() objectivec.IObject
 	InternalEngine() objectivec.IObject
+	Metadata() IMLModelMetadata
 	ModelPath() objectivec.IObject
-	NeuralNetwork() objectivec.IObject
+	NeuralNetwork() unsafe.Pointer
 	NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	NewRequestWithInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	NewRequestWithInputFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
@@ -193,16 +192,16 @@ type IMLModel interface {
 	NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject
 	NextPredictionRequestID() uint64
 	ObjectBoundingBoxOutputDescription() objectivec.IObject
-	Pipeline() objectivec.IObject
+	Pipeline() unsafe.Pointer
 	PipelineOfPostVisionFeaturePrintModelsFromPipeline(pipeline objectivec.IObject) objectivec.IObject
 	PredictionEvent() IMLPredictionEvent
 	SetPredictionEvent(value IMLPredictionEvent)
 	PredictionTypeForKTrace() uint64
 	PrepareWithCompletionHandler(handler ErrorHandler)
 	PrepareWithConcurrencyHint(hint int64)
-	Program() objectivec.IObject
+	Program() unsafe.Pointer
 	RecordsPredictionEvent() bool
-	Regressor() objectivec.IObject
+	Regressor() unsafe.Pointer
 	SetModelPathModelName(path objectivec.IObject, name objectivec.IObject)
 	SignpostID() uint64
 	SetSignpostID(value uint64)
@@ -211,7 +210,7 @@ type IMLModel interface {
 	Updatable() objectivec.IObject
 	VectorizeInputError(input objectivec.IObject) (objectivec.IObject, error)
 	VisionFeaturePrintInfo() objectivec.IObject
-	Writable() objectivec.IObject
+	Writable() unsafe.Pointer
 	InitDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLModel, error)
 	InitInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLModel, error)
 	InitWithConfiguration(configuration objectivec.IObject) MLModel
@@ -225,7 +224,7 @@ type IMLModel interface {
 	Hash() uint64
 	ModelDescription() IMLModelDescription
 	SetModelDescription(value IMLModelDescription)
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -247,7 +246,6 @@ func NewMLModel() MLModel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLModel, error) {
 	var errorPtr objc.ID
 	instance := getMLModelClass().Alloc()
@@ -259,7 +257,6 @@ func NewModelDescriptionOnlyWithSpecificationConfigurationError(specification un
 	return MLModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLModel, error) {
 	var errorPtr objc.ID
 	instance := getMLModelClass().Alloc()
@@ -271,74 +268,55 @@ func NewModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer
 	return MLModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewModelWithConfiguration(configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewModelWithDescription(description objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/cancelPredictionRequest:
 func (m MLModel) CancelPredictionRequest(request objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("cancelPredictionRequest:"), request)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/debugQuickLookObject
 func (m MLModel) DebugQuickLookObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/enableInstrumentsTracing
 func (m MLModel) EnableInstrumentsTracing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/enableInstrumentsTracingIfNeeded
 func (m MLModel) EnableInstrumentsTracingIfNeeded() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracingIfNeeded"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/executionSchedule
 func (m MLModel) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/internalEngine
 func (m MLModel) InternalEngine() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("internalEngine"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelPath
 func (m MLModel) ModelPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/newRequestForModel:inputFeatures:options:error:
 func (m MLModel) NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newRequestForModel:inputFeatures:options:error:"), model, features, options, unsafe.Pointer(&errorPtr))
@@ -349,8 +327,6 @@ func (m MLModel) NewRequestForModelInputFeaturesOptionsError(model objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/newRequestWithInputFeatures:options:error:
 func (m MLModel) NewRequestWithInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newRequestWithInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -361,8 +337,6 @@ func (m MLModel) NewRequestWithInputFeaturesOptionsError(features objectivec.IOb
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/newRequestWithInputFeatures:usingState:options:error:
 func (m MLModel) NewRequestWithInputFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newRequestWithInputFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
@@ -373,67 +347,45 @@ func (m MLModel) NewRequestWithInputFeaturesUsingStateOptionsError(features obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/newStateForFeatureNamed:initializerBlock:
 func (m MLModel) NewStateForFeatureNamedInitializerBlock(named objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateForFeatureNamed:initializerBlock:"), named, _block1)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/newStateWithClientBuffers:
 func (m MLModel) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/nextPredictionRequestID
 func (m MLModel) NextPredictionRequestID() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("nextPredictionRequestID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/objectBoundingBoxOutputDescription
 func (m MLModel) ObjectBoundingBoxOutputDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectBoundingBoxOutputDescription"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/pipelineOfPostVisionFeaturePrintModelsFromPipeline:
 func (m MLModel) PipelineOfPostVisionFeaturePrintModelsFromPipeline(pipeline objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipelineOfPostVisionFeaturePrintModelsFromPipeline:"), pipeline)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prepareWithCompletionHandler:
 func (m MLModel) PrepareWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("prepareWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prepareWithConcurrencyHint:
 func (m MLModel) PrepareWithConcurrencyHint(hint int64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("prepareWithConcurrencyHint:"), hint)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/setModelPath:modelName:
 func (m MLModel) SetModelPathModelName(path objectivec.IObject, name objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setModelPath:modelName:"), path, name)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/submitPredictionRequest:completionHandler:
 func (m MLModel) SubmitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("submitPredictionRequest:completionHandler:"), request, _block1)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/updatable
 func (m MLModel) Updatable() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatable"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/vectorizeInput:error:
 func (m MLModel) VectorizeInputError(input objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("vectorizeInput:error:"), input, unsafe.Pointer(&errorPtr))
@@ -444,14 +396,10 @@ func (m MLModel) VectorizeInputError(input objectivec.IObject) (objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/visionFeaturePrintInfo
 func (m MLModel) VisionFeaturePrintInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("visionFeaturePrintInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func (m MLModel) InitDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -462,8 +410,6 @@ func (m MLModel) InitDescriptionOnlyWithSpecificationConfigurationError(specific
 	return MLModelFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func (m MLModel) InitInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -474,33 +420,24 @@ func (m MLModel) InitInterfaceAndMetadataWithCompiledArchiveError(archive unsafe
 	return MLModelFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func (m MLModel) InitWithConfiguration(configuration objectivec.IObject) MLModel {
 	rv := objc.Send[MLModel](m.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func (m MLModel) InitWithDescription(description objectivec.IObject) MLModel {
 	rv := objc.Send[MLModel](m.ID, objc.Sel("initWithDescription:"), description)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func (m MLModel) InitWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModel {
 	rv := objc.Send[MLModel](m.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (m MLModel) InitWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModel {
 	rv := objc.Send[MLModel](m.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/_compileModelAtURL:options:error:
-func (_MLModelClass MLModelClass) _compileModelAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelClass MLModelClass) _compileModelAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("_compileModelAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -512,7 +449,7 @@ func (_MLModelClass MLModelClass) _compileModelAtURLOptionsError(url foundation.
 }
 
 // CompileModelAtURLOptionsError is an exported wrapper for the private method _compileModelAtURLOptionsError.
-func (_MLModelClass MLModelClass) CompileModelAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelClass MLModelClass) CompileModelAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(objc.ID(_MLModelClass.class), objc.Sel("_compileModelAtURL:options:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_compileModelAtURL:options:error:"}
 		return nil, err
@@ -524,9 +461,17 @@ func (_MLModelClass MLModelClass) CompileModelAtURLOptionsError(url foundation.I
 func (_MLModelClass MLModelClass) CanCompileModelAtURLOptionsError() bool {
 	return objc.RespondsToSelector(objc.ID(_MLModelClass.class), objc.Sel("_compileModelAtURL:options:error:"))
 }
+func (_MLModelClass MLModelClass) CompileModelAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:error:"), url, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/compileModelWithoutAutoreleaseAtURL:options:error:
-func (_MLModelClass MLModelClass) CompileModelWithoutAutoreleaseAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+}
+func (_MLModelClass MLModelClass) CompileModelWithoutAutoreleaseAtURLOptionsError(url foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelWithoutAutoreleaseAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -536,21 +481,15 @@ func (_MLModelClass MLModelClass) CompileModelWithoutAutoreleaseAtURLOptionsErro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/generateSignpostId
 func (_MLModelClass MLModelClass) GenerateSignpostId() uint64 {
 	rv := objc.Send[uint64](objc.ID(_MLModelClass.class), objc.Sel("generateSignpostId"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/maxPredictionsInFlight
 func (_MLModelClass MLModelClass) MaxPredictionsInFlight() int64 {
 	rv := objc.Send[int64](objc.ID(_MLModelClass.class), objc.Sel("maxPredictionsInFlight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelWithContentsOfURL:configuration:error:
-func (_MLModelClass MLModelClass) ModelWithContentsOfURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLModelClass MLModelClass) ModelWithContentsOfURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("modelWithContentsOfURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -560,9 +499,7 @@ func (_MLModelClass MLModelClass) ModelWithContentsOfURLConfigurationError(url f
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelWithContentsOfURL:error:
-func (_MLModelClass MLModelClass) ModelWithContentsOfURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_MLModelClass MLModelClass) ModelWithContentsOfURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -572,8 +509,6 @@ func (_MLModelClass MLModelClass) ModelWithContentsOfURLError(url foundation.INS
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/predictionsFromLoopingOverBatch:model:options:error:
 func (_MLModelClass MLModelClass) PredictionsFromLoopingOverBatchModelOptionsError(batch objectivec.IObject, model objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("predictionsFromLoopingOverBatch:model:options:error:"), batch, model, options, unsafe.Pointer(&errorPtr))
@@ -584,11 +519,10 @@ func (_MLModelClass MLModelClass) PredictionsFromLoopingOverBatchModelOptionsErr
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/predictionsFromSubbatchingBatch:maxSubbatchLength:predictionBlock:options:error:
 func (_MLModelClass MLModelClass) PredictionsFromSubbatchingBatchMaxSubbatchLengthPredictionBlockOptionsError(batch objectivec.IObject, length int64, block func(), options objectivec.IObject) (objectivec.IObject, error) {
+	_block2, _ := NewVoidBlock(block)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("predictionsFromSubbatchingBatch:maxSubbatchLength:predictionBlock:options:error:"), batch, length, block, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("predictionsFromSubbatchingBatch:maxSubbatchLength:predictionBlock:options:error:"), batch, length, _block2, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -596,8 +530,6 @@ func (_MLModelClass MLModelClass) PredictionsFromSubbatchingBatchMaxSubbatchLeng
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/serializeInterfaceAndMetadata:toArchive:error:
 func (_MLModelClass MLModelClass) SerializeInterfaceAndMetadataToArchiveError(metadata unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLModelClass.class), objc.Sel("serializeInterfaceAndMetadata:toArchive:error:"), metadata, archive, unsafe.Pointer(&errorPtr))
@@ -612,13 +544,10 @@ func (_MLModelClass MLModelClass) SerializeInterfaceAndMetadataToArchiveError(me
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/classifier
-func (m MLModel) Classifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classifier"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) Classifier() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("classifier"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/configuration
 func (m MLModel) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
@@ -626,14 +555,10 @@ func (m MLModel) Configuration() IMLModelConfiguration {
 func (m MLModel) SetConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/debugDescription
 func (m MLModel) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/decryptSession
 func (m MLModel) DecryptSession() IMLFairPlayDecryptSession {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("decryptSession"))
 	return MLFairPlayDecryptSessionFromID(objc.ID(rv))
@@ -641,20 +566,18 @@ func (m MLModel) DecryptSession() IMLFairPlayDecryptSession {
 func (m MLModel) SetDecryptSession(value IMLFairPlayDecryptSession) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDecryptSession:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/description
 func (m MLModel) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/hash
 func (m MLModel) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
+func (m MLModel) Metadata() IMLModelMetadata {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	return MLModelMetadataFromID(objc.ID(rv))
+}
 func (m MLModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
@@ -662,20 +585,14 @@ func (m MLModel) ModelDescription() IMLModelDescription {
 func (m MLModel) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/neuralNetwork
-func (m MLModel) NeuralNetwork() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralNetwork"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) NeuralNetwork() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("neuralNetwork"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/pipeline
-func (m MLModel) Pipeline() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) Pipeline() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("pipeline"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/predictionEvent
 func (m MLModel) PredictionEvent() IMLPredictionEvent {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionEvent"))
 	return MLPredictionEventFromID(objc.ID(rv))
@@ -683,32 +600,22 @@ func (m MLModel) PredictionEvent() IMLPredictionEvent {
 func (m MLModel) SetPredictionEvent(value IMLPredictionEvent) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPredictionEvent:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/predictionTypeForKTrace
 func (m MLModel) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/program
-func (m MLModel) Program() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("program"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) Program() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("program"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/recordsPredictionEvent
 func (m MLModel) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/regressor
-func (m MLModel) Regressor() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("regressor"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) Regressor() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("regressor"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/signpostID
 func (m MLModel) SignpostID() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
@@ -716,23 +623,17 @@ func (m MLModel) SignpostID() uint64 {
 func (m MLModel) SetSignpostID(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSignpostID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/superclass
-func (m MLModel) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLModel) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/supportsConcurrentSubmissions
 func (m MLModel) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModel/writable
-func (m MLModel) Writable() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("writable"))
-	return objectivec.Object{ID: rv}
+func (m MLModel) Writable() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("writable"))
+	return rv
 }
 
 // NewStateForFeatureNamedInitializerBlockSync is a synchronous wrapper around [MLModel.NewStateForFeatureNamedInitializerBlock].

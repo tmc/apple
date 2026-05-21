@@ -41,7 +41,6 @@ func (ec EspressoPassStyleTransferParameterizeTransplantClass) Alloc() EspressoP
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_parameterize_transplant
 type EspressoPassStyleTransferParameterizeTransplant struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_style_transfer_parameterize_transplantFromID(id objc.ID) Espre
 var _ IEspressoPassStyleTransferParameterizeTransplant = EspressoPassStyleTransferParameterizeTransplant{}
 
 // An interface definition for the [EspressoPassStyleTransferParameterizeTransplant] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_parameterize_transplant
 type IEspressoPassStyleTransferParameterizeTransplant interface {
 	IEspressoCustomPass
 }

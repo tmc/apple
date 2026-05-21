@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionBatchMatmulToInnerProductClass) Alloc() Es
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
 type EspressoPassStrengthReductionBatchMatmulToInnerProduct struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID(id objc
 var _ IEspressoPassStrengthReductionBatchMatmulToInnerProduct = EspressoPassStrengthReductionBatchMatmulToInnerProduct{}
 
 // An interface definition for the [EspressoPassStrengthReductionBatchMatmulToInnerProduct] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
 type IEspressoPassStrengthReductionBatchMatmulToInnerProduct interface {
 	IEspressoCustomPass
 }

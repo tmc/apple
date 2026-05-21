@@ -48,8 +48,6 @@ func (ac ANEAnalyticsTaskClass) Alloc() ANEAnalyticsTask {
 //   - [ANEAnalyticsTask.Metrics]
 //   - [ANEAnalyticsTask.Serialize]
 //   - [ANEAnalyticsTask.InitWithMetrics]
-//
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask
 type ANEAnalyticsTask struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IANEAnalyticsTask = ANEAnalyticsTask{}
 //   - [IANEAnalyticsTask.Metrics]
 //   - [IANEAnalyticsTask.Serialize]
 //   - [IANEAnalyticsTask.InitWithMetrics]
-//
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask
 type IANEAnalyticsTask interface {
 	objectivec.IObject
 
@@ -100,32 +96,26 @@ func NewANEAnalyticsTask() ANEAnalyticsTask {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/initWithMetrics:
 func NewANEAnalyticsTaskWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
 	instance := getANEAnalyticsTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetrics:"), metrics)
 	return ANEAnalyticsTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/serialize
 func (a ANEAnalyticsTask) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/initWithMetrics:
 func (a ANEAnalyticsTask) InitWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
 	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("initWithMetrics:"), metrics)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/objectWithMetrics:
 func (_ANEAnalyticsTaskClass ANEAnalyticsTaskClass) ObjectWithMetrics(metrics objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsTaskClass.class), objc.Sel("objectWithMetrics:"), metrics)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/metrics
 func (a ANEAnalyticsTask) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

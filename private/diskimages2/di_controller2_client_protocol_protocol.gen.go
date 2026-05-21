@@ -8,8 +8,6 @@ import (
 )
 
 // DIController2ClientProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientProtocol
 type DIController2ClientProtocol interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func DIController2ClientProtocolObjectFromID(id objc.ID) DIController2ClientProt
 	}
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientProtocol/attachCompletedWithHandle:reply:
 func (o DIController2ClientProtocolObject) AttachCompletedWithHandleReply(handle objectivec.IObject, reply ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, reply)
 }

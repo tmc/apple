@@ -50,8 +50,6 @@ func (mc MLDummySpecificationLoaderClass) Alloc() MLDummySpecificationLoader {
 //   - [MLDummySpecificationLoader.Description]
 //   - [MLDummySpecificationLoader.Hash]
 //   - [MLDummySpecificationLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader
 type MLDummySpecificationLoader struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IMLDummySpecificationLoader = MLDummySpecificationLoader{}
 //   - [IMLDummySpecificationLoader.Description]
 //   - [IMLDummySpecificationLoader.Hash]
 //   - [IMLDummySpecificationLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader
 type IMLDummySpecificationLoader interface {
 	objectivec.IObject
 
@@ -82,7 +78,7 @@ type IMLDummySpecificationLoader interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -104,7 +100,6 @@ func NewMLDummySpecificationLoader() MLDummySpecificationLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/loadModelFromSpecification:configuration:error:
 func (_MLDummySpecificationLoaderClass MLDummySpecificationLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDummySpecificationLoaderClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -116,26 +111,19 @@ func (_MLDummySpecificationLoaderClass MLDummySpecificationLoaderClass) LoadMode
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/debugDescription
 func (m MLDummySpecificationLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/description
 func (m MLDummySpecificationLoader) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/hash
 func (m MLDummySpecificationLoader) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/superclass
-func (m MLDummySpecificationLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLDummySpecificationLoader) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

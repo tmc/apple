@@ -42,7 +42,6 @@ func (mc MLParameterUtilsClass) Alloc() MLParameterUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils
 type MLParameterUtils struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLParameterUtilsFromID(id objc.ID) MLParameterUtils {
 var _ IMLParameterUtils = MLParameterUtils{}
 
 // An interface definition for the [MLParameterUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils
 type IMLParameterUtils interface {
 	objectivec.IObject
 }
@@ -81,30 +78,21 @@ func NewMLParameterUtils() MLParameterUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils/appendParameterDescriptions:toModelDescription:
 func (_MLParameterUtilsClass MLParameterUtilsClass) AppendParameterDescriptionsToModelDescription(descriptions objectivec.IObject, description objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("appendParameterDescriptions:toModelDescription:"), descriptions, description)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils/deScopeParameters:byDeletingPrefixingScope:
 func (_MLParameterUtilsClass MLParameterUtilsClass) DeScopeParametersByDeletingPrefixingScope(parameters objectivec.IObject, scope objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("deScopeParameters:byDeletingPrefixingScope:"), parameters, scope)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils/numberForKey:inDictionary:
 func (_MLParameterUtilsClass MLParameterUtilsClass) NumberForKeyInDictionary(key objectivec.IObject, dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("numberForKey:inDictionary:"), key, dictionary)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils/objectForKey:class:dictionary:
-func (_MLParameterUtilsClass MLParameterUtilsClass) ObjectForKeyClassDictionary(key objectivec.IObject, class objc.Class, dictionary objectivec.IObject) objectivec.IObject {
+func (_MLParameterUtilsClass MLParameterUtilsClass) ObjectForKeyClassDictionary(key objectivec.IObject, class objectivec.Class, dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("objectForKey:class:dictionary:"), key, class, dictionary)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLParameterUtils/stringForKey:inDictionary:
 func (_MLParameterUtilsClass MLParameterUtilsClass) StringForKeyInDictionary(key objectivec.IObject, dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("stringForKey:inDictionary:"), key, dictionary)
 	return objectivec.Object{ID: rv}

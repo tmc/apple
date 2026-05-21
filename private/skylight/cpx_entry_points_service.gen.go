@@ -47,8 +47,6 @@ func (cc CPXEntryPointsServiceClass) Alloc() CPXEntryPointsService {
 //   - [CPXEntryPointsService.ClientAddToPermittedFrontList]
 //   - [CPXEntryPointsService.ClientRemoveFromPermittedFrontList]
 //   - [CPXEntryPointsService.InitWithFocusControllerProcessManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService
 type CPXEntryPointsService struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ ICPXEntryPointsService = CPXEntryPointsService{}
 //   - [ICPXEntryPointsService.ClientAddToPermittedFrontList]
 //   - [ICPXEntryPointsService.ClientRemoveFromPermittedFrontList]
 //   - [ICPXEntryPointsService.InitWithFocusControllerProcessManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService
 type ICPXEntryPointsService interface {
 	objectivec.IObject
 
@@ -99,26 +95,20 @@ func NewCPXEntryPointsService() CPXEntryPointsService {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/initWithFocusController:processManager:
 func NewCPXEntryPointsServiceWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService {
 	instance := getCPXEntryPointsServiceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
 	return CPXEntryPointsServiceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/client:addToPermittedFrontList:
 func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), client, list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/client:removeFromPermittedFrontList:
 func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), client, list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/initWithFocusController:processManager:
 func (c CPXEntryPointsService) InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService {
 	rv := objc.Send[CPXEntryPointsService](c.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
 	return rv

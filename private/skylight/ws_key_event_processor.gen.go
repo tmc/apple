@@ -41,7 +41,6 @@ func (wc WSKeyEventProcessorClass) Alloc() WSKeyEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSKeyEventProcessor
 type WSKeyEventProcessor struct {
 	WSEventProcessor
 }
@@ -55,8 +54,6 @@ func WSKeyEventProcessorFromID(id objc.ID) WSKeyEventProcessor {
 var _ IWSKeyEventProcessor = WSKeyEventProcessor{}
 
 // An interface definition for the [WSKeyEventProcessor] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSKeyEventProcessor
 type IWSKeyEventProcessor interface {
 	IWSEventProcessor
 }
@@ -80,7 +77,6 @@ func NewWSKeyEventProcessor() WSKeyEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSKeyEventProcessorWithSession(session CGXSession) WSKeyEventProcessor {
 	instance := getWSKeyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)

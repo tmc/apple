@@ -51,8 +51,6 @@ func (sc SLSGUIClientClass) Alloc() SLSGUIClient {
 //   - [SLSGUIClient.SetService]
 //   - [SLSGUIClient.ValidateIdleRequest]
 //   - [SLSGUIClient.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient
 type SLSGUIClient struct {
 	SLSDisplayControlClient
 }
@@ -74,8 +72,6 @@ var _ ISLSGUIClient = SLSGUIClient{}
 //   - [ISLSGUIClient.SetService]
 //   - [ISLSGUIClient.ValidateIdleRequest]
 //   - [ISLSGUIClient.InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient
 type ISLSGUIClient interface {
 	ISLSDisplayControlClient
 
@@ -107,7 +103,6 @@ func NewSLSGUIClient() SLSGUIClient {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient/requestDisplaysIdle:error:
 func (s SLSGUIClient) RequestDisplaysIdleError(idle objectivec.IObject) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](s.ID, objc.Sel("requestDisplaysIdle:error:"), idle, unsafe.Pointer(&errorPtr))
@@ -118,28 +113,22 @@ func (s SLSGUIClient) RequestDisplaysIdleError(idle objectivec.IObject) (uint64,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient/validateIdleRequest:
 func (s SLSGUIClient) ValidateIdleRequest(request objectivec.IObject) int {
 	rv := objc.Send[int](s.ID, objc.Sel("validateIdleRequest:"), request)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient/initGUIClient:error:notifyQueue:notificationType:notificationBlock:
 func (s SLSGUIClient) InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSGUIClient {
 	_block4, _ := NewVoidBlock(block)
 	rv := objc.Send[SLSGUIClient](s.ID, objc.Sel("initGUIClient:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, error_, queue, type_, _block4)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient/configGUIClient:error:notifyQueue:notificationType:notificationBlock:
 func (_SLSGUIClientClass SLSGUIClientClass) ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) objectivec.IObject {
 	_block4, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_SLSGUIClientClass.class), objc.Sel("configGUIClient:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, error_, queue, type_, _block4)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSGUIClient/service
 func (s SLSGUIClient) Service() ISLSXPCService {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("service"))
 	return SLSXPCServiceFromID(objc.ID(rv))

@@ -42,7 +42,6 @@ func (dc DiskImageParamsRawXPCClass) Alloc() DiskImageParamsRawXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRaw_XPC
 type DiskImageParamsRawXPC struct {
 	DiskImageParamsXPC
 }
@@ -61,8 +60,6 @@ func DiskImageParamsRaw_XPCFromID(id objc.ID) DiskImageParamsRawXPC {
 var _ IDiskImageParamsRawXPC = DiskImageParamsRawXPC{}
 
 // An interface definition for the [DiskImageParamsRawXPC] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRaw_XPC
 type IDiskImageParamsRawXPC interface {
 	IDiskImageParamsXPC
 }
@@ -86,21 +83,18 @@ func NewDiskImageParamsRawXPC() DiskImageParamsRawXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsRaw_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsRaw_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
 func NewDiskImageParamsRaw_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)

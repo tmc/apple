@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationRegionResultClass) Alloc() SLSBridge
 //
 //   - [SLSBridgedWindowManagementOperationRegionResult.CopyRegion]
 //   - [SLSBridgedWindowManagementOperationRegionResult.InitWithRegion]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult
 type SLSBridgedWindowManagementOperationRegionResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationRegionResult = SLSBridgedWindowManagem
 //
 //   - [ISLSBridgedWindowManagementOperationRegionResult.CopyRegion]
 //   - [ISLSBridgedWindowManagementOperationRegionResult.InitWithRegion]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult
 type ISLSBridgedWindowManagementOperationRegionResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,22 @@ func NewSLSBridgedWindowManagementOperationRegionResult() SLSBridgedWindowManage
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationRegionResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationRegionResult {
 	instance := getSLSBridgedWindowManagementOperationRegionResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationRegionResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult/initWithRegion:
 func NewSLSBridgedWindowManagementOperationRegionResultWithRegion(region uintptr) SLSBridgedWindowManagementOperationRegionResult {
 	instance := getSLSBridgedWindowManagementOperationRegionResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegion:"), region)
 	return SLSBridgedWindowManagementOperationRegionResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult/copyRegion
 func (s SLSBridgedWindowManagementOperationRegionResult) CopyRegion() uintptr {
 	rv := objc.Send[uintptr](s.ID, objc.Sel("copyRegion"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationRegionResult/initWithRegion:
 func (s SLSBridgedWindowManagementOperationRegionResult) InitWithRegion(region uintptr) SLSBridgedWindowManagementOperationRegionResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("initWithRegion:"), region)
 	return rv

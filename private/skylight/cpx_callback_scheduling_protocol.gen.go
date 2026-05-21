@@ -8,34 +8,22 @@ import (
 )
 
 // CPXCallbackScheduling protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling
 type CPXCallbackScheduling interface {
 	objectivec.IObject
 
 	// DescheduleForceLogoutCallback protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/descheduleForceLogoutCallback
 	DescheduleForceLogoutCallback()
 
 	// DescheduleKillProcessCallback protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/descheduleKillProcessCallback
 	DescheduleKillProcessCallback()
 
 	// ScheduleFixBadForegroundCallbackForProcess protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleFixBadForegroundCallbackForProcess:
 	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
 
 	// ScheduleForceLogoutCallbackForTime protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleForceLogoutCallbackForTime:
 	ScheduleForceLogoutCallbackForTime(time float64)
 
 	// ScheduleKillProcessCallbackForTime protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleKillProcessCallbackForTime:
 	ScheduleKillProcessCallbackForTime(time float64)
 }
 
@@ -56,27 +44,18 @@ func CPXCallbackSchedulingObjectFromID(id objc.ID) CPXCallbackSchedulingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/descheduleForceLogoutCallback
 func (o CPXCallbackSchedulingObject) DescheduleForceLogoutCallback() {
 	objc.Send[struct{}](o.ID, objc.Sel("descheduleForceLogoutCallback"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/descheduleKillProcessCallback
 func (o CPXCallbackSchedulingObject) DescheduleKillProcessCallback() {
 	objc.Send[struct{}](o.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleFixBadForegroundCallbackForProcess:
 func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleForceLogoutCallbackForTime:
 func (o CPXCallbackSchedulingObject) ScheduleForceLogoutCallbackForTime(time float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleKillProcessCallbackForTime:
 func (o CPXCallbackSchedulingObject) ScheduleKillProcessCallbackForTime(time float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
 }

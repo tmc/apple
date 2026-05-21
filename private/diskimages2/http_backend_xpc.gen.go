@@ -54,8 +54,6 @@ func (hc HTTPBackendXPCClass) Alloc() HTTPBackendXPC {
 //   - [HTTPBackendXPC.CreateBackendWithSize]
 //   - [HTTPBackendXPC.LookupPasswordInKeychainWithRealm]
 //   - [HTTPBackendXPC.InitWithURL]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC
 type HTTPBackendXPC struct {
 	BackendXPC
 }
@@ -81,8 +79,6 @@ var _ IHTTPBackendXPC = HTTPBackendXPC{}
 //   - [IHTTPBackendXPC.CreateBackendWithSize]
 //   - [IHTTPBackendXPC.LookupPasswordInKeychainWithRealm]
 //   - [IHTTPBackendXPC.InitWithURL]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC
 type IHTTPBackendXPC interface {
 	IBackendXPC
 
@@ -96,7 +92,7 @@ type IHTTPBackendXPC interface {
 	CreateBackend()
 	CreateBackendWithSize(size uint64)
 	LookupPasswordInKeychainWithRealm(realm objectivec.IObject) bool
-	InitWithURL(url foundation.INSURL) HTTPBackendXPC
+	InitWithURL(url foundation.NSURL) HTTPBackendXPC
 }
 
 // Init initializes the instance.
@@ -118,60 +114,44 @@ func NewHTTPBackendXPC() HTTPBackendXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/initWithCoder:
 func NewHTTPBackendXPCWithCoder(coder objectivec.IObject) HTTPBackendXPC {
 	instance := getHTTPBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return HTTPBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/initWithURL:
-func NewHTTPBackendXPCWithURL(url foundation.INSURL) HTTPBackendXPC {
+func NewHTTPBackendXPCWithURL(url foundation.NSURL) HTTPBackendXPC {
 	instance := getHTTPBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return HTTPBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/addToURLWithUser:password:
 func (h HTTPBackendXPC) AddToURLWithUserPassword(user objectivec.IObject, password objectivec.IObject) {
 	objc.Send[objc.ID](h.ID, objc.Sel("addToURLWithUser:password:"), user, password)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/askForPasswordUsingGUI
 func (h HTTPBackendXPC) AskForPasswordUsingGUI() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("askForPasswordUsingGUI"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/askForPasswordUsingTTY
 func (h HTTPBackendXPC) AskForPasswordUsingTTY() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("askForPasswordUsingTTY"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/createBackend
 func (h HTTPBackendXPC) CreateBackend() {
 	objc.Send[objc.ID](h.ID, objc.Sel("createBackend"))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/createBackendWithSize:
 func (h HTTPBackendXPC) CreateBackendWithSize(size uint64) {
 	objc.Send[objc.ID](h.ID, objc.Sel("createBackendWithSize:"), size)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/lookupPasswordInKeychainWithRealm:
 func (h HTTPBackendXPC) LookupPasswordInKeychainWithRealm(realm objectivec.IObject) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("lookupPasswordInKeychainWithRealm:"), realm)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/initWithURL:
-func (h HTTPBackendXPC) InitWithURL(url foundation.INSURL) HTTPBackendXPC {
+func (h HTTPBackendXPC) InitWithURL(url foundation.NSURL) HTTPBackendXPC {
 	rv := objc.Send[HTTPBackendXPC](h.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/HTTPBackendXPC/URL
 func (h HTTPBackendXPC) URL() IDIURL {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))

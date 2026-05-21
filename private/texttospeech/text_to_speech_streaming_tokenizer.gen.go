@@ -42,7 +42,6 @@ func (tc TextToSpeechStreamingTokenizerClass) Alloc() TextToSpeechStreamingToken
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.StreamingTokenizer
 type TextToSpeechStreamingTokenizer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechStreamingTokenizerFromID(id objc.ID) TextToSpeechStreamingToken
 // ITextToSpeechStreamingTokenizer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechStreamingTokenizer] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.StreamingTokenizer
 type ITextToSpeechStreamingTokenizer interface {
 	objectivec.IObject
 }

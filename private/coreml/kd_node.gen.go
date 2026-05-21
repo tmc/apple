@@ -4,7 +4,6 @@ package coreml
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -70,8 +69,6 @@ func (kc KDNodeClass) Alloc() KDNode {
 //   - [KDNode.StartingIndex]
 //   - [KDNode.SetStartingIndex]
 //   - [KDNode.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/_KDNode
 type KDNode struct {
 	objectivec.Object
 }
@@ -112,28 +109,26 @@ var _ IKDNode = KDNode{}
 //   - [IKDNode.StartingIndex]
 //   - [IKDNode.SetStartingIndex]
 //   - [IKDNode.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/_KDNode
 type IKDNode interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	AssignSplitsForDataIndicesNumDimensions(data unsafe.Pointer, indices unsafe.Pointer, dimensions uint64)
+	AssignSplitsForDataIndicesNumDimensions(data *float32, indices *uint64, dimensions uint64)
 	BoundingBox() KDBoundingBox
 	SetBoundingBox(value KDBoundingBox)
 	Count() uint64
 	SetCount(value uint64)
 	EncodeWithCoder(coder foundation.INSCoder)
-	FindMinAndMaxAlongDimensionDataIndicesNumDimensions(min unsafe.Pointer, max unsafe.Pointer, dimension uint64, data unsafe.Pointer, indices unsafe.Pointer, dimensions uint64)
+	FindMinAndMaxAlongDimensionDataIndicesNumDimensions(min *float32, max *float32, dimension uint64, data *float32, indices *uint64, dimensions uint64)
 	IsLeaf() bool
 	SetIsLeaf(value bool)
-	LeftChild() *KDNode
-	SetLeftChild(value *KDNode)
-	PartitionDataPointsIndicesNumDimensions(points unsafe.Pointer, indices unsafe.Pointer, dimensions uint64)
+	LeftChild() IKDNode
+	SetLeftChild(value IKDNode)
+	PartitionDataPointsIndicesNumDimensions(points *float32, indices *uint64, dimensions uint64)
 	Print()
-	RightChild() *KDNode
-	SetRightChild(value *KDNode)
+	RightChild() IKDNode
+	SetRightChild(value IKDNode)
 	SplitDimension() uint64
 	SetSplitDimension(value uint64)
 	SplitIndex() uint64
@@ -164,51 +159,37 @@ func NewKDNode() KDNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/initWithCoder:
 func NewKDNodeWithCoder(coder objectivec.IObject) KDNode {
 	instance := getKDNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return KDNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/assignSplitsForData:indices:numDimensions:
-func (k KDNode) AssignSplitsForDataIndicesNumDimensions(data unsafe.Pointer, indices unsafe.Pointer, dimensions uint64) {
+func (k KDNode) AssignSplitsForDataIndicesNumDimensions(data *float32, indices *uint64, dimensions uint64) {
 	objc.Send[objc.ID](k.ID, objc.Sel("assignSplitsForData:indices:numDimensions:"), data, indices, dimensions)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/encodeWithCoder:
 func (k KDNode) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](k.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/findMin:andMax:alongDimension:data:indices:numDimensions:
-func (k KDNode) FindMinAndMaxAlongDimensionDataIndicesNumDimensions(min unsafe.Pointer, max unsafe.Pointer, dimension uint64, data unsafe.Pointer, indices unsafe.Pointer, dimensions uint64) {
+func (k KDNode) FindMinAndMaxAlongDimensionDataIndicesNumDimensions(min *float32, max *float32, dimension uint64, data *float32, indices *uint64, dimensions uint64) {
 	objc.Send[objc.ID](k.ID, objc.Sel("findMin:andMax:alongDimension:data:indices:numDimensions:"), min, max, dimension, data, indices, dimensions)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/partitionDataPoints:indices:numDimensions:
-func (k KDNode) PartitionDataPointsIndicesNumDimensions(points unsafe.Pointer, indices unsafe.Pointer, dimensions uint64) {
+func (k KDNode) PartitionDataPointsIndicesNumDimensions(points *float32, indices *uint64, dimensions uint64) {
 	objc.Send[objc.ID](k.ID, objc.Sel("partitionDataPoints:indices:numDimensions:"), points, indices, dimensions)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/print
 func (k KDNode) Print() {
 	objc.Send[objc.ID](k.ID, objc.Sel("print"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/initWithCoder:
 func (k KDNode) InitWithCoder(coder foundation.INSCoder) KDNode {
 	rv := objc.Send[KDNode](k.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/supportsSecureCoding
 func (_KDNodeClass KDNodeClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_KDNodeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/boundingBox
 func (k KDNode) BoundingBox() KDBoundingBox {
 	rv := objc.Send[KDBoundingBox](k.ID, objc.Sel("boundingBox"))
 	_ = rv
@@ -217,8 +198,6 @@ func (k KDNode) BoundingBox() KDBoundingBox {
 func (k KDNode) SetBoundingBox(value KDBoundingBox) {
 	objc.Send[struct{}](k.ID, objc.Sel("setBoundingBox:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/count
 func (k KDNode) Count() uint64 {
 	rv := objc.Send[uint64](k.ID, objc.Sel("count"))
 	return rv
@@ -226,8 +205,6 @@ func (k KDNode) Count() uint64 {
 func (k KDNode) SetCount(value uint64) {
 	objc.Send[struct{}](k.ID, objc.Sel("setCount:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/isLeaf
 func (k KDNode) IsLeaf() bool {
 	rv := objc.Send[bool](k.ID, objc.Sel("isLeaf"))
 	return rv
@@ -235,42 +212,20 @@ func (k KDNode) IsLeaf() bool {
 func (k KDNode) SetIsLeaf(value bool) {
 	objc.Send[struct{}](k.ID, objc.Sel("setIsLeaf:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/leftChild
-func (k KDNode) LeftChild() *KDNode {
+func (k KDNode) LeftChild() IKDNode {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("leftChild"))
-	if rv == 0 {
-		return nil
-	}
-	val := KDNodeFromID(objc.ID(rv))
-	return &val
+	return KDNodeFromID(objc.ID(rv))
 }
-func (k KDNode) SetLeftChild(value *KDNode) {
-	if value == nil {
-		objc.Send[struct{}](k.ID, objc.Sel("setLeftChild:"), objc.ID(0))
-		return
-	}
+func (k KDNode) SetLeftChild(value IKDNode) {
 	objc.Send[struct{}](k.ID, objc.Sel("setLeftChild:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/rightChild
-func (k KDNode) RightChild() *KDNode {
+func (k KDNode) RightChild() IKDNode {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("rightChild"))
-	if rv == 0 {
-		return nil
-	}
-	val := KDNodeFromID(objc.ID(rv))
-	return &val
+	return KDNodeFromID(objc.ID(rv))
 }
-func (k KDNode) SetRightChild(value *KDNode) {
-	if value == nil {
-		objc.Send[struct{}](k.ID, objc.Sel("setRightChild:"), objc.ID(0))
-		return
-	}
+func (k KDNode) SetRightChild(value IKDNode) {
 	objc.Send[struct{}](k.ID, objc.Sel("setRightChild:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/splitDimension
 func (k KDNode) SplitDimension() uint64 {
 	rv := objc.Send[uint64](k.ID, objc.Sel("splitDimension"))
 	return rv
@@ -278,8 +233,6 @@ func (k KDNode) SplitDimension() uint64 {
 func (k KDNode) SetSplitDimension(value uint64) {
 	objc.Send[struct{}](k.ID, objc.Sel("setSplitDimension:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/splitIndex
 func (k KDNode) SplitIndex() uint64 {
 	rv := objc.Send[uint64](k.ID, objc.Sel("splitIndex"))
 	return rv
@@ -287,8 +240,6 @@ func (k KDNode) SplitIndex() uint64 {
 func (k KDNode) SetSplitIndex(value uint64) {
 	objc.Send[struct{}](k.ID, objc.Sel("setSplitIndex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/splitValue
 func (k KDNode) SplitValue() float32 {
 	rv := objc.Send[float32](k.ID, objc.Sel("splitValue"))
 	return rv
@@ -296,8 +247,6 @@ func (k KDNode) SplitValue() float32 {
 func (k KDNode) SetSplitValue(value float32) {
 	objc.Send[struct{}](k.ID, objc.Sel("setSplitValue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_KDNode/startingIndex
 func (k KDNode) StartingIndex() uint64 {
 	rv := objc.Send[uint64](k.ID, objc.Sel("startingIndex"))
 	return rv

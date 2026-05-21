@@ -41,7 +41,6 @@ func (ec EspressoPassFusePadClass) Alloc() EspressoPassFusePad {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
 type EspressoPassFusePad struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_padFromID(id objc.ID) EspressoPassFusePad {
 var _ IEspressoPassFusePad = EspressoPassFusePad{}
 
 // An interface definition for the [EspressoPassFusePad] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
 type IEspressoPassFusePad interface {
 	IEspressoCustomPass
 }

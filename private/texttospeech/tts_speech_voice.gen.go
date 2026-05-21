@@ -41,7 +41,6 @@ func (tc TTSSpeechVoiceClass) Alloc() TTSSpeechVoice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechVoice
 type TTSSpeechVoice struct {
 	TTSAXResource
 }
@@ -55,8 +54,6 @@ func TTSSpeechVoiceFromID(id objc.ID) TTSSpeechVoice {
 var _ ITTSSpeechVoice = TTSSpeechVoice{}
 
 // An interface definition for the [TTSSpeechVoice] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechVoice
 type ITTSSpeechVoice interface {
 	ITTSAXResource
 }

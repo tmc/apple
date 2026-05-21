@@ -51,8 +51,6 @@ func (mc MLCustomModelWrapperClass) Alloc() MLCustomModelWrapper {
 //   - [MLCustomModelWrapper.PredictionFromFeaturesOptionsError]
 //   - [MLCustomModelWrapper.PredictionsFromBatchOptionsError]
 //   - [MLCustomModelWrapper.InitWithModelDescriptionCustomModelConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper
 type MLCustomModelWrapper struct {
 	MLModel
 }
@@ -74,8 +72,6 @@ var _ IMLCustomModelWrapper = MLCustomModelWrapper{}
 //   - [IMLCustomModelWrapper.PredictionFromFeaturesOptionsError]
 //   - [IMLCustomModelWrapper.PredictionsFromBatchOptionsError]
 //   - [IMLCustomModelWrapper.InitWithModelDescriptionCustomModelConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper
 type IMLCustomModelWrapper interface {
 	IMLModel
 
@@ -107,7 +103,6 @@ func NewMLCustomModelWrapper() MLCustomModelWrapper {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -119,7 +114,6 @@ func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -131,42 +125,36 @@ func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewCustomModelWrapperWithConfiguration(configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewCustomModelWrapperWithDescription(description objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewCustomModelWrapperWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/initWithModelDescription:customModel:configuration:
 func NewCustomModelWrapperWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionFromFeatures:options:error:
 func (m MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -177,8 +165,6 @@ func (m MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features object
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionsFromBatch:options:error:
 func (m MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
@@ -189,14 +175,11 @@ func (m MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/initWithModelDescription:customModel:configuration:
 func (m MLCustomModelWrapper) InitWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/customModel
 func (m MLCustomModelWrapper) CustomModel() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("customModel"))
 	return objectivec.ObjectFromID(objc.ID(rv))

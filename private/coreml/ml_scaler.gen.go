@@ -49,8 +49,6 @@ func (mc MLScalerClass) Alloc() MLScaler {
 //   - [MLScaler.ScaleValue]
 //   - [MLScaler.ShiftValue]
 //   - [MLScaler.InitWithShiftValueScaleValueDescriptionConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLScaler
 type MLScaler struct {
 	MLModelEngine
 }
@@ -70,8 +68,6 @@ var _ IMLScaler = MLScaler{}
 //   - [IMLScaler.ScaleValue]
 //   - [IMLScaler.ShiftValue]
 //   - [IMLScaler.InitWithShiftValueScaleValueDescriptionConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLScaler
 type IMLScaler interface {
 	IMLModelEngine
 
@@ -101,34 +97,29 @@ func NewMLScaler() MLScaler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewScalerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLScalerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewScalerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLScalerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLScaler/initWithShiftValue:scaleValue:description:configuration:
 func NewScalerWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return MLScalerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLScaler/initWithShiftValue:scaleValue:description:configuration:
 func (m MLScaler) InitWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	rv := objc.Send[MLScaler](m.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLScaler/loadModelFromSpecification:configuration:error:
 func (_MLScalerClass MLScalerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLScalerClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -140,13 +131,10 @@ func (_MLScalerClass MLScalerClass) LoadModelFromSpecificationConfigurationError
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLScaler/scaleValue
 func (m MLScaler) ScaleValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("scaleValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLScaler/shiftValue
 func (m MLScaler) ShiftValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shiftValue"))
 	return MLFeatureValueFromID(objc.ID(rv))

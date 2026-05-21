@@ -42,7 +42,6 @@ func (vc VirtualizationUniversalHIDKitTranslatorsClass) Alloc() VirtualizationUn
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.UniversalHIDKitTranslators
 type VirtualizationUniversalHIDKitTranslators struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VirtualizationUniversalHIDKitTranslatorsFromID(id objc.ID) VirtualizationUn
 // IVirtualizationUniversalHIDKitTranslators embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [VirtualizationUniversalHIDKitTranslators] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.UniversalHIDKitTranslators
 type IVirtualizationUniversalHIDKitTranslators interface {
 	objectivec.IObject
 }

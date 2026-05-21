@@ -41,7 +41,6 @@ func (ec EspressoPassMultiHeadProgramGenClass) Alloc() EspressoPassMultiHeadProg
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
 type EspressoPassMultiHeadProgramGen struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_multi_head_program_genFromID(id objc.ID) EspressoPassMultiHead
 var _ IEspressoPassMultiHeadProgramGen = EspressoPassMultiHeadProgramGen{}
 
 // An interface definition for the [EspressoPassMultiHeadProgramGen] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
 type IEspressoPassMultiHeadProgramGen interface {
 	IEspressoCustomPass
 }

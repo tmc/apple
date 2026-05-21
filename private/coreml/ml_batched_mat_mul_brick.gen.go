@@ -60,8 +60,6 @@ func (mc MLBatchedMatMulBrickClass) Alloc() MLBatchedMatMulBrick {
 //   - [MLBatchedMatMulBrick.Description]
 //   - [MLBatchedMatMulBrick.Hash]
 //   - [MLBatchedMatMulBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick
 type MLBatchedMatMulBrick struct {
 	objectivec.Object
 }
@@ -93,8 +91,6 @@ var _ IMLBatchedMatMulBrick = MLBatchedMatMulBrick{}
 //   - [IMLBatchedMatMulBrick.Description]
 //   - [IMLBatchedMatMulBrick.Hash]
 //   - [IMLBatchedMatMulBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick
 type IMLBatchedMatMulBrick interface {
 	objectivec.IObject
 
@@ -114,7 +110,7 @@ type IMLBatchedMatMulBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -136,97 +132,68 @@ func NewMLBatchedMatMulBrick() MLBatchedMatMulBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/initWithParameters:
 func NewBatchedMatMulBrickWithParameters(parameters objectivec.IObject) MLBatchedMatMulBrick {
 	instance := getMLBatchedMatMulBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLBatchedMatMulBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLBatchedMatMulBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/hasGPUSupport
 func (m MLBatchedMatMulBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/setupForInputShapes:withParameters:
 func (m MLBatchedMatMulBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/initWithParameters:
 func (m MLBatchedMatMulBrick) InitWithParameters(parameters objectivec.IObject) MLBatchedMatMulBrick {
 	rv := objc.Send[MLBatchedMatMulBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/debugDescription
 func (m MLBatchedMatMulBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/description
 func (m MLBatchedMatMulBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/hash
 func (m MLBatchedMatMulBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/inputRanks
 func (m MLBatchedMatMulBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/inputShapes
 func (m MLBatchedMatMulBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/outputRanks
 func (m MLBatchedMatMulBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/outputShapes
 func (m MLBatchedMatMulBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/shapeInfoNeeded
 func (m MLBatchedMatMulBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/superclass
-func (m MLBatchedMatMulBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLBatchedMatMulBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/transposeA
 func (m MLBatchedMatMulBrick) TransposeA() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("transposeA"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchedMatMulBrick/transposeB
 func (m MLBatchedMatMulBrick) TransposeB() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("transposeB"))
 	return foundation.NSNumberFromID(objc.ID(rv))

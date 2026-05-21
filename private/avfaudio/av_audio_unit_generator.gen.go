@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitGenerator] class.
@@ -49,8 +50,6 @@ func (ac AVAudioUnitGeneratorClass) Alloc() AVAudioUnitGenerator {
 //   - [AVAudioUnitGenerator.Description]
 //   - [AVAudioUnitGenerator.Hash]
 //   - [AVAudioUnitGenerator.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator
 type AVAudioUnitGenerator struct {
 	AVAudioUnit
 }
@@ -71,8 +70,6 @@ var _ IAVAudioUnitGenerator = AVAudioUnitGenerator{}
 //   - [IAVAudioUnitGenerator.Description]
 //   - [IAVAudioUnitGenerator.Hash]
 //   - [IAVAudioUnitGenerator.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator
 type IAVAudioUnitGenerator interface {
 	IAVAudioUnit
 
@@ -81,7 +78,7 @@ type IAVAudioUnitGenerator interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -103,33 +100,25 @@ func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitGeneratorWithImpl(impl unsafe.Pointer) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitGeneratorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/debugDescription
 func (a AVAudioUnitGenerator) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/description
 func (a AVAudioUnitGenerator) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/hash
 func (a AVAudioUnitGenerator) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/superclass
-func (a AVAudioUnitGenerator) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
-	return rv
+func (a AVAudioUnitGenerator) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -45,8 +45,6 @@ func (sc SLSSkyLightMouseEventAuthenticationMessageClass) Alloc() SLSSkyLightMou
 // # Methods
 //
 //   - [SLSSkyLightMouseEventAuthenticationMessage.ButtonNumber]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightMouseEventAuthenticationMessage
 type SLSSkyLightMouseEventAuthenticationMessage struct {
 	SLSSkyLightEventAuthenticationMessage
 }
@@ -64,8 +62,6 @@ var _ ISLSSkyLightMouseEventAuthenticationMessage = SLSSkyLightMouseEventAuthent
 // # Methods
 //
 //   - [ISLSSkyLightMouseEventAuthenticationMessage.ButtonNumber]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightMouseEventAuthenticationMessage
 type ISLSSkyLightMouseEventAuthenticationMessage interface {
 	ISLSSkyLightEventAuthenticationMessage
 
@@ -93,35 +89,30 @@ func NewSLSSkyLightMouseEventAuthenticationMessage() SLSSkyLightMouseEventAuthen
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithBasis:signature:
 func NewSLSSkyLightMouseEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithCoder:
 func NewSLSSkyLightMouseEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
 func NewSLSSkyLightMouseEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightMouseEventAuthenticationMessage/initWithMessageInitData:
 func NewSLSSkyLightMouseEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightMouseEventAuthenticationMessage/buttonNumber
 func (s SLSSkyLightMouseEventAuthenticationMessage) ButtonNumber() int8 {
 	rv := objc.Send[int8](s.ID, objc.Sel("buttonNumber"))
 	return rv

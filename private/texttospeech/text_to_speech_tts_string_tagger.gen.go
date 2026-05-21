@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSStringTaggerClass) Alloc() TextToSpeechTTSStringTagger {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSStringTagger
 type TextToSpeechTTSStringTagger struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSStringTaggerFromID(id objc.ID) TextToSpeechTTSStringTagger {
 // ITextToSpeechTTSStringTagger embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSStringTagger] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSStringTagger
 type ITextToSpeechTTSStringTagger interface {
 	objectivec.IObject
 }

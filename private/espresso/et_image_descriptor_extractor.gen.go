@@ -70,8 +70,6 @@ func (ec ETImageDescriptorExtractorClass) Alloc() ETImageDescriptorExtractor {
 //   - [ETImageDescriptorExtractor.Zoom_range]
 //   - [ETImageDescriptorExtractor.SetZoom_range]
 //   - [ETImageDescriptorExtractor.InitWithNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor
 type ETImageDescriptorExtractor struct {
 	objectivec.Object
 }
@@ -113,8 +111,6 @@ var _ IETImageDescriptorExtractor = ETImageDescriptorExtractor{}
 //   - [IETImageDescriptorExtractor.Zoom_range]
 //   - [IETImageDescriptorExtractor.SetZoom_range]
 //   - [IETImageDescriptorExtractor.InitWithNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor
 type IETImageDescriptorExtractor interface {
 	objectivec.IObject
 
@@ -166,67 +162,49 @@ func NewETImageDescriptorExtractor() ETImageDescriptorExtractor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/initWithNetwork:
 func NewETImageDescriptorExtractorWithNetwork(network objectivec.IObject) ETImageDescriptorExtractor {
 	instance := getETImageDescriptorExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETImageDescriptorExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/cropResizeInputImage:
 func (e ETImageDescriptorExtractor) CropResizeInputImage(image unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("cropResizeInputImage:"), image)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/extractDescriptorForDataPoint:freeWhenDone:
 func (e ETImageDescriptorExtractor) ExtractDescriptorForDataPointFreeWhenDone(point unsafe.Pointer, done bool) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("extractDescriptorForDataPoint:freeWhenDone:"), point, done)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/extractForDataPoint:
 func (e ETImageDescriptorExtractor) ExtractForDataPoint(point objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("extractForDataPoint:"), point)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/numberOfChannels
 func (e ETImageDescriptorExtractor) NumberOfChannels() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfChannels"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/initWithNetwork:
 func (e ETImageDescriptorExtractor) InitWithNetwork(network objectivec.IObject) ETImageDescriptorExtractor {
 	rv := objc.Send[ETImageDescriptorExtractor](e.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/VisionSceneNet_iOS10_Extractor
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) VisionSceneNet_iOS10_Extractor() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSceneNet_iOS10_Extractor"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/VisionSmartCamNet_iOS11_Extractor
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) VisionSmartCamNet_iOS11_Extractor() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSmartCamNet_iOS11_Extractor"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/inception_v3_Extractor
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) Inception_v3_Extractor() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("inception_v3_Extractor"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/passthroughExtractor
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) PassthroughExtractor() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("passthroughExtractor"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/brightness_range
 func (e ETImageDescriptorExtractor) Brightness_range() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("brightness_range"))
 	return rv
@@ -234,8 +212,6 @@ func (e ETImageDescriptorExtractor) Brightness_range() float32 {
 func (e ETImageDescriptorExtractor) SetBrightness_range(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBrightness_range:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/contrast_range
 func (e ETImageDescriptorExtractor) Contrast_range() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("contrast_range"))
 	return rv
@@ -243,8 +219,6 @@ func (e ETImageDescriptorExtractor) Contrast_range() float32 {
 func (e ETImageDescriptorExtractor) SetContrast_range(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setContrast_range:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/descriptors_file_cache_size
 func (e ETImageDescriptorExtractor) Descriptors_file_cache_size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("descriptors_file_cache_size"))
 	return rv
@@ -252,8 +226,6 @@ func (e ETImageDescriptorExtractor) Descriptors_file_cache_size() uint64 {
 func (e ETImageDescriptorExtractor) SetDescriptors_file_cache_size(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDescriptors_file_cache_size:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/descriptors_mem_cache_size
 func (e ETImageDescriptorExtractor) Descriptors_mem_cache_size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("descriptors_mem_cache_size"))
 	return rv
@@ -261,8 +233,6 @@ func (e ETImageDescriptorExtractor) Descriptors_mem_cache_size() uint64 {
 func (e ETImageDescriptorExtractor) SetDescriptors_mem_cache_size(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDescriptors_mem_cache_size:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/doBatchnormTuning
 func (e ETImageDescriptorExtractor) DoBatchnormTuning() int {
 	rv := objc.Send[int](e.ID, objc.Sel("doBatchnormTuning"))
 	return rv
@@ -270,8 +240,6 @@ func (e ETImageDescriptorExtractor) DoBatchnormTuning() int {
 func (e ETImageDescriptorExtractor) SetDoBatchnormTuning(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDoBatchnormTuning:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/horizontal_flip
 func (e ETImageDescriptorExtractor) Horizontal_flip() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("horizontal_flip"))
 	return rv
@@ -279,8 +247,6 @@ func (e ETImageDescriptorExtractor) Horizontal_flip() float32 {
 func (e ETImageDescriptorExtractor) SetHorizontal_flip(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHorizontal_flip:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/nAugmentations
 func (e ETImageDescriptorExtractor) NAugmentations() int {
 	rv := objc.Send[int](e.ID, objc.Sel("nAugmentations"))
 	return rv
@@ -288,8 +254,6 @@ func (e ETImageDescriptorExtractor) NAugmentations() int {
 func (e ETImageDescriptorExtractor) SetNAugmentations(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNAugmentations:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/rotation_range
 func (e ETImageDescriptorExtractor) Rotation_range() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("rotation_range"))
 	return rv
@@ -297,8 +261,6 @@ func (e ETImageDescriptorExtractor) Rotation_range() float32 {
 func (e ETImageDescriptorExtractor) SetRotation_range(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRotation_range:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/shear_range
 func (e ETImageDescriptorExtractor) Shear_range() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("shear_range"))
 	return rv
@@ -306,8 +268,6 @@ func (e ETImageDescriptorExtractor) Shear_range() float32 {
 func (e ETImageDescriptorExtractor) SetShear_range(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setShear_range:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETImageDescriptorExtractor/zoom_range
 func (e ETImageDescriptorExtractor) Zoom_range() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("zoom_range"))
 	return rv

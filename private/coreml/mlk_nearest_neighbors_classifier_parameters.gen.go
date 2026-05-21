@@ -59,8 +59,6 @@ func (mc MLKNearestNeighborsClassifierParametersClass) Alloc() MLKNearestNeighbo
 //   - [MLKNearestNeighborsClassifierParameters.SetNumberOfDimensions]
 //   - [MLKNearestNeighborsClassifierParameters.WeightingScheme]
 //   - [MLKNearestNeighborsClassifierParameters.SetWeightingScheme]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters
 type MLKNearestNeighborsClassifierParameters struct {
 	objectivec.Object
 }
@@ -91,8 +89,6 @@ var _ IMLKNearestNeighborsClassifierParameters = MLKNearestNeighborsClassifierPa
 //   - [IMLKNearestNeighborsClassifierParameters.SetNumberOfDimensions]
 //   - [IMLKNearestNeighborsClassifierParameters.WeightingScheme]
 //   - [IMLKNearestNeighborsClassifierParameters.SetWeightingScheme]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters
 type IMLKNearestNeighborsClassifierParameters interface {
 	objectivec.IObject
 
@@ -133,7 +129,6 @@ func NewMLKNearestNeighborsClassifierParameters() MLKNearestNeighborsClassifierP
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/defaultLabel
 func (m MLKNearestNeighborsClassifierParameters) DefaultLabel() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultLabel"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -141,8 +136,6 @@ func (m MLKNearestNeighborsClassifierParameters) DefaultLabel() objectivec.Objec
 func (m MLKNearestNeighborsClassifierParameters) SetDefaultLabel(value objectivec.Object) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefaultLabel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/indexType
 func (m MLKNearestNeighborsClassifierParameters) IndexType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("indexType"))
 	return rv
@@ -150,8 +143,6 @@ func (m MLKNearestNeighborsClassifierParameters) IndexType() int64 {
 func (m MLKNearestNeighborsClassifierParameters) SetIndexType(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/leafSize
 func (m MLKNearestNeighborsClassifierParameters) LeafSize() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("leafSize"))
 	return rv
@@ -159,8 +150,6 @@ func (m MLKNearestNeighborsClassifierParameters) LeafSize() uint64 {
 func (m MLKNearestNeighborsClassifierParameters) SetLeafSize(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLeafSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/nearestDistancesFeatureName
 func (m MLKNearestNeighborsClassifierParameters) NearestDistancesFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestDistancesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
@@ -168,8 +157,6 @@ func (m MLKNearestNeighborsClassifierParameters) NearestDistancesFeatureName() s
 func (m MLKNearestNeighborsClassifierParameters) SetNearestDistancesFeatureName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNearestDistancesFeatureName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/nearestLabelsFeatureName
 func (m MLKNearestNeighborsClassifierParameters) NearestLabelsFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestLabelsFeatureName"))
 	return foundation.NSStringFromID(rv).String()
@@ -177,8 +164,6 @@ func (m MLKNearestNeighborsClassifierParameters) NearestLabelsFeatureName() stri
 func (m MLKNearestNeighborsClassifierParameters) SetNearestLabelsFeatureName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNearestLabelsFeatureName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/numberOfDimensions
 func (m MLKNearestNeighborsClassifierParameters) NumberOfDimensions() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDimensions"))
 	return rv
@@ -186,8 +171,6 @@ func (m MLKNearestNeighborsClassifierParameters) NumberOfDimensions() uint64 {
 func (m MLKNearestNeighborsClassifierParameters) SetNumberOfDimensions(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfDimensions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKNearestNeighborsClassifierParameters/weightingScheme
 func (m MLKNearestNeighborsClassifierParameters) WeightingScheme() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("weightingScheme"))
 	return rv

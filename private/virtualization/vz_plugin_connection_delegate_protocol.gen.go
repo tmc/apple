@@ -12,14 +12,10 @@ import (
 var _ = fmt.Sprintf
 
 // _VZPluginConnectionDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate
 type VZPluginConnectionDelegate interface {
 	objectivec.IObject
 
 	// InvalidateConnection protocol.
-	//
-	// See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate/invalidateConnection
 	InvalidateConnection()
 }
 
@@ -40,12 +36,9 @@ func VZPluginConnectionDelegateObjectFromID(id objc.ID) VZPluginConnectionDelega
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate/handleConnectionError:
 func (o VZPluginConnectionDelegateObject) HandleConnectionError(error_ objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("handleConnectionError:"), error_)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate/invalidateConnection
 func (o VZPluginConnectionDelegateObject) InvalidateConnection() {
 	objc.Send[struct{}](o.ID, objc.Sel("invalidateConnection"))
 }
@@ -54,10 +47,6 @@ func (o VZPluginConnectionDelegateObject) InvalidateConnection() {
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
 // returns false for them — matching the Objective-C delegate pattern exactly.
-//
-// See [Apple Documentation] for protocol details.
-//
-// [Apple Documentation]: https://developer.apple.com/documentation/virtualization/_vzpluginconnectiondelegate
 type VZPluginConnectionDelegateConfig struct {
 
 	// Other Methods
@@ -72,10 +61,6 @@ type VZPluginConnectionDelegateConfig struct {
 //
 // The returned [VZPluginConnectionDelegateObject] satisfies the [VZPluginConnectionDelegate] interface
 // and can be passed directly to SetDelegate and similar methods.
-//
-// See [Apple Documentation] for protocol details.
-//
-// [Apple Documentation]: https://developer.apple.com/documentation/virtualization/_vzpluginconnectiondelegate
 func NewVZPluginConnectionDelegate(config VZPluginConnectionDelegateConfig) VZPluginConnectionDelegateObject {
 	n := delegateClassCounter.Add(1)
 	className := fmt.Sprintf("Go_VZPluginConnectionDelegate_%d", n)

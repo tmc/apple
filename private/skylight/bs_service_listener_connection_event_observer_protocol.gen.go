@@ -8,8 +8,6 @@ import (
 )
 
 // BSServiceListenerConnectionEventObserver protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BSServiceListenerConnectionEventObserver
 type BSServiceListenerConnectionEventObserver interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func BSServiceListenerConnectionEventObserverObjectFromID(id objc.ID) BSServiceL
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BSServiceListenerConnectionEventObserver/connection:revokedWithEvent:
 func (o BSServiceListenerConnectionEventObserverObject) ConnectionRevokedWithEvent(connection objectivec.IObject, event objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
 }

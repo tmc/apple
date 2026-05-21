@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -108,8 +109,6 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration.Set_testIgnoreEntitlementChecks]
 //   - [VZVirtualMachineConfiguration._sharedRamRegions]
 //   - [VZVirtualMachineConfiguration.Set_sharedRamRegions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration
 type VZVirtualMachineConfiguration struct {
 	objectivec.Object
 }
@@ -189,8 +188,6 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration.Set_testIgnoreEntitlementChecks]
 //   - [IVZVirtualMachineConfiguration._sharedRamRegions]
 //   - [IVZVirtualMachineConfiguration.Set_sharedRamRegions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration
 type IVZVirtualMachineConfiguration interface {
 	objectivec.IObject
 
@@ -204,14 +201,14 @@ type IVZVirtualMachineConfiguration interface {
 	Set_biometricDevices(value foundation.INSArray)
 	_coprocessors() foundation.INSArray
 	Set_coprocessors(value foundation.INSArray)
-	_cpuEmulator() *VZCPUEmulatorConfiguration
-	Set_cpuEmulator(value *VZCPUEmulatorConfiguration)
+	_cpuEmulator() IVZCPUEmulatorConfiguration
+	Set_cpuEmulator(value IVZCPUEmulatorConfiguration)
 	_customMMIODevices() foundation.INSArray
 	Set_customMMIODevices(value foundation.INSArray)
 	_customVirtioDevices() foundation.INSArray
 	Set_customVirtioDevices(value foundation.INSArray)
-	_debugStub() *VZDebugStubConfiguration
-	Set_debugStub(value *VZDebugStubConfiguration)
+	_debugStub() IVZDebugStubConfiguration
+	Set_debugStub(value IVZDebugStubConfiguration)
 	_fatalErrorAction() int64
 	Set_fatalErrorAction(value int64)
 	_hidDevices() foundation.INSArray
@@ -225,8 +222,8 @@ type IVZVirtualMachineConfiguration interface {
 	Set_multiTouchDevices(value foundation.INSArray)
 	_panicAction() int64
 	Set_panicAction(value int64)
-	_panicDevice() *VZPanicDeviceConfiguration
-	Set_panicDevice(value *VZPanicDeviceConfiguration)
+	_panicDevice() IVZPanicDeviceConfiguration
+	Set_panicDevice(value IVZPanicDeviceConfiguration)
 	_pciPassthroughDevices() foundation.INSArray
 	Set_pciPassthroughDevices(value foundation.INSArray)
 	_powerSourceDevices() foundation.INSArray
@@ -257,8 +254,8 @@ type IVZVirtualMachineConfiguration interface {
 	Set_terminationUnderMemoryPressureEnabled(value bool)
 	_testIgnoreEntitlementChecks() bool
 	Set_testIgnoreEntitlementChecks(value bool)
-	_sharedRamRegions() objectivec.IObject
-	Set_sharedRamRegions(value objectivec.IObject)
+	_sharedRamRegions() unsafe.Pointer
+	Set_sharedRamRegions(value unsafe.Pointer)
 
 	// The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
 	CPUCount() uint
@@ -287,7 +284,6 @@ func NewVZVirtualMachineConfiguration() VZVirtualMachineConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:
 func (v VZVirtualMachineConfiguration) _isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"), at, index)
 	return rv
@@ -306,8 +302,6 @@ func (v VZVirtualMachineConfiguration) IsDuplicateUSBDeviceConfigurationAtUsbDev
 func (v VZVirtualMachineConfiguration) CanIsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setAcceleratorDevices:
 func (v VZVirtualMachineConfiguration) _setAcceleratorDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setAcceleratorDevices:"), devices)
 }
@@ -326,8 +320,6 @@ func (v VZVirtualMachineConfiguration) SetAcceleratorDevices(devices objectivec.
 func (v VZVirtualMachineConfiguration) CanSetAcceleratorDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setAcceleratorDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setBifrostDevices:
 func (v VZVirtualMachineConfiguration) _setBifrostDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setBifrostDevices:"), devices)
 }
@@ -346,8 +338,6 @@ func (v VZVirtualMachineConfiguration) SetBifrostDevices(devices objectivec.IObj
 func (v VZVirtualMachineConfiguration) CanSetBifrostDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setBifrostDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setBiometricDevices:
 func (v VZVirtualMachineConfiguration) _setBiometricDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setBiometricDevices:"), devices)
 }
@@ -366,8 +356,6 @@ func (v VZVirtualMachineConfiguration) SetBiometricDevices(devices objectivec.IO
 func (v VZVirtualMachineConfiguration) CanSetBiometricDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setBiometricDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCPUEmulator:
 func (v VZVirtualMachineConfiguration) _setCPUEmulator(cPUEmulator objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setCPUEmulator:"), cPUEmulator)
 }
@@ -386,8 +374,6 @@ func (v VZVirtualMachineConfiguration) SetCPUEmulator(cPUEmulator objectivec.IOb
 func (v VZVirtualMachineConfiguration) CanSetCPUEmulator() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setCPUEmulator:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCoprocessors:
 func (v VZVirtualMachineConfiguration) _setCoprocessors(coprocessors objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setCoprocessors:"), coprocessors)
 }
@@ -406,8 +392,6 @@ func (v VZVirtualMachineConfiguration) SetCoprocessors(coprocessors objectivec.I
 func (v VZVirtualMachineConfiguration) CanSetCoprocessors() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setCoprocessors:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCustomMMIODevices:
 func (v VZVirtualMachineConfiguration) _setCustomMMIODevices(mMIODevices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setCustomMMIODevices:"), mMIODevices)
 }
@@ -426,8 +410,6 @@ func (v VZVirtualMachineConfiguration) SetCustomMMIODevices(mMIODevices objectiv
 func (v VZVirtualMachineConfiguration) CanSetCustomMMIODevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setCustomMMIODevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCustomVirtioDevices:
 func (v VZVirtualMachineConfiguration) _setCustomVirtioDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setCustomVirtioDevices:"), devices)
 }
@@ -446,8 +428,6 @@ func (v VZVirtualMachineConfiguration) SetCustomVirtioDevices(devices objectivec
 func (v VZVirtualMachineConfiguration) CanSetCustomVirtioDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setCustomVirtioDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setDebugStub:
 func (v VZVirtualMachineConfiguration) _setDebugStub(stub objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDebugStub:"), stub)
 }
@@ -466,8 +446,6 @@ func (v VZVirtualMachineConfiguration) SetDebugStub(stub objectivec.IObject) err
 func (v VZVirtualMachineConfiguration) CanSetDebugStub() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDebugStub:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setFatalErrorAction:
 func (v VZVirtualMachineConfiguration) _setFatalErrorAction(action int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setFatalErrorAction:"), action)
 }
@@ -486,8 +464,6 @@ func (v VZVirtualMachineConfiguration) SetFatalErrorAction(action int64) error {
 func (v VZVirtualMachineConfiguration) CanSetFatalErrorAction() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFatalErrorAction:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setHIDDevices:
 func (v VZVirtualMachineConfiguration) _setHIDDevices(hIDDevices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setHIDDevices:"), hIDDevices)
 }
@@ -506,8 +482,6 @@ func (v VZVirtualMachineConfiguration) SetHIDDevices(hIDDevices objectivec.IObje
 func (v VZVirtualMachineConfiguration) CanSetHIDDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setHIDDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMailboxDevices:
 func (v VZVirtualMachineConfiguration) _setMailboxDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setMailboxDevices:"), devices)
 }
@@ -526,8 +500,6 @@ func (v VZVirtualMachineConfiguration) SetMailboxDevices(devices objectivec.IObj
 func (v VZVirtualMachineConfiguration) CanSetMailboxDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setMailboxDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMemoryOvercommitmentAllowed:
 func (v VZVirtualMachineConfiguration) _setMemoryOvercommitmentAllowed(allowed bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setMemoryOvercommitmentAllowed:"), allowed)
 }
@@ -546,8 +518,6 @@ func (v VZVirtualMachineConfiguration) SetMemoryOvercommitmentAllowed(allowed bo
 func (v VZVirtualMachineConfiguration) CanSetMemoryOvercommitmentAllowed() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setMemoryOvercommitmentAllowed:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMultiTouchDevices:
 func (v VZVirtualMachineConfiguration) _setMultiTouchDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setMultiTouchDevices:"), devices)
 }
@@ -566,8 +536,6 @@ func (v VZVirtualMachineConfiguration) SetMultiTouchDevices(devices objectivec.I
 func (v VZVirtualMachineConfiguration) CanSetMultiTouchDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setMultiTouchDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPCIPassthroughDevices:
 func (v VZVirtualMachineConfiguration) _setPCIPassthroughDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPCIPassthroughDevices:"), devices)
 }
@@ -586,8 +554,6 @@ func (v VZVirtualMachineConfiguration) SetPCIPassthroughDevices(devices objectiv
 func (v VZVirtualMachineConfiguration) CanSetPCIPassthroughDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIPassthroughDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPanicAction:
 func (v VZVirtualMachineConfiguration) _setPanicAction(action int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPanicAction:"), action)
 }
@@ -606,8 +572,6 @@ func (v VZVirtualMachineConfiguration) SetPanicAction(action int64) error {
 func (v VZVirtualMachineConfiguration) CanSetPanicAction() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPanicAction:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPanicDevice:
 func (v VZVirtualMachineConfiguration) _setPanicDevice(device objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPanicDevice:"), device)
 }
@@ -626,8 +590,6 @@ func (v VZVirtualMachineConfiguration) SetPanicDevice(device objectivec.IObject)
 func (v VZVirtualMachineConfiguration) CanSetPanicDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPanicDevice:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPowerSourceDevices:
 func (v VZVirtualMachineConfiguration) _setPowerSourceDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPowerSourceDevices:"), devices)
 }
@@ -646,8 +608,6 @@ func (v VZVirtualMachineConfiguration) SetPowerSourceDevices(devices objectivec.
 func (v VZVirtualMachineConfiguration) CanSetPowerSourceDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPowerSourceDevices:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setRestartAction:
 func (v VZVirtualMachineConfiguration) _setRestartAction(action int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setRestartAction:"), action)
 }
@@ -666,8 +626,6 @@ func (v VZVirtualMachineConfiguration) SetRestartAction(action int64) error {
 func (v VZVirtualMachineConfiguration) CanSetRestartAction() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setRestartAction:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setTerminationUnderMemoryPressureEnabled:
 func (v VZVirtualMachineConfiguration) _setTerminationUnderMemoryPressureEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setTerminationUnderMemoryPressureEnabled:"), enabled)
 }
@@ -686,8 +644,6 @@ func (v VZVirtualMachineConfiguration) SetTerminationUnderMemoryPressureEnabled(
 func (v VZVirtualMachineConfiguration) CanSetTerminationUnderMemoryPressureEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setTerminationUnderMemoryPressureEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setTestIgnoreEntitlementChecks:
 func (v VZVirtualMachineConfiguration) _setTestIgnoreEntitlementChecks(checks bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setTestIgnoreEntitlementChecks:"), checks)
 }
@@ -707,7 +663,6 @@ func (v VZVirtualMachineConfiguration) CanSetTestIgnoreEntitlementChecks() bool 
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setTestIgnoreEntitlementChecks:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_maximumAllowedOvercommittedMemorySize
 func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) _maximumAllowedOvercommittedMemorySize() uint64 {
 	rv := objc.Send[uint64](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("_maximumAllowedOvercommittedMemorySize"))
 	return rv
@@ -727,7 +682,6 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Ca
 	return objc.RespondsToSelector(objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("_maximumAllowedOvercommittedMemorySize"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_acceleratorDevices
 func (v VZVirtualMachineConfiguration) _acceleratorDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_acceleratorDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -748,8 +702,6 @@ func (v VZVirtualMachineConfiguration) AcceleratorDevices() (foundation.INSArray
 func (v VZVirtualMachineConfiguration) Set_acceleratorDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_acceleratorDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_bifrostDevices
 func (v VZVirtualMachineConfiguration) _bifrostDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bifrostDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -770,8 +722,6 @@ func (v VZVirtualMachineConfiguration) BifrostDevices() (foundation.INSArray, er
 func (v VZVirtualMachineConfiguration) Set_bifrostDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_bifrostDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_biometricDevices
 func (v VZVirtualMachineConfiguration) _biometricDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_biometricDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -792,8 +742,6 @@ func (v VZVirtualMachineConfiguration) BiometricDevices() (foundation.INSArray, 
 func (v VZVirtualMachineConfiguration) Set_biometricDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_biometricDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_coprocessors
 func (v VZVirtualMachineConfiguration) _coprocessors() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_coprocessors"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -814,15 +762,9 @@ func (v VZVirtualMachineConfiguration) Coprocessors() (foundation.INSArray, erro
 func (v VZVirtualMachineConfiguration) Set_coprocessors(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_coprocessors:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_cpuEmulator
-func (v VZVirtualMachineConfiguration) _cpuEmulator() *VZCPUEmulatorConfiguration {
+func (v VZVirtualMachineConfiguration) _cpuEmulator() IVZCPUEmulatorConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_cpuEmulator"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZCPUEmulatorConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZCPUEmulatorConfigurationFromID(objc.ID(rv))
 }
 
 // CanCpuEmulator reports whether the receiver responds to the private selector _cpuEmulator.
@@ -831,21 +773,15 @@ func (v VZVirtualMachineConfiguration) CanCpuEmulator() bool {
 }
 
 // CpuEmulator is an exported wrapper for the private property _cpuEmulator.
-func (v VZVirtualMachineConfiguration) CpuEmulator() (*VZCPUEmulatorConfiguration, error) {
+func (v VZVirtualMachineConfiguration) CpuEmulator() (IVZCPUEmulatorConfiguration, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_cpuEmulator"}
 	}
 	return v._cpuEmulator(), nil
 }
-func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value *VZCPUEmulatorConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value IVZCPUEmulatorConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_customMMIODevices
 func (v VZVirtualMachineConfiguration) _customMMIODevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_customMMIODevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -866,8 +802,6 @@ func (v VZVirtualMachineConfiguration) CustomMMIODevices() (foundation.INSArray,
 func (v VZVirtualMachineConfiguration) Set_customMMIODevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_customMMIODevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_customVirtioDevices
 func (v VZVirtualMachineConfiguration) _customVirtioDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_customVirtioDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -888,15 +822,9 @@ func (v VZVirtualMachineConfiguration) CustomVirtioDevices() (foundation.INSArra
 func (v VZVirtualMachineConfiguration) Set_customVirtioDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_customVirtioDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_debugStub
-func (v VZVirtualMachineConfiguration) _debugStub() *VZDebugStubConfiguration {
+func (v VZVirtualMachineConfiguration) _debugStub() IVZDebugStubConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZDebugStubConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZDebugStubConfigurationFromID(objc.ID(rv))
 }
 
 // CanDebugStub reports whether the receiver responds to the private selector _debugStub.
@@ -905,21 +833,15 @@ func (v VZVirtualMachineConfiguration) CanDebugStub() bool {
 }
 
 // DebugStub is an exported wrapper for the private property _debugStub.
-func (v VZVirtualMachineConfiguration) DebugStub() (*VZDebugStubConfiguration, error) {
+func (v VZVirtualMachineConfiguration) DebugStub() (IVZDebugStubConfiguration, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_debugStub")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_debugStub"}
 	}
 	return v._debugStub(), nil
 }
-func (v VZVirtualMachineConfiguration) Set_debugStub(value *VZDebugStubConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_debugStub(value IVZDebugStubConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_fatalErrorAction
 func (v VZVirtualMachineConfiguration) _fatalErrorAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_fatalErrorAction"))
 	return rv
@@ -940,8 +862,6 @@ func (v VZVirtualMachineConfiguration) FatalErrorAction() (int64, error) {
 func (v VZVirtualMachineConfiguration) Set_fatalErrorAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fatalErrorAction:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_hidDevices
 func (v VZVirtualMachineConfiguration) _hidDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -962,8 +882,6 @@ func (v VZVirtualMachineConfiguration) HidDevices() (foundation.INSArray, error)
 func (v VZVirtualMachineConfiguration) Set_hidDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_hidDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_mailboxDevices
 func (v VZVirtualMachineConfiguration) _mailboxDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_mailboxDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -984,8 +902,6 @@ func (v VZVirtualMachineConfiguration) MailboxDevices() (foundation.INSArray, er
 func (v VZVirtualMachineConfiguration) Set_mailboxDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_mailboxDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_memoryOvercommitmentAllowed
 func (v VZVirtualMachineConfiguration) _memoryOvercommitmentAllowed() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_memoryOvercommitmentAllowed"))
 	return rv
@@ -1006,8 +922,6 @@ func (v VZVirtualMachineConfiguration) MemoryOvercommitmentAllowed() (bool, erro
 func (v VZVirtualMachineConfiguration) Set_memoryOvercommitmentAllowed(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_memoryOvercommitmentAllowed:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_multiTouchDevices
 func (v VZVirtualMachineConfiguration) _multiTouchDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1028,8 +942,6 @@ func (v VZVirtualMachineConfiguration) MultiTouchDevices() (foundation.INSArray,
 func (v VZVirtualMachineConfiguration) Set_multiTouchDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_multiTouchDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_panicAction
 func (v VZVirtualMachineConfiguration) _panicAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_panicAction"))
 	return rv
@@ -1050,15 +962,9 @@ func (v VZVirtualMachineConfiguration) PanicAction() (int64, error) {
 func (v VZVirtualMachineConfiguration) Set_panicAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicAction:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_panicDevice
-func (v VZVirtualMachineConfiguration) _panicDevice() *VZPanicDeviceConfiguration {
+func (v VZVirtualMachineConfiguration) _panicDevice() IVZPanicDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_panicDevice"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZPanicDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZPanicDeviceConfigurationFromID(objc.ID(rv))
 }
 
 // CanPanicDevice reports whether the receiver responds to the private selector _panicDevice.
@@ -1067,21 +973,15 @@ func (v VZVirtualMachineConfiguration) CanPanicDevice() bool {
 }
 
 // PanicDevice is an exported wrapper for the private property _panicDevice.
-func (v VZVirtualMachineConfiguration) PanicDevice() (*VZPanicDeviceConfiguration, error) {
+func (v VZVirtualMachineConfiguration) PanicDevice() (IVZPanicDeviceConfiguration, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_panicDevice"}
 	}
 	return v._panicDevice(), nil
 }
-func (v VZVirtualMachineConfiguration) Set_panicDevice(value *VZPanicDeviceConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_panicDevice(value IVZPanicDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_pciPassthroughDevices
 func (v VZVirtualMachineConfiguration) _pciPassthroughDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pciPassthroughDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1102,8 +1002,6 @@ func (v VZVirtualMachineConfiguration) PciPassthroughDevices() (foundation.INSAr
 func (v VZVirtualMachineConfiguration) Set_pciPassthroughDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pciPassthroughDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_powerSourceDevices
 func (v VZVirtualMachineConfiguration) _powerSourceDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1124,8 +1022,6 @@ func (v VZVirtualMachineConfiguration) PowerSourceDevices() (foundation.INSArray
 func (v VZVirtualMachineConfiguration) Set_powerSourceDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_powerSourceDevices:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_restartAction
 func (v VZVirtualMachineConfiguration) _restartAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_restartAction"))
 	return rv
@@ -1146,11 +1042,9 @@ func (v VZVirtualMachineConfiguration) RestartAction() (int64, error) {
 func (v VZVirtualMachineConfiguration) Set_restartAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_restartAction:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_sharedRamRegions
-func (v VZVirtualMachineConfiguration) _sharedRamRegions() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_sharedRamRegions"))
-	return objectivec.Object{ID: rv}
+func (v VZVirtualMachineConfiguration) _sharedRamRegions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_sharedRamRegions"))
+	return rv
 }
 
 // CanSharedRamRegions reports whether the receiver responds to the private selector _sharedRamRegions.
@@ -1159,17 +1053,15 @@ func (v VZVirtualMachineConfiguration) CanSharedRamRegions() bool {
 }
 
 // SharedRamRegions is an exported wrapper for the private property _sharedRamRegions.
-func (v VZVirtualMachineConfiguration) SharedRamRegions() (objectivec.IObject, error) {
+func (v VZVirtualMachineConfiguration) SharedRamRegions() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_sharedRamRegions")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_sharedRamRegions"}
 	}
 	return v._sharedRamRegions(), nil
 }
-func (v VZVirtualMachineConfiguration) Set_sharedRamRegions(value objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) Set_sharedRamRegions(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_sharedRamRegions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_terminationUnderMemoryPressureEnabled
 func (v VZVirtualMachineConfiguration) _terminationUnderMemoryPressureEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_terminationUnderMemoryPressureEnabled"))
 	return rv
@@ -1190,8 +1082,6 @@ func (v VZVirtualMachineConfiguration) TerminationUnderMemoryPressureEnabled() (
 func (v VZVirtualMachineConfiguration) Set_terminationUnderMemoryPressureEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_terminationUnderMemoryPressureEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_testIgnoreEntitlementChecks
 func (v VZVirtualMachineConfiguration) _testIgnoreEntitlementChecks() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_testIgnoreEntitlementChecks"))
 	return rv

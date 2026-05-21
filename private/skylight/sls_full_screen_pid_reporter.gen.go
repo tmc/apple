@@ -51,8 +51,6 @@ func (sc SLSFullScreenPidReporterClass) Alloc() SLSFullScreenPidReporter {
 //   - [SLSFullScreenPidReporter.ReceiveMessages]
 //   - [SLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [SLSFullScreenPidReporter.SetDisconnectHandler]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter
 type SLSFullScreenPidReporter struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ISLSFullScreenPidReporter = SLSFullScreenPidReporter{}
 //   - [ISLSFullScreenPidReporter.ReceiveMessages]
 //   - [ISLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [ISLSFullScreenPidReporter.SetDisconnectHandler]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter
 type ISLSFullScreenPidReporter interface {
 	objectivec.IObject
 
@@ -109,41 +105,29 @@ func NewSLSFullScreenPidReporter() SLSFullScreenPidReporter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/equalCurrentSeed:
 func (s SLSFullScreenPidReporter) EqualCurrentSeed(seed uint64) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("equalCurrentSeed:"), seed)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/handleConnectionInterrupt
 func (s SLSFullScreenPidReporter) HandleConnectionInterrupt() {
 	objc.Send[objc.ID](s.ID, objc.Sel("handleConnectionInterrupt"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/incrementSeed
 func (s SLSFullScreenPidReporter) IncrementSeed() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("incrementSeed"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/receiveMessages:
 func (s SLSFullScreenPidReporter) ReceiveMessages(messages objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("receiveMessages:"), messages)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/reportFullScreenStatusWithFilter:andHandler:
 func (s SLSFullScreenPidReporter) ReportFullScreenStatusWithFilterAndHandler(filter objectivec.IObject, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("reportFullScreenStatusWithFilter:andHandler:"), filter, _block1)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/setDisconnectHandler:
 func (s SLSFullScreenPidReporter) SetDisconnectHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("setDisconnectHandler:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSFullScreenPidReporter/sharedReporter
 func (_SLSFullScreenPidReporterClass SLSFullScreenPidReporterClass) SharedReporter() SLSFullScreenPidReporter {
 	rv := objc.Send[objc.ID](objc.ID(_SLSFullScreenPidReporterClass.class), objc.Sel("sharedReporter"))
 	return SLSFullScreenPidReporterFromID(rv)

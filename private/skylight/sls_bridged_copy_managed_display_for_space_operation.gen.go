@@ -47,8 +47,6 @@ func (sc SLSBridgedCopyManagedDisplayForSpaceOperationClass) Alloc() SLSBridgedC
 //   - [SLSBridgedCopyManagedDisplayForSpaceOperation.MakeResultWithString]
 //   - [SLSBridgedCopyManagedDisplayForSpaceOperation.SpaceID]
 //   - [SLSBridgedCopyManagedDisplayForSpaceOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation
 type SLSBridgedCopyManagedDisplayForSpaceOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedCopyManagedDisplayForSpaceOperation = SLSBridgedCopyManagedDisp
 //   - [ISLSBridgedCopyManagedDisplayForSpaceOperation.MakeResultWithString]
 //   - [ISLSBridgedCopyManagedDisplayForSpaceOperation.SpaceID]
 //   - [ISLSBridgedCopyManagedDisplayForSpaceOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation
 type ISLSBridgedCopyManagedDisplayForSpaceOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedCopyManagedDisplayForSpaceOperation() SLSBridgedCopyManagedDis
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation/initWithCoder:
 func NewSLSBridgedCopyManagedDisplayForSpaceOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyManagedDisplayForSpaceOperation {
 	instance := getSLSBridgedCopyManagedDisplayForSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyManagedDisplayForSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation/initWithSpaceID:
 func NewSLSBridgedCopyManagedDisplayForSpaceOperationWithSpaceID(id uint64) SLSBridgedCopyManagedDisplayForSpaceOperation {
 	instance := getSLSBridgedCopyManagedDisplayForSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedCopyManagedDisplayForSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation/makeResultWithString:
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation/initWithSpaceID:
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) InitWithSpaceID(id uint64) SLSBridgedCopyManagedDisplayForSpaceOperation {
 	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForSpaceOperation/spaceID
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

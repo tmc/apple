@@ -8,19 +8,13 @@ import (
 )
 
 // ETDataProvider protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider
 type ETDataProvider interface {
 	objectivec.IObject
 
 	// NumberOfDataPoints protocol.
-	//
-	// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/numberOfDataPoints
 	NumberOfDataPoints() uint64
 
 	// PrepareForEpoch protocol.
-	//
-	// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/prepareForEpoch
 	PrepareForEpoch()
 }
 
@@ -41,7 +35,6 @@ func ETDataProviderObjectFromID(id objc.ID) ETDataProviderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/dataPointAtIndex:error:
 func (o ETDataProviderObject) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("dataPointAtIndex:error:"), index)
 	if err != nil {
@@ -49,14 +42,10 @@ func (o ETDataProviderObject) DataPointAtIndexError(index uint64) (objectivec.IO
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/numberOfDataPoints
 func (o ETDataProviderObject) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/prepareForEpoch
 func (o ETDataProviderObject) PrepareForEpoch() {
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForEpoch"))
 }

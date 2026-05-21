@@ -46,8 +46,6 @@ func (sc SLSBridgedSpacePreferCurrentDisplayOperationClass) Alloc() SLSBridgedSp
 //
 //   - [SLSBridgedSpacePreferCurrentDisplayOperation.SpaceID]
 //   - [SLSBridgedSpacePreferCurrentDisplayOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation
 type SLSBridgedSpacePreferCurrentDisplayOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedSpacePreferCurrentDisplayOperation = SLSBridgedSpacePreferCurre
 //
 //   - [ISLSBridgedSpacePreferCurrentDisplayOperation.SpaceID]
 //   - [ISLSBridgedSpacePreferCurrentDisplayOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation
 type ISLSBridgedSpacePreferCurrentDisplayOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedSpacePreferCurrentDisplayOperation() SLSBridgedSpacePreferCurr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation/initWithCoder:
 func NewSLSBridgedSpacePreferCurrentDisplayOperationWithCoder(coder objectivec.IObject) SLSBridgedSpacePreferCurrentDisplayOperation {
 	instance := getSLSBridgedSpacePreferCurrentDisplayOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpacePreferCurrentDisplayOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation/initWithSpaceID:
 func NewSLSBridgedSpacePreferCurrentDisplayOperationWithSpaceID(id uint64) SLSBridgedSpacePreferCurrentDisplayOperation {
 	instance := getSLSBridgedSpacePreferCurrentDisplayOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpacePreferCurrentDisplayOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation/initWithSpaceID:
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) InitWithSpaceID(id uint64) SLSBridgedSpacePreferCurrentDisplayOperation {
 	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpacePreferCurrentDisplayOperation/spaceID
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

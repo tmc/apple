@@ -42,7 +42,6 @@ func (mc MLMetricKeyClass) Alloc() MLMetricKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMetricKey
 type MLMetricKey struct {
 	MLKey
 }
@@ -56,8 +55,6 @@ func MLMetricKeyFromID(id objc.ID) MLMetricKey {
 var _ IMLMetricKey = MLMetricKey{}
 
 // An interface definition for the [MLMetricKey] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMetricKey
 type IMLMetricKey interface {
 	IMLKey
 }
@@ -81,21 +78,12 @@ func NewMLMetricKey() MLMetricKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
-func NewMetricKeyWithCoder(coder objectivec.IObject) MLMetricKey {
-	instance := getMLMetricKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLMetricKeyFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLMetricKey/initWithKeyName:
 func NewMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLMetricKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
 func NewMetricKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)

@@ -42,7 +42,6 @@ func (mc MLSNFrameworkHandleClass) Alloc() MLSNFrameworkHandle {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLSNFrameworkHandle
 type MLSNFrameworkHandle struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLSNFrameworkHandleFromID(id objc.ID) MLSNFrameworkHandle {
 var _ IMLSNFrameworkHandle = MLSNFrameworkHandle{}
 
 // An interface definition for the [MLSNFrameworkHandle] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLSNFrameworkHandle
 type IMLSNFrameworkHandle interface {
 	objectivec.IObject
 }
@@ -81,12 +78,7 @@ func NewMLSNFrameworkHandle() MLSNFrameworkHandle {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLSNFrameworkHandle/sharedHandle
-func (_MLSNFrameworkHandleClass MLSNFrameworkHandleClass) SharedHandle() *MLSNFrameworkHandle {
+func (_MLSNFrameworkHandleClass MLSNFrameworkHandleClass) SharedHandle() MLSNFrameworkHandle {
 	rv := objc.Send[objc.ID](objc.ID(_MLSNFrameworkHandleClass.class), objc.Sel("sharedHandle"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLSNFrameworkHandleFromID(rv)
-	return &val
+	return MLSNFrameworkHandleFromID(rv)
 }

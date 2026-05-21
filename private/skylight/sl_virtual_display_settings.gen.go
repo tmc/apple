@@ -52,8 +52,6 @@ func (sc SLVirtualDisplaySettingsClass) Alloc() SLVirtualDisplaySettings {
 //   - [SLVirtualDisplaySettings.PreferredMode]
 //   - [SLVirtualDisplaySettings.Rotations]
 //   - [SLVirtualDisplaySettings.InitWithNativeModePreferredModeOptionalModesRotationsError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings
 type SLVirtualDisplaySettings struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ ISLVirtualDisplaySettings = SLVirtualDisplaySettings{}
 //   - [ISLVirtualDisplaySettings.PreferredMode]
 //   - [ISLVirtualDisplaySettings.Rotations]
 //   - [ISLVirtualDisplaySettings.InitWithNativeModePreferredModeOptionalModesRotationsError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings
 type ISLVirtualDisplaySettings interface {
 	objectivec.IObject
 
@@ -110,7 +106,6 @@ func NewSLVirtualDisplaySettings() SLVirtualDisplaySettings {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/initWithNativeMode:preferredMode:optionalModes:rotations:error:
 func NewSLVirtualDisplaySettingsWithNativeModePreferredModeOptionalModesRotationsError(mode objectivec.IObject, mode2 objectivec.IObject, modes objectivec.IObject, rotations uint64) (SLVirtualDisplaySettings, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplaySettingsClass().Alloc()
@@ -122,13 +117,10 @@ func NewSLVirtualDisplaySettingsWithNativeModePreferredModeOptionalModesRotation
 	return SLVirtualDisplaySettingsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/dictionaryRepresentation
 func (s SLVirtualDisplaySettings) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/initWithNativeMode:preferredMode:optionalModes:rotations:error:
 func (s SLVirtualDisplaySettings) InitWithNativeModePreferredModeOptionalModesRotationsError(mode objectivec.IObject, mode2 objectivec.IObject, modes objectivec.IObject, rotations uint64) (SLVirtualDisplaySettings, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithNativeMode:preferredMode:optionalModes:rotations:error:"), mode, mode2, modes, rotations, unsafe.Pointer(&errorPtr))
@@ -140,37 +132,27 @@ func (s SLVirtualDisplaySettings) InitWithNativeModePreferredModeOptionalModesRo
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/settingsWithBackendSettings:
 func (_SLVirtualDisplaySettingsClass SLVirtualDisplaySettingsClass) SettingsWithBackendSettings(settings objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithBackendSettings:"), settings)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/settingsWithDictionaryRepresentation:
 func (_SLVirtualDisplaySettingsClass SLVirtualDisplaySettingsClass) SettingsWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/nativeMode
 func (s SLVirtualDisplaySettings) NativeMode() ISLVirtualDisplayMode {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("nativeMode"))
 	return SLVirtualDisplayModeFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/optionalModes
 func (s SLVirtualDisplaySettings) OptionalModes() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionalModes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/preferredMode
 func (s SLVirtualDisplaySettings) PreferredMode() ISLVirtualDisplayMode {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("preferredMode"))
 	return SLVirtualDisplayModeFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplaySettings/rotations
 func (s SLVirtualDisplaySettings) Rotations() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("rotations"))
 	return rv

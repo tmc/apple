@@ -8,8 +8,6 @@ import (
 )
 
 // NSMutableCopying protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/NSMutableCopying
 type NSMutableCopying interface {
 	objectivec.IObject
 }

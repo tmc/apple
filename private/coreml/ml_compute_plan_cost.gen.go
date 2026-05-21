@@ -45,8 +45,6 @@ func (mc MLComputePlanCostClass) Alloc() MLComputePlanCost {
 // # Methods
 //
 //   - [MLComputePlanCost.InitWithWeight]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost
 type MLComputePlanCost struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IMLComputePlanCost = MLComputePlanCost{}
 // # Methods
 //
 //   - [IMLComputePlanCost.InitWithWeight]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost
 type IMLComputePlanCost interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewMLComputePlanCost() MLComputePlanCost {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost/initWithWeight:
 func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 	instance := getMLComputePlanCostClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWeight:"), weight)
 	return MLComputePlanCostFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost/initWithWeight:
 func (m MLComputePlanCost) InitWithWeight(weight float64) MLComputePlanCost {
 	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("initWithWeight:"), weight)
 	return rv

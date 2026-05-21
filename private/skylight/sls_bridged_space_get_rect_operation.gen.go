@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceGetRectOperationClass) Alloc() SLSBridgedSpaceGetRectOpe
 //   - [SLSBridgedSpaceGetRectOperation.MakeResultWithRect]
 //   - [SLSBridgedSpaceGetRectOperation.SpaceID]
 //   - [SLSBridgedSpaceGetRectOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation
 type SLSBridgedSpaceGetRectOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceGetRectOperation = SLSBridgedSpaceGetRectOperation{}
 //   - [ISLSBridgedSpaceGetRectOperation.MakeResultWithRect]
 //   - [ISLSBridgedSpaceGetRectOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetRectOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation
 type ISLSBridgedSpaceGetRectOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceGetRectOperation() SLSBridgedSpaceGetRectOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation/initWithCoder:
 func NewSLSBridgedSpaceGetRectOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetRectOperation {
 	instance := getSLSBridgedSpaceGetRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation/initWithSpaceID:
 func NewSLSBridgedSpaceGetRectOperationWithSpaceID(id uint64) SLSBridgedSpaceGetRectOperation {
 	instance := getSLSBridgedSpaceGetRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation/makeResultWithRect:
 func (s SLSBridgedSpaceGetRectOperation) MakeResultWithRect(rect corefoundation.CGRect) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithRect:"), rect)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation/initWithSpaceID:
 func (s SLSBridgedSpaceGetRectOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetRectOperation {
 	rv := objc.Send[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetRectOperation/spaceID
 func (s SLSBridgedSpaceGetRectOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

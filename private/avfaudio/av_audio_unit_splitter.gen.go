@@ -45,8 +45,6 @@ func (ac AVAudioUnitSplitterClass) Alloc() AVAudioUnitSplitter {
 // # Methods
 //
 //   - [AVAudioUnitSplitter.InitWithAudioComponentDescription]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter
 type AVAudioUnitSplitter struct {
 	AVAudioUnit
 }
@@ -64,8 +62,6 @@ var _ IAVAudioUnitSplitter = AVAudioUnitSplitter{}
 // # Methods
 //
 //   - [IAVAudioUnitSplitter.InitWithAudioComponentDescription]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter
 type IAVAudioUnitSplitter interface {
 	IAVAudioUnit
 
@@ -93,21 +89,18 @@ func NewAVAudioUnitSplitter() AVAudioUnitSplitter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
 func NewAudioUnitSplitterWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
 func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
 	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv

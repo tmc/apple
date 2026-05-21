@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationSizeResultClass) Alloc() SLSBridgedW
 //
 //   - [SLSBridgedWindowManagementOperationSizeResult.Size]
 //   - [SLSBridgedWindowManagementOperationSizeResult.InitWithSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult
 type SLSBridgedWindowManagementOperationSizeResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWindowManagementOperationSizeResult = SLSBridgedWindowManagemen
 //
 //   - [ISLSBridgedWindowManagementOperationSizeResult.Size]
 //   - [ISLSBridgedWindowManagementOperationSizeResult.InitWithSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult
 type ISLSBridgedWindowManagementOperationSizeResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWindowManagementOperationSizeResult() SLSBridgedWindowManageme
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationSizeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSizeResult {
 	instance := getSLSBridgedWindowManagementOperationSizeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSizeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult/initWithSize:
 func NewSLSBridgedWindowManagementOperationSizeResultWithSize(size corefoundation.CGSize) SLSBridgedWindowManagementOperationSizeResult {
 	instance := getSLSBridgedWindowManagementOperationSizeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
 	return SLSBridgedWindowManagementOperationSizeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult/initWithSize:
 func (s SLSBridgedWindowManagementOperationSizeResult) InitWithSize(size corefoundation.CGSize) SLSBridgedWindowManagementOperationSizeResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("initWithSize:"), size)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSizeResult/size
 func (s SLSBridgedWindowManagementOperationSizeResult) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)

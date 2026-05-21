@@ -8,8 +8,6 @@ import (
 )
 
 // _VZUSBDeviceConfigurationSignature protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBDeviceConfigurationSignature
 type VZUSBDeviceConfigurationSignature interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func VZUSBDeviceConfigurationSignatureObjectFromID(id objc.ID) VZUSBDeviceConfig
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBDeviceConfigurationSignature/signature
 func (o VZUSBDeviceConfigurationSignatureObject) Signature() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}

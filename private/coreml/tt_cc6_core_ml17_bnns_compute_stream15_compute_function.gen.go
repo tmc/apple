@@ -42,7 +42,6 @@ func (tc TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass) Alloc() TtCC6Core
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML17BNNSComputeStream15ComputeFunction
 type TtCC6CoreML17BNNSComputeStream15ComputeFunction struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC6CoreML17BNNSComputeStream15ComputeFunctionFromID(id objc.ID) TtCC6Core
 // ITtCC6CoreML17BNNSComputeStream15ComputeFunction embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC6CoreML17BNNSComputeStream15ComputeFunction] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML17BNNSComputeStream15ComputeFunction
 type ITtCC6CoreML17BNNSComputeStream15ComputeFunction interface {
 	objectivec.IObject
 }

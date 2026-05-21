@@ -41,7 +41,6 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceConfigurationClass) Alloc() VZVir
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioTraditionalMemoryBalloonDeviceConfiguration
 type VZVirtioTraditionalMemoryBalloonDeviceConfiguration struct {
 	VZMemoryBalloonDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioTraditionalMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZVir
 var _ IVZVirtioTraditionalMemoryBalloonDeviceConfiguration = VZVirtioTraditionalMemoryBalloonDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioTraditionalMemoryBalloonDeviceConfiguration
 type IVZVirtioTraditionalMemoryBalloonDeviceConfiguration interface {
 	IVZMemoryBalloonDeviceConfiguration
 }

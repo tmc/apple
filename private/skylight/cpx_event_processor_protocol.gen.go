@@ -8,14 +8,10 @@ import (
 )
 
 // CPXEventProcessor protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventProcessor
 type CPXEventProcessor interface {
 	objectivec.IObject
 
 	// ClearEventState protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXEventProcessor/clearEventState
 	ClearEventState()
 }
 
@@ -36,12 +32,9 @@ func CPXEventProcessorObjectFromID(id objc.ID) CPXEventProcessorObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventProcessor/clearEventState
 func (o CPXEventProcessorObject) ClearEventState() {
 	objc.Send[struct{}](o.ID, objc.Sel("clearEventState"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventProcessor/processEvent:context:dispatcher:
 func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv

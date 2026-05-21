@@ -48,8 +48,6 @@ func (mc MLModelTypeRegistryClass) Alloc() MLModelTypeRegistry {
 //   - [MLModelTypeRegistry.ClassesForLoadingModelType]
 //   - [MLModelTypeRegistry.ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted]
 //   - [MLModelTypeRegistry.LoadNeuralNetworkClassesTrainWithMLCompute]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry
 type MLModelTypeRegistry struct {
 	objectivec.Object
 }
@@ -70,14 +68,12 @@ var _ IMLModelTypeRegistry = MLModelTypeRegistry{}
 //   - [IMLModelTypeRegistry.ClassesForLoadingModelType]
 //   - [IMLModelTypeRegistry.ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted]
 //   - [IMLModelTypeRegistry.LoadNeuralNetworkClassesTrainWithMLCompute]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry
 type IMLModelTypeRegistry interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ClassForCompilingModelType(type_ int) objc.Class
+	ClassForCompilingModelType(type_ int) objectivec.Class
 	ClassesForLoadingModelType(type_ int) objectivec.IObject
 	ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject
 	LoadNeuralNetworkClassesTrainWithMLCompute(classes bool, mLCompute bool) objectivec.IObject
@@ -102,31 +98,23 @@ func NewMLModelTypeRegistry() MLModelTypeRegistry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry/classForCompilingModelType:
-func (m MLModelTypeRegistry) ClassForCompilingModelType(type_ int) objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("classForCompilingModelType:"), type_)
-	return rv
+func (m MLModelTypeRegistry) ClassForCompilingModelType(type_ int) objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("classForCompilingModelType:"), type_)
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry/classesForLoadingModelType:
 func (m MLModelTypeRegistry) ClassesForLoadingModelType(type_ int) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry/classesForLoadingModelType:configuration:isUpdatable:isEncrypted:
 func (m MLModelTypeRegistry) ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:configuration:isUpdatable:isEncrypted:"), type_, configuration, updatable, encrypted)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry/loadNeuralNetworkClasses:trainWithMLCompute:
 func (m MLModelTypeRegistry) LoadNeuralNetworkClassesTrainWithMLCompute(classes bool, mLCompute bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("loadNeuralNetworkClasses:trainWithMLCompute:"), classes, mLCompute)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelTypeRegistry/sharedInstance
 func (_MLModelTypeRegistryClass MLModelTypeRegistryClass) SharedInstance() MLModelTypeRegistry {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelTypeRegistryClass.class), objc.Sel("sharedInstance"))
 	return MLModelTypeRegistryFromID(rv)

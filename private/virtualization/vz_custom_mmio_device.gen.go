@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,8 +53,6 @@ func (vc VZCustomMMIODeviceClass) Alloc() VZCustomMMIODevice {
 //   - [VZCustomMMIODevice.PulseIRQ]
 //   - [VZCustomMMIODevice.SetIRQValue]
 //   - [VZCustomMMIODevice.SharedInitializationWithDeviceQueueFromConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice
 type VZCustomMMIODevice struct {
 	objectivec.Object
 }
@@ -78,15 +77,13 @@ var _ IVZCustomMMIODevice = VZCustomMMIODevice{}
 //   - [IVZCustomMMIODevice.PulseIRQ]
 //   - [IVZCustomMMIODevice.SetIRQValue]
 //   - [IVZCustomMMIODevice.SharedInitializationWithDeviceQueueFromConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice
 type IVZCustomMMIODevice interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value unsafe.Pointer)
 	DeviceQueue() objectivec.Object
 	GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject
 	GuestRAMRegions() objectivec.IObject
@@ -114,43 +111,31 @@ func NewVZCustomMMIODevice() VZCustomMMIODevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/guestMemoryAtPhysicalAddress:length:
 func (v VZCustomMMIODevice) GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:"), address, length)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/guestRAMRegions
 func (v VZCustomMMIODevice) GuestRAMRegions() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestRAMRegions"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/pulseIRQ:
 func (v VZCustomMMIODevice) PulseIRQ(irq uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("pulseIRQ:"), irq)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/setIRQ:value:
 func (v VZCustomMMIODevice) SetIRQValue(irq uint64, value bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setIRQ:value:"), irq, value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/sharedInitializationWithDeviceQueue:fromConfiguration:
 func (v VZCustomMMIODevice) SharedInitializationWithDeviceQueueFromConfiguration(queue objectivec.IObject, configuration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sharedInitializationWithDeviceQueue:fromConfiguration:"), queue, configuration)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/delegate
-func (v VZCustomMMIODevice) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZCustomMMIODevice) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-func (v VZCustomMMIODevice) SetDelegate(value objectivec.IObject) {
+func (v VZCustomMMIODevice) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevice/deviceQueue
 func (v VZCustomMMIODevice) DeviceQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

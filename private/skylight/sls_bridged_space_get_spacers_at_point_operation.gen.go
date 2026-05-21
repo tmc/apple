@@ -49,8 +49,6 @@ func (sc SLSBridgedSpaceGetSpacersAtPointOperationClass) Alloc() SLSBridgedSpace
 //   - [SLSBridgedSpaceGetSpacersAtPointOperation.Point]
 //   - [SLSBridgedSpaceGetSpacersAtPointOperation.SpaceID]
 //   - [SLSBridgedSpaceGetSpacersAtPointOperation.InitWithSpaceIDPoint]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation
 type SLSBridgedSpaceGetSpacersAtPointOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedSpaceGetSpacersAtPointOperation = SLSBridgedSpaceGetSpacersAtPo
 //   - [ISLSBridgedSpaceGetSpacersAtPointOperation.Point]
 //   - [ISLSBridgedSpaceGetSpacersAtPointOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetSpacersAtPointOperation.InitWithSpaceIDPoint]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation
 type ISLSBridgedSpaceGetSpacersAtPointOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedSpaceGetSpacersAtPointOperation() SLSBridgedSpaceGetSpacersAtP
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/initWithCoder:
 func NewSLSBridgedSpaceGetSpacersAtPointOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetSpacersAtPointOperation {
 	instance := getSLSBridgedSpaceGetSpacersAtPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetSpacersAtPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/initWithSpaceID:point:
 func NewSLSBridgedSpaceGetSpacersAtPointOperationWithSpaceIDPoint(id uint64, point corefoundation.CGPoint) SLSBridgedSpaceGetSpacersAtPointOperation {
 	instance := getSLSBridgedSpaceGetSpacersAtPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:point:"), id, point)
 	return SLSBridgedSpaceGetSpacersAtPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/makeResultWithVerticalIndex:horizontalIndex:rect:
 func (s SLSBridgedSpaceGetSpacersAtPointOperation) MakeResultWithVerticalIndexHorizontalIndexRect(index uint64, index2 uint64, rect corefoundation.CGRect) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithVerticalIndex:horizontalIndex:rect:"), index, index2, rect)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/initWithSpaceID:point:
 func (s SLSBridgedSpaceGetSpacersAtPointOperation) InitWithSpaceIDPoint(id uint64, point corefoundation.CGPoint) SLSBridgedSpaceGetSpacersAtPointOperation {
 	rv := objc.Send[SLSBridgedSpaceGetSpacersAtPointOperation](s.ID, objc.Sel("initWithSpaceID:point:"), id, point)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/point
 func (s SLSBridgedSpaceGetSpacersAtPointOperation) Point() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSpacersAtPointOperation/spaceID
 func (s SLSBridgedSpaceGetSpacersAtPointOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

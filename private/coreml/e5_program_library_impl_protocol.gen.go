@@ -8,14 +8,10 @@ import (
 )
 
 // MLE5ProgramLibraryImpl protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl
 type MLE5ProgramLibraryImpl interface {
 	objectivec.IObject
 
 	// CreateProgramLibraryHandleWithRespecializationError protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/createProgramLibraryHandleWithRespecialization:error:
 	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error)
 }
 
@@ -36,7 +32,6 @@ func MLE5ProgramLibraryImplObjectFromID(id objc.ID) MLE5ProgramLibraryImplObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/createProgramLibraryHandleWithRespecialization:error:
 func (o MLE5ProgramLibraryImplObject) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization)
 	if err != nil {
@@ -44,14 +39,10 @@ func (o MLE5ProgramLibraryImplObject) CreateProgramLibraryHandleWithRespecializa
 	}
 	return E5rtProgramLibraryRef(rv), nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/modelDisplayName
 func (o MLE5ProgramLibraryImplObject) ModelDisplayName() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelDisplayName"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/serializedMILText
 func (o MLE5ProgramLibraryImplObject) SerializedMILText() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("serializedMILText"))
 	return objectivec.Object{ID: rv}

@@ -48,8 +48,6 @@ func (sc SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClas
 //   - [SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.AffineTransform]
 //   - [SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.Options]
 //   - [SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.InitWithAffineTransformOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult
 type SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult = SLS
 //   - [ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.AffineTransform]
 //   - [ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.Options]
 //   - [ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult.InitWithAffineTransformOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult
 type ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -100,33 +96,27 @@ func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResult() SL
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult/initWithAffineTransform:options:
 func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	instance := getSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
 	return SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	instance := getSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult/initWithAffineTransform:options:
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) InitWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult/affineTransform
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) AffineTransform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](s.ID, objc.Sel("affineTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult/options
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) Options() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
 	return rv

@@ -42,7 +42,6 @@ func (gc GTShaderProfilerStreamDataForMetadataClass) Alloc() GTShaderProfilerStr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataForMetadata
 type GTShaderProfilerStreamDataForMetadata struct {
 	GTShaderProfilerStreamData
 }
@@ -56,8 +55,6 @@ func GTShaderProfilerStreamDataForMetadataFromID(id objc.ID) GTShaderProfilerStr
 var _ IGTShaderProfilerStreamDataForMetadata = GTShaderProfilerStreamDataForMetadata{}
 
 // An interface definition for the [GTShaderProfilerStreamDataForMetadata] class.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataForMetadata
 type IGTShaderProfilerStreamDataForMetadata interface {
 	IGTShaderProfilerStreamData
 }
@@ -81,21 +78,18 @@ func NewGTShaderProfilerStreamDataForMetadata() GTShaderProfilerStreamDataForMet
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataForMetadata/initWithCoder:
 func NewGTShaderProfilerStreamDataForMetadataWithCoder(coder objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithNewFileFormatV2Support:
 func NewGTShaderProfilerStreamDataForMetadataWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithPreSiBundle:
 func NewGTShaderProfilerStreamDataForMetadataWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)

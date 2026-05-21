@@ -42,7 +42,6 @@ func (tc TTSFallbackLoaderClass) Alloc() TTSFallbackLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSFallbackLoader
 type TTSFallbackLoader struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TTSFallbackLoaderFromID(id objc.ID) TTSFallbackLoader {
 var _ ITTSFallbackLoader = TTSFallbackLoader{}
 
 // An interface definition for the [TTSFallbackLoader] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSFallbackLoader
 type ITTSFallbackLoader interface {
 	objectivec.IObject
 }
@@ -81,8 +78,7 @@ func NewTTSFallbackLoader() TTSFallbackLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSFallbackLoader/fallbackRendererClass
-func (_TTSFallbackLoaderClass TTSFallbackLoaderClass) FallbackRendererClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_TTSFallbackLoaderClass.class), objc.Sel("fallbackRendererClass"))
-	return rv
+func (_TTSFallbackLoaderClass TTSFallbackLoaderClass) FallbackRendererClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_TTSFallbackLoaderClass.class), objc.Sel("fallbackRendererClass"))
+	return objectivec.Class(rv)
 }

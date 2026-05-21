@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZ16550SerialPortConfiguration] class.
@@ -42,11 +41,6 @@ func (vc VZ16550SerialPortConfigurationClass) Alloc() VZ16550SerialPortConfigura
 	return rv
 }
 
-// # Methods
-//
-//   - [VZ16550SerialPortConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZ16550SerialPortConfiguration
 type VZ16550SerialPortConfiguration struct {
 	VZSerialPortConfiguration
 }
@@ -60,18 +54,8 @@ func VZ16550SerialPortConfigurationFromID(id objc.ID) VZ16550SerialPortConfigura
 var _ IVZ16550SerialPortConfiguration = VZ16550SerialPortConfiguration{}
 
 // An interface definition for the [VZ16550SerialPortConfiguration] class.
-//
-// # Methods
-//
-//   - [IVZ16550SerialPortConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZ16550SerialPortConfiguration
 type IVZ16550SerialPortConfiguration interface {
 	IVZSerialPortConfiguration
-
-	// Topic: Methods
-
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -91,10 +75,4 @@ func NewVZ16550SerialPortConfiguration() VZ16550SerialPortConfiguration {
 	class := getVZ16550SerialPortConfigurationClass()
 	rv := objc.Send[VZ16550SerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZ16550SerialPortConfiguration/encodeWithEncoder:
-func (v VZ16550SerialPortConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
 }

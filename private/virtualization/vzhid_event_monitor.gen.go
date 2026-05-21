@@ -42,7 +42,6 @@ func (vc VZHIDEventMonitorClass) Alloc() VZHIDEventMonitor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventMonitor
 type VZHIDEventMonitor struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZHIDEventMonitorFromID(id objc.ID) VZHIDEventMonitor {
 var _ IVZHIDEventMonitor = VZHIDEventMonitor{}
 
 // An interface definition for the [VZHIDEventMonitor] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventMonitor
 type IVZHIDEventMonitor interface {
 	objectivec.IObject
 }

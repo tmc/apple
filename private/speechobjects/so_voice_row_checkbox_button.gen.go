@@ -47,8 +47,6 @@ func (sc SOVoiceRowCheckboxButtonClass) Alloc() SOVoiceRowCheckboxButton {
 //
 //   - [SOVoiceRowCheckboxButton.VoiceIdentifier]
 //   - [SOVoiceRowCheckboxButton.SetVoiceIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowCheckboxButton
 type SOVoiceRowCheckboxButton struct {
 	appkit.NSButton
 }
@@ -67,8 +65,6 @@ var _ ISOVoiceRowCheckboxButton = SOVoiceRowCheckboxButton{}
 //
 //   - [ISOVoiceRowCheckboxButton.VoiceIdentifier]
 //   - [ISOVoiceRowCheckboxButton.SetVoiceIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowCheckboxButton
 type ISOVoiceRowCheckboxButton interface {
 	appkit.INSButton
 
@@ -97,7 +93,6 @@ func NewSOVoiceRowCheckboxButton() SOVoiceRowCheckboxButton {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowCheckboxButton/voiceIdentifier
 func (s SOVoiceRowCheckboxButton) VoiceIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("voiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()

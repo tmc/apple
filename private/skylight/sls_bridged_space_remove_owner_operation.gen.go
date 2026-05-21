@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceRemoveOwnerOperationClass) Alloc() SLSBridgedSpaceRemove
 //   - [SLSBridgedSpaceRemoveOwnerOperation.Owner]
 //   - [SLSBridgedSpaceRemoveOwnerOperation.SpaceID]
 //   - [SLSBridgedSpaceRemoveOwnerOperation.InitWithSpaceIDOwner]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation
 type SLSBridgedSpaceRemoveOwnerOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceRemoveOwnerOperation = SLSBridgedSpaceRemoveOwnerOperation
 //   - [ISLSBridgedSpaceRemoveOwnerOperation.Owner]
 //   - [ISLSBridgedSpaceRemoveOwnerOperation.SpaceID]
 //   - [ISLSBridgedSpaceRemoveOwnerOperation.InitWithSpaceIDOwner]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation
 type ISLSBridgedSpaceRemoveOwnerOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceRemoveOwnerOperation() SLSBridgedSpaceRemoveOwnerOperatio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation/initWithCoder:
 func NewSLSBridgedSpaceRemoveOwnerOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceRemoveOwnerOperation {
 	instance := getSLSBridgedSpaceRemoveOwnerOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceRemoveOwnerOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation/initWithSpaceID:owner:
 func NewSLSBridgedSpaceRemoveOwnerOperationWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceRemoveOwnerOperation {
 	instance := getSLSBridgedSpaceRemoveOwnerOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return SLSBridgedSpaceRemoveOwnerOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation/initWithSpaceID:owner:
 func (s SLSBridgedSpaceRemoveOwnerOperation) InitWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceRemoveOwnerOperation {
 	rv := objc.Send[SLSBridgedSpaceRemoveOwnerOperation](s.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation/owner
 func (s SLSBridgedSpaceRemoveOwnerOperation) Owner() int {
 	rv := objc.Send[int](s.ID, objc.Sel("owner"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveOwnerOperation/spaceID
 func (s SLSBridgedSpaceRemoveOwnerOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

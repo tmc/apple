@@ -47,8 +47,6 @@ func (vc VZVNCAuthenticationSecurityConfigurationClass) Alloc() VZVNCAuthenticat
 //
 //   - [VZVNCAuthenticationSecurityConfiguration.Password]
 //   - [VZVNCAuthenticationSecurityConfiguration.InitWithPassword]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration
 type VZVNCAuthenticationSecurityConfiguration struct {
 	VZVNCSecurityConfiguration
 }
@@ -67,8 +65,6 @@ var _ IVZVNCAuthenticationSecurityConfiguration = VZVNCAuthenticationSecurityCon
 //
 //   - [IVZVNCAuthenticationSecurityConfiguration.Password]
 //   - [IVZVNCAuthenticationSecurityConfiguration.InitWithPassword]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration
 type IVZVNCAuthenticationSecurityConfiguration interface {
 	IVZVNCSecurityConfiguration
 
@@ -97,20 +93,17 @@ func NewVZVNCAuthenticationSecurityConfiguration() VZVNCAuthenticationSecurityCo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration/initWithPassword:
 func NewVZVNCAuthenticationSecurityConfigurationWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
 	instance := getVZVNCAuthenticationSecurityConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassword:"), password)
 	return VZVNCAuthenticationSecurityConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration/initWithPassword:
 func (v VZVNCAuthenticationSecurityConfiguration) InitWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
 	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("initWithPassword:"), password)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration/password
 func (v VZVNCAuthenticationSecurityConfiguration) Password() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("password"))
 	return foundation.NSStringFromID(rv).String()

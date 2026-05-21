@@ -50,8 +50,6 @@ func (vc VZVirtualMachineConfigurationDecoderClass) Alloc() VZVirtualMachineConf
 //   - [VZVirtualMachineConfigurationDecoder.Delegate]
 //   - [VZVirtualMachineConfigurationDecoder.SetDelegate]
 //   - [VZVirtualMachineConfigurationDecoder.InitWithBaseURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder
 type VZVirtualMachineConfigurationDecoder struct {
 	objectivec.Object
 }
@@ -72,17 +70,15 @@ var _ IVZVirtualMachineConfigurationDecoder = VZVirtualMachineConfigurationDecod
 //   - [IVZVirtualMachineConfigurationDecoder.Delegate]
 //   - [IVZVirtualMachineConfigurationDecoder.SetDelegate]
 //   - [IVZVirtualMachineConfigurationDecoder.InitWithBaseURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder
 type IVZVirtualMachineConfigurationDecoder interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ConfigurationFromDataFormatError(data objectivec.IObject, format unsafe.Pointer) (objectivec.IObject, error)
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
-	InitWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationDecoder
+	ConfigurationFromDataFormatError(data objectivec.IObject, format *uint64) (objectivec.IObject, error)
+	Delegate() unsafe.Pointer
+	SetDelegate(value unsafe.Pointer)
+	InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationDecoder
 }
 
 // Init initializes the instance.
@@ -104,15 +100,13 @@ func NewVZVirtualMachineConfigurationDecoder() VZVirtualMachineConfigurationDeco
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/initWithBaseURL:
-func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationDecoder {
+func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationDecoder {
 	instance := getVZVirtualMachineConfigurationDecoderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
 	return VZVirtualMachineConfigurationDecoderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/configurationFromData:format:error:
-func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(data objectivec.IObject, format unsafe.Pointer) (objectivec.IObject, error) {
+func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(data objectivec.IObject, format *uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationFromData:format:error:"), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -122,18 +116,15 @@ func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(d
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/initWithBaseURL:
-func (v VZVirtualMachineConfigurationDecoder) InitWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationDecoder {
+func (v VZVirtualMachineConfigurationDecoder) InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationDecoder {
 	rv := objc.Send[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("initWithBaseURL:"), url)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/delegate
-func (v VZVirtualMachineConfigurationDecoder) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZVirtualMachineConfigurationDecoder) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-func (v VZVirtualMachineConfigurationDecoder) SetDelegate(value objectivec.IObject) {
+func (v VZVirtualMachineConfigurationDecoder) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }

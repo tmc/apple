@@ -8,8 +8,6 @@ import (
 )
 
 // MLAsyncClassifier protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAsyncClassifier
 type MLAsyncClassifier interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLAsyncClassifierObjectFromID(id objc.ID) MLAsyncClassifierObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAsyncClassifier/classify:options:completionHandler:
 func (o MLAsyncClassifierObject) ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler MLClassifierResultErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("classify:options:completionHandler:"), classify, options, handler)
 }

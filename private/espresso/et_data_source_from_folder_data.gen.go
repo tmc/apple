@@ -64,8 +64,6 @@ func (ec ETDataSourceFromFolderDataClass) Alloc() ETDataSourceFromFolderData {
 //   - [ETDataSourceFromFolderData.PathToClassIndex]
 //   - [ETDataSourceFromFolderData.SetPathToClassIndex]
 //   - [ETDataSourceFromFolderData.InitWithFolderBalanceClassesForTraining]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData
 type ETDataSourceFromFolderData struct {
 	objectivec.Object
 }
@@ -100,8 +98,6 @@ var _ IETDataSourceFromFolderData = ETDataSourceFromFolderData{}
 //   - [IETDataSourceFromFolderData.PathToClassIndex]
 //   - [IETDataSourceFromFolderData.SetPathToClassIndex]
 //   - [IETDataSourceFromFolderData.InitWithFolderBalanceClassesForTraining]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData
 type IETDataSourceFromFolderData interface {
 	objectivec.IObject
 
@@ -146,38 +142,29 @@ func NewETDataSourceFromFolderData() ETDataSourceFromFolderData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/initWithFolder:balanceClassesForTraining:
 func NewETDataSourceFromFolderDataWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
 	instance := getETDataSourceFromFolderDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
 	return ETDataSourceFromFolderDataFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/bufferWithPath:
 func (e ETDataSourceFromFolderData) BufferWithPath(path objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithPath:"), path)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/dataPointAtIndex:
 func (e ETDataSourceFromFolderData) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/numberOfDataPoints
 func (e ETDataSourceFromFolderData) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/initWithFolder:balanceClassesForTraining:
 func (e ETDataSourceFromFolderData) InitWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
 	rv := objc.Send[ETDataSourceFromFolderData](e.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/balanceClassesForTraining
 func (e ETDataSourceFromFolderData) BalanceClassesForTraining() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("balanceClassesForTraining"))
 	return rv
@@ -185,8 +172,6 @@ func (e ETDataSourceFromFolderData) BalanceClassesForTraining() bool {
 func (e ETDataSourceFromFolderData) SetBalanceClassesForTraining(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBalanceClassesForTraining:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/classNames
 func (e ETDataSourceFromFolderData) ClassNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("classNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -194,8 +179,6 @@ func (e ETDataSourceFromFolderData) ClassNames() foundation.INSArray {
 func (e ETDataSourceFromFolderData) SetClassNames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setClassNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/folderToImages
 func (e ETDataSourceFromFolderData) FolderToImages() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("folderToImages"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -203,8 +186,6 @@ func (e ETDataSourceFromFolderData) FolderToImages() foundation.INSDictionary {
 func (e ETDataSourceFromFolderData) SetFolderToImages(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFolderToImages:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/imageFileNames
 func (e ETDataSourceFromFolderData) ImageFileNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageFileNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -212,8 +193,6 @@ func (e ETDataSourceFromFolderData) ImageFileNames() foundation.INSArray {
 func (e ETDataSourceFromFolderData) SetImageFileNames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageFileNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/imagesDir
 func (e ETDataSourceFromFolderData) ImagesDir() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imagesDir"))
 	return foundation.NSStringFromID(rv).String()
@@ -221,8 +200,6 @@ func (e ETDataSourceFromFolderData) ImagesDir() string {
 func (e ETDataSourceFromFolderData) SetImagesDir(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImagesDir:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/numberOfClasses
 func (e ETDataSourceFromFolderData) NumberOfClasses() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfClasses"))
 	return rv
@@ -230,8 +207,6 @@ func (e ETDataSourceFromFolderData) NumberOfClasses() int {
 func (e ETDataSourceFromFolderData) SetNumberOfClasses(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumberOfClasses:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/pathToClassIndex
 func (e ETDataSourceFromFolderData) PathToClassIndex() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("pathToClassIndex"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

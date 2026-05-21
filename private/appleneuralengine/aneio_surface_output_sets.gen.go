@@ -51,8 +51,6 @@ func (ac ANEIOSurfaceOutputSetsClass) Alloc() ANEIOSurfaceOutputSets {
 //   - [ANEIOSurfaceOutputSets.StatsSurRef]
 //   - [ANEIOSurfaceOutputSets.InitWithCoder]
 //   - [ANEIOSurfaceOutputSets.InitWithstatsSurRefOutputBuffer]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets
 type ANEIOSurfaceOutputSets struct {
 	objectivec.Object
 }
@@ -74,8 +72,6 @@ var _ IANEIOSurfaceOutputSets = ANEIOSurfaceOutputSets{}
 //   - [IANEIOSurfaceOutputSets.StatsSurRef]
 //   - [IANEIOSurfaceOutputSets.InitWithCoder]
 //   - [IANEIOSurfaceOutputSets.InitWithstatsSurRefOutputBuffer]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets
 type IANEIOSurfaceOutputSets interface {
 	objectivec.IObject
 
@@ -107,56 +103,43 @@ func NewANEIOSurfaceOutputSets() ANEIOSurfaceOutputSets {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithCoder:
 func NewANEIOSurfaceOutputSetsWithCoder(coder objectivec.IObject) ANEIOSurfaceOutputSets {
 	instance := getANEIOSurfaceOutputSetsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithstatsSurRef:outputBuffer:
 func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
 	instance := getANEIOSurfaceOutputSetsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/encodeWithCoder:
 func (a ANEIOSurfaceOutputSets) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithCoder:
 func (a ANEIOSurfaceOutputSets) InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceOutputSets {
 	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithstatsSurRef:outputBuffer:
 func (a ANEIOSurfaceOutputSets) InitWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
 	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/objectWithstatsSurRef:outputBuffer:
 func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) ObjectWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("objectWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/supportsSecureCoding
 func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/outputBuffer
 func (a ANEIOSurfaceOutputSets) OutputBuffer() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputBuffer"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/statsSurRef
 func (a ANEIOSurfaceOutputSets) StatsSurRef() coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("statsSurRef"))
 	return coregraphics.IOSurfaceRef(rv)

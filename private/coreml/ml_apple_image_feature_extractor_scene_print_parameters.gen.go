@@ -49,8 +49,6 @@ func (mc MLAppleImageFeatureExtractorScenePrintParametersClass) Alloc() MLAppleI
 //   - [MLAppleImageFeatureExtractorScenePrintParameters.RequestClassName]
 //   - [MLAppleImageFeatureExtractorScenePrintParameters.ScenePrintVersion]
 //   - [MLAppleImageFeatureExtractorScenePrintParameters.InitScenePrintParametersRequestClassError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters
 type MLAppleImageFeatureExtractorScenePrintParameters struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IMLAppleImageFeatureExtractorScenePrintParameters = MLAppleImageFeatureExt
 //   - [IMLAppleImageFeatureExtractorScenePrintParameters.RequestClassName]
 //   - [IMLAppleImageFeatureExtractorScenePrintParameters.ScenePrintVersion]
 //   - [IMLAppleImageFeatureExtractorScenePrintParameters.InitScenePrintParametersRequestClassError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters
 type IMLAppleImageFeatureExtractorScenePrintParameters interface {
 	objectivec.IObject
 
@@ -101,7 +97,6 @@ func NewMLAppleImageFeatureExtractorScenePrintParameters() MLAppleImageFeatureEx
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/initScenePrintParameters:requestClass:error:
 func NewAppleImageFeatureExtractorScenePrintParametersScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorScenePrintParametersClass().Alloc()
@@ -113,7 +108,6 @@ func NewAppleImageFeatureExtractorScenePrintParametersScenePrintParametersReques
 	return MLAppleImageFeatureExtractorScenePrintParametersFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/initScenePrintParameters:requestClass:error:
 func (m MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))
@@ -125,13 +119,10 @@ func (m MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParamete
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/requestClassName
 func (m MLAppleImageFeatureExtractorScenePrintParameters) RequestClassName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("requestClassName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/scenePrintVersion
 func (m MLAppleImageFeatureExtractorScenePrintParameters) ScenePrintVersion() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("scenePrintVersion"))
 	return rv

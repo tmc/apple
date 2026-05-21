@@ -49,8 +49,6 @@ func (dc DIURLClass) Alloc() DIURL {
 //   - [DIURL.PluginName]
 //   - [DIURL.PluginParams]
 //   - [DIURL.InitWithPluginNameParams]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL
 type DIURL struct {
 	foundation.NSURL
 }
@@ -71,8 +69,6 @@ var _ IDIURL = DIURL{}
 //   - [IDIURL.PluginName]
 //   - [IDIURL.PluginParams]
 //   - [IDIURL.InitWithPluginNameParams]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL
 type IDIURL interface {
 	foundation.INSURL
 
@@ -103,57 +99,44 @@ func NewDIURL() DIURL {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/initWithCoder:
 func NewDIURLWithCoder(coder objectivec.IObject) DIURL {
 	instance := getDIURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIURLFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/initWithPluginName:params:
 func NewDIURLWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) DIURL {
 	instance := getDIURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:params:"), name, params)
 	return DIURLFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/initWithPluginName:params:
 func (d DIURL) InitWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) DIURL {
 	rv := objc.Send[DIURL](d.ID, objc.Sel("initWithPluginName:params:"), name, params)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/newDIURLWithNSURL:
-func (_DIURLClass DIURLClass) NewDIURLWithNSURL(nsurl foundation.INSURL) objectivec.IObject {
+func (_DIURLClass DIURLClass) NewDIURLWithNSURL(nsurl foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithNSURL:"), nsurl)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/newDIURLWithPluginName:params:
 func (_DIURLClass DIURLClass) NewDIURLWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithPluginName:params:"), name, params)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/supportsSecureCoding
 func (_DIURLClass DIURLClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DIURLClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/isPlugin
 func (d DIURL) IsPlugin() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isPlugin"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/pluginName
 func (d DIURL) PluginName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIURL/pluginParams
 func (d DIURL) PluginParams() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("pluginParams"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

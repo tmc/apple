@@ -4,8 +4,10 @@ package texttospeech
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -53,8 +55,6 @@ func (tc TTSAUMessagingHostClass) Alloc() TTSAUMessagingHost {
 //   - [TTSAUMessagingHost.Methods]
 //   - [TTSAUMessagingHost.SetMethods]
 //   - [TTSAUMessagingHost.InitWithMessageChannel]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost
 type TTSAUMessagingHost struct {
 	objectivec.Object
 }
@@ -79,8 +79,6 @@ var _ ITTSAUMessagingHost = TTSAUMessagingHost{}
 //   - [ITTSAUMessagingHost.Methods]
 //   - [ITTSAUMessagingHost.SetMethods]
 //   - [ITTSAUMessagingHost.InitWithMessageChannel]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost
 type ITTSAUMessagingHost interface {
 	objectivec.IObject
 
@@ -89,8 +87,8 @@ type ITTSAUMessagingHost interface {
 	_loadProtocolMethods()
 	AllowedClasses() foundation.INSSet
 	SetAllowedClasses(value foundation.INSSet)
-	Channel() objectivec.IObject
-	SetChannel(value objectivec.IObject)
+	Channel() unsafe.Pointer
+	SetChannel(value kernel.Pointer)
 	Methods() foundation.INSDictionary
 	SetMethods(value foundation.INSDictionary)
 	InitWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost
@@ -115,14 +113,12 @@ func NewTTSAUMessagingHost() TTSAUMessagingHost {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/initWithMessageChannel:
 func NewTTSAUMessagingHostWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost {
 	instance := getTTSAUMessagingHostClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageChannel:"), channel)
 	return TTSAUMessagingHostFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/_loadProtocolMethods
 func (t TTSAUMessagingHost) _loadProtocolMethods() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_loadProtocolMethods"))
 }
@@ -141,14 +137,11 @@ func (t TTSAUMessagingHost) LoadProtocolMethods() error {
 func (t TTSAUMessagingHost) CanLoadProtocolMethods() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_loadProtocolMethods"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/initWithMessageChannel:
 func (t TTSAUMessagingHost) InitWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost {
 	rv := objc.Send[TTSAUMessagingHost](t.ID, objc.Sel("initWithMessageChannel:"), channel)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/_validSelectorsForProtocol
 func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) _validSelectorsForProtocol() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol"))
 	return objectivec.Object{ID: rv}
@@ -168,7 +161,6 @@ func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) CanValidSelectorsForProt
 	return objc.RespondsToSelector(objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol"))
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/allowedClasses
 func (t TTSAUMessagingHost) AllowedClasses() foundation.INSSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("allowedClasses"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -176,17 +168,13 @@ func (t TTSAUMessagingHost) AllowedClasses() foundation.INSSet {
 func (t TTSAUMessagingHost) SetAllowedClasses(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedClasses:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/channel
-func (t TTSAUMessagingHost) Channel() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("channel"))
-	return objectivec.Object{ID: rv}
+func (t TTSAUMessagingHost) Channel() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("channel"))
+	return rv
 }
-func (t TTSAUMessagingHost) SetChannel(value objectivec.IObject) {
+func (t TTSAUMessagingHost) SetChannel(value kernel.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/methods
 func (t TTSAUMessagingHost) Methods() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("methods"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

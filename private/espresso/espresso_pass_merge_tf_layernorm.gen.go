@@ -41,7 +41,6 @@ func (ec EspressoPassMergeTfLayernormClass) Alloc() EspressoPassMergeTfLayernorm
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_layernorm
 type EspressoPassMergeTfLayernorm struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_merge_tf_layernormFromID(id objc.ID) EspressoPassMergeTfLayern
 var _ IEspressoPassMergeTfLayernorm = EspressoPassMergeTfLayernorm{}
 
 // An interface definition for the [EspressoPassMergeTfLayernorm] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_layernorm
 type IEspressoPassMergeTfLayernorm interface {
 	IEspressoCustomPass
 }

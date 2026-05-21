@@ -46,8 +46,6 @@ func (ac AVAudioTimeClass) Alloc() AVAudioTime {
 //
 //   - [AVAudioTime.HostTimeValid]
 //   - [AVAudioTime.SampleTimeValid]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime
 type AVAudioTime struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IAVAudioTime = AVAudioTime{}
 //
 //   - [IAVAudioTime.HostTimeValid]
 //   - [IAVAudioTime.SampleTimeValid]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime
 type IAVAudioTime interface {
 	objectivec.IObject
 
@@ -96,13 +92,10 @@ func NewAVAudioTime() AVAudioTime {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/hostTimeValid
 func (a AVAudioTime) HostTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("hostTimeValid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/sampleTimeValid
 func (a AVAudioTime) SampleTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("sampleTimeValid"))
 	return rv

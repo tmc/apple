@@ -48,8 +48,6 @@ func (sc SLSBridgedWindowGetTileRectOperationClass) Alloc() SLSBridgedWindowGetT
 //   - [SLSBridgedWindowGetTileRectOperation.MakeResultWithRect]
 //   - [SLSBridgedWindowGetTileRectOperation.WindowID]
 //   - [SLSBridgedWindowGetTileRectOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation
 type SLSBridgedWindowGetTileRectOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedWindowGetTileRectOperation = SLSBridgedWindowGetTileRectOperati
 //   - [ISLSBridgedWindowGetTileRectOperation.MakeResultWithRect]
 //   - [ISLSBridgedWindowGetTileRectOperation.WindowID]
 //   - [ISLSBridgedWindowGetTileRectOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation
 type ISLSBridgedWindowGetTileRectOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedWindowGetTileRectOperation() SLSBridgedWindowGetTileRectOperat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation/initWithCoder:
 func NewSLSBridgedWindowGetTileRectOperationWithCoder(coder objectivec.IObject) SLSBridgedWindowGetTileRectOperation {
 	instance := getSLSBridgedWindowGetTileRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowGetTileRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation/initWithWindowID:
 func NewSLSBridgedWindowGetTileRectOperationWithWindowID(id uint32) SLSBridgedWindowGetTileRectOperation {
 	instance := getSLSBridgedWindowGetTileRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSBridgedWindowGetTileRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation/makeResultWithRect:
 func (s SLSBridgedWindowGetTileRectOperation) MakeResultWithRect(rect corefoundation.CGRect) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithRect:"), rect)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation/initWithWindowID:
 func (s SLSBridgedWindowGetTileRectOperation) InitWithWindowID(id uint32) SLSBridgedWindowGetTileRectOperation {
 	rv := objc.Send[SLSBridgedWindowGetTileRectOperation](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowGetTileRectOperation/windowID
 func (s SLSBridgedWindowGetTileRectOperation) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

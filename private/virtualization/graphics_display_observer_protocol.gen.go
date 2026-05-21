@@ -8,8 +8,6 @@ import (
 )
 
 // VZGraphicsDisplayObserver protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver
 type VZGraphicsDisplayObserver interface {
 	objectivec.IObject
 }
@@ -31,12 +29,9 @@ func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserver
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidBeginReconfiguration:
 func (o VZGraphicsDisplayObserverObject) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidEndReconfiguration:
 func (o VZGraphicsDisplayObserverObject) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
 }

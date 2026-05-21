@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -51,8 +52,6 @@ func (sc SLDisplayPresetDeviceManagerClass) Alloc() SLDisplayPresetDeviceManager
 //   - [SLDisplayPresetDeviceManager.ServiceIsValidFor]
 //   - [SLDisplayPresetDeviceManager.StartWithBlockOnQueue]
 //   - [SLDisplayPresetDeviceManager.Stop]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager
 type SLDisplayPresetDeviceManager struct {
 	objectivec.Object
 }
@@ -76,8 +75,6 @@ var _ ISLDisplayPresetDeviceManager = SLDisplayPresetDeviceManager{}
 //   - [ISLDisplayPresetDeviceManager.ServiceIsValidFor]
 //   - [ISLDisplayPresetDeviceManager.StartWithBlockOnQueue]
 //   - [ISLDisplayPresetDeviceManager.Stop]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager
 type ISLDisplayPresetDeviceManager interface {
 	objectivec.IObject
 
@@ -85,9 +82,9 @@ type ISLDisplayPresetDeviceManager interface {
 
 	_serviceAdded(added uint32)
 	_serviceRemoved(removed uint32)
-	CopyDeviceForContainer(container objectivec.IObject) objectivec.IObject
+	CopyDeviceForContainer(container unsafe.Pointer) objectivec.IObject
 	CopyDevices() objectivec.IObject
-	ServiceIsValidFor(for_ objectivec.IObject) bool
+	ServiceIsValidFor(for_ unsafe.Pointer) bool
 	StartWithBlockOnQueue(block VoidHandler, queue objectivec.IObject)
 	Stop()
 }
@@ -111,7 +108,6 @@ func NewSLDisplayPresetDeviceManager() SLDisplayPresetDeviceManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/_serviceAdded:
 func (s SLDisplayPresetDeviceManager) _serviceAdded(added uint32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_serviceAdded:"), added)
 }
@@ -130,8 +126,6 @@ func (s SLDisplayPresetDeviceManager) ServiceAdded(added uint32) error {
 func (s SLDisplayPresetDeviceManager) CanServiceAdded() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceAdded:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/_serviceRemoved:
 func (s SLDisplayPresetDeviceManager) _serviceRemoved(removed uint32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_serviceRemoved:"), removed)
 }
@@ -150,49 +144,34 @@ func (s SLDisplayPresetDeviceManager) ServiceRemoved(removed uint32) error {
 func (s SLDisplayPresetDeviceManager) CanServiceRemoved() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceRemoved:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/copyDeviceForContainer:
-func (s SLDisplayPresetDeviceManager) CopyDeviceForContainer(container objectivec.IObject) objectivec.IObject {
+func (s SLDisplayPresetDeviceManager) CopyDeviceForContainer(container unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyDeviceForContainer:"), container)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/copyDevices
 func (s SLDisplayPresetDeviceManager) CopyDevices() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyDevices"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/serviceIsValidFor:
-func (s SLDisplayPresetDeviceManager) ServiceIsValidFor(for_ objectivec.IObject) bool {
+func (s SLDisplayPresetDeviceManager) ServiceIsValidFor(for_ unsafe.Pointer) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("serviceIsValidFor:"), for_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/startWithBlock:onQueue:
 func (s SLDisplayPresetDeviceManager) StartWithBlockOnQueue(block VoidHandler, queue objectivec.IObject) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("startWithBlock:onQueue:"), _block0, queue)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/stop
 func (s SLDisplayPresetDeviceManager) Stop() {
 	objc.Send[objc.ID](s.ID, objc.Sel("stop"))
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/debugDeferArrivalSeconds
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) DebugDeferArrivalSeconds() float32 {
 	rv := objc.Send[float32](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("debugDeferArrivalSeconds"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/instance
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) Instance() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("instance"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/setDebugDeferArrivalSeconds:
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) SetDebugDeferArrivalSeconds(seconds float32) {
 	objc.Send[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("setDebugDeferArrivalSeconds:"), seconds)
 }

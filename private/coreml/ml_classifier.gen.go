@@ -54,6 +54,9 @@ func MLClassifierFromID(id objc.ID) MLClassifier {
 	return MLClassifier{objectivec.Object{ID: id}}
 }
 
+// MLClassifierObjectFromID is an alias for [MLClassifierFromID] for class/protocol name collisions.
+func MLClassifierObjectFromID(id objc.ID) MLClassifier { return MLClassifierFromID(id) }
+
 // Ensure MLClassifier implements IMLClassifier.
 var _ IMLClassifier = MLClassifier{}
 

@@ -41,7 +41,6 @@ func (vc VZMacVideoToolboxDeviceConfigurationClass) Alloc() VZMacVideoToolboxDev
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacVideoToolboxDeviceConfiguration
 type VZMacVideoToolboxDeviceConfiguration struct {
 	VZAcceleratorDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZMacVideoToolboxDeviceConfigurationFromID(id objc.ID) VZMacVideoToolboxDev
 var _ IVZMacVideoToolboxDeviceConfiguration = VZMacVideoToolboxDeviceConfiguration{}
 
 // An interface definition for the [VZMacVideoToolboxDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacVideoToolboxDeviceConfiguration
 type IVZMacVideoToolboxDeviceConfiguration interface {
 	IVZAcceleratorDeviceConfiguration
 }
@@ -80,7 +77,6 @@ func NewVZMacVideoToolboxDeviceConfiguration() VZMacVideoToolboxDeviceConfigurat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacVideoToolboxDeviceConfiguration/_isSupported
 func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigurationClass) _isSupported() bool {
 	rv := objc.Send[bool](objc.ID(_VZMacVideoToolboxDeviceConfigurationClass.class), objc.Sel("_isSupported"))
 	return rv

@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceCopyNameOperationClass) Alloc() SLSBridgedSpaceCopyNameO
 //   - [SLSBridgedSpaceCopyNameOperation.MakeResultWithString]
 //   - [SLSBridgedSpaceCopyNameOperation.SpaceID]
 //   - [SLSBridgedSpaceCopyNameOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation
 type SLSBridgedSpaceCopyNameOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceCopyNameOperation = SLSBridgedSpaceCopyNameOperation{}
 //   - [ISLSBridgedSpaceCopyNameOperation.MakeResultWithString]
 //   - [ISLSBridgedSpaceCopyNameOperation.SpaceID]
 //   - [ISLSBridgedSpaceCopyNameOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation
 type ISLSBridgedSpaceCopyNameOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceCopyNameOperation() SLSBridgedSpaceCopyNameOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation/initWithCoder:
 func NewSLSBridgedSpaceCopyNameOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyNameOperation {
 	instance := getSLSBridgedSpaceCopyNameOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyNameOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation/initWithSpaceID:
 func NewSLSBridgedSpaceCopyNameOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyNameOperation {
 	instance := getSLSBridgedSpaceCopyNameOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyNameOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation/makeResultWithString:
 func (s SLSBridgedSpaceCopyNameOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation/initWithSpaceID:
 func (s SLSBridgedSpaceCopyNameOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyNameOperation {
 	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyNameOperation/spaceID
 func (s SLSBridgedSpaceCopyNameOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

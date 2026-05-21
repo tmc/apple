@@ -51,8 +51,6 @@ func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration
 //   - [VZEntropyDeviceConfiguration.Description]
 //   - [VZEntropyDeviceConfiguration.Hash]
 //   - [VZEntropyDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration
 type VZEntropyDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZEntropyDeviceConfiguration = VZEntropyDeviceConfiguration{}
 //   - [IVZEntropyDeviceConfiguration.Description]
 //   - [IVZEntropyDeviceConfiguration.Hash]
 //   - [IVZEntropyDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration
 type IVZEntropyDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IVZEntropyDeviceConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,13 +105,11 @@ func NewVZEntropyDeviceConfiguration() VZEntropyDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/_init
 func (v VZEntropyDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/_entropyDevice
 func (v VZEntropyDeviceConfiguration) _entropyDevice() int {
 	rv := objc.Send[int](v.ID, objc.Sel("_entropyDevice"))
 	return rv
@@ -133,27 +127,19 @@ func (v VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
 	}
 	return v._entropyDevice(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/debugDescription
 func (v VZEntropyDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/description
 func (v VZEntropyDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/hash
 func (v VZEntropyDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/superclass
-func (v VZEntropyDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZEntropyDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

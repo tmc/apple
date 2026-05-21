@@ -49,17 +49,12 @@ func (mc MLNearestNeighborsLinearIndexClass) Alloc() MLNearestNeighborsLinearInd
 //
 //   - [MLNearestNeighborsLinearIndex.DataPointCount]
 //   - [MLNearestNeighborsLinearIndex.EncodeWithCoder]
-//   - [MLNearestNeighborsLinearIndex.FindNearestNeighborsToIndex]
-//   - [MLNearestNeighborsLinearIndex.FindNearestNeighborsToQueryPoint]
 //   - [MLNearestNeighborsLinearIndex.NumDataPoints]
 //   - [MLNearestNeighborsLinearIndex.SetNumDataPoints]
 //   - [MLNearestNeighborsLinearIndex.NumDimensions]
 //   - [MLNearestNeighborsLinearIndex.SetNumDimensions]
 //   - [MLNearestNeighborsLinearIndex.UpdateWithDataError]
 //   - [MLNearestNeighborsLinearIndex.InitWithCoder]
-//   - [MLNearestNeighborsLinearIndex.InitWithDatasetNumberOfDimensions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex
 type MLNearestNeighborsLinearIndex struct {
 	objectivec.Object
 }
@@ -78,17 +73,12 @@ var _ IMLNearestNeighborsLinearIndex = MLNearestNeighborsLinearIndex{}
 //
 //   - [IMLNearestNeighborsLinearIndex.DataPointCount]
 //   - [IMLNearestNeighborsLinearIndex.EncodeWithCoder]
-//   - [IMLNearestNeighborsLinearIndex.FindNearestNeighborsToIndex]
-//   - [IMLNearestNeighborsLinearIndex.FindNearestNeighborsToQueryPoint]
 //   - [IMLNearestNeighborsLinearIndex.NumDataPoints]
 //   - [IMLNearestNeighborsLinearIndex.SetNumDataPoints]
 //   - [IMLNearestNeighborsLinearIndex.NumDimensions]
 //   - [IMLNearestNeighborsLinearIndex.SetNumDimensions]
 //   - [IMLNearestNeighborsLinearIndex.UpdateWithDataError]
 //   - [IMLNearestNeighborsLinearIndex.InitWithCoder]
-//   - [IMLNearestNeighborsLinearIndex.InitWithDatasetNumberOfDimensions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex
 type IMLNearestNeighborsLinearIndex interface {
 	objectivec.IObject
 
@@ -96,15 +86,12 @@ type IMLNearestNeighborsLinearIndex interface {
 
 	DataPointCount() uint64
 	EncodeWithCoder(coder foundation.INSCoder)
-	FindNearestNeighborsToIndex(neighbors uint64, index uint64) objectivec.IObject
-	FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) objectivec.IObject
 	NumDataPoints() uint64
 	SetNumDataPoints(value uint64)
 	NumDimensions() uint64
 	SetNumDimensions(value uint64)
 	UpdateWithDataError(data unsafe.Pointer) (bool, error)
 	InitWithCoder(coder foundation.INSCoder) MLNearestNeighborsLinearIndex
-	InitWithDatasetNumberOfDimensions(dataset objectivec.IObject, dimensions uint64) MLNearestNeighborsLinearIndex
 }
 
 // Init initializes the instance.
@@ -126,44 +113,25 @@ func NewMLNearestNeighborsLinearIndex() MLNearestNeighborsLinearIndex {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/initWithCoder:
 func NewNearestNeighborsLinearIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNearestNeighborsLinearIndexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/initWithDataset:numberOfDimensions:
-func NewNearestNeighborsLinearIndexWithDatasetNumberOfDimensions(dataset objectivec.IObject, dimensions uint64) MLNearestNeighborsLinearIndex {
+func NewNearestNeighborsLinearIndexWithDatasetNumberOfDimensions(dataset unsafe.Pointer, dimensions uint64) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:"), dataset, dimensions)
 	return MLNearestNeighborsLinearIndexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/dataPointCount
 func (m MLNearestNeighborsLinearIndex) DataPointCount() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("dataPointCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/encodeWithCoder:
 func (m MLNearestNeighborsLinearIndex) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/findNearestNeighbors:toIndex:
-func (m MLNearestNeighborsLinearIndex) FindNearestNeighborsToIndex(neighbors uint64, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/findNearestNeighbors:toQueryPoint:
-func (m MLNearestNeighborsLinearIndex) FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/updateWithData:error:
 func (m MLNearestNeighborsLinearIndex) UpdateWithDataError(data unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("updateWithData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -177,26 +145,16 @@ func (m MLNearestNeighborsLinearIndex) UpdateWithDataError(data unsafe.Pointer) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/initWithCoder:
 func (m MLNearestNeighborsLinearIndex) InitWithCoder(coder foundation.INSCoder) MLNearestNeighborsLinearIndex {
 	rv := objc.Send[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/initWithDataset:numberOfDimensions:
-func (m MLNearestNeighborsLinearIndex) InitWithDatasetNumberOfDimensions(dataset objectivec.IObject, dimensions uint64) MLNearestNeighborsLinearIndex {
-	rv := objc.Send[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("initWithDataset:numberOfDimensions:"), dataset, dimensions)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/supportsSecureCoding
 func (_MLNearestNeighborsLinearIndexClass MLNearestNeighborsLinearIndexClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLNearestNeighborsLinearIndexClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/numDataPoints
 func (m MLNearestNeighborsLinearIndex) NumDataPoints() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numDataPoints"))
 	return rv
@@ -204,8 +162,6 @@ func (m MLNearestNeighborsLinearIndex) NumDataPoints() uint64 {
 func (m MLNearestNeighborsLinearIndex) SetNumDataPoints(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumDataPoints:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsLinearIndex/numDimensions
 func (m MLNearestNeighborsLinearIndex) NumDimensions() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numDimensions"))
 	return rv

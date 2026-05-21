@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZLinearFramebufferGraphicsDeviceConfiguration] class.
@@ -47,10 +46,7 @@ func (vc VZLinearFramebufferGraphicsDeviceConfigurationClass) Alloc() VZLinearFr
 //
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.BackingStoreSize]
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.SetBackingStoreSize]
-//   - [VZLinearFramebufferGraphicsDeviceConfiguration.EncodeWithEncoder]
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.InitWithBackingStoreSize]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration
 type VZLinearFramebufferGraphicsDeviceConfiguration struct {
 	VZGraphicsDeviceConfiguration
 }
@@ -69,10 +65,7 @@ var _ IVZLinearFramebufferGraphicsDeviceConfiguration = VZLinearFramebufferGraph
 //
 //   - [IVZLinearFramebufferGraphicsDeviceConfiguration.BackingStoreSize]
 //   - [IVZLinearFramebufferGraphicsDeviceConfiguration.SetBackingStoreSize]
-//   - [IVZLinearFramebufferGraphicsDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZLinearFramebufferGraphicsDeviceConfiguration.InitWithBackingStoreSize]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration
 type IVZLinearFramebufferGraphicsDeviceConfiguration interface {
 	IVZGraphicsDeviceConfiguration
 
@@ -80,7 +73,6 @@ type IVZLinearFramebufferGraphicsDeviceConfiguration interface {
 
 	BackingStoreSize() corefoundation.CGSize
 	SetBackingStoreSize(value corefoundation.CGSize)
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	InitWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration
 }
 
@@ -103,26 +95,17 @@ func NewVZLinearFramebufferGraphicsDeviceConfiguration() VZLinearFramebufferGrap
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/initWithBackingStoreSize:
 func NewVZLinearFramebufferGraphicsDeviceConfigurationWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
 	instance := getVZLinearFramebufferGraphicsDeviceConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackingStoreSize:"), size)
 	return VZLinearFramebufferGraphicsDeviceConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/encodeWithEncoder:
-func (v VZLinearFramebufferGraphicsDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/initWithBackingStoreSize:
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) InitWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
 	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("initWithBackingStoreSize:"), size)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/backingStoreSize
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) BackingStoreSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("backingStoreSize"))
 	return corefoundation.CGSize(rv)

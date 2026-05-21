@@ -8,14 +8,10 @@ import (
 )
 
 // SLDataTimelineSnapshotCollection protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSnapshotCollection
 type SLDataTimelineSnapshotCollection interface {
 	objectivec.IObject
 
 	// SnapshotsApplyBlock protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSnapshotCollection/snapshotsApplyBlock:
 	SnapshotsApplyBlock(block SLDataTimelineServerSnapshotHandler)
 }
 
@@ -36,13 +32,10 @@ func SLDataTimelineSnapshotCollectionObjectFromID(id objc.ID) SLDataTimelineSnap
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSnapshotCollection/snapshots
 func (o SLDataTimelineSnapshotCollectionObject) Snapshots() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("snapshots"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSnapshotCollection/snapshotsApplyBlock:
 func (o SLDataTimelineSnapshotCollectionObject) SnapshotsApplyBlock(block SLDataTimelineServerSnapshotHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("snapshotsApplyBlock:"), block)
 }

@@ -59,8 +59,6 @@ func (ec EspressoProfilingLayerSupportInfoClass) Alloc() EspressoProfilingLayerS
 //   - [EspressoProfilingLayerSupportInfo.SetSupported]
 //   - [EspressoProfilingLayerSupportInfo.Type]
 //   - [EspressoProfilingLayerSupportInfo.SetType]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo
 type EspressoProfilingLayerSupportInfo struct {
 	objectivec.Object
 }
@@ -91,8 +89,6 @@ var _ IEspressoProfilingLayerSupportInfo = EspressoProfilingLayerSupportInfo{}
 //   - [IEspressoProfilingLayerSupportInfo.SetSupported]
 //   - [IEspressoProfilingLayerSupportInfo.Type]
 //   - [IEspressoProfilingLayerSupportInfo.SetType]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo
 type IEspressoProfilingLayerSupportInfo interface {
 	objectivec.IObject
 
@@ -133,7 +129,6 @@ func NewEspressoProfilingLayerSupportInfo() EspressoProfilingLayerSupportInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/error_private
 func (e EspressoProfilingLayerSupportInfo) Error_private() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("error_private"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -141,8 +136,6 @@ func (e EspressoProfilingLayerSupportInfo) Error_private() foundation.INSArray {
 func (e EspressoProfilingLayerSupportInfo) SetError_private(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setError_private:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/error_public
 func (e EspressoProfilingLayerSupportInfo) Error_public() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("error_public"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -150,8 +143,6 @@ func (e EspressoProfilingLayerSupportInfo) Error_public() foundation.INSArray {
 func (e EspressoProfilingLayerSupportInfo) SetError_public(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setError_public:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/exists
 func (e EspressoProfilingLayerSupportInfo) Exists() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("exists"))
 	return rv
@@ -159,8 +150,6 @@ func (e EspressoProfilingLayerSupportInfo) Exists() bool {
 func (e EspressoProfilingLayerSupportInfo) SetExists(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExists:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/has_perf_warning
 func (e EspressoProfilingLayerSupportInfo) Has_perf_warning() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("has_perf_warning"))
 	return rv
@@ -168,8 +157,6 @@ func (e EspressoProfilingLayerSupportInfo) Has_perf_warning() bool {
 func (e EspressoProfilingLayerSupportInfo) SetHas_perf_warning(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHas_perf_warning:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/internal_layer
 func (e EspressoProfilingLayerSupportInfo) Internal_layer() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("internal_layer"))
 	return rv
@@ -177,8 +164,6 @@ func (e EspressoProfilingLayerSupportInfo) Internal_layer() bool {
 func (e EspressoProfilingLayerSupportInfo) SetInternal_layer(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInternal_layer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/supported
 func (e EspressoProfilingLayerSupportInfo) Supported() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("supported"))
 	return rv
@@ -186,8 +171,6 @@ func (e EspressoProfilingLayerSupportInfo) Supported() bool {
 func (e EspressoProfilingLayerSupportInfo) SetSupported(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSupported:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/type
 func (e EspressoProfilingLayerSupportInfo) Type() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()

@@ -8,8 +8,6 @@ import (
 )
 
 // WMWindowDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WMWindowDelegate
 type WMWindowDelegate interface {
 	objectivec.IObject
 }
@@ -31,12 +29,9 @@ func WMWindowDelegateObjectFromID(id objc.ID) WMWindowDelegateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WMWindowDelegate/window:didUpdateWithChangedProperties:
 func (o WMWindowDelegateObject) WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WMWindowDelegate/window:didUpdateWithChangedServerProperties:
 func (o WMWindowDelegateObject) WindowDidUpdateWithChangedServerProperties(window objectivec.IObject, properties uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedServerProperties:"), window, properties)
 }

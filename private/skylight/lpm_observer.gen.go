@@ -46,8 +46,6 @@ func (lc LPMObserverClass) Alloc() LPMObserver {
 //
 //   - [LPMObserver.HandlePowerStateChange]
 //   - [LPMObserver.IsLowPowerModeEnabled]
-//
-// See: https://developer.apple.com/documentation/SkyLight/LPMObserver
 type LPMObserver struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ ILPMObserver = LPMObserver{}
 //
 //   - [ILPMObserver.HandlePowerStateChange]
 //   - [ILPMObserver.IsLowPowerModeEnabled]
-//
-// See: https://developer.apple.com/documentation/SkyLight/LPMObserver
 type ILPMObserver interface {
 	objectivec.IObject
 
@@ -96,18 +92,15 @@ func NewLPMObserver() LPMObserver {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/LPMObserver/handlePowerStateChange:
 func (l LPMObserver) HandlePowerStateChange(change objectivec.IObject) {
 	objc.Send[objc.ID](l.ID, objc.Sel("handlePowerStateChange:"), change)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/LPMObserver/sharedLPMObserver
 func (_LPMObserverClass LPMObserverClass) SharedLPMObserver() LPMObserver {
 	rv := objc.Send[objc.ID](objc.ID(_LPMObserverClass.class), objc.Sel("sharedLPMObserver"))
 	return LPMObserverFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/LPMObserver/isLowPowerModeEnabled
 func (l LPMObserver) IsLowPowerModeEnabled() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isLowPowerModeEnabled"))
 	return rv

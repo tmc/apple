@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceSetInterTileSpacingOperationClass) Alloc() SLSBridgedSpa
 //   - [SLSBridgedSpaceSetInterTileSpacingOperation.SpaceID]
 //   - [SLSBridgedSpaceSetInterTileSpacingOperation.Spacing]
 //   - [SLSBridgedSpaceSetInterTileSpacingOperation.InitWithSpaceIDSpacing]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation
 type SLSBridgedSpaceSetInterTileSpacingOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceSetInterTileSpacingOperation = SLSBridgedSpaceSetInterTile
 //   - [ISLSBridgedSpaceSetInterTileSpacingOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetInterTileSpacingOperation.Spacing]
 //   - [ISLSBridgedSpaceSetInterTileSpacingOperation.InitWithSpaceIDSpacing]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation
 type ISLSBridgedSpaceSetInterTileSpacingOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceSetInterTileSpacingOperation() SLSBridgedSpaceSetInterTil
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation/initWithCoder:
 func NewSLSBridgedSpaceSetInterTileSpacingOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetInterTileSpacingOperation {
 	instance := getSLSBridgedSpaceSetInterTileSpacingOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetInterTileSpacingOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation/initWithSpaceID:spacing:
 func NewSLSBridgedSpaceSetInterTileSpacingOperationWithSpaceIDSpacing(id uint64, spacing corefoundation.CGSize) SLSBridgedSpaceSetInterTileSpacingOperation {
 	instance := getSLSBridgedSpaceSetInterTileSpacingOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:spacing:"), id, spacing)
 	return SLSBridgedSpaceSetInterTileSpacingOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation/initWithSpaceID:spacing:
 func (s SLSBridgedSpaceSetInterTileSpacingOperation) InitWithSpaceIDSpacing(id uint64, spacing corefoundation.CGSize) SLSBridgedSpaceSetInterTileSpacingOperation {
 	rv := objc.Send[SLSBridgedSpaceSetInterTileSpacingOperation](s.ID, objc.Sel("initWithSpaceID:spacing:"), id, spacing)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation/spaceID
 func (s SLSBridgedSpaceSetInterTileSpacingOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetInterTileSpacingOperation/spacing
 func (s SLSBridgedSpaceSetInterTileSpacingOperation) Spacing() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("spacing"))
 	return corefoundation.CGSize(rv)

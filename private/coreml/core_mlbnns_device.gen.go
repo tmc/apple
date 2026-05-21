@@ -42,7 +42,6 @@ func (cc CoreMLBNNSDeviceClass) Alloc() CoreMLBNNSDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.BNNSDevice
 type CoreMLBNNSDevice struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLBNNSDeviceFromID(id objc.ID) CoreMLBNNSDevice {
 // ICoreMLBNNSDevice embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLBNNSDevice] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.BNNSDevice
 type ICoreMLBNNSDevice interface {
 	objectivec.IObject
 }

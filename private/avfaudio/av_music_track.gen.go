@@ -64,8 +64,6 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //   - [AVMusicTrack.SetMuted]
 //   - [AVMusicTrack.Soloed]
 //   - [AVMusicTrack.SetSoloed]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type AVMusicTrack struct {
 	objectivec.Object
 }
@@ -102,8 +100,6 @@ var _ IAVMusicTrack = AVMusicTrack{}
 //   - [IAVMusicTrack.SetMuted]
 //   - [IAVMusicTrack.Soloed]
 //   - [IAVMusicTrack.SetSoloed]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type IAVMusicTrack interface {
 	objectivec.IObject
 
@@ -150,70 +146,46 @@ func NewAVMusicTrack() AVMusicTrack {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/createEventIterator
 func (a AVMusicTrack) CreateEventIterator() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("createEventIterator"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddAUPresetEvent:atBeat:
 func (a AVMusicTrack) DoAddAUPresetEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddAUPresetEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddExtendedNoteOnEvent:atBeat:
 func (a AVMusicTrack) DoAddExtendedNoteOnEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddExtendedNoteOnEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddExtendedTempoEvent:atBeat:
 func (a AVMusicTrack) DoAddExtendedTempoEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddExtendedTempoEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddMIDIChannelEvent:atBeat:
 func (a AVMusicTrack) DoAddMIDIChannelEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddMIDIChannelEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddMIDIMetaEvent:atBeat:
 func (a AVMusicTrack) DoAddMIDIMetaEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddMIDIMetaEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddMIDINoteEvent:atBeat:
 func (a AVMusicTrack) DoAddMIDINoteEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddMIDINoteEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddMIDISysexEvent:atBeat:
 func (a AVMusicTrack) DoAddMIDISysexEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddMIDISysexEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddParameterEvent:atBeat:
 func (a AVMusicTrack) DoAddParameterEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddParameterEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/doAddUserEvent:atBeat:
 func (a AVMusicTrack) DoAddUserEventAtBeat(event objectivec.IObject, beat float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("doAddUserEvent:atBeat:"), event, beat)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/index
 func (a AVMusicTrack) Index() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/track
 func (a AVMusicTrack) Track() OpaqueMusicTrackRef {
 	rv := objc.Send[OpaqueMusicTrackRef](a.ID, objc.Sel("track"))
 	return OpaqueMusicTrackRef(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint
 func (a AVMusicTrack) DestinationMIDIEndpoint() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("destinationMIDIEndpoint"))
 	return rv
@@ -221,8 +193,6 @@ func (a AVMusicTrack) DestinationMIDIEndpoint() uint32 {
 func (a AVMusicTrack) SetDestinationMIDIEndpoint(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDestinationMIDIEndpoint:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/loopingEnabled
 func (a AVMusicTrack) LoopingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("loopingEnabled"))
 	return rv
@@ -230,8 +200,6 @@ func (a AVMusicTrack) LoopingEnabled() bool {
 func (a AVMusicTrack) SetLoopingEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLoopingEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/muted
 func (a AVMusicTrack) Muted() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("muted"))
 	return rv
@@ -239,8 +207,6 @@ func (a AVMusicTrack) Muted() bool {
 func (a AVMusicTrack) SetMuted(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMuted:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/soloed
 func (a AVMusicTrack) Soloed() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("soloed"))
 	return rv

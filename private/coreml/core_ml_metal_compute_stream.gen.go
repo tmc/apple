@@ -42,7 +42,6 @@ func (cc CoreMLMetalComputeStreamClass) Alloc() CoreMLMetalComputeStream {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalComputeStream
 type CoreMLMetalComputeStream struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMetalComputeStreamFromID(id objc.ID) CoreMLMetalComputeStream {
 // ICoreMLMetalComputeStream embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMetalComputeStream] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MetalComputeStream
 type ICoreMLMetalComputeStream interface {
 	objectivec.IObject
 }

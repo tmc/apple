@@ -48,8 +48,6 @@ func (gc GTMioTraceAggregatedShaderTrackClass) Alloc() GTMioTraceAggregatedShade
 //   - [GTMioTraceAggregatedShaderTrack.Take]
 //   - [GTMioTraceAggregatedShaderTrack.TraceCount]
 //   - [GTMioTraceAggregatedShaderTrack.Traces]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack
 type GTMioTraceAggregatedShaderTrack struct {
 	GTMioTraceTrack
 }
@@ -70,8 +68,6 @@ var _ IGTMioTraceAggregatedShaderTrack = GTMioTraceAggregatedShaderTrack{}
 //   - [IGTMioTraceAggregatedShaderTrack.Take]
 //   - [IGTMioTraceAggregatedShaderTrack.TraceCount]
 //   - [IGTMioTraceAggregatedShaderTrack.Traces]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack
 type IGTMioTraceAggregatedShaderTrack interface {
 	IGTMioTraceTrack
 
@@ -102,30 +98,23 @@ func NewGTMioTraceAggregatedShaderTrack() GTMioTraceAggregatedShaderTrack {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func NewGTMioTraceAggregatedShaderTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceAggregatedShaderTrack {
 	instance := getGTMioTraceAggregatedShaderTrackClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceAggregatedShaderTrackFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/postProcess
 func (g GTMioTraceAggregatedShaderTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/take:
 func (g GTMioTraceAggregatedShaderTrack) Take(take GTMioBinaryTrace) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/traceCount
 func (g GTMioTraceAggregatedShaderTrack) TraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/traces
 func (g GTMioTraceAggregatedShaderTrack) Traces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
 	return rv

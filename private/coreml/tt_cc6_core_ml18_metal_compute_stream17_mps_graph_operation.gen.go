@@ -42,7 +42,6 @@ func (tc TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass) Alloc() TtCC6C
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML18MetalComputeStream17MPSGraphOperation
 type TtCC6CoreML18MetalComputeStream17MPSGraphOperation struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC6CoreML18MetalComputeStream17MPSGraphOperationFromID(id objc.ID) TtCC6C
 // ITtCC6CoreML18MetalComputeStream17MPSGraphOperation embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC6CoreML18MetalComputeStream17MPSGraphOperation] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML18MetalComputeStream17MPSGraphOperation
 type ITtCC6CoreML18MetalComputeStream17MPSGraphOperation interface {
 	objectivec.IObject
 }

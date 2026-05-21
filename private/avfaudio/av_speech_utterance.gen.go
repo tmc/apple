@@ -60,13 +60,10 @@ func (ac AVSpeechUtteranceClass) Alloc() AVSpeechUtterance {
 //   - [AVSpeechUtterance.SetVoiceSelection]
 //   - [AVSpeechUtterance.SsmlRepresentation]
 //   - [AVSpeechUtterance.VoiceSelection]
-//   - [AVSpeechUtterance.InitWithCoder]
 //   - [AVSpeechUtterance.AttributedSpeechString]
 //   - [AVSpeechUtterance.SetAttributedSpeechString]
 //   - [AVSpeechUtterance.SpeechString]
 //   - [AVSpeechUtterance.SetSpeechString]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance
 type AVSpeechUtterance struct {
 	objectivec.Object
 }
@@ -97,13 +94,10 @@ var _ IAVSpeechUtterance = AVSpeechUtterance{}
 //   - [IAVSpeechUtterance.SetVoiceSelection]
 //   - [IAVSpeechUtterance.SsmlRepresentation]
 //   - [IAVSpeechUtterance.VoiceSelection]
-//   - [IAVSpeechUtterance.InitWithCoder]
 //   - [IAVSpeechUtterance.AttributedSpeechString]
 //   - [IAVSpeechUtterance.SetAttributedSpeechString]
 //   - [IAVSpeechUtterance.SpeechString]
 //   - [IAVSpeechUtterance.SetSpeechString]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance
 type IAVSpeechUtterance interface {
 	objectivec.IObject
 
@@ -123,7 +117,6 @@ type IAVSpeechUtterance interface {
 	SetVoiceSelection(selection objectivec.IObject)
 	SsmlRepresentation() objectivec.IObject
 	VoiceSelection() objectivec.IObject
-	InitWithCoder(coder foundation.INSCoder) AVSpeechUtterance
 	AttributedSpeechString() foundation.NSAttributedString
 	SetAttributedSpeechString(value foundation.NSAttributedString)
 	SpeechString() string
@@ -149,97 +142,57 @@ func NewAVSpeechUtterance() AVSpeechUtterance {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/initWithCoder:
-func NewSpeechUtteranceWithCoder(coder objectivec.IObject) AVSpeechUtterance {
-	instance := getAVSpeechUtteranceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return AVSpeechUtteranceFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/audioBufferCallback
 func (a AVSpeechUtterance) AudioBufferCallback() {
 	objc.Send[objc.ID](a.ID, objc.Sel("audioBufferCallback"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/markerCallback
 func (a AVSpeechUtterance) MarkerCallback() {
 	objc.Send[objc.ID](a.ID, objc.Sel("markerCallback"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/prefersAssistiveTechnologyExceptions
 func (a AVSpeechUtterance) PrefersAssistiveTechnologyExceptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("prefersAssistiveTechnologyExceptions"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/processEmoticons
 func (a AVSpeechUtterance) ProcessEmoticons() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("processEmoticons"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setAudioBufferCallback:
 func (a AVSpeechUtterance) SetAudioBufferCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](a.ID, objc.Sel("setAudioBufferCallback:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setMarkerCallback:
 func (a AVSpeechUtterance) SetMarkerCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](a.ID, objc.Sel("setMarkerCallback:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setPrefersAssistiveTechnologyExceptions:
 func (a AVSpeechUtterance) SetPrefersAssistiveTechnologyExceptions(exceptions objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setPrefersAssistiveTechnologyExceptions:"), exceptions)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setProcessEmoticons:
 func (a AVSpeechUtterance) SetProcessEmoticons(emoticons bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setProcessEmoticons:"), emoticons)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setSsmlRepresentation:
 func (a AVSpeechUtterance) SetSsmlRepresentation(representation objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setSsmlRepresentation:"), representation)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/setVoiceSelection:
 func (a AVSpeechUtterance) SetVoiceSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setVoiceSelection:"), selection)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/ssmlRepresentation
 func (a AVSpeechUtterance) SsmlRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/voiceSelection
 func (a AVSpeechUtterance) VoiceSelection() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("voiceSelection"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/initWithCoder:
-func (a AVSpeechUtterance) InitWithCoder(coder foundation.INSCoder) AVSpeechUtterance {
-	rv := objc.Send[AVSpeechUtterance](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/supportsSecureCoding
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/transformUtteranceBasedOnSSMLIfDetected:
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) TransformUtteranceBasedOnSSMLIfDetected(detected objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("transformUtteranceBasedOnSSMLIfDetected:"), detected)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/action
 func (a AVSpeechUtterance) Action() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("action"))
 	return objectivec.Object{ID: rv}
@@ -247,8 +200,6 @@ func (a AVSpeechUtterance) Action() objectivec.IObject {
 func (a AVSpeechUtterance) SetAction(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAction:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/attributedSpeechString
 func (a AVSpeechUtterance) AttributedSpeechString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedSpeechString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
@@ -256,8 +207,6 @@ func (a AVSpeechUtterance) AttributedSpeechString() foundation.NSAttributedStrin
 func (a AVSpeechUtterance) SetAttributedSpeechString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAttributedSpeechString:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/speechString
 func (a AVSpeechUtterance) SpeechString() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechString"))
 	return foundation.NSStringFromID(rv).String()

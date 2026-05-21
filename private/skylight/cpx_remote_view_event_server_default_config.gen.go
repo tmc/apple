@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -57,8 +58,6 @@ func (cc CPXRemoteViewEventServerDefaultConfigClass) Alloc() CPXRemoteViewEventS
 //   - [CPXRemoteViewEventServerDefaultConfig.Description]
 //   - [CPXRemoteViewEventServerDefaultConfig.Hash]
 //   - [CPXRemoteViewEventServerDefaultConfig.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig
 type CPXRemoteViewEventServerDefaultConfig struct {
 	objectivec.Object
 }
@@ -87,8 +86,6 @@ var _ ICPXRemoteViewEventServerDefaultConfig = CPXRemoteViewEventServerDefaultCo
 //   - [ICPXRemoteViewEventServerDefaultConfig.Description]
 //   - [ICPXRemoteViewEventServerDefaultConfig.Hash]
 //   - [ICPXRemoteViewEventServerDefaultConfig.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig
 type ICPXRemoteViewEventServerDefaultConfig interface {
 	objectivec.IObject
 
@@ -98,14 +95,14 @@ type ICPXRemoteViewEventServerDefaultConfig interface {
 	ListenerService() objectivec.IObject
 	RemoteViewEventManagerForConnection(connection objectivec.IObject) objectivec.IObject
 	ServiceInterface() objectivec.IObject
-	SignEventSigningKey(event objectivec.IObject, key SLSSigningKeyRef)
+	SignEventSigningKey(event unsafe.Pointer, key SLSSigningKeyRef)
 	SigningKeyForConnection(connection objectivec.IObject) objectivec.IObject
-	VerifyEventOrderMostRecentEventTime(order objectivec.IObject, time uint64) bool
-	VerifyEventSignatureSigningKey(signature objectivec.IObject, key SLSSigningKeyRef) bool
+	VerifyEventOrderMostRecentEventTime(order unsafe.Pointer, time uint64) bool
+	VerifyEventSignatureSigningKey(signature unsafe.Pointer, key SLSSigningKeyRef) bool
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,73 +124,51 @@ func NewCPXRemoteViewEventServerDefaultConfig() CPXRemoteViewEventServerDefaultC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/listenerDomain
 func (c CPXRemoteViewEventServerDefaultConfig) ListenerDomain() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("listenerDomain"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/listenerService
 func (c CPXRemoteViewEventServerDefaultConfig) ListenerService() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("listenerService"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/remoteViewEventManagerForConnection:
 func (c CPXRemoteViewEventServerDefaultConfig) RemoteViewEventManagerForConnection(connection objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("remoteViewEventManagerForConnection:"), connection)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/serviceInterface
 func (c CPXRemoteViewEventServerDefaultConfig) ServiceInterface() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("serviceInterface"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/signEvent:signingKey:
-func (c CPXRemoteViewEventServerDefaultConfig) SignEventSigningKey(event objectivec.IObject, key SLSSigningKeyRef) {
+func (c CPXRemoteViewEventServerDefaultConfig) SignEventSigningKey(event unsafe.Pointer, key SLSSigningKeyRef) {
 	objc.Send[objc.ID](c.ID, objc.Sel("signEvent:signingKey:"), event, key)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/signingKeyForConnection:
 func (c CPXRemoteViewEventServerDefaultConfig) SigningKeyForConnection(connection objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("signingKeyForConnection:"), connection)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/verifyEventOrder:mostRecentEventTime:
-func (c CPXRemoteViewEventServerDefaultConfig) VerifyEventOrderMostRecentEventTime(order objectivec.IObject, time uint64) bool {
+func (c CPXRemoteViewEventServerDefaultConfig) VerifyEventOrderMostRecentEventTime(order unsafe.Pointer, time uint64) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("verifyEventOrder:mostRecentEventTime:"), order, time)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/verifyEventSignature:signingKey:
-func (c CPXRemoteViewEventServerDefaultConfig) VerifyEventSignatureSigningKey(signature objectivec.IObject, key SLSSigningKeyRef) bool {
+func (c CPXRemoteViewEventServerDefaultConfig) VerifyEventSignatureSigningKey(signature unsafe.Pointer, key SLSSigningKeyRef) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("verifyEventSignature:signingKey:"), signature, key)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/debugDescription
 func (c CPXRemoteViewEventServerDefaultConfig) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/description
 func (c CPXRemoteViewEventServerDefaultConfig) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/hash
 func (c CPXRemoteViewEventServerDefaultConfig) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerDefaultConfig/superclass
-func (c CPXRemoteViewEventServerDefaultConfig) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXRemoteViewEventServerDefaultConfig) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

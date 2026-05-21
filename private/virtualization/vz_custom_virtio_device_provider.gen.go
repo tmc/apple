@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -46,8 +47,6 @@ func (vc VZCustomVirtioDeviceProviderClass) Alloc() VZCustomVirtioDeviceProvider
 //
 //   - [VZCustomVirtioDeviceProvider._connectionIdentifier]
 //   - [VZCustomVirtioDeviceProvider._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceProvider
 type VZCustomVirtioDeviceProvider struct {
 	objectivec.Object
 }
@@ -66,14 +65,12 @@ var _ IVZCustomVirtioDeviceProvider = VZCustomVirtioDeviceProvider{}
 //
 //   - [IVZCustomVirtioDeviceProvider._connectionIdentifier]
 //   - [IVZCustomVirtioDeviceProvider._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceProvider
 type IVZCustomVirtioDeviceProvider interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_connectionIdentifier() objectivec.IObject
+	_connectionIdentifier() unsafe.Pointer
 	_init() objectivec.IObject
 }
 
@@ -96,16 +93,14 @@ func NewVZCustomVirtioDeviceProvider() VZCustomVirtioDeviceProvider {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceProvider/_init
 func (v VZCustomVirtioDeviceProvider) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceProvider/_connectionIdentifier
-func (v VZCustomVirtioDeviceProvider) _connectionIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_connectionIdentifier"))
-	return objectivec.Object{ID: rv}
+func (v VZCustomVirtioDeviceProvider) _connectionIdentifier() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_connectionIdentifier"))
+	return rv
 }
 
 // CanConnectionIdentifier reports whether the receiver responds to the private selector _connectionIdentifier.
@@ -114,7 +109,7 @@ func (v VZCustomVirtioDeviceProvider) CanConnectionIdentifier() bool {
 }
 
 // ConnectionIdentifier is an exported wrapper for the private property _connectionIdentifier.
-func (v VZCustomVirtioDeviceProvider) ConnectionIdentifier() (objectivec.IObject, error) {
+func (v VZCustomVirtioDeviceProvider) ConnectionIdentifier() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_connectionIdentifier")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_connectionIdentifier"}
 	}

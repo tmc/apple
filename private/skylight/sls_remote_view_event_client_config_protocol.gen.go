@@ -8,8 +8,6 @@ import (
 )
 
 // SLSRemoteViewEventClientConfig protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClientConfig
 type SLSRemoteViewEventClientConfig interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func SLSRemoteViewEventClientConfigObjectFromID(id objc.ID) SLSRemoteViewEventCl
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClientConfig/connection
 func (o SLSRemoteViewEventClientConfigObject) Connection() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClientConfig/serviceInterface
 func (o SLSRemoteViewEventClientConfigObject) ServiceInterface() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("serviceInterface"))
 	return objectivec.Object{ID: rv}

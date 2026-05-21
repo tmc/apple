@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionGatherToSliceClass) Alloc() EspressoPassSt
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_slice
 type EspressoPassStrengthReductionGatherToSlice struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_gather_to_sliceFromID(id objc.ID) EspressoP
 var _ IEspressoPassStrengthReductionGatherToSlice = EspressoPassStrengthReductionGatherToSlice{}
 
 // An interface definition for the [EspressoPassStrengthReductionGatherToSlice] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_slice
 type IEspressoPassStrengthReductionGatherToSlice interface {
 	IEspressoCustomPass
 }

@@ -41,7 +41,6 @@ func (vc VZXPCBifrostAttachmentClass) Alloc() VZXPCBifrostAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZXPCBifrostAttachment
 type VZXPCBifrostAttachment struct {
 	VZBifrostAttachment
 }
@@ -55,8 +54,6 @@ func VZXPCBifrostAttachmentFromID(id objc.ID) VZXPCBifrostAttachment {
 var _ IVZXPCBifrostAttachment = VZXPCBifrostAttachment{}
 
 // An interface definition for the [VZXPCBifrostAttachment] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZXPCBifrostAttachment
 type IVZXPCBifrostAttachment interface {
 	IVZBifrostAttachment
 }

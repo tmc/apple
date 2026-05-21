@@ -57,8 +57,6 @@ func (gc GTMioHeatmapHistogramClass) Alloc() GTMioHeatmapHistogram {
 //   - [GTMioHeatmapHistogram.Values]
 //   - [GTMioHeatmapHistogram.InitWithHeatmapMinValueMaxValueNumBuckets]
 //   - [GTMioHeatmapHistogram.InitWithHeatmapNumBuckets]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram
 type GTMioHeatmapHistogram struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ IGTMioHeatmapHistogram = GTMioHeatmapHistogram{}
 //   - [IGTMioHeatmapHistogram.Values]
 //   - [IGTMioHeatmapHistogram.InitWithHeatmapMinValueMaxValueNumBuckets]
 //   - [IGTMioHeatmapHistogram.InitWithHeatmapNumBuckets]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram
 type IGTMioHeatmapHistogram interface {
 	objectivec.IObject
 
@@ -123,21 +119,18 @@ func NewGTMioHeatmapHistogram() GTMioHeatmapHistogram {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/initWithHeatmap:minValue:maxValue:numBuckets:
 func NewGTMioHeatmapHistogramWithHeatmapMinValueMaxValueNumBuckets(heatmap objectivec.IObject, value uint64, value2 uint64, buckets uint32) GTMioHeatmapHistogram {
 	instance := getGTMioHeatmapHistogramClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHeatmap:minValue:maxValue:numBuckets:"), heatmap, value, value2, buckets)
 	return GTMioHeatmapHistogramFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/initWithHeatmap:numBuckets:
 func NewGTMioHeatmapHistogramWithHeatmapNumBuckets(heatmap objectivec.IObject, buckets uint32) GTMioHeatmapHistogram {
 	instance := getGTMioHeatmapHistogramClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHeatmap:numBuckets:"), heatmap, buckets)
 	return GTMioHeatmapHistogramFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/_generate
 func (g GTMioHeatmapHistogram) _generate() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_generate"))
 }
@@ -156,56 +149,39 @@ func (g GTMioHeatmapHistogram) Generate() error {
 func (g GTMioHeatmapHistogram) CanGenerate() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_generate"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/generateImage:color:
 func (g GTMioHeatmapHistogram) GenerateImageColor(image corefoundation.CGSize, color coregraphics.CGColorRef) coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](g.ID, objc.Sel("generateImage:color:"), image, color)
 	return coregraphics.CGImageRef(rv)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/initWithHeatmap:minValue:maxValue:numBuckets:
 func (g GTMioHeatmapHistogram) InitWithHeatmapMinValueMaxValueNumBuckets(heatmap objectivec.IObject, value uint64, value2 uint64, buckets uint32) GTMioHeatmapHistogram {
 	rv := objc.Send[GTMioHeatmapHistogram](g.ID, objc.Sel("initWithHeatmap:minValue:maxValue:numBuckets:"), heatmap, value, value2, buckets)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/initWithHeatmap:numBuckets:
 func (g GTMioHeatmapHistogram) InitWithHeatmapNumBuckets(heatmap objectivec.IObject, buckets uint32) GTMioHeatmapHistogram {
 	rv := objc.Send[GTMioHeatmapHistogram](g.ID, objc.Sel("initWithHeatmap:numBuckets:"), heatmap, buckets)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/maxCount
 func (g GTMioHeatmapHistogram) MaxCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("maxCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/maxValue
 func (g GTMioHeatmapHistogram) MaxValue() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("maxValue"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/minCount
 func (g GTMioHeatmapHistogram) MinCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("minCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/minValue
 func (g GTMioHeatmapHistogram) MinValue() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("minValue"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/numBuckets
 func (g GTMioHeatmapHistogram) NumBuckets() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("numBuckets"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/values
 func (g GTMioHeatmapHistogram) Values() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("values"))
 	return rv

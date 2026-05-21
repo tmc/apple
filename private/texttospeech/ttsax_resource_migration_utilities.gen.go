@@ -50,8 +50,6 @@ func (tc TTSAXResourceMigrationUtilitiesClass) Alloc() TTSAXResourceMigrationUti
 //   - [TTSAXResourceMigrationUtilities.GetIdentifierForLegacyVoiceSpec]
 //   - [TTSAXResourceMigrationUtilities.TtsIdentifierForLegacyMacIdentifier]
 //   - [TTSAXResourceMigrationUtilities.UpdatedIdentifierForLegacyIdentifierWithLanguageCode]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities
 type TTSAXResourceMigrationUtilities struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ITTSAXResourceMigrationUtilities = TTSAXResourceMigrationUtilities{}
 //   - [ITTSAXResourceMigrationUtilities.GetIdentifierForLegacyVoiceSpec]
 //   - [ITTSAXResourceMigrationUtilities.TtsIdentifierForLegacyMacIdentifier]
 //   - [ITTSAXResourceMigrationUtilities.UpdatedIdentifierForLegacyIdentifierWithLanguageCode]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities
 type ITTSAXResourceMigrationUtilities interface {
 	objectivec.IObject
 
@@ -106,7 +102,6 @@ func NewTTSAXResourceMigrationUtilities() TTSAXResourceMigrationUtilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/_ttsAssetForSpec:
 func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
 	return objectivec.Object{ID: rv}
@@ -125,32 +120,23 @@ func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec applicationservice
 func (t TTSAXResourceMigrationUtilities) CanTtsAssetForSpec() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/attributesForLegacyVoiceSpec:
 func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/getIdentifierForLegacyVoiceSpec:
 func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/ttsIdentifierForLegacyMacIdentifier:
 func (t TTSAXResourceMigrationUtilities) TtsIdentifierForLegacyMacIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ttsIdentifierForLegacyMacIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/updatedIdentifierForLegacyIdentifier:withLanguageCode:
 func (t TTSAXResourceMigrationUtilities) UpdatedIdentifierForLegacyIdentifierWithLanguageCode(identifier objectivec.IObject, code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("updatedIdentifierForLegacyIdentifier:withLanguageCode:"), identifier, code)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/sharedInstance
 func (_TTSAXResourceMigrationUtilitiesClass TTSAXResourceMigrationUtilitiesClass) SharedInstance() TTSAXResourceMigrationUtilities {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceMigrationUtilitiesClass.class), objc.Sel("sharedInstance"))
 	return TTSAXResourceMigrationUtilitiesFromID(rv)

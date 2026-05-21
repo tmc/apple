@@ -48,8 +48,6 @@ func (sc SLSBridgedTileSpaceMoveSpacersForSizeOperationClass) Alloc() SLSBridged
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeOperation.Size]
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeOperation.TileSpaceID]
 //   - [SLSBridgedTileSpaceMoveSpacersForSizeOperation.InitWithTileSpaceIDSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation
 type SLSBridgedTileSpaceMoveSpacersForSizeOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedTileSpaceMoveSpacersForSizeOperation = SLSBridgedTileSpaceMoveS
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeOperation.Size]
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeOperation.TileSpaceID]
 //   - [ISLSBridgedTileSpaceMoveSpacersForSizeOperation.InitWithTileSpaceIDSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation
 type ISLSBridgedTileSpaceMoveSpacersForSizeOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedTileSpaceMoveSpacersForSizeOperation() SLSBridgedTileSpaceMove
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation/initWithCoder:
 func NewSLSBridgedTileSpaceMoveSpacersForSizeOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceMoveSpacersForSizeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation/initWithTileSpaceID:size:
 func NewSLSBridgedTileSpaceMoveSpacersForSizeOperationWithTileSpaceIDSize(id uint64, size corefoundation.CGSize) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
 	return SLSBridgedTileSpaceMoveSpacersForSizeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation/initWithTileSpaceID:size:
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) InitWithTileSpaceIDSize(id uint64, size corefoundation.CGSize) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation/size
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedTileSpaceMoveSpacersForSizeOperation/tileSpaceID
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) TileSpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("tileSpaceID"))
 	return rv

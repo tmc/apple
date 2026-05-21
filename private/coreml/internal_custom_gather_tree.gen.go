@@ -52,8 +52,6 @@ func (ic InternalCustomGatherTreeClass) Alloc() InternalCustomGatherTree {
 //   - [InternalCustomGatherTree.SetWeightDataError]
 //   - [InternalCustomGatherTree.Shape]
 //   - [InternalCustomGatherTree.InitWithParameterDictionaryError]
-//
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree
 type InternalCustomGatherTree struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IInternalCustomGatherTree = InternalCustomGatherTree{}
 //   - [IInternalCustomGatherTree.SetWeightDataError]
 //   - [IInternalCustomGatherTree.Shape]
 //   - [IInternalCustomGatherTree.InitWithParameterDictionaryError]
-//
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree
 type IInternalCustomGatherTree interface {
 	objectivec.IObject
 
@@ -85,7 +81,7 @@ type IInternalCustomGatherTree interface {
 	EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error)
 	OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error)
 	SetWeightDataError(data objectivec.IObject) (bool, error)
-	Shape() objectivec.IObject
+	Shape() unsafe.Pointer
 	InitWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error)
 }
 
@@ -108,7 +104,6 @@ func NewInternalCustomGatherTree() InternalCustomGatherTree {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/initWithParameterDictionary:error:
 func NewInternalCustomGatherTreeWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error) {
 	var errorPtr objc.ID
 	instance := getInternalCustomGatherTreeClass().Alloc()
@@ -120,7 +115,6 @@ func NewInternalCustomGatherTreeWithParameterDictionaryError(dictionary objectiv
 	return InternalCustomGatherTreeFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/evaluateOnCPUWithInputs:outputs:error:
 func (i InternalCustomGatherTree) EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](i.ID, objc.Sel("evaluateOnCPUWithInputs:outputs:error:"), inputs, outputs, unsafe.Pointer(&errorPtr))
@@ -134,8 +128,6 @@ func (i InternalCustomGatherTree) EvaluateOnCPUWithInputsOutputsError(inputs obj
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/outputShapesForInputShapes:error:
 func (i InternalCustomGatherTree) OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("outputShapesForInputShapes:error:"), shapes, unsafe.Pointer(&errorPtr))
@@ -146,8 +138,6 @@ func (i InternalCustomGatherTree) OutputShapesForInputShapesError(shapes objecti
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/setWeightData:error:
 func (i InternalCustomGatherTree) SetWeightDataError(data objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](i.ID, objc.Sel("setWeightData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -161,8 +151,6 @@ func (i InternalCustomGatherTree) SetWeightDataError(data objectivec.IObject) (b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/initWithParameterDictionary:error:
 func (i InternalCustomGatherTree) InitWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("initWithParameterDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
@@ -174,8 +162,7 @@ func (i InternalCustomGatherTree) InitWithParameterDictionaryError(dictionary ob
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/shape
-func (i InternalCustomGatherTree) Shape() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("shape"))
-	return objectivec.Object{ID: rv}
+func (i InternalCustomGatherTree) Shape() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("shape"))
+	return rv
 }

@@ -47,8 +47,6 @@ func (mc MLSequnceAsFeatureValueArrayClass) Alloc() MLSequnceAsFeatureValueArray
 //
 //   - [MLSequnceAsFeatureValueArray.Sequence]
 //   - [MLSequnceAsFeatureValueArray.InitWrappingSequence]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray
 type MLSequnceAsFeatureValueArray struct {
 	foundation.NSArray
 }
@@ -67,8 +65,6 @@ var _ IMLSequnceAsFeatureValueArray = MLSequnceAsFeatureValueArray{}
 //
 //   - [IMLSequnceAsFeatureValueArray.Sequence]
 //   - [IMLSequnceAsFeatureValueArray.InitWrappingSequence]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray
 type IMLSequnceAsFeatureValueArray interface {
 	foundation.INSArray
 
@@ -97,20 +93,17 @@ func NewMLSequnceAsFeatureValueArray() MLSequnceAsFeatureValueArray {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/initWrappingSequence:
 func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	instance := getMLSequnceAsFeatureValueArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return MLSequnceAsFeatureValueArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/initWrappingSequence:
 func (m MLSequnceAsFeatureValueArray) InitWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/sequence
 func (m MLSequnceAsFeatureValueArray) Sequence() IMLSequence {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("sequence"))
 	return MLSequenceFromID(objc.ID(rv))

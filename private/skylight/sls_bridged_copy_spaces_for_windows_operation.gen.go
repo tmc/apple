@@ -49,8 +49,6 @@ func (sc SLSBridgedCopySpacesForWindowsOperationClass) Alloc() SLSBridgedCopySpa
 //   - [SLSBridgedCopySpacesForWindowsOperation.Options]
 //   - [SLSBridgedCopySpacesForWindowsOperation.Windows]
 //   - [SLSBridgedCopySpacesForWindowsOperation.InitWithOptionsWindows]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation
 type SLSBridgedCopySpacesForWindowsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedCopySpacesForWindowsOperation = SLSBridgedCopySpacesForWindowsO
 //   - [ISLSBridgedCopySpacesForWindowsOperation.Options]
 //   - [ISLSBridgedCopySpacesForWindowsOperation.Windows]
 //   - [ISLSBridgedCopySpacesForWindowsOperation.InitWithOptionsWindows]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation
 type ISLSBridgedCopySpacesForWindowsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedCopySpacesForWindowsOperation() SLSBridgedCopySpacesForWindows
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/initWithCoder:
 func NewSLSBridgedCopySpacesForWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
 	instance := getSLSBridgedCopySpacesForWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopySpacesForWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/initWithOptions:windows:
 func NewSLSBridgedCopySpacesForWindowsOperationWithOptionsWindows(options uint32, windows objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
 	instance := getSLSBridgedCopySpacesForWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:windows:"), options, windows)
 	return SLSBridgedCopySpacesForWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/makeResultWithNumbers:
 func (s SLSBridgedCopySpacesForWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/initWithOptions:windows:
 func (s SLSBridgedCopySpacesForWindowsOperation) InitWithOptionsWindows(options uint32, windows objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
 	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("initWithOptions:windows:"), options, windows)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/options
 func (s SLSBridgedCopySpacesForWindowsOperation) Options() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopySpacesForWindowsOperation/windows
 func (s SLSBridgedCopySpacesForWindowsOperation) Windows() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))

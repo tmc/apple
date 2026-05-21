@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,8 +55,6 @@ func (ac AVVCRecordDeviceInfoClass) Alloc() AVVCRecordDeviceInfo {
 //   - [AVVCRecordDeviceInfo.RemoteDeviceUIDString]
 //   - [AVVCRecordDeviceInfo.RemoteProductIdentifier]
 //   - [AVVCRecordDeviceInfo.InitWithRecordingEngine]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo
 type AVVCRecordDeviceInfo struct {
 	objectivec.Object
 }
@@ -81,8 +80,6 @@ var _ IAVVCRecordDeviceInfo = AVVCRecordDeviceInfo{}
 //   - [IAVVCRecordDeviceInfo.RemoteDeviceUIDString]
 //   - [IAVVCRecordDeviceInfo.RemoteProductIdentifier]
 //   - [IAVVCRecordDeviceInfo.InitWithRecordingEngine]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo
 type IAVVCRecordDeviceInfo interface {
 	objectivec.IObject
 
@@ -96,7 +93,7 @@ type IAVVCRecordDeviceInfo interface {
 	RemoteDeviceUID() foundation.NSUUID
 	RemoteDeviceUIDString() string
 	RemoteProductIdentifier() string
-	InitWithRecordingEngine(engine objectivec.IObject) AVVCRecordDeviceInfo
+	InitWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo
 }
 
 // Init initializes the instance.
@@ -118,62 +115,45 @@ func NewAVVCRecordDeviceInfo() AVVCRecordDeviceInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/initWithRecordingEngine:
-func NewVCRecordDeviceInfoWithRecordingEngine(engine objectivec.IObject) AVVCRecordDeviceInfo {
+func NewVCRecordDeviceInfoWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
 	instance := getAVVCRecordDeviceInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRecordingEngine:"), engine)
 	return AVVCRecordDeviceInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/initWithRecordingEngine:
-func (a AVVCRecordDeviceInfo) InitWithRecordingEngine(engine objectivec.IObject) AVVCRecordDeviceInfo {
+func (a AVVCRecordDeviceInfo) InitWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
 	rv := objc.Send[AVVCRecordDeviceInfo](a.ID, objc.Sel("initWithRecordingEngine:"), engine)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/halDeviceUID
 func (a AVVCRecordDeviceInfo) HalDeviceUID() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("halDeviceUID"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/isRemoteDevice
 func (a AVVCRecordDeviceInfo) IsRemoteDevice() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRemoteDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/isUpsamplingSourceAudio
 func (a AVVCRecordDeviceInfo) IsUpsamplingSourceAudio() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isUpsamplingSourceAudio"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/recordRoute
 func (a AVVCRecordDeviceInfo) RecordRoute() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordRoute"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/remoteDeviceCategory
 func (a AVVCRecordDeviceInfo) RemoteDeviceCategory() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("remoteDeviceCategory"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/remoteDeviceUID
 func (a AVVCRecordDeviceInfo) RemoteDeviceUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteDeviceUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/remoteDeviceUIDString
 func (a AVVCRecordDeviceInfo) RemoteDeviceUIDString() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteDeviceUIDString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCRecordDeviceInfo/remoteProductIdentifier
 func (a AVVCRecordDeviceInfo) RemoteProductIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteProductIdentifier"))
 	return foundation.NSStringFromID(rv).String()

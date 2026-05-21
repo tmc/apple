@@ -5,6 +5,7 @@ package speechobjects
 import (
 	"sync"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -73,8 +74,6 @@ func (sc SOUtteranceResultsFileClass) Alloc() SOUtteranceResultsFile {
 //   - [SOUtteranceResultsFile.SetUtteranceResults]
 //   - [SOUtteranceResultsFile.WriteToFile]
 //   - [SOUtteranceResultsFile.InitWithContentsOfFile]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile
 type SOUtteranceResultsFile struct {
 	objectivec.Object
 }
@@ -119,8 +118,6 @@ var _ ISOUtteranceResultsFile = SOUtteranceResultsFile{}
 //   - [ISOUtteranceResultsFile.SetUtteranceResults]
 //   - [ISOUtteranceResultsFile.WriteToFile]
 //   - [ISOUtteranceResultsFile.InitWithContentsOfFile]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile
 type ISOUtteranceResultsFile interface {
 	objectivec.IObject
 
@@ -128,8 +125,8 @@ type ISOUtteranceResultsFile interface {
 
 	_dictionary() objectivec.IObject
 	AppendUtteranceResult(result objectivec.IObject)
-	AudioFileData() foundation.INSData
-	SetAudioFileData(value foundation.INSData)
+	AudioFileData() foundation.NSData
+	SetAudioFileData(value foundation.NSData)
 	CreationDate() float64
 	SetCreationDate(value float64)
 	CreatorArguments() string
@@ -148,8 +145,8 @@ type ISOUtteranceResultsFile interface {
 	SetRecognizerType(value string)
 	RxGrammar() string
 	SetRxGrammar(value string)
-	StreamDescription() AudioStreamBasicDescription
-	SetStreamDescription(value AudioStreamBasicDescription)
+	StreamDescription() coreaudiotypes.AudioStreamBasicDescription
+	SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription)
 	UtteranceResults() foundation.INSArray
 	SetUtteranceResults(value foundation.INSArray)
 	WriteToFile(file objectivec.IObject) bool
@@ -175,14 +172,12 @@ func NewSOUtteranceResultsFile() SOUtteranceResultsFile {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/initWithContentsOfFile:
 func NewSOUtteranceResultsFileWithContentsOfFile(file objectivec.IObject) SOUtteranceResultsFile {
 	instance := getSOUtteranceResultsFileClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), file)
 	return SOUtteranceResultsFileFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/_dictionary
 func (s SOUtteranceResultsFile) _dictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_dictionary"))
 	return objectivec.Object{ID: rv}
@@ -201,58 +196,41 @@ func (s SOUtteranceResultsFile) Dictionary() (objectivec.IObject, error) {
 func (s SOUtteranceResultsFile) CanDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/appendUtteranceResult:
 func (s SOUtteranceResultsFile) AppendUtteranceResult(result objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("appendUtteranceResult:"), result)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/exportAudioDataToFile:
 func (s SOUtteranceResultsFile) ExportAudioDataToFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("exportAudioDataToFile:"), file)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/exportRXGrammarToFile:
 func (s SOUtteranceResultsFile) ExportRXGrammarToFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("exportRXGrammarToFile:"), file)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/importAudioDataFromFile:
 func (s SOUtteranceResultsFile) ImportAudioDataFromFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("importAudioDataFromFile:"), file)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/importRXGrammarFromFile:
 func (s SOUtteranceResultsFile) ImportRXGrammarFromFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("importRXGrammarFromFile:"), file)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/writeToFile:
 func (s SOUtteranceResultsFile) WriteToFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("writeToFile:"), file)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/initWithContentsOfFile:
 func (s SOUtteranceResultsFile) InitWithContentsOfFile(file objectivec.IObject) SOUtteranceResultsFile {
 	rv := objc.Send[SOUtteranceResultsFile](s.ID, objc.Sel("initWithContentsOfFile:"), file)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/audioFileData
-func (s SOUtteranceResultsFile) AudioFileData() foundation.INSData {
+func (s SOUtteranceResultsFile) AudioFileData() foundation.NSData {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioFileData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (s SOUtteranceResultsFile) SetAudioFileData(value foundation.INSData) {
+func (s SOUtteranceResultsFile) SetAudioFileData(value foundation.NSData) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAudioFileData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/creationDate
 func (s SOUtteranceResultsFile) CreationDate() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("creationDate"))
 	return rv
@@ -260,8 +238,6 @@ func (s SOUtteranceResultsFile) CreationDate() float64 {
 func (s SOUtteranceResultsFile) SetCreationDate(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/creatorArguments
 func (s SOUtteranceResultsFile) CreatorArguments() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("creatorArguments"))
 	return foundation.NSStringFromID(rv).String()
@@ -269,8 +245,6 @@ func (s SOUtteranceResultsFile) CreatorArguments() string {
 func (s SOUtteranceResultsFile) SetCreatorArguments(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCreatorArguments:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/creatorName
 func (s SOUtteranceResultsFile) CreatorName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("creatorName"))
 	return foundation.NSStringFromID(rv).String()
@@ -278,8 +252,6 @@ func (s SOUtteranceResultsFile) CreatorName() string {
 func (s SOUtteranceResultsFile) SetCreatorName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCreatorName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/firstUtteranceStartTime
 func (s SOUtteranceResultsFile) FirstUtteranceStartTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("firstUtteranceStartTime"))
 	return rv
@@ -287,8 +259,6 @@ func (s SOUtteranceResultsFile) FirstUtteranceStartTime() float64 {
 func (s SOUtteranceResultsFile) SetFirstUtteranceStartTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFirstUtteranceStartTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/localeIdentifier
 func (s SOUtteranceResultsFile) LocaleIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -296,8 +266,6 @@ func (s SOUtteranceResultsFile) LocaleIdentifier() string {
 func (s SOUtteranceResultsFile) SetLocaleIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/recognizerType
 func (s SOUtteranceResultsFile) RecognizerType() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("recognizerType"))
 	return foundation.NSStringFromID(rv).String()
@@ -305,8 +273,6 @@ func (s SOUtteranceResultsFile) RecognizerType() string {
 func (s SOUtteranceResultsFile) SetRecognizerType(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecognizerType:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/rxGrammar
 func (s SOUtteranceResultsFile) RxGrammar() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("rxGrammar"))
 	return foundation.NSStringFromID(rv).String()
@@ -314,18 +280,13 @@ func (s SOUtteranceResultsFile) RxGrammar() string {
 func (s SOUtteranceResultsFile) SetRxGrammar(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRxGrammar:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/streamDescription
-func (s SOUtteranceResultsFile) StreamDescription() AudioStreamBasicDescription {
-	rv := objc.Send[AudioStreamBasicDescription](s.ID, objc.Sel("streamDescription"))
-	_ = rv
-	return AudioStreamBasicDescription{}
+func (s SOUtteranceResultsFile) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
+	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](s.ID, objc.Sel("streamDescription"))
+	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
-func (s SOUtteranceResultsFile) SetStreamDescription(value AudioStreamBasicDescription) {
+func (s SOUtteranceResultsFile) SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStreamDescription:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/utteranceResults
 func (s SOUtteranceResultsFile) UtteranceResults() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("utteranceResults"))
 	return foundation.NSArrayFromID(objc.ID(rv))

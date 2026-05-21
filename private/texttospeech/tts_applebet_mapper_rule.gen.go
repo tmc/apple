@@ -55,8 +55,6 @@ func (tc TTSApplebetMapperRuleClass) Alloc() TTSApplebetMapperRule {
 //   - [TTSApplebetMapperRule.SetMatchRule]
 //   - [TTSApplebetMapperRule.Substitution]
 //   - [TTSApplebetMapperRule.SetSubstitution]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule
 type TTSApplebetMapperRule struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ var _ ITTSApplebetMapperRule = TTSApplebetMapperRule{}
 //   - [ITTSApplebetMapperRule.SetMatchRule]
 //   - [ITTSApplebetMapperRule.Substitution]
 //   - [ITTSApplebetMapperRule.SetSubstitution]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule
 type ITTSApplebetMapperRule interface {
 	objectivec.IObject
 
@@ -119,19 +115,16 @@ func NewTTSApplebetMapperRule() TTSApplebetMapperRule {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/setMatchRule:
 func (t TTSApplebetMapperRule) SetMatchRule(rule VoidHandler) {
 	_block0, _ := NewVoidBlock(rule)
 	objc.Send[objc.ID](t.ID, objc.Sel("setMatchRule:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/ruleWithHeterogeniousArray:
 func (_TTSApplebetMapperRuleClass TTSApplebetMapperRuleClass) RuleWithHeterogeniousArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSApplebetMapperRuleClass.class), objc.Sel("ruleWithHeterogeniousArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/left
 func (t TTSApplebetMapperRule) Left() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("left"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -139,8 +132,6 @@ func (t TTSApplebetMapperRule) Left() foundation.INSArray {
 func (t TTSApplebetMapperRule) SetLeft(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLeft:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/match
 func (t TTSApplebetMapperRule) Match() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("match"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -148,8 +139,6 @@ func (t TTSApplebetMapperRule) Match() foundation.INSArray {
 func (t TTSApplebetMapperRule) SetMatch(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMatch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/right
 func (t TTSApplebetMapperRule) Right() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("right"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -157,8 +146,6 @@ func (t TTSApplebetMapperRule) Right() foundation.INSArray {
 func (t TTSApplebetMapperRule) SetRight(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRight:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperRule/substitution
 func (t TTSApplebetMapperRule) Substitution() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("substitution"))
 	return foundation.NSArrayFromID(objc.ID(rv))

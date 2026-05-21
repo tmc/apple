@@ -55,8 +55,6 @@ func (sc SLSSkyLightEventAuthenticationMessageClass) Alloc() SLSSkyLightEventAut
 //   - [SLSSkyLightEventAuthenticationMessage.MatchesEvent]
 //   - [SLSSkyLightEventAuthenticationMessage.Mouse]
 //   - [SLSSkyLightEventAuthenticationMessage.Window]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage
 type SLSSkyLightEventAuthenticationMessage struct {
 	SLSEventAuthenticationMessage
 }
@@ -82,8 +80,6 @@ var _ ISLSSkyLightEventAuthenticationMessage = SLSSkyLightEventAuthenticationMes
 //   - [ISLSSkyLightEventAuthenticationMessage.MatchesEvent]
 //   - [ISLSSkyLightEventAuthenticationMessage.Mouse]
 //   - [ISLSSkyLightEventAuthenticationMessage.Window]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage
 type ISLSSkyLightEventAuthenticationMessage interface {
 	ISLSEventAuthenticationMessage
 
@@ -92,11 +88,11 @@ type ISLSSkyLightEventAuthenticationMessage interface {
 	Attributes() unsafe.Pointer
 	Connection() uint32
 	Flags() uint32
-	Gesture() objectivec.IObject
-	Key() objectivec.IObject
+	Gesture() unsafe.Pointer
+	Key() unsafe.Pointer
 	Location() corefoundation.CGPoint
-	MatchesEvent(event objectivec.IObject) bool
-	Mouse() objectivec.IObject
+	MatchesEvent(event unsafe.Pointer) bool
+	Mouse() unsafe.Pointer
 	Window() uint32
 }
 
@@ -119,83 +115,63 @@ func NewSLSSkyLightEventAuthenticationMessage() SLSSkyLightEventAuthenticationMe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithBasis:signature:
 func NewSLSSkyLightEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithCoder:
 func NewSLSSkyLightEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
 func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/initWithMessageInitData:
 func NewSLSSkyLightEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/matchesEvent:
-func (s SLSSkyLightEventAuthenticationMessage) MatchesEvent(event objectivec.IObject) bool {
+func (s SLSSkyLightEventAuthenticationMessage) MatchesEvent(event unsafe.Pointer) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("matchesEvent:"), event)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/attributes
 func (s SLSSkyLightEventAuthenticationMessage) Attributes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("attributes"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/connection
 func (s SLSSkyLightEventAuthenticationMessage) Connection() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("connection"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/flags
 func (s SLSSkyLightEventAuthenticationMessage) Flags() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("flags"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/gesture
-func (s SLSSkyLightEventAuthenticationMessage) Gesture() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("gesture"))
-	return objectivec.Object{ID: rv}
+func (s SLSSkyLightEventAuthenticationMessage) Gesture() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("gesture"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/key
-func (s SLSSkyLightEventAuthenticationMessage) Key() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("key"))
-	return objectivec.Object{ID: rv}
+func (s SLSSkyLightEventAuthenticationMessage) Key() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("key"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/location
 func (s SLSSkyLightEventAuthenticationMessage) Location() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/mouse
-func (s SLSSkyLightEventAuthenticationMessage) Mouse() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("mouse"))
-	return objectivec.Object{ID: rv}
+func (s SLSSkyLightEventAuthenticationMessage) Mouse() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("mouse"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightEventAuthenticationMessage/window
 func (s SLSSkyLightEventAuthenticationMessage) Window() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("window"))
 	return rv

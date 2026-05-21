@@ -42,7 +42,6 @@ func (tc TextToSpeechAttributeUtilitiesClass) Alloc() TextToSpeechAttributeUtili
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AttributeUtilities
 type TextToSpeechAttributeUtilities struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAttributeUtilitiesFromID(id objc.ID) TextToSpeechAttributeUtili
 // ITextToSpeechAttributeUtilities embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAttributeUtilities] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AttributeUtilities
 type ITextToSpeechAttributeUtilities interface {
 	objectivec.IObject
 }

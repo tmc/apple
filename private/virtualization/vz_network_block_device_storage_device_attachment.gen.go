@@ -44,8 +44,6 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 // # Methods
 //
 //   - [VZNetworkBlockDeviceStorageDeviceAttachment.ForcedReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment
 type VZNetworkBlockDeviceStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
 }
@@ -63,8 +61,6 @@ var _ IVZNetworkBlockDeviceStorageDeviceAttachment = VZNetworkBlockDeviceStorage
 // # Methods
 //
 //   - [IVZNetworkBlockDeviceStorageDeviceAttachment.ForcedReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment
 type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	IVZStorageDeviceAttachment
 
@@ -92,7 +88,6 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachment() VZNetworkBlockDeviceStorag
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/_defaultReadOnly
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultReadOnly() bool {
 	rv := objc.Send[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
 	return rv
@@ -111,8 +106,6 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) CanDefaultReadOnly() bool {
 	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/_defaultSynchronizationMode
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultSynchronizationMode() int64 {
 	rv := objc.Send[int64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
 	return rv
@@ -131,8 +124,6 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) CanDefaultSynchronizationMode() bool {
 	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/_defaultTimeout
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultTimeout() float64 {
 	rv := objc.Send[float64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout"))
 	return rv
@@ -152,7 +143,6 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/forcedReadOnly
 func (v VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("forcedReadOnly"))
 	return rv

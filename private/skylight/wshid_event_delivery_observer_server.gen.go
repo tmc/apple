@@ -55,8 +55,6 @@ func (wc WSHIDEventDeliveryObserverServerClass) Alloc() WSHIDEventDeliveryObserv
 //   - [WSHIDEventDeliveryObserverServer.Description]
 //   - [WSHIDEventDeliveryObserverServer.Hash]
 //   - [WSHIDEventDeliveryObserverServer.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer
 type WSHIDEventDeliveryObserverServer struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ var _ IWSHIDEventDeliveryObserverServer = WSHIDEventDeliveryObserverServer{}
 //   - [IWSHIDEventDeliveryObserverServer.Description]
 //   - [IWSHIDEventDeliveryObserverServer.Hash]
 //   - [IWSHIDEventDeliveryObserverServer.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer
 type IWSHIDEventDeliveryObserverServer interface {
 	objectivec.IObject
 
@@ -97,7 +93,7 @@ type IWSHIDEventDeliveryObserverServer interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -119,60 +115,43 @@ func NewWSHIDEventDeliveryObserverServer() WSHIDEventDeliveryObserverServer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/_init
 func (w WSHIDEventDeliveryObserverServer) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/activate
 func (w WSHIDEventDeliveryObserverServer) Activate() {
 	objc.Send[objc.ID](w.ID, objc.Sel("activate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/appendDescriptionToStream:
 func (w WSHIDEventDeliveryObserverServer) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/deliveryObserverServiceForAuditToken:
 func (w WSHIDEventDeliveryObserverServer) DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/sharedInstance
 func (_WSHIDEventDeliveryObserverServerClass WSHIDEventDeliveryObserverServerClass) SharedInstance() WSHIDEventDeliveryObserverServer {
 	rv := objc.Send[objc.ID](objc.ID(_WSHIDEventDeliveryObserverServerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDEventDeliveryObserverServerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/bkServer
 func (w WSHIDEventDeliveryObserverServer) BkServer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkServer"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/debugDescription
 func (w WSHIDEventDeliveryObserverServer) DebugDescription() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/description
 func (w WSHIDEventDeliveryObserverServer) Description() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/hash
 func (w WSHIDEventDeliveryObserverServer) Hash() uint64 {
 	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverServer/superclass
-func (w WSHIDEventDeliveryObserverServer) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](w.ID, objc.Sel("superclass"))
-	return rv
+func (w WSHIDEventDeliveryObserverServer) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

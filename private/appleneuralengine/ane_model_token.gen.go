@@ -4,6 +4,7 @@ package appleneuralengine
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (ac ANEModelTokenClass) Alloc() ANEModelToken {
 //   - [ANEModelToken.TeamIdentity]
 //   - [ANEModelToken.InitWithAuditTokenModelIdentifierProcessIdentifier]
 //   - [ANEModelToken.InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken
 type ANEModelToken struct {
 	objectivec.Object
 }
@@ -75,8 +74,6 @@ var _ IANEModelToken = ANEModelToken{}
 //   - [IANEModelToken.TeamIdentity]
 //   - [IANEModelToken.InitWithAuditTokenModelIdentifierProcessIdentifier]
 //   - [IANEModelToken.InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken
 type IANEModelToken interface {
 	objectivec.IObject
 
@@ -86,7 +83,7 @@ type IANEModelToken interface {
 	ModelIdentifier() string
 	ProcessIdentifier() int
 	TeamIdentity() string
-	InitWithAuditTokenModelIdentifierProcessIdentifier(token objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken
+	InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken
 	InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken
 }
 
@@ -109,81 +106,60 @@ func NewANEModelToken() ANEModelToken {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithAuditToken:modelIdentifier:processIdentifier:
-func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken {
 	instance := getANEModelTokenClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return ANEModelTokenFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:
 func NewANEModelTokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
 	instance := getANEModelTokenClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return ANEModelTokenFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithAuditToken:modelIdentifier:processIdentifier:
-func (a ANEModelToken) InitWithAuditTokenModelIdentifierProcessIdentifier(token objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func (a ANEModelToken) InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken {
 	rv := objc.Send[ANEModelToken](a.ID, objc.Sel("initWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:
 func (a ANEModelToken) InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
 	rv := objc.Send[ANEModelToken](a.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/codeSigningIDFor:processIdentifier:
-func (_ANEModelTokenClass ANEModelTokenClass) CodeSigningIDForProcessIdentifier(iDFor objectivec.IObject, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) CodeSigningIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("codeSigningIDFor:processIdentifier:"), iDFor, identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/processNameFor:identifier:
-func (_ANEModelTokenClass ANEModelTokenClass) ProcessNameForIdentifier(for_ objectivec.IObject, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) ProcessNameForIdentifier(for_ unsafe.Pointer, identifier int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("processNameFor:identifier:"), for_, identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/teamIDFor:processIdentifier:
-func (_ANEModelTokenClass ANEModelTokenClass) TeamIDForProcessIdentifier(iDFor objectivec.IObject, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) TeamIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("teamIDFor:processIdentifier:"), iDFor, identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/tokenWithAuditToken:modelIdentifier:processIdentifier:
-func (_ANEModelTokenClass ANEModelTokenClass) TokenWithAuditTokenModelIdentifierProcessIdentifier(token objectivec.IObject, identifier objectivec.IObject, identifier2 int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) TokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("tokenWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/tokenWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:
 func (_ANEModelTokenClass ANEModelTokenClass) TokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("tokenWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/csIdentity
 func (a ANEModelToken) CsIdentity() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("csIdentity"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/modelIdentifier
 func (a ANEModelToken) ModelIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/processIdentifier
 func (a ANEModelToken) ProcessIdentifier() int {
 	rv := objc.Send[int](a.ID, objc.Sel("processIdentifier"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/teamIdentity
 func (a ANEModelToken) TeamIdentity() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("teamIdentity"))
 	return foundation.NSStringFromID(rv).String()

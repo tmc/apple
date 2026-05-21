@@ -42,7 +42,6 @@ func (vc VZVirtioConsoleDeviceClass) Alloc() VZVirtioConsoleDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice
 type VZVirtioConsoleDevice struct {
 	VZConsoleDevice
 }
@@ -56,8 +55,6 @@ func VZVirtioConsoleDeviceFromID(id objc.ID) VZVirtioConsoleDevice {
 var _ IVZVirtioConsoleDevice = VZVirtioConsoleDevice{}
 
 // An interface definition for the [VZVirtioConsoleDevice] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice
 type IVZVirtioConsoleDevice interface {
 	IVZConsoleDevice
 }
@@ -81,7 +78,6 @@ func NewVZVirtioConsoleDevice() VZVirtioConsoleDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice/initWithVirtualMachine:consoleDeviceIndex:configuration:
 func NewVirtioConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZVirtioConsoleDevice {
 	instance := getVZVirtioConsoleDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)

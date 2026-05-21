@@ -52,8 +52,6 @@ func (mc MLPrecisionRecallCurveClass) Alloc() MLPrecisionRecallCurve {
 //   - [MLPrecisionRecallCurve.RecallValues]
 //   - [MLPrecisionRecallCurve.InitWithCoder]
 //   - [MLPrecisionRecallCurve.InitWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve
 type MLPrecisionRecallCurve struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IMLPrecisionRecallCurve = MLPrecisionRecallCurve{}
 //   - [IMLPrecisionRecallCurve.RecallValues]
 //   - [IMLPrecisionRecallCurve.InitWithCoder]
 //   - [IMLPrecisionRecallCurve.InitWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve
 type IMLPrecisionRecallCurve interface {
 	objectivec.IObject
 
@@ -112,62 +108,47 @@ func NewMLPrecisionRecallCurve() MLPrecisionRecallCurve {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/initWithCoder:
 func NewPrecisionRecallCurveWithCoder(coder objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLPrecisionRecallCurveFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:
 func NewPrecisionRecallCurveWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
 	return MLPrecisionRecallCurveFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/encodeWithCoder:
 func (m MLPrecisionRecallCurve) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/initWithCoder:
 func (m MLPrecisionRecallCurve) InitWithCoder(coder foundation.INSCoder) MLPrecisionRecallCurve {
 	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:
 func (m MLPrecisionRecallCurve) InitWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
 	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/supportsSecureCoding
 func (_MLPrecisionRecallCurveClass MLPrecisionRecallCurveClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLPrecisionRecallCurveClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/precisionConfidenceThresholds
 func (m MLPrecisionRecallCurve) PrecisionConfidenceThresholds() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("precisionConfidenceThresholds"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/precisionValues
 func (m MLPrecisionRecallCurve) PrecisionValues() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("precisionValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/recallConfidenceThresholds
 func (m MLPrecisionRecallCurve) RecallConfidenceThresholds() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("recallConfidenceThresholds"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPrecisionRecallCurve/recallValues
 func (m MLPrecisionRecallCurve) RecallValues() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("recallValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))

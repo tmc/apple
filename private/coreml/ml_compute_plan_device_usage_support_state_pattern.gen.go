@@ -49,8 +49,6 @@ func (mc MLComputePlanDeviceUsageSupportStatePatternClass) Alloc() MLComputePlan
 //   - [MLComputePlanDeviceUsageSupportStatePattern.Regex]
 //   - [MLComputePlanDeviceUsageSupportStatePattern.SupportState]
 //   - [MLComputePlanDeviceUsageSupportStatePattern.InitWithPatternSupportState]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern
 type MLComputePlanDeviceUsageSupportStatePattern struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IMLComputePlanDeviceUsageSupportStatePattern = MLComputePlanDeviceUsageSup
 //   - [IMLComputePlanDeviceUsageSupportStatePattern.Regex]
 //   - [IMLComputePlanDeviceUsageSupportStatePattern.SupportState]
 //   - [IMLComputePlanDeviceUsageSupportStatePattern.InitWithPatternSupportState]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern
 type IMLComputePlanDeviceUsageSupportStatePattern interface {
 	objectivec.IObject
 
@@ -103,38 +99,30 @@ func NewMLComputePlanDeviceUsageSupportStatePattern() MLComputePlanDeviceUsageSu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/initWithPattern:supportState:
 func NewComputePlanDeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
 	instance := getMLComputePlanDeviceUsageSupportStatePatternClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
 	return MLComputePlanDeviceUsageSupportStatePatternFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/isMatchForValidationMessage:
 func (m MLComputePlanDeviceUsageSupportStatePattern) IsMatchForValidationMessage(message objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMatchForValidationMessage:"), message)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/initWithPattern:supportState:
 func (m MLComputePlanDeviceUsageSupportStatePattern) InitWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
 	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/deviceUsageSupportStatePatternWithPattern:supportState:
 func (_MLComputePlanDeviceUsageSupportStatePatternClass MLComputePlanDeviceUsageSupportStatePatternClass) DeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStatePatternClass.class), objc.Sel("deviceUsageSupportStatePatternWithPattern:supportState:"), pattern, state)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/regex
 func (m MLComputePlanDeviceUsageSupportStatePattern) Regex() foundation.NSRegularExpression {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regex"))
 	return foundation.NSRegularExpressionFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStatePattern/supportState
 func (m MLComputePlanDeviceUsageSupportStatePattern) SupportState() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("supportState"))
 	return rv

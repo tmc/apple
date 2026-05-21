@@ -45,8 +45,6 @@ func (vc VZMemoryBalloonDeviceClass) Alloc() VZMemoryBalloonDevice {
 // # Methods
 //
 //   - [VZMemoryBalloonDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDevice
 type VZMemoryBalloonDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZMemoryBalloonDevice = VZMemoryBalloonDevice{}
 // # Methods
 //
 //   - [IVZMemoryBalloonDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDevice
 type IVZMemoryBalloonDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZMemoryBalloonDevice() VZMemoryBalloonDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDevice/_init
 func (v VZMemoryBalloonDevice) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}

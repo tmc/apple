@@ -48,8 +48,6 @@ func (vc VZRotationEventClass) Alloc() VZRotationEvent {
 //   - [VZRotationEvent.Rotation]
 //   - [VZRotationEvent.InitWithEvent]
 //   - [VZRotationEvent.InitWithRotationPhase]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent
 type VZRotationEvent struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IVZRotationEvent = VZRotationEvent{}
 //   - [IVZRotationEvent.Rotation]
 //   - [IVZRotationEvent.InitWithEvent]
 //   - [IVZRotationEvent.InitWithRotationPhase]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent
 type IVZRotationEvent interface {
 	objectivec.IObject
 
@@ -102,39 +98,31 @@ func NewVZRotationEvent() VZRotationEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithEvent:
 func NewVZRotationEventWithEvent(event objectivec.IObject) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZRotationEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithRotation:phase:
 func NewVZRotationEventWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
 	return VZRotationEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithEvent:
 func (v VZRotationEvent) InitWithEvent(event objectivec.IObject) VZRotationEvent {
 	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithRotation:phase:
 func (v VZRotationEvent) InitWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
 	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/phase
 func (v VZRotationEvent) Phase() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("phase"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/rotation
 func (v VZRotationEvent) Rotation() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("rotation"))
 	return rv

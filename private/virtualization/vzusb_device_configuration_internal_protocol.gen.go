@@ -8,8 +8,6 @@ import (
 )
 
 // _VZUSBDeviceConfigurationInternal protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBDeviceConfigurationInternal
 type VZUSBDeviceConfigurationInternal interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func VZUSBDeviceConfigurationInternalObjectFromID(id objc.ID) VZUSBDeviceConfigu
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBDeviceConfigurationInternal/isDuplicateConfiguration:
 func (o VZUSBDeviceConfigurationInternalObject) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBDeviceConfigurationInternal/makeUSBDeviceWithVirtualMachine:
 func (o VZUSBDeviceConfigurationInternalObject) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}

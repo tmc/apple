@@ -59,8 +59,6 @@ func (ac AVVCStartRecordSettingsClass) Alloc() AVVCStartRecordSettings {
 //   - [AVVCStartRecordSettings.StreamID]
 //   - [AVVCStartRecordSettings.SetStreamID]
 //   - [AVVCStartRecordSettings.InitWithStreamIDAtStartHostTime]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings
 type AVVCStartRecordSettings struct {
 	objectivec.Object
 }
@@ -92,8 +90,6 @@ var _ IAVVCStartRecordSettings = AVVCStartRecordSettings{}
 //   - [IAVVCStartRecordSettings.StreamID]
 //   - [IAVVCStartRecordSettings.SetStreamID]
 //   - [IAVVCStartRecordSettings.InitWithStreamIDAtStartHostTime]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings
 type IAVVCStartRecordSettings interface {
 	objectivec.IObject
 
@@ -135,20 +131,17 @@ func NewAVVCStartRecordSettings() AVVCStartRecordSettings {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/initWithStreamID:atStartHostTime:
 func NewVCStartRecordSettingsWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
 	instance := getAVVCStartRecordSettingsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return AVVCStartRecordSettingsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/initWithStreamID:atStartHostTime:
 func (a AVVCStartRecordSettings) InitWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
 	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/skipAlert
 func (a AVVCStartRecordSettings) SkipAlert() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("skipAlert"))
 	return rv
@@ -156,8 +149,6 @@ func (a AVVCStartRecordSettings) SkipAlert() bool {
 func (a AVVCStartRecordSettings) SetSkipAlert(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSkipAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startAlert
 func (a AVVCStartRecordSettings) StartAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
 	return rv
@@ -165,8 +156,6 @@ func (a AVVCStartRecordSettings) StartAlert() int64 {
 func (a AVVCStartRecordSettings) SetStartAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startAnchorPoint
 func (a AVVCStartRecordSettings) StartAnchorPoint() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("startAnchorPoint"))
 	return rv
@@ -174,8 +163,6 @@ func (a AVVCStartRecordSettings) StartAnchorPoint() uint32 {
 func (a AVVCStartRecordSettings) SetStartAnchorPoint(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStartAnchorPoint:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startHostTime
 func (a AVVCStartRecordSettings) StartHostTime() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("startHostTime"))
 	return rv
@@ -183,8 +170,6 @@ func (a AVVCStartRecordSettings) StartHostTime() uint64 {
 func (a AVVCStartRecordSettings) SetStartHostTime(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStartHostTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/stopAlert
 func (a AVVCStartRecordSettings) StopAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
@@ -192,8 +177,6 @@ func (a AVVCStartRecordSettings) StopAlert() int64 {
 func (a AVVCStartRecordSettings) SetStopAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/stopOnErrorAlert
 func (a AVVCStartRecordSettings) StopOnErrorAlert() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
@@ -201,8 +184,6 @@ func (a AVVCStartRecordSettings) StopOnErrorAlert() int64 {
 func (a AVVCStartRecordSettings) SetStopOnErrorAlert(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/streamID
 func (a AVVCStartRecordSettings) StreamID() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
 	return rv

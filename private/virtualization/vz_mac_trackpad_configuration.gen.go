@@ -41,7 +41,6 @@ func (vc VZMacTrackpadConfigurationClass) Alloc() VZMacTrackpadConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacTrackpadConfiguration
 type VZMacTrackpadConfiguration struct {
 	VZPointingDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZMacTrackpadConfigurationFromID(id objc.ID) VZMacTrackpadConfiguration {
 var _ IVZMacTrackpadConfiguration = VZMacTrackpadConfiguration{}
 
 // An interface definition for the [VZMacTrackpadConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacTrackpadConfiguration
 type IVZMacTrackpadConfiguration interface {
 	IVZPointingDeviceConfiguration
 }

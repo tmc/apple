@@ -42,7 +42,6 @@ func (mc MLMultiArrayUtilsClass) Alloc() MLMultiArrayUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayUtils
 type MLMultiArrayUtils struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLMultiArrayUtilsFromID(id objc.ID) MLMultiArrayUtils {
 var _ IMLMultiArrayUtils = MLMultiArrayUtils{}
 
 // An interface definition for the [MLMultiArrayUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayUtils
 type IMLMultiArrayUtils interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewMLMultiArrayUtils() MLMultiArrayUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArrayUtils/stringForDataType:
 func (_MLMultiArrayUtilsClass MLMultiArrayUtilsClass) StringForDataType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayUtilsClass.class), objc.Sel("stringForDataType:"), type_)
 	return objectivec.Object{ID: rv}

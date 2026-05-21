@@ -50,8 +50,6 @@ func (sc SLSBridgedSpaceGetSizeForProposedTileOperationClass) Alloc() SLSBridged
 //   - [SLSBridgedSpaceGetSizeForProposedTileOperation.SpaceID]
 //   - [SLSBridgedSpaceGetSizeForProposedTileOperation.Values]
 //   - [SLSBridgedSpaceGetSizeForProposedTileOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation
 type SLSBridgedSpaceGetSizeForProposedTileOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -72,8 +70,6 @@ var _ ISLSBridgedSpaceGetSizeForProposedTileOperation = SLSBridgedSpaceGetSizeFo
 //   - [ISLSBridgedSpaceGetSizeForProposedTileOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetSizeForProposedTileOperation.Values]
 //   - [ISLSBridgedSpaceGetSizeForProposedTileOperation.InitWithSpaceIDValues]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation
 type ISLSBridgedSpaceGetSizeForProposedTileOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -104,39 +100,31 @@ func NewSLSBridgedSpaceGetSizeForProposedTileOperation() SLSBridgedSpaceGetSizeF
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/initWithCoder:
 func NewSLSBridgedSpaceGetSizeForProposedTileOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetSizeForProposedTileOperation {
 	instance := getSLSBridgedSpaceGetSizeForProposedTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetSizeForProposedTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/initWithSpaceID:values:
 func NewSLSBridgedSpaceGetSizeForProposedTileOperationWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceGetSizeForProposedTileOperation {
 	instance := getSLSBridgedSpaceGetSizeForProposedTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return SLSBridgedSpaceGetSizeForProposedTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/makeResultWithSize:
 func (s SLSBridgedSpaceGetSizeForProposedTileOperation) MakeResultWithSize(size corefoundation.CGSize) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSize:"), size)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/initWithSpaceID:values:
 func (s SLSBridgedSpaceGetSizeForProposedTileOperation) InitWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceGetSizeForProposedTileOperation {
 	rv := objc.Send[SLSBridgedSpaceGetSizeForProposedTileOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/spaceID
 func (s SLSBridgedSpaceGetSizeForProposedTileOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetSizeForProposedTileOperation/values
 func (s SLSBridgedSpaceGetSizeForProposedTileOperation) Values() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

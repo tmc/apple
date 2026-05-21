@@ -49,8 +49,6 @@ func (mc MLModelExecutionScheduleClass) Alloc() MLModelExecutionSchedule {
 //   - [MLModelExecutionSchedule.SetModelExecutionSchedule]
 //   - [MLModelExecutionSchedule.ModelExecutionScheduleByModelStructurePath]
 //   - [MLModelExecutionSchedule.SetModelExecutionScheduleByModelStructurePath]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule
 type MLModelExecutionSchedule struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IMLModelExecutionSchedule = MLModelExecutionSchedule{}
 //   - [IMLModelExecutionSchedule.SetModelExecutionSchedule]
 //   - [IMLModelExecutionSchedule.ModelExecutionScheduleByModelStructurePath]
 //   - [IMLModelExecutionSchedule.SetModelExecutionScheduleByModelStructurePath]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule
 type IMLModelExecutionSchedule interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewMLModelExecutionSchedule() MLModelExecutionSchedule {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule/modelExecutionSchedule
 func (m MLModelExecutionSchedule) ModelExecutionSchedule() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelExecutionSchedule"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -111,8 +106,6 @@ func (m MLModelExecutionSchedule) ModelExecutionSchedule() foundation.INSDiction
 func (m MLModelExecutionSchedule) SetModelExecutionSchedule(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelExecutionSchedule:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule/modelExecutionScheduleByModelStructurePath
 func (m MLModelExecutionSchedule) ModelExecutionScheduleByModelStructurePath() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelExecutionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

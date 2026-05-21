@@ -42,7 +42,6 @@ func (tc TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerClass) Alloc() TtCC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner
 type TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerFromID(id objc.ID) TtCC
 // ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner
 type ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner interface {
 	objectivec.IObject
 }

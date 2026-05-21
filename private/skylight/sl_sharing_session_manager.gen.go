@@ -5,8 +5,10 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,8 +67,6 @@ func (sc SLSharingSessionManagerClass) Alloc() SLSharingSessionManager {
 //   - [SLSharingSessionManager.SetSystemDelegate]
 //   - [SLSharingSessionManager.UnregisterNotification]
 //   - [SLSharingSessionManager.InitPrivate]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager
 type SLSharingSessionManager struct {
 	objectivec.Object
 }
@@ -102,8 +102,6 @@ var _ ISLSharingSessionManager = SLSharingSessionManager{}
 //   - [ISLSharingSessionManager.SetSystemDelegate]
 //   - [ISLSharingSessionManager.UnregisterNotification]
 //   - [ISLSharingSessionManager.InitPrivate]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager
 type ISLSharingSessionManager interface {
 	objectivec.IObject
 
@@ -116,16 +114,16 @@ type ISLSharingSessionManager interface {
 	SetClientContexts(value foundation.NSMapTable)
 	ContextForPayload(payload objectivec.IObject) objectivec.IObject
 	CopyAllSessions() objectivec.IObject
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value kernel.Pointer)
 	DispatchToClientDelegate(delegate objectivec.IObject)
 	EndSharingSession(session objectivec.IObject)
 	NotificationDictionary() objectivec.IObject
 	PickerCanceledSession(session objectivec.IObject)
 	RegisterNotification()
 	SetDelegateBlock(block VoidHandler)
-	SystemDelegate() objectivec.IObject
-	SetSystemDelegate(value objectivec.IObject)
+	SystemDelegate() unsafe.Pointer
+	SetSystemDelegate(value kernel.Pointer)
 	UnregisterNotification()
 	InitPrivate() SLSharingSessionManager
 }
@@ -149,93 +147,65 @@ func NewSLSharingSessionManager() SLSharingSessionManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/initPrivate
 func NewSLSharingSessionManagerPrivate() SLSharingSessionManager {
 	instance := getSLSharingSessionManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initPrivate"))
 	return SLSharingSessionManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/beginNoPillSharingSessionWithTitle:
 func (s SLSharingSessionManager) BeginNoPillSharingSessionWithTitle(title objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginNoPillSharingSessionWithTitle:"), title)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/beginSharingSessionWithTitle:
 func (s SLSharingSessionManager) BeginSharingSessionWithTitle(title objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:"), title)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/beginSharingSessionWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:
 func (s SLSharingSessionManager) BeginSharingSessionWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSharingIndicatorNotifications(title objectivec.IObject, indicator bool, notifications bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/contextForPayload:
 func (s SLSharingSessionManager) ContextForPayload(payload objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("contextForPayload:"), payload)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/copyAllSessions
 func (s SLSharingSessionManager) CopyAllSessions() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyAllSessions"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/dispatchToClientDelegate:
 func (s SLSharingSessionManager) DispatchToClientDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("dispatchToClientDelegate:"), delegate)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/endSharingSession:
 func (s SLSharingSessionManager) EndSharingSession(session objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("endSharingSession:"), session)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/notificationDictionary
 func (s SLSharingSessionManager) NotificationDictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("notificationDictionary"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/pickerCanceledSession:
 func (s SLSharingSessionManager) PickerCanceledSession(session objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("pickerCanceledSession:"), session)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/registerNotification
 func (s SLSharingSessionManager) RegisterNotification() {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerNotification"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/setDelegateBlock:
 func (s SLSharingSessionManager) SetDelegateBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("setDelegateBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/unregisterNotification
 func (s SLSharingSessionManager) UnregisterNotification() {
 	objc.Send[objc.ID](s.ID, objc.Sel("unregisterNotification"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/initPrivate
 func (s SLSharingSessionManager) InitPrivate() SLSharingSessionManager {
 	rv := objc.Send[SLSharingSessionManager](s.ID, objc.Sel("initPrivate"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/shared
 func (_SLSharingSessionManagerClass SLSharingSessionManagerClass) Shared() SLSharingSessionManager {
 	rv := objc.Send[objc.ID](objc.ID(_SLSharingSessionManagerClass.class), objc.Sel("shared"))
 	return SLSharingSessionManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/clientContexts
 func (s SLSharingSessionManager) ClientContexts() foundation.NSMapTable {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("clientContexts"))
 	return foundation.NSMapTableFromID(objc.ID(rv))
@@ -243,22 +213,18 @@ func (s SLSharingSessionManager) ClientContexts() foundation.NSMapTable {
 func (s SLSharingSessionManager) SetClientContexts(value foundation.NSMapTable) {
 	objc.Send[struct{}](s.ID, objc.Sel("setClientContexts:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/delegate
-func (s SLSharingSessionManager) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (s SLSharingSessionManager) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	return rv
 }
-func (s SLSharingSessionManager) SetDelegate(value objectivec.IObject) {
+func (s SLSharingSessionManager) SetDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionManager/systemDelegate
-func (s SLSharingSessionManager) SystemDelegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("systemDelegate"))
-	return objectivec.Object{ID: rv}
+func (s SLSharingSessionManager) SystemDelegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("systemDelegate"))
+	return rv
 }
-func (s SLSharingSessionManager) SetSystemDelegate(value objectivec.IObject) {
+func (s SLSharingSessionManager) SetSystemDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSystemDelegate:"), value)
 }
 

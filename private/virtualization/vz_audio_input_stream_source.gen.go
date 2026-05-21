@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZAudioInputStreamSourceClass) Alloc() VZAudioInputStreamSource {
 //   - [VZAudioInputStreamSource.Description]
 //   - [VZAudioInputStreamSource.Hash]
 //   - [VZAudioInputStreamSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource
 type VZAudioInputStreamSource struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZAudioInputStreamSource = VZAudioInputStreamSource{}
 //   - [IVZAudioInputStreamSource.Description]
 //   - [IVZAudioInputStreamSource.Hash]
 //   - [IVZAudioInputStreamSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource
 type IVZAudioInputStreamSource interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_attachment() objectivec.IObject
+	_attachment() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZAudioInputStreamSource() VZAudioInputStreamSource {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/_init
 func (v VZAudioInputStreamSource) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/_attachment
-func (v VZAudioInputStreamSource) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
-	return objectivec.Object{ID: rv}
+func (v VZAudioInputStreamSource) _attachment() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	return rv
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
@@ -127,33 +122,25 @@ func (v VZAudioInputStreamSource) CanAttachment() bool {
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (v VZAudioInputStreamSource) Attachment() (objectivec.IObject, error) {
+func (v VZAudioInputStreamSource) Attachment() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
 	return v._attachment(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/debugDescription
 func (v VZAudioInputStreamSource) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/description
 func (v VZAudioInputStreamSource) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/hash
 func (v VZAudioInputStreamSource) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/superclass
-func (v VZAudioInputStreamSource) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZAudioInputStreamSource) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

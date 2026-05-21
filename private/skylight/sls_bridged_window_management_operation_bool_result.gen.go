@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationBoolResultClass) Alloc() SLSBridgedW
 //
 //   - [SLSBridgedWindowManagementOperationBoolResult.BoolValue]
 //   - [SLSBridgedWindowManagementOperationBoolResult.InitWithBoolValue]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult
 type SLSBridgedWindowManagementOperationBoolResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationBoolResult = SLSBridgedWindowManagemen
 //
 //   - [ISLSBridgedWindowManagementOperationBoolResult.BoolValue]
 //   - [ISLSBridgedWindowManagementOperationBoolResult.InitWithBoolValue]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult
 type ISLSBridgedWindowManagementOperationBoolResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationBoolResult() SLSBridgedWindowManageme
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult/initWithBoolValue:
 func NewSLSBridgedWindowManagementOperationBoolResultWithBoolValue(value bool) SLSBridgedWindowManagementOperationBoolResult {
 	instance := getSLSBridgedWindowManagementOperationBoolResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBoolValue:"), value)
 	return SLSBridgedWindowManagementOperationBoolResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationBoolResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationBoolResult {
 	instance := getSLSBridgedWindowManagementOperationBoolResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationBoolResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult/initWithBoolValue:
 func (s SLSBridgedWindowManagementOperationBoolResult) InitWithBoolValue(value bool) SLSBridgedWindowManagementOperationBoolResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationBoolResult](s.ID, objc.Sel("initWithBoolValue:"), value)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationBoolResult/boolValue
 func (s SLSBridgedWindowManagementOperationBoolResult) BoolValue() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("boolValue"))
 	return rv

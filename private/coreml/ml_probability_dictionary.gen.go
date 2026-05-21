@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,8 +55,6 @@ func (mc MLProbabilityDictionaryClass) Alloc() MLProbabilityDictionary {
 //   - [MLProbabilityDictionary.InitWithSharedKeySetProbabilities]
 //   - [MLProbabilityDictionary.InitWithSharedKeySetProbabilityArray]
 //   - [MLProbabilityDictionary.InitWithSharedKeySetProbabilityMultiArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary
 type MLProbabilityDictionary struct {
 	foundation.NSDictionary
 }
@@ -81,8 +80,6 @@ var _ IMLProbabilityDictionary = MLProbabilityDictionary{}
 //   - [IMLProbabilityDictionary.InitWithSharedKeySetProbabilities]
 //   - [IMLProbabilityDictionary.InitWithSharedKeySetProbabilityArray]
 //   - [IMLProbabilityDictionary.InitWithSharedKeySetProbabilityMultiArray]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary
 type IMLProbabilityDictionary interface {
 	foundation.INSDictionary
 
@@ -90,7 +87,7 @@ type IMLProbabilityDictionary interface {
 
 	ClassLabelOfMaxProbability() objectivec.IObject
 	LabelIndexMap() IMLProbabilityDictionarySharedKeySet
-	Storage() objectivec.IObject
+	Storage() unsafe.Pointer
 	InitWithLabelIndexMapStorage(map_ objectivec.IObject, storage objectivec.IObject) MLProbabilityDictionary
 	InitWithLabelsProbabilities(labels objectivec.IObject, probabilities []float64) MLProbabilityDictionary
 	InitWithLabelsProbabilityArray(labels objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary
@@ -118,104 +115,81 @@ func NewMLProbabilityDictionary() MLProbabilityDictionary {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabelIndexMap:storage:
 func NewProbabilityDictionaryWithLabelIndexMapStorage(map_ objectivec.IObject, storage objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLabelIndexMap:storage:"), map_, storage)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabels:probabilities:
 func NewProbabilityDictionaryWithLabelsProbabilities(labels objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLabels:probabilities:"), labels, probabilities)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabels:probabilityArray:
 func NewProbabilityDictionaryWithLabelsProbabilityArray(labels objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLabels:probabilityArray:"), labels, array)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilities:
 func NewProbabilityDictionaryWithSharedKeySetProbabilities(set objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilities:"), set, probabilities)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilityArray:
 func NewProbabilityDictionaryWithSharedKeySetProbabilityArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilityArray:"), set, array)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilityMultiArray:
 func NewProbabilityDictionaryWithSharedKeySetProbabilityMultiArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilityMultiArray:"), set, array)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/classLabelOfMaxProbability
 func (m MLProbabilityDictionary) ClassLabelOfMaxProbability() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelOfMaxProbability"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabelIndexMap:storage:
 func (m MLProbabilityDictionary) InitWithLabelIndexMapStorage(map_ objectivec.IObject, storage objectivec.IObject) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithLabelIndexMap:storage:"), map_, storage)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabels:probabilities:
 func (m MLProbabilityDictionary) InitWithLabelsProbabilities(labels objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithLabels:probabilities:"), labels, probabilities)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithLabels:probabilityArray:
 func (m MLProbabilityDictionary) InitWithLabelsProbabilityArray(labels objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithLabels:probabilityArray:"), labels, array)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilities:
 func (m MLProbabilityDictionary) InitWithSharedKeySetProbabilities(set objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithSharedKeySet:probabilities:"), set, probabilities)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilityArray:
 func (m MLProbabilityDictionary) InitWithSharedKeySetProbabilityArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithSharedKeySet:probabilityArray:"), set, array)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/initWithSharedKeySet:probabilityMultiArray:
 func (m MLProbabilityDictionary) InitWithSharedKeySetProbabilityMultiArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	rv := objc.Send[MLProbabilityDictionary](m.ID, objc.Sel("initWithSharedKeySet:probabilityMultiArray:"), set, array)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/sharedKeySetForLabels:
 func (_MLProbabilityDictionaryClass MLProbabilityDictionaryClass) SharedKeySetForLabels(labels objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLProbabilityDictionaryClass.class), objc.Sel("sharedKeySetForLabels:"), labels)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/labelIndexMap
 func (m MLProbabilityDictionary) LabelIndexMap() IMLProbabilityDictionarySharedKeySet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelIndexMap"))
 	return MLProbabilityDictionarySharedKeySetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionary/storage
-func (m MLProbabilityDictionary) Storage() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("storage"))
-	return objectivec.Object{ID: rv}
+func (m MLProbabilityDictionary) Storage() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("storage"))
+	return rv
 }

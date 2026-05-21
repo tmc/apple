@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZPL011SerialPortConfiguration] class.
@@ -42,11 +41,6 @@ func (vc VZPL011SerialPortConfigurationClass) Alloc() VZPL011SerialPortConfigura
 	return rv
 }
 
-// # Methods
-//
-//   - [VZPL011SerialPortConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPL011SerialPortConfiguration
 type VZPL011SerialPortConfiguration struct {
 	VZSerialPortConfiguration
 }
@@ -60,18 +54,8 @@ func VZPL011SerialPortConfigurationFromID(id objc.ID) VZPL011SerialPortConfigura
 var _ IVZPL011SerialPortConfiguration = VZPL011SerialPortConfiguration{}
 
 // An interface definition for the [VZPL011SerialPortConfiguration] class.
-//
-// # Methods
-//
-//   - [IVZPL011SerialPortConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPL011SerialPortConfiguration
 type IVZPL011SerialPortConfiguration interface {
 	IVZSerialPortConfiguration
-
-	// Topic: Methods
-
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -91,10 +75,4 @@ func NewVZPL011SerialPortConfiguration() VZPL011SerialPortConfiguration {
 	class := getVZPL011SerialPortConfigurationClass()
 	rv := objc.Send[VZPL011SerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPL011SerialPortConfiguration/encodeWithEncoder:
-func (v VZPL011SerialPortConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
 }

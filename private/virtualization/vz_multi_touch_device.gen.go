@@ -47,8 +47,6 @@ func (vc VZMultiTouchDeviceClass) Alloc() VZMultiTouchDevice {
 //
 //   - [VZMultiTouchDevice.AssociationIdentifier]
 //   - [VZMultiTouchDevice.SendMultiTouchEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice
 type VZMultiTouchDevice struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IVZMultiTouchDevice = VZMultiTouchDevice{}
 //
 //   - [IVZMultiTouchDevice.AssociationIdentifier]
 //   - [IVZMultiTouchDevice.SendMultiTouchEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice
 type IVZMultiTouchDevice interface {
 	objectivec.IObject
 
@@ -97,12 +93,10 @@ func NewVZMultiTouchDevice() VZMultiTouchDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice/sendMultiTouchEvents:
 func (v VZMultiTouchDevice) SendMultiTouchEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:"), events)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice/associationIdentifier
 func (v VZMultiTouchDevice) AssociationIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))

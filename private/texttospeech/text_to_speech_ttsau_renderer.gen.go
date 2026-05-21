@@ -6,9 +6,9 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TextToSpeechTTSAURenderer] class.
@@ -44,7 +44,6 @@ func (tc TextToSpeechTTSAURendererClass) Alloc() TextToSpeechTTSAURenderer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSAURenderer
 type TextToSpeechTTSAURenderer struct {
 	objectivec.Object
 }
@@ -58,8 +57,6 @@ func TextToSpeechTTSAURendererFromID(id objc.ID) TextToSpeechTTSAURenderer {
 // ITextToSpeechTTSAURenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSAURenderer] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSAURenderer
 type ITextToSpeechTTSAURenderer interface {
 	ISwiftNativeNSObject
 }
@@ -83,7 +80,6 @@ func NewTextToSpeechTTSAURenderer() TextToSpeechTTSAURenderer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSAURenderer/formatForVoice:completionHandler:
 func (_TextToSpeechTTSAURendererClass TextToSpeechTTSAURendererClass) FormatForVoiceCompletionHandler(voice avfaudio.AVSpeechSynthesisProviderVoice, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_TextToSpeechTTSAURendererClass.class), objc.Sel("formatForVoice:completionHandler:"), voice, _block1)

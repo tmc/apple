@@ -57,8 +57,6 @@ func (vc VoiceTableRowClass) Alloc() VoiceTableRow {
 //   - [VoiceTableRow.SetGroupRow]
 //   - [VoiceTableRow.Selected]
 //   - [VoiceTableRow.SetSelected]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow
 type VoiceTableRow struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IVoiceTableRow = VoiceTableRow{}
 //   - [IVoiceTableRow.SetGroupRow]
 //   - [IVoiceTableRow.Selected]
 //   - [IVoiceTableRow.SetSelected]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow
 type IVoiceTableRow interface {
 	objectivec.IObject
 
@@ -127,43 +123,33 @@ func NewVoiceTableRow() VoiceTableRow {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/initWithTitle:voiceObject:
 func NewVoiceTableRowWithTitleVoiceObject(title objectivec.IObject, object objectivec.IObject) VoiceTableRow {
 	instance := getVoiceTableRowClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTitle:voiceObject:"), title, object)
 	return VoiceTableRowFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/isGroupRow
 func (v VoiceTableRow) IsGroupRow() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isGroupRow"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/isSelected
 func (v VoiceTableRow) IsSelected() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isSelected"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/setSelectedUsingLanguageCodeOnlyToSelectVoices:
 func (v VoiceTableRow) SetSelectedUsingLanguageCodeOnlyToSelectVoices(voices bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setSelectedUsingLanguageCodeOnlyToSelectVoices:"), voices)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/initWithTitle:voiceObject:
 func (v VoiceTableRow) InitWithTitleVoiceObject(title objectivec.IObject, object objectivec.IObject) VoiceTableRow {
 	rv := objc.Send[VoiceTableRow](v.ID, objc.Sel("initWithTitle:voiceObject:"), title, object)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/arrangedRowsFromVoiceObjects:useLanguageCodeOnlyToSelectVoices:showIndividualQualities:showFullGroupNames:showCurrentLocaleAtTop:
 func (_VoiceTableRowClass VoiceTableRowClass) ArrangedRowsFromVoiceObjectsUseLanguageCodeOnlyToSelectVoicesShowIndividualQualitiesShowFullGroupNamesShowCurrentLocaleAtTop(objects objectivec.IObject, voices bool, qualities bool, names bool, top bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VoiceTableRowClass.class), objc.Sel("arrangedRowsFromVoiceObjects:useLanguageCodeOnlyToSelectVoices:showIndividualQualities:showFullGroupNames:showCurrentLocaleAtTop:"), objects, voices, qualities, names, top)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/groupRow
 func (v VoiceTableRow) GroupRow() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("groupRow"))
 	return rv
@@ -171,8 +157,6 @@ func (v VoiceTableRow) GroupRow() bool {
 func (v VoiceTableRow) SetGroupRow(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGroupRow:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/selected
 func (v VoiceTableRow) Selected() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("selected"))
 	return rv
@@ -180,8 +164,6 @@ func (v VoiceTableRow) Selected() bool {
 func (v VoiceTableRow) SetSelected(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSelected:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/tableIndex
 func (v VoiceTableRow) TableIndex() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("tableIndex"))
 	return rv
@@ -189,14 +171,10 @@ func (v VoiceTableRow) TableIndex() uint64 {
 func (v VoiceTableRow) SetTableIndex(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTableIndex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/title
 func (v VoiceTableRow) Title() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableRow/voiceObject
 func (v VoiceTableRow) VoiceObject() ISOVoiceObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("voiceObject"))
 	return SOVoiceObjectFromID(objc.ID(rv))

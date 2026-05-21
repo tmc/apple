@@ -57,8 +57,6 @@ func (ec ETLossConfigClass) Alloc() ETLossConfig {
 //   - [ETLossConfig.SetMode]
 //   - [ETLossConfig.Output_name]
 //   - [ETLossConfig.SetOutput_name]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig
 type ETLossConfig struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IETLossConfig = ETLossConfig{}
 //   - [IETLossConfig.SetMode]
 //   - [IETLossConfig.Output_name]
 //   - [IETLossConfig.SetOutput_name]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig
 type IETLossConfig interface {
 	objectivec.IObject
 
@@ -127,19 +123,15 @@ func NewETLossConfig() ETLossConfig {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/L2Loss
 func (_ETLossConfigClass ETLossConfigClass) L2Loss() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("L2Loss"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/softmaxCrossEntropyLoss
 func (_ETLossConfigClass ETLossConfigClass) SoftmaxCrossEntropyLoss() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("softmaxCrossEntropyLoss"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/custom_network_path
 func (e ETLossConfig) Custom_network_path() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("custom_network_path"))
 	return foundation.NSStringFromID(rv).String()
@@ -147,8 +139,6 @@ func (e ETLossConfig) Custom_network_path() string {
 func (e ETLossConfig) SetCustom_network_path(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCustom_network_path:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/label_name
 func (e ETLossConfig) Label_name() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("label_name"))
 	return foundation.NSStringFromID(rv).String()
@@ -156,8 +146,6 @@ func (e ETLossConfig) Label_name() string {
 func (e ETLossConfig) SetLabel_name(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLabel_name:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/label_shape
 func (e ETLossConfig) Label_shape() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("label_shape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -165,8 +153,6 @@ func (e ETLossConfig) Label_shape() foundation.INSArray {
 func (e ETLossConfig) SetLabel_shape(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLabel_shape:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/loss_name
 func (e ETLossConfig) Loss_name() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("loss_name"))
 	return foundation.NSStringFromID(rv).String()
@@ -174,8 +160,6 @@ func (e ETLossConfig) Loss_name() string {
 func (e ETLossConfig) SetLoss_name(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLoss_name:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/mode
 func (e ETLossConfig) Mode() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("mode"))
 	return rv
@@ -183,8 +167,6 @@ func (e ETLossConfig) Mode() uint64 {
 func (e ETLossConfig) SetMode(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETLossConfig/output_name
 func (e ETLossConfig) Output_name() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("output_name"))
 	return foundation.NSStringFromID(rv).String()

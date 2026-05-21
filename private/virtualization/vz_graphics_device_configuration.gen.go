@@ -56,8 +56,6 @@ func (vc VZGraphicsDeviceConfigurationClass) Alloc() VZGraphicsDeviceConfigurati
 //   - [VZGraphicsDeviceConfiguration.Description]
 //   - [VZGraphicsDeviceConfiguration.Hash]
 //   - [VZGraphicsDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration
 type VZGraphicsDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IVZGraphicsDeviceConfiguration = VZGraphicsDeviceConfiguration{}
 //   - [IVZGraphicsDeviceConfiguration.Description]
 //   - [IVZGraphicsDeviceConfiguration.Hash]
 //   - [IVZGraphicsDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration
 type IVZGraphicsDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -94,11 +90,11 @@ type IVZGraphicsDeviceConfiguration interface {
 	_initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject
 	MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	ValidateWithError() (bool, error)
-	_graphicsDevice() objectivec.IObject
+	_graphicsDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -120,13 +116,10 @@ func NewVZGraphicsDeviceConfiguration() VZGraphicsDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/_init
 func (v VZGraphicsDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/_initWithConfiguration:
 func (v VZGraphicsDeviceConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
 	return objectivec.Object{ID: rv}
@@ -145,14 +138,10 @@ func (v VZGraphicsDeviceConfiguration) InitWithConfiguration(configuration unsaf
 func (v VZGraphicsDeviceConfiguration) CanInitWithConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:
 func (v VZGraphicsDeviceConfiguration) MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/validateWithError:
 func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("validateWithError:"), unsafe.Pointer(&errorPtr))
@@ -167,10 +156,9 @@ func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/_graphicsDevice
-func (v VZGraphicsDeviceConfiguration) _graphicsDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDevice"))
-	return objectivec.Object{ID: rv}
+func (v VZGraphicsDeviceConfiguration) _graphicsDevice() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_graphicsDevice"))
+	return rv
 }
 
 // CanGraphicsDevice reports whether the receiver responds to the private selector _graphicsDevice.
@@ -179,33 +167,25 @@ func (v VZGraphicsDeviceConfiguration) CanGraphicsDevice() bool {
 }
 
 // GraphicsDevice is an exported wrapper for the private property _graphicsDevice.
-func (v VZGraphicsDeviceConfiguration) GraphicsDevice() (objectivec.IObject, error) {
+func (v VZGraphicsDeviceConfiguration) GraphicsDevice() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_graphicsDevice"}
 	}
 	return v._graphicsDevice(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/debugDescription
 func (v VZGraphicsDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/description
 func (v VZGraphicsDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/hash
 func (v VZGraphicsDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/superclass
-func (v VZGraphicsDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZGraphicsDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

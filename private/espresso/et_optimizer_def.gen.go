@@ -46,8 +46,6 @@ func (ec ETOptimizerDefClass) Alloc() ETOptimizerDef {
 //
 //   - [ETOptimizerDef.Batch_size]
 //   - [ETOptimizerDef.SetBatch_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDef
 type ETOptimizerDef struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IETOptimizerDef = ETOptimizerDef{}
 //
 //   - [IETOptimizerDef.Batch_size]
 //   - [IETOptimizerDef.SetBatch_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDef
 type IETOptimizerDef interface {
 	objectivec.IObject
 
@@ -96,7 +92,6 @@ func NewETOptimizerDef() ETOptimizerDef {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDef/batch_size
 func (e ETOptimizerDef) Batch_size() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("batch_size"))
 	return rv

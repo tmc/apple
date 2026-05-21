@@ -8,8 +8,6 @@ import (
 )
 
 // NSCopying protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/NSCopying
 type NSCopying interface {
 	objectivec.IObject
 }

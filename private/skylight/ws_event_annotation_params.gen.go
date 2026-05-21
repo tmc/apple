@@ -52,8 +52,6 @@ func (wc WSEventAnnotationParamsClass) Alloc() WSEventAnnotationParams {
 //   - [WSEventAnnotationParams.SetSetTarget]
 //   - [WSEventAnnotationParams.ShouldProcessEvent]
 //   - [WSEventAnnotationParams.SetShouldProcessEvent]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams
 type WSEventAnnotationParams struct {
 	objectivec.Object
 }
@@ -78,8 +76,6 @@ var _ IWSEventAnnotationParams = WSEventAnnotationParams{}
 //   - [IWSEventAnnotationParams.SetSetTarget]
 //   - [IWSEventAnnotationParams.ShouldProcessEvent]
 //   - [IWSEventAnnotationParams.SetShouldProcessEvent]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams
 type IWSEventAnnotationParams interface {
 	objectivec.IObject
 
@@ -114,7 +110,6 @@ func NewWSEventAnnotationParams() WSEventAnnotationParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams/forceRouting
 func (w WSEventAnnotationParams) ForceRouting() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("forceRouting"))
 	return rv
@@ -122,8 +117,6 @@ func (w WSEventAnnotationParams) ForceRouting() bool {
 func (w WSEventAnnotationParams) SetForceRouting(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setForceRouting:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams/noBackground
 func (w WSEventAnnotationParams) NoBackground() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("noBackground"))
 	return rv
@@ -131,8 +124,6 @@ func (w WSEventAnnotationParams) NoBackground() bool {
 func (w WSEventAnnotationParams) SetNoBackground(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNoBackground:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams/setTarget
 func (w WSEventAnnotationParams) SetTarget() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("setTarget"))
 	return rv
@@ -140,8 +131,6 @@ func (w WSEventAnnotationParams) SetTarget() bool {
 func (w WSEventAnnotationParams) SetSetTarget(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSetTarget:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/WSEventAnnotationParams/shouldProcessEvent
 func (w WSEventAnnotationParams) ShouldProcessEvent() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("shouldProcessEvent"))
 	return rv

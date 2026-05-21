@@ -42,7 +42,6 @@ func (tc TextToSpeechSiriVoiceLoaderClass) Alloc() TextToSpeechSiriVoiceLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SiriVoiceLoader
 type TextToSpeechSiriVoiceLoader struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechSiriVoiceLoaderFromID(id objc.ID) TextToSpeechSiriVoiceLoader {
 // ITextToSpeechSiriVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSiriVoiceLoader] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SiriVoiceLoader
 type ITextToSpeechSiriVoiceLoader interface {
 	objectivec.IObject
 }

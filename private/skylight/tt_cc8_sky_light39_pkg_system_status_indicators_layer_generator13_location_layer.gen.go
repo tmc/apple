@@ -42,7 +42,6 @@ func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerCl
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer
 type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer struct {
 	TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 }
@@ -56,8 +55,6 @@ func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerFromID
 var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer{}
 
 // An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer
 type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer interface {
 	ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 }
@@ -81,14 +78,12 @@ func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer() 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer/initWithCoder:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer/initWithLayer:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)

@@ -53,8 +53,6 @@ func (sc SLDataTimelineServerSnapshotEntryClass) Alloc() SLDataTimelineServerSna
 //   - [SLDataTimelineServerSnapshotEntry.SessionsArray]
 //   - [SLDataTimelineServerSnapshotEntry.Timestamp]
 //   - [SLDataTimelineServerSnapshotEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry
 type SLDataTimelineServerSnapshotEntry struct {
 	objectivec.Object
 }
@@ -78,8 +76,6 @@ var _ ISLDataTimelineServerSnapshotEntry = SLDataTimelineServerSnapshotEntry{}
 //   - [ISLDataTimelineServerSnapshotEntry.SessionsArray]
 //   - [ISLDataTimelineServerSnapshotEntry.Timestamp]
 //   - [ISLDataTimelineServerSnapshotEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry
 type ISLDataTimelineServerSnapshotEntry interface {
 	objectivec.IObject
 
@@ -113,56 +109,42 @@ func NewSLDataTimelineServerSnapshotEntry() SLDataTimelineServerSnapshotEntry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/initWithXPCObject:
 func NewSLDataTimelineServerSnapshotEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineServerSnapshotEntry {
 	instance := getSLDataTimelineServerSnapshotEntryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineServerSnapshotEntryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/createXPCObject
 func (s SLDataTimelineServerSnapshotEntry) CreateXPCObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/sessionsApplyBlock:
 func (s SLDataTimelineServerSnapshotEntry) SessionsApplyBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("sessionsApplyBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/initWithXPCObject:
 func (s SLDataTimelineServerSnapshotEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineServerSnapshotEntry {
 	rv := objc.Send[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/entryWithXPCObject:
 func (_SLDataTimelineServerSnapshotEntryClass SLDataTimelineServerSnapshotEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineServerSnapshotEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/index
 func (s SLDataTimelineServerSnapshotEntry) Index() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/sessions
 func (s SLDataTimelineServerSnapshotEntry) Sessions() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sessions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/sessionsArray
 func (s SLDataTimelineServerSnapshotEntry) SessionsArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sessionsArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshotEntry/timestamp
 func (s SLDataTimelineServerSnapshotEntry) Timestamp() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("timestamp"))
 	return rv

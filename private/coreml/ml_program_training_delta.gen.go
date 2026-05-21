@@ -47,8 +47,6 @@ func (mc MLProgramTrainingDeltaClass) Alloc() MLProgramTrainingDelta {
 //
 //   - [MLProgramTrainingDelta.FlattenedModelUpdate]
 //   - [MLProgramTrainingDelta.InitWithFlattenedModelUpdate]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta
 type MLProgramTrainingDelta struct {
 	objectivec.Object
 }
@@ -67,14 +65,12 @@ var _ IMLProgramTrainingDelta = MLProgramTrainingDelta{}
 //
 //   - [IMLProgramTrainingDelta.FlattenedModelUpdate]
 //   - [IMLProgramTrainingDelta.InitWithFlattenedModelUpdate]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta
 type IMLProgramTrainingDelta interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	FlattenedModelUpdate() foundation.INSData
+	FlattenedModelUpdate() foundation.NSData
 	InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta
 }
 
@@ -97,21 +93,18 @@ func NewMLProgramTrainingDelta() MLProgramTrainingDelta {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/initWithFlattenedModelUpdate:
 func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	instance := getMLProgramTrainingDeltaClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return MLProgramTrainingDeltaFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/initWithFlattenedModelUpdate:
 func (m MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/flattenedModelUpdate
-func (m MLProgramTrainingDelta) FlattenedModelUpdate() foundation.INSData {
+func (m MLProgramTrainingDelta) FlattenedModelUpdate() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("flattenedModelUpdate"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

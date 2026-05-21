@@ -5,7 +5,6 @@ package avfaudio
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,11 +42,6 @@ func (ac AVSpeechSynthesisMarkerClass) Alloc() AVSpeechSynthesisMarker {
 	return rv
 }
 
-// # Methods
-//
-//   - [AVSpeechSynthesisMarker.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker
 type AVSpeechSynthesisMarker struct {
 	objectivec.Object
 }
@@ -61,18 +55,8 @@ func AVSpeechSynthesisMarkerFromID(id objc.ID) AVSpeechSynthesisMarker {
 var _ IAVSpeechSynthesisMarker = AVSpeechSynthesisMarker{}
 
 // An interface definition for the [AVSpeechSynthesisMarker] class.
-//
-// # Methods
-//
-//   - [IAVSpeechSynthesisMarker.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker
 type IAVSpeechSynthesisMarker interface {
 	objectivec.IObject
-
-	// Topic: Methods
-
-	InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker
 }
 
 // Init initializes the instance.
@@ -94,20 +78,6 @@ func NewAVSpeechSynthesisMarker() AVSpeechSynthesisMarker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/initWithCoder:
-func NewSpeechSynthesisMarkerWithCoder(coder objectivec.IObject) AVSpeechSynthesisMarker {
-	instance := getAVSpeechSynthesisMarkerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return AVSpeechSynthesisMarkerFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/initWithCoder:
-func (a AVSpeechSynthesisMarker) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/supportsSecureCoding
 func (_AVSpeechSynthesisMarkerClass AVSpeechSynthesisMarkerClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisMarkerClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

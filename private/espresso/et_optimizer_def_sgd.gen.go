@@ -51,8 +51,6 @@ func (ec ETOptimizerDefSGDClass) Alloc() ETOptimizerDefSGD {
 //   - [ETOptimizerDefSGD.SetMomentum]
 //   - [ETOptimizerDefSGD.Weight_decay]
 //   - [ETOptimizerDefSGD.SetWeight_decay]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD
 type ETOptimizerDefSGD struct {
 	ETOptimizerDef
 }
@@ -77,8 +75,6 @@ var _ IETOptimizerDefSGD = ETOptimizerDefSGD{}
 //   - [IETOptimizerDefSGD.SetMomentum]
 //   - [IETOptimizerDefSGD.Weight_decay]
 //   - [IETOptimizerDefSGD.SetWeight_decay]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD
 type IETOptimizerDefSGD interface {
 	IETOptimizerDef
 
@@ -113,7 +109,6 @@ func NewETOptimizerDefSGD() ETOptimizerDefSGD {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/lr
 func (e ETOptimizerDefSGD) Lr() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("lr"))
 	return rv
@@ -121,8 +116,6 @@ func (e ETOptimizerDefSGD) Lr() float32 {
 func (e ETOptimizerDefSGD) SetLr(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLr:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/lr_decay_epoch
 func (e ETOptimizerDefSGD) Lr_decay_epoch() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("lr_decay_epoch"))
 	return rv
@@ -130,8 +123,6 @@ func (e ETOptimizerDefSGD) Lr_decay_epoch() float32 {
 func (e ETOptimizerDefSGD) SetLr_decay_epoch(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLr_decay_epoch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/momentum
 func (e ETOptimizerDefSGD) Momentum() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("momentum"))
 	return rv
@@ -139,8 +130,6 @@ func (e ETOptimizerDefSGD) Momentum() float32 {
 func (e ETOptimizerDefSGD) SetMomentum(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMomentum:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/weight_decay
 func (e ETOptimizerDefSGD) Weight_decay() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("weight_decay"))
 	return rv

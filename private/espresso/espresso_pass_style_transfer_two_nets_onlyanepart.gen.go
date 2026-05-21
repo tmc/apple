@@ -41,7 +41,6 @@ func (ec EspressoPassStyleTransferTwoNetsOnlyanepartClass) Alloc() EspressoPassS
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets_onlyanepart
 type EspressoPassStyleTransferTwoNetsOnlyanepart struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_style_transfer_two_nets_onlyanepartFromID(id objc.ID) Espresso
 var _ IEspressoPassStyleTransferTwoNetsOnlyanepart = EspressoPassStyleTransferTwoNetsOnlyanepart{}
 
 // An interface definition for the [EspressoPassStyleTransferTwoNetsOnlyanepart] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets_onlyanepart
 type IEspressoPassStyleTransferTwoNetsOnlyanepart interface {
 	IEspressoCustomPass
 }

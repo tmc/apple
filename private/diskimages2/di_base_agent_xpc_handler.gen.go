@@ -44,8 +44,6 @@ func (dc DIBaseAgentXPCHandlerClass) Alloc() DIBaseAgentXPCHandler {
 // # Methods
 //
 //   - [DIBaseAgentXPCHandler.SetConnectionMode]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentXPCHandler
 type DIBaseAgentXPCHandler struct {
 	DIBaseXPCHandler
 }
@@ -63,8 +61,6 @@ var _ IDIBaseAgentXPCHandler = DIBaseAgentXPCHandler{}
 // # Methods
 //
 //   - [IDIBaseAgentXPCHandler.SetConnectionMode]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentXPCHandler
 type IDIBaseAgentXPCHandler interface {
 	IDIBaseXPCHandler
 
@@ -92,7 +88,6 @@ func NewDIBaseAgentXPCHandler() DIBaseAgentXPCHandler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentXPCHandler/setConnectionMode
 func (d DIBaseAgentXPCHandler) SetConnectionMode() {
 	objc.Send[objc.ID](d.ID, objc.Sel("setConnectionMode"))
 }

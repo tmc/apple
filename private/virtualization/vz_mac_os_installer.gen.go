@@ -45,8 +45,6 @@ func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
 // # Methods
 //
 //   - [VZMacOSInstaller._disableMobileDeviceUpdate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller
 type VZMacOSInstaller struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZMacOSInstaller = VZMacOSInstaller{}
 // # Methods
 //
 //   - [IVZMacOSInstaller._disableMobileDeviceUpdate]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller
 type IVZMacOSInstaller interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZMacOSInstaller() VZMacOSInstaller {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/_disableMobileDeviceUpdate
 func (v VZMacOSInstaller) _disableMobileDeviceUpdate() {
 	objc.Send[objc.ID](v.ID, objc.Sel("_disableMobileDeviceUpdate"))
 }

@@ -41,7 +41,6 @@ func (ec EspressoPassFuseAddAndReluClass) Alloc() EspressoPassFuseAddAndRelu {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
 type EspressoPassFuseAddAndRelu struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_add_and_reluFromID(id objc.ID) EspressoPassFuseAddAndRelu
 var _ IEspressoPassFuseAddAndRelu = EspressoPassFuseAddAndRelu{}
 
 // An interface definition for the [EspressoPassFuseAddAndRelu] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
 type IEspressoPassFuseAddAndRelu interface {
 	IEspressoCustomPass
 }

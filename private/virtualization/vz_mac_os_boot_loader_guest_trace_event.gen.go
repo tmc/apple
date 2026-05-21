@@ -47,8 +47,6 @@ func (vc VZMacOSBootLoaderGuestTraceEventClass) Alloc() VZMacOSBootLoaderGuestTr
 //   - [VZMacOSBootLoaderGuestTraceEvent.Data1]
 //   - [VZMacOSBootLoaderGuestTraceEvent.Data2]
 //   - [VZMacOSBootLoaderGuestTraceEvent.Status]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent
 type VZMacOSBootLoaderGuestTraceEvent struct {
 	VZGuestTraceEvent
 }
@@ -69,8 +67,6 @@ var _ IVZMacOSBootLoaderGuestTraceEvent = VZMacOSBootLoaderGuestTraceEvent{}
 //   - [IVZMacOSBootLoaderGuestTraceEvent.Data1]
 //   - [IVZMacOSBootLoaderGuestTraceEvent.Data2]
 //   - [IVZMacOSBootLoaderGuestTraceEvent.Status]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent
 type IVZMacOSBootLoaderGuestTraceEvent interface {
 	IVZGuestTraceEvent
 
@@ -101,25 +97,18 @@ func NewVZMacOSBootLoaderGuestTraceEvent() VZMacOSBootLoaderGuestTraceEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent/data0
 func (v VZMacOSBootLoaderGuestTraceEvent) Data0() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("data0"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent/data1
 func (v VZMacOSBootLoaderGuestTraceEvent) Data1() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("data1"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent/data2
 func (v VZMacOSBootLoaderGuestTraceEvent) Data2() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("data2"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacOSBootLoaderGuestTraceEvent/status
 func (v VZMacOSBootLoaderGuestTraceEvent) Status() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("status"))
 	return rv

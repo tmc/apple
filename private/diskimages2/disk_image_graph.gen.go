@@ -84,8 +84,6 @@ func (dc DiskImageGraphClass) Alloc() DiskImageGraph {
 //   - [DiskImageGraph.InitWithGraphDBWorkDirError]
 //   - [DiskImageGraph.InitWithPluginNamePluginParamsTagError]
 //   - [DiskImageGraph.InitWithPstackURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph
 type DiskImageGraph struct {
 	objectivec.Object
 }
@@ -139,26 +137,24 @@ var _ IDiskImageGraph = DiskImageGraph{}
 //   - [IDiskImageGraph.InitWithGraphDBWorkDirError]
 //   - [IDiskImageGraph.InitWithPluginNamePluginParamsTagError]
 //   - [IDiskImageGraph.InitWithPstackURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph
 type IDiskImageGraph interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	URLRelativeToPstackParentWithURL(url foundation.INSURL) objectivec.IObject
+	URLRelativeToPstackParentWithURL(url foundation.NSURL) objectivec.IObject
 	ActiveInfoWithExtraError(extra bool) (objectivec.IObject, error)
 	ActiveNode() IDiskImageGraphNode
 	SetActiveNode(value IDiskImageGraphNode)
-	AppendCacheWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error)
-	AppendOverlayWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error)
-	AppendOverlayWithURLTagNumBlocksError(url foundation.INSURL, tag objectivec.IObject, blocks uint64) (bool, error)
-	AppendWithURLIsCacheTagNumBlocksSetNewActiveError(url foundation.INSURL, cache bool, tag objectivec.IObject, blocks uint64, active bool) (bool, error)
-	AppendWithURLIsCacheTagNumBlocksToNodeSetNewActiveError(url foundation.INSURL, cache bool, tag objectivec.IObject, blocks uint64, node objectivec.IObject, active bool) (bool, error)
-	AppendWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error)
+	AppendCacheWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error)
+	AppendOverlayWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error)
+	AppendOverlayWithURLTagNumBlocksError(url foundation.NSURL, tag objectivec.IObject, blocks uint64) (bool, error)
+	AppendWithURLIsCacheTagNumBlocksSetNewActiveError(url foundation.NSURL, cache bool, tag objectivec.IObject, blocks uint64, active bool) (bool, error)
+	AppendWithURLIsCacheTagNumBlocksToNodeSetNewActiveError(url foundation.NSURL, cache bool, tag objectivec.IObject, blocks uint64, node objectivec.IObject, active bool) (bool, error)
+	AppendWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error)
 	BaseNode() objectivec.IObject
 	CheckStackValidityWithError() (bool, error)
-	CloneToURLError(url foundation.INSURL) (objectivec.IObject, error)
+	CloneToURLError(url foundation.NSURL) (objectivec.IObject, error)
 	GetImageWithTagError(tag objectivec.IObject) (objectivec.IObject, error)
 	GetImageWithUUIDError(uuid objectivec.IObject) (objectivec.IObject, error)
 	GraphDB() foundation.INSDictionary
@@ -173,16 +169,16 @@ type IDiskImageGraph interface {
 	RemoveWithNodeRecursiveError(node objectivec.IObject, recursive bool) (bool, error)
 	RootNode() IDiskImageGraphNode
 	SavePstackWithError() (bool, error)
-	SavePstackWithURLError(url foundation.INSURL) (bool, error)
+	SavePstackWithURLError(url foundation.NSURL) (bool, error)
 	SetActiveNodeWithTagError(tag objectivec.IObject) (bool, error)
 	SetActiveNodeWithUUIDError(uuid objectivec.IObject) (bool, error)
-	ValidateAppendedImageWithURLParentNodeIsCacheError(url foundation.INSURL, node objectivec.IObject, cache bool) (bool, error)
-	InitWithBaseImageURLNewPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error)
-	InitWithBaseImageURLTagError(url foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error)
+	ValidateAppendedImageWithURLParentNodeIsCacheError(url foundation.NSURL, node objectivec.IObject, cache bool) (bool, error)
+	InitWithBaseImageURLNewPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error)
+	InitWithBaseImageURLTagError(url foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error)
 	InitWithGraphDBError(db objectivec.IObject) (DiskImageGraph, error)
 	InitWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (DiskImageGraph, error)
 	InitWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (DiskImageGraph, error)
-	InitWithPstackURLError(url foundation.INSURL) (DiskImageGraph, error)
+	InitWithPstackURLError(url foundation.NSURL) (DiskImageGraph, error)
 }
 
 // Init initializes the instance.
@@ -204,8 +200,7 @@ func NewDiskImageGraph() DiskImageGraph {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:newPstackURL:tag:error:
-func NewDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error) {
+func NewDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
@@ -216,8 +211,7 @@ func NewDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.INSURL
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:tag:error:
-func NewDiskImageGraphWithBaseImageURLTagError(url foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error) {
+func NewDiskImageGraphWithBaseImageURLTagError(url foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
@@ -228,7 +222,6 @@ func NewDiskImageGraphWithBaseImageURLTagError(url foundation.INSURL, tag object
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:error:
 func NewDiskImageGraphWithGraphDBError(db objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
@@ -240,7 +233,6 @@ func NewDiskImageGraphWithGraphDBError(db objectivec.IObject) (DiskImageGraph, e
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:workDir:error:
 func NewDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
@@ -252,7 +244,6 @@ func NewDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objecti
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithPluginName:pluginParams:tag:error:
 func NewDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
@@ -264,8 +255,7 @@ func NewDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithPstackURL:error:
-func NewDiskImageGraphWithPstackURLError(url foundation.INSURL) (DiskImageGraph, error) {
+func NewDiskImageGraphWithPstackURLError(url foundation.NSURL) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -276,13 +266,10 @@ func NewDiskImageGraphWithPstackURLError(url foundation.INSURL) (DiskImageGraph,
 	return DiskImageGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/URLRelativeToPstackParentWithURL:
-func (d DiskImageGraph) URLRelativeToPstackParentWithURL(url foundation.INSURL) objectivec.IObject {
+func (d DiskImageGraph) URLRelativeToPstackParentWithURL(url foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URLRelativeToPstackParentWithURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/activeInfoWithExtra:error:
 func (d DiskImageGraph) ActiveInfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeInfoWithExtra:error:"), extra, unsafe.Pointer(&errorPtr))
@@ -293,9 +280,7 @@ func (d DiskImageGraph) ActiveInfoWithExtraError(extra bool) (objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendCacheWithURL:tag:error:
-func (d DiskImageGraph) AppendCacheWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error) {
+func (d DiskImageGraph) AppendCacheWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendCacheWithURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -308,9 +293,7 @@ func (d DiskImageGraph) AppendCacheWithURLTagError(url foundation.INSURL, tag ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendOverlayWithURL:tag:error:
-func (d DiskImageGraph) AppendOverlayWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error) {
+func (d DiskImageGraph) AppendOverlayWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendOverlayWithURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -323,9 +306,7 @@ func (d DiskImageGraph) AppendOverlayWithURLTagError(url foundation.INSURL, tag 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendOverlayWithURL:tag:numBlocks:error:
-func (d DiskImageGraph) AppendOverlayWithURLTagNumBlocksError(url foundation.INSURL, tag objectivec.IObject, blocks uint64) (bool, error) {
+func (d DiskImageGraph) AppendOverlayWithURLTagNumBlocksError(url foundation.NSURL, tag objectivec.IObject, blocks uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendOverlayWithURL:tag:numBlocks:error:"), url, tag, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -338,9 +319,7 @@ func (d DiskImageGraph) AppendOverlayWithURLTagNumBlocksError(url foundation.INS
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendWithURL:isCache:tag:numBlocks:setNewActive:error:
-func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksSetNewActiveError(url foundation.INSURL, cache bool, tag objectivec.IObject, blocks uint64, active bool) (bool, error) {
+func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksSetNewActiveError(url foundation.NSURL, cache bool, tag objectivec.IObject, blocks uint64, active bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendWithURL:isCache:tag:numBlocks:setNewActive:error:"), url, cache, tag, blocks, active, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -353,9 +332,7 @@ func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksSetNewActiveError(url fo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendWithURL:isCache:tag:numBlocks:toNode:setNewActive:error:
-func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksToNodeSetNewActiveError(url foundation.INSURL, cache bool, tag objectivec.IObject, blocks uint64, node objectivec.IObject, active bool) (bool, error) {
+func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksToNodeSetNewActiveError(url foundation.NSURL, cache bool, tag objectivec.IObject, blocks uint64, node objectivec.IObject, active bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendWithURL:isCache:tag:numBlocks:toNode:setNewActive:error:"), url, cache, tag, blocks, node, active, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -368,9 +345,7 @@ func (d DiskImageGraph) AppendWithURLIsCacheTagNumBlocksToNodeSetNewActiveError(
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/appendWithURL:tag:error:
-func (d DiskImageGraph) AppendWithURLTagError(url foundation.INSURL, tag objectivec.IObject) (bool, error) {
+func (d DiskImageGraph) AppendWithURLTagError(url foundation.NSURL, tag objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("appendWithURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -383,14 +358,10 @@ func (d DiskImageGraph) AppendWithURLTagError(url foundation.INSURL, tag objecti
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/baseNode
 func (d DiskImageGraph) BaseNode() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("baseNode"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/checkStackValidityWithError:
 func (d DiskImageGraph) CheckStackValidityWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("checkStackValidityWithError:"), unsafe.Pointer(&errorPtr))
@@ -404,9 +375,7 @@ func (d DiskImageGraph) CheckStackValidityWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/cloneToURL:error:
-func (d DiskImageGraph) CloneToURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (d DiskImageGraph) CloneToURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("cloneToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -416,8 +385,6 @@ func (d DiskImageGraph) CloneToURLError(url foundation.INSURL) (objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getImageWithTag:error:
 func (d DiskImageGraph) GetImageWithTagError(tag objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getImageWithTag:error:"), tag, unsafe.Pointer(&errorPtr))
@@ -428,8 +395,6 @@ func (d DiskImageGraph) GetImageWithTagError(tag objectivec.IObject) (objectivec
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getImageWithUUID:error:
 func (d DiskImageGraph) GetImageWithUUIDError(uuid objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getImageWithUUID:error:"), uuid, unsafe.Pointer(&errorPtr))
@@ -440,8 +405,6 @@ func (d DiskImageGraph) GetImageWithUUIDError(uuid objectivec.IObject) (objectiv
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/infoWithExtra:error:
 func (d DiskImageGraph) InfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("infoWithExtra:error:"), extra, unsafe.Pointer(&errorPtr))
@@ -452,8 +415,6 @@ func (d DiskImageGraph) InfoWithExtraError(extra bool) (objectivec.IObject, erro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/removeNodeWithTag:recursive:error:
 func (d DiskImageGraph) RemoveNodeWithTagRecursiveError(tag objectivec.IObject, recursive bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("removeNodeWithTag:recursive:error:"), tag, recursive, unsafe.Pointer(&errorPtr))
@@ -467,8 +428,6 @@ func (d DiskImageGraph) RemoveNodeWithTagRecursiveError(tag objectivec.IObject, 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/removeNodeWithUUID:recursive:error:
 func (d DiskImageGraph) RemoveNodeWithUUIDRecursiveError(uuid objectivec.IObject, recursive bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("removeNodeWithUUID:recursive:error:"), uuid, recursive, unsafe.Pointer(&errorPtr))
@@ -482,8 +441,6 @@ func (d DiskImageGraph) RemoveNodeWithUUIDRecursiveError(uuid objectivec.IObject
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/removeWithNode:recursive:error:
 func (d DiskImageGraph) RemoveWithNodeRecursiveError(node objectivec.IObject, recursive bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("removeWithNode:recursive:error:"), node, recursive, unsafe.Pointer(&errorPtr))
@@ -497,8 +454,6 @@ func (d DiskImageGraph) RemoveWithNodeRecursiveError(node objectivec.IObject, re
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/savePstackWithError:
 func (d DiskImageGraph) SavePstackWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("savePstackWithError:"), unsafe.Pointer(&errorPtr))
@@ -512,9 +467,7 @@ func (d DiskImageGraph) SavePstackWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/savePstackWithURL:error:
-func (d DiskImageGraph) SavePstackWithURLError(url foundation.INSURL) (bool, error) {
+func (d DiskImageGraph) SavePstackWithURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("savePstackWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -527,8 +480,6 @@ func (d DiskImageGraph) SavePstackWithURLError(url foundation.INSURL) (bool, err
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/setActiveNodeWithTag:error:
 func (d DiskImageGraph) SetActiveNodeWithTagError(tag objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("setActiveNodeWithTag:error:"), tag, unsafe.Pointer(&errorPtr))
@@ -542,8 +493,6 @@ func (d DiskImageGraph) SetActiveNodeWithTagError(tag objectivec.IObject) (bool,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/setActiveNodeWithUUID:error:
 func (d DiskImageGraph) SetActiveNodeWithUUIDError(uuid objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("setActiveNodeWithUUID:error:"), uuid, unsafe.Pointer(&errorPtr))
@@ -557,9 +506,7 @@ func (d DiskImageGraph) SetActiveNodeWithUUIDError(uuid objectivec.IObject) (boo
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/validateAppendedImageWithURL:parentNode:isCache:error:
-func (d DiskImageGraph) ValidateAppendedImageWithURLParentNodeIsCacheError(url foundation.INSURL, node objectivec.IObject, cache bool) (bool, error) {
+func (d DiskImageGraph) ValidateAppendedImageWithURLParentNodeIsCacheError(url foundation.NSURL, node objectivec.IObject, cache bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("validateAppendedImageWithURL:parentNode:isCache:error:"), url, node, cache, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -572,9 +519,7 @@ func (d DiskImageGraph) ValidateAppendedImageWithURLParentNodeIsCacheError(url f
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:newPstackURL:tag:error:
-func (d DiskImageGraph) InitWithBaseImageURLNewPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error) {
+func (d DiskImageGraph) InitWithBaseImageURLNewPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -584,9 +529,7 @@ func (d DiskImageGraph) InitWithBaseImageURLNewPstackURLTagError(url foundation.
 	return DiskImageGraphFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:tag:error:
-func (d DiskImageGraph) InitWithBaseImageURLTagError(url foundation.INSURL, tag objectivec.IObject) (DiskImageGraph, error) {
+func (d DiskImageGraph) InitWithBaseImageURLTagError(url foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -596,8 +539,6 @@ func (d DiskImageGraph) InitWithBaseImageURLTagError(url foundation.INSURL, tag 
 	return DiskImageGraphFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:error:
 func (d DiskImageGraph) InitWithGraphDBError(db objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithGraphDB:error:"), db, unsafe.Pointer(&errorPtr))
@@ -608,8 +549,6 @@ func (d DiskImageGraph) InitWithGraphDBError(db objectivec.IObject) (DiskImageGr
 	return DiskImageGraphFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:workDir:error:
 func (d DiskImageGraph) InitWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithGraphDB:workDir:error:"), db, dir, unsafe.Pointer(&errorPtr))
@@ -620,8 +559,6 @@ func (d DiskImageGraph) InitWithGraphDBWorkDirError(db objectivec.IObject, dir o
 	return DiskImageGraphFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithPluginName:pluginParams:tag:error:
 func (d DiskImageGraph) InitWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithPluginName:pluginParams:tag:error:"), name, params, tag, unsafe.Pointer(&errorPtr))
@@ -632,9 +569,7 @@ func (d DiskImageGraph) InitWithPluginNamePluginParamsTagError(name objectivec.I
 	return DiskImageGraphFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithPstackURL:error:
-func (d DiskImageGraph) InitWithPstackURLError(url foundation.INSURL) (DiskImageGraph, error) {
+func (d DiskImageGraph) InitWithPstackURLError(url foundation.NSURL) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -645,7 +580,6 @@ func (d DiskImageGraph) InitWithPstackURLError(url foundation.INSURL) (DiskImage
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/copyDictNodesToFolder:dict:error:
 func (_DiskImageGraphClass DiskImageGraphClass) CopyDictNodesToFolderDictError(folder objectivec.IObject, dict objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("copyDictNodesToFolder:dict:error:"), folder, dict, unsafe.Pointer(&errorPtr))
@@ -659,14 +593,10 @@ func (_DiskImageGraphClass DiskImageGraphClass) CopyDictNodesToFolderDictError(f
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/createGraphDictWithNode:
 func (_DiskImageGraphClass DiskImageGraphClass) CreateGraphDictWithNode(node objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("createGraphDictWithNode:"), node)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/createNodesConnectivityWithNodesDict:error:
 func (_DiskImageGraphClass DiskImageGraphClass) CreateNodesConnectivityWithNodesDictError(dict objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("createNodesConnectivityWithNodesDict:error:"), dict, unsafe.Pointer(&errorPtr))
@@ -680,8 +610,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) CreateNodesConnectivityWithNodes
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/failWithNoPstackError:
 func (_DiskImageGraphClass DiskImageGraphClass) FailWithNoPstackError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("failWithNoPstackError:"), unsafe.Pointer(&errorPtr))
@@ -695,8 +623,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) FailWithNoPstackError() (bool, e
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getFirstNonCacheAncestorWithNode:error:
 func (_DiskImageGraphClass DiskImageGraphClass) GetFirstNonCacheAncestorWithNodeError(node objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("getFirstNonCacheAncestorWithNode:error:"), node, unsafe.Pointer(&errorPtr))
@@ -707,9 +633,7 @@ func (_DiskImageGraphClass DiskImageGraphClass) GetFirstNonCacheAncestorWithNode
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getImageInfoDictWithURL:error:
-func (_DiskImageGraphClass DiskImageGraphClass) GetImageInfoDictWithURLError(url foundation.INSURL) (objectivec.IObject, error) {
+func (_DiskImageGraphClass DiskImageGraphClass) GetImageInfoDictWithURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("getImageInfoDictWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -719,8 +643,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) GetImageInfoDictWithURLError(url
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:
 func (_DiskImageGraphClass DiskImageGraphClass) GetImageUUIDStrWithIdentityInfoStackableUUIDFallbackError(info objectivec.IObject, uUIDFallback bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:"), info, uUIDFallback, unsafe.Pointer(&errorPtr))
@@ -731,9 +653,7 @@ func (_DiskImageGraphClass DiskImageGraphClass) GetImageUUIDStrWithIdentityInfoS
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/getImageUUIDWithURL:allowMissingUUID:error:
-func (_DiskImageGraphClass DiskImageGraphClass) GetImageUUIDWithURLAllowMissingUUIDError(url foundation.INSURL, uuid bool) (objectivec.IObject, error) {
+func (_DiskImageGraphClass DiskImageGraphClass) GetImageUUIDWithURLAllowMissingUUIDError(url foundation.NSURL, uuid bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("getImageUUIDWithURL:allowMissingUUID:error:"), url, uuid, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -743,8 +663,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) GetImageUUIDWithURLAllowMissingU
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/loadPlistDictFromFileHandle:dict:error:
 func (_DiskImageGraphClass DiskImageGraphClass) LoadPlistDictFromFileHandleDictError(handle objectivec.IObject, dict []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("loadPlistDictFromFileHandle:dict:error:"), handle, objectivec.IObjectSliceToNSArray(dict), unsafe.Pointer(&errorPtr))
@@ -758,8 +676,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) LoadPlistDictFromFileHandleDictE
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/populateNodesDictsWithArray:workDir:nodesDict:error:
 func (_DiskImageGraphClass DiskImageGraphClass) PopulateNodesDictsWithArrayWorkDirNodesDictError(array objectivec.IObject, dir objectivec.IObject, dict objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("populateNodesDictsWithArray:workDir:nodesDict:error:"), array, dir, dict, unsafe.Pointer(&errorPtr))
@@ -773,8 +689,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) PopulateNodesDictsWithArrayWorkD
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/saveToPlistWithDictionary:URL:error:
 func (_DiskImageGraphClass DiskImageGraphClass) SaveToPlistWithDictionaryURLError(dictionary objectivec.IObject, rl objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("saveToPlistWithDictionary:URL:error:"), dictionary, rl, unsafe.Pointer(&errorPtr))
@@ -788,8 +702,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) SaveToPlistWithDictionaryURLErro
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/validateWithDictionary:error:
 func (_DiskImageGraphClass DiskImageGraphClass) ValidateWithDictionaryError(dictionary objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageGraphClass.class), objc.Sel("validateWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
@@ -804,7 +716,6 @@ func (_DiskImageGraphClass DiskImageGraphClass) ValidateWithDictionaryError(dict
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/activeNode
 func (d DiskImageGraph) ActiveNode() IDiskImageGraphNode {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeNode"))
 	return DiskImageGraphNodeFromID(objc.ID(rv))
@@ -812,8 +723,6 @@ func (d DiskImageGraph) ActiveNode() IDiskImageGraphNode {
 func (d DiskImageGraph) SetActiveNode(value IDiskImageGraphNode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setActiveNode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/graphDB
 func (d DiskImageGraph) GraphDB() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("graphDB"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -821,8 +730,6 @@ func (d DiskImageGraph) GraphDB() foundation.INSDictionary {
 func (d DiskImageGraph) SetGraphDB(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setGraphDB:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/imagesDictsArray
 func (d DiskImageGraph) ImagesDictsArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("imagesDictsArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -830,8 +737,6 @@ func (d DiskImageGraph) ImagesDictsArray() foundation.INSArray {
 func (d DiskImageGraph) SetImagesDictsArray(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setImagesDictsArray:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/nodes
 func (d DiskImageGraph) Nodes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("nodes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -839,8 +744,6 @@ func (d DiskImageGraph) Nodes() foundation.INSDictionary {
 func (d DiskImageGraph) SetNodes(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNodes:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/rootNode
 func (d DiskImageGraph) RootNode() IDiskImageGraphNode {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("rootNode"))
 	return DiskImageGraphNodeFromID(objc.ID(rv))

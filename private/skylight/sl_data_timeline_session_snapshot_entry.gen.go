@@ -52,8 +52,6 @@ func (sc SLDataTimelineSessionSnapshotEntryClass) Alloc() SLDataTimelineSessionS
 //   - [SLDataTimelineSessionSnapshotEntry.ProcessesArray]
 //   - [SLDataTimelineSessionSnapshotEntry.SessionSnapshotIndex]
 //   - [SLDataTimelineSessionSnapshotEntry.SessionSnapshotTimestamp]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry
 type SLDataTimelineSessionSnapshotEntry struct {
 	SLDataTimelineSessionEntry
 }
@@ -76,8 +74,6 @@ var _ ISLDataTimelineSessionSnapshotEntry = SLDataTimelineSessionSnapshotEntry{}
 //   - [ISLDataTimelineSessionSnapshotEntry.ProcessesArray]
 //   - [ISLDataTimelineSessionSnapshotEntry.SessionSnapshotIndex]
 //   - [ISLDataTimelineSessionSnapshotEntry.SessionSnapshotTimestamp]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry
 type ISLDataTimelineSessionSnapshotEntry interface {
 	ISLDataTimelineSessionEntry
 
@@ -110,44 +106,33 @@ func NewSLDataTimelineSessionSnapshotEntry() SLDataTimelineSessionSnapshotEntry 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/initWithXPCObject:
 func NewSLDataTimelineSessionSnapshotEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionSnapshotEntry {
 	instance := getSLDataTimelineSessionSnapshotEntryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineSessionSnapshotEntryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/processesApplyBlock:
 func (s SLDataTimelineSessionSnapshotEntry) ProcessesApplyBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("processesApplyBlock:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/foregroundAppPID
 func (s SLDataTimelineSessionSnapshotEntry) ForegroundAppPID() int {
 	rv := objc.Send[int](s.ID, objc.Sel("foregroundAppPID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/processes
 func (s SLDataTimelineSessionSnapshotEntry) Processes() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("processes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/processesArray
 func (s SLDataTimelineSessionSnapshotEntry) ProcessesArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("processesArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/sessionSnapshotIndex
 func (s SLDataTimelineSessionSnapshotEntry) SessionSnapshotIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("sessionSnapshotIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionSnapshotEntry/sessionSnapshotTimestamp
 func (s SLDataTimelineSessionSnapshotEntry) SessionSnapshotTimestamp() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("sessionSnapshotTimestamp"))
 	return rv

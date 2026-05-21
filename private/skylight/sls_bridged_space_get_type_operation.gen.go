@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceGetTypeOperationClass) Alloc() SLSBridgedSpaceGetTypeOpe
 //   - [SLSBridgedSpaceGetTypeOperation.MakeResultWithWorkspaceType]
 //   - [SLSBridgedSpaceGetTypeOperation.SpaceID]
 //   - [SLSBridgedSpaceGetTypeOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation
 type SLSBridgedSpaceGetTypeOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceGetTypeOperation = SLSBridgedSpaceGetTypeOperation{}
 //   - [ISLSBridgedSpaceGetTypeOperation.MakeResultWithWorkspaceType]
 //   - [ISLSBridgedSpaceGetTypeOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetTypeOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation
 type ISLSBridgedSpaceGetTypeOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceGetTypeOperation() SLSBridgedSpaceGetTypeOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation/initWithCoder:
 func NewSLSBridgedSpaceGetTypeOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetTypeOperation {
 	instance := getSLSBridgedSpaceGetTypeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetTypeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation/initWithSpaceID:
 func NewSLSBridgedSpaceGetTypeOperationWithSpaceID(id uint64) SLSBridgedSpaceGetTypeOperation {
 	instance := getSLSBridgedSpaceGetTypeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetTypeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation/makeResultWithWorkspaceType:
 func (s SLSBridgedSpaceGetTypeOperation) MakeResultWithWorkspaceType(type_ int) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithWorkspaceType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation/initWithSpaceID:
 func (s SLSBridgedSpaceGetTypeOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetTypeOperation {
 	rv := objc.Send[SLSBridgedSpaceGetTypeOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTypeOperation/spaceID
 func (s SLSBridgedSpaceGetTypeOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

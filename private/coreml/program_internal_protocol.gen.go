@@ -8,8 +8,6 @@ import (
 )
 
 // MLProgramInternal protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramInternal
 type MLProgramInternal interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLProgramInternalObjectFromID(id objc.ID) MLProgramInternalObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramInternal/evaluateFunction:arguments:error:
 func (o MLProgramInternalObject) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments)
 	if err != nil {
@@ -39,8 +36,6 @@ func (o MLProgramInternalObject) EvaluateFunctionArgumentsError(function objecti
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramInternal/newContextAndReturnError:
 func (o MLProgramInternalObject) NewContextAndReturnError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newContextAndReturnError:"))
 	if err != nil {

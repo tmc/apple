@@ -8,8 +8,6 @@ import (
 )
 
 // NWPrettyDescription protocol.
-//
-// See: https://developer.apple.com/documentation/Network/NWPrettyDescription
 type NWPrettyDescription interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func NWPrettyDescriptionObjectFromID(id objc.ID) NWPrettyDescriptionObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Network/NWPrettyDescription/descriptionWithIndent:showFullContent:
 func (o NWPrettyDescriptionObject) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}

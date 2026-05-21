@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSTaskRunnerClass) Alloc() TextToSpeechTTSTaskRunner {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSTaskRunner
 type TextToSpeechTTSTaskRunner struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSTaskRunnerFromID(id objc.ID) TextToSpeechTTSTaskRunner {
 // ITextToSpeechTTSTaskRunner embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSTaskRunner] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSTaskRunner
 type ITextToSpeechTTSTaskRunner interface {
 	objectivec.IObject
 }

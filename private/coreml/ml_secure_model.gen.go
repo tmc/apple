@@ -55,9 +55,6 @@ func (mc MLSecureModelClass) Alloc() MLSecureModel {
 //   - [MLSecureModel.PredictionsFromBatchOptionsError]
 //   - [MLSecureModel.SecureModelProxy]
 //   - [MLSecureModel.SetSecureModelProxy]
-//   - [MLSecureModel.Metadata]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel
 type MLSecureModel struct {
 	MLModel
 }
@@ -83,9 +80,6 @@ var _ IMLSecureModel = MLSecureModel{}
 //   - [IMLSecureModel.PredictionsFromBatchOptionsError]
 //   - [IMLSecureModel.SecureModelProxy]
 //   - [IMLSecureModel.SetSecureModelProxy]
-//   - [IMLSecureModel.Metadata]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel
 type IMLSecureModel interface {
 	IMLModel
 
@@ -100,7 +94,6 @@ type IMLSecureModel interface {
 	PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	SecureModelProxy() objectivec.Object
 	SetSecureModelProxy(value objectivec.Object)
-	Metadata() IMLModelMetadata
 }
 
 // Init initializes the instance.
@@ -122,7 +115,6 @@ func NewMLSecureModel() MLSecureModel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewSecureModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLSecureModel, error) {
 	var errorPtr objc.ID
 	instance := getMLSecureModelClass().Alloc()
@@ -134,7 +126,6 @@ func NewSecureModelDescriptionOnlyWithSpecificationConfigurationError(specificat
 	return MLSecureModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewSecureModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLSecureModel, error) {
 	var errorPtr objc.ID
 	instance := getMLSecureModelClass().Alloc()
@@ -146,42 +137,36 @@ func NewSecureModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.P
 	return MLSecureModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/initWithCoder:
 func NewSecureModelWithCoder(coder objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSecureModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewSecureModelWithConfiguration(configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLSecureModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewSecureModelWithDescription(description objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLSecureModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewSecureModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLSecureModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewSecureModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLSecureModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/parameterValueForKey:error:
 func (m MLSecureModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -192,8 +177,6 @@ func (m MLSecureModel) ParameterValueForKeyError(key objectivec.IObject) (object
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionFromFeatures:error:
 func (m MLSecureModel) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -204,8 +187,6 @@ func (m MLSecureModel) PredictionFromFeaturesError(features objectivec.IObject) 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionFromFeatures:options:error:
 func (m MLSecureModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -216,8 +197,6 @@ func (m MLSecureModel) PredictionFromFeaturesOptionsError(features objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionsFromBatch:error:
 func (m MLSecureModel) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:error:"), batch, unsafe.Pointer(&errorPtr))
@@ -228,8 +207,6 @@ func (m MLSecureModel) PredictionsFromBatchError(batch objectivec.IObject) (obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionsFromBatch:options:error:
 func (m MLSecureModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
@@ -241,8 +218,7 @@ func (m MLSecureModel) PredictionsFromBatchOptionsError(batch objectivec.IObject
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/modelWithContentsOfURL:configuration:decryptCredential:error:
-func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLConfigurationDecryptCredentialError(url foundation.INSURL, configuration objectivec.IObject, credential objectivec.IObject) (objectivec.IObject, error) {
+func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLConfigurationDecryptCredentialError(url foundation.NSURL, configuration objectivec.IObject, credential objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("modelWithContentsOfURL:configuration:decryptCredential:error:"), url, configuration, credential, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -252,9 +228,7 @@ func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLConfiguratio
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/modelWithContentsOfURL:decryptCredential:error:
-func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLDecryptCredentialError(url foundation.INSURL, credential objectivec.IObject) (objectivec.IObject, error) {
+func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLDecryptCredentialError(url foundation.NSURL, credential objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("modelWithContentsOfURL:decryptCredential:error:"), url, credential, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -264,26 +238,19 @@ func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLDecryptCrede
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/sandboxExtensionPathsForModelURL:
-func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionPathsForModelURL(url foundation.INSURL) objectivec.IObject {
+func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionPathsForModelURL(url foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionPathsForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/sandboxExtensionTokenForModelURL:
-func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionTokenForModelURL(url foundation.INSURL) objectivec.IObject {
+func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionTokenForModelURL(url foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionTokenForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/supportsSecureCoding
 func (_MLSecureModelClass MLSecureModelClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLSecureModelClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/connectionToModelSecurityService
 func (m MLSecureModel) ConnectionToModelSecurityService() foundation.NSXPCConnection {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("connectionToModelSecurityService"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
@@ -291,14 +258,6 @@ func (m MLSecureModel) ConnectionToModelSecurityService() foundation.NSXPCConnec
 func (m MLSecureModel) SetConnectionToModelSecurityService(value foundation.NSXPCConnection) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConnectionToModelSecurityService:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/metadata
-func (m MLSecureModel) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
-	return MLModelMetadataFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModel/secureModelProxy
 func (m MLSecureModel) SecureModelProxy() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("secureModelProxy"))
 	return objectivec.ObjectFromID(objc.ID(rv))

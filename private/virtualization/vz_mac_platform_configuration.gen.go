@@ -73,8 +73,6 @@ func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
 //   - [VZMacPlatformConfiguration.Set_sioDescramblerEnabled]
 //   - [VZMacPlatformConfiguration._strongIdentityEnabled]
 //   - [VZMacPlatformConfiguration.Set_strongIdentityEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration
 type VZMacPlatformConfiguration struct {
 	VZPlatformConfiguration
 }
@@ -120,15 +118,13 @@ var _ IVZMacPlatformConfiguration = VZMacPlatformConfiguration{}
 //   - [IVZMacPlatformConfiguration.Set_sioDescramblerEnabled]
 //   - [IVZMacPlatformConfiguration._strongIdentityEnabled]
 //   - [IVZMacPlatformConfiguration.Set_strongIdentityEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration
 type IVZMacPlatformConfiguration interface {
 	IVZPlatformConfiguration
 
 	// Topic: Methods
 
-	_guestEncryptionWrappingKey() *VZWrappingKey
-	Set_guestEncryptionWrappingKey(value *VZWrappingKey)
+	_guestEncryptionWrappingKey() IVZWrappingKey
+	Set_guestEncryptionWrappingKey(value IVZWrappingKey)
 	_hostAttributeShareOptions() uint64
 	Set_hostAttributeShareOptions(value uint64)
 	_isFairPlayEnabled() bool
@@ -136,8 +132,8 @@ type IVZMacPlatformConfiguration interface {
 	_isProductionModeEnabled() bool
 	_isSIODescramblerEnabled() bool
 	_isStrongIdentityEnabled() bool
-	_remoteServiceDiscoveryConfiguration() *VZMacRemoteServiceDiscoveryConfiguration
-	Set_remoteServiceDiscoveryConfiguration(value *VZMacRemoteServiceDiscoveryConfiguration)
+	_remoteServiceDiscoveryConfiguration() IVZMacRemoteServiceDiscoveryConfiguration
+	Set_remoteServiceDiscoveryConfiguration(value IVZMacRemoteServiceDiscoveryConfiguration)
 	_setFairPlayEnabled(enabled bool)
 	_setFakeEncryptionEnabled(enabled bool)
 	_setGuestEncryptionWrappingKey(key objectivec.IObject)
@@ -177,7 +173,6 @@ func NewVZMacPlatformConfiguration() VZMacPlatformConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isFairPlayEnabled
 func (v VZMacPlatformConfiguration) _isFairPlayEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isFairPlayEnabled"))
 	return rv
@@ -196,8 +191,6 @@ func (v VZMacPlatformConfiguration) IsFairPlayEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) CanIsFairPlayEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isFairPlayEnabled"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isFakeEncryptionEnabled
 func (v VZMacPlatformConfiguration) _isFakeEncryptionEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isFakeEncryptionEnabled"))
 	return rv
@@ -216,8 +209,6 @@ func (v VZMacPlatformConfiguration) IsFakeEncryptionEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) CanIsFakeEncryptionEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isFakeEncryptionEnabled"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isProductionModeEnabled
 func (v VZMacPlatformConfiguration) _isProductionModeEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isProductionModeEnabled"))
 	return rv
@@ -236,8 +227,6 @@ func (v VZMacPlatformConfiguration) IsProductionModeEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) CanIsProductionModeEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isProductionModeEnabled"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isSIODescramblerEnabled
 func (v VZMacPlatformConfiguration) _isSIODescramblerEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isSIODescramblerEnabled"))
 	return rv
@@ -256,8 +245,6 @@ func (v VZMacPlatformConfiguration) IsSIODescramblerEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) CanIsSIODescramblerEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isSIODescramblerEnabled"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isStrongIdentityEnabled
 func (v VZMacPlatformConfiguration) _isStrongIdentityEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_isStrongIdentityEnabled"))
 	return rv
@@ -276,8 +263,6 @@ func (v VZMacPlatformConfiguration) IsStrongIdentityEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) CanIsStrongIdentityEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isStrongIdentityEnabled"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setFairPlayEnabled:
 func (v VZMacPlatformConfiguration) _setFairPlayEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setFairPlayEnabled:"), enabled)
 }
@@ -296,8 +281,6 @@ func (v VZMacPlatformConfiguration) SetFairPlayEnabled(enabled bool) error {
 func (v VZMacPlatformConfiguration) CanSetFairPlayEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFairPlayEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setFakeEncryptionEnabled:
 func (v VZMacPlatformConfiguration) _setFakeEncryptionEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setFakeEncryptionEnabled:"), enabled)
 }
@@ -316,8 +299,6 @@ func (v VZMacPlatformConfiguration) SetFakeEncryptionEnabled(enabled bool) error
 func (v VZMacPlatformConfiguration) CanSetFakeEncryptionEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFakeEncryptionEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setGuestEncryptionWrappingKey:
 func (v VZMacPlatformConfiguration) _setGuestEncryptionWrappingKey(key objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setGuestEncryptionWrappingKey:"), key)
 }
@@ -336,8 +317,6 @@ func (v VZMacPlatformConfiguration) SetGuestEncryptionWrappingKey(key objectivec
 func (v VZMacPlatformConfiguration) CanSetGuestEncryptionWrappingKey() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGuestEncryptionWrappingKey:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setHostAttributeShareOptions:
 func (v VZMacPlatformConfiguration) _setHostAttributeShareOptions(options uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setHostAttributeShareOptions:"), options)
 }
@@ -356,8 +335,6 @@ func (v VZMacPlatformConfiguration) SetHostAttributeShareOptions(options uint64)
 func (v VZMacPlatformConfiguration) CanSetHostAttributeShareOptions() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setHostAttributeShareOptions:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setProductionModeEnabled:
 func (v VZMacPlatformConfiguration) _setProductionModeEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setProductionModeEnabled:"), enabled)
 }
@@ -376,8 +353,6 @@ func (v VZMacPlatformConfiguration) SetProductionModeEnabled(enabled bool) error
 func (v VZMacPlatformConfiguration) CanSetProductionModeEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setProductionModeEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setRemoteServiceDiscoveryConfiguration:
 func (v VZMacPlatformConfiguration) _setRemoteServiceDiscoveryConfiguration(configuration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"), configuration)
 }
@@ -396,8 +371,6 @@ func (v VZMacPlatformConfiguration) SetRemoteServiceDiscoveryConfiguration(confi
 func (v VZMacPlatformConfiguration) CanSetRemoteServiceDiscoveryConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setSIODescramblerEnabled:
 func (v VZMacPlatformConfiguration) _setSIODescramblerEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setSIODescramblerEnabled:"), enabled)
 }
@@ -416,8 +389,6 @@ func (v VZMacPlatformConfiguration) SetSIODescramblerEnabled(enabled bool) error
 func (v VZMacPlatformConfiguration) CanSetSIODescramblerEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSIODescramblerEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setStrongIdentityEnabled:
 func (v VZMacPlatformConfiguration) _setStrongIdentityEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setStrongIdentityEnabled:"), enabled)
 }
@@ -437,7 +408,6 @@ func (v VZMacPlatformConfiguration) CanSetStrongIdentityEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setStrongIdentityEnabled:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_fairPlayEnabled
 func (v VZMacPlatformConfiguration) _fairPlayEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_fairPlayEnabled"))
 	return rv
@@ -458,8 +428,6 @@ func (v VZMacPlatformConfiguration) FairPlayEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) Set_fairPlayEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fairPlayEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_fakeEncryptionEnabled
 func (v VZMacPlatformConfiguration) _fakeEncryptionEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_fakeEncryptionEnabled"))
 	return rv
@@ -480,15 +448,9 @@ func (v VZMacPlatformConfiguration) FakeEncryptionEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) Set_fakeEncryptionEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fakeEncryptionEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_guestEncryptionWrappingKey
-func (v VZMacPlatformConfiguration) _guestEncryptionWrappingKey() *VZWrappingKey {
+func (v VZMacPlatformConfiguration) _guestEncryptionWrappingKey() IVZWrappingKey {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_guestEncryptionWrappingKey"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZWrappingKeyFromID(objc.ID(rv))
-	return &val
+	return VZWrappingKeyFromID(objc.ID(rv))
 }
 
 // CanGuestEncryptionWrappingKey reports whether the receiver responds to the private selector _guestEncryptionWrappingKey.
@@ -497,21 +459,15 @@ func (v VZMacPlatformConfiguration) CanGuestEncryptionWrappingKey() bool {
 }
 
 // GuestEncryptionWrappingKey is an exported wrapper for the private property _guestEncryptionWrappingKey.
-func (v VZMacPlatformConfiguration) GuestEncryptionWrappingKey() (*VZWrappingKey, error) {
+func (v VZMacPlatformConfiguration) GuestEncryptionWrappingKey() (IVZWrappingKey, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_guestEncryptionWrappingKey")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_guestEncryptionWrappingKey"}
 	}
 	return v._guestEncryptionWrappingKey(), nil
 }
-func (v VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value *VZWrappingKey) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_guestEncryptionWrappingKey:"), objc.ID(0))
-		return
-	}
+func (v VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value IVZWrappingKey) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_guestEncryptionWrappingKey:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_hostAttributeShareOptions
 func (v VZMacPlatformConfiguration) _hostAttributeShareOptions() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("_hostAttributeShareOptions"))
 	return rv
@@ -532,8 +488,6 @@ func (v VZMacPlatformConfiguration) HostAttributeShareOptions() (uint64, error) 
 func (v VZMacPlatformConfiguration) Set_hostAttributeShareOptions(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_hostAttributeShareOptions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_productionModeEnabled
 func (v VZMacPlatformConfiguration) _productionModeEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_productionModeEnabled"))
 	return rv
@@ -554,15 +508,9 @@ func (v VZMacPlatformConfiguration) ProductionModeEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) Set_productionModeEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_productionModeEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_remoteServiceDiscoveryConfiguration
-func (v VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() *VZMacRemoteServiceDiscoveryConfiguration {
+func (v VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() IVZMacRemoteServiceDiscoveryConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_remoteServiceDiscoveryConfiguration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
 }
 
 // CanRemoteServiceDiscoveryConfiguration reports whether the receiver responds to the private selector _remoteServiceDiscoveryConfiguration.
@@ -571,21 +519,15 @@ func (v VZMacPlatformConfiguration) CanRemoteServiceDiscoveryConfiguration() boo
 }
 
 // RemoteServiceDiscoveryConfiguration is an exported wrapper for the private property _remoteServiceDiscoveryConfiguration.
-func (v VZMacPlatformConfiguration) RemoteServiceDiscoveryConfiguration() (*VZMacRemoteServiceDiscoveryConfiguration, error) {
+func (v VZMacPlatformConfiguration) RemoteServiceDiscoveryConfiguration() (IVZMacRemoteServiceDiscoveryConfiguration, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_remoteServiceDiscoveryConfiguration")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_remoteServiceDiscoveryConfiguration"}
 	}
 	return v._remoteServiceDiscoveryConfiguration(), nil
 }
-func (v VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value *VZMacRemoteServiceDiscoveryConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value IVZMacRemoteServiceDiscoveryConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_sioDescramblerEnabled
 func (v VZMacPlatformConfiguration) _sioDescramblerEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_sioDescramblerEnabled"))
 	return rv
@@ -606,8 +548,6 @@ func (v VZMacPlatformConfiguration) SioDescramblerEnabled() (bool, error) {
 func (v VZMacPlatformConfiguration) Set_sioDescramblerEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_sioDescramblerEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_strongIdentityEnabled
 func (v VZMacPlatformConfiguration) _strongIdentityEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_strongIdentityEnabled"))
 	return rv

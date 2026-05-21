@@ -51,8 +51,6 @@ func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 //   - [VZStorageDevice._initWithVirtualMachineStorageDeviceIndexAttachment]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZStorageDevice._setVirtualMachine]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice
 type VZStorageDevice struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZStorageDevice = VZStorageDevice{}
 //   - [IVZStorageDevice._initWithVirtualMachineStorageDeviceIndexAttachment]
 //   - [IVZStorageDevice._setAttachmentCompletionHandler]
 //   - [IVZStorageDevice._setVirtualMachine]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice
 type IVZStorageDevice interface {
 	objectivec.IObject
 
@@ -109,7 +105,6 @@ func NewVZStorageDevice() VZStorageDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_attachment
 func (v VZStorageDevice) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
@@ -128,8 +123,6 @@ func (v VZStorageDevice) Attachment() (objectivec.IObject, error) {
 func (v VZStorageDevice) CanAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_attachment"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithAttachment:
 func (v VZStorageDevice) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
@@ -148,8 +141,6 @@ func (v VZStorageDevice) InitWithAttachment(attachment objectivec.IObject) (obje
 func (v VZStorageDevice) CanInitWithAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:attachment:
 func (v VZStorageDevice) _initWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:attachment:"), machine, attachment)
 	return objectivec.Object{ID: rv}
@@ -168,8 +159,6 @@ func (v VZStorageDevice) InitWithVirtualMachineAttachment(machine objectivec.IOb
 func (v VZStorageDevice) CanInitWithVirtualMachineAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:attachment:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:storageDeviceIndex:attachment:
 func (v VZStorageDevice) _initWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"), machine, index, attachment)
 	return objectivec.Object{ID: rv}
@@ -188,8 +177,6 @@ func (v VZStorageDevice) InitWithVirtualMachineStorageDeviceIndexAttachment(mach
 func (v VZStorageDevice) CanInitWithVirtualMachineStorageDeviceIndexAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setAttachment:completionHandler:
 func (v VZStorageDevice) _setAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_setAttachment:completionHandler:"), attachment, _block1)
@@ -209,8 +196,6 @@ func (v VZStorageDevice) SetAttachmentCompletionHandler(attachment objectivec.IO
 func (v VZStorageDevice) CanSetAttachmentCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setVirtualMachine:
 func (v VZStorageDevice) _setVirtualMachine(machine objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setVirtualMachine:"), machine)
 }

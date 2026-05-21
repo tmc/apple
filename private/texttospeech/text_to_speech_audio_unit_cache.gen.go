@@ -42,7 +42,6 @@ func (tc TextToSpeechAudioUnitCacheClass) Alloc() TextToSpeechAudioUnitCache {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AudioUnitCache
 type TextToSpeechAudioUnitCache struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAudioUnitCacheFromID(id objc.ID) TextToSpeechAudioUnitCache {
 // ITextToSpeechAudioUnitCache embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAudioUnitCache] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AudioUnitCache
 type ITextToSpeechAudioUnitCache interface {
 	objectivec.IObject
 }

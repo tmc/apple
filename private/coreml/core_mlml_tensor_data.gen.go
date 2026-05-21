@@ -42,7 +42,6 @@ func (cc CoreMLMLTensorDataClass) Alloc() CoreMLMLTensorData {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLTensorData
 type CoreMLMLTensorData struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLTensorDataFromID(id objc.ID) CoreMLMLTensorData {
 // ICoreMLMLTensorData embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLTensorData] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLTensorData
 type ICoreMLMLTensorData interface {
 	objectivec.IObject
 }

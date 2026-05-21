@@ -8,8 +8,6 @@ import (
 )
 
 // NSCopying protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/NSCopying
 type NSCopying interface {
 	objectivec.IObject
 }

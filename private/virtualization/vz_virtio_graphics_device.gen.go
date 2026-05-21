@@ -41,7 +41,6 @@ func (vc VZVirtioGraphicsDeviceClass) Alloc() VZVirtioGraphicsDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDevice
 type VZVirtioGraphicsDevice struct {
 	VZGraphicsDevice
 }
@@ -55,8 +54,6 @@ func VZVirtioGraphicsDeviceFromID(id objc.ID) VZVirtioGraphicsDevice {
 var _ IVZVirtioGraphicsDevice = VZVirtioGraphicsDevice{}
 
 // An interface definition for the [VZVirtioGraphicsDevice] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDevice
 type IVZVirtioGraphicsDevice interface {
 	IVZGraphicsDevice
 }

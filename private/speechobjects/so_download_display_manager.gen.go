@@ -48,8 +48,6 @@ func (sc SODownloadDisplayManagerClass) Alloc() SODownloadDisplayManager {
 //   - [SODownloadDisplayManager._averagedTimeInterval]
 //   - [SODownloadDisplayManager.Reset]
 //   - [SODownloadDisplayManager.TimeRemainingForActiveInstallationsWithTagPrefix]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager
 type SODownloadDisplayManager struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ ISODownloadDisplayManager = SODownloadDisplayManager{}
 //   - [ISODownloadDisplayManager._averagedTimeInterval]
 //   - [ISODownloadDisplayManager.Reset]
 //   - [ISODownloadDisplayManager.TimeRemainingForActiveInstallationsWithTagPrefix]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager
 type ISODownloadDisplayManager interface {
 	objectivec.IObject
 
@@ -102,7 +98,6 @@ func NewSODownloadDisplayManager() SODownloadDisplayManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/_appendAveragingTimeInterval:
 func (s SODownloadDisplayManager) _appendAveragingTimeInterval(interval float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_appendAveragingTimeInterval:"), interval)
 }
@@ -121,8 +116,6 @@ func (s SODownloadDisplayManager) AppendAveragingTimeInterval(interval float64) 
 func (s SODownloadDisplayManager) CanAppendAveragingTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_appendAveragingTimeInterval:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/_averagedTimeInterval
 func (s SODownloadDisplayManager) _averagedTimeInterval() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("_averagedTimeInterval"))
 	return rv
@@ -141,13 +134,9 @@ func (s SODownloadDisplayManager) AveragedTimeInterval() (float64, error) {
 func (s SODownloadDisplayManager) CanAveragedTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_averagedTimeInterval"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/reset
 func (s SODownloadDisplayManager) Reset() {
 	objc.Send[objc.ID](s.ID, objc.Sel("reset"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/timeRemainingForActiveInstallations:withTagPrefix:
 func (s SODownloadDisplayManager) TimeRemainingForActiveInstallationsWithTagPrefix(installations objectivec.IObject, prefix objectivec.IObject) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("timeRemainingForActiveInstallations:withTagPrefix:"), installations, prefix)
 	return rv

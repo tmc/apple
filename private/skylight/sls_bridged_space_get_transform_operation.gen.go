@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceGetTransformOperationClass) Alloc() SLSBridgedSpaceGetTr
 //   - [SLSBridgedSpaceGetTransformOperation.MakeResultWithAffineTransformOptions]
 //   - [SLSBridgedSpaceGetTransformOperation.SpaceID]
 //   - [SLSBridgedSpaceGetTransformOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation
 type SLSBridgedSpaceGetTransformOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceGetTransformOperation = SLSBridgedSpaceGetTransformOperati
 //   - [ISLSBridgedSpaceGetTransformOperation.MakeResultWithAffineTransformOptions]
 //   - [ISLSBridgedSpaceGetTransformOperation.SpaceID]
 //   - [ISLSBridgedSpaceGetTransformOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation
 type ISLSBridgedSpaceGetTransformOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceGetTransformOperation() SLSBridgedSpaceGetTransformOperat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation/initWithCoder:
 func NewSLSBridgedSpaceGetTransformOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetTransformOperation {
 	instance := getSLSBridgedSpaceGetTransformOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetTransformOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation/initWithSpaceID:
 func NewSLSBridgedSpaceGetTransformOperationWithSpaceID(id uint64) SLSBridgedSpaceGetTransformOperation {
 	instance := getSLSBridgedSpaceGetTransformOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetTransformOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation/makeResultWithAffineTransform:options:
 func (s SLSBridgedSpaceGetTransformOperation) MakeResultWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithAffineTransform:options:"), transform, options)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation/initWithSpaceID:
 func (s SLSBridgedSpaceGetTransformOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetTransformOperation {
 	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceGetTransformOperation/spaceID
 func (s SLSBridgedSpaceGetTransformOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

@@ -10,8 +10,6 @@ import (
 )
 
 // MLModelAssetDescriptionLoader protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionLoader
 type MLModelAssetDescriptionLoader interface {
 	objectivec.IObject
 }
@@ -33,7 +31,6 @@ func MLModelAssetDescriptionLoaderObjectFromID(id objc.ID) MLModelAssetDescripti
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionLoader/loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (o MLModelAssetDescriptionLoaderObject) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration)
 	if err != nil {

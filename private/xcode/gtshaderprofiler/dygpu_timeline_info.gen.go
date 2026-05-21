@@ -68,8 +68,6 @@ func (dc DYGPUTimelineInfoClass) Alloc() DYGPUTimelineInfo {
 //   - [DYGPUTimelineInfo.Timestamps]
 //   - [DYGPUTimelineInfo.SetTimestamps]
 //   - [DYGPUTimelineInfo.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo
 type DYGPUTimelineInfo struct {
 	objectivec.Object
 }
@@ -108,34 +106,32 @@ var _ IDYGPUTimelineInfo = DYGPUTimelineInfo{}
 //   - [IDYGPUTimelineInfo.Timestamps]
 //   - [IDYGPUTimelineInfo.SetTimestamps]
 //   - [IDYGPUTimelineInfo.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo
 type IDYGPUTimelineInfo interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ActiveCoreInfoMasksPerPeriodicSample() foundation.INSData
-	SetActiveCoreInfoMasksPerPeriodicSample(value foundation.INSData)
-	ActiveShadersPerPeriodicSample() foundation.INSData
-	SetActiveShadersPerPeriodicSample(value foundation.INSData)
+	ActiveCoreInfoMasksPerPeriodicSample() foundation.NSData
+	SetActiveCoreInfoMasksPerPeriodicSample(value foundation.NSData)
+	ActiveShadersPerPeriodicSample() foundation.NSData
+	SetActiveShadersPerPeriodicSample(value foundation.NSData)
 	DerivedCounterNames() foundation.INSArray
 	SetDerivedCounterNames(value foundation.INSArray)
-	DerivedCounters() foundation.INSData
-	SetDerivedCounters(value foundation.INSData)
+	DerivedCounters() foundation.NSData
+	SetDerivedCounters(value foundation.NSData)
 	EncodeWithCoder(coder foundation.INSCoder)
-	EncoderTimelineInfos() foundation.INSData
-	SetEncoderTimelineInfos(value foundation.INSData)
+	EncoderTimelineInfos() foundation.NSData
+	SetEncoderTimelineInfos(value foundation.NSData)
 	EnumerateActiveShadersForAllSamples(samples VoidHandler)
 	EnumerateActiveShadersForSampleAtIndexWithBlock(index uint32, block VoidHandler)
-	MetalFXTimelineInfo() foundation.INSData
-	SetMetalFXTimelineInfo(value foundation.INSData)
-	NumActiveShadersPerPeriodicSample() foundation.INSData
-	SetNumActiveShadersPerPeriodicSample(value foundation.INSData)
+	MetalFXTimelineInfo() foundation.NSData
+	SetMetalFXTimelineInfo(value foundation.NSData)
+	NumActiveShadersPerPeriodicSample() foundation.NSData
+	SetNumActiveShadersPerPeriodicSample(value foundation.NSData)
 	NumPeriodicSamples() uint32
 	SetNumPeriodicSamples(value uint32)
-	Timestamps() foundation.INSData
-	SetTimestamps(value foundation.INSData)
+	Timestamps() foundation.NSData
+	SetTimestamps(value foundation.NSData)
 	InitWithCoder(coder foundation.INSCoder) DYGPUTimelineInfo
 }
 
@@ -158,61 +154,47 @@ func NewDYGPUTimelineInfo() DYGPUTimelineInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/initWithCoder:
 func NewDYGPUTimelineInfoWithCoder(coder objectivec.IObject) DYGPUTimelineInfo {
 	instance := getDYGPUTimelineInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYGPUTimelineInfoFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/encodeWithCoder:
 func (d DYGPUTimelineInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/enumerateActiveShadersForAllSamples:
 func (d DYGPUTimelineInfo) EnumerateActiveShadersForAllSamples(samples VoidHandler) {
 	_block0, _ := NewVoidBlock(samples)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForAllSamples:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/enumerateActiveShadersForSampleAtIndex:withBlock:
 func (d DYGPUTimelineInfo) EnumerateActiveShadersForSampleAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForSampleAtIndex:withBlock:"), index, _block1)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/initWithCoder:
 func (d DYGPUTimelineInfo) InitWithCoder(coder foundation.INSCoder) DYGPUTimelineInfo {
 	rv := objc.Send[DYGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/supportsSecureCoding
 func (_DYGPUTimelineInfoClass DYGPUTimelineInfoClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DYGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/activeCoreInfoMasksPerPeriodicSample
-func (d DYGPUTimelineInfo) ActiveCoreInfoMasksPerPeriodicSample() foundation.INSData {
+func (d DYGPUTimelineInfo) ActiveCoreInfoMasksPerPeriodicSample() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeCoreInfoMasksPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetActiveCoreInfoMasksPerPeriodicSample(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetActiveCoreInfoMasksPerPeriodicSample(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setActiveCoreInfoMasksPerPeriodicSample:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/activeShadersPerPeriodicSample
-func (d DYGPUTimelineInfo) ActiveShadersPerPeriodicSample() foundation.INSData {
+func (d DYGPUTimelineInfo) ActiveShadersPerPeriodicSample() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeShadersPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetActiveShadersPerPeriodicSample(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetActiveShadersPerPeriodicSample(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setActiveShadersPerPeriodicSample:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/derivedCounterNames
 func (d DYGPUTimelineInfo) DerivedCounterNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -220,44 +202,34 @@ func (d DYGPUTimelineInfo) DerivedCounterNames() foundation.INSArray {
 func (d DYGPUTimelineInfo) SetDerivedCounterNames(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/derivedCounters
-func (d DYGPUTimelineInfo) DerivedCounters() foundation.INSData {
+func (d DYGPUTimelineInfo) DerivedCounters() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounters"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetDerivedCounters(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetDerivedCounters(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/encoderTimelineInfos
-func (d DYGPUTimelineInfo) EncoderTimelineInfos() foundation.INSData {
+func (d DYGPUTimelineInfo) EncoderTimelineInfos() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("encoderTimelineInfos"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetEncoderTimelineInfos(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetEncoderTimelineInfos(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncoderTimelineInfos:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/metalFXTimelineInfo
-func (d DYGPUTimelineInfo) MetalFXTimelineInfo() foundation.INSData {
+func (d DYGPUTimelineInfo) MetalFXTimelineInfo() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("metalFXTimelineInfo"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetMetalFXTimelineInfo(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetMetalFXTimelineInfo(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMetalFXTimelineInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/numActiveShadersPerPeriodicSample
-func (d DYGPUTimelineInfo) NumActiveShadersPerPeriodicSample() foundation.INSData {
+func (d DYGPUTimelineInfo) NumActiveShadersPerPeriodicSample() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("numActiveShadersPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetNumActiveShadersPerPeriodicSample(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetNumActiveShadersPerPeriodicSample(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNumActiveShadersPerPeriodicSample:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/numPeriodicSamples
 func (d DYGPUTimelineInfo) NumPeriodicSamples() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("numPeriodicSamples"))
 	return rv
@@ -265,13 +237,11 @@ func (d DYGPUTimelineInfo) NumPeriodicSamples() uint32 {
 func (d DYGPUTimelineInfo) SetNumPeriodicSamples(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNumPeriodicSamples:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUTimelineInfo/timestamps
-func (d DYGPUTimelineInfo) Timestamps() foundation.INSData {
+func (d DYGPUTimelineInfo) Timestamps() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("timestamps"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d DYGPUTimelineInfo) SetTimestamps(value foundation.INSData) {
+func (d DYGPUTimelineInfo) SetTimestamps(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
 }
 

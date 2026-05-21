@@ -8,8 +8,6 @@ import (
 )
 
 // CPXRemoteViewEventServerConfig protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerConfig
 type CPXRemoteViewEventServerConfig interface {
 	objectivec.IObject
 }
@@ -31,19 +29,14 @@ func CPXRemoteViewEventServerConfigObjectFromID(id objc.ID) CPXRemoteViewEventSe
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerConfig/listenerDomain
 func (o CPXRemoteViewEventServerConfigObject) ListenerDomain() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("listenerDomain"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerConfig/listenerService
 func (o CPXRemoteViewEventServerConfigObject) ListenerService() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("listenerService"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServerConfig/remoteViewEventManagerForConnection:
 func (o CPXRemoteViewEventServerConfigObject) RemoteViewEventManagerForConnection(connection objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteViewEventManagerForConnection:"), connection)
 	return objectivec.Object{ID: rv}

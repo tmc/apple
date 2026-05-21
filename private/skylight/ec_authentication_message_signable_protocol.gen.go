@@ -8,8 +8,6 @@ import (
 )
 
 // ECAuthenticationMessageSignable protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSignable
 type ECAuthenticationMessageSignable interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func ECAuthenticationMessageSignableObjectFromID(id objc.ID) ECAuthenticationMes
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSignable/addToSigningContext:
 func (o ECAuthenticationMessageSignableObject) AddToSigningContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("addToSigningContext:"), context)
 }

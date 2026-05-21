@@ -51,8 +51,6 @@ func (sc SLSBridgedSpaceSetEdgeReservationOperationClass) Alloc() SLSBridgedSpac
 //   - [SLSBridgedSpaceSetEdgeReservationOperation.SpaceID]
 //   - [SLSBridgedSpaceSetEdgeReservationOperation.Top]
 //   - [SLSBridgedSpaceSetEdgeReservationOperation.InitWithSpaceIDEdgeMaskLeftRightTopBottom]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation
 type SLSBridgedSpaceSetEdgeReservationOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -76,8 +74,6 @@ var _ ISLSBridgedSpaceSetEdgeReservationOperation = SLSBridgedSpaceSetEdgeReserv
 //   - [ISLSBridgedSpaceSetEdgeReservationOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetEdgeReservationOperation.Top]
 //   - [ISLSBridgedSpaceSetEdgeReservationOperation.InitWithSpaceIDEdgeMaskLeftRightTopBottom]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation
 type ISLSBridgedSpaceSetEdgeReservationOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -111,57 +107,43 @@ func NewSLSBridgedSpaceSetEdgeReservationOperation() SLSBridgedSpaceSetEdgeReser
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/initWithCoder:
 func NewSLSBridgedSpaceSetEdgeReservationOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetEdgeReservationOperation {
 	instance := getSLSBridgedSpaceSetEdgeReservationOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetEdgeReservationOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/initWithSpaceID:edgeMask:left:right:top:bottom:
 func NewSLSBridgedSpaceSetEdgeReservationOperationWithSpaceIDEdgeMaskLeftRightTopBottom(id uint64, mask uint64, left float64, right float64, top float64, bottom float64) SLSBridgedSpaceSetEdgeReservationOperation {
 	instance := getSLSBridgedSpaceSetEdgeReservationOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
 	return SLSBridgedSpaceSetEdgeReservationOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/initWithSpaceID:edgeMask:left:right:top:bottom:
 func (s SLSBridgedSpaceSetEdgeReservationOperation) InitWithSpaceIDEdgeMaskLeftRightTopBottom(id uint64, mask uint64, left float64, right float64, top float64, bottom float64) SLSBridgedSpaceSetEdgeReservationOperation {
 	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/bottom
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Bottom() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("bottom"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/edgeMask
 func (s SLSBridgedSpaceSetEdgeReservationOperation) EdgeMask() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("edgeMask"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/left
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Left() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("left"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/right
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Right() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("right"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/spaceID
 func (s SLSBridgedSpaceSetEdgeReservationOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetEdgeReservationOperation/top
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Top() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("top"))
 	return rv

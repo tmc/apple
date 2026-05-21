@@ -8,8 +8,6 @@ import (
 )
 
 // NSXPCListenerDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/NSXPCListenerDelegate
 type NSXPCListenerDelegate interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/NSXPCListenerDelegate/listener:shouldAcceptNewConnection:
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
 	return rv

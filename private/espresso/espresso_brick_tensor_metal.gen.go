@@ -4,9 +4,10 @@ package espresso
 
 import (
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [EspressoBrickTensorMetal] class.
@@ -46,8 +47,6 @@ func (ec EspressoBrickTensorMetalClass) Alloc() EspressoBrickTensorMetal {
 //
 //   - [EspressoBrickTensorMetal.Texture]
 //   - [EspressoBrickTensorMetal.SetTexture]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal
 type EspressoBrickTensorMetal struct {
 	EspressoBrickTensor
 }
@@ -66,15 +65,13 @@ var _ IEspressoBrickTensorMetal = EspressoBrickTensorMetal{}
 //
 //   - [IEspressoBrickTensorMetal.Texture]
 //   - [IEspressoBrickTensorMetal.SetTexture]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal
 type IEspressoBrickTensorMetal interface {
 	IEspressoBrickTensor
 
 	// Topic: Methods
 
-	Texture() objectivec.IObject
-	SetTexture(value objectivec.IObject)
+	Texture() unsafe.Pointer
+	SetTexture(value kernel.Pointer)
 }
 
 // Init initializes the instance.
@@ -96,11 +93,10 @@ func NewEspressoBrickTensorMetal() EspressoBrickTensorMetal {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal/texture
-func (e EspressoBrickTensorMetal) Texture() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("texture"))
-	return objectivec.Object{ID: rv}
+func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("texture"))
+	return rv
 }
-func (e EspressoBrickTensorMetal) SetTexture(value objectivec.IObject) {
+func (e EspressoBrickTensorMetal) SetTexture(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }

@@ -10,14 +10,10 @@ import (
 )
 
 // _VZMultiTouchEventSender protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEventSender
 type VZMultiTouchEventSender interface {
 	objectivec.IObject
 
 	// SendMultiTouchEventsMultiTouchDeviceIndex protocol.
-	//
-	// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEventSender/sendMultiTouchEvents:multiTouchDeviceIndex:
 	SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32)
 }
 
@@ -38,7 +34,6 @@ func VZMultiTouchEventSenderObjectFromID(id objc.ID) VZMultiTouchEventSenderObje
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEventSender/sendMultiTouchEvents:multiTouchDeviceIndex:
 func (o VZMultiTouchEventSenderObject) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
 }

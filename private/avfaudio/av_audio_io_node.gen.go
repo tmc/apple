@@ -50,8 +50,6 @@ func (ac AVAudioIONodeClass) Alloc() AVAudioIONode {
 //   - [AVAudioIONode.ManualRenderingMode]
 //   - [AVAudioIONode.InitWithIOUnitIsInput]
 //   - [AVAudioIONode.VoiceProcessingEnabled]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode
 type AVAudioIONode struct {
 	AVAudioNode
 }
@@ -74,8 +72,6 @@ var _ IAVAudioIONode = AVAudioIONode{}
 //   - [IAVAudioIONode.ManualRenderingMode]
 //   - [IAVAudioIONode.InitWithIOUnitIsInput]
 //   - [IAVAudioIONode.VoiceProcessingEnabled]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode
 type IAVAudioIONode interface {
 	IAVAudioNode
 
@@ -108,51 +104,39 @@ func NewAVAudioIONode() AVAudioIONode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/initWithIOUnit:isInput:
 func NewAudioIONodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioIONode {
 	instance := getAVAudioIONodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioIONodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioIONodeWithImpl(impl unsafe.Pointer) AVAudioIONode {
 	instance := getAVAudioIONodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioIONodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/enableManualRenderingMode:isInput:
 func (a AVAudioIONode) EnableManualRenderingModeIsInput(mode int64, input bool) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("enableManualRenderingMode:isInput:"), mode, input)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:
 func (a AVAudioIONode) EnableRealtimeRenderingModeWithIOUnitIsInputForceIOUnitReset(iOUnit unsafe.Pointer, input bool, reset bool) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:"), iOUnit, input, reset)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/isInManualRenderingMode
 func (a AVAudioIONode) IsInManualRenderingMode() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInManualRenderingMode"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/manualRenderingMode
 func (a AVAudioIONode) ManualRenderingMode() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("manualRenderingMode"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/initWithIOUnit:isInput:
 func (a AVAudioIONode) InitWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioIONode {
 	rv := objc.Send[AVAudioIONode](a.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/voiceProcessingEnabled
 func (a AVAudioIONode) VoiceProcessingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingEnabled"))
 	return rv

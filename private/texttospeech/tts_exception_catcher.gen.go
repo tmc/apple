@@ -45,7 +45,6 @@ func (tc TTSExceptionCatcherClass) Alloc() TTSExceptionCatcher {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSExceptionCatcher
 type TTSExceptionCatcher struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func TTSExceptionCatcherFromID(id objc.ID) TTSExceptionCatcher {
 var _ ITTSExceptionCatcher = TTSExceptionCatcher{}
 
 // An interface definition for the [TTSExceptionCatcher] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSExceptionCatcher
 type ITTSExceptionCatcher interface {
 	objectivec.IObject
 }
@@ -84,10 +81,10 @@ func NewTTSExceptionCatcher() TTSExceptionCatcher {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSExceptionCatcher/catchException:error:
 func (_TTSExceptionCatcherClass TTSExceptionCatcherClass) CatchExceptionError(exception func()) (bool, error) {
+	_block0, _ := NewVoidBlock(exception)
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_TTSExceptionCatcherClass.class), objc.Sel("catchException:error:"), exception, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_TTSExceptionCatcherClass.class), objc.Sel("catchException:error:"), _block0, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)

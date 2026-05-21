@@ -47,8 +47,6 @@ func (gc GTMioTraceDataStatsClass) Alloc() GTMioTraceDataStats {
 //   - [GTMioTraceDataStats.Build]
 //   - [GTMioTraceDataStats.ShaderStatForShaderProgramType]
 //   - [GTMioTraceDataStats.InitWithTraceData]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats
 type GTMioTraceDataStats struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IGTMioTraceDataStats = GTMioTraceDataStats{}
 //   - [IGTMioTraceDataStats.Build]
 //   - [IGTMioTraceDataStats.ShaderStatForShaderProgramType]
 //   - [IGTMioTraceDataStats.InitWithTraceData]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats
 type IGTMioTraceDataStats interface {
 	objectivec.IObject
 
@@ -99,25 +95,19 @@ func NewGTMioTraceDataStats() GTMioTraceDataStats {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats/initWithTraceData:
 func NewGTMioTraceDataStatsWithTraceData(data objectivec.IObject) GTMioTraceDataStats {
 	instance := getGTMioTraceDataStatsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
 	return GTMioTraceDataStatsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats/build
 func (g GTMioTraceDataStats) Build() {
 	objc.Send[objc.ID](g.ID, objc.Sel("build"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats/shaderStatForShader:programType:
 func (g GTMioTraceDataStats) ShaderStatForShaderProgramType(shader uint64, type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderStatForShader:programType:"), shader, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataStats/initWithTraceData:
 func (g GTMioTraceDataStats) InitWithTraceData(data objectivec.IObject) GTMioTraceDataStats {
 	rv := objc.Send[GTMioTraceDataStats](g.ID, objc.Sel("initWithTraceData:"), data)
 	return rv

@@ -45,8 +45,6 @@ func (vc VZMouseClass) Alloc() VZMouse {
 // # Methods
 //
 //   - [VZMouse.SendMouseEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouse
 type VZMouse struct {
 	VZPointingDevice
 }
@@ -64,8 +62,6 @@ var _ IVZMouse = VZMouse{}
 // # Methods
 //
 //   - [IVZMouse.SendMouseEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouse
 type IVZMouse interface {
 	IVZPointingDevice
 
@@ -93,14 +89,12 @@ func NewVZMouse() VZMouse {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/initWithType:virtualMachine:pointingDeviceIndex:
 func NewVZMouseWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZMouse {
 	instance := getVZMouseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZMouseFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMouse/sendMouseEvents:
 func (v VZMouse) SendMouseEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:"), events)
 }

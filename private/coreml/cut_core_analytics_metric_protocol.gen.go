@@ -8,8 +8,6 @@ import (
 )
 
 // CUTCoreAnalyticsMetric protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/CUTCoreAnalyticsMetric
 type CUTCoreAnalyticsMetric interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func CUTCoreAnalyticsMetricObjectFromID(id objc.ID) CUTCoreAnalyticsMetricObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CUTCoreAnalyticsMetric/dictionaryRepresentation
 func (o CUTCoreAnalyticsMetricObject) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}

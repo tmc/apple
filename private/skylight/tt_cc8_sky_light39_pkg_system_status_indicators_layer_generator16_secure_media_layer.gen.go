@@ -42,7 +42,6 @@ func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLaye
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer
 type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer struct {
 	TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer
 }
@@ -56,8 +55,6 @@ func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerFro
 var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer{}
 
 // An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer
 type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer interface {
 	ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer
 }
@@ -81,14 +78,12 @@ func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer/initWithCoder:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer/initWithLayer:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)

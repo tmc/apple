@@ -4,9 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -85,8 +85,6 @@ func (gc GTAGX2ShaderBinaryClass) Alloc() GTAGX2ShaderBinary {
 //   - [GTAGX2ShaderBinary.Description]
 //   - [GTAGX2ShaderBinary.Hash]
 //   - [GTAGX2ShaderBinary.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary
 type GTAGX2ShaderBinary struct {
 	objectivec.Object
 }
@@ -142,8 +140,6 @@ var _ IGTAGX2ShaderBinary = GTAGX2ShaderBinary{}
 //   - [IGTAGX2ShaderBinary.Description]
 //   - [IGTAGX2ShaderBinary.Hash]
 //   - [IGTAGX2ShaderBinary.Superclass]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary
 type IGTAGX2ShaderBinary interface {
 	objectivec.IObject
 
@@ -154,7 +150,7 @@ type IGTAGX2ShaderBinary interface {
 	AddString(string_ objectivec.IObject) uint64
 	AddrEnd() uint32
 	AddrStart() uint32
-	AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64)
+	AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64)
 	AnalysisResult() IGTShaderProfilerBinaryAnalysisResult
 	SetAnalysisResult(value IGTShaderProfilerBinaryAnalysisResult)
 	BinaryRanges() foundation.INSArray
@@ -187,7 +183,7 @@ type IGTAGX2ShaderBinary interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -209,113 +205,80 @@ func NewGTAGX2ShaderBinary() GTAGX2ShaderBinary {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/initWithCoder:
 func NewGTAGX2ShaderBinaryWithCoder(coder objectivec.IObject) GTAGX2ShaderBinary {
 	instance := getGTAGX2ShaderBinaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTAGX2ShaderBinaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/initWithKey:type:typeName:dylib:analysisResult:
 func NewGTAGX2ShaderBinaryWithKeyTypeTypeNameDylibAnalysisResult(key objectivec.IObject, type_ uint32, name objectivec.IObject, dylib bool, result objectivec.IObject) GTAGX2ShaderBinary {
 	instance := getGTAGX2ShaderBinaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
 	return GTAGX2ShaderBinaryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/addBinaryRange:column:addrStart:addrEnd:functionName:fullPath:
 func (g GTAGX2ShaderBinary) AddBinaryRangeColumnAddrStartAddrEndFunctionNameFullPath(range_ int, column int, start uint32, end uint32, name objectivec.IObject, path objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("addBinaryRange:column:addrStart:addrEnd:functionName:fullPath:"), range_, column, start, end, name, path)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/addCostForAddr:cost:drawIdx:isALU:
 func (g GTAGX2ShaderBinary) AddCostForAddrCostDrawIdxIsALU(addr uint32, cost float64, idx uint32, alu bool) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addCostForAddr:cost:drawIdx:isALU:"), addr, cost, idx, alu)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/addString:
 func (g GTAGX2ShaderBinary) AddString(string_ objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/adjustLatencyForALUBlocks:count:
-func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64) {
+func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("adjustLatencyForALUBlocks:count:"), objc.CArray(aLUBlocks), count)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/costForAddress:
 func (g GTAGX2ShaderBinary) CostForAddress(address uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("costForAddress:"), address)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/costForDrawAtIndex:
 func (g GTAGX2ShaderBinary) CostForDrawAtIndex(index uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("costForDrawAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/costPercentageForDrawAtIndex:
 func (g GTAGX2ShaderBinary) CostPercentageForDrawAtIndex(index uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("costPercentageForDrawAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/diassemblyAtAddress:
 func (g GTAGX2ShaderBinary) DiassemblyAtAddress(address uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("diassemblyAtAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/encodeWithCoder:
 func (g GTAGX2ShaderBinary) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/finalizeLineEntriesAndFixOffsets:addrMin:
 func (g GTAGX2ShaderBinary) FinalizeLineEntriesAndFixOffsetsAddrMin(offsets uint32, min uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("finalizeLineEntriesAndFixOffsets:addrMin:"), offsets, min)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/stringFromIndex:
 func (g GTAGX2ShaderBinary) StringFromIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringFromIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/initWithCoder:
 func (g GTAGX2ShaderBinary) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderBinary {
 	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/initWithKey:type:typeName:dylib:analysisResult:
 func (g GTAGX2ShaderBinary) InitWithKeyTypeTypeNameDylibAnalysisResult(key objectivec.IObject, type_ uint32, name objectivec.IObject, dylib bool, result objectivec.IObject) GTAGX2ShaderBinary {
 	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/supportsSecureCoding
 func (_GTAGX2ShaderBinaryClass GTAGX2ShaderBinaryClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTAGX2ShaderBinaryClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/addrEnd
 func (g GTAGX2ShaderBinary) AddrEnd() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("addrEnd"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/addrStart
 func (g GTAGX2ShaderBinary) AddrStart() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("addrStart"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/analysisResult
 func (g GTAGX2ShaderBinary) AnalysisResult() IGTShaderProfilerBinaryAnalysisResult {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("analysisResult"))
 	return GTShaderProfilerBinaryAnalysisResultFromID(objc.ID(rv))
@@ -323,32 +286,22 @@ func (g GTAGX2ShaderBinary) AnalysisResult() IGTShaderProfilerBinaryAnalysisResu
 func (g GTAGX2ShaderBinary) SetAnalysisResult(value IGTShaderProfilerBinaryAnalysisResult) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAnalysisResult:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/binaryRanges
 func (g GTAGX2ShaderBinary) BinaryRanges() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRanges"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/debugDescription
 func (g GTAGX2ShaderBinary) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/description
 func (g GTAGX2ShaderBinary) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/diassemblies
 func (g GTAGX2ShaderBinary) Diassemblies() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("diassemblies"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/fullPath
 func (g GTAGX2ShaderBinary) FullPath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("fullPath"))
 	return foundation.NSStringFromID(rv).String()
@@ -356,14 +309,10 @@ func (g GTAGX2ShaderBinary) FullPath() string {
 func (g GTAGX2ShaderBinary) SetFullPath(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setFullPath:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/hash
 func (g GTAGX2ShaderBinary) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/isDylib
 func (g GTAGX2ShaderBinary) IsDylib() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isDylib"))
 	return rv
@@ -371,8 +320,6 @@ func (g GTAGX2ShaderBinary) IsDylib() bool {
 func (g GTAGX2ShaderBinary) SetIsDylib(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsDylib:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/key
 func (g GTAGX2ShaderBinary) Key() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("key"))
 	return foundation.NSStringFromID(rv).String()
@@ -380,8 +327,6 @@ func (g GTAGX2ShaderBinary) Key() string {
 func (g GTAGX2ShaderBinary) SetKey(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setKey:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/lineMax
 func (g GTAGX2ShaderBinary) LineMax() int {
 	rv := objc.Send[int](g.ID, objc.Sel("lineMax"))
 	return rv
@@ -389,8 +334,6 @@ func (g GTAGX2ShaderBinary) LineMax() int {
 func (g GTAGX2ShaderBinary) SetLineMax(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLineMax:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/lineMin
 func (g GTAGX2ShaderBinary) LineMin() int {
 	rv := objc.Send[int](g.ID, objc.Sel("lineMin"))
 	return rv
@@ -398,26 +341,18 @@ func (g GTAGX2ShaderBinary) LineMin() int {
 func (g GTAGX2ShaderBinary) SetLineMin(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLineMin:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/numSamples
 func (g GTAGX2ShaderBinary) NumSamples() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numSamples"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/superclass
-func (g GTAGX2ShaderBinary) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
-	return rv
+func (g GTAGX2ShaderBinary) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/totalCost
 func (g GTAGX2ShaderBinary) TotalCost() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("totalCost"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/type
 func (g GTAGX2ShaderBinary) Type() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("type"))
 	return rv
@@ -425,8 +360,6 @@ func (g GTAGX2ShaderBinary) Type() uint32 {
 func (g GTAGX2ShaderBinary) SetType(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinary/typeName
 func (g GTAGX2ShaderBinary) TypeName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("typeName"))
 	return foundation.NSStringFromID(rv).String()

@@ -8,14 +8,10 @@ import (
 )
 
 // MLE5ExecutionStreamOperationPool protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPool
 type MLE5ExecutionStreamOperationPool interface {
 	objectivec.IObject
 
 	// PrepareWithInitialPoolSizeError protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPool/prepareWithInitialPoolSize:error:
 	PrepareWithInitialPoolSizeError(size int64) (bool, error)
 }
 
@@ -36,7 +32,6 @@ func MLE5ExecutionStreamOperationPoolObjectFromID(id objc.ID) MLE5ExecutionStrea
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPool/prepareWithInitialPoolSize:error:
 func (o MLE5ExecutionStreamOperationPoolObject) PrepareWithInitialPoolSizeError(size int64) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("prepareWithInitialPoolSize:error:"), size)
 	if err != nil {
@@ -44,13 +39,9 @@ func (o MLE5ExecutionStreamOperationPoolObject) PrepareWithInitialPoolSizeError(
 	}
 	return rv, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPool/putBack:
 func (o MLE5ExecutionStreamOperationPoolObject) PutBack(back objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("putBack:"), back)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPool/takeOutOperationForFeatures:error:
 func (o MLE5ExecutionStreamOperationPoolObject) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("takeOutOperationForFeatures:error:"), features)
 	if err != nil {

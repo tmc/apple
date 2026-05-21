@@ -51,8 +51,6 @@ func (sc SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass) Alloc() SLSSc
 //   - [SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.RawData]
 //   - [SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.Row]
 //   - [SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.InitWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper
 type SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper struct {
 	objectivec.Object
 }
@@ -75,19 +73,17 @@ var _ ISLSScreenTelemetryResultsSnapshotZoneRowDataWrapper = SLSScreenTelemetryR
 //   - [ISLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.RawData]
 //   - [ISLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.Row]
 //   - [ISLSScreenTelemetryResultsSnapshotZoneRowDataWrapper.InitWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper
 type ISLSScreenTelemetryResultsSnapshotZoneRowDataWrapper interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	ColumnCount() uint64
-	Data() objectivec.IObject
+	Data() unsafe.Pointer
 	ObjectAtIndexedSubscript(subscript uint64) objectivec.IObject
 	RawData() unsafe.Pointer
 	Row() uint64
-	InitWithObject(object objectivec.IObject) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper
+	InitWithObject(object unsafe.Pointer) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper
 }
 
 // Init initializes the instance.
@@ -109,51 +105,39 @@ func NewSLSScreenTelemetryResultsSnapshotZoneRowDataWrapper() SLSScreenTelemetry
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/initWithObject:
-func NewSLSScreenTelemetryResultsSnapshotZoneRowDataWrapperWithObject(object objectivec.IObject) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper {
+func NewSLSScreenTelemetryResultsSnapshotZoneRowDataWrapperWithObject(object unsafe.Pointer) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper {
 	instance := getSLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/columnCount
 func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) ColumnCount() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("columnCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/objectAtIndexedSubscript:
 func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) ObjectAtIndexedSubscript(subscript uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectAtIndexedSubscript:"), subscript)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/rawData
 func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) RawData() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("rawData"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/row
 func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) Row() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("row"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/initWithObject:
-func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) InitWithObject(object objectivec.IObject) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper {
+func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) InitWithObject(object unsafe.Pointer) SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper {
 	rv := objc.Send[SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper](s.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/wrapperWithObject:
-func (_SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass) WrapperWithObject(object objectivec.IObject) objectivec.IObject {
+func (_SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass) WrapperWithObject(object unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSScreenTelemetryResultsSnapshotZoneRowDataWrapperClass.class), objc.Sel("wrapperWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper/data
-func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) Data() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("data"))
-	return objectivec.Object{ID: rv}
+func (s SLSScreenTelemetryResultsSnapshotZoneRowDataWrapper) Data() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("data"))
+	return rv
 }

@@ -48,8 +48,6 @@ func (vc VZVirtualMachineSaveOptionsClass) Alloc() VZVirtualMachineSaveOptions {
 //   - [VZVirtualMachineSaveOptions.SetCompress]
 //   - [VZVirtualMachineSaveOptions.Encrypt]
 //   - [VZVirtualMachineSaveOptions.SetEncrypt]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions
 type VZVirtualMachineSaveOptions struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IVZVirtualMachineSaveOptions = VZVirtualMachineSaveOptions{}
 //   - [IVZVirtualMachineSaveOptions.SetCompress]
 //   - [IVZVirtualMachineSaveOptions.Encrypt]
 //   - [IVZVirtualMachineSaveOptions.SetEncrypt]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions
 type IVZVirtualMachineSaveOptions interface {
 	objectivec.IObject
 
@@ -102,7 +98,6 @@ func NewVZVirtualMachineSaveOptions() VZVirtualMachineSaveOptions {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions/compress
 func (v VZVirtualMachineSaveOptions) Compress() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("compress"))
 	return rv
@@ -110,8 +105,6 @@ func (v VZVirtualMachineSaveOptions) Compress() bool {
 func (v VZVirtualMachineSaveOptions) SetCompress(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCompress:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions/encrypt
 func (v VZVirtualMachineSaveOptions) Encrypt() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("encrypt"))
 	return rv

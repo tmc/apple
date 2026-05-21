@@ -46,14 +46,11 @@ func (mc MLDictionaryFeatureProviderClass) Alloc() MLDictionaryFeatureProvider {
 // # Methods
 //
 //   - [MLDictionaryFeatureProvider.CachedFeatureNames]
-//   - [MLDictionaryFeatureProvider.InitWithCoder]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureProvider]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureProviderFeatureNames]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureValueDictionary]
 //   - [MLDictionaryFeatureProvider.Dictionary]
 //   - [MLDictionaryFeatureProvider.SetDictionary]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider
 type MLDictionaryFeatureProvider struct {
 	objectivec.Object
 }
@@ -71,21 +68,17 @@ var _ IMLDictionaryFeatureProvider = MLDictionaryFeatureProvider{}
 // # Methods
 //
 //   - [IMLDictionaryFeatureProvider.CachedFeatureNames]
-//   - [IMLDictionaryFeatureProvider.InitWithCoder]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureProvider]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureProviderFeatureNames]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureValueDictionary]
 //   - [IMLDictionaryFeatureProvider.Dictionary]
 //   - [IMLDictionaryFeatureProvider.SetDictionary]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider
 type IMLDictionaryFeatureProvider interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	CachedFeatureNames() foundation.INSSet
-	InitWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider
 	InitWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider
 	InitWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider
 	InitWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider
@@ -112,71 +105,46 @@ func NewMLDictionaryFeatureProvider() MLDictionaryFeatureProvider {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithCoder:
-func NewDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLDictionaryFeatureProvider {
-	instance := getMLDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLDictionaryFeatureProviderFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureProvider:
 func NewDictionaryFeatureProviderWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:"), provider)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureProvider:featureNames:
 func NewDictionaryFeatureProviderWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureValueDictionary:
 func NewDictionaryFeatureProviderWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithCoder:
-func (m MLDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureProvider:
 func (m MLDictionaryFeatureProvider) InitWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
 	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:"), provider)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureProvider:featureNames:
 func (m MLDictionaryFeatureProvider) InitWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
 	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/initWithFeatureValueDictionary:
 func (m MLDictionaryFeatureProvider) InitWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
 	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/supportsSecureCoding
 func (_MLDictionaryFeatureProviderClass MLDictionaryFeatureProviderClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/cachedFeatureNames
 func (m MLDictionaryFeatureProvider) CachedFeatureNames() foundation.INSSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("cachedFeatureNames"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/dictionary
 func (m MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

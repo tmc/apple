@@ -59,8 +59,6 @@ func (mc MLNetworkOptionsClass) Alloc() MLNetworkOptions {
 //   - [MLNetworkOptions.UseTLS]
 //   - [MLNetworkOptions.UseUDP]
 //   - [MLNetworkOptions.InitWithOptions]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions
 type MLNetworkOptions struct {
 	objectivec.Object
 }
@@ -91,8 +89,6 @@ var _ IMLNetworkOptions = MLNetworkOptions{}
 //   - [IMLNetworkOptions.UseTLS]
 //   - [IMLNetworkOptions.UseUDP]
 //   - [IMLNetworkOptions.InitWithOptions]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions
 type IMLNetworkOptions interface {
 	objectivec.IObject
 
@@ -133,92 +129,65 @@ func NewMLNetworkOptions() MLNetworkOptions {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/initWithOptions:
 func NewMLNetworkOptionsWithOptions(options objectivec.IObject) MLNetworkOptions {
 	instance := getMLNetworkOptionsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return MLNetworkOptionsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/family
 func (m MLNetworkOptions) Family() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("family"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/localAddr
 func (m MLNetworkOptions) LocalAddr() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("localAddr"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/localPort
 func (m MLNetworkOptions) LocalPort() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("localPort"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/networkNameIdentifier
 func (m MLNetworkOptions) NetworkNameIdentifier() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("networkNameIdentifier"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/port
 func (m MLNetworkOptions) Port() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("port"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/psk
 func (m MLNetworkOptions) Psk() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("psk"))
 	return objc.GoString(rv)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/receiveTimeoutValue
 func (m MLNetworkOptions) ReceiveTimeoutValue() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("receiveTimeoutValue"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/useAWDL
 func (m MLNetworkOptions) UseAWDL() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("useAWDL"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/useBonjour
 func (m MLNetworkOptions) UseBonjour() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("useBonjour"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/useTLS
 func (m MLNetworkOptions) UseTLS() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("useTLS"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/useUDP
 func (m MLNetworkOptions) UseUDP() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("useUDP"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/initWithOptions:
 func (m MLNetworkOptions) InitWithOptions(options objectivec.IObject) MLNetworkOptions {
 	rv := objc.Send[MLNetworkOptions](m.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/networkOptions
 func (m MLNetworkOptions) NetworkOptions() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("networkOptions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkOptions/receiveTimeout
 func (m MLNetworkOptions) ReceiveTimeout() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("receiveTimeout"))
 	return rv

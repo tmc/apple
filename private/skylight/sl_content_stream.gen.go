@@ -77,8 +77,6 @@ func (sc SLContentStreamClass) Alloc() SLContentStream {
 //   - [SLContentStream.Description]
 //   - [SLContentStream.Hash]
 //   - [SLContentStream.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream
 type SLContentStream struct {
 	objectivec.Object
 }
@@ -123,8 +121,6 @@ var _ ISLContentStream = SLContentStream{}
 //   - [ISLContentStream.Description]
 //   - [ISLContentStream.Hash]
 //   - [ISLContentStream.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream
 type ISLContentStream interface {
 	objectivec.IObject
 
@@ -157,7 +153,7 @@ type ISLContentStream interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -179,7 +175,6 @@ func NewSLContentStream() SLContentStream {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/createStreamWithFilter:error:
 func (s SLContentStream) CreateStreamWithFilterError(filter objectivec.IObject) (coregraphics.CGDisplayStreamRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("createStreamWithFilter:error:"), filter, unsafe.Pointer(&errorPtr))
@@ -190,8 +185,6 @@ func (s SLContentStream) CreateStreamWithFilterError(filter objectivec.IObject) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/createStreamWithSession:error:
 func (s SLContentStream) CreateStreamWithSessionError(session objectivec.IObject) (coregraphics.CGDisplayStreamRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("createStreamWithSession:error:"), session, unsafe.Pointer(&errorPtr))
@@ -202,31 +195,21 @@ func (s SLContentStream) CreateStreamWithSessionError(session objectivec.IObject
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/populateDisplayStreamProperties:with:
 func (s SLContentStream) PopulateDisplayStreamPropertiesWith(properties objectivec.IObject, with objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("populateDisplayStreamProperties:with:"), properties, with)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/setHandler:
 func (s SLContentStream) SetHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/start:
 func (s SLContentStream) Start(start []objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("start:"), objectivec.IObjectSliceToNSArray(start))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/stop:
 func (s SLContentStream) Stop(stop []objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("stop:"), objectivec.IObjectSliceToNSArray(stop))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/updateFilter:error:
 func (s SLContentStream) UpdateFilterError(filter objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("updateFilter:error:"), filter, unsafe.Pointer(&errorPtr))
@@ -240,8 +223,6 @@ func (s SLContentStream) UpdateFilterError(filter objectivec.IObject) (bool, err
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/updateProperties:error:
 func (s SLContentStream) UpdatePropertiesError(properties objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("updateProperties:error:"), properties, unsafe.Pointer(&errorPtr))
@@ -255,18 +236,15 @@ func (s SLContentStream) UpdatePropertiesError(properties objectivec.IObject) (b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/initWithFilter:properties:queue:handler:
 func (s SLContentStream) InitWithFilterPropertiesQueueHandler(filter objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler VoidHandler) SLContentStream {
 	_block3, _ := NewVoidBlock(handler)
 	rv := objc.Send[SLContentStream](s.ID, objc.Sel("initWithFilter:properties:queue:handler:"), filter, properties, queue, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/initWithFilter:properties:queue:handler:error:
 func (s SLContentStream) InitWithFilterPropertiesQueueHandlerError(filter objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler func()) (SLContentStream, error) {
+	_block3, _ := NewVoidBlock(handler)
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFilter:properties:queue:handler:error:"), filter, properties, queue, handler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFilter:properties:queue:handler:error:"), filter, properties, queue, _block3, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SLContentStream{}, foundation.NSErrorFrom(errorPtr)
@@ -275,10 +253,10 @@ func (s SLContentStream) InitWithFilterPropertiesQueueHandlerError(filter object
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/createScreenshot:properties:queue:handler:error:
 func (_SLContentStreamClass SLContentStreamClass) CreateScreenshotPropertiesQueueHandlerError(screenshot objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler func()) (bool, error) {
+	_block3, _ := NewVoidBlock(handler)
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_SLContentStreamClass.class), objc.Sel("createScreenshot:properties:queue:handler:error:"), screenshot, properties, queue, handler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_SLContentStreamClass.class), objc.Sel("createScreenshot:properties:queue:handler:error:"), screenshot, properties, queue, _block3, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -289,8 +267,6 @@ func (_SLContentStreamClass SLContentStreamClass) CreateScreenshotPropertiesQueu
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/createSessionContentWithFilter:error:
 func (_SLContentStreamClass SLContentStreamClass) CreateSessionContentWithFilterError(filter objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_SLContentStreamClass.class), objc.Sel("createSessionContentWithFilter:error:"), filter, unsafe.Pointer(&errorPtr))
@@ -302,26 +278,19 @@ func (_SLContentStreamClass SLContentStreamClass) CreateSessionContentWithFilter
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/bridgingHandler
 func (s SLContentStream) BridgingHandler() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("bridgingHandler"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/debugDescription
 func (s SLContentStream) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/description
 func (s SLContentStream) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/filter
 func (s SLContentStream) Filter() ISLContentFilter {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
 	return SLContentFilterFromID(objc.ID(rv))
@@ -329,14 +298,10 @@ func (s SLContentStream) Filter() ISLContentFilter {
 func (s SLContentStream) SetFilter(value ISLContentFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFilter:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/hash
 func (s SLContentStream) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/properties
 func (s SLContentStream) Properties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -344,8 +309,6 @@ func (s SLContentStream) Properties() foundation.INSDictionary {
 func (s SLContentStream) SetProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setProperties:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/queue
 func (s SLContentStream) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -353,8 +316,6 @@ func (s SLContentStream) Queue() objectivec.Object {
 func (s SLContentStream) SetQueue(value objectivec.Object) {
 	objc.Send[struct{}](s.ID, objc.Sel("setQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/running
 func (s SLContentStream) Running() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("running"))
 	return rv
@@ -362,8 +323,6 @@ func (s SLContentStream) Running() bool {
 func (s SLContentStream) SetRunning(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRunning:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/session
 func (s SLContentStream) Session() ISLSharingSession {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("session"))
 	return SLSharingSessionFromID(objc.ID(rv))
@@ -371,8 +330,6 @@ func (s SLContentStream) Session() ISLSharingSession {
 func (s SLContentStream) SetSession(value ISLSharingSession) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSession:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/stream
 func (s SLContentStream) Stream() coregraphics.CGDisplayStreamRef {
 	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("stream"))
 	return coregraphics.CGDisplayStreamRef(rv)
@@ -380,14 +337,10 @@ func (s SLContentStream) Stream() coregraphics.CGDisplayStreamRef {
 func (s SLContentStream) SetStream(value coregraphics.CGDisplayStreamRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStream:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/superclass
-func (s SLContentStream) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
-	return rv
+func (s SLContentStream) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLContentStream/zeroWeakSelf
 func (s SLContentStream) ZeroWeakSelf() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
 	_ = rv

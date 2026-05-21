@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,8 +55,6 @@ func (ec ETDataPointDictionaryClass) Alloc() ETDataPointDictionary {
 //   - [ETDataPointDictionary.SetImage_buffers]
 //   - [ETDataPointDictionary.SetDataSizeForKeyFreeWhenDone]
 //   - [ETDataPointDictionary.SetImageForKey]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary
 type ETDataPointDictionary struct {
 	objectivec.Object
 }
@@ -80,8 +79,6 @@ var _ IETDataPointDictionary = ETDataPointDictionary{}
 //   - [IETDataPointDictionary.SetImage_buffers]
 //   - [IETDataPointDictionary.SetDataSizeForKeyFreeWhenDone]
 //   - [IETDataPointDictionary.SetImageForKey]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary
 type IETDataPointDictionary interface {
 	objectivec.IObject
 
@@ -89,10 +86,10 @@ type IETDataPointDictionary interface {
 
 	DataArrayForKeyError(key objectivec.IObject) (objectivec.IObject, error)
 	DataForKeyError(key objectivec.IObject) (unsafe.Pointer, error)
-	Float_buffers() objectivec.IObject
-	SetFloat_buffers(value objectivec.IObject)
-	Image_buffers() objectivec.IObject
-	SetImage_buffers(value objectivec.IObject)
+	Float_buffers() unsafe.Pointer
+	SetFloat_buffers(value kernel.Pointer)
+	Image_buffers() unsafe.Pointer
+	SetImage_buffers(value kernel.Pointer)
 	SetDataSizeForKeyFreeWhenDone(size uint64, key objectivec.IObject, done bool) (float32, bool)
 	SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool
 }
@@ -116,7 +113,6 @@ func NewETDataPointDictionary() ETDataPointDictionary {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/dataArrayForKey:error:
 func (e ETDataPointDictionary) DataArrayForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataArrayForKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -127,8 +123,6 @@ func (e ETDataPointDictionary) DataArrayForKeyError(key objectivec.IObject) (obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/dataForKey:error:
 func (e ETDataPointDictionary) DataForKeyError(key objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataForKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -139,34 +133,27 @@ func (e ETDataPointDictionary) DataForKeyError(key objectivec.IObject) (unsafe.P
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/setData:size:forKey:freeWhenDone:
 func (e ETDataPointDictionary) SetDataSizeForKeyFreeWhenDone(size uint64, key objectivec.IObject, done bool) (float32, bool) {
 	var data float32
 	rv := objc.Send[bool](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), unsafe.Pointer(&data), size, key, done)
 	return data, rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/setImage:forKey:
 func (e ETDataPointDictionary) SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("setImage:forKey:"), image, key)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/float_buffers
-func (e ETDataPointDictionary) Float_buffers() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("float_buffers"))
-	return objectivec.Object{ID: rv}
+func (e ETDataPointDictionary) Float_buffers() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("float_buffers"))
+	return rv
 }
-func (e ETDataPointDictionary) SetFloat_buffers(value objectivec.IObject) {
+func (e ETDataPointDictionary) SetFloat_buffers(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffers:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/image_buffers
-func (e ETDataPointDictionary) Image_buffers() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("image_buffers"))
-	return objectivec.Object{ID: rv}
+func (e ETDataPointDictionary) Image_buffers() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("image_buffers"))
+	return rv
 }
-func (e ETDataPointDictionary) SetImage_buffers(value objectivec.IObject) {
+func (e ETDataPointDictionary) SetImage_buffers(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImage_buffers:"), value)
 }

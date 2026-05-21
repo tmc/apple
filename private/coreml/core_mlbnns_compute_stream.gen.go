@@ -42,7 +42,6 @@ func (cc CoreMLBNNSComputeStreamClass) Alloc() CoreMLBNNSComputeStream {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.BNNSComputeStream
 type CoreMLBNNSComputeStream struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLBNNSComputeStreamFromID(id objc.ID) CoreMLBNNSComputeStream {
 // ICoreMLBNNSComputeStream embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLBNNSComputeStream] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.BNNSComputeStream
 type ICoreMLBNNSComputeStream interface {
 	objectivec.IObject
 }

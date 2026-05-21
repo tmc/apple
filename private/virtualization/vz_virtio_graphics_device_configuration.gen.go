@@ -41,7 +41,6 @@ func (vc VZVirtioGraphicsDeviceConfigurationClass) Alloc() VZVirtioGraphicsDevic
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDeviceConfiguration
 type VZVirtioGraphicsDeviceConfiguration struct {
 	VZGraphicsDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioGraphicsDeviceConfigurationFromID(id objc.ID) VZVirtioGraphicsDevic
 var _ IVZVirtioGraphicsDeviceConfiguration = VZVirtioGraphicsDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioGraphicsDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDeviceConfiguration
 type IVZVirtioGraphicsDeviceConfiguration interface {
 	IVZGraphicsDeviceConfiguration
 }
@@ -80,7 +77,6 @@ func NewVZVirtioGraphicsDeviceConfiguration() VZVirtioGraphicsDeviceConfiguratio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDeviceConfiguration/_maximumAllowedDisplayCount
 func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurationClass) _maximumAllowedDisplayCount() uint64 {
 	rv := objc.Send[uint64](objc.ID(_VZVirtioGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
 	return rv

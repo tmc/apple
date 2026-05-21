@@ -48,8 +48,6 @@ func (mc MLWritableWrappedModelClass) Alloc() MLWritableWrappedModel {
 // # Methods
 //
 //   - [MLWritableWrappedModel.WriteToURLError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLWritableWrappedModel
 type MLWritableWrappedModel struct {
 	MLWrappedModel
 }
@@ -67,14 +65,12 @@ var _ IMLWritableWrappedModel = MLWritableWrappedModel{}
 // # Methods
 //
 //   - [IMLWritableWrappedModel.WriteToURLError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLWritableWrappedModel
 type IMLWritableWrappedModel interface {
 	IMLWrappedModel
 
 	// Topic: Methods
 
-	WriteToURLError(url foundation.INSURL) (bool, error)
+	WriteToURLError(url foundation.NSURL) (bool, error)
 }
 
 // Init initializes the instance.
@@ -96,7 +92,6 @@ func NewMLWritableWrappedModel() MLWritableWrappedModel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewWritableWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWritableWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWritableWrappedModelClass().Alloc()
@@ -108,7 +103,6 @@ func NewWritableWrappedModelDescriptionOnlyWithSpecificationConfigurationError(s
 	return MLWritableWrappedModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewWritableWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWritableWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWritableWrappedModelClass().Alloc()
@@ -120,43 +114,37 @@ func NewWritableWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive
 	return MLWritableWrappedModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewWritableWrappedModelWithConfiguration(configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewWritableWrappedModelWithDescription(description objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewWritableWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/initWithInnerModel:
 func NewWritableWrappedModelWithInnerModel(model objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInnerModel:"), model)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewWritableWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLWritableWrappedModel/writeToURL:error:
-func (m MLWritableWrappedModel) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (m MLWritableWrappedModel) WriteToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -170,7 +158,6 @@ func (m MLWritableWrappedModel) WriteToURLError(url foundation.INSURL) (bool, er
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLWritableWrappedModel/wrapperAroundWritableModel:
 func (_MLWritableWrappedModelClass MLWritableWrappedModelClass) WrapperAroundWritableModel(model objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLWritableWrappedModelClass.class), objc.Sel("wrapperAroundWritableModel:"), model)
 	return objectivec.Object{ID: rv}

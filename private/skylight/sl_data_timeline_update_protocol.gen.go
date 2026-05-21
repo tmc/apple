@@ -8,14 +8,10 @@ import (
 )
 
 // SLDataTimelineUpdate protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineUpdate
 type SLDataTimelineUpdate interface {
 	objectivec.IObject
 
 	// Action protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineUpdate/action
 	Action() uint32
 }
 
@@ -36,19 +32,14 @@ func SLDataTimelineUpdateObjectFromID(id objc.ID) SLDataTimelineUpdateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineUpdate/action
 func (o SLDataTimelineUpdateObject) Action() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("action"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineUpdate/claimSnapshotCollection
 func (o SLDataTimelineUpdateObject) ClaimSnapshotCollection() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("claimSnapshotCollection"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineUpdate/connection
 func (o SLDataTimelineUpdateObject) Connection() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}

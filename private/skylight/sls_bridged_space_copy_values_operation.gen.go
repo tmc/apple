@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceCopyValuesOperationClass) Alloc() SLSBridgedSpaceCopyVal
 //   - [SLSBridgedSpaceCopyValuesOperation.MakeResultWithPropertyListDictionary]
 //   - [SLSBridgedSpaceCopyValuesOperation.SpaceID]
 //   - [SLSBridgedSpaceCopyValuesOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation
 type SLSBridgedSpaceCopyValuesOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceCopyValuesOperation = SLSBridgedSpaceCopyValuesOperation{}
 //   - [ISLSBridgedSpaceCopyValuesOperation.MakeResultWithPropertyListDictionary]
 //   - [ISLSBridgedSpaceCopyValuesOperation.SpaceID]
 //   - [ISLSBridgedSpaceCopyValuesOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation
 type ISLSBridgedSpaceCopyValuesOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceCopyValuesOperation() SLSBridgedSpaceCopyValuesOperation 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation/initWithCoder:
 func NewSLSBridgedSpaceCopyValuesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyValuesOperation {
 	instance := getSLSBridgedSpaceCopyValuesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyValuesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation/initWithSpaceID:
 func NewSLSBridgedSpaceCopyValuesOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyValuesOperation {
 	instance := getSLSBridgedSpaceCopyValuesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyValuesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation/makeResultWithPropertyListDictionary:
 func (s SLSBridgedSpaceCopyValuesOperation) MakeResultWithPropertyListDictionary(dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithPropertyListDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation/initWithSpaceID:
 func (s SLSBridgedSpaceCopyValuesOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyValuesOperation {
 	rv := objc.Send[SLSBridgedSpaceCopyValuesOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyValuesOperation/spaceID
 func (s SLSBridgedSpaceCopyValuesOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

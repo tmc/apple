@@ -8,29 +8,19 @@ import (
 )
 
 // SLSBrightnessPolicyTransaction protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction
 type SLSBrightnessPolicyTransaction interface {
 	objectivec.IObject
 
 	// CommitBrightnessPolicy protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/commitBrightnessPolicy:
 	CommitBrightnessPolicy(policy []objectivec.IObject) bool
 
 	// SetDimMessagingPolicy protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setDimMessagingPolicy:
 	SetDimMessagingPolicy(policy byte)
 
 	// SetShieldingPolicy protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setShieldingPolicy:
 	SetShieldingPolicy(policy byte)
 
 	// SetSleepMessagingPolicy protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setSleepMessagingPolicy:
 	SetSleepMessagingPolicy(policy byte)
 }
 
@@ -51,23 +41,16 @@ func SLSBrightnessPolicyTransactionObjectFromID(id objc.ID) SLSBrightnessPolicyT
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/commitBrightnessPolicy:
 func (o SLSBrightnessPolicyTransactionObject) CommitBrightnessPolicy(policy []objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("commitBrightnessPolicy:"), objectivec.IObjectSliceToNSArray(policy))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setDimMessagingPolicy:
 func (o SLSBrightnessPolicyTransactionObject) SetDimMessagingPolicy(policy byte) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDimMessagingPolicy:"), policy)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setShieldingPolicy:
 func (o SLSBrightnessPolicyTransactionObject) SetShieldingPolicy(policy byte) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShieldingPolicy:"), policy)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBrightnessPolicyTransaction/setSleepMessagingPolicy:
 func (o SLSBrightnessPolicyTransactionObject) SetSleepMessagingPolicy(policy byte) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSleepMessagingPolicy:"), policy)
 }

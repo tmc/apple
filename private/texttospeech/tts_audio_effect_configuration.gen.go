@@ -55,8 +55,6 @@ func (tc TTSAudioEffectConfigurationClass) Alloc() TTSAudioEffectConfiguration {
 //   - [TTSAudioEffectConfiguration.SetParameters]
 //   - [TTSAudioEffectConfiguration.Properties]
 //   - [TTSAudioEffectConfiguration.SetProperties]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration
 type TTSAudioEffectConfiguration struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ITTSAudioEffectConfiguration = TTSAudioEffectConfiguration{}
 //   - [ITTSAudioEffectConfiguration.SetParameters]
 //   - [ITTSAudioEffectConfiguration.Properties]
 //   - [ITTSAudioEffectConfiguration.SetProperties]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration
 type ITTSAudioEffectConfiguration interface {
 	objectivec.IObject
 
@@ -121,7 +117,6 @@ func NewTTSAudioEffectConfiguration() TTSAudioEffectConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration/effectName
 func (t TTSAudioEffectConfiguration) EffectName() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("effectName"))
 	return foundation.NSStringFromID(rv).String()
@@ -129,8 +124,6 @@ func (t TTSAudioEffectConfiguration) EffectName() string {
 func (t TTSAudioEffectConfiguration) SetEffectName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEffectName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration/enabled
 func (t TTSAudioEffectConfiguration) Enabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("enabled"))
 	return rv
@@ -138,8 +131,6 @@ func (t TTSAudioEffectConfiguration) Enabled() bool {
 func (t TTSAudioEffectConfiguration) SetEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration/identifier
 func (t TTSAudioEffectConfiguration) Identifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -147,8 +138,6 @@ func (t TTSAudioEffectConfiguration) Identifier() foundation.NSUUID {
 func (t TTSAudioEffectConfiguration) SetIdentifier(value foundation.NSUUID) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration/parameters
 func (t TTSAudioEffectConfiguration) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -156,8 +145,6 @@ func (t TTSAudioEffectConfiguration) Parameters() foundation.INSDictionary {
 func (t TTSAudioEffectConfiguration) SetParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setParameters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioEffectConfiguration/properties
 func (t TTSAudioEffectConfiguration) Properties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

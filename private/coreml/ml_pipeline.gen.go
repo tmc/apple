@@ -54,6 +54,9 @@ func MLPipelineFromID(id objc.ID) MLPipeline {
 	return MLPipeline{objectivec.Object{ID: id}}
 }
 
+// MLPipelineObjectFromID is an alias for [MLPipelineFromID] for class/protocol name collisions.
+func MLPipelineObjectFromID(id objc.ID) MLPipeline { return MLPipelineFromID(id) }
+
 // Ensure MLPipeline implements IMLPipeline.
 var _ IMLPipeline = MLPipeline{}
 

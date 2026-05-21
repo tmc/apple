@@ -8,14 +8,10 @@ import (
 )
 
 // MLPreparable protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPreparable
 type MLPreparable interface {
 	objectivec.IObject
 
 	// PrepareWithConcurrencyHintError protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLPreparable/prepareWithConcurrencyHint:error:
 	PrepareWithConcurrencyHintError(hint int64) (bool, error)
 }
 
@@ -36,7 +32,6 @@ func MLPreparableObjectFromID(id objc.ID) MLPreparableObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPreparable/prepareWithConcurrencyHint:error:
 func (o MLPreparableObject) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("prepareWithConcurrencyHint:error:"), hint)
 	if err != nil {

@@ -45,8 +45,6 @@ func (vc VZUSBKeyboardClass) Alloc() VZUSBKeyboard {
 // # Methods
 //
 //   - [VZUSBKeyboard.InitWithConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBKeyboard
 type VZUSBKeyboard struct {
 	VZKeyboard
 }
@@ -64,8 +62,6 @@ var _ IVZUSBKeyboard = VZUSBKeyboard{}
 // # Methods
 //
 //   - [IVZUSBKeyboard.InitWithConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBKeyboard
 type IVZUSBKeyboard interface {
 	IVZKeyboard
 
@@ -93,21 +89,18 @@ func NewVZUSBKeyboard() VZUSBKeyboard {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBKeyboard/initWithConfiguration:
 func NewVZUSBKeyboardWithConfiguration(configuration objectivec.IObject) VZUSBKeyboard {
 	instance := getVZUSBKeyboardClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return VZUSBKeyboardFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard/initWithType:virtualMachine:deviceIdentifier:
 func NewVZUSBKeyboardWithTypeVirtualMachineDeviceIdentifier(type_ int64, machine objectivec.IObject, identifier uint32) VZUSBKeyboard {
 	instance := getVZUSBKeyboardClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:deviceIdentifier:"), type_, machine, identifier)
 	return VZUSBKeyboardFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBKeyboard/initWithConfiguration:
 func (v VZUSBKeyboard) InitWithConfiguration(configuration objectivec.IObject) VZUSBKeyboard {
 	rv := objc.Send[VZUSBKeyboard](v.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return rv

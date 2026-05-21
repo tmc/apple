@@ -8,8 +8,6 @@ import (
 )
 
 // GTMioShaderExecutionHistoryDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDelegate
 type GTMioShaderExecutionHistoryDelegate interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func GTMioShaderExecutionHistoryDelegateObjectFromID(id objc.ID) GTMioShaderExec
 	}
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDelegate/uniqueIdentifierForFile:debugFunctionName:line:column:
 func (o GTMioShaderExecutionHistoryDelegateObject) UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("uniqueIdentifierForFile:debugFunctionName:line:column:"), file, name, line, column)
 	return rv

@@ -41,7 +41,6 @@ func (vc VZVirtioFileSystemDeviceConfigurationClass) Alloc() VZVirtioFileSystemD
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration
 type VZVirtioFileSystemDeviceConfiguration struct {
 	VZDirectorySharingDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioFileSystemDeviceConfigurationFromID(id objc.ID) VZVirtioFileSystemD
 var _ IVZVirtioFileSystemDeviceConfiguration = VZVirtioFileSystemDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioFileSystemDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration
 type IVZVirtioFileSystemDeviceConfiguration interface {
 	IVZDirectorySharingDeviceConfiguration
 }

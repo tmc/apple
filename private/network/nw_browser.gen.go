@@ -55,8 +55,6 @@ func (nc NWBrowserClass) Alloc() NWBrowser {
 //   - [NWBrowser.Parameters]
 //   - [NWBrowser.SetUpdateHandler]
 //   - [NWBrowser.InitWithDescriptorParameters]
-//
-// See: https://developer.apple.com/documentation/Network/NWBrowser
 type NWBrowser struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ INWBrowser = NWBrowser{}
 //   - [INWBrowser.Parameters]
 //   - [INWBrowser.SetUpdateHandler]
 //   - [INWBrowser.InitWithDescriptorParameters]
-//
-// See: https://developer.apple.com/documentation/Network/NWBrowser
 type INWBrowser interface {
 	objectivec.IObject
 
@@ -121,60 +117,44 @@ func NewNWBrowser() NWBrowser {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Network/NWBrowser/initWithDescriptor:parameters:
 func NewNWBrowserWithDescriptorParameters(descriptor objectivec.IObject, parameters objectivec.IObject) NWBrowser {
 	instance := getNWBrowserClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
 	return NWBrowserFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Network/NWBrowser/cancel
 func (n NWBrowser) Cancel() {
 	objc.Send[objc.ID](n.ID, objc.Sel("cancel"))
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/copyDiscoveredEndpoints
 func (n NWBrowser) CopyDiscoveredEndpoints() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDiscoveredEndpoints"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/setUpdateHandler
 func (n NWBrowser) SetUpdateHandler() {
 	objc.Send[objc.ID](n.ID, objc.Sel("setUpdateHandler"))
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/initWithDescriptor:parameters:
 func (n NWBrowser) InitWithDescriptorParameters(descriptor objectivec.IObject, parameters objectivec.IObject) NWBrowser {
 	rv := objc.Send[NWBrowser](n.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Network/NWBrowser/automaticallyNotifiesObserversForKey:
 func (_NWBrowserClass NWBrowserClass) AutomaticallyNotifiesObserversForKey(key objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_NWBrowserClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Network/NWBrowser/descriptor
 func (n NWBrowser) Descriptor() INWBrowseDescriptor {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("descriptor"))
 	return NWBrowseDescriptorFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/discoveredEndpoints
 func (n NWBrowser) DiscoveredEndpoints() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("discoveredEndpoints"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/internalBrowser
 func (n NWBrowser) InternalBrowser() objectivec.Object {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalBrowser"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/internalDiscoveredEndpoints
 func (n NWBrowser) InternalDiscoveredEndpoints() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalDiscoveredEndpoints"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -182,8 +162,6 @@ func (n NWBrowser) InternalDiscoveredEndpoints() foundation.INSSet {
 func (n NWBrowser) SetInternalDiscoveredEndpoints(value foundation.INSSet) {
 	objc.Send[struct{}](n.ID, objc.Sel("setInternalDiscoveredEndpoints:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Network/NWBrowser/parameters
 func (n NWBrowser) Parameters() INWParameters {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameters"))
 	return NWParametersFromID(objc.ID(rv))

@@ -45,8 +45,6 @@ func (wc WSSLSToHIDEventTranslatorClass) Alloc() WSSLSToHIDEventTranslator {
 // # Methods
 //
 //   - [WSSLSToHIDEventTranslator.HidEventForSLSEventOutSenderDescriptor]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_WSSLSToHIDEventTranslator
 type WSSLSToHIDEventTranslator struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IWSSLSToHIDEventTranslator = WSSLSToHIDEventTranslator{}
 // # Methods
 //
 //   - [IWSSLSToHIDEventTranslator.HidEventForSLSEventOutSenderDescriptor]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_WSSLSToHIDEventTranslator
 type IWSSLSToHIDEventTranslator interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewWSSLSToHIDEventTranslator() WSSLSToHIDEventTranslator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_WSSLSToHIDEventTranslator/hidEventForSLSEvent:outSenderDescriptor:
 func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr {
 	rv := objc.Send[uintptr](w.ID, objc.Sel("hidEventForSLSEvent:outSenderDescriptor:"), sLSEvent, objectivec.IObjectSliceToNSArray(descriptor))
 	return rv

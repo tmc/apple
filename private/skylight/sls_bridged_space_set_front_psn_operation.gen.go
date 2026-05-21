@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceSetFrontPSNOperationClass) Alloc() SLSBridgedSpaceSetFro
 //   - [SLSBridgedSpaceSetFrontPSNOperation.Psn]
 //   - [SLSBridgedSpaceSetFrontPSNOperation.SpaceID]
 //   - [SLSBridgedSpaceSetFrontPSNOperation.InitWithSpaceIDPsn]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation
 type SLSBridgedSpaceSetFrontPSNOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceSetFrontPSNOperation = SLSBridgedSpaceSetFrontPSNOperation
 //   - [ISLSBridgedSpaceSetFrontPSNOperation.Psn]
 //   - [ISLSBridgedSpaceSetFrontPSNOperation.SpaceID]
 //   - [ISLSBridgedSpaceSetFrontPSNOperation.InitWithSpaceIDPsn]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation
 type ISLSBridgedSpaceSetFrontPSNOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,34 +95,28 @@ func NewSLSBridgedSpaceSetFrontPSNOperation() SLSBridgedSpaceSetFrontPSNOperatio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/initWithCoder:
 func NewSLSBridgedSpaceSetFrontPSNOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetFrontPSNOperation {
 	instance := getSLSBridgedSpaceSetFrontPSNOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetFrontPSNOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/initWithSpaceID:psn:
 func NewSLSBridgedSpaceSetFrontPSNOperationWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
 	instance := getSLSBridgedSpaceSetFrontPSNOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return SLSBridgedSpaceSetFrontPSNOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/initWithSpaceID:psn:
 func (s SLSBridgedSpaceSetFrontPSNOperation) InitWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
 	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/psn
 func (s SLSBridgedSpaceSetFrontPSNOperation) Psn() CPSProcessSerNum {
 	rv := objc.Send[CPSProcessSerNum](s.ID, objc.Sel("psn"))
 	_ = rv
 	return CPSProcessSerNum{}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/spaceID
 func (s SLSBridgedSpaceSetFrontPSNOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

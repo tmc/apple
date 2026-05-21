@@ -49,8 +49,6 @@ func (vc VZScreenCoordinatePointerEventClass) Alloc() VZScreenCoordinatePointerE
 //   - [VZScreenCoordinatePointerEvent.PressedButtons]
 //   - [VZScreenCoordinatePointerEvent.InitWithEventView]
 //   - [VZScreenCoordinatePointerEvent.InitWithLocationPressedButtons]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent
 type VZScreenCoordinatePointerEvent struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IVZScreenCoordinatePointerEvent = VZScreenCoordinatePointerEvent{}
 //   - [IVZScreenCoordinatePointerEvent.PressedButtons]
 //   - [IVZScreenCoordinatePointerEvent.InitWithEventView]
 //   - [IVZScreenCoordinatePointerEvent.InitWithLocationPressedButtons]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent
 type IVZScreenCoordinatePointerEvent interface {
 	objectivec.IObject
 
@@ -103,39 +99,31 @@ func NewVZScreenCoordinatePointerEvent() VZScreenCoordinatePointerEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/initWithEvent:view:
 func NewVZScreenCoordinatePointerEventWithEventView(event objectivec.IObject, view objectivec.IObject) VZScreenCoordinatePointerEvent {
 	instance := getVZScreenCoordinatePointerEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return VZScreenCoordinatePointerEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/initWithLocation:pressedButtons:
 func NewVZScreenCoordinatePointerEventWithLocationPressedButtons(location corefoundation.CGPoint, buttons int64) VZScreenCoordinatePointerEvent {
 	instance := getVZScreenCoordinatePointerEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
 	return VZScreenCoordinatePointerEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/initWithEvent:view:
 func (v VZScreenCoordinatePointerEvent) InitWithEventView(event objectivec.IObject, view objectivec.IObject) VZScreenCoordinatePointerEvent {
 	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/initWithLocation:pressedButtons:
 func (v VZScreenCoordinatePointerEvent) InitWithLocationPressedButtons(location corefoundation.CGPoint, buttons int64) VZScreenCoordinatePointerEvent {
 	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/location
 func (v VZScreenCoordinatePointerEvent) Location() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZScreenCoordinatePointerEvent/pressedButtons
 func (v VZScreenCoordinatePointerEvent) PressedButtons() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("pressedButtons"))
 	return rv

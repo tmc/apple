@@ -49,8 +49,6 @@ func (dc DiskImageCreatorFromDeviceClass) Alloc() DiskImageCreatorFromDevice {
 //
 //   - [DiskImageCreatorFromDevice.CreateImageWithSrcDeviceError]
 //   - [DiskImageCreatorFromDevice.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromDevice
 type DiskImageCreatorFromDevice struct {
 	BaseDiskImageCreator
 }
@@ -69,15 +67,13 @@ var _ IDiskImageCreatorFromDevice = DiskImageCreatorFromDevice{}
 //
 //   - [IDiskImageCreatorFromDevice.CreateImageWithSrcDeviceError]
 //   - [IDiskImageCreatorFromDevice.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromDevice
 type IDiskImageCreatorFromDevice interface {
 	IBaseDiskImageCreator
 
 	// Topic: Methods
 
 	CreateImageWithSrcDeviceError(device objectivec.IObject) (bool, error)
-	InitWithURLError(url foundation.INSURL) (DiskImageCreatorFromDevice, error)
+	InitWithURLError(url foundation.NSURL) (DiskImageCreatorFromDevice, error)
 }
 
 // Init initializes the instance.
@@ -99,8 +95,7 @@ func NewDiskImageCreatorFromDevice() DiskImageCreatorFromDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/initWithURL:defaultFormat:error:
-func NewDiskImageCreatorFromDeviceWithURLDefaultFormatError(url foundation.INSURL, format int64) (DiskImageCreatorFromDevice, error) {
+func NewDiskImageCreatorFromDeviceWithURLDefaultFormatError(url foundation.NSURL, format int64) (DiskImageCreatorFromDevice, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
@@ -111,8 +106,7 @@ func NewDiskImageCreatorFromDeviceWithURLDefaultFormatError(url foundation.INSUR
 	return DiskImageCreatorFromDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromDevice/initWithURL:error:
-func NewDiskImageCreatorFromDeviceWithURLError(url foundation.INSURL) (DiskImageCreatorFromDevice, error) {
+func NewDiskImageCreatorFromDeviceWithURLError(url foundation.NSURL) (DiskImageCreatorFromDevice, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -123,7 +117,6 @@ func NewDiskImageCreatorFromDeviceWithURLError(url foundation.INSURL) (DiskImage
 	return DiskImageCreatorFromDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromDevice/createImageWithSrcDevice:error:
 func (d DiskImageCreatorFromDevice) CreateImageWithSrcDeviceError(device objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createImageWithSrcDevice:error:"), device, unsafe.Pointer(&errorPtr))
@@ -137,9 +130,7 @@ func (d DiskImageCreatorFromDevice) CreateImageWithSrcDeviceError(device objecti
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromDevice/initWithURL:error:
-func (d DiskImageCreatorFromDevice) InitWithURLError(url foundation.INSURL) (DiskImageCreatorFromDevice, error) {
+func (d DiskImageCreatorFromDevice) InitWithURLError(url foundation.NSURL) (DiskImageCreatorFromDevice, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

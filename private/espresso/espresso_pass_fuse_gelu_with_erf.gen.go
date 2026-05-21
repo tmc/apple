@@ -41,7 +41,6 @@ func (ec EspressoPassFuseGeluWithErfClass) Alloc() EspressoPassFuseGeluWithErf {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
 type EspressoPassFuseGeluWithErf struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_gelu_with_erfFromID(id objc.ID) EspressoPassFuseGeluWithE
 var _ IEspressoPassFuseGeluWithErf = EspressoPassFuseGeluWithErf{}
 
 // An interface definition for the [EspressoPassFuseGeluWithErf] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
 type IEspressoPassFuseGeluWithErf interface {
 	IEspressoCustomPass
 }

@@ -9,39 +9,25 @@ import (
 )
 
 // ExternalDetectedObject protocol.
-//
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject
 type ExternalDetectedObject interface {
 	objectivec.IObject
 
 	// Bounds protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/bounds
 	Bounds() corefoundation.CGRect
 
 	// Center protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/center
 	Center() corefoundation.CGPoint
 
 	// ObjectType protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/objectType
 	ObjectType() int64
 
 	// SetBounds protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setBounds:
 	SetBounds(bounds corefoundation.CGRect)
 
 	// SetCenter protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setCenter:
 	SetCenter(center corefoundation.CGPoint)
 
 	// SetObjectType protocol.
-	//
-	// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setObjectType:
 	SetObjectType(type_ int64)
 }
 
@@ -62,35 +48,24 @@ func ExternalDetectedObjectObjectFromID(id objc.ID) ExternalDetectedObjectObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/bounds
 func (o ExternalDetectedObjectObject) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("bounds"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/center
 func (o ExternalDetectedObjectObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/objectType
 func (o ExternalDetectedObjectObject) ObjectType() int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("objectType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setBounds:
 func (o ExternalDetectedObjectObject) SetBounds(bounds corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBounds:"), bounds)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setCenter:
 func (o ExternalDetectedObjectObject) SetCenter(center corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), center)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ExternalDetectedObject/setObjectType:
 func (o ExternalDetectedObjectObject) SetObjectType(type_ int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectType:"), type_)
 }

@@ -47,8 +47,6 @@ func (sc SLSBridgedSpaceCopyManagedShapeOperationClass) Alloc() SLSBridgedSpaceC
 //   - [SLSBridgedSpaceCopyManagedShapeOperation.MakeResultWithRegion]
 //   - [SLSBridgedSpaceCopyManagedShapeOperation.SpaceID]
 //   - [SLSBridgedSpaceCopyManagedShapeOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation
 type SLSBridgedSpaceCopyManagedShapeOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedSpaceCopyManagedShapeOperation = SLSBridgedSpaceCopyManagedShap
 //   - [ISLSBridgedSpaceCopyManagedShapeOperation.MakeResultWithRegion]
 //   - [ISLSBridgedSpaceCopyManagedShapeOperation.SpaceID]
 //   - [ISLSBridgedSpaceCopyManagedShapeOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation
 type ISLSBridgedSpaceCopyManagedShapeOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedSpaceCopyManagedShapeOperation() SLSBridgedSpaceCopyManagedSha
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation/initWithCoder:
 func NewSLSBridgedSpaceCopyManagedShapeOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyManagedShapeOperation {
 	instance := getSLSBridgedSpaceCopyManagedShapeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyManagedShapeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation/initWithSpaceID:
 func NewSLSBridgedSpaceCopyManagedShapeOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyManagedShapeOperation {
 	instance := getSLSBridgedSpaceCopyManagedShapeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyManagedShapeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation/makeResultWithRegion:
 func (s SLSBridgedSpaceCopyManagedShapeOperation) MakeResultWithRegion(region uintptr) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithRegion:"), region)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation/initWithSpaceID:
 func (s SLSBridgedSpaceCopyManagedShapeOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyManagedShapeOperation {
 	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCopyManagedShapeOperation/spaceID
 func (s SLSBridgedSpaceCopyManagedShapeOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

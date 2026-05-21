@@ -47,8 +47,6 @@ func (sc SLSBridgedShowSpacesOperationClass) Alloc() SLSBridgedShowSpacesOperati
 //
 //   - [SLSBridgedShowSpacesOperation.Spaces]
 //   - [SLSBridgedShowSpacesOperation.InitWithSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation
 type SLSBridgedShowSpacesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedShowSpacesOperation = SLSBridgedShowSpacesOperation{}
 //
 //   - [ISLSBridgedShowSpacesOperation.Spaces]
 //   - [ISLSBridgedShowSpacesOperation.InitWithSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation
 type ISLSBridgedShowSpacesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -97,27 +93,23 @@ func NewSLSBridgedShowSpacesOperation() SLSBridgedShowSpacesOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation/initWithCoder:
 func NewSLSBridgedShowSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedShowSpacesOperation {
 	instance := getSLSBridgedShowSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedShowSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation/initWithSpaces:
 func NewSLSBridgedShowSpacesOperationWithSpaces(spaces objectivec.IObject) SLSBridgedShowSpacesOperation {
 	instance := getSLSBridgedShowSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
 	return SLSBridgedShowSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation/initWithSpaces:
 func (s SLSBridgedShowSpacesOperation) InitWithSpaces(spaces objectivec.IObject) SLSBridgedShowSpacesOperation {
 	rv := objc.Send[SLSBridgedShowSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedShowSpacesOperation/spaces
 func (s SLSBridgedShowSpacesOperation) Spaces() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))

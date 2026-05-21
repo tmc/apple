@@ -52,8 +52,6 @@ func (tc TTSStreamingZipReaderClass) Alloc() TTSStreamingZipReader {
 //   - [TTSStreamingZipReader.ZipPath]
 //   - [TTSStreamingZipReader.SetZipPath]
 //   - [TTSStreamingZipReader.InitWithPathAndPassword]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader
 type TTSStreamingZipReader struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ ITTSStreamingZipReader = TTSStreamingZipReader{}
 //   - [ITTSStreamingZipReader.ZipPath]
 //   - [ITTSStreamingZipReader.SetZipPath]
 //   - [ITTSStreamingZipReader.InitWithPathAndPassword]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader
 type ITTSStreamingZipReader interface {
 	objectivec.IObject
 
@@ -110,27 +106,22 @@ func NewTTSStreamingZipReader() TTSStreamingZipReader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/initWithPath:andPassword:
 func NewTTSStreamingZipReaderWithPathAndPassword(path objectivec.IObject, password objectivec.IObject) TTSStreamingZipReader {
 	instance := getTTSStreamingZipReaderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:andPassword:"), path, password)
 	return TTSStreamingZipReaderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/enumerateFiles:
 func (t TTSStreamingZipReader) EnumerateFiles(files VoidHandler) bool {
 	_block0, _ := NewVoidBlock(files)
 	rv := objc.Send[bool](t.ID, objc.Sel("enumerateFiles:"), _block0)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/initWithPath:andPassword:
 func (t TTSStreamingZipReader) InitWithPathAndPassword(path objectivec.IObject, password objectivec.IObject) TTSStreamingZipReader {
 	rv := objc.Send[TTSStreamingZipReader](t.ID, objc.Sel("initWithPath:andPassword:"), path, password)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/password
 func (t TTSStreamingZipReader) Password() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("password"))
 	return foundation.NSStringFromID(rv).String()
@@ -138,8 +129,6 @@ func (t TTSStreamingZipReader) Password() string {
 func (t TTSStreamingZipReader) SetPassword(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPassword:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/zipPath
 func (t TTSStreamingZipReader) ZipPath() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("zipPath"))
 	return foundation.NSStringFromID(rv).String()

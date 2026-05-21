@@ -71,8 +71,6 @@ func (ec ETTaskClass) Alloc() ETTask {
 //   - [ETTask.InitWithModelDefOptimizerDefExtractorNeedWeightsInitialization]
 //   - [ETTask.InitWithModelDefOptimizerDefLossConfig]
 //   - [ETTask.InitWithModelDefOptimizerDefLossConfigExtractor]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTask
 type ETTask struct {
 	objectivec.Object
 }
@@ -112,8 +110,6 @@ var _ IETTask = ETTask{}
 //   - [IETTask.InitWithModelDefOptimizerDefExtractorNeedWeightsInitialization]
 //   - [IETTask.InitWithModelDefOptimizerDefLossConfig]
 //   - [IETTask.InitWithModelDefOptimizerDefLossConfigExtractor]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTask
 type IETTask interface {
 	objectivec.IObject
 
@@ -133,7 +129,7 @@ type IETTask interface {
 	MoveToGPUError(gpu int) (bool, error)
 	Optimizer() IETOptimizerDef
 	SetOptimizer(value IETOptimizerDef)
-	ReinitializeVariables() objectivec.IObject
+	ReinitializeVariables() unsafe.Pointer
 	RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool
 	RunInferenceOutputNamesBatchCallback(inference objectivec.IObject, names objectivec.IObject, callback VoidHandler) bool
 	SaveNetwork(network objectivec.IObject)
@@ -163,69 +159,54 @@ func NewETTask() ETTask {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:extractor:
 func NewETTaskWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
 	return ETTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:extractor:needWeightsInitialization:
 func NewETTaskWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTask {
 	instance := getETTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
 	return ETTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:
 func NewETTaskWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
 	return ETTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:extractor:
 func NewETTaskWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
 	return ETTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/evaluate:
 func (e ETTask) Evaluate(evaluate objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("evaluate:"), evaluate)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/fit:numberOfBatches:outputNames:batchCallback:
 func (e ETTask) FitNumberOfBatchesOutputNamesBatchCallback(fit objectivec.IObject, batches uint32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
 	rv := objc.Send[bool](e.ID, objc.Sel("fit:numberOfBatches:outputNames:batchCallback:"), fit, batches, names, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/fit:numberOfBatches:withProgress:
 func (e ETTask) FitNumberOfBatchesWithProgress(fit objectivec.IObject, batches uint32, progress VoidHandler) float32 {
 	_block2, _ := NewVoidBlock(progress)
 	rv := objc.Send[float32](e.ID, objc.Sel("fit:numberOfBatches:withProgress:"), fit, batches, _block2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/fit:numberOfEpochs:outputNames:batchCallback:
 func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
 	rv := objc.Send[bool](e.ID, objc.Sel("fit:numberOfEpochs:outputNames:batchCallback:"), fit, epochs, names, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/fit:numberOfEpochs:withProgress:
 func (e ETTask) FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int, progress VoidHandler) float32 {
 	_block2, _ := NewVoidBlock(progress)
 	rv := objc.Send[float32](e.ID, objc.Sel("fit:numberOfEpochs:withProgress:"), fit, epochs, _block2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/moveToGPU:error:
 func (e ETTask) MoveToGPUError(gpu int) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("moveToGPU:error:"), gpu, unsafe.Pointer(&errorPtr))
@@ -239,62 +220,43 @@ func (e ETTask) MoveToGPUError(gpu int) (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/reinitializeVariables
-func (e ETTask) ReinitializeVariables() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("reinitializeVariables"))
-	return objectivec.Object{ID: rv}
+func (e ETTask) ReinitializeVariables() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("reinitializeVariables"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/runBatches:numberOfBatches:outputNames:batchCallback:
 func (e ETTask) RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
 	rv := objc.Send[bool](e.ID, objc.Sel("runBatches:numberOfBatches:outputNames:batchCallback:"), batches, batches2, names, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/runInference:outputNames:batchCallback:
 func (e ETTask) RunInferenceOutputNamesBatchCallback(inference objectivec.IObject, names objectivec.IObject, callback VoidHandler) bool {
 	_block2, _ := NewVoidBlock(callback)
 	rv := objc.Send[bool](e.ID, objc.Sel("runInference:outputNames:batchCallback:"), inference, names, _block2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/saveNetwork:
 func (e ETTask) SaveNetwork(network objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("saveNetwork:"), network)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/saveNetwork:revertToInferenceMode:
 func (e ETTask) SaveNetworkRevertToInferenceMode(network objectivec.IObject, mode bool) {
 	objc.Send[objc.ID](e.ID, objc.Sel("saveNetwork:revertToInferenceMode:"), network, mode)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:extractor:
 func (e ETTask) InitWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTask {
 	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:extractor:needWeightsInitialization:
 func (e ETTask) InitWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTask {
 	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:
 func (e ETTask) InitWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTask {
 	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:extractor:
 func (e ETTask) InitWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTask {
 	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTask/dumpData
 func (e ETTask) DumpData() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("dumpData"))
 	return rv
@@ -302,8 +264,6 @@ func (e ETTask) DumpData() bool {
 func (e ETTask) SetDumpData(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDumpData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/extractor
 func (e ETTask) Extractor() IETImageDescriptorExtractor {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("extractor"))
 	return ETImageDescriptorExtractorFromID(objc.ID(rv))
@@ -311,8 +271,6 @@ func (e ETTask) Extractor() IETImageDescriptorExtractor {
 func (e ETTask) SetExtractor(value IETImageDescriptorExtractor) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExtractor:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/model
 func (e ETTask) Model() IETModelDef {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("model"))
 	return ETModelDefFromID(objc.ID(rv))
@@ -320,8 +278,6 @@ func (e ETTask) Model() IETModelDef {
 func (e ETTask) SetModel(value IETModelDef) {
 	objc.Send[struct{}](e.ID, objc.Sel("setModel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTask/optimizer
 func (e ETTask) Optimizer() IETOptimizerDef {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizer"))
 	return ETOptimizerDefFromID(objc.ID(rv))

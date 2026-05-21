@@ -50,8 +50,6 @@ func (mc MLSVMLoaderClass) Alloc() MLSVMLoader {
 //   - [MLSVMLoader.Description]
 //   - [MLSVMLoader.Hash]
 //   - [MLSVMLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader
 type MLSVMLoader struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IMLSVMLoader = MLSVMLoader{}
 //   - [IMLSVMLoader.Description]
 //   - [IMLSVMLoader.Hash]
 //   - [IMLSVMLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader
 type IMLSVMLoader interface {
 	objectivec.IObject
 
@@ -82,7 +78,7 @@ type IMLSVMLoader interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -104,7 +100,6 @@ func NewMLSVMLoader() MLSVMLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/loadModelFromSpecification:configuration:error:
 func (_MLSVMLoaderClass MLSVMLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLSVMLoaderClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -116,26 +111,19 @@ func (_MLSVMLoaderClass MLSVMLoaderClass) LoadModelFromSpecificationConfiguratio
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/debugDescription
 func (m MLSVMLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/description
 func (m MLSVMLoader) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/hash
 func (m MLSVMLoader) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/superclass
-func (m MLSVMLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLSVMLoader) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

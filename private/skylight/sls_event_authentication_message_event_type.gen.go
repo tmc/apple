@@ -54,8 +54,6 @@ func (sc SLSEventAuthenticationMessageEventTypeClass) Alloc() SLSEventAuthentica
 //   - [SLSEventAuthenticationMessageEventType.InitWithCoder]
 //   - [SLSEventAuthenticationMessageEventType.InitWithEventRecord]
 //   - [SLSEventAuthenticationMessageEventType.InitWithHIDTypeCgTypeCgSubType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType
 type SLSEventAuthenticationMessageEventType struct {
 	objectivec.Object
 }
@@ -81,8 +79,6 @@ var _ ISLSEventAuthenticationMessageEventType = SLSEventAuthenticationMessageEve
 //   - [ISLSEventAuthenticationMessageEventType.InitWithCoder]
 //   - [ISLSEventAuthenticationMessageEventType.InitWithEventRecord]
 //   - [ISLSEventAuthenticationMessageEventType.InitWithHIDTypeCgTypeCgSubType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType
 type ISLSEventAuthenticationMessageEventType interface {
 	objectivec.IObject
 
@@ -118,80 +114,60 @@ func NewSLSEventAuthenticationMessageEventType() SLSEventAuthenticationMessageEv
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithCoder:
 func NewSLSEventAuthenticationMessageEventTypeWithCoder(coder objectivec.IObject) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithEventRecord:
 func NewSLSEventAuthenticationMessageEventTypeWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:"), record)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithHIDType:cgType:cgSubType:
 func NewSLSEventAuthenticationMessageEventTypeWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/addToSigningContext:
 func (s SLSEventAuthenticationMessageEventType) AddToSigningContext(context objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/encodeWithCoder:
 func (s SLSEventAuthenticationMessageEventType) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithCoder:
 func (s SLSEventAuthenticationMessageEventType) InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageEventType {
 	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithEventRecord:
 func (s SLSEventAuthenticationMessageEventType) InitWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
 	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithEventRecord:"), record)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/initWithHIDType:cgType:cgSubType:
 func (s SLSEventAuthenticationMessageEventType) InitWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType {
 	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/supportsSecureCoding
 func (_SLSEventAuthenticationMessageEventTypeClass SLSEventAuthenticationMessageEventTypeClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLSEventAuthenticationMessageEventTypeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/cgSubType
 func (s SLSEventAuthenticationMessageEventType) CgSubType() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("cgSubType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/cgType
 func (s SLSEventAuthenticationMessageEventType) CgType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("cgType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/hidType
 func (s SLSEventAuthenticationMessageEventType) HidType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("hidType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageEventType/isCGType
 func (s SLSEventAuthenticationMessageEventType) IsCGType() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isCGType"))
 	return rv

@@ -46,8 +46,6 @@ func (ec ECTestOnlyVersionedPIDClass) Alloc() ECTestOnlyVersionedPID {
 //
 //   - [ECTestOnlyVersionedPID.Pid]
 //   - [ECTestOnlyVersionedPID.Version]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyVersionedPID
 type ECTestOnlyVersionedPID struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IECTestOnlyVersionedPID = ECTestOnlyVersionedPID{}
 //
 //   - [IECTestOnlyVersionedPID.Pid]
 //   - [IECTestOnlyVersionedPID.Version]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyVersionedPID
 type IECTestOnlyVersionedPID interface {
 	objectivec.IObject
 
@@ -96,13 +92,10 @@ func NewECTestOnlyVersionedPID() ECTestOnlyVersionedPID {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyVersionedPID/pid
 func (e ECTestOnlyVersionedPID) Pid() int {
 	rv := objc.Send[int](e.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyVersionedPID/version
 func (e ECTestOnlyVersionedPID) Version() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("version"))
 	return rv

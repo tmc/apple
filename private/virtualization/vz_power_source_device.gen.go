@@ -45,8 +45,6 @@ func (vc VZPowerSourceDeviceClass) Alloc() VZPowerSourceDevice {
 // # Methods
 //
 //   - [VZPowerSourceDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDevice
 type VZPowerSourceDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZPowerSourceDevice = VZPowerSourceDevice{}
 // # Methods
 //
 //   - [IVZPowerSourceDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDevice
 type IVZPowerSourceDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZPowerSourceDevice() VZPowerSourceDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDevice/_init
 func (v VZPowerSourceDevice) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}

@@ -43,7 +43,6 @@ func (dc DIDiskArbEmulationClass) Alloc() DIDiskArbEmulation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIDiskArbEmulation
 type DIDiskArbEmulation struct {
 	DIDiskArb
 }
@@ -57,8 +56,6 @@ func DIDiskArbEmulationFromID(id objc.ID) DIDiskArbEmulation {
 var _ IDIDiskArbEmulation = DIDiskArbEmulation{}
 
 // An interface definition for the [DIDiskArbEmulation] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIDiskArbEmulation
 type IDIDiskArbEmulation interface {
 	IDIDiskArb
 }
@@ -82,7 +79,6 @@ func NewDIDiskArbEmulation() DIDiskArbEmulation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/initWithError:
 func NewDIDiskArbEmulationWithError() (DIDiskArbEmulation, error) {
 	var errorPtr objc.ID
 	instance := getDIDiskArbEmulationClass().Alloc()

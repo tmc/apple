@@ -53,8 +53,6 @@ func (gc GTShaderProfilerSessionRequestClass) Alloc() GTShaderProfilerSessionReq
 //   - [GTShaderProfilerSessionRequest.SetProfilerMode]
 //   - [GTShaderProfilerSessionRequest.StreamDataToLoad]
 //   - [GTShaderProfilerSessionRequest.SetStreamDataToLoad]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest
 type GTShaderProfilerSessionRequest struct {
 	objectivec.Object
 }
@@ -79,8 +77,6 @@ var _ IGTShaderProfilerSessionRequest = GTShaderProfilerSessionRequest{}
 //   - [IGTShaderProfilerSessionRequest.SetProfilerMode]
 //   - [IGTShaderProfilerSessionRequest.StreamDataToLoad]
 //   - [IGTShaderProfilerSessionRequest.SetStreamDataToLoad]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest
 type IGTShaderProfilerSessionRequest interface {
 	objectivec.IObject
 
@@ -92,8 +88,8 @@ type IGTShaderProfilerSessionRequest interface {
 	SetPerformanceState(value uint32)
 	ProfilerMode() uint32
 	SetProfilerMode(value uint32)
-	StreamDataToLoad() foundation.INSURL
-	SetStreamDataToLoad(value foundation.INSURL)
+	StreamDataToLoad() foundation.NSURL
+	SetStreamDataToLoad(value foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -115,7 +111,6 @@ func NewGTShaderProfilerSessionRequest() GTShaderProfilerSessionRequest {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest/executionMode
 func (g GTShaderProfilerSessionRequest) ExecutionMode() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("executionMode"))
 	return rv
@@ -123,8 +118,6 @@ func (g GTShaderProfilerSessionRequest) ExecutionMode() uint32 {
 func (g GTShaderProfilerSessionRequest) SetExecutionMode(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setExecutionMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest/performanceState
 func (g GTShaderProfilerSessionRequest) PerformanceState() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("performanceState"))
 	return rv
@@ -132,8 +125,6 @@ func (g GTShaderProfilerSessionRequest) PerformanceState() uint32 {
 func (g GTShaderProfilerSessionRequest) SetPerformanceState(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPerformanceState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest/profilerMode
 func (g GTShaderProfilerSessionRequest) ProfilerMode() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("profilerMode"))
 	return rv
@@ -141,12 +132,10 @@ func (g GTShaderProfilerSessionRequest) ProfilerMode() uint32 {
 func (g GTShaderProfilerSessionRequest) SetProfilerMode(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setProfilerMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerSessionRequest/streamDataToLoad
-func (g GTShaderProfilerSessionRequest) StreamDataToLoad() foundation.INSURL {
+func (g GTShaderProfilerSessionRequest) StreamDataToLoad() foundation.NSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamDataToLoad"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (g GTShaderProfilerSessionRequest) SetStreamDataToLoad(value foundation.INSURL) {
+func (g GTShaderProfilerSessionRequest) SetStreamDataToLoad(value foundation.NSURL) {
 	objc.Send[struct{}](g.ID, objc.Sel("setStreamDataToLoad:"), value)
 }

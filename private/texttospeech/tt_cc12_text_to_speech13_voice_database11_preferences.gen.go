@@ -42,7 +42,6 @@ func (tc TtCC12TextToSpeech13VoiceDatabase11PreferencesClass) Alloc() TtCC12Text
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech13VoiceDatabase11Preferences
 type TtCC12TextToSpeech13VoiceDatabase11Preferences struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC12TextToSpeech13VoiceDatabase11PreferencesFromID(id objc.ID) TtCC12Text
 // ITtCC12TextToSpeech13VoiceDatabase11Preferences embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech13VoiceDatabase11Preferences] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech13VoiceDatabase11Preferences
 type ITtCC12TextToSpeech13VoiceDatabase11Preferences interface {
 	objectivec.IObject
 }

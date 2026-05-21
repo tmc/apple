@@ -41,7 +41,6 @@ func (dc DIAPFSPartitionClass) Alloc() DIAPFSPartition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIAPFSPartition
 type DIAPFSPartition struct {
 	DIDataPartition
 }
@@ -55,8 +54,6 @@ func DIAPFSPartitionFromID(id objc.ID) DIAPFSPartition {
 var _ IDIAPFSPartition = DIAPFSPartition{}
 
 // An interface definition for the [DIAPFSPartition] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIAPFSPartition
 type IDIAPFSPartition interface {
 	IDIDataPartition
 }

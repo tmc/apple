@@ -63,8 +63,6 @@ func (mc MLRemoteConnectionClass) Alloc() MLRemoteConnection {
 //   - [MLRemoteConnection.SendDataAndWaitForAcknowledgementOrTimeout]
 //   - [MLRemoteConnection.UnloadFromURLOptionsError]
 //   - [MLRemoteConnection.InitWithOptions]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection
 type MLRemoteConnection struct {
 	objectivec.Object
 }
@@ -97,8 +95,6 @@ var _ IMLRemoteConnection = MLRemoteConnection{}
 //   - [IMLRemoteConnection.SendDataAndWaitForAcknowledgementOrTimeout]
 //   - [IMLRemoteConnection.UnloadFromURLOptionsError]
 //   - [IMLRemoteConnection.InitWithOptions]
-//
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection
 type IMLRemoteConnection interface {
 	objectivec.IObject
 
@@ -107,18 +103,18 @@ type IMLRemoteConnection interface {
 	Connection() objectivec.Object
 	DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject)
 	JobCount() uint64
-	LoadFromURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error)
-	NwObj() *MLNetworking
-	NwOptions() *MLNetworkOptions
+	LoadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error)
+	NwObj() IMLNetworking
+	NwOptions() uint
 	OutputResult() foundation.NSMutableData
 	SetOutputResult(value foundation.NSMutableData)
-	Packet() *MLNetworkPacket
-	PredictionFromURLFeaturesOutputOptionsError(url foundation.INSURL, features objectivec.IObject, output objectivec.IObject, options objectivec.IObject) (bool, error)
+	Packet() IMLNetworkPacket
+	PredictionFromURLFeaturesOutputOptionsError(url foundation.NSURL, features objectivec.IObject, output objectivec.IObject, options objectivec.IObject) (bool, error)
 	Q() objectivec.Object
 	Semaphore() objectivec.Object
 	SendOptions(send objectivec.IObject, options objectivec.IObject)
 	SendDataAndWaitForAcknowledgementOrTimeout(timeout objectivec.IObject) bool
-	UnloadFromURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error)
+	UnloadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error)
 	InitWithOptions(options objectivec.IObject) MLRemoteConnection
 }
 
@@ -141,20 +137,16 @@ func NewMLRemoteConnection() MLRemoteConnection {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/initWithOptions:
 func NewMLRemoteConnectionWithOptions(options objectivec.IObject) MLRemoteConnection {
 	instance := getMLRemoteConnectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return MLRemoteConnectionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/doReceive:context:isComplete:error:
 func (m MLRemoteConnection) DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/loadFromURL:options:error:
-func (m MLRemoteConnection) LoadFromURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error) {
+func (m MLRemoteConnection) LoadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("loadFromURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -167,9 +159,7 @@ func (m MLRemoteConnection) LoadFromURLOptionsError(url foundation.INSURL, optio
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/predictionFromURL:features:output:options:error:
-func (m MLRemoteConnection) PredictionFromURLFeaturesOutputOptionsError(url foundation.INSURL, features objectivec.IObject, output objectivec.IObject, options objectivec.IObject) (bool, error) {
+func (m MLRemoteConnection) PredictionFromURLFeaturesOutputOptionsError(url foundation.NSURL, features objectivec.IObject, output objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("predictionFromURL:features:output:options:error:"), url, features, output, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -182,20 +172,14 @@ func (m MLRemoteConnection) PredictionFromURLFeaturesOutputOptionsError(url foun
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/send:options:
 func (m MLRemoteConnection) SendOptions(send objectivec.IObject, options objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("send:options:"), send, options)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/sendDataAndWaitForAcknowledgementOrTimeout:
 func (m MLRemoteConnection) SendDataAndWaitForAcknowledgementOrTimeout(timeout objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("sendDataAndWaitForAcknowledgementOrTimeout:"), timeout)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/unloadFromURL:options:error:
-func (m MLRemoteConnection) UnloadFromURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error) {
+func (m MLRemoteConnection) UnloadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("unloadFromURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -208,46 +192,27 @@ func (m MLRemoteConnection) UnloadFromURLOptionsError(url foundation.INSURL, opt
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/initWithOptions:
 func (m MLRemoteConnection) InitWithOptions(options objectivec.IObject) MLRemoteConnection {
 	rv := objc.Send[MLRemoteConnection](m.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/connection
 func (m MLRemoteConnection) Connection() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/jobCount
 func (m MLRemoteConnection) JobCount() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("jobCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/nwObj
-func (m MLRemoteConnection) NwObj() *MLNetworking {
+func (m MLRemoteConnection) NwObj() IMLNetworking {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwObj"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkingFromID(objc.ID(rv))
-	return &val
+	return MLNetworkingFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/nwOptions
-func (m MLRemoteConnection) NwOptions() *MLNetworkOptions {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkOptionsFromID(objc.ID(rv))
-	return &val
+func (m MLRemoteConnection) NwOptions() uint {
+	rv := objc.Send[uint](m.ID, objc.Sel("nwOptions"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/outputResult
 func (m MLRemoteConnection) OutputResult() foundation.NSMutableData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputResult"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
@@ -255,24 +220,14 @@ func (m MLRemoteConnection) OutputResult() foundation.NSMutableData {
 func (m MLRemoteConnection) SetOutputResult(value foundation.NSMutableData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOutputResult:"), value)
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/packet
-func (m MLRemoteConnection) Packet() *MLNetworkPacket {
+func (m MLRemoteConnection) Packet() IMLNetworkPacket {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkPacketFromID(objc.ID(rv))
-	return &val
+	return MLNetworkPacketFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/q
 func (m MLRemoteConnection) Q() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/semaphore
 func (m MLRemoteConnection) Semaphore() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("semaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))

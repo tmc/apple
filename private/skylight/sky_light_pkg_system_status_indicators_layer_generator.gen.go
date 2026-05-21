@@ -42,7 +42,6 @@ func (sc SkyLightPKGSystemStatusIndicatorsLayerGeneratorClass) Alloc() SkyLightP
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsLayerGenerator
 type SkyLightPKGSystemStatusIndicatorsLayerGenerator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPKGSystemStatusIndicatorsLayerGeneratorFromID(id objc.ID) SkyLightP
 // ISkyLightPKGSystemStatusIndicatorsLayerGenerator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsLayerGenerator] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsLayerGenerator
 type ISkyLightPKGSystemStatusIndicatorsLayerGenerator interface {
 	objectivec.IObject
 }

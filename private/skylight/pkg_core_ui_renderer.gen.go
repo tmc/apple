@@ -47,8 +47,6 @@ func (pc PKGCoreUIRendererClass) Alloc() PKGCoreUIRenderer {
 //   - [PKGCoreUIRenderer.Renderer]
 //   - [PKGCoreUIRenderer.RendererName]
 //   - [PKGCoreUIRenderer.InitWithRendererName]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer
 type PKGCoreUIRenderer struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IPKGCoreUIRenderer = PKGCoreUIRenderer{}
 //   - [IPKGCoreUIRenderer.Renderer]
 //   - [IPKGCoreUIRenderer.RendererName]
 //   - [IPKGCoreUIRenderer.InitWithRendererName]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer
 type IPKGCoreUIRenderer interface {
 	objectivec.IObject
 
@@ -99,32 +95,25 @@ func NewPKGCoreUIRenderer() PKGCoreUIRenderer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/initWithRendererName:
 func NewGCoreUIRendererWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
 	instance := getPKGCoreUIRendererClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRendererName:"), name)
 	return PKGCoreUIRendererFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/renderer
 func (p PKGCoreUIRenderer) Renderer() OpaqueCUIRendererRefRef {
 	rv := objc.Send[OpaqueCUIRendererRefRef](p.ID, objc.Sel("renderer"))
 	return OpaqueCUIRendererRefRef(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/rendererName
 func (p PKGCoreUIRenderer) RendererName() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("rendererName"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/initWithRendererName:
 func (p PKGCoreUIRenderer) InitWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
 	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("initWithRendererName:"), name)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/rendererForTheme:useAX:
 func (_PKGCoreUIRendererClass PKGCoreUIRendererClass) RendererForThemeUseAX(theme uint32, ax bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_PKGCoreUIRendererClass.class), objc.Sel("rendererForTheme:useAX:"), theme, ax)
 	return objectivec.Object{ID: rv}

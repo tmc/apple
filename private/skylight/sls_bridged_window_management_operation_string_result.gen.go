@@ -45,8 +45,6 @@ func (sc SLSBridgedWindowManagementOperationStringResultClass) Alloc() SLSBridge
 // # Methods
 //
 //   - [SLSBridgedWindowManagementOperationStringResult.InitWithString]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringResult
 type SLSBridgedWindowManagementOperationStringResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -64,8 +62,6 @@ var _ ISLSBridgedWindowManagementOperationStringResult = SLSBridgedWindowManagem
 // # Methods
 //
 //   - [ISLSBridgedWindowManagementOperationStringResult.InitWithString]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringResult
 type ISLSBridgedWindowManagementOperationStringResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -93,21 +89,18 @@ func NewSLSBridgedWindowManagementOperationStringResult() SLSBridgedWindowManage
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationStringResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationStringResult {
 	instance := getSLSBridgedWindowManagementOperationStringResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationStringResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringResult/initWithString:
 func NewSLSBridgedWindowManagementOperationStringResultWithString(string_ objectivec.IObject) SLSBridgedWindowManagementOperationStringResult {
 	instance := getSLSBridgedWindowManagementOperationStringResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), string_)
 	return SLSBridgedWindowManagementOperationStringResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationStringResult/initWithString:
 func (s SLSBridgedWindowManagementOperationStringResult) InitWithString(string_ objectivec.IObject) SLSBridgedWindowManagementOperationStringResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationStringResult](s.ID, objc.Sel("initWithString:"), string_)
 	return rv

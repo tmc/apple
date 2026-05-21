@@ -44,7 +44,6 @@ func (mc MLCloudDeploymentUtilsClass) Alloc() MLCloudDeploymentUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCloudDeploymentUtils
 type MLCloudDeploymentUtils struct {
 	objectivec.Object
 }
@@ -58,8 +57,6 @@ func MLCloudDeploymentUtilsFromID(id objc.ID) MLCloudDeploymentUtils {
 var _ IMLCloudDeploymentUtils = MLCloudDeploymentUtils{}
 
 // An interface definition for the [MLCloudDeploymentUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCloudDeploymentUtils
 type IMLCloudDeploymentUtils interface {
 	objectivec.IObject
 }
@@ -83,7 +80,6 @@ func NewMLCloudDeploymentUtils() MLCloudDeploymentUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCloudDeploymentUtils/extractTeamIdentifierAndReturnError:
 func (_MLCloudDeploymentUtilsClass MLCloudDeploymentUtilsClass) ExtractTeamIdentifierAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLCloudDeploymentUtilsClass.class), objc.Sel("extractTeamIdentifierAndReturnError:"), unsafe.Pointer(&errorPtr))

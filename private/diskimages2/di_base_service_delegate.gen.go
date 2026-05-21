@@ -60,8 +60,6 @@ func (dc DIBaseServiceDelegateClass) Alloc() DIBaseServiceDelegate {
 //   - [DIBaseServiceDelegate.Description]
 //   - [DIBaseServiceDelegate.Hash]
 //   - [DIBaseServiceDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate
 type DIBaseServiceDelegate struct {
 	objectivec.Object
 }
@@ -93,8 +91,6 @@ var _ IDIBaseServiceDelegate = DIBaseServiceDelegate{}
 //   - [IDIBaseServiceDelegate.Description]
 //   - [IDIBaseServiceDelegate.Hash]
 //   - [IDIBaseServiceDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate
 type IDIBaseServiceDelegate interface {
 	objectivec.IObject
 
@@ -114,7 +110,7 @@ type IDIBaseServiceDelegate interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -136,75 +132,51 @@ func NewDIBaseServiceDelegate() DIBaseServiceDelegate {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/createListener
 func (d DIBaseServiceDelegate) CreateListener() {
 	objc.Send[objc.ID](d.ID, objc.Sel("createListener"))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/enterSandbox
 func (d DIBaseServiceDelegate) EnterSandbox() {
 	objc.Send[objc.ID](d.ID, objc.Sel("enterSandbox"))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/listener:shouldAcceptNewConnection:
 func (d DIBaseServiceDelegate) ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/sandboxProfile
 func (d DIBaseServiceDelegate) SandboxProfile() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("sandboxProfile"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/serviceName
 func (d DIBaseServiceDelegate) ServiceName() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("serviceName"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/setupNewConnection:
 func (d DIBaseServiceDelegate) SetupNewConnection(connection objectivec.IObject) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("setupNewConnection:"), connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/startXPClistener
 func (d DIBaseServiceDelegate) StartXPClistener() {
 	objc.Send[objc.ID](d.ID, objc.Sel("startXPClistener"))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/validateConnection
 func (d DIBaseServiceDelegate) ValidateConnection() {
 	objc.Send[objc.ID](d.ID, objc.Sel("validateConnection"))
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/debugDescription
 func (d DIBaseServiceDelegate) DebugDescription() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/description
 func (d DIBaseServiceDelegate) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/dispatchQueue
 func (d DIBaseServiceDelegate) DispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/hash
 func (d DIBaseServiceDelegate) Hash() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/listener
 func (d DIBaseServiceDelegate) Listener() foundation.NSXPCListener {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("listener"))
 	return foundation.NSXPCListenerFromID(objc.ID(rv))
@@ -212,9 +184,7 @@ func (d DIBaseServiceDelegate) Listener() foundation.NSXPCListener {
 func (d DIBaseServiceDelegate) SetListener(value foundation.NSXPCListener) {
 	objc.Send[struct{}](d.ID, objc.Sel("setListener:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseServiceDelegate/superclass
-func (d DIBaseServiceDelegate) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](d.ID, objc.Sel("superclass"))
-	return rv
+func (d DIBaseServiceDelegate) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](d.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

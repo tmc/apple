@@ -47,8 +47,6 @@ func (sc SLSBridgedGetSpaceNeedsSafeApertureOperationClass) Alloc() SLSBridgedGe
 //   - [SLSBridgedGetSpaceNeedsSafeApertureOperation.MakeResultWithBoolValue]
 //   - [SLSBridgedGetSpaceNeedsSafeApertureOperation.SpaceID]
 //   - [SLSBridgedGetSpaceNeedsSafeApertureOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation
 type SLSBridgedGetSpaceNeedsSafeApertureOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedGetSpaceNeedsSafeApertureOperation = SLSBridgedGetSpaceNeedsSaf
 //   - [ISLSBridgedGetSpaceNeedsSafeApertureOperation.MakeResultWithBoolValue]
 //   - [ISLSBridgedGetSpaceNeedsSafeApertureOperation.SpaceID]
 //   - [ISLSBridgedGetSpaceNeedsSafeApertureOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation
 type ISLSBridgedGetSpaceNeedsSafeApertureOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedGetSpaceNeedsSafeApertureOperation() SLSBridgedGetSpaceNeedsSa
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation/initWithCoder:
 func NewSLSBridgedGetSpaceNeedsSafeApertureOperationWithCoder(coder objectivec.IObject) SLSBridgedGetSpaceNeedsSafeApertureOperation {
 	instance := getSLSBridgedGetSpaceNeedsSafeApertureOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedGetSpaceNeedsSafeApertureOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation/initWithSpaceID:
 func NewSLSBridgedGetSpaceNeedsSafeApertureOperationWithSpaceID(id uint64) SLSBridgedGetSpaceNeedsSafeApertureOperation {
 	instance := getSLSBridgedGetSpaceNeedsSafeApertureOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedGetSpaceNeedsSafeApertureOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation/makeResultWithBoolValue:
 func (s SLSBridgedGetSpaceNeedsSafeApertureOperation) MakeResultWithBoolValue(value bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation/initWithSpaceID:
 func (s SLSBridgedGetSpaceNeedsSafeApertureOperation) InitWithSpaceID(id uint64) SLSBridgedGetSpaceNeedsSafeApertureOperation {
 	rv := objc.Send[SLSBridgedGetSpaceNeedsSafeApertureOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedGetSpaceNeedsSafeApertureOperation/spaceID
 func (s SLSBridgedGetSpaceNeedsSafeApertureOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

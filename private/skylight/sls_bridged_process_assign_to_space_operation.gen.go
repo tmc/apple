@@ -47,8 +47,6 @@ func (sc SLSBridgedProcessAssignToSpaceOperationClass) Alloc() SLSBridgedProcess
 //   - [SLSBridgedProcessAssignToSpaceOperation.Process]
 //   - [SLSBridgedProcessAssignToSpaceOperation.SpaceID]
 //   - [SLSBridgedProcessAssignToSpaceOperation.InitWithProcessSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation
 type SLSBridgedProcessAssignToSpaceOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedProcessAssignToSpaceOperation = SLSBridgedProcessAssignToSpaceO
 //   - [ISLSBridgedProcessAssignToSpaceOperation.Process]
 //   - [ISLSBridgedProcessAssignToSpaceOperation.SpaceID]
 //   - [ISLSBridgedProcessAssignToSpaceOperation.InitWithProcessSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation
 type ISLSBridgedProcessAssignToSpaceOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedProcessAssignToSpaceOperation() SLSBridgedProcessAssignToSpace
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation/initWithCoder:
 func NewSLSBridgedProcessAssignToSpaceOperationWithCoder(coder objectivec.IObject) SLSBridgedProcessAssignToSpaceOperation {
 	instance := getSLSBridgedProcessAssignToSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedProcessAssignToSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation/initWithProcess:spaceID:
 func NewSLSBridgedProcessAssignToSpaceOperationWithProcessSpaceID(process int, id uint64) SLSBridgedProcessAssignToSpaceOperation {
 	instance := getSLSBridgedProcessAssignToSpaceOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:spaceID:"), process, id)
 	return SLSBridgedProcessAssignToSpaceOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation/initWithProcess:spaceID:
 func (s SLSBridgedProcessAssignToSpaceOperation) InitWithProcessSpaceID(process int, id uint64) SLSBridgedProcessAssignToSpaceOperation {
 	rv := objc.Send[SLSBridgedProcessAssignToSpaceOperation](s.ID, objc.Sel("initWithProcess:spaceID:"), process, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation/process
 func (s SLSBridgedProcessAssignToSpaceOperation) Process() int {
 	rv := objc.Send[int](s.ID, objc.Sel("process"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedProcessAssignToSpaceOperation/spaceID
 func (s SLSBridgedProcessAssignToSpaceOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

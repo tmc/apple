@@ -47,8 +47,6 @@ func (gc GTShaderProfilerAnalyzerToolchainClass) Alloc() GTShaderProfilerAnalyze
 //
 //   - [GTShaderProfilerAnalyzerToolchain.McaCommandLineToolPath]
 //   - [GTShaderProfilerAnalyzerToolchain.SetMcaCommandLineToolPath]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzerToolchain
 type GTShaderProfilerAnalyzerToolchain struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IGTShaderProfilerAnalyzerToolchain = GTShaderProfilerAnalyzerToolchain{}
 //
 //   - [IGTShaderProfilerAnalyzerToolchain.McaCommandLineToolPath]
 //   - [IGTShaderProfilerAnalyzerToolchain.SetMcaCommandLineToolPath]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzerToolchain
 type IGTShaderProfilerAnalyzerToolchain interface {
 	objectivec.IObject
 
@@ -97,7 +93,6 @@ func NewGTShaderProfilerAnalyzerToolchain() GTShaderProfilerAnalyzerToolchain {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzerToolchain/mcaCommandLineToolPath
 func (g GTShaderProfilerAnalyzerToolchain) McaCommandLineToolPath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaCommandLineToolPath"))
 	return foundation.NSStringFromID(rv).String()

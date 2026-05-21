@@ -42,7 +42,6 @@ func (cc CoreMLIOSurfaceAllocatorClass) Alloc() CoreMLIOSurfaceAllocator {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceAllocator
 type CoreMLIOSurfaceAllocator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLIOSurfaceAllocatorFromID(id objc.ID) CoreMLIOSurfaceAllocator {
 // ICoreMLIOSurfaceAllocator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLIOSurfaceAllocator] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceAllocator
 type ICoreMLIOSurfaceAllocator interface {
 	objectivec.IObject
 }

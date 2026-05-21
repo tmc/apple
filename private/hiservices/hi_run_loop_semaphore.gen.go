@@ -56,8 +56,6 @@ func (hc HIRunLoopSemaphoreClass) Alloc() HIRunLoopSemaphore {
 //   - [HIRunLoopSemaphore.Wait]
 //   - [HIRunLoopSemaphore.WaitWithWait]
 //   - [HIRunLoopSemaphore.InitWithMode]
-//
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore
 type HIRunLoopSemaphore struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ IHIRunLoopSemaphore = HIRunLoopSemaphore{}
 //   - [IHIRunLoopSemaphore.Wait]
 //   - [IHIRunLoopSemaphore.WaitWithWait]
 //   - [IHIRunLoopSemaphore.InitWithMode]
-//
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore
 type IHIRunLoopSemaphore interface {
 	objectivec.IObject
 
@@ -120,47 +116,34 @@ func NewHIRunLoopSemaphore() HIRunLoopSemaphore {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/initWithMode:
 func NewHIRunLoopSemaphoreWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
 	instance := getHIRunLoopSemaphoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
 	return HIRunLoopSemaphoreFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/invokeLoopInModeForDuration:withBlock:
 func (h HIRunLoopSemaphore) InvokeLoopInModeForDurationWithBlock(duration float64, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](h.ID, objc.Sel("invokeLoopInModeForDuration:withBlock:"), duration, _block1)
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/setLegacyWake
 func (h HIRunLoopSemaphore) SetLegacyWake() {
 	objc.Send[objc.ID](h.ID, objc.Sel("setLegacyWake"))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/signal
 func (h HIRunLoopSemaphore) Signal() {
 	objc.Send[objc.ID](h.ID, objc.Sel("signal"))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/wait
 func (h HIRunLoopSemaphore) Wait() {
 	objc.Send[objc.ID](h.ID, objc.Sel("wait"))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/wait:
 func (h HIRunLoopSemaphore) WaitWithWait(wait float64) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("wait:"), wait)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/initWithMode:
 func (h HIRunLoopSemaphore) InitWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
 	rv := objc.Send[HIRunLoopSemaphore](h.ID, objc.Sel("initWithMode:"), mode)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/_invocations
 func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _invocations() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations"))
 	return objectivec.Object{ID: rv}
@@ -179,8 +162,6 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) Invocations() (objective
 func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanInvocations() bool {
 	return objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations"))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/_observe:whilePerforming:
 func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _observeWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) {
 	_block1, _ := NewVoidBlock(performing)
 	objc.Send[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"), _observe, _block1)
@@ -201,7 +182,6 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanObserveWhilePerformin
 	return objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"))
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/legend
 func (h HIRunLoopSemaphore) Legend() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("legend"))
 	return foundation.NSStringFromID(rv).String()
@@ -209,8 +189,6 @@ func (h HIRunLoopSemaphore) Legend() string {
 func (h HIRunLoopSemaphore) SetLegend(value string) {
 	objc.Send[struct{}](h.ID, objc.Sel("setLegend:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/mode
 func (h HIRunLoopSemaphore) Mode() corefoundation.CFStringRef {
 	rv := objc.Send[corefoundation.CFStringRef](h.ID, objc.Sel("mode"))
 	return corefoundation.CFStringRef(rv)

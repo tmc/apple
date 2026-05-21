@@ -42,7 +42,6 @@ func (vc VZCapsLockIndicatorControllerClass) Alloc() VZCapsLockIndicatorControll
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZCapsLockIndicatorController
 type VZCapsLockIndicatorController struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZCapsLockIndicatorControllerFromID(id objc.ID) VZCapsLockIndicatorControll
 var _ IVZCapsLockIndicatorController = VZCapsLockIndicatorController{}
 
 // An interface definition for the [VZCapsLockIndicatorController] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZCapsLockIndicatorController
 type IVZCapsLockIndicatorController interface {
 	objectivec.IObject
 }

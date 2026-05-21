@@ -42,7 +42,6 @@ func (tc TtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921D
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator
 type TtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921Devic
 // ITtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator
 type ITtCC6CoreML20MetalBufferAllocatorP33A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator interface {
 	objectivec.IObject
 }

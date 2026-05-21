@@ -41,7 +41,6 @@ func (ec EspressoPassQuantizeGathersClass) Alloc() EspressoPassQuantizeGathers {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
 type EspressoPassQuantizeGathers struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_quantize_gathersFromID(id objc.ID) EspressoPassQuantizeGathers
 var _ IEspressoPassQuantizeGathers = EspressoPassQuantizeGathers{}
 
 // An interface definition for the [EspressoPassQuantizeGathers] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
 type IEspressoPassQuantizeGathers interface {
 	IEspressoCustomPass
 }

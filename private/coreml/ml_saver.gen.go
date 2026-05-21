@@ -45,7 +45,6 @@ func (mc MLSaverClass) Alloc() MLSaver {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSaver
 type MLSaver struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLSaverFromID(id objc.ID) MLSaver {
 var _ IMLSaver = MLSaver{}
 
 // An interface definition for the [MLSaver] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSaver
 type IMLSaver interface {
 	objectivec.IObject
 }
@@ -84,8 +81,7 @@ func NewMLSaver() MLSaver {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSaver/copyModelAtURL:toURL:error:
-func (_MLSaverClass MLSaverClass) CopyModelAtURLToURLError(url foundation.INSURL, url2 foundation.INSURL) (bool, error) {
+func (_MLSaverClass MLSaverClass) CopyModelAtURLToURLError(url foundation.NSURL, url2 foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLSaverClass.class), objc.Sel("copyModelAtURL:toURL:error:"), url, url2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -98,8 +94,6 @@ func (_MLSaverClass MLSaverClass) CopyModelAtURLToURLError(url foundation.INSURL
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToArchive:model:compilerOptions:error:
 func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelCompilerOptionsError(archive unsafe.Pointer, model objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLSaverClass.class), objc.Sel("saveModelToArchive:model:compilerOptions:error:"), archive, model, options, unsafe.Pointer(&errorPtr))
@@ -113,8 +107,6 @@ func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelCompilerOptionsError(ar
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToArchive:model:error:
 func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelError(archive unsafe.Pointer, model objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLSaverClass.class), objc.Sel("saveModelToArchive:model:error:"), archive, model, unsafe.Pointer(&errorPtr))
@@ -128,9 +120,7 @@ func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelError(archive unsafe.Po
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToAssetAtURL:model:error:
-func (_MLSaverClass MLSaverClass) SaveModelToAssetAtURLModelError(url foundation.INSURL, model objectivec.IObject) (bool, error) {
+func (_MLSaverClass MLSaverClass) SaveModelToAssetAtURLModelError(url foundation.NSURL, model objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLSaverClass.class), objc.Sel("saveModelToAssetAtURL:model:error:"), url, model, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

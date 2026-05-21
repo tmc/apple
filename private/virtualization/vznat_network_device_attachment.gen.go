@@ -46,8 +46,6 @@ func (vc VZNATNetworkDeviceAttachmentClass) Alloc() VZNATNetworkDeviceAttachment
 //   - [VZNATNetworkDeviceAttachment._interfaceIsolationEnabled]
 //   - [VZNATNetworkDeviceAttachment.Set_interfaceIsolationEnabled]
 //   - [VZNATNetworkDeviceAttachment._setInterfaceIsolationEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment
 type VZNATNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
 }
@@ -67,8 +65,6 @@ var _ IVZNATNetworkDeviceAttachment = VZNATNetworkDeviceAttachment{}
 //   - [IVZNATNetworkDeviceAttachment._interfaceIsolationEnabled]
 //   - [IVZNATNetworkDeviceAttachment.Set_interfaceIsolationEnabled]
 //   - [IVZNATNetworkDeviceAttachment._setInterfaceIsolationEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment
 type IVZNATNetworkDeviceAttachment interface {
 	IVZNetworkDeviceAttachment
 
@@ -98,7 +94,6 @@ func NewVZNATNetworkDeviceAttachment() VZNATNetworkDeviceAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment/_setInterfaceIsolationEnabled:
 func (v VZNATNetworkDeviceAttachment) _setInterfaceIsolationEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setInterfaceIsolationEnabled:"), enabled)
 }
@@ -118,7 +113,6 @@ func (v VZNATNetworkDeviceAttachment) CanSetInterfaceIsolationEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setInterfaceIsolationEnabled:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment/_interfaceIsolationEnabled
 func (v VZNATNetworkDeviceAttachment) _interfaceIsolationEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_interfaceIsolationEnabled"))
 	return rv

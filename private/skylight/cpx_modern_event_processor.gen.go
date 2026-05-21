@@ -51,8 +51,6 @@ func (cc CPXModernEventProcessorClass) Alloc() CPXModernEventProcessor {
 //   - [CPXModernEventProcessor.Description]
 //   - [CPXModernEventProcessor.Hash]
 //   - [CPXModernEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor
 type CPXModernEventProcessor struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ICPXModernEventProcessor = CPXModernEventProcessor{}
 //   - [ICPXModernEventProcessor.Description]
 //   - [ICPXModernEventProcessor.Hash]
 //   - [ICPXModernEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor
 type ICPXModernEventProcessor interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type ICPXModernEventProcessor interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,37 +105,27 @@ func NewCPXModernEventProcessor() CPXModernEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/clearEventState
 func (c CPXModernEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/processEvent:context:dispatcher:
 func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/debugDescription
 func (c CPXModernEventProcessor) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/description
 func (c CPXModernEventProcessor) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/hash
 func (c CPXModernEventProcessor) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/superclass
-func (c CPXModernEventProcessor) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXModernEventProcessor) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

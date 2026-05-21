@@ -48,8 +48,6 @@ func (cc CPXNotificationCenterClass) Alloc() CPXNotificationCenter {
 //   - [CPXNotificationCenter.NotifyLaunchServicesOfLastestEventTypeFlags]
 //   - [CPXNotificationCenter.PostLocalNotificationDataLength]
 //   - [CPXNotificationCenter.InitWithSession]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter
 type CPXNotificationCenter struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ ICPXNotificationCenter = CPXNotificationCenter{}
 //   - [ICPXNotificationCenter.NotifyLaunchServicesOfLastestEventTypeFlags]
 //   - [ICPXNotificationCenter.PostLocalNotificationDataLength]
 //   - [ICPXNotificationCenter.InitWithSession]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter
 type ICPXNotificationCenter interface {
 	objectivec.IObject
 
@@ -100,24 +96,18 @@ func NewCPXNotificationCenter() CPXNotificationCenter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/initWithSession:
 func NewCPXNotificationCenterWithSession(session CGXSession) CPXNotificationCenter {
 	instance := getCPXNotificationCenterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXNotificationCenterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/notifyLaunchServicesOfLastestEventType:flags:
 func (c CPXNotificationCenter) NotifyLaunchServicesOfLastestEventTypeFlags(type_ uint32, flags uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("notifyLaunchServicesOfLastestEventType:flags:"), type_, flags)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/postLocalNotification:data:length:
 func (c CPXNotificationCenter) PostLocalNotificationDataLength(notification uint32, data unsafe.Pointer, length uint64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postLocalNotification:data:length:"), notification, data, length)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/initWithSession:
 func (c CPXNotificationCenter) InitWithSession(session CGXSession) CPXNotificationCenter {
 	rv := objc.Send[CPXNotificationCenter](c.ID, objc.Sel("initWithSession:"), session)
 	return rv

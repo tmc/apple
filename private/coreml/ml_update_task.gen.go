@@ -67,8 +67,6 @@ func (mc MLUpdateTaskClass) Alloc() MLUpdateTask {
 //   - [MLUpdateTask.Description]
 //   - [MLUpdateTask.Hash]
 //   - [MLUpdateTask.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask
 type MLUpdateTask struct {
 	MLTask
 }
@@ -105,8 +103,6 @@ var _ IMLUpdateTask = MLUpdateTask{}
 //   - [IMLUpdateTask.Description]
 //   - [IMLUpdateTask.Hash]
 //   - [IMLUpdateTask.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask
 type IMLUpdateTask interface {
 	IMLTask
 
@@ -121,17 +117,17 @@ type IMLUpdateTask interface {
 	OnResumptionWithTaskContext(context objectivec.IObject)
 	OnSuspensionWithTaskContext(context objectivec.IObject)
 	ProgressHandlers() IMLUpdateProgressHandlers
-	TrainingData() objectivec.IObject
+	TrainingData() unsafe.Pointer
 	UpdatableModel() IMLModel
-	UpdatableModelURL() foundation.INSURL
+	UpdatableModelURL() foundation.NSURL
 	UpdateHasStarted() bool
 	SetUpdateHasStarted(value bool)
 	UpdateQueue() objectivec.Object
-	InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error)
+	InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -153,8 +149,7 @@ func NewMLUpdateTask() MLUpdateTask {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/initWithModelAtURL:trainingData:configuration:progressHandlers:error:
-func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
+func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	instance := getMLUpdateTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
@@ -165,14 +160,12 @@ func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(u
 	return MLUpdateTaskFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLTask/initWithState:
 func NewUpdateTaskWithState(state int64) MLUpdateTask {
 	instance := getMLUpdateTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
 	return MLUpdateTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_completionHandlerBlock
 func (m MLUpdateTask) _completionHandlerBlock() {
 	objc.Send[objc.ID](m.ID, objc.Sel("_completionHandlerBlock"))
 }
@@ -191,8 +184,6 @@ func (m MLUpdateTask) CompletionHandlerBlock() error {
 func (m MLUpdateTask) CanCompletionHandlerBlock() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_completionHandlerBlock"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_invokeProgressHandlerForContext:
 func (m MLUpdateTask) _invokeProgressHandlerForContext(context objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_invokeProgressHandlerForContext:"), context)
 }
@@ -211,8 +202,6 @@ func (m MLUpdateTask) InvokeProgressHandlerForContext(context objectivec.IObject
 func (m MLUpdateTask) CanInvokeProgressHandlerForContext() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_invokeProgressHandlerForContext:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_progressHandlerBlock
 func (m MLUpdateTask) _progressHandlerBlock() {
 	objc.Send[objc.ID](m.ID, objc.Sel("_progressHandlerBlock"))
 }
@@ -231,34 +220,22 @@ func (m MLUpdateTask) ProgressHandlerBlock() error {
 func (m MLUpdateTask) CanProgressHandlerBlock() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_progressHandlerBlock"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onCancellation
 func (m MLUpdateTask) OnCancellation() {
 	objc.Send[objc.ID](m.ID, objc.Sel("onCancellation"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onCompletionWithTaskContext:
 func (m MLUpdateTask) OnCompletionWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("onCompletionWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onFailureWithTaskContext:
 func (m MLUpdateTask) OnFailureWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("onFailureWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onResumptionWithTaskContext:
 func (m MLUpdateTask) OnResumptionWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("onResumptionWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onSuspensionWithTaskContext:
 func (m MLUpdateTask) OnSuspensionWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/initWithModelAtURL:trainingData:configuration:progressHandlers:error:
-func (m MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
+func (m MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -269,8 +246,7 @@ func (m MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandler
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateModelAtURL:trainingData:configuration:writeToURL:error:
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateModelAtURLTrainingDataConfigurationWriteToURLError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, url2 foundation.INSURL) (bool, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateModelAtURLTrainingDataConfigurationWriteToURLError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, url2 foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateModelAtURL:trainingData:configuration:writeToURL:error:"), url, data, configuration, url2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -283,9 +259,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateModelAtURLTrainingDataConfigur
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateTaskForModelAtURL:trainingData:configuration:progressHandlers:error:
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (objectivec.IObject, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -295,9 +269,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateTaskForModelAtURL:trainingData:progressHandlers:error:
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataProgressHandlersError(url foundation.INSURL, data objectivec.IObject, handlers objectivec.IObject) (objectivec.IObject, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataProgressHandlersError(url foundation.NSURL, data objectivec.IObject, handlers objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:progressHandlers:error:"), url, data, handlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -308,55 +280,38 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataP
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/debugDescription
 func (m MLUpdateTask) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/description
 func (m MLUpdateTask) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/hash
 func (m MLUpdateTask) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/progressHandlers
 func (m MLUpdateTask) ProgressHandlers() IMLUpdateProgressHandlers {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/superclass
-func (m MLUpdateTask) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
+func (m MLUpdateTask) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
+}
+func (m MLUpdateTask) TrainingData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("trainingData"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/trainingData
-func (m MLUpdateTask) TrainingData() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainingData"))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updatableModel
 func (m MLUpdateTask) UpdatableModel() IMLModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModel"))
 	return MLModelFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updatableModelURL
-func (m MLUpdateTask) UpdatableModelURL() foundation.INSURL {
+func (m MLUpdateTask) UpdatableModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateHasStarted
 func (m MLUpdateTask) UpdateHasStarted() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("updateHasStarted"))
 	return rv
@@ -364,8 +319,6 @@ func (m MLUpdateTask) UpdateHasStarted() bool {
 func (m MLUpdateTask) SetUpdateHasStarted(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUpdateHasStarted:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateQueue
 func (m MLUpdateTask) UpdateQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))

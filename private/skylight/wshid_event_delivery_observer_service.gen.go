@@ -47,8 +47,6 @@ func (wc WSHIDEventDeliveryObserverServiceClass) Alloc() WSHIDEventDeliveryObser
 //
 //   - [WSHIDEventDeliveryObserverService.BkObserverService]
 //   - [WSHIDEventDeliveryObserverService.InitWithServer]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverService
 type WSHIDEventDeliveryObserverService struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IWSHIDEventDeliveryObserverService = WSHIDEventDeliveryObserverService{}
 //
 //   - [IWSHIDEventDeliveryObserverService.BkObserverService]
 //   - [IWSHIDEventDeliveryObserverService.InitWithServer]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverService
 type IWSHIDEventDeliveryObserverService interface {
 	objectivec.IObject
 
@@ -97,20 +93,17 @@ func NewWSHIDEventDeliveryObserverService() WSHIDEventDeliveryObserverService {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverService/initWithServer:
 func NewWSHIDEventDeliveryObserverServiceWithServer(server objectivec.IObject) WSHIDEventDeliveryObserverService {
 	instance := getWSHIDEventDeliveryObserverServiceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithServer:"), server)
 	return WSHIDEventDeliveryObserverServiceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverService/initWithServer:
 func (w WSHIDEventDeliveryObserverService) InitWithServer(server objectivec.IObject) WSHIDEventDeliveryObserverService {
 	rv := objc.Send[WSHIDEventDeliveryObserverService](w.ID, objc.Sel("initWithServer:"), server)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSHIDEventDeliveryObserverService/bkObserverService
 func (w WSHIDEventDeliveryObserverService) BkObserverService() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkObserverService"))
 	return rv

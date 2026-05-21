@@ -85,8 +85,6 @@ func (ac ANEInMemoryModelClass) Alloc() ANEInMemoryModel {
 //   - [ANEInMemoryModel.UnloadWithQoSError]
 //   - [ANEInMemoryModel.UnmapIOSurfacesWithRequest]
 //   - [ANEInMemoryModel.InitWithDesctiptor]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel
 type ANEInMemoryModel struct {
 	objectivec.Object
 }
@@ -141,8 +139,6 @@ var _ IANEInMemoryModel = ANEInMemoryModel{}
 //   - [IANEInMemoryModel.UnloadWithQoSError]
 //   - [IANEInMemoryModel.UnmapIOSurfacesWithRequest]
 //   - [IANEInMemoryModel.InitWithDesctiptor]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel
 type IANEInMemoryModel interface {
 	objectivec.IObject
 
@@ -153,8 +149,8 @@ type IANEInMemoryModel interface {
 	CompilerOptionsFileName() string
 	SetCompilerOptionsFileName(value string)
 	CompilerOptionsWithOptionsIsCompiledModelCached(options objectivec.IObject, cached bool) objectivec.IObject
-	Descriptor() *ANEInMemoryModelDescriptor
-	SetDescriptor(value *ANEInMemoryModelDescriptor)
+	Descriptor() IANEInMemoryModelDescriptor
+	SetDescriptor(value IANEInMemoryModelDescriptor)
 	EvaluateWithQoSOptionsRequestError(s uint32, options objectivec.IObject, request objectivec.IObject) (bool, error)
 	HexStringIdentifier() string
 	IntermediateBufferHandle() uint64
@@ -163,23 +159,23 @@ type IANEInMemoryModel interface {
 	LoadWithQoSOptionsError(s uint32, options objectivec.IObject) (bool, error)
 	LocalModelPath() objectivec.IObject
 	MapIOSurfacesWithRequestCacheInferenceError(request objectivec.IObject, inference bool) (bool, error)
-	Model() *ANEModel
-	SetModel(value *ANEModel)
+	Model() IANEModel
+	SetModel(value IANEModel)
 	ModelAttributes() foundation.INSDictionary
 	SetModelAttributes(value foundation.INSDictionary)
-	ModelURL() foundation.INSURL
-	SetModelURL(value foundation.INSURL)
+	ModelURL() foundation.NSURL
+	SetModelURL(value foundation.NSURL)
 	PerfStatsMask() uint32
 	SetPerfStatsMask(value uint32)
-	Program() *ANEProgramForEvaluation
-	SetProgram(value *ANEProgramForEvaluation)
+	Program() IANEProgramForEvaluation
+	SetProgram(value IANEProgramForEvaluation)
 	ProgramHandle() uint64
 	SetProgramHandle(value uint64)
 	PurgeCompiledModel()
 	QueueDepth() int8
 	SetQueueDepth(value int8)
 	SaveModelFiles() objectivec.IObject
-	SharedConnection() *ANEClient
+	SharedConnection() IANEClient
 	State() uint64
 	SetState(value uint64)
 	String_id() uint64
@@ -207,14 +203,12 @@ func NewANEInMemoryModel() ANEInMemoryModel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/initWithDesctiptor:
 func NewANEInMemoryModelWithDesctiptor(desctiptor objectivec.IObject) ANEInMemoryModel {
 	instance := getANEInMemoryModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
 	return ANEInMemoryModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/compileWithQoS:options:error:
 func (a ANEInMemoryModel) CompileWithQoSOptionsError(s uint32, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("compileWithQoS:options:error:"), s, options, unsafe.Pointer(&errorPtr))
@@ -228,20 +222,14 @@ func (a ANEInMemoryModel) CompileWithQoSOptionsError(s uint32, options objective
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/compiledModelExists
 func (a ANEInMemoryModel) CompiledModelExists() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExists"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/compilerOptionsWithOptions:isCompiledModelCached:
 func (a ANEInMemoryModel) CompilerOptionsWithOptionsIsCompiledModelCached(options objectivec.IObject, cached bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("compilerOptionsWithOptions:isCompiledModelCached:"), options, cached)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/evaluateWithQoS:options:request:error:
 func (a ANEInMemoryModel) EvaluateWithQoSOptionsRequestError(s uint32, options objectivec.IObject, request objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("evaluateWithQoS:options:request:error:"), s, options, request, unsafe.Pointer(&errorPtr))
@@ -255,8 +243,6 @@ func (a ANEInMemoryModel) EvaluateWithQoSOptionsRequestError(s uint32, options o
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/loadWithQoS:options:error:
 func (a ANEInMemoryModel) LoadWithQoSOptionsError(s uint32, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadWithQoS:options:error:"), s, options, unsafe.Pointer(&errorPtr))
@@ -270,14 +256,10 @@ func (a ANEInMemoryModel) LoadWithQoSOptionsError(s uint32, options objectivec.I
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/localModelPath
 func (a ANEInMemoryModel) LocalModelPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("localModelPath"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/mapIOSurfacesWithRequest:cacheInference:error:
 func (a ANEInMemoryModel) MapIOSurfacesWithRequestCacheInferenceError(request objectivec.IObject, inference bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("mapIOSurfacesWithRequest:cacheInference:error:"), request, inference, unsafe.Pointer(&errorPtr))
@@ -291,19 +273,13 @@ func (a ANEInMemoryModel) MapIOSurfacesWithRequestCacheInferenceError(request ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/purgeCompiledModel
 func (a ANEInMemoryModel) PurgeCompiledModel() {
 	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel"))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/saveModelFiles
 func (a ANEInMemoryModel) SaveModelFiles() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("saveModelFiles"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/unloadWithQoS:error:
 func (a ANEInMemoryModel) UnloadWithQoSError(s uint32) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("unloadWithQoS:error:"), s, unsafe.Pointer(&errorPtr))
@@ -317,25 +293,19 @@ func (a ANEInMemoryModel) UnloadWithQoSError(s uint32) (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/unmapIOSurfacesWithRequest:
 func (a ANEInMemoryModel) UnmapIOSurfacesWithRequest(request objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithRequest:"), request)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/initWithDesctiptor:
 func (a ANEInMemoryModel) InitWithDesctiptor(desctiptor objectivec.IObject) ANEInMemoryModel {
 	rv := objc.Send[ANEInMemoryModel](a.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/inMemoryModelWithDescriptor:
 func (_ANEInMemoryModelClass ANEInMemoryModelClass) InMemoryModelWithDescriptor(descriptor objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelClass.class), objc.Sel("inMemoryModelWithDescriptor:"), descriptor)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/compilerOptionsFileName
 func (a ANEInMemoryModel) CompilerOptionsFileName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("compilerOptionsFileName"))
 	return foundation.NSStringFromID(rv).String()
@@ -343,31 +313,17 @@ func (a ANEInMemoryModel) CompilerOptionsFileName() string {
 func (a ANEInMemoryModel) SetCompilerOptionsFileName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCompilerOptionsFileName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/descriptor
-func (a ANEInMemoryModel) Descriptor() *ANEInMemoryModelDescriptor {
+func (a ANEInMemoryModel) Descriptor() IANEInMemoryModelDescriptor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("descriptor"))
-	if rv == 0 {
-		return nil
-	}
-	val := ANEInMemoryModelDescriptorFromID(objc.ID(rv))
-	return &val
+	return ANEInMemoryModelDescriptorFromID(objc.ID(rv))
 }
-func (a ANEInMemoryModel) SetDescriptor(value *ANEInMemoryModelDescriptor) {
-	if value == nil {
-		objc.Send[struct{}](a.ID, objc.Sel("setDescriptor:"), objc.ID(0))
-		return
-	}
+func (a ANEInMemoryModel) SetDescriptor(value IANEInMemoryModelDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDescriptor:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/hexStringIdentifier
 func (a ANEInMemoryModel) HexStringIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/intermediateBufferHandle
 func (a ANEInMemoryModel) IntermediateBufferHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("intermediateBufferHandle"))
 	return rv
@@ -375,31 +331,17 @@ func (a ANEInMemoryModel) IntermediateBufferHandle() uint64 {
 func (a ANEInMemoryModel) SetIntermediateBufferHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/isMILModel
 func (a ANEInMemoryModel) IsMILModel() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isMILModel"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/model
-func (a ANEInMemoryModel) Model() *ANEModel {
+func (a ANEInMemoryModel) Model() IANEModel {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("model"))
-	if rv == 0 {
-		return nil
-	}
-	val := ANEModelFromID(objc.ID(rv))
-	return &val
+	return ANEModelFromID(objc.ID(rv))
 }
-func (a ANEInMemoryModel) SetModel(value *ANEModel) {
-	if value == nil {
-		objc.Send[struct{}](a.ID, objc.Sel("setModel:"), objc.ID(0))
-		return
-	}
+func (a ANEInMemoryModel) SetModel(value IANEModel) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/modelAttributes
 func (a ANEInMemoryModel) ModelAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -407,17 +349,13 @@ func (a ANEInMemoryModel) ModelAttributes() foundation.INSDictionary {
 func (a ANEInMemoryModel) SetModelAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/modelURL
-func (a ANEInMemoryModel) ModelURL() foundation.INSURL {
+func (a ANEInMemoryModel) ModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (a ANEInMemoryModel) SetModelURL(value foundation.INSURL) {
+func (a ANEInMemoryModel) SetModelURL(value foundation.NSURL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelURL:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/perfStatsMask
 func (a ANEInMemoryModel) PerfStatsMask() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("perfStatsMask"))
 	return rv
@@ -425,25 +363,13 @@ func (a ANEInMemoryModel) PerfStatsMask() uint32 {
 func (a ANEInMemoryModel) SetPerfStatsMask(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPerfStatsMask:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/program
-func (a ANEInMemoryModel) Program() *ANEProgramForEvaluation {
+func (a ANEInMemoryModel) Program() IANEProgramForEvaluation {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("program"))
-	if rv == 0 {
-		return nil
-	}
-	val := ANEProgramForEvaluationFromID(objc.ID(rv))
-	return &val
+	return ANEProgramForEvaluationFromID(objc.ID(rv))
 }
-func (a ANEInMemoryModel) SetProgram(value *ANEProgramForEvaluation) {
-	if value == nil {
-		objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), objc.ID(0))
-		return
-	}
+func (a ANEInMemoryModel) SetProgram(value IANEProgramForEvaluation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/programHandle
 func (a ANEInMemoryModel) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
@@ -451,8 +377,6 @@ func (a ANEInMemoryModel) ProgramHandle() uint64 {
 func (a ANEInMemoryModel) SetProgramHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/queueDepth
 func (a ANEInMemoryModel) QueueDepth() int8 {
 	rv := objc.Send[int8](a.ID, objc.Sel("queueDepth"))
 	return rv
@@ -460,18 +384,10 @@ func (a ANEInMemoryModel) QueueDepth() int8 {
 func (a ANEInMemoryModel) SetQueueDepth(value int8) {
 	objc.Send[struct{}](a.ID, objc.Sel("setQueueDepth:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/sharedConnection
-func (a ANEInMemoryModel) SharedConnection() *ANEClient {
+func (a ANEInMemoryModel) SharedConnection() IANEClient {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedConnection"))
-	if rv == 0 {
-		return nil
-	}
-	val := ANEClientFromID(objc.ID(rv))
-	return &val
+	return ANEClientFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/state
 func (a ANEInMemoryModel) State() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("state"))
 	return rv
@@ -479,8 +395,6 @@ func (a ANEInMemoryModel) State() uint64 {
 func (a ANEInMemoryModel) SetState(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/string_id
 func (a ANEInMemoryModel) String_id() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("string_id"))
 	return rv

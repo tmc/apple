@@ -52,8 +52,6 @@ func (mc MLNeuralEngineComputeDeviceRegistryClass) Alloc() MLNeuralEngineCompute
 //   - [MLNeuralEngineComputeDeviceRegistry.Description]
 //   - [MLNeuralEngineComputeDeviceRegistry.Hash]
 //   - [MLNeuralEngineComputeDeviceRegistry.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry
 type MLNeuralEngineComputeDeviceRegistry struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IMLNeuralEngineComputeDeviceRegistry = MLNeuralEngineComputeDeviceRegistry
 //   - [IMLNeuralEngineComputeDeviceRegistry.Description]
 //   - [IMLNeuralEngineComputeDeviceRegistry.Hash]
 //   - [IMLNeuralEngineComputeDeviceRegistry.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry
 type IMLNeuralEngineComputeDeviceRegistry interface {
 	objectivec.IObject
 
@@ -90,7 +86,7 @@ type IMLNeuralEngineComputeDeviceRegistry interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,57 +108,43 @@ func NewMLNeuralEngineComputeDeviceRegistry() MLNeuralEngineComputeDeviceRegistr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/initWithNeuralEngineDevice:
 func NewNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	instance := getMLNeuralEngineComputeDeviceRegistryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/initWithNeuralEngineDevice:
 func (m MLNeuralEngineComputeDeviceRegistry) InitWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/sharedRegistry
 func (_MLNeuralEngineComputeDeviceRegistryClass MLNeuralEngineComputeDeviceRegistryClass) SharedRegistry() MLNeuralEngineComputeDeviceRegistry {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralEngineComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/debugDescription
 func (m MLNeuralEngineComputeDeviceRegistry) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/description
 func (m MLNeuralEngineComputeDeviceRegistry) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/hash
 func (m MLNeuralEngineComputeDeviceRegistry) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/neuralEngineDevice
 func (m MLNeuralEngineComputeDeviceRegistry) NeuralEngineDevice() IMLNeuralEngineComputeDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralEngineDevice"))
 	return MLNeuralEngineComputeDeviceFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/registeredComputeDevices
 func (m MLNeuralEngineComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/superclass
-func (m MLNeuralEngineComputeDeviceRegistry) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLNeuralEngineComputeDeviceRegistry) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

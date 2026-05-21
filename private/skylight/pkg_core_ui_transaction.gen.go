@@ -50,8 +50,6 @@ func (pc PKGCoreUITransactionClass) Alloc() PKGCoreUITransaction {
 //   - [PKGCoreUITransaction.Commit]
 //   - [PKGCoreUITransaction.UpdateLayerKeyRendererWork]
 //   - [PKGCoreUITransaction.InitWithThemeUseAX]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction
 type PKGCoreUITransaction struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IPKGCoreUITransaction = PKGCoreUITransaction{}
 //   - [IPKGCoreUITransaction.Commit]
 //   - [IPKGCoreUITransaction.UpdateLayerKeyRendererWork]
 //   - [IPKGCoreUITransaction.InitWithThemeUseAX]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction
 type IPKGCoreUITransaction interface {
 	objectivec.IObject
 
@@ -106,14 +102,12 @@ func NewPKGCoreUITransaction() PKGCoreUITransaction {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/initWithTheme:useAX:
 func NewGCoreUITransactionWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
 	instance := getPKGCoreUITransactionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return PKGCoreUITransactionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/_layerUpdateKeyForOptions:
 func (p PKGCoreUITransaction) _layerUpdateKeyForOptions(options objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("_layerUpdateKeyForOptions:"), options)
 	return objectivec.Object{ID: rv}
@@ -132,8 +126,6 @@ func (p PKGCoreUITransaction) LayerUpdateKeyForOptions(options objectivec.IObjec
 func (p PKGCoreUITransaction) CanLayerUpdateKeyForOptions() bool {
 	return objc.RespondsToSelector(p.ID, objc.Sel("_layerUpdateKeyForOptions:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/_scheduleRendererWork:mainThreadWork:
 func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
 	_block1, _ := NewVoidBlock(work2)
@@ -154,19 +146,13 @@ func (p PKGCoreUITransaction) ScheduleRendererWorkMainThreadWork(work VoidHandle
 func (p PKGCoreUITransaction) CanScheduleRendererWorkMainThreadWork() bool {
 	return objc.RespondsToSelector(p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/commit
 func (p PKGCoreUITransaction) Commit() {
 	objc.Send[objc.ID](p.ID, objc.Sel("commit"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/updateLayer:key:rendererWork:
 func (p PKGCoreUITransaction) UpdateLayerKeyRendererWork(layer objectivec.IObject, key objectivec.IObject, work VoidHandler) {
 	_block2, _ := NewVoidBlock(work)
 	objc.Send[objc.ID](p.ID, objc.Sel("updateLayer:key:rendererWork:"), layer, key, _block2)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/initWithTheme:useAX:
 func (p PKGCoreUITransaction) InitWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
 	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return rv

@@ -5,6 +5,7 @@ package skylight
 import (
 	"sync"
 
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -48,8 +49,6 @@ func (sc SLSScreenshotResultClass) Alloc() SLSScreenshotResult {
 //   - [SLSScreenshotResult.FrameSurfaceSDR]
 //   - [SLSScreenshotResult.Status]
 //   - [SLSScreenshotResult.InitWithStatusFrameSurfaceSDRFrameSurfaceHDR]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult
 type SLSScreenshotResult struct {
 	objectivec.Object
 }
@@ -70,15 +69,13 @@ var _ ISLSScreenshotResult = SLSScreenshotResult{}
 //   - [ISLSScreenshotResult.FrameSurfaceSDR]
 //   - [ISLSScreenshotResult.Status]
 //   - [ISLSScreenshotResult.InitWithStatusFrameSurfaceSDRFrameSurfaceHDR]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult
 type ISLSScreenshotResult interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	FrameSurfaceHDR() objectivec.IObject
-	FrameSurfaceSDR() objectivec.IObject
+	FrameSurfaceHDR() iosurface.IOSurface
+	FrameSurfaceSDR() iosurface.IOSurface
 	Status() int
 	InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult
 }
@@ -102,32 +99,25 @@ func NewSLSScreenshotResult() SLSScreenshotResult {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult/initWithStatus:frameSurfaceSDR:frameSurfaceHDR:
 func NewSLSScreenshotResultWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
 	instance := getSLSScreenshotResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return SLSScreenshotResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult/initWithStatus:frameSurfaceSDR:frameSurfaceHDR:
 func (s SLSScreenshotResult) InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
 	rv := objc.Send[SLSScreenshotResult](s.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult/frameSurfaceHDR
-func (s SLSScreenshotResult) FrameSurfaceHDR() objectivec.IObject {
+func (s SLSScreenshotResult) FrameSurfaceHDR() iosurface.IOSurface {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameSurfaceHDR"))
-	return objectivec.Object{ID: rv}
+	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult/frameSurfaceSDR
-func (s SLSScreenshotResult) FrameSurfaceSDR() objectivec.IObject {
+func (s SLSScreenshotResult) FrameSurfaceSDR() iosurface.IOSurface {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameSurfaceSDR"))
-	return objectivec.Object{ID: rv}
+	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshotResult/status
 func (s SLSScreenshotResult) Status() int {
 	rv := objc.Send[int](s.ID, objc.Sel("status"))
 	return rv

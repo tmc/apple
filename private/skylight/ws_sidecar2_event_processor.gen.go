@@ -41,7 +41,6 @@ func (wc WSSidecar2EventProcessorClass) Alloc() WSSidecar2EventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSSidecar2EventProcessor
 type WSSidecar2EventProcessor struct {
 	WSGestureEventProcessor
 }
@@ -55,8 +54,6 @@ func WSSidecar2EventProcessorFromID(id objc.ID) WSSidecar2EventProcessor {
 var _ IWSSidecar2EventProcessor = WSSidecar2EventProcessor{}
 
 // An interface definition for the [WSSidecar2EventProcessor] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSSidecar2EventProcessor
 type IWSSidecar2EventProcessor interface {
 	IWSGestureEventProcessor
 }
@@ -80,7 +77,6 @@ func NewWSSidecar2EventProcessor() WSSidecar2EventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSSidecar2EventProcessorWithSession(session CGXSession) WSSidecar2EventProcessor {
 	instance := getWSSidecar2EventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)

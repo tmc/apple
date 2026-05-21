@@ -45,8 +45,6 @@ func (mc MLModelStructureProgramFunctionClass) Alloc() MLModelStructureProgramFu
 // # Methods
 //
 //   - [MLModelStructureProgramFunction.InitWithInputsBlock]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction
 type MLModelStructureProgramFunction struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IMLModelStructureProgramFunction = MLModelStructureProgramFunction{}
 // # Methods
 //
 //   - [IMLModelStructureProgramFunction.InitWithInputsBlock]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction
 type IMLModelStructureProgramFunction interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewMLModelStructureProgramFunction() MLModelStructureProgramFunction {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction/initWithInputs:block:
 func NewModelStructureProgramFunctionWithInputsBlock(inputs objectivec.IObject, block objectivec.IObject) MLModelStructureProgramFunction {
 	instance := getMLModelStructureProgramFunctionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputs:block:"), inputs, block)
 	return MLModelStructureProgramFunctionFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction/initWithInputs:block:
 func (m MLModelStructureProgramFunction) InitWithInputsBlock(inputs objectivec.IObject, block objectivec.IObject) MLModelStructureProgramFunction {
 	rv := objc.Send[MLModelStructureProgramFunction](m.ID, objc.Sel("initWithInputs:block:"), inputs, block)
 	return rv

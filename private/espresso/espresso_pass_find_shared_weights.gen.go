@@ -41,7 +41,6 @@ func (ec EspressoPassFindSharedWeightsClass) Alloc() EspressoPassFindSharedWeigh
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
 type EspressoPassFindSharedWeights struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_find_shared_weightsFromID(id objc.ID) EspressoPassFindSharedWe
 var _ IEspressoPassFindSharedWeights = EspressoPassFindSharedWeights{}
 
 // An interface definition for the [EspressoPassFindSharedWeights] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
 type IEspressoPassFindSharedWeights interface {
 	IEspressoCustomPass
 }

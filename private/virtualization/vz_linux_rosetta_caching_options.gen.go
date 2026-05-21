@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions
 //   - [VZLinuxRosettaCachingOptions.Description]
 //   - [VZLinuxRosettaCachingOptions.Hash]
 //   - [VZLinuxRosettaCachingOptions.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions
 type VZLinuxRosettaCachingOptions struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZLinuxRosettaCachingOptions = VZLinuxRosettaCachingOptions{}
 //   - [IVZLinuxRosettaCachingOptions.Description]
 //   - [IVZLinuxRosettaCachingOptions.Hash]
 //   - [IVZLinuxRosettaCachingOptions.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions
 type IVZLinuxRosettaCachingOptions interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_options() objectivec.IObject
+	_options() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZLinuxRosettaCachingOptions() VZLinuxRosettaCachingOptions {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/_init
 func (v VZLinuxRosettaCachingOptions) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/_options
-func (v VZLinuxRosettaCachingOptions) _options() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_options"))
-	return objectivec.Object{ID: rv}
+func (v VZLinuxRosettaCachingOptions) _options() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_options"))
+	return rv
 }
 
 // CanOptions reports whether the receiver responds to the private selector _options.
@@ -127,33 +122,25 @@ func (v VZLinuxRosettaCachingOptions) CanOptions() bool {
 }
 
 // Options is an exported wrapper for the private property _options.
-func (v VZLinuxRosettaCachingOptions) Options() (objectivec.IObject, error) {
+func (v VZLinuxRosettaCachingOptions) Options() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_options")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_options"}
 	}
 	return v._options(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/debugDescription
 func (v VZLinuxRosettaCachingOptions) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/description
 func (v VZLinuxRosettaCachingOptions) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/hash
 func (v VZLinuxRosettaCachingOptions) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/superclass
-func (v VZLinuxRosettaCachingOptions) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZLinuxRosettaCachingOptions) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -8,8 +8,6 @@ import (
 )
 
 // AVAudioPlayerDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/AVAudioPlayerDelegate
 type AVAudioPlayerDelegate interface {
 	objectivec.IObject
 }
@@ -31,12 +29,9 @@ func AVAudioPlayerDelegateObjectFromID(id objc.ID) AVAudioPlayerDelegateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/AVAudioPlayerDelegate/audioPlayerDecodeErrorDidOccur:error:
 func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(occur objectivec.IObject, error_ objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), occur, error_)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/AVAudioPlayerDelegate/audioPlayerDidFinishPlaying:successfully:
 func (o AVAudioPlayerDelegateObject) AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
 }

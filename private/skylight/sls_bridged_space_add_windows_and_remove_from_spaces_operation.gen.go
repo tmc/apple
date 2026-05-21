@@ -49,8 +49,6 @@ func (sc SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass) Alloc() SLS
 //   - [SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.SpaceID]
 //   - [SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.Windows]
 //   - [SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.InitWithSpaceIDWindowsOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation
 type SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation = SLSBridgedSpaceAd
 //   - [ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.SpaceID]
 //   - [ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.Windows]
 //   - [ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation.InitWithSpaceIDWindowsOptions]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation
 type ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation() SLSBridgedSpaceA
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/initWithCoder:
 func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	instance := getSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/initWithSpaceID:windows:options:
 func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationWithSpaceIDWindowsOptions(id uint64, windows objectivec.IObject, options uint32) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	instance := getSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
 	return SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/initWithSpaceID:windows:options:
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) InitWithSpaceIDWindowsOptions(id uint64, windows objectivec.IObject, options uint32) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/options
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Options() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/spaceID
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation/windows
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Windows() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))

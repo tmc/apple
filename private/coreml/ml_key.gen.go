@@ -5,7 +5,6 @@ package coreml
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -49,11 +48,8 @@ func (mc MLKeyClass) Alloc() MLKey {
 //   - [MLKey.HasGlobalScope]
 //   - [MLKey.HasSameNameAsKey]
 //   - [MLKey.ScopedTo]
-//   - [MLKey.InitWithCoder]
 //   - [MLKey.InitWithKeyName]
 //   - [MLKey.InitWithKeyNameScope]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKey
 type MLKey struct {
 	objectivec.Object
 }
@@ -74,11 +70,8 @@ var _ IMLKey = MLKey{}
 //   - [IMLKey.HasGlobalScope]
 //   - [IMLKey.HasSameNameAsKey]
 //   - [IMLKey.ScopedTo]
-//   - [IMLKey.InitWithCoder]
 //   - [IMLKey.InitWithKeyName]
 //   - [IMLKey.InitWithKeyNameScope]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLKey
 type IMLKey interface {
 	objectivec.IObject
 
@@ -88,7 +81,6 @@ type IMLKey interface {
 	HasGlobalScope() bool
 	HasSameNameAsKey(key objectivec.IObject) bool
 	ScopedTo(to objectivec.IObject) objectivec.IObject
-	InitWithCoder(coder foundation.INSCoder) MLKey
 	InitWithKeyName(name objectivec.IObject) MLKey
 	InitWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey
 }
@@ -112,70 +104,43 @@ func NewMLKey() MLKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
-func NewKeyWithCoder(coder objectivec.IObject) MLKey {
-	instance := getMLKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLKeyFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:
 func NewKeyWithKeyName(name objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
 func NewKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/deletingPrefixingScope:
 func (m MLKey) DeletingPrefixingScope(scope objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("deletingPrefixingScope:"), scope)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/hasGlobalScope
 func (m MLKey) HasGlobalScope() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGlobalScope"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/hasSameNameAsKey:
 func (m MLKey) HasSameNameAsKey(key objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasSameNameAsKey:"), key)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/scopedTo:
 func (m MLKey) ScopedTo(to objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("scopedTo:"), to)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
-func (m MLKey) InitWithCoder(coder foundation.INSCoder) MLKey {
-	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:
 func (m MLKey) InitWithKeyName(name objectivec.IObject) MLKey {
 	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:"), name)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
 func (m MLKey) InitWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
 	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLKey/supportsSecureCoding
 func (_MLKeyClass MLKeyClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLKeyClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

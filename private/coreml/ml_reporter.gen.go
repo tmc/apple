@@ -50,8 +50,6 @@ func (mc MLReporterClass) Alloc() MLReporter {
 //   - [MLReporter.Description]
 //   - [MLReporter.Hash]
 //   - [MLReporter.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLReporter
 type MLReporter struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IMLReporter = MLReporter{}
 //   - [IMLReporter.Description]
 //   - [IMLReporter.Hash]
 //   - [IMLReporter.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLReporter
 type IMLReporter interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type IMLReporter interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -106,37 +102,28 @@ func NewMLReporter() MLReporter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/logMetric:
 func (m MLReporter) LogMetric(metric objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("logMetric:"), metric)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/reporter
 func (_MLReporterClass MLReporterClass) Reporter() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLReporterClass.class), objc.Sel("reporter"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/debugDescription
 func (m MLReporter) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/description
 func (m MLReporter) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/hash
 func (m MLReporter) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLReporter/superclass
-func (m MLReporter) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLReporter) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

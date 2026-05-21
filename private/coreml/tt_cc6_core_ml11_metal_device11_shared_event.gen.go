@@ -42,7 +42,6 @@ func (tc TtCC6CoreML11MetalDevice11SharedEventClass) Alloc() TtCC6CoreML11MetalD
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML11MetalDevice11SharedEvent
 type TtCC6CoreML11MetalDevice11SharedEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC6CoreML11MetalDevice11SharedEventFromID(id objc.ID) TtCC6CoreML11MetalD
 // ITtCC6CoreML11MetalDevice11SharedEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC6CoreML11MetalDevice11SharedEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML11MetalDevice11SharedEvent
 type ITtCC6CoreML11MetalDevice11SharedEvent interface {
 	objectivec.IObject
 }

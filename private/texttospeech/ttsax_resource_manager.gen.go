@@ -67,8 +67,6 @@ func (tc TTSAXResourceManagerClass) Alloc() TTSAXResourceManager {
 //   - [TTSAXResourceManager.SpeechVoiceWithVoiceId]
 //   - [TTSAXResourceManager.StopDownloadResourceWithVoiceId]
 //   - [TTSAXResourceManager.SuperCompactVoiceIdForCompactVoiceId]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager
 type TTSAXResourceManager struct {
 	objectivec.Object
 }
@@ -106,8 +104,6 @@ var _ ITTSAXResourceManager = TTSAXResourceManager{}
 //   - [ITTSAXResourceManager.SpeechVoiceWithVoiceId]
 //   - [ITTSAXResourceManager.StopDownloadResourceWithVoiceId]
 //   - [ITTSAXResourceManager.SuperCompactVoiceIdForCompactVoiceId]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager
 type ITTSAXResourceManager interface {
 	objectivec.IObject
 
@@ -155,7 +151,6 @@ func NewTTSAXResourceManager() TTSAXResourceManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_performBlockOnObservers:
 func (t TTSAXResourceManager) _performBlockOnObservers(observers VoidHandler) {
 	_block0, _ := NewVoidBlock(observers)
 	objc.Send[objc.ID](t.ID, objc.Sel("_performBlockOnObservers:"), _block0)
@@ -175,8 +170,6 @@ func (t TTSAXResourceManager) PerformBlockOnObservers(observers VoidHandler) err
 func (t TTSAXResourceManager) CanPerformBlockOnObservers() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_performBlockOnObservers:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_resourceWithVoiceId:assetId:
 func (t TTSAXResourceManager) _resourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_resourceWithVoiceId:assetId:"), id, id2)
 	return objectivec.Object{ID: rv}
@@ -195,8 +188,6 @@ func (t TTSAXResourceManager) ResourceWithVoiceIdAssetId(id objectivec.IObject, 
 func (t TTSAXResourceManager) CanResourceWithVoiceIdAssetId() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_resourcesWithType:subType:languageCode:
 func (t TTSAXResourceManager) _resourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"), type_, type_2, code)
 	return objectivec.Object{ID: rv}
@@ -215,92 +206,62 @@ func (t TTSAXResourceManager) ResourcesWithTypeSubTypeLanguageCode(type_ uint64,
 func (t TTSAXResourceManager) CanResourcesWithTypeSubTypeLanguageCode() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/addObserver:
 func (t TTSAXResourceManager) AddObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addObserver:"), observer)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/allLanguagesForVoices:
 func (t TTSAXResourceManager) AllLanguagesForVoices(voices bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("allLanguagesForVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/allVoices:
 func (t TTSAXResourceManager) AllVoices(voices bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("allVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/deleteResourceWithVoiceId:
 func (t TTSAXResourceManager) DeleteResourceWithVoiceId(id objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("deleteResourceWithVoiceId:"), id)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/downloadResourceWithVoiceId:
 func (t TTSAXResourceManager) DownloadResourceWithVoiceId(id objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:"), id)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/downloadResourceWithVoiceId:userInitiated:
 func (t TTSAXResourceManager) DownloadResourceWithVoiceIdUserInitiated(id objectivec.IObject, initiated bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:userInitiated:"), id, initiated)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/languageCodeForResourceName:withType:
 func (t TTSAXResourceManager) LanguageCodeForResourceNameWithType(name objectivec.IObject, type_ uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("languageCodeForResourceName:withType:"), name, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/removeObserver:
 func (t TTSAXResourceManager) RemoveObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeObserver:"), observer)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/resourceWithVoiceId:
 func (t TTSAXResourceManager) ResourceWithVoiceId(id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceWithVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/resourcesWithLanguage:type:
 func (t TTSAXResourceManager) ResourcesWithLanguageType(language objectivec.IObject, type_ uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguage:type:"), language, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/resourcesWithType:subType:
 func (t TTSAXResourceManager) ResourcesWithTypeSubType(type_ uint64, type_2 uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithType:subType:"), type_, type_2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/speechVoiceWithVoiceId:
 func (t TTSAXResourceManager) SpeechVoiceWithVoiceId(id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechVoiceWithVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/stopDownloadResourceWithVoiceId:
 func (t TTSAXResourceManager) StopDownloadResourceWithVoiceId(id objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("stopDownloadResourceWithVoiceId:"), id)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/superCompactVoiceIdForCompactVoiceId:
 func (t TTSAXResourceManager) SuperCompactVoiceIdForCompactVoiceId(id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("superCompactVoiceIdForCompactVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/sharedInstance
 func (_TTSAXResourceManagerClass TTSAXResourceManagerClass) SharedInstance() TTSAXResourceManager {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceManagerClass.class), objc.Sel("sharedInstance"))
 	return TTSAXResourceManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_observers
 func (t TTSAXResourceManager) _observers() foundation.NSHashTable {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_observers"))
 	return foundation.NSHashTableFromID(objc.ID(rv))
@@ -314,15 +275,13 @@ func (t TTSAXResourceManager) CanObservers() bool {
 // Observers is an exported wrapper for the private property _observers.
 func (t TTSAXResourceManager) Observers() (foundation.NSHashTable, error) {
 	if !objc.RespondsToSelector(t.ID, objc.Sel("_observers")) {
-		return *new(foundation.NSHashTable), &objc.UnrecognizedSelectorError{Selector: "_observers"}
+		return foundation.NSHashTable{}, &objc.UnrecognizedSelectorError{Selector: "_observers"}
 	}
 	return t._observers(), nil
 }
 func (t TTSAXResourceManager) Set_observers(value foundation.NSHashTable) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_observers:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/allAvailableLanguages
 func (t TTSAXResourceManager) AllAvailableLanguages() foundation.INSSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("allAvailableLanguages"))
 	return foundation.NSSetFromID(objc.ID(rv))

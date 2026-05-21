@@ -41,7 +41,6 @@ func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Alloc() VZVirtioCons
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceSerialPortConfiguration
 type VZVirtioConsoleDeviceSerialPortConfiguration struct {
 	VZSerialPortConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioConsoleDeviceSerialPortConfigurationFromID(id objc.ID) VZVirtioCons
 var _ IVZVirtioConsoleDeviceSerialPortConfiguration = VZVirtioConsoleDeviceSerialPortConfiguration{}
 
 // An interface definition for the [VZVirtioConsoleDeviceSerialPortConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceSerialPortConfiguration
 type IVZVirtioConsoleDeviceSerialPortConfiguration interface {
 	IVZSerialPortConfiguration
 }

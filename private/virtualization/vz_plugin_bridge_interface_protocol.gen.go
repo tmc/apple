@@ -8,8 +8,6 @@ import (
 )
 
 // _VZPluginBridgeInterface protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPluginBridgeInterface
 type VZPluginBridgeInterface interface {
 	objectivec.IObject
 }

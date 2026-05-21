@@ -8,8 +8,6 @@ import (
 )
 
 // BSDescriptionStreaming protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BSDescriptionStreaming
 type BSDescriptionStreaming interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func BSDescriptionStreamingObjectFromID(id objc.ID) BSDescriptionStreamingObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BSDescriptionStreaming/appendDescriptionToStream:
 func (o BSDescriptionStreamingObject) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }

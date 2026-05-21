@@ -8,8 +8,6 @@ import (
 )
 
 // MLModelAssetResourceFactoryImpl protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl
 type MLModelAssetResourceFactoryImpl interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func MLModelAssetResourceFactoryImplObjectFromID(id objc.ID) MLModelAssetResourc
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/compiledModelURL
 func (o MLModelAssetResourceFactoryImplObject) CompiledModelURL() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("compiledModelURL"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelAssetDescriptionWithError:
 func (o MLModelAssetResourceFactoryImplObject) ModelAssetDescriptionWithError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelAssetDescriptionWithError:"))
 	if err != nil {
@@ -45,8 +40,6 @@ func (o MLModelAssetResourceFactoryImplObject) ModelAssetDescriptionWithError() 
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelStructureWithError:
 func (o MLModelAssetResourceFactoryImplObject) ModelStructureWithError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelStructureWithError:"))
 	if err != nil {
@@ -54,8 +47,6 @@ func (o MLModelAssetResourceFactoryImplObject) ModelStructureWithError() (object
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelWithConfiguration:error:
 func (o MLModelAssetResourceFactoryImplObject) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelWithConfiguration:error:"), configuration)
 	if err != nil {

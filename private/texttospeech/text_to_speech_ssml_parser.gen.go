@@ -42,7 +42,6 @@ func (tc TextToSpeechSSMLParserClass) Alloc() TextToSpeechSSMLParser {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLParser
 type TextToSpeechSSMLParser struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechSSMLParserFromID(id objc.ID) TextToSpeechSSMLParser {
 var _ ITextToSpeechSSMLParser = TextToSpeechSSMLParser{}
 
 // An interface definition for the [TextToSpeechSSMLParser] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLParser
 type ITextToSpeechSSMLParser interface {
 	objectivec.IObject
 }

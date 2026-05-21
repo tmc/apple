@@ -46,8 +46,6 @@ func (rc RamXPCClass) Alloc() RamXPC {
 //
 //   - [RamXPC.CreateRamBackend]
 //   - [RamXPC.InitWithSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC
 type RamXPC struct {
 	BackendXPC
 }
@@ -66,8 +64,6 @@ var _ IRamXPC = RamXPC{}
 //
 //   - [IRamXPC.CreateRamBackend]
 //   - [IRamXPC.InitWithSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC
 type IRamXPC interface {
 	IBackendXPC
 
@@ -96,26 +92,21 @@ func NewRamXPC() RamXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC/initWithCoder:
 func NewRamXPCWithCoder(coder objectivec.IObject) RamXPC {
 	instance := getRamXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return RamXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC/initWithSize:
 func NewRamXPCWithSize(size uint64) RamXPC {
 	instance := getRamXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
 	return RamXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC/createRamBackend
 func (r RamXPC) CreateRamBackend() {
 	objc.Send[objc.ID](r.ID, objc.Sel("createRamBackend"))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/RamXPC/initWithSize:
 func (r RamXPC) InitWithSize(size uint64) RamXPC {
 	rv := objc.Send[RamXPC](r.ID, objc.Sel("initWithSize:"), size)
 	return rv

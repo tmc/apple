@@ -50,8 +50,6 @@ func (dc DIChpassParamsClass) Alloc() DIChpassParams {
 //   - [DIChpassParams.ChangePassWithXpcHandlerError]
 //   - [DIChpassParams.ChpassWithError]
 //   - [DIChpassParams.PrepareImageWithXpcHandlerFileModeEncChpassError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams
 type DIChpassParams struct {
 	DIBaseParams
 }
@@ -71,8 +69,6 @@ var _ IDIChpassParams = DIChpassParams{}
 //   - [IDIChpassParams.ChangePassWithXpcHandlerError]
 //   - [IDIChpassParams.ChpassWithError]
 //   - [IDIChpassParams.PrepareImageWithXpcHandlerFileModeEncChpassError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams
 type IDIChpassParams interface {
 	IDIBaseParams
 
@@ -102,15 +98,13 @@ func NewDIChpassParams() DIChpassParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIChpassParamsWithCoder(coder objectivec.IObject) DIChpassParams {
 	instance := getDIChpassParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIChpassParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams/initWithURL:error:
-func NewDIChpassParamsWithURLError(url foundation.INSURL) (DIChpassParams, error) {
+func NewDIChpassParamsWithURLError(url foundation.NSURL) (DIChpassParams, error) {
 	var errorPtr objc.ID
 	instance := getDIChpassParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -121,7 +115,6 @@ func NewDIChpassParamsWithURLError(url foundation.INSURL) (DIChpassParams, error
 	return DIChpassParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams/changePassWithXpcHandler:error:
 func (d DIChpassParams) ChangePassWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("changePassWithXpcHandler:error:"), handler, unsafe.Pointer(&errorPtr))
@@ -135,8 +128,6 @@ func (d DIChpassParams) ChangePassWithXpcHandlerError(handler objectivec.IObject
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams/chpassWithError:
 func (d DIChpassParams) ChpassWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("chpassWithError:"), unsafe.Pointer(&errorPtr))
@@ -150,8 +141,6 @@ func (d DIChpassParams) ChpassWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIChpassParams/prepareImageWithXpcHandler:fileMode:encChpass:error:
 func (d DIChpassParams) PrepareImageWithXpcHandlerFileModeEncChpassError(handler objectivec.IObject, mode int64, chpass objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("prepareImageWithXpcHandler:fileMode:encChpass:error:"), handler, mode, chpass, unsafe.Pointer(&errorPtr))

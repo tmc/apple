@@ -8,8 +8,6 @@ import (
 )
 
 // GTAGX2BatchIdFilteredCounterDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2BatchIdFilteredCounterDelegate
 type GTAGX2BatchIdFilteredCounterDelegate interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func GTAGX2BatchIdFilteredCounterDelegateObjectFromID(id objc.ID) GTAGX2BatchIdF
 	}
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2BatchIdFilteredCounterDelegate/streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:
 func (o GTAGX2BatchIdFilteredCounterDelegateObject) StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo(updated objectivec.IObject, info objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
 }

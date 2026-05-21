@@ -41,7 +41,6 @@ func (vc VZVirtioEntropyDeviceConfigurationClass) Alloc() VZVirtioEntropyDeviceC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioEntropyDeviceConfiguration
 type VZVirtioEntropyDeviceConfiguration struct {
 	VZEntropyDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZVirtioEntropyDeviceConfigurationFromID(id objc.ID) VZVirtioEntropyDeviceC
 var _ IVZVirtioEntropyDeviceConfiguration = VZVirtioEntropyDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioEntropyDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioEntropyDeviceConfiguration
 type IVZVirtioEntropyDeviceConfiguration interface {
 	IVZEntropyDeviceConfiguration
 }

@@ -41,7 +41,6 @@ func (ec EspressoPassRemoveReshapeChainClass) Alloc() EspressoPassRemoveReshapeC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
 type EspressoPassRemoveReshapeChain struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_remove_reshape_chainFromID(id objc.ID) EspressoPassRemoveResha
 var _ IEspressoPassRemoveReshapeChain = EspressoPassRemoveReshapeChain{}
 
 // An interface definition for the [EspressoPassRemoveReshapeChain] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
 type IEspressoPassRemoveReshapeChain interface {
 	IEspressoCustomPass
 }

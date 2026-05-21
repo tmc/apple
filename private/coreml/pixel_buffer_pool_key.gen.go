@@ -48,8 +48,6 @@ func (pc PixelBufferPoolKeyClass) Alloc() PixelBufferPoolKey {
 //   - [PixelBufferPoolKey.FrameSize]
 //   - [PixelBufferPoolKey.PixelFormatType]
 //   - [PixelBufferPoolKey.InitWithSizePixelFormatType]
-//
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey
 type PixelBufferPoolKey struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IPixelBufferPoolKey = PixelBufferPoolKey{}
 //   - [IPixelBufferPoolKey.FrameSize]
 //   - [IPixelBufferPoolKey.PixelFormatType]
 //   - [IPixelBufferPoolKey.InitWithSizePixelFormatType]
-//
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey
 type IPixelBufferPoolKey interface {
 	objectivec.IObject
 
@@ -100,26 +96,21 @@ func NewPixelBufferPoolKey() PixelBufferPoolKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/initWithSize:pixelFormatType:
 func NewPixelBufferPoolKeyWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
 	instance := getPixelBufferPoolKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
 	return PixelBufferPoolKeyFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/initWithSize:pixelFormatType:
 func (p PixelBufferPoolKey) InitWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
 	rv := objc.Send[PixelBufferPoolKey](p.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/frameSize
 func (p PixelBufferPoolKey) FrameSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](p.ID, objc.Sel("frameSize"))
 	return corefoundation.CGSize(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/pixelFormatType
 func (p PixelBufferPoolKey) PixelFormatType() uint32 {
 	rv := objc.Send[uint32](p.ID, objc.Sel("pixelFormatType"))
 	return rv

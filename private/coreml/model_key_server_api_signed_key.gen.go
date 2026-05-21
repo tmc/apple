@@ -53,8 +53,6 @@ func (mc ModelKeyServerAPISignedKeyClass) Alloc() ModelKeyServerAPISignedKey {
 //   - [ModelKeyServerAPISignedKey.MergeFrom]
 //   - [ModelKeyServerAPISignedKey.ReadFrom]
 //   - [ModelKeyServerAPISignedKey.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey
 type ModelKeyServerAPISignedKey struct {
 	objectivec.Object
 }
@@ -79,16 +77,14 @@ func ModelKeyServerAPISignedKeyFromID(id objc.ID) ModelKeyServerAPISignedKey {
 //   - [IModelKeyServerAPISignedKey.MergeFrom]
 //   - [IModelKeyServerAPISignedKey.ReadFrom]
 //   - [IModelKeyServerAPISignedKey.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey
 type IModelKeyServerAPISignedKey interface {
 	IPBCodable
 
 	// Topic: Methods
 
 	CopyTo(to objectivec.IObject)
-	Data() foundation.INSData
-	SetData(value foundation.INSData)
+	Data() foundation.NSData
+	SetData(value foundation.NSData)
 	DictionaryRepresentation() objectivec.IObject
 	HasData() bool
 	MergeFrom(from objectivec.IObject)
@@ -115,43 +111,31 @@ func NewModelKeyServerAPISignedKey() ModelKeyServerAPISignedKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/copyTo:
 func (m ModelKeyServerAPISignedKey) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/dictionaryRepresentation
 func (m ModelKeyServerAPISignedKey) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/mergeFrom:
 func (m ModelKeyServerAPISignedKey) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/readFrom:
 func (m ModelKeyServerAPISignedKey) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/writeTo:
 func (m ModelKeyServerAPISignedKey) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/data
-func (m ModelKeyServerAPISignedKey) Data() foundation.INSData {
+func (m ModelKeyServerAPISignedKey) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (m ModelKeyServerAPISignedKey) SetData(value foundation.INSData) {
+func (m ModelKeyServerAPISignedKey) SetData(value foundation.NSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPISignedKey/hasData
 func (m ModelKeyServerAPISignedKey) HasData() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasData"))
 	return rv

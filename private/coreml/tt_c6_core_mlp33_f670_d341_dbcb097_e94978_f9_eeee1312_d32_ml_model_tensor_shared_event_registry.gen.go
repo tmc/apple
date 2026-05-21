@@ -42,7 +42,6 @@ func (tc TtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEvent
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry
 type TtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegi
 // ITtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry
 type ITtC6CoreMLP33F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry interface {
 	objectivec.IObject
 }

@@ -51,8 +51,6 @@ func (tc TTSAUMessagingAUClass) Alloc() TTSAUMessagingAU {
 //   - [TTSAUMessagingAU.SetOwningAudioUnit]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU
 type TTSAUMessagingAU struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ITTSAUMessagingAU = TTSAUMessagingAU{}
 //   - [ITTSAUMessagingAU.SetOwningAudioUnit]
 //   - [ITTSAUMessagingAU.SetCallHostBlock]
 //   - [ITTSAUMessagingAU.SetHostBlock]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU
 type ITTSAUMessagingAU interface {
 	objectivec.IObject
 
@@ -109,31 +105,23 @@ func NewTTSAUMessagingAU() TTSAUMessagingAU {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/callAudioUnit:
 func (t TTSAUMessagingAU) CallAudioUnit(unit objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("callAudioUnit:"), unit)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/echo:
 func (t TTSAUMessagingAU) Echo(echo objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("echo:"), echo)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/setCallHostBlock:
 func (t TTSAUMessagingAU) SetCallHostBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("setCallHostBlock:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/setHostBlock:
 func (t TTSAUMessagingAU) SetHostBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("setHostBlock:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/owningAudioUnit
 func (t TTSAUMessagingAU) OwningAudioUnit() ITTSFirstPartyAudioUnit {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("owningAudioUnit"))
 	return TTSFirstPartyAudioUnitFromID(objc.ID(rv))

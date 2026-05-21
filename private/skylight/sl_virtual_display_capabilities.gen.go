@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -49,8 +50,6 @@ func (sc SLVirtualDisplayCapabilitiesClass) Alloc() SLVirtualDisplayCapabilities
 //   - [SLVirtualDisplayCapabilities.MaximumSizeInPixels]
 //   - [SLVirtualDisplayCapabilities.MinimumPixelsPerPoint]
 //   - [SLVirtualDisplayCapabilities.MinimumRefreshRate]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities
 type SLVirtualDisplayCapabilities struct {
 	objectivec.Object
 }
@@ -72,17 +71,15 @@ var _ ISLVirtualDisplayCapabilities = SLVirtualDisplayCapabilities{}
 //   - [ISLVirtualDisplayCapabilities.MaximumSizeInPixels]
 //   - [ISLVirtualDisplayCapabilities.MinimumPixelsPerPoint]
 //   - [ISLVirtualDisplayCapabilities.MinimumRefreshRate]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities
 type ISLVirtualDisplayCapabilities interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	DictionaryRepresentation() objectivec.IObject
-	MaximumPixelsPerPoint() objectivec.IObject
-	MaximumSizeInPixels() objectivec.IObject
-	MinimumPixelsPerPoint() objectivec.IObject
+	MaximumPixelsPerPoint() unsafe.Pointer
+	MaximumSizeInPixels() unsafe.Pointer
+	MinimumPixelsPerPoint() unsafe.Pointer
 	MinimumRefreshRate() float32
 }
 
@@ -105,31 +102,23 @@ func NewSLVirtualDisplayCapabilities() SLVirtualDisplayCapabilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities/dictionaryRepresentation
 func (s SLVirtualDisplayCapabilities) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities/maximumPixelsPerPoint
-func (s SLVirtualDisplayCapabilities) MaximumPixelsPerPoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("maximumPixelsPerPoint"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayCapabilities) MaximumPixelsPerPoint() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumPixelsPerPoint"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities/maximumSizeInPixels
-func (s SLVirtualDisplayCapabilities) MaximumSizeInPixels() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("maximumSizeInPixels"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayCapabilities) MaximumSizeInPixels() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities/minimumPixelsPerPoint
-func (s SLVirtualDisplayCapabilities) MinimumPixelsPerPoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("minimumPixelsPerPoint"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayCapabilities) MinimumPixelsPerPoint() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("minimumPixelsPerPoint"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayCapabilities/minimumRefreshRate
 func (s SLVirtualDisplayCapabilities) MinimumRefreshRate() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("minimumRefreshRate"))
 	return rv

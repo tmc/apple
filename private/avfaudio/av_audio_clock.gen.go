@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,8 +51,6 @@ func (ac AVAudioClockClass) Alloc() AVAudioClock {
 //   - [AVAudioClock.CurrentIONumberFrames]
 //   - [AVAudioClock.CurrentTime]
 //   - [AVAudioClock.InitWithNode]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock
 type AVAudioClock struct {
 	objectivec.Object
 }
@@ -73,15 +72,13 @@ var _ IAVAudioClock = AVAudioClock{}
 //   - [IAVAudioClock.CurrentIONumberFrames]
 //   - [IAVAudioClock.CurrentTime]
 //   - [IAVAudioClock.InitWithNode]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock
 type IAVAudioClock interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	AwaitIOCycle(iOCycle unsafe.Pointer) objectivec.IObject
-	CurrentAudioTimeStamp() AudioTimeStamp
+	AwaitIOCycle(iOCycle *uint32) objectivec.IObject
+	CurrentAudioTimeStamp() coreaudiotypes.AudioTimeStamp
 	CurrentIONumberFrames() int64
 	CurrentTime() IAVAudioTime
 	InitWithNode(node unsafe.Pointer) AVAudioClock
@@ -106,39 +103,29 @@ func NewAVAudioClock() AVAudioClock {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/initWithNode:
 func NewAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
 	instance := getAVAudioClockClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNode:"), node)
 	return AVAudioClockFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/awaitIOCycle:
-func (a AVAudioClock) AwaitIOCycle(iOCycle unsafe.Pointer) objectivec.IObject {
+func (a AVAudioClock) AwaitIOCycle(iOCycle *uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), iOCycle)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentAudioTimeStamp
-func (a AVAudioClock) CurrentAudioTimeStamp() AudioTimeStamp {
-	rv := objc.Send[AudioTimeStamp](a.ID, objc.Sel("currentAudioTimeStamp"))
-	_ = rv
-	return AudioTimeStamp{}
+func (a AVAudioClock) CurrentAudioTimeStamp() coreaudiotypes.AudioTimeStamp {
+	rv := objc.Send[coreaudiotypes.AudioTimeStamp](a.ID, objc.Sel("currentAudioTimeStamp"))
+	return coreaudiotypes.AudioTimeStamp(rv)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentIONumberFrames
 func (a AVAudioClock) CurrentIONumberFrames() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("currentIONumberFrames"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/initWithNode:
 func (a AVAudioClock) InitWithNode(node unsafe.Pointer) AVAudioClock {
 	rv := objc.Send[AVAudioClock](a.ID, objc.Sel("initWithNode:"), node)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentTime
 func (a AVAudioClock) CurrentTime() IAVAudioTime {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentTime"))
 	return AVAudioTimeFromID(objc.ID(rv))

@@ -45,8 +45,6 @@ func (vc VZMacGraphicsDeviceClass) Alloc() VZMacGraphicsDevice {
 //
 //   - [VZMacGraphicsDevice._deviceFeatureLevel]
 //   - [VZMacGraphicsDevice._prefersLowPower]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice
 type VZMacGraphicsDevice struct {
 	VZGraphicsDevice
 }
@@ -65,8 +63,6 @@ var _ IVZMacGraphicsDevice = VZMacGraphicsDevice{}
 //
 //   - [IVZMacGraphicsDevice._deviceFeatureLevel]
 //   - [IVZMacGraphicsDevice._prefersLowPower]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice
 type IVZMacGraphicsDevice interface {
 	IVZGraphicsDevice
 
@@ -95,7 +91,6 @@ func NewVZMacGraphicsDevice() VZMacGraphicsDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice/_deviceFeatureLevel
 func (v VZMacGraphicsDevice) _deviceFeatureLevel() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
@@ -114,8 +109,6 @@ func (v VZMacGraphicsDevice) DeviceFeatureLevel() (int64, error) {
 func (v VZMacGraphicsDevice) CanDeviceFeatureLevel() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice/_prefersLowPower
 func (v VZMacGraphicsDevice) _prefersLowPower() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv

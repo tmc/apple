@@ -8,8 +8,6 @@ import (
 )
 
 // CPXRemoteViewEventProtocolServerCallsClient protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventProtocolServerCallsClient
 type CPXRemoteViewEventProtocolServerCallsClient interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func CPXRemoteViewEventProtocolServerCallsClientObjectFromID(id objc.ID) CPXRemo
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventProtocolServerCallsClient/sendEventToHost:fullDispatch:reply:
 func (o CPXRemoteViewEventProtocolServerCallsClientObject) SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply NumberErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendEventToHost:fullDispatch:reply:"), host, dispatch, reply)
 }

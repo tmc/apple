@@ -8,8 +8,6 @@ import (
 )
 
 // SLXPCConvertible protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLXPCConvertible
 type SLXPCConvertible interface {
 	objectivec.IObject
 }

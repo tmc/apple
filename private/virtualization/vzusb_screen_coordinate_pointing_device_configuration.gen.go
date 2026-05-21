@@ -41,7 +41,6 @@ func (vc VZUSBScreenCoordinatePointingDeviceConfigurationClass) Alloc() VZUSBScr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBScreenCoordinatePointingDeviceConfiguration
 type VZUSBScreenCoordinatePointingDeviceConfiguration struct {
 	VZPointingDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZUSBScreenCoordinatePointingDeviceConfigurationFromID(id objc.ID) VZUSBScr
 var _ IVZUSBScreenCoordinatePointingDeviceConfiguration = VZUSBScreenCoordinatePointingDeviceConfiguration{}
 
 // An interface definition for the [VZUSBScreenCoordinatePointingDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBScreenCoordinatePointingDeviceConfiguration
 type IVZUSBScreenCoordinatePointingDeviceConfiguration interface {
 	IVZPointingDeviceConfiguration
 }

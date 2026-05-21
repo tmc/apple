@@ -45,8 +45,6 @@ func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 // # Methods
 //
 //   - [VZSharedDirectory.ReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory
 type VZSharedDirectory struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZSharedDirectory = VZSharedDirectory{}
 // # Methods
 //
 //   - [IVZSharedDirectory.ReadOnly]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory
 type IVZSharedDirectory interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZSharedDirectory() VZSharedDirectory {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/readOnly
 func (v VZSharedDirectory) ReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv

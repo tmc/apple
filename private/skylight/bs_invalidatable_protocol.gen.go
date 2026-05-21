@@ -8,14 +8,10 @@ import (
 )
 
 // BSInvalidatable protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BSInvalidatable
 type BSInvalidatable interface {
 	objectivec.IObject
 
 	// Invalidate protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/BSInvalidatable/invalidate
 	Invalidate()
 }
 
@@ -36,7 +32,6 @@ func BSInvalidatableObjectFromID(id objc.ID) BSInvalidatableObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BSInvalidatable/invalidate
 func (o BSInvalidatableObject) Invalidate() {
 	objc.Send[struct{}](o.ID, objc.Sel("invalidate"))
 }

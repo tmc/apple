@@ -46,8 +46,6 @@ func (hc HIRunLoopUtilitiesClass) Alloc() HIRunLoopUtilities {
 // # Methods
 //
 //   - [HIRunLoopUtilities._blockQueueDepth]
-//
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities
 type HIRunLoopUtilities struct {
 	objectivec.Object
 }
@@ -65,8 +63,6 @@ var _ IHIRunLoopUtilities = HIRunLoopUtilities{}
 // # Methods
 //
 //   - [IHIRunLoopUtilities._blockQueueDepth]
-//
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities
 type IHIRunLoopUtilities interface {
 	objectivec.IObject
 
@@ -94,7 +90,6 @@ func NewHIRunLoopUtilities() HIRunLoopUtilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/_blockQueueDepth
 func (h HIRunLoopUtilities) _blockQueueDepth() uint32 {
 	rv := objc.Send[uint32](h.ID, objc.Sel("_blockQueueDepth"))
 	return rv
@@ -114,7 +109,6 @@ func (h HIRunLoopUtilities) CanBlockQueueDepth() bool {
 	return objc.RespondsToSelector(h.ID, objc.Sel("_blockQueueDepth"))
 }
 
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/_currentRunLoopMode
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) _currentRunLoopMode() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
 	return objectivec.Object{ID: rv}
@@ -133,13 +127,9 @@ func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CurrentRunLoopMode() (ob
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CanCurrentRunLoopMode() bool {
 	return objc.RespondsToSelector(objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/addRunLoopModesForDeferredActions:
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) AddRunLoopModesForDeferredActions(actions objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("addRunLoopModesForDeferredActions:"), actions)
 }
-
-// See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/deferActions:
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) DeferActions(actions VoidHandler) {
 	_block0, _ := NewVoidBlock(actions)
 	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("deferActions:"), _block0)

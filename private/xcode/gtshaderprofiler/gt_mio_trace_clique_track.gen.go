@@ -48,8 +48,6 @@ func (gc GTMioTraceCliqueTrackClass) Alloc() GTMioTraceCliqueTrack {
 //   - [GTMioTraceCliqueTrack.Take]
 //   - [GTMioTraceCliqueTrack.TraceCount]
 //   - [GTMioTraceCliqueTrack.Traces]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack
 type GTMioTraceCliqueTrack struct {
 	GTMioTraceTrack
 }
@@ -70,8 +68,6 @@ var _ IGTMioTraceCliqueTrack = GTMioTraceCliqueTrack{}
 //   - [IGTMioTraceCliqueTrack.Take]
 //   - [IGTMioTraceCliqueTrack.TraceCount]
 //   - [IGTMioTraceCliqueTrack.Traces]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack
 type IGTMioTraceCliqueTrack interface {
 	IGTMioTraceTrack
 
@@ -102,30 +98,23 @@ func NewGTMioTraceCliqueTrack() GTMioTraceCliqueTrack {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func NewGTMioTraceCliqueTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceCliqueTrack {
 	instance := getGTMioTraceCliqueTrackClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceCliqueTrackFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/postProcess
 func (g GTMioTraceCliqueTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/take:
 func (g GTMioTraceCliqueTrack) Take(take GTMioUSCCliqueMetadata) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/traceCount
 func (g GTMioTraceCliqueTrack) TraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/traces
 func (g GTMioTraceCliqueTrack) Traces() *GTMioUSCCliqueMetadataRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
 	return (*GTMioUSCCliqueMetadataRef)(rv)

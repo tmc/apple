@@ -50,8 +50,6 @@ func (sc SLSSynchronousBridgedWindowManagementOperationClass) Alloc() SLSSynchro
 //   - [SLSSynchronousBridgedWindowManagementOperation.InvokeFallback]
 //   - [SLSSynchronousBridgedWindowManagementOperation.PerformWithWMBridgeDelegate]
 //   - [SLSSynchronousBridgedWindowManagementOperation.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation
 type SLSSynchronousBridgedWindowManagementOperation struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ISLSSynchronousBridgedWindowManagementOperation = SLSSynchronousBridgedWin
 //   - [ISLSSynchronousBridgedWindowManagementOperation.InvokeFallback]
 //   - [ISLSSynchronousBridgedWindowManagementOperation.PerformWithWMBridgeDelegate]
 //   - [ISLSSynchronousBridgedWindowManagementOperation.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation
 type ISLSSynchronousBridgedWindowManagementOperation interface {
 	objectivec.IObject
 
@@ -106,43 +102,32 @@ func NewSLSSynchronousBridgedWindowManagementOperation() SLSSynchronousBridgedWi
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/initWithCoder:
 func NewSLSSynchronousBridgedWindowManagementOperationWithCoder(coder objectivec.IObject) SLSSynchronousBridgedWindowManagementOperation {
 	instance := getSLSSynchronousBridgedWindowManagementOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSynchronousBridgedWindowManagementOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/_init
 func (s SLSSynchronousBridgedWindowManagementOperation) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/encodeWithCoder:
 func (s SLSSynchronousBridgedWindowManagementOperation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/invokeFallback
 func (s SLSSynchronousBridgedWindowManagementOperation) InvokeFallback() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("invokeFallback"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/performWithWMBridgeDelegate
 func (s SLSSynchronousBridgedWindowManagementOperation) PerformWithWMBridgeDelegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("performWithWMBridgeDelegate"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/initWithCoder:
 func (s SLSSynchronousBridgedWindowManagementOperation) InitWithCoder(coder foundation.INSCoder) SLSSynchronousBridgedWindowManagementOperation {
 	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSSynchronousBridgedWindowManagementOperation/supportsSecureCoding
 func (_SLSSynchronousBridgedWindowManagementOperationClass SLSSynchronousBridgedWindowManagementOperationClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLSSynchronousBridgedWindowManagementOperationClass.class), objc.Sel("supportsSecureCoding"))
 	return rv

@@ -4,9 +4,9 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZCoprocessorBootLoader] class.
@@ -44,12 +44,8 @@ func (vc VZCoprocessorBootLoaderClass) Alloc() VZCoprocessorBootLoader {
 
 // # Methods
 //
-//   - [VZCoprocessorBootLoader._bootLoaderForConfiguration]
 //   - [VZCoprocessorBootLoader._romFileDescriptor]
 //   - [VZCoprocessorBootLoader.Set_romFileDescriptor]
-//   - [VZCoprocessorBootLoader._setROMFileDescriptor]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader
 type VZCoprocessorBootLoader struct {
 	VZBootLoader
 }
@@ -66,21 +62,15 @@ var _ IVZCoprocessorBootLoader = VZCoprocessorBootLoader{}
 //
 // # Methods
 //
-//   - [IVZCoprocessorBootLoader._bootLoaderForConfiguration]
 //   - [IVZCoprocessorBootLoader._romFileDescriptor]
 //   - [IVZCoprocessorBootLoader.Set_romFileDescriptor]
-//   - [IVZCoprocessorBootLoader._setROMFileDescriptor]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader
 type IVZCoprocessorBootLoader interface {
 	IVZBootLoader
 
 	// Topic: Methods
 
-	_bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject
-	_romFileDescriptor() objectivec.IObject
-	Set_romFileDescriptor(value objectivec.IObject)
-	_setROMFileDescriptor(descriptor objectivec.IObject)
+	_romFileDescriptor() unsafe.Pointer
+	Set_romFileDescriptor(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -102,50 +92,9 @@ func NewVZCoprocessorBootLoader() VZCoprocessorBootLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader/_bootLoaderForConfiguration:
-func (v VZCoprocessorBootLoader) _bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bootLoaderForConfiguration:"), configuration)
-	return objectivec.Object{ID: rv}
-}
-
-// BootLoaderForConfiguration is an exported wrapper for the private method _bootLoaderForConfiguration.
-func (v VZCoprocessorBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_bootLoaderForConfiguration:"}
-		return nil, err
-	}
-	return v._bootLoaderForConfiguration(configuration), nil
-}
-
-// CanBootLoaderForConfiguration reports whether the receiver responds to the private selector _bootLoaderForConfiguration:.
-func (v VZCoprocessorBootLoader) CanBootLoaderForConfiguration() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader/_setROMFileDescriptor:
-func (v VZCoprocessorBootLoader) _setROMFileDescriptor(descriptor objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setROMFileDescriptor:"), descriptor)
-}
-
-// SetROMFileDescriptor is an exported wrapper for the private method _setROMFileDescriptor.
-func (v VZCoprocessorBootLoader) SetROMFileDescriptor(descriptor objectivec.IObject) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_setROMFileDescriptor:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_setROMFileDescriptor:"}
-		return err
-	}
-	v._setROMFileDescriptor(descriptor)
-	return nil
-}
-
-// CanSetROMFileDescriptor reports whether the receiver responds to the private selector _setROMFileDescriptor:.
-func (v VZCoprocessorBootLoader) CanSetROMFileDescriptor() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_setROMFileDescriptor:"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader/_romFileDescriptor
-func (v VZCoprocessorBootLoader) _romFileDescriptor() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_romFileDescriptor"))
-	return objectivec.Object{ID: rv}
+func (v VZCoprocessorBootLoader) _romFileDescriptor() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_romFileDescriptor"))
+	return rv
 }
 
 // CanRomFileDescriptor reports whether the receiver responds to the private selector _romFileDescriptor.
@@ -154,12 +103,12 @@ func (v VZCoprocessorBootLoader) CanRomFileDescriptor() bool {
 }
 
 // RomFileDescriptor is an exported wrapper for the private property _romFileDescriptor.
-func (v VZCoprocessorBootLoader) RomFileDescriptor() (objectivec.IObject, error) {
+func (v VZCoprocessorBootLoader) RomFileDescriptor() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_romFileDescriptor")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_romFileDescriptor"}
 	}
 	return v._romFileDescriptor(), nil
 }
-func (v VZCoprocessorBootLoader) Set_romFileDescriptor(value objectivec.IObject) {
+func (v VZCoprocessorBootLoader) Set_romFileDescriptor(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_romFileDescriptor:"), value)
 }

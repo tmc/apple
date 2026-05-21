@@ -51,8 +51,6 @@ func (mc MLMultiFunctionProgramContainerClass) Alloc() MLMultiFunctionProgramCon
 //   - [MLMultiFunctionProgramContainer.FunctionNameToOutputLayersNames]
 //   - [MLMultiFunctionProgramContainer.SetFunctionNameToOutputLayersNames]
 //   - [MLMultiFunctionProgramContainer.InitWithContainerProgramError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer
 type MLMultiFunctionProgramContainer struct {
 	MLProgramContainer
 }
@@ -74,8 +72,6 @@ var _ IMLMultiFunctionProgramContainer = MLMultiFunctionProgramContainer{}
 //   - [IMLMultiFunctionProgramContainer.FunctionNameToOutputLayersNames]
 //   - [IMLMultiFunctionProgramContainer.SetFunctionNameToOutputLayersNames]
 //   - [IMLMultiFunctionProgramContainer.InitWithContainerProgramError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer
 type IMLMultiFunctionProgramContainer interface {
 	IMLProgramContainer
 
@@ -107,7 +103,6 @@ func NewMLMultiFunctionProgramContainer() MLMultiFunctionProgramContainer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer/initWithContainer:program:error:
 func NewMultiFunctionProgramContainerWithContainerProgramError(container objectivec.IObject, program unsafe.Pointer) (MLMultiFunctionProgramContainer, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
@@ -119,28 +114,24 @@ func NewMultiFunctionProgramContainerWithContainerProgramError(container objecti
 	return MLMultiFunctionProgramContainerFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:
 func NewMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLMultiFunctionProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:
 func NewMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLMultiFunctionProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFilePath:inputLayerNames:outputLayerNames:parameters:
 func NewMultiFunctionProgramContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLMultiFunctionProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer/initWithContainer:program:error:
 func (m MLMultiFunctionProgramContainer) InitWithContainerProgramError(container objectivec.IObject, program unsafe.Pointer) (MLMultiFunctionProgramContainer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:program:error:"), container, program, unsafe.Pointer(&errorPtr))
@@ -152,7 +143,6 @@ func (m MLMultiFunctionProgramContainer) InitWithContainerProgramError(container
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer/functionNameToInputLayersNames
 func (m MLMultiFunctionProgramContainer) FunctionNameToInputLayersNames() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToInputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -160,8 +150,6 @@ func (m MLMultiFunctionProgramContainer) FunctionNameToInputLayersNames() founda
 func (m MLMultiFunctionProgramContainer) SetFunctionNameToInputLayersNames(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToInputLayersNames:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramContainer/functionNameToOutputLayersNames
 func (m MLMultiFunctionProgramContainer) FunctionNameToOutputLayersNames() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToOutputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

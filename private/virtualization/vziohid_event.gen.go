@@ -47,8 +47,6 @@ func (vc VZIOHIDEventClass) Alloc() VZIOHIDEvent {
 //
 //   - [VZIOHIDEvent.Event]
 //   - [VZIOHIDEvent.InitWithIOHIDEvent]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent
 type VZIOHIDEvent struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IVZIOHIDEvent = VZIOHIDEvent{}
 //
 //   - [IVZIOHIDEvent.Event]
 //   - [IVZIOHIDEvent.InitWithIOHIDEvent]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent
 type IVZIOHIDEvent interface {
 	objectivec.IObject
 
@@ -97,20 +93,17 @@ func NewVZIOHIDEvent() VZIOHIDEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
 func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
 	instance := getVZIOHIDEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return VZIOHIDEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
 func (v VZIOHIDEvent) InitWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
 	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/event
 func (v VZIOHIDEvent) Event() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("event"))
 	return rv

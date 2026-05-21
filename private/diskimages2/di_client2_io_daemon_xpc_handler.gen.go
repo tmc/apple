@@ -51,8 +51,6 @@ func (dc DIClient2IODaemonXPCHandlerClass) Alloc() DIClient2IODaemonXPCHandler {
 //   - [DIClient2IODaemonXPCHandler.XpcListenerEndpoint]
 //   - [DIClient2IODaemonXPCHandler.SetXpcListenerEndpoint]
 //   - [DIClient2IODaemonXPCHandler.InitWithEndpoint]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler
 type DIClient2IODaemonXPCHandler struct {
 	DIBaseXPCHandler
 }
@@ -73,8 +71,6 @@ var _ IDIClient2IODaemonXPCHandler = DIClient2IODaemonXPCHandler{}
 //   - [IDIClient2IODaemonXPCHandler.XpcListenerEndpoint]
 //   - [IDIClient2IODaemonXPCHandler.SetXpcListenerEndpoint]
 //   - [IDIClient2IODaemonXPCHandler.InitWithEndpoint]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler
 type IDIClient2IODaemonXPCHandler interface {
 	IDIBaseXPCHandler
 
@@ -105,14 +101,12 @@ func NewDIClient2IODaemonXPCHandler() DIClient2IODaemonXPCHandler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler/initWithEndpoint:
 func NewDIClient2IODaemonXPCHandlerWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler {
 	instance := getDIClient2IODaemonXPCHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEndpoint:"), endpoint)
 	return DIClient2IODaemonXPCHandlerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler/addToRefCountWithError:
 func (d DIClient2IODaemonXPCHandler) AddToRefCountWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addToRefCountWithError:"), unsafe.Pointer(&errorPtr))
@@ -126,14 +120,11 @@ func (d DIClient2IODaemonXPCHandler) AddToRefCountWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler/initWithEndpoint:
 func (d DIClient2IODaemonXPCHandler) InitWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler {
 	rv := objc.Send[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("initWithEndpoint:"), endpoint)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2IODaemonXPCHandler/xpcListenerEndpoint
 func (d DIClient2IODaemonXPCHandler) XpcListenerEndpoint() foundation.NSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcListenerEndpoint"))
 	return foundation.NSXPCListenerEndpointFromID(objc.ID(rv))

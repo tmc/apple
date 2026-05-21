@@ -4,10 +4,10 @@ package espresso
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [EspressoDataFrameTensorAttachment] class.
@@ -46,8 +46,6 @@ func (ec EspressoDataFrameTensorAttachmentClass) Alloc() EspressoDataFrameTensor
 // # Methods
 //
 //   - [EspressoDataFrameTensorAttachment.CopyAsEspressoBuffer]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment
 type EspressoDataFrameTensorAttachment struct {
 	EspressoDataFrameAttachment
 }
@@ -65,14 +63,12 @@ var _ IEspressoDataFrameTensorAttachment = EspressoDataFrameTensorAttachment{}
 // # Methods
 //
 //   - [IEspressoDataFrameTensorAttachment.CopyAsEspressoBuffer]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment
 type IEspressoDataFrameTensorAttachment interface {
 	IEspressoDataFrameAttachment
 
 	// Topic: Methods
 
-	CopyAsEspressoBuffer() objectivec.IObject
+	CopyAsEspressoBuffer() unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -94,14 +90,12 @@ func NewEspressoDataFrameTensorAttachment() EspressoDataFrameTensorAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment/copyAsEspressoBuffer
-func (e EspressoDataFrameTensorAttachment) CopyAsEspressoBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("copyAsEspressoBuffer"))
-	return objectivec.Object{ID: rv}
+func (e EspressoDataFrameTensorAttachment) CopyAsEspressoBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("copyAsEspressoBuffer"))
+	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment/copyFromCVPixelBuffer:
-func (_EspressoDataFrameTensorAttachmentClass EspressoDataFrameTensorAttachmentClass) CopyFromCVPixelBuffer(buffer corevideo.CVImageBufferRef) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_EspressoDataFrameTensorAttachmentClass.class), objc.Sel("copyFromCVPixelBuffer:"), buffer)
-	return objectivec.Object{ID: rv}
+func (_EspressoDataFrameTensorAttachmentClass EspressoDataFrameTensorAttachmentClass) CopyFromCVPixelBuffer(buffer corevideo.CVImageBufferRef) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](objc.ID(_EspressoDataFrameTensorAttachmentClass.class), objc.Sel("copyFromCVPixelBuffer:"), buffer)
+	return rv
 }

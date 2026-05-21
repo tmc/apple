@@ -5,6 +5,7 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -52,8 +53,6 @@ func (cc CPXRemoteViewEventManagerClass) Alloc() CPXRemoteViewEventManager {
 //   - [CPXRemoteViewEventManager.PidForCurrentConnection]
 //   - [CPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply]
 //   - [CPXRemoteViewEventManager.InitWithDeliveryManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager
 type CPXRemoteViewEventManager struct {
 	objectivec.Object
 }
@@ -77,8 +76,6 @@ var _ ICPXRemoteViewEventManager = CPXRemoteViewEventManager{}
 //   - [ICPXRemoteViewEventManager.PidForCurrentConnection]
 //   - [ICPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply]
 //   - [ICPXRemoteViewEventManager.InitWithDeliveryManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager
 type ICPXRemoteViewEventManager interface {
 	objectivec.IObject
 
@@ -89,7 +86,7 @@ type ICPXRemoteViewEventManager interface {
 	InvalidateConnections()
 	PassEventUpstreamToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler)
 	PidForCurrentConnection() int
-	SendEventToHostPidFullDispatchReply(event objectivec.IObject, pid int, dispatch objectivec.IObject, reply VoidHandler)
+	SendEventToHostPidFullDispatchReply(event unsafe.Pointer, pid int, dispatch objectivec.IObject, reply VoidHandler)
 	InitWithDeliveryManager(manager objectivec.IObject) CPXRemoteViewEventManager
 }
 
@@ -112,48 +109,34 @@ func NewCPXRemoteViewEventManager() CPXRemoteViewEventManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/initWithDeliveryManager:
 func NewCPXRemoteViewEventManagerWithDeliveryManager(manager objectivec.IObject) CPXRemoteViewEventManager {
 	instance := getCPXRemoteViewEventManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:"), manager)
 	return CPXRemoteViewEventManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/clientCount
 func (c CPXRemoteViewEventManager) ClientCount() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("clientCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/didReceiveConnection:config:
 func (c CPXRemoteViewEventManager) DidReceiveConnectionConfig(connection objectivec.IObject, config objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("didReceiveConnection:config:"), connection, config)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/invalidateConnections
 func (c CPXRemoteViewEventManager) InvalidateConnections() {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateConnections"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/passEventUpstreamToHost:fullDispatch:reply:
 func (c CPXRemoteViewEventManager) PassEventUpstreamToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler) {
 	_block2, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](c.ID, objc.Sel("passEventUpstreamToHost:fullDispatch:reply:"), host, dispatch, _block2)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/pidForCurrentConnection
 func (c CPXRemoteViewEventManager) PidForCurrentConnection() int {
 	rv := objc.Send[int](c.ID, objc.Sel("pidForCurrentConnection"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/sendEvent:toHostPid:fullDispatch:reply:
-func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReply(event objectivec.IObject, pid int, dispatch objectivec.IObject, reply VoidHandler) {
+func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReply(event unsafe.Pointer, pid int, dispatch objectivec.IObject, reply VoidHandler) {
 	_block3, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](c.ID, objc.Sel("sendEvent:toHostPid:fullDispatch:reply:"), event, pid, dispatch, _block3)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventManager/initWithDeliveryManager:
 func (c CPXRemoteViewEventManager) InitWithDeliveryManager(manager objectivec.IObject) CPXRemoteViewEventManager {
 	rv := objc.Send[CPXRemoteViewEventManager](c.ID, objc.Sel("initWithDeliveryManager:"), manager)
 	return rv
@@ -176,7 +159,7 @@ func (c CPXRemoteViewEventManager) PassEventUpstreamToHostFullDispatchReplySync(
 
 // SendEventToHostPidFullDispatchReplySync is a synchronous wrapper around [CPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReplySync(ctx context.Context, event objectivec.IObject, pid int, dispatch objectivec.IObject) error {
+func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReplySync(ctx context.Context, event unsafe.Pointer, pid int, dispatch objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	c.SendEventToHostPidFullDispatchReply(event, pid, dispatch, func() {
 		done <- struct{}{}

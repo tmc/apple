@@ -47,8 +47,6 @@ func (ec ETDataSourceWithExtractorClass) Alloc() ETDataSourceWithExtractor {
 //   - [ETDataSourceWithExtractor.DataPointAtIndex]
 //   - [ETDataSourceWithExtractor.NumberOfDataPoints]
 //   - [ETDataSourceWithExtractor.InitWithDataSourceExtractor]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor
 type ETDataSourceWithExtractor struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IETDataSourceWithExtractor = ETDataSourceWithExtractor{}
 //   - [IETDataSourceWithExtractor.DataPointAtIndex]
 //   - [IETDataSourceWithExtractor.NumberOfDataPoints]
 //   - [IETDataSourceWithExtractor.InitWithDataSourceExtractor]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor
 type IETDataSourceWithExtractor interface {
 	objectivec.IObject
 
@@ -99,26 +95,20 @@ func NewETDataSourceWithExtractor() ETDataSourceWithExtractor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor/initWithDataSource:extractor:
 func NewETDataSourceWithExtractorWithDataSourceExtractor(source objectivec.IObject, extractor objectivec.IObject) ETDataSourceWithExtractor {
 	instance := getETDataSourceWithExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataSource:extractor:"), source, extractor)
 	return ETDataSourceWithExtractorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor/dataPointAtIndex:
 func (e ETDataSourceWithExtractor) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor/numberOfDataPoints
 func (e ETDataSourceWithExtractor) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithExtractor/initWithDataSource:extractor:
 func (e ETDataSourceWithExtractor) InitWithDataSourceExtractor(source objectivec.IObject, extractor objectivec.IObject) ETDataSourceWithExtractor {
 	rv := objc.Send[ETDataSourceWithExtractor](e.ID, objc.Sel("initWithDataSource:extractor:"), source, extractor)
 	return rv

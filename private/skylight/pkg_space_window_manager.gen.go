@@ -42,7 +42,6 @@ func (pc PKGSpaceWindowManagerClass) Alloc() PKGSpaceWindowManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGSpaceWindowManager
 type PKGSpaceWindowManager struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func PKGSpaceWindowManagerFromID(id objc.ID) PKGSpaceWindowManager {
 var _ IPKGSpaceWindowManager = PKGSpaceWindowManager{}
 
 // An interface definition for the [PKGSpaceWindowManager] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGSpaceWindowManager
 type IPKGSpaceWindowManager interface {
 	objectivec.IObject
 }

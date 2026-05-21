@@ -51,8 +51,6 @@ func (mc MLPipelineLoaderClass) Alloc() MLPipelineLoader {
 //   - [MLPipelineLoader.Description]
 //   - [MLPipelineLoader.Hash]
 //   - [MLPipelineLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader
 type MLPipelineLoader struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IMLPipelineLoader = MLPipelineLoader{}
 //   - [IMLPipelineLoader.Description]
 //   - [IMLPipelineLoader.Hash]
 //   - [IMLPipelineLoader.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader
 type IMLPipelineLoader interface {
 	objectivec.IObject
 
@@ -83,7 +79,7 @@ type IMLPipelineLoader interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -105,7 +101,6 @@ func NewMLPipelineLoader() MLPipelineLoader {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/ensureFrameworkSupportsCompilerVersion:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) EnsureFrameworkSupportsCompilerVersionError(version objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLPipelineLoaderClass.class), objc.Sel("ensureFrameworkSupportsCompilerVersion:error:"), version, unsafe.Pointer(&errorPtr))
@@ -119,8 +114,6 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) EnsureFrameworkSupportsCompi
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLPipelineLoaderClass.class), objc.Sel("loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -131,8 +124,6 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelAssetDescriptionFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLPipelineLoaderClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -144,26 +135,19 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelFromCompiledArchive
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/debugDescription
 func (m MLPipelineLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/description
 func (m MLPipelineLoader) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/hash
 func (m MLPipelineLoader) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/superclass
-func (m MLPipelineLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLPipelineLoader) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

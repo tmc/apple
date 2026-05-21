@@ -52,8 +52,6 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 //   - [VZStorageDeviceConfiguration.Description]
 //   - [VZStorageDeviceConfiguration.Hash]
 //   - [VZStorageDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration
 type VZStorageDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ IVZStorageDeviceConfiguration = VZStorageDeviceConfiguration{}
 //   - [IVZStorageDeviceConfiguration.Description]
 //   - [IVZStorageDeviceConfiguration.Hash]
 //   - [IVZStorageDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration
 type IVZStorageDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -90,7 +86,7 @@ type IVZStorageDeviceConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,7 +108,6 @@ func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_initWithAttachment:
 func (v VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
@@ -131,8 +126,6 @@ func (v VZStorageDeviceConfiguration) InitWithAttachment(attachment objectivec.I
 func (v VZStorageDeviceConfiguration) CanInitWithAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_setAttachment:
 func (v VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setAttachment:"), attachment)
 }
@@ -151,33 +144,24 @@ func (v VZStorageDeviceConfiguration) SetAttachment(attachment objectivec.IObjec
 func (v VZStorageDeviceConfiguration) CanSetAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/makeStorageDeviceForVirtualMachine:storageDeviceIndex:
 func (v VZStorageDeviceConfiguration) MakeStorageDeviceForVirtualMachineStorageDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/debugDescription
 func (v VZStorageDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/description
 func (v VZStorageDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/hash
 func (v VZStorageDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/superclass
-func (v VZStorageDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZStorageDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

@@ -42,7 +42,6 @@ func (cc CPXRemoteViewEventServiceSpecificationClass) Alloc() CPXRemoteViewEvent
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServiceSpecification
 type CPXRemoteViewEventServiceSpecification struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CPXRemoteViewEventServiceSpecificationFromID(id objc.ID) CPXRemoteViewEvent
 var _ ICPXRemoteViewEventServiceSpecification = CPXRemoteViewEventServiceSpecification{}
 
 // An interface definition for the [CPXRemoteViewEventServiceSpecification] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServiceSpecification
 type ICPXRemoteViewEventServiceSpecification interface {
 	objectivec.IObject
 }
@@ -81,19 +78,14 @@ func NewCPXRemoteViewEventServiceSpecification() CPXRemoteViewEventServiceSpecif
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServiceSpecification/identifier
 func (_CPXRemoteViewEventServiceSpecificationClass CPXRemoteViewEventServiceSpecificationClass) Identifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CPXRemoteViewEventServiceSpecificationClass.class), objc.Sel("identifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServiceSpecification/interface
 func (_CPXRemoteViewEventServiceSpecificationClass CPXRemoteViewEventServiceSpecificationClass) Interface() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CPXRemoteViewEventServiceSpecificationClass.class), objc.Sel("interface"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXRemoteViewEventServiceSpecification/serviceQuality
 func (_CPXRemoteViewEventServiceSpecificationClass CPXRemoteViewEventServiceSpecificationClass) ServiceQuality() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CPXRemoteViewEventServiceSpecificationClass.class), objc.Sel("serviceQuality"))
 	return objectivec.Object{ID: rv}

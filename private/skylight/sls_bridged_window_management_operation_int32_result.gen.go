@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationInt32ResultClass) Alloc() SLSBridged
 //
 //   - [SLSBridgedWindowManagementOperationInt32Result.Int32Value]
 //   - [SLSBridgedWindowManagementOperationInt32Result.InitWithInt32Value]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result
 type SLSBridgedWindowManagementOperationInt32Result struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationInt32Result = SLSBridgedWindowManageme
 //
 //   - [ISLSBridgedWindowManagementOperationInt32Result.Int32Value]
 //   - [ISLSBridgedWindowManagementOperationInt32Result.InitWithInt32Value]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result
 type ISLSBridgedWindowManagementOperationInt32Result interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationInt32Result() SLSBridgedWindowManagem
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result/initWithCoder:
 func NewSLSBridgedWindowManagementOperationInt32ResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationInt32Result {
 	instance := getSLSBridgedWindowManagementOperationInt32ResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result/initWithInt32Value:
 func NewSLSBridgedWindowManagementOperationInt32ResultWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
 	instance := getSLSBridgedWindowManagementOperationInt32ResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result/initWithInt32Value:
 func (s SLSBridgedWindowManagementOperationInt32Result) InitWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
 	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationInt32Result/int32Value
 func (s SLSBridgedWindowManagementOperationInt32Result) Int32Value() int {
 	rv := objc.Send[int](s.ID, objc.Sel("int32Value"))
 	return rv

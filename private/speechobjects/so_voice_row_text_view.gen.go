@@ -42,7 +42,6 @@ func (sc SOVoiceRowTextViewClass) Alloc() SOVoiceRowTextView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowTextView
 type SOVoiceRowTextView struct {
 	appkit.NSTextField
 }
@@ -56,8 +55,6 @@ func SOVoiceRowTextViewFromID(id objc.ID) SOVoiceRowTextView {
 var _ ISOVoiceRowTextView = SOVoiceRowTextView{}
 
 // An interface definition for the [SOVoiceRowTextView] class.
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowTextView
 type ISOVoiceRowTextView interface {
 	appkit.INSTextField
 }

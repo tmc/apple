@@ -47,8 +47,6 @@ func (sc SOSRLanguageTableCellViewClass) Alloc() SOSRLanguageTableCellView {
 //   - [SOSRLanguageTableCellView.ActiveCheckbox]
 //   - [SOSRLanguageTableCellView.DownloadMessageTextField]
 //   - [SOSRLanguageTableCellView.DownloadVariantPopUpButton]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageTableCellView
 type SOSRLanguageTableCellView struct {
 	appkit.NSTableCellView
 }
@@ -68,8 +66,6 @@ var _ ISOSRLanguageTableCellView = SOSRLanguageTableCellView{}
 //   - [ISOSRLanguageTableCellView.ActiveCheckbox]
 //   - [ISOSRLanguageTableCellView.DownloadMessageTextField]
 //   - [ISOSRLanguageTableCellView.DownloadVariantPopUpButton]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageTableCellView
 type ISOSRLanguageTableCellView interface {
 	appkit.INSTableCellView
 
@@ -99,19 +95,14 @@ func NewSOSRLanguageTableCellView() SOSRLanguageTableCellView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageTableCellView/activeCheckbox
 func (s SOSRLanguageTableCellView) ActiveCheckbox() ISOSRLanguageRowCheckboxButton {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("activeCheckbox"))
 	return SOSRLanguageRowCheckboxButtonFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageTableCellView/downloadMessageTextField
 func (s SOSRLanguageTableCellView) DownloadMessageTextField() appkit.NSTextField {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadMessageTextField"))
 	return appkit.NSTextFieldFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageTableCellView/downloadVariantPopUpButton
 func (s SOSRLanguageTableCellView) DownloadVariantPopUpButton() appkit.NSPopUpButton {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadVariantPopUpButton"))
 	return appkit.NSPopUpButtonFromID(objc.ID(rv))

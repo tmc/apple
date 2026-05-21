@@ -41,7 +41,6 @@ func (ec EspressoPassTransformStaticQuantizeKernelClass) Alloc() EspressoPassTra
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_static_quantize_kernel
 type EspressoPassTransformStaticQuantizeKernel struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_transform_static_quantize_kernelFromID(id objc.ID) EspressoPas
 var _ IEspressoPassTransformStaticQuantizeKernel = EspressoPassTransformStaticQuantizeKernel{}
 
 // An interface definition for the [EspressoPassTransformStaticQuantizeKernel] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_static_quantize_kernel
 type IEspressoPassTransformStaticQuantizeKernel interface {
 	IEspressoCustomPass
 }

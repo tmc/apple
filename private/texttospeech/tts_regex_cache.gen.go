@@ -49,8 +49,6 @@ func (tc TTSRegexCacheClass) Alloc() TTSRegexCache {
 //   - [TTSRegexCache.SetCache]
 //   - [TTSRegexCache.RegexForString]
 //   - [TTSRegexCache.RegexForStringAtStart]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache
 type TTSRegexCache struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ ITTSRegexCache = TTSRegexCache{}
 //   - [ITTSRegexCache.SetCache]
 //   - [ITTSRegexCache.RegexForString]
 //   - [ITTSRegexCache.RegexForStringAtStart]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache
 type ITTSRegexCache interface {
 	objectivec.IObject
 
@@ -103,25 +99,20 @@ func NewTTSRegexCache() TTSRegexCache {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/regexForString:
 func (t TTSRegexCache) RegexForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/regexForString:atStart:
 func (t TTSRegexCache) RegexForStringAtStart(string_ objectivec.IObject, start bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:atStart:"), string_, start)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/sharedInstance
 func (_TTSRegexCacheClass TTSRegexCacheClass) SharedInstance() TTSRegexCache {
 	rv := objc.Send[objc.ID](objc.ID(_TTSRegexCacheClass.class), objc.Sel("sharedInstance"))
 	return TTSRegexCacheFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/cache
 func (t TTSRegexCache) Cache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("cache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

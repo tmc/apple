@@ -42,7 +42,6 @@ func (sc SLDataTimelineSessionPlaceholderEntryClass) Alloc() SLDataTimelineSessi
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionPlaceholderEntry
 type SLDataTimelineSessionPlaceholderEntry struct {
 	SLDataTimelineSessionEntry
 }
@@ -56,8 +55,6 @@ func SLDataTimelineSessionPlaceholderEntryFromID(id objc.ID) SLDataTimelineSessi
 var _ ISLDataTimelineSessionPlaceholderEntry = SLDataTimelineSessionPlaceholderEntry{}
 
 // An interface definition for the [SLDataTimelineSessionPlaceholderEntry] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionPlaceholderEntry
 type ISLDataTimelineSessionPlaceholderEntry interface {
 	ISLDataTimelineSessionEntry
 }
@@ -81,7 +78,6 @@ func NewSLDataTimelineSessionPlaceholderEntry() SLDataTimelineSessionPlaceholder
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionPlaceholderEntry/initWithXPCObject:
 func NewSLDataTimelineSessionPlaceholderEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionPlaceholderEntry {
 	instance := getSLDataTimelineSessionPlaceholderEntryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)

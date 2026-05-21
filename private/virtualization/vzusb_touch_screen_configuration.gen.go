@@ -41,7 +41,6 @@ func (vc VZUSBTouchScreenConfigurationClass) Alloc() VZUSBTouchScreenConfigurati
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBTouchScreenConfiguration
 type VZUSBTouchScreenConfiguration struct {
 	VZMultiTouchDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZUSBTouchScreenConfigurationFromID(id objc.ID) VZUSBTouchScreenConfigurati
 var _ IVZUSBTouchScreenConfiguration = VZUSBTouchScreenConfiguration{}
 
 // An interface definition for the [VZUSBTouchScreenConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBTouchScreenConfiguration
 type IVZUSBTouchScreenConfiguration interface {
 	IVZMultiTouchDeviceConfiguration
 }

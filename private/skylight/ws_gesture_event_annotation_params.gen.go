@@ -45,8 +45,6 @@ func (wc WSGestureEventAnnotationParamsClass) Alloc() WSGestureEventAnnotationPa
 //
 //   - [WSGestureEventAnnotationParams.GestureStreamState]
 //   - [WSGestureEventAnnotationParams.SetGestureStreamState]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSGestureEventAnnotationParams
 type WSGestureEventAnnotationParams struct {
 	WSEventAnnotationParams
 }
@@ -65,8 +63,6 @@ var _ IWSGestureEventAnnotationParams = WSGestureEventAnnotationParams{}
 //
 //   - [IWSGestureEventAnnotationParams.GestureStreamState]
 //   - [IWSGestureEventAnnotationParams.SetGestureStreamState]
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSGestureEventAnnotationParams
 type IWSGestureEventAnnotationParams interface {
 	IWSEventAnnotationParams
 
@@ -95,7 +91,6 @@ func NewWSGestureEventAnnotationParams() WSGestureEventAnnotationParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSGestureEventAnnotationParams/gestureStreamState
 func (w WSGestureEventAnnotationParams) GestureStreamState() int {
 	rv := objc.Send[int](w.ID, objc.Sel("gestureStreamState"))
 	return rv

@@ -46,8 +46,6 @@ func (ec EspressoMetalSingletonClass) Alloc() EspressoMetalSingleton {
 //
 //   - [EspressoMetalSingleton.Is_memory_tight]
 //   - [EspressoMetalSingleton.SetIs_memory_tight]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoMetalSingleton
 type EspressoMetalSingleton struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IEspressoMetalSingleton = EspressoMetalSingleton{}
 //
 //   - [IEspressoMetalSingleton.Is_memory_tight]
 //   - [IEspressoMetalSingleton.SetIs_memory_tight]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoMetalSingleton
 type IEspressoMetalSingleton interface {
 	objectivec.IObject
 
@@ -96,13 +92,11 @@ func NewEspressoMetalSingleton() EspressoMetalSingleton {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoMetalSingleton/shared
 func (_EspressoMetalSingletonClass EspressoMetalSingletonClass) Shared() EspressoMetalSingleton {
 	rv := objc.Send[objc.ID](objc.ID(_EspressoMetalSingletonClass.class), objc.Sel("shared"))
 	return EspressoMetalSingletonFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoMetalSingleton/is_memory_tight
 func (e EspressoMetalSingleton) Is_memory_tight() int {
 	rv := objc.Send[int](e.ID, objc.Sel("is_memory_tight"))
 	return rv

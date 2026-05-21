@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -52,8 +53,6 @@ func (sc SLSBridgedCopyWindowsWithOptionsAndTagsOperationClass) Alloc() SLSBridg
 //   - [SLSBridgedCopyWindowsWithOptionsAndTagsOperation.Owner]
 //   - [SLSBridgedCopyWindowsWithOptionsAndTagsOperation.Spaces]
 //   - [SLSBridgedCopyWindowsWithOptionsAndTagsOperation.InitWithOwnerSpacesOptionsSetTagsClearedTags]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation
 type SLSBridgedCopyWindowsWithOptionsAndTagsOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -77,20 +76,18 @@ var _ ISLSBridgedCopyWindowsWithOptionsAndTagsOperation = SLSBridgedCopyWindowsW
 //   - [ISLSBridgedCopyWindowsWithOptionsAndTagsOperation.Owner]
 //   - [ISLSBridgedCopyWindowsWithOptionsAndTagsOperation.Spaces]
 //   - [ISLSBridgedCopyWindowsWithOptionsAndTagsOperation.InitWithOwnerSpacesOptionsSetTagsClearedTags]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation
 type ISLSBridgedCopyWindowsWithOptionsAndTagsOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
 	// Topic: Methods
 
-	GetClearedTags(tags objectivec.IObject)
-	GetSetTags(tags objectivec.IObject)
+	GetClearedTags(tags unsafe.Pointer)
+	GetSetTags(tags unsafe.Pointer)
 	MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject
 	Options() uint32
 	Owner() uint32
 	Spaces() foundation.INSArray
-	InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags objectivec.IObject, tags2 objectivec.IObject) SLSBridgedCopyWindowsWithOptionsAndTagsOperation
+	InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation
 }
 
 // Init initializes the instance.
@@ -112,55 +109,41 @@ func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperation() SLSBridgedCopyWindows
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/initWithCoder:
 func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	instance := getSLSBridgedCopyWindowsWithOptionsAndTagsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyWindowsWithOptionsAndTagsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/initWithOwner:spaces:options:setTags:clearedTags:
-func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags objectivec.IObject, tags2 objectivec.IObject) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
+func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	instance := getSLSBridgedCopyWindowsWithOptionsAndTagsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
 	return SLSBridgedCopyWindowsWithOptionsAndTagsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/getClearedTags:
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetClearedTags(tags objectivec.IObject) {
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetClearedTags(tags unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getClearedTags:"), tags)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/getSetTags:
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetSetTags(tags objectivec.IObject) {
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetSetTags(tags unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getSetTags:"), tags)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/makeResultWithNumbers:
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/initWithOwner:spaces:options:setTags:clearedTags:
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags objectivec.IObject, tags2 objectivec.IObject) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/options
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Options() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/owner
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Owner() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("owner"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyWindowsWithOptionsAndTagsOperation/spaces
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Spaces() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))

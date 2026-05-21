@@ -77,8 +77,6 @@ func (vc VZCustomVirtioDeviceConfigurationClass) Alloc() VZCustomVirtioDeviceCon
 //   - [VZCustomVirtioDeviceConfiguration.SetOptionalFeaturesAtIndex]
 //   - [VZCustomVirtioDeviceConfiguration.VirtioQueueCount]
 //   - [VZCustomVirtioDeviceConfiguration.SetVirtioQueueCount]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration
 type VZCustomVirtioDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -127,8 +125,6 @@ var _ IVZCustomVirtioDeviceConfiguration = VZCustomVirtioDeviceConfiguration{}
 //   - [IVZCustomVirtioDeviceConfiguration.SetOptionalFeaturesAtIndex]
 //   - [IVZCustomVirtioDeviceConfiguration.VirtioQueueCount]
 //   - [IVZCustomVirtioDeviceConfiguration.SetVirtioQueueCount]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration
 type IVZCustomVirtioDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -156,12 +152,12 @@ type IVZCustomVirtioDeviceConfiguration interface {
 	_supportsSaveRestore() bool
 	DeviceID() uint16
 	SetDeviceID(value uint16)
-	DeviceSpecificConfiguration() *VZVirtioDeviceSpecificConfiguration
-	SetDeviceSpecificConfiguration(value *VZVirtioDeviceSpecificConfiguration)
+	DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration
+	SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration)
 	MandatoryFeaturesAtIndex(index uint64) uint32
 	OptionalFeaturesAtIndex(index uint64) uint32
-	Provider() *VZCustomVirtioDeviceProvider
-	SetProvider(value *VZCustomVirtioDeviceProvider)
+	Provider() IVZCustomVirtioDeviceProvider
+	SetProvider(value IVZCustomVirtioDeviceProvider)
 	SetMandatoryFeaturesAtIndex(features uint32, index uint64)
 	SetOptionalFeaturesAtIndex(features uint32, index uint64)
 	VirtioQueueCount() uint16
@@ -187,7 +183,6 @@ func NewVZCustomVirtioDeviceConfiguration() VZCustomVirtioDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCIDeviceID
 func (v VZCustomVirtioDeviceConfiguration) _PCIDeviceID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("_PCIDeviceID"))
 	return rv
@@ -206,8 +201,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCIDeviceID() (uint16, error) {
 func (v VZCustomVirtioDeviceConfiguration) CanPCIDeviceID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIDeviceID"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCISubsystemID
 func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("_PCISubsystemID"))
 	return rv
@@ -226,8 +219,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCISubsystemID() (uint16, error) {
 func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemID"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCISubsystemVendorID
 func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemVendorID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("_PCISubsystemVendorID"))
 	return rv
@@ -246,8 +237,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCISubsystemVendorID() (uint16, error
 func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemVendorID"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCIVendorID
 func (v VZCustomVirtioDeviceConfiguration) _PCIVendorID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("_PCIVendorID"))
 	return rv
@@ -266,8 +255,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCIVendorID() (uint16, error) {
 func (v VZCustomVirtioDeviceConfiguration) CanPCIVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIVendorID"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCIDeviceID:
 func (v VZCustomVirtioDeviceConfiguration) _setPCIDeviceID(id uint16) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPCIDeviceID:"), id)
 }
@@ -286,8 +273,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPCIDeviceID(id uint16) error {
 func (v VZCustomVirtioDeviceConfiguration) CanSetPCIDeviceID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIDeviceID:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCISubsystemID:
 func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemID(id uint16) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPCISubsystemID:"), id)
 }
@@ -306,8 +291,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemID(id uint16) error {
 func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemID:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCISubsystemVendorID:
 func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemVendorID(id uint16) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPCISubsystemVendorID:"), id)
 }
@@ -326,8 +309,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemVendorID(id uint16) er
 func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemVendorID:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCIVendorID:
 func (v VZCustomVirtioDeviceConfiguration) _setPCIVendorID(id uint16) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPCIVendorID:"), id)
 }
@@ -346,8 +327,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPCIVendorID(id uint16) error {
 func (v VZCustomVirtioDeviceConfiguration) CanSetPCIVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIVendorID:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPluginName:
 func (v VZCustomVirtioDeviceConfiguration) _setPluginName(name objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPluginName:"), name)
 }
@@ -366,8 +345,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPluginName(name objectivec.IObject
 func (v VZCustomVirtioDeviceConfiguration) CanSetPluginName() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginName:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPluginPersonality:
 func (v VZCustomVirtioDeviceConfiguration) _setPluginPersonality(personality objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPluginPersonality:"), personality)
 }
@@ -386,8 +363,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetPluginPersonality(personality obje
 func (v VZCustomVirtioDeviceConfiguration) CanSetPluginPersonality() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginPersonality:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setSupportsSaveRestore:
 func (v VZCustomVirtioDeviceConfiguration) _setSupportsSaveRestore(restore bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setSupportsSaveRestore:"), restore)
 }
@@ -406,8 +381,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetSupportsSaveRestore(restore bool) 
 func (v VZCustomVirtioDeviceConfiguration) CanSetSupportsSaveRestore() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_supportsSaveRestore
 func (v VZCustomVirtioDeviceConfiguration) _supportsSaveRestore() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_supportsSaveRestore"))
 	return rv
@@ -426,30 +399,21 @@ func (v VZCustomVirtioDeviceConfiguration) SupportsSaveRestore() (bool, error) {
 func (v VZCustomVirtioDeviceConfiguration) CanSupportsSaveRestore() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/mandatoryFeaturesAtIndex:
 func (v VZCustomVirtioDeviceConfiguration) MandatoryFeaturesAtIndex(index uint64) uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("mandatoryFeaturesAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/optionalFeaturesAtIndex:
 func (v VZCustomVirtioDeviceConfiguration) OptionalFeaturesAtIndex(index uint64) uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("optionalFeaturesAtIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/setMandatoryFeatures:atIndex:
 func (v VZCustomVirtioDeviceConfiguration) SetMandatoryFeaturesAtIndex(features uint32, index uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setMandatoryFeatures:atIndex:"), features, index)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/setOptionalFeatures:atIndex:
 func (v VZCustomVirtioDeviceConfiguration) SetOptionalFeaturesAtIndex(features uint32, index uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setOptionalFeatures:atIndex:"), features, index)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/PCIClassID
 func (v VZCustomVirtioDeviceConfiguration) PCIClassID() byte {
 	rv := objc.Send[byte](v.ID, objc.Sel("PCIClassID"))
 	return rv
@@ -457,8 +421,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCIClassID() byte {
 func (v VZCustomVirtioDeviceConfiguration) SetPCIClassID(value byte) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPCIClassID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/PCISubclassID
 func (v VZCustomVirtioDeviceConfiguration) PCISubclassID() byte {
 	rv := objc.Send[byte](v.ID, objc.Sel("PCISubclassID"))
 	return rv
@@ -466,8 +428,6 @@ func (v VZCustomVirtioDeviceConfiguration) PCISubclassID() byte {
 func (v VZCustomVirtioDeviceConfiguration) SetPCISubclassID(value byte) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPCISubclassID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_pluginName
 func (v VZCustomVirtioDeviceConfiguration) _pluginName() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginName"))
 	return foundation.NSStringFromID(rv).String()
@@ -488,8 +448,6 @@ func (v VZCustomVirtioDeviceConfiguration) PluginName() (string, error) {
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginName(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pluginName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_pluginPersonality
 func (v VZCustomVirtioDeviceConfiguration) _pluginPersonality() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()
@@ -510,8 +468,6 @@ func (v VZCustomVirtioDeviceConfiguration) PluginPersonality() (string, error) {
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginPersonality(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pluginPersonality:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/deviceID
 func (v VZCustomVirtioDeviceConfiguration) DeviceID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("deviceID"))
 	return rv
@@ -519,42 +475,20 @@ func (v VZCustomVirtioDeviceConfiguration) DeviceID() uint16 {
 func (v VZCustomVirtioDeviceConfiguration) SetDeviceID(value uint16) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDeviceID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/deviceSpecificConfiguration
-func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() *VZVirtioDeviceSpecificConfiguration {
+func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceSpecificConfiguration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZVirtioDeviceSpecificConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZVirtioDeviceSpecificConfigurationFromID(objc.ID(rv))
 }
-func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value *VZVirtioDeviceSpecificConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/provider
-func (v VZCustomVirtioDeviceConfiguration) Provider() *VZCustomVirtioDeviceProvider {
+func (v VZCustomVirtioDeviceConfiguration) Provider() IVZCustomVirtioDeviceProvider {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
-	return &val
+	return VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
 }
-func (v VZCustomVirtioDeviceConfiguration) SetProvider(value *VZCustomVirtioDeviceProvider) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), objc.ID(0))
-		return
-	}
+func (v VZCustomVirtioDeviceConfiguration) SetProvider(value IVZCustomVirtioDeviceProvider) {
 	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/virtioQueueCount
 func (v VZCustomVirtioDeviceConfiguration) VirtioQueueCount() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("virtioQueueCount"))
 	return rv

@@ -47,8 +47,6 @@ func (vc VZVirtioInputDeviceSpecificConfigurationClass) Alloc() VZVirtioInputDev
 //
 //   - [VZVirtioInputDeviceSpecificConfiguration.Configurations]
 //   - [VZVirtioInputDeviceSpecificConfiguration.InitWithConfigurations]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration
 type VZVirtioInputDeviceSpecificConfiguration struct {
 	VZVirtioDeviceSpecificConfiguration
 }
@@ -67,8 +65,6 @@ var _ IVZVirtioInputDeviceSpecificConfiguration = VZVirtioInputDeviceSpecificCon
 //
 //   - [IVZVirtioInputDeviceSpecificConfiguration.Configurations]
 //   - [IVZVirtioInputDeviceSpecificConfiguration.InitWithConfigurations]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration
 type IVZVirtioInputDeviceSpecificConfiguration interface {
 	IVZVirtioDeviceSpecificConfiguration
 
@@ -97,20 +93,17 @@ func NewVZVirtioInputDeviceSpecificConfiguration() VZVirtioInputDeviceSpecificCo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration/initWithConfigurations:
 func NewVZVirtioInputDeviceSpecificConfigurationWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
 	instance := getVZVirtioInputDeviceSpecificConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfigurations:"), configurations)
 	return VZVirtioInputDeviceSpecificConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration/initWithConfigurations:
 func (v VZVirtioInputDeviceSpecificConfiguration) InitWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
 	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurations:"), configurations)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration/configurations
 func (v VZVirtioInputDeviceSpecificConfiguration) Configurations() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))

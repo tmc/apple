@@ -3,22 +3,16 @@
 package skylight
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
 // ECAuthenticationMessageSigningContext protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext
 type ECAuthenticationMessageSigningContext interface {
 	objectivec.IObject
 
 	// UpdateSigningContextWithBytesLength protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext/updateSigningContextWithBytes:length:
-	UpdateSigningContextWithBytesLength(bytes []byte)
+	UpdateSigningContextWithBytesLength(bytes []byte, length uint64)
 }
 
 // ECAuthenticationMessageSigningContextObject wraps an existing Objective-C object that conforms to the ECAuthenticationMessageSigningContext protocol.
@@ -38,23 +32,16 @@ func ECAuthenticationMessageSigningContextObjectFromID(id objc.ID) ECAuthenticat
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext/finalizedData
 func (o ECAuthenticationMessageSigningContextObject) FinalizedData() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("finalizedData"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext/updateSigningContextWithBytes:length:
-func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte, length uint64) {
+	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext/updateSigningContextWithData:
 func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithData(data objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithData:"), data)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECAuthenticationMessageSigningContext/updateSigningContextWithObject:
 func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithObject(object objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithObject:"), object)
 }

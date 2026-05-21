@@ -10,59 +10,37 @@ import (
 )
 
 // CPXFocusManagerDataSource protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource
 type CPXFocusManagerDataSource interface {
 	objectivec.IObject
 
 	// AddToPermittedFrontList protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/addToPermittedFrontList:
 	AddToPermittedFrontList(list CPSProcessSerNum) int16
 
 	// FrontmostProcess protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/frontmostProcess
 	FrontmostProcess() unsafe.Pointer
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/getProcessToBringForwardAtNextCheckin:
 	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/isProcessPermittedToBeFrontmost:
 	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/isProcessToBringForwardAtNextCheckin:
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// KeyThiefConnectionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/keyThiefConnectionID
 	KeyThiefConnectionID() uint32
 
 	// RemoveFromPermittedFrontList protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/removeFromPermittedFrontList:
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setFrontmostProcess:
 	SetFrontmostProcess(process CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setKeyThiefConnectionID:
 	SetKeyThiefConnectionID(id uint32)
 
 	// SetProcessToBringForwardAtNextCheckin protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setProcessToBringForwardAtNextCheckin:
 	SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int
 }
 
@@ -83,60 +61,41 @@ func CPXFocusManagerDataSourceObjectFromID(id objc.ID) CPXFocusManagerDataSource
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/addToPermittedFrontList:
 func (o CPXFocusManagerDataSourceObject) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/frontmostProcess
 func (o CPXFocusManagerDataSourceObject) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/getProcessToBringForwardAtNextCheckin:
 func (o CPXFocusManagerDataSourceObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/isProcessPermittedToBeFrontmost:
 func (o CPXFocusManagerDataSourceObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/isProcessToBringForwardAtNextCheckin:
 func (o CPXFocusManagerDataSourceObject) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/keyThiefConnectionID
 func (o CPXFocusManagerDataSourceObject) KeyThiefConnectionID() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/removeFromPermittedFrontList:
 func (o CPXFocusManagerDataSourceObject) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setFrontmostProcess:
 func (o CPXFocusManagerDataSourceObject) SetFrontmostProcess(process CPSProcessRec) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setKeyThiefConnectionID:
 func (o CPXFocusManagerDataSourceObject) SetKeyThiefConnectionID(id uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setKeyThiefConnectionID:"), id)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManagerDataSource/setProcessToBringForwardAtNextCheckin:
 func (o CPXFocusManagerDataSourceObject) SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int {
 	rv := objc.Send[int](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv

@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationFloatResultClass) Alloc() SLSBridged
 //
 //   - [SLSBridgedWindowManagementOperationFloatResult.FloatValue]
 //   - [SLSBridgedWindowManagementOperationFloatResult.InitWithFloatValue]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult
 type SLSBridgedWindowManagementOperationFloatResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationFloatResult = SLSBridgedWindowManageme
 //
 //   - [ISLSBridgedWindowManagementOperationFloatResult.FloatValue]
 //   - [ISLSBridgedWindowManagementOperationFloatResult.InitWithFloatValue]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult
 type ISLSBridgedWindowManagementOperationFloatResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationFloatResult() SLSBridgedWindowManagem
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationFloatResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationFloatResult {
 	instance := getSLSBridgedWindowManagementOperationFloatResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationFloatResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult/initWithFloatValue:
 func NewSLSBridgedWindowManagementOperationFloatResultWithFloatValue(value float32) SLSBridgedWindowManagementOperationFloatResult {
 	instance := getSLSBridgedWindowManagementOperationFloatResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFloatValue:"), value)
 	return SLSBridgedWindowManagementOperationFloatResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult/initWithFloatValue:
 func (s SLSBridgedWindowManagementOperationFloatResult) InitWithFloatValue(value float32) SLSBridgedWindowManagementOperationFloatResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("initWithFloatValue:"), value)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationFloatResult/floatValue
 func (s SLSBridgedWindowManagementOperationFloatResult) FloatValue() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("floatValue"))
 	return rv

@@ -47,8 +47,6 @@ func (sc SLSBridgedWindowManagementOperationPropertyListArrayResultClass) Alloc(
 //
 //   - [SLSBridgedWindowManagementOperationPropertyListArrayResult.PropertyListArray]
 //   - [SLSBridgedWindowManagementOperationPropertyListArrayResult.InitWithPropertyListArray]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult
 type SLSBridgedWindowManagementOperationPropertyListArrayResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWindowManagementOperationPropertyListArrayResult = SLSBridgedWi
 //
 //   - [ISLSBridgedWindowManagementOperationPropertyListArrayResult.PropertyListArray]
 //   - [ISLSBridgedWindowManagementOperationPropertyListArrayResult.InitWithPropertyListArray]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult
 type ISLSBridgedWindowManagementOperationPropertyListArrayResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWindowManagementOperationPropertyListArrayResult() SLSBridgedW
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationPropertyListArrayResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListArrayResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationPropertyListArrayResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult/initWithPropertyListArray:
 func NewSLSBridgedWindowManagementOperationPropertyListArrayResultWithPropertyListArray(array objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListArrayResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPropertyListArray:"), array)
 	return SLSBridgedWindowManagementOperationPropertyListArrayResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult/initWithPropertyListArray:
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) InitWithPropertyListArray(array objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("initWithPropertyListArray:"), array)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationPropertyListArrayResult/propertyListArray
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) PropertyListArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("propertyListArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))

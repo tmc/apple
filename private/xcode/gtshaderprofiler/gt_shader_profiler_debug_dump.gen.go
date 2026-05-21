@@ -47,8 +47,6 @@ func (gc GTShaderProfilerDebugDumpClass) Alloc() GTShaderProfilerDebugDump {
 //   - [GTShaderProfilerDebugDump.FilePathFromFileName]
 //   - [GTShaderProfilerDebugDump.SetDirectory]
 //   - [GTShaderProfilerDebugDump.InitWithDirectory]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump
 type GTShaderProfilerDebugDump struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IGTShaderProfilerDebugDump = GTShaderProfilerDebugDump{}
 //   - [IGTShaderProfilerDebugDump.FilePathFromFileName]
 //   - [IGTShaderProfilerDebugDump.SetDirectory]
 //   - [IGTShaderProfilerDebugDump.InitWithDirectory]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump
 type IGTShaderProfilerDebugDump interface {
 	objectivec.IObject
 
@@ -99,31 +95,24 @@ func NewGTShaderProfilerDebugDump() GTShaderProfilerDebugDump {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/initWithDirectory:
 func NewGTShaderProfilerDebugDumpWithDirectory(directory objectivec.IObject) GTShaderProfilerDebugDump {
 	instance := getGTShaderProfilerDebugDumpClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDirectory:"), directory)
 	return GTShaderProfilerDebugDumpFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/filePathFromFileName:
 func (g GTShaderProfilerDebugDump) FilePathFromFileName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("filePathFromFileName:"), name)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/setDirectory:
 func (g GTShaderProfilerDebugDump) SetDirectory(directory objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setDirectory:"), directory)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/initWithDirectory:
 func (g GTShaderProfilerDebugDump) InitWithDirectory(directory objectivec.IObject) GTShaderProfilerDebugDump {
 	rv := objc.Send[GTShaderProfilerDebugDump](g.ID, objc.Sel("initWithDirectory:"), directory)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/debugDump
 func (_GTShaderProfilerDebugDumpClass GTShaderProfilerDebugDumpClass) DebugDump() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerDebugDumpClass.class), objc.Sel("debugDump"))
 	return objectivec.Object{ID: rv}

@@ -48,8 +48,6 @@ func (dc DIController2ClientDelegateClass) Alloc() DIController2ClientDelegate {
 //   - [DIController2ClientDelegate.AttachCompletedWithHandleReply]
 //   - [DIController2ClientDelegate.DeviceHandle]
 //   - [DIController2ClientDelegate.SetDeviceHandle]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate
 type DIController2ClientDelegate struct {
 	objectivec.Object
 }
@@ -69,8 +67,6 @@ var _ IDIController2ClientDelegate = DIController2ClientDelegate{}
 //   - [IDIController2ClientDelegate.AttachCompletedWithHandleReply]
 //   - [IDIController2ClientDelegate.DeviceHandle]
 //   - [IDIController2ClientDelegate.SetDeviceHandle]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate
 type IDIController2ClientDelegate interface {
 	objectivec.IObject
 
@@ -100,13 +96,11 @@ func NewDIController2ClientDelegate() DIController2ClientDelegate {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate/attachCompletedWithHandle:reply:
 func (d DIController2ClientDelegate) AttachCompletedWithHandleReply(handle objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](d.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, _block1)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate/deviceHandle
 func (d DIController2ClientDelegate) DeviceHandle() IDIDeviceHandle {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("deviceHandle"))
 	return DIDeviceHandleFromID(objc.ID(rv))

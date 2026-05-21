@@ -49,8 +49,6 @@ func (sc SLSZeroingWeakContainerClass) Alloc() SLSZeroingWeakContainer {
 //   - [SLSZeroingWeakContainer.Reference]
 //   - [SLSZeroingWeakContainer.SetReference]
 //   - [SLSZeroingWeakContainer.InitWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer
 type SLSZeroingWeakContainer struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ ISLSZeroingWeakContainer = SLSZeroingWeakContainer{}
 //   - [ISLSZeroingWeakContainer.Reference]
 //   - [ISLSZeroingWeakContainer.SetReference]
 //   - [ISLSZeroingWeakContainer.InitWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer
 type ISLSZeroingWeakContainer interface {
 	objectivec.IObject
 
@@ -105,37 +101,29 @@ func NewSLSZeroingWeakContainer() SLSZeroingWeakContainer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/initWithObject:
 func NewSLSZeroingWeakContainerWithObject(object objectivec.IObject) SLSZeroingWeakContainer {
 	instance := getSLSZeroingWeakContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return SLSZeroingWeakContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/invalidate
 func (s SLSZeroingWeakContainer) Invalidate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/initWithObject:
 func (s SLSZeroingWeakContainer) InitWithObject(object objectivec.IObject) SLSZeroingWeakContainer {
 	rv := objc.Send[SLSZeroingWeakContainer](s.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/containerWithObject:
 func (_SLSZeroingWeakContainerClass SLSZeroingWeakContainerClass) ContainerWithObject(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSZeroingWeakContainerClass.class), objc.Sel("containerWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/object
 func (s SLSZeroingWeakContainer) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSZeroingWeakContainer/reference
 func (s SLSZeroingWeakContainer) Reference() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("reference"))
 	return objectivec.Object{ID: rv}

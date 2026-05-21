@@ -51,8 +51,6 @@ func (sc SLSecureCursorAssertionManagerClass) Alloc() SLSecureCursorAssertionMan
 //   - [SLSecureCursorAssertionManager.TakeAssertion]
 //   - [SLSecureCursorAssertionManager.UnmapUUID]
 //   - [SLSecureCursorAssertionManager.WeakAssertionMap]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager
 type SLSecureCursorAssertionManager struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ISLSecureCursorAssertionManager = SLSecureCursorAssertionManager{}
 //   - [ISLSecureCursorAssertionManager.TakeAssertion]
 //   - [ISLSecureCursorAssertionManager.UnmapUUID]
 //   - [ISLSecureCursorAssertionManager.WeakAssertionMap]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager
 type ISLSecureCursorAssertionManager interface {
 	objectivec.IObject
 
@@ -109,40 +105,29 @@ func NewSLSecureCursorAssertionManager() SLSecureCursorAssertionManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/invalidateAll
 func (s SLSecureCursorAssertionManager) InvalidateAll() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidateAll"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/invalidateUUID:
 func (s SLSecureCursorAssertionManager) InvalidateUUID(uuid objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidateUUID:"), uuid)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/takeAssertion
 func (s SLSecureCursorAssertionManager) TakeAssertion() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("takeAssertion"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/unmapUUID:
 func (s SLSecureCursorAssertionManager) UnmapUUID(uuid objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("unmapUUID:"), uuid)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/sharedManager
 func (_SLSecureCursorAssertionManagerClass SLSecureCursorAssertionManagerClass) SharedManager() SLSecureCursorAssertionManager {
 	rv := objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionManagerClass.class), objc.Sel("sharedManager"))
 	return SLSecureCursorAssertionManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/strongAssertionUUIDs
 func (s SLSecureCursorAssertionManager) StrongAssertionUUIDs() foundation.NSHashTable {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("strongAssertionUUIDs"))
 	return foundation.NSHashTableFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertionManager/weakAssertionMap
 func (s SLSecureCursorAssertionManager) WeakAssertionMap() foundation.NSMapTable {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("weakAssertionMap"))
 	return foundation.NSMapTableFromID(objc.ID(rv))

@@ -42,7 +42,6 @@ func (ac AudioPlayerImplClass) Alloc() AudioPlayerImpl {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AudioPlayerImpl
 type AudioPlayerImpl struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func AudioPlayerImplFromID(id objc.ID) AudioPlayerImpl {
 var _ IAudioPlayerImpl = AudioPlayerImpl{}
 
 // An interface definition for the [AudioPlayerImpl] class.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AudioPlayerImpl
 type IAudioPlayerImpl interface {
 	objectivec.IObject
 }

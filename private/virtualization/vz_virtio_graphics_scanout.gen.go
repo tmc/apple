@@ -49,8 +49,6 @@ func (vc VZVirtioGraphicsScanoutClass) Alloc() VZVirtioGraphicsScanout {
 //
 //   - [VZVirtioGraphicsScanout.ReconfigureWithConfigurationError]
 //   - [VZVirtioGraphicsScanout.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout
 type VZVirtioGraphicsScanout struct {
 	VZGraphicsDisplay
 }
@@ -69,8 +67,6 @@ var _ IVZVirtioGraphicsScanout = VZVirtioGraphicsScanout{}
 //
 //   - [IVZVirtioGraphicsScanout.ReconfigureWithConfigurationError]
 //   - [IVZVirtioGraphicsScanout.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout
 type IVZVirtioGraphicsScanout interface {
 	IVZGraphicsDisplay
 
@@ -99,7 +95,6 @@ func NewVZVirtioGraphicsScanout() VZVirtioGraphicsScanout {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout/initWithConfiguration:error:
 func NewVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IObject) (VZVirtioGraphicsScanout, error) {
 	var errorPtr objc.ID
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
@@ -111,14 +106,12 @@ func NewVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IOb
 	return VZVirtioGraphicsScanoutFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func NewVirtioGraphicsScanoutWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZVirtioGraphicsScanoutFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout/reconfigureWithConfiguration:error:
 func (v VZVirtioGraphicsScanout) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("reconfigureWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -132,8 +125,6 @@ func (v VZVirtioGraphicsScanout) ReconfigureWithConfigurationError(configuration
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout/initWithConfiguration:error:
 func (v VZVirtioGraphicsScanout) InitWithConfigurationError(configuration objectivec.IObject) (VZVirtioGraphicsScanout, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))

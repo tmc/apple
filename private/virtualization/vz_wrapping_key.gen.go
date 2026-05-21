@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/security"
 )
 
 // The class instance for the [VZWrappingKey] class.
@@ -49,8 +50,6 @@ func (vc VZWrappingKeyClass) Alloc() VZWrappingKey {
 //   - [VZWrappingKey.InitWithAESKeyError]
 //   - [VZWrappingKey.InitWithAsymmetricKeyError]
 //   - [VZWrappingKey.InitWithPasswordError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey
 type VZWrappingKey struct {
 	objectivec.Object
 }
@@ -70,15 +69,13 @@ var _ IVZWrappingKey = VZWrappingKey{}
 //   - [IVZWrappingKey.InitWithAESKeyError]
 //   - [IVZWrappingKey.InitWithAsymmetricKeyError]
 //   - [IVZWrappingKey.InitWithPasswordError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey
 type IVZWrappingKey interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	InitWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error)
-	InitWithAsymmetricKeyError(key string) (VZWrappingKey, error)
+	InitWithAsymmetricKeyError(key security.SecKeyRef) (VZWrappingKey, error)
 	InitWithPasswordError(password objectivec.IObject) (VZWrappingKey, error)
 }
 
@@ -101,7 +98,6 @@ func NewVZWrappingKey() VZWrappingKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAESKey:error:
 func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
@@ -113,11 +109,10 @@ func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, 
 	return VZWrappingKeyFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAsymmetricKey:error:
-func NewVZWrappingKeyWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
+func NewVZWrappingKeyWithAsymmetricKeyError(key security.SecKeyRef) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAsymmetricKey:error:"), objc.String(key), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAsymmetricKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
@@ -125,7 +120,6 @@ func NewVZWrappingKeyWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
 	return VZWrappingKeyFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithPassword:error:
 func NewVZWrappingKeyWithPasswordError(password objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
@@ -137,37 +131,32 @@ func NewVZWrappingKeyWithPasswordError(password objectivec.IObject) (VZWrappingK
 	return VZWrappingKeyFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAESKey:error:
 func (v VZWrappingKey) InitWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithAESKey:error:"), aESKey, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAsymmetricKey:error:
-func (v VZWrappingKey) InitWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
+func (v VZWrappingKey) InitWithAsymmetricKeyError(key security.SecKeyRef) (VZWrappingKey, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithAsymmetricKey:error:"), objc.String(key), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithAsymmetricKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithPassword:error:
 func (v VZWrappingKey) InitWithPasswordError(password objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithPassword:error:"), password, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 

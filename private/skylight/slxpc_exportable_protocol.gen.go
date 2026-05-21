@@ -8,8 +8,6 @@ import (
 )
 
 // SLXPCExportable protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLXPCExportable
 type SLXPCExportable interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func SLXPCExportableObjectFromID(id objc.ID) SLXPCExportableObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLXPCExportable/createXPCObject
 func (o SLXPCExportableObject) CreateXPCObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}

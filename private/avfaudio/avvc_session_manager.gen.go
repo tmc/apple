@@ -53,8 +53,6 @@ func (ac AVVCSessionManagerClass) Alloc() AVVCSessionManager {
 //   - [AVVCSessionManager.SetIsUsingBuiltInMicForRecordingError]
 //   - [AVVCSessionManager.SetupOneTimeSessionSettingsForClient]
 //   - [AVVCSessionManager.InitWithSession]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager
 type AVVCSessionManager struct {
 	objectivec.Object
 }
@@ -77,15 +75,13 @@ var _ IAVVCSessionManager = AVVCSessionManager{}
 //   - [IAVVCSessionManager.SetIsUsingBuiltInMicForRecordingError]
 //   - [IAVVCSessionManager.SetupOneTimeSessionSettingsForClient]
 //   - [IAVVCSessionManager.InitWithSession]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager
 type IAVVCSessionManager interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	AudioSession() objc.ID
-	SetAudioSession(value objc.ID)
+	AudioSession() objectivec.IObject
+	SetAudioSession(value objectivec.IObject)
 	IsCurrentInputBuiltInMic() bool
 	SetIsUsingBuiltInMicForRecordingError(recording bool) (bool, error)
 	SetupOneTimeSessionSettingsForClient(client int64) int
@@ -111,20 +107,16 @@ func NewAVVCSessionManager() AVVCSessionManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/initWithSession:
 func NewVCSessionManagerWithSession(session objectivec.IObject) AVVCSessionManager {
 	instance := getAVVCSessionManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return AVVCSessionManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/isCurrentInputBuiltInMic
 func (a AVVCSessionManager) IsCurrentInputBuiltInMic() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCurrentInputBuiltInMic"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/setIsUsingBuiltInMicForRecording:error:
 func (a AVVCSessionManager) SetIsUsingBuiltInMicForRecordingError(recording bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("setIsUsingBuiltInMicForRecording:error:"), recording, unsafe.Pointer(&errorPtr))
@@ -138,24 +130,19 @@ func (a AVVCSessionManager) SetIsUsingBuiltInMicForRecordingError(recording bool
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/setupOneTimeSessionSettingsForClient:
 func (a AVVCSessionManager) SetupOneTimeSessionSettingsForClient(client int64) int {
 	rv := objc.Send[int](a.ID, objc.Sel("setupOneTimeSessionSettingsForClient:"), client)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/initWithSession:
 func (a AVVCSessionManager) InitWithSession(session objectivec.IObject) AVVCSessionManager {
 	rv := objc.Send[AVVCSessionManager](a.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionManager/audioSession
-func (a AVVCSessionManager) AudioSession() objc.ID {
+func (a AVVCSessionManager) AudioSession() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioSession"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
-func (a AVVCSessionManager) SetAudioSession(value objc.ID) {
+func (a AVVCSessionManager) SetAudioSession(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioSession:"), value)
 }

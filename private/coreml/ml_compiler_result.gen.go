@@ -48,8 +48,6 @@ func (mc MLCompilerResultClass) Alloc() MLCompilerResult {
 //
 //   - [MLCompilerResult.OutputFiles]
 //   - [MLCompilerResult.SetOutputFiles]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCompilerResult
 type MLCompilerResult struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IMLCompilerResult = MLCompilerResult{}
 //
 //   - [IMLCompilerResult.OutputFiles]
 //   - [IMLCompilerResult.SetOutputFiles]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCompilerResult
 type IMLCompilerResult interface {
 	objectivec.IObject
 
@@ -98,19 +94,15 @@ func NewMLCompilerResult() MLCompilerResult {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/resultWithArchive:
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithArchive(archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/resultWithOutputFiles:
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithOutputFiles(files objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithOutputFiles:"), files)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/outputFiles
 func (m MLCompilerResult) OutputFiles() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFiles"))
 	return foundation.NSArrayFromID(objc.ID(rv))

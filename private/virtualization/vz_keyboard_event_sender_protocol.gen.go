@@ -8,14 +8,10 @@ import (
 )
 
 // _VZKeyboardEventSender protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender
 type VZKeyboardEventSender interface {
 	objectivec.IObject
 
 	// SendKeyboardEventsKeyboardID protocol.
-	//
-	// See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender/sendKeyboardEvents:keyboardID:
 	SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32)
 }
 
@@ -36,7 +32,6 @@ func VZKeyboardEventSenderObjectFromID(id objc.ID) VZKeyboardEventSenderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender/sendKeyboardEvents:keyboardID:
 func (o VZKeyboardEventSenderObject) SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
 }

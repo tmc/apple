@@ -8,8 +8,6 @@ import (
 )
 
 // _ANEMaintenanceProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMaintenanceProtocol
 type ANEMaintenanceProtocol interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func ANEMaintenanceProtocolObjectFromID(id objc.ID) ANEMaintenanceProtocolObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMaintenanceProtocol/scheduleMaintenanceWithName:directoryPaths:
 func (o ANEMaintenanceProtocolObject) ScheduleMaintenanceWithNameDirectoryPaths(name objectivec.IObject, paths objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleMaintenanceWithName:directoryPaths:"), name, paths)
 }

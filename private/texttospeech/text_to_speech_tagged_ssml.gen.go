@@ -49,8 +49,6 @@ func (tc TextToSpeechTaggedSSMLClass) Alloc() TextToSpeechTaggedSSML {
 //   - [TextToSpeechTaggedSSML.SetOriginalSSML]
 //   - [TextToSpeechTaggedSSML.SsmlSnippets]
 //   - [TextToSpeechTaggedSSML.SetSsmlSnippets]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML
 type TextToSpeechTaggedSSML struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ ITextToSpeechTaggedSSML = TextToSpeechTaggedSSML{}
 //   - [ITextToSpeechTaggedSSML.SetOriginalSSML]
 //   - [ITextToSpeechTaggedSSML.SsmlSnippets]
 //   - [ITextToSpeechTaggedSSML.SetSsmlSnippets]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML
 type ITextToSpeechTaggedSSML interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewTextToSpeechTaggedSSML() TextToSpeechTaggedSSML {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML/originalSSML
 func (t TextToSpeechTaggedSSML) OriginalSSML() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalSSML"))
 	return foundation.NSStringFromID(rv).String()
@@ -111,8 +106,6 @@ func (t TextToSpeechTaggedSSML) OriginalSSML() string {
 func (t TextToSpeechTaggedSSML) SetOriginalSSML(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalSSML:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML/ssmlSnippets
 func (t TextToSpeechTaggedSSML) SsmlSnippets() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssmlSnippets"))
 	return foundation.NSArrayFromID(objc.ID(rv))

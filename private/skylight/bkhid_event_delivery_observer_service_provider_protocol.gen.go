@@ -8,8 +8,6 @@ import (
 )
 
 // BKHIDEventDeliveryObserverServiceProvider protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BKHIDEventDeliveryObserverServiceProvider
 type BKHIDEventDeliveryObserverServiceProvider interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func BKHIDEventDeliveryObserverServiceProviderObjectFromID(id objc.ID) BKHIDEven
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BKHIDEventDeliveryObserverServiceProvider/deliveryObserverServiceForAuditToken:
 func (o BKHIDEventDeliveryObserverServiceProviderObject) DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}

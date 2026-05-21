@@ -4,9 +4,10 @@ package espresso
 
 import (
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [EspressoTrainingInnerProductWeightsForMPS] class.
@@ -49,8 +50,6 @@ func (ec EspressoTrainingInnerProductWeightsForMPSClass) Alloc() EspressoTrainin
 //   - [EspressoTrainingInnerProductWeightsForMPS.WeightsBuffer]
 //   - [EspressoTrainingInnerProductWeightsForMPS.SetWeightsBuffer]
 //   - [EspressoTrainingInnerProductWeightsForMPS.InitWithParamsForMode]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS
 type EspressoTrainingInnerProductWeightsForMPS struct {
 	EspressoInnerProductWeightsForMPS
 }
@@ -72,17 +71,15 @@ var _ IEspressoTrainingInnerProductWeightsForMPS = EspressoTrainingInnerProductW
 //   - [IEspressoTrainingInnerProductWeightsForMPS.WeightsBuffer]
 //   - [IEspressoTrainingInnerProductWeightsForMPS.SetWeightsBuffer]
 //   - [IEspressoTrainingInnerProductWeightsForMPS.InitWithParamsForMode]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS
 type IEspressoTrainingInnerProductWeightsForMPS interface {
 	IEspressoInnerProductWeightsForMPS
 
 	// Topic: Methods
 
-	BiasesBuffer() objectivec.IObject
-	SetBiasesBuffer(value objectivec.IObject)
-	WeightsBuffer() objectivec.IObject
-	SetWeightsBuffer(value objectivec.IObject)
+	BiasesBuffer() unsafe.Pointer
+	SetBiasesBuffer(value kernel.Pointer)
+	WeightsBuffer() unsafe.Pointer
+	SetWeightsBuffer(value kernel.Pointer)
 	InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS
 }
 
@@ -105,40 +102,34 @@ func NewEspressoTrainingInnerProductWeightsForMPS() EspressoTrainingInnerProduct
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/initWithParams:
 func NewEspressoTrainingInnerProductWeightsForMPSWithParams(params InnerProductUniforms) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/initWithParams:forMode:
 func NewEspressoTrainingInnerProductWeightsForMPSWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/initWithParams:forMode:
 func (e EspressoTrainingInnerProductWeightsForMPS) InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
 	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/biasesBuffer
-func (e EspressoTrainingInnerProductWeightsForMPS) BiasesBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("biasesBuffer"))
-	return objectivec.Object{ID: rv}
+func (e EspressoTrainingInnerProductWeightsForMPS) BiasesBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
+	return rv
 }
-func (e EspressoTrainingInnerProductWeightsForMPS) SetBiasesBuffer(value objectivec.IObject) {
+func (e EspressoTrainingInnerProductWeightsForMPS) SetBiasesBuffer(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/weightsBuffer
-func (e EspressoTrainingInnerProductWeightsForMPS) WeightsBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("weightsBuffer"))
-	return objectivec.Object{ID: rv}
+func (e EspressoTrainingInnerProductWeightsForMPS) WeightsBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
+	return rv
 }
-func (e EspressoTrainingInnerProductWeightsForMPS) SetWeightsBuffer(value objectivec.IObject) {
+func (e EspressoTrainingInnerProductWeightsForMPS) SetWeightsBuffer(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }

@@ -51,8 +51,6 @@ func (vc VZSocketDeviceConfigurationClass) Alloc() VZSocketDeviceConfiguration {
 //   - [VZSocketDeviceConfiguration.Description]
 //   - [VZSocketDeviceConfiguration.Hash]
 //   - [VZSocketDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration
 type VZSocketDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZSocketDeviceConfiguration = VZSocketDeviceConfiguration{}
 //   - [IVZSocketDeviceConfiguration.Description]
 //   - [IVZSocketDeviceConfiguration.Hash]
 //   - [IVZSocketDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration
 type IVZSocketDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IVZSocketDeviceConfiguration interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,38 +105,28 @@ func NewVZSocketDeviceConfiguration() VZSocketDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/_init
 func (v VZSocketDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/makeSocketDeviceForVirtualMachine:identifier:
 func (v VZSocketDeviceConfiguration) MakeSocketDeviceForVirtualMachineIdentifier(machine objectivec.IObject, identifier uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeSocketDeviceForVirtualMachine:identifier:"), machine, identifier)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/debugDescription
 func (v VZSocketDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/description
 func (v VZSocketDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/hash
 func (v VZSocketDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDeviceConfiguration/superclass
-func (v VZSocketDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZSocketDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

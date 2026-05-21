@@ -41,7 +41,6 @@ func (wc WSTouchBarEventProcessorClass) Alloc() WSTouchBarEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSTouchBarEventProcessor
 type WSTouchBarEventProcessor struct {
 	WSEventProcessor
 }
@@ -55,8 +54,6 @@ func WSTouchBarEventProcessorFromID(id objc.ID) WSTouchBarEventProcessor {
 var _ IWSTouchBarEventProcessor = WSTouchBarEventProcessor{}
 
 // An interface definition for the [WSTouchBarEventProcessor] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSTouchBarEventProcessor
 type IWSTouchBarEventProcessor interface {
 	IWSEventProcessor
 }
@@ -80,7 +77,6 @@ func NewWSTouchBarEventProcessor() WSTouchBarEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSTouchBarEventProcessorWithSession(session CGXSession) WSTouchBarEventProcessor {
 	instance := getWSTouchBarEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)

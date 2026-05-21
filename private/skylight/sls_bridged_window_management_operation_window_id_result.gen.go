@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationWindowIDResultClass) Alloc() SLSBrid
 //
 //   - [SLSBridgedWindowManagementOperationWindowIDResult.WindowID]
 //   - [SLSBridgedWindowManagementOperationWindowIDResult.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult
 type SLSBridgedWindowManagementOperationWindowIDResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationWindowIDResult = SLSBridgedWindowManag
 //
 //   - [ISLSBridgedWindowManagementOperationWindowIDResult.WindowID]
 //   - [ISLSBridgedWindowManagementOperationWindowIDResult.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult
 type ISLSBridgedWindowManagementOperationWindowIDResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationWindowIDResult() SLSBridgedWindowMana
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationWindowIDResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationWindowIDResult {
 	instance := getSLSBridgedWindowManagementOperationWindowIDResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationWindowIDResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult/initWithWindowID:
 func NewSLSBridgedWindowManagementOperationWindowIDResultWithWindowID(id uint32) SLSBridgedWindowManagementOperationWindowIDResult {
 	instance := getSLSBridgedWindowManagementOperationWindowIDResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSBridgedWindowManagementOperationWindowIDResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult/initWithWindowID:
 func (s SLSBridgedWindowManagementOperationWindowIDResult) InitWithWindowID(id uint32) SLSBridgedWindowManagementOperationWindowIDResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationWindowIDResult](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWindowIDResult/windowID
 func (s SLSBridgedWindowManagementOperationWindowIDResult) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

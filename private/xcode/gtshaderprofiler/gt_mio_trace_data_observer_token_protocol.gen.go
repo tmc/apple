@@ -8,14 +8,10 @@ import (
 )
 
 // GTMioTraceDataObserverToken protocol.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverToken
 type GTMioTraceDataObserverToken interface {
 	objectivec.IObject
 
 	// Cancel protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverToken/cancel
 	Cancel()
 }
 
@@ -36,7 +32,6 @@ func GTMioTraceDataObserverTokenObjectFromID(id objc.ID) GTMioTraceDataObserverT
 	}
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverToken/cancel
 func (o GTMioTraceDataObserverTokenObject) Cancel() {
 	objc.Send[struct{}](o.ID, objc.Sel("cancel"))
 }

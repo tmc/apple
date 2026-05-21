@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -82,8 +83,6 @@ func (ec ETTaskDefinitionClass) Alloc() ETTaskDefinition {
 //   - [ETTaskDefinition.SetTrainingGraphNetPtr]
 //   - [ETTaskDefinition.InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError]
 //   - [ETTaskDefinition.InitWithTrainingModelDefinitionForPlatformError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition
 type ETTaskDefinition struct {
 	objectivec.Object
 }
@@ -135,26 +134,24 @@ var _ IETTaskDefinition = ETTaskDefinition{}
 //   - [IETTaskDefinition.SetTrainingGraphNetPtr]
 //   - [IETTaskDefinition.InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError]
 //   - [IETTaskDefinition.InitWithTrainingModelDefinitionForPlatformError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition
 type IETTaskDefinition interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	CheckShapesWithSampleWithError(shapes unsafe.Pointer, sample unsafe.Pointer) error
-	Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) objectivec.IObject
+	CheckShapesWithSampleWithError(shapes kernel.Pointer, sample kernel.Pointer) error
+	Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) unsafe.Pointer
 	DataTypeForParameterOfTypeFromLayerNamed(type_ uint64, named objectivec.IObject) uint64
 	DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error)
 	DoTrainingOnDataForNumberOfEpochsWithCallbackError(data objectivec.IObject, epochs uint64, callback objectivec.IObject) (bool, error)
 	GetParameterOfTypeForLayerNamedError(type_ uint64, named objectivec.IObject) (objectivec.IObject, error)
 	GetTensorNamed(named objectivec.IObject) objectivec.IObject
 	GetTensorNamedDirectBind(named objectivec.IObject, bind bool) objectivec.IObject
-	InferenceGraphNetPtr() objectivec.IObject
-	SetInferenceGraphNetPtr(value objectivec.IObject)
+	InferenceGraphNetPtr() unsafe.Pointer
+	SetInferenceGraphNetPtr(value kernel.Pointer)
 	InferenceModel() IETModelDefinition
 	SetInferenceModel(value IETModelDefinition)
-	NamesVectorToFoundationArray(array objectivec.IObject) objectivec.IObject
+	NamesVectorToFoundationArray(array unsafe.Pointer) objectivec.IObject
 	Optimizer() IETOptimizerDefinition
 	SetOptimizer(value IETOptimizerDefinition)
 	Platform() uint64
@@ -164,17 +161,17 @@ type IETTaskDefinition interface {
 	ReloadOnRuntimePlatform(platform []objectivec.IObject)
 	SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error)
 	SaveTrainingNetworkCheckpointError(network objectivec.IObject, checkpoint objectivec.IObject) (bool, error)
-	SetInferenceNetworkWeightsError(weights objectivec.IObject) (bool, error)
+	SetInferenceNetworkWeightsError(weights kernel.Pointer) (bool, error)
 	SetParameterOfTypeForLayerNamedWithValueError(type_ uint64, named objectivec.IObject, value objectivec.IObject) (bool, error)
 	SetTensorNamedWithValueError(named objectivec.IObject, value objectivec.IObject) (bool, error)
 	SetWeightsOfInferenceNetworkLoadedFromAndSaveToError(from objectivec.IObject, to objectivec.IObject) (bool, error)
 	SetupInputOutputShapes(shapes []objectivec.IObject)
-	SetupShapesForBlobsWithError(shapes unsafe.Pointer, blobs objectivec.IObject) error
+	SetupShapesForBlobsWithError(shapes kernel.Pointer, blobs objectivec.IObject) error
 	ShareWeights()
 	TaskState() IETTaskState
 	SetTaskState(value IETTaskState)
-	TrainingGraphNetPtr() objectivec.IObject
-	SetTrainingGraphNetPtr(value objectivec.IObject)
+	TrainingGraphNetPtr() unsafe.Pointer
+	SetTrainingGraphNetPtr(value kernel.Pointer)
 	InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error)
 	InitWithTrainingModelDefinitionForPlatformError(definition objectivec.IObject, platform uint64) (ETTaskDefinition, error)
 }
@@ -198,7 +195,6 @@ func NewETTaskDefinition() ETTaskDefinition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/initWithModelDefinition:lossDefinition:variablesDefinition:optimizerDefinition:forPlatform:error:
 func NewETTaskDefinitionWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETTaskDefinitionClass().Alloc()
@@ -210,7 +206,6 @@ func NewETTaskDefinitionWithModelDefinitionLossDefinitionVariablesDefinitionOpti
 	return ETTaskDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/initWithTrainingModelDefinition:forPlatform:error:
 func NewETTaskDefinitionWithTrainingModelDefinitionForPlatformError(definition objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETTaskDefinitionClass().Alloc()
@@ -222,8 +217,7 @@ func NewETTaskDefinitionWithTrainingModelDefinitionForPlatformError(definition o
 	return ETTaskDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/checkShapes:withSample:withError:
-func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes unsafe.Pointer, sample unsafe.Pointer) error {
+func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes kernel.Pointer, sample kernel.Pointer) error {
 	var errorPtr objc.ID
 	objc.Send[struct{}](e.ID, objc.Sel("checkShapes:withSample:withError:"), shapes, sample, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -233,20 +227,14 @@ func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes unsafe.Pointer, 
 	return nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/context_for_runtime_platform:
-func (e ETTaskDefinition) Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("context_for_runtime_platform:"), objectivec.IObjectSliceToNSArray(context_for_runtime_platform))
-	return objectivec.Object{ID: rv}
+func (e ETTaskDefinition) Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("context_for_runtime_platform:"), objectivec.IObjectSliceToNSArray(context_for_runtime_platform))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/dataTypeForParameterOfType:fromLayerNamed:
 func (e ETTaskDefinition) DataTypeForParameterOfTypeFromLayerNamed(type_ uint64, named objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("dataTypeForParameterOfType:fromLayerNamed:"), type_, named)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/doInferenceOnData:error:
 func (e ETTaskDefinition) DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("doInferenceOnData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -257,8 +245,6 @@ func (e ETTaskDefinition) DoInferenceOnDataError(data objectivec.IObject) (objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/doTrainingOnData:forNumberOfEpochs:withCallback:error:
 func (e ETTaskDefinition) DoTrainingOnDataForNumberOfEpochsWithCallbackError(data objectivec.IObject, epochs uint64, callback objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("doTrainingOnData:forNumberOfEpochs:withCallback:error:"), data, epochs, callback, unsafe.Pointer(&errorPtr))
@@ -272,8 +258,6 @@ func (e ETTaskDefinition) DoTrainingOnDataForNumberOfEpochsWithCallbackError(dat
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/getParameterOfType:forLayerNamed:error:
 func (e ETTaskDefinition) GetParameterOfTypeForLayerNamedError(type_ uint64, named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getParameterOfType:forLayerNamed:error:"), type_, named, unsafe.Pointer(&errorPtr))
@@ -284,26 +268,18 @@ func (e ETTaskDefinition) GetParameterOfTypeForLayerNamedError(type_ uint64, nam
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/getTensorNamed:
 func (e ETTaskDefinition) GetTensorNamed(named objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getTensorNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/getTensorNamed:directBind:
 func (e ETTaskDefinition) GetTensorNamedDirectBind(named objectivec.IObject, bind bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getTensorNamed:directBind:"), named, bind)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/namesVectorToFoundationArray:
-func (e ETTaskDefinition) NamesVectorToFoundationArray(array objectivec.IObject) objectivec.IObject {
+func (e ETTaskDefinition) NamesVectorToFoundationArray(array unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("namesVectorToFoundationArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/platformForLayerNamed:error:
 func (e ETTaskDefinition) PlatformForLayerNamedError(named objectivec.IObject) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](e.ID, objc.Sel("platformForLayerNamed:error:"), named, unsafe.Pointer(&errorPtr))
@@ -314,8 +290,6 @@ func (e ETTaskDefinition) PlatformForLayerNamedError(named objectivec.IObject) (
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/privateDoTrainingOnData:forNumberOfEpochs:withCallback:error:
 func (e ETTaskDefinition) PrivateDoTrainingOnDataForNumberOfEpochsWithCallbackError(data objectivec.IObject, epochs uint64, callback objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("privateDoTrainingOnData:forNumberOfEpochs:withCallback:error:"), data, epochs, callback, unsafe.Pointer(&errorPtr))
@@ -329,13 +303,9 @@ func (e ETTaskDefinition) PrivateDoTrainingOnDataForNumberOfEpochsWithCallbackEr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/reloadOnRuntimePlatform:
 func (e ETTaskDefinition) ReloadOnRuntimePlatform(platform []objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("reloadOnRuntimePlatform:"), objectivec.IObjectSliceToNSArray(platform))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/saveNetwork:inplace:error:
 func (e ETTaskDefinition) SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("saveNetwork:inplace:error:"), network, inplace, unsafe.Pointer(&errorPtr))
@@ -349,8 +319,6 @@ func (e ETTaskDefinition) SaveNetworkInplaceError(network objectivec.IObject, in
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/saveTrainingNetwork:checkpoint:error:
 func (e ETTaskDefinition) SaveTrainingNetworkCheckpointError(network objectivec.IObject, checkpoint objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("saveTrainingNetwork:checkpoint:error:"), network, checkpoint, unsafe.Pointer(&errorPtr))
@@ -364,9 +332,7 @@ func (e ETTaskDefinition) SaveTrainingNetworkCheckpointError(network objectivec.
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setInferenceNetworkWeights:error:
-func (e ETTaskDefinition) SetInferenceNetworkWeightsError(weights objectivec.IObject) (bool, error) {
+func (e ETTaskDefinition) SetInferenceNetworkWeightsError(weights kernel.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("setInferenceNetworkWeights:error:"), weights, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -379,8 +345,6 @@ func (e ETTaskDefinition) SetInferenceNetworkWeightsError(weights objectivec.IOb
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setParameterOfType:forLayerNamed:withValue:error:
 func (e ETTaskDefinition) SetParameterOfTypeForLayerNamedWithValueError(type_ uint64, named objectivec.IObject, value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("setParameterOfType:forLayerNamed:withValue:error:"), type_, named, value, unsafe.Pointer(&errorPtr))
@@ -394,8 +358,6 @@ func (e ETTaskDefinition) SetParameterOfTypeForLayerNamedWithValueError(type_ ui
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setTensorNamed:withValue:error:
 func (e ETTaskDefinition) SetTensorNamedWithValueError(named objectivec.IObject, value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("setTensorNamed:withValue:error:"), named, value, unsafe.Pointer(&errorPtr))
@@ -409,8 +371,6 @@ func (e ETTaskDefinition) SetTensorNamedWithValueError(named objectivec.IObject,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setWeightsOfInferenceNetworkLoadedFrom:AndSaveTo:error:
 func (e ETTaskDefinition) SetWeightsOfInferenceNetworkLoadedFromAndSaveToError(from objectivec.IObject, to objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("setWeightsOfInferenceNetworkLoadedFrom:AndSaveTo:error:"), from, to, unsafe.Pointer(&errorPtr))
@@ -424,14 +384,10 @@ func (e ETTaskDefinition) SetWeightsOfInferenceNetworkLoadedFromAndSaveToError(f
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setupInputOutputShapes:
 func (e ETTaskDefinition) SetupInputOutputShapes(shapes []objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setupInputOutputShapes:"), objectivec.IObjectSliceToNSArray(shapes))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/setupShapes:forBlobs:withError:
-func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes unsafe.Pointer, blobs objectivec.IObject) error {
+func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes kernel.Pointer, blobs objectivec.IObject) error {
 	var errorPtr objc.ID
 	objc.Send[struct{}](e.ID, objc.Sel("setupShapes:forBlobs:withError:"), shapes, blobs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -441,13 +397,9 @@ func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes unsafe.Pointer, bl
 	return nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/shareWeights
 func (e ETTaskDefinition) ShareWeights() {
 	objc.Send[objc.ID](e.ID, objc.Sel("shareWeights"))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/initWithModelDefinition:lossDefinition:variablesDefinition:optimizerDefinition:forPlatform:error:
 func (e ETTaskDefinition) InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithModelDefinition:lossDefinition:variablesDefinition:optimizerDefinition:forPlatform:error:"), definition, definition2, definition3, definition4, platform, unsafe.Pointer(&errorPtr))
@@ -458,8 +410,6 @@ func (e ETTaskDefinition) InitWithModelDefinitionLossDefinitionVariablesDefiniti
 	return ETTaskDefinitionFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/initWithTrainingModelDefinition:forPlatform:error:
 func (e ETTaskDefinition) InitWithTrainingModelDefinitionForPlatformError(definition objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithTrainingModelDefinition:forPlatform:error:"), definition, platform, unsafe.Pointer(&errorPtr))
@@ -471,16 +421,13 @@ func (e ETTaskDefinition) InitWithTrainingModelDefinitionForPlatformError(defini
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/inferenceGraphNetPtr
-func (e ETTaskDefinition) InferenceGraphNetPtr() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inferenceGraphNetPtr"))
-	return objectivec.Object{ID: rv}
+func (e ETTaskDefinition) InferenceGraphNetPtr() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("inferenceGraphNetPtr"))
+	return rv
 }
-func (e ETTaskDefinition) SetInferenceGraphNetPtr(value objectivec.IObject) {
+func (e ETTaskDefinition) SetInferenceGraphNetPtr(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInferenceGraphNetPtr:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/inferenceModel
 func (e ETTaskDefinition) InferenceModel() IETModelDefinition {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("inferenceModel"))
 	return ETModelDefinitionFromID(objc.ID(rv))
@@ -488,8 +435,6 @@ func (e ETTaskDefinition) InferenceModel() IETModelDefinition {
 func (e ETTaskDefinition) SetInferenceModel(value IETModelDefinition) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInferenceModel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/optimizer
 func (e ETTaskDefinition) Optimizer() IETOptimizerDefinition {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizer"))
 	return ETOptimizerDefinitionFromID(objc.ID(rv))
@@ -497,8 +442,6 @@ func (e ETTaskDefinition) Optimizer() IETOptimizerDefinition {
 func (e ETTaskDefinition) SetOptimizer(value IETOptimizerDefinition) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOptimizer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/platform
 func (e ETTaskDefinition) Platform() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("platform"))
 	return rv
@@ -506,8 +449,6 @@ func (e ETTaskDefinition) Platform() uint64 {
 func (e ETTaskDefinition) SetPlatform(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPlatform:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/taskState
 func (e ETTaskDefinition) TaskState() IETTaskState {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("taskState"))
 	return ETTaskStateFromID(objc.ID(rv))
@@ -515,12 +456,10 @@ func (e ETTaskDefinition) TaskState() IETTaskState {
 func (e ETTaskDefinition) SetTaskState(value IETTaskState) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTaskState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskDefinition/trainingGraphNetPtr
-func (e ETTaskDefinition) TrainingGraphNetPtr() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("trainingGraphNetPtr"))
-	return objectivec.Object{ID: rv}
+func (e ETTaskDefinition) TrainingGraphNetPtr() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("trainingGraphNetPtr"))
+	return rv
 }
-func (e ETTaskDefinition) SetTrainingGraphNetPtr(value objectivec.IObject) {
+func (e ETTaskDefinition) SetTrainingGraphNetPtr(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTrainingGraphNetPtr:"), value)
 }

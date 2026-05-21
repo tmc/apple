@@ -8,8 +8,6 @@ import (
 )
 
 // CPXLaunchServicesProviding protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProviding
 type CPXLaunchServicesProviding interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func CPXLaunchServicesProvidingObjectFromID(id objc.ID) CPXLaunchServicesProvidi
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLaunchServicesProviding/launchServicesInterface
 func (o CPXLaunchServicesProvidingObject) LaunchServicesInterface() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("launchServicesInterface"))
 	return objectivec.Object{ID: rv}

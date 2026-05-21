@@ -41,7 +41,6 @@ func (vc VZVNCNoSecuritySecurityConfigurationClass) Alloc() VZVNCNoSecuritySecur
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCNoSecuritySecurityConfiguration
 type VZVNCNoSecuritySecurityConfiguration struct {
 	VZVNCSecurityConfiguration
 }
@@ -55,8 +54,6 @@ func VZVNCNoSecuritySecurityConfigurationFromID(id objc.ID) VZVNCNoSecuritySecur
 var _ IVZVNCNoSecuritySecurityConfiguration = VZVNCNoSecuritySecurityConfiguration{}
 
 // An interface definition for the [VZVNCNoSecuritySecurityConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVNCNoSecuritySecurityConfiguration
 type IVZVNCNoSecuritySecurityConfiguration interface {
 	IVZVNCSecurityConfiguration
 }

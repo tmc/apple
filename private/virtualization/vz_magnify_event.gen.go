@@ -48,8 +48,6 @@ func (vc VZMagnifyEventClass) Alloc() VZMagnifyEvent {
 //   - [VZMagnifyEvent.Phase]
 //   - [VZMagnifyEvent.InitWithEvent]
 //   - [VZMagnifyEvent.InitWithMagnificationPhase]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent
 type VZMagnifyEvent struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IVZMagnifyEvent = VZMagnifyEvent{}
 //   - [IVZMagnifyEvent.Phase]
 //   - [IVZMagnifyEvent.InitWithEvent]
 //   - [IVZMagnifyEvent.InitWithMagnificationPhase]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent
 type IVZMagnifyEvent interface {
 	objectivec.IObject
 
@@ -102,39 +98,31 @@ func NewVZMagnifyEvent() VZMagnifyEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/initWithEvent:
 func NewVZMagnifyEventWithEvent(event objectivec.IObject) VZMagnifyEvent {
 	instance := getVZMagnifyEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZMagnifyEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/initWithMagnification:phase:
 func NewVZMagnifyEventWithMagnificationPhase(magnification float64, phase uint64) VZMagnifyEvent {
 	instance := getVZMagnifyEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMagnification:phase:"), magnification, phase)
 	return VZMagnifyEventFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/initWithEvent:
 func (v VZMagnifyEvent) InitWithEvent(event objectivec.IObject) VZMagnifyEvent {
 	rv := objc.Send[VZMagnifyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/initWithMagnification:phase:
 func (v VZMagnifyEvent) InitWithMagnificationPhase(magnification float64, phase uint64) VZMagnifyEvent {
 	rv := objc.Send[VZMagnifyEvent](v.ID, objc.Sel("initWithMagnification:phase:"), magnification, phase)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/magnification
 func (v VZMagnifyEvent) Magnification() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("magnification"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMagnifyEvent/phase
 func (v VZMagnifyEvent) Phase() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("phase"))
 	return rv

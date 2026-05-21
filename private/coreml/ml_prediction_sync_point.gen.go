@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -48,8 +49,6 @@ func (mc MLPredictionSyncPointClass) Alloc() MLPredictionSyncPoint {
 //   - [MLPredictionSyncPoint.SharedEvent]
 //   - [MLPredictionSyncPoint.Value]
 //   - [MLPredictionSyncPoint.InitWithSharedEventValue]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint
 type MLPredictionSyncPoint struct {
 	objectivec.Object
 }
@@ -70,15 +69,13 @@ var _ IMLPredictionSyncPoint = MLPredictionSyncPoint{}
 //   - [IMLPredictionSyncPoint.SharedEvent]
 //   - [IMLPredictionSyncPoint.Value]
 //   - [IMLPredictionSyncPoint.InitWithSharedEventValue]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint
 type IMLPredictionSyncPoint interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	Notify()
-	SharedEvent() objectivec.IObject
+	SharedEvent() unsafe.Pointer
 	Value() uint64
 	InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint
 }
@@ -102,31 +99,24 @@ func NewMLPredictionSyncPoint() MLPredictionSyncPoint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/initWithSharedEvent:value:
 func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	instance := getMLPredictionSyncPointClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return MLPredictionSyncPointFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/notify
 func (m MLPredictionSyncPoint) Notify() {
 	objc.Send[objc.ID](m.ID, objc.Sel("notify"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/initWithSharedEvent:value:
 func (m MLPredictionSyncPoint) InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/sharedEvent
-func (m MLPredictionSyncPoint) SharedEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("sharedEvent"))
-	return objectivec.Object{ID: rv}
+func (m MLPredictionSyncPoint) SharedEvent() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("sharedEvent"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/value
 func (m MLPredictionSyncPoint) Value() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("value"))
 	return rv

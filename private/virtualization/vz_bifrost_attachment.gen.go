@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -47,13 +48,10 @@ func (vc VZBifrostAttachmentClass) Alloc() VZBifrostAttachment {
 //
 //   - [VZBifrostAttachment._attachment]
 //   - [VZBifrostAttachment._init]
-//   - [VZBifrostAttachment.EncodeWithEncoder]
 //   - [VZBifrostAttachment.DebugDescription]
 //   - [VZBifrostAttachment.Description]
 //   - [VZBifrostAttachment.Hash]
 //   - [VZBifrostAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment
 type VZBifrostAttachment struct {
 	objectivec.Object
 }
@@ -72,25 +70,21 @@ var _ IVZBifrostAttachment = VZBifrostAttachment{}
 //
 //   - [IVZBifrostAttachment._attachment]
 //   - [IVZBifrostAttachment._init]
-//   - [IVZBifrostAttachment.EncodeWithEncoder]
 //   - [IVZBifrostAttachment.DebugDescription]
 //   - [IVZBifrostAttachment.Description]
 //   - [IVZBifrostAttachment.Hash]
 //   - [IVZBifrostAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment
 type IVZBifrostAttachment interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_attachment() objectivec.IObject
+	_attachment() unsafe.Pointer
 	_init() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,22 +106,14 @@ func NewVZBifrostAttachment() VZBifrostAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/_init
 func (v VZBifrostAttachment) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/encodeWithEncoder:
-func (v VZBifrostAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/_attachment
-func (v VZBifrostAttachment) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
-	return objectivec.Object{ID: rv}
+func (v VZBifrostAttachment) _attachment() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	return rv
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
@@ -136,33 +122,25 @@ func (v VZBifrostAttachment) CanAttachment() bool {
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (v VZBifrostAttachment) Attachment() (objectivec.IObject, error) {
+func (v VZBifrostAttachment) Attachment() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
 	return v._attachment(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/debugDescription
 func (v VZBifrostAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/description
 func (v VZBifrostAttachment) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/hash
 func (v VZBifrostAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/superclass
-func (v VZBifrostAttachment) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZBifrostAttachment) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

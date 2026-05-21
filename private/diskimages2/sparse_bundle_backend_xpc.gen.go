@@ -47,8 +47,6 @@ func (sc SparseBundleBackendXPCClass) Alloc() SparseBundleBackendXPC {
 //
 //   - [SparseBundleBackendXPC.InitWithURLFileOpenFlags]
 //   - [SparseBundleBackendXPC.InitWithURLFileOpenFlagsBandSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC
 type SparseBundleBackendXPC struct {
 	BackendXPC
 }
@@ -67,15 +65,13 @@ var _ ISparseBundleBackendXPC = SparseBundleBackendXPC{}
 //
 //   - [ISparseBundleBackendXPC.InitWithURLFileOpenFlags]
 //   - [ISparseBundleBackendXPC.InitWithURLFileOpenFlagsBandSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC
 type ISparseBundleBackendXPC interface {
 	IBackendXPC
 
 	// Topic: Methods
 
-	InitWithURLFileOpenFlags(url foundation.INSURL, flags int) SparseBundleBackendXPC
-	InitWithURLFileOpenFlagsBandSize(url foundation.INSURL, flags int, size uint64) SparseBundleBackendXPC
+	InitWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC
+	InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC
 }
 
 // Init initializes the instance.
@@ -97,41 +93,34 @@ func NewSparseBundleBackendXPC() SparseBundleBackendXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithCoder:
 func NewSparseBundleBackendXPCWithCoder(coder objectivec.IObject) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:
-func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.INSURL, flags int) SparseBundleBackendXPC {
+func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:bandSize:
-func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.INSURL, flags int, size uint64) SparseBundleBackendXPC {
+func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:
-func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.INSURL, flags int) SparseBundleBackendXPC {
+func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
 	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:bandSize:
-func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.INSURL, flags int, size uint64) SparseBundleBackendXPC {
+func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
 	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/isSparseBundleWithURL:
-func (_SparseBundleBackendXPCClass SparseBundleBackendXPCClass) IsSparseBundleWithURL(url foundation.INSURL) bool {
+func (_SparseBundleBackendXPCClass SparseBundleBackendXPCClass) IsSparseBundleWithURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](objc.ID(_SparseBundleBackendXPCClass.class), objc.Sel("isSparseBundleWithURL:"), url)
 	return rv
 }

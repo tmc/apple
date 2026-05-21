@@ -51,8 +51,6 @@ func (dc DIUserDataParamsClass) Alloc() DIUserDataParams {
 //   - [DIUserDataParams.RetrieveWithError]
 //   - [DIUserDataParams.UserDict]
 //   - [DIUserDataParams.SetUserDict]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams
 type DIUserDataParams struct {
 	DIBaseParams
 }
@@ -73,8 +71,6 @@ var _ IDIUserDataParams = DIUserDataParams{}
 //   - [IDIUserDataParams.RetrieveWithError]
 //   - [IDIUserDataParams.UserDict]
 //   - [IDIUserDataParams.SetUserDict]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams
 type IDIUserDataParams interface {
 	IDIBaseParams
 
@@ -105,15 +101,13 @@ func NewDIUserDataParams() DIUserDataParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams/initWithCoder:
 func NewDIUserDataParamsWithCoder(coder objectivec.IObject) DIUserDataParams {
 	instance := getDIUserDataParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIUserDataParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams/initWithURL:error:
-func NewDIUserDataParamsWithURLError(url foundation.INSURL) (DIUserDataParams, error) {
+func NewDIUserDataParamsWithURLError(url foundation.NSURL) (DIUserDataParams, error) {
 	var errorPtr objc.ID
 	instance := getDIUserDataParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -124,7 +118,6 @@ func NewDIUserDataParamsWithURLError(url foundation.INSURL) (DIUserDataParams, e
 	return DIUserDataParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams/embedWithError:
 func (d DIUserDataParams) EmbedWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("embedWithError:"), unsafe.Pointer(&errorPtr))
@@ -138,8 +131,6 @@ func (d DIUserDataParams) EmbedWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams/retrieveWithError:
 func (d DIUserDataParams) RetrieveWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("retrieveWithError:"), unsafe.Pointer(&errorPtr))
@@ -154,7 +145,6 @@ func (d DIUserDataParams) RetrieveWithError() (bool, error) {
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIUserDataParams/userDict
 func (d DIUserDataParams) UserDict() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("userDict"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

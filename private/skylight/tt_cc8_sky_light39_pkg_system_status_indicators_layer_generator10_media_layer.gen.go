@@ -42,7 +42,6 @@ func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer
 type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer struct {
 	TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 }
@@ -56,8 +55,6 @@ func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID(id
 var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer{}
 
 // An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer
 type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer interface {
 	ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
 }
@@ -81,14 +78,12 @@ func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer() TtC
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer/initWithCoder:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer/initWithLayer:
 func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
 	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)

@@ -5,7 +5,6 @@ package skylight
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,8 +53,6 @@ func (cc CPXSymbolicHotKeyRegistrarClass) Alloc() CPXSymbolicHotKeyRegistrar {
 //   - [CPXSymbolicHotKeyRegistrar.Description]
 //   - [CPXSymbolicHotKeyRegistrar.Hash]
 //   - [CPXSymbolicHotKeyRegistrar.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar
 type CPXSymbolicHotKeyRegistrar struct {
 	objectivec.Object
 }
@@ -79,20 +76,18 @@ var _ ICPXSymbolicHotKeyRegistrar = CPXSymbolicHotKeyRegistrar{}
 //   - [ICPXSymbolicHotKeyRegistrar.Description]
 //   - [ICPXSymbolicHotKeyRegistrar.Hash]
 //   - [ICPXSymbolicHotKeyRegistrar.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar
 type ICPXSymbolicHotKeyRegistrar interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger unsafe.Pointer, char unsafe.Pointer, key unsafe.Pointer, modifiers unsafe.Pointer) int
+	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int
 	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
 	UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -114,47 +109,35 @@ func NewCPXSymbolicHotKeyRegistrar() CPXSymbolicHotKeyRegistrar {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:
-func (c CPXSymbolicHotKeyRegistrar) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger unsafe.Pointer, char unsafe.Pointer, key unsafe.Pointer, modifiers unsafe.Pointer) int {
+func (c CPXSymbolicHotKeyRegistrar) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int {
 	rv := objc.Send[int](c.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, trigger, char, key, modifiers)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
 func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
 	_block4, _ := NewVoidBlock(func_)
 	rv := objc.Send[int](c.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, _block4)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/unregisterHotKeyConnection:hotKeyID:
 func (c CPXSymbolicHotKeyRegistrar) UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), connection, id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/debugDescription
 func (c CPXSymbolicHotKeyRegistrar) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/description
 func (c CPXSymbolicHotKeyRegistrar) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/hash
 func (c CPXSymbolicHotKeyRegistrar) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/superclass
-func (c CPXSymbolicHotKeyRegistrar) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXSymbolicHotKeyRegistrar) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
 
 // RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFuncSync is a synchronous wrapper around [CPXSymbolicHotKeyRegistrar.RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc].

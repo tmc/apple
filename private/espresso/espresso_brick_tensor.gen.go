@@ -46,8 +46,6 @@ func (ec EspressoBrickTensorClass) Alloc() EspressoBrickTensor {
 //
 //   - [EspressoBrickTensor.Shape]
 //   - [EspressoBrickTensor.SetShape]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensor
 type EspressoBrickTensor struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IEspressoBrickTensor = EspressoBrickTensor{}
 //
 //   - [IEspressoBrickTensor.Shape]
 //   - [IEspressoBrickTensor.SetShape]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensor
 type IEspressoBrickTensor interface {
 	objectivec.IObject
 
@@ -96,7 +92,6 @@ func NewEspressoBrickTensor() EspressoBrickTensor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensor/shape
 func (e EspressoBrickTensor) Shape() IEspressoBrickTensorShape {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("shape"))
 	return EspressoBrickTensorShapeFromID(objc.ID(rv))

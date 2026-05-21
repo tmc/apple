@@ -42,7 +42,6 @@ func (sc SkyLightPKGSystemStatusIndicatorsAnimatorClass) Alloc() SkyLightPKGSyst
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsAnimator
 type SkyLightPKGSystemStatusIndicatorsAnimator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPKGSystemStatusIndicatorsAnimatorFromID(id objc.ID) SkyLightPKGSyst
 // ISkyLightPKGSystemStatusIndicatorsAnimator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsAnimator] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsAnimator
 type ISkyLightPKGSystemStatusIndicatorsAnimator interface {
 	objectivec.IObject
 }

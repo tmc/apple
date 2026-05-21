@@ -48,8 +48,6 @@ func (vc VZUnixSocketBifrostAttachmentClass) Alloc() VZUnixSocketBifrostAttachme
 //
 //   - [VZUnixSocketBifrostAttachment.Path]
 //   - [VZUnixSocketBifrostAttachment.InitWithPathError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment
 type VZUnixSocketBifrostAttachment struct {
 	VZBifrostAttachment
 }
@@ -68,8 +66,6 @@ var _ IVZUnixSocketBifrostAttachment = VZUnixSocketBifrostAttachment{}
 //
 //   - [IVZUnixSocketBifrostAttachment.Path]
 //   - [IVZUnixSocketBifrostAttachment.InitWithPathError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment
 type IVZUnixSocketBifrostAttachment interface {
 	IVZBifrostAttachment
 
@@ -98,7 +94,6 @@ func NewVZUnixSocketBifrostAttachment() VZUnixSocketBifrostAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/initWithPath:error:
 func NewVZUnixSocketBifrostAttachmentWithPathError(path objectivec.IObject) (VZUnixSocketBifrostAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZUnixSocketBifrostAttachmentClass().Alloc()
@@ -110,25 +105,22 @@ func NewVZUnixSocketBifrostAttachmentWithPathError(path objectivec.IObject) (VZU
 	return VZUnixSocketBifrostAttachmentFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/initWithPath:error:
 func (v VZUnixSocketBifrostAttachment) InitWithPathError(path objectivec.IObject) (VZUnixSocketBifrostAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithPath:error:"), path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZUnixSocketBifrostAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZUnixSocketBifrostAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZUnixSocketBifrostAttachmentFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/maximumPathLength
 func (_VZUnixSocketBifrostAttachmentClass VZUnixSocketBifrostAttachmentClass) MaximumPathLength() uint64 {
 	rv := objc.Send[uint64](objc.ID(_VZUnixSocketBifrostAttachmentClass.class), objc.Sel("maximumPathLength"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/path
 func (v VZUnixSocketBifrostAttachment) Path() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()

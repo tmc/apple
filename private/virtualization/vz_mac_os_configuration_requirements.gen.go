@@ -45,8 +45,6 @@ func (vc VZMacOSConfigurationRequirementsClass) Alloc() VZMacOSConfigurationRequ
 // # Methods
 //
 //   - [VZMacOSConfigurationRequirements._variants]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements
 type VZMacOSConfigurationRequirements struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZMacOSConfigurationRequirements = VZMacOSConfigurationRequirements{}
 // # Methods
 //
 //   - [IVZMacOSConfigurationRequirements._variants]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements
 type IVZMacOSConfigurationRequirements interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements/_variants
 func (v VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_variants"))
 	return objectivec.Object{ID: rv}

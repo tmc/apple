@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -51,8 +52,6 @@ func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
 //   - [VZAudioOutputStreamSink.Description]
 //   - [VZAudioOutputStreamSink.Hash]
 //   - [VZAudioOutputStreamSink.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink
 type VZAudioOutputStreamSink struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IVZAudioOutputStreamSink = VZAudioOutputStreamSink{}
 //   - [IVZAudioOutputStreamSink.Description]
 //   - [IVZAudioOutputStreamSink.Hash]
 //   - [IVZAudioOutputStreamSink.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink
 type IVZAudioOutputStreamSink interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_attachment() objectivec.IObject
+	_attachment() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,16 +106,14 @@ func NewVZAudioOutputStreamSink() VZAudioOutputStreamSink {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/_init
 func (v VZAudioOutputStreamSink) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/_attachment
-func (v VZAudioOutputStreamSink) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
-	return objectivec.Object{ID: rv}
+func (v VZAudioOutputStreamSink) _attachment() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	return rv
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
@@ -127,33 +122,25 @@ func (v VZAudioOutputStreamSink) CanAttachment() bool {
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (v VZAudioOutputStreamSink) Attachment() (objectivec.IObject, error) {
+func (v VZAudioOutputStreamSink) Attachment() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
 	return v._attachment(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/debugDescription
 func (v VZAudioOutputStreamSink) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/description
 func (v VZAudioOutputStreamSink) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/hash
 func (v VZAudioOutputStreamSink) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/superclass
-func (v VZAudioOutputStreamSink) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZAudioOutputStreamSink) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

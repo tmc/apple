@@ -44,7 +44,6 @@ func (mc MLModelSwiftEngineClass) Alloc() MLModelSwiftEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine
 type MLModelSwiftEngine struct {
 	MLModelEngine
 }
@@ -58,8 +57,6 @@ func MLModelSwiftEngineFromID(id objc.ID) MLModelSwiftEngine {
 var _ IMLModelSwiftEngine = MLModelSwiftEngine{}
 
 // An interface definition for the [MLModelSwiftEngine] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine
 type IMLModelSwiftEngine interface {
 	IMLModelEngine
 }
@@ -83,21 +80,18 @@ func NewMLModelSwiftEngine() MLModelSwiftEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine/initWithDescription:configuration:
 func NewModelSwiftEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLModelSwiftEngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewModelSwiftEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLModelSwiftEngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLModelSwiftEngineClass MLModelSwiftEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelSwiftEngineClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))

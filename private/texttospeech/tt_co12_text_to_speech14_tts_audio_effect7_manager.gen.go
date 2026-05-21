@@ -42,7 +42,6 @@ func (tc TtCO12TextToSpeech14TTSAudioEffect7ManagerClass) Alloc() TtCO12TextToSp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCO12TextToSpeech14TTSAudioEffect7Manager
 type TtCO12TextToSpeech14TTSAudioEffect7Manager struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCO12TextToSpeech14TTSAudioEffect7ManagerFromID(id objc.ID) TtCO12TextToSp
 // ITtCO12TextToSpeech14TTSAudioEffect7Manager embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCO12TextToSpeech14TTSAudioEffect7Manager] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCO12TextToSpeech14TTSAudioEffect7Manager
 type ITtCO12TextToSpeech14TTSAudioEffect7Manager interface {
 	objectivec.IObject
 }

@@ -51,8 +51,6 @@ func (ec EspressoNetworkClass) Alloc() EspressoNetwork {
 //   - [EspressoNetwork.Wipe_layers_blobs]
 //   - [EspressoNetwork.InitWithJSFileBinSerializerIdContextComputePath]
 //   - [EspressoNetwork.InitWithJSFileContextComputePath]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork
 type EspressoNetwork struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IEspressoNetwork = EspressoNetwork{}
 //   - [IEspressoNetwork.Wipe_layers_blobs]
 //   - [IEspressoNetwork.InitWithJSFileBinSerializerIdContextComputePath]
 //   - [IEspressoNetwork.InitWithJSFileContextComputePath]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork
 type IEspressoNetwork interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type IEspressoNetwork interface {
 
 	Ctx() IEspressoContext
 	Layers_size() uint64
-	Net() objectivec.IObject
+	Net() unsafe.Pointer
 	Wipe_layers_blobs()
 	InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork
 	InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork
@@ -109,51 +105,39 @@ func NewEspressoNetwork() EspressoNetwork {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:binSerializerId:context:computePath:
 func NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:context:computePath:
 func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/wipe_layers_blobs
 func (e EspressoNetwork) Wipe_layers_blobs() {
 	objc.Send[objc.ID](e.ID, objc.Sel("wipe_layers_blobs"))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:binSerializerId:context:computePath:
 func (e EspressoNetwork) InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
 	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:context:computePath:
 func (e EspressoNetwork) InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
 	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/ctx
 func (e EspressoNetwork) Ctx() IEspressoContext {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ctx"))
 	return EspressoContextFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/layers_size
 func (e EspressoNetwork) Layers_size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("layers_size"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/net
-func (e EspressoNetwork) Net() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("net"))
-	return objectivec.Object{ID: rv}
+func (e EspressoNetwork) Net() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("net"))
+	return rv
 }

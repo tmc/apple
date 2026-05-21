@@ -46,8 +46,6 @@ func (gc GTMioTraceDataObserverTokenInternalClass) Alloc() GTMioTraceDataObserve
 //
 //   - [GTMioTraceDataObserverTokenInternal.Cancel]
 //   - [GTMioTraceDataObserverTokenInternal.InitWithTraceDataIdentifier]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal
 type GTMioTraceDataObserverTokenInternal struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IGTMioTraceDataObserverTokenInternal = GTMioTraceDataObserverTokenInternal
 //
 //   - [IGTMioTraceDataObserverTokenInternal.Cancel]
 //   - [IGTMioTraceDataObserverTokenInternal.InitWithTraceDataIdentifier]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal
 type IGTMioTraceDataObserverTokenInternal interface {
 	objectivec.IObject
 
@@ -96,19 +92,15 @@ func NewGTMioTraceDataObserverTokenInternal() GTMioTraceDataObserverTokenInterna
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal/initWithTraceData:identifier:
 func NewGTMioTraceDataObserverTokenInternalWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
 	instance := getGTMioTraceDataObserverTokenInternalClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
 	return GTMioTraceDataObserverTokenInternalFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal/cancel
 func (g GTMioTraceDataObserverTokenInternal) Cancel() {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal/initWithTraceData:identifier:
 func (g GTMioTraceDataObserverTokenInternal) InitWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
 	rv := objc.Send[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
 	return rv

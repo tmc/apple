@@ -48,8 +48,6 @@ func (vc VZVirtualMachineConfigurationEncoderClass) Alloc() VZVirtualMachineConf
 //
 //   - [VZVirtualMachineConfigurationEncoder.DataWithConfigurationFormatError]
 //   - [VZVirtualMachineConfigurationEncoder.InitWithBaseURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncoder
 type VZVirtualMachineConfigurationEncoder struct {
 	objectivec.Object
 }
@@ -68,15 +66,13 @@ var _ IVZVirtualMachineConfigurationEncoder = VZVirtualMachineConfigurationEncod
 //
 //   - [IVZVirtualMachineConfigurationEncoder.DataWithConfigurationFormatError]
 //   - [IVZVirtualMachineConfigurationEncoder.InitWithBaseURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncoder
 type IVZVirtualMachineConfigurationEncoder interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	DataWithConfigurationFormatError(configuration objectivec.IObject, format uint64) (objectivec.IObject, error)
-	InitWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationEncoder
+	InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationEncoder
 }
 
 // Init initializes the instance.
@@ -98,14 +94,12 @@ func NewVZVirtualMachineConfigurationEncoder() VZVirtualMachineConfigurationEnco
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncoder/initWithBaseURL:
-func NewVZVirtualMachineConfigurationEncoderWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationEncoder {
+func NewVZVirtualMachineConfigurationEncoderWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationEncoder {
 	instance := getVZVirtualMachineConfigurationEncoderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
 	return VZVirtualMachineConfigurationEncoderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncoder/dataWithConfiguration:format:error:
 func (v VZVirtualMachineConfigurationEncoder) DataWithConfigurationFormatError(configuration objectivec.IObject, format uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithConfiguration:format:error:"), configuration, format, unsafe.Pointer(&errorPtr))
@@ -116,9 +110,7 @@ func (v VZVirtualMachineConfigurationEncoder) DataWithConfigurationFormatError(c
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncoder/initWithBaseURL:
-func (v VZVirtualMachineConfigurationEncoder) InitWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationEncoder {
+func (v VZVirtualMachineConfigurationEncoder) InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationEncoder {
 	rv := objc.Send[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("initWithBaseURL:"), url)
 	return rv
 }

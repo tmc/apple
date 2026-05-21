@@ -42,7 +42,6 @@ func (vc VirtualizationUniversalHIDFiltersClass) Alloc() VirtualizationUniversal
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.UniversalHIDFilters
 type VirtualizationUniversalHIDFilters struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VirtualizationUniversalHIDFiltersFromID(id objc.ID) VirtualizationUniversal
 // IVirtualizationUniversalHIDFilters embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [VirtualizationUniversalHIDFilters] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.UniversalHIDFilters
 type IVirtualizationUniversalHIDFilters interface {
 	objectivec.IObject
 }

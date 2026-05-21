@@ -50,8 +50,6 @@ func (vc VZCustomCPUEmulatorConfigurationClass) Alloc() VZCustomCPUEmulatorConfi
 //   - [VZCustomCPUEmulatorConfiguration.SetMemorySize]
 //   - [VZCustomCPUEmulatorConfiguration.Options]
 //   - [VZCustomCPUEmulatorConfiguration.SetOptions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration
 type VZCustomCPUEmulatorConfiguration struct {
 	VZCPUEmulatorConfiguration
 }
@@ -74,15 +72,13 @@ var _ IVZCustomCPUEmulatorConfiguration = VZCustomCPUEmulatorConfiguration{}
 //   - [IVZCustomCPUEmulatorConfiguration.SetMemorySize]
 //   - [IVZCustomCPUEmulatorConfiguration.Options]
 //   - [IVZCustomCPUEmulatorConfiguration.SetOptions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration
 type IVZCustomCPUEmulatorConfiguration interface {
 	IVZCPUEmulatorConfiguration
 
 	// Topic: Methods
 
-	EmulatorURL() foundation.INSURL
-	SetEmulatorURL(value foundation.INSURL)
+	EmulatorURL() foundation.NSURL
+	SetEmulatorURL(value foundation.NSURL)
 	MemorySize() foundation.NSNumber
 	SetMemorySize(value foundation.NSNumber)
 	Options() string
@@ -108,16 +104,13 @@ func NewVZCustomCPUEmulatorConfiguration() VZCustomCPUEmulatorConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration/emulatorURL
-func (v VZCustomCPUEmulatorConfiguration) EmulatorURL() foundation.INSURL {
+func (v VZCustomCPUEmulatorConfiguration) EmulatorURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("emulatorURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (v VZCustomCPUEmulatorConfiguration) SetEmulatorURL(value foundation.INSURL) {
+func (v VZCustomCPUEmulatorConfiguration) SetEmulatorURL(value foundation.NSURL) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEmulatorURL:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration/memorySize
 func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("memorySize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -125,8 +118,6 @@ func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
 func (v VZCustomCPUEmulatorConfiguration) SetMemorySize(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration/options
 func (v VZCustomCPUEmulatorConfiguration) Options() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("options"))
 	return foundation.NSStringFromID(rv).String()

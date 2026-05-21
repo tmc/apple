@@ -45,15 +45,11 @@ func (vc VZCPUEmulatorConfigurationClass) Alloc() VZCPUEmulatorConfiguration {
 
 // # Methods
 //
-//   - [VZCPUEmulatorConfiguration._cpuEmulator]
 //   - [VZCPUEmulatorConfiguration._init]
-//   - [VZCPUEmulatorConfiguration.EncodeWithEncoder]
 //   - [VZCPUEmulatorConfiguration.DebugDescription]
 //   - [VZCPUEmulatorConfiguration.Description]
 //   - [VZCPUEmulatorConfiguration.Hash]
 //   - [VZCPUEmulatorConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration
 type VZCPUEmulatorConfiguration struct {
 	objectivec.Object
 }
@@ -70,27 +66,21 @@ var _ IVZCPUEmulatorConfiguration = VZCPUEmulatorConfiguration{}
 //
 // # Methods
 //
-//   - [IVZCPUEmulatorConfiguration._cpuEmulator]
 //   - [IVZCPUEmulatorConfiguration._init]
-//   - [IVZCPUEmulatorConfiguration.EncodeWithEncoder]
 //   - [IVZCPUEmulatorConfiguration.DebugDescription]
 //   - [IVZCPUEmulatorConfiguration.Description]
 //   - [IVZCPUEmulatorConfiguration.Hash]
 //   - [IVZCPUEmulatorConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration
 type IVZCPUEmulatorConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_cpuEmulator() objectivec.IObject
 	_init() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,58 +102,24 @@ func NewVZCPUEmulatorConfiguration() VZCPUEmulatorConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/_cpuEmulator
-func (v VZCPUEmulatorConfiguration) _cpuEmulator() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_cpuEmulator"))
-	return objectivec.Object{ID: rv}
-}
-
-// CpuEmulator is an exported wrapper for the private method _cpuEmulator.
-func (v VZCPUEmulatorConfiguration) CpuEmulator() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_cpuEmulator"}
-		return nil, err
-	}
-	return v._cpuEmulator(), nil
-}
-
-// CanCpuEmulator reports whether the receiver responds to the private selector _cpuEmulator.
-func (v VZCPUEmulatorConfiguration) CanCpuEmulator() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/_init
 func (v VZCPUEmulatorConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/encodeWithEncoder:
-func (v VZCPUEmulatorConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/debugDescription
 func (v VZCPUEmulatorConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/description
 func (v VZCPUEmulatorConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/hash
 func (v VZCPUEmulatorConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/superclass
-func (v VZCPUEmulatorConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZCPUEmulatorConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

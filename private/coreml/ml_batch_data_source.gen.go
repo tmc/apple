@@ -56,8 +56,6 @@ func (mc MLBatchDataSourceClass) Alloc() MLBatchDataSource {
 //   - [MLBatchDataSource.Description]
 //   - [MLBatchDataSource.Hash]
 //   - [MLBatchDataSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource
 type MLBatchDataSource struct {
 	objectivec.Object
 }
@@ -84,14 +82,12 @@ var _ IMLBatchDataSource = MLBatchDataSource{}
 //   - [IMLBatchDataSource.Description]
 //   - [IMLBatchDataSource.Hash]
 //   - [IMLBatchDataSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource
 type IMLBatchDataSource interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	BatchProvider() objectivec.IObject
+	BatchProvider() unsafe.Pointer
 	DataPointAtIndexError(index uint64) (objectivec.IObject, error)
 	NnEngine() IMLNeuralNetworkEngine
 	NumberOfDataPoints() uint64
@@ -100,7 +96,7 @@ type IMLBatchDataSource interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -122,7 +118,6 @@ func NewMLBatchDataSource() MLBatchDataSource {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/initWithMLBatchProvider:forPrediction:neuralNetworkEngine:error:
 func NewMLBatchDataSourceWithMLBatchProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLBatchDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLBatchDataSourceClass().Alloc()
@@ -134,7 +129,6 @@ func NewMLBatchDataSourceWithMLBatchProviderForPredictionNeuralNetworkEngineErro
 	return MLBatchDataSourceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/dataPointAtIndex:error:
 func (m MLBatchDataSource) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataPointAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
@@ -145,62 +139,45 @@ func (m MLBatchDataSource) DataPointAtIndexError(index uint64) (objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/numberOfDataPoints
 func (m MLBatchDataSource) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/initWithMLBatchProvider:forPrediction:neuralNetworkEngine:error:
 func (m MLBatchDataSource) InitWithMLBatchProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLBatchDataSource, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMLBatchProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLBatchDataSource{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLBatchDataSource), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLBatchDataSourceFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/batchProvider
-func (m MLBatchDataSource) BatchProvider() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchProvider"))
-	return objectivec.Object{ID: rv}
+func (m MLBatchDataSource) BatchProvider() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("batchProvider"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/debugDescription
 func (m MLBatchDataSource) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/description
 func (m MLBatchDataSource) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/hash
 func (m MLBatchDataSource) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/nnEngine
 func (m MLBatchDataSource) NnEngine() IMLNeuralNetworkEngine {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnEngine"))
 	return MLNeuralNetworkEngineFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/superclass
-func (m MLBatchDataSource) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLBatchDataSource) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLBatchDataSource/useForPrediction
 func (m MLBatchDataSource) UseForPrediction() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("useForPrediction"))
 	return rv

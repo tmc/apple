@@ -45,8 +45,6 @@ func (vc VZMacBifrostDeviceConfigurationClass) Alloc() VZMacBifrostDeviceConfigu
 // # Methods
 //
 //   - [VZMacBifrostDeviceConfiguration.InitWithAttachmentMMIOSize]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration
 type VZMacBifrostDeviceConfiguration struct {
 	VZBifrostDeviceConfiguration
 }
@@ -64,8 +62,6 @@ var _ IVZMacBifrostDeviceConfiguration = VZMacBifrostDeviceConfiguration{}
 // # Methods
 //
 //   - [IVZMacBifrostDeviceConfiguration.InitWithAttachmentMMIOSize]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration
 type IVZMacBifrostDeviceConfiguration interface {
 	IVZBifrostDeviceConfiguration
 
@@ -93,14 +89,12 @@ func NewVZMacBifrostDeviceConfiguration() VZMacBifrostDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration/initWithAttachment:MMIOSize:
 func NewVZMacBifrostDeviceConfigurationWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
 	instance := getVZMacBifrostDeviceConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return VZMacBifrostDeviceConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration/initWithAttachment:MMIOSize:
 func (v VZMacBifrostDeviceConfiguration) InitWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
 	rv := objc.Send[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return rv

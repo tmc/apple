@@ -51,8 +51,6 @@ func (pc PluginInstanceDelegateClass) Alloc() PluginInstanceDelegate {
 //   - [PluginInstanceDelegate.Description]
 //   - [PluginInstanceDelegate.Hash]
 //   - [PluginInstanceDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate
 type PluginInstanceDelegate struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IPluginInstanceDelegate = PluginInstanceDelegate{}
 //   - [IPluginInstanceDelegate.Description]
 //   - [IPluginInstanceDelegate.Hash]
 //   - [IPluginInstanceDelegate.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate
 type IPluginInstanceDelegate interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IPluginInstanceDelegate interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,36 +105,26 @@ func NewPluginInstanceDelegate() PluginInstanceDelegate {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/handleConnectionError:
 func (p PluginInstanceDelegate) HandleConnectionError(error_ objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("handleConnectionError:"), error_)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/invalidateConnection
 func (p PluginInstanceDelegate) InvalidateConnection() {
 	objc.Send[objc.ID](p.ID, objc.Sel("invalidateConnection"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/debugDescription
 func (p PluginInstanceDelegate) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/description
 func (p PluginInstanceDelegate) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/hash
 func (p PluginInstanceDelegate) Hash() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/PluginInstanceDelegate/superclass
-func (p PluginInstanceDelegate) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
-	return rv
+func (p PluginInstanceDelegate) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](p.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

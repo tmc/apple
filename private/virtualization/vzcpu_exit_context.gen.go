@@ -57,8 +57,6 @@ func (vc VZCPUExitContextClass) Alloc() VZCPUExitContext {
 //   - [VZCPUExitContext.SetRegisterValueError]
 //   - [VZCPUExitContext.SetSIMDRegisterValueError]
 //   - [VZCPUExitContext.SetSystemRegisterValueError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext
 type VZCPUExitContext struct {
 	objectivec.Object
 }
@@ -85,14 +83,12 @@ var _ IVZCPUExitContext = VZCPUExitContext{}
 //   - [IVZCPUExitContext.SetRegisterValueError]
 //   - [IVZCPUExitContext.SetSIMDRegisterValueError]
 //   - [IVZCPUExitContext.SetSystemRegisterValueError]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext
 type IVZCPUExitContext interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	CPUExit() objectivec.IObject
+	CPUExit() unsafe.Pointer
 	CPUIndex() uint64
 	GetPhysicalAddressForVirtualAddressError(address2 uint64) (uint64, error)
 	GetRegisterValueError(register uint32) (uint64, error)
@@ -123,7 +119,6 @@ func NewVZCPUExitContext() VZCPUExitContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/getPhysicalAddress:forVirtualAddress:error:
 func (v VZCPUExitContext) GetPhysicalAddressForVirtualAddressError(address2 uint64) (uint64, error) {
 	var address uint64
 	var errorPtr objc.ID
@@ -137,8 +132,6 @@ func (v VZCPUExitContext) GetPhysicalAddressForVirtualAddressError(address2 uint
 	}
 	return address, nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/getRegister:value:error:
 func (v VZCPUExitContext) GetRegisterValueError(register uint32) (uint64, error) {
 	var value uint64
 	var errorPtr objc.ID
@@ -152,8 +145,6 @@ func (v VZCPUExitContext) GetRegisterValueError(register uint32) (uint64, error)
 	}
 	return value, nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/getSIMDRegister:value:error:
 func (v VZCPUExitContext) GetSIMDRegisterValueError(sIMDRegister uint32, value []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("getSIMDRegister:value:error:"), sIMDRegister, objectivec.IObjectSliceToNSArray(value), unsafe.Pointer(&errorPtr))
@@ -167,8 +158,6 @@ func (v VZCPUExitContext) GetSIMDRegisterValueError(sIMDRegister uint32, value [
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/getSystemRegister:value:error:
 func (v VZCPUExitContext) GetSystemRegisterValueError(register uint16) (uint64, error) {
 	var value uint64
 	var errorPtr objc.ID
@@ -182,8 +171,6 @@ func (v VZCPUExitContext) GetSystemRegisterValueError(register uint16) (uint64, 
 	}
 	return value, nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/guestMemoryAtPhysicalAddress:length:error:
 func (v VZCPUExitContext) GuestMemoryAtPhysicalAddressLengthError(address uint64, length uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:error:"), address, length, unsafe.Pointer(&errorPtr))
@@ -194,8 +181,6 @@ func (v VZCPUExitContext) GuestMemoryAtPhysicalAddressLengthError(address uint64
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/setRegister:value:error:
 func (v VZCPUExitContext) SetRegisterValueError(register uint32, value uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("setRegister:value:error:"), register, value, unsafe.Pointer(&errorPtr))
@@ -209,8 +194,6 @@ func (v VZCPUExitContext) SetRegisterValueError(register uint32, value uint64) (
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/setSIMDRegister:value:error:
 func (v VZCPUExitContext) SetSIMDRegisterValueError(sIMDRegister uint32, value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("setSIMDRegister:value:error:"), sIMDRegister, value, unsafe.Pointer(&errorPtr))
@@ -224,8 +207,6 @@ func (v VZCPUExitContext) SetSIMDRegisterValueError(sIMDRegister uint32, value o
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/setSystemRegister:value:error:
 func (v VZCPUExitContext) SetSystemRegisterValueError(register uint16, value uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("setSystemRegister:value:error:"), register, value, unsafe.Pointer(&errorPtr))
@@ -240,13 +221,10 @@ func (v VZCPUExitContext) SetSystemRegisterValueError(register uint16, value uin
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/CPUExit
-func (v VZCPUExitContext) CPUExit() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CPUExit"))
-	return objectivec.Object{ID: rv}
+func (v VZCPUExitContext) CPUExit() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CPUExit"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCPUExitContext/CPUIndex
 func (v VZCPUExitContext) CPUIndex() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("CPUIndex"))
 	return rv

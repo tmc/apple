@@ -56,8 +56,6 @@ func (tc TTSAudioSessionChannelClass) Alloc() TTSAudioSessionChannel {
 //   - [TTSAudioSessionChannel.SetChannelNumber]
 //   - [TTSAudioSessionChannel.OwningPortUID]
 //   - [TTSAudioSessionChannel.SetOwningPortUID]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel
 type TTSAudioSessionChannel struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ ITTSAudioSessionChannel = TTSAudioSessionChannel{}
 //   - [ITTSAudioSessionChannel.SetChannelNumber]
 //   - [ITTSAudioSessionChannel.OwningPortUID]
 //   - [ITTSAudioSessionChannel.SetOwningPortUID]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel
 type ITTSAudioSessionChannel interface {
 	objectivec.IObject
 
@@ -122,19 +118,15 @@ func NewTTSAudioSessionChannel() TTSAudioSessionChannel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/channelWithChannel:
 func (_TTSAudioSessionChannelClass TTSAudioSessionChannelClass) ChannelWithChannel(channel objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("channelWithChannel:"), channel)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/convertChannels:
 func (_TTSAudioSessionChannelClass TTSAudioSessionChannelClass) ConvertChannels(channels objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("convertChannels:"), channels)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/channel
 func (t TTSAudioSessionChannel) Channel() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("channel"))
 	return rv
@@ -142,8 +134,6 @@ func (t TTSAudioSessionChannel) Channel() unsafe.Pointer {
 func (t TTSAudioSessionChannel) SetChannel(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/channelLabel
 func (t TTSAudioSessionChannel) ChannelLabel() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("channelLabel"))
 	return rv
@@ -151,8 +141,6 @@ func (t TTSAudioSessionChannel) ChannelLabel() uint32 {
 func (t TTSAudioSessionChannel) SetChannelLabel(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannelLabel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/channelName
 func (t TTSAudioSessionChannel) ChannelName() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("channelName"))
 	return foundation.NSStringFromID(rv).String()
@@ -160,8 +148,6 @@ func (t TTSAudioSessionChannel) ChannelName() string {
 func (t TTSAudioSessionChannel) SetChannelName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannelName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/channelNumber
 func (t TTSAudioSessionChannel) ChannelNumber() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("channelNumber"))
 	return rv
@@ -169,8 +155,6 @@ func (t TTSAudioSessionChannel) ChannelNumber() uint64 {
 func (t TTSAudioSessionChannel) SetChannelNumber(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannelNumber:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioSessionChannel/owningPortUID
 func (t TTSAudioSessionChannel) OwningPortUID() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("owningPortUID"))
 	return foundation.NSStringFromID(rv).String()

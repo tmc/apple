@@ -42,7 +42,6 @@ func (cc CPXViewClientClass) Alloc() CPXViewClient {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXViewClient
 type CPXViewClient struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CPXViewClientFromID(id objc.ID) CPXViewClient {
 var _ ICPXViewClient = CPXViewClient{}
 
 // An interface definition for the [CPXViewClient] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXViewClient
 type ICPXViewClient interface {
 	objectivec.IObject
 }

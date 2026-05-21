@@ -47,8 +47,6 @@ func (sc SLSBridgedWillSwitchSpacesOperationClass) Alloc() SLSBridgedWillSwitchS
 //
 //   - [SLSBridgedWillSwitchSpacesOperation.Spaces]
 //   - [SLSBridgedWillSwitchSpacesOperation.InitWithSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation
 type SLSBridgedWillSwitchSpacesOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedWillSwitchSpacesOperation = SLSBridgedWillSwitchSpacesOperation
 //
 //   - [ISLSBridgedWillSwitchSpacesOperation.Spaces]
 //   - [ISLSBridgedWillSwitchSpacesOperation.InitWithSpaces]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation
 type ISLSBridgedWillSwitchSpacesOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -97,27 +93,23 @@ func NewSLSBridgedWillSwitchSpacesOperation() SLSBridgedWillSwitchSpacesOperatio
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation/initWithCoder:
 func NewSLSBridgedWillSwitchSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
 	instance := getSLSBridgedWillSwitchSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWillSwitchSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation/initWithSpaces:
 func NewSLSBridgedWillSwitchSpacesOperationWithSpaces(spaces objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
 	instance := getSLSBridgedWillSwitchSpacesOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
 	return SLSBridgedWillSwitchSpacesOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation/initWithSpaces:
 func (s SLSBridgedWillSwitchSpacesOperation) InitWithSpaces(spaces objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
 	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWillSwitchSpacesOperation/spaces
 func (s SLSBridgedWillSwitchSpacesOperation) Spaces() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))

@@ -46,8 +46,6 @@ func (ac AVAudioUnitComponentManagerClass) Alloc() AVAudioUnitComponentManager {
 //
 //   - [AVAudioUnitComponentManager.LocaleChanged]
 //   - [AVAudioUnitComponentManager.RegistrationsChanged]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager
 type AVAudioUnitComponentManager struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IAVAudioUnitComponentManager = AVAudioUnitComponentManager{}
 //
 //   - [IAVAudioUnitComponentManager.LocaleChanged]
 //   - [IAVAudioUnitComponentManager.RegistrationsChanged]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager
 type IAVAudioUnitComponentManager interface {
 	objectivec.IObject
 
@@ -96,17 +92,13 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/localeChanged:
 func (a AVAudioUnitComponentManager) LocaleChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("localeChanged:"), changed)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/registrationsChanged:
 func (a AVAudioUnitComponentManager) RegistrationsChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("registrationsChanged:"), changed)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/privateAllocInitSingleton
 func (_AVAudioUnitComponentManagerClass AVAudioUnitComponentManagerClass) PrivateAllocInitSingleton() {
 	objc.Send[objc.ID](objc.ID(_AVAudioUnitComponentManagerClass.class), objc.Sel("privateAllocInitSingleton"))
 }

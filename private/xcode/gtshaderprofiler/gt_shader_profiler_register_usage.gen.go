@@ -48,8 +48,6 @@ func (gc GTShaderProfilerRegisterUsageClass) Alloc() GTShaderProfilerRegisterUsa
 //   - [GTShaderProfilerRegisterUsage.Size]
 //   - [GTShaderProfilerRegisterUsage.Test]
 //   - [GTShaderProfilerRegisterUsage.InitWithBitsetString]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage
 type GTShaderProfilerRegisterUsage struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IGTShaderProfilerRegisterUsage = GTShaderProfilerRegisterUsage{}
 //   - [IGTShaderProfilerRegisterUsage.Size]
 //   - [IGTShaderProfilerRegisterUsage.Test]
 //   - [IGTShaderProfilerRegisterUsage.InitWithBitsetString]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage
 type IGTShaderProfilerRegisterUsage interface {
 	objectivec.IObject
 
@@ -102,31 +98,24 @@ func NewGTShaderProfilerRegisterUsage() GTShaderProfilerRegisterUsage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/initWithBitsetString:
 func NewGTShaderProfilerRegisterUsageWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
 	instance := getGTShaderProfilerRegisterUsageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitsetString:"), string_)
 	return GTShaderProfilerRegisterUsageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/combine:
 func (g GTShaderProfilerRegisterUsage) Combine(combine objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("combine:"), combine)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/test:
 func (g GTShaderProfilerRegisterUsage) Test(test uint64) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("test:"), test)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/initWithBitsetString:
 func (g GTShaderProfilerRegisterUsage) InitWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
 	rv := objc.Send[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("initWithBitsetString:"), string_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/size
 func (g GTShaderProfilerRegisterUsage) Size() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("size"))
 	return rv

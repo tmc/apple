@@ -8,8 +8,6 @@ import (
 )
 
 // MLProgram protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgram
 type MLProgram interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLProgramObjectFromID(id objc.ID) MLProgramObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgram/serializedMILText
 func (o MLProgramObject) SerializedMILText() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("serializedMILText"))
 	return objectivec.Object{ID: rv}

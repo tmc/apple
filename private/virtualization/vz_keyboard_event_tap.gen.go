@@ -42,7 +42,6 @@ func (vc VZKeyboardEventTapClass) Alloc() VZKeyboardEventTap {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardEventTap
 type VZKeyboardEventTap struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZKeyboardEventTapFromID(id objc.ID) VZKeyboardEventTap {
 var _ IVZKeyboardEventTap = VZKeyboardEventTap{}
 
 // An interface definition for the [VZKeyboardEventTap] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZKeyboardEventTap
 type IVZKeyboardEventTap interface {
 	objectivec.IObject
 }

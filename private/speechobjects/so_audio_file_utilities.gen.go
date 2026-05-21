@@ -5,6 +5,7 @@ package speechobjects
 import (
 	"sync"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (sc SOAudioFileUtilitiesClass) Alloc() SOAudioFileUtilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities
 type SOAudioFileUtilities struct {
 	objectivec.Object
 }
@@ -56,8 +56,6 @@ func SOAudioFileUtilitiesFromID(id objc.ID) SOAudioFileUtilities {
 var _ ISOAudioFileUtilities = SOAudioFileUtilities{}
 
 // An interface definition for the [SOAudioFileUtilities] class.
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities
 type ISOAudioFileUtilities interface {
 	objectivec.IObject
 }
@@ -81,14 +79,11 @@ func NewSOAudioFileUtilities() SOAudioFileUtilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities/sampleDataFromContentsOfFile:streamDescription:
-func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) SampleDataFromContentsOfFileStreamDescription(file objectivec.IObject, description AudioStreamBasicDescription) objectivec.IObject {
+func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) SampleDataFromContentsOfFileStreamDescription(file objectivec.IObject, description coreaudiotypes.AudioStreamBasicDescription) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("sampleDataFromContentsOfFile:streamDescription:"), file, description)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities/writeSampleData:toFile:dataStreamDescription:fileStreamDescription:
-func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) WriteSampleDataToFileDataStreamDescriptionFileStreamDescription(data objectivec.IObject, file objectivec.IObject, description AudioStreamBasicDescription, description2 AudioStreamBasicDescription) bool {
+func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) WriteSampleDataToFileDataStreamDescriptionFileStreamDescription(data objectivec.IObject, file objectivec.IObject, description coreaudiotypes.AudioStreamBasicDescription, description2 coreaudiotypes.AudioStreamBasicDescription) bool {
 	rv := objc.Send[bool](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("writeSampleData:toFile:dataStreamDescription:fileStreamDescription:"), data, file, description, description2)
 	return rv
 }

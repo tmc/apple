@@ -49,8 +49,6 @@ func (vc VZSEPStorageClass) Alloc() VZSEPStorage {
 //   - [VZSEPStorage.URL]
 //   - [VZSEPStorage.InitCreatingStorageAtURLError]
 //   - [VZSEPStorage.InitWithURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage
 type VZSEPStorage struct {
 	objectivec.Object
 }
@@ -70,16 +68,14 @@ var _ IVZSEPStorage = VZSEPStorage{}
 //   - [IVZSEPStorage.URL]
 //   - [IVZSEPStorage.InitCreatingStorageAtURLError]
 //   - [IVZSEPStorage.InitWithURL]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage
 type IVZSEPStorage interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	URL() foundation.INSURL
-	InitCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStorage, error)
-	InitWithURL(url foundation.INSURL) VZSEPStorage
+	URL() foundation.NSURL
+	InitCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error)
+	InitWithURL(url foundation.NSURL) VZSEPStorage
 }
 
 // Init initializes the instance.
@@ -101,8 +97,7 @@ func NewVZSEPStorage() VZSEPStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initCreatingStorageAtURL:error:
-func NewVZSEPStorageCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStorage, error) {
+func NewVZSEPStorageCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error) {
 	var errorPtr objc.ID
 	instance := getVZSEPStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -113,33 +108,28 @@ func NewVZSEPStorageCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStora
 	return VZSEPStorageFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initWithURL:
-func NewVZSEPStorageWithURL(url foundation.INSURL) VZSEPStorage {
+func NewVZSEPStorageWithURL(url foundation.NSURL) VZSEPStorage {
 	instance := getVZSEPStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return VZSEPStorageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initCreatingStorageAtURL:error:
-func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStorage, error) {
+func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZSEPStorage{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZSEPStorage), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZSEPStorageFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initWithURL:
-func (v VZSEPStorage) InitWithURL(url foundation.INSURL) VZSEPStorage {
+func (v VZSEPStorage) InitWithURL(url foundation.NSURL) VZSEPStorage {
 	rv := objc.Send[VZSEPStorage](v.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/URL
-func (v VZSEPStorage) URL() foundation.INSURL {
+func (v VZSEPStorage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -83,8 +84,6 @@ func (gc GTAGX2ShaderProfilerClass) Alloc() GTAGX2ShaderProfiler {
 //   - [GTAGX2ShaderProfiler.StoreActionTimes]
 //   - [GTAGX2ShaderProfiler.TimingInfo]
 //   - [GTAGX2ShaderProfiler.InitWithStreamDataForTargetIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler
 type GTAGX2ShaderProfiler struct {
 	objectivec.Object
 }
@@ -138,8 +137,6 @@ var _ IGTAGX2ShaderProfiler = GTAGX2ShaderProfiler{}
 //   - [IGTAGX2ShaderProfiler.StoreActionTimes]
 //   - [IGTAGX2ShaderProfiler.TimingInfo]
 //   - [IGTAGX2ShaderProfiler.InitWithStreamDataForTargetIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler
 type IGTAGX2ShaderProfiler interface {
 	objectivec.IObject
 
@@ -157,7 +154,7 @@ type IGTAGX2ShaderProfiler interface {
 	_dumpAggregatedGPUTimePerBatchForFrame(frame uint32)
 	_dumpLimiterBatchInfoCostsForRingBufferForFrame(costs unsafe.Pointer, buffer uint32, frame uint32)
 	_dumpShaderBinaries()
-	_dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file objectivec.IObject, packets unsafe.Pointer, samples unsafe.Pointer, count uint32, index int)
+	_dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file unsafe.Pointer, packets *uint32, samples unsafe.Pointer, count uint32, index int)
 	_initiateConnectionToLLVMHelper() bool
 	_latencyAdjustmentEstimateWithLimiter(estimate float64, limiter float64) float64
 	_latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64
@@ -165,17 +162,17 @@ type IGTAGX2ShaderProfiler interface {
 	_latencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64
 	_latencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64
 	_mergeLegacyAndNewShadersInShaderInfoDictionary(dictionary objectivec.IObject) objectivec.IObject
-	_processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets unsafe.Pointer, index uint32, list unsafe.Pointer, index2 int, index3 uint32)
+	_processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets *uint32, index uint32, list unsafe.Pointer, index2 int, index3 uint32)
 	_setupShaderBinaryInfoWithBinaryKeyAndNumDraws(info objectivec.IObject, key unsafe.Pointer, draws uint32)
 	_waitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64
 	AdjustHWBiasAndFinalizeResultBlitKickIndicesBlitTimesResult(result objectivec.IObject, indices objectivec.IObject, times objectivec.IObject, result2 objectivec.IObject) float64
 	AveragePerDrawKickDurations() foundation.INSArray
 	DumpShaderBinarySamples(samples unsafe.Pointer)
 	EffectiveKickTimes() foundation.INSArray
-	EvaluateStreamingSamplesWithUSCSampleNumWithProgramAddressLUTTargetIndexForRingBufferIndexWithMinEncoderIndexWithMaxEncoderIndexWithEncoderIdToEncoderIndexMapWithProfilingData(samples unsafe.Pointer, num uint32, lut unsafe.Pointer, index int, index2 uint32, index3 uint32, index4 uint32, map_ unsafe.Pointer, data objectivec.IObject)
+	EvaluateStreamingSamplesWithUSCSampleNumWithProgramAddressLUTTargetIndexForRingBufferIndexWithMinEncoderIndexWithMaxEncoderIndexWithEncoderIdToEncoderIndexMapWithProfilingData(samples *uint64, num uint32, lut unsafe.Pointer, index int, index2 uint32, index3 uint32, index4 uint32, map_ unsafe.Pointer, data objectivec.IObject)
 	HandleHarvestedBinaryInfo(info objectivec.IObject)
-	IsaPrinter() objectivec.IObject
-	SetIsaPrinter(value objectivec.IObject)
+	IsaPrinter() unsafe.Pointer
+	SetIsaPrinter(value kernel.Pointer)
 	LoadActionTimes() foundation.INSArray
 	PerRingPerFrameLimiterData() foundation.INSDictionary
 	SetRingBufferCount(count uint32)
@@ -203,14 +200,12 @@ func NewGTAGX2ShaderProfiler() GTAGX2ShaderProfiler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/initWithStreamData:forTargetIndex:
 func NewGTAGX2ShaderProfilerWithStreamDataForTargetIndex(data objectivec.IObject, index int) GTAGX2ShaderProfiler {
 	instance := getGTAGX2ShaderProfilerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:forTargetIndex:"), data, index)
 	return GTAGX2ShaderProfilerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_analyzeShaderBinaries
 func (g GTAGX2ShaderProfiler) _analyzeShaderBinaries() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_analyzeShaderBinaries"))
 }
@@ -229,8 +224,6 @@ func (g GTAGX2ShaderProfiler) AnalyzeShaderBinaries() error {
 func (g GTAGX2ShaderProfiler) CanAnalyzeShaderBinaries() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_analyzeShaderBinaries"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAggregatedEffectiveGPUEncoderCost
 func (g GTAGX2ShaderProfiler) _calculateAggregatedEffectiveGPUEncoderCost() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculateAggregatedEffectiveGPUEncoderCost"))
 }
@@ -249,8 +242,6 @@ func (g GTAGX2ShaderProfiler) CalculateAggregatedEffectiveGPUEncoderCost() error
 func (g GTAGX2ShaderProfiler) CanCalculateAggregatedEffectiveGPUEncoderCost() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAggregatedEffectiveGPUEncoderCost"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:
 func (g GTAGX2ShaderProfiler) _calculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts(costs unsafe.Pointer, index uint32, timestamp uint64, indices unsafe.Pointer, buffers unsafe.Pointer, batches unsafe.Pointer, costs2 unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:"), costs, index, timestamp, indices, buffers, batches, costs2)
 }
@@ -269,8 +260,6 @@ func (g GTAGX2ShaderProfiler) CalculateAndAppendPerBatchCostsForFrameIndexAtTime
 func (g GTAGX2ShaderProfiler) CanCalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAverageGPUCommandDuration
 func (g GTAGX2ShaderProfiler) _calculateAverageGPUCommandDuration() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculateAverageGPUCommandDuration"))
 }
@@ -289,8 +278,6 @@ func (g GTAGX2ShaderProfiler) CalculateAverageGPUCommandDuration() error {
 func (g GTAGX2ShaderProfiler) CanCalculateAverageGPUCommandDuration() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAverageGPUCommandDuration"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateEffectiveGPUEncoderCostForFrameIndex:
 func (g GTAGX2ShaderProfiler) _calculateEffectiveGPUEncoderCostForFrameIndex(index uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculateEffectiveGPUEncoderCostForFrameIndex:"), index)
 }
@@ -309,8 +296,6 @@ func (g GTAGX2ShaderProfiler) CalculateEffectiveGPUEncoderCostForFrameIndex(inde
 func (g GTAGX2ShaderProfiler) CanCalculateEffectiveGPUEncoderCostForFrameIndex() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateEffectiveGPUEncoderCostForFrameIndex:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculatePerDrawCosts:result:
 func (g GTAGX2ShaderProfiler) _calculatePerDrawCostsResult(costs objectivec.IObject, result objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerDrawCosts:result:"), costs, result)
 }
@@ -329,8 +314,6 @@ func (g GTAGX2ShaderProfiler) CalculatePerDrawCostsResult(costs objectivec.IObje
 func (g GTAGX2ShaderProfiler) CanCalculatePerDrawCostsResult() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCosts:result:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_cleanup
 func (g GTAGX2ShaderProfiler) _cleanup() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_cleanup"))
 }
@@ -349,8 +332,6 @@ func (g GTAGX2ShaderProfiler) Cleanup() error {
 func (g GTAGX2ShaderProfiler) CanCleanup() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_cleanup"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:
 func (g GTAGX2ShaderProfiler) _computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample ShaderProfilerUSCSampleInfo, address uint64, address2 uint64) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"), sample, address, address2)
 	return rv
@@ -369,8 +350,6 @@ func (g GTAGX2ShaderProfiler) ComputeSampleNormFactorForSampleForProgramStartAdd
 func (g GTAGX2ShaderProfiler) CanComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_conservativeLatencyAdjustment:withLimiter:
 func (g GTAGX2ShaderProfiler) _conservativeLatencyAdjustmentWithLimiter(adjustment float64, limiter float64) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_conservativeLatencyAdjustment:withLimiter:"), adjustment, limiter)
 	return rv
@@ -389,8 +368,6 @@ func (g GTAGX2ShaderProfiler) ConservativeLatencyAdjustmentWithLimiter(adjustmen
 func (g GTAGX2ShaderProfiler) CanConservativeLatencyAdjustmentWithLimiter() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_conservativeLatencyAdjustment:withLimiter:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpAggregatedGPUTimePerBatchForFrame:
 func (g GTAGX2ShaderProfiler) _dumpAggregatedGPUTimePerBatchForFrame(frame uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_dumpAggregatedGPUTimePerBatchForFrame:"), frame)
 }
@@ -409,8 +386,6 @@ func (g GTAGX2ShaderProfiler) DumpAggregatedGPUTimePerBatchForFrame(frame uint32
 func (g GTAGX2ShaderProfiler) CanDumpAggregatedGPUTimePerBatchForFrame() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpAggregatedGPUTimePerBatchForFrame:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:
 func (g GTAGX2ShaderProfiler) _dumpLimiterBatchInfoCostsForRingBufferForFrame(costs unsafe.Pointer, buffer uint32, frame uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:"), costs, buffer, frame)
 }
@@ -429,8 +404,6 @@ func (g GTAGX2ShaderProfiler) DumpLimiterBatchInfoCostsForRingBufferForFrame(cos
 func (g GTAGX2ShaderProfiler) CanDumpLimiterBatchInfoCostsForRingBufferForFrame() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpShaderBinaries
 func (g GTAGX2ShaderProfiler) _dumpShaderBinaries() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_dumpShaderBinaries"))
 }
@@ -449,14 +422,12 @@ func (g GTAGX2ShaderProfiler) DumpShaderBinaries() error {
 func (g GTAGX2ShaderProfiler) CanDumpShaderBinaries() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpShaderBinaries"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:
-func (g GTAGX2ShaderProfiler) _dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file objectivec.IObject, packets unsafe.Pointer, samples unsafe.Pointer, count uint32, index int) {
+func (g GTAGX2ShaderProfiler) _dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file unsafe.Pointer, packets *uint32, samples unsafe.Pointer, count uint32, index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:"), file, packets, samples, count, index)
 }
 
 // DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex is an exported wrapper for the private method _dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex.
-func (g GTAGX2ShaderProfiler) DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file objectivec.IObject, packets unsafe.Pointer, samples unsafe.Pointer, count uint32, index int) error {
+func (g GTAGX2ShaderProfiler) DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file unsafe.Pointer, packets *uint32, samples unsafe.Pointer, count uint32, index int) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:"}
 		return err
@@ -469,8 +440,6 @@ func (g GTAGX2ShaderProfiler) DumpTraceBufferPacketsInFileUsingTracePacketsWithE
 func (g GTAGX2ShaderProfiler) CanDumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_initiateConnectionToLLVMHelper
 func (g GTAGX2ShaderProfiler) _initiateConnectionToLLVMHelper() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_initiateConnectionToLLVMHelper"))
 	return rv
@@ -489,8 +458,6 @@ func (g GTAGX2ShaderProfiler) InitiateConnectionToLLVMHelper() (bool, error) {
 func (g GTAGX2ShaderProfiler) CanInitiateConnectionToLLVMHelper() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_initiateConnectionToLLVMHelper"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentEstimate:withLimiter:
 func (g GTAGX2ShaderProfiler) _latencyAdjustmentEstimateWithLimiter(estimate float64, limiter float64) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_latencyAdjustmentEstimate:withLimiter:"), estimate, limiter)
 	return rv
@@ -509,8 +476,6 @@ func (g GTAGX2ShaderProfiler) LatencyAdjustmentEstimateWithLimiter(estimate floa
 func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentEstimateWithLimiter() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentEstimate:withLimiter:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:
 func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:"), data, index, map_, type_)
 	return rv
@@ -529,8 +494,6 @@ func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWith
 func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:
 func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore(data []float64, index uint64, map_ unsafe.Pointer, load uint32, store uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:"), data, index, map_, load, store)
 	return rv
@@ -549,8 +512,6 @@ func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWith
 func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:
 func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:"), lerp, index, map_, type_)
 	return rv
@@ -569,8 +530,6 @@ func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataWithLerpForI
 func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:
 func (g GTAGX2ShaderProfiler) _latencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"), data, index, map_)
 	return rv
@@ -589,8 +548,6 @@ func (g GTAGX2ShaderProfiler) LatencyAdjustmentWithLimiterDataForIndexWithLimite
 func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_mergeLegacyAndNewShadersInShaderInfoDictionary:
 func (g GTAGX2ShaderProfiler) _mergeLegacyAndNewShadersInShaderInfoDictionary(dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_mergeLegacyAndNewShadersInShaderInfoDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
@@ -609,14 +566,12 @@ func (g GTAGX2ShaderProfiler) MergeLegacyAndNewShadersInShaderInfoDictionary(dic
 func (g GTAGX2ShaderProfiler) CanMergeLegacyAndNewShadersInShaderInfoDictionary() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_mergeLegacyAndNewShadersInShaderInfoDictionary:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:
-func (g GTAGX2ShaderProfiler) _processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets unsafe.Pointer, index uint32, list unsafe.Pointer, index2 int, index3 uint32) {
+func (g GTAGX2ShaderProfiler) _processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets *uint32, index uint32, list unsafe.Pointer, index2 int, index3 uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:"), packets, index, list, index2, index3)
 }
 
 // ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex is an exported wrapper for the private method _processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex.
-func (g GTAGX2ShaderProfiler) ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets unsafe.Pointer, index uint32, list unsafe.Pointer, index2 int, index3 uint32) error {
+func (g GTAGX2ShaderProfiler) ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets *uint32, index uint32, list unsafe.Pointer, index2 int, index3 uint32) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:"}
 		return err
@@ -629,8 +584,6 @@ func (g GTAGX2ShaderProfiler) ProcessTracePacketsForRenderIndexAndGenerateSample
 func (g GTAGX2ShaderProfiler) CanProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_setupShaderBinaryInfo:withBinaryKey:andNumDraws:
 func (g GTAGX2ShaderProfiler) _setupShaderBinaryInfoWithBinaryKeyAndNumDraws(info objectivec.IObject, key unsafe.Pointer, draws uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_setupShaderBinaryInfo:withBinaryKey:andNumDraws:"), info, key, draws)
 }
@@ -649,8 +602,6 @@ func (g GTAGX2ShaderProfiler) SetupShaderBinaryInfoWithBinaryKeyAndNumDraws(info
 func (g GTAGX2ShaderProfiler) CanSetupShaderBinaryInfoWithBinaryKeyAndNumDraws() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_setupShaderBinaryInfo:withBinaryKey:andNumDraws:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:
 func (g GTAGX2ShaderProfiler) _waitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"), data, index, map_)
 	return rv
@@ -669,79 +620,54 @@ func (g GTAGX2ShaderProfiler) WaitLatencyAdjustmentWithLimiterDataForIndexWithLi
 func (g GTAGX2ShaderProfiler) CanWaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/adjustHWBiasAndFinalizeResult:blitKickIndices:blitTimes:result:
 func (g GTAGX2ShaderProfiler) AdjustHWBiasAndFinalizeResultBlitKickIndicesBlitTimesResult(result objectivec.IObject, indices objectivec.IObject, times objectivec.IObject, result2 objectivec.IObject) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("adjustHWBiasAndFinalizeResult:blitKickIndices:blitTimes:result:"), result, indices, times, result2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/dumpShaderBinarySamples:
 func (g GTAGX2ShaderProfiler) DumpShaderBinarySamples(samples unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("dumpShaderBinarySamples:"), samples)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/evaluateStreamingSamples:withUSCSampleNum:withProgramAddressLUT:targetIndex:forRingBufferIndex:withMinEncoderIndex:withMaxEncoderIndex:withEncoderIdToEncoderIndexMap:withProfilingData:
-func (g GTAGX2ShaderProfiler) EvaluateStreamingSamplesWithUSCSampleNumWithProgramAddressLUTTargetIndexForRingBufferIndexWithMinEncoderIndexWithMaxEncoderIndexWithEncoderIdToEncoderIndexMapWithProfilingData(samples unsafe.Pointer, num uint32, lut unsafe.Pointer, index int, index2 uint32, index3 uint32, index4 uint32, map_ unsafe.Pointer, data objectivec.IObject) {
+func (g GTAGX2ShaderProfiler) EvaluateStreamingSamplesWithUSCSampleNumWithProgramAddressLUTTargetIndexForRingBufferIndexWithMinEncoderIndexWithMaxEncoderIndexWithEncoderIdToEncoderIndexMapWithProfilingData(samples *uint64, num uint32, lut unsafe.Pointer, index int, index2 uint32, index3 uint32, index4 uint32, map_ unsafe.Pointer, data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("evaluateStreamingSamples:withUSCSampleNum:withProgramAddressLUT:targetIndex:forRingBufferIndex:withMinEncoderIndex:withMaxEncoderIndex:withEncoderIdToEncoderIndexMap:withProfilingData:"), samples, num, lut, index, index2, index3, index4, map_, data)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/handleHarvestedBinaryInfo:
 func (g GTAGX2ShaderProfiler) HandleHarvestedBinaryInfo(info objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("handleHarvestedBinaryInfo:"), info)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/setRingBufferCount:
 func (g GTAGX2ShaderProfiler) SetRingBufferCount(count uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setRingBufferCount:"), count)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/initWithStreamData:forTargetIndex:
 func (g GTAGX2ShaderProfiler) InitWithStreamDataForTargetIndex(data objectivec.IObject, index int) GTAGX2ShaderProfiler {
 	rv := objc.Send[GTAGX2ShaderProfiler](g.ID, objc.Sel("initWithStreamData:forTargetIndex:"), data, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/averagePerDrawKickDurations
 func (g GTAGX2ShaderProfiler) AveragePerDrawKickDurations() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("averagePerDrawKickDurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/effectiveKickTimes
 func (g GTAGX2ShaderProfiler) EffectiveKickTimes() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("effectiveKickTimes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/isaPrinter
-func (g GTAGX2ShaderProfiler) IsaPrinter() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrinter"))
-	return objectivec.Object{ID: rv}
+func (g GTAGX2ShaderProfiler) IsaPrinter() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
+	return rv
 }
-func (g GTAGX2ShaderProfiler) SetIsaPrinter(value objectivec.IObject) {
+func (g GTAGX2ShaderProfiler) SetIsaPrinter(value kernel.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/loadActionTimes
 func (g GTAGX2ShaderProfiler) LoadActionTimes() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("loadActionTimes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/perRingPerFrameLimiterData
 func (g GTAGX2ShaderProfiler) PerRingPerFrameLimiterData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("perRingPerFrameLimiterData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/storeActionTimes
 func (g GTAGX2ShaderProfiler) StoreActionTimes() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("storeActionTimes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/timingInfo
 func (g GTAGX2ShaderProfiler) TimingInfo() IGTShaderProfilerTimingInfo {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))

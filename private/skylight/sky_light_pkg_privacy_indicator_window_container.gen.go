@@ -42,7 +42,6 @@ func (sc SkyLightPKGPrivacyIndicatorWindowContainerClass) Alloc() SkyLightPKGPri
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGPrivacyIndicatorWindowContainer
 type SkyLightPKGPrivacyIndicatorWindowContainer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPKGPrivacyIndicatorWindowContainerFromID(id objc.ID) SkyLightPKGPri
 // ISkyLightPKGPrivacyIndicatorWindowContainer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPKGPrivacyIndicatorWindowContainer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGPrivacyIndicatorWindowContainer
 type ISkyLightPKGPrivacyIndicatorWindowContainer interface {
 	objectivec.IObject
 }

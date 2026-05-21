@@ -57,8 +57,6 @@ func (mc MLCeilBrickClass) Alloc() MLCeilBrick {
 //   - [MLCeilBrick.Description]
 //   - [MLCeilBrick.Hash]
 //   - [MLCeilBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick
 type MLCeilBrick struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IMLCeilBrick = MLCeilBrick{}
 //   - [IMLCeilBrick.Description]
 //   - [IMLCeilBrick.Hash]
 //   - [IMLCeilBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick
 type IMLCeilBrick interface {
 	objectivec.IObject
 
@@ -105,7 +101,7 @@ type IMLCeilBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,80 +123,57 @@ func NewMLCeilBrick() MLCeilBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/initWithParameters:
 func NewCeilBrickWithParameters(parameters objectivec.IObject) MLCeilBrick {
 	instance := getMLCeilBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCeilBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLCeilBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/hasGPUSupport
 func (m MLCeilBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/setupForInputShapes:withParameters:
 func (m MLCeilBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/initWithParameters:
 func (m MLCeilBrick) InitWithParameters(parameters objectivec.IObject) MLCeilBrick {
 	rv := objc.Send[MLCeilBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/debugDescription
 func (m MLCeilBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/description
 func (m MLCeilBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/hash
 func (m MLCeilBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/inputRanks
 func (m MLCeilBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/inputShapes
 func (m MLCeilBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/outputRanks
 func (m MLCeilBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/outputShapes
 func (m MLCeilBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLCeilBrick/superclass
-func (m MLCeilBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLCeilBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

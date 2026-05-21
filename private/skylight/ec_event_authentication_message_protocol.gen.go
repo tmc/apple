@@ -8,14 +8,10 @@ import (
 )
 
 // ECEventAuthenticationMessage protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECEventAuthenticationMessage
 type ECEventAuthenticationMessage interface {
 	objectivec.IObject
 
 	// Capabilities protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECEventAuthenticationMessage/capabilities
 	Capabilities() uint64
 }
 
@@ -36,19 +32,14 @@ func ECEventAuthenticationMessageObjectFromID(id objc.ID) ECEventAuthenticationM
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECEventAuthenticationMessage/capabilities
 func (o ECEventAuthenticationMessageObject) Capabilities() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("capabilities"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECEventAuthenticationMessage/eventType
 func (o ECEventAuthenticationMessageObject) EventType() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("eventType"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECEventAuthenticationMessage/proxyTargetProcess
 func (o ECEventAuthenticationMessageObject) ProxyTargetProcess() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("proxyTargetProcess"))
 	return objectivec.Object{ID: rv}

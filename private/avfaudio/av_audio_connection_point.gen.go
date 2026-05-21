@@ -42,7 +42,6 @@ func (ac AVAudioConnectionPointClass) Alloc() AVAudioConnectionPoint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint
 type AVAudioConnectionPoint struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func AVAudioConnectionPointFromID(id objc.ID) AVAudioConnectionPoint {
 var _ IAVAudioConnectionPoint = AVAudioConnectionPoint{}
 
 // An interface definition for the [AVAudioConnectionPoint] class.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint
 type IAVAudioConnectionPoint interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewAVAudioConnectionPoint() AVAudioConnectionPoint {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint/connectionPointWithNode:bus:
 func (_AVAudioConnectionPointClass AVAudioConnectionPointClass) ConnectionPointWithNodeBus(node objectivec.IObject, bus uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioConnectionPointClass.class), objc.Sel("connectionPointWithNode:bus:"), node, bus)
 	return objectivec.Object{ID: rv}

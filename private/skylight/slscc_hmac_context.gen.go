@@ -50,8 +50,6 @@ func (sc SLSCCHmacContextClass) Alloc() SLSCCHmacContext {
 //   - [SLSCCHmacContext.UpdateSigningContextWithBytesLength]
 //   - [SLSCCHmacContext.UpdateSigningContextWithData]
 //   - [SLSCCHmacContext.UpdateSigningContextWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext
 type SLSCCHmacContext struct {
 	objectivec.Object
 }
@@ -72,15 +70,13 @@ var _ ISLSCCHmacContext = SLSCCHmacContext{}
 //   - [ISLSCCHmacContext.UpdateSigningContextWithBytesLength]
 //   - [ISLSCCHmacContext.UpdateSigningContextWithData]
 //   - [ISLSCCHmacContext.UpdateSigningContextWithObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext
 type ISLSCCHmacContext interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	FinalizedData() foundation.INSData
-	UpdateSigningContextWithBytesLength(bytes []byte)
+	FinalizedData() foundation.NSData
+	UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64)
 	UpdateSigningContextWithData(data objectivec.IObject)
 	UpdateSigningContextWithObject(object objectivec.IObject)
 }
@@ -104,29 +100,22 @@ func NewSLSCCHmacContext() SLSCCHmacContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext/updateSigningContextWithBytes:length:
-func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes []byte) {
-	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64) {
+	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext/updateSigningContextWithData:
 func (s SLSCCHmacContext) UpdateSigningContextWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithData:"), data)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext/updateSigningContextWithObject:
 func (s SLSCCHmacContext) UpdateSigningContextWithObject(object objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithObject:"), object)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext/contextWithImplementingDigester:
-func (_SLSCCHmacContextClass SLSCCHmacContextClass) ContextWithImplementingDigester(digester objectivec.IObject) objectivec.IObject {
+func (_SLSCCHmacContextClass SLSCCHmacContextClass) ContextWithImplementingDigester(digester unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSCCHmacContextClass.class), objc.Sel("contextWithImplementingDigester:"), digester)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSCCHmacContext/finalizedData
-func (s SLSCCHmacContext) FinalizedData() foundation.INSData {
+func (s SLSCCHmacContext) FinalizedData() foundation.NSData {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("finalizedData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

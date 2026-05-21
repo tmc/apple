@@ -45,8 +45,6 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 // # Methods
 //
 //   - [VZNetworkDevice._type]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDevice
 type VZNetworkDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZNetworkDevice = VZNetworkDevice{}
 // # Methods
 //
 //   - [IVZNetworkDevice._type]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDevice
 type IVZNetworkDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZNetworkDevice() VZNetworkDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkDevice/_type
 func (v VZNetworkDevice) _type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_type"))
 	return rv

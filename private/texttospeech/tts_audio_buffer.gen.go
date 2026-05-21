@@ -4,11 +4,11 @@ package texttospeech
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/avfaudio"
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSAudioBuffer] class.
@@ -54,8 +54,6 @@ func (tc TTSAudioBufferClass) Alloc() TTSAudioBuffer {
 //   - [TTSAudioBuffer.MutableAudioBufferList]
 //   - [TTSAudioBuffer.InitWithAVBuffer]
 //   - [TTSAudioBuffer.InitWithFormatFrameCapacity]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer
 type TTSAudioBuffer struct {
 	objectivec.Object
 }
@@ -80,8 +78,6 @@ var _ ITTSAudioBuffer = TTSAudioBuffer{}
 //   - [ITTSAudioBuffer.MutableAudioBufferList]
 //   - [ITTSAudioBuffer.InitWithAVBuffer]
 //   - [ITTSAudioBuffer.InitWithFormatFrameCapacity]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer
 type ITTSAudioBuffer interface {
 	objectivec.IObject
 
@@ -92,7 +88,7 @@ type ITTSAudioBuffer interface {
 	FrameCapacity() uint32
 	FrameLength() uint32
 	SetFrameLength(value uint32)
-	MutableAudioBufferList() unsafe.Pointer
+	MutableAudioBufferList() coreaudiotypes.AudioBufferList
 	InitWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer
 	InitWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer
 }
@@ -116,51 +112,39 @@ func NewTTSAudioBuffer() TTSAudioBuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/initWithAVBuffer:
 func NewTTSAudioBufferWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer {
 	instance := getTTSAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
 	return TTSAudioBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/initWithFormat:frameCapacity:
 func NewTTSAudioBufferWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer {
 	instance := getTTSAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
 	return TTSAudioBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/initWithAVBuffer:
 func (t TTSAudioBuffer) InitWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer {
 	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/initWithFormat:frameCapacity:
 func (t TTSAudioBuffer) InitWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer {
 	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/avBuffer
 func (t TTSAudioBuffer) AvBuffer() avfaudio.AVAudioPCMBuffer {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avBuffer"))
 	return avfaudio.AVAudioPCMBufferFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/format
 func (t TTSAudioBuffer) Format() ITTSAudioFormat {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("format"))
 	return TTSAudioFormatFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/frameCapacity
 func (t TTSAudioBuffer) FrameCapacity() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("frameCapacity"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/frameLength
 func (t TTSAudioBuffer) FrameLength() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("frameLength"))
 	return rv
@@ -168,9 +152,7 @@ func (t TTSAudioBuffer) FrameLength() uint32 {
 func (t TTSAudioBuffer) SetFrameLength(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFrameLength:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/mutableAudioBufferList
-func (t TTSAudioBuffer) MutableAudioBufferList() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("mutableAudioBufferList"))
-	return rv
+func (t TTSAudioBuffer) MutableAudioBufferList() coreaudiotypes.AudioBufferList {
+	rv := objc.Send[coreaudiotypes.AudioBufferList](t.ID, objc.Sel("mutableAudioBufferList"))
+	return coreaudiotypes.AudioBufferList(rv)
 }

@@ -8,8 +8,6 @@ import (
 )
 
 // CoreMLModelSecurityServiceToClientProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClientProtocol
 type CoreMLModelSecurityServiceToClientProtocol interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func CoreMLModelSecurityServiceToClientProtocolObjectFromID(id objc.ID) CoreMLMo
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClientProtocol/clientFeatureValueForName:uniqueKeyForProvider:withReply:
 func (o CoreMLModelSecurityServiceToClientProtocolObject) ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply MLFeatureValueErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("clientFeatureValueForName:uniqueKeyForProvider:withReply:"), name, provider, reply)
 }

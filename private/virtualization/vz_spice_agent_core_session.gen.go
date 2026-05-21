@@ -42,7 +42,6 @@ func (vc VZSpiceAgentCoreSessionClass) Alloc() VZSpiceAgentCoreSession {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreSession
 type VZSpiceAgentCoreSession struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZSpiceAgentCoreSessionFromID(id objc.ID) VZSpiceAgentCoreSession {
 var _ IVZSpiceAgentCoreSession = VZSpiceAgentCoreSession{}
 
 // An interface definition for the [VZSpiceAgentCoreSession] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreSession
 type IVZSpiceAgentCoreSession interface {
 	objectivec.IObject
 }

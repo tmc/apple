@@ -45,8 +45,6 @@ func (vc VZSocketDeviceClass) Alloc() VZSocketDevice {
 // # Methods
 //
 //   - [VZSocketDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice
 type VZSocketDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZSocketDevice = VZSocketDevice{}
 // # Methods
 //
 //   - [IVZSocketDevice._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice
 type IVZSocketDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZSocketDevice() VZSocketDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice/_init
 func (v VZSocketDevice) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}

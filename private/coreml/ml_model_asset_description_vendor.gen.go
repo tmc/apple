@@ -53,8 +53,6 @@ func (mc MLModelAssetDescriptionVendorClass) Alloc() MLModelAssetDescriptionVend
 //   - [MLModelAssetDescriptionVendor.ModelDescriptionWithCompletionHandler]
 //   - [MLModelAssetDescriptionVendor.ResourceFactory]
 //   - [MLModelAssetDescriptionVendor.InitWithResourceFactory]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor
 type MLModelAssetDescriptionVendor struct {
 	objectivec.Object
 }
@@ -79,8 +77,6 @@ var _ IMLModelAssetDescriptionVendor = MLModelAssetDescriptionVendor{}
 //   - [IMLModelAssetDescriptionVendor.ModelDescriptionWithCompletionHandler]
 //   - [IMLModelAssetDescriptionVendor.ResourceFactory]
 //   - [IMLModelAssetDescriptionVendor.InitWithResourceFactory]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor
 type IMLModelAssetDescriptionVendor interface {
 	objectivec.IObject
 
@@ -115,14 +111,12 @@ func NewMLModelAssetDescriptionVendor() MLModelAssetDescriptionVendor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/initWithResourceFactory:
 func NewModelAssetDescriptionVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetDescriptionVendor {
 	instance := getMLModelAssetDescriptionVendorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return MLModelAssetDescriptionVendorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/_modelAssetDescriptionWithCompletionHandler:
 func (m MLModelAssetDescriptionVendor) _modelAssetDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:"), _block0)
@@ -142,32 +136,23 @@ func (m MLModelAssetDescriptionVendor) ModelAssetDescriptionWithCompletionHandle
 func (m MLModelAssetDescriptionVendor) CanModelAssetDescriptionWithCompletionHandler() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/functionNamesWithCompletionHandler:
 func (m MLModelAssetDescriptionVendor) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/modelDescriptionOfFunctionNamed:completionHandler:
 func (m MLModelAssetDescriptionVendor) ModelDescriptionOfFunctionNamedCompletionHandler(named objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), named, _block1)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/modelDescriptionWithCompletionHandler:
 func (m MLModelAssetDescriptionVendor) ModelDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/initWithResourceFactory:
 func (m MLModelAssetDescriptionVendor) InitWithResourceFactory(factory objectivec.IObject) MLModelAssetDescriptionVendor {
 	rv := objc.Send[MLModelAssetDescriptionVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/modelAssetDescription
 func (m MLModelAssetDescriptionVendor) ModelAssetDescription() IMLModelAssetDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
 	return MLModelAssetDescriptionFromID(objc.ID(rv))
@@ -175,8 +160,6 @@ func (m MLModelAssetDescriptionVendor) ModelAssetDescription() IMLModelAssetDesc
 func (m MLModelAssetDescriptionVendor) SetModelAssetDescription(value IMLModelAssetDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelAssetDescription:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/resourceFactory
 func (m MLModelAssetDescriptionVendor) ResourceFactory() IMLModelAssetResourceFactory {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
 	return MLModelAssetResourceFactoryFromID(objc.ID(rv))

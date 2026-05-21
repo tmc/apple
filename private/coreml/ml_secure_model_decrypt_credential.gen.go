@@ -49,8 +49,6 @@ func (mc MLSecureModelDecryptCredentialClass) Alloc() MLSecureModelDecryptCreden
 //   - [MLSecureModelDecryptCredential.SetCryptoKey]
 //   - [MLSecureModelDecryptCredential.EncodeWithCoder]
 //   - [MLSecureModelDecryptCredential.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential
 type MLSecureModelDecryptCredential struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IMLSecureModelDecryptCredential = MLSecureModelDecryptCredential{}
 //   - [IMLSecureModelDecryptCredential.SetCryptoKey]
 //   - [IMLSecureModelDecryptCredential.EncodeWithCoder]
 //   - [IMLSecureModelDecryptCredential.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential
 type IMLSecureModelDecryptCredential interface {
 	objectivec.IObject
 
@@ -103,31 +99,25 @@ func NewMLSecureModelDecryptCredential() MLSecureModelDecryptCredential {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/initWithCoder:
 func NewSecureModelDecryptCredentialWithCoder(coder objectivec.IObject) MLSecureModelDecryptCredential {
 	instance := getMLSecureModelDecryptCredentialClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSecureModelDecryptCredentialFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/encodeWithCoder:
 func (m MLSecureModelDecryptCredential) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/initWithCoder:
 func (m MLSecureModelDecryptCredential) InitWithCoder(coder foundation.INSCoder) MLSecureModelDecryptCredential {
 	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/supportsSecureCoding
 func (_MLSecureModelDecryptCredentialClass MLSecureModelDecryptCredentialClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLSecureModelDecryptCredentialClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/cryptoKey
 func (m MLSecureModelDecryptCredential) CryptoKey() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("cryptoKey"))
 	return rv

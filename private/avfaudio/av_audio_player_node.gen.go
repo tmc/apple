@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioPlayerNode] class.
@@ -52,8 +53,6 @@ func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
 //   - [AVAudioPlayerNode.Hash]
 //   - [AVAudioPlayerNode.Playing]
 //   - [AVAudioPlayerNode.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode
 type AVAudioPlayerNode struct {
 	AVAudioNode
 }
@@ -76,8 +75,6 @@ var _ IAVAudioPlayerNode = AVAudioPlayerNode{}
 //   - [IAVAudioPlayerNode.Hash]
 //   - [IAVAudioPlayerNode.Playing]
 //   - [IAVAudioPlayerNode.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode
 type IAVAudioPlayerNode interface {
 	IAVAudioNode
 
@@ -88,7 +85,7 @@ type IAVAudioPlayerNode interface {
 	Description() string
 	Hash() uint64
 	Playing() bool
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -110,47 +107,36 @@ func NewAVAudioPlayerNode() AVAudioPlayerNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioPlayerNodeWithImpl(impl unsafe.Pointer) AVAudioPlayerNode {
 	instance := getAVAudioPlayerNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioPlayerNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/callLegacyCompletionHandlerForType:legacyHandler:
 func (a AVAudioPlayerNode) CallLegacyCompletionHandlerForTypeLegacyHandler(type_ int64, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("callLegacyCompletionHandlerForType:legacyHandler:"), type_, _block1)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/debugDescription
 func (a AVAudioPlayerNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/description
 func (a AVAudioPlayerNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/hash
 func (a AVAudioPlayerNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/playing
 func (a AVAudioPlayerNode) Playing() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/superclass
-func (a AVAudioPlayerNode) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
-	return rv
+func (a AVAudioPlayerNode) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
 
 // CallLegacyCompletionHandlerForTypeLegacyHandlerSync is a synchronous wrapper around [AVAudioPlayerNode.CallLegacyCompletionHandlerForTypeLegacyHandler].

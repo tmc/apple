@@ -50,8 +50,6 @@ func (mc MLAppleImageFeatureExtractorObjectPrintParametersClass) Alloc() MLApple
 //   - [MLAppleImageFeatureExtractorObjectPrintParameters.ExpectedShapes]
 //   - [MLAppleImageFeatureExtractorObjectPrintParameters.ObjectPrintVersion]
 //   - [MLAppleImageFeatureExtractorObjectPrintParameters.InitObjectPrintParametersExpectedShapesExpectedKeysError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters
 type MLAppleImageFeatureExtractorObjectPrintParameters struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IMLAppleImageFeatureExtractorObjectPrintParameters = MLAppleImageFeatureEx
 //   - [IMLAppleImageFeatureExtractorObjectPrintParameters.ExpectedShapes]
 //   - [IMLAppleImageFeatureExtractorObjectPrintParameters.ObjectPrintVersion]
 //   - [IMLAppleImageFeatureExtractorObjectPrintParameters.InitObjectPrintParametersExpectedShapesExpectedKeysError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters
 type IMLAppleImageFeatureExtractorObjectPrintParameters interface {
 	objectivec.IObject
 
@@ -104,7 +100,6 @@ func NewMLAppleImageFeatureExtractorObjectPrintParameters() MLAppleImageFeatureE
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters/initObjectPrintParameters:expectedShapes:expectedKeys:error:
 func NewAppleImageFeatureExtractorObjectPrintParametersObjectPrintParametersExpectedShapesExpectedKeysError(parameters uint64, shapes objectivec.IObject, keys objectivec.IObject) (MLAppleImageFeatureExtractorObjectPrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorObjectPrintParametersClass().Alloc()
@@ -116,7 +111,6 @@ func NewAppleImageFeatureExtractorObjectPrintParametersObjectPrintParametersExpe
 	return MLAppleImageFeatureExtractorObjectPrintParametersFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters/initObjectPrintParameters:expectedShapes:expectedKeys:error:
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) InitObjectPrintParametersExpectedShapesExpectedKeysError(parameters uint64, shapes objectivec.IObject, keys objectivec.IObject) (MLAppleImageFeatureExtractorObjectPrintParameters, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initObjectPrintParameters:expectedShapes:expectedKeys:error:"), parameters, shapes, keys, unsafe.Pointer(&errorPtr))
@@ -128,19 +122,14 @@ func (m MLAppleImageFeatureExtractorObjectPrintParameters) InitObjectPrintParame
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters/expectedKeys
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ExpectedKeys() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("expectedKeys"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters/expectedShapes
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ExpectedShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("expectedShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorObjectPrintParameters/objectPrintVersion
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ObjectPrintVersion() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("objectPrintVersion"))
 	return rv

@@ -56,8 +56,6 @@ func (mc ModelKeyServerAPIRawKeyClass) Alloc() ModelKeyServerAPIRawKey {
 //   - [ModelKeyServerAPIRawKey.MergeFrom]
 //   - [ModelKeyServerAPIRawKey.ReadFrom]
 //   - [ModelKeyServerAPIRawKey.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey
 type ModelKeyServerAPIRawKey struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ func ModelKeyServerAPIRawKeyFromID(id objc.ID) ModelKeyServerAPIRawKey {
 //   - [IModelKeyServerAPIRawKey.MergeFrom]
 //   - [IModelKeyServerAPIRawKey.ReadFrom]
 //   - [IModelKeyServerAPIRawKey.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey
 type IModelKeyServerAPIRawKey interface {
 	IPBCodable
 
@@ -94,10 +90,10 @@ type IModelKeyServerAPIRawKey interface {
 
 	CopyTo(to objectivec.IObject)
 	DictionaryRepresentation() objectivec.IObject
-	EncryptionIv() foundation.INSData
-	SetEncryptionIv(value foundation.INSData)
-	EncryptionKey() foundation.INSData
-	SetEncryptionKey(value foundation.INSData)
+	EncryptionIv() foundation.NSData
+	SetEncryptionIv(value foundation.NSData)
+	EncryptionKey() foundation.NSData
+	SetEncryptionKey(value foundation.NSData)
 	HasEncryptionIv() bool
 	HasEncryptionKey() bool
 	MergeFrom(from objectivec.IObject)
@@ -124,58 +120,42 @@ func NewModelKeyServerAPIRawKey() ModelKeyServerAPIRawKey {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/copyTo:
 func (m ModelKeyServerAPIRawKey) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/dictionaryRepresentation
 func (m ModelKeyServerAPIRawKey) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/mergeFrom:
 func (m ModelKeyServerAPIRawKey) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/readFrom:
 func (m ModelKeyServerAPIRawKey) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/writeTo:
 func (m ModelKeyServerAPIRawKey) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/encryptionIv
-func (m ModelKeyServerAPIRawKey) EncryptionIv() foundation.INSData {
+func (m ModelKeyServerAPIRawKey) EncryptionIv() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("encryptionIv"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (m ModelKeyServerAPIRawKey) SetEncryptionIv(value foundation.INSData) {
+func (m ModelKeyServerAPIRawKey) SetEncryptionIv(value foundation.NSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEncryptionIv:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/encryptionKey
-func (m ModelKeyServerAPIRawKey) EncryptionKey() foundation.INSData {
+func (m ModelKeyServerAPIRawKey) EncryptionKey() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("encryptionKey"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (m ModelKeyServerAPIRawKey) SetEncryptionKey(value foundation.INSData) {
+func (m ModelKeyServerAPIRawKey) SetEncryptionKey(value foundation.NSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEncryptionKey:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/hasEncryptionIv
 func (m ModelKeyServerAPIRawKey) HasEncryptionIv() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasEncryptionIv"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIRawKey/hasEncryptionKey
 func (m ModelKeyServerAPIRawKey) HasEncryptionKey() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasEncryptionKey"))
 	return rv

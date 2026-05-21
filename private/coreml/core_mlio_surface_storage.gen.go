@@ -42,7 +42,6 @@ func (cc CoreMLIOSurfaceStorageClass) Alloc() CoreMLIOSurfaceStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceStorage
 type CoreMLIOSurfaceStorage struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLIOSurfaceStorageFromID(id objc.ID) CoreMLIOSurfaceStorage {
 // ICoreMLIOSurfaceStorage embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLIOSurfaceStorage] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceStorage
 type ICoreMLIOSurfaceStorage interface {
 	objectivec.IObject
 }

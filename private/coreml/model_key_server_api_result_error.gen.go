@@ -53,8 +53,6 @@ func (mc ModelKeyServerAPIResultErrorClass) Alloc() ModelKeyServerAPIResultError
 //   - [ModelKeyServerAPIResultError.SetMessage]
 //   - [ModelKeyServerAPIResultError.ReadFrom]
 //   - [ModelKeyServerAPIResultError.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError
 type ModelKeyServerAPIResultError struct {
 	objectivec.Object
 }
@@ -79,8 +77,6 @@ func ModelKeyServerAPIResultErrorFromID(id objc.ID) ModelKeyServerAPIResultError
 //   - [IModelKeyServerAPIResultError.SetMessage]
 //   - [IModelKeyServerAPIResultError.ReadFrom]
 //   - [IModelKeyServerAPIResultError.WriteTo]
-//
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError
 type IModelKeyServerAPIResultError interface {
 	IPBCodable
 
@@ -115,40 +111,28 @@ func NewModelKeyServerAPIResultError() ModelKeyServerAPIResultError {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/copyTo:
 func (m ModelKeyServerAPIResultError) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/dictionaryRepresentation
 func (m ModelKeyServerAPIResultError) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/mergeFrom:
 func (m ModelKeyServerAPIResultError) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/readFrom:
 func (m ModelKeyServerAPIResultError) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/writeTo:
 func (m ModelKeyServerAPIResultError) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/hasMessage
 func (m ModelKeyServerAPIResultError) HasMessage() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasMessage"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/message
 func (m ModelKeyServerAPIResultError) Message() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("message"))
 	return foundation.NSStringFromID(rv).String()

@@ -54,8 +54,6 @@ func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
 //   - [VZGraphicsDisplay._takeScreenshotWithCompletionHandler]
 //   - [VZGraphicsDisplay._uuid]
 //   - [VZGraphicsDisplay.InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay
 type VZGraphicsDisplay struct {
 	objectivec.Object
 }
@@ -81,8 +79,6 @@ var _ IVZGraphicsDisplay = VZGraphicsDisplay{}
 //   - [IVZGraphicsDisplay._takeScreenshotWithCompletionHandler]
 //   - [IVZGraphicsDisplay._uuid]
 //   - [IVZGraphicsDisplay.InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay
 type IVZGraphicsDisplay interface {
 	objectivec.IObject
 
@@ -118,14 +114,12 @@ func NewVZGraphicsDisplay() VZGraphicsDisplay {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func NewGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
 	instance := getVZGraphicsDisplayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZGraphicsDisplayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_configuration
 func (v VZGraphicsDisplay) _configuration() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
 	return objectivec.Object{ID: rv}
@@ -144,8 +138,6 @@ func (v VZGraphicsDisplay) Configuration() (objectivec.IObject, error) {
 func (v VZGraphicsDisplay) CanConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_configuration"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_graphicsDevice
 func (v VZGraphicsDisplay) _graphicsDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDevice"))
 	return objectivec.Object{ID: rv}
@@ -164,8 +156,6 @@ func (v VZGraphicsDisplay) GraphicsDevice() (objectivec.IObject, error) {
 func (v VZGraphicsDisplay) CanGraphicsDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_graphicsOrientation
 func (v VZGraphicsDisplay) _graphicsOrientation() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_graphicsOrientation"))
 	return rv
@@ -184,8 +174,6 @@ func (v VZGraphicsDisplay) GraphicsOrientation() (int64, error) {
 func (v VZGraphicsDisplay) CanGraphicsOrientation() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsOrientation"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_initDetached
 func (v VZGraphicsDisplay) _initDetached() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initDetached"))
 	return objectivec.Object{ID: rv}
@@ -204,8 +192,6 @@ func (v VZGraphicsDisplay) InitDetached() (objectivec.IObject, error) {
 func (v VZGraphicsDisplay) CanInitDetached() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initDetached"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_matchesConfiguration:
 func (v VZGraphicsDisplay) _matchesConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_matchesConfiguration:"), configuration)
 	return rv
@@ -224,8 +210,6 @@ func (v VZGraphicsDisplay) MatchesConfiguration(configuration objectivec.IObject
 func (v VZGraphicsDisplay) CanMatchesConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_matchesConfiguration:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_setGraphicsDevice:
 func (v VZGraphicsDisplay) _setGraphicsDevice(device objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDevice:"), device)
 }
@@ -244,8 +228,6 @@ func (v VZGraphicsDisplay) SetGraphicsDevice(device objectivec.IObject) error {
 func (v VZGraphicsDisplay) CanSetGraphicsDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDevice:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_takeScreenshotWithCompletionHandler:
 func (v VZGraphicsDisplay) _takeScreenshotWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"), _block0)
@@ -265,8 +247,6 @@ func (v VZGraphicsDisplay) TakeScreenshotWithCompletionHandler(handler ErrorHand
 func (v VZGraphicsDisplay) CanTakeScreenshotWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_uuid
 func (v VZGraphicsDisplay) _uuid() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
 	return objectivec.Object{ID: rv}
@@ -285,8 +265,6 @@ func (v VZGraphicsDisplay) Uuid() (objectivec.IObject, error) {
 func (v VZGraphicsDisplay) CanUuid() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_uuid"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func (v VZGraphicsDisplay) InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
 	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return rv

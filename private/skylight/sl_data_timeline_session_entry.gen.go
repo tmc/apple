@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -50,8 +51,6 @@ func (sc SLDataTimelineSessionEntryClass) Alloc() SLDataTimelineSessionEntry {
 //   - [SLDataTimelineSessionEntry.CurrentSnapshotMember]
 //   - [SLDataTimelineSessionEntry.ProcessData]
 //   - [SLDataTimelineSessionEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry
 type SLDataTimelineSessionEntry struct {
 	objectivec.Object
 }
@@ -74,8 +73,6 @@ var _ ISLDataTimelineSessionEntry = SLDataTimelineSessionEntry{}
 //   - [ISLDataTimelineSessionEntry.CurrentSnapshotMember]
 //   - [ISLDataTimelineSessionEntry.ProcessData]
 //   - [ISLDataTimelineSessionEntry.InitWithXPCObject]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry
 type ISLDataTimelineSessionEntry interface {
 	objectivec.IObject
 
@@ -85,7 +82,7 @@ type ISLDataTimelineSessionEntry interface {
 	CgID() uint32
 	CreateXPCObject() objectivec.IObject
 	CurrentSnapshotMember() bool
-	ProcessData() objectivec.IObject
+	ProcessData() unsafe.Pointer
 	InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionEntry
 }
 
@@ -108,51 +105,39 @@ func NewSLDataTimelineSessionEntry() SLDataTimelineSessionEntry {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/initWithXPCObject:
 func NewSLDataTimelineSessionEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionEntry {
 	instance := getSLDataTimelineSessionEntryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineSessionEntryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/createXPCObject
 func (s SLDataTimelineSessionEntry) CreateXPCObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/initWithXPCObject:
 func (s SLDataTimelineSessionEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionEntry {
 	rv := objc.Send[SLDataTimelineSessionEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/entryWithXPCObject:
 func (_SLDataTimelineSessionEntryClass SLDataTimelineSessionEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineSessionEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/auditID
 func (s SLDataTimelineSessionEntry) AuditID() int {
 	rv := objc.Send[int](s.ID, objc.Sel("auditID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/cgID
 func (s SLDataTimelineSessionEntry) CgID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("cgID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/currentSnapshotMember
 func (s SLDataTimelineSessionEntry) CurrentSnapshotMember() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("currentSnapshotMember"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineSessionEntry/processData
-func (s SLDataTimelineSessionEntry) ProcessData() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("processData"))
-	return objectivec.Object{ID: rv}
+func (s SLDataTimelineSessionEntry) ProcessData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("processData"))
+	return rv
 }

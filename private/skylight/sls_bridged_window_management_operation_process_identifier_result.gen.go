@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationProcessIdentifierResultClass) Alloc(
 //
 //   - [SLSBridgedWindowManagementOperationProcessIdentifierResult.ProcessIdentifier]
 //   - [SLSBridgedWindowManagementOperationProcessIdentifierResult.InitWithProcessIdentifier]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult
 type SLSBridgedWindowManagementOperationProcessIdentifierResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationProcessIdentifierResult = SLSBridgedWi
 //
 //   - [ISLSBridgedWindowManagementOperationProcessIdentifierResult.ProcessIdentifier]
 //   - [ISLSBridgedWindowManagementOperationProcessIdentifierResult.InitWithProcessIdentifier]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult
 type ISLSBridgedWindowManagementOperationProcessIdentifierResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationProcessIdentifierResult() SLSBridgedW
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	instance := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult/initWithProcessIdentifier:
 func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	instance := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult/initWithProcessIdentifier:
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) InitWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationProcessIdentifierResult/processIdentifier
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) ProcessIdentifier() int {
 	rv := objc.Send[int](s.ID, objc.Sel("processIdentifier"))
 	return rv

@@ -8,19 +8,13 @@ import (
 )
 
 // CPXEventDispatching protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching
 type CPXEventDispatching interface {
 	objectivec.IObject
 
 	// PostBackgroundEvent protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching/postBackgroundEvent:
 	PostBackgroundEvent(event SLSEventRecord)
 
 	// PostEventToConnectionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching/postEvent:toConnectionID:
 	PostEventToConnectionID(event SLSEventRecord, id uint32)
 }
 
@@ -41,17 +35,12 @@ func CPXEventDispatchingObjectFromID(id objc.ID) CPXEventDispatchingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching/postBackgroundEvent:
 func (o CPXEventDispatchingObject) PostBackgroundEvent(event SLSEventRecord) {
 	objc.Send[struct{}](o.ID, objc.Sel("postBackgroundEvent:"), event)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching/postEvent:toConnectionID:
 func (o CPXEventDispatchingObject) PostEventToConnectionID(event SLSEventRecord, id uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatching/postEvent:toDestination:
 func (o CPXEventDispatchingObject) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("postEvent:toDestination:"), event, destination)
 }

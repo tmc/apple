@@ -8,19 +8,13 @@ import (
 )
 
 // AVAudioMixing protocol.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing
 type AVAudioMixing interface {
 	objectivec.IObject
 
 	// SetVolume protocol.
-	//
-	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/setVolume:
 	SetVolume(volume float32)
 
 	// Volume protocol.
-	//
-	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
 	Volume() float32
 }
 
@@ -41,18 +35,13 @@ func AVAudioMixingObjectFromID(id objc.ID) AVAudioMixingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/destinationForMixer:bus:
 func (o AVAudioMixingObject) DestinationForMixerBus(mixer objectivec.IObject, bus uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/setVolume:
 func (o AVAudioMixingObject) SetVolume(volume float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setVolume:"), volume)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
 func (o AVAudioMixingObject) Volume() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("volume"))
 	return rv

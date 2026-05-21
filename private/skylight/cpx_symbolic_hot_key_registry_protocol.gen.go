@@ -3,31 +3,21 @@
 package skylight
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
 // CPXSymbolicHotKeyRegistry protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry
 type CPXSymbolicHotKeyRegistry interface {
 	objectivec.IObject
 
 	// GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:
-	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger unsafe.Pointer, char unsafe.Pointer, key unsafe.Pointer, modifiers unsafe.Pointer) int
+	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int
 
 	// RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
 	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
 
 	// UnregisterHotKeyConnectionHotKeyID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/unregisterHotKeyConnection:hotKeyID:
 	UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int
 }
 
@@ -48,19 +38,14 @@ func CPXSymbolicHotKeyRegistryObjectFromID(id objc.ID) CPXSymbolicHotKeyRegistry
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:
-func (o CPXSymbolicHotKeyRegistryObject) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger unsafe.Pointer, char unsafe.Pointer, key unsafe.Pointer, modifiers unsafe.Pointer) int {
+func (o CPXSymbolicHotKeyRegistryObject) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int {
 	rv := objc.Send[int](o.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, trigger, char, key, modifiers)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
 func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
 	rv := objc.Send[int](o.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, func_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/unregisterHotKeyConnection:hotKeyID:
 func (o CPXSymbolicHotKeyRegistryObject) UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int {
 	rv := objc.Send[int](o.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), connection, id)
 	return rv

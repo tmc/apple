@@ -50,8 +50,6 @@ func (cc CPXPSNWrapperClass) Alloc() CPXPSNWrapper {
 //   - [CPXPSNWrapper.Description]
 //   - [CPXPSNWrapper.Hash]
 //   - [CPXPSNWrapper.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper
 type CPXPSNWrapper struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ICPXPSNWrapper = CPXPSNWrapper{}
 //   - [ICPXPSNWrapper.Description]
 //   - [ICPXPSNWrapper.Hash]
 //   - [ICPXPSNWrapper.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper
 type ICPXPSNWrapper interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type ICPXPSNWrapper interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -106,31 +102,23 @@ func NewCPXPSNWrapper() CPXPSNWrapper {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper/appendDescriptionToStream:
 func (c CPXPSNWrapper) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper/debugDescription
 func (c CPXPSNWrapper) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper/description
 func (c CPXPSNWrapper) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper/hash
 func (c CPXPSNWrapper) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXPSNWrapper/superclass
-func (c CPXPSNWrapper) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXPSNWrapper) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

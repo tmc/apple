@@ -52,8 +52,6 @@ func (mc MLComputePlanClass) Alloc() MLComputePlan {
 //   - [MLComputePlan.ModelAssetStorageType]
 //   - [MLComputePlan.ModelDescription]
 //   - [MLComputePlan.InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan
 type MLComputePlan struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ IMLComputePlan = MLComputePlan{}
 //   - [IMLComputePlan.ModelAssetStorageType]
 //   - [IMLComputePlan.ModelDescription]
 //   - [IMLComputePlan.InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan
 type IMLComputePlan interface {
 	objectivec.IObject
 
@@ -110,20 +106,17 @@ func NewMLComputePlan() MLComputePlan {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:
 func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	instance := getMLComputePlanClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return MLComputePlanFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:
 func (m MLComputePlan) InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/computePlanOfModelStructure:modelAsset:configuration:error:
 func (_MLComputePlanClass MLComputePlanClass) ComputePlanOfModelStructureModelAssetConfigurationError(structure objectivec.IObject, asset objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("computePlanOfModelStructure:modelAsset:configuration:error:"), structure, asset, configuration, unsafe.Pointer(&errorPtr))
@@ -135,31 +128,22 @@ func (_MLComputePlanClass MLComputePlanClass) ComputePlanOfModelStructureModelAs
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/computeDevicesBySupportedComputeUnits
 func (m MLComputePlan) ComputeDevicesBySupportedComputeUnits() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/configuration
 func (m MLComputePlan) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/executionScheduleByModelStructurePath
 func (m MLComputePlan) ExecutionScheduleByModelStructurePath() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelAssetStorageType
 func (m MLComputePlan) ModelAssetStorageType() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("modelAssetStorageType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelDescription
 func (m MLComputePlan) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))

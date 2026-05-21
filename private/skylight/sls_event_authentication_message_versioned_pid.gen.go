@@ -52,8 +52,6 @@ func (sc SLSEventAuthenticationMessageVersionedPIDClass) Alloc() SLSEventAuthent
 //   - [SLSEventAuthenticationMessageVersionedPID.InitWithCoder]
 //   - [SLSEventAuthenticationMessageVersionedPID.InitWithPIDVersion]
 //   - [SLSEventAuthenticationMessageVersionedPID.Version]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID
 type SLSEventAuthenticationMessageVersionedPID struct {
 	objectivec.Object
 }
@@ -77,8 +75,6 @@ var _ ISLSEventAuthenticationMessageVersionedPID = SLSEventAuthenticationMessage
 //   - [ISLSEventAuthenticationMessageVersionedPID.InitWithCoder]
 //   - [ISLSEventAuthenticationMessageVersionedPID.InitWithPIDVersion]
 //   - [ISLSEventAuthenticationMessageVersionedPID.Version]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID
 type ISLSEventAuthenticationMessageVersionedPID interface {
 	objectivec.IObject
 
@@ -112,61 +108,46 @@ func NewSLSEventAuthenticationMessageVersionedPID() SLSEventAuthenticationMessag
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/initWithCoder:
 func NewSLSEventAuthenticationMessageVersionedPIDWithCoder(coder objectivec.IObject) SLSEventAuthenticationMessageVersionedPID {
 	instance := getSLSEventAuthenticationMessageVersionedPIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/initWithPID:version:
 func NewSLSEventAuthenticationMessageVersionedPIDWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
 	instance := getSLSEventAuthenticationMessageVersionedPIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/addToSigningContext:
 func (s SLSEventAuthenticationMessageVersionedPID) AddToSigningContext(context objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/encodeWithCoder:
 func (s SLSEventAuthenticationMessageVersionedPID) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/initWithCoder:
 func (s SLSEventAuthenticationMessageVersionedPID) InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageVersionedPID {
 	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/initWithPID:version:
 func (s SLSEventAuthenticationMessageVersionedPID) InitWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
 	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/supportsSecureCoding
 func (_SLSEventAuthenticationMessageVersionedPIDClass SLSEventAuthenticationMessageVersionedPIDClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_SLSEventAuthenticationMessageVersionedPIDClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/pid
 func (s SLSEventAuthenticationMessageVersionedPID) Pid() int {
 	rv := objc.Send[int](s.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/token
 func (s SLSEventAuthenticationMessageVersionedPID) Token() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("token"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessageVersionedPID/version
 func (s SLSEventAuthenticationMessageVersionedPID) Version() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("version"))
 	return rv

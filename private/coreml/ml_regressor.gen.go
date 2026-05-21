@@ -54,6 +54,9 @@ func MLRegressorFromID(id objc.ID) MLRegressor {
 	return MLRegressor{objectivec.Object{ID: id}}
 }
 
+// MLRegressorObjectFromID is an alias for [MLRegressorFromID] for class/protocol name collisions.
+func MLRegressorObjectFromID(id objc.ID) MLRegressor { return MLRegressorFromID(id) }
+
 // Ensure MLRegressor implements IMLRegressor.
 var _ IMLRegressor = MLRegressor{}
 

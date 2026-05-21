@@ -56,8 +56,6 @@ func (vc VZGenericPlatformConfigurationClass) Alloc() VZGenericPlatformConfigura
 //   - [VZGenericPlatformConfiguration._setPerformanceMonitoringUnitEmulationEnabled]
 //   - [VZGenericPlatformConfiguration.NestedVirtualizationEnabled]
 //   - [VZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration
 type VZGenericPlatformConfiguration struct {
 	VZPlatformConfiguration
 }
@@ -85,8 +83,6 @@ var _ IVZGenericPlatformConfiguration = VZGenericPlatformConfiguration{}
 //   - [IVZGenericPlatformConfiguration._setPerformanceMonitoringUnitEmulationEnabled]
 //   - [IVZGenericPlatformConfiguration.NestedVirtualizationEnabled]
 //   - [IVZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration
 type IVZGenericPlatformConfiguration interface {
 	IVZPlatformConfiguration
 
@@ -124,7 +120,6 @@ func NewVZGenericPlatformConfiguration() VZGenericPlatformConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_setFineGrainedTrapsEmulationEnabled:
 func (v VZGenericPlatformConfiguration) _setFineGrainedTrapsEmulationEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"), enabled)
 }
@@ -143,8 +138,6 @@ func (v VZGenericPlatformConfiguration) SetFineGrainedTrapsEmulationEnabled(enab
 func (v VZGenericPlatformConfiguration) CanSetFineGrainedTrapsEmulationEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_setGuestType:
 func (v VZGenericPlatformConfiguration) _setGuestType(type_ objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setGuestType:"), type_)
 }
@@ -163,8 +156,6 @@ func (v VZGenericPlatformConfiguration) SetGuestType(type_ objectivec.IObject) e
 func (v VZGenericPlatformConfiguration) CanSetGuestType() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGuestType:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_setPerformanceMonitoringUnitEmulationEnabled:
 func (v VZGenericPlatformConfiguration) _setPerformanceMonitoringUnitEmulationEnabled(enabled bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"), enabled)
 }
@@ -184,7 +175,6 @@ func (v VZGenericPlatformConfiguration) CanSetPerformanceMonitoringUnitEmulation
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_fineGrainTrapsEmulationEnabled
 func (v VZGenericPlatformConfiguration) _fineGrainTrapsEmulationEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
 	return rv
@@ -205,8 +195,6 @@ func (v VZGenericPlatformConfiguration) FineGrainTrapsEmulationEnabled() (bool, 
 func (v VZGenericPlatformConfiguration) Set_fineGrainTrapsEmulationEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fineGrainTrapsEmulationEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_guestType
 func (v VZGenericPlatformConfiguration) _guestType() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_guestType"))
 	return foundation.NSStringFromID(rv).String()
@@ -227,8 +215,6 @@ func (v VZGenericPlatformConfiguration) GuestType() (string, error) {
 func (v VZGenericPlatformConfiguration) Set_guestType(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_guestType:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_performanceMonitoringUnitEmulationEnabled
 func (v VZGenericPlatformConfiguration) _performanceMonitoringUnitEmulationEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled"))
 	return rv
@@ -249,8 +235,6 @@ func (v VZGenericPlatformConfiguration) PerformanceMonitoringUnitEmulationEnable
 func (v VZGenericPlatformConfiguration) Set_performanceMonitoringUnitEmulationEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_performanceMonitoringUnitEmulationEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/nestedVirtualizationEnabled
 func (v VZGenericPlatformConfiguration) NestedVirtualizationEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("nestedVirtualizationEnabled"))
 	return rv

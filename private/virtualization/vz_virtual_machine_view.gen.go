@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
@@ -65,8 +66,6 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 //   - [VZVirtualMachineView.Description]
 //   - [VZVirtualMachineView.Hash]
 //   - [VZVirtualMachineView.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView
 type VZVirtualMachineView struct {
 	appkit.NSView
 }
@@ -102,8 +101,6 @@ var _ IVZVirtualMachineView = VZVirtualMachineView{}
 //   - [IVZVirtualMachineView.Description]
 //   - [IVZVirtualMachineView.Hash]
 //   - [IVZVirtualMachineView.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView
 type IVZVirtualMachineView interface {
 	appkit.INSView
 
@@ -111,8 +108,8 @@ type IVZVirtualMachineView interface {
 
 	_canGrabMouseInput() bool
 	_canReleaseMouseInput() bool
-	_delegate() objectivec.IObject
-	Set_delegate(value objectivec.IObject)
+	_delegate() unsafe.Pointer
+	Set_delegate(value unsafe.Pointer)
 	_grabMouseInput() bool
 	_graphicsDisplay() IVZGraphicsDisplay
 	Set_graphicsDisplay(value IVZGraphicsDisplay)
@@ -127,7 +124,7 @@ type IVZVirtualMachineView interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -149,14 +146,12 @@ func NewVZVirtualMachineView() VZVirtualMachineView {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/initWithCoder:
 func NewVirtualMachineViewWithCoder(coder objectivec.IObject) VZVirtualMachineView {
 	instance := getVZVirtualMachineViewClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VZVirtualMachineViewFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_grabMouseInput
 func (v VZVirtualMachineView) _grabMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_grabMouseInput"))
 	return rv
@@ -175,8 +170,6 @@ func (v VZVirtualMachineView) GrabMouseInput() (bool, error) {
 func (v VZVirtualMachineView) CanGrabMouseInput() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_grabMouseInput"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_releaseMouseInput
 func (v VZVirtualMachineView) _releaseMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_releaseMouseInput"))
 	return rv
@@ -195,8 +188,6 @@ func (v VZVirtualMachineView) ReleaseMouseInput() (bool, error) {
 func (v VZVirtualMachineView) CanReleaseMouseInput() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseMouseInput"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setDelegate:
 func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
 }
@@ -215,8 +206,6 @@ func (v VZVirtualMachineView) SetDelegate(delegate objectivec.IObject) error {
 func (v VZVirtualMachineView) CanSetDelegate() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setGraphicsDisplay:
 func (v VZVirtualMachineView) _setGraphicsDisplay(display objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDisplay:"), display)
 }
@@ -235,8 +224,6 @@ func (v VZVirtualMachineView) SetGraphicsDisplay(display objectivec.IObject) err
 func (v VZVirtualMachineView) CanSetGraphicsDisplay() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDisplay:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setScaleMode:
 func (v VZVirtualMachineView) _setScaleMode(mode int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setScaleMode:"), mode)
 }
@@ -255,33 +242,24 @@ func (v VZVirtualMachineView) SetScaleMode(mode int64) error {
 func (v VZVirtualMachineView) CanSetScaleMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setScaleMode:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidBeginReconfiguration:
 func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidEndReconfiguration:
 func (v VZVirtualMachineView) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_canGrabMouseInput
 func (v VZVirtualMachineView) _canGrabMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canGrabMouseInput"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_canReleaseMouseInput
 func (v VZVirtualMachineView) _canReleaseMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canReleaseMouseInput"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_delegate
-func (v VZVirtualMachineView) _delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZVirtualMachineView) _delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_delegate"))
+	return rv
 }
 
 // CanDelegate reports whether the receiver responds to the private selector _delegate.
@@ -290,17 +268,15 @@ func (v VZVirtualMachineView) CanDelegate() bool {
 }
 
 // Delegate is an exported wrapper for the private property _delegate.
-func (v VZVirtualMachineView) Delegate() (objectivec.IObject, error) {
+func (v VZVirtualMachineView) Delegate() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_delegate")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_delegate"}
 	}
 	return v._delegate(), nil
 }
-func (v VZVirtualMachineView) Set_delegate(value objectivec.IObject) {
+func (v VZVirtualMachineView) Set_delegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_delegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_graphicsDisplay
 func (v VZVirtualMachineView) _graphicsDisplay() IVZGraphicsDisplay {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDisplay"))
 	return VZGraphicsDisplayFromID(objc.ID(rv))
@@ -321,8 +297,6 @@ func (v VZVirtualMachineView) GraphicsDisplay() (IVZGraphicsDisplay, error) {
 func (v VZVirtualMachineView) Set_graphicsDisplay(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_graphicsDisplay:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_scaleMode
 func (v VZVirtualMachineView) _scaleMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_scaleMode"))
 	return rv
@@ -343,27 +317,19 @@ func (v VZVirtualMachineView) ScaleMode() (int64, error) {
 func (v VZVirtualMachineView) Set_scaleMode(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/debugDescription
 func (v VZVirtualMachineView) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/description
 func (v VZVirtualMachineView) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/hash
 func (v VZVirtualMachineView) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/superclass
-func (v VZVirtualMachineView) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZVirtualMachineView) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

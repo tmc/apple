@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSSegmentGeneratorClass) Alloc() TextToSpeechTTSSegmentGen
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSegmentGenerator
 type TextToSpeechTTSSegmentGenerator struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSSegmentGeneratorFromID(id objc.ID) TextToSpeechTTSSegmentGen
 // ITextToSpeechTTSSegmentGenerator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSegmentGenerator] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSegmentGenerator
 type ITextToSpeechTTSSegmentGenerator interface {
 	objectivec.IObject
 }

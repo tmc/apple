@@ -78,8 +78,6 @@ func (cc CustomizeVoicesWindowControllerClass) Alloc() CustomizeVoicesWindowCont
 //   - [CustomizeVoicesWindowController.Description]
 //   - [CustomizeVoicesWindowController.Hash]
 //   - [CustomizeVoicesWindowController.Superclass]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController
 type CustomizeVoicesWindowController struct {
 	appkit.NSWindowController
 }
@@ -128,8 +126,6 @@ var _ ICustomizeVoicesWindowController = CustomizeVoicesWindowController{}
 //   - [ICustomizeVoicesWindowController.Description]
 //   - [ICustomizeVoicesWindowController.Hash]
 //   - [ICustomizeVoicesWindowController.Superclass]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController
 type ICustomizeVoicesWindowController interface {
 	appkit.INSWindowController
 
@@ -166,7 +162,7 @@ type ICustomizeVoicesWindowController interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -188,7 +184,6 @@ func NewCustomizeVoicesWindowController() CustomizeVoicesWindowController {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_anyVoicePlaying
 func (c CustomizeVoicesWindowController) _anyVoicePlaying() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("_anyVoicePlaying"))
 	return rv
@@ -207,8 +202,6 @@ func (c CustomizeVoicesWindowController) AnyVoicePlaying() (bool, error) {
 func (c CustomizeVoicesWindowController) CanAnyVoicePlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_anyVoicePlaying"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_delayedPopUpUpdate
 func (c CustomizeVoicesWindowController) _delayedPopUpUpdate() {
 	objc.Send[objc.ID](c.ID, objc.Sel("_delayedPopUpUpdate"))
 }
@@ -227,8 +220,6 @@ func (c CustomizeVoicesWindowController) DelayedPopUpUpdate() error {
 func (c CustomizeVoicesWindowController) CanDelayedPopUpUpdate() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_delayedPopUpUpdate"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_isSampleAvailableForVoiceObject:
 func (c CustomizeVoicesWindowController) _isSampleAvailableForVoiceObject(object objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"), object)
 	return rv
@@ -247,8 +238,6 @@ func (c CustomizeVoicesWindowController) IsSampleAvailableForVoiceObject(object 
 func (c CustomizeVoicesWindowController) CanIsSampleAvailableForVoiceObject() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateCheckboxSelection:
 func (c CustomizeVoicesWindowController) _propagateCheckboxSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
 }
@@ -267,8 +256,6 @@ func (c CustomizeVoicesWindowController) PropagateCheckboxSelection(selection ob
 func (c CustomizeVoicesWindowController) CanPropagateCheckboxSelection() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateCheckboxSelection:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateDownloadCheckboxSelection:
 func (c CustomizeVoicesWindowController) _propagateDownloadCheckboxSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"), selection)
 }
@@ -287,8 +274,6 @@ func (c CustomizeVoicesWindowController) PropagateDownloadCheckboxSelection(sele
 func (c CustomizeVoicesWindowController) CanPropagateDownloadCheckboxSelection() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateDownloadVariantSelection:
 func (c CustomizeVoicesWindowController) _propagateDownloadVariantSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
 }
@@ -307,8 +292,6 @@ func (c CustomizeVoicesWindowController) PropagateDownloadVariantSelection(selec
 func (c CustomizeVoicesWindowController) CanPropagateDownloadVariantSelection() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadVariantSelection:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_rebuildVoiceList
 func (c CustomizeVoicesWindowController) _rebuildVoiceList() {
 	objc.Send[objc.ID](c.ID, objc.Sel("_rebuildVoiceList"))
 }
@@ -327,8 +310,6 @@ func (c CustomizeVoicesWindowController) RebuildVoiceList() error {
 func (c CustomizeVoicesWindowController) CanRebuildVoiceList() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_rebuildVoiceList"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_setRowDownloadCheckbox:voiceObject:isSelected:
 func (c CustomizeVoicesWindowController) _setRowDownloadCheckboxVoiceObjectIsSelected(checkbox objectivec.IObject, object objectivec.IObject, selected bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"), checkbox, object, selected)
 }
@@ -347,8 +328,6 @@ func (c CustomizeVoicesWindowController) SetRowDownloadCheckboxVoiceObjectIsSele
 func (c CustomizeVoicesWindowController) CanSetRowDownloadCheckboxVoiceObjectIsSelected() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_setRowStatusFieldView:voiceObject:isSelected:
 func (c CustomizeVoicesWindowController) _setRowStatusFieldViewVoiceObjectIsSelected(view objectivec.IObject, object objectivec.IObject, selected bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"), view, object, selected)
 }
@@ -367,8 +346,6 @@ func (c CustomizeVoicesWindowController) SetRowStatusFieldViewVoiceObjectIsSelec
 func (c CustomizeVoicesWindowController) CanSetRowStatusFieldViewVoiceObjectIsSelected() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_shouldAllowRemovalOfVoiceObject:
 func (c CustomizeVoicesWindowController) _shouldAllowRemovalOfVoiceObject(object objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"), object)
 	return rv
@@ -387,8 +364,6 @@ func (c CustomizeVoicesWindowController) ShouldAllowRemovalOfVoiceObject(object 
 func (c CustomizeVoicesWindowController) CanShouldAllowRemovalOfVoiceObject() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_showPlayStopButtonAsPlaying:
 func (c CustomizeVoicesWindowController) _showPlayStopButtonAsPlaying(playing bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"), playing)
 }
@@ -407,8 +382,6 @@ func (c CustomizeVoicesWindowController) ShowPlayStopButtonAsPlaying(playing boo
 func (c CustomizeVoicesWindowController) CanShowPlayStopButtonAsPlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_stopAndResetAllVoicePlaying
 func (c CustomizeVoicesWindowController) _stopAndResetAllVoicePlaying() {
 	objc.Send[objc.ID](c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
 }
@@ -427,8 +400,6 @@ func (c CustomizeVoicesWindowController) StopAndResetAllVoicePlaying() error {
 func (c CustomizeVoicesWindowController) CanStopAndResetAllVoicePlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateButtonStates
 func (c CustomizeVoicesWindowController) _updateButtonStates() {
 	objc.Send[objc.ID](c.ID, objc.Sel("_updateButtonStates"))
 }
@@ -447,8 +418,6 @@ func (c CustomizeVoicesWindowController) UpdateButtonStates() error {
 func (c CustomizeVoicesWindowController) CanUpdateButtonStates() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateButtonStates"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateDisplayedVoicesUsingFilterString:
 func (c CustomizeVoicesWindowController) _updateDisplayedVoicesUsingFilterString(string_ objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"), string_)
 }
@@ -467,8 +436,6 @@ func (c CustomizeVoicesWindowController) UpdateDisplayedVoicesUsingFilterString(
 func (c CustomizeVoicesWindowController) CanUpdateDisplayedVoicesUsingFilterString() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateRowDownloadStatus
 func (c CustomizeVoicesWindowController) _updateRowDownloadStatus() {
 	objc.Send[objc.ID](c.ID, objc.Sel("_updateRowDownloadStatus"))
 }
@@ -487,8 +454,6 @@ func (c CustomizeVoicesWindowController) UpdateRowDownloadStatus() error {
 func (c CustomizeVoicesWindowController) CanUpdateRowDownloadStatus() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateRowDownloadStatus"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_voiceObjectForCurrentlySelectedRow
 func (c CustomizeVoicesWindowController) _voiceObjectForCurrentlySelectedRow() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
 	return objectivec.Object{ID: rv}
@@ -507,91 +472,60 @@ func (c CustomizeVoicesWindowController) VoiceObjectForCurrentlySelectedRow() (o
 func (c CustomizeVoicesWindowController) CanVoiceObjectForCurrentlySelectedRow() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/acceptVoiceSelection:
 func (c CustomizeVoicesWindowController) AcceptVoiceSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("acceptVoiceSelection:"), selection)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/cancelVoiceSelection:
 func (c CustomizeVoicesWindowController) CancelVoiceSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cancelVoiceSelection:"), selection)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/numberOfRowsInTableView:
 func (c CustomizeVoicesWindowController) NumberOfRowsInTableView(view objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("numberOfRowsInTableView:"), view)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/searchFieldChanged:
 func (c CustomizeVoicesWindowController) SearchFieldChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("searchFieldChanged:"), changed)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/showSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:
 func (c CustomizeVoicesWindowController) ShowSheetForWindowShowIndividualVoiceQualitiesVoiceIdentifiersNotToBeRemoved(window objectivec.IObject, qualities bool, removed objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("showSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:"), window, qualities, removed)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/sound:didFinishPlaying:
 func (c CustomizeVoicesWindowController) SoundDidFinishPlaying(sound objectivec.IObject, playing bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/speechSynthesizer:didFinishSpeaking:
 func (c CustomizeVoicesWindowController) SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/startStopPlayingSelection:
 func (c CustomizeVoicesWindowController) StartStopPlayingSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startStopPlayingSelection:"), selection)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/tableView:isGroupRow:
 func (c CustomizeVoicesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("tableView:isGroupRow:"), view, row)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/tableView:shouldSelectRow:
 func (c CustomizeVoicesWindowController) TableViewShouldSelectRow(view objectivec.IObject, row int64) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/tableView:viewForTableColumn:row:
 func (c CustomizeVoicesWindowController) TableViewViewForTableColumnRow(view objectivec.IObject, column objectivec.IObject, row int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/tableViewSelectionDidChange:
 func (c CustomizeVoicesWindowController) TableViewSelectionDidChange(change objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("tableViewSelectionDidChange:"), change)
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/debugDescription
 func (c CustomizeVoicesWindowController) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/description
 func (c CustomizeVoicesWindowController) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/hash
 func (c CustomizeVoicesWindowController) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/superclass
-func (c CustomizeVoicesWindowController) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CustomizeVoicesWindowController) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

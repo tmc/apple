@@ -41,7 +41,6 @@ func (ec EspressoPassRpnTrackerMergeConvsClass) Alloc() EspressoPassRpnTrackerMe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
 type EspressoPassRpnTrackerMergeConvs struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_rpn_tracker_merge_convsFromID(id objc.ID) EspressoPassRpnTrack
 var _ IEspressoPassRpnTrackerMergeConvs = EspressoPassRpnTrackerMergeConvs{}
 
 // An interface definition for the [EspressoPassRpnTrackerMergeConvs] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
 type IEspressoPassRpnTrackerMergeConvs interface {
 	IEspressoCustomPass
 }

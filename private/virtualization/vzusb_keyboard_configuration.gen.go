@@ -41,7 +41,6 @@ func (vc VZUSBKeyboardConfigurationClass) Alloc() VZUSBKeyboardConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBKeyboardConfiguration
 type VZUSBKeyboardConfiguration struct {
 	VZKeyboardConfiguration
 }
@@ -55,8 +54,6 @@ func VZUSBKeyboardConfigurationFromID(id objc.ID) VZUSBKeyboardConfiguration {
 var _ IVZUSBKeyboardConfiguration = VZUSBKeyboardConfiguration{}
 
 // An interface definition for the [VZUSBKeyboardConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBKeyboardConfiguration
 type IVZUSBKeyboardConfiguration interface {
 	IVZKeyboardConfiguration
 }

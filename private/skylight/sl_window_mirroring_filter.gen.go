@@ -51,8 +51,6 @@ func (sc SLWindowMirroringFilterClass) Alloc() SLWindowMirroringFilter {
 //   - [SLWindowMirroringFilter.InitWithIncludedApps]
 //   - [SLWindowMirroringFilter.InitWithIncludedWindows]
 //   - [SLWindowMirroringFilter.InitWithIncludedWindowsAndIncludedApps]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter
 type SLWindowMirroringFilter struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ ISLWindowMirroringFilter = SLWindowMirroringFilter{}
 //   - [ISLWindowMirroringFilter.InitWithIncludedApps]
 //   - [ISLWindowMirroringFilter.InitWithIncludedWindows]
 //   - [ISLWindowMirroringFilter.InitWithIncludedWindowsAndIncludedApps]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter
 type ISLWindowMirroringFilter interface {
 	objectivec.IObject
 
@@ -111,70 +107,53 @@ func NewSLWindowMirroringFilter() SLWindowMirroringFilter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithFilter:
 func NewSLWindowMirroringFilterWithFilter(filter objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilter:"), filter)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedApps:
 func NewSLWindowMirroringFilterWithIncludedApps(apps objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedApps:"), apps)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedWindows:
 func NewSLWindowMirroringFilterWithIncludedWindows(windows objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:"), windows)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedWindows:andIncludedApps:
 func NewSLWindowMirroringFilterWithIncludedWindowsAndIncludedApps(windows objectivec.IObject, apps objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/setShieldWindow:
 func (s SLWindowMirroringFilter) SetShieldWindow(window objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setShieldWindow:"), window)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/shieldWindow
 func (s SLWindowMirroringFilter) ShieldWindow() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindow"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/windowFilter
 func (s SLWindowMirroringFilter) WindowFilter() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windowFilter"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithFilter:
 func (s SLWindowMirroringFilter) InitWithFilter(filter objectivec.IObject) SLWindowMirroringFilter {
 	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithFilter:"), filter)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedApps:
 func (s SLWindowMirroringFilter) InitWithIncludedApps(apps objectivec.IObject) SLWindowMirroringFilter {
 	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedApps:"), apps)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedWindows:
 func (s SLWindowMirroringFilter) InitWithIncludedWindows(windows objectivec.IObject) SLWindowMirroringFilter {
 	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:"), windows)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowMirroringFilter/initWithIncludedWindows:andIncludedApps:
 func (s SLWindowMirroringFilter) InitWithIncludedWindowsAndIncludedApps(windows objectivec.IObject, apps objectivec.IObject) SLWindowMirroringFilter {
 	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
 	return rv

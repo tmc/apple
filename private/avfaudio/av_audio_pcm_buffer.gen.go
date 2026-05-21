@@ -4,7 +4,6 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -54,8 +53,6 @@ func (ac AVAudioPCMBufferClass) Alloc() AVAudioPCMBuffer {
 //   - [AVAudioPCMBuffer.CalculatePowerForFloatDataStrideFrameLength]
 //   - [AVAudioPCMBuffer.PeakPowerPerChannel]
 //   - [AVAudioPCMBuffer.SplitIntoSingleChannelBuffers]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer
 type AVAudioPCMBuffer struct {
 	AVAudioBuffer
 }
@@ -80,8 +77,6 @@ var _ IAVAudioPCMBuffer = AVAudioPCMBuffer{}
 //   - [IAVAudioPCMBuffer.CalculatePowerForFloatDataStrideFrameLength]
 //   - [IAVAudioPCMBuffer.PeakPowerPerChannel]
 //   - [IAVAudioPCMBuffer.SplitIntoSingleChannelBuffers]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer
 type IAVAudioPCMBuffer interface {
 	IAVAudioBuffer
 
@@ -92,7 +87,7 @@ type IAVAudioPCMBuffer interface {
 	AppendDataFromBufferChannel(buffer objectivec.IObject, channel int64) bool
 	AveragePowerPerChannel() foundation.INSArray
 	CalculatePower(power uint64) objectivec.IObject
-	CalculatePowerForFloatDataStrideFrameLength(power uint64, data unsafe.Pointer, stride int64, length uint32) float32
+	CalculatePowerForFloatDataStrideFrameLength(power uint64, data *float32, stride int64, length uint32) float32
 	PeakPowerPerChannel() foundation.INSArray
 	SplitIntoSingleChannelBuffers() objectivec.IObject
 }
@@ -116,14 +111,12 @@ func NewAVAudioPCMBuffer() AVAudioPCMBuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func NewAudioPCMBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioPCMBuffer {
 	instance := getAVAudioPCMBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return AVAudioPCMBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/_initChannelPtrs
 func (a AVAudioPCMBuffer) _initChannelPtrs() {
 	objc.Send[objc.ID](a.ID, objc.Sel("_initChannelPtrs"))
 }
@@ -142,44 +135,31 @@ func (a AVAudioPCMBuffer) InitChannelPtrs() error {
 func (a AVAudioPCMBuffer) CanInitChannelPtrs() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_initChannelPtrs"))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/appendDataFromBuffer:
 func (a AVAudioPCMBuffer) AppendDataFromBuffer(buffer objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("appendDataFromBuffer:"), buffer)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/appendDataFromBuffer:channel:
 func (a AVAudioPCMBuffer) AppendDataFromBufferChannel(buffer objectivec.IObject, channel int64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("appendDataFromBuffer:channel:"), buffer, channel)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/calculatePower:
 func (a AVAudioPCMBuffer) CalculatePower(power uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("calculatePower:"), power)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/calculatePower:forFloatData:stride:frameLength:
-func (a AVAudioPCMBuffer) CalculatePowerForFloatDataStrideFrameLength(power uint64, data unsafe.Pointer, stride int64, length uint32) float32 {
+func (a AVAudioPCMBuffer) CalculatePowerForFloatDataStrideFrameLength(power uint64, data *float32, stride int64, length uint32) float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("calculatePower:forFloatData:stride:frameLength:"), power, data, stride, length)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/splitIntoSingleChannelBuffers
 func (a AVAudioPCMBuffer) SplitIntoSingleChannelBuffers() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("splitIntoSingleChannelBuffers"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/averagePowerPerChannel
 func (a AVAudioPCMBuffer) AveragePowerPerChannel() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("averagePowerPerChannel"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/peakPowerPerChannel
 func (a AVAudioPCMBuffer) PeakPowerPerChannel() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("peakPowerPerChannel"))
 	return foundation.NSArrayFromID(objc.ID(rv))

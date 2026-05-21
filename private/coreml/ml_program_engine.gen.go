@@ -44,7 +44,6 @@ func (mc MLProgramEngineClass) Alloc() MLProgramEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEngine
 type MLProgramEngine struct {
 	MLNeuralNetworkEngine
 }
@@ -58,8 +57,6 @@ func MLProgramEngineFromID(id objc.ID) MLProgramEngine {
 var _ IMLProgramEngine = MLProgramEngine{}
 
 // An interface definition for the [MLProgramEngine] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramEngine
 type IMLProgramEngine interface {
 	IMLNeuralNetworkEngine
 }
@@ -83,7 +80,6 @@ func NewMLProgramEngine() MLProgramEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:configuration:error:
 func NewProgramEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEngineClass().Alloc()
@@ -95,7 +91,6 @@ func NewProgramEngineWithContainerConfigurationError(container objectivec.IObjec
 	return MLProgramEngineFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:error:
 func NewProgramEngineWithContainerError(container objectivec.IObject) (MLProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEngineClass().Alloc()
@@ -107,14 +102,12 @@ func NewProgramEngineWithContainerError(container objectivec.IObject) (MLProgram
 	return MLProgramEngineFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLProgramEngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)

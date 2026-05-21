@@ -47,8 +47,6 @@ func (mc MLComputePlanDeviceUsageSupportStateMatcherClass) Alloc() MLComputePlan
 //
 //   - [MLComputePlanDeviceUsageSupportStateMatcher.MatchingSupportStateForValidationMessage]
 //   - [MLComputePlanDeviceUsageSupportStateMatcher.SupportStatePatterns]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher
 type MLComputePlanDeviceUsageSupportStateMatcher struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IMLComputePlanDeviceUsageSupportStateMatcher = MLComputePlanDeviceUsageSup
 //
 //   - [IMLComputePlanDeviceUsageSupportStateMatcher.MatchingSupportStateForValidationMessage]
 //   - [IMLComputePlanDeviceUsageSupportStateMatcher.SupportStatePatterns]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher
 type IMLComputePlanDeviceUsageSupportStateMatcher interface {
 	objectivec.IObject
 
@@ -97,19 +93,16 @@ func NewMLComputePlanDeviceUsageSupportStateMatcher() MLComputePlanDeviceUsageSu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/matchingSupportStateForValidationMessage:
 func (m MLComputePlanDeviceUsageSupportStateMatcher) MatchingSupportStateForValidationMessage(message objectivec.IObject) int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/sharedInstance
 func (_MLComputePlanDeviceUsageSupportStateMatcherClass MLComputePlanDeviceUsageSupportStateMatcherClass) SharedInstance() MLComputePlanDeviceUsageSupportStateMatcher {
 	rv := objc.Send[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStateMatcherClass.class), objc.Sel("sharedInstance"))
 	return MLComputePlanDeviceUsageSupportStateMatcherFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/supportStatePatterns
 func (m MLComputePlanDeviceUsageSupportStateMatcher) SupportStatePatterns() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportStatePatterns"))
 	return foundation.NSArrayFromID(objc.ID(rv))

@@ -46,14 +46,10 @@ func (vc VZPanicDeviceConfigurationClass) Alloc() VZPanicDeviceConfiguration {
 // # Methods
 //
 //   - [VZPanicDeviceConfiguration._init]
-//   - [VZPanicDeviceConfiguration._panicDevice]
-//   - [VZPanicDeviceConfiguration.EncodeWithEncoder]
 //   - [VZPanicDeviceConfiguration.DebugDescription]
 //   - [VZPanicDeviceConfiguration.Description]
 //   - [VZPanicDeviceConfiguration.Hash]
 //   - [VZPanicDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration
 type VZPanicDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -71,26 +67,20 @@ var _ IVZPanicDeviceConfiguration = VZPanicDeviceConfiguration{}
 // # Methods
 //
 //   - [IVZPanicDeviceConfiguration._init]
-//   - [IVZPanicDeviceConfiguration._panicDevice]
-//   - [IVZPanicDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZPanicDeviceConfiguration.DebugDescription]
 //   - [IVZPanicDeviceConfiguration.Description]
 //   - [IVZPanicDeviceConfiguration.Hash]
 //   - [IVZPanicDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration
 type IVZPanicDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_panicDevice() objectivec.IObject
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -112,58 +102,24 @@ func NewVZPanicDeviceConfiguration() VZPanicDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/_init
 func (v VZPanicDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/_panicDevice
-func (v VZPanicDeviceConfiguration) _panicDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_panicDevice"))
-	return objectivec.Object{ID: rv}
-}
-
-// PanicDevice is an exported wrapper for the private method _panicDevice.
-func (v VZPanicDeviceConfiguration) PanicDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_panicDevice"}
-		return nil, err
-	}
-	return v._panicDevice(), nil
-}
-
-// CanPanicDevice reports whether the receiver responds to the private selector _panicDevice.
-func (v VZPanicDeviceConfiguration) CanPanicDevice() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/encodeWithEncoder:
-func (v VZPanicDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/debugDescription
 func (v VZPanicDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/description
 func (v VZPanicDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/hash
 func (v VZPanicDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/superclass
-func (v VZPanicDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZPanicDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

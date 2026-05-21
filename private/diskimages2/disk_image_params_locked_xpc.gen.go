@@ -42,7 +42,6 @@ func (dc DiskImageParamsLockedXPCClass) Alloc() DiskImageParamsLockedXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsLocked_XPC
 type DiskImageParamsLockedXPC struct {
 	DiskImageParamsXPC
 }
@@ -61,8 +60,6 @@ func DiskImageParamsLocked_XPCFromID(id objc.ID) DiskImageParamsLockedXPC {
 var _ IDiskImageParamsLockedXPC = DiskImageParamsLockedXPC{}
 
 // An interface definition for the [DiskImageParamsLockedXPC] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsLocked_XPC
 type IDiskImageParamsLockedXPC interface {
 	IDiskImageParamsXPC
 }
@@ -86,21 +83,18 @@ func NewDiskImageParamsLockedXPC() DiskImageParamsLockedXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsLocked_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsLocked_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
 func NewDiskImageParamsLocked_XPCWithCoder(coder objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)

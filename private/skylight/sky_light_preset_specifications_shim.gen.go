@@ -42,7 +42,6 @@ func (sc SkyLightPresetSpecificationsShimClass) Alloc() SkyLightPresetSpecificat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PresetSpecificationsShim
 type SkyLightPresetSpecificationsShim struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPresetSpecificationsShimFromID(id objc.ID) SkyLightPresetSpecificat
 // ISkyLightPresetSpecificationsShim embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPresetSpecificationsShim] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PresetSpecificationsShim
 type ISkyLightPresetSpecificationsShim interface {
 	objectivec.IObject
 }

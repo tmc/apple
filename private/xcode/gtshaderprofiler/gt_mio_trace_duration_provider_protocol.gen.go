@@ -8,19 +8,13 @@ import (
 )
 
 // GTMioTraceDurationProvider protocol.
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDurationProvider
 type GTMioTraceDurationProvider interface {
 	objectivec.IObject
 
 	// KickDurationForEncoder protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDurationProvider/kickDurationForEncoder:
 	KickDurationForEncoder(encoder uint32) uint64
 
 	// KickDurationForEncoderDataMaster protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDurationProvider/kickDurationForEncoder:dataMaster:
 	KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64
 }
 
@@ -41,13 +35,10 @@ func GTMioTraceDurationProviderObjectFromID(id objc.ID) GTMioTraceDurationProvid
 	}
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDurationProvider/kickDurationForEncoder:
 func (o GTMioTraceDurationProviderObject) KickDurationForEncoder(encoder uint32) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("kickDurationForEncoder:"), encoder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDurationProvider/kickDurationForEncoder:dataMaster:
 func (o GTMioTraceDurationProviderObject) KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
 	return rv

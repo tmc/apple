@@ -47,13 +47,10 @@ func (ac AVSpeechSynthesisProviderRequestClass) Alloc() AVSpeechSynthesisProvide
 //
 //   - [AVSpeechSynthesisProviderRequest.JobIdentifier]
 //   - [AVSpeechSynthesisProviderRequest.SetJobIdentifier]
-//   - [AVSpeechSynthesisProviderRequest.InitWithCoder]
 //   - [AVSpeechSynthesisProviderRequest.SsmlRepresentation]
 //   - [AVSpeechSynthesisProviderRequest.SetSsmlRepresentation]
 //   - [AVSpeechSynthesisProviderRequest.Voice]
 //   - [AVSpeechSynthesisProviderRequest.SetVoice]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest
 type AVSpeechSynthesisProviderRequest struct {
 	objectivec.Object
 }
@@ -72,13 +69,10 @@ var _ IAVSpeechSynthesisProviderRequest = AVSpeechSynthesisProviderRequest{}
 //
 //   - [IAVSpeechSynthesisProviderRequest.JobIdentifier]
 //   - [IAVSpeechSynthesisProviderRequest.SetJobIdentifier]
-//   - [IAVSpeechSynthesisProviderRequest.InitWithCoder]
 //   - [IAVSpeechSynthesisProviderRequest.SsmlRepresentation]
 //   - [IAVSpeechSynthesisProviderRequest.SetSsmlRepresentation]
 //   - [IAVSpeechSynthesisProviderRequest.Voice]
 //   - [IAVSpeechSynthesisProviderRequest.SetVoice]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest
 type IAVSpeechSynthesisProviderRequest interface {
 	objectivec.IObject
 
@@ -86,7 +80,6 @@ type IAVSpeechSynthesisProviderRequest interface {
 
 	JobIdentifier() string
 	SetJobIdentifier(value string)
-	InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderRequest
 	SsmlRepresentation() string
 	SetSsmlRepresentation(value string)
 	Voice() IAVSpeechSynthesisProviderVoice
@@ -112,26 +105,11 @@ func NewAVSpeechSynthesisProviderRequest() AVSpeechSynthesisProviderRequest {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/initWithCoder:
-func NewSpeechSynthesisProviderRequestWithCoder(coder objectivec.IObject) AVSpeechSynthesisProviderRequest {
-	instance := getAVSpeechSynthesisProviderRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return AVSpeechSynthesisProviderRequestFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/initWithCoder:
-func (a AVSpeechSynthesisProviderRequest) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderRequest {
-	rv := objc.Send[AVSpeechSynthesisProviderRequest](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/supportsSecureCoding
 func (_AVSpeechSynthesisProviderRequestClass AVSpeechSynthesisProviderRequestClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisProviderRequestClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/jobIdentifier
 func (a AVSpeechSynthesisProviderRequest) JobIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("jobIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -139,8 +117,6 @@ func (a AVSpeechSynthesisProviderRequest) JobIdentifier() string {
 func (a AVSpeechSynthesisProviderRequest) SetJobIdentifier(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setJobIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/ssmlRepresentation
 func (a AVSpeechSynthesisProviderRequest) SsmlRepresentation() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
 	return foundation.NSStringFromID(rv).String()
@@ -148,8 +124,6 @@ func (a AVSpeechSynthesisProviderRequest) SsmlRepresentation() string {
 func (a AVSpeechSynthesisProviderRequest) SetSsmlRepresentation(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSsmlRepresentation:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/voice
 func (a AVSpeechSynthesisProviderRequest) Voice() IAVSpeechSynthesisProviderVoice {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("voice"))
 	return AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))

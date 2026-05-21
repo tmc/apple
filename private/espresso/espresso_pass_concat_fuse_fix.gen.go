@@ -41,7 +41,6 @@ func (ec EspressoPassConcatFuseFixClass) Alloc() EspressoPassConcatFuseFix {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
 type EspressoPassConcatFuseFix struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_concat_fuse_fixFromID(id objc.ID) EspressoPassConcatFuseFix {
 var _ IEspressoPassConcatFuseFix = EspressoPassConcatFuseFix{}
 
 // An interface definition for the [EspressoPassConcatFuseFix] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
 type IEspressoPassConcatFuseFix interface {
 	IEspressoCustomPass
 }

@@ -42,7 +42,6 @@ func (cc CoreMLIOSurfaceAsyncEventClass) Alloc() CoreMLIOSurfaceAsyncEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceAsyncEvent
 type CoreMLIOSurfaceAsyncEvent struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLIOSurfaceAsyncEventFromID(id objc.ID) CoreMLIOSurfaceAsyncEvent {
 // ICoreMLIOSurfaceAsyncEvent embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLIOSurfaceAsyncEvent] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.IOSurfaceAsyncEvent
 type ICoreMLIOSurfaceAsyncEvent interface {
 	objectivec.IObject
 }

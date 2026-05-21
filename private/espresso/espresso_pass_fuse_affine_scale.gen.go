@@ -41,7 +41,6 @@ func (ec EspressoPassFuseAffineScaleClass) Alloc() EspressoPassFuseAffineScale {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
 type EspressoPassFuseAffineScale struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_affine_scaleFromID(id objc.ID) EspressoPassFuseAffineScal
 var _ IEspressoPassFuseAffineScale = EspressoPassFuseAffineScale{}
 
 // An interface definition for the [EspressoPassFuseAffineScale] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
 type IEspressoPassFuseAffineScale interface {
 	IEspressoCustomPass
 }

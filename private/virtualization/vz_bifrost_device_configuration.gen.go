@@ -47,17 +47,13 @@ func (vc VZBifrostDeviceConfigurationClass) Alloc() VZBifrostDeviceConfiguration
 //
 //   - [VZBifrostDeviceConfiguration.MMIOSize]
 //   - [VZBifrostDeviceConfiguration.SetMMIOSize]
-//   - [VZBifrostDeviceConfiguration._bifrostDevice]
 //   - [VZBifrostDeviceConfiguration._initWithAttachmentMMIOSize]
 //   - [VZBifrostDeviceConfiguration.Attachment]
 //   - [VZBifrostDeviceConfiguration.SetAttachment]
-//   - [VZBifrostDeviceConfiguration.EncodeWithEncoder]
 //   - [VZBifrostDeviceConfiguration.DebugDescription]
 //   - [VZBifrostDeviceConfiguration.Description]
 //   - [VZBifrostDeviceConfiguration.Hash]
 //   - [VZBifrostDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration
 type VZBifrostDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -76,17 +72,13 @@ var _ IVZBifrostDeviceConfiguration = VZBifrostDeviceConfiguration{}
 //
 //   - [IVZBifrostDeviceConfiguration.MMIOSize]
 //   - [IVZBifrostDeviceConfiguration.SetMMIOSize]
-//   - [IVZBifrostDeviceConfiguration._bifrostDevice]
 //   - [IVZBifrostDeviceConfiguration._initWithAttachmentMMIOSize]
 //   - [IVZBifrostDeviceConfiguration.Attachment]
 //   - [IVZBifrostDeviceConfiguration.SetAttachment]
-//   - [IVZBifrostDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZBifrostDeviceConfiguration.DebugDescription]
 //   - [IVZBifrostDeviceConfiguration.Description]
 //   - [IVZBifrostDeviceConfiguration.Hash]
 //   - [IVZBifrostDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration
 type IVZBifrostDeviceConfiguration interface {
 	objectivec.IObject
 
@@ -94,15 +86,13 @@ type IVZBifrostDeviceConfiguration interface {
 
 	MMIOSize() uint64
 	SetMMIOSize(value uint64)
-	_bifrostDevice() objectivec.IObject
 	_initWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) objectivec.IObject
-	Attachment() *VZBifrostAttachment
-	SetAttachment(value *VZBifrostAttachment)
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
+	Attachment() IVZBifrostAttachment
+	SetAttachment(value IVZBifrostAttachment)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -124,27 +114,6 @@ func NewVZBifrostDeviceConfiguration() VZBifrostDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/_bifrostDevice
-func (v VZBifrostDeviceConfiguration) _bifrostDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bifrostDevice"))
-	return objectivec.Object{ID: rv}
-}
-
-// BifrostDevice is an exported wrapper for the private method _bifrostDevice.
-func (v VZBifrostDeviceConfiguration) BifrostDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevice")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_bifrostDevice"}
-		return nil, err
-	}
-	return v._bifrostDevice(), nil
-}
-
-// CanBifrostDevice reports whether the receiver responds to the private selector _bifrostDevice.
-func (v VZBifrostDeviceConfiguration) CanBifrostDevice() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevice"))
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/_initWithAttachment:MMIOSize:
 func (v VZBifrostDeviceConfiguration) _initWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return objectivec.Object{ID: rv}
@@ -164,13 +133,6 @@ func (v VZBifrostDeviceConfiguration) CanInitWithAttachmentMMIOSize() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:MMIOSize:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/encodeWithEncoder:
-func (v VZBifrostDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/MMIOSize
 func (v VZBifrostDeviceConfiguration) MMIOSize() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("MMIOSize"))
 	return rv
@@ -178,44 +140,26 @@ func (v VZBifrostDeviceConfiguration) MMIOSize() uint64 {
 func (v VZBifrostDeviceConfiguration) SetMMIOSize(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMMIOSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/attachment
-func (v VZBifrostDeviceConfiguration) Attachment() *VZBifrostAttachment {
+func (v VZBifrostDeviceConfiguration) Attachment() IVZBifrostAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZBifrostAttachmentFromID(objc.ID(rv))
-	return &val
+	return VZBifrostAttachmentFromID(objc.ID(rv))
 }
-func (v VZBifrostDeviceConfiguration) SetAttachment(value *VZBifrostAttachment) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), objc.ID(0))
-		return
-	}
+func (v VZBifrostDeviceConfiguration) SetAttachment(value IVZBifrostAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/debugDescription
 func (v VZBifrostDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/description
 func (v VZBifrostDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/hash
 func (v VZBifrostDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/superclass
-func (v VZBifrostDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZBifrostDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

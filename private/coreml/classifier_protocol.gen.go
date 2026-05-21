@@ -8,8 +8,6 @@ import (
 )
 
 // MLClassifier protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLClassifier
 type MLClassifierProtocol interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func MLClassifierProtocolObjectFromID(id objc.ID) MLClassifierProtocolObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLClassifier/classLabels
 func (o MLClassifierProtocolObject) ClassLabels() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClassifier/classify:options:error:
 func (o MLClassifierProtocolObject) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("classify:options:error:"), classify, options)
 	if err != nil {

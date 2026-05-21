@@ -42,7 +42,6 @@ func (tc TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior
 type TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6
 // ITtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior
 type ITtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior interface {
 	objectivec.IObject
 }

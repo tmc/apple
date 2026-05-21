@@ -46,8 +46,6 @@ func (mc MLModelStructureProgramClass) Alloc() MLModelStructureProgram {
 //
 //   - [MLModelStructureProgram.MainFunction]
 //   - [MLModelStructureProgram.InitWithFunctions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram
 type MLModelStructureProgram struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IMLModelStructureProgram = MLModelStructureProgram{}
 //
 //   - [IMLModelStructureProgram.MainFunction]
 //   - [IMLModelStructureProgram.InitWithFunctions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram
 type IMLModelStructureProgram interface {
 	objectivec.IObject
 
@@ -96,20 +92,17 @@ func NewMLModelStructureProgram() MLModelStructureProgram {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/initWithFunctions:
 func NewModelStructureProgramWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
 	instance := getMLModelStructureProgramClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFunctions:"), functions)
 	return MLModelStructureProgramFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/initWithFunctions:
 func (m MLModelStructureProgram) InitWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
 	rv := objc.Send[MLModelStructureProgram](m.ID, objc.Sel("initWithFunctions:"), functions)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/mainFunction
 func (m MLModelStructureProgram) MainFunction() IMLModelStructureProgramFunction {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mainFunction"))
 	return MLModelStructureProgramFunctionFromID(objc.ID(rv))

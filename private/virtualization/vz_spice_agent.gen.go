@@ -51,8 +51,6 @@ func (vc VZSpiceAgentClass) Alloc() VZSpiceAgent {
 //   - [VZSpiceAgent.Description]
 //   - [VZSpiceAgent.Hash]
 //   - [VZSpiceAgent.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent
 type VZSpiceAgent struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ IVZSpiceAgent = VZSpiceAgent{}
 //   - [IVZSpiceAgent.Description]
 //   - [IVZSpiceAgent.Hash]
 //   - [IVZSpiceAgent.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent
 type IVZSpiceAgent interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type IVZSpiceAgent interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,36 +105,26 @@ func NewVZSpiceAgent() VZSpiceAgent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/consoleDevice:didClosePort:
 func (v VZSpiceAgent) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/consoleDevice:didOpenPort:
 func (v VZSpiceAgent) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/debugDescription
 func (v VZSpiceAgent) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/description
 func (v VZSpiceAgent) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/hash
 func (v VZSpiceAgent) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/superclass
-func (v VZSpiceAgent) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZSpiceAgent) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

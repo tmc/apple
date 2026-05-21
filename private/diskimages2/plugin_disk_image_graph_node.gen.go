@@ -49,8 +49,6 @@ func (pc PluginDiskImageGraphNodeClass) Alloc() PluginDiskImageGraphNode {
 //   - [PluginDiskImageGraphNode.PluginName]
 //   - [PluginDiskImageGraphNode.PluginParams]
 //   - [PluginDiskImageGraphNode.InitWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode
 type PluginDiskImageGraphNode struct {
 	DiskImageGraphNode
 }
@@ -70,8 +68,6 @@ var _ IPluginDiskImageGraphNode = PluginDiskImageGraphNode{}
 //   - [IPluginDiskImageGraphNode.PluginName]
 //   - [IPluginDiskImageGraphNode.PluginParams]
 //   - [IPluginDiskImageGraphNode.InitWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode
 type IPluginDiskImageGraphNode interface {
 	IDiskImageGraphNode
 
@@ -101,7 +97,6 @@ func NewPluginDiskImageGraphNode() PluginDiskImageGraphNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode/initWithDictionary:workDir:error:
 func NewPluginDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (PluginDiskImageGraphNode, error) {
 	var errorPtr objc.ID
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
@@ -113,33 +108,27 @@ func NewPluginDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec
 	return PluginDiskImageGraphNodeFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode/initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:
 func NewPluginDiskImageGraphNodeWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
 	return PluginDiskImageGraphNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithTag:UUID:parentNode:metadata:isCache:
 func NewPluginDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return PluginDiskImageGraphNodeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode/initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:
 func (p PluginDiskImageGraphNode) InitWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
 	rv := objc.Send[PluginDiskImageGraphNode](p.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode/pluginName
 func (p PluginDiskImageGraphNode) PluginName() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/PluginDiskImageGraphNode/pluginParams
 func (p PluginDiskImageGraphNode) PluginParams() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("pluginParams"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

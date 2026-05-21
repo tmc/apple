@@ -57,8 +57,6 @@ func (dc DIImageInfoParamsClass) Alloc() DIImageInfoParams {
 //   - [DIImageInfoParams.SetOpenEncryption]
 //   - [DIImageInfoParams.RetrieveWithError]
 //   - [DIImageInfoParams.InitWithExistingParamsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams
 type DIImageInfoParams struct {
 	DIBaseParams
 }
@@ -85,8 +83,6 @@ var _ IDIImageInfoParams = DIImageInfoParams{}
 //   - [IDIImageInfoParams.SetOpenEncryption]
 //   - [IDIImageInfoParams.RetrieveWithError]
 //   - [IDIImageInfoParams.InitWithExistingParamsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams
 type IDIImageInfoParams interface {
 	IDIBaseParams
 
@@ -123,14 +119,12 @@ func NewDIImageInfoParams() DIImageInfoParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIImageInfoParamsWithCoder(coder objectivec.IObject) DIImageInfoParams {
 	instance := getDIImageInfoParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIImageInfoParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/initWithExistingParams:error:
 func NewDIImageInfoParamsWithExistingParamsError(params IDIImageInfoParams) (DIImageInfoParams, error) {
 	var errorPtr objc.ID
 	instance := getDIImageInfoParamsClass().Alloc()
@@ -142,8 +136,7 @@ func NewDIImageInfoParamsWithExistingParamsError(params IDIImageInfoParams) (DII
 	return DIImageInfoParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/initWithURL:error:
-func NewDIImageInfoParamsWithURLError(url foundation.INSURL) (DIImageInfoParams, error) {
+func NewDIImageInfoParamsWithURLError(url foundation.NSURL) (DIImageInfoParams, error) {
 	var errorPtr objc.ID
 	instance := getDIImageInfoParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -154,7 +147,6 @@ func NewDIImageInfoParamsWithURLError(url foundation.INSURL) (DIImageInfoParams,
 	return DIImageInfoParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/retrieveWithError:
 func (d DIImageInfoParams) RetrieveWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("retrieveWithError:"), unsafe.Pointer(&errorPtr))
@@ -168,8 +160,6 @@ func (d DIImageInfoParams) RetrieveWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/initWithExistingParams:error:
 func (d DIImageInfoParams) InitWithExistingParamsError(params IDIImageInfoParams) (DIImageInfoParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
@@ -181,13 +171,11 @@ func (d DIImageInfoParams) InitWithExistingParamsError(params IDIImageInfoParams
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/isDiskImageWithURL:
-func (_DIImageInfoParamsClass DIImageInfoParamsClass) IsDiskImageWithURL(url foundation.INSURL) bool {
+func (_DIImageInfoParamsClass DIImageInfoParamsClass) IsDiskImageWithURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](objc.ID(_DIImageInfoParamsClass.class), objc.Sel("isDiskImageWithURL:"), url)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/encryptionInfoOnly
 func (d DIImageInfoParams) EncryptionInfoOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("encryptionInfoOnly"))
 	return rv
@@ -195,8 +183,6 @@ func (d DIImageInfoParams) EncryptionInfoOnly() bool {
 func (d DIImageInfoParams) SetEncryptionInfoOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionInfoOnly:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/extraInfo
 func (d DIImageInfoParams) ExtraInfo() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("extraInfo"))
 	return rv
@@ -204,8 +190,6 @@ func (d DIImageInfoParams) ExtraInfo() bool {
 func (d DIImageInfoParams) SetExtraInfo(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setExtraInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/imageInfo
 func (d DIImageInfoParams) ImageInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -213,8 +197,6 @@ func (d DIImageInfoParams) ImageInfo() foundation.INSDictionary {
 func (d DIImageInfoParams) SetImageInfo(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setImageInfo:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/openEncryption
 func (d DIImageInfoParams) OpenEncryption() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("openEncryption"))
 	return rv

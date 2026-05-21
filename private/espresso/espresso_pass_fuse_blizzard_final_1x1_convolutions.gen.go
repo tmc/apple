@@ -41,7 +41,6 @@ func (ec EspressoPassFuseBlizzardFinal1x1ConvolutionsClass) Alloc() EspressoPass
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
 type EspressoPassFuseBlizzardFinal1x1Convolutions struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID(id objc.ID) Espress
 var _ IEspressoPassFuseBlizzardFinal1x1Convolutions = EspressoPassFuseBlizzardFinal1x1Convolutions{}
 
 // An interface definition for the [EspressoPassFuseBlizzardFinal1x1Convolutions] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
 type IEspressoPassFuseBlizzardFinal1x1Convolutions interface {
 	IEspressoCustomPass
 }

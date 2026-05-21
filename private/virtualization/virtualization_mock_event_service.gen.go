@@ -42,7 +42,6 @@ func (vc VirtualizationMockEventServiceClass) Alloc() VirtualizationMockEventSer
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.MockEventService
 type VirtualizationMockEventService struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VirtualizationMockEventServiceFromID(id objc.ID) VirtualizationMockEventSer
 // IVirtualizationMockEventService embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [VirtualizationMockEventService] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/Virtualization.MockEventService
 type IVirtualizationMockEventService interface {
 	objectivec.IObject
 }

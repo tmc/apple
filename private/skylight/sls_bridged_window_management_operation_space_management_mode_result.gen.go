@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationSpaceManagementModeResultClass) Allo
 //
 //   - [SLSBridgedWindowManagementOperationSpaceManagementModeResult.SpaceManagementMode]
 //   - [SLSBridgedWindowManagementOperationSpaceManagementModeResult.InitWithSpaceManagementMode]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult
 type SLSBridgedWindowManagementOperationSpaceManagementModeResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationSpaceManagementModeResult = SLSBridged
 //
 //   - [ISLSBridgedWindowManagementOperationSpaceManagementModeResult.SpaceManagementMode]
 //   - [ISLSBridgedWindowManagementOperationSpaceManagementModeResult.InitWithSpaceManagementMode]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult
 type ISLSBridgedWindowManagementOperationSpaceManagementModeResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationSpaceManagementModeResult() SLSBridge
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationSpaceManagementModeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceManagementModeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpaceManagementModeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult/initWithSpaceManagementMode:
 func NewSLSBridgedWindowManagementOperationSpaceManagementModeResultWithSpaceManagementMode(mode uint64) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceManagementModeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
 	return SLSBridgedWindowManagementOperationSpaceManagementModeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult/initWithSpaceManagementMode:
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) InitWithSpaceManagementMode(mode uint64) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceManagementModeResult/spaceManagementMode
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) SpaceManagementMode() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceManagementMode"))
 	return rv

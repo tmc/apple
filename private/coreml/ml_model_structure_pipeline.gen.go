@@ -45,8 +45,6 @@ func (mc MLModelStructurePipelineClass) Alloc() MLModelStructurePipeline {
 // # Methods
 //
 //   - [MLModelStructurePipeline.InitWithSubModelNamesSubModels]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline
 type MLModelStructurePipeline struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IMLModelStructurePipeline = MLModelStructurePipeline{}
 // # Methods
 //
 //   - [IMLModelStructurePipeline.InitWithSubModelNamesSubModels]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline
 type IMLModelStructurePipeline interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewMLModelStructurePipeline() MLModelStructurePipeline {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/initWithSubModelNames:subModels:
 func NewModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	instance := getMLModelStructurePipelineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return MLModelStructurePipelineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/initWithSubModelNames:subModels:
 func (m MLModelStructurePipeline) InitWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return rv

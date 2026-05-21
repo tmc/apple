@@ -49,8 +49,6 @@ func (vc VZDRMLayerClass) Alloc() VZDRMLayer {
 //   - [VZDRMLayer.LayerDidResize]
 //   - [VZDRMLayer.InitForTestingContent]
 //   - [VZDRMLayer.InitWithParentLayer]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer
 type VZDRMLayer struct {
 	quartzcore.CALayer
 }
@@ -70,8 +68,6 @@ var _ IVZDRMLayer = VZDRMLayer{}
 //   - [IVZDRMLayer.LayerDidResize]
 //   - [IVZDRMLayer.InitForTestingContent]
 //   - [IVZDRMLayer.InitWithParentLayer]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer
 type IVZDRMLayer interface {
 	quartzcore.ICALayer
 
@@ -101,38 +97,30 @@ func NewVZDRMLayer() VZDRMLayer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/initForTesting:content:
 func NewVZDRMLayerForTestingContent(testing objectivec.IObject, content objectivec.IObject) VZDRMLayer {
 	instance := getVZDRMLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForTesting:content:"), testing, content)
 	return VZDRMLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/initWithParentLayer:
 func NewVZDRMLayerWithParentLayer(layer objectivec.IObject) VZDRMLayer {
 	instance := getVZDRMLayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParentLayer:"), layer)
 	return VZDRMLayerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/layerDidResize:
 func (v VZDRMLayer) LayerDidResize(resize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("layerDidResize:"), resize)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/initForTesting:content:
 func (v VZDRMLayer) InitForTestingContent(testing objectivec.IObject, content objectivec.IObject) VZDRMLayer {
 	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("initForTesting:content:"), testing, content)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/initWithParentLayer:
 func (v VZDRMLayer) InitWithParentLayer(layer objectivec.IObject) VZDRMLayer {
 	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("initWithParentLayer:"), layer)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZDRMLayer/isSupported
 func (_VZDRMLayerClass VZDRMLayerClass) IsSupported() bool {
 	rv := objc.Send[bool](objc.ID(_VZDRMLayerClass.class), objc.Sel("isSupported"))
 	return rv

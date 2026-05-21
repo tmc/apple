@@ -58,8 +58,6 @@ func (tc TTSRulesetClass) Alloc() TTSRuleset {
 //   - [TTSRuleset.RuleCount]
 //   - [TTSRuleset.RuleReplacements]
 //   - [TTSRuleset.SetRuleReplacements]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset
 type TTSRuleset struct {
 	objectivec.Object
 }
@@ -89,8 +87,6 @@ var _ ITTSRuleset = TTSRuleset{}
 //   - [ITTSRuleset.RuleCount]
 //   - [ITTSRuleset.RuleReplacements]
 //   - [ITTSRuleset.SetRuleReplacements]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset
 type ITTSRuleset interface {
 	objectivec.IObject
 
@@ -130,39 +126,28 @@ func NewTTSRuleset() TTSRuleset {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/addRuleReplacement:
 func (t TTSRuleset) AddRuleReplacement(replacement objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addRuleReplacement:"), replacement)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/addRuleString:
 func (t TTSRuleset) AddRuleString(string_ objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addRuleString:"), string_)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/addRules:
 func (t TTSRuleset) AddRules(rules objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addRules:"), rules)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/addRulesFromData:
 func (t TTSRuleset) AddRulesFromData(data objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addRulesFromData:"), data)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/processReplacementStringForSpecialCharacters:
 func (_TTSRulesetClass TTSRulesetClass) ProcessReplacementStringForSpecialCharacters(characters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSRulesetClass.class), objc.Sel("processReplacementStringForSpecialCharacters:"), characters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/rulesetWithData:identifier:priority:
 func (_TTSRulesetClass TTSRulesetClass) RulesetWithDataIdentifierPriority(data objectivec.IObject, identifier objectivec.IObject, priority uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSRulesetClass.class), objc.Sel("rulesetWithData:identifier:priority:"), data, identifier, priority)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/activationRegex
 func (t TTSRuleset) ActivationRegex() ITTSRegex {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("activationRegex"))
 	return TTSRegexFromID(objc.ID(rv))
@@ -170,8 +155,6 @@ func (t TTSRuleset) ActivationRegex() ITTSRegex {
 func (t TTSRuleset) SetActivationRegex(value ITTSRegex) {
 	objc.Send[struct{}](t.ID, objc.Sel("setActivationRegex:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/identifier
 func (t TTSRuleset) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -179,8 +162,6 @@ func (t TTSRuleset) Identifier() string {
 func (t TTSRuleset) SetIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/priority
 func (t TTSRuleset) Priority() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("priority"))
 	return rv
@@ -188,14 +169,10 @@ func (t TTSRuleset) Priority() uint64 {
 func (t TTSRuleset) SetPriority(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPriority:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/ruleCount
 func (t TTSRuleset) RuleCount() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleCount"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleset/ruleReplacements
 func (t TTSRuleset) RuleReplacements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacements"))
 	return foundation.NSArrayFromID(objc.ID(rv))

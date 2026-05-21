@@ -52,8 +52,6 @@ func (dc DIResizeParamsClass) Alloc() DIResizeParams {
 //   - [DIResizeParams.ResizeWithError]
 //   - [DIResizeParams.InitWithURLSizeError]
 //   - [DIResizeParams.InitWithExistingParamsSizeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams
 type DIResizeParams struct {
 	DIBaseParams
 }
@@ -75,8 +73,6 @@ var _ IDIResizeParams = DIResizeParams{}
 //   - [IDIResizeParams.ResizeWithError]
 //   - [IDIResizeParams.InitWithURLSizeError]
 //   - [IDIResizeParams.InitWithExistingParamsSizeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams
 type IDIResizeParams interface {
 	IDIBaseParams
 
@@ -85,7 +81,7 @@ type IDIResizeParams interface {
 	Size() uint64
 	SetSize(value uint64)
 	ResizeWithError() (bool, error)
-	InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error)
+	InitWithURLSizeError(url foundation.NSURL, size uint64) (DIResizeParams, error)
 	InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error)
 }
 
@@ -108,14 +104,12 @@ func NewDIResizeParams() DIResizeParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithCoder:
 func NewDIResizeParamsWithCoder(coder objectivec.IObject) DIResizeParams {
 	instance := getDIResizeParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIResizeParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
@@ -127,8 +121,7 @@ func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size u
 	return DIResizeParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
-func NewDIResizeParamsWithURLError(url foundation.INSURL) (DIResizeParams, error) {
+func NewDIResizeParamsWithURLError(url foundation.NSURL) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -139,8 +132,7 @@ func NewDIResizeParamsWithURLError(url foundation.INSURL) (DIResizeParams, error
 	return DIResizeParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
-func NewDIResizeParamsWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error) {
+func NewDIResizeParamsWithURLSizeError(url foundation.NSURL, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
@@ -151,7 +143,6 @@ func NewDIResizeParamsWithURLSizeError(url foundation.INSURL, size uint64) (DIRe
 	return DIResizeParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/resizeWithError:
 func (d DIResizeParams) ResizeWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("resizeWithError:"), unsafe.Pointer(&errorPtr))
@@ -165,9 +156,7 @@ func (d DIResizeParams) ResizeWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
-func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error) {
+func (d DIResizeParams) InitWithURLSizeError(url foundation.NSURL, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -177,8 +166,6 @@ func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64)
 	return DIResizeParamsFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
@@ -190,7 +177,6 @@ func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, 
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/size
 func (d DIResizeParams) Size() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("size"))
 	return rv

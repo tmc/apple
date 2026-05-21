@@ -57,8 +57,6 @@ func (mc MLFloorBrickClass) Alloc() MLFloorBrick {
 //   - [MLFloorBrick.Description]
 //   - [MLFloorBrick.Hash]
 //   - [MLFloorBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick
 type MLFloorBrick struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IMLFloorBrick = MLFloorBrick{}
 //   - [IMLFloorBrick.Description]
 //   - [IMLFloorBrick.Hash]
 //   - [IMLFloorBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick
 type IMLFloorBrick interface {
 	objectivec.IObject
 
@@ -105,7 +101,7 @@ type IMLFloorBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,80 +123,57 @@ func NewMLFloorBrick() MLFloorBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/initWithParameters:
 func NewFloorBrickWithParameters(parameters objectivec.IObject) MLFloorBrick {
 	instance := getMLFloorBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLFloorBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLFloorBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/hasGPUSupport
 func (m MLFloorBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/setupForInputShapes:withParameters:
 func (m MLFloorBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/initWithParameters:
 func (m MLFloorBrick) InitWithParameters(parameters objectivec.IObject) MLFloorBrick {
 	rv := objc.Send[MLFloorBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/debugDescription
 func (m MLFloorBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/description
 func (m MLFloorBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/hash
 func (m MLFloorBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/inputRanks
 func (m MLFloorBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/inputShapes
 func (m MLFloorBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/outputRanks
 func (m MLFloorBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/outputShapes
 func (m MLFloorBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFloorBrick/superclass
-func (m MLFloorBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLFloorBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

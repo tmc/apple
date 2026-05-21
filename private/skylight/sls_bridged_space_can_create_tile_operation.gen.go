@@ -49,8 +49,6 @@ func (sc SLSBridgedSpaceCanCreateTileOperationClass) Alloc() SLSBridgedSpaceCanC
 //   - [SLSBridgedSpaceCanCreateTileOperation.MinSize]
 //   - [SLSBridgedSpaceCanCreateTileOperation.SpaceID]
 //   - [SLSBridgedSpaceCanCreateTileOperation.InitWithSpaceIDMinSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation
 type SLSBridgedSpaceCanCreateTileOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedSpaceCanCreateTileOperation = SLSBridgedSpaceCanCreateTileOpera
 //   - [ISLSBridgedSpaceCanCreateTileOperation.MinSize]
 //   - [ISLSBridgedSpaceCanCreateTileOperation.SpaceID]
 //   - [ISLSBridgedSpaceCanCreateTileOperation.InitWithSpaceIDMinSize]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation
 type ISLSBridgedSpaceCanCreateTileOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedSpaceCanCreateTileOperation() SLSBridgedSpaceCanCreateTileOper
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/initWithCoder:
 func NewSLSBridgedSpaceCanCreateTileOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCanCreateTileOperation {
 	instance := getSLSBridgedSpaceCanCreateTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCanCreateTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/initWithSpaceID:minSize:
 func NewSLSBridgedSpaceCanCreateTileOperationWithSpaceIDMinSize(id uint64, size corefoundation.CGSize) SLSBridgedSpaceCanCreateTileOperation {
 	instance := getSLSBridgedSpaceCanCreateTileOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
 	return SLSBridgedSpaceCanCreateTileOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/makeResultWithBoolValue:
 func (s SLSBridgedSpaceCanCreateTileOperation) MakeResultWithBoolValue(value bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/initWithSpaceID:minSize:
 func (s SLSBridgedSpaceCanCreateTileOperation) InitWithSpaceIDMinSize(id uint64, size corefoundation.CGSize) SLSBridgedSpaceCanCreateTileOperation {
 	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/minSize
 func (s SLSBridgedSpaceCanCreateTileOperation) MinSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("minSize"))
 	return corefoundation.CGSize(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceCanCreateTileOperation/spaceID
 func (s SLSBridgedSpaceCanCreateTileOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

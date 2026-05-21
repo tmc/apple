@@ -41,7 +41,6 @@ func (ec EspressoPassMultiHeadPruneUndeclaredClass) Alloc() EspressoPassMultiHea
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
 type EspressoPassMultiHeadPruneUndeclared struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_multi_head_prune_undeclaredFromID(id objc.ID) EspressoPassMult
 var _ IEspressoPassMultiHeadPruneUndeclared = EspressoPassMultiHeadPruneUndeclared{}
 
 // An interface definition for the [EspressoPassMultiHeadPruneUndeclared] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
 type IEspressoPassMultiHeadPruneUndeclared interface {
 	IEspressoCustomPass
 }

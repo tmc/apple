@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,8 +52,6 @@ func (ec ETTaskStateClass) Alloc() ETTaskState {
 //   - [ETTaskState.SetNetworkPointer]
 //   - [ETTaskState.InitWithBlobMap]
 //   - [ETTaskState.InitWithNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState
 type ETTaskState struct {
 	objectivec.Object
 }
@@ -75,19 +74,17 @@ var _ IETTaskState = ETTaskState{}
 //   - [IETTaskState.SetNetworkPointer]
 //   - [IETTaskState.InitWithBlobMap]
 //   - [IETTaskState.InitWithNetwork]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState
 type IETTaskState interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Blobs() objectivec.IObject
-	SetBlobs(value objectivec.IObject)
-	NetworkPointer() objectivec.IObject
-	SetNetworkPointer(value objectivec.IObject)
+	Blobs() unsafe.Pointer
+	SetBlobs(value kernel.Pointer)
+	NetworkPointer() unsafe.Pointer
+	SetNetworkPointer(value kernel.Pointer)
 	InitWithBlobMap(map_ unsafe.Pointer) ETTaskState
-	InitWithNetwork(network objectivec.IObject) ETTaskState
+	InitWithNetwork(network unsafe.Pointer) ETTaskState
 }
 
 // Init initializes the instance.
@@ -109,46 +106,38 @@ func NewETTaskState() ETTaskState {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithBlobMap:
 func NewETTaskStateWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlobMap:"), map_)
 	return ETTaskStateFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithNetwork:
-func NewETTaskStateWithNetwork(network objectivec.IObject) ETTaskState {
+func NewETTaskStateWithNetwork(network unsafe.Pointer) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETTaskStateFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithBlobMap:
 func (e ETTaskState) InitWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithBlobMap:"), map_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithNetwork:
-func (e ETTaskState) InitWithNetwork(network objectivec.IObject) ETTaskState {
+func (e ETTaskState) InitWithNetwork(network unsafe.Pointer) ETTaskState {
 	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/blobs
-func (e ETTaskState) Blobs() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("blobs"))
-	return objectivec.Object{ID: rv}
+func (e ETTaskState) Blobs() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blobs"))
+	return rv
 }
-func (e ETTaskState) SetBlobs(value objectivec.IObject) {
+func (e ETTaskState) SetBlobs(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlobs:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETTaskState/networkPointer
-func (e ETTaskState) NetworkPointer() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("networkPointer"))
-	return objectivec.Object{ID: rv}
+func (e ETTaskState) NetworkPointer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("networkPointer"))
+	return rv
 }
-func (e ETTaskState) SetNetworkPointer(value objectivec.IObject) {
+func (e ETTaskState) SetNetworkPointer(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNetworkPointer:"), value)
 }

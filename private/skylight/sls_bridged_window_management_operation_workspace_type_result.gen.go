@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationWorkspaceTypeResultClass) Alloc() SL
 //
 //   - [SLSBridgedWindowManagementOperationWorkspaceTypeResult.WorkspaceType]
 //   - [SLSBridgedWindowManagementOperationWorkspaceTypeResult.InitWithWorkspaceType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult
 type SLSBridgedWindowManagementOperationWorkspaceTypeResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationWorkspaceTypeResult = SLSBridgedWindow
 //
 //   - [ISLSBridgedWindowManagementOperationWorkspaceTypeResult.WorkspaceType]
 //   - [ISLSBridgedWindowManagementOperationWorkspaceTypeResult.InitWithWorkspaceType]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult
 type ISLSBridgedWindowManagementOperationWorkspaceTypeResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationWorkspaceTypeResult() SLSBridgedWindo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	instance := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult/initWithWorkspaceType:
 func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	instance := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult/initWithWorkspaceType:
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) InitWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationWorkspaceTypeResult/workspaceType
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) WorkspaceType() int {
 	rv := objc.Send[int](s.ID, objc.Sel("workspaceType"))
 	return rv

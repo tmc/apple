@@ -41,7 +41,6 @@ func (vc VZLinearFramebufferGraphicsDeviceClass) Alloc() VZLinearFramebufferGrap
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDevice
 type VZLinearFramebufferGraphicsDevice struct {
 	VZGraphicsDevice
 }
@@ -55,8 +54,6 @@ func VZLinearFramebufferGraphicsDeviceFromID(id objc.ID) VZLinearFramebufferGrap
 var _ IVZLinearFramebufferGraphicsDevice = VZLinearFramebufferGraphicsDevice{}
 
 // An interface definition for the [VZLinearFramebufferGraphicsDevice] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDevice
 type IVZLinearFramebufferGraphicsDevice interface {
 	IVZGraphicsDevice
 }

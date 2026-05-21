@@ -45,8 +45,6 @@ func (vc VZHIDDeviceClass) Alloc() VZHIDDevice {
 // # Methods
 //
 //   - [VZHIDDevice.SendIOHIDEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDDevice
 type VZHIDDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZHIDDevice = VZHIDDevice{}
 // # Methods
 //
 //   - [IVZHIDDevice.SendIOHIDEvents]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDDevice
 type IVZHIDDevice interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZHIDDevice() VZHIDDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZHIDDevice/sendIOHIDEvents:
 func (v VZHIDDevice) SendIOHIDEvents(iOHIDEvents objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:"), iOHIDEvents)
 }

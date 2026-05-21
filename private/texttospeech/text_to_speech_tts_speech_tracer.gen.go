@@ -46,8 +46,6 @@ func (tc TextToSpeechTTSSpeechTracerClass) Alloc() TextToSpeechTTSSpeechTracer {
 //
 //   - [TextToSpeechTTSSpeechTracer.EmitWithEventForIdentifier]
 //   - [TextToSpeechTTSSpeechTracer.MakeSpeechJobIdentifier]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechTracer
 type TextToSpeechTTSSpeechTracer struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ ITextToSpeechTTSSpeechTracer = TextToSpeechTTSSpeechTracer{}
 //
 //   - [ITextToSpeechTTSSpeechTracer.EmitWithEventForIdentifier]
 //   - [ITextToSpeechTTSSpeechTracer.MakeSpeechJobIdentifier]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechTracer
 type ITextToSpeechTTSSpeechTracer interface {
 	objectivec.IObject
 
@@ -96,12 +92,9 @@ func NewTextToSpeechTTSSpeechTracer() TextToSpeechTTSSpeechTracer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechTracer/emitWithEvent:forIdentifier:
 func (t TextToSpeechTTSSpeechTracer) EmitWithEventForIdentifier(event objectivec.IObject, identifier objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("emitWithEvent:forIdentifier:"), event, identifier)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechTracer/makeSpeechJobIdentifier
 func (t TextToSpeechTTSSpeechTracer) MakeSpeechJobIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("makeSpeechJobIdentifier"))
 	return objectivec.Object{ID: rv}

@@ -8,8 +8,6 @@ import (
 )
 
 // BSServiceConnectionListenerDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/BSServiceConnectionListenerDelegate
 type BSServiceConnectionListenerDelegate interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func BSServiceConnectionListenerDelegateObjectFromID(id objc.ID) BSServiceConnec
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/BSServiceConnectionListenerDelegate/listener:didReceiveConnection:withContext:
 func (o BSServiceConnectionListenerDelegateObject) ListenerDidReceiveConnectionWithContext(listener objectivec.IObject, connection objectivec.IObject, context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("listener:didReceiveConnection:withContext:"), listener, connection, context)
 }

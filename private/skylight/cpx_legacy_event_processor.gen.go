@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -59,8 +60,6 @@ func (cc CPXLegacyEventProcessorClass) Alloc() CPXLegacyEventProcessor {
 //   - [CPXLegacyEventProcessor.Description]
 //   - [CPXLegacyEventProcessor.Hash]
 //   - [CPXLegacyEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor
 type CPXLegacyEventProcessor struct {
 	objectivec.Object
 }
@@ -91,8 +90,6 @@ var _ ICPXLegacyEventProcessor = CPXLegacyEventProcessor{}
 //   - [ICPXLegacyEventProcessor.Description]
 //   - [ICPXLegacyEventProcessor.Hash]
 //   - [ICPXLegacyEventProcessor.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor
 type ICPXLegacyEventProcessor interface {
 	objectivec.IObject
 
@@ -101,7 +98,7 @@ type ICPXLegacyEventProcessor interface {
 	CleanupForProcessDeath(death CPSProcessRec)
 	ClearEventState()
 	ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec)
-	HotKeyChanged(changed objectivec.IObject)
+	HotKeyChanged(changed unsafe.Pointer)
 	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int
@@ -111,7 +108,7 @@ type ICPXLegacyEventProcessor interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -133,96 +130,68 @@ func NewCPXLegacyEventProcessor() CPXLegacyEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithProcessManager:focusManager:symbolicHotKeyRegistry:callbackScheduler:notificationCenter:
 func NewCPXLegacyEventProcessorWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXLegacyEventProcessor {
 	instance := getCPXLegacyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcessManager:focusManager:symbolicHotKeyRegistry:callbackScheduler:notificationCenter:"), manager, manager2, registry, scheduler, center)
 	return CPXLegacyEventProcessorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithSession:
 func NewCPXLegacyEventProcessorWithSession(session CGXSession) CPXLegacyEventProcessor {
 	instance := getCPXLegacyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXLegacyEventProcessorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/cleanupForProcessDeath:
 func (c CPXLegacyEventProcessor) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/clearEventState
 func (c CPXLegacyEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/exitSpecialKeyMode:forProcess:
 func (c CPXLegacyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("exitSpecialKeyMode:forProcess:"), mode, process)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/hotKeyChanged:
-func (c CPXLegacyEventProcessor) HotKeyChanged(changed objectivec.IObject) {
+func (c CPXLegacyEventProcessor) HotKeyChanged(changed unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("hotKeyChanged:"), changed)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/processEvent:context:dispatcher:
 func (c CPXLegacyEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/processHotKeyEvent:hotKeyID:isDown:context:dispatcher:
 func (c CPXLegacyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), event, id, down, context, dispatcher)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/registerSpecialKey:connection:forProcess:
 func (c CPXLegacyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, connection, process)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/unregisterSpecialKey:forProcess:
 func (c CPXLegacyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, process)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithProcessManager:focusManager:symbolicHotKeyRegistry:callbackScheduler:notificationCenter:
 func (c CPXLegacyEventProcessor) InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXLegacyEventProcessor {
 	rv := objc.Send[CPXLegacyEventProcessor](c.ID, objc.Sel("initWithProcessManager:focusManager:symbolicHotKeyRegistry:callbackScheduler:notificationCenter:"), manager, manager2, registry, scheduler, center)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithSession:
 func (c CPXLegacyEventProcessor) InitWithSession(session CGXSession) CPXLegacyEventProcessor {
 	rv := objc.Send[CPXLegacyEventProcessor](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/debugDescription
 func (c CPXLegacyEventProcessor) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/description
 func (c CPXLegacyEventProcessor) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/hash
 func (c CPXLegacyEventProcessor) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/superclass
-func (c CPXLegacyEventProcessor) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXLegacyEventProcessor) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

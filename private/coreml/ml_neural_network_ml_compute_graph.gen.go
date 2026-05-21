@@ -86,8 +86,6 @@ func (mc MLNeuralNetworkMLComputeGraphClass) Alloc() MLNeuralNetworkMLComputeGra
 //   - [MLNeuralNetworkMLComputeGraph.TrainingGraph]
 //   - [MLNeuralNetworkMLComputeGraph.SetTrainingGraph]
 //   - [MLNeuralNetworkMLComputeGraph.InitWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph
 type MLNeuralNetworkMLComputeGraph struct {
 	objectivec.Object
 }
@@ -143,8 +141,6 @@ var _ IMLNeuralNetworkMLComputeGraph = MLNeuralNetworkMLComputeGraph{}
 //   - [IMLNeuralNetworkMLComputeGraph.TrainingGraph]
 //   - [IMLNeuralNetworkMLComputeGraph.SetTrainingGraph]
 //   - [IMLNeuralNetworkMLComputeGraph.InitWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph
 type IMLNeuralNetworkMLComputeGraph interface {
 	objectivec.IObject
 
@@ -210,7 +206,6 @@ func NewMLNeuralNetworkMLComputeGraph() MLNeuralNetworkMLComputeGraph {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:
 func NewNeuralNetworkMLComputeGraphWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (MLNeuralNetworkMLComputeGraph, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeGraphClass().Alloc()
@@ -222,7 +217,6 @@ func NewNeuralNetworkMLComputeGraphWithCompiledArchiveModelDescriptionBatchSizeN
 	return MLNeuralNetworkMLComputeGraphFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/buildGraphsFor:batchSize:numberOfClasses:error:
 func (m MLNeuralNetworkMLComputeGraph) BuildGraphsForBatchSizeNumberOfClassesError(for_ unsafe.Pointer, size uint64, classes uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("buildGraphsFor:batchSize:numberOfClasses:error:"), for_, size, classes, unsafe.Pointer(&errorPtr))
@@ -236,8 +230,6 @@ func (m MLNeuralNetworkMLComputeGraph) BuildGraphsForBatchSizeNumberOfClassesErr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/buildInferenceGraph:updateParams:layers:mlcTensorByName:outputNameToLayerMap:error:
 func (m MLNeuralNetworkMLComputeGraph) BuildInferenceGraphUpdateParamsLayersMlcTensorByNameOutputNameToLayerMapError(graph objectivec.IObject, params unsafe.Pointer, layers unsafe.Pointer, name objectivec.IObject, map_ objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buildInferenceGraph:updateParams:layers:mlcTensorByName:outputNameToLayerMap:error:"), graph, params, layers, name, map_, unsafe.Pointer(&errorPtr))
@@ -248,8 +240,6 @@ func (m MLNeuralNetworkMLComputeGraph) BuildInferenceGraphUpdateParamsLayersMlcT
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/buildMLComputeTensorDescriptorWith:featureName:batchSize:numberOfClasses:error:
 func (m MLNeuralNetworkMLComputeGraph) BuildMLComputeTensorDescriptorWithFeatureNameBatchSizeNumberOfClassesError(with objectivec.IObject, name objectivec.IObject, size uint64, classes uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buildMLComputeTensorDescriptorWith:featureName:batchSize:numberOfClasses:error:"), with, name, size, classes, unsafe.Pointer(&errorPtr))
@@ -260,8 +250,6 @@ func (m MLNeuralNetworkMLComputeGraph) BuildMLComputeTensorDescriptorWithFeature
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/buildTrainingGraphFrom:updateParams:numberOfClasses:mlcTensorByName:error:
 func (m MLNeuralNetworkMLComputeGraph) BuildTrainingGraphFromUpdateParamsNumberOfClassesMlcTensorByNameError(from objectivec.IObject, params unsafe.Pointer, classes uint64, name objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buildTrainingGraphFrom:updateParams:numberOfClasses:mlcTensorByName:error:"), from, params, classes, name, unsafe.Pointer(&errorPtr))
@@ -272,8 +260,6 @@ func (m MLNeuralNetworkMLComputeGraph) BuildTrainingGraphFromUpdateParamsNumberO
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/copyWeightsFrom:to:error:
 func (m MLNeuralNetworkMLComputeGraph) CopyWeightsFromToError(from objectivec.IObject, to unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("copyWeightsFrom:to:error:"), from, to, unsafe.Pointer(&errorPtr))
@@ -287,8 +273,6 @@ func (m MLNeuralNetworkMLComputeGraph) CopyWeightsFromToError(from objectivec.IO
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/createMultiArrayFromTensor:error:
 func (m MLNeuralNetworkMLComputeGraph) CreateMultiArrayFromTensorError(tensor objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("createMultiArrayFromTensor:error:"), tensor, unsafe.Pointer(&errorPtr))
@@ -299,8 +283,6 @@ func (m MLNeuralNetworkMLComputeGraph) CreateMultiArrayFromTensorError(tensor ob
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/getBiasesForLayerNamed:error:
 func (m MLNeuralNetworkMLComputeGraph) GetBiasesForLayerNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("getBiasesForLayerNamed:error:"), named, unsafe.Pointer(&errorPtr))
@@ -311,8 +293,6 @@ func (m MLNeuralNetworkMLComputeGraph) GetBiasesForLayerNamedError(named objecti
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/getWeightsForLayerNamed:error:
 func (m MLNeuralNetworkMLComputeGraph) GetWeightsForLayerNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("getWeightsForLayerNamed:error:"), named, unsafe.Pointer(&errorPtr))
@@ -323,8 +303,6 @@ func (m MLNeuralNetworkMLComputeGraph) GetWeightsForLayerNamedError(named object
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/inputTensorMapWithBatchSize:numberOfClasses:error:
 func (m MLNeuralNetworkMLComputeGraph) InputTensorMapWithBatchSizeNumberOfClassesError(size uint64, classes uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputTensorMapWithBatchSize:numberOfClasses:error:"), size, classes, unsafe.Pointer(&errorPtr))
@@ -335,8 +313,6 @@ func (m MLNeuralNetworkMLComputeGraph) InputTensorMapWithBatchSizeNumberOfClasse
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/labelTensorMapWithBatchSize:numberOfClasses:error:
 func (m MLNeuralNetworkMLComputeGraph) LabelTensorMapWithBatchSizeNumberOfClassesError(size uint64, classes uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelTensorMapWithBatchSize:numberOfClasses:error:"), size, classes, unsafe.Pointer(&errorPtr))
@@ -347,20 +323,14 @@ func (m MLNeuralNetworkMLComputeGraph) LabelTensorMapWithBatchSizeNumberOfClasse
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/lossInputsFromUpdateParams:
 func (m MLNeuralNetworkMLComputeGraph) LossInputsFromUpdateParams(params unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossInputsFromUpdateParams:"), params)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/mlcDeviceTypeForComputeUnit:
 func (m MLNeuralNetworkMLComputeGraph) MlcDeviceTypeForComputeUnit(unit int64) int {
 	rv := objc.Send[int](m.ID, objc.Sel("mlcDeviceTypeForComputeUnit:"), unit)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/saveUpdatedWeightsTo:error:
 func (m MLNeuralNetworkMLComputeGraph) SaveUpdatedWeightsToError(to unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("saveUpdatedWeightsTo:error:"), to, unsafe.Pointer(&errorPtr))
@@ -374,8 +344,6 @@ func (m MLNeuralNetworkMLComputeGraph) SaveUpdatedWeightsToError(to unsafe.Point
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:
 func (m MLNeuralNetworkMLComputeGraph) InitWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (MLNeuralNetworkMLComputeGraph, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:"), archive, description, size, classes, units, unsafe.Pointer(&errorPtr))
@@ -387,7 +355,6 @@ func (m MLNeuralNetworkMLComputeGraph) InitWithCompiledArchiveModelDescriptionBa
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/graphFromCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:
 func (_MLNeuralNetworkMLComputeGraphClass MLNeuralNetworkMLComputeGraphClass) GraphFromCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkMLComputeGraphClass.class), objc.Sel("graphFromCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:"), archive, description, size, classes, units, unsafe.Pointer(&errorPtr))
@@ -399,7 +366,6 @@ func (_MLNeuralNetworkMLComputeGraphClass MLNeuralNetworkMLComputeGraphClass) Gr
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/classifierOutputIsSigmoidOutput
 func (m MLNeuralNetworkMLComputeGraph) ClassifierOutputIsSigmoidOutput() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
 	return rv
@@ -407,8 +373,6 @@ func (m MLNeuralNetworkMLComputeGraph) ClassifierOutputIsSigmoidOutput() bool {
 func (m MLNeuralNetworkMLComputeGraph) SetClassifierOutputIsSigmoidOutput(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/device
 func (m MLNeuralNetworkMLComputeGraph) Device() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("device"))
 	return rv
@@ -416,8 +380,6 @@ func (m MLNeuralNetworkMLComputeGraph) Device() unsafe.Pointer {
 func (m MLNeuralNetworkMLComputeGraph) SetDevice(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDevice:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/executionOptions
 func (m MLNeuralNetworkMLComputeGraph) ExecutionOptions() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("executionOptions"))
 	return rv
@@ -425,8 +387,6 @@ func (m MLNeuralNetworkMLComputeGraph) ExecutionOptions() uint64 {
 func (m MLNeuralNetworkMLComputeGraph) SetExecutionOptions(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setExecutionOptions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/fusedLayerInputName
 func (m MLNeuralNetworkMLComputeGraph) FusedLayerInputName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fusedLayerInputName"))
 	return foundation.NSStringFromID(rv).String()
@@ -434,8 +394,6 @@ func (m MLNeuralNetworkMLComputeGraph) FusedLayerInputName() string {
 func (m MLNeuralNetworkMLComputeGraph) SetFusedLayerInputName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFusedLayerInputName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/graph
 func (m MLNeuralNetworkMLComputeGraph) Graph() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("graph"))
 	return rv
@@ -443,8 +401,6 @@ func (m MLNeuralNetworkMLComputeGraph) Graph() unsafe.Pointer {
 func (m MLNeuralNetworkMLComputeGraph) SetGraph(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGraph:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/inferenceGraph
 func (m MLNeuralNetworkMLComputeGraph) InferenceGraph() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("inferenceGraph"))
 	return rv
@@ -452,8 +408,6 @@ func (m MLNeuralNetworkMLComputeGraph) InferenceGraph() unsafe.Pointer {
 func (m MLNeuralNetworkMLComputeGraph) SetInferenceGraph(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInferenceGraph:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/layerFusedToLoss
 func (m MLNeuralNetworkMLComputeGraph) LayerFusedToLoss() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("layerFusedToLoss"))
 	return rv
@@ -461,8 +415,6 @@ func (m MLNeuralNetworkMLComputeGraph) LayerFusedToLoss() bool {
 func (m MLNeuralNetworkMLComputeGraph) SetLayerFusedToLoss(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLayerFusedToLoss:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/layersMap
 func (m MLNeuralNetworkMLComputeGraph) LayersMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("layersMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -470,8 +422,6 @@ func (m MLNeuralNetworkMLComputeGraph) LayersMap() foundation.INSDictionary {
 func (m MLNeuralNetworkMLComputeGraph) SetLayersMap(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLayersMap:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/mlcInputs
 func (m MLNeuralNetworkMLComputeGraph) MlcInputs() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcInputs"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -479,8 +429,6 @@ func (m MLNeuralNetworkMLComputeGraph) MlcInputs() foundation.INSDictionary {
 func (m MLNeuralNetworkMLComputeGraph) SetMlcInputs(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMlcInputs:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/mlcLabels
 func (m MLNeuralNetworkMLComputeGraph) MlcLabels() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcLabels"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -488,8 +436,6 @@ func (m MLNeuralNetworkMLComputeGraph) MlcLabels() foundation.INSDictionary {
 func (m MLNeuralNetworkMLComputeGraph) SetMlcLabels(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMlcLabels:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/modelDescription
 func (m MLNeuralNetworkMLComputeGraph) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
@@ -497,14 +443,10 @@ func (m MLNeuralNetworkMLComputeGraph) ModelDescription() IMLModelDescription {
 func (m MLNeuralNetworkMLComputeGraph) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/outputNameToLayerMap
 func (m MLNeuralNetworkMLComputeGraph) OutputNameToLayerMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputNameToLayerMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeGraph/trainingGraph
 func (m MLNeuralNetworkMLComputeGraph) TrainingGraph() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("trainingGraph"))
 	return rv

@@ -5,6 +5,7 @@ package virtualization
 import (
 	"sync"
 
+	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -57,8 +58,6 @@ func (vc VZSpiceAgentCoreClass) Alloc() VZSpiceAgentCore {
 //   - [VZSpiceAgentCore.Description]
 //   - [VZSpiceAgentCore.Hash]
 //   - [VZSpiceAgentCore.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore
 type VZSpiceAgentCore struct {
 	objectivec.Object
 }
@@ -87,8 +86,6 @@ var _ IVZSpiceAgentCore = VZSpiceAgentCore{}
 //   - [IVZSpiceAgentCore.Description]
 //   - [IVZSpiceAgentCore.Hash]
 //   - [IVZSpiceAgentCore.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore
 type IVZSpiceAgentCore interface {
 	objectivec.IObject
 
@@ -101,11 +98,11 @@ type IVZSpiceAgentCore interface {
 	Pause()
 	Resume()
 	Stop()
-	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore
+	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,75 +124,52 @@ func NewVZSpiceAgentCore() VZSpiceAgentCore {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/initWithPasteboard:queue:capabilities:input:output:
-func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
+func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
 	instance := getVZSpiceAgentCoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, queue, capabilities, input, output)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
 	return VZSpiceAgentCoreFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/didClosePort
 func (v VZSpiceAgentCore) DidClosePort() {
 	objc.Send[objc.ID](v.ID, objc.Sel("didClosePort"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/didOpenPort
 func (v VZSpiceAgentCore) DidOpenPort() {
 	objc.Send[objc.ID](v.ID, objc.Sel("didOpenPort"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/isValid
 func (v VZSpiceAgentCore) IsValid() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isValid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/pasteboard:item:provideDataForType:
 func (v VZSpiceAgentCore) PasteboardItemProvideDataForType(pasteboard objectivec.IObject, item objectivec.IObject, type_ objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/pause
 func (v VZSpiceAgentCore) Pause() {
 	objc.Send[objc.ID](v.ID, objc.Sel("pause"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/resume
 func (v VZSpiceAgentCore) Resume() {
 	objc.Send[objc.ID](v.ID, objc.Sel("resume"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/stop
 func (v VZSpiceAgentCore) Stop() {
 	objc.Send[objc.ID](v.ID, objc.Sel("stop"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/initWithPasteboard:queue:capabilities:input:output:
-func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
-	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, queue, capabilities, input, output)
+func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
+	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/debugDescription
 func (v VZSpiceAgentCore) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/description
 func (v VZSpiceAgentCore) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/hash
 func (v VZSpiceAgentCore) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/superclass
-func (v VZSpiceAgentCore) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZSpiceAgentCore) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

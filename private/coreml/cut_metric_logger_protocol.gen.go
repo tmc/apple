@@ -8,8 +8,6 @@ import (
 )
 
 // CUTMetricLogger protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/CUTMetricLogger
 type CUTMetricLogger interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func CUTMetricLoggerObjectFromID(id objc.ID) CUTMetricLoggerObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CUTMetricLogger/logMetric:
 func (o CUTMetricLoggerObject) LogMetric(metric objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("logMetric:"), metric)
 }

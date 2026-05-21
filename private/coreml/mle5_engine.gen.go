@@ -88,8 +88,6 @@ func (mc MLE5EngineClass) Alloc() MLE5Engine {
 //   - [MLE5Engine.StreamPool]
 //   - [MLE5Engine.InitWithContainerConfigurationError]
 //   - [MLE5Engine.InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine
 type MLE5Engine struct {
 	MLModelEngine
 }
@@ -146,8 +144,6 @@ var _ IMLE5Engine = MLE5Engine{}
 //   - [IMLE5Engine.StreamPool]
 //   - [IMLE5Engine.InitWithContainerConfigurationError]
 //   - [IMLE5Engine.InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine
 type IMLE5Engine interface {
 	IMLModelEngine
 
@@ -184,7 +180,7 @@ type IMLE5Engine interface {
 	NewContextAndReturnError() (objectivec.IObject, error)
 	NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject
-	OperationPool() objectivec.IObject
+	OperationPool() unsafe.Pointer
 	PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	PrepareWithConcurrencyHintError(hint int64) (bool, error)
 	ProgramLibrary() IMLE5ProgramLibrary
@@ -214,7 +210,6 @@ func NewMLE5Engine() MLE5Engine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithContainer:configuration:error:
 func NewE5EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
 	var errorPtr objc.ID
 	instance := getMLE5EngineClass().Alloc()
@@ -226,28 +221,24 @@ func NewE5EngineWithContainerConfigurationError(container objectivec.IObject, co
 	return MLE5EngineFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewE5EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLE5EngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewE5EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLE5EngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:
 func NewE5EngineWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return MLE5EngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_classProbabilitiesInOutputFeatures:error:
 func (m MLE5Engine) _classProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -272,8 +263,6 @@ func (m MLE5Engine) ClassProbabilitiesInOutputFeaturesError(features objectivec.
 func (m MLE5Engine) CanClassProbabilitiesInOutputFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_classifierResultFromOutputFeatures:classifyTopK:error:
 func (m MLE5Engine) _classifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"), features, k, unsafe.Pointer(&errorPtr))
@@ -298,8 +287,6 @@ func (m MLE5Engine) ClassifierResultFromOutputFeaturesClassifyTopKError(features
 func (m MLE5Engine) CanClassifierResultFromOutputFeaturesClassifyTopKError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpAndReconfigureStream:forInputFeatures:error:
 func (m MLE5Engine) _cleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"), stream, features, unsafe.Pointer(&errorPtr))
@@ -327,8 +314,6 @@ func (m MLE5Engine) CleanUpAndReconfigureStreamForInputFeaturesError(stream obje
 func (m MLE5Engine) CanCleanUpAndReconfigureStreamForInputFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpStream:
 func (m MLE5Engine) _cleanUpStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_cleanUpStream:"), stream)
 }
@@ -347,8 +332,6 @@ func (m MLE5Engine) CleanUpStream(stream objectivec.IObject) error {
 func (m MLE5Engine) CanCleanUpStream() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpStream:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformInputFeatures:error:
 func (m MLE5Engine) _conformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_conformInputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -373,8 +356,6 @@ func (m MLE5Engine) ConformInputFeaturesError(features objectivec.IObject) (obje
 func (m MLE5Engine) CanConformInputFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_conformInputFeatures:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformState:error:
 func (m MLE5Engine) _conformStateError(state objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_conformState:error:"), state, unsafe.Pointer(&errorPtr))
@@ -399,8 +380,6 @@ func (m MLE5Engine) ConformStateError(state objectivec.IObject) (objectivec.IObj
 func (m MLE5Engine) CanConformStateError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_conformState:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportFromBackendDict:
 func (m MLE5Engine) _extractSupportFromBackendDict(dict objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportFromBackendDict:"), dict)
 	return rv
@@ -419,8 +398,6 @@ func (m MLE5Engine) ExtractSupportFromBackendDict(dict objectivec.IObject) (uint
 func (m MLE5Engine) CanExtractSupportFromBackendDict() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportFromBackendDict:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportedComputeUnitFromString:
 func (m MLE5Engine) _extractSupportedComputeUnitFromString(string_ objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"), string_)
 	return rv
@@ -439,8 +416,6 @@ func (m MLE5Engine) ExtractSupportedComputeUnitFromString(string_ objectivec.IOb
 func (m MLE5Engine) CanExtractSupportedComputeUnitFromString() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_newRequestForModel:inputFeatures:usingState:options:error:
 func (m MLE5Engine) _newRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
@@ -451,8 +426,6 @@ func (m MLE5Engine) _newRequestForModelInputFeaturesUsingStateOptionsError(model
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:
 func (m MLE5Engine) _outputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"), to, k, unsafe.Pointer(&errorPtr))
@@ -477,8 +450,6 @@ func (m MLE5Engine) OutputFeaturesByAddingClassifierResultToClassifyTopKError(to
 func (m MLE5Engine) CanOutputFeaturesByAddingClassifierResultToClassifyTopKError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_postProcessingForOutputs:options:error:
 func (m MLE5Engine) _postProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_postProcessingForOutputs:options:error:"), outputs, options, unsafe.Pointer(&errorPtr))
@@ -503,8 +474,6 @@ func (m MLE5Engine) PostProcessingForOutputsOptionsError(outputs objectivec.IObj
 func (m MLE5Engine) CanPostProcessingForOutputsOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_postProcessingForOutputs:options:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:completionHandler:
 func (m MLE5Engine) _predictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"), features, options, _block2)
@@ -524,8 +493,6 @@ func (m MLE5Engine) PredictionFromFeaturesOptionsCompletionHandler(features obje
 func (m MLE5Engine) CanPredictionFromFeaturesOptionsCompletionHandler() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:error:
 func (m MLE5Engine) _predictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -536,8 +503,6 @@ func (m MLE5Engine) _predictionFromFeaturesOptionsError(features objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:stream:options:error:
 func (m MLE5Engine) _predictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"), features, stream, options, unsafe.Pointer(&errorPtr))
@@ -562,8 +527,6 @@ func (m MLE5Engine) PredictionFromFeaturesStreamOptionsError(features objectivec
 func (m MLE5Engine) CanPredictionFromFeaturesStreamOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:usingState:options:error:
 func (m MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
@@ -574,8 +537,6 @@ func (m MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_probabilityDictionaryWithMultiArray:classifyTopK:
 func (m MLE5Engine) _probabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"), array, k)
 	return objectivec.Object{ID: rv}
@@ -594,8 +555,6 @@ func (m MLE5Engine) ProbabilityDictionaryWithMultiArrayClassifyTopK(array object
 func (m MLE5Engine) CanProbabilityDictionaryWithMultiArrayClassifyTopK() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:
 func (m MLE5Engine) _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"), dictionary)
 	return rv
@@ -614,8 +573,6 @@ func (m MLE5Engine) TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictiona
 func (m MLE5Engine) CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_trimQuotesFromBackendName:
 func (m MLE5Engine) _trimQuotesFromBackendName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_trimQuotesFromBackendName:"), name)
 	return objectivec.Object{ID: rv}
@@ -634,8 +591,6 @@ func (m MLE5Engine) TrimQuotesFromBackendName(name objectivec.IObject) (objectiv
 func (m MLE5Engine) CanTrimQuotesFromBackendName() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_trimQuotesFromBackendName:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_validateStreamReuse:expectation:error:
 func (m MLE5Engine) _validateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_validateStreamReuse:expectation:error:"), reuse, expectation, unsafe.Pointer(&errorPtr))
@@ -663,14 +618,10 @@ func (m MLE5Engine) ValidateStreamReuseExpectationError(reuse bool, expectation 
 func (m MLE5Engine) CanValidateStreamReuseExpectationError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_validateStreamReuse:expectation:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classLabels
 func (m MLE5Engine) ClassLabels() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classify:options:error:
 func (m MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
@@ -681,8 +632,6 @@ func (m MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options ob
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/evaluateFunction:arguments:error:
 func (m MLE5Engine) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments, unsafe.Pointer(&errorPtr))
@@ -693,8 +642,6 @@ func (m MLE5Engine) EvaluateFunctionArgumentsError(function objectivec.IObject, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newContextAndReturnError:
 func (m MLE5Engine) NewContextAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newContextAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -705,8 +652,6 @@ func (m MLE5Engine) NewContextAndReturnError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newRequestForModel:inputFeatures:usingState:options:error:
 func (m MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
@@ -717,14 +662,10 @@ func (m MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newStateWithClientBuffers:
 func (m MLE5Engine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/predictionFromFeatures:usingState:options:error:
 func (m MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
@@ -735,8 +676,6 @@ func (m MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features object
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/prepareWithConcurrencyHint:error:
 func (m MLE5Engine) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("prepareWithConcurrencyHint:error:"), hint, unsafe.Pointer(&errorPtr))
@@ -750,8 +689,6 @@ func (m MLE5Engine) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithContainer:configuration:error:
 func (m MLE5Engine) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -762,20 +699,15 @@ func (m MLE5Engine) InitWithContainerConfigurationError(container objectivec.IOb
 	return MLE5EngineFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:
 func (m MLE5Engine) InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
 	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/containerClass
-func (_MLE5EngineClass MLE5EngineClass) ContainerClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_MLE5EngineClass.class), objc.Sel("containerClass"))
-	return rv
+func (_MLE5EngineClass MLE5EngineClass) ContainerClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_MLE5EngineClass.class), objc.Sel("containerClass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLE5EngineClass.class), objc.Sel("loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -786,8 +718,6 @@ func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArc
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLE5EngineClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -799,67 +729,46 @@ func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersion
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/batchMaxInFlightSem
 func (m MLE5Engine) BatchMaxInFlightSem() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchMaxInFlightSem"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classLabelsSharedKey
 func (m MLE5Engine) ClassLabelsSharedKey() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelsSharedKey"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classProbabilitiesFeatureName
 func (m MLE5Engine) ClassProbabilitiesFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classProbabilitiesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/compilerVersionInfo
 func (m MLE5Engine) CompilerVersionInfo() IMLVersionInfo {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/functionName
 func (m MLE5Engine) FunctionName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/inputFeatureConformer
 func (m MLE5Engine) InputFeatureConformer() IMLFeatureProviderConformer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/operationPool
-func (m MLE5Engine) OperationPool() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("operationPool"))
-	return objectivec.Object{ID: rv}
+func (m MLE5Engine) OperationPool() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/programLibrary
 func (m MLE5Engine) ProgramLibrary() IMLE5ProgramLibrary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/serializedMILText
 func (m MLE5Engine) SerializedMILText() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/stateFeatureConformer
 func (m MLE5Engine) StateFeatureConformer() IMLFeatureProviderConformer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stateFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5Engine/streamPool
 func (m MLE5Engine) StreamPool() IMLE5ExecutionStreamPool {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("streamPool"))
 	return MLE5ExecutionStreamPoolFromID(objc.ID(rv))

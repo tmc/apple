@@ -44,7 +44,6 @@ func (dc DICreateASIFParamsClass) Alloc() DICreateASIFParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams
 type DICreateASIFParams struct {
 	DICreateParams
 }
@@ -58,8 +57,6 @@ func DICreateASIFParamsFromID(id objc.ID) DICreateASIFParams {
 var _ IDICreateASIFParams = DICreateASIFParams{}
 
 // An interface definition for the [DICreateASIFParams] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams
 type IDICreateASIFParams interface {
 	IDICreateParams
 }
@@ -83,15 +80,13 @@ func NewDICreateASIFParams() DICreateASIFParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateASIFParamsWithCoder(coder objectivec.IObject) DICreateASIFParams {
 	instance := getDICreateASIFParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateASIFParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
-func NewDICreateASIFParamsWithURLError(url foundation.INSURL) (DICreateASIFParams, error) {
+func NewDICreateASIFParamsWithURLError(url foundation.NSURL) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateASIFParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -102,8 +97,7 @@ func NewDICreateASIFParamsWithURLError(url foundation.INSURL) (DICreateASIFParam
 	return DICreateASIFParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/initWithURL:numBlocks:error:
-func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks uint64) (DICreateASIFParams, error) {
+func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.NSURL, numBlocks uint64) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateASIFParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, numBlocks, unsafe.Pointer(&errorPtr))

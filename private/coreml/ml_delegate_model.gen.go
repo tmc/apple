@@ -64,8 +64,6 @@ func (mc MLDelegateModelClass) Alloc() MLDelegateModel {
 //   - [MLDelegateModel.PredictionFromFeaturesUsingStateOptionsError]
 //   - [MLDelegateModel.PredictionsFromBatchOptionsError]
 //   - [MLDelegateModel.InitWithEngineError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel
 type MLDelegateModel struct {
 	MLModel
 }
@@ -99,8 +97,6 @@ var _ IMLDelegateModel = MLDelegateModel{}
 //   - [IMLDelegateModel.PredictionFromFeaturesUsingStateOptionsError]
 //   - [IMLDelegateModel.PredictionsFromBatchOptionsError]
 //   - [IMLDelegateModel.InitWithEngineError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel
 type IMLDelegateModel interface {
 	IMLModel
 
@@ -144,7 +140,6 @@ func NewMLDelegateModel() MLDelegateModel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
@@ -156,7 +151,6 @@ func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specific
 	return MLDelegateModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
@@ -168,28 +162,24 @@ func NewDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe
 	return MLDelegateModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewDelegateModelWithConfiguration(configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLDelegateModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewDelegateModelWithDescription(description objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLDelegateModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewDelegateModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDelegateModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/initWithEngine:error:
 func NewDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
@@ -201,14 +191,12 @@ func NewDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel
 	return MLDelegateModelFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewDelegateModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDelegateModelFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_finishPredictionAndDispatchPendingPredictions
 func (m MLDelegateModel) _finishPredictionAndDispatchPendingPredictions() {
 	objc.Send[objc.ID](m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
@@ -227,14 +215,10 @@ func (m MLDelegateModel) FinishPredictionAndDispatchPendingPredictions() error {
 func (m MLDelegateModel) CanFinishPredictionAndDispatchPendingPredictions() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionFromFeatures:usingState:options:completionHandler:
 func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionFromFeatures:usingState:options:error:
 func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
@@ -245,8 +229,6 @@ func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionsFromBatch:options:error:
 func (m MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
@@ -257,8 +239,6 @@ func (m MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_schedulePredictionRequest:completionHandler:
 func (m MLDelegateModel) _schedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"), request, _block1)
@@ -278,14 +258,10 @@ func (m MLDelegateModel) SchedulePredictionRequestCompletionHandler(request obje
 func (m MLDelegateModel) CanSchedulePredictionRequestCompletionHandler() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_submitPredictionRequest:completionHandler:
 func (m MLDelegateModel) _submitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_submitPredictionRequest:completionHandler:"), request, _block1)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_validateStateFeatureNamed:backingMultiArray:
 func (m MLDelegateModel) _validateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"), named, array)
 }
@@ -304,8 +280,6 @@ func (m MLDelegateModel) ValidateStateFeatureNamedBackingMultiArray(named object
 func (m MLDelegateModel) CanValidateStateFeatureNamedBackingMultiArray() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/parameterValueForKey:error:
 func (m MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -316,14 +290,10 @@ func (m MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:options:completionHandler:
 func (m MLDelegateModel) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), features, options, _block2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:options:error:
 func (m MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -334,14 +304,10 @@ func (m MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:usingState:options:completionHandler:
 func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:usingState:options:error:
 func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
@@ -352,8 +318,6 @@ func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features o
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionsFromBatch:options:error:
 func (m MLDelegateModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
@@ -364,8 +328,6 @@ func (m MLDelegateModel) PredictionsFromBatchOptionsError(batch objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/initWithEngine:error:
 func (m MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
@@ -377,19 +339,14 @@ func (m MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDeleg
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/engine
 func (m MLDelegateModel) Engine() int {
 	rv := objc.Send[int](m.ID, objc.Sel("engine"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/maxAsyncPredictionsInFlight
 func (m MLDelegateModel) MaxAsyncPredictionsInFlight() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("maxAsyncPredictionsInFlight"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/pendingPredictionQueue
 func (m MLDelegateModel) PendingPredictionQueue() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pendingPredictionQueue"))
 	return foundation.NSArrayFromID(objc.ID(rv))

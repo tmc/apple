@@ -47,8 +47,6 @@ func (sc SLSBridgedResetWindowsOperationClass) Alloc() SLSBridgedResetWindowsOpe
 //
 //   - [SLSBridgedResetWindowsOperation.Windows]
 //   - [SLSBridgedResetWindowsOperation.InitWithWindows]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation
 type SLSBridgedResetWindowsOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -67,8 +65,6 @@ var _ ISLSBridgedResetWindowsOperation = SLSBridgedResetWindowsOperation{}
 //
 //   - [ISLSBridgedResetWindowsOperation.Windows]
 //   - [ISLSBridgedResetWindowsOperation.InitWithWindows]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation
 type ISLSBridgedResetWindowsOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -97,27 +93,23 @@ func NewSLSBridgedResetWindowsOperation() SLSBridgedResetWindowsOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation/initWithCoder:
 func NewSLSBridgedResetWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedResetWindowsOperation {
 	instance := getSLSBridgedResetWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedResetWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation/initWithWindows:
 func NewSLSBridgedResetWindowsOperationWithWindows(windows objectivec.IObject) SLSBridgedResetWindowsOperation {
 	instance := getSLSBridgedResetWindowsOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:"), windows)
 	return SLSBridgedResetWindowsOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation/initWithWindows:
 func (s SLSBridgedResetWindowsOperation) InitWithWindows(windows objectivec.IObject) SLSBridgedResetWindowsOperation {
 	rv := objc.Send[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("initWithWindows:"), windows)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedResetWindowsOperation/windows
 func (s SLSBridgedResetWindowsOperation) Windows() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))

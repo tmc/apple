@@ -45,8 +45,6 @@ func (vc VZForwardingDebugStubConfigurationClass) Alloc() VZForwardingDebugStubC
 // # Methods
 //
 //   - [VZForwardingDebugStubConfiguration._initWithDebugStub]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStubConfiguration
 type VZForwardingDebugStubConfiguration struct {
 	VZDebugStubConfiguration
 }
@@ -64,8 +62,6 @@ var _ IVZForwardingDebugStubConfiguration = VZForwardingDebugStubConfiguration{}
 // # Methods
 //
 //   - [IVZForwardingDebugStubConfiguration._initWithDebugStub]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStubConfiguration
 type IVZForwardingDebugStubConfiguration interface {
 	IVZDebugStubConfiguration
 
@@ -93,7 +89,6 @@ func NewVZForwardingDebugStubConfiguration() VZForwardingDebugStubConfiguration 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStubConfiguration/_initWithDebugStub:
 func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub DebugStub) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithDebugStub:"), stub)
 	return objectivec.Object{ID: rv}

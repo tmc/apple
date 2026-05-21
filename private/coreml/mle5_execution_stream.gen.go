@@ -74,8 +74,6 @@ func (mc MLE5ExecutionStreamClass) Alloc() MLE5ExecutionStream {
 //   - [MLE5ExecutionStream.SetStreamHandle]
 //   - [MLE5ExecutionStream.StreamId]
 //   - [MLE5ExecutionStream.SubmitWithCompletionHandler]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream
 type MLE5ExecutionStream struct {
 	objectivec.Object
 }
@@ -118,8 +116,6 @@ var _ IMLE5ExecutionStream = MLE5ExecutionStream{}
 //   - [IMLE5ExecutionStream.SetStreamHandle]
 //   - [IMLE5ExecutionStream.StreamId]
 //   - [IMLE5ExecutionStream.SubmitWithCompletionHandler]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream
 type IMLE5ExecutionStream interface {
 	objectivec.IObject
 
@@ -132,8 +128,8 @@ type IMLE5ExecutionStream interface {
 	_setANEExecutionPriorityWithOptions(options objectivec.IObject)
 	CancelPendingReset()
 	ExecuteForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error)
-	OperationPool() objectivec.IObject
-	SetOperationPool(value objectivec.IObject)
+	OperationPool() unsafe.Pointer
+	SetOperationPool(value unsafe.Pointer)
 	Operations() foundation.INSArray
 	SetOperations(value foundation.INSArray)
 	PrepareAsyncSubmissionForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error)
@@ -172,7 +168,6 @@ func NewMLE5ExecutionStream() MLE5ExecutionStream {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_executeStream:error:
 func (m MLE5ExecutionStream) _executeStreamError(stream E5rtExecutionStreamRef) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_executeStream:error:"), stream, unsafe.Pointer(&errorPtr))
@@ -200,8 +195,6 @@ func (m MLE5ExecutionStream) ExecuteStreamError(stream E5rtExecutionStreamRef) (
 func (m MLE5ExecutionStream) CanExecuteStreamError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_executeStream:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_prepareForInputFeatures:options:error:
 func (m MLE5ExecutionStream) _prepareForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("_prepareForInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -229,8 +222,6 @@ func (m MLE5ExecutionStream) PrepareForInputFeaturesOptionsError(features object
 func (m MLE5ExecutionStream) CanPrepareForInputFeaturesOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_prepareForInputFeatures:options:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_reset
 func (m MLE5ExecutionStream) _reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("_reset"))
 }
@@ -249,8 +240,6 @@ func (m MLE5ExecutionStream) Reset() error {
 func (m MLE5ExecutionStream) CanReset() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_reusableForInputFeatures:options:
 func (m MLE5ExecutionStream) _reusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForInputFeatures:options:"), features, options)
 	return rv
@@ -269,8 +258,6 @@ func (m MLE5ExecutionStream) ReusableForInputFeaturesOptions(features objectivec
 func (m MLE5ExecutionStream) CanReusableForInputFeaturesOptions() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForInputFeatures:options:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_setANEExecutionPriorityWithOptions:
 func (m MLE5ExecutionStream) _setANEExecutionPriorityWithOptions(options objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"), options)
 }
@@ -289,13 +276,9 @@ func (m MLE5ExecutionStream) SetANEExecutionPriorityWithOptions(options objectiv
 func (m MLE5ExecutionStream) CanSetANEExecutionPriorityWithOptions() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/cancelPendingReset
 func (m MLE5ExecutionStream) CancelPendingReset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("cancelPendingReset"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/executeForInputFeatures:options:error:
 func (m MLE5ExecutionStream) ExecuteForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("executeForInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -309,8 +292,6 @@ func (m MLE5ExecutionStream) ExecuteForInputFeaturesOptionsError(features object
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/prepareAsyncSubmissionForInputFeatures:options:error:
 func (m MLE5ExecutionStream) PrepareAsyncSubmissionForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("prepareAsyncSubmissionForInputFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
@@ -324,25 +305,17 @@ func (m MLE5ExecutionStream) PrepareAsyncSubmissionForInputFeaturesOptionsError(
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/resetAfterLingering:
 func (m MLE5ExecutionStream) ResetAfterLingering(lingering float64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("resetAfterLingering:"), lingering)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/reusableForAsyncSubmissionForInputFeatures:options:
 func (m MLE5ExecutionStream) ReusableForAsyncSubmissionForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("reusableForAsyncSubmissionForInputFeatures:options:"), features, options)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/reusableForSyncPredictionForInputFeatures:options:
 func (m MLE5ExecutionStream) ReusableForSyncPredictionForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("reusableForSyncPredictionForInputFeatures:options:"), features, options)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/serializeInferenceFrameDataForOptions:error:
 func (m MLE5ExecutionStream) SerializeInferenceFrameDataForOptionsError(options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("serializeInferenceFrameDataForOptions:error:"), options, unsafe.Pointer(&errorPtr))
@@ -356,8 +329,6 @@ func (m MLE5ExecutionStream) SerializeInferenceFrameDataForOptionsError(options 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/setupOperationForInputFeatures:operationPool:error:
 func (m MLE5ExecutionStream) SetupOperationForInputFeaturesOperationPoolError(features objectivec.IObject, pool objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("setupOperationForInputFeatures:operationPool:error:"), features, pool, unsafe.Pointer(&errorPtr))
@@ -371,23 +342,18 @@ func (m MLE5ExecutionStream) SetupOperationForInputFeaturesOperationPoolError(fe
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/submitWithCompletionHandler:
 func (m MLE5ExecutionStream) SubmitWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/operationPool
-func (m MLE5ExecutionStream) OperationPool() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("operationPool"))
-	return objectivec.Object{ID: rv}
+func (m MLE5ExecutionStream) OperationPool() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
+	return rv
 }
-func (m MLE5ExecutionStream) SetOperationPool(value objectivec.IObject) {
+func (m MLE5ExecutionStream) SetOperationPool(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOperationPool:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/operations
 func (m MLE5ExecutionStream) Operations() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("operations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -395,14 +361,10 @@ func (m MLE5ExecutionStream) Operations() foundation.INSArray {
 func (m MLE5ExecutionStream) SetOperations(value foundation.INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOperations:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/resetQueue
 func (m MLE5ExecutionStream) ResetQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resetQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/resetTimer
 func (m MLE5ExecutionStream) ResetTimer() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resetTimer"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -410,8 +372,6 @@ func (m MLE5ExecutionStream) ResetTimer() objectivec.Object {
 func (m MLE5ExecutionStream) SetResetTimer(value objectivec.Object) {
 	objc.Send[struct{}](m.ID, objc.Sel("setResetTimer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/state
 func (m MLE5ExecutionStream) State() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("state"))
 	return rv
@@ -419,8 +379,6 @@ func (m MLE5ExecutionStream) State() int64 {
 func (m MLE5ExecutionStream) SetState(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/streamHandle
 func (m MLE5ExecutionStream) StreamHandle() E5rtExecutionStreamRef {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("streamHandle"))
 	return E5rtExecutionStreamRef(rv)
@@ -428,8 +386,6 @@ func (m MLE5ExecutionStream) StreamHandle() E5rtExecutionStreamRef {
 func (m MLE5ExecutionStream) SetStreamHandle(value E5rtExecutionStreamRef) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStreamHandle:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/streamId
 func (m MLE5ExecutionStream) StreamId() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("streamId"))
 	return rv

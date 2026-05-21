@@ -42,7 +42,6 @@ func (tc TextToSpeechVoiceDatabaseDaemonClass) Alloc() TextToSpeechVoiceDatabase
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseDaemon
 type TextToSpeechVoiceDatabaseDaemon struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechVoiceDatabaseDaemonFromID(id objc.ID) TextToSpeechVoiceDatabase
 // ITextToSpeechVoiceDatabaseDaemon embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoiceDatabaseDaemon] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceDatabaseDaemon
 type ITextToSpeechVoiceDatabaseDaemon interface {
 	objectivec.IObject
 }

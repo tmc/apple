@@ -58,8 +58,6 @@ func (tc TTSRegexClass) Alloc() TTSRegex {
 //   - [TTSRegex.InitWithPattern]
 //   - [TTSRegex.InitWithPatternOptions]
 //   - [TTSRegex.InitWithPerlPattern]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex
 type TTSRegex struct {
 	objectivec.Object
 }
@@ -88,14 +86,12 @@ var _ ITTSRegex = TTSRegex{}
 //   - [ITTSRegex.InitWithPattern]
 //   - [ITTSRegex.InitWithPatternOptions]
 //   - [ITTSRegex.InitWithPerlPattern]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex
 type ITTSRegex interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	_matchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) objectivec.IObject
+	_matchFromOvectorMatchesStringLength(ovector *uint64, matches int, string_ string, length uint64) objectivec.IObject
 	CompiledPCRERegex() Pcre2RealCode8Ref
 	SetCompiledPCRERegex(value Pcre2RealCode8Ref)
 	EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler)
@@ -128,49 +124,43 @@ func NewTTSRegex() TTSRegex {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithCStringPattern:
 func NewTTSRegexWithCStringPattern(pattern string) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
 	return TTSRegexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithCStringPattern:options:
 func NewTTSRegexWithCStringPatternOptions(pattern string, options uint64) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
 	return TTSRegexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPattern:
 func NewTTSRegexWithPattern(pattern objectivec.IObject) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:"), pattern)
 	return TTSRegexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPattern:options:
 func NewTTSRegexWithPatternOptions(pattern objectivec.IObject, options uint64) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:options:"), pattern, options)
 	return TTSRegexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPerlPattern:
 func NewTTSRegexWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPerlPattern:"), pattern)
 	return TTSRegexFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/_matchFromOvector:matches:string:length:
-func (t TTSRegex) _matchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) objectivec.IObject {
+func (t TTSRegex) _matchFromOvectorMatchesStringLength(ovector *uint64, matches int, string_ string, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_matchFromOvector:matches:string:length:"), ovector, matches, unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 
 // MatchFromOvectorMatchesStringLength is an exported wrapper for the private method _matchFromOvectorMatchesStringLength.
-func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) (objectivec.IObject, error) {
+func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector *uint64, matches int, string_ string, length uint64) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(t.ID, objc.Sel("_matchFromOvector:matches:string:length:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_matchFromOvector:matches:string:length:"}
 		return nil, err
@@ -182,62 +172,43 @@ func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector unsafe.Pointer, ma
 func (t TTSRegex) CanMatchFromOvectorMatchesStringLength() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_matchFromOvector:matches:string:length:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:length:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length, _block2)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:ranges:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringRangesUsingBlock(cString string, ranges objectivec.IObject, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:ranges:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), ranges, _block2)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:startOffset:length:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString string, offset uint64, length uint64, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:startOffset:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), offset, length, _block3)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/matchesInCString:length:
 func (t TTSRegex) MatchesInCStringLength(cString string, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("matchesInCString:length:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithCStringPattern:
 func (t TTSRegex) InitWithCStringPattern(pattern string) TTSRegex {
 	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithCStringPattern:options:
 func (t TTSRegex) InitWithCStringPatternOptions(pattern string, options uint64) TTSRegex {
 	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPattern:
 func (t TTSRegex) InitWithPattern(pattern objectivec.IObject) TTSRegex {
 	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPattern:"), pattern)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPattern:options:
 func (t TTSRegex) InitWithPatternOptions(pattern objectivec.IObject, options uint64) TTSRegex {
 	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPattern:options:"), pattern, options)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/initWithPerlPattern:
 func (t TTSRegex) InitWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPerlPattern:"), pattern)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/compiledPCRERegex
 func (t TTSRegex) CompiledPCRERegex() Pcre2RealCode8Ref {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("compiledPCRERegex"))
 	return Pcre2RealCode8Ref(rv)

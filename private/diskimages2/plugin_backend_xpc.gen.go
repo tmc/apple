@@ -49,8 +49,6 @@ func (pc PluginBackendXPCClass) Alloc() PluginBackendXPC {
 //   - [PluginBackendXPC.URL]
 //   - [PluginBackendXPC.PluginHeader]
 //   - [PluginBackendXPC.InitWithURLOpenMode]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC
 type PluginBackendXPC struct {
 	BackendXPC
 }
@@ -70,8 +68,6 @@ var _ IPluginBackendXPC = PluginBackendXPC{}
 //   - [IPluginBackendXPC.URL]
 //   - [IPluginBackendXPC.PluginHeader]
 //   - [IPluginBackendXPC.InitWithURLOpenMode]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC
 type IPluginBackendXPC interface {
 	IBackendXPC
 
@@ -79,7 +75,7 @@ type IPluginBackendXPC interface {
 
 	URL() IDIURL
 	PluginHeader() unsafe.Pointer
-	InitWithURLOpenMode(url foundation.INSURL, mode int) PluginBackendXPC
+	InitWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC
 }
 
 // Init initializes the instance.
@@ -101,33 +97,27 @@ func NewPluginBackendXPC() PluginBackendXPC {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithCoder:
 func NewPluginBackendXPCWithCoder(coder objectivec.IObject) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return PluginBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithURL:openMode:
-func NewPluginBackendXPCWithURLOpenMode(url foundation.INSURL, mode int) PluginBackendXPC {
+func NewPluginBackendXPCWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return PluginBackendXPCFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/pluginHeader
 func (p PluginBackendXPC) PluginHeader() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pluginHeader"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithURL:openMode:
-func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.INSURL, mode int) PluginBackendXPC {
+func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
 	rv := objc.Send[PluginBackendXPC](p.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/URL
 func (p PluginBackendXPC) URL() IDIURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))

@@ -46,8 +46,6 @@ func (ec ETModelDefLeNetClass) Alloc() ETModelDefLeNet {
 //
 //   - [ETModelDefLeNet.Output_size]
 //   - [ETModelDefLeNet.SetOutput_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefLeNet
 type ETModelDefLeNet struct {
 	ETModelDef
 }
@@ -66,8 +64,6 @@ var _ IETModelDefLeNet = ETModelDefLeNet{}
 //
 //   - [IETModelDefLeNet.Output_size]
 //   - [IETModelDefLeNet.SetOutput_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefLeNet
 type IETModelDefLeNet interface {
 	IETModelDef
 
@@ -96,14 +92,12 @@ func NewETModelDefLeNet() ETModelDefLeNet {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelDefLeNetWithNetwork(network objectivec.IObject) ETModelDefLeNet {
 	instance := getETModelDefLeNetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETModelDefLeNetFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefLeNet/output_size
 func (e ETModelDefLeNet) Output_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("output_size"))
 	return rv

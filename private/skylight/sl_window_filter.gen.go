@@ -68,8 +68,6 @@ func (sc SLWindowFilterClass) Alloc() SLWindowFilter {
 //   - [SLWindowFilter.ShieldWindow]
 //   - [SLWindowFilter.SetShieldWindow]
 //   - [SLWindowFilter.InitFromDictionaryRepresentation]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter
 type SLWindowFilter struct {
 	objectivec.Object
 }
@@ -109,8 +107,6 @@ var _ ISLWindowFilter = SLWindowFilter{}
 //   - [ISLWindowFilter.ShieldWindow]
 //   - [ISLWindowFilter.SetShieldWindow]
 //   - [ISLWindowFilter.InitFromDictionaryRepresentation]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter
 type ISLWindowFilter interface {
 	objectivec.IObject
 
@@ -160,32 +156,25 @@ func NewSLWindowFilter() SLWindowFilter {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/initFromDictionaryRepresentation:
 func NewSLWindowFilterFromDictionaryRepresentation(representation objectivec.IObject) SLWindowFilter {
 	instance := getSLWindowFilterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
 	return SLWindowFilterFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/dictionaryRepresentation
 func (s SLWindowFilter) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/isEqualToWindowFilter:
 func (s SLWindowFilter) IsEqualToWindowFilter(filter objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToWindowFilter:"), filter)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/initFromDictionaryRepresentation:
 func (s SLWindowFilter) InitFromDictionaryRepresentation(representation objectivec.IObject) SLWindowFilter {
 	rv := objc.Send[SLWindowFilter](s.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/enforce_sharing_type
 func (s SLWindowFilter) Enforce_sharing_type() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("enforce_sharing_type"))
 	return rv
@@ -193,8 +182,6 @@ func (s SLWindowFilter) Enforce_sharing_type() bool {
 func (s SLWindowFilter) SetEnforce_sharing_type(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEnforce_sharing_type:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/excludedApplications
 func (s SLWindowFilter) ExcludedApplications() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -202,8 +189,6 @@ func (s SLWindowFilter) ExcludedApplications() foundation.INSSet {
 func (s SLWindowFilter) SetExcludedApplications(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExcludedApplications:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/excludedPIDS
 func (s SLWindowFilter) ExcludedPIDS() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -211,8 +196,6 @@ func (s SLWindowFilter) ExcludedPIDS() foundation.INSSet {
 func (s SLWindowFilter) SetExcludedPIDS(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/excludedWindows
 func (s SLWindowFilter) ExcludedWindows() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -220,8 +203,6 @@ func (s SLWindowFilter) ExcludedWindows() foundation.INSSet {
 func (s SLWindowFilter) SetExcludedWindows(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExcludedWindows:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/filterPolicy
 func (s SLWindowFilter) FilterPolicy() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filterPolicy"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -229,8 +210,6 @@ func (s SLWindowFilter) FilterPolicy() foundation.NSNumber {
 func (s SLWindowFilter) SetFilterPolicy(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFilterPolicy:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/hide_menu_bar
 func (s SLWindowFilter) Hide_menu_bar() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hide_menu_bar"))
 	return rv
@@ -238,8 +217,6 @@ func (s SLWindowFilter) Hide_menu_bar() bool {
 func (s SLWindowFilter) SetHide_menu_bar(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHide_menu_bar:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/includedApplications
 func (s SLWindowFilter) IncludedApplications() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -247,8 +224,6 @@ func (s SLWindowFilter) IncludedApplications() foundation.INSSet {
 func (s SLWindowFilter) SetIncludedApplications(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludedApplications:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/includedPIDS
 func (s SLWindowFilter) IncludedPIDS() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -256,8 +231,6 @@ func (s SLWindowFilter) IncludedPIDS() foundation.INSSet {
 func (s SLWindowFilter) SetIncludedPIDS(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/includedWindows
 func (s SLWindowFilter) IncludedWindows() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -265,8 +238,6 @@ func (s SLWindowFilter) IncludedWindows() foundation.INSSet {
 func (s SLWindowFilter) SetIncludedWindows(value foundation.INSSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludedWindows:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLWindowFilter/shieldWindow
 func (s SLWindowFilter) ShieldWindow() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindow"))
 	return foundation.NSNumberFromID(objc.ID(rv))

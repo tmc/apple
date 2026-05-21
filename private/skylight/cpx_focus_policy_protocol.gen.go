@@ -8,19 +8,13 @@ import (
 )
 
 // CPXFocusPolicy protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy
 type CPXFocusPolicyProtocol interface {
 	objectivec.IObject
 
 	// BringNextApplicationToFrontInternal protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextApplicationToFrontInternal:
 	BringNextApplicationToFrontInternal(internal CPSProcessRec)
 
 	// BringNextProcessToFront protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextProcessToFront:
 	BringNextProcessToFront(front CPSProcessRec)
 }
 
@@ -41,12 +35,9 @@ func CPXFocusPolicyProtocolObjectFromID(id objc.ID) CPXFocusPolicyProtocolObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextApplicationToFrontInternal:
 func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextProcessToFront:
 func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextProcessToFront:"), front)
 }

@@ -45,7 +45,6 @@ func (mc MLArchivingUtilsClass) Alloc() MLArchivingUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils
 type MLArchivingUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLArchivingUtilsFromID(id objc.ID) MLArchivingUtils {
 var _ IMLArchivingUtils = MLArchivingUtils{}
 
 // An interface definition for the [MLArchivingUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils
 type IMLArchivingUtils interface {
 	objectivec.IObject
 }
@@ -84,25 +81,18 @@ func NewMLArchivingUtils() MLArchivingUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/URLOfInputArchive:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) URLOfInputArchive(archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("URLOfInputArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/codedObjectURLFromInputArchiver:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromInputArchiver(archiver unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromInputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/codedObjectURLFromOutputArchiver:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromOutputArchiver(archiver unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromOutputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/parseModelArchive:modelType:compilerVersion:modelVersion:error:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCompilerVersionModelVersionError(archive unsafe.Pointer, version []objectivec.IObject, version2 []objectivec.IObject) (int, error) {
 	var type_ int
 	var errorPtr objc.ID

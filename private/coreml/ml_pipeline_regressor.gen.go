@@ -53,8 +53,6 @@ func (mc MLPipelineRegressorClass) Alloc() MLPipelineRegressor {
 //   - [MLPipelineRegressor.RegressOptionsError]
 //   - [MLPipelineRegressor.SignpostID]
 //   - [MLPipelineRegressor.InitWithEngineDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor
 type MLPipelineRegressor struct {
 	objectivec.Object
 }
@@ -78,17 +76,15 @@ func MLPipelineRegressorFromID(id objc.ID) MLPipelineRegressor {
 //   - [IMLPipelineRegressor.RegressOptionsError]
 //   - [IMLPipelineRegressor.SignpostID]
 //   - [IMLPipelineRegressor.InitWithEngineDescriptionConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor
 type IMLPipelineRegressor interface {
 	IMLRegressor
 
 	// Topic: Methods
 
-	Engine() unsafe.Pointer
-	SetEngine(value *MLPipeline)
+	Engine() MLPipeline
+	SetEngine(value MLPipeline)
 	ExecutionSchedule() objectivec.IObject
-	Pipeline() unsafe.Pointer
+	Pipeline() MLPipeline
 	RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	SignpostID() uint64
 	InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error)
@@ -113,7 +109,6 @@ func NewMLPipelineRegressor() MLPipelineRegressor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/initWithEngine:description:configuration:error:
 func NewPipelineRegressorWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
 	var errorPtr objc.ID
 	instance := getMLPipelineRegressorClass().Alloc()
@@ -125,13 +120,10 @@ func NewPipelineRegressorWithEngineDescriptionConfigurationError(engine objectiv
 	return MLPipelineRegressorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/executionSchedule
 func (m MLPipelineRegressor) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/regress:options:error:
 func (m MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
@@ -142,14 +134,10 @@ func (m MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, opt
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/signpostID
 func (m MLPipelineRegressor) SignpostID() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/initWithEngine:description:configuration:error:
 func (m MLPipelineRegressor) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
@@ -161,17 +149,14 @@ func (m MLPipelineRegressor) InitWithEngineDescriptionConfigurationError(engine 
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/engine
-func (m MLPipelineRegressor) Engine() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("engine"))
-	return rv
+func (m MLPipelineRegressor) Engine() MLPipeline {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
+	return MLPipelineObjectFromID(rv)
 }
-func (m MLPipelineRegressor) SetEngine(value *MLPipeline) {
+func (m MLPipelineRegressor) SetEngine(value MLPipeline) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/pipeline
-func (m MLPipelineRegressor) Pipeline() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("pipeline"))
-	return rv
+func (m MLPipelineRegressor) Pipeline() MLPipeline {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
+	return MLPipelineObjectFromID(rv)
 }

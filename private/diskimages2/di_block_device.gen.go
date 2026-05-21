@@ -50,8 +50,6 @@ func (dc DIBlockDeviceClass) Alloc() DIBlockDevice {
 //   - [DIBlockDevice.CopyRootBlockDeviceWithError]
 //   - [DIBlockDevice.DiskImageDevice]
 //   - [DIBlockDevice.MediumType]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice
 type DIBlockDevice struct {
 	DIIOObject
 }
@@ -72,8 +70,6 @@ var _ IDIBlockDevice = DIBlockDevice{}
 //   - [IDIBlockDevice.CopyRootBlockDeviceWithError]
 //   - [IDIBlockDevice.DiskImageDevice]
 //   - [IDIBlockDevice.MediumType]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice
 type IDIBlockDevice interface {
 	IDIIOObject
 
@@ -104,7 +100,6 @@ func NewDIBlockDevice() DIBlockDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithClassName:error:
 func NewDIBlockDeviceWithClassNameError(name objectivec.IObject) (DIBlockDevice, error) {
 	var errorPtr objc.ID
 	instance := getDIBlockDeviceClass().Alloc()
@@ -116,35 +111,30 @@ func NewDIBlockDeviceWithClassNameError(name objectivec.IObject) (DIBlockDevice,
 	return DIBlockDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithDIIOObject:
 func NewDIBlockDeviceWithDIIOObject(dIIOObject objectivec.IObject) DIBlockDevice {
 	instance := getDIBlockDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return DIBlockDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:
 func NewDIBlockDeviceWithIOObject(iOObject uint32) DIBlockDevice {
 	instance := getDIBlockDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return DIBlockDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:retain:
 func NewDIBlockDeviceWithIOObjectRetain(iOObject uint32, retain bool) DIBlockDevice {
 	instance := getDIBlockDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return DIBlockDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIteratorNext:
 func NewDIBlockDeviceWithIteratorNext(next objectivec.IObject) DIBlockDevice {
 	instance := getDIBlockDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
 	return DIBlockDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithRegistryEntryID:error:
 func NewDIBlockDeviceWithRegistryEntryIDError(id uint64) (DIBlockDevice, error) {
 	var errorPtr objc.ID
 	instance := getDIBlockDeviceClass().Alloc()
@@ -156,7 +146,6 @@ func NewDIBlockDeviceWithRegistryEntryIDError(id uint64) (DIBlockDevice, error) 
 	return DIBlockDeviceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice/copyIOMediaWithError:
 func (d DIBlockDevice) CopyIOMediaWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyIOMediaWithError:"), unsafe.Pointer(&errorPtr))
@@ -167,8 +156,6 @@ func (d DIBlockDevice) CopyIOMediaWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice/copyRootBlockDeviceWithError:
 func (d DIBlockDevice) CopyRootBlockDeviceWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyRootBlockDeviceWithError:"), unsafe.Pointer(&errorPtr))
@@ -180,7 +167,6 @@ func (d DIBlockDevice) CopyRootBlockDeviceWithError() (objectivec.IObject, error
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice/copyUnmatchedDiskImageWithRegEntryID:error:
 func (_DIBlockDeviceClass DIBlockDeviceClass) CopyUnmatchedDiskImageWithRegEntryIDError(id uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIBlockDeviceClass.class), objc.Sel("copyUnmatchedDiskImageWithRegEntryID:error:"), id, unsafe.Pointer(&errorPtr))
@@ -192,13 +178,10 @@ func (_DIBlockDeviceClass DIBlockDeviceClass) CopyUnmatchedDiskImageWithRegEntry
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice/diskImageDevice
 func (d DIBlockDevice) DiskImageDevice() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("diskImageDevice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIBlockDevice/mediumType
 func (d DIBlockDevice) MediumType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mediumType"))
 	return foundation.NSStringFromID(rv).String()

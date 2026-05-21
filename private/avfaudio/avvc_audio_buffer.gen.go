@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,8 +63,6 @@ func (ac AVVCAudioBufferClass) Alloc() AVVCAudioBuffer {
 //   - [AVVCAudioBuffer.SetTimeStamp]
 //   - [AVVCAudioBuffer.UpsamplingSourceAudio]
 //   - [AVVCAudioBuffer.InitWithAudioQueueBufferChannelsTimeStamp]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer
 type AVVCAudioBuffer struct {
 	objectivec.Object
 }
@@ -97,8 +96,6 @@ var _ IAVVCAudioBuffer = AVVCAudioBuffer{}
 //   - [IAVVCAudioBuffer.SetTimeStamp]
 //   - [IAVVCAudioBuffer.UpsamplingSourceAudio]
 //   - [IAVVCAudioBuffer.InitWithAudioQueueBufferChannelsTimeStamp]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer
 type IAVVCAudioBuffer interface {
 	objectivec.IObject
 
@@ -111,12 +108,12 @@ type IAVVCAudioBuffer interface {
 	Data() unsafe.Pointer
 	PacketDescriptionCapacity() int
 	PacketDescriptionCount() int
-	PacketDescriptions() unsafe.Pointer
+	PacketDescriptions() coreaudiotypes.AudioStreamPacketDescription
 	RemoteVoiceActivityAvailable() bool
 	RemoteVoiceActivityRMS() byte
 	RemoteVoiceActivityVAD() byte
-	SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescription, count int)
-	StreamDescription() unsafe.Pointer
+	SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int)
+	StreamDescription() coreaudiotypes.AudioStreamBasicDescription
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
 	UpsamplingSourceAudio() bool
@@ -142,31 +139,24 @@ func NewAVVCAudioBuffer() AVVCAudioBuffer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/initWithAudioQueueBuffer:channels:timeStamp:
 func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	instance := getAVVCAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return AVVCAudioBufferFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/setPacketDescriptions:count:
-func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescription, count int) {
+func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/initWithAudioQueueBuffer:channels:timeStamp:
 func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/bytesCapacity
 func (a AVVCAudioBuffer) BytesCapacity() int {
 	rv := objc.Send[int](a.ID, objc.Sel("bytesCapacity"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/bytesDataSize
 func (a AVVCAudioBuffer) BytesDataSize() int {
 	rv := objc.Send[int](a.ID, objc.Sel("bytesDataSize"))
 	return rv
@@ -174,62 +164,42 @@ func (a AVVCAudioBuffer) BytesDataSize() int {
 func (a AVVCAudioBuffer) SetBytesDataSize(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBytesDataSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/channels
 func (a AVVCAudioBuffer) Channels() int {
 	rv := objc.Send[int](a.ID, objc.Sel("channels"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/data
 func (a AVVCAudioBuffer) Data() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("data"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptionCapacity
 func (a AVVCAudioBuffer) PacketDescriptionCapacity() int {
 	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCapacity"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptionCount
 func (a AVVCAudioBuffer) PacketDescriptionCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptions
-func (a AVVCAudioBuffer) PacketDescriptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("packetDescriptions"))
-	return rv
+func (a AVVCAudioBuffer) PacketDescriptions() coreaudiotypes.AudioStreamPacketDescription {
+	rv := objc.Send[coreaudiotypes.AudioStreamPacketDescription](a.ID, objc.Sel("packetDescriptions"))
+	return coreaudiotypes.AudioStreamPacketDescription(rv)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityAvailable
 func (a AVVCAudioBuffer) RemoteVoiceActivityAvailable() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("remoteVoiceActivityAvailable"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityRMS
 func (a AVVCAudioBuffer) RemoteVoiceActivityRMS() byte {
 	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityRMS"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityVAD
 func (a AVVCAudioBuffer) RemoteVoiceActivityVAD() byte {
 	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityVAD"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/streamDescription
-func (a AVVCAudioBuffer) StreamDescription() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("streamDescription"))
-	return rv
+func (a AVVCAudioBuffer) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
+	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](a.ID, objc.Sel("streamDescription"))
+	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/timeStamp
 func (a AVVCAudioBuffer) TimeStamp() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("timeStamp"))
 	return rv
@@ -237,8 +207,6 @@ func (a AVVCAudioBuffer) TimeStamp() uint64 {
 func (a AVVCAudioBuffer) SetTimeStamp(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeStamp:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/upsamplingSourceAudio
 func (a AVVCAudioBuffer) UpsamplingSourceAudio() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("upsamplingSourceAudio"))
 	return rv

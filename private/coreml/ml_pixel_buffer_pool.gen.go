@@ -51,8 +51,6 @@ func (mc MLPixelBufferPoolClass) Alloc() MLPixelBufferPool {
 //   - [MLPixelBufferPool._pixelBufferPoolWithSizePixelFormatTypeError]
 //   - [MLPixelBufferPool.CreatePixelBufferWithSizePixelFormatTypeError]
 //   - [MLPixelBufferPool.PixelBufferPoolCache]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool
 type MLPixelBufferPool struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ IMLPixelBufferPool = MLPixelBufferPool{}
 //   - [IMLPixelBufferPool._pixelBufferPoolWithSizePixelFormatTypeError]
 //   - [IMLPixelBufferPool.CreatePixelBufferWithSizePixelFormatTypeError]
 //   - [IMLPixelBufferPool.PixelBufferPoolCache]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool
 type IMLPixelBufferPool interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewMLPixelBufferPool() MLPixelBufferPool {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/_pixelBufferPoolWithSize:pixelFormatType:error:
 func (m MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
@@ -128,8 +123,6 @@ func (m MLPixelBufferPool) PixelBufferPoolWithSizePixelFormatTypeError(size core
 func (m MLPixelBufferPool) CanPixelBufferPoolWithSizePixelFormatTypeError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/createPixelBufferWithSize:pixelFormatType:error:
 func (m MLPixelBufferPool) CreatePixelBufferWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
@@ -141,7 +134,6 @@ func (m MLPixelBufferPool) CreatePixelBufferWithSizePixelFormatTypeError(size co
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/pixelBufferPoolCache
 func (m MLPixelBufferPool) PixelBufferPoolCache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPoolCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

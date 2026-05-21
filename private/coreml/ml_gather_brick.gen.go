@@ -59,8 +59,6 @@ func (mc MLGatherBrickClass) Alloc() MLGatherBrick {
 //   - [MLGatherBrick.Description]
 //   - [MLGatherBrick.Hash]
 //   - [MLGatherBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick
 type MLGatherBrick struct {
 	objectivec.Object
 }
@@ -91,8 +89,6 @@ var _ IMLGatherBrick = MLGatherBrick{}
 //   - [IMLGatherBrick.Description]
 //   - [IMLGatherBrick.Hash]
 //   - [IMLGatherBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick
 type IMLGatherBrick interface {
 	objectivec.IObject
 
@@ -111,7 +107,7 @@ type IMLGatherBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -133,92 +129,65 @@ func NewMLGatherBrick() MLGatherBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/initWithParameters:
 func NewGatherBrickWithParameters(parameters objectivec.IObject) MLGatherBrick {
 	instance := getMLGatherBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLGatherBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLGatherBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/hasGPUSupport
 func (m MLGatherBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/setupForInputShapes:withParameters:
 func (m MLGatherBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/initWithParameters:
 func (m MLGatherBrick) InitWithParameters(parameters objectivec.IObject) MLGatherBrick {
 	rv := objc.Send[MLGatherBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/axis
 func (m MLGatherBrick) Axis() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/debugDescription
 func (m MLGatherBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/description
 func (m MLGatherBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/hash
 func (m MLGatherBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/inputRanks
 func (m MLGatherBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/inputShapes
 func (m MLGatherBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/outputRanks
 func (m MLGatherBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/outputShapes
 func (m MLGatherBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/shapeInfoNeeded
 func (m MLGatherBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/superclass
-func (m MLGatherBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLGatherBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

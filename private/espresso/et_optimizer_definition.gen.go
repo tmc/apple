@@ -49,8 +49,6 @@ func (ec ETOptimizerDefinitionClass) Alloc() ETOptimizerDefinition {
 //   - [ETOptimizerDefinition.OptimizationParameters]
 //   - [ETOptimizerDefinition.Type]
 //   - [ETOptimizerDefinition.InitWithOptimizationAlgorithmParametersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition
 type ETOptimizerDefinition struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IETOptimizerDefinition = ETOptimizerDefinition{}
 //   - [IETOptimizerDefinition.OptimizationParameters]
 //   - [IETOptimizerDefinition.Type]
 //   - [IETOptimizerDefinition.InitWithOptimizationAlgorithmParametersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition
 type IETOptimizerDefinition interface {
 	objectivec.IObject
 
@@ -101,7 +97,6 @@ func NewETOptimizerDefinition() ETOptimizerDefinition {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition/initWithOptimizationAlgorithm:parameters:error:
 func NewETOptimizerDefinitionWithOptimizationAlgorithmParametersError(algorithm int64, parameters objectivec.IObject) (ETOptimizerDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETOptimizerDefinitionClass().Alloc()
@@ -113,7 +108,6 @@ func NewETOptimizerDefinitionWithOptimizationAlgorithmParametersError(algorithm 
 	return ETOptimizerDefinitionFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition/initWithOptimizationAlgorithm:parameters:error:
 func (e ETOptimizerDefinition) InitWithOptimizationAlgorithmParametersError(algorithm int64, parameters objectivec.IObject) (ETOptimizerDefinition, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithOptimizationAlgorithm:parameters:error:"), algorithm, parameters, unsafe.Pointer(&errorPtr))
@@ -125,13 +119,10 @@ func (e ETOptimizerDefinition) InitWithOptimizationAlgorithmParametersError(algo
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition/optimizationParameters
 func (e ETOptimizerDefinition) OptimizationParameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizationParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefinition/type
 func (e ETOptimizerDefinition) Type() int64 {
 	rv := objc.Send[int64](e.ID, objc.Sel("type"))
 	return rv

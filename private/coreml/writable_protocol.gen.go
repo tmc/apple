@@ -9,8 +9,6 @@ import (
 )
 
 // MLWritable protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLWritable
 type MLWritable interface {
 	objectivec.IObject
 }
@@ -32,8 +30,7 @@ func MLWritableObjectFromID(id objc.ID) MLWritableObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLWritable/writeToURL:error:
-func (o MLWritableObject) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (o MLWritableObject) WriteToURLError(url foundation.NSURL) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("writeToURL:error:"), url)
 	if err != nil {
 		return false, err

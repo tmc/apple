@@ -42,7 +42,6 @@ func (tc TextToSpeechAXCatalogUpdaterClass) Alloc() TextToSpeechAXCatalogUpdater
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXCatalogUpdater
 type TextToSpeechAXCatalogUpdater struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAXCatalogUpdaterFromID(id objc.ID) TextToSpeechAXCatalogUpdater
 // ITextToSpeechAXCatalogUpdater embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXCatalogUpdater] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AXCatalogUpdater
 type ITextToSpeechAXCatalogUpdater interface {
 	objectivec.IObject
 }

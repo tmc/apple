@@ -41,7 +41,6 @@ func (vc VZSpiceAgentPortAttachmentClass) Alloc() VZSpiceAgentPortAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgentPortAttachment
 type VZSpiceAgentPortAttachment struct {
 	VZSerialPortAttachment
 }
@@ -55,8 +54,6 @@ func VZSpiceAgentPortAttachmentFromID(id objc.ID) VZSpiceAgentPortAttachment {
 var _ IVZSpiceAgentPortAttachment = VZSpiceAgentPortAttachment{}
 
 // An interface definition for the [VZSpiceAgentPortAttachment] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgentPortAttachment
 type IVZSpiceAgentPortAttachment interface {
 	IVZSerialPortAttachment
 }

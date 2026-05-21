@@ -49,8 +49,6 @@ func (vc VZMacKeyboardConfigurationClass) Alloc() VZMacKeyboardConfiguration {
 //   - [VZMacKeyboardConfiguration.Set_softwareKeyboard]
 //   - [VZMacKeyboardConfiguration._supportsGlobeKey]
 //   - [VZMacKeyboardConfiguration.Set_supportsGlobeKey]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration
 type VZMacKeyboardConfiguration struct {
 	VZKeyboardConfiguration
 }
@@ -73,8 +71,6 @@ var _ IVZMacKeyboardConfiguration = VZMacKeyboardConfiguration{}
 //   - [IVZMacKeyboardConfiguration.Set_softwareKeyboard]
 //   - [IVZMacKeyboardConfiguration._supportsGlobeKey]
 //   - [IVZMacKeyboardConfiguration.Set_supportsGlobeKey]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration
 type IVZMacKeyboardConfiguration interface {
 	IVZKeyboardConfiguration
 
@@ -107,7 +103,6 @@ func NewVZMacKeyboardConfiguration() VZMacKeyboardConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_setSoftwareKeyboard:
 func (v VZMacKeyboardConfiguration) _setSoftwareKeyboard(keyboard bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setSoftwareKeyboard:"), keyboard)
 }
@@ -126,8 +121,6 @@ func (v VZMacKeyboardConfiguration) SetSoftwareKeyboard(keyboard bool) error {
 func (v VZMacKeyboardConfiguration) CanSetSoftwareKeyboard() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSoftwareKeyboard:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_setSupportsGlobeKey:
 func (v VZMacKeyboardConfiguration) _setSupportsGlobeKey(key bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setSupportsGlobeKey:"), key)
 }
@@ -147,7 +140,6 @@ func (v VZMacKeyboardConfiguration) CanSetSupportsGlobeKey() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsGlobeKey:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_softwareKeyboard
 func (v VZMacKeyboardConfiguration) _softwareKeyboard() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_softwareKeyboard"))
 	return rv
@@ -168,8 +160,6 @@ func (v VZMacKeyboardConfiguration) SoftwareKeyboard() (bool, error) {
 func (v VZMacKeyboardConfiguration) Set_softwareKeyboard(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_softwareKeyboard:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_supportsGlobeKey
 func (v VZMacKeyboardConfiguration) _supportsGlobeKey() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_supportsGlobeKey"))
 	return rv

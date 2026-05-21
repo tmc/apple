@@ -64,8 +64,6 @@ func (ec ETVariableClass) Alloc() ETVariable {
 //   - [ETVariable.SwapWithOpaqueCopy]
 //   - [ETVariable.UpdateWithData]
 //   - [ETVariable.InitWithModelDef]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETVariable
 type ETVariable struct {
 	objectivec.Object
 }
@@ -101,8 +99,6 @@ var _ IETVariable = ETVariable{}
 //   - [IETVariable.SwapWithOpaqueCopy]
 //   - [IETVariable.UpdateWithData]
 //   - [IETVariable.InitWithModelDef]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETVariable
 type IETVariable interface {
 	objectivec.IObject
 
@@ -148,43 +144,32 @@ func NewETVariable() ETVariable {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/initWithModelDef:
 func NewETVariableWithModelDef(def objectivec.IObject) ETVariable {
 	instance := getETVariableClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:"), def)
 	return ETVariableFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/copyData
 func (e ETVariable) CopyData() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("copyData"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/getOpaqueCopy
 func (e ETVariable) GetOpaqueCopy() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getOpaqueCopy"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/swapWithOpaqueCopy:
 func (e ETVariable) SwapWithOpaqueCopy(copy_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("swapWithOpaqueCopy:"), copy_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/updateWithData:
 func (e ETVariable) UpdateWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("updateWithData:"), data)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/initWithModelDef:
 func (e ETVariable) InitWithModelDef(def objectivec.IObject) ETVariable {
 	rv := objc.Send[ETVariable](e.ID, objc.Sel("initWithModelDef:"), def)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/initializationAlpha
 func (e ETVariable) InitializationAlpha() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("initializationAlpha"))
 	return rv
@@ -192,8 +177,6 @@ func (e ETVariable) InitializationAlpha() float32 {
 func (e ETVariable) SetInitializationAlpha(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInitializationAlpha:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/initializationBeta
 func (e ETVariable) InitializationBeta() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("initializationBeta"))
 	return rv
@@ -201,8 +184,6 @@ func (e ETVariable) InitializationBeta() float32 {
 func (e ETVariable) SetInitializationBeta(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInitializationBeta:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/initializationMode
 func (e ETVariable) InitializationMode() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("initializationMode"))
 	return rv
@@ -210,8 +191,6 @@ func (e ETVariable) InitializationMode() uint64 {
 func (e ETVariable) SetInitializationMode(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInitializationMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/kind
 func (e ETVariable) Kind() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("kind"))
 	return rv
@@ -219,8 +198,6 @@ func (e ETVariable) Kind() uint64 {
 func (e ETVariable) SetKind(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setKind:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/layerName
 func (e ETVariable) LayerName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
@@ -228,8 +205,6 @@ func (e ETVariable) LayerName() string {
 func (e ETVariable) SetLayerName(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLayerName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/model
 func (e ETVariable) Model() IETModelDef {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("model"))
 	return ETModelDefFromID(objc.ID(rv))
@@ -237,8 +212,6 @@ func (e ETVariable) Model() IETModelDef {
 func (e ETVariable) SetModel(value IETModelDef) {
 	objc.Send[struct{}](e.ID, objc.Sel("setModel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETVariable/name
 func (e ETVariable) Name() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()

@@ -8,8 +8,6 @@ import (
 )
 
 // VZVirtioConsoleDeviceDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate
 type VZVirtioConsoleDeviceDelegate interface {
 	objectivec.IObject
 }
@@ -31,12 +29,9 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 	}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice:didClosePort:
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice:didOpenPort:
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
 }

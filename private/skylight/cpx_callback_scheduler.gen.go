@@ -55,8 +55,6 @@ func (cc CPXCallbackSchedulerClass) Alloc() CPXCallbackScheduler {
 //   - [CPXCallbackScheduler.Description]
 //   - [CPXCallbackScheduler.Hash]
 //   - [CPXCallbackScheduler.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler
 type CPXCallbackScheduler struct {
 	objectivec.Object
 }
@@ -83,8 +81,6 @@ var _ ICPXCallbackScheduler = CPXCallbackScheduler{}
 //   - [ICPXCallbackScheduler.Description]
 //   - [ICPXCallbackScheduler.Hash]
 //   - [ICPXCallbackScheduler.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler
 type ICPXCallbackScheduler interface {
 	objectivec.IObject
 
@@ -99,7 +95,7 @@ type ICPXCallbackScheduler interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -121,64 +117,45 @@ func NewCPXCallbackScheduler() CPXCallbackScheduler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/initWithSession:
 func NewCPXCallbackSchedulerWithSession(session CGXSession) CPXCallbackScheduler {
 	instance := getCPXCallbackSchedulerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXCallbackSchedulerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/descheduleForceLogoutCallback
 func (c CPXCallbackScheduler) DescheduleForceLogoutCallback() {
 	objc.Send[objc.ID](c.ID, objc.Sel("descheduleForceLogoutCallback"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/descheduleKillProcessCallback
 func (c CPXCallbackScheduler) DescheduleKillProcessCallback() {
 	objc.Send[objc.ID](c.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/scheduleFixBadForegroundCallbackForProcess:
 func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/scheduleForceLogoutCallbackForTime:
 func (c CPXCallbackScheduler) ScheduleForceLogoutCallbackForTime(time float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/scheduleKillProcessCallbackForTime:
 func (c CPXCallbackScheduler) ScheduleKillProcessCallbackForTime(time float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/initWithSession:
 func (c CPXCallbackScheduler) InitWithSession(session CGXSession) CPXCallbackScheduler {
 	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/debugDescription
 func (c CPXCallbackScheduler) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/description
 func (c CPXCallbackScheduler) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/hash
 func (c CPXCallbackScheduler) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/superclass
-func (c CPXCallbackScheduler) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXCallbackScheduler) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

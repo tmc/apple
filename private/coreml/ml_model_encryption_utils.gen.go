@@ -45,7 +45,6 @@ func (mc MLModelEncryptionUtilsClass) Alloc() MLModelEncryptionUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils
 type MLModelEncryptionUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLModelEncryptionUtilsFromID(id objc.ID) MLModelEncryptionUtils {
 var _ IMLModelEncryptionUtils = MLModelEncryptionUtils{}
 
 // An interface definition for the [MLModelEncryptionUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils
 type IMLModelEncryptionUtils interface {
 	objectivec.IObject
 }
@@ -84,7 +81,6 @@ func NewMLModelEncryptionUtils() MLModelEncryptionUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/addEncryptionHeaderToUnencryptedFile:saveToFile:error:
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) AddEncryptionHeaderToUnencryptedFileSaveToFileError(file objectivec.IObject, file2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("addEncryptionHeaderToUnencryptedFile:saveToFile:error:"), file, file2, unsafe.Pointer(&errorPtr))
@@ -98,8 +94,6 @@ func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) AddEncryptionHea
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/encryptFile:withKey:iv:saveToFile:error:
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) EncryptFileWithKeyIvSaveToFileError(file objectivec.IObject, key objectivec.IObject, iv objectivec.IObject, file2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("encryptFile:withKey:iv:saveToFile:error:"), file, key, iv, file2, unsafe.Pointer(&errorPtr))
@@ -113,8 +107,6 @@ func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) EncryptFileWithK
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/sinfData
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) SinfData() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("sinfData"))
 	return objectivec.Object{ID: rv}

@@ -57,8 +57,6 @@ func (sc SLSScreenshotClass) Alloc() SLSScreenshot {
 //   - [SLSScreenshot.SetQueue]
 //   - [SLSScreenshot.SetHandler]
 //   - [SLSScreenshot.ZeroWeakSelf]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot
 type SLSScreenshot struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ ISLSScreenshot = SLSScreenshot{}
 //   - [ISLSScreenshot.SetQueue]
 //   - [ISLSScreenshot.SetHandler]
 //   - [ISLSScreenshot.ZeroWeakSelf]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot
 type ISLSScreenshot interface {
 	objectivec.IObject
 
@@ -121,22 +117,19 @@ func NewSLSScreenshot() SLSScreenshot {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/setHandler:
 func (s SLSScreenshot) SetHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/convertContentStreamPropertiesToScreenshot:
 func (_SLSScreenshotClass SLSScreenshotClass) ConvertContentStreamPropertiesToScreenshot(screenshot objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSScreenshotClass.class), objc.Sel("convertContentStreamPropertiesToScreenshot:"), screenshot)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/createScreenshot:properties:queue:handler:error:
 func (_SLSScreenshotClass SLSScreenshotClass) CreateScreenshotPropertiesQueueHandlerError(screenshot objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler func()) (bool, error) {
+	_block3, _ := NewVoidBlock(handler)
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_SLSScreenshotClass.class), objc.Sel("createScreenshot:properties:queue:handler:error:"), screenshot, properties, queue, handler, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_SLSScreenshotClass.class), objc.Sel("createScreenshot:properties:queue:handler:error:"), screenshot, properties, queue, _block3, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -147,21 +140,16 @@ func (_SLSScreenshotClass SLSScreenshotClass) CreateScreenshotPropertiesQueueHan
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/replaceColorSpaceInDictionaryWithProfileID:forKey:
 func (_SLSScreenshotClass SLSScreenshotClass) ReplaceColorSpaceInDictionaryWithProfileIDForKey(id objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_SLSScreenshotClass.class), objc.Sel("replaceColorSpaceInDictionaryWithProfileID:forKey:"), id, key)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/bridgingHandler
 func (s SLSScreenshot) BridgingHandler() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("bridgingHandler"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/filter
 func (s SLSScreenshot) Filter() ISLContentFilter {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
 	return SLContentFilterFromID(objc.ID(rv))
@@ -169,8 +157,6 @@ func (s SLSScreenshot) Filter() ISLContentFilter {
 func (s SLSScreenshot) SetFilter(value ISLContentFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFilter:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/properties
 func (s SLSScreenshot) Properties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -178,8 +164,6 @@ func (s SLSScreenshot) Properties() foundation.INSDictionary {
 func (s SLSScreenshot) SetProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setProperties:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/queue
 func (s SLSScreenshot) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
@@ -187,8 +171,6 @@ func (s SLSScreenshot) Queue() objectivec.Object {
 func (s SLSScreenshot) SetQueue(value objectivec.Object) {
 	objc.Send[struct{}](s.ID, objc.Sel("setQueue:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenshot/zeroWeakSelf
 func (s SLSScreenshot) ZeroWeakSelf() VoidHandler {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
 	_ = rv

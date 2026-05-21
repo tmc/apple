@@ -43,7 +43,6 @@ func (tc TTSVoiceResourceManagerClass) Alloc() TTSVoiceResourceManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager
 type TTSVoiceResourceManager struct {
 	objectivec.Object
 }
@@ -57,8 +56,6 @@ func TTSVoiceResourceManagerFromID(id objc.ID) TTSVoiceResourceManager {
 var _ ITTSVoiceResourceManager = TTSVoiceResourceManager{}
 
 // An interface definition for the [TTSVoiceResourceManager] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager
 type ITTSVoiceResourceManager interface {
 	objectivec.IObject
 }
@@ -82,13 +79,10 @@ func NewTTSVoiceResourceManager() TTSVoiceResourceManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager/effectiveResourceForLanguageCode:andVoiceType:
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EffectiveResourceForLanguageCodeAndVoiceType(code objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("effectiveResourceForLanguageCode:andVoiceType:"), code, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager/enumerateLoadableResourcesInAsset:usingBlock:
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EnumerateLoadableResourcesInAssetUsingBlock(asset objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("enumerateLoadableResourcesInAsset:usingBlock:"), asset, _block1)

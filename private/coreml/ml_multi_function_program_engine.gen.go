@@ -62,8 +62,6 @@ func (mc MLMultiFunctionProgramEngineClass) Alloc() MLMultiFunctionProgramEngine
 //   - [MLMultiFunctionProgramEngine.UpdateModelFilePath]
 //   - [MLMultiFunctionProgramEngine.VerifyArgumentNamesFunctionNameError]
 //   - [MLMultiFunctionProgramEngine.InitWithProgramContainerConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine
 type MLMultiFunctionProgramEngine struct {
 	MLModelEngine
 }
@@ -95,8 +93,6 @@ var _ IMLMultiFunctionProgramEngine = MLMultiFunctionProgramEngine{}
 //   - [IMLMultiFunctionProgramEngine.UpdateModelFilePath]
 //   - [IMLMultiFunctionProgramEngine.VerifyArgumentNamesFunctionNameError]
 //   - [IMLMultiFunctionProgramEngine.InitWithProgramContainerConfigurationError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine
 type IMLMultiFunctionProgramEngine interface {
 	IMLModelEngine
 
@@ -138,21 +134,18 @@ func NewMLMultiFunctionProgramEngine() MLMultiFunctionProgramEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewMultiFunctionProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewMultiFunctionProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/initWithProgramContainer:configuration:error:
 func NewMultiFunctionProgramEngineWithProgramContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLMultiFunctionProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
@@ -164,13 +157,10 @@ func NewMultiFunctionProgramEngineWithProgramContainerConfigurationError(contain
 	return MLMultiFunctionProgramEngineFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/classLabels
 func (m MLMultiFunctionProgramEngine) ClassLabels() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/classify:options:error:
 func (m MLMultiFunctionProgramEngine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
@@ -181,8 +171,6 @@ func (m MLMultiFunctionProgramEngine) ClassifyOptionsError(classify objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/evaluate:error:
 func (m MLMultiFunctionProgramEngine) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluate:error:"), evaluate, unsafe.Pointer(&errorPtr))
@@ -193,8 +181,6 @@ func (m MLMultiFunctionProgramEngine) EvaluateError(evaluate objectivec.IObject)
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/evaluateFunction:arguments:error:
 func (m MLMultiFunctionProgramEngine) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments, unsafe.Pointer(&errorPtr))
@@ -205,8 +191,6 @@ func (m MLMultiFunctionProgramEngine) EvaluateFunctionArgumentsError(function ob
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/newContextAndReturnError:
 func (m MLMultiFunctionProgramEngine) NewContextAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("newContextAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -217,14 +201,10 @@ func (m MLMultiFunctionProgramEngine) NewContextAndReturnError() (objectivec.IOb
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/program
 func (m MLMultiFunctionProgramEngine) Program() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("program"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/programEngineForFunction:error:
 func (m MLMultiFunctionProgramEngine) ProgramEngineForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("programEngineForFunction:error:"), function, unsafe.Pointer(&errorPtr))
@@ -235,8 +215,6 @@ func (m MLMultiFunctionProgramEngine) ProgramEngineForFunctionError(function obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/regress:options:error:
 func (m MLMultiFunctionProgramEngine) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
@@ -247,18 +225,12 @@ func (m MLMultiFunctionProgramEngine) RegressOptionsError(regress objectivec.IOb
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/removeEngineForFunctionName:
 func (m MLMultiFunctionProgramEngine) RemoveEngineForFunctionName(name objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeEngineForFunctionName:"), name)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/updateModelFilePath:
 func (m MLMultiFunctionProgramEngine) UpdateModelFilePath(path objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("updateModelFilePath:"), path)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/verifyArgumentNames:functionName:error:
 func (m MLMultiFunctionProgramEngine) VerifyArgumentNamesFunctionNameError(names objectivec.IObject, name objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("verifyArgumentNames:functionName:error:"), names, name, unsafe.Pointer(&errorPtr))
@@ -272,8 +244,6 @@ func (m MLMultiFunctionProgramEngine) VerifyArgumentNamesFunctionNameError(names
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/initWithProgramContainer:configuration:error:
 func (m MLMultiFunctionProgramEngine) InitWithProgramContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLMultiFunctionProgramEngine, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithProgramContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -285,7 +255,6 @@ func (m MLMultiFunctionProgramEngine) InitWithProgramContainerConfigurationError
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLMultiFunctionProgramEngineClass MLMultiFunctionProgramEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiFunctionProgramEngineClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
@@ -297,19 +266,14 @@ func (_MLMultiFunctionProgramEngineClass MLMultiFunctionProgramEngineClass) Load
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/container
 func (m MLMultiFunctionProgramEngine) Container() IMLMultiFunctionProgramContainer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("container"))
 	return MLMultiFunctionProgramContainerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/modelFileBasePath
 func (m MLMultiFunctionProgramEngine) ModelFileBasePath() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelFileBasePath"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/serializedMILText
 func (m MLMultiFunctionProgramEngine) SerializedMILText() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()

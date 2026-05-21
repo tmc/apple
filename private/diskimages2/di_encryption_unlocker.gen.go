@@ -42,7 +42,6 @@ func (dc DIEncryptionUnlockerClass) Alloc() DIEncryptionUnlocker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionUnlocker
 type DIEncryptionUnlocker struct {
 	DIEncryptionFrontend
 }
@@ -56,8 +55,6 @@ func DIEncryptionUnlockerFromID(id objc.ID) DIEncryptionUnlocker {
 var _ IDIEncryptionUnlocker = DIEncryptionUnlocker{}
 
 // An interface definition for the [DIEncryptionUnlocker] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionUnlocker
 type IDIEncryptionUnlocker interface {
 	IDIEncryptionFrontend
 }
@@ -81,14 +78,12 @@ func NewDIEncryptionUnlocker() DIEncryptionUnlocker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func NewDIEncryptionUnlockerWithCoder(coder objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionUnlockerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func NewDIEncryptionUnlockerWithParams(params objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)

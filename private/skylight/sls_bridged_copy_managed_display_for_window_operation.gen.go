@@ -47,8 +47,6 @@ func (sc SLSBridgedCopyManagedDisplayForWindowOperationClass) Alloc() SLSBridged
 //   - [SLSBridgedCopyManagedDisplayForWindowOperation.MakeResultWithString]
 //   - [SLSBridgedCopyManagedDisplayForWindowOperation.WindowID]
 //   - [SLSBridgedCopyManagedDisplayForWindowOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation
 type SLSBridgedCopyManagedDisplayForWindowOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -68,8 +66,6 @@ var _ ISLSBridgedCopyManagedDisplayForWindowOperation = SLSBridgedCopyManagedDis
 //   - [ISLSBridgedCopyManagedDisplayForWindowOperation.MakeResultWithString]
 //   - [ISLSBridgedCopyManagedDisplayForWindowOperation.WindowID]
 //   - [ISLSBridgedCopyManagedDisplayForWindowOperation.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation
 type ISLSBridgedCopyManagedDisplayForWindowOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -99,33 +95,27 @@ func NewSLSBridgedCopyManagedDisplayForWindowOperation() SLSBridgedCopyManagedDi
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation/initWithCoder:
 func NewSLSBridgedCopyManagedDisplayForWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyManagedDisplayForWindowOperation {
 	instance := getSLSBridgedCopyManagedDisplayForWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyManagedDisplayForWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation/initWithWindowID:
 func NewSLSBridgedCopyManagedDisplayForWindowOperationWithWindowID(id uint32) SLSBridgedCopyManagedDisplayForWindowOperation {
 	instance := getSLSBridgedCopyManagedDisplayForWindowOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSBridgedCopyManagedDisplayForWindowOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation/makeResultWithString:
 func (s SLSBridgedCopyManagedDisplayForWindowOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation/initWithWindowID:
 func (s SLSBridgedCopyManagedDisplayForWindowOperation) InitWithWindowID(id uint32) SLSBridgedCopyManagedDisplayForWindowOperation {
 	rv := objc.Send[SLSBridgedCopyManagedDisplayForWindowOperation](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyManagedDisplayForWindowOperation/windowID
 func (s SLSBridgedCopyManagedDisplayForWindowOperation) WindowID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
 	return rv

@@ -46,7 +46,6 @@ func (vc VZIOUSBHostPassthroughDeviceConfigurationClass) Alloc() VZIOUSBHostPass
 
 // # Methods
 //
-//   - [VZIOUSBHostPassthroughDeviceConfiguration.EncodeWithEncoder]
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.Signature]
@@ -57,8 +56,6 @@ func (vc VZIOUSBHostPassthroughDeviceConfigurationClass) Alloc() VZIOUSBHostPass
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.Description]
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.Hash]
 //   - [VZIOUSBHostPassthroughDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration
 type VZIOUSBHostPassthroughDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -75,7 +72,6 @@ var _ IVZIOUSBHostPassthroughDeviceConfiguration = VZIOUSBHostPassthroughDeviceC
 //
 // # Methods
 //
-//   - [IVZIOUSBHostPassthroughDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.Signature]
@@ -86,24 +82,21 @@ var _ IVZIOUSBHostPassthroughDeviceConfiguration = VZIOUSBHostPassthroughDeviceC
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.Description]
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.Hash]
 //   - [IVZIOUSBHostPassthroughDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration
 type IVZIOUSBHostPassthroughDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	IsDuplicateConfiguration(configuration objectivec.IObject) bool
 	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
-	Signature() foundation.INSData
+	Signature() foundation.NSData
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
 	InitWithServiceError(service uint32) (VZIOUSBHostPassthroughDeviceConfiguration, error)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -125,7 +118,6 @@ func NewVZIOUSBHostPassthroughDeviceConfiguration() VZIOUSBHostPassthroughDevice
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/initWithService:error:
 func NewVZIOUSBHostPassthroughDeviceConfigurationWithServiceError(service uint32) (VZIOUSBHostPassthroughDeviceConfiguration, error) {
 	var errorPtr objc.ID
 	instance := getVZIOUSBHostPassthroughDeviceConfigurationClass().Alloc()
@@ -137,37 +129,25 @@ func NewVZIOUSBHostPassthroughDeviceConfigurationWithServiceError(service uint32
 	return VZIOUSBHostPassthroughDeviceConfigurationFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/encodeWithEncoder:
-func (v VZIOUSBHostPassthroughDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/isDuplicateConfiguration:
 func (v VZIOUSBHostPassthroughDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/makeUSBDeviceWithVirtualMachine:
 func (v VZIOUSBHostPassthroughDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/initWithService:error:
 func (v VZIOUSBHostPassthroughDeviceConfiguration) InitWithServiceError(service uint32) (VZIOUSBHostPassthroughDeviceConfiguration, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithService:error:"), service, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZIOUSBHostPassthroughDeviceConfiguration{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZIOUSBHostPassthroughDeviceConfiguration), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZIOUSBHostPassthroughDeviceConfigurationFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/fromLocationID:error:
 func (_VZIOUSBHostPassthroughDeviceConfigurationClass VZIOUSBHostPassthroughDeviceConfigurationClass) FromLocationIDError(id uint32) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VZIOUSBHostPassthroughDeviceConfigurationClass.class), objc.Sel("fromLocationID:error:"), id, unsafe.Pointer(&errorPtr))
@@ -179,37 +159,26 @@ func (_VZIOUSBHostPassthroughDeviceConfigurationClass VZIOUSBHostPassthroughDevi
 
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/debugDescription
 func (v VZIOUSBHostPassthroughDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/description
 func (v VZIOUSBHostPassthroughDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/hash
 func (v VZIOUSBHostPassthroughDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/signature
-func (v VZIOUSBHostPassthroughDeviceConfiguration) Signature() foundation.INSData {
+func (v VZIOUSBHostPassthroughDeviceConfiguration) Signature() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("signature"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/superclass
-func (v VZIOUSBHostPassthroughDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZIOUSBHostPassthroughDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDeviceConfiguration/uuid
 func (v VZIOUSBHostPassthroughDeviceConfiguration) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))

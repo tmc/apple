@@ -51,8 +51,6 @@ func (vc VZPointingDeviceClass) Alloc() VZPointingDevice {
 //   - [VZPointingDevice.SendSmartMagnifyEvents]
 //   - [VZPointingDevice.Type]
 //   - [VZPointingDevice.InitWithTypeVirtualMachinePointingDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice
 type VZPointingDevice struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ IVZPointingDevice = VZPointingDevice{}
 //   - [IVZPointingDevice.SendSmartMagnifyEvents]
 //   - [IVZPointingDevice.Type]
 //   - [IVZPointingDevice.InitWithTypeVirtualMachinePointingDeviceIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice
 type IVZPointingDevice interface {
 	objectivec.IObject
 
@@ -111,51 +107,37 @@ func NewVZPointingDevice() VZPointingDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/initWithType:virtualMachine:pointingDeviceIndex:
 func NewVZPointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
 	instance := getVZPointingDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZPointingDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/sendMagnifyEvents:
 func (v VZPointingDevice) SendMagnifyEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:"), events)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/sendQuickLookEvents:
 func (v VZPointingDevice) SendQuickLookEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:"), events)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/sendRotationEvents:
 func (v VZPointingDevice) SendRotationEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendRotationEvents:"), events)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/sendScrollWheelEvents:
 func (v VZPointingDevice) SendScrollWheelEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:"), events)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/sendSmartMagnifyEvents:
 func (v VZPointingDevice) SendSmartMagnifyEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:"), events)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/initWithType:virtualMachine:pointingDeviceIndex:
 func (v VZPointingDevice) InitWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
 	rv := objc.Send[VZPointingDevice](v.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/requiresGrabbingMouseInput
 func (_VZPointingDeviceClass VZPointingDeviceClass) RequiresGrabbingMouseInput() bool {
 	rv := objc.Send[bool](objc.ID(_VZPointingDeviceClass.class), objc.Sel("requiresGrabbingMouseInput"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/type
 func (v VZPointingDevice) Type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("type"))
 	return rv

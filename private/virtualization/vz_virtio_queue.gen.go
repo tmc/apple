@@ -46,8 +46,6 @@ func (vc VZVirtioQueueClass) Alloc() VZVirtioQueue {
 //
 //   - [VZVirtioQueue.NextElement]
 //   - [VZVirtioQueue.QueueIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioQueue
 type VZVirtioQueue struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ IVZVirtioQueue = VZVirtioQueue{}
 //
 //   - [IVZVirtioQueue.NextElement]
 //   - [IVZVirtioQueue.QueueIndex]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioQueue
 type IVZVirtioQueue interface {
 	objectivec.IObject
 
@@ -96,13 +92,11 @@ func NewVZVirtioQueue() VZVirtioQueue {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioQueue/nextElement
 func (v VZVirtioQueue) NextElement() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextElement"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioQueue/queueIndex
 func (v VZVirtioQueue) QueueIndex() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("queueIndex"))
 	return rv

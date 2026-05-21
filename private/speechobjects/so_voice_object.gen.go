@@ -84,8 +84,6 @@ func (sc SOVoiceObjectClass) Alloc() SOVoiceObject {
 //   - [SOVoiceObject.VoiceAttributes]
 //   - [SOVoiceObject.InitWithVoiceWithIdentifier]
 //   - [SOVoiceObject.InitWithVoiceIdentifierWithIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject
 type SOVoiceObject struct {
 	objectivec.Object
 }
@@ -141,8 +139,6 @@ var _ ISOVoiceObject = SOVoiceObject{}
 //   - [ISOVoiceObject.VoiceAttributes]
 //   - [ISOVoiceObject.InitWithVoiceWithIdentifier]
 //   - [ISOVoiceObject.InitWithVoiceIdentifierWithIdentifier]
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject
 type ISOVoiceObject interface {
 	objectivec.IObject
 
@@ -208,14 +204,12 @@ func NewSOVoiceObject() SOVoiceObject {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/initWithVoice:identifier:
 func NewSOVoiceObjectWithVoiceIdentifier(voice objectivec.IObject, identifier objectivec.IObject) SOVoiceObject {
 	instance := getSOVoiceObjectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
 	return SOVoiceObjectFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_conversionLocale
 func (s SOVoiceObject) _conversionLocale() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_conversionLocale"))
 	return objectivec.Object{ID: rv}
@@ -234,8 +228,6 @@ func (s SOVoiceObject) ConversionLocale() (objectivec.IObject, error) {
 func (s SOVoiceObject) CanConversionLocale() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_displayLocalizedVoiceNameForString:
 func (s SOVoiceObject) _displayLocalizedVoiceNameForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"), string_)
 	return objectivec.Object{ID: rv}
@@ -254,8 +246,6 @@ func (s SOVoiceObject) DisplayLocalizedVoiceNameForString(string_ objectivec.IOb
 func (s SOVoiceObject) CanDisplayLocalizedVoiceNameForString() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_getSiriVoiceNameFromIdentifier
 func (s SOVoiceObject) _getSiriVoiceNameFromIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
 	return objectivec.Object{ID: rv}
@@ -274,8 +264,6 @@ func (s SOVoiceObject) GetSiriVoiceNameFromIdentifier() (objectivec.IObject, err
 func (s SOVoiceObject) CanGetSiriVoiceNameFromIdentifier() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_overriddenCompactVoices
 func (s SOVoiceObject) _overriddenCompactVoices() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_overriddenCompactVoices"))
 	return objectivec.Object{ID: rv}
@@ -294,8 +282,6 @@ func (s SOVoiceObject) OverriddenCompactVoices() (objectivec.IObject, error) {
 func (s SOVoiceObject) CanOverriddenCompactVoices() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenCompactVoices"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceDisplayName
 func (s SOVoiceObject) _siriVoiceDisplayName() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayName"))
 	return objectivec.Object{ID: rv}
@@ -314,8 +300,6 @@ func (s SOVoiceObject) SiriVoiceDisplayName() (objectivec.IObject, error) {
 func (s SOVoiceObject) CanSiriVoiceDisplayName() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayName"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceDisplayNameRoot
 func (s SOVoiceObject) _siriVoiceDisplayNameRoot() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
 	return objectivec.Object{ID: rv}
@@ -334,8 +318,6 @@ func (s SOVoiceObject) SiriVoiceDisplayNameRoot() (objectivec.IObject, error) {
 func (s SOVoiceObject) CanSiriVoiceDisplayNameRoot() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceGenderedDisplayName
 func (s SOVoiceObject) _siriVoiceGenderedDisplayName() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
 	return objectivec.Object{ID: rv}
@@ -354,8 +336,6 @@ func (s SOVoiceObject) SiriVoiceGenderedDisplayName() (objectivec.IObject, error
 func (s SOVoiceObject) CanSiriVoiceGenderedDisplayName() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceGenderedDisplayNameRoot
 func (s SOVoiceObject) _siriVoiceGenderedDisplayNameRoot() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
 	return objectivec.Object{ID: rv}
@@ -374,8 +354,6 @@ func (s SOVoiceObject) SiriVoiceGenderedDisplayNameRoot() (objectivec.IObject, e
 func (s SOVoiceObject) CanSiriVoiceGenderedDisplayNameRoot() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:
 func (s SOVoiceObject) _voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"), name)
 	return objectivec.Object{ID: rv}
@@ -394,203 +372,137 @@ func (s SOVoiceObject) VoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(n
 func (s SOVoiceObject) CanVoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/compare:
 func (s SOVoiceObject) Compare(compare objectivec.IObject) int64 {
 	rv := objc.Send[int64](s.ID, objc.Sel("compare:"), compare)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/countryDisplayString
 func (s SOVoiceObject) CountryDisplayString() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("countryDisplayString"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/countryIdentifier
 func (s SOVoiceObject) CountryIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("countryIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/displayName
 func (s SOVoiceObject) DisplayName() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayName"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/displayNameRoot
 func (s SOVoiceObject) DisplayNameRoot() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayNameRoot"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/doesMatchSystemLocale
 func (s SOVoiceObject) DoesMatchSystemLocale() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("doesMatchSystemLocale"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/gender
 func (s SOVoiceObject) Gender() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("gender"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/genderDisplayString
 func (s SOVoiceObject) GenderDisplayString() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("genderDisplayString"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/identifier
 func (s SOVoiceObject) Identifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/isAppropriateForSystemLanguage
 func (s SOVoiceObject) IsAppropriateForSystemLanguage() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAppropriateForSystemLanguage"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/isNeuter
 func (s SOVoiceObject) IsNeuter() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isNeuter"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/isSiriVoice
 func (s SOVoiceObject) IsSiriVoice() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSiriVoice"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/languageDisplayString
 func (s SOVoiceObject) LanguageDisplayString() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("languageDisplayString"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/languageIdentifier
 func (s SOVoiceObject) LanguageIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("languageIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/localeIdentifier
 func (s SOVoiceObject) LocaleIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/matchesSearchString:
 func (s SOVoiceObject) MatchesSearchString(string_ objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("matchesSearchString:"), string_)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/relativeDesirability
 func (s SOVoiceObject) RelativeDesirability() int64 {
 	rv := objc.Send[int64](s.ID, objc.Sel("relativeDesirability"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/showsInFullListOnly
 func (s SOVoiceObject) ShowsInFullListOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("showsInFullListOnly"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/siriLocalizedColorName
 func (s SOVoiceObject) SiriLocalizedColorName() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("siriLocalizedColorName"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/siriVoiceDisplayNameFromIdentifier
 func (s SOVoiceObject) SiriVoiceDisplayNameFromIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("siriVoiceDisplayNameFromIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/voiceAttributes
 func (s SOVoiceObject) VoiceAttributes() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("voiceAttributes"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/initWithVoice:identifier:
 func (s SOVoiceObject) InitWithVoiceWithIdentifier(voice objectivec.IObject, identifier objectivec.IObject) SOVoiceObject {
 	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/initWithVoiceIdentifier:
 func (s SOVoiceObject) InitWithVoiceIdentifierWithIdentifier(identifier objectivec.IObject) SOVoiceObject {
 	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("initWithVoiceIdentifier:"), identifier)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/assetForVoiceID:
 func (_SOVoiceObjectClass SOVoiceObjectClass) AssetForVoiceID(id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("assetForVoiceID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/invalidateAssetMaps
 func (_SOVoiceObjectClass SOVoiceObjectClass) InvalidateAssetMaps() {
 	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("invalidateAssetMaps"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/isSameLanguageFromLocaleIdentifier:secondLocaleIdentifier:
 func (_SOVoiceObjectClass SOVoiceObjectClass) IsSameLanguageFromLocaleIdentifierSecondLocaleIdentifier(identifier objectivec.IObject, identifier2 objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLanguageFromLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/isSameLocaleIdentifier:secondLocaleIdentifier:
 func (_SOVoiceObjectClass SOVoiceObjectClass) IsSameLocaleIdentifierSecondLocaleIdentifier(identifier objectivec.IObject, identifier2 objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/normalizedVoiceIdentifier:
 func (_SOVoiceObjectClass SOVoiceObjectClass) NormalizedVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("normalizedVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/rebuildAssetMaps
 func (_SOVoiceObjectClass SOVoiceObjectClass) RebuildAssetMaps() {
 	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("rebuildAssetMaps"))
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/setVisibleVoicesTable:
 func (_SOVoiceObjectClass SOVoiceObjectClass) SetVisibleVoicesTable(table objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("setVisibleVoicesTable:"), table)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/systemLocaleIdentifier
 func (_SOVoiceObjectClass SOVoiceObjectClass) SystemLocaleIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("systemLocaleIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/visibleVoicesForLocaleIdentifier:additionalRequiredVoices:allowAllVoices:
 func (_SOVoiceObjectClass SOVoiceObjectClass) VisibleVoicesForLocaleIdentifierAdditionalRequiredVoicesAllowAllVoices(identifier objectivec.IObject, voices objectivec.IObject, voices2 bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesForLocaleIdentifier:additionalRequiredVoices:allowAllVoices:"), identifier, voices, voices2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/visibleVoicesTable
 func (_SOVoiceObjectClass SOVoiceObjectClass) VisibleVoicesTable() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesTable"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/downloadPercentComplete
 func (s SOVoiceObject) DownloadPercentComplete() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("downloadPercentComplete"))
 	return rv
@@ -598,8 +510,6 @@ func (s SOVoiceObject) DownloadPercentComplete() float64 {
 func (s SOVoiceObject) SetDownloadPercentComplete(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDownloadPercentComplete:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/downloadStatus
 func (s SOVoiceObject) DownloadStatus() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("downloadStatus"))
 	return rv
@@ -607,8 +517,6 @@ func (s SOVoiceObject) DownloadStatus() uint64 {
 func (s SOVoiceObject) SetDownloadStatus(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDownloadStatus:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/visibility
 func (s SOVoiceObject) Visibility() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("visibility"))
 	return rv
@@ -616,8 +524,6 @@ func (s SOVoiceObject) Visibility() uint64 {
 func (s SOVoiceObject) SetVisibility(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVisibility:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/voice
 func (s SOVoiceObject) Voice() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("voice"))
 	return rv

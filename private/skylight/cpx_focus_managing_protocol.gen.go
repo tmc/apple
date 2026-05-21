@@ -10,49 +10,31 @@ import (
 )
 
 // CPXFocusManaging protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging
 type CPXFocusManaging interface {
 	objectivec.IObject
 
 	// CleanupForProcessDeath protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/cleanupForProcessDeath:
 	CleanupForProcessDeath(death CPSProcessRec)
 
 	// FrontVisibleProcess protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/frontVisibleProcess
 	FrontVisibleProcess() unsafe.Pointer
 
 	// FrontmostProcess protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/frontmostProcess
 	FrontmostProcess() unsafe.Pointer
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/getProcessToBringForwardAtNextCheckin:
 	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessPermittedToBeFrontmost:
 	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessToBringForwardAtNextCheckin:
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// KeyThiefConnectionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/keyThiefConnectionID
 	KeyThiefConnectionID() uint32
 
 	// ReleaseAllKeyThiefInstancesNotPermittedFrontmost protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/releaseAllKeyThiefInstancesNotPermittedFrontmost
 	ReleaseAllKeyThiefInstancesNotPermittedFrontmost()
 }
 
@@ -73,59 +55,40 @@ func CPXFocusManagingObjectFromID(id objc.ID) CPXFocusManagingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/cleanupForProcessDeath:
 func (o CPXFocusManagingObject) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/focusController
 func (o CPXFocusManagingObject) FocusController() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("focusController"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/frontVisibleProcess
 func (o CPXFocusManagingObject) FrontVisibleProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontVisibleProcess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/frontmostProcess
 func (o CPXFocusManagingObject) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/getProcessToBringForwardAtNextCheckin:
 func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessPermittedToBeFrontmost:
 func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessToBringForwardAtNextCheckin:
 func (o CPXFocusManagingObject) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/keyThiefConnectionID
 func (o CPXFocusManagingObject) KeyThiefConnectionID() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/releaseAllKeyThiefInstancesNotPermittedFrontmost
 func (o CPXFocusManagingObject) ReleaseAllKeyThiefInstancesNotPermittedFrontmost() {
 	objc.Send[struct{}](o.ID, objc.Sel("releaseAllKeyThiefInstancesNotPermittedFrontmost"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/suppressDeferringPolicyUpdatesForReason:
 func (o CPXFocusManagingObject) SuppressDeferringPolicyUpdatesForReason(reason objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("suppressDeferringPolicyUpdatesForReason:"), reason)
 	return objectivec.Object{ID: rv}

@@ -8,8 +8,6 @@ import (
 )
 
 // _ANEStorageMaintainerProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageMaintainerProtocol
 type ANEStorageMaintainerProtocol interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func ANEStorageMaintainerProtocolObjectFromID(id objc.ID) ANEStorageMaintainerPr
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageMaintainerProtocol/purgeDanglingModelsAt:withReply:
 func (o ANEStorageMaintainerProtocolObject) PurgeDanglingModelsAtWithReply(at objectivec.IObject, reply VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("purgeDanglingModelsAt:withReply:"), at, reply)
 }

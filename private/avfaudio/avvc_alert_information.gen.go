@@ -51,8 +51,6 @@ func (ac AVVCAlertInformationClass) Alloc() AVVCAlertInformation {
 //   - [AVVCAlertInformation.Type]
 //   - [AVVCAlertInformation.SetType]
 //   - [AVVCAlertInformation.InitWithAlertTypeModeEndTime]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation
 type AVVCAlertInformation struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ IAVVCAlertInformation = AVVCAlertInformation{}
 //   - [IAVVCAlertInformation.Type]
 //   - [IAVVCAlertInformation.SetType]
 //   - [IAVVCAlertInformation.InitWithAlertTypeModeEndTime]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation
 type IAVVCAlertInformation interface {
 	objectivec.IObject
 
@@ -111,20 +107,17 @@ func NewAVVCAlertInformation() AVVCAlertInformation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation/initWithAlertType:mode:endTime:
 func NewVCAlertInformationWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
 	instance := getAVVCAlertInformationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return AVVCAlertInformationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation/initWithAlertType:mode:endTime:
 func (a AVVCAlertInformation) InitWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
 	rv := objc.Send[AVVCAlertInformation](a.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation/alertEndTime
 func (a AVVCAlertInformation) AlertEndTime() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("alertEndTime"))
 	return rv
@@ -132,8 +125,6 @@ func (a AVVCAlertInformation) AlertEndTime() uint64 {
 func (a AVVCAlertInformation) SetAlertEndTime(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlertEndTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation/mode
 func (a AVVCAlertInformation) Mode() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("mode"))
 	return rv
@@ -141,8 +132,6 @@ func (a AVVCAlertInformation) Mode() int64 {
 func (a AVVCAlertInformation) SetMode(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCAlertInformation/type
 func (a AVVCAlertInformation) Type() int {
 	rv := objc.Send[int](a.ID, objc.Sel("type"))
 	return rv

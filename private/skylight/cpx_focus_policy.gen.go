@@ -51,8 +51,6 @@ func (cc CPXFocusPolicyClass) Alloc() CPXFocusPolicy {
 //   - [CPXFocusPolicy.Description]
 //   - [CPXFocusPolicy.Hash]
 //   - [CPXFocusPolicy.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy
 type CPXFocusPolicy struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ICPXFocusPolicy = CPXFocusPolicy{}
 //   - [ICPXFocusPolicy.Description]
 //   - [ICPXFocusPolicy.Hash]
 //   - [ICPXFocusPolicy.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy
 type ICPXFocusPolicy interface {
 	objectivec.IObject
 
@@ -87,7 +83,7 @@ type ICPXFocusPolicy interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -109,36 +105,26 @@ func NewCPXFocusPolicy() CPXFocusPolicy {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/bringNextApplicationToFrontInternal:
 func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/bringNextProcessToFront:
 func (c CPXFocusPolicy) BringNextProcessToFront(front CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextProcessToFront:"), front)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/debugDescription
 func (c CPXFocusPolicy) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/description
 func (c CPXFocusPolicy) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/hash
 func (c CPXFocusPolicy) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/superclass
-func (c CPXFocusPolicy) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXFocusPolicy) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

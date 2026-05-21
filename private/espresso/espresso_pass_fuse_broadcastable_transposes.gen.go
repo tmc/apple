@@ -41,7 +41,6 @@ func (ec EspressoPassFuseBroadcastableTransposesClass) Alloc() EspressoPassFuseB
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_broadcastable_transposes
 type EspressoPassFuseBroadcastableTransposes struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_broadcastable_transposesFromID(id objc.ID) EspressoPassFu
 var _ IEspressoPassFuseBroadcastableTransposes = EspressoPassFuseBroadcastableTransposes{}
 
 // An interface definition for the [EspressoPassFuseBroadcastableTransposes] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_broadcastable_transposes
 type IEspressoPassFuseBroadcastableTransposes interface {
 	IEspressoCustomPass
 }

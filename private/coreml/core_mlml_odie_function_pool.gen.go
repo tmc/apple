@@ -42,7 +42,6 @@ func (cc CoreMLMLOdieFunctionPoolClass) Alloc() CoreMLMLOdieFunctionPool {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieFunctionPool
 type CoreMLMLOdieFunctionPool struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLOdieFunctionPoolFromID(id objc.ID) CoreMLMLOdieFunctionPool {
 // ICoreMLMLOdieFunctionPool embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLOdieFunctionPool] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieFunctionPool
 type ICoreMLMLOdieFunctionPool interface {
 	objectivec.IObject
 }

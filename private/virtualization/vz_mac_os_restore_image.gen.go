@@ -48,8 +48,6 @@ func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
 //
 //   - [VZMacOSRestoreImage._configurations]
 //   - [VZMacOSRestoreImage.Supported]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage
 type VZMacOSRestoreImage struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IVZMacOSRestoreImage = VZMacOSRestoreImage{}
 //
 //   - [IVZMacOSRestoreImage._configurations]
 //   - [IVZMacOSRestoreImage.Supported]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage
 type IVZMacOSRestoreImage interface {
 	objectivec.IObject
 
@@ -98,7 +94,6 @@ func NewVZMacOSRestoreImage() VZMacOSRestoreImage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_fetchAvailableImagesWithCompletionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchAvailableImagesWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"), _block0)
@@ -118,8 +113,6 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchAvailableImagesWi
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchAvailableImagesWithCompletionHandler() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_fetchLatestSupportedWithOptions:completionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"), options, _block1)
@@ -139,8 +132,6 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWi
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchLatestSupportedWithOptionsCompletionHandler() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadCatalogWithOptions:completionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"), options, _block1)
@@ -160,15 +151,13 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadCatalogWithOptions
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadCatalogWithOptionsCompletionHandler() bool {
 	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadFileURL:deviceClassParser:completionHandler:
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadFileURLDeviceClassParserCompletionHandler(url foundation.INSURL, parser objectivec.IObject, handler ErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadFileURLDeviceClassParserCompletionHandler(url foundation.NSURL, parser objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"), url, parser, _block2)
 }
 
 // LoadFileURLDeviceClassParserCompletionHandler is an exported wrapper for the private method _loadFileURLDeviceClassParserCompletionHandler.
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLDeviceClassParserCompletionHandler(url foundation.INSURL, parser objectivec.IObject, handler ErrorHandler) error {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLDeviceClassParserCompletionHandler(url foundation.NSURL, parser objectivec.IObject, handler ErrorHandler) error {
 	if !objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_loadFileURL:deviceClassParser:completionHandler:"}
 		return err
@@ -182,7 +171,6 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadFileURLDeviceCl
 	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_configurations
 func (v VZMacOSRestoreImage) _configurations() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -200,8 +188,6 @@ func (v VZMacOSRestoreImage) Configurations() (foundation.INSArray, error) {
 	}
 	return v._configurations(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/supported
 func (v VZMacOSRestoreImage) Supported() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("supported"))
 	return rv
@@ -254,7 +240,7 @@ func (vc VZMacOSRestoreImageClass) _loadCatalogWithOptions(ctx context.Context, 
 
 // _loadFileURLDeviceClassParser is a synchronous wrapper around [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (vc VZMacOSRestoreImageClass) _loadFileURLDeviceClassParser(ctx context.Context, url foundation.INSURL, parser objectivec.IObject) error {
+func (vc VZMacOSRestoreImageClass) _loadFileURLDeviceClassParser(ctx context.Context, url foundation.NSURL, parser objectivec.IObject) error {
 	done := make(chan error, 1)
 	vc._loadFileURLDeviceClassParserCompletionHandler(url, parser, func(err error) {
 		done <- err

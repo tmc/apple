@@ -4,9 +4,9 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZGDBDebugStub] class.
@@ -47,8 +47,6 @@ func (vc VZGDBDebugStubClass) Alloc() VZGDBDebugStub {
 //   - [VZGDBDebugStub.Delegate]
 //   - [VZGDBDebugStub.SetDelegate]
 //   - [VZGDBDebugStub.Port]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub
 type VZGDBDebugStub struct {
 	VZDebugStub
 }
@@ -68,15 +66,13 @@ var _ IVZGDBDebugStub = VZGDBDebugStub{}
 //   - [IVZGDBDebugStub.Delegate]
 //   - [IVZGDBDebugStub.SetDelegate]
 //   - [IVZGDBDebugStub.Port]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub
 type IVZGDBDebugStub interface {
 	IVZDebugStub
 
 	// Topic: Methods
 
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value unsafe.Pointer)
 	Port() uint16
 }
 
@@ -99,16 +95,13 @@ func NewVZGDBDebugStub() VZGDBDebugStub {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub/delegate
-func (v VZGDBDebugStub) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (v VZGDBDebugStub) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	return rv
 }
-func (v VZGDBDebugStub) SetDelegate(value objectivec.IObject) {
+func (v VZGDBDebugStub) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub/port
 func (v VZGDBDebugStub) Port() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
 	return rv

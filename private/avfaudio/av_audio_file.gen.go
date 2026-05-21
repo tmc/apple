@@ -50,8 +50,6 @@ func (ac AVAudioFileClass) Alloc() AVAudioFile {
 //   - [AVAudioFile.InitForReadingFromExtAudioFileCommonFormatInterleavedError]
 //   - [AVAudioFile.InitForReadingFromExtAudioFileError]
 //   - [AVAudioFile.InitSecondaryReaderFormatError]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile
 type AVAudioFile struct {
 	objectivec.Object
 }
@@ -72,14 +70,12 @@ var _ IAVAudioFile = AVAudioFile{}
 //   - [IAVAudioFile.InitForReadingFromExtAudioFileCommonFormatInterleavedError]
 //   - [IAVAudioFile.InitForReadingFromExtAudioFileError]
 //   - [IAVAudioFile.InitSecondaryReaderFormatError]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile
 type IAVAudioFile interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	InitForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error)
 	InitForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error)
 	InitSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error)
@@ -104,7 +100,6 @@ func NewAVAudioFile() AVAudioFile {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initForReadingFromExtAudioFile:commonFormat:interleaved:error:
 func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
@@ -116,7 +111,6 @@ func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file Opa
 	return AVAudioFileFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initForReadingFromExtAudioFile:error:
 func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
@@ -128,7 +122,6 @@ func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AV
 	return AVAudioFileFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initSecondaryReader:format:error:
 func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
@@ -140,7 +133,6 @@ func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format ob
 	return AVAudioFileFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initForReadingFromExtAudioFile:commonFormat:interleaved:error:
 func (a AVAudioFile) InitForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForReadingFromExtAudioFile:commonFormat:interleaved:error:"), file, format, interleaved, unsafe.Pointer(&errorPtr))
@@ -151,8 +143,6 @@ func (a AVAudioFile) InitForReadingFromExtAudioFileCommonFormatInterleavedError(
 	return AVAudioFileFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initForReadingFromExtAudioFile:error:
 func (a AVAudioFile) InitForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForReadingFromExtAudioFile:error:"), file, unsafe.Pointer(&errorPtr))
@@ -163,8 +153,6 @@ func (a AVAudioFile) InitForReadingFromExtAudioFileError(file OpaqueExtAudioFile
 	return AVAudioFileFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initSecondaryReader:format:error:
 func (a AVAudioFile) InitSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initSecondaryReader:format:error:"), reader, format, unsafe.Pointer(&errorPtr))
@@ -176,8 +164,7 @@ func (a AVAudioFile) InitSecondaryReaderFormatError(reader objectivec.IObject, f
 
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/url
-func (a AVAudioFile) Url() foundation.INSURL {
+func (a AVAudioFile) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

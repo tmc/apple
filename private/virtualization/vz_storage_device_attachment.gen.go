@@ -50,8 +50,6 @@ func (vc VZStorageDeviceAttachmentClass) Alloc() VZStorageDeviceAttachment {
 //   - [VZStorageDeviceAttachment.Description]
 //   - [VZStorageDeviceAttachment.Hash]
 //   - [VZStorageDeviceAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment
 type VZStorageDeviceAttachment struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IVZStorageDeviceAttachment = VZStorageDeviceAttachment{}
 //   - [IVZStorageDeviceAttachment.Description]
 //   - [IVZStorageDeviceAttachment.Hash]
 //   - [IVZStorageDeviceAttachment.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment
 type IVZStorageDeviceAttachment interface {
 	objectivec.IObject
 
@@ -84,7 +80,7 @@ type IVZStorageDeviceAttachment interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -106,32 +102,24 @@ func NewVZStorageDeviceAttachment() VZStorageDeviceAttachment {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/_init
 func (v VZStorageDeviceAttachment) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/debugDescription
 func (v VZStorageDeviceAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/description
 func (v VZStorageDeviceAttachment) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/hash
 func (v VZStorageDeviceAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/superclass
-func (v VZStorageDeviceAttachment) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZStorageDeviceAttachment) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

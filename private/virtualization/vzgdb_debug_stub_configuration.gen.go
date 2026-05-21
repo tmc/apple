@@ -48,8 +48,6 @@ func (vc VZGDBDebugStubConfigurationClass) Alloc() VZGDBDebugStubConfiguration {
 //   - [VZGDBDebugStubConfiguration.Port]
 //   - [VZGDBDebugStubConfiguration.SetPort]
 //   - [VZGDBDebugStubConfiguration.InitWithPort]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration
 type VZGDBDebugStubConfiguration struct {
 	VZDebugStubConfiguration
 }
@@ -71,8 +69,6 @@ var _ IVZGDBDebugStubConfiguration = VZGDBDebugStubConfiguration{}
 //   - [IVZGDBDebugStubConfiguration.Port]
 //   - [IVZGDBDebugStubConfiguration.SetPort]
 //   - [IVZGDBDebugStubConfiguration.InitWithPort]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration
 type IVZGDBDebugStubConfiguration interface {
 	IVZDebugStubConfiguration
 
@@ -104,20 +100,17 @@ func NewVZGDBDebugStubConfiguration() VZGDBDebugStubConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration/initWithPort:
 func NewVZGDBDebugStubConfigurationWithPort(port uint16) VZGDBDebugStubConfiguration {
 	instance := getVZGDBDebugStubConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:"), port)
 	return VZGDBDebugStubConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration/initWithPort:
 func (v VZGDBDebugStubConfiguration) InitWithPort(port uint16) VZGDBDebugStubConfiguration {
 	rv := objc.Send[VZGDBDebugStubConfiguration](v.ID, objc.Sel("initWithPort:"), port)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration/listensOnAllNetworkInterfaces
 func (v VZGDBDebugStubConfiguration) ListensOnAllNetworkInterfaces() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("listensOnAllNetworkInterfaces"))
 	return rv
@@ -125,8 +118,6 @@ func (v VZGDBDebugStubConfiguration) ListensOnAllNetworkInterfaces() bool {
 func (v VZGDBDebugStubConfiguration) SetListensOnAllNetworkInterfaces(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setListensOnAllNetworkInterfaces:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStubConfiguration/port
 func (v VZGDBDebugStubConfiguration) Port() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
 	return rv

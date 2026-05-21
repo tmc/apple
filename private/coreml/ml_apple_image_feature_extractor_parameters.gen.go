@@ -49,8 +49,6 @@ func (mc MLAppleImageFeatureExtractorParametersClass) Alloc() MLAppleImageFeatur
 //   - [MLAppleImageFeatureExtractorParameters.FeatureExtractorParameters]
 //   - [MLAppleImageFeatureExtractorParameters.InitWithObjectPrintParametersError]
 //   - [MLAppleImageFeatureExtractorParameters.InitWithScenePrintParametersError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters
 type MLAppleImageFeatureExtractorParameters struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ IMLAppleImageFeatureExtractorParameters = MLAppleImageFeatureExtractorPara
 //   - [IMLAppleImageFeatureExtractorParameters.FeatureExtractorParameters]
 //   - [IMLAppleImageFeatureExtractorParameters.InitWithObjectPrintParametersError]
 //   - [IMLAppleImageFeatureExtractorParameters.InitWithScenePrintParametersError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters
 type IMLAppleImageFeatureExtractorParameters interface {
 	objectivec.IObject
 
@@ -101,7 +97,6 @@ func NewMLAppleImageFeatureExtractorParameters() MLAppleImageFeatureExtractorPar
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters/initWithObjectPrintParameters:error:
 func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
@@ -113,7 +108,6 @@ func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(param
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters/initWithScenePrintParameters:error:
 func NewAppleImageFeatureExtractorParametersWithScenePrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
@@ -125,7 +119,6 @@ func NewAppleImageFeatureExtractorParametersWithScenePrintParametersError(parame
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters/initWithObjectPrintParameters:error:
 func (m MLAppleImageFeatureExtractorParameters) InitWithObjectPrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithObjectPrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
@@ -136,8 +129,6 @@ func (m MLAppleImageFeatureExtractorParameters) InitWithObjectPrintParametersErr
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters/initWithScenePrintParameters:error:
 func (m MLAppleImageFeatureExtractorParameters) InitWithScenePrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithScenePrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
@@ -149,7 +140,6 @@ func (m MLAppleImageFeatureExtractorParameters) InitWithScenePrintParametersErro
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorParameters/featureExtractorParameters
 func (m MLAppleImageFeatureExtractorParameters) FeatureExtractorParameters() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureExtractorParameters"))
 	return objectivec.Object{ID: rv}

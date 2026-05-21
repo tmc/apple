@@ -45,8 +45,6 @@ func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
 // # Methods
 //
 //   - [VZConsoleDevice.InitWithVirtualMachineConsoleDeviceIndexConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice
 type VZConsoleDevice struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZConsoleDevice = VZConsoleDevice{}
 // # Methods
 //
 //   - [IVZConsoleDevice.InitWithVirtualMachineConsoleDeviceIndexConfiguration]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice
 type IVZConsoleDevice interface {
 	objectivec.IObject
 
@@ -93,14 +89,12 @@ func NewVZConsoleDevice() VZConsoleDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice/initWithVirtualMachine:consoleDeviceIndex:configuration:
 func NewConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
 	instance := getVZConsoleDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return VZConsoleDeviceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice/initWithVirtualMachine:consoleDeviceIndex:configuration:
 func (v VZConsoleDevice) InitWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
 	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return rv

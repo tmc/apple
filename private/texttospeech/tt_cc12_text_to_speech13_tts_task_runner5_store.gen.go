@@ -42,7 +42,6 @@ func (tc TtCC12TextToSpeech13TTSTaskRunner5StoreClass) Alloc() TtCC12TextToSpeec
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech13TTSTaskRunner5Store
 type TtCC12TextToSpeech13TTSTaskRunner5Store struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC12TextToSpeech13TTSTaskRunner5StoreFromID(id objc.ID) TtCC12TextToSpeec
 // ITtCC12TextToSpeech13TTSTaskRunner5Store embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech13TTSTaskRunner5Store] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech13TTSTaskRunner5Store
 type ITtCC12TextToSpeech13TTSTaskRunner5Store interface {
 	objectivec.IObject
 }

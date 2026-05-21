@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass) Al
 //
 //   - [SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult.SpaceResizeDirections]
 //   - [SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult.InitWithSpaceResizeDirections]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult
 type SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationSpaceResizeDirectionsResult = SLSBridg
 //
 //   - [ISLSBridgedWindowManagementOperationSpaceResizeDirectionsResult.SpaceResizeDirections]
 //   - [ISLSBridgedWindowManagementOperationSpaceResizeDirectionsResult.InitWithSpaceResizeDirections]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult
 type ISLSBridgedWindowManagementOperationSpaceResizeDirectionsResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResult() SLSBrid
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult/initWithSpaceResizeDirections:
 func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultWithSpaceResizeDirections(directions uint64) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
 	return SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult/initWithSpaceResizeDirections:
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) InitWithSpaceResizeDirections(directions uint64) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult/spaceResizeDirections
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) SpaceResizeDirections() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceResizeDirections"))
 	return rv

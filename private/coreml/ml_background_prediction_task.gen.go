@@ -51,8 +51,6 @@ func (mc MLBackgroundPredictionTaskClass) Alloc() MLBackgroundPredictionTask {
 //   - [MLBackgroundPredictionTask.SetModelURL]
 //   - [MLBackgroundPredictionTask.PredictionOptions]
 //   - [MLBackgroundPredictionTask.SetPredictionOptions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask
 type MLBackgroundPredictionTask struct {
 	MLBackgroundTask
 }
@@ -75,8 +73,6 @@ var _ IMLBackgroundPredictionTask = MLBackgroundPredictionTask{}
 //   - [IMLBackgroundPredictionTask.SetModelURL]
 //   - [IMLBackgroundPredictionTask.PredictionOptions]
 //   - [IMLBackgroundPredictionTask.SetPredictionOptions]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask
 type IMLBackgroundPredictionTask interface {
 	IMLBackgroundTask
 
@@ -84,8 +80,8 @@ type IMLBackgroundPredictionTask interface {
 
 	ModelConfiguration() IMLModelConfiguration
 	SetModelConfiguration(value IMLModelConfiguration)
-	ModelURL() foundation.INSURL
-	SetModelURL(value foundation.INSURL)
+	ModelURL() foundation.NSURL
+	SetModelURL(value foundation.NSURL)
 	PredictionOptions() IMLPredictionOptions
 	SetPredictionOptions(value IMLPredictionOptions)
 }
@@ -109,20 +105,17 @@ func NewMLBackgroundPredictionTask() MLBackgroundPredictionTask {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/initWithCoder:
 func NewBackgroundPredictionTaskWithCoder(coder objectivec.IObject) MLBackgroundPredictionTask {
 	instance := getMLBackgroundPredictionTaskClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLBackgroundPredictionTaskFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/taskRunnerClass
-func (_MLBackgroundPredictionTaskClass MLBackgroundPredictionTaskClass) TaskRunnerClass() objc.Class {
-	rv := objc.Send[objc.Class](objc.ID(_MLBackgroundPredictionTaskClass.class), objc.Sel("taskRunnerClass"))
-	return rv
+func (_MLBackgroundPredictionTaskClass MLBackgroundPredictionTaskClass) TaskRunnerClass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](objc.ID(_MLBackgroundPredictionTaskClass.class), objc.Sel("taskRunnerClass"))
+	return objectivec.Class(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/modelConfiguration
 func (m MLBackgroundPredictionTask) ModelConfiguration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
@@ -130,17 +123,13 @@ func (m MLBackgroundPredictionTask) ModelConfiguration() IMLModelConfiguration {
 func (m MLBackgroundPredictionTask) SetModelConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelConfiguration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/modelURL
-func (m MLBackgroundPredictionTask) ModelURL() foundation.INSURL {
+func (m MLBackgroundPredictionTask) ModelURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (m MLBackgroundPredictionTask) SetModelURL(value foundation.INSURL) {
+func (m MLBackgroundPredictionTask) SetModelURL(value foundation.NSURL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelURL:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/predictionOptions
 func (m MLBackgroundPredictionTask) PredictionOptions() IMLPredictionOptions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionOptions"))
 	return MLPredictionOptionsFromID(objc.ID(rv))

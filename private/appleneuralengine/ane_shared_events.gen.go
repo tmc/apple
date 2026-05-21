@@ -50,8 +50,6 @@ func (ac ANESharedEventsClass) Alloc() ANESharedEvents {
 //   - [ANESharedEvents.WaitEvents]
 //   - [ANESharedEvents.SetWaitEvents]
 //   - [ANESharedEvents.InitWithSignalEventsWaitEvents]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents
 type ANESharedEvents struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IANESharedEvents = ANESharedEvents{}
 //   - [IANESharedEvents.WaitEvents]
 //   - [IANESharedEvents.SetWaitEvents]
 //   - [IANESharedEvents.InitWithSignalEventsWaitEvents]
-//
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents
 type IANESharedEvents interface {
 	objectivec.IObject
 
@@ -106,26 +102,22 @@ func NewANESharedEvents() ANESharedEvents {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/initWithSignalEvents:waitEvents:
 func NewANESharedEventsWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) ANESharedEvents {
 	instance := getANESharedEventsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
 	return ANESharedEventsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/initWithSignalEvents:waitEvents:
 func (a ANESharedEvents) InitWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) ANESharedEvents {
 	rv := objc.Send[ANESharedEvents](a.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/sharedEventsWithSignalEvents:waitEvents:
 func (_ANESharedEventsClass ANESharedEventsClass) SharedEventsWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANESharedEventsClass.class), objc.Sel("sharedEventsWithSignalEvents:waitEvents:"), events, events2)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/signalEvents
 func (a ANESharedEvents) SignalEvents() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("signalEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -133,8 +125,6 @@ func (a ANESharedEvents) SignalEvents() foundation.INSArray {
 func (a ANESharedEvents) SetSignalEvents(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSignalEvents:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/waitEvents
 func (a ANESharedEvents) WaitEvents() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("waitEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))

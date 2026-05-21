@@ -42,7 +42,6 @@ func (cc CoreMLPlatformInfoClass) Alloc() CoreMLPlatformInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.PlatformInfo
 type CoreMLPlatformInfo struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLPlatformInfoFromID(id objc.ID) CoreMLPlatformInfo {
 // ICoreMLPlatformInfo embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLPlatformInfo] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.PlatformInfo
 type ICoreMLPlatformInfo interface {
 	objectivec.IObject
 }

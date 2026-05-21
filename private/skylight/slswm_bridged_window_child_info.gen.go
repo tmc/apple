@@ -48,8 +48,6 @@ func (sc SLSWMBridgedWindowChildInfoClass) Alloc() SLSWMBridgedWindowChildInfo {
 //   - [SLSWMBridgedWindowChildInfo.SetOp]
 //   - [SLSWMBridgedWindowChildInfo.Window]
 //   - [SLSWMBridgedWindowChildInfo.SetWindow]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindowChildInfo
 type SLSWMBridgedWindowChildInfo struct {
 	objectivec.Object
 }
@@ -70,8 +68,6 @@ var _ ISLSWMBridgedWindowChildInfo = SLSWMBridgedWindowChildInfo{}
 //   - [ISLSWMBridgedWindowChildInfo.SetOp]
 //   - [ISLSWMBridgedWindowChildInfo.Window]
 //   - [ISLSWMBridgedWindowChildInfo.SetWindow]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindowChildInfo
 type ISLSWMBridgedWindowChildInfo interface {
 	objectivec.IObject
 
@@ -102,7 +98,6 @@ func NewSLSWMBridgedWindowChildInfo() SLSWMBridgedWindowChildInfo {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindowChildInfo/op
 func (s SLSWMBridgedWindowChildInfo) Op() int {
 	rv := objc.Send[int](s.ID, objc.Sel("op"))
 	return rv
@@ -110,8 +105,6 @@ func (s SLSWMBridgedWindowChildInfo) Op() int {
 func (s SLSWMBridgedWindowChildInfo) SetOp(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOp:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindowChildInfo/window
 func (s SLSWMBridgedWindowChildInfo) Window() ISLSWMBridgedWindow {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("window"))
 	return SLSWMBridgedWindowFromID(objc.ID(rv))

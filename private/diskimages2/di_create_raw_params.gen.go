@@ -44,7 +44,6 @@ func (dc DICreateRAWParamsClass) Alloc() DICreateRAWParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateRAWParams
 type DICreateRAWParams struct {
 	DICreateParams
 }
@@ -58,8 +57,6 @@ func DICreateRAWParamsFromID(id objc.ID) DICreateRAWParams {
 var _ IDICreateRAWParams = DICreateRAWParams{}
 
 // An interface definition for the [DICreateRAWParams] class.
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateRAWParams
 type IDICreateRAWParams interface {
 	IDICreateParams
 }
@@ -83,15 +80,13 @@ func NewDICreateRAWParams() DICreateRAWParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateRAWParamsWithCoder(coder objectivec.IObject) DICreateRAWParams {
 	instance := getDICreateRAWParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateRAWParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
-func NewDICreateRAWParamsWithURLError(url foundation.INSURL) (DICreateRAWParams, error) {
+func NewDICreateRAWParamsWithURLError(url foundation.NSURL) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateRAWParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -102,8 +97,7 @@ func NewDICreateRAWParamsWithURLError(url foundation.INSURL) (DICreateRAWParams,
 	return DICreateRAWParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateRAWParams/initWithURL:numBlocks:error:
-func NewDICreateRAWParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateRAWParams, error) {
+func NewDICreateRAWParamsWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateRAWParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))

@@ -8,8 +8,6 @@ import (
 )
 
 // MLCompiledModelLoader protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLCompiledModelLoader
 type MLCompiledModelLoader interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLCompiledModelLoaderObjectFromID(id objc.ID) MLCompiledModelLoaderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLCompiledModelLoader/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (o MLCompiledModelLoaderObject) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration)
 	if err != nil {

@@ -8,24 +8,16 @@ import (
 )
 
 // SLDataTimelineServerSnapshot protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot
 type SLDataTimelineServerSnapshot interface {
 	objectivec.IObject
 
 	// Index protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/index
 	Index() uint64
 
 	// SessionsApplyBlock protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/sessionsApplyBlock:
 	SessionsApplyBlock(block SLDataTimelineSessionHandler)
 
 	// Timestamp protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/timestamp
 	Timestamp() float64
 }
 
@@ -46,24 +38,17 @@ func SLDataTimelineServerSnapshotObjectFromID(id objc.ID) SLDataTimelineServerSn
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/index
 func (o SLDataTimelineServerSnapshotObject) Index() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/sessions
 func (o SLDataTimelineServerSnapshotObject) Sessions() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sessions"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/sessionsApplyBlock:
 func (o SLDataTimelineServerSnapshotObject) SessionsApplyBlock(block SLDataTimelineSessionHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionsApplyBlock:"), block)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineServerSnapshot/timestamp
 func (o SLDataTimelineServerSnapshotObject) Timestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("timestamp"))
 	return rv

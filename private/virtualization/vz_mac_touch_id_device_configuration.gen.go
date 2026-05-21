@@ -41,7 +41,6 @@ func (vc VZMacTouchIDDeviceConfigurationClass) Alloc() VZMacTouchIDDeviceConfigu
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacTouchIDDeviceConfiguration
 type VZMacTouchIDDeviceConfiguration struct {
 	VZBiometricDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZMacTouchIDDeviceConfigurationFromID(id objc.ID) VZMacTouchIDDeviceConfigu
 var _ IVZMacTouchIDDeviceConfiguration = VZMacTouchIDDeviceConfiguration{}
 
 // An interface definition for the [VZMacTouchIDDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacTouchIDDeviceConfiguration
 type IVZMacTouchIDDeviceConfiguration interface {
 	IVZBiometricDeviceConfiguration
 }

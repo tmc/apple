@@ -51,8 +51,6 @@ func (sc SLSDisplayWallConfigurationClass) Alloc() SLSDisplayWallConfiguration {
 //   - [SLSDisplayWallConfiguration.SetGridHeight]
 //   - [SLSDisplayWallConfiguration.GridWidth]
 //   - [SLSDisplayWallConfiguration.SetGridWidth]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallConfiguration
 type SLSDisplayWallConfiguration struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ISLSDisplayWallConfiguration = SLSDisplayWallConfiguration{}
 //   - [ISLSDisplayWallConfiguration.SetGridHeight]
 //   - [ISLSDisplayWallConfiguration.GridWidth]
 //   - [ISLSDisplayWallConfiguration.SetGridWidth]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallConfiguration
 type ISLSDisplayWallConfiguration interface {
 	objectivec.IObject
 
@@ -109,7 +105,6 @@ func NewSLSDisplayWallConfiguration() SLSDisplayWallConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallConfiguration/displayIDs
 func (s SLSDisplayWallConfiguration) DisplayIDs() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIDs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -117,8 +112,6 @@ func (s SLSDisplayWallConfiguration) DisplayIDs() foundation.INSArray {
 func (s SLSDisplayWallConfiguration) SetDisplayIDs(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayIDs:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallConfiguration/gridHeight
 func (s SLSDisplayWallConfiguration) GridHeight() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("gridHeight"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -126,8 +119,6 @@ func (s SLSDisplayWallConfiguration) GridHeight() foundation.NSNumber {
 func (s SLSDisplayWallConfiguration) SetGridHeight(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setGridHeight:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWallConfiguration/gridWidth
 func (s SLSDisplayWallConfiguration) GridWidth() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("gridWidth"))
 	return foundation.NSNumberFromID(objc.ID(rv))

@@ -42,7 +42,6 @@ func (ec ETModelWithExtractorClass) Alloc() ETModelWithExtractor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelWithExtractor
 type ETModelWithExtractor struct {
 	ETModelDef
 }
@@ -56,8 +55,6 @@ func ETModelWithExtractorFromID(id objc.ID) ETModelWithExtractor {
 var _ IETModelWithExtractor = ETModelWithExtractor{}
 
 // An interface definition for the [ETModelWithExtractor] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelWithExtractor
 type IETModelWithExtractor interface {
 	IETModelDef
 }
@@ -81,7 +78,6 @@ func NewETModelWithExtractor() ETModelWithExtractor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelWithExtractorWithNetwork(network objectivec.IObject) ETModelWithExtractor {
 	instance := getETModelWithExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)

@@ -62,8 +62,6 @@ func (cc CPXProcessManagerClass) Alloc() CPXProcessManager {
 //   - [CPXProcessManager.Description]
 //   - [CPXProcessManager.Hash]
 //   - [CPXProcessManager.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager
 type CPXProcessManager struct {
 	objectivec.Object
 }
@@ -96,8 +94,6 @@ var _ ICPXProcessManager = CPXProcessManager{}
 //   - [ICPXProcessManager.Description]
 //   - [ICPXProcessManager.Hash]
 //   - [ICPXProcessManager.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager
 type ICPXProcessManager interface {
 	objectivec.IObject
 
@@ -118,7 +114,7 @@ type ICPXProcessManager interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -140,92 +136,65 @@ func NewCPXProcessManager() CPXProcessManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/initWithSession:connectionManager:
 func NewCPXProcessManagerWithSessionConnectionManager(session CGXSession, manager objectivec.IObject) CPXProcessManager {
 	instance := getCPXProcessManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:connectionManager:"), session, manager)
 	return CPXProcessManagerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/isPSN:equalToPSN:
 func (c CPXProcessManager) IsPSNEqualToPSN(psn CPSProcessSerNum, psn2 CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPSN:equalToPSN:"), psn, psn2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/isValidConnectionID:forPSN:
 func (c CPXProcessManager) IsValidConnectionIDForPSN(id uint32, psn CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isValidConnectionID:forPSN:"), id, psn)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processForPID:
 func (c CPXProcessManager) ProcessForPID(pid int) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processForPID:"), pid)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processForPSN:
 func (c CPXProcessManager) ProcessForPSN(psn CPSProcessSerNum) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processForPSN:"), psn)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processOwningConnection:
 func (c CPXProcessManager) ProcessOwningConnection(connection CGXConnection) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processOwningConnection:"), connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processOwningConnectionID:
 func (c CPXProcessManager) ProcessOwningConnectionID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processOwningConnectionID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processRepresentedByConnection:
 func (c CPXProcessManager) ProcessRepresentedByConnection(connection CGXConnection) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnection:"), connection)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processRepresentedByConnectionID:
 func (c CPXProcessManager) ProcessRepresentedByConnectionID(id uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnectionID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/updateProcessApplicationTypeIfNecessary:
 func (c CPXProcessManager) UpdateProcessApplicationTypeIfNecessary(necessary CPSProcessRec) byte {
 	rv := objc.Send[byte](c.ID, objc.Sel("updateProcessApplicationTypeIfNecessary:"), necessary)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/initWithSession:connectionManager:
 func (c CPXProcessManager) InitWithSessionConnectionManager(session CGXSession, manager objectivec.IObject) CPXProcessManager {
 	rv := objc.Send[CPXProcessManager](c.ID, objc.Sel("initWithSession:connectionManager:"), session, manager)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/debugDescription
 func (c CPXProcessManager) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/description
 func (c CPXProcessManager) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/hash
 func (c CPXProcessManager) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/processPendingKill
 func (c CPXProcessManager) ProcessPendingKill() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processPendingKill"))
 	return rv
@@ -233,9 +202,7 @@ func (c CPXProcessManager) ProcessPendingKill() unsafe.Pointer {
 func (c CPXProcessManager) SetProcessPendingKill(value *CPSProcessRec) {
 	objc.Send[struct{}](c.ID, objc.Sel("setProcessPendingKill:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXProcessManager/superclass
-func (c CPXProcessManager) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
-	return rv
+func (c CPXProcessManager) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

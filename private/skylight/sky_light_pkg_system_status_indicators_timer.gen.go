@@ -42,7 +42,6 @@ func (sc SkyLightPKGSystemStatusIndicatorsTimerClass) Alloc() SkyLightPKGSystemS
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsTimer
 type SkyLightPKGSystemStatusIndicatorsTimer struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPKGSystemStatusIndicatorsTimerFromID(id objc.ID) SkyLightPKGSystemS
 // ISkyLightPKGSystemStatusIndicatorsTimer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsTimer] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PKGSystemStatusIndicatorsTimer
 type ISkyLightPKGSystemStatusIndicatorsTimer interface {
 	objectivec.IObject
 }

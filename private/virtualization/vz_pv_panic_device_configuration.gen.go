@@ -41,7 +41,6 @@ func (vc VZPvPanicDeviceConfigurationClass) Alloc() VZPvPanicDeviceConfiguration
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZPvPanicDeviceConfiguration
 type VZPvPanicDeviceConfiguration struct {
 	VZPanicDeviceConfiguration
 }
@@ -55,8 +54,6 @@ func VZPvPanicDeviceConfigurationFromID(id objc.ID) VZPvPanicDeviceConfiguration
 var _ IVZPvPanicDeviceConfiguration = VZPvPanicDeviceConfiguration{}
 
 // An interface definition for the [VZPvPanicDeviceConfiguration] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZPvPanicDeviceConfiguration
 type IVZPvPanicDeviceConfiguration interface {
 	IVZPanicDeviceConfiguration
 }

@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSSettingsClass) Alloc() TextToSpeechTTSSettings {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSettings
 type TextToSpeechTTSSettings struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSSettingsFromID(id objc.ID) TextToSpeechTTSSettings {
 // ITextToSpeechTTSSettings embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSettings] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSettings
 type ITextToSpeechTTSSettings interface {
 	objectivec.IObject
 }

@@ -45,8 +45,6 @@ func (vc VZCustomVirtioDevicePluginBridgeClass) Alloc() VZCustomVirtioDevicePlug
 // # Methods
 //
 //   - [VZCustomVirtioDevicePluginBridge.InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginBridge
 type VZCustomVirtioDevicePluginBridge struct {
 	objectivec.Object
 }
@@ -64,14 +62,12 @@ var _ IVZCustomVirtioDevicePluginBridge = VZCustomVirtioDevicePluginBridge{}
 // # Methods
 //
 //   - [IVZCustomVirtioDevicePluginBridge.InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginBridge
 type IVZCustomVirtioDevicePluginBridge interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objc.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge
+	InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objectivec.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge
 }
 
 // Init initializes the instance.
@@ -93,15 +89,13 @@ func NewVZCustomVirtioDevicePluginBridge() VZCustomVirtioDevicePluginBridge {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginBridge/initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:
-func NewVZCustomVirtioDevicePluginBridgeWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objc.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge {
+func NewVZCustomVirtioDevicePluginBridgeWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objectivec.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge {
 	instance := getVZCustomVirtioDevicePluginBridgeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
 	return VZCustomVirtioDevicePluginBridgeFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginBridge/initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:
-func (v VZCustomVirtioDevicePluginBridge) InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objc.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge {
+func (v VZCustomVirtioDevicePluginBridge) InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objectivec.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomVirtioDevicePluginBridge {
 	rv := objc.Send[VZCustomVirtioDevicePluginBridge](v.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
 	return rv
 }

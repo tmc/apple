@@ -42,7 +42,6 @@ func (tc TTSLHPhonemeToApplebetPhonemeMapperClass) Alloc() TTSLHPhonemeToApplebe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper
 type TTSLHPhonemeToApplebetPhonemeMapper struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TTSLHPhonemeToApplebetPhonemeMapperFromID(id objc.ID) TTSLHPhonemeToApplebe
 var _ ITTSLHPhonemeToApplebetPhonemeMapper = TTSLHPhonemeToApplebetPhonemeMapper{}
 
 // An interface definition for the [TTSLHPhonemeToApplebetPhonemeMapper] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper
 type ITTSLHPhonemeToApplebetPhonemeMapper interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewTTSLHPhonemeToApplebetPhonemeMapper() TTSLHPhonemeToApplebetPhonemeMappe
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_acceptRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _acceptRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_acceptRule"))
 }
@@ -100,8 +96,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanAcceptRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_acceptRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_initializeRules
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _initializeRules() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_initializeRules"))
 	return objectivec.Object{ID: rv}
@@ -120,8 +114,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanInitializeRules() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_initializeRules"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_leftRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _leftRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_leftRaisingContextRule"))
 }
@@ -140,8 +132,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanLeftRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_leftRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonemeArray:
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonemeArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeArray:"), array)
 	return objectivec.Object{ID: rv}
@@ -160,8 +150,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonemeArray() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeArray:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonemeRules
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonemeRules() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeRules"))
 	return objectivec.Object{ID: rv}
@@ -180,8 +168,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonemeRules() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeRules"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonoMatch:match:matchpos:count:
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int, count int) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:"), match, match2, objc.CArray(matchpos), count)
 	return objectivec.Object{ID: rv}
@@ -200,8 +186,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonoMatchMatchMatchposCount() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonoTranslation:
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonoTranslation(translation objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoTranslation:"), translation)
 	return objectivec.Object{ID: rv}
@@ -220,8 +204,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonoTranslation() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoTranslation:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_retrieveRegularExpression:
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _retrieveRegularExpression(expression objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_retrieveRegularExpression:"), expression)
 	return objectivec.Object{ID: rv}
@@ -240,8 +222,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanRetrieveRegularExpression() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_retrieveRegularExpression:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_rightRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _rightRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_rightRaisingContextRule"))
 }
@@ -260,8 +240,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanRightRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_rightRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberLeftRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _uberLeftRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberLeftRaisingContextRule"))
 }
@@ -280,8 +258,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberLeftRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberLeftRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberRightRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _uberRightRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberRightRaisingContextRule"))
 }
@@ -300,8 +276,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberRightRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberRightRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberUberRightRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _uberUberRightRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberRightRaisingContextRule"))
 }
@@ -320,8 +294,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberUberRightRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberRightRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberUberUberRightRaisingContextRule
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _uberUberUberRightRaisingContextRule() {
 	objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberUberRightRaisingContextRule"))
 }
@@ -340,8 +312,6 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberUberUberRightRaisingContextRule() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberUberRightRaisingContextRule"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/convertLHToApplebet:
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) ConvertLHToApplebet(applebet objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("convertLHToApplebet:"), applebet)
 	return objectivec.Object{ID: rv}

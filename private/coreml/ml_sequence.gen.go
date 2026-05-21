@@ -49,9 +49,6 @@ func (mc MLSequenceClass) Alloc() MLSequence {
 //   - [MLSequence.FeatureValues]
 //   - [MLSequence.Values]
 //   - [MLSequence.InitWithArrayType]
-//   - [MLSequence.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSequence
 type MLSequence struct {
 	objectivec.Object
 }
@@ -71,9 +68,6 @@ var _ IMLSequence = MLSequence{}
 //   - [IMLSequence.FeatureValues]
 //   - [IMLSequence.Values]
 //   - [IMLSequence.InitWithArrayType]
-//   - [IMLSequence.InitWithCoder]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSequence
 type IMLSequence interface {
 	objectivec.IObject
 
@@ -82,7 +76,6 @@ type IMLSequence interface {
 	FeatureValues() foundation.INSArray
 	Values() foundation.INSArray
 	InitWithArrayType(array objectivec.IObject, type_ int64) MLSequence
-	InitWithCoder(coder foundation.INSCoder) MLSequence
 }
 
 // Init initializes the instance.
@@ -104,39 +97,21 @@ func NewMLSequence() MLSequence {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithArray:type:
 func NewSequenceWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
 	instance := getMLSequenceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return MLSequenceFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithCoder:
-func NewSequenceWithCoder(coder objectivec.IObject) MLSequence {
-	instance := getMLSequenceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return MLSequenceFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithArray:type:
 func (m MLSequence) InitWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
 	rv := objc.Send[MLSequence](m.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithCoder:
-func (m MLSequence) InitWithCoder(coder foundation.INSCoder) MLSequence {
-	rv := objc.Send[MLSequence](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/emptySequenceWithType:
 func (_MLSequenceClass MLSequenceClass) EmptySequenceWithType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("emptySequenceWithType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/sequenceFromArray:error:
 func (_MLSequenceClass MLSequenceClass) SequenceFromArrayError(array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceFromArray:error:"), array, unsafe.Pointer(&errorPtr))
@@ -147,32 +122,23 @@ func (_MLSequenceClass MLSequenceClass) SequenceFromArrayError(array objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/sequenceWithInt64Array:
 func (_MLSequenceClass MLSequenceClass) SequenceWithInt64Array(int64Array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithInt64Array:"), int64Array)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/sequenceWithStringArray:
 func (_MLSequenceClass MLSequenceClass) SequenceWithStringArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithStringArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/supportsSecureCoding
 func (_MLSequenceClass MLSequenceClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLSequenceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/featureValues
 func (m MLSequence) FeatureValues() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSequence/values
 func (m MLSequence) Values() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("values"))
 	return foundation.NSArrayFromID(objc.ID(rv))

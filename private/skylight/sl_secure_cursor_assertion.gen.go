@@ -50,8 +50,6 @@ func (sc SLSecureCursorAssertionClass) Alloc() SLSecureCursorAssertion {
 //   - [SLSecureCursorAssertion.Uuid]
 //   - [SLSecureCursorAssertion.SetUuid]
 //   - [SLSecureCursorAssertion.Valid]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion
 type SLSecureCursorAssertion struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ISLSecureCursorAssertion = SLSecureCursorAssertion{}
 //   - [ISLSecureCursorAssertion.Uuid]
 //   - [ISLSecureCursorAssertion.SetUuid]
 //   - [ISLSecureCursorAssertion.Valid]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion
 type ISLSecureCursorAssertion interface {
 	objectivec.IObject
 
@@ -106,29 +102,22 @@ func NewSLSecureCursorAssertion() SLSecureCursorAssertion {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/invalidate
 func (s SLSecureCursorAssertion) Invalidate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/isValid
 func (s SLSecureCursorAssertion) IsValid() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isValid"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/assertion
 func (_SLSecureCursorAssertionClass SLSecureCursorAssertionClass) Assertion() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("assertion"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/invalidateAll
 func (_SLSecureCursorAssertionClass SLSecureCursorAssertionClass) InvalidateAll() {
 	objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("invalidateAll"))
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/uuid
 func (s SLSecureCursorAssertion) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -136,8 +125,6 @@ func (s SLSecureCursorAssertion) Uuid() foundation.NSUUID {
 func (s SLSecureCursorAssertion) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUuid:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSecureCursorAssertion/valid
 func (s SLSecureCursorAssertion) Valid() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("valid"))
 	return rv

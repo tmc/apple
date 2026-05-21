@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -53,8 +54,6 @@ func (sc SLVirtualDisplayClass) Alloc() SLVirtualDisplay {
 //   - [SLVirtualDisplay.Destroy]
 //   - [SLVirtualDisplay.DisplayID]
 //   - [SLVirtualDisplay.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay
 type SLVirtualDisplay struct {
 	objectivec.Object
 }
@@ -77,16 +76,14 @@ var _ ISLVirtualDisplay = SLVirtualDisplay{}
 //   - [ISLVirtualDisplay.Destroy]
 //   - [ISLVirtualDisplay.DisplayID]
 //   - [ISLVirtualDisplay.InitWithConfigurationError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay
 type ISLVirtualDisplay interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	ApplySettingsError(settings objectivec.IObject) (bool, error)
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	Delegate() unsafe.Pointer
+	SetDelegate(value kernel.Pointer)
 	Destroy()
 	DisplayID() uint32
 	InitWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error)
@@ -111,7 +108,6 @@ func NewSLVirtualDisplay() SLVirtualDisplay {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/initWithConfiguration:error:
 func NewSLVirtualDisplayWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayClass().Alloc()
@@ -123,7 +119,6 @@ func NewSLVirtualDisplayWithConfigurationError(configuration objectivec.IObject)
 	return SLVirtualDisplayFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/applySettings:error:
 func (s SLVirtualDisplay) ApplySettingsError(settings objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("applySettings:error:"), settings, unsafe.Pointer(&errorPtr))
@@ -137,13 +132,9 @@ func (s SLVirtualDisplay) ApplySettingsError(settings objectivec.IObject) (bool,
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/destroy
 func (s SLVirtualDisplay) Destroy() {
 	objc.Send[objc.ID](s.ID, objc.Sel("destroy"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/initWithConfiguration:error:
 func (s SLVirtualDisplay) InitWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -155,22 +146,18 @@ func (s SLVirtualDisplay) InitWithConfigurationError(configuration objectivec.IO
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/capabilities
 func (_SLVirtualDisplayClass SLVirtualDisplayClass) Capabilities() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayClass.class), objc.Sel("capabilities"))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/delegate
-func (s SLVirtualDisplay) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplay) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	return rv
 }
-func (s SLVirtualDisplay) SetDelegate(value objectivec.IObject) {
+func (s SLVirtualDisplay) SetDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplay/displayID
 func (s SLVirtualDisplay) DisplayID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("displayID"))
 	return rv

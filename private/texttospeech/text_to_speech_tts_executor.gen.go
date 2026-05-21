@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSExecutorClass) Alloc() TextToSpeechTTSExecutor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSExecutor
 type TextToSpeechTTSExecutor struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSExecutorFromID(id objc.ID) TextToSpeechTTSExecutor {
 // ITextToSpeechTTSExecutor embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSExecutor] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSExecutor
 type ITextToSpeechTTSExecutor interface {
 	objectivec.IObject
 }

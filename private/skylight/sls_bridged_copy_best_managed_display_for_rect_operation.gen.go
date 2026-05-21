@@ -48,8 +48,6 @@ func (sc SLSBridgedCopyBestManagedDisplayForRectOperationClass) Alloc() SLSBridg
 //   - [SLSBridgedCopyBestManagedDisplayForRectOperation.MakeResultWithString]
 //   - [SLSBridgedCopyBestManagedDisplayForRectOperation.Rect]
 //   - [SLSBridgedCopyBestManagedDisplayForRectOperation.InitWithRect]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation
 type SLSBridgedCopyBestManagedDisplayForRectOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedCopyBestManagedDisplayForRectOperation = SLSBridgedCopyBestMana
 //   - [ISLSBridgedCopyBestManagedDisplayForRectOperation.MakeResultWithString]
 //   - [ISLSBridgedCopyBestManagedDisplayForRectOperation.Rect]
 //   - [ISLSBridgedCopyBestManagedDisplayForRectOperation.InitWithRect]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation
 type ISLSBridgedCopyBestManagedDisplayForRectOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedCopyBestManagedDisplayForRectOperation() SLSBridgedCopyBestMan
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation/initWithCoder:
 func NewSLSBridgedCopyBestManagedDisplayForRectOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyBestManagedDisplayForRectOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyBestManagedDisplayForRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation/initWithRect:
 func NewSLSBridgedCopyBestManagedDisplayForRectOperationWithRect(rect corefoundation.CGRect) SLSBridgedCopyBestManagedDisplayForRectOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForRectOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRect:"), rect)
 	return SLSBridgedCopyBestManagedDisplayForRectOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation/makeResultWithString:
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation/initWithRect:
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) InitWithRect(rect corefoundation.CGRect) SLSBridgedCopyBestManagedDisplayForRectOperation {
 	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("initWithRect:"), rect)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForRectOperation/rect
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) Rect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)

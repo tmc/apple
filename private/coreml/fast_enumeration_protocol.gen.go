@@ -3,20 +3,18 @@
 package coreml
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
 // NSFastEnumeration protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/NSFastEnumeration
 type NSFastEnumeration interface {
 	objectivec.IObject
 
 	// CountByEnumeratingWithStateObjectsCount protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/NSFastEnumeration/countByEnumeratingWithState:objects:count:
-	CountByEnumeratingWithStateObjectsCount(state objectivec.IObject, objects []objectivec.IObject, count uint64) uint64
+	CountByEnumeratingWithStateObjectsCount(state unsafe.Pointer, objects []objectivec.IObject, count uint64) uint64
 }
 
 // NSFastEnumerationObject wraps an existing Objective-C object that conforms to the NSFastEnumeration protocol.
@@ -36,8 +34,7 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/NSFastEnumeration/countByEnumeratingWithState:objects:count:
-func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state objectivec.IObject, objects []objectivec.IObject, count uint64) uint64 {
+func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state unsafe.Pointer, objects []objectivec.IObject, count uint64) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(objects), count)
 	return rv
 }

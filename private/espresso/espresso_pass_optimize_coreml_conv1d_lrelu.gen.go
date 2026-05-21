@@ -41,7 +41,6 @@ func (ec EspressoPassOptimizeCoremlConv1dLreluClass) Alloc() EspressoPassOptimiz
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
 type EspressoPassOptimizeCoremlConv1dLrelu struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_optimize_coreml_conv1d_lreluFromID(id objc.ID) EspressoPassOpt
 var _ IEspressoPassOptimizeCoremlConv1dLrelu = EspressoPassOptimizeCoremlConv1dLrelu{}
 
 // An interface definition for the [EspressoPassOptimizeCoremlConv1dLrelu] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
 type IEspressoPassOptimizeCoremlConv1dLrelu interface {
 	IEspressoCustomPass
 }

@@ -45,8 +45,6 @@ func (tc TextToSpeechVoicePreviewerClass) Alloc() TextToSpeechVoicePreviewer {
 // # Methods
 //
 //   - [TextToSpeechVoicePreviewer.AudioPlayerDidFinishPlayingSuccessfully]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoicePreviewer
 type TextToSpeechVoicePreviewer struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ func TextToSpeechVoicePreviewerFromID(id objc.ID) TextToSpeechVoicePreviewer {
 // # Methods
 //
 //   - [ITextToSpeechVoicePreviewer.AudioPlayerDidFinishPlayingSuccessfully]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoicePreviewer
 type ITextToSpeechVoicePreviewer interface {
 	ISwiftNativeNSObject
 
@@ -93,7 +89,6 @@ func NewTextToSpeechVoicePreviewer() TextToSpeechVoicePreviewer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoicePreviewer/audioPlayerDidFinishPlaying:successfully:
 func (t TextToSpeechVoicePreviewer) AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
 }

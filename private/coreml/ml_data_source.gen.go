@@ -55,8 +55,6 @@ func (mc MLDataSourceClass) Alloc() MLDataSource {
 //   - [MLDataSource.Description]
 //   - [MLDataSource.Hash]
 //   - [MLDataSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource
 type MLDataSource struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ var _ IMLDataSource = MLDataSource{}
 //   - [IMLDataSource.Description]
 //   - [IMLDataSource.Hash]
 //   - [IMLDataSource.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource
 type IMLDataSource interface {
 	objectivec.IObject
 
@@ -97,7 +93,7 @@ type IMLDataSource interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -119,7 +115,6 @@ func NewMLDataSource() MLDataSource {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/initWithMLFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func NewMLDataSourceWithMLFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLDataSourceClass().Alloc()
@@ -131,7 +126,6 @@ func NewMLDataSourceWithMLFeatureProviderForPredictionNeuralNetworkEngineError(p
 	return MLDataSourceFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/dataPointAtIndex:error:
 func (m MLDataSource) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataPointAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
@@ -142,26 +136,21 @@ func (m MLDataSource) DataPointAtIndexError(index uint64) (objectivec.IObject, e
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/numberOfDataPoints
 func (m MLDataSource) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/initWithMLFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func (m MLDataSource) InitWithMLFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLDataSource, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMLFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLDataSource{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLDataSource), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLDataSourceFromID(rv), nil
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/dataTensorDictionary
 func (m MLDataSource) DataTensorDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataTensorDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -169,27 +158,19 @@ func (m MLDataSource) DataTensorDictionary() foundation.INSDictionary {
 func (m MLDataSource) SetDataTensorDictionary(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDataTensorDictionary:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/debugDescription
 func (m MLDataSource) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/description
 func (m MLDataSource) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/hash
 func (m MLDataSource) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLDataSource/superclass
-func (m MLDataSource) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLDataSource) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

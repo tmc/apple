@@ -55,8 +55,6 @@ func (mc MLFeatureProviderConformerClass) Alloc() MLFeatureProviderConformer {
 //   - [MLFeatureProviderConformer.PassthroughStateFeatures]
 //   - [MLFeatureProviderConformer.UsingRank5Mapping]
 //   - [MLFeatureProviderConformer.InitWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer
 type MLFeatureProviderConformer struct {
 	objectivec.Object
 }
@@ -82,8 +80,6 @@ var _ IMLFeatureProviderConformer = MLFeatureProviderConformer{}
 //   - [IMLFeatureProviderConformer.PassthroughStateFeatures]
 //   - [IMLFeatureProviderConformer.UsingRank5Mapping]
 //   - [IMLFeatureProviderConformer.InitWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer
 type IMLFeatureProviderConformer interface {
 	objectivec.IObject
 
@@ -119,14 +115,12 @@ func NewMLFeatureProviderConformer() MLFeatureProviderConformer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:
 func NewFeatureProviderConformerWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
 	instance := getMLFeatureProviderConformerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
 	return MLFeatureProviderConformerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/_fabricateFeatureForDescription:error:
 func (m MLFeatureProviderConformer) _fabricateFeatureForDescriptionError(description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_fabricateFeatureForDescription:error:"), description, unsafe.Pointer(&errorPtr))
@@ -151,8 +145,6 @@ func (m MLFeatureProviderConformer) FabricateFeatureForDescriptionError(descript
 func (m MLFeatureProviderConformer) CanFabricateFeatureForDescriptionError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_fabricateFeatureForDescription:error:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/_sequenceConcatConsumesOptionalInputNamed:
 func (m MLFeatureProviderConformer) _sequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:"), named)
 	return rv
@@ -171,8 +163,6 @@ func (m MLFeatureProviderConformer) SequenceConcatConsumesOptionalInputNamed(nam
 func (m MLFeatureProviderConformer) CanSequenceConcatConsumesOptionalInputNamed() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:"))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/conformFeatures:error:
 func (m MLFeatureProviderConformer) ConformFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("conformFeatures:error:"), features, unsafe.Pointer(&errorPtr))
@@ -183,38 +173,27 @@ func (m MLFeatureProviderConformer) ConformFeaturesError(features objectivec.IOb
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:
 func (m MLFeatureProviderConformer) InitWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
 	rv := objc.Send[MLFeatureProviderConformer](m.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/defaultValues
 func (m MLFeatureProviderConformer) DefaultValues() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/featureDescriptions
 func (m MLFeatureProviderConformer) FeatureDescriptions() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureDescriptions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/optionalInputTypes
 func (m MLFeatureProviderConformer) OptionalInputTypes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/passthroughStateFeatures
 func (m MLFeatureProviderConformer) PassthroughStateFeatures() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("passthroughStateFeatures"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/usingRank5Mapping
 func (m MLFeatureProviderConformer) UsingRank5Mapping() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("usingRank5Mapping"))
 	return rv

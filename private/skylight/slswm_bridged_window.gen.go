@@ -60,8 +60,6 @@ func (sc SLSWMBridgedWindowClass) Alloc() SLSWMBridgedWindow {
 //   - [SLSWMBridgedWindow.Description]
 //   - [SLSWMBridgedWindow.Hash]
 //   - [SLSWMBridgedWindow.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow
 type SLSWMBridgedWindow struct {
 	objectivec.Object
 }
@@ -92,8 +90,6 @@ var _ ISLSWMBridgedWindow = SLSWMBridgedWindow{}
 //   - [ISLSWMBridgedWindow.Description]
 //   - [ISLSWMBridgedWindow.Hash]
 //   - [ISLSWMBridgedWindow.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow
 type ISLSWMBridgedWindow interface {
 	objectivec.IObject
 
@@ -112,7 +108,7 @@ type ISLSWMBridgedWindow interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -134,14 +130,12 @@ func NewSLSWMBridgedWindow() SLSWMBridgedWindow {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/initWithWindowID:
 func NewSLSWMBridgedWindowWithWindowID(id uint32) SLSWMBridgedWindow {
 	instance := getSLSWMBridgedWindowClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSWMBridgedWindowFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/_rebuildChildWindowInfos
 func (s SLSWMBridgedWindow) _rebuildChildWindowInfos() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
@@ -160,73 +154,48 @@ func (s SLSWMBridgedWindow) RebuildChildWindowInfos() error {
 func (s SLSWMBridgedWindow) CanRebuildChildWindowInfos() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/addChildWindow:ordered:
 func (s SLSWMBridgedWindow) AddChildWindowOrdered(window objectivec.IObject, ordered int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addChildWindow:ordered:"), window, ordered)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/clearOrderingGroup
 func (s SLSWMBridgedWindow) ClearOrderingGroup() {
 	objc.Send[objc.ID](s.ID, objc.Sel("clearOrderingGroup"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/orderWindow:relativeToID:relativeTo:orderGroup:
 func (s SLSWMBridgedWindow) OrderWindowRelativeToIDRelativeToOrderGroup(window int, id uint32, to objectivec.IObject, group bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("orderWindow:relativeToID:relativeTo:orderGroup:"), window, id, to, group)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/removeChildWindow:
 func (s SLSWMBridgedWindow) RemoveChildWindow(window objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeChildWindow:"), window)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/removeFromParent
 func (s SLSWMBridgedWindow) RemoveFromParent() {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeFromParent"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/setFrame:forceAsync:
 func (s SLSWMBridgedWindow) SetFrameForceAsync(frame corefoundation.CGRect, async bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setFrame:forceAsync:"), frame, async)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/setWindowLevel:
 func (s SLSWMBridgedWindow) SetWindowLevel(level int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setWindowLevel:"), level)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/window:didUpdateWithChangedProperties:
 func (s SLSWMBridgedWindow) WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/initWithWindowID:
 func (s SLSWMBridgedWindow) InitWithWindowID(id uint32) SLSWMBridgedWindow {
 	rv := objc.Send[SLSWMBridgedWindow](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/debugDescription
 func (s SLSWMBridgedWindow) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/description
 func (s SLSWMBridgedWindow) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/hash
 func (s SLSWMBridgedWindow) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/superclass
-func (s SLSWMBridgedWindow) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
-	return rv
+func (s SLSWMBridgedWindow) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

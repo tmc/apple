@@ -51,8 +51,6 @@ func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfigura
 //   - [VZGraphicsDisplayConfiguration._setUUID]
 //   - [VZGraphicsDisplayConfiguration._uuid]
 //   - [VZGraphicsDisplayConfiguration.Set_uuid]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration
 type VZGraphicsDisplayConfiguration struct {
 	objectivec.Object
 }
@@ -74,8 +72,6 @@ var _ IVZGraphicsDisplayConfiguration = VZGraphicsDisplayConfiguration{}
 //   - [IVZGraphicsDisplayConfiguration._setUUID]
 //   - [IVZGraphicsDisplayConfiguration._uuid]
 //   - [IVZGraphicsDisplayConfiguration.Set_uuid]
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration
 type IVZGraphicsDisplayConfiguration interface {
 	objectivec.IObject
 
@@ -107,13 +103,10 @@ func NewVZGraphicsDisplayConfiguration() VZGraphicsDisplayConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_init
 func (v VZGraphicsDisplayConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_initWithConfiguration:
 func (v VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
 	return objectivec.Object{ID: rv}
@@ -132,8 +125,6 @@ func (v VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsa
 func (v VZGraphicsDisplayConfiguration) CanInitWithConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_setUUID:
 func (v VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setUUID:"), uuid)
 }
@@ -153,7 +144,6 @@ func (v VZGraphicsDisplayConfiguration) CanSetUUID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setUUID:"))
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_uuid
 func (v VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -167,7 +157,7 @@ func (v VZGraphicsDisplayConfiguration) CanUuid() bool {
 // Uuid is an exported wrapper for the private property _uuid.
 func (v VZGraphicsDisplayConfiguration) Uuid() (foundation.NSUUID, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_uuid")) {
-		return *new(foundation.NSUUID), &objc.UnrecognizedSelectorError{Selector: "_uuid"}
+		return foundation.NSUUID{}, &objc.UnrecognizedSelectorError{Selector: "_uuid"}
 	}
 	return v._uuid(), nil
 }

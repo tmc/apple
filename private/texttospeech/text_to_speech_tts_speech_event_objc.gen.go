@@ -42,7 +42,6 @@ func (tc TextToSpeechTTSSpeechEventObjcClass) Alloc() TextToSpeechTTSSpeechEvent
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc
 type TextToSpeechTTSSpeechEventObjc struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechTTSSpeechEventObjcFromID(id objc.ID) TextToSpeechTTSSpeechEvent
 var _ ITextToSpeechTTSSpeechEventObjc = TextToSpeechTTSSpeechEventObjc{}
 
 // An interface definition for the [TextToSpeechTTSSpeechEventObjc] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc
 type ITextToSpeechTTSSpeechEventObjc interface {
 	objectivec.IObject
 }
@@ -81,13 +78,10 @@ func NewTextToSpeechTTSSpeechEventObjc() TextToSpeechTTSSpeechEventObjc {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc/makeWithOtherRewrite:from:to:
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithOtherRewriteFromTo(rewrite objectivec.IObject, from objectivec.IObject, to objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithOtherRewrite:from:to:"), rewrite, from, to)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc/makeWithStart:
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithStart(start objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithStart:"), start)
 	return objectivec.Object{ID: rv}

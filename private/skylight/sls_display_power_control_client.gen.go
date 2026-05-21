@@ -52,8 +52,6 @@ func (sc SLSDisplayPowerControlClientClass) Alloc() SLSDisplayPowerControlClient
 //   - [SLSDisplayPowerControlClient.SetService]
 //   - [SLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient
 type SLSDisplayPowerControlClient struct {
 	SLSDisplayControlClient
 }
@@ -76,15 +74,13 @@ var _ ISLSDisplayPowerControlClient = SLSDisplayPowerControlClient{}
 //   - [ISLSDisplayPowerControlClient.SetService]
 //   - [ISLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [ISLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient
 type ISLSDisplayPowerControlClient interface {
 	ISLSDisplayControlClient
 
 	// Topic: Methods
 
 	RequestStateChangeError(change objectivec.IObject) (uint64, error)
-	SendStateChangeRequestUuid(request objectivec.IObject, uuid unsafe.Pointer) int
+	SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int
 	Service() ISLSXPCService
 	SetService(value ISLSXPCService)
 	InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient
@@ -110,7 +106,6 @@ func NewSLSDisplayPowerControlClient() SLSDisplayPowerControlClient {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient/requestStateChange:error:
 func (s SLSDisplayPowerControlClient) RequestStateChangeError(change objectivec.IObject) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](s.ID, objc.Sel("requestStateChange:error:"), change, unsafe.Pointer(&errorPtr))
@@ -121,28 +116,21 @@ func (s SLSDisplayPowerControlClient) RequestStateChangeError(change objectivec.
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient/sendStateChangeRequest:uuid:
-func (s SLSDisplayPowerControlClient) SendStateChangeRequestUuid(request objectivec.IObject, uuid unsafe.Pointer) int {
+func (s SLSDisplayPowerControlClient) SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int {
 	rv := objc.Send[int](s.ID, objc.Sel("sendStateChangeRequest:uuid:"), request, uuid)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient/initAsyncPowerControlClient:notifyQueue:notificationType:notificationBlock:
 func (s SLSDisplayPowerControlClient) InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient {
 	_block3, _ := NewVoidBlock(block)
 	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("initAsyncPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient/initPowerControlClient:notifyQueue:notificationType:notificationBlock:
 func (s SLSDisplayPowerControlClient) InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient {
 	_block3, _ := NewVoidBlock(block)
 	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("initPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayPowerControlClient/service
 func (s SLSDisplayPowerControlClient) Service() ISLSXPCService {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("service"))
 	return SLSXPCServiceFromID(objc.ID(rv))

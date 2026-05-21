@@ -55,8 +55,6 @@ func (dc DiskImageCreatorFromFolderClass) Alloc() DiskImageCreatorFromFolder {
 //   - [DiskImageCreatorFromFolder.UpdateNumBlocksWithFolderSizeNumFiles]
 //   - [DiskImageCreatorFromFolder.UpdatePartitionMapWithError]
 //   - [DiskImageCreatorFromFolder.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder
 type DiskImageCreatorFromFolder struct {
 	BaseDiskImageCreator
 }
@@ -80,8 +78,6 @@ var _ IDiskImageCreatorFromFolder = DiskImageCreatorFromFolder{}
 //   - [IDiskImageCreatorFromFolder.UpdateNumBlocksWithFolderSizeNumFiles]
 //   - [IDiskImageCreatorFromFolder.UpdatePartitionMapWithError]
 //   - [IDiskImageCreatorFromFolder.InitWithURLError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder
 type IDiskImageCreatorFromFolder interface {
 	IBaseDiskImageCreator
 
@@ -93,7 +89,7 @@ type IDiskImageCreatorFromFolder interface {
 	ResizeDataPartitionWithError() (bool, error)
 	UpdateNumBlocksWithFolderSizeNumFiles(size uint64, files uint64)
 	UpdatePartitionMapWithError() (bool, error)
-	InitWithURLError(url foundation.INSURL) (DiskImageCreatorFromFolder, error)
+	InitWithURLError(url foundation.NSURL) (DiskImageCreatorFromFolder, error)
 }
 
 // Init initializes the instance.
@@ -115,8 +111,7 @@ func NewDiskImageCreatorFromFolder() DiskImageCreatorFromFolder {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/BaseDiskImageCreator/initWithURL:defaultFormat:error:
-func NewDiskImageCreatorFromFolderWithURLDefaultFormatError(url foundation.INSURL, format int64) (DiskImageCreatorFromFolder, error) {
+func NewDiskImageCreatorFromFolderWithURLDefaultFormatError(url foundation.NSURL, format int64) (DiskImageCreatorFromFolder, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromFolderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
@@ -127,8 +122,7 @@ func NewDiskImageCreatorFromFolderWithURLDefaultFormatError(url foundation.INSUR
 	return DiskImageCreatorFromFolderFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/initWithURL:error:
-func NewDiskImageCreatorFromFolderWithURLError(url foundation.INSURL) (DiskImageCreatorFromFolder, error) {
+func NewDiskImageCreatorFromFolderWithURLError(url foundation.NSURL) (DiskImageCreatorFromFolder, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromFolderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -139,7 +133,6 @@ func NewDiskImageCreatorFromFolderWithURLError(url foundation.INSURL) (DiskImage
 	return DiskImageCreatorFromFolderFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/compactAndEjectWithCreateParams:error:
 func (d DiskImageCreatorFromFolder) CompactAndEjectWithCreateParamsError(params objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("compactAndEjectWithCreateParams:error:"), params, unsafe.Pointer(&errorPtr))
@@ -153,15 +146,11 @@ func (d DiskImageCreatorFromFolder) CompactAndEjectWithCreateParamsError(params 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/createImageWithSrcFolder:completionBlock:
 func (d DiskImageCreatorFromFolder) CreateImageWithSrcFolderCompletionBlock(folder objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("createImageWithSrcFolder:completionBlock:"), folder, _block1)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/createImageWithSrcFolder:progress:createParams:convertParams:error:
 func (d DiskImageCreatorFromFolder) CreateImageWithSrcFolderProgressCreateParamsConvertParamsError(folder objectivec.IObject, progress objectivec.IObject, params objectivec.IObject, params2 []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createImageWithSrcFolder:progress:createParams:convertParams:error:"), folder, progress, params, objectivec.IObjectSliceToNSArray(params2), unsafe.Pointer(&errorPtr))
@@ -175,8 +164,6 @@ func (d DiskImageCreatorFromFolder) CreateImageWithSrcFolderProgressCreateParams
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/resizeDataPartitionWithError:
 func (d DiskImageCreatorFromFolder) ResizeDataPartitionWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("resizeDataPartitionWithError:"), unsafe.Pointer(&errorPtr))
@@ -190,13 +177,9 @@ func (d DiskImageCreatorFromFolder) ResizeDataPartitionWithError() (bool, error)
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/updateNumBlocksWithFolderSize:numFiles:
 func (d DiskImageCreatorFromFolder) UpdateNumBlocksWithFolderSizeNumFiles(size uint64, files uint64) {
 	objc.Send[objc.ID](d.ID, objc.Sel("updateNumBlocksWithFolderSize:numFiles:"), size, files)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/updatePartitionMapWithError:
 func (d DiskImageCreatorFromFolder) UpdatePartitionMapWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("updatePartitionMapWithError:"), unsafe.Pointer(&errorPtr))
@@ -210,9 +193,7 @@ func (d DiskImageCreatorFromFolder) UpdatePartitionMapWithError() (bool, error) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/initWithURL:error:
-func (d DiskImageCreatorFromFolder) InitWithURLError(url foundation.INSURL) (DiskImageCreatorFromFolder, error) {
+func (d DiskImageCreatorFromFolder) InitWithURLError(url foundation.NSURL) (DiskImageCreatorFromFolder, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -223,7 +204,6 @@ func (d DiskImageCreatorFromFolder) InitWithURLError(url foundation.INSURL) (Dis
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageCreatorFromFolder/allowParallelModeWithURL:outMode:error:
 func (_DiskImageCreatorFromFolderClass DiskImageCreatorFromFolderClass) AllowParallelModeWithURLOutModeError(url foundation.NSURL) (bool, error) {
 	var mode bool
 	var errorPtr objc.ID

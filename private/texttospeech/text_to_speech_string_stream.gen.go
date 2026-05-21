@@ -42,7 +42,6 @@ func (tc TextToSpeechStringStreamClass) Alloc() TextToSpeechStringStream {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.StringStream
 type TextToSpeechStringStream struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechStringStreamFromID(id objc.ID) TextToSpeechStringStream {
 // ITextToSpeechStringStream embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechStringStream] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.StringStream
 type ITextToSpeechStringStream interface {
 	objectivec.IObject
 }

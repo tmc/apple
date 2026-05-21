@@ -5,8 +5,5 @@ package hiservices
 // C struct types
 
 // CFString
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/HIServices/__CFString
 type CFString struct {
 }

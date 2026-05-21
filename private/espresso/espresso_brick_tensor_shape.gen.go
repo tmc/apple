@@ -56,8 +56,6 @@ func (ec EspressoBrickTensorShapeClass) Alloc() EspressoBrickTensorShape {
 //   - [EspressoBrickTensorShape.SetSequence]
 //   - [EspressoBrickTensorShape.Width]
 //   - [EspressoBrickTensorShape.SetWidth]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape
 type EspressoBrickTensorShape struct {
 	objectivec.Object
 }
@@ -86,8 +84,6 @@ var _ IEspressoBrickTensorShape = EspressoBrickTensorShape{}
 //   - [IEspressoBrickTensorShape.SetSequence]
 //   - [IEspressoBrickTensorShape.Width]
 //   - [IEspressoBrickTensorShape.SetWidth]
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape
 type IEspressoBrickTensorShape interface {
 	objectivec.IObject
 
@@ -126,7 +122,6 @@ func NewEspressoBrickTensorShape() EspressoBrickTensorShape {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/batch
 func (e EspressoBrickTensorShape) Batch() int {
 	rv := objc.Send[int](e.ID, objc.Sel("batch"))
 	return rv
@@ -134,8 +129,6 @@ func (e EspressoBrickTensorShape) Batch() int {
 func (e EspressoBrickTensorShape) SetBatch(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBatch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/channels
 func (e EspressoBrickTensorShape) Channels() int {
 	rv := objc.Send[int](e.ID, objc.Sel("channels"))
 	return rv
@@ -143,8 +136,6 @@ func (e EspressoBrickTensorShape) Channels() int {
 func (e EspressoBrickTensorShape) SetChannels(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setChannels:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/height
 func (e EspressoBrickTensorShape) Height() int {
 	rv := objc.Send[int](e.ID, objc.Sel("height"))
 	return rv
@@ -152,8 +143,6 @@ func (e EspressoBrickTensorShape) Height() int {
 func (e EspressoBrickTensorShape) SetHeight(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHeight:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/rank
 func (e EspressoBrickTensorShape) Rank() int {
 	rv := objc.Send[int](e.ID, objc.Sel("rank"))
 	return rv
@@ -161,8 +150,6 @@ func (e EspressoBrickTensorShape) Rank() int {
 func (e EspressoBrickTensorShape) SetRank(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRank:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/sequence
 func (e EspressoBrickTensorShape) Sequence() int {
 	rv := objc.Send[int](e.ID, objc.Sel("sequence"))
 	return rv
@@ -170,8 +157,6 @@ func (e EspressoBrickTensorShape) Sequence() int {
 func (e EspressoBrickTensorShape) SetSequence(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSequence:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorShape/width
 func (e EspressoBrickTensorShape) Width() int {
 	rv := objc.Send[int](e.ID, objc.Sel("width"))
 	return rv

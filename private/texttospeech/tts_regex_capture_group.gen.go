@@ -47,8 +47,6 @@ func (tc TTSRegexCaptureGroupClass) Alloc() TTSRegexCaptureGroup {
 //
 //   - [TTSRegexCaptureGroup.Utf8Range]
 //   - [TTSRegexCaptureGroup.SetUtf8Range]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCaptureGroup
 type TTSRegexCaptureGroup struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ ITTSRegexCaptureGroup = TTSRegexCaptureGroup{}
 //
 //   - [ITTSRegexCaptureGroup.Utf8Range]
 //   - [ITTSRegexCaptureGroup.SetUtf8Range]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCaptureGroup
 type ITTSRegexCaptureGroup interface {
 	objectivec.IObject
 
@@ -97,7 +93,6 @@ func NewTTSRegexCaptureGroup() TTSRegexCaptureGroup {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCaptureGroup/utf8Range
 func (t TTSRegexCaptureGroup) Utf8Range() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
 	return foundation.NSRange(rv)

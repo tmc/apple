@@ -41,7 +41,6 @@ func (ec EspressoPassStrengthReductionReshapeToFlattenClass) Alloc() EspressoPas
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_reshape_to_flatten
 type EspressoPassStrengthReductionReshapeToFlatten struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_strength_reduction_reshape_to_flattenFromID(id objc.ID) Espres
 var _ IEspressoPassStrengthReductionReshapeToFlatten = EspressoPassStrengthReductionReshapeToFlatten{}
 
 // An interface definition for the [EspressoPassStrengthReductionReshapeToFlatten] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_reshape_to_flatten
 type IEspressoPassStrengthReductionReshapeToFlatten interface {
 	IEspressoCustomPass
 }

@@ -76,8 +76,6 @@ func (mc MLNLPFrameworkHandleClass) Alloc() MLNLPFrameworkHandle {
 //   - [MLNLPFrameworkHandle.PredictTokensLabelsLocationsLengthsForStringInputStringError]
 //   - [MLNLPFrameworkHandle.PredictVectorForStringInputStringError]
 //   - [MLNLPFrameworkHandle.Valid]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle
 type MLNLPFrameworkHandle struct {
 	objectivec.Object
 }
@@ -124,8 +122,6 @@ var _ IMLNLPFrameworkHandle = MLNLPFrameworkHandle{}
 //   - [IMLNLPFrameworkHandle.PredictTokensLabelsLocationsLengthsForStringInputStringError]
 //   - [IMLNLPFrameworkHandle.PredictVectorForStringInputStringError]
 //   - [IMLNLPFrameworkHandle.Valid]
-//
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle
 type IMLNLPFrameworkHandle interface {
 	objectivec.IObject
 
@@ -182,61 +178,50 @@ func NewMLNLPFrameworkHandle() MLNLPFrameworkHandle {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/initializeEmbeddingModelWithData:error:
 func (m MLNLPFrameworkHandle) InitializeEmbeddingModelWithDataError(data objectivec.IObject) (MLNLPFrameworkHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initializeEmbeddingModelWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLNLPFrameworkHandle{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLNLPFrameworkHandle), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLNLPFrameworkHandleFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/initializeGazetteerModelWithData:error:
 func (m MLNLPFrameworkHandle) InitializeGazetteerModelWithDataError(data objectivec.IObject) (MLNLPFrameworkHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initializeGazetteerModelWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLNLPFrameworkHandle{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLNLPFrameworkHandle), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLNLPFrameworkHandleFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/initializeSentenceClassifierModelWithData:error:
 func (m MLNLPFrameworkHandle) InitializeSentenceClassifierModelWithDataError(data objectivec.IObject) (MLNLPFrameworkHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initializeSentenceClassifierModelWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLNLPFrameworkHandle{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLNLPFrameworkHandle), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLNLPFrameworkHandleFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/initializeWordTaggingModelWithData:error:
 func (m MLNLPFrameworkHandle) InitializeWordTaggingModelWithDataError(data objectivec.IObject) (MLNLPFrameworkHandle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initializeWordTaggingModelWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLNLPFrameworkHandle{}, foundation.NSErrorFrom(errorPtr)
+		return *new(MLNLPFrameworkHandle), foundation.NSErrorFrom(errorPtr)
 	}
 	return MLNLPFrameworkHandleFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/isValid
 func (m MLNLPFrameworkHandle) IsValid() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isValid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/predictLabelForWordString:inputString:error:
 func (m MLNLPFrameworkHandle) PredictLabelForWordStringInputStringError(string_ unsafe.Pointer, string_2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictLabelForWordString:inputString:error:"), string_, string_2, unsafe.Pointer(&errorPtr))
@@ -247,8 +232,6 @@ func (m MLNLPFrameworkHandle) PredictLabelForWordStringInputStringError(string_ 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/predictLabelsForSentenceString:inputString:error:
 func (m MLNLPFrameworkHandle) PredictLabelsForSentenceStringInputStringError(string_ unsafe.Pointer, string_2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictLabelsForSentenceString:inputString:error:"), string_, string_2, unsafe.Pointer(&errorPtr))
@@ -259,8 +242,6 @@ func (m MLNLPFrameworkHandle) PredictLabelsForSentenceStringInputStringError(str
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/predictTokensLabelsLocationsLengthsForString:inputString:error:
 func (m MLNLPFrameworkHandle) PredictTokensLabelsLocationsLengthsForStringInputStringError(string_ unsafe.Pointer, string_2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictTokensLabelsLocationsLengthsForString:inputString:error:"), string_, string_2, unsafe.Pointer(&errorPtr))
@@ -271,8 +252,6 @@ func (m MLNLPFrameworkHandle) PredictTokensLabelsLocationsLengthsForStringInputS
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/predictVectorForString:inputString:error:
 func (m MLNLPFrameworkHandle) PredictVectorForStringInputStringError(string_ unsafe.Pointer, string_2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictVectorForString:inputString:error:"), string_, string_2, unsafe.Pointer(&errorPtr))
@@ -284,157 +263,111 @@ func (m MLNLPFrameworkHandle) PredictVectorForStringInputStringError(string_ uns
 
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/sharedHandle
-func (_MLNLPFrameworkHandleClass MLNLPFrameworkHandleClass) SharedHandle() *MLNLPFrameworkHandle {
+func (_MLNLPFrameworkHandleClass MLNLPFrameworkHandleClass) SharedHandle() MLNLPFrameworkHandle {
 	rv := objc.Send[objc.ID](objc.ID(_MLNLPFrameworkHandleClass.class), objc.Sel("sharedHandle"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNLPFrameworkHandleFromID(rv)
-	return &val
+	return MLNLPFrameworkHandleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPClassifierModelCopyPredictedLabelForTextImpl
 func (m MLNLPFrameworkHandle) NLPClassifierModelCopyPredictedLabelForTextImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPClassifierModelCopyPredictedLabelForTextImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPClassifierModelCreateWithDataImpl
 func (m MLNLPFrameworkHandle) NLPClassifierModelCreateWithDataImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPClassifierModelCreateWithDataImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPClassifierModelGetCurrentRevisionImpl
 func (m MLNLPFrameworkHandle) NLPClassifierModelGetCurrentRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPClassifierModelGetCurrentRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPClassifierModelGetRevisionImpl
 func (m MLNLPFrameworkHandle) NLPClassifierModelGetRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPClassifierModelGetRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPClassifierModelIsRevisionSupportedImpl
 func (m MLNLPFrameworkHandle) NLPClassifierModelIsRevisionSupportedImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPClassifierModelIsRevisionSupportedImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPEmbeddingModelCopyVectorForStringImpl
 func (m MLNLPFrameworkHandle) NLPEmbeddingModelCopyVectorForStringImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPEmbeddingModelCopyVectorForStringImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPEmbeddingModelCreateWithDataImpl
 func (m MLNLPFrameworkHandle) NLPEmbeddingModelCreateWithDataImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPEmbeddingModelCreateWithDataImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPEmbeddingModelGetCurrentRevisionImpl
 func (m MLNLPFrameworkHandle) NLPEmbeddingModelGetCurrentRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPEmbeddingModelGetCurrentRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPEmbeddingModelGetRevisionImpl
 func (m MLNLPFrameworkHandle) NLPEmbeddingModelGetRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPEmbeddingModelGetRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPEmbeddingModelIsRevisionSupportedImpl
 func (m MLNLPFrameworkHandle) NLPEmbeddingModelIsRevisionSupportedImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPEmbeddingModelIsRevisionSupportedImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPGazetteerModelCopyLabelForStringImpl
 func (m MLNLPFrameworkHandle) NLPGazetteerModelCopyLabelForStringImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPGazetteerModelCopyLabelForStringImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPGazetteerModelCreateWithDataImpl
 func (m MLNLPFrameworkHandle) NLPGazetteerModelCreateWithDataImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPGazetteerModelCreateWithDataImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPGazetteerModelGetCurrentRevisionImpl
 func (m MLNLPFrameworkHandle) NLPGazetteerModelGetCurrentRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPGazetteerModelGetCurrentRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPGazetteerModelGetRevisionImpl
 func (m MLNLPFrameworkHandle) NLPGazetteerModelGetRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPGazetteerModelGetRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPGazetteerModelIsRevisionSupportedImpl
 func (m MLNLPFrameworkHandle) NLPGazetteerModelIsRevisionSupportedImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPGazetteerModelIsRevisionSupportedImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPSequenceModelCopyPredictedTokensAndLabelsForTextImpl
 func (m MLNLPFrameworkHandle) NLPSequenceModelCopyPredictedTokensAndLabelsForTextImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPSequenceModelCopyPredictedTokensAndLabelsForTextImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPSequenceModelCreateWithDataImpl
 func (m MLNLPFrameworkHandle) NLPSequenceModelCreateWithDataImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPSequenceModelCreateWithDataImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPSequenceModelGetCurrentRevisionImpl
 func (m MLNLPFrameworkHandle) NLPSequenceModelGetCurrentRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPSequenceModelGetCurrentRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPSequenceModelGetRevisionImpl
 func (m MLNLPFrameworkHandle) NLPSequenceModelGetRevisionImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPSequenceModelGetRevisionImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/NLPSequenceModelIsRevisionSupportedImpl
 func (m MLNLPFrameworkHandle) NLPSequenceModelIsRevisionSupportedImpl() VoidHandler {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NLPSequenceModelIsRevisionSupportedImpl"))
 	_ = rv
 	return nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/_MLNLPFrameworkHandle/valid
 func (m MLNLPFrameworkHandle) Valid() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("valid"))
 	return rv

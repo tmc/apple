@@ -42,7 +42,6 @@ func (tc TextToSpeechAUParamWrapperClass) Alloc() TextToSpeechAUParamWrapper {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AUParamWrapper
 type TextToSpeechAUParamWrapper struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechAUParamWrapperFromID(id objc.ID) TextToSpeechAUParamWrapper {
 // ITextToSpeechAUParamWrapper embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAUParamWrapper] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.AUParamWrapper
 type ITextToSpeechAUParamWrapper interface {
 	objectivec.IObject
 }

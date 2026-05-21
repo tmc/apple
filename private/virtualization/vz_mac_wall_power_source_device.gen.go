@@ -41,7 +41,6 @@ func (vc VZMacWallPowerSourceDeviceClass) Alloc() VZMacWallPowerSourceDevice {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacWallPowerSourceDevice
 type VZMacWallPowerSourceDevice struct {
 	VZPowerSourceDevice
 }
@@ -55,8 +54,6 @@ func VZMacWallPowerSourceDeviceFromID(id objc.ID) VZMacWallPowerSourceDevice {
 var _ IVZMacWallPowerSourceDevice = VZMacWallPowerSourceDevice{}
 
 // An interface definition for the [VZMacWallPowerSourceDevice] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMacWallPowerSourceDevice
 type IVZMacWallPowerSourceDevice interface {
 	IVZPowerSourceDevice
 }

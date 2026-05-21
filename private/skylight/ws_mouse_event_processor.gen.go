@@ -41,7 +41,6 @@ func (wc WSMouseEventProcessorClass) Alloc() WSMouseEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSMouseEventProcessor
 type WSMouseEventProcessor struct {
 	WSEventProcessor
 }
@@ -55,8 +54,6 @@ func WSMouseEventProcessorFromID(id objc.ID) WSMouseEventProcessor {
 var _ IWSMouseEventProcessor = WSMouseEventProcessor{}
 
 // An interface definition for the [WSMouseEventProcessor] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/WSMouseEventProcessor
 type IWSMouseEventProcessor interface {
 	IWSEventProcessor
 }
@@ -80,7 +77,6 @@ func NewWSMouseEventProcessor() WSMouseEventProcessor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
 func NewWSMouseEventProcessorWithSession(session CGXSession) WSMouseEventProcessor {
 	instance := getWSMouseEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)

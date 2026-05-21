@@ -46,8 +46,6 @@ func (tc TextToSpeechParsedSSMLNodeClass) Alloc() TextToSpeechParsedSSMLNode {
 // # Methods
 //
 //   - [TextToSpeechParsedSSMLNode.Description]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.ParsedSSMLNode
 type TextToSpeechParsedSSMLNode struct {
 	objectivec.Object
 }
@@ -65,8 +63,6 @@ var _ ITextToSpeechParsedSSMLNode = TextToSpeechParsedSSMLNode{}
 // # Methods
 //
 //   - [ITextToSpeechParsedSSMLNode.Description]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.ParsedSSMLNode
 type ITextToSpeechParsedSSMLNode interface {
 	objectivec.IObject
 
@@ -94,7 +90,6 @@ func NewTextToSpeechParsedSSMLNode() TextToSpeechParsedSSMLNode {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.ParsedSSMLNode/description
 func (t TextToSpeechParsedSSMLNode) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()

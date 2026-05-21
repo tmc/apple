@@ -41,7 +41,6 @@ func (ec EspressoPassFuseFastGelu1Class) Alloc() EspressoPassFuseFastGelu1 {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
 type EspressoPassFuseFastGelu1 struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_fuse_fast_gelu_1FromID(id objc.ID) EspressoPassFuseFastGelu1 {
 var _ IEspressoPassFuseFastGelu1 = EspressoPassFuseFastGelu1{}
 
 // An interface definition for the [EspressoPassFuseFastGelu1] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
 type IEspressoPassFuseFastGelu1 interface {
 	IEspressoCustomPass
 }

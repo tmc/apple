@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -49,14 +50,11 @@ func (vc VZMultiTouchDeviceConfigurationClass) Alloc() VZMultiTouchDeviceConfigu
 //   - [VZMultiTouchDeviceConfiguration._multiTouchDevice]
 //   - [VZMultiTouchDeviceConfiguration.AssociationIdentifier]
 //   - [VZMultiTouchDeviceConfiguration.SetAssociationIdentifier]
-//   - [VZMultiTouchDeviceConfiguration.EncodeWithEncoder]
 //   - [VZMultiTouchDeviceConfiguration.MakeMultiTouchDeviceForVirtualMachineMultiTouchDeviceIndex]
 //   - [VZMultiTouchDeviceConfiguration.DebugDescription]
 //   - [VZMultiTouchDeviceConfiguration.Description]
 //   - [VZMultiTouchDeviceConfiguration.Hash]
 //   - [VZMultiTouchDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration
 type VZMultiTouchDeviceConfiguration struct {
 	objectivec.Object
 }
@@ -77,29 +75,25 @@ var _ IVZMultiTouchDeviceConfiguration = VZMultiTouchDeviceConfiguration{}
 //   - [IVZMultiTouchDeviceConfiguration._multiTouchDevice]
 //   - [IVZMultiTouchDeviceConfiguration.AssociationIdentifier]
 //   - [IVZMultiTouchDeviceConfiguration.SetAssociationIdentifier]
-//   - [IVZMultiTouchDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZMultiTouchDeviceConfiguration.MakeMultiTouchDeviceForVirtualMachineMultiTouchDeviceIndex]
 //   - [IVZMultiTouchDeviceConfiguration.DebugDescription]
 //   - [IVZMultiTouchDeviceConfiguration.Description]
 //   - [IVZMultiTouchDeviceConfiguration.Hash]
 //   - [IVZMultiTouchDeviceConfiguration.Superclass]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration
 type IVZMultiTouchDeviceConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_multiTouchDevice() objectivec.IObject
+	_multiTouchDevice() unsafe.Pointer
 	AssociationIdentifier() foundation.NSUUID
 	SetAssociationIdentifier(value foundation.NSUUID)
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	MakeMultiTouchDeviceForVirtualMachineMultiTouchDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -121,28 +115,18 @@ func NewVZMultiTouchDeviceConfiguration() VZMultiTouchDeviceConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/_init
 func (v VZMultiTouchDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/encodeWithEncoder:
-func (v VZMultiTouchDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/makeMultiTouchDeviceForVirtualMachine:multiTouchDeviceIndex:
 func (v VZMultiTouchDeviceConfiguration) MakeMultiTouchDeviceForVirtualMachineMultiTouchDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeMultiTouchDeviceForVirtualMachine:multiTouchDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/_multiTouchDevice
-func (v VZMultiTouchDeviceConfiguration) _multiTouchDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_multiTouchDevice"))
-	return objectivec.Object{ID: rv}
+func (v VZMultiTouchDeviceConfiguration) _multiTouchDevice() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_multiTouchDevice"))
+	return rv
 }
 
 // CanMultiTouchDevice reports whether the receiver responds to the private selector _multiTouchDevice.
@@ -151,14 +135,12 @@ func (v VZMultiTouchDeviceConfiguration) CanMultiTouchDevice() bool {
 }
 
 // MultiTouchDevice is an exported wrapper for the private property _multiTouchDevice.
-func (v VZMultiTouchDeviceConfiguration) MultiTouchDevice() (objectivec.IObject, error) {
+func (v VZMultiTouchDeviceConfiguration) MultiTouchDevice() (unsafe.Pointer, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_multiTouchDevice"}
 	}
 	return v._multiTouchDevice(), nil
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/associationIdentifier
 func (v VZMultiTouchDeviceConfiguration) AssociationIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -166,27 +148,19 @@ func (v VZMultiTouchDeviceConfiguration) AssociationIdentifier() foundation.NSUU
 func (v VZMultiTouchDeviceConfiguration) SetAssociationIdentifier(value foundation.NSUUID) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAssociationIdentifier:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/debugDescription
 func (v VZMultiTouchDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/description
 func (v VZMultiTouchDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/hash
 func (v VZMultiTouchDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/superclass
-func (v VZMultiTouchDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VZMultiTouchDeviceConfiguration) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

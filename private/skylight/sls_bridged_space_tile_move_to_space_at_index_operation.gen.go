@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass) Alloc() SLSBridged
 //   - [SLSBridgedSpaceTileMoveToSpaceAtIndexOperation.ParentID]
 //   - [SLSBridgedSpaceTileMoveToSpaceAtIndexOperation.TileID]
 //   - [SLSBridgedSpaceTileMoveToSpaceAtIndexOperation.InitWithTileIDParentIDIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation
 type SLSBridgedSpaceTileMoveToSpaceAtIndexOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -70,8 +68,6 @@ var _ ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation = SLSBridgedSpaceTileMoveT
 //   - [ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation.ParentID]
 //   - [ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation.TileID]
 //   - [ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation.InitWithTileIDParentIDIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation
 type ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -102,39 +98,31 @@ func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperation() SLSBridgedSpaceTileMove
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/initWithCoder:
 func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	instance := getSLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceTileMoveToSpaceAtIndexOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/initWithTileID:parentID:index:
 func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperationWithTileIDParentIDIndex(id uint64, id2 uint64, index uint64) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	instance := getSLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
 	return SLSBridgedSpaceTileMoveToSpaceAtIndexOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/initWithTileID:parentID:index:
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) InitWithTileIDParentIDIndex(id uint64, id2 uint64, index uint64) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/index
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) Index() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/parentID
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) ParentID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("parentID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceTileMoveToSpaceAtIndexOperation/tileID
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) TileID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("tileID"))
 	return rv

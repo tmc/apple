@@ -49,8 +49,6 @@ func (ac AVAudioMixingDestinationClass) Alloc() AVAudioMixingDestination {
 //   - [AVAudioMixingDestination.Description]
 //   - [AVAudioMixingDestination.Hash]
 //   - [AVAudioMixingDestination.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination
 type AVAudioMixingDestination struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IAVAudioMixingDestination = AVAudioMixingDestination{}
 //   - [IAVAudioMixingDestination.Description]
 //   - [IAVAudioMixingDestination.Hash]
 //   - [IAVAudioMixingDestination.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination
 type IAVAudioMixingDestination interface {
 	objectivec.IObject
 
@@ -81,7 +77,7 @@ type IAVAudioMixingDestination interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -103,26 +99,19 @@ func NewAVAudioMixingDestination() AVAudioMixingDestination {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/debugDescription
 func (a AVAudioMixingDestination) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/description
 func (a AVAudioMixingDestination) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/hash
 func (a AVAudioMixingDestination) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/superclass
-func (a AVAudioMixingDestination) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
-	return rv
+func (a AVAudioMixingDestination) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

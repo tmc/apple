@@ -10,24 +10,16 @@ import (
 )
 
 // EspressoBrick protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick
 type EspressoBrick interface {
 	objectivec.IObject
 
 	// HasDynamicOutputShape protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/hasDynamicOutputShape:
 	HasDynamicOutputShape(shape uint64) bool
 
 	// HasGPUSupport protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/hasGPUSupport
 	HasGPUSupport() bool
 
 	// SetMappedWeightsSizeInBytes protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/setMappedWeights:sizeInBytes:
 	SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64)
 }
 
@@ -48,40 +40,27 @@ func EspressoBrickObjectFromID(id objc.ID) EspressoBrickObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/computeDynamicOutputShape:
 func (o EspressoBrickObject) ComputeDynamicOutputShape(shape objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeDynamicOutputShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/computeOnCPUWithInputTensors:outputTensors:
 func (o EspressoBrickObject) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/encodeToMetalCommandBuffer:inputTensors:outputTensors:
 func (o EspressoBrickObject) EncodeToMetalCommandBufferInputTensorsOutputTensors(buffer objectivec.IObject, tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/hasDynamicOutputShape:
 func (o EspressoBrickObject) HasDynamicOutputShape(shape uint64) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("hasDynamicOutputShape:"), shape)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/hasGPUSupport
 func (o EspressoBrickObject) HasGPUSupport() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/setMappedWeights:sizeInBytes:
 func (o EspressoBrickObject) SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/EspressoBrick/setupForInputShapes:withParameters:
 func (o EspressoBrickObject) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}

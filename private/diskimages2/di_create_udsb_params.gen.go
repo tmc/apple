@@ -48,8 +48,6 @@ func (dc DICreateUDSBParamsClass) Alloc() DICreateUDSBParams {
 //
 //   - [DICreateUDSBParams.SparseBundleBandSize]
 //   - [DICreateUDSBParams.SetSparseBundleBandSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams
 type DICreateUDSBParams struct {
 	DICreateParams
 }
@@ -68,8 +66,6 @@ var _ IDICreateUDSBParams = DICreateUDSBParams{}
 //
 //   - [IDICreateUDSBParams.SparseBundleBandSize]
 //   - [IDICreateUDSBParams.SetSparseBundleBandSize]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams
 type IDICreateUDSBParams interface {
 	IDICreateParams
 
@@ -98,15 +94,13 @@ func NewDICreateUDSBParams() DICreateUDSBParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateUDSBParamsWithCoder(coder objectivec.IObject) DICreateUDSBParams {
 	instance := getDICreateUDSBParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateUDSBParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
-func NewDICreateUDSBParamsWithURLError(url foundation.INSURL) (DICreateUDSBParams, error) {
+func NewDICreateUDSBParamsWithURLError(url foundation.NSURL) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateUDSBParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -117,8 +111,7 @@ func NewDICreateUDSBParamsWithURLError(url foundation.INSURL) (DICreateUDSBParam
 	return DICreateUDSBParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams/initWithURL:numBlocks:error:
-func NewDICreateUDSBParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateUDSBParams, error) {
+func NewDICreateUDSBParamsWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateUDSBParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
@@ -129,7 +122,6 @@ func NewDICreateUDSBParamsWithURLNumBlocksError(url foundation.INSURL, blocks ui
 	return DICreateUDSBParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams/sparseBundleBandSize
 func (d DICreateUDSBParams) SparseBundleBandSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
 	return rv

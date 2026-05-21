@@ -56,8 +56,6 @@ func (ac AVVCPrepareRecordSettingsClass) Alloc() AVVCPrepareRecordSettings {
 //   - [AVVCPrepareRecordSettings.StreamID]
 //   - [AVVCPrepareRecordSettings.SetStreamID]
 //   - [AVVCPrepareRecordSettings.InitWithStreamIDSettingsBufferDuration]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings
 type AVVCPrepareRecordSettings struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ IAVVCPrepareRecordSettings = AVVCPrepareRecordSettings{}
 //   - [IAVVCPrepareRecordSettings.StreamID]
 //   - [IAVVCPrepareRecordSettings.SetStreamID]
 //   - [IAVVCPrepareRecordSettings.InitWithStreamIDSettingsBufferDuration]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings
 type IAVVCPrepareRecordSettings interface {
 	objectivec.IObject
 
@@ -124,20 +120,17 @@ func NewAVVCPrepareRecordSettings() AVVCPrepareRecordSettings {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/initWithStreamID:settings:bufferDuration:
 func NewVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	instance := getAVVCPrepareRecordSettingsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
 	return AVVCPrepareRecordSettingsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/initWithStreamID:settings:bufferDuration:
 func (a AVVCPrepareRecordSettings) InitWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	rv := objc.Send[AVVCPrepareRecordSettings](a.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/avAudioSettings
 func (a AVVCPrepareRecordSettings) AvAudioSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("avAudioSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -145,8 +138,6 @@ func (a AVVCPrepareRecordSettings) AvAudioSettings() foundation.INSDictionary {
 func (a AVVCPrepareRecordSettings) SetAvAudioSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAvAudioSettings:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/deviceBufferFrameSize
 func (a AVVCPrepareRecordSettings) DeviceBufferFrameSize() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("deviceBufferFrameSize"))
 	return rv
@@ -154,8 +145,6 @@ func (a AVVCPrepareRecordSettings) DeviceBufferFrameSize() uint32 {
 func (a AVVCPrepareRecordSettings) SetDeviceBufferFrameSize(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDeviceBufferFrameSize:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/meteringEnabled
 func (a AVVCPrepareRecordSettings) MeteringEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
@@ -163,8 +152,6 @@ func (a AVVCPrepareRecordSettings) MeteringEnabled() bool {
 func (a AVVCPrepareRecordSettings) SetMeteringEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/recordBufferDuration
 func (a AVVCPrepareRecordSettings) RecordBufferDuration() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("recordBufferDuration"))
 	return rv
@@ -172,8 +159,6 @@ func (a AVVCPrepareRecordSettings) RecordBufferDuration() float64 {
 func (a AVVCPrepareRecordSettings) SetRecordBufferDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRecordBufferDuration:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/streamID
 func (a AVVCPrepareRecordSettings) StreamID() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
 	return rv

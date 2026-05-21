@@ -50,8 +50,6 @@ func (gc GTAGX2ShaderAnalyzerClass) Alloc() GTAGX2ShaderAnalyzer {
 //   - [GTAGX2ShaderAnalyzer.AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo]
 //   - [GTAGX2ShaderAnalyzer.DisassembleBinary]
 //   - [GTAGX2ShaderAnalyzer.GetShaderBinaryForTargetIndexBinaryInfo]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer
 type GTAGX2ShaderAnalyzer struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ IGTAGX2ShaderAnalyzer = GTAGX2ShaderAnalyzer{}
 //   - [IGTAGX2ShaderAnalyzer.AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo]
 //   - [IGTAGX2ShaderAnalyzer.DisassembleBinary]
 //   - [IGTAGX2ShaderAnalyzer.GetShaderBinaryForTargetIndexBinaryInfo]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer
 type IGTAGX2ShaderAnalyzer interface {
 	objectivec.IObject
 
@@ -106,7 +102,6 @@ func NewGTAGX2ShaderAnalyzer() GTAGX2ShaderAnalyzer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:
 func (g GTAGX2ShaderAnalyzer) _calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"), data, index, binary)
 }
@@ -125,8 +120,6 @@ func (g GTAGX2ShaderAnalyzer) CalculatePerDrawCallWithGRCSampleDataTargetIndexSh
 func (g GTAGX2ShaderAnalyzer) CanCalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) _calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"), data, result, index, aLUBlocks, info)
 	return objectivec.Object{ID: rv}
@@ -145,20 +138,14 @@ func (g GTAGX2ShaderAnalyzer) CalculatePerLineCostWithSampleDataAnalysisResultTa
 func (g GTAGX2ShaderAnalyzer) CanCalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo(binary objectivec.IObject, samples objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:"), binary, samples, index, aLUBlocks, info)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/disassembleBinary:
 func (g GTAGX2ShaderAnalyzer) DisassembleBinary(binary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("disassembleBinary:"), binary)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/getShaderBinary:forTargetIndex:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) GetShaderBinaryForTargetIndexBinaryInfo(binary objectivec.IObject, index int, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getShaderBinary:forTargetIndex:binaryInfo:"), binary, index, info)
 	return objectivec.Object{ID: rv}

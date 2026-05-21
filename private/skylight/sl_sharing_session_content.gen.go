@@ -54,8 +54,6 @@ func (sc SLSharingSessionContentClass) Alloc() SLSharingSessionContent {
 //   - [SLSharingSessionContent.InitInternalDisplay]
 //   - [SLSharingSessionContent.InitWithDisplayID]
 //   - [SLSharingSessionContent.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent
 type SLSharingSessionContent struct {
 	objectivec.Object
 }
@@ -81,8 +79,6 @@ var _ ISLSharingSessionContent = SLSharingSessionContent{}
 //   - [ISLSharingSessionContent.InitInternalDisplay]
 //   - [ISLSharingSessionContent.InitWithDisplayID]
 //   - [ISLSharingSessionContent.InitWithWindowID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent
 type ISLSharingSessionContent interface {
 	objectivec.IObject
 
@@ -118,46 +114,37 @@ func NewSLSharingSessionContent() SLSharingSessionContent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initInternal:display:
 func NewSLSharingSessionContentInternalDisplay(internal objectivec.IObject, display objectivec.IObject) SLSharingSessionContent {
 	instance := getSLSharingSessionContentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInternal:display:"), internal, display)
 	return SLSharingSessionContentFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initWithDisplayID:
 func NewSLSharingSessionContentWithDisplayID(id objectivec.IObject) SLSharingSessionContent {
 	instance := getSLSharingSessionContentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayID:"), id)
 	return SLSharingSessionContentFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initWithWindowID:
 func NewSLSharingSessionContentWithWindowID(id objectivec.IObject) SLSharingSessionContent {
 	instance := getSLSharingSessionContentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSharingSessionContentFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initInternal:display:
 func (s SLSharingSessionContent) InitInternalDisplay(internal objectivec.IObject, display objectivec.IObject) SLSharingSessionContent {
 	rv := objc.Send[SLSharingSessionContent](s.ID, objc.Sel("initInternal:display:"), internal, display)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initWithDisplayID:
 func (s SLSharingSessionContent) InitWithDisplayID(id objectivec.IObject) SLSharingSessionContent {
 	rv := objc.Send[SLSharingSessionContent](s.ID, objc.Sel("initWithDisplayID:"), id)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/initWithWindowID:
 func (s SLSharingSessionContent) InitWithWindowID(id objectivec.IObject) SLSharingSessionContent {
 	rv := objc.Send[SLSharingSessionContent](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/displayID
 func (s SLSharingSessionContent) DisplayID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -165,8 +152,6 @@ func (s SLSharingSessionContent) DisplayID() foundation.NSNumber {
 func (s SLSharingSessionContent) SetDisplayID(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/filter
 func (s SLSharingSessionContent) Filter() ISLWindowFilter {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
 	return SLWindowFilterFromID(objc.ID(rv))
@@ -174,8 +159,6 @@ func (s SLSharingSessionContent) Filter() ISLWindowFilter {
 func (s SLSharingSessionContent) SetFilter(value ISLWindowFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFilter:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSharingSessionContent/metaData
 func (s SLSharingSessionContent) MetaData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("metaData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

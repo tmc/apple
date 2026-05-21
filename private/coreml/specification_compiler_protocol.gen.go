@@ -10,8 +10,6 @@ import (
 )
 
 // MLSpecificationCompiler protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompiler
 type MLSpecificationCompiler interface {
 	objectivec.IObject
 }
@@ -33,7 +31,6 @@ func MLSpecificationCompilerObjectFromID(id objc.ID) MLSpecificationCompilerObje
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompiler/compileSpecification:toArchive:options:error:
 func (o MLSpecificationCompilerObject) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options)
 	if err != nil {
@@ -41,8 +38,6 @@ func (o MLSpecificationCompilerObject) CompileSpecificationToArchiveOptionsError
 	}
 	return objectivec.Object{ID: rv}, nil
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompiler/compiledVersionForSpecification:options:error:
 func (o MLSpecificationCompilerObject) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compiledVersionForSpecification:options:error:"), specification, options)
 	if err != nil {

@@ -9,6 +9,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -116,8 +117,6 @@ func (sc SLSDisplayControllerClass) Alloc() SLSDisplayController {
 //   - [SLSDisplayController.Online]
 //   - [SLSDisplayController.SetOnline]
 //   - [SLSDisplayController.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController
 type SLSDisplayController struct {
 	objectivec.Object
 }
@@ -202,15 +201,13 @@ var _ ISLSDisplayController = SLSDisplayController{}
 //   - [ISLSDisplayController.Online]
 //   - [ISLSDisplayController.SetOnline]
 //   - [ISLSDisplayController.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController
 type ISLSDisplayController interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	AbortContrastEnhancerRampError() (float32, error)
-	AbortWhitePointRampError(ramp objectivec.IObject) (bool, error)
+	AbortWhitePointRampError(ramp kernel.Pointer) (bool, error)
 	BrightnessAvailable() bool
 	SetBrightnessAvailable(value bool)
 	BrightnessCapabilities() foundation.INSDictionary
@@ -231,8 +228,8 @@ type ISLSDisplayController interface {
 	IsOnline() bool
 	MaximumLuminance() float32
 	SetMaximumLuminance(value float32)
-	NativeWhitePoint() objectivec.IObject
-	SetNativeWhitePoint(value objectivec.IObject)
+	NativeWhitePoint() unsafe.Pointer
+	SetNativeWhitePoint(value kernel.Pointer)
 	NotificationQueue() objectivec.IObject
 	PostNotificationPayload(notification objectivec.IObject, payload objectivec.IObject)
 	ProductId() uint64
@@ -260,7 +257,7 @@ type ISLSDisplayController interface {
 	SetSDRBrightness(sDRBrightness float32)
 	SetShieldingTimeout(timeout float64)
 	SetSleepMessagingTimeout(timeout float64)
-	SetWhitePointRampDurationError(point objectivec.IObject, duration float64) (bool, error)
+	SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error)
 	UnregisterNotificationBlocks()
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
@@ -276,7 +273,7 @@ type ISLSDisplayController interface {
 	Hash() uint64
 	Online() bool
 	SetOnline(value bool)
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -298,14 +295,12 @@ func NewSLSDisplayController() SLSDisplayController {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/initWithDisplayId:capabilities:client:
 func NewSLSDisplayControllerWithDisplayIdCapabilitiesClient(id int, capabilities objectivec.IObject, client objectivec.IObject) SLSDisplayController {
 	instance := getSLSDisplayControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayId:capabilities:client:"), id, capabilities, client)
 	return SLSDisplayControllerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/abortContrastEnhancerRamp:error:
 func (s SLSDisplayController) AbortContrastEnhancerRampError() (float32, error) {
 	var ramp float32
 	var errorPtr objc.ID
@@ -319,9 +314,7 @@ func (s SLSDisplayController) AbortContrastEnhancerRampError() (float32, error) 
 	}
 	return ramp, nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/abortWhitePointRamp:error:
-func (s SLSDisplayController) AbortWhitePointRampError(ramp objectivec.IObject) (bool, error) {
+func (s SLSDisplayController) AbortWhitePointRampError(ramp kernel.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("abortWhitePointRamp:error:"), ramp, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -334,26 +327,18 @@ func (s SLSDisplayController) AbortWhitePointRampError(ramp objectivec.IObject) 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/commitBrightness:
 func (s SLSDisplayController) CommitBrightness(brightness []objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("commitBrightness:"), objectivec.IObjectSliceToNSArray(brightness))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/commitBrightnessTimeouts:
 func (s SLSDisplayController) CommitBrightnessTimeouts(timeouts []objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("commitBrightnessTimeouts:"), objectivec.IObjectSliceToNSArray(timeouts))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/displayInfo
 func (s SLSDisplayController) DisplayInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/getLinearBrightness:error:
 func (s SLSDisplayController) GetLinearBrightnessError() (float32, error) {
 	var brightness float32
 	var errorPtr objc.ID
@@ -367,8 +352,6 @@ func (s SLSDisplayController) GetLinearBrightnessError() (float32, error) {
 	}
 	return brightness, nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/getNits:error:
 func (s SLSDisplayController) GetNitsError() (float32, error) {
 	var nits float32
 	var errorPtr objc.ID
@@ -382,51 +365,33 @@ func (s SLSDisplayController) GetNitsError() (float32, error) {
 	}
 	return nits, nil
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/isOnline
 func (s SLSDisplayController) IsOnline() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isOnline"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/notificationQueue
 func (s SLSDisplayController) NotificationQueue() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("notificationQueue"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/postNotification:payload:
 func (s SLSDisplayController) PostNotificationPayload(notification objectivec.IObject, payload objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("postNotification:payload:"), notification, payload)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/registerForNotifications:withBlock:
 func (s SLSDisplayController) RegisterForNotificationsWithBlock(notifications objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("registerForNotifications:withBlock:"), notifications, _block1)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setAmbient:
 func (s SLSDisplayController) SetAmbient(ambient float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setAmbient:"), ambient)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setApplyPolicy
 func (s SLSDisplayController) SetApplyPolicy() {
 	objc.Send[objc.ID](s.ID, objc.Sel("setApplyPolicy"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setBrightnessLimit:
 func (s SLSDisplayController) SetBrightnessLimit(limit float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setBrightnessLimit:"), limit)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setContrastEnhancer:
 func (s SLSDisplayController) SetContrastEnhancer(enhancer float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setContrastEnhancer:"), enhancer)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setContrastEnhancer:rampDuration:error:
 func (s SLSDisplayController) SetContrastEnhancerRampDurationError(enhancer float32, duration float64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("setContrastEnhancer:rampDuration:error:"), enhancer, duration, unsafe.Pointer(&errorPtr))
@@ -440,43 +405,27 @@ func (s SLSDisplayController) SetContrastEnhancerRampDurationError(enhancer floa
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setContrastPreservation:
 func (s SLSDisplayController) SetContrastPreservation(preservation float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setContrastPreservation:"), preservation)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setDimMessagingTimeout:
 func (s SLSDisplayController) SetDimMessagingTimeout(timeout float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setDimMessagingTimeout:"), timeout)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setFilteredAmbient:
 func (s SLSDisplayController) SetFilteredAmbient(ambient float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setFilteredAmbient:"), ambient)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setHeadroom:
 func (s SLSDisplayController) SetHeadroom(headroom float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setHeadroom:"), headroom)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setHighAmbientAdaptation:
 func (s SLSDisplayController) SetHighAmbientAdaptation(adaptation float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setHighAmbientAdaptation:"), adaptation)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setIndicatorBrightness:
 func (s SLSDisplayController) SetIndicatorBrightness(brightness float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setIndicatorBrightness:"), brightness)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setIndicatorBrightnessLimit:
 func (s SLSDisplayController) SetIndicatorBrightnessLimit(limit float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setIndicatorBrightnessLimit:"), limit)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setLinearBrightness:error:
 func (s SLSDisplayController) SetLinearBrightnessError(brightness float32) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("setLinearBrightness:error:"), brightness, unsafe.Pointer(&errorPtr))
@@ -490,44 +439,28 @@ func (s SLSDisplayController) SetLinearBrightnessError(brightness float32) (bool
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setLowAmbientAdaptation:
 func (s SLSDisplayController) SetLowAmbientAdaptation(adaptation float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setLowAmbientAdaptation:"), adaptation)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setNotificationQueue:
 func (s SLSDisplayController) SetNotificationQueue(queue objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setNotificationQueue:"), queue)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setPotentialHeadroom:
 func (s SLSDisplayController) SetPotentialHeadroom(headroom float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setPotentialHeadroom:"), headroom)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setReferenceHeadroom:
 func (s SLSDisplayController) SetReferenceHeadroom(headroom float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setReferenceHeadroom:"), headroom)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setSDRBrightness:
 func (s SLSDisplayController) SetSDRBrightness(sDRBrightness float32) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSDRBrightness:"), sDRBrightness)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setShieldingTimeout:
 func (s SLSDisplayController) SetShieldingTimeout(timeout float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setShieldingTimeout:"), timeout)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setSleepMessagingTimeout:
 func (s SLSDisplayController) SetSleepMessagingTimeout(timeout float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSleepMessagingTimeout:"), timeout)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/setWhitePoint:rampDuration:error:
-func (s SLSDisplayController) SetWhitePointRampDurationError(point objectivec.IObject, duration float64) (bool, error) {
+func (s SLSDisplayController) SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("setWhitePoint:rampDuration:error:"), point, duration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -540,19 +473,14 @@ func (s SLSDisplayController) SetWhitePointRampDurationError(point objectivec.IO
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/unregisterNotificationBlocks
 func (s SLSDisplayController) UnregisterNotificationBlocks() {
 	objc.Send[objc.ID](s.ID, objc.Sel("unregisterNotificationBlocks"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/initWithDisplayId:capabilities:client:
 func (s SLSDisplayController) InitWithDisplayIdCapabilitiesClient(id int, capabilities objectivec.IObject, client objectivec.IObject) SLSDisplayController {
 	rv := objc.Send[SLSDisplayController](s.ID, objc.Sel("initWithDisplayId:capabilities:client:"), id, capabilities, client)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/brightnessAvailable
 func (s SLSDisplayController) BrightnessAvailable() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("brightnessAvailable"))
 	return rv
@@ -560,8 +488,6 @@ func (s SLSDisplayController) BrightnessAvailable() bool {
 func (s SLSDisplayController) SetBrightnessAvailable(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBrightnessAvailable:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/brightnessCapabilities
 func (s SLSDisplayController) BrightnessCapabilities() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("brightnessCapabilities"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -569,8 +495,6 @@ func (s SLSDisplayController) BrightnessCapabilities() foundation.INSDictionary 
 func (s SLSDisplayController) SetBrightnessCapabilities(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBrightnessCapabilities:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/containerId
 func (s SLSDisplayController) ContainerId() foundation.NSUUID {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("containerId"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -578,20 +502,14 @@ func (s SLSDisplayController) ContainerId() foundation.NSUUID {
 func (s SLSDisplayController) SetContainerId(value foundation.NSUUID) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/debugDescription
 func (s SLSDisplayController) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/description
 func (s SLSDisplayController) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/displayAttachmentSeed
 func (s SLSDisplayController) DisplayAttachmentSeed() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("displayAttachmentSeed"))
 	return rv
@@ -599,8 +517,6 @@ func (s SLSDisplayController) DisplayAttachmentSeed() uint64 {
 func (s SLSDisplayController) SetDisplayAttachmentSeed(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayAttachmentSeed:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/displayId
 func (s SLSDisplayController) DisplayId() int {
 	rv := objc.Send[int](s.ID, objc.Sel("displayId"))
 	return rv
@@ -608,8 +524,6 @@ func (s SLSDisplayController) DisplayId() int {
 func (s SLSDisplayController) SetDisplayId(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/displayType
 func (s SLSDisplayController) DisplayType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("displayType"))
 	return rv
@@ -617,14 +531,10 @@ func (s SLSDisplayController) DisplayType() uint32 {
 func (s SLSDisplayController) SetDisplayType(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/hash
 func (s SLSDisplayController) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/maximumLuminance
 func (s SLSDisplayController) MaximumLuminance() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("maximumLuminance"))
 	return rv
@@ -632,17 +542,13 @@ func (s SLSDisplayController) MaximumLuminance() float32 {
 func (s SLSDisplayController) SetMaximumLuminance(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumLuminance:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/nativeWhitePoint
-func (s SLSDisplayController) NativeWhitePoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("nativeWhitePoint"))
-	return objectivec.Object{ID: rv}
+func (s SLSDisplayController) NativeWhitePoint() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("nativeWhitePoint"))
+	return rv
 }
-func (s SLSDisplayController) SetNativeWhitePoint(value objectivec.IObject) {
+func (s SLSDisplayController) SetNativeWhitePoint(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNativeWhitePoint:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/online
 func (s SLSDisplayController) Online() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("online"))
 	return rv
@@ -650,8 +556,6 @@ func (s SLSDisplayController) Online() bool {
 func (s SLSDisplayController) SetOnline(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOnline:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/productId
 func (s SLSDisplayController) ProductId() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("productId"))
 	return rv
@@ -659,8 +563,6 @@ func (s SLSDisplayController) ProductId() uint64 {
 func (s SLSDisplayController) SetProductId(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setProductId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/serialNumber
 func (s SLSDisplayController) SerialNumber() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("serialNumber"))
 	return rv
@@ -668,14 +570,10 @@ func (s SLSDisplayController) SerialNumber() uint64 {
 func (s SLSDisplayController) SetSerialNumber(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSerialNumber:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/superclass
-func (s SLSDisplayController) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
-	return rv
+func (s SLSDisplayController) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/uuid
 func (s SLSDisplayController) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
@@ -683,8 +581,6 @@ func (s SLSDisplayController) Uuid() foundation.NSUUID {
 func (s SLSDisplayController) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUuid:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/vendorId
 func (s SLSDisplayController) VendorId() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("vendorId"))
 	return rv
@@ -692,8 +588,6 @@ func (s SLSDisplayController) VendorId() uint64 {
 func (s SLSDisplayController) SetVendorId(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVendorId:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/whitePointAvailable
 func (s SLSDisplayController) WhitePointAvailable() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("whitePointAvailable"))
 	return rv
@@ -701,8 +595,6 @@ func (s SLSDisplayController) WhitePointAvailable() bool {
 func (s SLSDisplayController) SetWhitePointAvailable(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setWhitePointAvailable:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayController/whitePointD50XYZ
 func (s SLSDisplayController) WhitePointD50XYZ() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("whitePointD50XYZ"))
 	return rv

@@ -52,8 +52,6 @@ func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
 //   - [AVAudioEngine.AutoShutdownEnabled]
 //   - [AVAudioEngine.SetAutoShutdownEnabled]
 //   - [AVAudioEngine.Running]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine
 type AVAudioEngine struct {
 	objectivec.Object
 }
@@ -76,8 +74,6 @@ var _ IAVAudioEngine = AVAudioEngine{}
 //   - [IAVAudioEngine.AutoShutdownEnabled]
 //   - [IAVAudioEngine.SetAutoShutdownEnabled]
 //   - [IAVAudioEngine.Running]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine
 type IAVAudioEngine interface {
 	objectivec.IObject
 
@@ -110,25 +106,19 @@ func NewAVAudioEngine() AVAudioEngine {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI:to:format:block:
 func (a AVAudioEngine) ConnectMIDIToFormatBlock(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:block:"), midi, to, format, _block3)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI:toNodes:format:block:
 func (a AVAudioEngine) ConnectMIDIToNodesFormatBlock(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:block:"), midi, nodes, format, _block3)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/implementation
 func (a AVAudioEngine) Implementation() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("implementation"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/autoShutdownEnabled
 func (a AVAudioEngine) AutoShutdownEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("autoShutdownEnabled"))
 	return rv
@@ -136,8 +126,6 @@ func (a AVAudioEngine) AutoShutdownEnabled() bool {
 func (a AVAudioEngine) SetAutoShutdownEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAutoShutdownEnabled:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/running
 func (a AVAudioEngine) Running() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("running"))
 	return rv

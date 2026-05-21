@@ -46,8 +46,6 @@ func (sc SLSBridgedWindowManagementOperationSpaceIDResultClass) Alloc() SLSBridg
 //
 //   - [SLSBridgedWindowManagementOperationSpaceIDResult.SpaceID]
 //   - [SLSBridgedWindowManagementOperationSpaceIDResult.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult
 type SLSBridgedWindowManagementOperationSpaceIDResult struct {
 	SLSBridgedWindowManagementOperationResult
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedWindowManagementOperationSpaceIDResult = SLSBridgedWindowManage
 //
 //   - [ISLSBridgedWindowManagementOperationSpaceIDResult.SpaceID]
 //   - [ISLSBridgedWindowManagementOperationSpaceIDResult.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult
 type ISLSBridgedWindowManagementOperationSpaceIDResult interface {
 	ISLSBridgedWindowManagementOperationResult
 
@@ -96,27 +92,23 @@ func NewSLSBridgedWindowManagementOperationSpaceIDResult() SLSBridgedWindowManag
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult/initWithCoder:
 func NewSLSBridgedWindowManagementOperationSpaceIDResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpaceIDResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceIDResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpaceIDResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult/initWithSpaceID:
 func NewSLSBridgedWindowManagementOperationSpaceIDResultWithSpaceID(id uint64) SLSBridgedWindowManagementOperationSpaceIDResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceIDResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedWindowManagementOperationSpaceIDResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult/initWithSpaceID:
 func (s SLSBridgedWindowManagementOperationSpaceIDResult) InitWithSpaceID(id uint64) SLSBridgedWindowManagementOperationSpaceIDResult {
 	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceIDResult](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedWindowManagementOperationSpaceIDResult/spaceID
 func (s SLSBridgedWindowManagementOperationSpaceIDResult) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

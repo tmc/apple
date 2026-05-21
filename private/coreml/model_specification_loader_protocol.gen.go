@@ -10,8 +10,6 @@ import (
 )
 
 // MLModelSpecificationLoader protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationLoader
 type MLModelSpecificationLoader interface {
 	objectivec.IObject
 }
@@ -33,7 +31,6 @@ func MLModelSpecificationLoaderObjectFromID(id objc.ID) MLModelSpecificationLoad
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationLoader/loadModelFromSpecification:configuration:error:
 func (o MLModelSpecificationLoaderObject) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration)
 	if err != nil {

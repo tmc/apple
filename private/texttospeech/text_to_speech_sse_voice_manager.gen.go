@@ -42,7 +42,6 @@ func (tc TextToSpeechSSEVoiceManagerClass) Alloc() TextToSpeechSSEVoiceManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSEVoiceManager
 type TextToSpeechSSEVoiceManager struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TextToSpeechSSEVoiceManagerFromID(id objc.ID) TextToSpeechSSEVoiceManager {
 // ITextToSpeechSSEVoiceManager embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSSEVoiceManager] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSEVoiceManager
 type ITextToSpeechSSEVoiceManager interface {
 	objectivec.IObject
 }

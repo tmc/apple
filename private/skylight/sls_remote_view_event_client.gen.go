@@ -5,8 +5,10 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,8 +62,6 @@ func (sc SLSRemoteViewEventClientClass) Alloc() SLSRemoteViewEventClient {
 //   - [SLSRemoteViewEventClient.Description]
 //   - [SLSRemoteViewEventClient.Hash]
 //   - [SLSRemoteViewEventClient.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient
 type SLSRemoteViewEventClient struct {
 	objectivec.Object
 }
@@ -92,27 +92,25 @@ var _ ISLSRemoteViewEventClient = SLSRemoteViewEventClient{}
 //   - [ISLSRemoteViewEventClient.Description]
 //   - [ISLSRemoteViewEventClient.Hash]
 //   - [ISLSRemoteViewEventClient.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient
 type ISLSRemoteViewEventClient interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	ActivateWithHandlerInvalidationHandler(handler VoidHandler, handler2 VoidHandler)
-	DeferringEnvironmentFromEvent(event objectivec.IObject) objectivec.IObject
-	DeferringTokenFromEvent(event objectivec.IObject) objectivec.IObject
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
+	DeferringEnvironmentFromEvent(event unsafe.Pointer) objectivec.IObject
+	DeferringTokenFromEvent(event unsafe.Pointer) objectivec.IObject
+	Delegate() unsafe.Pointer
+	SetDelegate(value kernel.Pointer)
 	Invalidate()
 	SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler)
-	ServicePassEventUpstreamToHostFullDispatchReply(host objectivec.IObject, dispatch bool, reply VoidHandler)
-	SetDeferringTokenAndEnvironmentInEvent(token objectivec.IObject, environment objectivec.IObject, event objectivec.IObject)
+	ServicePassEventUpstreamToHostFullDispatchReply(host unsafe.Pointer, dispatch bool, reply VoidHandler)
+	SetDeferringTokenAndEnvironmentInEvent(token objectivec.IObject, environment objectivec.IObject, event unsafe.Pointer)
 	InitWithConfig(config objectivec.IObject) SLSRemoteViewEventClient
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -134,103 +132,75 @@ func NewSLSRemoteViewEventClient() SLSRemoteViewEventClient {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/initWithConfig:
 func NewSLSRemoteViewEventClientWithConfig(config objectivec.IObject) SLSRemoteViewEventClient {
 	instance := getSLSRemoteViewEventClientClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfig:"), config)
 	return SLSRemoteViewEventClientFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/activateWithHandler:invalidationHandler:
 func (s SLSRemoteViewEventClient) ActivateWithHandlerInvalidationHandler(handler VoidHandler, handler2 VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	_block1, _ := NewVoidBlock(handler2)
 	objc.Send[objc.ID](s.ID, objc.Sel("activateWithHandler:invalidationHandler:"), _block0, _block1)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/deferringEnvironmentFromEvent:
-func (s SLSRemoteViewEventClient) DeferringEnvironmentFromEvent(event objectivec.IObject) objectivec.IObject {
+func (s SLSRemoteViewEventClient) DeferringEnvironmentFromEvent(event unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("deferringEnvironmentFromEvent:"), event)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/deferringTokenFromEvent:
-func (s SLSRemoteViewEventClient) DeferringTokenFromEvent(event objectivec.IObject) objectivec.IObject {
+func (s SLSRemoteViewEventClient) DeferringTokenFromEvent(event unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("deferringTokenFromEvent:"), event)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/invalidate
 func (s SLSRemoteViewEventClient) Invalidate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/sendEventToHost:fullDispatch:reply:
 func (s SLSRemoteViewEventClient) SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler) {
 	_block2, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](s.ID, objc.Sel("sendEventToHost:fullDispatch:reply:"), host, dispatch, _block2)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/servicePassEventUpstreamToHost:fullDispatch:reply:
-func (s SLSRemoteViewEventClient) ServicePassEventUpstreamToHostFullDispatchReply(host objectivec.IObject, dispatch bool, reply VoidHandler) {
+func (s SLSRemoteViewEventClient) ServicePassEventUpstreamToHostFullDispatchReply(host unsafe.Pointer, dispatch bool, reply VoidHandler) {
 	_block2, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](s.ID, objc.Sel("servicePassEventUpstreamToHost:fullDispatch:reply:"), host, dispatch, _block2)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/setDeferringToken:andEnvironment:inEvent:
-func (s SLSRemoteViewEventClient) SetDeferringTokenAndEnvironmentInEvent(token objectivec.IObject, environment objectivec.IObject, event objectivec.IObject) {
+func (s SLSRemoteViewEventClient) SetDeferringTokenAndEnvironmentInEvent(token objectivec.IObject, environment objectivec.IObject, event unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setDeferringToken:andEnvironment:inEvent:"), token, environment, event)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/initWithConfig:
 func (s SLSRemoteViewEventClient) InitWithConfig(config objectivec.IObject) SLSRemoteViewEventClient {
 	rv := objc.Send[SLSRemoteViewEventClient](s.ID, objc.Sel("initWithConfig:"), config)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/possibleEventDescriptorForVirtualKeyCode:
 func (_SLSRemoteViewEventClientClass SLSRemoteViewEventClientClass) PossibleEventDescriptorForVirtualKeyCode(code uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSRemoteViewEventClientClass.class), objc.Sel("possibleEventDescriptorForVirtualKeyCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/sharedInstance
 func (_SLSRemoteViewEventClientClass SLSRemoteViewEventClientClass) SharedInstance() SLSRemoteViewEventClient {
 	rv := objc.Send[objc.ID](objc.ID(_SLSRemoteViewEventClientClass.class), objc.Sel("sharedInstance"))
 	return SLSRemoteViewEventClientFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/debugDescription
 func (s SLSRemoteViewEventClient) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/delegate
-func (s SLSRemoteViewEventClient) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
+func (s SLSRemoteViewEventClient) Delegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	return rv
 }
-func (s SLSRemoteViewEventClient) SetDelegate(value objectivec.IObject) {
+func (s SLSRemoteViewEventClient) SetDelegate(value kernel.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/description
 func (s SLSRemoteViewEventClient) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/hash
 func (s SLSRemoteViewEventClient) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSRemoteViewEventClient/superclass
-func (s SLSRemoteViewEventClient) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
-	return rv
+func (s SLSRemoteViewEventClient) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
 
 // ActivateWithHandlerInvalidationHandlerSync is a synchronous wrapper around [SLSRemoteViewEventClient.ActivateWithHandlerInvalidationHandler].
@@ -265,7 +235,7 @@ func (s SLSRemoteViewEventClient) SendEventToHostFullDispatchReplySync(ctx conte
 
 // ServicePassEventUpstreamToHostFullDispatchReplySync is a synchronous wrapper around [SLSRemoteViewEventClient.ServicePassEventUpstreamToHostFullDispatchReply].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLSRemoteViewEventClient) ServicePassEventUpstreamToHostFullDispatchReplySync(ctx context.Context, host objectivec.IObject, dispatch bool) error {
+func (s SLSRemoteViewEventClient) ServicePassEventUpstreamToHostFullDispatchReplySync(ctx context.Context, host unsafe.Pointer, dispatch bool) error {
 	done := make(chan struct{}, 1)
 	s.ServicePassEventUpstreamToHostFullDispatchReply(host, dispatch, func() {
 		done <- struct{}{}

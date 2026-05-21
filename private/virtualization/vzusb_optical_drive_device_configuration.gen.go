@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,10 +47,7 @@ func (vc VZUSBOpticalDriveDeviceConfigurationClass) Alloc() VZUSBOpticalDriveDev
 // # Methods
 //
 //   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
-//   - [VZUSBOpticalDriveDeviceConfiguration.EncodeWithEncoder]
 //   - [VZUSBOpticalDriveDeviceConfiguration.InitWithAttachment]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration
 type VZUSBOpticalDriveDeviceConfiguration struct {
 	VZStorageDeviceConfiguration
 }
@@ -67,17 +65,13 @@ var _ IVZUSBOpticalDriveDeviceConfiguration = VZUSBOpticalDriveDeviceConfigurati
 // # Methods
 //
 //   - [IVZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
-//   - [IVZUSBOpticalDriveDeviceConfiguration.EncodeWithEncoder]
 //   - [IVZUSBOpticalDriveDeviceConfiguration.InitWithAttachment]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration
 type IVZUSBOpticalDriveDeviceConfiguration interface {
 	IVZStorageDeviceConfiguration
 
 	// Topic: Methods
 
-	_getStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session DispatchGroupSession, handler ErrorHandler)
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
+	_getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler)
 	InitWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration
 }
 
@@ -100,21 +94,19 @@ func NewVZUSBOpticalDriveDeviceConfiguration() VZUSBOpticalDriveDeviceConfigurat
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/initWithAttachment:
 func NewVZUSBOpticalDriveDeviceConfigurationWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration {
 	instance := getVZUSBOpticalDriveDeviceConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttachment:"), attachment)
 	return VZUSBOpticalDriveDeviceConfigurationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/_getStorageDeviceWithQueue:session:completionHandler:
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session DispatchGroupSession, handler ErrorHandler) {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"), queue, session, _block2)
+	objc.Send[objc.ID](v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"), uintptr(queue.Handle()), session, _block2)
 }
 
 // GetStorageDeviceWithQueueSessionCompletionHandler is an exported wrapper for the private method _getStorageDeviceWithQueueSessionCompletionHandler.
-func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session DispatchGroupSession, handler ErrorHandler) error {
+func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler) error {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_getStorageDeviceWithQueue:session:completionHandler:"}
 		return err
@@ -127,14 +119,6 @@ func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCo
 func (v VZUSBOpticalDriveDeviceConfiguration) CanGetStorageDeviceWithQueueSessionCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"))
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/encodeWithEncoder:
-func (v VZUSBOpticalDriveDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/initWithAttachment:
 func (v VZUSBOpticalDriveDeviceConfiguration) InitWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration {
 	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:"), attachment)
 	return rv
@@ -142,7 +126,7 @@ func (v VZUSBOpticalDriveDeviceConfiguration) InitWithAttachment(attachment obje
 
 // _getStorageDeviceWithQueueSession is a synchronous wrapper around [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue DispatchQueue, session DispatchGroupSession) error {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue dispatch.Queue, session DispatchGroupSession) error {
 	done := make(chan error, 1)
 	v._getStorageDeviceWithQueueSessionCompletionHandler(queue, session, func(err error) {
 		done <- err

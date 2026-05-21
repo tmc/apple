@@ -58,8 +58,6 @@ func (gc GTMioCounterDataPerDMClass) Alloc() GTMioCounterDataPerDM {
 //   - [GTMioCounterDataPerDM.ScopeIndex]
 //   - [GTMioCounterDataPerDM.Values]
 //   - [GTMioCounterDataPerDM.InitWithContainerIndexDataMasterScopeScopeIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM
 type GTMioCounterDataPerDM struct {
 	objectivec.Object
 }
@@ -88,8 +86,6 @@ var _ IGTMioCounterDataPerDM = GTMioCounterDataPerDM{}
 //   - [IGTMioCounterDataPerDM.ScopeIndex]
 //   - [IGTMioCounterDataPerDM.Values]
 //   - [IGTMioCounterDataPerDM.InitWithContainerIndexDataMasterScopeScopeIndex]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM
 type IGTMioCounterDataPerDM interface {
 	objectivec.IObject
 
@@ -128,14 +124,12 @@ func NewGTMioCounterDataPerDM() GTMioCounterDataPerDM {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/initWithContainer:index:dataMaster:scope:scopeIndex:
 func NewGTMioCounterDataPerDMWithContainerIndexDataMasterScopeScopeIndex(container unsafe.Pointer, index uint64, master uint16, scope uint16, index2 uint64) GTMioCounterDataPerDM {
 	instance := getGTMioCounterDataPerDMClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
 	return GTMioCounterDataPerDMFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/_cacheValues
 func (g GTMioCounterDataPerDM) _cacheValues() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_cacheValues"))
 }
@@ -154,68 +148,47 @@ func (g GTMioCounterDataPerDM) CacheValues() error {
 func (g GTMioCounterDataPerDM) CanCacheValues() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheValues"))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/initWithContainer:index:dataMaster:scope:scopeIndex:
 func (g GTMioCounterDataPerDM) InitWithContainerIndexDataMasterScopeScopeIndex(container unsafe.Pointer, index uint64, master uint16, scope uint16, index2 uint64) GTMioCounterDataPerDM {
 	rv := objc.Send[GTMioCounterDataPerDM](g.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/counterIndex
 func (g GTMioCounterDataPerDM) CounterIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("counterIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/dataMaster
 func (g GTMioCounterDataPerDM) DataMaster() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("dataMaster"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/maxValue
 func (g GTMioCounterDataPerDM) MaxValue() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("maxValue"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/minValue
 func (g GTMioCounterDataPerDM) MinValue() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("minValue"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/name
 func (g GTMioCounterDataPerDM) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/originalName
 func (g GTMioCounterDataPerDM) OriginalName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("originalName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/sampleCount
 func (g GTMioCounterDataPerDM) SampleCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("sampleCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/scope
 func (g GTMioCounterDataPerDM) Scope() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("scope"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/scopeIndex
 func (g GTMioCounterDataPerDM) ScopeIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("scopeIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/values
 func (g GTMioCounterDataPerDM) Values() []float64 {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("values"))
 	return objc.ConvertSlice(rv, func(id objc.ID) float64 {

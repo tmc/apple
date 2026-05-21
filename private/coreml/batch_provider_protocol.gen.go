@@ -8,14 +8,10 @@ import (
 )
 
 // MLBatchProvider protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider
 type MLBatchProvider interface {
 	objectivec.IObject
 
 	// Count protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
 	Count() int64
 }
 
@@ -36,13 +32,10 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
 func (o MLBatchProviderObject) Count() int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("count"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/featuresAtIndex:
 func (o MLBatchProviderObject) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}

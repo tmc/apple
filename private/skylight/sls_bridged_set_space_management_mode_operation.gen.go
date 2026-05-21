@@ -46,8 +46,6 @@ func (sc SLSBridgedSetSpaceManagementModeOperationClass) Alloc() SLSBridgedSetSp
 //
 //   - [SLSBridgedSetSpaceManagementModeOperation.Mode]
 //   - [SLSBridgedSetSpaceManagementModeOperation.InitWithMode]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation
 type SLSBridgedSetSpaceManagementModeOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedSetSpaceManagementModeOperation = SLSBridgedSetSpaceManagementM
 //
 //   - [ISLSBridgedSetSpaceManagementModeOperation.Mode]
 //   - [ISLSBridgedSetSpaceManagementModeOperation.InitWithMode]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation
 type ISLSBridgedSetSpaceManagementModeOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedSetSpaceManagementModeOperation() SLSBridgedSetSpaceManagement
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation/initWithCoder:
 func NewSLSBridgedSetSpaceManagementModeOperationWithCoder(coder objectivec.IObject) SLSBridgedSetSpaceManagementModeOperation {
 	instance := getSLSBridgedSetSpaceManagementModeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSetSpaceManagementModeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation/initWithMode:
 func NewSLSBridgedSetSpaceManagementModeOperationWithMode(mode uint64) SLSBridgedSetSpaceManagementModeOperation {
 	instance := getSLSBridgedSetSpaceManagementModeOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
 	return SLSBridgedSetSpaceManagementModeOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation/initWithMode:
 func (s SLSBridgedSetSpaceManagementModeOperation) InitWithMode(mode uint64) SLSBridgedSetSpaceManagementModeOperation {
 	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("initWithMode:"), mode)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSetSpaceManagementModeOperation/mode
 func (s SLSBridgedSetSpaceManagementModeOperation) Mode() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("mode"))
 	return rv

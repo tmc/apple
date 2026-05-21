@@ -41,7 +41,6 @@ func (ec EspressoPassCompressSegmentsClass) Alloc() EspressoPassCompressSegments
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_compress_segments
 type EspressoPassCompressSegments struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_compress_segmentsFromID(id objc.ID) EspressoPassCompressSegmen
 var _ IEspressoPassCompressSegments = EspressoPassCompressSegments{}
 
 // An interface definition for the [EspressoPassCompressSegments] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_compress_segments
 type IEspressoPassCompressSegments interface {
 	IEspressoCustomPass
 }

@@ -56,8 +56,6 @@ func (mc MLLayerExecutionScheduleClass) Alloc() MLLayerExecutionSchedule {
 //   - [MLLayerExecutionSchedule.InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex]
 //   - [MLLayerExecutionSchedule.InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio]
 //   - [MLLayerExecutionSchedule.InitWithLayerError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule
 type MLLayerExecutionSchedule struct {
 	objectivec.Object
 }
@@ -85,8 +83,6 @@ var _ IMLLayerExecutionSchedule = MLLayerExecutionSchedule{}
 //   - [IMLLayerExecutionSchedule.InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex]
 //   - [IMLLayerExecutionSchedule.InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio]
 //   - [IMLLayerExecutionSchedule.InitWithLayerError]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule
 type IMLLayerExecutionSchedule interface {
 	objectivec.IObject
 
@@ -124,88 +120,65 @@ func NewMLLayerExecutionSchedule() MLLayerExecutionSchedule {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:
 func NewLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:"), units, name, error_, name2, units2, index)
 	return MLLayerExecutionScheduleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:supportMessages:computeTimeRatio:
 func NewLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64, messages objectivec.IObject, ratio float64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:supportMessages:computeTimeRatio:"), units, name, error_, name2, units2, index, messages, ratio)
 	return MLLayerExecutionScheduleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithLayerError:
 func NewLayerExecutionScheduleWithLayerError(error_ int64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayerError:"), error_)
 	return MLLayerExecutionScheduleFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:
 func (m MLLayerExecutionSchedule) InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64) MLLayerExecutionSchedule {
 	rv := objc.Send[MLLayerExecutionSchedule](m.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:"), units, name, error_, name2, units2, index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:supportMessages:computeTimeRatio:
 func (m MLLayerExecutionSchedule) InitWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64, messages objectivec.IObject, ratio float64) MLLayerExecutionSchedule {
 	rv := objc.Send[MLLayerExecutionSchedule](m.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:supportMessages:computeTimeRatio:"), units, name, error_, name2, units2, index, messages, ratio)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/initWithLayerError:
 func (m MLLayerExecutionSchedule) InitWithLayerError(error_ int64) MLLayerExecutionSchedule {
 	rv := objc.Send[MLLayerExecutionSchedule](m.ID, objc.Sel("initWithLayerError:"), error_)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/computeTimeRatio
 func (m MLLayerExecutionSchedule) ComputeTimeRatio() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("computeTimeRatio"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/layerError
 func (m MLLayerExecutionSchedule) LayerError() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("layerError"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/layerIndex
 func (m MLLayerExecutionSchedule) LayerIndex() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("layerIndex"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/layerName
 func (m MLLayerExecutionSchedule) LayerName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/layerTypeName
 func (m MLLayerExecutionSchedule) LayerTypeName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("layerTypeName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/preferredComputeUnit
 func (m MLLayerExecutionSchedule) PreferredComputeUnit() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("preferredComputeUnit"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/supportMessagesPerComputeUnit
 func (m MLLayerExecutionSchedule) SupportMessagesPerComputeUnit() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportMessagesPerComputeUnit"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLayerExecutionSchedule/supportedComputeUnits
 func (m MLLayerExecutionSchedule) SupportedComputeUnits() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("supportedComputeUnits"))
 	return rv

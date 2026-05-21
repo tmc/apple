@@ -43,7 +43,6 @@ func (tc TTSSiriAssetManagerClass) Alloc() TTSSiriAssetManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager
 type TTSSiriAssetManager struct {
 	objectivec.Object
 }
@@ -57,8 +56,6 @@ func TTSSiriAssetManagerFromID(id objc.ID) TTSSiriAssetManager {
 var _ ITTSSiriAssetManager = TTSSiriAssetManager{}
 
 // An interface definition for the [TTSSiriAssetManager] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager
 type ITTSSiriAssetManager interface {
 	objectivec.IObject
 }
@@ -82,7 +79,6 @@ func NewTTSSiriAssetManager() TTSSiriAssetManager {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"), language, gender, footprint, name, type_, available)
 	return objectivec.Object{ID: rv}
@@ -101,8 +97,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetFilterForLanguage
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetTechnologyForVoiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetTechnologyForVoiceType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTechnologyForVoiceType:"), type_)
 	return objectivec.Object{ID: rv}
@@ -121,8 +115,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTechnologyForVoic
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetTechnologyForVoiceType() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTechnologyForVoiceType:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetTypesForVoiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetTypesForVoiceType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTypesForVoiceType:"), type_)
 	return objectivec.Object{ID: rv}
@@ -141,8 +133,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTypesForVoiceType
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetTypesForVoiceType() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTypesForVoiceType:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetsForLanguage:voiceType:installedOnly:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetsForLanguageVoiceTypeInstalledOnly(language objectivec.IObject, type_ int64, only bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetsForLanguage:voiceType:installedOnly:"), language, type_, only)
 	return objectivec.Object{ID: rv}
@@ -161,8 +151,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetsForLanguageVoice
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetsForLanguageVoiceTypeInstalledOnly() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetsForLanguage:voiceType:installedOnly:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_footprintForQuality:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _footprintForQuality(quality objectivec.IObject) int64 {
 	rv := objc.Send[int64](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForQuality:"), quality)
 	return rv
@@ -181,8 +169,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForQuality(qu
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanFootprintForQuality() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForQuality:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_footprintForType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _footprintForType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForType:"), type_)
 	return objectivec.Object{ID: rv}
@@ -201,8 +187,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForType(type_
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanFootprintForType() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForType:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_siriAssetForLanguage:gender:footprint:voiceName:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _siriAssetForLanguageGenderFootprintVoiceNameVoiceType(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:"), language, gender, footprint, name, type_)
 	return objectivec.Object{ID: rv}
@@ -221,8 +205,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGe
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceType() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _siriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"), language, gender, footprint, name, type_, available)
 	return objectivec.Object{ID: rv}
@@ -241,8 +223,6 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGe
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_voiceTypeForAssetTechnology:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _voiceTypeForAssetTechnology(technology objectivec.IObject) int64 {
 	rv := objc.Send[int64](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_voiceTypeForAssetTechnology:"), technology)
 	return rv
@@ -261,102 +241,68 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceTypeForAssetTechn
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanVoiceTypeForAssetTechnology() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_voiceTypeForAssetTechnology:"))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/assetForLanguage:gender:footprint:voiceName:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetForLanguageGenderFootprintVoiceNameVoiceType(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("assetForLanguage:gender:footprint:voiceName:voiceType:"), language, gender, footprint, name, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/assetsForLanguage:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetsForLanguageVoiceType(language objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("assetsForLanguage:voiceType:"), language, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/convertTTSLanguageCodeToSiriLanguageCode:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) ConvertTTSLanguageCodeToSiriLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("convertTTSLanguageCodeToSiriLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/deprecatedVoicesMap
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DeprecatedVoicesMap() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("deprecatedVoicesMap"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/downloadAsset:progressHandler:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DownloadAssetProgressHandler(asset objectivec.IObject, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("downloadAsset:progressHandler:"), asset, _block1)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/downloadVoiceResourceForLanguage:completion:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DownloadVoiceResourceForLanguageCompletion(language objectivec.IObject, completion VoidHandler) {
 	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("downloadVoiceResourceForLanguage:completion:"), language, _block1)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/installedAssetForLanguage:gender:footprint:voiceName:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) InstalledAssetForLanguageGenderFootprintVoiceNameVoiceType(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("installedAssetForLanguage:gender:footprint:voiceName:voiceType:"), language, gender, footprint, name, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/installedAssetsForLanguage:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) InstalledAssetsForLanguageVoiceType(language objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("installedAssetsForLanguage:voiceType:"), language, type_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/installedVoiceResourceForLanguage:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) InstalledVoiceResourceForLanguage(language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("installedVoiceResourceForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/purgeAsset:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) PurgeAsset(asset objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("purgeAsset:"), asset)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/spaceCheck:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SpaceCheck(check objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("spaceCheck:"), check)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/stopDownload:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) StopDownload(download objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("stopDownload:"), download)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/ttsAssetFromVoiceAsset:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) TtsAssetFromVoiceAsset(asset objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("ttsAssetFromVoiceAsset:"), asset)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/voiceAssetFromTTSAsset:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceAssetFromTTSAsset(tTSAsset objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("voiceAssetFromTTSAsset:"), tTSAsset)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/voiceIdentifierForAsset:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceIdentifierForAsset(asset objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("voiceIdentifierForAsset:"), asset)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/voiceIdentifierForType:footprint:language:name:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceIdentifierForTypeFootprintLanguageName(type_ int64, footprint int64, language objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("voiceIdentifierForType:footprint:language:name:"), type_, footprint, language, name)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/voiceResourceForLanguage:voiceType:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceResourceForLanguageVoiceType(language objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("voiceResourceForLanguage:voiceType:"), language, type_)
 	return objectivec.Object{ID: rv}

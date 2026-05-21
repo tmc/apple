@@ -42,7 +42,6 @@ func (tc TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerClass) Allo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler
 type TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerFromID(id objc.
 // ITtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler
 type ITtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler interface {
 	objectivec.IObject
 }

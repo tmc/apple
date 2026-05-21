@@ -8,8 +8,6 @@ import (
 )
 
 // MLPipeline protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPipeline
 type MLPipelineProtocol interface {
 	objectivec.IObject
 }
@@ -31,13 +29,10 @@ func MLPipelineProtocolObjectFromID(id objc.ID) MLPipelineProtocolObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPipeline/modelNames
 func (o MLPipelineProtocolObject) ModelNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelNames"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPipeline/models
 func (o MLPipelineProtocolObject) Models() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("models"))
 	return objectivec.Object{ID: rv}

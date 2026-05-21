@@ -42,7 +42,6 @@ func (tc TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverr
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache
 type TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideC
 // ITtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache
 type ITtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache interface {
 	objectivec.IObject
 }

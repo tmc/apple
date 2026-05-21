@@ -78,8 +78,6 @@ func (gc GTShaderProfilerBinaryAnalysisResultClass) Alloc() GTShaderProfilerBina
 //   - [GTShaderProfilerBinaryAnalysisResult.StringAtIndex]
 //   - [GTShaderProfilerBinaryAnalysisResult.InitWithCoder]
 //   - [GTShaderProfilerBinaryAnalysisResult.Version]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult
 type GTShaderProfilerBinaryAnalysisResult struct {
 	objectivec.Object
 }
@@ -128,8 +126,6 @@ var _ IGTShaderProfilerBinaryAnalysisResult = GTShaderProfilerBinaryAnalysisResu
 //   - [IGTShaderProfilerBinaryAnalysisResult.StringAtIndex]
 //   - [IGTShaderProfilerBinaryAnalysisResult.InitWithCoder]
 //   - [IGTShaderProfilerBinaryAnalysisResult.Version]
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult
 type IGTShaderProfilerBinaryAnalysisResult interface {
 	objectivec.IObject
 
@@ -137,20 +133,20 @@ type IGTShaderProfilerBinaryAnalysisResult interface {
 
 	BinaryInfo() unsafe.Pointer
 	BinaryLocationCount() uint64
-	BinaryLocationData() foundation.INSData
+	BinaryLocationData() foundation.NSData
 	BinaryLocations() objectivec.IObject
 	BinaryRangeCount() uint64
-	BinaryRangeData() foundation.INSData
+	BinaryRangeData() foundation.NSData
 	BinaryRanges() objectivec.IObject
 	BranchTargetCount() uint64
-	BranchTargetData() foundation.INSData
+	BranchTargetData() foundation.NSData
 	BranchTargets() objectivec.IObject
 	ClauseCount() uint64
-	ClauseData() foundation.INSData
+	ClauseData() foundation.NSData
 	Clauses() objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 	InstructionCount() uint64
-	InstructionData() foundation.INSData
+	InstructionData() foundation.NSData
 	Instructions() objectivec.IObject
 	LastBinaryLocation() objectivec.IObject
 	LastBinaryRange() objectivec.IObject
@@ -161,7 +157,7 @@ type IGTShaderProfilerBinaryAnalysisResult interface {
 	MaxOffset() uint64
 	RegisterInfo() objectivec.IObject
 	RegisterInfoCount() uint64
-	RegisterInfoData() foundation.INSData
+	RegisterInfoData() foundation.NSData
 	RegisterInfoOffsetForInstructionIndex(index uint64) uint64
 	SetStrings(strings objectivec.IObject)
 	StringAtIndex(index uint64) objectivec.IObject
@@ -188,222 +184,152 @@ func NewGTShaderProfilerBinaryAnalysisResult() GTShaderProfilerBinaryAnalysisRes
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/initWithCoder:
 func NewGTShaderProfilerBinaryAnalysisResultWithCoder(coder objectivec.IObject) GTShaderProfilerBinaryAnalysisResult {
 	instance := getGTShaderProfilerBinaryAnalysisResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerBinaryAnalysisResultFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/encodeWithCoder:
 func (g GTShaderProfilerBinaryAnalysisResult) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/registerInfoOffsetForInstructionIndex:
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoOffsetForInstructionIndex(index uint64) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("registerInfoOffsetForInstructionIndex:"), index)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/setStrings:
 func (g GTShaderProfilerBinaryAnalysisResult) SetStrings(strings objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setStrings:"), strings)
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/stringAtIndex:
 func (g GTShaderProfilerBinaryAnalysisResult) StringAtIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/initWithCoder:
 func (g GTShaderProfilerBinaryAnalysisResult) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerBinaryAnalysisResult {
 	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/analyzeBinary:targetIndex:isaPrinter:
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) AnalyzeBinaryTargetIndexIsaPrinter(binary objectivec.IObject, index int, printer objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("analyzeBinary:targetIndex:isaPrinter:"), binary, index, printer)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/createWithAnalysisResult:
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) CreateWithAnalysisResult(result unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("createWithAnalysisResult:"), result)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/dataFromArchivedDataURL:
-func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) DataFromArchivedDataURL(url foundation.INSURL) objectivec.IObject {
+func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) DataFromArchivedDataURL(url foundation.NSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/supportsSecureCoding
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryInfo
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryInfo() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryInfo"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryLocationCount
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocationCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("binaryLocationCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryLocationData
-func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocationData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocationData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryLocationData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryLocations
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocations() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryLocations"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryRangeCount
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryRangeCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("binaryRangeCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryRangeData
-func (g GTShaderProfilerBinaryAnalysisResult) BinaryRangeData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) BinaryRangeData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRangeData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/binaryRanges
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryRanges() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRanges"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/branchTargetCount
 func (g GTShaderProfilerBinaryAnalysisResult) BranchTargetCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("branchTargetCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/branchTargetData
-func (g GTShaderProfilerBinaryAnalysisResult) BranchTargetData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) BranchTargetData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("branchTargetData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/branchTargets
 func (g GTShaderProfilerBinaryAnalysisResult) BranchTargets() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("branchTargets"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/clauseCount
 func (g GTShaderProfilerBinaryAnalysisResult) ClauseCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("clauseCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/clauseData
-func (g GTShaderProfilerBinaryAnalysisResult) ClauseData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) ClauseData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("clauseData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/clauses
 func (g GTShaderProfilerBinaryAnalysisResult) Clauses() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("clauses"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/instructionCount
 func (g GTShaderProfilerBinaryAnalysisResult) InstructionCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/instructionData
-func (g GTShaderProfilerBinaryAnalysisResult) InstructionData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) InstructionData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructionData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/instructions
 func (g GTShaderProfilerBinaryAnalysisResult) Instructions() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructions"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastBinaryLocation
 func (g GTShaderProfilerBinaryAnalysisResult) LastBinaryLocation() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBinaryLocation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastBinaryRange
 func (g GTShaderProfilerBinaryAnalysisResult) LastBinaryRange() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBinaryRange"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastBranchTarget
 func (g GTShaderProfilerBinaryAnalysisResult) LastBranchTarget() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBranchTarget"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastClause
 func (g GTShaderProfilerBinaryAnalysisResult) LastClause() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastClause"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastInstruction
 func (g GTShaderProfilerBinaryAnalysisResult) LastInstruction() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastInstruction"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/lastRegisterInfo
 func (g GTShaderProfilerBinaryAnalysisResult) LastRegisterInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastRegisterInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/maxOffset
 func (g GTShaderProfilerBinaryAnalysisResult) MaxOffset() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("maxOffset"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/registerInfo
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerInfo"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/registerInfoCount
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("registerInfoCount"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/registerInfoData
-func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoData() foundation.INSData {
+func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoData() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerBinaryAnalysisResult/version
 func (g GTShaderProfilerBinaryAnalysisResult) Version() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("version"))
 	return rv

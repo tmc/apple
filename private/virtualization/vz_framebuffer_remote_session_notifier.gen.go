@@ -42,7 +42,6 @@ func (vc VZFramebufferRemoteSessionNotifierClass) Alloc() VZFramebufferRemoteSes
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferRemoteSessionNotifier
 type VZFramebufferRemoteSessionNotifier struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func VZFramebufferRemoteSessionNotifierFromID(id objc.ID) VZFramebufferRemoteSes
 var _ IVZFramebufferRemoteSessionNotifier = VZFramebufferRemoteSessionNotifier{}
 
 // An interface definition for the [VZFramebufferRemoteSessionNotifier] class.
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferRemoteSessionNotifier
 type IVZFramebufferRemoteSessionNotifier interface {
 	objectivec.IObject
 }

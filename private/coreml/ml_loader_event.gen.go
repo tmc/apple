@@ -96,8 +96,6 @@ func (mc MLLoaderEventClass) Alloc() MLLoaderEvent {
 //   - [MLLoaderEvent.Description]
 //   - [MLLoaderEvent.Hash]
 //   - [MLLoaderEvent.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent
 type MLLoaderEvent struct {
 	objectivec.Object
 }
@@ -164,8 +162,6 @@ var _ IMLLoaderEvent = MLLoaderEvent{}
 //   - [IMLLoaderEvent.Description]
 //   - [IMLLoaderEvent.Hash]
 //   - [IMLLoaderEvent.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent
 type IMLLoaderEvent interface {
 	objectivec.IObject
 
@@ -220,7 +216,7 @@ type IMLLoaderEvent interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -242,18 +238,14 @@ func NewMLLoaderEvent() MLLoaderEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/extractAndSetModelDetailsFromArchive:
 func (m MLLoaderEvent) ExtractAndSetModelDetailsFromArchive(archive unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("extractAndSetModelDetailsFromArchive:"), archive)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/numberFromCString:
 func (m MLLoaderEvent) NumberFromCString(cString string) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("numberFromCString:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")))
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/bundleIdentifier
 func (m MLLoaderEvent) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -261,8 +253,6 @@ func (m MLLoaderEvent) BundleIdentifier() string {
 func (m MLLoaderEvent) SetBundleIdentifier(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/compilerVersion
 func (m MLLoaderEvent) CompilerVersion() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersion"))
 	return foundation.NSStringFromID(rv).String()
@@ -270,8 +260,6 @@ func (m MLLoaderEvent) CompilerVersion() string {
 func (m MLLoaderEvent) SetCompilerVersion(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/computeUnits
 func (m MLLoaderEvent) ComputeUnits() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeUnits"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -279,8 +267,6 @@ func (m MLLoaderEvent) ComputeUnits() foundation.NSNumber {
 func (m MLLoaderEvent) SetComputeUnits(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/containsCustomLayer
 func (m MLLoaderEvent) ContainsCustomLayer() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("containsCustomLayer"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -288,26 +274,18 @@ func (m MLLoaderEvent) ContainsCustomLayer() foundation.NSNumber {
 func (m MLLoaderEvent) SetContainsCustomLayer(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setContainsCustomLayer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/debugDescription
 func (m MLLoaderEvent) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/description
 func (m MLLoaderEvent) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/dictionaryRepresentation
 func (m MLLoaderEvent) DictionaryRepresentation() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/firstPartyExecutable
 func (m MLLoaderEvent) FirstPartyExecutable() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -315,14 +293,10 @@ func (m MLLoaderEvent) FirstPartyExecutable() foundation.NSNumber {
 func (m MLLoaderEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/hash
 func (m MLLoaderEvent) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelDimension
 func (m MLLoaderEvent) ModelDimension() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDimension"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -330,8 +304,6 @@ func (m MLLoaderEvent) ModelDimension() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelDimension(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDimension:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelEngineType
 func (m MLLoaderEvent) ModelEngineType() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelEngineType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -339,8 +311,6 @@ func (m MLLoaderEvent) ModelEngineType() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelEngineType(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelEngineType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelHash
 func (m MLLoaderEvent) ModelHash() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelHash"))
 	return foundation.NSStringFromID(rv).String()
@@ -348,8 +318,6 @@ func (m MLLoaderEvent) ModelHash() string {
 func (m MLLoaderEvent) SetModelHash(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelIsEncrypted
 func (m MLLoaderEvent) ModelIsEncrypted() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelIsEncrypted"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -357,8 +325,6 @@ func (m MLLoaderEvent) ModelIsEncrypted() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelIsEncrypted(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelLoadError
 func (m MLLoaderEvent) ModelLoadError() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -366,8 +332,6 @@ func (m MLLoaderEvent) ModelLoadError() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelLoadError(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelLoadError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelLoadTime
 func (m MLLoaderEvent) ModelLoadTime() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -375,8 +339,6 @@ func (m MLLoaderEvent) ModelLoadTime() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelLoadTime(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelLoadTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelName
 func (m MLLoaderEvent) ModelName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
@@ -384,8 +346,6 @@ func (m MLLoaderEvent) ModelName() string {
 func (m MLLoaderEvent) SetModelName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelOrigin
 func (m MLLoaderEvent) ModelOrigin() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelOrigin"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -393,8 +353,6 @@ func (m MLLoaderEvent) ModelOrigin() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelOrigin(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelProgramParsingError
 func (m MLLoaderEvent) ModelProgramParsingError() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelProgramParsingError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -402,8 +360,6 @@ func (m MLLoaderEvent) ModelProgramParsingError() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelProgramParsingError(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelProgramParsingError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelProgramValidationError
 func (m MLLoaderEvent) ModelProgramValidationError() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelProgramValidationError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -411,8 +367,6 @@ func (m MLLoaderEvent) ModelProgramValidationError() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelProgramValidationError(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelProgramValidationError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelType
 func (m MLLoaderEvent) ModelType() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -420,8 +374,6 @@ func (m MLLoaderEvent) ModelType() foundation.NSNumber {
 func (m MLLoaderEvent) SetModelType(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/modelVersion
 func (m MLLoaderEvent) ModelVersion() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersion"))
 	return foundation.NSStringFromID(rv).String()
@@ -429,14 +381,10 @@ func (m MLLoaderEvent) ModelVersion() string {
 func (m MLLoaderEvent) SetModelVersion(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/name
 func (m MLLoaderEvent) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/nnModelNetHash
 func (m MLLoaderEvent) NnModelNetHash() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelNetHash"))
 	return foundation.NSStringFromID(rv).String()
@@ -444,8 +392,6 @@ func (m MLLoaderEvent) NnModelNetHash() string {
 func (m MLLoaderEvent) SetNnModelNetHash(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNnModelNetHash:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/nnModelShapeHash
 func (m MLLoaderEvent) NnModelShapeHash() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelShapeHash"))
 	return foundation.NSStringFromID(rv).String()
@@ -453,8 +399,6 @@ func (m MLLoaderEvent) NnModelShapeHash() string {
 func (m MLLoaderEvent) SetNnModelShapeHash(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNnModelShapeHash:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/nnModelWeightsHash
 func (m MLLoaderEvent) NnModelWeightsHash() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelWeightsHash"))
 	return foundation.NSStringFromID(rv).String()
@@ -462,8 +406,6 @@ func (m MLLoaderEvent) NnModelWeightsHash() string {
 func (m MLLoaderEvent) SetNnModelWeightsHash(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNnModelWeightsHash:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/processName
 func (m MLLoaderEvent) ProcessName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("processName"))
 	return foundation.NSStringFromID(rv).String()
@@ -471,9 +413,7 @@ func (m MLLoaderEvent) ProcessName() string {
 func (m MLLoaderEvent) SetProcessName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setProcessName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLLoaderEvent/superclass
-func (m MLLoaderEvent) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLLoaderEvent) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

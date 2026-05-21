@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZVirtioMouseInputDeviceConfiguration] class.
@@ -42,11 +41,6 @@ func (vc VZVirtioMouseInputDeviceConfigurationClass) Alloc() VZVirtioMouseInputD
 	return rv
 }
 
-// # Methods
-//
-//   - [VZVirtioMouseInputDeviceConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioMouseInputDeviceConfiguration
 type VZVirtioMouseInputDeviceConfiguration struct {
 	VZPointingDeviceConfiguration
 }
@@ -60,18 +54,8 @@ func VZVirtioMouseInputDeviceConfigurationFromID(id objc.ID) VZVirtioMouseInputD
 var _ IVZVirtioMouseInputDeviceConfiguration = VZVirtioMouseInputDeviceConfiguration{}
 
 // An interface definition for the [VZVirtioMouseInputDeviceConfiguration] class.
-//
-// # Methods
-//
-//   - [IVZVirtioMouseInputDeviceConfiguration.EncodeWithEncoder]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioMouseInputDeviceConfiguration
 type IVZVirtioMouseInputDeviceConfiguration interface {
 	IVZPointingDeviceConfiguration
-
-	// Topic: Methods
-
-	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -91,10 +75,4 @@ func NewVZVirtioMouseInputDeviceConfiguration() VZVirtioMouseInputDeviceConfigur
 	class := getVZVirtioMouseInputDeviceConfigurationClass()
 	rv := objc.Send[VZVirtioMouseInputDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZVirtioMouseInputDeviceConfiguration/encodeWithEncoder:
-func (v VZVirtioMouseInputDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
-	return objectivec.Object{ID: rv}
 }

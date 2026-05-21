@@ -49,8 +49,6 @@ func (cc CGXConnectionBoxClass) Alloc() CGXConnectionBox {
 //   - [CGXConnectionBox.SetConnection]
 //   - [CGXConnectionBox.InvalidateBackreference]
 //   - [CGXConnectionBox.InitWithCGXConnection]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox
 type CGXConnectionBox struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ ICGXConnectionBox = CGXConnectionBox{}
 //   - [ICGXConnectionBox.SetConnection]
 //   - [ICGXConnectionBox.InvalidateBackreference]
 //   - [ICGXConnectionBox.InitWithCGXConnection]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox
 type ICGXConnectionBox interface {
 	objectivec.IObject
 
@@ -103,25 +99,20 @@ func NewCGXConnectionBox() CGXConnectionBox {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/initWithCGXConnection:
 func NewXConnectionBoxWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
 	instance := getCGXConnectionBoxClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return CGXConnectionBoxFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/invalidateBackreference
 func (c CGXConnectionBox) InvalidateBackreference() {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateBackreference"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/initWithCGXConnection:
 func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
 	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/connection
 func (c CGXConnectionBox) Connection() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connection"))
 	return rv

@@ -8,19 +8,13 @@ import (
 )
 
 // ECSLKeyEventAuthenticationMessage protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECSLKeyEventAuthenticationMessage
 type ECSLKeyEventAuthenticationMessage interface {
 	objectivec.IObject
 
 	// CharCode protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECSLKeyEventAuthenticationMessage/charCode
 	CharCode() uint16
 
 	// Repeat protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/ECSLKeyEventAuthenticationMessage/repeat
 	Repeat() int16
 }
 
@@ -41,13 +35,10 @@ func ECSLKeyEventAuthenticationMessageObjectFromID(id objc.ID) ECSLKeyEventAuthe
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECSLKeyEventAuthenticationMessage/charCode
 func (o ECSLKeyEventAuthenticationMessageObject) CharCode() uint16 {
 	rv := objc.Send[uint16](o.ID, objc.Sel("charCode"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECSLKeyEventAuthenticationMessage/repeat
 func (o ECSLKeyEventAuthenticationMessageObject) Repeat() int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("repeat"))
 	return rv

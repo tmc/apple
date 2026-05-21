@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -61,8 +62,6 @@ func (vc VoiceVerificationEndpointerClass) Alloc() VoiceVerificationEndpointer {
 //   - [VoiceVerificationEndpointer.Description]
 //   - [VoiceVerificationEndpointer.Hash]
 //   - [VoiceVerificationEndpointer.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer
 type VoiceVerificationEndpointer struct {
 	objectivec.Object
 }
@@ -95,14 +94,12 @@ var _ IVoiceVerificationEndpointer = VoiceVerificationEndpointer{}
 //   - [IVoiceVerificationEndpointer.Description]
 //   - [IVoiceVerificationEndpointer.Hash]
 //   - [IVoiceVerificationEndpointer.Superclass]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer
 type IVoiceVerificationEndpointer interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool
+	ConfigureWithASBDAndFrameRate(asbd coreaudiotypes.AudioStreamBasicDescription, rate uint32) bool
 	ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool
 	EndWaitTime() float64
 	SetEndWaitTime(value float64)
@@ -117,7 +114,7 @@ type IVoiceVerificationEndpointer interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -139,42 +136,30 @@ func NewVoiceVerificationEndpointer() VoiceVerificationEndpointer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/configureWithASBD:andFrameRate:
-func (v VoiceVerificationEndpointer) ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool {
+func (v VoiceVerificationEndpointer) ConfigureWithASBDAndFrameRate(asbd coreaudiotypes.AudioStreamBasicDescription, rate uint32) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/configureWithSampleRate:andFrameRate:
 func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/getStatus:
 func (v VoiceVerificationEndpointer) GetStatus(status AudioQueueBuffer) int {
 	rv := objc.Send[int](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/reset
 func (v VoiceVerificationEndpointer) Reset() {
 	objc.Send[objc.ID](v.ID, objc.Sel("reset"))
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/debugDescription
 func (v VoiceVerificationEndpointer) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/description
 func (v VoiceVerificationEndpointer) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/endWaitTime
 func (v VoiceVerificationEndpointer) EndWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("endWaitTime"))
 	return rv
@@ -182,8 +167,6 @@ func (v VoiceVerificationEndpointer) EndWaitTime() float64 {
 func (v VoiceVerificationEndpointer) SetEndWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEndWaitTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/endpointMode
 func (v VoiceVerificationEndpointer) EndpointMode() int {
 	rv := objc.Send[int](v.ID, objc.Sel("endpointMode"))
 	return rv
@@ -191,14 +174,10 @@ func (v VoiceVerificationEndpointer) EndpointMode() int {
 func (v VoiceVerificationEndpointer) SetEndpointMode(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEndpointMode:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/hash
 func (v VoiceVerificationEndpointer) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/interspeechWaitTime
 func (v VoiceVerificationEndpointer) InterspeechWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("interspeechWaitTime"))
 	return rv
@@ -206,8 +185,6 @@ func (v VoiceVerificationEndpointer) InterspeechWaitTime() float64 {
 func (v VoiceVerificationEndpointer) SetInterspeechWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setInterspeechWaitTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/startWaitTime
 func (v VoiceVerificationEndpointer) StartWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("startWaitTime"))
 	return rv
@@ -215,9 +192,7 @@ func (v VoiceVerificationEndpointer) StartWaitTime() float64 {
 func (v VoiceVerificationEndpointer) SetStartWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStartWaitTime:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/superclass
-func (v VoiceVerificationEndpointer) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
-	return rv
+func (v VoiceVerificationEndpointer) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

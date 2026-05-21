@@ -46,8 +46,6 @@ func (cc CPXKeyboardEventDestinationGeneratorClass) Alloc() CPXKeyboardEventDest
 //
 //   - [CPXKeyboardEventDestinationGenerator.DestinationForEventContextTargetExtras]
 //   - [CPXKeyboardEventDestinationGenerator.InitWithDeliveryManagerFocusManagerSequenceTracker]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventDestinationGenerator
 type CPXKeyboardEventDestinationGenerator struct {
 	objectivec.Object
 }
@@ -66,8 +64,6 @@ var _ ICPXKeyboardEventDestinationGenerator = CPXKeyboardEventDestinationGenerat
 //
 //   - [ICPXKeyboardEventDestinationGenerator.DestinationForEventContextTargetExtras]
 //   - [ICPXKeyboardEventDestinationGenerator.InitWithDeliveryManagerFocusManagerSequenceTracker]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventDestinationGenerator
 type ICPXKeyboardEventDestinationGenerator interface {
 	objectivec.IObject
 
@@ -96,20 +92,16 @@ func NewCPXKeyboardEventDestinationGenerator() CPXKeyboardEventDestinationGenera
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventDestinationGenerator/initWithDeliveryManager:focusManager:sequenceTracker:
 func NewCPXKeyboardEventDestinationGeneratorWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator {
 	instance := getCPXKeyboardEventDestinationGeneratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
 	return CPXKeyboardEventDestinationGeneratorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventDestinationGenerator/destinationForEvent:contextTarget:extras:
 func (c CPXKeyboardEventDestinationGenerator) DestinationForEventContextTargetExtras(event SLSEventRecord, target CPSProcessRec, extras []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:contextTarget:extras:"), event, target, objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventDestinationGenerator/initWithDeliveryManager:focusManager:sequenceTracker:
 func (c CPXKeyboardEventDestinationGenerator) InitWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator {
 	rv := objc.Send[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
 	return rv

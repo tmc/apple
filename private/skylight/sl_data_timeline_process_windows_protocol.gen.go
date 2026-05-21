@@ -8,29 +8,19 @@ import (
 )
 
 // SLDataTimelineProcessWindows protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows
 type SLDataTimelineProcessWindows interface {
 	objectivec.IObject
 
 	// OffScreen protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/offScreen
 	OffScreen() uint64
 
 	// OnScreenOccluded protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/onScreenOccluded
 	OnScreenOccluded() uint64
 
 	// OnScreenVisible protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/onScreenVisible
 	OnScreenVisible() uint64
 
 	// OrderedOut protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/orderedOut
 	OrderedOut() uint64
 }
 
@@ -51,25 +41,18 @@ func SLDataTimelineProcessWindowsObjectFromID(id objc.ID) SLDataTimelineProcessW
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/offScreen
 func (o SLDataTimelineProcessWindowsObject) OffScreen() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("offScreen"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/onScreenOccluded
 func (o SLDataTimelineProcessWindowsObject) OnScreenOccluded() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("onScreenOccluded"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/onScreenVisible
 func (o SLDataTimelineProcessWindowsObject) OnScreenVisible() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("onScreenVisible"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLDataTimelineProcessWindows/orderedOut
 func (o SLDataTimelineProcessWindowsObject) OrderedOut() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("orderedOut"))
 	return rv

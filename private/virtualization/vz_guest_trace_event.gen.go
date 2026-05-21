@@ -45,8 +45,6 @@ func (vc VZGuestTraceEventClass) Alloc() VZGuestTraceEvent {
 // # Methods
 //
 //   - [VZGuestTraceEvent._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGuestTraceEvent
 type VZGuestTraceEvent struct {
 	objectivec.Object
 }
@@ -64,8 +62,6 @@ var _ IVZGuestTraceEvent = VZGuestTraceEvent{}
 // # Methods
 //
 //   - [IVZGuestTraceEvent._init]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZGuestTraceEvent
 type IVZGuestTraceEvent interface {
 	objectivec.IObject
 
@@ -93,7 +89,6 @@ func NewVZGuestTraceEvent() VZGuestTraceEvent {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZGuestTraceEvent/_init
 func (v VZGuestTraceEvent) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}

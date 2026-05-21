@@ -57,8 +57,6 @@ func (mc MLClipBrickClass) Alloc() MLClipBrick {
 //   - [MLClipBrick.Description]
 //   - [MLClipBrick.Hash]
 //   - [MLClipBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick
 type MLClipBrick struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ IMLClipBrick = MLClipBrick{}
 //   - [IMLClipBrick.Description]
 //   - [IMLClipBrick.Hash]
 //   - [IMLClipBrick.Superclass]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick
 type IMLClipBrick interface {
 	objectivec.IObject
 
@@ -105,7 +101,7 @@ type IMLClipBrick interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -127,80 +123,57 @@ func NewMLClipBrick() MLClipBrick {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/initWithParameters:
 func NewClipBrickWithParameters(parameters objectivec.IObject) MLClipBrick {
 	instance := getMLClipBrickClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLClipBrickFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/computeOnCPUWithInputTensors:outputTensors:
 func (m MLClipBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/hasGPUSupport
 func (m MLClipBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/setupForInputShapes:withParameters:
 func (m MLClipBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/initWithParameters:
 func (m MLClipBrick) InitWithParameters(parameters objectivec.IObject) MLClipBrick {
 	rv := objc.Send[MLClipBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/debugDescription
 func (m MLClipBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/description
 func (m MLClipBrick) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/hash
 func (m MLClipBrick) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/inputRanks
 func (m MLClipBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/inputShapes
 func (m MLClipBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/outputRanks
 func (m MLClipBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/outputShapes
 func (m MLClipBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLClipBrick/superclass
-func (m MLClipBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
-	return rv
+func (m MLClipBrick) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

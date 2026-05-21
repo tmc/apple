@@ -51,8 +51,6 @@ func (tc TTSMatchedRuleReplacementClass) Alloc() TTSMatchedRuleReplacement {
 //   - [TTSMatchedRuleReplacement.SetReplacement]
 //   - [TTSMatchedRuleReplacement.RuleReplacement]
 //   - [TTSMatchedRuleReplacement.SetRuleReplacement]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement
 type TTSMatchedRuleReplacement struct {
 	objectivec.Object
 }
@@ -75,8 +73,6 @@ var _ ITTSMatchedRuleReplacement = TTSMatchedRuleReplacement{}
 //   - [ITTSMatchedRuleReplacement.SetReplacement]
 //   - [ITTSMatchedRuleReplacement.RuleReplacement]
 //   - [ITTSMatchedRuleReplacement.SetRuleReplacement]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement
 type ITTSMatchedRuleReplacement interface {
 	objectivec.IObject
 
@@ -109,7 +105,6 @@ func NewTTSMatchedRuleReplacement() TTSMatchedRuleReplacement {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement/match
 func (t TTSMatchedRuleReplacement) Match() ITTSRegexMatch {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("match"))
 	return TTSRegexMatchFromID(objc.ID(rv))
@@ -117,8 +112,6 @@ func (t TTSMatchedRuleReplacement) Match() ITTSRegexMatch {
 func (t TTSMatchedRuleReplacement) SetMatch(value ITTSRegexMatch) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMatch:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement/replacement
 func (t TTSMatchedRuleReplacement) Replacement() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()
@@ -126,8 +119,6 @@ func (t TTSMatchedRuleReplacement) Replacement() string {
 func (t TTSMatchedRuleReplacement) SetReplacement(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement/ruleReplacement
 func (t TTSMatchedRuleReplacement) RuleReplacement() ITTSRuleReplacement {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacement"))
 	return TTSRuleReplacementFromID(objc.ID(rv))

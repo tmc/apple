@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -71,8 +72,6 @@ func (ec ETDataTensorClass) Alloc() ETDataTensor {
 //   - [ETDataTensor.InitWithBlobContainerDirectBind]
 //   - [ETDataTensor.InitWithCVPixelBufferImageParametersError]
 //   - [ETDataTensor.InitWithDataTypeShapeStrides]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor
 type ETDataTensor struct {
 	objectivec.Object
 }
@@ -113,25 +112,23 @@ var _ IETDataTensor = ETDataTensor{}
 //   - [IETDataTensor.InitWithBlobContainerDirectBind]
 //   - [IETDataTensor.InitWithCVPixelBufferImageParametersError]
 //   - [IETDataTensor.InitWithDataTypeShapeStrides]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor
 type IETDataTensor interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	AllocatedImageData() objectivec.IObject
-	SetAllocatedImageData(value objectivec.IObject)
-	Blob() objectivec.IObject
-	SetBlob(value objectivec.IObject)
+	AllocatedImageData() unsafe.Pointer
+	SetAllocatedImageData(value kernel.Pointer)
+	Blob() unsafe.Pointer
+	SetBlob(value kernel.Pointer)
 	DataArray() foundation.INSArray
 	SetDataArray(value foundation.INSArray)
 	DataPointer() unsafe.Pointer
-	SetDataPointer(value unsafe.Pointer)
+	SetDataPointer(value kernel.Pointer)
 	Float_buffer() FloatBuffer
 	SetFloat_buffer(value FloatBuffer)
 	ImageBuffer() unsafe.Pointer
-	SetImageBuffer(value unsafe.Pointer)
+	SetImageBuffer(value kernel.Pointer)
 	MaxNumberOfElements() foundation.NSNumber
 	SetMaxNumberOfElements(value foundation.NSNumber)
 	Shape() foundation.INSArray
@@ -140,8 +137,8 @@ type IETDataTensor interface {
 	SetStrides(value foundation.INSArray)
 	Type() uint64
 	SetType(value uint64)
-	InitWithBlobContainer(container objectivec.IObject) ETDataTensor
-	InitWithBlobContainerDirectBind(container objectivec.IObject, bind bool) ETDataTensor
+	InitWithBlobContainer(container unsafe.Pointer) ETDataTensor
+	InitWithBlobContainerDirectBind(container unsafe.Pointer, bind bool) ETDataTensor
 	InitWithCVPixelBufferImageParametersError(buffer corevideo.CVImageBufferRef, parameters objectivec.IObject) (ETDataTensor, error)
 	InitWithDataTypeShapeStrides(data unsafe.Pointer, type_ uint64, shape objectivec.IObject, strides objectivec.IObject) ETDataTensor
 }
@@ -165,21 +162,18 @@ func NewETDataTensor() ETDataTensor {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithBlobContainer:
-func NewETDataTensorWithBlobContainer(container objectivec.IObject) ETDataTensor {
+func NewETDataTensorWithBlobContainer(container unsafe.Pointer) ETDataTensor {
 	instance := getETDataTensorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlobContainer:"), container)
 	return ETDataTensorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithBlobContainer:directBind:
-func NewETDataTensorWithBlobContainerDirectBind(container objectivec.IObject, bind bool) ETDataTensor {
+func NewETDataTensorWithBlobContainerDirectBind(container unsafe.Pointer, bind bool) ETDataTensor {
 	instance := getETDataTensorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlobContainer:directBind:"), container, bind)
 	return ETDataTensorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithCVPixelBuffer:imageParameters:error:
 func NewETDataTensorWithCVPixelBufferImageParametersError(buffer corevideo.CVImageBufferRef, parameters objectivec.IObject) (ETDataTensor, error) {
 	var errorPtr objc.ID
 	instance := getETDataTensorClass().Alloc()
@@ -191,26 +185,20 @@ func NewETDataTensorWithCVPixelBufferImageParametersError(buffer corevideo.CVIma
 	return ETDataTensorFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithData:type:shape:strides:
 func NewETDataTensorWithDataTypeShapeStrides(data unsafe.Pointer, type_ uint64, shape objectivec.IObject, strides objectivec.IObject) ETDataTensor {
 	instance := getETDataTensorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:type:shape:strides:"), data, type_, shape, strides)
 	return ETDataTensorFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithBlobContainer:
-func (e ETDataTensor) InitWithBlobContainer(container objectivec.IObject) ETDataTensor {
+func (e ETDataTensor) InitWithBlobContainer(container unsafe.Pointer) ETDataTensor {
 	rv := objc.Send[ETDataTensor](e.ID, objc.Sel("initWithBlobContainer:"), container)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithBlobContainer:directBind:
-func (e ETDataTensor) InitWithBlobContainerDirectBind(container objectivec.IObject, bind bool) ETDataTensor {
+func (e ETDataTensor) InitWithBlobContainerDirectBind(container unsafe.Pointer, bind bool) ETDataTensor {
 	rv := objc.Send[ETDataTensor](e.ID, objc.Sel("initWithBlobContainer:directBind:"), container, bind)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithCVPixelBuffer:imageParameters:error:
 func (e ETDataTensor) InitWithCVPixelBufferImageParametersError(buffer corevideo.CVImageBufferRef, parameters objectivec.IObject) (ETDataTensor, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithCVPixelBuffer:imageParameters:error:"), buffer, parameters, unsafe.Pointer(&errorPtr))
@@ -221,32 +209,25 @@ func (e ETDataTensor) InitWithCVPixelBufferImageParametersError(buffer corevideo
 	return ETDataTensorFromID(rv), nil
 
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/initWithData:type:shape:strides:
 func (e ETDataTensor) InitWithDataTypeShapeStrides(data unsafe.Pointer, type_ uint64, shape objectivec.IObject, strides objectivec.IObject) ETDataTensor {
 	rv := objc.Send[ETDataTensor](e.ID, objc.Sel("initWithData:type:shape:strides:"), data, type_, shape, strides)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/allocatedImageData
-func (e ETDataTensor) AllocatedImageData() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("allocatedImageData"))
-	return objectivec.Object{ID: rv}
+func (e ETDataTensor) AllocatedImageData() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("allocatedImageData"))
+	return rv
 }
-func (e ETDataTensor) SetAllocatedImageData(value objectivec.IObject) {
+func (e ETDataTensor) SetAllocatedImageData(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAllocatedImageData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/blob
-func (e ETDataTensor) Blob() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("blob"))
-	return objectivec.Object{ID: rv}
+func (e ETDataTensor) Blob() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blob"))
+	return rv
 }
-func (e ETDataTensor) SetBlob(value objectivec.IObject) {
+func (e ETDataTensor) SetBlob(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlob:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/dataArray
 func (e ETDataTensor) DataArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -254,17 +235,13 @@ func (e ETDataTensor) DataArray() foundation.INSArray {
 func (e ETDataTensor) SetDataArray(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataArray:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/dataPointer
 func (e ETDataTensor) DataPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataPointer"))
 	return rv
 }
-func (e ETDataTensor) SetDataPointer(value unsafe.Pointer) {
+func (e ETDataTensor) SetDataPointer(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataPointer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/float_buffer
 func (e ETDataTensor) Float_buffer() FloatBuffer {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("float_buffer"))
 	_ = rv
@@ -273,17 +250,13 @@ func (e ETDataTensor) Float_buffer() FloatBuffer {
 func (e ETDataTensor) SetFloat_buffer(value FloatBuffer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/imageBuffer
 func (e ETDataTensor) ImageBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("imageBuffer"))
 	return rv
 }
-func (e ETDataTensor) SetImageBuffer(value unsafe.Pointer) {
+func (e ETDataTensor) SetImageBuffer(value kernel.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageBuffer:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/maxNumberOfElements
 func (e ETDataTensor) MaxNumberOfElements() foundation.NSNumber {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("maxNumberOfElements"))
 	return foundation.NSNumberFromID(objc.ID(rv))
@@ -291,8 +264,6 @@ func (e ETDataTensor) MaxNumberOfElements() foundation.NSNumber {
 func (e ETDataTensor) SetMaxNumberOfElements(value foundation.NSNumber) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMaxNumberOfElements:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/shape
 func (e ETDataTensor) Shape() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("shape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -300,8 +271,6 @@ func (e ETDataTensor) Shape() foundation.INSArray {
 func (e ETDataTensor) SetShape(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setShape:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/strides
 func (e ETDataTensor) Strides() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("strides"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -309,8 +278,6 @@ func (e ETDataTensor) Strides() foundation.INSArray {
 func (e ETDataTensor) SetStrides(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setStrides:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETDataTensor/type
 func (e ETDataTensor) Type() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("type"))
 	return rv

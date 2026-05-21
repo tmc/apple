@@ -45,7 +45,6 @@ func (mc MLReporterUtilsClass) Alloc() MLReporterUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLReporterUtils
 type MLReporterUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLReporterUtilsFromID(id objc.ID) MLReporterUtils {
 var _ IMLReporterUtils = MLReporterUtils{}
 
 // An interface definition for the [MLReporterUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLReporterUtils
 type IMLReporterUtils interface {
 	objectivec.IObject
 }
@@ -84,7 +81,6 @@ func NewMLReporterUtils() MLReporterUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLReporterUtils/archiveModelDetails:withName:toArchive:error:
 func (_MLReporterUtilsClass MLReporterUtilsClass) ArchiveModelDetailsWithNameToArchiveError(details unsafe.Pointer, name unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLReporterUtilsClass.class), objc.Sel("archiveModelDetails:withName:toArchive:error:"), details, name, archive, unsafe.Pointer(&errorPtr))
@@ -98,8 +94,6 @@ func (_MLReporterUtilsClass MLReporterUtilsClass) ArchiveModelDetailsWithNameToA
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLReporterUtils/hashFileAt:error:
 func (_MLReporterUtilsClass MLReporterUtilsClass) HashFileAtError(at objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLReporterUtilsClass.class), objc.Sel("hashFileAt:error:"), at, unsafe.Pointer(&errorPtr))

@@ -48,8 +48,6 @@ func (sc SLSBridgedSpaceRemoveValuesForKeysOperationClass) Alloc() SLSBridgedSpa
 //   - [SLSBridgedSpaceRemoveValuesForKeysOperation.Keys]
 //   - [SLSBridgedSpaceRemoveValuesForKeysOperation.SpaceID]
 //   - [SLSBridgedSpaceRemoveValuesForKeysOperation.InitWithSpaceIDKeys]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation
 type SLSBridgedSpaceRemoveValuesForKeysOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedSpaceRemoveValuesForKeysOperation = SLSBridgedSpaceRemoveValues
 //   - [ISLSBridgedSpaceRemoveValuesForKeysOperation.Keys]
 //   - [ISLSBridgedSpaceRemoveValuesForKeysOperation.SpaceID]
 //   - [ISLSBridgedSpaceRemoveValuesForKeysOperation.InitWithSpaceIDKeys]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation
 type ISLSBridgedSpaceRemoveValuesForKeysOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedSpaceRemoveValuesForKeysOperation() SLSBridgedSpaceRemoveValue
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation/initWithCoder:
 func NewSLSBridgedSpaceRemoveValuesForKeysOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
 	instance := getSLSBridgedSpaceRemoveValuesForKeysOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceRemoveValuesForKeysOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation/initWithSpaceID:keys:
 func NewSLSBridgedSpaceRemoveValuesForKeysOperationWithSpaceIDKeys(id uint64, keys objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
 	instance := getSLSBridgedSpaceRemoveValuesForKeysOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
 	return SLSBridgedSpaceRemoveValuesForKeysOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation/initWithSpaceID:keys:
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) InitWithSpaceIDKeys(id uint64, keys objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
 	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation/keys
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) Keys() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("keys"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceRemoveValuesForKeysOperation/spaceID
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

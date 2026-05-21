@@ -45,7 +45,6 @@ func (mc MLProgramContainerClass) Alloc() MLProgramContainer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer
 type MLProgramContainer struct {
 	MLNeuralNetworkContainer
 }
@@ -59,8 +58,6 @@ func MLProgramContainerFromID(id objc.ID) MLProgramContainer {
 var _ IMLProgramContainer = MLProgramContainer{}
 
 // An interface definition for the [MLProgramContainer] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer
 type IMLProgramContainer interface {
 	IMLNeuralNetworkContainer
 }
@@ -84,52 +81,24 @@ func NewMLProgramContainer() MLProgramContainer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:
 func NewProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:
 func NewProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFilePath:inputLayerNames:outputLayerNames:parameters:
 func NewProgramContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLProgramContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer/loadProgramAtURL:error:
-func (_MLProgramContainerClass MLProgramContainerClass) LoadProgramAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLProgramContainerClass.class), objc.Sel("loadProgramAtURL:error:"), url, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return objectivec.Object{ID: rv}, nil
-
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer/loadProgramFromCompiledArchive:error:
-func (_MLProgramContainerClass MLProgramContainerClass) LoadProgramFromCompiledArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_MLProgramContainerClass.class), objc.Sel("loadProgramFromCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return objectivec.Object{ID: rv}, nil
-
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer/populateInputNameToShapeMap:fromContainer:forFunction:program:withValidation:error:
 func (_MLProgramContainerClass MLProgramContainerClass) PopulateInputNameToShapeMapFromContainerForFunctionProgramWithValidationError(map_ unsafe.Pointer, container objectivec.IObject, function unsafe.Pointer, program unsafe.Pointer, validation bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLProgramContainerClass.class), objc.Sel("populateInputNameToShapeMap:fromContainer:forFunction:program:withValidation:error:"), map_, container, function, program, validation, unsafe.Pointer(&errorPtr))
@@ -143,8 +112,6 @@ func (_MLProgramContainerClass MLProgramContainerClass) PopulateInputNameToShape
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLProgramContainer/updateOptionalDefaultValueParametersInContainer:usingProgram:functionName:modelDescription:
 func (_MLProgramContainerClass MLProgramContainerClass) UpdateOptionalDefaultValueParametersInContainerUsingProgramFunctionNameModelDescription(container objectivec.IObject, program unsafe.Pointer, name objectivec.IObject, description objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLProgramContainerClass.class), objc.Sel("updateOptionalDefaultValueParametersInContainer:usingProgram:functionName:modelDescription:"), container, program, name, description)
 }

@@ -42,7 +42,6 @@ func (cc CoreMLMLComputePlanClass) Alloc() CoreMLMLComputePlan {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLComputePlan
 type CoreMLMLComputePlan struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLMLComputePlanFromID(id objc.ID) CoreMLMLComputePlan {
 // ICoreMLMLComputePlan embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLMLComputePlan] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.MLComputePlan
 type ICoreMLMLComputePlan interface {
 	objectivec.IObject
 }

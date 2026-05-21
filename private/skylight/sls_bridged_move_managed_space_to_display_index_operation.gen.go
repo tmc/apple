@@ -49,8 +49,6 @@ func (sc SLSBridgedMoveManagedSpaceToDisplayIndexOperationClass) Alloc() SLSBrid
 //   - [SLSBridgedMoveManagedSpaceToDisplayIndexOperation.Index]
 //   - [SLSBridgedMoveManagedSpaceToDisplayIndexOperation.SpaceID]
 //   - [SLSBridgedMoveManagedSpaceToDisplayIndexOperation.InitWithSpaceIDDisplayIdentifierIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation
 type SLSBridgedMoveManagedSpaceToDisplayIndexOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -71,8 +69,6 @@ var _ ISLSBridgedMoveManagedSpaceToDisplayIndexOperation = SLSBridgedMoveManaged
 //   - [ISLSBridgedMoveManagedSpaceToDisplayIndexOperation.Index]
 //   - [ISLSBridgedMoveManagedSpaceToDisplayIndexOperation.SpaceID]
 //   - [ISLSBridgedMoveManagedSpaceToDisplayIndexOperation.InitWithSpaceIDDisplayIdentifierIndex]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation
 type ISLSBridgedMoveManagedSpaceToDisplayIndexOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -103,39 +99,31 @@ func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperation() SLSBridgedMoveManage
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/initWithCoder:
 func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperationWithCoder(coder objectivec.IObject) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	instance := getSLSBridgedMoveManagedSpaceToDisplayIndexOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedMoveManagedSpaceToDisplayIndexOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/initWithSpaceID:displayIdentifier:index:
 func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperationWithSpaceIDDisplayIdentifierIndex(id uint64, identifier objectivec.IObject, index uint32) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	instance := getSLSBridgedMoveManagedSpaceToDisplayIndexOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
 	return SLSBridgedMoveManagedSpaceToDisplayIndexOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/initWithSpaceID:displayIdentifier:index:
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) InitWithSpaceIDDisplayIdentifierIndex(id uint64, identifier objectivec.IObject, index uint32) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/displayIdentifier
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) DisplayIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/index
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) Index() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("index"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedMoveManagedSpaceToDisplayIndexOperation/spaceID
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv

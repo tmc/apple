@@ -48,8 +48,6 @@ func (sc SLSBridgedCopyBestManagedDisplayForPointOperationClass) Alloc() SLSBrid
 //   - [SLSBridgedCopyBestManagedDisplayForPointOperation.MakeResultWithString]
 //   - [SLSBridgedCopyBestManagedDisplayForPointOperation.Point]
 //   - [SLSBridgedCopyBestManagedDisplayForPointOperation.InitWithPoint]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation
 type SLSBridgedCopyBestManagedDisplayForPointOperation struct {
 	SLSSynchronousBridgedWindowManagementOperation
 }
@@ -69,8 +67,6 @@ var _ ISLSBridgedCopyBestManagedDisplayForPointOperation = SLSBridgedCopyBestMan
 //   - [ISLSBridgedCopyBestManagedDisplayForPointOperation.MakeResultWithString]
 //   - [ISLSBridgedCopyBestManagedDisplayForPointOperation.Point]
 //   - [ISLSBridgedCopyBestManagedDisplayForPointOperation.InitWithPoint]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation
 type ISLSBridgedCopyBestManagedDisplayForPointOperation interface {
 	ISLSSynchronousBridgedWindowManagementOperation
 
@@ -100,33 +96,27 @@ func NewSLSBridgedCopyBestManagedDisplayForPointOperation() SLSBridgedCopyBestMa
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation/initWithCoder:
 func NewSLSBridgedCopyBestManagedDisplayForPointOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyBestManagedDisplayForPointOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyBestManagedDisplayForPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation/initWithPoint:
 func NewSLSBridgedCopyBestManagedDisplayForPointOperationWithPoint(point corefoundation.CGPoint) SLSBridgedCopyBestManagedDisplayForPointOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForPointOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPoint:"), point)
 	return SLSBridgedCopyBestManagedDisplayForPointOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation/makeResultWithString:
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation/initWithPoint:
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) InitWithPoint(point corefoundation.CGPoint) SLSBridgedCopyBestManagedDisplayForPointOperation {
 	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("initWithPoint:"), point)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedCopyBestManagedDisplayForPointOperation/point
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) Point() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)

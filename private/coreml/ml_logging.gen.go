@@ -42,7 +42,6 @@ func (mc MLLoggingClass) Alloc() MLLogging {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLogging
 type MLLogging struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func MLLoggingFromID(id objc.ID) MLLogging {
 var _ IMLLogging = MLLogging{}
 
 // An interface definition for the [MLLogging] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLLogging
 type IMLLogging interface {
 	objectivec.IObject
 }
@@ -81,7 +78,6 @@ func NewMLLogging() MLLogging {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLLogging/coreChannel
 func (_MLLoggingClass MLLoggingClass) CoreChannel() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLoggingClass.class), objc.Sel("coreChannel"))
 	return objectivec.Object{ID: rv}

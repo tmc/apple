@@ -46,8 +46,6 @@ func (ac AVAudioEnvironmentDistanceAttenuationParametersClass) Alloc() AVAudioEn
 // # Methods
 //
 //   - [AVAudioEnvironmentDistanceAttenuationParameters.InitWithEnvironment]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters
 type AVAudioEnvironmentDistanceAttenuationParameters struct {
 	objectivec.Object
 }
@@ -65,8 +63,6 @@ var _ IAVAudioEnvironmentDistanceAttenuationParameters = AVAudioEnvironmentDista
 // # Methods
 //
 //   - [IAVAudioEnvironmentDistanceAttenuationParameters.InitWithEnvironment]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters
 type IAVAudioEnvironmentDistanceAttenuationParameters interface {
 	objectivec.IObject
 
@@ -94,14 +90,12 @@ func NewAVAudioEnvironmentDistanceAttenuationParameters() AVAudioEnvironmentDist
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/initWithEnvironment:
 func NewAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	instance := getAVAudioEnvironmentDistanceAttenuationParametersClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
 	return AVAudioEnvironmentDistanceAttenuationParametersFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/initWithEnvironment:
 func (a AVAudioEnvironmentDistanceAttenuationParameters) InitWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
 	return rv

@@ -48,10 +48,7 @@ func (dc DIOpenParamsClass) Alloc() DIOpenParams {
 //
 //   - [DIOpenParams.UIOOpenMode]
 //   - [DIOpenParams.OpenWithError]
-//   - [DIOpenParams.UnlockImageWithOpenParams]
 //   - [DIOpenParams.InitWithURLOpenModeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams
 type DIOpenParams struct {
 	DIBaseParams
 }
@@ -70,10 +67,7 @@ var _ IDIOpenParams = DIOpenParams{}
 //
 //   - [IDIOpenParams.UIOOpenMode]
 //   - [IDIOpenParams.OpenWithError]
-//   - [IDIOpenParams.UnlockImageWithOpenParams]
 //   - [IDIOpenParams.InitWithURLOpenModeError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams
 type IDIOpenParams interface {
 	IDIBaseParams
 
@@ -81,8 +75,7 @@ type IDIOpenParams interface {
 
 	UIOOpenMode() int
 	OpenWithError() (objectivec.IObject, error)
-	UnlockImageWithOpenParams(params unsafe.Pointer) objectivec.IObject
-	InitWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error)
+	InitWithURLOpenModeError(url foundation.NSURL, mode int64) (DIOpenParams, error)
 }
 
 // Init initializes the instance.
@@ -104,15 +97,13 @@ func NewDIOpenParams() DIOpenParams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIOpenParamsWithCoder(coder objectivec.IObject) DIOpenParams {
 	instance := getDIOpenParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIOpenParamsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
-func NewDIOpenParamsWithURLError(url foundation.INSURL) (DIOpenParams, error) {
+func NewDIOpenParamsWithURLError(url foundation.NSURL) (DIOpenParams, error) {
 	var errorPtr objc.ID
 	instance := getDIOpenParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -123,8 +114,7 @@ func NewDIOpenParamsWithURLError(url foundation.INSURL) (DIOpenParams, error) {
 	return DIOpenParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/initWithURL:openMode:error:
-func NewDIOpenParamsWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error) {
+func NewDIOpenParamsWithURLOpenModeError(url foundation.NSURL, mode int64) (DIOpenParams, error) {
 	var errorPtr objc.ID
 	instance := getDIOpenParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:error:"), url, mode, unsafe.Pointer(&errorPtr))
@@ -135,7 +125,6 @@ func NewDIOpenParamsWithURLOpenModeError(url foundation.INSURL, mode int64) (DIO
 	return DIOpenParamsFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/openWithError:
 func (d DIOpenParams) OpenWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("openWithError:"), unsafe.Pointer(&errorPtr))
@@ -146,15 +135,7 @@ func (d DIOpenParams) OpenWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/unlockImageWithOpenParams:
-func (d DIOpenParams) UnlockImageWithOpenParams(params unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("unlockImageWithOpenParams:"), params)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/initWithURL:openMode:error:
-func (d DIOpenParams) InitWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error) {
+func (d DIOpenParams) InitWithURLOpenModeError(url foundation.NSURL, mode int64) (DIOpenParams, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:openMode:error:"), url, mode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -165,7 +146,6 @@ func (d DIOpenParams) InitWithURLOpenModeError(url foundation.INSURL, mode int64
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/UIOOpenMode
 func (d DIOpenParams) UIOOpenMode() int {
 	rv := objc.Send[int](d.ID, objc.Sel("UIOOpenMode"))
 	return rv

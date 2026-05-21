@@ -42,7 +42,6 @@ func (sc SkyLightPresetHostShimClass) Alloc() SkyLightPresetHostShim {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PresetHostShim
 type SkyLightPresetHostShim struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SkyLightPresetHostShimFromID(id objc.ID) SkyLightPresetHostShim {
 // ISkyLightPresetHostShim embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [SkyLightPresetHostShim] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SkyLight.PresetHostShim
 type ISkyLightPresetHostShim interface {
 	objectivec.IObject
 }

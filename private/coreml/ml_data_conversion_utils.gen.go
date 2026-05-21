@@ -45,7 +45,6 @@ func (mc MLDataConversionUtilsClass) Alloc() MLDataConversionUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils
 type MLDataConversionUtils struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLDataConversionUtilsFromID(id objc.ID) MLDataConversionUtils {
 var _ IMLDataConversionUtils = MLDataConversionUtils{}
 
 // An interface definition for the [MLDataConversionUtils] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils
 type IMLDataConversionUtils interface {
 	objectivec.IObject
 }
@@ -84,7 +81,6 @@ func NewMLDataConversionUtils() MLDataConversionUtils {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/batchProviderFromEspressoDataProvider:neuralNetworkEngine:options:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) BatchProviderFromEspressoDataProviderNeuralNetworkEngineOptionsError(provider objectivec.IObject, engine objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("batchProviderFromEspressoDataProvider:neuralNetworkEngine:options:error:"), provider, engine, options, unsafe.Pointer(&errorPtr))
@@ -95,8 +91,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) BatchProviderFromE
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/batchProviderFromMLComputeDataProvider:neuralNetworkEngine:options:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) BatchProviderFromMLComputeDataProviderNeuralNetworkEngineOptionsError(provider objectivec.IObject, engine objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("batchProviderFromMLComputeDataProvider:neuralNetworkEngine:options:error:"), provider, engine, options, unsafe.Pointer(&errorPtr))
@@ -107,8 +101,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) BatchProviderFromM
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/espressoDataProviderFromBatchProvider:forPrediction:neuralNetworkEngine:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) EspressoDataProviderFromBatchProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("espressoDataProviderFromBatchProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
@@ -119,8 +111,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) EspressoDataProvid
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/espressoDataProviderFromFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) EspressoDataProviderFromFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("espressoDataProviderFromFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
@@ -131,8 +121,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) EspressoDataProvid
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/featureProviderFomMLComputeDataProvider:neuralNetworkEngine:options:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) FeatureProviderFomMLComputeDataProviderNeuralNetworkEngineOptionsError(provider objectivec.IObject, engine objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("featureProviderFomMLComputeDataProvider:neuralNetworkEngine:options:error:"), provider, engine, options, unsafe.Pointer(&errorPtr))
@@ -143,8 +131,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) FeatureProviderFom
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/featureProviderFromEspressoDataProvider:neuralNetworkEngine:options:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) FeatureProviderFromEspressoDataProviderNeuralNetworkEngineOptionsError(provider objectivec.IObject, engine objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("featureProviderFromEspressoDataProvider:neuralNetworkEngine:options:error:"), provider, engine, options, unsafe.Pointer(&errorPtr))
@@ -155,8 +141,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) FeatureProviderFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/mlComputeDataProviderFromBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) MlComputeDataProviderFromBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("mlComputeDataProviderFromBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))
@@ -167,14 +151,10 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) MlComputeDataProvi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/mlComputeDataTypeSize:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) MlComputeDataTypeSize(size int64) uint64 {
 	rv := objc.Send[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("mlComputeDataTypeSize:"), size)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/populateEspressoShapeAndStridesFromInputShape:ndRepresentation:espressoShape:espressoStrides:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateEspressoShapeAndStridesFromInputShapeNdRepresentationEspressoShapeEspressoStridesError(shape objectivec.IObject, representation bool, shape2 []objectivec.IObject, strides []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("populateEspressoShapeAndStridesFromInputShape:ndRepresentation:espressoShape:espressoStrides:error:"), shape, representation, objectivec.IObjectSliceToNSArray(shape2), objectivec.IObjectSliceToNSArray(strides), unsafe.Pointer(&errorPtr))
@@ -188,8 +168,6 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateEspressoSh
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/populateShapeAndStrideFor:inputShape:outputShape:outputStrides:error:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateShapeAndStrideForInputShapeOutputShapeOutputStridesError(for_ objectivec.IObject, shape objectivec.IObject, shape2 []objectivec.IObject, strides []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("populateShapeAndStrideFor:inputShape:outputShape:outputStrides:error:"), for_, shape, objectivec.IObjectSliceToNSArray(shape2), objectivec.IObjectSliceToNSArray(strides), unsafe.Pointer(&errorPtr))
@@ -203,14 +181,10 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateShapeAndSt
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/sizeFromShape:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) SizeFromShape(shape objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("sizeFromShape:"), shape)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLDataConversionUtils/stridesForShape:
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) StridesForShape(shape objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("stridesForShape:"), shape)
 	return objectivec.Object{ID: rv}

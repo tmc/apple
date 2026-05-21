@@ -42,7 +42,6 @@ func (sc SLSDisplayWallClass) Alloc() SLSDisplayWall {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall
 type SLSDisplayWall struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func SLSDisplayWallFromID(id objc.ID) SLSDisplayWall {
 var _ ISLSDisplayWall = SLSDisplayWall{}
 
 // An interface definition for the [SLSDisplayWall] class.
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall
 type ISLSDisplayWall interface {
 	objectivec.IObject
 }
@@ -81,31 +78,22 @@ func NewSLSDisplayWall() SLSDisplayWall {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall/availableDisplayWallGroups
 func (_SLSDisplayWallClass SLSDisplayWallClass) AvailableDisplayWallGroups() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSDisplayWallClass.class), objc.Sel("availableDisplayWallGroups"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall/disableDisplayWall:
 func (_SLSDisplayWallClass SLSDisplayWallClass) DisableDisplayWall(wall objectivec.IObject) int {
 	rv := objc.Send[int](objc.ID(_SLSDisplayWallClass.class), objc.Sel("disableDisplayWall:"), wall)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall/enableDisplayWallWithConfiguration:
 func (_SLSDisplayWallClass SLSDisplayWallClass) EnableDisplayWallWithConfiguration(configuration objectivec.IObject) int {
 	rv := objc.Send[int](objc.ID(_SLSDisplayWallClass.class), objc.Sel("enableDisplayWallWithConfiguration:"), configuration)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall/isDisplayWall:
 func (_SLSDisplayWallClass SLSDisplayWallClass) IsDisplayWall(wall objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_SLSDisplayWallClass.class), objc.Sel("isDisplayWall:"), wall)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSDisplayWall/validateDisplayWallConfiguration:
 func (_SLSDisplayWallClass SLSDisplayWallClass) ValidateDisplayWallConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_SLSDisplayWallClass.class), objc.Sel("validateDisplayWallConfiguration:"), configuration)
 	return rv

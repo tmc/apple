@@ -44,7 +44,6 @@ func (mc MLNeuralNetworkV1ContainerClass) Alloc() MLNeuralNetworkV1Container {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkV1Container
 type MLNeuralNetworkV1Container struct {
 	MLNeuralNetworkContainer
 }
@@ -58,8 +57,6 @@ func MLNeuralNetworkV1ContainerFromID(id objc.ID) MLNeuralNetworkV1Container {
 var _ IMLNeuralNetworkV1Container = MLNeuralNetworkV1Container{}
 
 // An interface definition for the [MLNeuralNetworkV1Container] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkV1Container
 type IMLNeuralNetworkV1Container interface {
 	IMLNeuralNetworkContainer
 }
@@ -83,28 +80,24 @@ func NewMLNeuralNetworkV1Container() MLNeuralNetworkV1Container {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFilePath:inputLayerNames:outputLayerNames:parameters:
 func NewNeuralNetworkV1ContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkV1Container/readerFromArchive:error:
 func (_MLNeuralNetworkV1ContainerClass MLNeuralNetworkV1ContainerClass) ReaderFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkV1ContainerClass.class), objc.Sel("readerFromArchive:error:"), archive, unsafe.Pointer(&errorPtr))

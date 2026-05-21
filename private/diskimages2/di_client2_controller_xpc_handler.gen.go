@@ -51,8 +51,6 @@ func (dc DIClient2ControllerXPCHandlerClass) Alloc() DIClient2ControllerXPCHandl
 //   - [DIClient2ControllerXPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
 //   - [DIClient2ControllerXPCHandler.KeychainUnlockWithEncryptionUnlockerError]
 //   - [DIClient2ControllerXPCHandler.NewAttachWithParamsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler
 type DIClient2ControllerXPCHandler struct {
 	DIBaseXPCHandler
 }
@@ -78,8 +76,6 @@ var _ IDIClient2ControllerXPCHandler = DIClient2ControllerXPCHandler{}
 //   - [IDIClient2ControllerXPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
 //   - [IDIClient2ControllerXPCHandler.KeychainUnlockWithEncryptionUnlockerError]
 //   - [IDIClient2ControllerXPCHandler.NewAttachWithParamsError]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler
 type IDIClient2ControllerXPCHandler interface {
 	IDIBaseXPCHandler
 
@@ -110,7 +106,6 @@ func NewDIClient2ControllerXPCHandler() DIClient2ControllerXPCHandler {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/GUIAskForPassphraseWithEncryptionFrontend:usage:error:
 func (d DIClient2ControllerXPCHandler) GUIAskForPassphraseWithEncryptionFrontendUsageError(frontend objectivec.IObject, usage int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("GUIAskForPassphraseWithEncryptionFrontend:usage:error:"), frontend, usage, unsafe.Pointer(&errorPtr))
@@ -124,8 +119,6 @@ func (d DIClient2ControllerXPCHandler) GUIAskForPassphraseWithEncryptionFrontend
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/createAndStoreInSystemKeychainWithCreator:account:error:
 func (d DIClient2ControllerXPCHandler) CreateAndStoreInSystemKeychainWithCreatorAccountError(creator objectivec.IObject, account objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createAndStoreInSystemKeychainWithCreator:account:error:"), creator, account, unsafe.Pointer(&errorPtr))
@@ -139,8 +132,6 @@ func (d DIClient2ControllerXPCHandler) CreateAndStoreInSystemKeychainWithCreator
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/keychainUnlockWithEncryptionUnlocker:error:
 func (d DIClient2ControllerXPCHandler) KeychainUnlockWithEncryptionUnlockerError(unlocker objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("keychainUnlockWithEncryptionUnlocker:error:"), unlocker, unsafe.Pointer(&errorPtr))
@@ -154,8 +145,6 @@ func (d DIClient2ControllerXPCHandler) KeychainUnlockWithEncryptionUnlockerError
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/newAttachWithParams:error:
 func (d DIClient2ControllerXPCHandler) NewAttachWithParamsError(params objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("newAttachWithParams:error:"), params, unsafe.Pointer(&errorPtr))

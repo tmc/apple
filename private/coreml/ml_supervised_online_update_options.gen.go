@@ -42,7 +42,6 @@ func (mc MLSupervisedOnlineUpdateOptionsClass) Alloc() MLSupervisedOnlineUpdateO
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupervisedOnlineUpdateOptions
 type MLSupervisedOnlineUpdateOptions struct {
 	MLPredictionOptions
 }
@@ -56,8 +55,6 @@ func MLSupervisedOnlineUpdateOptionsFromID(id objc.ID) MLSupervisedOnlineUpdateO
 var _ IMLSupervisedOnlineUpdateOptions = MLSupervisedOnlineUpdateOptions{}
 
 // An interface definition for the [MLSupervisedOnlineUpdateOptions] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSupervisedOnlineUpdateOptions
 type IMLSupervisedOnlineUpdateOptions interface {
 	IMLPredictionOptions
 }
@@ -81,14 +78,12 @@ func NewMLSupervisedOnlineUpdateOptions() MLSupervisedOnlineUpdateOptions {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithCoder:
 func NewSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithUsesCPUOnly:
 func NewSupervisedOnlineUpdateOptionsWithUsesCPUOnly(cPUOnly bool) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)

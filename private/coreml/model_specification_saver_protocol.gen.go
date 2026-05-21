@@ -10,14 +10,10 @@ import (
 )
 
 // MLModelSpecificationSaver protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationSaver
 type MLModelSpecificationSaver interface {
 	objectivec.IObject
 
 	// SaveModelToSpecification protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationSaver/saveModelToSpecification:
 	SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer
 }
 
@@ -38,7 +34,6 @@ func MLModelSpecificationSaverObjectFromID(id objc.ID) MLModelSpecificationSaver
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationSaver/saveModelToSpecification:
 func (o MLModelSpecificationSaverObject) SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
 	return rv

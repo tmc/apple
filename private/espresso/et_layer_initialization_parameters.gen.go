@@ -48,8 +48,6 @@ func (ec ETLayerInitializationParametersClass) Alloc() ETLayerInitializationPara
 //
 //   - [ETLayerInitializationParameters.Parameters]
 //   - [ETLayerInitializationParameters.InitWithModeParametersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters
 type ETLayerInitializationParameters struct {
 	objectivec.Object
 }
@@ -68,8 +66,6 @@ var _ IETLayerInitializationParameters = ETLayerInitializationParameters{}
 //
 //   - [IETLayerInitializationParameters.Parameters]
 //   - [IETLayerInitializationParameters.InitWithModeParametersError]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters
 type IETLayerInitializationParameters interface {
 	objectivec.IObject
 
@@ -98,7 +94,6 @@ func NewETLayerInitializationParameters() ETLayerInitializationParameters {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters/initWithMode:parameters:error:
 func NewETLayerInitializationParametersWithModeParametersError(mode uint64, parameters objectivec.IObject) (ETLayerInitializationParameters, error) {
 	var errorPtr objc.ID
 	instance := getETLayerInitializationParametersClass().Alloc()
@@ -110,7 +105,6 @@ func NewETLayerInitializationParametersWithModeParametersError(mode uint64, para
 	return ETLayerInitializationParametersFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters/initWithMode:parameters:error:
 func (e ETLayerInitializationParameters) InitWithModeParametersError(mode uint64, parameters objectivec.IObject) (ETLayerInitializationParameters, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithMode:parameters:error:"), mode, parameters, unsafe.Pointer(&errorPtr))
@@ -122,7 +116,6 @@ func (e ETLayerInitializationParameters) InitWithModeParametersError(mode uint64
 
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters/parameters
 func (e ETLayerInitializationParameters) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

@@ -42,7 +42,6 @@ func (cc CoreMLComputeStreamsClass) Alloc() CoreMLComputeStreams {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/CoreML.ComputeStreams
 type CoreMLComputeStreams struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func CoreMLComputeStreamsFromID(id objc.ID) CoreMLComputeStreams {
 // ICoreMLComputeStreams embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [CoreMLComputeStreams] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/CoreML.ComputeStreams
 type ICoreMLComputeStreams interface {
 	objectivec.IObject
 }

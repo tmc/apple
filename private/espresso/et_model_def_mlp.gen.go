@@ -51,8 +51,6 @@ func (ec ETModelDefMLPClass) Alloc() ETModelDefMLP {
 //   - [ETModelDefMLP.SetInput_size]
 //   - [ETModelDefMLP.Output_size]
 //   - [ETModelDefMLP.SetOutput_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP
 type ETModelDefMLP struct {
 	ETModelDef
 }
@@ -76,8 +74,6 @@ var _ IETModelDefMLP = ETModelDefMLP{}
 //   - [IETModelDefMLP.SetInput_size]
 //   - [IETModelDefMLP.Output_size]
 //   - [IETModelDefMLP.SetOutput_size]
-//
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP
 type IETModelDefMLP interface {
 	IETModelDef
 
@@ -111,19 +107,16 @@ func NewETModelDefMLP() ETModelDefMLP {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelDefMLPWithNetwork(network objectivec.IObject) ETModelDefMLP {
 	instance := getETModelDefMLPClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETModelDefMLPFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/buildNetwork
 func (e ETModelDefMLP) BuildNetwork() {
 	objc.Send[objc.ID](e.ID, objc.Sel("buildNetwork"))
 }
 
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/hidden_size
 func (e ETModelDefMLP) Hidden_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("hidden_size"))
 	return rv
@@ -131,8 +124,6 @@ func (e ETModelDefMLP) Hidden_size() int {
 func (e ETModelDefMLP) SetHidden_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHidden_size:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/input_size
 func (e ETModelDefMLP) Input_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("input_size"))
 	return rv
@@ -140,8 +131,6 @@ func (e ETModelDefMLP) Input_size() int {
 func (e ETModelDefMLP) SetInput_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInput_size:"), value)
 }
-
-// See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/output_size
 func (e ETModelDefMLP) Output_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("output_size"))
 	return rv

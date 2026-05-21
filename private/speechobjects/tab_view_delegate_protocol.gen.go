@@ -8,8 +8,6 @@ import (
 )
 
 // NSTabViewDelegate protocol.
-//
-// See: https://developer.apple.com/documentation/SpeechObjects/NSTabViewDelegate
 type NSTabViewDelegate interface {
 	objectivec.IObject
 }
@@ -31,23 +29,16 @@ func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/SpeechObjects/NSTabViewDelegate/tabView:didSelectTabViewItem:
 func (o NSTabViewDelegateObject) TabViewDidSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), view, item)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/NSTabViewDelegate/tabView:shouldSelectTabViewItem:
 func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), view, item)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/NSTabViewDelegate/tabView:willSelectTabViewItem:
 func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:willSelectTabViewItem:"), view, item)
 }
-
-// See: https://developer.apple.com/documentation/SpeechObjects/NSTabViewDelegate/tabViewDidChangeNumberOfTabViewItems:
 func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(items objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), items)
 }

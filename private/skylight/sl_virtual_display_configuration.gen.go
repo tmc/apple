@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -63,8 +64,6 @@ func (sc SLVirtualDisplayConfigurationClass) Alloc() SLVirtualDisplayConfigurati
 //   - [SLVirtualDisplayConfiguration.SetUti]
 //   - [SLVirtualDisplayConfiguration.VendorID]
 //   - [SLVirtualDisplayConfiguration.InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration
 type SLVirtualDisplayConfiguration struct {
 	objectivec.Object
 }
@@ -98,22 +97,20 @@ var _ ISLVirtualDisplayConfiguration = SLVirtualDisplayConfiguration{}
 //   - [ISLVirtualDisplayConfiguration.SetUti]
 //   - [ISLVirtualDisplayConfiguration.VendorID]
 //   - [ISLVirtualDisplayConfiguration.InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration
 type ISLVirtualDisplayConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Chromaticities() objectivec.IObject
+	Chromaticities() unsafe.Pointer
 	DictionaryRepresentation() objectivec.IObject
-	MaximumSizeInPixels() objectivec.IObject
+	MaximumSizeInPixels() unsafe.Pointer
 	Name() string
 	Options() uint64
 	SetOptions(value uint64)
 	ProductID() uint64
 	SerialNumber() uint64
-	SizeInMillimeters() objectivec.IObject
+	SizeInMillimeters() unsafe.Pointer
 	Subtype() uint64
 	SetSubtype(value uint64)
 	Type() uint64
@@ -121,7 +118,7 @@ type ISLVirtualDisplayConfiguration interface {
 	Uti() string
 	SetUti(value string)
 	VendorID() uint64
-	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters objectivec.IObject, pixels objectivec.IObject, chromaticities objectivec.IObject) (SLVirtualDisplayConfiguration, error)
+	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error)
 }
 
 // Init initializes the instance.
@@ -143,8 +140,7 @@ func NewSLVirtualDisplayConfiguration() SLVirtualDisplayConfiguration {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:
-func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters objectivec.IObject, pixels objectivec.IObject, chromaticities objectivec.IObject) (SLVirtualDisplayConfiguration, error) {
+func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
@@ -155,14 +151,11 @@ func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeIn
 	return SLVirtualDisplayConfigurationFromID(rv), nil
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/dictionaryRepresentation
 func (s SLVirtualDisplayConfiguration) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:
-func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters objectivec.IObject, pixels objectivec.IObject, chromaticities objectivec.IObject) (SLVirtualDisplayConfiguration, error) {
+func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -173,43 +166,31 @@ func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumber
 
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/configurationWithBackendOptions:
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithBackendOptions(options objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithBackendOptions:"), options)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/configurationWithDictionaryRepresentation:
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/configurationWithDisplayInfo:
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithDisplayInfo(info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDisplayInfo:"), info)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/chromaticities
-func (s SLVirtualDisplayConfiguration) Chromaticities() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("chromaticities"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayConfiguration) Chromaticities() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("chromaticities"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/maximumSizeInPixels
-func (s SLVirtualDisplayConfiguration) MaximumSizeInPixels() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("maximumSizeInPixels"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayConfiguration) MaximumSizeInPixels() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/name
 func (s SLVirtualDisplayConfiguration) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/options
 func (s SLVirtualDisplayConfiguration) Options() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
 	return rv
@@ -217,26 +198,18 @@ func (s SLVirtualDisplayConfiguration) Options() uint64 {
 func (s SLVirtualDisplayConfiguration) SetOptions(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/productID
 func (s SLVirtualDisplayConfiguration) ProductID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("productID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/serialNumber
 func (s SLVirtualDisplayConfiguration) SerialNumber() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("serialNumber"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/sizeInMillimeters
-func (s SLVirtualDisplayConfiguration) SizeInMillimeters() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sizeInMillimeters"))
-	return objectivec.Object{ID: rv}
+func (s SLVirtualDisplayConfiguration) SizeInMillimeters() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInMillimeters"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/subtype
 func (s SLVirtualDisplayConfiguration) Subtype() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("subtype"))
 	return rv
@@ -244,8 +217,6 @@ func (s SLVirtualDisplayConfiguration) Subtype() uint64 {
 func (s SLVirtualDisplayConfiguration) SetSubtype(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSubtype:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/type
 func (s SLVirtualDisplayConfiguration) Type() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("type"))
 	return rv
@@ -253,8 +224,6 @@ func (s SLVirtualDisplayConfiguration) Type() uint64 {
 func (s SLVirtualDisplayConfiguration) SetType(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/uti
 func (s SLVirtualDisplayConfiguration) Uti() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("uti"))
 	return foundation.NSStringFromID(rv).String()
@@ -262,8 +231,6 @@ func (s SLVirtualDisplayConfiguration) Uti() string {
 func (s SLVirtualDisplayConfiguration) SetUti(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUti:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLVirtualDisplayConfiguration/vendorID
 func (s SLVirtualDisplayConfiguration) VendorID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("vendorID"))
 	return rv

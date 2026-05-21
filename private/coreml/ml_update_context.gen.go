@@ -57,8 +57,6 @@ func (mc MLUpdateContextClass) Alloc() MLUpdateContext {
 //   - [MLUpdateContext.SetParameters]
 //   - [MLUpdateContext.Task]
 //   - [MLUpdateContext.SetTask]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext
 type MLUpdateContext struct {
 	objectivec.Object
 }
@@ -87,15 +85,13 @@ var _ IMLUpdateContext = MLUpdateContext{}
 //   - [IMLUpdateContext.SetParameters]
 //   - [IMLUpdateContext.Task]
 //   - [IMLUpdateContext.SetTask]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext
 type IMLUpdateContext interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
-	Error() foundation.INSError
-	SetError(value foundation.INSError)
+	Error() foundation.NSError
+	SetError(value foundation.NSError)
 	Event() int64
 	SetEvent(value int64)
 	Metrics() foundation.INSDictionary
@@ -127,28 +123,22 @@ func NewMLUpdateContext() MLUpdateContext {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/updateContextForEvent:metrics:parameters:error:
 func (_MLUpdateContextClass MLUpdateContextClass) UpdateContextForEventMetricsParametersError(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateContextClass.class), objc.Sel("updateContextForEvent:metrics:parameters:error:"), event, metrics, parameters, error_)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/updateContextWithTask:model:event:metrics:parameters:
 func (_MLUpdateContextClass MLUpdateContextClass) UpdateContextWithTaskModelEventMetricsParameters(task objectivec.IObject, model objectivec.IObject, event int64, metrics objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateContextClass.class), objc.Sel("updateContextWithTask:model:event:metrics:parameters:"), task, model, event, metrics, parameters)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/error
-func (m MLUpdateContext) Error() foundation.INSError {
+func (m MLUpdateContext) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-func (m MLUpdateContext) SetError(value foundation.INSError) {
+func (m MLUpdateContext) SetError(value foundation.NSError) {
 	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/event
 func (m MLUpdateContext) Event() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("event"))
 	return rv
@@ -156,8 +146,6 @@ func (m MLUpdateContext) Event() int64 {
 func (m MLUpdateContext) SetEvent(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEvent:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/metrics
 func (m MLUpdateContext) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -165,8 +153,6 @@ func (m MLUpdateContext) Metrics() foundation.INSDictionary {
 func (m MLUpdateContext) SetMetrics(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMetrics:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/model
 func (m MLUpdateContext) Model() IMLModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
@@ -174,8 +160,6 @@ func (m MLUpdateContext) Model() IMLModel {
 func (m MLUpdateContext) SetModel(value IMLModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModel:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/parameters
 func (m MLUpdateContext) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -183,8 +167,6 @@ func (m MLUpdateContext) Parameters() foundation.INSDictionary {
 func (m MLUpdateContext) SetParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setParameters:"), value)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/task
 func (m MLUpdateContext) Task() IMLUpdateTask {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("task"))
 	return MLUpdateTaskFromID(objc.ID(rv))

@@ -42,7 +42,6 @@ func (tc TtCC12TextToSpeech16VoiceDatabaseXPC6ClientClass) Alloc() TtCC12TextToS
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech16VoiceDatabaseXPC6Client
 type TtCC12TextToSpeech16VoiceDatabaseXPC6Client struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC12TextToSpeech16VoiceDatabaseXPC6ClientFromID(id objc.ID) TtCC12TextToS
 // ITtCC12TextToSpeech16VoiceDatabaseXPC6Client embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech16VoiceDatabaseXPC6Client] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech16VoiceDatabaseXPC6Client
 type ITtCC12TextToSpeech16VoiceDatabaseXPC6Client interface {
 	objectivec.IObject
 }

@@ -5,10 +5,10 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSGenericMarker] class.
@@ -56,8 +56,6 @@ func (tc TTSGenericMarkerClass) Alloc() TTSGenericMarker {
 //   - [TTSGenericMarker.Description]
 //   - [TTSGenericMarker.Hash]
 //   - [TTSGenericMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker
 type TTSGenericMarker struct {
 	objectivec.Object
 }
@@ -84,8 +82,6 @@ var _ ITTSGenericMarker = TTSGenericMarker{}
 //   - [ITTSGenericMarker.Description]
 //   - [ITTSGenericMarker.Hash]
 //   - [ITTSGenericMarker.Superclass]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker
 type ITTSGenericMarker interface {
 	objectivec.IObject
 
@@ -100,7 +96,7 @@ type ITTSGenericMarker interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -122,13 +118,10 @@ func NewTTSGenericMarker() TTSGenericMarker {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/avMark
 func (t TTSGenericMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/byteOffset
 func (t TTSGenericMarker) ByteOffset() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
@@ -136,32 +129,22 @@ func (t TTSGenericMarker) ByteOffset() int64 {
 func (t TTSGenericMarker) SetByteOffset(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/debugDescription
 func (t TTSGenericMarker) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/description
 func (t TTSGenericMarker) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/hash
 func (t TTSGenericMarker) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/markType
 func (t TTSGenericMarker) MarkType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/name
 func (t TTSGenericMarker) Name() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
@@ -169,9 +152,7 @@ func (t TTSGenericMarker) Name() string {
 func (t TTSGenericMarker) SetName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSGenericMarker/superclass
-func (t TTSGenericMarker) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
-	return rv
+func (t TTSGenericMarker) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }

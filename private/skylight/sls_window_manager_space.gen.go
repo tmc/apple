@@ -61,8 +61,6 @@ func (sc SLSWindowManagerSpaceClass) Alloc() SLSWindowManagerSpace {
 //   - [SLSWindowManagerSpace.CurrentSpace]
 //   - [SLSWindowManagerSpace.ManagedSpace]
 //   - [SLSWindowManagerSpace.SetManagedSpace]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace
 type SLSWindowManagerSpace struct {
 	objectivec.Object
 }
@@ -95,8 +93,6 @@ var _ ISLSWindowManagerSpace = SLSWindowManagerSpace{}
 //   - [ISLSWindowManagerSpace.CurrentSpace]
 //   - [ISLSWindowManagerSpace.ManagedSpace]
 //   - [ISLSWindowManagerSpace.SetManagedSpace]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace
 type ISLSWindowManagerSpace interface {
 	objectivec.IObject
 
@@ -139,7 +135,6 @@ func NewSLSWindowManagerSpace() SLSWindowManagerSpace {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/_effectiveDisplayID
 func (s SLSWindowManagerSpace) _effectiveDisplayID() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_effectiveDisplayID"))
 	return objectivec.Object{ID: rv}
@@ -158,26 +153,19 @@ func (s SLSWindowManagerSpace) EffectiveDisplayID() (objectivec.IObject, error) 
 func (s SLSWindowManagerSpace) CanEffectiveDisplayID() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_effectiveDisplayID"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/isCurrentSpace
 func (s SLSWindowManagerSpace) IsCurrentSpace() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isCurrentSpace"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/isManagedSpace
 func (s SLSWindowManagerSpace) IsManagedSpace() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isManagedSpace"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/currentSpace
 func (s SLSWindowManagerSpace) CurrentSpace() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("currentSpace"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/displayUUID
 func (s SLSWindowManagerSpace) DisplayUUID() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayUUID"))
 	return foundation.NSStringFromID(rv).String()
@@ -185,8 +173,6 @@ func (s SLSWindowManagerSpace) DisplayUUID() string {
 func (s SLSWindowManagerSpace) SetDisplayUUID(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayUUID:"), objc.String(value))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/managedSpace
 func (s SLSWindowManagerSpace) ManagedSpace() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("managedSpace"))
 	return rv
@@ -194,8 +180,6 @@ func (s SLSWindowManagerSpace) ManagedSpace() bool {
 func (s SLSWindowManagerSpace) SetManagedSpace(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setManagedSpace:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/manager
 func (s SLSWindowManagerSpace) Manager() ISLSSpaceWindowManager {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("manager"))
 	return SLSSpaceWindowManagerFromID(objc.ID(rv))
@@ -203,8 +187,6 @@ func (s SLSWindowManagerSpace) Manager() ISLSSpaceWindowManager {
 func (s SLSWindowManagerSpace) SetManager(value ISLSSpaceWindowManager) {
 	objc.Send[struct{}](s.ID, objc.Sel("setManager:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/spaceID
 func (s SLSWindowManagerSpace) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
@@ -212,8 +194,6 @@ func (s SLSWindowManagerSpace) SpaceID() uint64 {
 func (s SLSWindowManagerSpace) SetSpaceID(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpaceID:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/type
 func (s SLSWindowManagerSpace) Type() int {
 	rv := objc.Send[int](s.ID, objc.Sel("type"))
 	return rv
@@ -221,8 +201,6 @@ func (s SLSWindowManagerSpace) Type() int {
 func (s SLSWindowManagerSpace) SetType(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setType:"), value)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/windowIDs
 func (s SLSWindowManagerSpace) WindowIDs() foundation.INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("windowIDs"))
 	return foundation.NSSetFromID(objc.ID(rv))

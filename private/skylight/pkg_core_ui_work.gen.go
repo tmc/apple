@@ -47,8 +47,6 @@ func (pc PKGCoreUIWorkClass) Alloc() PKGCoreUIWork {
 //
 //   - [PKGCoreUIWork.SetMainThreadWork]
 //   - [PKGCoreUIWork.SetRendererWork]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork
 type PKGCoreUIWork struct {
 	objectivec.Object
 }
@@ -67,8 +65,6 @@ var _ IPKGCoreUIWork = PKGCoreUIWork{}
 //
 //   - [IPKGCoreUIWork.SetMainThreadWork]
 //   - [IPKGCoreUIWork.SetRendererWork]
-//
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork
 type IPKGCoreUIWork interface {
 	objectivec.IObject
 
@@ -97,13 +93,10 @@ func NewPKGCoreUIWork() PKGCoreUIWork {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork/setMainThreadWork:
 func (p PKGCoreUIWork) SetMainThreadWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
 	objc.Send[objc.ID](p.ID, objc.Sel("setMainThreadWork:"), _block0)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork/setRendererWork:
 func (p PKGCoreUIWork) SetRendererWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
 	objc.Send[objc.ID](p.ID, objc.Sel("setRendererWork:"), _block0)

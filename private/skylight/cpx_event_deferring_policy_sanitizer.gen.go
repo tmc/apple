@@ -49,8 +49,6 @@ func (cc CPXEventDeferringPolicySanitizerClass) Alloc() CPXEventDeferringPolicyS
 //   - [CPXEventDeferringPolicySanitizer._sanitizeKeyThief]
 //   - [CPXEventDeferringPolicySanitizer.Sanitize]
 //   - [CPXEventDeferringPolicySanitizer.InitWithFocusManagerDataSourceProcessManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer
 type CPXEventDeferringPolicySanitizer struct {
 	objectivec.Object
 }
@@ -72,8 +70,6 @@ var _ ICPXEventDeferringPolicySanitizer = CPXEventDeferringPolicySanitizer{}
 //   - [ICPXEventDeferringPolicySanitizer._sanitizeKeyThief]
 //   - [ICPXEventDeferringPolicySanitizer.Sanitize]
 //   - [ICPXEventDeferringPolicySanitizer.InitWithFocusManagerDataSourceProcessManager]
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer
 type ICPXEventDeferringPolicySanitizer interface {
 	objectivec.IObject
 
@@ -105,14 +101,12 @@ func NewCPXEventDeferringPolicySanitizer() CPXEventDeferringPolicySanitizer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/initWithFocusManagerDataSource:processManager:
 func NewCPXEventDeferringPolicySanitizerWithFocusManagerDataSourceProcessManager(source objectivec.IObject, manager objectivec.IObject) CPXEventDeferringPolicySanitizer {
 	instance := getCPXEventDeferringPolicySanitizerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
 	return CPXEventDeferringPolicySanitizerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/_isValidProcess:auditHistory:debugProcessType:
 func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"), process, history, type_)
 	return rv
@@ -131,8 +125,6 @@ func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcess
 func (c CPXEventDeferringPolicySanitizer) CanIsValidProcessAuditHistoryDebugProcessType() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/_sanitizeFrontmost:
 func (c CPXEventDeferringPolicySanitizer) _sanitizeFrontmost(frontmost objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_sanitizeFrontmost:"), frontmost)
 }
@@ -151,8 +143,6 @@ func (c CPXEventDeferringPolicySanitizer) SanitizeFrontmost(frontmost objectivec
 func (c CPXEventDeferringPolicySanitizer) CanSanitizeFrontmost() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeFrontmost:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/_sanitizeKeyThief:
 func (c CPXEventDeferringPolicySanitizer) _sanitizeKeyThief(thief objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_sanitizeKeyThief:"), thief)
 }
@@ -171,14 +161,10 @@ func (c CPXEventDeferringPolicySanitizer) SanitizeKeyThief(thief objectivec.IObj
 func (c CPXEventDeferringPolicySanitizer) CanSanitizeKeyThief() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeKeyThief:"))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/sanitize:
 func (c CPXEventDeferringPolicySanitizer) Sanitize(sanitize objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sanitize:"), sanitize)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/initWithFocusManagerDataSource:processManager:
 func (c CPXEventDeferringPolicySanitizer) InitWithFocusManagerDataSourceProcessManager(source objectivec.IObject, manager objectivec.IObject) CPXEventDeferringPolicySanitizer {
 	rv := objc.Send[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
 	return rv

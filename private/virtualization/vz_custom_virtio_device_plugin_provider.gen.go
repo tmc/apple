@@ -48,8 +48,6 @@ func (vc VZCustomVirtioDevicePluginProviderClass) Alloc() VZCustomVirtioDevicePl
 //   - [VZCustomVirtioDevicePluginProvider.PluginName]
 //   - [VZCustomVirtioDevicePluginProvider.PluginPersonality]
 //   - [VZCustomVirtioDevicePluginProvider.InitWithPluginNamePluginPersonality]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider
 type VZCustomVirtioDevicePluginProvider struct {
 	VZCustomVirtioDeviceProvider
 }
@@ -69,8 +67,6 @@ var _ IVZCustomVirtioDevicePluginProvider = VZCustomVirtioDevicePluginProvider{}
 //   - [IVZCustomVirtioDevicePluginProvider.PluginName]
 //   - [IVZCustomVirtioDevicePluginProvider.PluginPersonality]
 //   - [IVZCustomVirtioDevicePluginProvider.InitWithPluginNamePluginPersonality]
-//
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider
 type IVZCustomVirtioDevicePluginProvider interface {
 	IVZCustomVirtioDeviceProvider
 
@@ -100,26 +96,21 @@ func NewVZCustomVirtioDevicePluginProvider() VZCustomVirtioDevicePluginProvider 
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider/initWithPluginName:pluginPersonality:
 func NewVZCustomVirtioDevicePluginProviderWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomVirtioDevicePluginProvider {
 	instance := getVZCustomVirtioDevicePluginProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
 	return VZCustomVirtioDevicePluginProviderFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider/initWithPluginName:pluginPersonality:
 func (v VZCustomVirtioDevicePluginProvider) InitWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomVirtioDevicePluginProvider {
 	rv := objc.Send[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider/pluginName
 func (v VZCustomVirtioDevicePluginProvider) PluginName() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDevicePluginProvider/pluginPersonality
 func (v VZCustomVirtioDevicePluginProvider) PluginPersonality() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()

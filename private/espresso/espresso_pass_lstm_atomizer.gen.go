@@ -41,7 +41,6 @@ func (ec EspressoPassLstmAtomizerClass) Alloc() EspressoPassLstmAtomizer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
 type EspressoPassLstmAtomizer struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_lstm_atomizerFromID(id objc.ID) EspressoPassLstmAtomizer {
 var _ IEspressoPassLstmAtomizer = EspressoPassLstmAtomizer{}
 
 // An interface definition for the [EspressoPassLstmAtomizer] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
 type IEspressoPassLstmAtomizer interface {
 	IEspressoCustomPass
 }

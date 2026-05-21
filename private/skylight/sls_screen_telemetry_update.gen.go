@@ -50,8 +50,6 @@ func (sc SLSScreenTelemetryUpdateClass) Alloc() SLSScreenTelemetryUpdate {
 //   - [SLSScreenTelemetryUpdate.Error]
 //   - [SLSScreenTelemetryUpdate.Snapshot]
 //   - [SLSScreenTelemetryUpdate.InitWithActionConnectionErrorAndSnapshot]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate
 type SLSScreenTelemetryUpdate struct {
 	objectivec.Object
 }
@@ -73,8 +71,6 @@ var _ ISLSScreenTelemetryUpdate = SLSScreenTelemetryUpdate{}
 //   - [ISLSScreenTelemetryUpdate.Error]
 //   - [ISLSScreenTelemetryUpdate.Snapshot]
 //   - [ISLSScreenTelemetryUpdate.InitWithActionConnectionErrorAndSnapshot]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate
 type ISLSScreenTelemetryUpdate interface {
 	objectivec.IObject
 
@@ -82,7 +78,7 @@ type ISLSScreenTelemetryUpdate interface {
 
 	Action() uint32
 	Connection() ISLScreenTelemetryConnection
-	Error() foundation.INSError
+	Error() foundation.NSError
 	Snapshot() ISLSScreenTelemetryResultsSnapshotDataWrapper
 	InitWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) SLSScreenTelemetryUpdate
 }
@@ -106,44 +102,34 @@ func NewSLSScreenTelemetryUpdate() SLSScreenTelemetryUpdate {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/initWithAction:connection:error:andSnapshot:
 func NewSLSScreenTelemetryUpdateWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) SLSScreenTelemetryUpdate {
 	instance := getSLSScreenTelemetryUpdateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return SLSScreenTelemetryUpdateFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/initWithAction:connection:error:andSnapshot:
 func (s SLSScreenTelemetryUpdate) InitWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) SLSScreenTelemetryUpdate {
 	rv := objc.Send[SLSScreenTelemetryUpdate](s.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/updateWithAction:connection:error:andSnapshot:
 func (_SLSScreenTelemetryUpdateClass SLSScreenTelemetryUpdateClass) UpdateWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSScreenTelemetryUpdateClass.class), objc.Sel("updateWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/action
 func (s SLSScreenTelemetryUpdate) Action() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("action"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/connection
 func (s SLSScreenTelemetryUpdate) Connection() ISLScreenTelemetryConnection {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
 	return SLScreenTelemetryConnectionFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/error
-func (s SLSScreenTelemetryUpdate) Error() foundation.INSError {
+func (s SLSScreenTelemetryUpdate) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/SLSScreenTelemetryUpdate/snapshot
 func (s SLSScreenTelemetryUpdate) Snapshot() ISLSScreenTelemetryResultsSnapshotDataWrapper {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("snapshot"))
 	return SLSScreenTelemetryResultsSnapshotDataWrapperFromID(objc.ID(rv))

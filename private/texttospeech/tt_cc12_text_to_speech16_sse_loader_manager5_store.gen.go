@@ -42,7 +42,6 @@ func (tc TtCC12TextToSpeech16SSELoaderManager5StoreClass) Alloc() TtCC12TextToSp
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech16SSELoaderManager5Store
 type TtCC12TextToSpeech16SSELoaderManager5Store struct {
 	objectivec.Object
 }
@@ -56,8 +55,6 @@ func TtCC12TextToSpeech16SSELoaderManager5StoreFromID(id objc.ID) TtCC12TextToSp
 // ITtCC12TextToSpeech16SSELoaderManager5Store embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech16SSELoaderManager5Store] class.
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/_TtCC12TextToSpeech16SSELoaderManager5Store
 type ITtCC12TextToSpeech16SSELoaderManager5Store interface {
 	objectivec.IObject
 }

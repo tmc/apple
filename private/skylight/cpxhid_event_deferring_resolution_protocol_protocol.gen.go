@@ -10,24 +10,16 @@ import (
 )
 
 // CPXHIDEventDeferringResolutionProtocol protocol.
-//
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol
 type CPXHIDEventDeferringResolutionProtocol interface {
 	objectivec.IObject
 
 	// ConnectionID protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/connectionID
 	ConnectionID() uint32
 
 	// Pid protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/pid
 	Pid() int
 
 	// ProcessRecord protocol.
-	//
-	// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/processRecord
 	ProcessRecord() unsafe.Pointer
 }
 
@@ -48,31 +40,22 @@ func CPXHIDEventDeferringResolutionProtocolObjectFromID(id objc.ID) CPXHIDEventD
 	}
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/connectionID
 func (o CPXHIDEventDeferringResolutionProtocolObject) ConnectionID() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("connectionID"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/environment
 func (o CPXHIDEventDeferringResolutionProtocolObject) Environment() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("environment"))
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/pid
 func (o CPXHIDEventDeferringResolutionProtocolObject) Pid() int {
 	rv := objc.Send[int](o.ID, objc.Sel("pid"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/processRecord
 func (o CPXHIDEventDeferringResolutionProtocolObject) ProcessRecord() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processRecord"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/CPXHIDEventDeferringResolutionProtocol/token
 func (o CPXHIDEventDeferringResolutionProtocolObject) Token() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("token"))
 	return objectivec.Object{ID: rv}

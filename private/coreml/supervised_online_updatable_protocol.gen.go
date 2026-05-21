@@ -8,8 +8,6 @@ import (
 )
 
 // MLSupervisedOnlineUpdatable protocol.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLSupervisedOnlineUpdatable
 type MLSupervisedOnlineUpdatable interface {
 	objectivec.IObject
 }
@@ -31,7 +29,6 @@ func MLSupervisedOnlineUpdatableObjectFromID(id objc.ID) MLSupervisedOnlineUpdat
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLSupervisedOnlineUpdatable/updateModelFromFeatures:toTarget:options:error:
 func (o MLSupervisedOnlineUpdatableObject) UpdateModelFromFeaturesToTargetOptionsError(features objectivec.IObject, target objectivec.IObject, options objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("updateModelFromFeatures:toTarget:options:error:"), features, target, options)
 	if err != nil {

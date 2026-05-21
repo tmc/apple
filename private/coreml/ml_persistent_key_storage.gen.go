@@ -45,7 +45,6 @@ func (mc MLPersistentKeyStorageClass) Alloc() MLPersistentKeyStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage
 type MLPersistentKeyStorage struct {
 	objectivec.Object
 }
@@ -59,8 +58,6 @@ func MLPersistentKeyStorageFromID(id objc.ID) MLPersistentKeyStorage {
 var _ IMLPersistentKeyStorage = MLPersistentKeyStorage{}
 
 // An interface definition for the [MLPersistentKeyStorage] class.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage
 type IMLPersistentKeyStorage interface {
 	objectivec.IObject
 }
@@ -84,19 +81,14 @@ func NewMLPersistentKeyStorage() MLPersistentKeyStorage {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/persistentKeyStorageURL
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) PersistentKeyStorageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
 	return foundation.NSURLFromID(rv)
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/retrieveKeyBlobForKeyIdentifier:
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) RetrieveKeyBlobForKeyIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("retrieveKeyBlobForKeyIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/storeKeyBlob:forKeyIdentifier:error:
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForKeyIdentifierError(blob objectivec.IObject, identifier objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("storeKeyBlob:forKeyIdentifier:error:"), blob, identifier, unsafe.Pointer(&errorPtr))
@@ -110,8 +102,6 @@ func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForK
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/syncQueue
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) SyncQueue() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("syncQueue"))
 	return objectivec.Object{ID: rv}

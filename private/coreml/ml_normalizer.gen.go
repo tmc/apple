@@ -48,8 +48,6 @@ func (mc MLNormalizerClass) Alloc() MLNormalizer {
 //
 //   - [MLNormalizer.Norm]
 //   - [MLNormalizer.InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer
 type MLNormalizer struct {
 	MLModelEngine
 }
@@ -68,8 +66,6 @@ var _ IMLNormalizer = MLNormalizer{}
 //
 //   - [IMLNormalizer.Norm]
 //   - [IMLNormalizer.InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration]
-//
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer
 type IMLNormalizer interface {
 	IMLModelEngine
 
@@ -98,40 +94,33 @@ func NewMLNormalizer() MLNormalizer {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewNormalizerWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewNormalizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewNormalizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (m MLNormalizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	rv := objc.Send[MLNormalizer](m.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/inputDescriptionFrom:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:
 func (_MLNormalizerClass MLNormalizerClass) InputDescriptionFromOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from objectivec.IObject, description objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("inputDescriptionFrom:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, description, names, names2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/loadModelFromSpecification:configuration:error:
 func (_MLNormalizerClass MLNormalizerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -142,20 +131,15 @@ func (_MLNormalizerClass MLNormalizerClass) LoadModelFromSpecificationConfigurat
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/normFrom:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:
 func (_MLNormalizerClass MLNormalizerClass) NormFromDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("normFrom:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, name, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/normFrom:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:
 func (_MLNormalizerClass MLNormalizerClass) NormFromInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("normFrom:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/CoreML/MLNormalizer/norm
 func (m MLNormalizer) Norm() int {
 	rv := objc.Send[int](m.ID, objc.Sel("norm"))
 	return rv

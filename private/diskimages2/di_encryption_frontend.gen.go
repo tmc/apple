@@ -72,7 +72,6 @@ func (dc DIEncryptionFrontendClass) Alloc() DIEncryptionFrontend {
 //   - [DIEncryptionFrontend.GenerateAuthTableWithError]
 //   - [DIEncryptionFrontend.GetCertificateWithCertificatePathError]
 //   - [DIEncryptionFrontend.GetCertificateWithPublicKeyError]
-//   - [DIEncryptionFrontend.GetSerializerWithAuthTable]
 //   - [DIEncryptionFrontend.KeychainUnlockWithError]
 //   - [DIEncryptionFrontend.KeychainUnlockWithIsSystemKeychainError]
 //   - [DIEncryptionFrontend.LookupLegacyKeychainWithXpcHandlerError]
@@ -87,8 +86,6 @@ func (dc DIEncryptionFrontendClass) Alloc() DIEncryptionFrontend {
 //   - [DIEncryptionFrontend.ValidateDeserializationWithError]
 //   - [DIEncryptionFrontend.InitWithCoder]
 //   - [DIEncryptionFrontend.InitWithParams]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend
 type DIEncryptionFrontend struct {
 	objectivec.Object
 }
@@ -129,7 +126,6 @@ var _ IDIEncryptionFrontend = DIEncryptionFrontend{}
 //   - [IDIEncryptionFrontend.GenerateAuthTableWithError]
 //   - [IDIEncryptionFrontend.GetCertificateWithCertificatePathError]
 //   - [IDIEncryptionFrontend.GetCertificateWithPublicKeyError]
-//   - [IDIEncryptionFrontend.GetSerializerWithAuthTable]
 //   - [IDIEncryptionFrontend.KeychainUnlockWithError]
 //   - [IDIEncryptionFrontend.KeychainUnlockWithIsSystemKeychainError]
 //   - [IDIEncryptionFrontend.LookupLegacyKeychainWithXpcHandlerError]
@@ -144,8 +140,6 @@ var _ IDIEncryptionFrontend = DIEncryptionFrontend{}
 //   - [IDIEncryptionFrontend.ValidateDeserializationWithError]
 //   - [IDIEncryptionFrontend.InitWithCoder]
 //   - [IDIEncryptionFrontend.InitWithParams]
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend
 type IDIEncryptionFrontend interface {
 	objectivec.IObject
 
@@ -175,7 +169,6 @@ type IDIEncryptionFrontend interface {
 	GenerateAuthTableWithError() (unsafe.Pointer, error)
 	GetCertificateWithCertificatePathError(path objectivec.IObject) (objectivec.IObject, error)
 	GetCertificateWithPublicKeyError(key objectivec.IObject) (objectivec.IObject, error)
-	GetSerializerWithAuthTable(table unsafe.Pointer) objectivec.IObject
 	KeychainUnlockWithError() (bool, error)
 	KeychainUnlockWithIsSystemKeychainError(keychain bool) (bool, error)
 	LookupLegacyKeychainWithXpcHandlerError(handler objectivec.IObject) (bool, error)
@@ -211,21 +204,18 @@ func NewDIEncryptionFrontend() DIEncryptionFrontend {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func NewDIEncryptionFrontendWithCoder(coder objectivec.IObject) DIEncryptionFrontend {
 	instance := getDIEncryptionFrontendClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionFrontendFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func NewDIEncryptionFrontendWithParams(params objectivec.IObject) DIEncryptionFrontend {
 	instance := getDIEncryptionFrontendClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionFrontendFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIAskForPassphraseWithPassphraseUsage:error:
 func (d DIEncryptionFrontend) GUIAskForPassphraseWithPassphraseUsageError(usage int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("GUIAskForPassphraseWithPassphraseUsage:error:"), usage, unsafe.Pointer(&errorPtr))
@@ -239,8 +229,6 @@ func (d DIEncryptionFrontend) GUIAskForPassphraseWithPassphraseUsageError(usage 
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/addPassphraseEntryWithXpcHandler:flags:usage:error:
 func (d DIEncryptionFrontend) AddPassphraseEntryWithXpcHandlerFlagsUsageError(handler objectivec.IObject, flags uint64, usage int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("addPassphraseEntryWithXpcHandler:flags:usage:error:"), handler, flags, usage, unsafe.Pointer(&errorPtr))
@@ -254,8 +242,6 @@ func (d DIEncryptionFrontend) AddPassphraseEntryWithXpcHandlerFlagsUsageError(ha
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/askPermissionWithRememberPassword:error:
 func (d DIEncryptionFrontend) AskPermissionWithRememberPasswordError() (bool, error) {
 	var password bool
 	var errorPtr objc.ID
@@ -269,8 +255,6 @@ func (d DIEncryptionFrontend) AskPermissionWithRememberPasswordError() (bool, er
 	}
 	return password, nil
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/checkAuthEntriesWithHasPassphraseEntry:hasPublicKeyEntry:error:
 func (d DIEncryptionFrontend) CheckAuthEntriesWithHasPassphraseEntryHasPublicKeyEntryError() (bool, bool, error) {
 	var entry bool
 	var entry2 bool
@@ -285,8 +269,6 @@ func (d DIEncryptionFrontend) CheckAuthEntriesWithHasPassphraseEntryHasPublicKey
 	}
 	return entry, entry2, nil
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/checkWithHasIcloudKeychain:error:
 func (d DIEncryptionFrontend) CheckWithHasIcloudKeychainError() (bool, error) {
 	var keychain bool
 	var errorPtr objc.ID
@@ -300,8 +282,6 @@ func (d DIEncryptionFrontend) CheckWithHasIcloudKeychainError() (bool, error) {
 	}
 	return keychain, nil
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/checkWithItemRef:isSystemKeychain:error:
 func (d DIEncryptionFrontend) CheckWithItemRefIsSystemKeychainError(ref security.SecKeychainItemRef) (bool, error) {
 	var keychain bool
 	var errorPtr objc.ID
@@ -315,8 +295,6 @@ func (d DIEncryptionFrontend) CheckWithItemRefIsSystemKeychainError(ref security
 	}
 	return keychain, nil
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/consoleAskForPassphraseWithUseStdin:usage:error:
 func (d DIEncryptionFrontend) ConsoleAskForPassphraseWithUseStdinUsageError(stdin bool, usage int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("consoleAskForPassphraseWithUseStdin:usage:error:"), stdin, usage, unsafe.Pointer(&errorPtr))
@@ -330,13 +308,9 @@ func (d DIEncryptionFrontend) ConsoleAskForPassphraseWithUseStdinUsageError(stdi
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/encodeWithCoder:
 func (d DIEncryptionFrontend) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/generateAuthTableWithError:
 func (d DIEncryptionFrontend) GenerateAuthTableWithError() (unsafe.Pointer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("generateAuthTableWithError:"), unsafe.Pointer(&errorPtr))
@@ -347,8 +321,6 @@ func (d DIEncryptionFrontend) GenerateAuthTableWithError() (unsafe.Pointer, erro
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/getCertificateWithCertificatePath:error:
 func (d DIEncryptionFrontend) GetCertificateWithCertificatePathError(path objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getCertificateWithCertificatePath:error:"), path, unsafe.Pointer(&errorPtr))
@@ -359,8 +331,6 @@ func (d DIEncryptionFrontend) GetCertificateWithCertificatePathError(path object
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/getCertificateWithPublicKey:error:
 func (d DIEncryptionFrontend) GetCertificateWithPublicKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getCertificateWithPublicKey:error:"), key, unsafe.Pointer(&errorPtr))
@@ -371,14 +341,6 @@ func (d DIEncryptionFrontend) GetCertificateWithPublicKeyError(key objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/getSerializerWithAuthTable:
-func (d DIEncryptionFrontend) GetSerializerWithAuthTable(table unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("getSerializerWithAuthTable:"), table)
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/keychainUnlockWithError:
 func (d DIEncryptionFrontend) KeychainUnlockWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("keychainUnlockWithError:"), unsafe.Pointer(&errorPtr))
@@ -392,8 +354,6 @@ func (d DIEncryptionFrontend) KeychainUnlockWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/keychainUnlockWithIsSystemKeychain:error:
 func (d DIEncryptionFrontend) KeychainUnlockWithIsSystemKeychainError(keychain bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("keychainUnlockWithIsSystemKeychain:error:"), keychain, unsafe.Pointer(&errorPtr))
@@ -407,8 +367,6 @@ func (d DIEncryptionFrontend) KeychainUnlockWithIsSystemKeychainError(keychain b
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/lookupLegacyKeychainWithXpcHandler:error:
 func (d DIEncryptionFrontend) LookupLegacyKeychainWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("lookupLegacyKeychainWithXpcHandler:error:"), handler, unsafe.Pointer(&errorPtr))
@@ -422,8 +380,6 @@ func (d DIEncryptionFrontend) LookupLegacyKeychainWithXpcHandlerError(handler ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/setPassphrase:error:
 func (d DIEncryptionFrontend) SetPassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), unsafe.Pointer(&errorPtr))
@@ -437,8 +393,6 @@ func (d DIEncryptionFrontend) SetPassphraseError(passphrase string) (bool, error
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/storeInKeychainWithPassphrase:forceSystemKeychain:error:
 func (d DIEncryptionFrontend) StoreInKeychainWithPassphraseForceSystemKeychainError(passphrase objectivec.IObject, keychain bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("storeInKeychainWithPassphrase:forceSystemKeychain:error:"), passphrase, keychain, unsafe.Pointer(&errorPtr))
@@ -452,8 +406,6 @@ func (d DIEncryptionFrontend) StoreInKeychainWithPassphraseForceSystemKeychainEr
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/unlockUsingPublicKeyWithError:
 func (d DIEncryptionFrontend) UnlockUsingPublicKeyWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("unlockUsingPublicKeyWithError:"), unsafe.Pointer(&errorPtr))
@@ -467,8 +419,6 @@ func (d DIEncryptionFrontend) UnlockUsingPublicKeyWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/unlockUsingSaksWithError:
 func (d DIEncryptionFrontend) UnlockUsingSaksWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("unlockUsingSaksWithError:"), unsafe.Pointer(&errorPtr))
@@ -482,8 +432,6 @@ func (d DIEncryptionFrontend) UnlockUsingSaksWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/unlockUsingSymmetricKeyWithError:
 func (d DIEncryptionFrontend) UnlockUsingSymmetricKeyWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("unlockUsingSymmetricKeyWithError:"), unsafe.Pointer(&errorPtr))
@@ -497,8 +445,6 @@ func (d DIEncryptionFrontend) UnlockUsingSymmetricKeyWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/unlockWithPassphrase:error:
 func (d DIEncryptionFrontend) UnlockWithPassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("unlockWithPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), unsafe.Pointer(&errorPtr))
@@ -512,8 +458,6 @@ func (d DIEncryptionFrontend) UnlockWithPassphraseError(passphrase string) (bool
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/unlockWithXpcHandler:error:
 func (d DIEncryptionFrontend) UnlockWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("unlockWithXpcHandler:error:"), handler, unsafe.Pointer(&errorPtr))
@@ -527,8 +471,6 @@ func (d DIEncryptionFrontend) UnlockWithXpcHandlerError(handler objectivec.IObje
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/updateDiskImageParamsWithFrontend:error:
 func (d DIEncryptionFrontend) UpdateDiskImageParamsWithFrontendError(frontend objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("updateDiskImageParamsWithFrontend:error:"), frontend, unsafe.Pointer(&errorPtr))
@@ -542,8 +484,6 @@ func (d DIEncryptionFrontend) UpdateDiskImageParamsWithFrontendError(frontend ob
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/validateDeserializationWithError:
 func (d DIEncryptionFrontend) ValidateDeserializationWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("validateDeserializationWithError:"), unsafe.Pointer(&errorPtr))
@@ -557,32 +497,23 @@ func (d DIEncryptionFrontend) ValidateDeserializationWithError() (bool, error) {
 	return rv, nil
 
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func (d DIEncryptionFrontend) InitWithCoder(coder foundation.INSCoder) DIEncryptionFrontend {
 	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func (d DIEncryptionFrontend) InitWithParams(params objectivec.IObject) DIEncryptionFrontend {
 	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("initWithParams:"), params)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/hasGUIaccess
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) HasGUIaccess() bool {
 	rv := objc.Send[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("hasGUIaccess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/supportsSecureCoding
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/updateSystemKeychainAttrWithDict:isStoring:error:
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) UpdateSystemKeychainAttrWithDictIsStoringError(dict objectivec.IObject, storing bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("updateSystemKeychainAttrWithDict:isStoring:error:"), dict, storing, unsafe.Pointer(&errorPtr))
@@ -597,55 +528,38 @@ func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) UpdateSystemKeychain
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/CLIPassphrasePromptCreate
 func (d DIEncryptionFrontend) CLIPassphrasePromptCreate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/CLIPassphrasePromptUnlock
 func (d DIEncryptionFrontend) CLIPassphrasePromptUnlock() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/CLIVerifyPassphrasePromptCreate
 func (d DIEncryptionFrontend) CLIVerifyPassphrasePromptCreate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIVerifyPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIPassphraseLabelCreate
 func (d DIEncryptionFrontend) GUIPassphraseLabelCreate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIPassphraseLabelUnlock
 func (d DIEncryptionFrontend) GUIPassphraseLabelUnlock() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIPassphrasePromptCreate
 func (d DIEncryptionFrontend) GUIPassphrasePromptCreate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIPassphrasePromptUnlock
 func (d DIEncryptionFrontend) GUIPassphrasePromptUnlock() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/GUIVerifyPassphraseLabelCreate
 func (d DIEncryptionFrontend) GUIVerifyPassphraseLabelCreate() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIVerifyPassphraseLabelCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/allowStoringInKeychain
 func (d DIEncryptionFrontend) AllowStoringInKeychain() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("allowStoringInKeychain"))
 	return rv
@@ -653,20 +567,14 @@ func (d DIEncryptionFrontend) AllowStoringInKeychain() bool {
 func (d DIEncryptionFrontend) SetAllowStoringInKeychain(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowStoringInKeychain:"), value)
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/diParams
 func (d DIEncryptionFrontend) DiParams() IDIBaseParams {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("diParams"))
 	return DIBaseParamsFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/encryptionUUID
 func (d DIEncryptionFrontend) EncryptionUUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("encryptionUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/flags
 func (d DIEncryptionFrontend) Flags() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("flags"))
 	return rv

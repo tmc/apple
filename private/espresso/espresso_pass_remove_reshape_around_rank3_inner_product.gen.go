@@ -41,7 +41,6 @@ func (ec EspressoPassRemoveReshapeAroundRank3InnerProductClass) Alloc() Espresso
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
 type EspressoPassRemoveReshapeAroundRank3InnerProduct struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_remove_reshape_around_rank3_inner_productFromID(id objc.ID) Es
 var _ IEspressoPassRemoveReshapeAroundRank3InnerProduct = EspressoPassRemoveReshapeAroundRank3InnerProduct{}
 
 // An interface definition for the [EspressoPassRemoveReshapeAroundRank3InnerProduct] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
 type IEspressoPassRemoveReshapeAroundRank3InnerProduct interface {
 	IEspressoCustomPass
 }

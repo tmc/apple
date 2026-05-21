@@ -57,8 +57,6 @@ func (tc TTSLocaleUtilitiesClass) Alloc() TTSLocaleUtilities {
 //   - [TTSLocaleUtilities.SampleStringForVoiceIdentifierWithPreferredLocaleID]
 //   - [TTSLocaleUtilities.VoiceIdSampleStringData]
 //   - [TTSLocaleUtilities.SetVoiceIdSampleStringData]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities
 type TTSLocaleUtilities struct {
 	objectivec.Object
 }
@@ -87,8 +85,6 @@ var _ ITTSLocaleUtilities = TTSLocaleUtilities{}
 //   - [ITTSLocaleUtilities.SampleStringForVoiceIdentifierWithPreferredLocaleID]
 //   - [ITTSLocaleUtilities.VoiceIdSampleStringData]
 //   - [ITTSLocaleUtilities.SetVoiceIdSampleStringData]
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities
 type ITTSLocaleUtilities interface {
 	objectivec.IObject
 
@@ -127,37 +123,28 @@ func NewTTSLocaleUtilities() TTSLocaleUtilities {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/defaultVoiceIdentifierForGeneralLanguageCode:
 func (t TTSLocaleUtilities) DefaultVoiceIdentifierForGeneralLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForGeneralLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/defaultVoiceIdentifierForVoiceName:
 func (t TTSLocaleUtilities) DefaultVoiceIdentifierForVoiceName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForVoiceName:"), name)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/sampleStringForVoiceIdentifier:
 func (t TTSLocaleUtilities) SampleStringForVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/sampleStringForVoiceIdentifier:withPreferredLocaleID:
 func (t TTSLocaleUtilities) SampleStringForVoiceIdentifierWithPreferredLocaleID(identifier objectivec.IObject, id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:withPreferredLocaleID:"), identifier, id)
 	return objectivec.Object{ID: rv}
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/sharedInstance
 func (_TTSLocaleUtilitiesClass TTSLocaleUtilitiesClass) SharedInstance() TTSLocaleUtilities {
 	rv := objc.Send[objc.ID](objc.ID(_TTSLocaleUtilitiesClass.class), objc.Sel("sharedInstance"))
 	return TTSLocaleUtilitiesFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/canonicalLanguageCodeVoiceNamesData
 func (t TTSLocaleUtilities) CanonicalLanguageCodeVoiceNamesData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("canonicalLanguageCodeVoiceNamesData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -165,8 +152,6 @@ func (t TTSLocaleUtilities) CanonicalLanguageCodeVoiceNamesData() foundation.INS
 func (t TTSLocaleUtilities) SetCanonicalLanguageCodeVoiceNamesData(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCanonicalLanguageCodeVoiceNamesData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/fallbackSampleStringCache
 func (t TTSLocaleUtilities) FallbackSampleStringCache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("fallbackSampleStringCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -174,8 +159,6 @@ func (t TTSLocaleUtilities) FallbackSampleStringCache() foundation.INSDictionary
 func (t TTSLocaleUtilities) SetFallbackSampleStringCache(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFallbackSampleStringCache:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/generalLanguageCodeData
 func (t TTSLocaleUtilities) GeneralLanguageCodeData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("generalLanguageCodeData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -183,8 +166,6 @@ func (t TTSLocaleUtilities) GeneralLanguageCodeData() foundation.INSDictionary {
 func (t TTSLocaleUtilities) SetGeneralLanguageCodeData(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGeneralLanguageCodeData:"), value)
 }
-
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSLocaleUtilities/voiceIdSampleStringData
 func (t TTSLocaleUtilities) VoiceIdSampleStringData() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIdSampleStringData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))

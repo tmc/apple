@@ -49,8 +49,6 @@ func (ac AVVCDuckLevelClass) Alloc() AVVCDuckLevel {
 //   - [AVVCDuckLevel.SetIsBlur]
 //   - [AVVCDuckLevel.Value]
 //   - [AVVCDuckLevel.SetValue]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel
 type AVVCDuckLevel struct {
 	objectivec.Object
 }
@@ -71,8 +69,6 @@ var _ IAVVCDuckLevel = AVVCDuckLevel{}
 //   - [IAVVCDuckLevel.SetIsBlur]
 //   - [IAVVCDuckLevel.Value]
 //   - [IAVVCDuckLevel.SetValue]
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel
 type IAVVCDuckLevel interface {
 	objectivec.IObject
 
@@ -103,7 +99,6 @@ func NewAVVCDuckLevel() AVVCDuckLevel {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel/isBlur
 func (a AVVCDuckLevel) IsBlur() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isBlur"))
 	return rv
@@ -111,8 +106,6 @@ func (a AVVCDuckLevel) IsBlur() bool {
 func (a AVVCDuckLevel) SetIsBlur(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
-
-// See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel/value
 func (a AVVCDuckLevel) Value() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("value"))
 	return foundation.NSNumberFromID(objc.ID(rv))

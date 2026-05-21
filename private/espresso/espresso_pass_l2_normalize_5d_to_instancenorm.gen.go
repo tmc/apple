@@ -41,7 +41,6 @@ func (ec EspressoPassL2Normalize5dToInstancenormClass) Alloc() EspressoPassL2Nor
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_l2_normalize_5d_to_instancenorm
 type EspressoPassL2Normalize5dToInstancenorm struct {
 	EspressoCustomPass
 }
@@ -60,8 +59,6 @@ func EspressoPass_l2_normalize_5d_to_instancenormFromID(id objc.ID) EspressoPass
 var _ IEspressoPassL2Normalize5dToInstancenorm = EspressoPassL2Normalize5dToInstancenorm{}
 
 // An interface definition for the [EspressoPassL2Normalize5dToInstancenorm] class.
-//
-// See: https://developer.apple.com/documentation/Espresso/EspressoPass_l2_normalize_5d_to_instancenorm
 type IEspressoPassL2Normalize5dToInstancenorm interface {
 	IEspressoCustomPass
 }

@@ -5,6 +5,7 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
@@ -64,8 +65,6 @@ func (ec ECTestOnlyEventAuthenticationMessageClass) Alloc() ECTestOnlyEventAuthe
 //   - [ECTestOnlyEventAuthenticationMessage.Description]
 //   - [ECTestOnlyEventAuthenticationMessage.Hash]
 //   - [ECTestOnlyEventAuthenticationMessage.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage
 type ECTestOnlyEventAuthenticationMessage struct {
 	objectivec.Object
 }
@@ -99,8 +98,6 @@ var _ IECTestOnlyEventAuthenticationMessage = ECTestOnlyEventAuthenticationMessa
 //   - [IECTestOnlyEventAuthenticationMessage.Description]
 //   - [IECTestOnlyEventAuthenticationMessage.Hash]
 //   - [IECTestOnlyEventAuthenticationMessage.Superclass]
-//
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage
 type IECTestOnlyEventAuthenticationMessage interface {
 	objectivec.IObject
 
@@ -109,11 +106,11 @@ type IECTestOnlyEventAuthenticationMessage interface {
 	Capabilities() uint64
 	Context() uint64
 	EncodeWithCoder(coder foundation.INSCoder)
-	EventType() objectivec.IObject
-	MatchesEvent(event coregraphics.CGEventRef) bool
+	EventType() unsafe.Pointer
+	MatchesEvent(event coregraphics.CGEvent) bool
 	OriginIdentifier() uint64
-	ProxyTargetProcess() objectivec.IObject
-	TargetProcess() objectivec.IObject
+	ProxyTargetProcess() unsafe.Pointer
+	TargetProcess() unsafe.Pointer
 	Timestamp() uint64
 	Valid() bool
 	ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler)
@@ -122,7 +119,7 @@ type IECTestOnlyEventAuthenticationMessage interface {
 	DebugDescription() string
 	Description() string
 	Hash() uint64
-	Superclass() objc.Class
+	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -144,128 +141,91 @@ func NewECTestOnlyEventAuthenticationMessage() ECTestOnlyEventAuthenticationMess
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/initWithCoder:
 func NewECTestOnlyEventAuthenticationMessageWithCoder(coder objectivec.IObject) ECTestOnlyEventAuthenticationMessage {
 	instance := getECTestOnlyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ECTestOnlyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/initWithValidity:
 func NewECTestOnlyEventAuthenticationMessageWithValidity(validity bool) ECTestOnlyEventAuthenticationMessage {
 	instance := getECTestOnlyEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidity:"), validity)
 	return ECTestOnlyEventAuthenticationMessageFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/encodeWithCoder:
 func (e ECTestOnlyEventAuthenticationMessage) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/matchesEvent:
-func (e ECTestOnlyEventAuthenticationMessage) MatchesEvent(event coregraphics.CGEventRef) bool {
+func (e ECTestOnlyEventAuthenticationMessage) MatchesEvent(event coregraphics.CGEvent) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("matchesEvent:"), event)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/validateWithOptions:andResultBlock:
 func (e ECTestOnlyEventAuthenticationMessage) ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](e.ID, objc.Sel("validateWithOptions:andResultBlock:"), options, _block1)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/initWithCoder:
 func (e ECTestOnlyEventAuthenticationMessage) InitWithCoder(coder foundation.INSCoder) ECTestOnlyEventAuthenticationMessage {
 	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/initWithValidity:
 func (e ECTestOnlyEventAuthenticationMessage) InitWithValidity(validity bool) ECTestOnlyEventAuthenticationMessage {
 	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithValidity:"), validity)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/messageWithValidity:
 func (_ECTestOnlyEventAuthenticationMessageClass ECTestOnlyEventAuthenticationMessageClass) MessageWithValidity(validity bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("messageWithValidity:"), validity)
 	return objectivec.Object{ID: rv}
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/supportsSecureCoding
 func (_ECTestOnlyEventAuthenticationMessageClass ECTestOnlyEventAuthenticationMessageClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/capabilities
 func (e ECTestOnlyEventAuthenticationMessage) Capabilities() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("capabilities"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/context
 func (e ECTestOnlyEventAuthenticationMessage) Context() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("context"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/debugDescription
 func (e ECTestOnlyEventAuthenticationMessage) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/description
 func (e ECTestOnlyEventAuthenticationMessage) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/eventType
-func (e ECTestOnlyEventAuthenticationMessage) EventType() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("eventType"))
-	return objectivec.Object{ID: rv}
+func (e ECTestOnlyEventAuthenticationMessage) EventType() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("eventType"))
+	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/hash
 func (e ECTestOnlyEventAuthenticationMessage) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/originIdentifier
 func (e ECTestOnlyEventAuthenticationMessage) OriginIdentifier() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("originIdentifier"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/proxyTargetProcess
-func (e ECTestOnlyEventAuthenticationMessage) ProxyTargetProcess() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("proxyTargetProcess"))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/superclass
-func (e ECTestOnlyEventAuthenticationMessage) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
+func (e ECTestOnlyEventAuthenticationMessage) ProxyTargetProcess() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("proxyTargetProcess"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/targetProcess
-func (e ECTestOnlyEventAuthenticationMessage) TargetProcess() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("targetProcess"))
-	return objectivec.Object{ID: rv}
+func (e ECTestOnlyEventAuthenticationMessage) Superclass() objectivec.Class {
+	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	return objectivec.Class(rv)
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/timestamp
+func (e ECTestOnlyEventAuthenticationMessage) TargetProcess() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("targetProcess"))
+	return rv
+}
 func (e ECTestOnlyEventAuthenticationMessage) Timestamp() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("timestamp"))
 	return rv
 }
-
-// See: https://developer.apple.com/documentation/SkyLight/ECTestOnlyEventAuthenticationMessage/valid
 func (e ECTestOnlyEventAuthenticationMessage) Valid() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("valid"))
 	return rv

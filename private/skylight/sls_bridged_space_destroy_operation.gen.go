@@ -46,8 +46,6 @@ func (sc SLSBridgedSpaceDestroyOperationClass) Alloc() SLSBridgedSpaceDestroyOpe
 //
 //   - [SLSBridgedSpaceDestroyOperation.SpaceID]
 //   - [SLSBridgedSpaceDestroyOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation
 type SLSBridgedSpaceDestroyOperation struct {
 	SLSAsynchronousBridgedWindowManagementOperation
 }
@@ -66,8 +64,6 @@ var _ ISLSBridgedSpaceDestroyOperation = SLSBridgedSpaceDestroyOperation{}
 //
 //   - [ISLSBridgedSpaceDestroyOperation.SpaceID]
 //   - [ISLSBridgedSpaceDestroyOperation.InitWithSpaceID]
-//
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation
 type ISLSBridgedSpaceDestroyOperation interface {
 	ISLSAsynchronousBridgedWindowManagementOperation
 
@@ -96,27 +92,23 @@ func NewSLSBridgedSpaceDestroyOperation() SLSBridgedSpaceDestroyOperation {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation/initWithCoder:
 func NewSLSBridgedSpaceDestroyOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceDestroyOperation {
 	instance := getSLSBridgedSpaceDestroyOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceDestroyOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation/initWithSpaceID:
 func NewSLSBridgedSpaceDestroyOperationWithSpaceID(id uint64) SLSBridgedSpaceDestroyOperation {
 	instance := getSLSBridgedSpaceDestroyOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceDestroyOperationFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation/initWithSpaceID:
 func (s SLSBridgedSpaceDestroyOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceDestroyOperation {
 	rv := objc.Send[SLSBridgedSpaceDestroyOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceDestroyOperation/spaceID
 func (s SLSBridgedSpaceDestroyOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
