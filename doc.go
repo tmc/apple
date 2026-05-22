@@ -48,6 +48,7 @@
 //go:generate applegen-bootstrap -f "security"
 //go:generate applegen-bootstrap -f "servicemanagement"
 //go:generate applegen-bootstrap -f "symbols"
+//go:generate applegen-bootstrap -f "systemconfiguration"
 //go:generate applegen-bootstrap -f "systemextensions"
 //go:generate applegen-bootstrap -f "uniformtypeidentifiers"
 //go:generate applegen-bootstrap -f "usernotifications"
