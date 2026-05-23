@@ -26,7 +26,7 @@
 //go:generate applegen-bootstrap -f "corevideo"
 //go:generate applegen-bootstrap -f "diskarbitration"
 //go:generate applegen-bootstrap -f "dispatch"
-//go:generate applegen-bootstrap -f "endpointsecurity"
+//go:generate applegen-bootstrap -f "endpointsecurity" --go-names
 //go:generate applegen-bootstrap -f "foundation"
 //go:generate applegen-bootstrap -f "fskit"
 //go:generate applegen-bootstrap -f "gamecontroller"

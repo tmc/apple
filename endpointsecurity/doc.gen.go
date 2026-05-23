@@ -13,9 +13,9 @@
 //
 // # Event Monitoring
 //
-//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([Es_handler_block_t], [Es_new_client_result_t], [Es_event_type_t], [Es_auth_result_t], [Es_respond_result_t])
-//   - Message: A type used by Endpoint Security to notify your client when a monitored action occurs. ([Es_message_t], [Es_result_t], [Es_string_token_t], [Es_token_t])
-//   - [Event Types]: Types used by messages to deliver details specific to different kinds of Endpoint Security events. ([Es_file_t], [Es_event_access_t], [Es_event_clone_t], [Es_event_copyfile_t], [Es_event_create_t])
+//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([EsHandlerBlock], [EsNewClientResult], [EsEventType], [EsAuthResult], [EsRespondResult])
+//   - Message: A type used by Endpoint Security to notify your client when a monitored action occurs. ([EsMessage], [EsResult], [EsStringToken], [EsToken])
+//   - [Event Types]: Types used by messages to deliver details specific to different kinds of Endpoint Security events. ([EsFile], [EsEventAccess], [EsEventClone], [EsEventCopyfile], [EsEventCreate])
 //   - [Monitoring System Events with Endpoint Security]: Receive notifications and authorization requests for sensitive operations by creating an Endpoint Security client for your app.
 //
 // # Entitlements
@@ -24,15 +24,15 @@
 //
 // # Type Aliases
 //
-//   - [Es_statfs_t]: This typedef is no longer used, but exists for API backwards compatibility.
+//   - [EsStatfs]: This typedef is no longer used, but exists for API backwards compatibility.
 //
 // # Enumerations
 //
-//   - [Es_cs_validation_category_t]: es_cs_validation_category
-//   - [Es_tcc_authorization_reason_t]: ess_tcc_authorization_reason_t
-//   - [Es_tcc_authorization_right_t]: ess_tcc_authorization_right_t
-//   - [Es_tcc_event_type_t]
-//   - [Es_tcc_identity_type_t]: es_tcc_identity_type_t//
+//   - [EsCsValidationCategory]: es_cs_validation_category
+//   - [EsTccAuthorizationReason]: ess_tcc_authorization_reason_t
+//   - [EsTccAuthorizationRight]: ess_tcc_authorization_right_t
+//   - [EsTccEventType]
+//   - [EsTccIdentityType]: es_tcc_identity_type_t//
 //
 // [Event Types]: https://developer.apple.com/documentation/endpointsecurity/event-types
 // [Monitoring System Events with Endpoint Security]: https://developer.apple.com/documentation/endpointsecurity/monitoring-system-events-with-endpoint-security
