@@ -859,7 +859,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	if err != nil {
 		return nil, err
 	}
-	ctx, err := rdma.IbvOpenDevice(dev.Handle)
+	ctx, err := dev.Open()
 	if err != nil {
 		return nil, fmt.Errorf("ibv_open_device: %w", err)
 	}
@@ -890,6 +890,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 		return nil, err
 	}
 	r.mr, err = rdma.IbvRegMr(r.pd, uintptr(unsafe.Pointer(unsafe.SliceData(r.buf))), uintptr(len(r.buf)), rdma.IBV_ACCESS_LOCAL_WRITE|rdma.IBV_ACCESS_REMOTE_READ|rdma.IBV_ACCESS_REMOTE_WRITE)
+	runtime.KeepAlive(r.buf)
 	if err != nil || r.mr == 0 {
 		return nil, fmt.Errorf("ibv_reg_mr: %s", nilReturnError(err, r.mr, "memory region"))
 	}
@@ -905,7 +906,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 		QPType:   rdma.IBV_QPT_UC,
 		SQSigAll: 0,
 	}
-	r.qp, err = rdma.IbvCreateQp(r.pd, uintptr(unsafe.Pointer(&init)))
+	r.qp, err = rdma.IbvCreateQpAttr(r.pd, &init)
 	if err != nil || r.qp == 0 {
 		return nil, fmt.Errorf("ibv_create_qp: %s", nilReturnError(err, r.qp, "queue pair"))
 	}
@@ -1003,12 +1004,13 @@ func queryRDMADevicePortStateLocal(name string) (int32, error) {
 		if dev.Name != name {
 			continue
 		}
-		ctx, err := rdma.IbvOpenDevice(dev.Handle)
+		ctx, err := dev.Open()
 		if err != nil || ctx == 0 {
 			return 0, fmt.Errorf("open failed: %v", err)
 		}
 		var attr ibvPortAttr
 		rc, qerr := rdma.IbvQueryPort(ctx, 1, uintptr(unsafe.Pointer(&attr)))
+		runtime.KeepAlive(&attr)
 		_, _ = rdma.IbvCloseDevice(ctx)
 		if qerr != nil || rc != 0 {
 			return 0, fmt.Errorf("query_port failed: %s", errOrCode(qerr, rc))
@@ -1064,6 +1066,7 @@ func openRDMAResourcesWithTimeout(deviceName string, deviceIndex, gidIndex, size
 
 func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 	rc, err := rdma.IbvQueryPort(r.ctx, 1, uintptr(unsafe.Pointer(&r.port)))
+	runtime.KeepAlive(&r.port)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("ibv_query_port: %s", errOrCode(err, rc))
 	}
@@ -1080,7 +1083,7 @@ func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 	gids := make([]routeGID, 0, 2)
 	for i := 0; i < limit; i++ {
 		var gid rdma.IbvGID
-		rc, err := rdma.IbvQueryGid(r.ctx, 1, i, uintptr(unsafe.Pointer(&gid)))
+		rc, err := rdma.IbvQueryGidInto(r.ctx, 1, i, &gid)
 		if err != nil || rc != 0 {
 			if len(gids) > 0 {
 				break
@@ -1105,7 +1108,7 @@ func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 
 func (r *rdmaResources) queryGID(index int) (rdma.IbvGID, error) {
 	var gid rdma.IbvGID
-	rc, err := rdma.IbvQueryGid(r.ctx, 1, index, uintptr(unsafe.Pointer(&gid)))
+	rc, err := rdma.IbvQueryGidInto(r.ctx, 1, index, &gid)
 	if err != nil || rc != 0 {
 		return gid, fmt.Errorf("ibv_query_gid[%d]: %s", index, errOrCode(err, rc))
 	}
@@ -1151,7 +1154,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		PortNum:       1,
 		QPAccessFlags: rdma.IBV_ACCESS_LOCAL_WRITE | rdma.IBV_ACCESS_REMOTE_READ | rdma.IBV_ACCESS_REMOTE_WRITE,
 	}
-	rc, err := rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&init)), rdma.IBV_QP_STATE|rdma.IBV_QP_PKEY_INDEX|rdma.IBV_QP_PORT|rdma.IBV_QP_ACCESS_FLAGS)
+	rc, err := rdma.IbvModifyQpAttr(r.qp, &init, rdma.IBV_QP_STATE|rdma.IBV_QP_PKEY_INDEX|rdma.IBV_QP_PORT|rdma.IBV_QP_ACCESS_FLAGS)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp INIT: %s", errOrCode(err, rc))
 	}
@@ -1160,7 +1163,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 	if err != nil {
 		return err
 	}
-	rc, err = rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&rtr)), rdma.IBV_QP_STATE|rdma.IBV_QP_AV|rdma.IBV_QP_PATH_MTU|rdma.IBV_QP_DEST_QPN|rdma.IBV_QP_RQ_PSN)
+	rc, err = rdma.IbvModifyQpAttr(r.qp, &rtr, rdma.IBV_QP_STATE|rdma.IBV_QP_AV|rdma.IBV_QP_PATH_MTU|rdma.IBV_QP_DEST_QPN|rdma.IBV_QP_RQ_PSN)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp RTR: %s", errOrCode(err, rc))
 	}
@@ -1169,7 +1172,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		QPState: rdma.IBV_QPS_RTS,
 		SQPSN:   r.psn,
 	}
-	rc, err = rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&rts)), rdma.IBV_QP_STATE|rdma.IBV_QP_SQ_PSN)
+	rc, err = rdma.IbvModifyQpAttr(r.qp, &rts, rdma.IBV_QP_STATE|rdma.IBV_QP_SQ_PSN)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp RTS: %s", errOrCode(err, rc))
 	}
@@ -1374,16 +1377,18 @@ func probeRDMA() *rdmaSummary {
 	}
 	for i, dev := range devs {
 		sum.Devices = append(sum.Devices, rdmaDevice{Index: i, Name: dev.Name, NetInterface: rdmaNetInterface(dev.Name), Handle: hexHandle(dev.Handle)})
-		ctx, err := rdma.IbvOpenDevice(dev.Handle)
+		ctx, err := dev.Open()
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_open_device", i), OK: err == nil && ctx != 0, Handle: hexHandle(ctx), Error: errString(err)})
 		if ctx == 0 {
 			continue
 		}
 		buf := make([]byte, 4096)
 		rc, err := rdma.IbvQueryDevice(ctx, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
+		runtime.KeepAlive(buf)
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_query_device", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 		portBuf := make([]byte, unsafe.Sizeof(ibvPortAttr{}))
 		rc, err = rdma.IbvQueryPort(ctx, 1, uintptr(unsafe.Pointer(unsafe.SliceData(portBuf))))
+		runtime.KeepAlive(portBuf)
 		portStep := rdmaStep{Name: fmt.Sprintf("device[%d].ibv_query_port", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)}
 		if portStep.OK {
 			portStep.Fields = portAttrFields(portBuf)
