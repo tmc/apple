@@ -1099,7 +1099,10 @@ func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 		if preferredGIDIndex >= 0 {
 			return fmt.Errorf("gid index %d is not available or is zero", preferredGIDIndex)
 		}
-		return fmt.Errorf("auto-select route gid: no safe nonzero gid found")
+		if r.port.LinkLayer == xrdma.LinkLayerThunderbolt {
+			return fmt.Errorf("auto-select route gid: no automatic-safe Thunderbolt route gid found; index 0 requires explicit -gid-index 0")
+		}
+		return fmt.Errorf("auto-select route gid: no nonzero gid found")
 	}
 	r.gid = gid
 	r.gidIndex = index
@@ -1154,27 +1157,30 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		PortNum:       1,
 		QPAccessFlags: rdma.IBV_ACCESS_LOCAL_WRITE | rdma.IBV_ACCESS_REMOTE_READ | rdma.IBV_ACCESS_REMOTE_WRITE,
 	}
-	rc, err := rdma.IbvModifyQpAttr(r.qp, &init, rdma.IBV_QP_STATE|rdma.IBV_QP_PKEY_INDEX|rdma.IBV_QP_PORT|rdma.IBV_QP_ACCESS_FLAGS)
+	initMask := rdma.IBV_QP_STATE | rdma.IBV_QP_PKEY_INDEX | rdma.IBV_QP_PORT | rdma.IBV_QP_ACCESS_FLAGS
+	rc, err := rdma.IbvModifyQpAttr(r.qp, &init, initMask)
 	if err != nil || rc != 0 {
-		return fmt.Errorf("modify qp INIT: %s", errOrCode(err, rc))
+		return rdma.NewModifyQPError(r.qp, &init, initMask, rc, err)
 	}
 
 	rtr, err := r.rtrAttr(remote)
 	if err != nil {
 		return err
 	}
-	rc, err = rdma.IbvModifyQpAttr(r.qp, &rtr, rdma.IBV_QP_STATE|rdma.IBV_QP_AV|rdma.IBV_QP_PATH_MTU|rdma.IBV_QP_DEST_QPN|rdma.IBV_QP_RQ_PSN)
+	rtrMask := rdma.IBV_QP_STATE | rdma.IBV_QP_AV | rdma.IBV_QP_PATH_MTU | rdma.IBV_QP_DEST_QPN | rdma.IBV_QP_RQ_PSN
+	rc, err = rdma.IbvModifyQpAttr(r.qp, &rtr, rtrMask)
 	if err != nil || rc != 0 {
-		return fmt.Errorf("modify qp RTR: %s", errOrCode(err, rc))
+		return rdma.NewModifyQPError(r.qp, &rtr, rtrMask, rc, err)
 	}
 
 	rts := rdma.IbvQPAttr{
 		QPState: rdma.IBV_QPS_RTS,
 		SQPSN:   r.psn,
 	}
-	rc, err = rdma.IbvModifyQpAttr(r.qp, &rts, rdma.IBV_QP_STATE|rdma.IBV_QP_SQ_PSN)
+	rtsMask := rdma.IBV_QP_STATE | rdma.IBV_QP_SQ_PSN
+	rc, err = rdma.IbvModifyQpAttr(r.qp, &rts, rtsMask)
 	if err != nil || rc != 0 {
-		return fmt.Errorf("modify qp RTS: %s", errOrCode(err, rc))
+		return rdma.NewModifyQPError(r.qp, &rts, rtsMask, rc, err)
 	}
 	return nil
 }

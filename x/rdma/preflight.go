@@ -3,7 +3,7 @@ package rdma
 import "strings"
 
 const (
-	ReasonNoSafeRouteGID     = "active Thunderbolt RDMA device has no safe route GID"
+	ReasonNoSafeRouteGID     = "active Thunderbolt RDMA device has no automatic-safe route GID; index 0 requires an explicit diagnostic override"
 	ReasonRouteGIDIndexZero  = "active Thunderbolt RDMA route GID resolved to index 0"
 	ReasonNoActiveTBDevice   = "no PORT_ACTIVE Thunderbolt RDMA device found"
 	ReasonNoPeerInterface    = "no AppleThunderboltRDMAPeerInterface entries found"

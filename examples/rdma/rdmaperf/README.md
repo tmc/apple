@@ -110,6 +110,8 @@ selection only after confirming the RDMA device's port is active. With
 `-setup-timeout`, auto-selection probes each candidate in a child process so a
 wedged port query does not block the parent command. A wedged provider may
 still leave the isolated child process behind until the kernel releases it.
+On Apple Thunderbolt RDMA, a nonzero GID at index 0 is not auto-selected; use
+`-gid-index 0` only for a deliberate one-shot diagnostic.
 
 If RDMA setup starts failing with protection-domain allocation errors, or if a
 provider probe leaves uninterruptible child processes behind, reboot the
