@@ -1,6 +1,7 @@
 package rdma
 
 import (
+	"errors"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -194,6 +195,92 @@ func TestTypedHelpersRejectNilPointers(t *testing.T) {
 	}
 	if calls != 0 {
 		t.Fatalf("provider called %d times for nil typed helper pointers", calls)
+	}
+}
+
+func TestNilProviderResultClassified(t *testing.T) {
+	saveRDMAFuncs(t)
+	_ibvAllocPd = func(RDMAContext) RDMAPD { return 0 }
+	rdmaRememberContext(123, "rdma_en_test")
+	t.Cleanup(func() { rdmaForgetContext(123) })
+
+	pd, err := IbvAllocPd(123)
+	if pd != 0 {
+		t.Fatalf("IbvAllocPd pd = %#x, want 0", uintptr(pd))
+	}
+	if !errors.Is(err, ErrNilProviderResult) {
+		t.Fatalf("IbvAllocPd error = %v, want ErrNilProviderResult", err)
+	}
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("IbvAllocPd error type = %T, want *ProviderError", err)
+	}
+	if pe.Operation != "ibv_alloc_pd" || pe.Device != "rdma_en_test" || !pe.ContextOpen {
+		t.Fatalf("provider error = %#v", pe)
+	}
+	if pe.Result != "protection domain" || !pe.ReturnSet || pe.Return != 0 {
+		t.Fatalf("provider result fields = %#v", pe)
+	}
+}
+
+func TestNegativeProviderReturnClassified(t *testing.T) {
+	saveRDMAFuncs(t)
+	_ibvQueryPort = func(RDMAContext, uint8, uintptr) int { return -1 }
+	rdmaRememberContext(123, "rdma_en_test")
+	t.Cleanup(func() { rdmaForgetContext(123) })
+
+	var port IbvPortAttr
+	rc, err := IbvQueryPortAttr(123, 1, &port)
+	if rc != -1 {
+		t.Fatalf("IbvQueryPortAttr rc = %d, want -1", rc)
+	}
+	if !errors.Is(err, ErrNegativeProviderReturn) {
+		t.Fatalf("IbvQueryPortAttr error = %v, want ErrNegativeProviderReturn", err)
+	}
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("IbvQueryPortAttr error type = %T, want *ProviderError", err)
+	}
+	if pe.Operation != "ibv_query_port" || pe.Device != "rdma_en_test" || pe.Return != -1 || !pe.ContextOpen {
+		t.Fatalf("provider error = %#v", pe)
+	}
+}
+
+func TestNilInputClassified(t *testing.T) {
+	var port IbvPortAttr
+	rc, err := IbvQueryPortAttr(0, 1, &port)
+	if rc != 0 {
+		t.Fatalf("IbvQueryPortAttr rc = %d, want 0", rc)
+	}
+	if !errors.Is(err, ErrNilInput) {
+		t.Fatalf("IbvQueryPortAttr error = %v, want ErrNilInput", err)
+	}
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("IbvQueryPortAttr error type = %T, want *ProviderError", err)
+	}
+	if pe.Operation != "ibv_query_port" || pe.Input != "context handle" || pe.ContextOpen {
+		t.Fatalf("provider error = %#v", pe)
+	}
+}
+
+func TestDeviceOpenAttachesDeviceToProviderError(t *testing.T) {
+	saveRDMAFuncs(t)
+	_ibvOpenDevice = func(RDMADevice) RDMAContext { return 0 }
+
+	ctx, err := (Device{Handle: 44, Name: "rdma_en_test"}).Open()
+	if ctx != 0 {
+		t.Fatalf("Device.Open ctx = %#x, want 0", uintptr(ctx))
+	}
+	if !errors.Is(err, ErrNilProviderResult) {
+		t.Fatalf("Device.Open error = %v, want ErrNilProviderResult", err)
+	}
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("Device.Open error type = %T, want *ProviderError", err)
+	}
+	if pe.Operation != "ibv_open_device" || pe.Device != "rdma_en_test" || pe.ContextOpen {
+		t.Fatalf("provider error = %#v", pe)
 	}
 }
 

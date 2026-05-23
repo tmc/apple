@@ -120,5 +120,9 @@ func (l *DeviceList) finalize() {
 func (d Device) Open() (RDMAContext, error) {
 	context, err := IbvOpenDevice(d.Handle)
 	rdmaKeepAlive(d.list)
-	return context, err
+	if err != nil {
+		return 0, rdmaWithDevice(err, d.Name)
+	}
+	rdmaRememberContext(context, d.Name)
+	return context, nil
 }

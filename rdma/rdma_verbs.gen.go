@@ -368,61 +368,70 @@ func (p IbvQPPoster) PostRecv(wr *IbvRecvWR, badWR **IbvRecvWR) int {
 // Ibv_poll_cq calls the SDK inline ibv_poll_cq wrapper through ibv_context_ops.
 func Ibv_poll_cq(cq RDMACQ, numEntries int, wc *IbvWC) (int, error) {
 	if wc == nil {
-		return 0, rdmaNilPointerError("work completion")
+		return 0, rdmaNilPointerError("ibv_poll_cq", "work completion")
 	}
 	fnPtr := rdmaContextOp(rdmaContextFromCQ(cq), 88)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_poll_cq unavailable")
 	}
 	fn := rdmaPollCQFunc(fnPtr)
-	rc := rdmaProviderCall(func() int {
+	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
 		return fn(cq, numEntries, wc)
 	})
 	rdmaKeepAlive(cq)
 	rdmaKeepAlive(wc)
+	if rc < 0 {
+		return rc, rdmaNegativeProviderReturnError("ibv_poll_cq", rc, errno, errnoSet, rdmaContextFromCQ(cq), true)
+	}
 	return rc, nil
 }
 
 // Ibv_post_send calls the SDK inline ibv_post_send wrapper through ibv_context_ops.
 func Ibv_post_send(qp RDMAQP, wr *IbvSendWR, badWR **IbvSendWR) (int, error) {
 	if wr == nil {
-		return 0, rdmaNilPointerError("send work request")
+		return 0, rdmaNilPointerError("ibv_post_send", "send work request")
 	}
 	if badWR == nil {
-		return 0, rdmaNilPointerError("bad send work request")
+		return 0, rdmaNilPointerError("ibv_post_send", "bad send work request")
 	}
 	fnPtr := rdmaContextOp(rdmaContextFromQP(qp), 200)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_send unavailable")
 	}
 	fn := rdmaPostSendFunc(fnPtr)
-	rc := rdmaProviderCall(func() int {
+	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
 		return fn(qp, wr, badWR)
 	})
 	rdmaKeepAlive(qp)
 	rdmaKeepAlive(wr)
 	rdmaKeepAlive(badWR)
+	if rc < 0 {
+		return rc, rdmaNegativeProviderReturnError("ibv_post_send", rc, errno, errnoSet, rdmaContextFromQP(qp), true)
+	}
 	return rc, nil
 }
 
 // Ibv_post_recv calls the SDK inline ibv_post_recv wrapper through ibv_context_ops.
 func Ibv_post_recv(qp RDMAQP, wr *IbvRecvWR, badWR **IbvRecvWR) (int, error) {
 	if wr == nil {
-		return 0, rdmaNilPointerError("receive work request")
+		return 0, rdmaNilPointerError("ibv_post_recv", "receive work request")
 	}
 	if badWR == nil {
-		return 0, rdmaNilPointerError("bad receive work request")
+		return 0, rdmaNilPointerError("ibv_post_recv", "bad receive work request")
 	}
 	fnPtr := rdmaContextOp(rdmaContextFromQP(qp), 208)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_recv unavailable")
 	}
 	fn := rdmaPostRecvFunc(fnPtr)
-	rc := rdmaProviderCall(func() int {
+	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
 		return fn(qp, wr, badWR)
 	})
 	rdmaKeepAlive(qp)
 	rdmaKeepAlive(wr)
 	rdmaKeepAlive(badWR)
+	if rc < 0 {
+		return rc, rdmaNegativeProviderReturnError("ibv_post_recv", rc, errno, errnoSet, rdmaContextFromQP(qp), true)
+	}
 	return rc, nil
 }
