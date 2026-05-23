@@ -38,7 +38,7 @@ func TestRDMAIntegration(t *testing.T) {
 
 func TestRDMAOneShotProviderLifecycle(t *testing.T) {
 	if os.Getenv("APPLE_RDMA_ONESHOT") != "1" {
-		t.Skip("set APPLE_RDMA_ONESHOT=1 for one serialized hardware lifecycle probe")
+		t.Skip("set APPLE_RDMA_ONESHOT=1 for one serialized hardware lifecycle probe; optional APPLE_RDMA_DEVICE selects a device")
 	}
 	if !Available() {
 		t.Skip("librdma probe symbols are unavailable")
@@ -53,6 +53,19 @@ func TestRDMAOneShotProviderLifecycle(t *testing.T) {
 		t.Fatal("no RDMA devices")
 	}
 	dev := devs[0]
+	if name := os.Getenv("APPLE_RDMA_DEVICE"); name != "" {
+		dev = Device{}
+		for _, candidate := range devs {
+			if candidate.Name == name {
+				dev = candidate
+				break
+			}
+		}
+		if dev.Handle == 0 {
+			t.Fatalf("APPLE_RDMA_DEVICE=%q not found; available devices: %v", name, deviceNames(devs))
+		}
+	}
+	t.Logf("APPLE_RDMA_ONESHOT=1 APPLE_RDMA_DEVICE=%q selected=%s", os.Getenv("APPLE_RDMA_DEVICE"), dev.Name)
 	ctx, err := dev.Open()
 	if err != nil {
 		t.Fatalf("ibv_open_device: %v", err)
@@ -104,4 +117,12 @@ func TestRDMAOneShotProviderLifecycle(t *testing.T) {
 	if rc, err := IbvDestroyQp(qp); err != nil || rc != 0 {
 		t.Fatalf("ibv_destroy_qp: rc=%d err=%v", rc, err)
 	}
+}
+
+func deviceNames(devs []Device) []string {
+	names := make([]string, 0, len(devs))
+	for _, dev := range devs {
+		names = append(names, dev.Name)
+	}
+	return names
 }
